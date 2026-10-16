@@ -10,7 +10,7 @@
 
 如果 Runtime 并不知道一句话的真实语义，就不要因为能把它写成 `if`，假装自己知道。
 
-这篇文章讨论的，就是 Agent 系统里一条很重要的边界：
+这篇文章讨论 Agent 的一条具体边界：
 
 > **Runtime 只应该对自己真正知道、能够追溯和复核的事实负责。**
 
@@ -97,6 +97,18 @@ Runtime 应该负责它能够客观证明的事实。
 它们有一个共同特点：
 
 > **可以被审计和复核。**
+
+```mermaid
+flowchart LR
+  HostFacts["Host 持有的调用、来源与回执"] --> Runtime["Runtime 执行权限和状态边界"]
+  UserText["用户原话与材料"] --> Model["Model 理解语义并提出下一步"]
+  Runtime --> Model
+  Model --> Proposal["工具提议或回答"]
+  Proposal --> Runtime
+  Runtime --> Outcome["执行、拒绝或发布回执"]
+```
+
+运行时依据 Host 能证明的事实执行边界；语义解释和研究路线由模型提出。模型的提议不能反过来创建权限或执行回执。
 
 但下面这些问题不是一回事：
 

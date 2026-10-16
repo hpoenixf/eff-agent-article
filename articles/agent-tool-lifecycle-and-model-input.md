@@ -15,20 +15,25 @@
 下面概括新读取的主要阶段，省略并发和恢复分支：
 
 ```mermaid
-graph TD
-ModelCallsTool --> PreToolValidation
-PreToolValidation --> CheckAdmission
-CheckAdmission --> RecordRejection
-CheckAdmission --> ExecuteTool
-ExecuteTool --> ProjectOrHandleError
-ProjectOrHandleError --> SaveReceipt
-SaveReceipt --> BuildNextRequest
+sequenceDiagram
+  participant M as Model
+  participant H as Host
+  participant T as Tool
+  participant P as Projector
+  participant G as ModelGateway
+  M->>H: 提交工具调用
+  H->>H: 校验并准入
+  alt 调用不获准
+    H-->>M: 返回拒绝回执
+  else 调用获准
+    H->>T: 执行读取
+    T-->>H: 原始结果或错误
+    H->>P: 生成允许使用的结果视图
+    P-->>H: 投影结果与状态
+    H->>G: 组装下一次模型请求
+    G-->>M: 实际输入与工具结果
+  end
 ```
-
-**关系或判断条件：**
-
-- **CheckAdmission → RecordRejection**：否。
-- **CheckAdmission → ExecuteTool**：是。
 
 统一入口不等于统一业务逻辑。它集中的是每次读取都需要遵守的执行规则；新增工具时，不必重新实现一遍授权、回执和观测，也不会让通用层开始理解每个业务领域。
 

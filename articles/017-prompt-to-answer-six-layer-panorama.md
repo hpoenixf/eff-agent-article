@@ -15,27 +15,30 @@
 **职责全景：一句问题穿过哪些交接**
 
 ```mermaid
-graph TD
-UserQuestion --> EntryGate
-EntryGate --> BuildModelContext
-BuildModelContext --> ModelAction
-ModelAction --> HostExecution
-HostExecution --> ReadAndCalculate
-ReadAndCalculate --> ModelContinues
-ModelContinues --> PublishAnswer
-PublishAnswer --> UserFollowup
-HostExecution --> Observability
-ModelContinues --> Observability
-UserFollowup --> Observability
+flowchart LR
+  UserQuestion([用户问题]) --> IdentityGate["身份与请求边界"]
+  IdentityGate --> EntryDecision{"需要研究吗"}
+  EntryDecision -->|直接回答| PublishAnswer["发布正文"]
+  EntryDecision -->|需要证据| ContextBuild["整理本轮上下文"]
+  ContextBuild --> ModelAction["模型选择下一步"]
+  ModelAction --> HostExecution["Host 校验并执行"]
+  HostExecution --> EvidenceWork["读取、计算与记录"]
+  EvidenceWork --> ModelAction
+  ModelAction -->|提交答案| PublishAnswer
+  PublishAnswer --> Delivery["发送与前端展示"]
+  Delivery --> UserFollowup([后续问题])
+  UserFollowup --> ContextBuild
+  subgraph Observation["持续观测"]
+    Trace["运行与交付记录"]
+  end
+  HostExecution -.-> Trace
+  EvidenceWork -.-> Trace
+  Delivery -.-> Trace
 ```
 
 这是需要工具的研究路径。结果回灌后，模型可以提出下一轮动作或提交答案；观测从各处取得独立记录，并非最后才开始。
 
-**附加关系说明：**
-
-- **HostExecution → Observability**：辅助关联。
-- **ModelContinues → Observability**：辅助关联。
-- **UserFollowup → Observability**：辅助关联。
+图中的回环表示模型拿到结果后可以继续研究；是否直接回答，由入口问题决定。观测从运行、证据处理和交付各处收集记录，不是一个等到最后才执行的步骤。
 
 | 层次 | 接住的问题 | 模块 |
 | --- | --- | --- |

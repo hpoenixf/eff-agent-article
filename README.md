@@ -31,10 +31,10 @@
 - [工具查到的数据，为什么不一定要给大模型看？](articles/tool-results-outside-model-context.md)
 - [从工具调用到模型输入：把 Agent 的观测链路接起来](articles/agent-tool-lifecycle-and-model-input.md)
 - [从工具调用到自适应研究：让 Agent 边查、边算、边调整](articles/adaptive-research-python-workbench.md)
-- [Agent 持续进化的秘诀：让你的 Agent 从大哥大进化成智能手机！](articles/020-agent-extension-host-smartphone.md)
+- [Agent 扩展如何接入 Host：插件生命周期与运行时边界](articles/020-agent-extension-host-smartphone.md)
 - [Agent 已经生成答案，为什么还需要一个独立的发布系统？](articles/019-agent-answer-publication.md)
 - [Agent 发布治理为什么做了两次？问题不只是校验太严格](articles/023-agent-publication-governance-retrospective.md)
-- [从“研究日志”到自然对话：我们如何让 AI Agent 的回答真正流畅起来](articles/agent-progressive-answer-coherence.md)
+- [Agent 的渐进式回答：怎样保持研究过程连贯](articles/agent-progressive-answer-coherence.md)
 
 ## 架构图与图文版
 
@@ -59,8 +59,3 @@
 - [control](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/control.svg)
 - [observation](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/observation.svg)
 - [evaluation](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/evaluation.svg)
-
-
-## Codex 同步插件
-
-[Agent Article Sync 插件源码](plugins/agent-article-sync/README.md)提供可复用的文章/图表同步流程与隐私候选扫描器。插件只准备和检查内容；目标写入与远端推送仍按用户当次授权执行。
