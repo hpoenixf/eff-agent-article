@@ -35,3 +35,32 @@
 - [Agent 已经生成答案，为什么还需要一个独立的发布系统？](articles/019-agent-answer-publication.md)
 - [Agent 发布治理为什么做了两次？问题不只是校验太严格](articles/023-agent-publication-governance-retrospective.md)
 - [从“研究日志”到自然对话：我们如何让 AI Agent 的回答真正流畅起来](articles/agent-progressive-answer-coherence.md)
+
+## 架构图与图文版
+
+[六层系统全景 HTML 图文版](visuals/017-prompt-to-answer-six-layer-panorama/index.html) 包含 15 张内嵌 SVG 架构图，可下载后离线阅读。
+
+![ETF Agent 六层职责与一次研究的交接全景](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
+
+单图目录：
+
+- [overview](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
+- [identity](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/identity.svg)
+- [research](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/research.svg)
+- [subagent](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/subagent.svg)
+- [context](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/context.svg)
+- [background](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/background.svg)
+- [execution](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/execution.svg)
+- [hooks](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/hooks.svg)
+- [evidence](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/evidence.svg)
+- [calculation](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/calculation.svg)
+- [delivery](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/delivery.svg)
+- [continuity](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/continuity.svg)
+- [control](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/control.svg)
+- [observation](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/observation.svg)
+- [evaluation](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/evaluation.svg)
+
+
+## Codex 同步插件
+
+[Agent Article Sync 插件源码](plugins/agent-article-sync/README.md)提供可复用的文章/图表同步流程与隐私候选扫描器。插件只准备和检查内容；目标写入与远端推送仍按用户当次授权执行。

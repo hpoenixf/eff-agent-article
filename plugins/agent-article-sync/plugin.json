@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agent-article-sync",
+  "version": "0.1.0",
+  "description": "A privacy-aware workflow for sharing approved Agent articles, architecture diagrams, and standalone HTML across local publishing destinations and GitHub.",
+  "author": {
+    "name": "ETF Agent"
+  },
+  "repository": "https://github.com/hpoenixf/eff-agent-article",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Agent Article Sync",
+        "shortDescription": "Sync articles and diagrams",
+        "longDescription": "Prepare and review Agent articles, diagrams, and standalone HTML for approved blog and GitHub destinations. Includes a privacy candidate scanner and safeguards for existing work.",
+        "developerName": "ETF Agent",
+        "category": "Developer tools",
+        "capabilities": [],
+        "defaultPrompt": "Help me sync selected Agent articles, diagrams, and HTML to approved blog and GitHub destinations with a privacy review."
+      }
+    }
+  }
+}
