@@ -1,6 +1,6 @@
 # ETF Agent 技术文章
 
-围绕 ETF Agent 的系统设计、授权边界、研究流程、失败恢复、评测和答案交付。正文为 Markdown，文章间引用使用仓库内相对链接。
+围绕 ETF Agent 的系统设计、授权边界、研究流程、失败恢复、评测和答案交付。已上线文章优先链接博客，并保留 Markdown 源码；尚未上线的文章暂以仓库源码为入口。
 
 ## 全景导读
 
@@ -11,21 +11,21 @@
 - [010 一个 Agent 为什么必须先装刹车](articles/010-agent-first-brakes.md)
 - [011 模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让兜底回答伪装成功：流式 Agent 的阶段预算、失败终态与安全恢复](articles/honest-agent-failure-semantics.md)
-- [大模型有返回等于 Agent 成功运行吗？](articles/honest-agent-evaluation.md)
+- [大模型有返回等于 Agent 成功运行吗？](https://hpoenixf.com/blog/honest-agent-evaluation) · [Markdown 源码](articles/honest-agent-evaluation.md)
 
 ## 专题文章
 
 - [一个 ETF 投资助手，为什么先变成了工程问题](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
-- [源端有 50 条，模型只看到了 20 条：一次 Agent 静默截断排查](articles/partial-is-not-complete.md)
+- [源端有 50 条，模型只看到了 20 条：一次 Agent 静默截断排查](https://hpoenixf.com/blog/partial-is-not-complete) · [Markdown 源码](articles/partial-is-not-complete.md)
 - [数据过期后，Agent 应该怎样刷新，而不是反复重试？](articles/unavailable-is-correct.md)
 - [绿了，但并不是真的：如何让测试无法伪造生产边界](articles/green-tests-can-lie.md)
-- [别再把 Agent 失败都算给模型：一次从粗错误码到失败链的排查](articles/agent-failure-is-a-boundary-problem.md)
+- [别再把 Agent 失败都算给模型：一次从粗错误码到失败链的排查](https://hpoenixf.com/blog/agent-failure-is-a-boundary-problem) · [Markdown 源码](articles/agent-failure-is-a-boundary-problem.md)
 - [Agent 查了很多资料，为什么还是交不出答案？](articles/agent-runtime-constraint-governance-v2.md)
-- [Runtime 不知道的，不要因为能写一个规则，就假装它知道](articles/runtime-natural-language-boundary-article-v2.md)
+- [Runtime 不知道的，不要因为能写一个规则，就假装它知道](https://hpoenixf.com/blog/runtime-natural-language-boundary-article-v2) · [Markdown 源码](articles/runtime-natural-language-boundary-article-v2.md)
 - [为什么 AI 明明有很多引用，回答还是不够可靠？](articles/ai-citations-do-not-prove-reliability.md)
 - [从“搜得到”到“读得下去”：我们怎样让 Agent 学会浏览网页](articles/021-agent-web-research-from-search-to-deep-reading.md)
 - [为什么我们把 Agent 的 Entry 越做越简单？](articles/022-agent-entry-from-intent-to-direct-research.md)
-- [别再让模型当状态机：一次 Agent 协议减负实践](articles/runtime-model-protocol-boundary-agent-article-v2.md)
+- [别再让模型当状态机：一次 Agent 协议减负实践](https://hpoenixf.com/blog/runtime-model-protocol-boundary-agent-article-v2) · [Markdown 源码](articles/runtime-model-protocol-boundary-agent-article-v2.md)
 - [从让模型少想一点，到让 Runtime 少管一点：重新理解 Agent、Runtime、MCP 与 Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
 - [一个金融数据 MCP，为什么长成了研究决策系统](articles/mcp-market-responsibility-retrospective.md)
 - [工具查到的数据，为什么不一定要给大模型看？](articles/tool-results-outside-model-context.md)
@@ -38,7 +38,7 @@
 
 ## 架构图与图文版
 
-[六层系统全景 HTML 图文版](visuals/017-prompt-to-answer-six-layer-panorama/index.html) 包含 15 张内嵌 SVG 架构图，可下载后离线阅读。
+[六层系统全景 HTML 源文件](visuals/017-prompt-to-answer-six-layer-panorama/index.html)（GitHub 不会将仓库中的 HTML 当作交互页面托管）；15 张 [SVG 架构图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/) 可直接在线查看。博客图文版地址待博客发布后补入。
 
 ![ETF Agent 六层职责与一次研究的交接全景](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
 
