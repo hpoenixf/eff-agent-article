@@ -36,6 +36,9 @@
 - [Agent 发布治理为什么做了两次？问题不只是校验太严格](https://hpoenixf.com/blog/023-agent-publication-governance-retrospective) · [Markdown 源码](articles/023-agent-publication-governance-retrospective.md)
 - [Agent 的渐进式回答：怎样保持研究过程连贯](https://hpoenixf.com/blog/agent-progressive-answer-coherence) · [Markdown 源码](articles/agent-progressive-answer-coherence.md)
 
+- [从能读取到能研究：我们如何把 PDF 阅读升级为可追溯的多模态能力](https://hpoenixf.com/blog/024-agent-pdf-from-text-to-evidence) · [Markdown 源码](articles/024-agent-pdf-from-text-to-evidence.md)
+- [从 Trace 到可信观测：我们的 Agent 可观测体系怎样一步步建立起来](https://hpoenixf.com/blog/025-agent-langfuse-from-trace-to-trustworthy-observability) · [Markdown 源码](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
+
 ## 架构图与图文版
 
 [六层系统全景 HTML 图文版](https://hpoenixf.com/static/agent-articles/017-prompt-to-answer-six-layer-panorama.html) 可在线阅读；[HTML 源文件](visuals/017-prompt-to-answer-six-layer-panorama/index.html) 和 15 张 [SVG 架构图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/) 保留在仓库，便于下载与复用。
