@@ -34,6 +34,7 @@
 - [Agent 扩展如何接入 Host：插件生命周期与运行时边界](https://hpoenixf.com/blog/020-agent-extension-host-smartphone) · [Markdown 源码](articles/020-agent-extension-host-smartphone.md)
 - [Agent 已经生成答案，为什么还需要一个独立的发布系统？](https://hpoenixf.com/blog/019-agent-answer-publication) · [Markdown 源码](articles/019-agent-answer-publication.md)
 - [Agent 发布治理为什么做了两次？问题不只是校验太严格](https://hpoenixf.com/blog/023-agent-publication-governance-retrospective) · [Markdown 源码](articles/023-agent-publication-governance-retrospective.md)
+- [当每个模块都能说“不”：我们如何收回 Agent 系统里散落的否决权](https://hpoenixf.com/blog/agent-veto-authority-and-run-termination) · [Markdown 源码](articles/agent-veto-authority-and-run-termination.md)
 - [Agent 的渐进式回答：怎样保持研究过程连贯](https://hpoenixf.com/blog/agent-progressive-answer-coherence) · [Markdown 源码](articles/agent-progressive-answer-coherence.md)
 
 - [从能读取到能研究：我们如何把 PDF 阅读升级为可追溯的多模态能力](https://hpoenixf.com/blog/024-agent-pdf-from-text-to-evidence) · [Markdown 源码](articles/024-agent-pdf-from-text-to-evidence.md)
