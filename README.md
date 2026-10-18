@@ -39,6 +39,8 @@
 - [从能读取到能研究：我们如何把 PDF 阅读升级为可追溯的多模态能力](https://hpoenixf.com/blog/024-agent-pdf-from-text-to-evidence) · [Markdown 源码](articles/024-agent-pdf-from-text-to-evidence.md)
 - [从 Trace 到可信观测：我们的 Agent 可观测体系怎样一步步建立起来](https://hpoenixf.com/blog/025-agent-langfuse-from-trace-to-trustworthy-observability) · [Markdown 源码](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
+- [我们为什么给投研 Agent 配上 Subagent：从上下文隔离到专业化协作](https://hpoenixf.com/blog/agent-subagent-context-specialization) · [Markdown 源码](articles/agent-subagent-context-specialization.md)
+
 ## 架构图与图文版
 
 [六层系统全景 HTML 图文版](https://hpoenixf.com/static/agent-articles/017-prompt-to-answer-six-layer-panorama.html) 可在线阅读；[HTML 源文件](visuals/017-prompt-to-answer-six-layer-panorama/index.html) 和 15 张 [SVG 架构图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/) 保留在仓库，便于下载与复用。
