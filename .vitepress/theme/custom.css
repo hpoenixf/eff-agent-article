@@ -81,3 +81,14 @@
 @media (prefers-reduced-motion: reduce) {
   .chapter-card, .VPHome .VPFeatures .item, .reading-progress > div { transition: none; }
 }
+
+/* Two reading perspectives, each with its own group of topic chapters. */
+.collection-block { margin: 35px 0 60px; }
+.collection-header { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px; border-bottom:1px solid var(--vp-c-border); padding:4px 0 20px; margin-bottom:20px; }
+.collection-label { font-size:.74rem; letter-spacing:.17em; font-weight:750; color:var(--vp-c-brand-1); }
+.vp-doc .collection-header h2 { margin:8px 0 10px; padding:0; border:0; font-size:clamp(1.45rem,3vw,2rem); }
+.vp-doc .collection-header h2 a { text-decoration:none; color:var(--vp-c-text-1); }
+.vp-doc .collection-header h2 a:hover { color:var(--vp-c-brand-1); }
+.collection-header p { max-width:580px; color:var(--vp-c-text-2); font-size:.96rem; margin:0; }
+.collection-all { display:inline-flex; white-space:nowrap; padding:8px 12px; border:1px solid var(--vp-c-border); border-radius:30px; font-size:.85rem; font-weight:650; text-decoration:none !important; }
+.collection-all:hover { border-color:var(--vp-c-brand-1); }
