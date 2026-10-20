@@ -17,7 +17,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 38 个 Own
 
 <iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 38 个能力 Owner 交互架构图"></iframe>
 
-点击模块查看职责、最终拒绝范围和输入/输出关系；**A22 私有产物**的详情中可以直接打开 [HTML 生成、下载与分享实践](/articles/agent-html-evolution-challenges)。悬停高亮相关能力，支持按名称或 Owner ID 查找。独立窗口适合桌面一屏查看；手机按阅读顺序展开。
+点击任意能力 Owner 查看职责、最终拒绝范围和输入/输出关系，以及 **专题文章 / 相关文章**：确有专文才显示链接，尚未单独成文的显示「敬请期待」，相关文章仅作延伸阅读、不冒充该模块已写完。悬停可高亮相关能力，并支持按名称或 Owner ID 查找。独立窗口适合桌面一屏查看；手机按阅读顺序展开。
 
 Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求配置**。插件 **A13**、生命周期 Hook **A29**、MCP 接入 **A31**、受控工具调用 **A11** 分别收口。投影 **A14** 与压缩 **A28** 分列；请求发送 **A10** 与轨迹证据 **E04** 分列。
 

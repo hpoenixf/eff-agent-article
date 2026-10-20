@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "description": "Owner 专文只标记其确有独立主题的文章。无专文统一显示敬请期待；相关文章可选、不可冒充专文。文章阅读次序与名称仍以 book.mjs 为准。",
+  "articles": {
+    "011-model-understands-code-authorizes": "模型会理解，代码才授权",
+    "019-agent-answer-publication": "Publication：为什么需要独立发布系统",
+    "020-agent-extension-host-smartphone": "Extension Host：从功能机到智能机",
+    "021-agent-web-research-from-search-to-deep-reading": "Web：从搜索到连续阅读",
+    "022-agent-entry-from-intent-to-direct-research": "Entry：为什么入口越来越简单",
+    "024-agent-pdf-from-text-to-evidence": "PDF：从文本到证据",
+    "026-agent-memory-forget-durable-effects": "Memory：遗忘已提交，回答却失败",
+    "027-rag-revocation-publish-replay": "RAG：文档撤权与历史回放",
+    "030-fintech-from-research-to-investment-advice": "从投资研究到投顾与交易的边界",
+    "031-fintech-data-time-and-reproducible-numbers": "金融数字的时点、口径与复算",
+    "adaptive-research-python-workbench": "Adaptive Research 与 Python",
+    "agent-html-evolution-challenges": "HTML 保存了，为什么还是交付失败",
+    "agent-model-runtime-mcp-skill-boundaries": "Model / Runtime / MCP / Skill 的分工",
+    "agent-progressive-answer-coherence": "渐进式回答如何保持连贯",
+    "agent-python-compute-workbench-evolution": "Python：从工具到计算工作台",
+    "agent-runtime-constraint-governance-v2": "Run 预算与约束治理",
+    "agent-subagent-context-specialization": "Subagent：从隔离到专业化协作",
+    "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
+    "agent-veto-authority-and-run-termination": "散落的否决权与 Run 终结权",
+    "ai-citations-do-not-prove-reliability": "很多引用为什么不等于可靠",
+    "honest-agent-failure-semantics": "失败终态与安全恢复",
+    "mcp-market-responsibility-retrospective": "金融数据 MCP 为什么变成决策系统",
+    "partial-is-not-complete": "静默截断：真实数据为什么变少",
+    "tool-results-outside-model-context": "工具结果为什么不必全部入上下文",
+    "unavailable-is-correct": "数据过期后的受控刷新"
+  },
+  "owners": {
+    "A01": {
+      "related": [
+        "011-model-understands-code-authorizes"
+      ]
+    },
+    "A02": {
+      "related": [
+        "honest-agent-failure-semantics",
+        "agent-progressive-answer-coherence"
+      ]
+    },
+    "A03": {
+      "primary": "adaptive-research-python-workbench",
+      "related": [
+        "022-agent-entry-from-intent-to-direct-research"
+      ]
+    },
+    "A04": {
+      "primary": "011-model-understands-code-authorizes"
+    },
+    "A05": {
+      "primary": "agent-runtime-constraint-governance-v2"
+    },
+    "A06": {
+      "primary": "agent-veto-authority-and-run-termination",
+      "related": [
+        "honest-agent-failure-semantics"
+      ]
+    },
+    "A07": {
+      "primary": "agent-subagent-context-specialization"
+    },
+    "A10": {
+      "related": [
+        "agent-tool-lifecycle-and-model-input"
+      ]
+    },
+    "A11": {
+      "primary": "agent-tool-lifecycle-and-model-input"
+    },
+    "A12": {
+      "related": [
+        "agent-model-runtime-mcp-skill-boundaries",
+        "020-agent-extension-host-smartphone"
+      ]
+    },
+    "A13": {
+      "primary": "020-agent-extension-host-smartphone"
+    },
+    "A14": {
+      "primary": "partial-is-not-complete",
+      "related": [
+        "tool-results-outside-model-context"
+      ]
+    },
+    "A15": {
+      "related": [
+        "agent-subagent-context-specialization"
+      ]
+    },
+    "A16": {
+      "primary": "tool-results-outside-model-context",
+      "related": [
+        "ai-citations-do-not-prove-reliability"
+      ]
+    },
+    "A17": {
+      "related": [
+        "024-agent-pdf-from-text-to-evidence"
+      ]
+    },
+    "A18": {
+      "primary": "021-agent-web-research-from-search-to-deep-reading"
+    },
+    "A19": {
+      "primary": "024-agent-pdf-from-text-to-evidence"
+    },
+    "A20": {
+      "related": [
+        "027-rag-revocation-publish-replay"
+      ]
+    },
+    "A21": {
+      "primary": "agent-python-compute-workbench-evolution",
+      "related": [
+        "adaptive-research-python-workbench"
+      ]
+    },
+    "A22": {
+      "primary": "agent-html-evolution-challenges",
+      "related": [
+        "agent-python-compute-workbench-evolution"
+      ]
+    },
+    "A23": {
+      "primary": "019-agent-answer-publication",
+      "related": [
+        "agent-html-evolution-challenges"
+      ]
+    },
+    "A24": {
+      "related": [
+        "agent-progressive-answer-coherence"
+      ]
+    },
+    "A25": {
+      "related": [
+        "agent-progressive-answer-coherence"
+      ]
+    },
+    "A26": {
+      "primary": "026-agent-memory-forget-durable-effects"
+    },
+    "A28": {
+      "related": [
+        "tool-results-outside-model-context"
+      ]
+    },
+    "A29": {
+      "related": [
+        "020-agent-extension-host-smartphone"
+      ]
+    },
+    "A31": {
+      "related": [
+        "agent-model-runtime-mcp-skill-boundaries"
+      ]
+    },
+    "B01": {
+      "related": [
+        "unavailable-is-correct"
+      ]
+    },
+    "B02": {
+      "related": [
+        "mcp-market-responsibility-retrospective"
+      ]
+    },
+    "B03": {
+      "related": [
+        "031-fintech-data-time-and-reproducible-numbers"
+      ]
+    },
+    "B04": {
+      "related": [
+        "030-fintech-from-research-to-investment-advice"
+      ]
+    },
+    "E04": {
+      "related": [
+        "agent-tool-lifecycle-and-model-input"
+      ]
+    }
+  }
+}

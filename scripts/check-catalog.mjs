@@ -36,4 +36,30 @@ if (duplicates.length || missing.length || unindexed.length || broken.length) {
   console.error({ duplicates, missing, unindexed, broken })
   process.exit(1)
 }
+// One reviewed Owner -> article relation registry; book.mjs remains the only article catalogue.
+const ownerHtml = readFileSync('visuals/owner-architecture/index.html', 'utf8')
+const embedded = ownerHtml.match(/<script type="application\\/json" id="owner-data">([\\s\\S]*?)<\\/script>/)
+if (!embedded) throw Error('Owner diagram data not found')
+const ownerData = JSON.parse(embedded[1])
+const registry = JSON.parse(readFileSync('visuals/owner-architecture/owner-articles.json', 'utf8'))
+const primaryOwnerIds = new Set(ownerData.owners.filter(o => /^(?:A\\d\\d|B\\d\\d|E04)$/u.test(o.id)).map(o => o.id))
+if (primaryOwnerIds.size !== 38 || registry.schemaVersion !== 1) throw Error('Owner article map requires 38 recognized owners and schema v1')
+const knownArticles = new Map(chapters.flatMap(chapter => chapter.items))
+const referenced = new Set()
+for (const [ownerId, reading] of Object.entries(registry.owners)) {
+  if (!primaryOwnerIds.has(ownerId)) throw Error('Unknown Owner article mapping: ' + ownerId)
+  const entries = [reading.primary, ...(reading.related || [])].filter(Boolean)
+  if (new Set(entries).size !== entries.length) throw Error('Repeated article for Owner ' + ownerId)
+  for (const slug of entries) {
+    if (!knownArticles.has(slug)) throw Error('Non-indexed article ' + slug + ' for ' + ownerId)
+    referenced.add(slug)
+  }
+}
+for (const [slug, title] of Object.entries(registry.articles)) {
+  if (!referenced.has(slug) || knownArticles.get(slug) !== title) throw Error('Owner article label or unused mapping: ' + slug)
+}
+if (referenced.size !== Object.keys(registry.articles).length) throw Error('Owner article labels incomplete')
+if (!ownerHtml.includes("fetch('./owner-articles.json')")) throw Error('Owner view does not load canonical relation map')
+const primaryCount = Object.values(registry.owners).filter(reading => reading.primary).length
+console.log('Owner article mapping:', primaryOwnerIds.size, 'owners,', primaryCount, 'with dedicated essays,', referenced.size, 'distinct linked essays')
 console.log('Two-perspective catalogue and local article links validated.')
