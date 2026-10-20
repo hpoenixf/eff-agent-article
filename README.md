@@ -2,98 +2,130 @@
 
 # ETF Agent · Engineering Notes
 
-**从一个投资问题，到一套可以验证、可以维护、可以升级的 Agent 系统。**
+**从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-不是框架宣传册。这里记录我们如何处理授权、运行时、工具、证据、交付与评测，以及为什么有些复杂度必须被删掉。
+模块机制 × 架构思考 · 36 篇文章 · 两条阅读主线
 
-[**📚 在线连续阅读**](https://hpoenixf.github.io/eff-agent-article/) · [**🧭 全部章节**](https://hpoenixf.github.io/eff-agent-article/catalog) · [**🏛 架构导读**](https://hpoenixf.github.io/eff-agent-article/architecture) · [**✍️ 写作预告**](https://hpoenixf.github.io/eff-agent-article/roadmap) · [个人博客](https://hpoenixf.com/)
+[**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
 
-## 从哪里开始
+## 选择你的阅读角度
 
-**第一次读：** [六层系统全景](articles/017-prompt-to-answer-six-layer-panorama.md) → [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md) → [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md) → [独立发布系统](articles/019-agent-answer-publication.md)。
+| 🔧 模块维度 · How it works | 🧭 架构设计与系统思考 · Why it works |
+| --- | --- |
+| 从 Entry、Web、PDF、Python、Memory、RAG、Runtime、Publication 等具体机制入手。 | 从六层全景、模型与 Host 的权责、复杂度治理、反馈归因到完整研究任务收敛。 |
+| **18 篇 / 4 个主题** | **18 篇 / 3 个主题** |
+| [从 Entry 开始 →](articles/022-agent-entry-from-intent-to-direct-research.md) | [从六层全景开始 →](articles/017-prompt-to-answer-six-layer-panorama.md) |
 
-**已经在开发 Agent：** [收回否决权](articles/agent-veto-authority-and-run-termination.md) → [Web 从搜索到深读](articles/021-agent-web-research-from-search-to-deep-reading.md) → [可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md) → [任务成功怎样评测](articles/honest-agent-evaluation.md)。
+![ETF Agent 六层架构交接图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
 
-![ETF Agent 六层交接图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
+### 值得先读的几篇
 
-## 六章文章主线
+**模块维度：** [Python 从工具到工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久遗忘](articles/026-agent-memory-forget-durable-effects.md) · [PDF 研究阅读](articles/024-agent-pdf-from-text-to-evidence.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
-当前 **6 章 · 29 篇**。在线站点有全文搜索、侧栏目录、章节连续阅读、Mermaid 图表与手机适配。
+**架构设计与系统思考：** [代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与终结权](articles/agent-veto-authority-and-run-termination.md) · [反馈误归因](articles/028-agent-feedback-system-without-false-learning.md) · [研发任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
-### 01 · 从全景开始
+## 全部文章 · 按两大类展开
 
-先理解一个问题为什么会穿过这么多边界。
+点击主题标题展开相应正文。每篇只归属一个主类，交叉主题靠正文链接连通。
 
-- [一句问题走过六层系统](articles/017-prompt-to-answer-six-layer-panorama.md)
-- [为什么 Agent 必须先装刹车](articles/010-agent-first-brakes.md)
-- [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
-- [ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
+## 1 / 模块维度
 
-### 02 · 模型、Runtime 与边界
+从输入、执行、状态到交付，拆解具体能力如何运作。 [**进入在线目录 →**](https://hpoenixf.github.io/eff-agent-article/modules)
 
-分清谁提出语义判断，谁对客观事实负责。
+<details>
+<summary><b>01 · 研究入口、阅读与计算</b>（7 篇）</summary>
 
-- [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
-- [Runtime 不知道的，别假装知道](articles/runtime-natural-language-boundary-article-v2.md)
-- [Model / Runtime / MCP / Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
-- [收回散落的否决权](articles/agent-veto-authority-and-run-termination.md)
-
-> 本章其余文章可在[站点目录](https://hpoenixf.github.io/eff-agent-article/catalog)中按顺序阅读。
-
-### 03 · 研究、工具与扩展
-
-从入口判断、工具调用到专业化协作。
-
-- [Entry 为什么越做越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
+- [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
 - [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md)
-- [Subagent：隔离与专业化](articles/agent-subagent-context-specialization.md)
+- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
+- [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
+- [Python：从工具到计算工作台](articles/agent-python-compute-workbench-evolution.md)
+- [数据过期后的受控刷新](articles/unavailable-is-correct.md)
 
-> 本章其余文章可在[站点目录](https://hpoenixf.github.io/eff-agent-article/catalog)中按顺序阅读。
+</details>
 
-### 04 · 证据与可观测性
+<details>
+<summary><b>02 · 上下文、研究资产与知识</b>（4 篇）</summary>
 
-引用、完整性、可回读的运行事实各自成立。
+- [工具结果为什么不必全部入上下文](articles/tool-results-outside-model-context.md)
+- [静默截断：真实数据为什么变少](articles/partial-is-not-complete.md)
+- [Memory：遗忘已提交，回答却失败](articles/026-agent-memory-forget-durable-effects.md)
+- [RAG：文档撤权与历史回放](articles/027-rag-revocation-publish-replay.md)
 
-- [很多引用不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
-- [警惕静默截断](articles/partial-is-not-complete.md)
+</details>
+
+<details>
+<summary><b>03 · 运行时、扩展与观测</b>（4 篇）</summary>
+
+- [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
+- [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
+- [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
 - [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
-### 05 · 答案、发布与恢复
+</details>
 
-生成内容、获准发表和真正交付是不同事实。
+<details>
+<summary><b>04 · 答案、发布与恢复</b>（3 篇）</summary>
 
-- [为什么要独立发布系统](articles/019-agent-answer-publication.md)
-- [为什么发布治理做了两次](articles/023-agent-publication-governance-retrospective.md)
-- [渐进回答如何保持连贯](articles/agent-progressive-answer-coherence.md)
+- [Publication：为什么需要独立发布系统](articles/019-agent-answer-publication.md)
+- [渐进式回答如何保持连贯](articles/agent-progressive-answer-coherence.md)
 - [失败终态与安全恢复](articles/honest-agent-failure-semantics.md)
 
-### 06 · 测试、评测与迭代
+</details>
 
-把局部绿测带回真实用户目标。
+## 2 / 架构设计与系统思考
 
+跨模块看 Owner、边界、可靠性、演化与真实用户价值。 [**进入在线目录 →**](https://hpoenixf.github.io/eff-agent-article/thinking)
+
+<details>
+<summary><b>01 · 系统全景与职责边界</b>（8 篇）</summary>
+
+- [从一句问题到六层系统全景](articles/017-prompt-to-answer-six-layer-panorama.md)
+- [一个 Agent 为什么先装刹车](articles/010-agent-first-brakes.md)
+- [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
+- [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
+- [Runtime 不知道的，不要假装知道](articles/runtime-natural-language-boundary-article-v2.md)
+- [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
+- [散落的否决权与 Run 终结权](articles/agent-veto-authority-and-run-termination.md)
+- [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
+
+</details>
+
+<details>
+<summary><b>02 · 可靠性、反馈与系统治理</b>（6 篇）</summary>
+
+- [发布治理为什么做了两次](articles/023-agent-publication-governance-retrospective.md)
+- [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
+- [反馈系统为什么可能越改越偏](articles/028-agent-feedback-system-without-false-learning.md)
 - [有模型输出不等于任务成功](articles/honest-agent-evaluation.md)
 - [绿测不等于生产能力](articles/green-tests-can-lie.md)
-- [从粗错误码走向因果链](articles/agent-failure-is-a-boundary-problem.md)
+- [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
 
-## 图册与独立阅读
+</details>
 
-- [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams) · [HTML 完整图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
-- [最新架构导读](architecture.md)：区分模型语义、Runtime 客观事实、Run 授权、证据、Publication 与评测
-- [八个待写选题及预告](roadmap.md)：明确“选题中 / 待复评”，不把未成文的内容冒充已发布
-- [个人博客](https://hpoenixf.com/)：按时间更新；本仓库提供连续阅读与可复用 Markdown
+<details>
+<summary><b>03 · 工程演化与金融边界</b>（4 篇）</summary>
 
-## 写作原则
+- [用 Agent 开发 Agent：从 Bug 循环到任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
+- [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
+- [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
+- [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 
-每篇只回答一个足够独立的问题。**提议 ≠ 批准 ≠ 执行 ≠ 实际效果**；历史观察、设计意图、局部测试、真实用户任务也不能互相替代。
+</details>
 
-文章来自不同开发阶段，具体机制请以文内取材时间和验证范围为准。**待评估或待修改的内部草稿不自动进入本公开仓库。**
+## 附：工程参考与未来写作
 
-## 本地运行阅读站
+- [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 36 篇长文）
+- [写作预告](roadmap.md)：尚未独立成文的模块与系统思考专题
+- [六层系统全景 HTML 图文版](visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams)
+- [个人博客](https://hpoenixf.com/)：按时间阅读的文章站；此仓库提供可复用 Markdown、专题顺序与连续阅读站
+
+## 本地运行
 
 ```bash
 npm install
@@ -102,6 +134,8 @@ npm run docs:dev
 npm run docs:build
 ```
 
-> **首次启用阅读站：** 本仓库的 Pages 需在 GitHub **Settings → Pages → Build and deployment → Source = GitHub Actions** 中启用。启用后到 **Actions → Article Library · Build & Pages → Run workflow** 触发首次部署。未启用之前，可先从上面的 Markdown 目录阅读；这不影响已有博客。\n\n文章正文继续保存在 `articles/`；`book.mjs` 是侧栏和目录组件共用的唯一阅读顺序源。GitHub Pages 发布工作流在 `.github/workflows/pages.yml`，目标为项目站点 `/eff-agent-article/`，不修改已有博客部署。
+正文保存在 `articles/`；`book.mjs` 是两大类、侧栏、目录与上一篇/下一篇唯一的阅读顺序来源，不维护多套文章表。
 
-<sub>Built from engineering evidence · Not investment advice.</sub>
+> 阅读站使用独立仓库的 GitHub Pages，不与既有博客冲突。首次部署前需要在仓库 **Settings → Pages → Build and deployment** 中选择 **GitHub Actions**，再手动运行 `Article Library · Build & Pages`。未启用时可直接使用本 README 的 Markdown 链接。
+
+原始文章记录特定时期的工程事实、问题与验证边界；历史实践不自动成为现行合同，受控验证不等于最终研究质量证明。本文集不构成投资或法律建议。
