@@ -9,7 +9,7 @@ description: ETF Agent 六层系统全景与 15 张可复用 SVG。
 
 ![六层职责全景](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
 
-[阅读完整文章](/articles/017-prompt-to-answer-six-layer-panorama) · [打开独立 HTML 图文版](/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [在 GitHub 查看原始资源](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama)
+[阅读完整文章](/articles/017-prompt-to-answer-six-layer-panorama) · [打开独立 HTML 图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [在 GitHub 查看原始资源](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama)
 
 ## 15 张分层架构图
 
