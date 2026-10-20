@@ -12,6 +12,11 @@ hero:
     - theme: alt
       text: 架构设计与系统思考 →
       link: /thinking
+    - theme: alt
+      text: ☆ 去 GitHub 点个 Star
+      link: https://github.com/hpoenixf/eff-agent-article
+      target: _blank
+      rel: noopener noreferrer
 features:
   - title: 模块维度 · How it works
     details: Entry、Web、PDF、Memory、RAG、Python、Extension、Runtime、Publication 等核心机制，沿输入与效果追踪能力。

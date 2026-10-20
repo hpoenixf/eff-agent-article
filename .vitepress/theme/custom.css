@@ -92,3 +92,29 @@
 .collection-header p { max-width:580px; color:var(--vp-c-text-2); font-size:.96rem; margin:0; }
 .collection-all { display:inline-flex; white-space:nowrap; padding:8px 12px; border:1px solid var(--vp-c-border); border-radius:30px; font-size:.85rem; font-weight:650; text-decoration:none !important; }
 .collection-all:hover { border-color:var(--vp-c-brand-1); }
+
+.star-link { display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex-shrink: 0; min-height: 36px; padding: 6px 13px; border: 1px solid var(--vp-c-brand-1); border-radius: 24px; color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); font-size: 13px; font-weight: 650; line-height: 1.5; white-space: nowrap; text-decoration: none; }
+.star-link:hover { background: var(--vp-c-bg-alt); border-color: var(--vp-c-brand-2); color: var(--vp-c-brand-2); }
+.star-link:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px; }
+.star-link-arrow { font-size: 12px; }
+.nav-star-link { margin-left: 16px; }
+.hero-star-note { margin: 18px 0 0; color: var(--vp-c-text-2); font-size: 13px; line-height: 1.8; }
+.article-star { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; margin: 32px 0 0; padding: 24px; border: 1px solid var(--vp-c-border); border-radius: 16px; background: var(--vp-c-bg-soft); }
+.article-star strong { font-size: 16px; font-weight: 650; }
+.article-star p { margin: 8px 0 0; color: var(--vp-c-text-2); font-size: 14px; line-height: 1.8; }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .VPNavBarMenu { display: none !important; }
+  .VPNavBarHamburger { display: flex !important; }
+  .VPNavScreen { display: block !important; }
+}
+@media (max-width: 767px) {
+  .VPHome .VPHero { margin-top: 0; }
+  .nav-star-link { min-height: 36px; margin-left: 0; padding: 6px 10px; font-size: 12px; }
+  .nav-star-link .star-link-arrow, .nav-star-link .star-link-github { display: none; }
+  .article-star { padding: 20px; }
+}
+@media (max-width: 374px) {
+  .VPNavBarTitle .title { font-size: 12px; }
+  .VPNavBar .wrapper { padding-left: 16px; }
+  .VPNavBar .content-body { column-gap: 0; }
+}
