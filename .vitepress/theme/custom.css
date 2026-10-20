@@ -108,6 +108,7 @@
   .VPNavScreen { display: block !important; }
 }
 @media (max-width: 767px) {
+  .VPHome .VPHero { margin-top: 0; }
   .nav-star-link { min-height: 36px; margin-left: 0; padding: 6px 10px; font-size: 12px; }
   .nav-star-link .star-link-arrow, .nav-star-link .star-link-github { display: none; }
   .article-star { padding: 20px; }
