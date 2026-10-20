@@ -1,4 +1,4 @@
-// One canonical reading tree: two perspectives, themed sequences, and 34 unique essays.
+// One canonical reading tree: two perspectives, themed sequences, and 33 unique essays.
 // A topic has exactly one home; other connections are made through links, not duplicate entries.
 export const collections = [
   {
@@ -150,10 +150,6 @@ export const collections = [
         "desc": "弄清哪个环节真的失败，以及评测、追踪和护栏何时会制造误诊。",
         "items": [
           [
-            "023-agent-publication-governance-retrospective",
-            "发布治理为什么做了两次"
-          ],
-          [
             "ai-citations-do-not-prove-reliability",
             "很多引用为什么不等于可靠"
           ],
@@ -201,6 +197,7 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 
 // Previously published URLs remain readable, without duplicating essays in search/navigation.
 export const mergedArticles = {
+  "023-agent-publication-governance-retrospective": "019-agent-answer-publication",
   "runtime-natural-language-boundary-article-v2": "runtime-model-protocol-boundary-agent-article-v2",
   "028-agent-feedback-system-without-false-learning": "agent-failure-is-a-boundary-problem"
 };
