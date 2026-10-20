@@ -22,6 +22,7 @@
     "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
     "agent-veto-authority-and-run-termination": "散落的否决权与 Run 终结权",
     "ai-citations-do-not-prove-reliability": "很多引用为什么不等于可靠",
+    "financial-agent-trustworthy-evidence-chain": "金融 Agent 的可信证据链",
     "honest-agent-failure-semantics": "失败终态与安全恢复",
     "mcp-market-responsibility-retrospective": "金融数据 MCP 为什么变成决策系统",
     "partial-is-not-complete": "静默截断：真实数据为什么变少",
@@ -92,7 +93,8 @@
     "A16": {
       "primary": "tool-results-outside-model-context",
       "related": [
-        "ai-citations-do-not-prove-reliability"
+        "ai-citations-do-not-prove-reliability",
+        "financial-agent-trustworthy-evidence-chain"
       ]
     },
     "A17": {
