@@ -1,4 +1,4 @@
-// One canonical reading tree: two perspectives, themed sequences, and 33 unique essays.
+// One canonical reading tree: two perspectives, themed sequences, and 34 unique essays.
 // A topic has exactly one home; other connections are made through links, not duplicate entries.
 export const collections = [
   {
@@ -174,6 +174,10 @@ export const collections = [
           [
             "032-ai-development-from-bug-loop-to-task-convergence",
             "用 Agent 开发 Agent：从 Bug 循环到任务收敛"
+          ],
+          [
+            "agent-html-evolution-challenges",
+            "HTML 保存了，为什么还是交付失败"
           ],
           [
             "001-one-week-4-billion-tokens-etf-investment-agent",

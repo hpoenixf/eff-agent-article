@@ -1,11 +1,11 @@
 ---
 title: 架构设计与系统思考
-description: 15 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
+description: 16 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
 ---
 
 # 架构设计与系统思考
 
-<small>WHY IT WORKS · 15 篇 · 3 个主题</small>
+<small>WHY IT WORKS · 16 篇 · 3 个主题</small>
 
 从一次技术取舍的背后看系统：**模型和 Runtime 各能做什么？谁最终裁决？为什么有些机制应该被删除而不是继续叠加？怎样证明用户目标真的完成？**
 
