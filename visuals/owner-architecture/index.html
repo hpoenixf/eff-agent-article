@@ -232,7 +232,7 @@ function createOwnerView(root) {
 }
 
 const root=document.querySelector('#etf-system-map'),view=createOwnerView(root),search=root.querySelector('#owner-search');
-fetch('./owner-articles.json').then(async response=>{
+fetch('./owner-articles.json', { cache: 'no-cache' }).then(async response=>{
   if(!response.ok)throw Error('article map '+response.status);
   const map=await response.json();
   if(map.schemaVersion!==1||!map.owners||!map.articles)throw Error('article map format');

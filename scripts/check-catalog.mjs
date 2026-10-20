@@ -59,7 +59,7 @@ for (const [slug, title] of Object.entries(registry.articles)) {
   if (!referenced.has(slug) || knownArticles.get(slug) !== title) throw Error('Owner article label or unused mapping: ' + slug)
 }
 if (referenced.size !== Object.keys(registry.articles).length) throw Error('Owner article labels incomplete')
-if (!ownerHtml.includes("fetch('./owner-articles.json')")) throw Error('Owner view does not load canonical relation map')
+if (!ownerHtml.includes("fetch('./owner-articles.json'")) throw Error('Owner view does not load canonical relation map')
 const primaryCount = Object.values(registry.owners).filter(reading => reading.primary).length
 console.log('Owner article mapping:', primaryOwnerIds.size, 'owners,', primaryCount, 'with dedicated essays,', referenced.size, 'distinct linked essays')
 console.log('Two-perspective catalogue and local article links validated.')
