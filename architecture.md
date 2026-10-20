@@ -22,9 +22,9 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 | 05 · 交付与连续性 | 生成了文字是否就等于用户收到？ | Publication / Client / Recovery / Task |
 | 06 · 观测与评测 | 发生了什么，是否真正解决用户问题？ | Trace / Evidence / Evals |
 
-![六层职责关系](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
+![38 个能力 Owner 与主要交接](./visuals/owner-architecture/overview.svg)
 
-**2026-10-19 的完整全景已细化为六层、26 个职责。** 六层只是阅读视角，不是六个服务或六个统一裁决者。详细交接与 Mermaid 图见[系统全景文章](/articles/017-prompt-to-answer-six-layer-panorama)。
+**模块口径统一为 38 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[系统全景文章](/articles/017-prompt-to-answer-six-layer-panorama)。
 
 ## 三条贯穿整套系统的原则
 

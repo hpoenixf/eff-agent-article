@@ -20,7 +20,9 @@
 | **18 篇 / 4 个主题** | **18 篇 / 3 个主题** |
 | [从 Entry 开始 →](articles/022-agent-entry-from-intent-to-direct-research.md) | [从六层全景开始 →](articles/017-prompt-to-answer-six-layer-panorama.md) |
 
-![ETF Agent 六层架构交接图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
+![ETF Agent 38 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
+
+[交互式 Owner 架构图册](https://hpoenixf.github.io/eff-agent-article/gallery)：按完整能力及最终效果归属划分；Runtime 不另算模块，工程导航和待核验收尾执行单列。
 
 ### 值得先读的几篇
 
