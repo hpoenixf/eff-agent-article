@@ -74,7 +74,6 @@ export default defineConfig({
       pattern: 'https://github.com/hpoenixf/eff-agent-article/edit/main/:path',
       text: '在 GitHub 改进此页'
     },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/hpoenixf/eff-agent-article' }],
     search: {
       provider: 'local',
       options: {
