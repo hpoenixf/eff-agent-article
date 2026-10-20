@@ -37,17 +37,19 @@ jobs:
           test -f .vitepress/dist/index.html
           test -f .vitepress/dist/articles/017-prompt-to-answer-six-layer-panorama.html
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html
+      # This public repo can build before the owner enables GitHub Pages.
+      # GITHUB_TOKEN cannot enable a Pages site; initial enablement is a repo setting.
       - name: Setup Pages
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.event.repository.has_pages == true
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.event.repository.has_pages == true
         uses: actions/upload-pages-artifact@v3
         with:
           path: .vitepress/dist
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.event.repository.has_pages == true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
