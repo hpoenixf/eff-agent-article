@@ -22,7 +22,7 @@
 
 ![ETF Agent 38 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
 
-[交互式 Owner 架构图册](https://hpoenixf.github.io/eff-agent-article/gallery)：按完整能力及最终效果归属划分；Runtime 不另算模块，工程导航和待核验收尾执行单列。
+[交互式 Owner 架构图册](https://hpoenixf.github.io/eff-agent-article/gallery)：按完整能力及最终效果归属划分；Runtime 不另算模块，工程导航单列，收尾协调已深化到 A06。
 
 ### 值得先读的几篇
 
