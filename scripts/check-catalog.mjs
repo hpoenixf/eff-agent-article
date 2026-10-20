@@ -38,11 +38,11 @@ if (duplicates.length || missing.length || unindexed.length || broken.length) {
 }
 // One reviewed Owner -> article relation registry; book.mjs remains the only article catalogue.
 const ownerHtml = readFileSync('visuals/owner-architecture/index.html', 'utf8')
-const embedded = ownerHtml.match(/<script type="application\\/json" id="owner-data">([\\s\\S]*?)<\\/script>/)
+const embedded = ownerHtml.match(/<script type="application\/json" id="owner-data">([\s\S]*?)<\/script>/)
 if (!embedded) throw Error('Owner diagram data not found')
 const ownerData = JSON.parse(embedded[1])
 const registry = JSON.parse(readFileSync('visuals/owner-architecture/owner-articles.json', 'utf8'))
-const primaryOwnerIds = new Set(ownerData.owners.filter(o => /^(?:A\\d\\d|B\\d\\d|E04)$/u.test(o.id)).map(o => o.id))
+const primaryOwnerIds = new Set(ownerData.owners.filter(o => /^(?:A\d\d|B\d\d|E04)$/u.test(o.id)).map(o => o.id))
 if (primaryOwnerIds.size !== 38 || registry.schemaVersion !== 1) throw Error('Owner article map requires 38 recognized owners and schema v1')
 const knownArticles = new Map(chapters.flatMap(chapter => chapter.items))
 const referenced = new Set()

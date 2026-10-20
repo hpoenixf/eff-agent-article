@@ -128,7 +128,7 @@ function createOwnerView(root) {
   let articleIndex=null,articleLoadingFailed=false;
   function renderReading(owner) {
     const section=root.querySelector('.owner-detail-reading');
-    section.hidden=!/^(A\\d\\d|B\\d\\d|E04)$/.test(owner.id);
+    section.hidden=!/^(A\d\d|B\d\d|E04)$/.test(owner.id);
     if(section.hidden)return;
     const primary=section.querySelector('.owner-reading-primary');
     const related=section.querySelector('.owner-reading-related');
