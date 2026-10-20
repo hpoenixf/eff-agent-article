@@ -71,15 +71,18 @@ export default defineConfig({
       provider: 'local',
       options: {
         locales: {
-          root: { translations: {
-          button: { buttonText: '搜索文章', buttonAriaLabel: '搜索文章' },
-          modal: {
-            displayDetails: '展开结果',
-            resetButtonTitle: '清除查询',
-            backButtonTitle: '关闭搜索',
-            noResultsText: '没有找到相关内容',
-            footer: { selectText: '选择', navigateText: '导航', closeText: '关闭' }
-          } }
+          root: {
+            translations: {
+              button: { buttonText: '搜索文章', buttonAriaLabel: '搜索文章' },
+              modal: {
+                displayDetails: '展开结果',
+                resetButtonTitle: '清除查询',
+                backButtonTitle: '关闭搜索',
+                noResultsText: '没有找到相关内容',
+                footer: { selectText: '选择', navigateText: '导航', closeText: '关闭' }
+              }
+            }
+          }
         }
       }
     },
