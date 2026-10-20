@@ -102,6 +102,6 @@ npm run docs:dev
 npm run docs:build
 ```
 
-文章正文继续保存在 `articles/`；`book.mjs` 是侧栏和目录组件共用的唯一阅读顺序源。GitHub Pages 发布工作流在 `.github/workflows/pages.yml`，目标为项目站点 `/eff-agent-article/`，不修改已有博客部署。
+> **首次启用阅读站：** 本仓库的 Pages 需在 GitHub **Settings → Pages → Build and deployment → Source = GitHub Actions** 中启用。启用后到 **Actions → Article Library · Build & Pages → Run workflow** 触发首次部署。未启用之前，可先从上面的 Markdown 目录阅读；这不影响已有博客。\n\n文章正文继续保存在 `articles/`；`book.mjs` 是侧栏和目录组件共用的唯一阅读顺序源。GitHub Pages 发布工作流在 `.github/workflows/pages.yml`，目标为项目站点 `/eff-agent-article/`，不修改已有博客部署。
 
 <sub>Built from engineering evidence · Not investment advice.</sub>
