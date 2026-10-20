@@ -82,7 +82,7 @@
 
 ## 图册与独立阅读
 
-- [15 张 SVG 架构图](visuals/017-prompt-to-answer-six-layer-panorama/diagrams/) · [HTML 完整图文版](visuals/017-prompt-to-answer-six-layer-panorama/index.html)
+- [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams) · [HTML 完整图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [最新架构导读](architecture.md)：区分模型语义、Runtime 客观事实、Run 授权、证据、Publication 与评测
 - [八个待写选题及预告](roadmap.md)：明确“选题中 / 待复评”，不把未成文的内容冒充已发布
 - [个人博客](https://hpoenixf.com/)：按时间更新；本仓库提供连续阅读与可复用 Markdown
