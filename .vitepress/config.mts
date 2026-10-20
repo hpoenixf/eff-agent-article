@@ -70,7 +70,8 @@ export default defineConfig({
     search: {
       provider: 'local',
       options: {
-        translations: {
+        locales: {
+          root: { translations: {
           button: { buttonText: '搜索文章', buttonAriaLabel: '搜索文章' },
           modal: {
             displayDetails: '展开结果',
@@ -78,7 +79,7 @@ export default defineConfig({
             backButtonTitle: '关闭搜索',
             noResultsText: '没有找到相关内容',
             footer: { selectText: '选择', navigateText: '导航', closeText: '关闭' }
-          }
+          } }
         }
       }
     },
