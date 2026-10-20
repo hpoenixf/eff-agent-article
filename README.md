@@ -26,7 +26,7 @@
 
 ### 值得先读的几篇
 
-**模块维度：** [Python 从工具到工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久遗忘](articles/026-agent-memory-forget-durable-effects.md) · [PDF 研究阅读](articles/024-agent-pdf-from-text-to-evidence.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
+**模块维度：** [Python 从工具到工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久遗忘](articles/026-agent-memory-forget-durable-effects.md) · [PDF 研究阅读](articles/024-agent-pdf-from-text-to-evidence.md) · [Publication 独立发布](articles/019-agent-answer-publication.md) · [A22 文件下载与分享](articles/agent-html-evolution-challenges.md)
 
 **架构设计与系统思考：** [代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与终结权](articles/agent-veto-authority-and-run-termination.md) · [失败诊断与反馈误归因](articles/agent-failure-is-a-boundary-problem.md) · [研发任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 

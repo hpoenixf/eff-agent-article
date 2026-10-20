@@ -81,7 +81,20 @@ WrongFreshnessCheck --> FalseNotFound
 
 修复并不是“删除来源检查”。原运行的授权仍须有效，独立的隐私删除或更正规则仍然生效；新下载请求还必须验证**当前账号是否有权读取这份 Artifact**。只是不能拿今天的组合快照重新裁决昨天已经合法生成的静态文件。
 
-同样，分享链接不是一张通行证：Share Grant 只授予指定接收者读取**某一个固定哈希的版本**。报告生成了新版，旧分享不会偷偷切到新文件。
+同样，分享链接不是一张通行证。**分享真正授予的是指定账户读取指定文件版本的权限，而不是一条可转发的公开 URL。** 所有者通过已认证的操作创建 Share Grant；接收者仍须以自己的当前会话验证身份，不能转授权，也不能凭 Grant 读取原 Run、其他文件或原始资料。
+
+```mermaid
+graph TD
+SavedArtifact --> OwnerDownload
+SavedArtifact --> ShareGrant
+ShareGrant --> RecipientSession
+RecipientSession --> FixedRevision
+FixedRevision --> RecipientDownload
+ShareGrant --> RevokedOrExpired
+RevokedOrExpired --> AccessDenied
+```
+
+文件尚未生成时，可以先把 Grant 绑定到服务端确认的待交付身份，但 **Pending 不可下载**；提交后只读取绑定的版本与哈希。重新生成报告不会偷偷把旧授权切到新版。撤销、到期、账号停用或文件过期会拒绝后续读取，但不能追回已经下载的离线副本。来源材料的再分发限制也不会因为分享动作而失效。
 
 ## 五、为什么最后不是继续修周报生成器，而是删除它？
 

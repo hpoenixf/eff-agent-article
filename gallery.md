@@ -17,7 +17,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 38 个 Own
 
 <iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 38 个能力 Owner 交互架构图"></iframe>
 
-点击模块查看职责、最终拒绝范围和输入/输出关系；悬停高亮相关能力，支持按名称或 Owner ID 查找。独立窗口适合桌面一屏查看；手机按阅读顺序展开。
+点击模块查看职责、最终拒绝范围和输入/输出关系；**A22 私有产物**的详情中可以直接打开 [HTML 生成、下载与分享实践](/articles/agent-html-evolution-challenges)。悬停高亮相关能力，支持按名称或 Owner ID 查找。独立窗口适合桌面一屏查看；手机按阅读顺序展开。
 
 Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求配置**。插件 **A13**、生命周期 Hook **A29**、MCP 接入 **A31**、受控工具调用 **A11** 分别收口。投影 **A14** 与压缩 **A28** 分列；请求发送 **A10** 与轨迹证据 **E04** 分列。
 
@@ -28,7 +28,7 @@ Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求�
 | Owner | 2026-10-20 的变化 | 保留的边界 |
 | --- | --- | --- |
 | A06 Run 与收尾协调 | 阶段、原回合请求意图、异常升级和结束投影收进同一 Owner；本轮深化已关闭归档。 | Main 原循环执行；资源、请求、正文处置和持久事务不转移，不新增独立 Finalizer。 |
-| A23 / A16 / A22 共享 HTML | 模型直接 HTML 或 Python 文件共同沿内容/引用准备、结果来源、Artifact 保存和认证下载交付；专用周报生成/renderer 已删除。 | 直接 HTML 无 Python/Docker 或先发文字前置；保存、下载与内容质量分别记录，真实执行/网络/权限及身份保护保留。 |
+| [A23 / A16 / A22 共享 HTML](/articles/agent-html-evolution-challenges) | 模型直接 HTML 或 Python 文件共同沿内容/引用准备、结果来源、Artifact 保存和认证下载交付；专用周报生成/renderer 已删除。 | 直接 HTML 无 Python/Docker 或先发文字前置；保存、下载与内容质量分别记录，真实执行/网络/权限及身份保护保留。 |
 | A07 Child 生命周期 | 原 Owner 统一解释请求、合法下一步、技术终态与结果；本轮收口已关闭归档。 | 无内容可以真实失败，有内容不伪造完成；不据此认证所有后续 Child 场景。 |
 | A24 历史与恢复 | 独立知识摘录读取与已发布正文分开；辅助恢复读失败不再清空 canonical 正文或改写原终态，本轮窄边界已关闭。 | 查看者权限、真实来源与内容身份继续保留，不用未知缓存兜底。 |
 | A18 Web 读取 | 增加可选 DeepSeek Search 和 native-first Fetch，保留原 Web owner。 | 保护性的网络/访问拒绝不变成重试，真实环境 smoke 和正式 close 按原任务判断。 |
