@@ -122,7 +122,7 @@
 
 - [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 36 篇长文）
 - [写作预告](roadmap.md)：尚未独立成文的模块与系统思考专题
-- [六层系统全景 HTML 图文版](visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams)
+- [六层系统全景 HTML 图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章站；此仓库提供可复用 Markdown、专题顺序与连续阅读站
 
 ## 本地运行
