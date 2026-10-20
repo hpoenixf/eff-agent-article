@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 · 34 篇文章 · 两条阅读主线
+模块机制 × 架构思考 · 35 篇文章 · 两条阅读主线
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -17,7 +17,7 @@
 | 🔧 模块维度 · How it works | 🧭 架构设计与系统思考 · Why it works |
 | --- | --- |
 | 从 Entry、Web、PDF、Python、Memory、RAG、Runtime、Publication 等具体机制入手。 | 从六层全景、模型与 Host 的权责、复杂度治理、反馈归因到完整研究任务收敛。 |
-| **18 篇 / 4 个主题** | **16 篇 / 3 个主题** |
+| **18 篇 / 4 个主题** | **17 篇 / 3 个主题** |
 | [从 Entry 开始 →](articles/022-agent-entry-from-intent-to-direct-research.md) | [从六层全景开始 →](articles/017-prompt-to-answer-six-layer-panorama.md) |
 
 ![ETF Agent 38 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
@@ -108,21 +108,23 @@
 </details>
 
 <details>
-<summary><b>03 · 工程演化与金融边界</b>（5 篇）</summary>
+<summary><b>03 · 工程演化与金融边界</b>（6 篇）</summary>
 
 - [用 Agent 开发 Agent：从 Bug 循环到任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 - [HTML 都保存了，为什么还是交付失败？](articles/agent-html-evolution-challenges.md)
 - [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
 - [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
+- [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
 
 </details>
 
 ## 附：工程参考与未来写作
 
-- [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 34 篇长文）
+- [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 35 篇长文）
 - [写作预告](roadmap.md)：尚未独立成文的模块与系统思考专题
 - [六层系统全景 HTML 图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams)
+- [金融 Agent 的可信证据链 · 中文图表 HTML](https://github.com/hpoenixf/eff-agent-article/blob/main/visuals/financial-agent-trustworthy-evidence-chain/index.html)：自包含文件，下载后可直接打开
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章站；此仓库提供可复用 Markdown、专题顺序与连续阅读站
 
 ## 本地运行
@@ -142,6 +144,6 @@ npm run docs:build
 
 ## 文章合并
 
-2026-10-20 将“Runtime 不知道的，不要假装知道”并入“别让模型当状态机”，将“反馈系统为什么可能越改越偏”并入“别把每个失败都算给模型”。独有的语义检查、评测器、遥测缺失和修订持久化案例均保留在主稿；旧网址保留合稿指引，目录只收录 34 篇独立正文。
+2026-10-20 将“Runtime 不知道的，不要假装知道”并入“别让模型当状态机”，将“反馈系统为什么可能越改越偏”并入“别把每个失败都算给模型”。独有的语义检查、评测器、遥测缺失和修订持久化案例均保留在主稿；旧网址保留合稿指引，合稿后目录收录 34 篇独立正文；其后新增的文章按当前目录统计。
 
 Publication 的机制与两轮治理也已合稿；否决权与渐进回答分别保留 Run 控制流和写作连贯性的独有内容。旧页只作阅读指引，不计入正文。

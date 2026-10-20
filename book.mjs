@@ -1,4 +1,4 @@
-// One canonical reading tree: two perspectives, themed sequences, and 34 unique essays.
+// One canonical reading tree: two perspectives, themed sequences, and 35 unique essays.
 // A topic has exactly one home; other connections are made through links, not duplicate entries.
 export const collections = [
   {
@@ -190,6 +190,10 @@ export const collections = [
           [
             "031-fintech-data-time-and-reproducible-numbers",
             "金融数字的时点、口径与复算"
+          ],
+          [
+            "financial-agent-trustworthy-evidence-chain",
+            "金融 Agent 的可信证据链"
           ]
         ]
       }

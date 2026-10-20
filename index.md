@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，两种深度。
-  tagline: 顺着具体模块看清怎么做，或者跨越模块研究架构为何如此演化。34 篇工程长文，既能按问题查找，也能沿着章节连续阅读。
+  tagline: 顺着具体模块看清怎么做，或者跨越模块研究架构为何如此演化。35 篇工程长文，既能按问题查找，也能沿着章节连续阅读。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
