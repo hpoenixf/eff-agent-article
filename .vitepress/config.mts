@@ -1,12 +1,16 @@
 import { defineConfig } from 'vitepress'
-import { chapters } from '../book.mjs'
+import { collections } from '../book.mjs'
 
-const readingSidebar = chapters.map((chapter) => ({
-  text: chapter.title,
+const readingSidebar = collections.map((collection) => ({
+  text: collection.title,
   collapsed: false,
-  items: chapter.items.map(([slug, text]) => ({
-    text,
-    link: '/articles/' + slug
+  items: collection.chapters.map((chapter) => ({
+    text: chapter.title,
+    collapsed: false,
+    items: chapter.items.map(([slug, text]) => ({
+      text,
+      link: '/articles/' + slug
+    }))
   }))
 }))
 
@@ -40,8 +44,9 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [
-      { text: '文章目录', link: '/catalog' },
-      { text: '架构导读', link: '/architecture' },
+      { text: '模块维度', link: '/modules' },
+      { text: '架构与系统思考', link: '/thinking' },
+      { text: '全部文章', link: '/catalog' },
       { text: '架构图册', link: '/gallery' },
       { text: '写作预告', link: '/roadmap' },
       { text: '博客 ↗', link: 'https://hpoenixf.com/' }
@@ -50,7 +55,10 @@ export default defineConfig({
       '/articles/': readingSidebar,
       '/': [
         { text: '开始阅读', items: [
-          { text: '阅读地图', link: '/catalog' },
+          { text: '模块维度', link: '/modules' },
+          { text: '架构与系统思考', link: '/thinking' },
+          { text: '完整目录', link: '/catalog' },
+          { text: '架构原则速查', link: '/principles' },
           { text: '架构导读', link: '/architecture' },
           { text: '架构图册', link: '/gallery' },
           { text: '写作预告', link: '/roadmap' }

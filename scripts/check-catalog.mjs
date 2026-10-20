@@ -1,6 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs'
-import { chapters, articleCount } from '../book.mjs'
+import { collections, chapters, articleCount } from '../book.mjs'
 
+if (collections.length !== 2 || collections[0].id !== 'modules' || collections[1].id !== 'thinking') {
+  console.error('The site must expose precisely two canonical reading perspectives.')
+  process.exit(1)
+}
 const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
 const duplicates = slugs.filter((slug, idx) => slugs.indexOf(slug) !== idx)
 const actual = (await import('node:fs')).readdirSync('articles').filter(name => name.endsWith('.md')).map(name => name.slice(0, -3))
@@ -24,4 +28,4 @@ if (duplicates.length || missing.length || unindexed.length || broken.length) {
   console.error({ duplicates, missing, unindexed, broken })
   process.exit(1)
 }
-console.log('Catalogue and local article links validated.')
+console.log('Two-perspective catalogue and local article links validated.')
