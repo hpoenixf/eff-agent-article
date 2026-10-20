@@ -5,7 +5,7 @@ description: ETF Agent 六层系统全景与 15 张可复用 SVG。
 
 # 六层系统 · 架构图册
 
-同一篇全景文章的不同视角。阅读过程可以直接看图，也可以从这里下载 SVG、查看文字解释。
+同一篇全景文章的不同视角。文章和独立 HTML 图文版已更新为六层、26 个职责；以下 SVG 是帮助理解执行与交接的示意图，不是覆盖所有职责的实现蓝图。阅读过程可以直接看图，也可以从这里下载 SVG、查看文字解释。
 
 ![六层职责全景](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
 

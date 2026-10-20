@@ -22,7 +22,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ![六层职责关系](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg)
 
-六层只是阅读视角，不是六个服务或六个统一裁决者。详细交接与 Mermaid 图见[系统全景文章](/articles/017-prompt-to-answer-six-layer-panorama)。
+**2026-10-19 的完整全景已细化为六层、26 个职责。** 六层只是阅读视角，不是六个服务或六个统一裁决者。详细交接与 Mermaid 图见[系统全景文章](/articles/017-prompt-to-answer-six-layer-panorama)。
 
 ## 三条贯穿整套系统的原则
 
