@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，两种深度。
-  tagline: 顺着具体模块看清怎么做，或者跨越模块研究架构为何如此演化。36 篇工程长文，既能按问题查找，也能沿着章节连续阅读。
+  tagline: 顺着具体模块看清怎么做，或者跨越模块研究架构为何如此演化。34 篇工程长文，既能按问题查找，也能沿着章节连续阅读。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -36,7 +36,7 @@ features:
 
 ## 推荐从这里开始
 
-想理解系统整体架构：从 [38 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-natural-language-boundary-article-v2)。
+想理解系统整体架构：从 [38 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
 想解决工程难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
 

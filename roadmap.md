@@ -29,7 +29,7 @@ description: 已完成正文进入正式目录；尚未成文的模块与系统�
 
 ## 本轮从预告转为正文
 
-[Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) · [RAG 撤权历史复盘](/articles/027-rag-revocation-publish-replay) · [Python 计算工作台](/articles/agent-python-compute-workbench-evolution) · [反馈误归因](/articles/028-agent-feedback-system-without-false-learning) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [金融服务边界](/articles/030-fintech-from-research-to-investment-advice) · [金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。
+[Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) · [RAG 撤权历史复盘](/articles/027-rag-revocation-publish-replay) · [Python 计算工作台](/articles/agent-python-compute-workbench-evolution) · [反馈误归因](/articles/agent-failure-is-a-boundary-problem) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [金融服务边界](/articles/030-fintech-from-research-to-investment-advice) · [金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。
 
 这些文章各自保留其原始时间点、实现状态与验收限制，不把真实个案扩大为系统全局指标。
 

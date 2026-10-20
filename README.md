@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 · 36 篇文章 · 两条阅读主线
+模块机制 × 架构思考 · 34 篇文章 · 两条阅读主线
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -17,7 +17,7 @@
 | 🔧 模块维度 · How it works | 🧭 架构设计与系统思考 · Why it works |
 | --- | --- |
 | 从 Entry、Web、PDF、Python、Memory、RAG、Runtime、Publication 等具体机制入手。 | 从六层全景、模型与 Host 的权责、复杂度治理、反馈归因到完整研究任务收敛。 |
-| **18 篇 / 4 个主题** | **18 篇 / 3 个主题** |
+| **18 篇 / 4 个主题** | **16 篇 / 3 个主题** |
 | [从 Entry 开始 →](articles/022-agent-entry-from-intent-to-direct-research.md) | [从六层全景开始 →](articles/017-prompt-to-answer-six-layer-panorama.md) |
 
 ![ETF Agent 38 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
@@ -28,7 +28,7 @@
 
 **模块维度：** [Python 从工具到工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久遗忘](articles/026-agent-memory-forget-durable-effects.md) · [PDF 研究阅读](articles/024-agent-pdf-from-text-to-evidence.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
-**架构设计与系统思考：** [代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与终结权](articles/agent-veto-authority-and-run-termination.md) · [反馈误归因](articles/028-agent-feedback-system-without-false-learning.md) · [研发任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
+**架构设计与系统思考：** [代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与终结权](articles/agent-veto-authority-and-run-termination.md) · [失败诊断与反馈误归因](articles/agent-failure-is-a-boundary-problem.md) · [研发任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
 ## 全部文章 · 按两大类展开
 
@@ -85,13 +85,12 @@
 跨模块看 Owner、边界、可靠性、演化与真实用户价值。 [**进入在线目录 →**](https://hpoenixf.github.io/eff-agent-article/thinking)
 
 <details>
-<summary><b>01 · 系统全景与职责边界</b>（8 篇）</summary>
+<summary><b>01 · 系统全景与职责边界</b>（7 篇）</summary>
 
 - [从一句问题到六层系统全景](articles/017-prompt-to-answer-six-layer-panorama.md)
 - [一个 Agent 为什么先装刹车](articles/010-agent-first-brakes.md)
 - [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
-- [Runtime 不知道的，不要假装知道](articles/runtime-natural-language-boundary-article-v2.md)
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
 - [散落的否决权与 Run 终结权](articles/agent-veto-authority-and-run-termination.md)
 - [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
@@ -99,11 +98,10 @@
 </details>
 
 <details>
-<summary><b>02 · 可靠性、反馈与系统治理</b>（6 篇）</summary>
+<summary><b>02 · 可靠性、反馈与系统治理</b>（5 篇）</summary>
 
 - [发布治理为什么做了两次](articles/023-agent-publication-governance-retrospective.md)
 - [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
-- [反馈系统为什么可能越改越偏](articles/028-agent-feedback-system-without-false-learning.md)
 - [有模型输出不等于任务成功](articles/honest-agent-evaluation.md)
 - [绿测不等于生产能力](articles/green-tests-can-lie.md)
 - [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
@@ -122,7 +120,7 @@
 
 ## 附：工程参考与未来写作
 
-- [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 36 篇长文）
+- [Agent 架构原则速查](principles.md)：设计、重构、Code Review 时的职责与演化检查表（参考资料，不算入 34 篇长文）
 - [写作预告](roadmap.md)：尚未独立成文的模块与系统思考专题
 - [六层系统全景 HTML 图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [15 张 SVG 架构图](https://github.com/hpoenixf/eff-agent-article/tree/main/visuals/017-prompt-to-answer-six-layer-panorama/diagrams)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章站；此仓库提供可复用 Markdown、专题顺序与连续阅读站
@@ -141,3 +139,7 @@ npm run docs:build
 > 阅读站使用独立仓库的 GitHub Pages，不与既有博客冲突。首次部署前需要在仓库 **Settings → Pages → Build and deployment** 中选择 **GitHub Actions**，再手动运行 `Article Library · Build & Pages`。未启用时可直接使用本 README 的 Markdown 链接。
 
 原始文章记录特定时期的工程事实、问题与验证边界；历史实践不自动成为现行合同，受控验证不等于最终研究质量证明。本文集不构成投资或法律建议。
+
+## 文章合并
+
+2026-10-20 将“Runtime 不知道的，不要假装知道”并入“别让模型当状态机”，将“反馈系统为什么可能越改越偏”并入“别把每个失败都算给模型”。独有的语义检查、评测器、遥测缺失和修订持久化案例均保留在主稿；旧网址保留合稿指引，目录只收录 34 篇独立正文。

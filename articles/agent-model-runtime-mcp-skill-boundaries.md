@@ -690,7 +690,6 @@ Runtime → 过程复杂度
 ## 延伸阅读
 
 - [别再让模型当状态机：一次 Agent 协议减负实践](./runtime-model-protocol-boundary-agent-article-v2.md)
-- [Runtime 不知道的，不要因为能写一个规则，就假装它知道](./runtime-natural-language-boundary-article-v2.md)
 - [Agent 查了很多资料，为什么还是交不出答案？](./agent-runtime-constraint-governance-v2.md)
 
 ## 证据来源

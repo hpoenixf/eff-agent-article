@@ -1,4 +1,4 @@
-// One canonical reading tree: two perspectives, themed sequences, and 36 unique essays.
+// One canonical reading tree: two perspectives, themed sequences, and 34 unique essays.
 // A topic has exactly one home; other connections are made through links, not duplicate entries.
 export const collections = [
   {
@@ -132,10 +132,6 @@ export const collections = [
             "别让模型当状态机"
           ],
           [
-            "runtime-natural-language-boundary-article-v2",
-            "Runtime 不知道的，不要假装知道"
-          ],
-          [
             "agent-model-runtime-mcp-skill-boundaries",
             "Model / Runtime / MCP / Skill 的分工"
           ],
@@ -160,10 +156,6 @@ export const collections = [
           [
             "ai-citations-do-not-prove-reliability",
             "很多引用为什么不等于可靠"
-          ],
-          [
-            "028-agent-feedback-system-without-false-learning",
-            "反馈系统为什么可能越改越偏"
           ],
           [
             "honest-agent-evaluation",
@@ -206,3 +198,9 @@ export const collections = [
 ];
 export const chapters = collections.flatMap(collection => collection.chapters);
 export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.length, 0);
+
+// Previously published URLs remain readable, without duplicating essays in search/navigation.
+export const mergedArticles = {
+  "runtime-natural-language-boundary-article-v2": "runtime-model-protocol-boundary-agent-article-v2",
+  "028-agent-feedback-system-without-false-learning": "agent-failure-is-a-boundary-problem"
+};

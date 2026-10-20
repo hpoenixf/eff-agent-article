@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs'
-import { collections, chapters, articleCount } from '../book.mjs'
+import { collections, chapters, articleCount, mergedArticles } from '../book.mjs'
 
 if (collections.length !== 2 || collections[0].id !== 'modules' || collections[1].id !== 'thinking') {
   console.error('The site must expose precisely two canonical reading perspectives.')
@@ -9,7 +9,7 @@ const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
 const duplicates = slugs.filter((slug, idx) => slugs.indexOf(slug) !== idx)
 const actual = (await import('node:fs')).readdirSync('articles').filter(name => name.endsWith('.md')).map(name => name.slice(0, -3))
 const missing = slugs.filter(slug => !existsSync('articles/' + slug + '.md'))
-const unindexed = actual.filter(slug => !slugs.includes(slug))
+const unindexed = actual.filter(slug => !slugs.includes(slug) && !Object.hasOwn(mergedArticles, slug))
 const broken = []
 for (const slug of slugs) {
   if (!existsSync('articles/' + slug + '.md')) continue
@@ -23,7 +23,15 @@ for (const slug of slugs) {
     if (!existsSync(path)) broken.push(slug + ': ' + href)
   }
 }
-console.log('Indexed articles:', articleCount, '| actual:', actual.length)
+for (const [oldSlug, target] of Object.entries(mergedArticles)) {
+  const page = 'articles/' + oldSlug + '.md'
+  if (!existsSync(page) || !slugs.includes(target)) missing.push(oldSlug + ' -> ' + target)
+  else {
+    const text = readFileSync(page, 'utf8')
+    if (!text.includes('search: false') || !text.includes('](' + target + '.md)')) broken.push(oldSlug + ': invalid merged article pointer')
+  }
+}
+console.log('Indexed essays:', articleCount, '| compatibility pages:', Object.keys(mergedArticles).length, '| files:', actual.length)
 if (duplicates.length || missing.length || unindexed.length || broken.length) {
   console.error({ duplicates, missing, unindexed, broken })
   process.exit(1)
