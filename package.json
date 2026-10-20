@@ -1,0 +1,16 @@
+{
+  "name": "eff-agent-article-reader",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview .",
+    "check:content": "node scripts/check-content.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "1.6.4",
+    "mermaid": "11.4.1",
+    "vitepress-plugin-mermaid": "2.0.17"
+  }
+}
