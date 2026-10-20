@@ -1,0 +1,15 @@
+{
+  "name": "etf-agent-engineering-book",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev .",
+    "docs:build": "vitepress build .",
+    "docs:preview": "vitepress preview .",
+    "check:catalog": "node scripts/check-catalog.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "1.6.4",
+    "mermaid": "11.17.2"
+  }
+}
