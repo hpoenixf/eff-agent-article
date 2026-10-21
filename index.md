@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 38 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 39 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -41,7 +41,7 @@ features:
 
 - **AI-native 前端：** [渐进式回答与实时内容修订](/articles/agent-progressive-answer-coherence) → [答案发布与可追溯版本](/articles/019-agent-answer-publication) → [HTML 与文件交付](/articles/agent-html-evolution-challenges)。这些是交互与交付机制文章，不代替公开可操作的前端 Demo。
 - **Agent 应用开发：** [六层运行链路](/articles/017-prompt-to-answer-six-layer-panorama) → [Subagent](/articles/agent-subagent-context-specialization) → [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)。
-- **Agent 系统架构：** [模型、运行时与协议职责](/articles/agent-model-runtime-mcp-skill-boundaries) → [代码授权](/articles/011-model-understands-code-authorizes) → [Run 终结权](/articles/agent-veto-authority-and-run-termination)。
+- **Agent 系统架构：** [模型、运行时与协议职责](/articles/agent-model-runtime-mcp-skill-boundaries) → [代码授权](/articles/011-model-understands-code-authorizes) → [Run 终结权](/articles/agent-veto-authority-and-run-termination) → [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve)。
 - **用 AI 研发 Agent：** [Spec 与执行证据](/articles/026-agent-spec-evidence-workflow) → [文档与长期 History](/articles/027-agent-context-document-history) → [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence)。
 
 本阅读站公开的是工程文章、示意图和阅读站自身的源码。完整 Agent 产品代码、运行凭据与生产指标不在这里公开；文中的局部验证不等于生产级验收。作者的背景见[个人博客 About](https://hpoenixf.com/about)。

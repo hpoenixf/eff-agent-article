@@ -1,17 +1,17 @@
 ---
 title: 架构设计与系统思考
-description: 15 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
+description: 16 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
 ---
 
 # 架构设计与系统思考
 
-<small>WHY IT WORKS · 15 篇 · 3 个主题</small>
+<small>WHY IT WORKS · 16 篇 · 3 个主题</small>
 
 从一次技术取舍的背后看系统：**模型和 Runtime 各能做什么？谁最终裁决？为什么有些机制应该被删除而不是继续叠加？怎样证明用户目标真的完成？**
 
 关注的是跨模块的权责与演进，而不是重复每个工具的使用说明。
 
-**入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
+**入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
 
 <ChapterCatalog category="thinking" />
 
