@@ -2,14 +2,14 @@
 import { useData } from 'vitepress'
 import StarLink from './StarLink.vue'
 
-const { page } = useData()
+const { page, lang } = useData()
 </script>
 
 <template>
-  <aside v-if="page.relativePath.startsWith('articles/')" class="article-star" aria-label="支持工程手记">
+  <aside v-if="/^(?:en\\/)?articles\\//.test(page.relativePath)" class="article-star" :aria-label="lang.startsWith('en') ? 'Support this library' : '支持工程手记'">
     <div>
-      <strong>这篇笔记对你有帮助吗？</strong>
-      <p>欢迎到 GitHub 点个 Star，支持我们继续分享 Agent 的工程实践。</p>
+      <strong>{{ lang.startsWith('en') ? 'Found this useful?' : '这篇笔记对你有帮助吗？' }}</strong>
+      <p>{{ lang.startsWith('en') ? 'Star the repository on GitHub to support more engineering articles.' : '欢迎到 GitHub 点个 Star，支持我们继续分享 Agent 的工程实践。' }}</p>
     </div>
     <StarLink />
   </aside>
