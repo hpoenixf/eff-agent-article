@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **39 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **40 篇正文，三条主线**
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融科技 × Agent 专题**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -31,7 +31,7 @@
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **18 篇 / 4 组**，Entry、Web、PDF、Python、Memory、Runtime 与交付 |
+| [模块维度](modules.md) | Agent 如何运行？ | **19 篇 / 4 组**，Entry、Web、PDF、Python、Memory、Runtime 与交付 |
 | [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **16 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、Evidence、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **5 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
@@ -82,9 +82,10 @@
 </details>
 
 <details>
-<summary><b>03 · 运行时、扩展与观测</b>（4 篇）</summary>
+<summary><b>03 · 运行时、扩展与观测</b>（5 篇）</summary>
 
 - [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
+- [多生态 Hook：从 Claude、Pi 到 Codex](articles/agent-multi-ecosystem-hook-execution.md)
 - [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
 - [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
 - [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)

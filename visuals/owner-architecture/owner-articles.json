@@ -28,7 +28,8 @@
     "mcp-market-responsibility-retrospective": "金融数据 MCP 为什么变成决策系统",
     "partial-is-not-complete": "静默截断：真实数据为什么变少",
     "tool-results-outside-model-context": "工具结果为什么不必全部入上下文",
-    "unavailable-is-correct": "数据过期后的受控刷新"
+    "unavailable-is-correct": "数据过期后的受控刷新",
+    "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex"
   },
   "owners": {
     "A01": {
@@ -79,7 +80,10 @@
       ]
     },
     "A13": {
-      "primary": "020-agent-extension-host-smartphone"
+      "primary": "020-agent-extension-host-smartphone",
+      "related": [
+        "agent-multi-ecosystem-hook-execution"
+      ]
     },
     "A14": {
       "primary": "partial-is-not-complete",
@@ -154,6 +158,7 @@
       ]
     },
     "A29": {
+      "primary": "agent-multi-ecosystem-hook-execution",
       "related": [
         "020-agent-extension-host-smartphone"
       ]

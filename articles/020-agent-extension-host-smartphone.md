@@ -387,6 +387,10 @@ Agent 也是一样。
 
 ---
 
+## 技术下篇：多生态 Hook 的实际执行
+
+本篇介绍插件包、代际与 Extension Host 架构。独立下篇 [《从 Claude、Pi 到 Codex：我们如何在自己的 Agent Runtime 中实现多生态 Hook？》](agent-multi-ecosystem-hook-execution.md) 进一步讲清命令 Hook 的协议差异、Pi 原始 Factory、可终止子进程、持久效果与恢复。两篇互为补充。
+
 ## 延伸材料
 
 本文以 2026 年 10 月 12 日的 ETF Agent 实现为窗口，所述故障来自有原始记录的工程验证；文中的目录、文件内容与数据样例为便于理解而简化。

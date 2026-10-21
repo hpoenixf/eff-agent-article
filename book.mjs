@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 39 unique essays.
+// One canonical reading tree: three perspectives and 40 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -70,6 +70,10 @@ export const collections = [
           [
             "020-agent-extension-host-smartphone",
             "Extension Host：从功能机到智能机"
+          ],
+          [
+            "agent-multi-ecosystem-hook-execution",
+            "多生态 Hook：Claude、Pi 与 Codex"
           ],
           [
             "agent-tool-lifecycle-and-model-input",
