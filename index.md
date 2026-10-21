@@ -37,6 +37,15 @@ features:
 
 <ContinueReading />
 
+## 第一次访问：从你关心的问题开始
+
+- **AI-native 前端：** [渐进式回答与实时内容修订](/articles/agent-progressive-answer-coherence) → [答案发布与可追溯版本](/articles/019-agent-answer-publication) → [HTML 与文件交付](/articles/agent-html-evolution-challenges)。这些是交互与交付机制文章，不代替公开可操作的前端 Demo。
+- **Agent 应用开发：** [六层运行链路](/articles/017-prompt-to-answer-six-layer-panorama) → [Subagent](/articles/agent-subagent-context-specialization) → [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)。
+- **Agent 系统架构：** [模型、运行时与协议职责](/articles/agent-model-runtime-mcp-skill-boundaries) → [代码授权](/articles/011-model-understands-code-authorizes) → [Run 终结权](/articles/agent-veto-authority-and-run-termination)。
+- **用 AI 研发 Agent：** [Spec 与执行证据](/articles/026-agent-spec-evidence-workflow) → [文档与长期 History](/articles/027-agent-context-document-history) → [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence)。
+
+本阅读站公开的是工程文章、示意图和阅读站自身的源码。完整 Agent 产品代码、运行凭据与生产指标不在这里公开；文中的局部验证不等于生产级验收。作者的背景见[个人博客 About](https://hpoenixf.com/about)。
+
 ## 推荐从这里开始
 
 想理解系统整体架构：从 [38 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。

@@ -12,6 +12,21 @@
 
 ---
 
+## 初次访问：90 秒找到最相关的工程证据
+
+本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
+
+| 关注方向 | 建议先读 | 可以观察到什么 |
+| --- | --- | --- |
+| **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 流式内容、修订、客户端与 Host 交付边界的设计判断；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue)了解传统前端经验 |
+| **Agent 应用开发** | [六层研究链路](articles/017-prompt-to-answer-six-layer-panorama.md) → [Subagent](articles/agent-subagent-context-specialization.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
+| **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
+| **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [工程 Context 与 History](articles/027-agent-context-document-history.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 的设计、实施、验证与交接留有可追溯依据 |
+
+**公开证据的边界：** 本仓库的文章、架构图、目录源码与 [GitHub Pages 构建流程](.github/workflows/pages.yml) 可以直接查看；[博客站点源码](https://github.com/hpoenixf/myblog-v2)也公开。ETF Agent 的核心应用源码和完整运行证据**不在本公开仓库**。文章记录特定版本的真实案例或设计判断，但不等于第三方已经复核生产级性能、长期成功率、用户业务收益或 AI-native 前端的完整运行 Demo。
+
+[从在线阅读站开始](https://hpoenixf.github.io/eff-agent-article/) · [博客与作者简介](https://hpoenixf.com/about) · [金融领域案例专题](fintech.md)
+
 ## 按问题选择阅读主线
 
 | 阅读入口 | 回答的问题 | 范围 |
