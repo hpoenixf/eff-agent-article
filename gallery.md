@@ -1,32 +1,33 @@
 ---
 layout: page
 sidebar: false
-title: 架构图册 · 38 个能力 Owner
-description: 按完整能力及最终效果归属展示 ETF Agent 的 38 个 Owner，附交互关系与研究流程片段。
+title: 架构图册 · 39 个能力 Owner
+description: 按完整能力及最终效果归属展示 ETF Agent 的 39 个 Owner，附交互关系与研究流程片段。
 ---
 
 <div class="vp-doc owner-gallery">
 
 # 能力 Owner · 架构图册
 
-**2026-10-20 更新：统一为 38 个能力 Owner。** 模块按完整能力及其负责效果的最终收口划分；Runtime 是执行体系，分组只供阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。
+**2026-10-21 更新：统一为 39 个能力 Owner。** 模块按完整能力及其负责效果的最终收口划分；Runtime 是执行体系，分组只供阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。
 
 ## 交互式能力总览
 
-[全屏打开：38 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama)
+[全屏打开：39 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama)
 
-<iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 38 个能力 Owner 交互架构图"></iframe>
+<iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 39 个能力 Owner 交互架构图"></iframe>
 
 点击任意能力 Owner 查看职责、最终拒绝范围和输入/输出关系，以及 **专题文章 / 相关文章**：确有专文才显示链接，尚未单独成文的显示「敬请期待」，相关文章仅作延伸阅读、不冒充该模块已写完。悬停可高亮相关能力，并支持按名称或 Owner ID 查找。独立窗口适合桌面一屏查看；手机按阅读顺序展开。
 
-Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求配置**。插件 **A13**、生命周期 Hook **A29**、MCP 接入 **A31**、受控工具调用 **A11** 分别收口。投影 **A14** 与压缩 **A28** 分列；请求发送 **A10** 与轨迹证据 **E04** 分列。
+新增 **A33 精确数值运算** 仅执行显式十进制、单位约束、指定舍入和残差；组合/费用方法保持原领域权威，见[金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求配置**。插件 **A13**、生命周期 Hook **A29**、MCP 接入 **A31**、受控工具调用 **A11** 分别收口。投影 **A14** 与压缩 **A28** 分列；请求发送 **A10** 与轨迹证据 **E04** 分列。
 
-**38 项包含 A01–A32、B01–B05 和 E04。** 遥测/诊断、健康、评测三项工程导航另列；收尾协调已深化到 A06，并完成原范围 provider-free 归档；不再单列待核验 Finalizer，模块总数不变。压缩的验收限制也保留在图中。能力归属不证明实现已全部完成、真实模型质量或部署已经验收。
+**39 项包含 A01–A33、B01–B05 和 E04。** 遥测/诊断、健康、评测三项工程导航另列；收尾协调已深化到 A06，并完成原范围 provider-free 归档；不再单列待核验 Finalizer，模块总数不变。压缩的验收限制也保留在图中。能力归属不证明实现已全部完成、真实模型质量或部署已经验收。
 
 ## 今天深化了哪些既有能力
 
-| Owner | 2026-10-20 的变化 | 保留的边界 |
+| Owner | 2026-10-20～21 的变化 | 保留的边界 |
 | --- | --- | --- |
+| A33 Numeric | 新增纯十进制数量运算，可由 Portfolio 领域调用，验证半分、单位绑定、0.001 现金差额。 | 不选择费率/收益率/穿透方法，不认证源数据，不决定发布、Run 或交易；相关正文见[金融数字 031](/articles/031-fintech-data-time-and-reproducible-numbers)。 |
 | A06 Run 与收尾协调 | 阶段、原回合请求意图、异常升级和结束投影收进同一 Owner；本轮深化已关闭归档。 | Main 原循环执行；资源、请求、正文处置和持久事务不转移，不新增独立 Finalizer。 |
 | [A23 / A16 / A22 共享 HTML](/articles/agent-html-evolution-challenges) | 模型直接 HTML 或 Python 文件共同沿内容/引用准备、结果来源、Artifact 保存和认证下载交付；专用周报生成/renderer 已删除。 | 直接 HTML 无 Python/Docker 或先发文字前置；保存、下载与内容质量分别记录，真实执行/网络/权限及身份保护保留。 |
 | A07 Child 生命周期 | 原 Owner 统一解释请求、合法下一步、技术终态与结果；本轮收口已关闭归档。 | 无内容可以真实失败，有内容不伪造完成；不据此认证所有后续 Child 场景。 |
@@ -40,7 +41,7 @@ Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求�
 | 阅读分组 | Owner（点击定位详情） |
 | --- | --- |
 | 交互与 Run 准入 | [A25 客户端交互与阅读](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A25)；[A01 账户身份](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A01)；[A02 对话接纳与任务接续](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A02)；[A04 Run 授权与能力准入](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) |
-| 方法、插件与受控执行 | [A12 Skill 方法与资源](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)；[A13 插件准入与生命周期](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A13)；[A29 生命周期事件与 Hook 执行](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A29)；[A31 MCP 服务接入](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A31)；[A11 受控工具调用](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A11)；[A21 隔离分析](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) |
+| 方法、插件与受控执行 | [A12 Skill 方法与资源](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)；[A13 插件准入与生命周期](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A13)；[A29 生命周期事件与 Hook 执行](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A29)；[A31 MCP 服务接入](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A31)；[A11 受控工具调用](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A11)；[A21 隔离分析](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A21)；[A33 精确数值运算](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A33) |
 | 研究决策与运行控制 | [A03 研究决策与综合](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A03)；[A05 Run 资源管理（含 Deep）](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A05)；[A06 Run 继续与终结（含收尾协调）](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A06)；[A07 Child 执行生命周期](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A07)；[A08 持久控制事件](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A08)；[A09 定时任务](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A09)；[A15 行动提醒协调](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) |
 | 正文、文件与交付 | [A23 正文发布与内容准备](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A23)；[A22 私有产物保存、访问与分享](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A22)；[A24 会话事件与历史交付](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A24)；[E04 研究调用证据留存与回读](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=E04) |
 | 研究材料与结果 | [A17 研究资料资产](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)；[A18 Web 研究读取](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A18)；[A19 PDF 文档读取](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A19)；[A20 知识检索](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)；[A16 研究结果与引用管理](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) |
@@ -51,7 +52,7 @@ Deep 归 **A05 Run 资源管理**；思考强度归 **A10 模型调用与请求�
 
 ## 六层文章的流程片段
 
-以下 15 张 SVG 继续解释一次研究的局部顺序；每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 38 项。
+以下 15 张 SVG 继续解释一次研究的局部顺序；每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 39 项。
 
 | 流程片段 | 对应 Owner 与阅读边界 |
 | --- | --- |
