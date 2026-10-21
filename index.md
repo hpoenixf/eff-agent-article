@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 37 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 38 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -48,7 +48,7 @@ features:
 
 ## 推荐从这里开始
 
-想理解系统整体架构：从 [38 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
+想理解系统整体架构：从 [39 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
 想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
 
@@ -60,7 +60,7 @@ features:
 
 ## 金融专题与后续选题
 
-[金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP 等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
+[金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP、Python 研究结果消费等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
 
 ## 接下来的八个问题
 
