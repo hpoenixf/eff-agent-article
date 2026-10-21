@@ -3,8 +3,8 @@ layout: home
 title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
-  text: 一套 Agent，两种深度。
-  tagline: 顺着具体模块看清怎么做，或者跨越模块研究架构为何如此演化。35 篇工程长文，既能按问题查找，也能沿着章节连续阅读。
+  text: 一套 Agent，三条阅读主线。
+  tagline: 37 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: 架构设计与系统思考 →
       link: /thinking
+    - theme: alt
+      text: 研发工程实践 →
+      link: /engineering
     - theme: alt
       text: ☆ 去 GitHub 点个 Star
       link: https://github.com/hpoenixf/eff-agent-article
@@ -26,10 +29,10 @@ features:
     details: 从模型与 Runtime 的边界、Owner 裁决、复杂度删减、可靠性反馈到真实任务收敛。
     link: /thinking
     linkText: 阅读架构
-  - title: 连续阅读 · Keep going
-    details: 全文搜索、目录、架构图、上一篇与下一篇；自动记住上次阅读的文章。
-    link: /catalog
-    linkText: 全部文章
+  - title: AI Agent 研发工程实践 · How we build
+    details: Spec、Evidence、按需加载的工程文档、真实验证与完整任务收敛。
+    link: /engineering
+    linkText: 走进研发流程
 ---
 
 <ContinueReading />
@@ -38,13 +41,17 @@ features:
 
 想理解系统整体架构：从 [38 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
-想解决工程难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
+想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
 
-## 两条阅读主线
+## 三条阅读主线
 
-一篇正文只在一条主线中占一个位置，但两种维度并不互相排斥：**模块文章讲清机制，架构文章解释跨模块的取舍与代价。**
+一篇正文只在一个一级分类占一个位置：**模块文章讲机制，架构文章讲系统取舍，研发工程文章讲怎样持续交付。** [金融科技 × Agent](/fintech) 以精选链接跨分类组织相关案例，不重复文章。
 
 <ChapterCatalog compact />
+
+## 金融专题与后续选题
+
+[金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP 等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
 
 ## 接下来的八个问题
 

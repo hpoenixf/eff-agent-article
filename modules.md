@@ -15,4 +15,4 @@ description: 18 篇 Agent 模块文章：研究入口、工具、上下文、Mem
 
 <ChapterCatalog category="modules" />
 
-[回到全部目录](/catalog) · [查看未来模块文章预告](/roadmap)
+[回到全部目录](/catalog) · [AI Agent 研发工程实践](/engineering) · [金融科技 × Agent 专题](/fintech) · [查看未来模块文章预告](/roadmap)

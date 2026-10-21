@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { collections, chapters, articleCount, mergedArticles } from '../book.mjs'
 
-if (collections.length !== 2 || collections[0].id !== 'modules' || collections[1].id !== 'thinking') {
-  console.error('The site must expose precisely two canonical reading perspectives.')
+if (collections.length !== 3 || collections.map(entry => entry.id).join(',') !== 'modules,thinking,engineering') {
+  console.error('The site must expose three canonical reading perspectives.')
   process.exit(1)
 }
 const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
@@ -62,4 +62,14 @@ if (referenced.size !== Object.keys(registry.articles).length) throw Error('Owne
 if (!ownerHtml.includes("fetch('./owner-articles.json'")) throw Error('Owner view does not load canonical relation map')
 const primaryCount = Object.values(registry.owners).filter(reading => reading.primary).length
 console.log('Owner article mapping:', primaryOwnerIds.size, 'owners,', primaryCount, 'with dedicated essays,', referenced.size, 'distinct linked essays')
-console.log('Two-perspective catalogue and local article links validated.')
+const engineering = readFileSync('engineering.md', 'utf8')
+const finance = readFileSync('fintech.md', 'utf8')
+const catalogue = readFileSync('catalog.md', 'utf8')
+const readme = readFileSync('README.md', 'utf8')
+if (!engineering.includes('<ChapterCatalog category="engineering" />')) throw Error('Engineering landing page missing')
+if (!catalogue.includes('<ChapterCatalog />') || !readme.includes('AI Agent 研发工程实践')) throw Error('Three-way catalogue entry missing')
+const financeSlugs = [...finance.matchAll(/\/articles\/([a-z0-9-]+)/g)].map(match => match[1])
+if (financeSlugs.length < 2 || new Set(financeSlugs).size !== financeSlugs.length || financeSlugs.some(slug => !knownArticles.has(slug))) {
+  throw Error('Finance topic must link uniquely to indexed essays')
+}
+console.log('Three-perspective catalogue, curated finance links and local article links validated.')

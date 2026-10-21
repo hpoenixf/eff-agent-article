@@ -16,7 +16,7 @@ const readingSidebar = collections.map((collection) => ({
 
 export default defineConfig({
   title: 'ETF Agent · 工程手记',
-  description: '从真实工程问题出发，连续阅读 Agent Runtime、研究、证据、交付与评测。',
+  description: '从真实工程问题出发，沿模块机制、架构判断和 AI 研发实践连续阅读，并以金融专题串联领域案例。',
   lang: 'zh-CN',
   base: '/eff-agent-article/',
   cleanUrls: true,
@@ -46,6 +46,8 @@ export default defineConfig({
     nav: [
       { text: '模块维度', link: '/modules' },
       { text: '架构与系统思考', link: '/thinking' },
+      { text: '研发工程实践', link: '/engineering' },
+      { text: '金融专题', link: '/fintech' },
       { text: '全部文章', link: '/catalog' },
       { text: '架构图册', link: '/gallery' },
       { text: '写作预告', link: '/roadmap' },
@@ -57,6 +59,8 @@ export default defineConfig({
         { text: '开始阅读', items: [
           { text: '模块维度', link: '/modules' },
           { text: '架构与系统思考', link: '/thinking' },
+          { text: '研发工程实践', link: '/engineering' },
+          { text: '金融专题', link: '/fintech' },
           { text: '完整目录', link: '/catalog' },
           { text: '架构原则速查', link: '/principles' },
           { text: '架构导读', link: '/architecture' },

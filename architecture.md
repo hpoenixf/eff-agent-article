@@ -5,7 +5,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 # 从模型语义到真实交付
 
-本页是[架构设计与系统思考](/thinking)的总览入口；若想按能力看源码故事与真实执行边界，从[模块维度](/modules)开始。
+本页是[架构设计与系统思考](/thinking)的总览入口；按能力看机制从[模块维度](/modules)开始，研发验证与工程记忆见[AI Agent 研发工程实践](/engineering)。金融业务相关的跨分类文章另见[金融专题](/fintech)。
 
 <small>架构导读更新：2026-10-20 · 基于已经公开的工程文章整理，**不是**私有代码的实时验收证明。</small>
 

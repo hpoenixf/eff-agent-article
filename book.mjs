@@ -1,5 +1,5 @@
-// One canonical reading tree: two perspectives, themed sequences, and 35 unique essays.
-// A topic has exactly one home; other connections are made through links, not duplicate entries.
+// One canonical reading tree: three perspectives and 37 unique essays.
+// Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
     "id": "modules",
@@ -154,14 +154,6 @@ export const collections = [
             "很多引用为什么不等于可靠"
           ],
           [
-            "honest-agent-evaluation",
-            "有模型输出不等于任务成功"
-          ],
-          [
-            "green-tests-can-lie",
-            "绿测不等于生产能力"
-          ],
-          [
             "agent-failure-is-a-boundary-problem",
             "别把每个失败都算给模型"
           ]
@@ -171,10 +163,6 @@ export const collections = [
         "title": "工程演化与金融边界",
         "desc": "让研发回到完整任务，区分研究、建议与实际交易，保持数字可以复算。",
         "items": [
-          [
-            "032-ai-development-from-bug-loop-to-task-convergence",
-            "用 Agent 开发 Agent：从 Bug 循环到任务收敛"
-          ],
           [
             "agent-html-evolution-challenges",
             "HTML 保存了，为什么还是交付失败"
@@ -194,6 +182,46 @@ export const collections = [
           [
             "financial-agent-trustworthy-evidence-chain",
             "金融 Agent 的可信证据链"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "id": "engineering",
+    "title": "AI Agent 研发工程实践",
+    "subtitle": "如何让 Coding Agent 在长期项目中持续开发、验证、维护和升级，而不把测试绿灯、文档完成与用户交付混为一谈。",
+    "label": "AI-ASSISTED ENGINEERING",
+    "chapters": [
+      {
+        "title": "Spec、证据与工程记忆",
+        "desc": "从规范到真实执行证据，再到按需加载的长期工程历史。",
+        "items": [
+          [
+            "026-agent-spec-evidence-workflow",
+            "Spec、Evidence 与可验证研发关闭"
+          ],
+          [
+            "027-agent-context-document-history",
+            "文档按需加载与长期工程记忆"
+          ]
+        ]
+      },
+      {
+        "title": "真实验证与任务收敛",
+        "desc": "区分假绿、模型返回与最终任务完成，让研发从局部修补走向可验证收敛。",
+        "items": [
+          [
+            "green-tests-can-lie",
+            "绿测不等于生产能力"
+          ],
+          [
+            "honest-agent-evaluation",
+            "模型有输出不等于评测通过"
+          ],
+          [
+            "032-ai-development-from-bug-loop-to-task-convergence",
+            "从 Bug 循环到完整任务收敛"
           ]
         ]
       }
