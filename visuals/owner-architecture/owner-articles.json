@@ -187,6 +187,12 @@
         "031-fintech-data-time-and-reproducible-numbers"
       ]
     },
+    "A34": {
+      "related": [
+        "mcp-host-from-discovery-to-consumption",
+        "agent-model-runtime-mcp-skill-boundaries"
+      ]
+    },
     "B01": {
       "related": [
         "unavailable-is-correct"

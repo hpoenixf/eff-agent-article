@@ -36,7 +36,7 @@
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、Evidence、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **6 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
 
-![ETF Agent 39 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
+![ETF Agent 40 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
 
 [交互式 Owner 架构图册](https://hpoenixf.github.io/eff-agent-article/gallery)：按完整能力及最终效果归属分类，保留已核实的专文与相关文章映射。研发规范文章不因涉及 Agent 就强行挂到运行时 Owner。
 
