@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 42 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 44 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -52,6 +52,8 @@ features:
 
 想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
 
+**可持续自主研究：** [定时任务与后台研究](/articles/agent-autonomous-scheduled-research) → [Main 长上下文压缩](/articles/agent-main-run-context-compaction)。
+
 **MCP 与金融数据：** 从 [Host 的工具接入链路](/articles/mcp-host-from-discovery-to-consumption)，到 [Portfolio 的只读投资事实](/articles/portfolio-mcp-readonly-investment-data)，再看 [Market 的多供应商支持与职责演进](/articles/mcp-market-responsibility-retrospective)。
 
 ## 三条阅读主线
@@ -64,8 +66,8 @@ features:
 
 [金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP、Python 研究结果消费等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
 
-## 接下来的八个问题
+## 接下来仍值得探索的问题
 
-持久控制事件、Schedule、Main 上下文压缩、文件访问与分享、多模型容量、个人化研究等主题已经预留[写作预告](/roadmap)。已写好的正文不再留在“待写”目录；预告只记录尚未成文的独立问题。
+持久控制事件、文件访问与分享、多模型容量、个人化研究等主题已经预留[写作预告](/roadmap)。已写好的正文不再留在“待写”目录；预告只记录尚未成文的独立问题。
 
 浏览[架构图册](/gallery) · 阅读[架构原则速查](/principles) · 返回[个人博客](https://hpoenixf.com/)。

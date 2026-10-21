@@ -31,7 +31,9 @@
     "unavailable-is-correct": "数据过期后的受控刷新",
     "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex",
     "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
-    "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"
+    "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
+    "agent-autonomous-scheduled-research": "定时研究：会话结束后继续",
+    "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实"
   },
   "owners": {
     "A01": {
@@ -67,6 +69,9 @@
     "A07": {
       "primary": "agent-subagent-context-specialization"
     },
+    "A09": {
+      "primary": "agent-autonomous-scheduled-research"
+    },
     "A10": {
       "related": [
         "agent-tool-lifecycle-and-model-input"
@@ -93,7 +98,8 @@
     "A14": {
       "primary": "partial-is-not-complete",
       "related": [
-        "tool-results-outside-model-context"
+        "tool-results-outside-model-context",
+        "agent-main-run-context-compaction"
       ]
     },
     "A15": {
@@ -160,7 +166,8 @@
     "A28": {
       "related": [
         "tool-results-outside-model-context"
-      ]
+      ],
+      "primary": "agent-main-run-context-compaction"
     },
     "A29": {
       "primary": "agent-multi-ecosystem-hook-execution",
@@ -202,14 +209,14 @@
         "030-fintech-from-research-to-investment-advice"
       ]
     },
-    "E04": {
-      "related": [
-        "agent-tool-lifecycle-and-model-input"
-      ]
-    },
     "B05": {
       "related": [
         "portfolio-mcp-readonly-investment-data"
+      ]
+    },
+    "E04": {
+      "related": [
+        "agent-tool-lifecycle-and-model-input"
       ]
     }
   }

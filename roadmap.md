@@ -5,7 +5,7 @@ description: 已完成正文进入正式目录；尚未成文的模块与系统�
 
 # 接下来写什么
 
-<small>更新：2026-10-20 · 选题与文章状态，不是产品功能已实现的声明。</small>
+<small>更新：2026-10-21 · 选题与文章状态，不是产品功能已实现的声明。</small>
 
 这次将 Memory、RAG、Python、反馈归因、工程任务收敛和两篇金融边界文章全部移入正式目录。预告页只保留**尚未独立成文**、但值得探索的读者问题。
 
@@ -14,8 +14,6 @@ description: 已完成正文进入正式目录；尚未成文的模块与系统�
 | 主题 | 下一篇要回答什么 | 状态 |
 | --- | --- | --- |
 | **持久控制事件** | 入箱、claim/fence、去重、ack 与实际效果如何归属？ | 待成文 |
-| **Schedule 与周期任务** | 用户批准的 occurrence、预算、取消与有限执行怎样保证不变成无尽 Agent？ | 待成文 |
-| **Main 上下文压缩** | 哪些材料可压缩、哪些原始证据必须保留，以及 checkpoint 怎样恢复？ | 待成文 |
 | **Artifact 访问与分享** | 从沙箱文件到固定 revision、私有下载与定向 Share Grant，谁控制实际访问？ | 待成文 |
 | **模型目录与 Provider 容量** | 请求配置、容量租约、排队、未知占用与释放分别属于谁？ | 待成文 |
 | **每日个性研究** | 一天一份个人化研究，如何保证去重、时效、归属与真正有用？ | 待业务证据 |
@@ -32,6 +30,8 @@ description: 已完成正文进入正式目录；尚未成文的模块与系统�
 [Spec、Evidence 与研发关闭](/articles/026-agent-spec-evidence-workflow) 和 [文档按需加载与工程 History](/articles/027-agent-context-document-history) 已从博客补齐至独立阅读站；[真实评测](/articles/honest-agent-evaluation)、[假绿测试](/articles/green-tests-can-lie) 与 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 归入这一主线。新增文章应先证明独立问题与工程证据，不按工具名称填坑。
 
 ## 本轮从预告转为正文
+
+[定时研究：会话结束后继续](/articles/agent-autonomous-scheduled-research) · [Main 上下文压缩：摘要不改写事实](/articles/agent-main-run-context-compaction)。这两篇已具备独立机制和限定工程证据；完整 Weekly Review 业务质量仍待验证。
 
 [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) · [RAG 撤权历史复盘](/articles/027-rag-revocation-publish-replay) · [Python 计算工作台](/articles/agent-python-compute-workbench-evolution) · [反馈误归因](/articles/agent-failure-is-a-boundary-problem) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [金融服务边界](/articles/030-fintech-from-research-to-investment-advice) · [金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。
 

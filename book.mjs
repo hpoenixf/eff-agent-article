@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 42 unique essays.
+// One canonical reading tree: three perspectives and 44 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -54,6 +54,10 @@ export const collections = [
             "工具结果为什么不必全部入上下文"
           ],
           [
+            "agent-main-run-context-compaction",
+            "Main 压缩：摘要不改写原始事实"
+          ],
+          [
             "partial-is-not-complete",
             "静默截断：真实数据为什么变少"
           ],
@@ -90,6 +94,10 @@ export const collections = [
           [
             "agent-runtime-constraint-governance-v2",
             "Run 预算与约束治理"
+          ],
+          [
+            "agent-autonomous-scheduled-research",
+            "定时研究：会话结束后继续"
           ],
           [
             "025-agent-langfuse-from-trace-to-trustworthy-observability",
