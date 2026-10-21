@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 37 unique essays.
+// One canonical reading tree: three perspectives and 38 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -178,6 +178,10 @@ export const collections = [
           [
             "031-fintech-data-time-and-reproducible-numbers",
             "金融数字的时点、口径与复算"
+          ],
+          [
+            "financial-agent-python-result-consumption",
+            "Python 算过了，投研报告为什么还会错"
           ],
           [
             "financial-agent-trustworthy-evidence-chain",
