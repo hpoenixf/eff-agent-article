@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 40 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 42 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 阅读模块精讲 →
@@ -22,7 +22,7 @@ hero:
       rel: noopener noreferrer
 features:
   - title: 模块维度 · How it works
-    details: Entry、Web、PDF、Memory、RAG、Python、Extension、Runtime、Publication 等核心机制，沿输入与效果追踪能力。
+    details: Entry、Web、PDF、MCP、Portfolio、Memory、RAG、Python、Extension、Runtime、Publication 等核心机制，沿输入与效果追踪能力。
     link: /modules
     linkText: 深入模块
   - title: 架构与系统思考 · Why it works
@@ -51,6 +51,8 @@ features:
 想理解系统整体架构：从 [39 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
 想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
+
+**MCP 与金融数据：** 从 [Host 的工具接入链路](/articles/mcp-host-from-discovery-to-consumption)，到 [Portfolio 的只读投资事实](/articles/portfolio-mcp-readonly-investment-data)，再看 [Market 的多供应商支持与职责演进](/articles/mcp-market-responsibility-retrospective)。
 
 ## 三条阅读主线
 

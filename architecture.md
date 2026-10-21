@@ -37,6 +37,8 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 ## 从这些专题继续深入
 
 - [Model / Runtime / MCP / Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries)：语义、准入、协议与方法的责任分割
+- [MCP 工具接入链路](/articles/mcp-host-from-discovery-to-consumption)：目录、模型可见性、回合绑定、派发与结果消费的实际交接
+- [只读投资事实](/articles/portfolio-mcp-readonly-investment-data)与[多供应商市场数据](/articles/mcp-market-responsibility-retrospective)：组合报告与外部行情分别承担什么数据责任
 - [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination)：局部拒绝为什么不应随意终结全局任务
 - [独立发布系统](/articles/019-agent-answer-publication)：候选答案、可见预览与持久提交的差别
 - [Subagent 协作](/articles/agent-subagent-context-specialization)：专业化执行不能复制一套新的权威

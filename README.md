@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **40 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **42 篇正文，三条主线**
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融科技 × Agent 专题**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -31,10 +31,10 @@
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **19 篇 / 4 组**，Entry、Web、PDF、Python、Memory、Runtime 与交付 |
+| [模块维度](modules.md) | Agent 如何运行？ | **21 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Python、Memory、Runtime 与交付 |
 | [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **16 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、Evidence、History、假绿与任务收敛 |
-| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **5 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
+| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **6 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 39 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
 
@@ -59,7 +59,7 @@
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/modules)
 
 <details>
-<summary><b>01 · 研究入口、阅读与计算</b>（7 篇）</summary>
+<summary><b>01 · 研究入口、阅读与计算</b>（8 篇）</summary>
 
 - [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
@@ -67,6 +67,7 @@
 - [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
 - [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
 - [Python：从工具到计算工作台](articles/agent-python-compute-workbench-evolution.md)
+- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](articles/portfolio-mcp-readonly-investment-data.md)
 - [数据过期后的受控刷新](articles/unavailable-is-correct.md)
 
 </details>
@@ -82,9 +83,10 @@
 </details>
 
 <details>
-<summary><b>03 · 运行时、扩展与观测</b>（5 篇）</summary>
+<summary><b>03 · 运行时、扩展与观测</b>（6 篇）</summary>
 
 - [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
+- [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](articles/mcp-host-from-discovery-to-consumption.md)
 - [多生态 Hook：从 Claude、Pi 到 Codex](articles/agent-multi-ecosystem-hook-execution.md)
 - [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
 - [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
@@ -163,7 +165,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 39 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 42 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

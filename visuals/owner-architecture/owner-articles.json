@@ -29,7 +29,9 @@
     "partial-is-not-complete": "静默截断：真实数据为什么变少",
     "tool-results-outside-model-context": "工具结果为什么不必全部入上下文",
     "unavailable-is-correct": "数据过期后的受控刷新",
-    "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex"
+    "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex",
+    "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
+    "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"
   },
   "owners": {
     "A01": {
@@ -71,7 +73,10 @@
       ]
     },
     "A11": {
-      "primary": "agent-tool-lifecycle-and-model-input"
+      "primary": "agent-tool-lifecycle-and-model-input",
+      "related": [
+        "mcp-host-from-discovery-to-consumption"
+      ]
     },
     "A12": {
       "related": [
@@ -165,8 +170,10 @@
     },
     "A31": {
       "related": [
-        "agent-model-runtime-mcp-skill-boundaries"
-      ]
+        "agent-model-runtime-mcp-skill-boundaries",
+        "mcp-market-responsibility-retrospective"
+      ],
+      "primary": "mcp-host-from-discovery-to-consumption"
     },
     "A33": {
       "related": [
@@ -176,12 +183,14 @@
     "B01": {
       "related": [
         "unavailable-is-correct"
-      ]
+      ],
+      "primary": "mcp-market-responsibility-retrospective"
     },
     "B02": {
       "related": [
         "mcp-market-responsibility-retrospective"
-      ]
+      ],
+      "primary": "portfolio-mcp-readonly-investment-data"
     },
     "B03": {
       "related": [
@@ -196,6 +205,11 @@
     "E04": {
       "related": [
         "agent-tool-lifecycle-and-model-input"
+      ]
+    },
+    "B05": {
+      "related": [
+        "portfolio-mcp-readonly-investment-data"
       ]
     }
   }

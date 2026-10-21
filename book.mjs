@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 40 unique essays.
+// One canonical reading tree: three perspectives and 42 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -36,6 +36,10 @@ export const collections = [
             "Python：从工具到计算工作台"
           ],
           [
+            "portfolio-mcp-readonly-investment-data",
+            "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"
+          ],
+          [
             "unavailable-is-correct",
             "数据过期后的受控刷新"
           ]
@@ -70,6 +74,10 @@ export const collections = [
           [
             "020-agent-extension-host-smartphone",
             "Extension Host：从功能机到智能机"
+          ],
+          [
+            "mcp-host-from-discovery-to-consumption",
+            "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"
           ],
           [
             "agent-multi-ecosystem-hook-execution",

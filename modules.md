@@ -1,11 +1,11 @@
 ---
 title: 模块维度 · 机制精讲
-description: 19 篇 Agent 模块文章：研究入口、工具、上下文、Memory、RAG、Runtime、Publication 与 Python。
+description: 21 篇 Agent 模块文章：研究入口、MCP、Portfolio、工具、上下文、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 19 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 21 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
