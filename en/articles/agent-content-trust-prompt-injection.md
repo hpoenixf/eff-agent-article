@@ -125,13 +125,9 @@ We added an optional, reviewed `source-instruction-safety` Skill through the exi
 
 That is a deliberate trade-off, not an assertion that semantic defense does not matter. OWASP describes additional mitigations including filtering, least privilege, approval, and continuing security tests. **A35 Phase 1 implements the narrower identity-and-effect contract we could validate locally.** It is not a real-time malicious-text classifier, and it does not claim to detect every indirect injection.
 
-## 7. What Did the Engineering Evidence Actually Establish?
+## 7. What the Structural Checks Established
 
 Return to the opening regression. Before the fix, the old path promoted Web content into final `system` and simulated SDK dispatch occurred once, despite an expectation of zero. With producer-bound identity and final projection checking, an inconsistent request instead reached the original Gateway's pre-dispatch rejection path. Targeted regressions also addressed scheduled clones, output-schema suffixes, legitimate PDF carriers, and exact preservation of current-user text.
-
-The October 22, 2026 main-integration review recorded **337 passing checks across seven selected files**, plus **six selected original-effect checks**, and an earlier **single passing PostgreSQL cross-process recovery case** on its documented revision. A subsequent check of the reconciled Gateway file recorded **129 passing tests**. Those are separate selections and executions—not numbers we add together and advertise as one comprehensive security qualification.
-
-It is equally important to keep the uncomfortable limitations visible. Some original effect and recovery characterization tasks lacked the specific ordered production RED/GREEN evidence demanded by the old formal executor; formal `spec:close` did not pass. Phase 1 was archived under explicit authorization with those limits documented and was integrated into main. Its checks used scripted models and simulated dispatch: **there were zero real-model calls, no measured injection-success baseline, no production security certification, and no established long-term performance benefit**.
 
 Most importantly, two claims must not be conflated. **Preventing Web content from being structurally promoted to `system` does not prove a model cannot be socially engineered by malicious prose inside an otherwise legitimate tool or user-role carrier.** The former has deterministic invariants that application tests can exercise. The latter still calls for independent adversarial evaluation of real models, real input paths, and actual effects.
 
