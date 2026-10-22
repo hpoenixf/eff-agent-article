@@ -16,6 +16,9 @@ const testCases = [
   ['articles/unavailable-is-correct', 'en', null],
   ['en/articles/unavailable-is-correct', 'en', null],
   ['en/fintech', 'en', '/en/fintech'],
+  ['financial-research-backlog', 'en', '/en/financial-research-backlog'],
+  ['en/financial-research-backlog', 'zh', '/financial-research-backlog'],
+  ['en/financial-research-backlog', 'en', '/en/financial-research-backlog'],
   ['articles/unavailable-is-correct', 'zh', '/articles/unavailable-is-correct'],
   ['/catalog.html', 'en', '/en/catalog']
 ]
