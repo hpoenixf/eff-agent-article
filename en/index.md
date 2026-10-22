@@ -31,7 +31,7 @@ features:
 
 Read [why tool results do not always belong in model context](/en/articles/tool-results-outside-model-context), an English translation of a practical architecture retrospective.
 
-The [complete catalog](/en/catalog) includes all 44 original articles. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
+The [complete catalog](/en/catalog) follows the canonical reading tree and includes every original article. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
 
 Browse [financial technology topics](/en/fintech), the [architecture gallery](/en/gallery), or our [writing roadmap](/en/roadmap).
 
