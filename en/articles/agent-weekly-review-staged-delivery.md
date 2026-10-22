@@ -144,7 +144,7 @@ We also avoided moving nearly finished phase-two work purely for tidiness. A sep
 
 On October 20, the shared HTML route yielded a much clearer engineering result.
 
-Across five normal real CLI runs using the fixed acceptance candidates, all five completed under the phase-one delivery criteria and returned actual saved-file links. Thirteen HTML file revisions could be downloaded with authorization, and their returned byte sizes and SHA-256 hashes matched the saved records.
+Normal CLI executions produced saved-file download links, and authenticated downloads returned content matching the stored records.
 
 We could finally say something precise:
 
@@ -284,9 +284,6 @@ The weekly-review experience left me with one sentence:
 
 Embedding that judgment in our development workflow means the next coding agent should not need another entire evening of peripheral work to remember what the user originally asked for.
 
----
-
-*Evidence boundary: This retrospective draws on the October 2026 specifications and implementation records for the three weekly-review phases, HTML delivery changes, and subsequent development workflow adjustments. Completion and download figures belong to their respective observed test windows. They do not establish production deployment, investment-research quality, or investment returns.*
 
 ## Further Reading
 
