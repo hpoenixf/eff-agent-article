@@ -305,10 +305,10 @@ A Market MCP can connect many sources and supply reliable inputs for well-define
 ## Continue Reading
 
 - [From MCP Connection to Model Consumption](mcp-host-from-discovery-to-consumption.md)
-- [A Read-Only Portfolio MCP](portfolio-mcp-readonly-investment-data.md)
+- [A Read-Only Portfolio MCP](/articles/portfolio-mcp-readonly-investment-data)
 - [The Dangerous Professionalism of Incorrect Financial Numbers](031-fintech-data-time-and-reproducible-numbers.md)
 - [Why an Agent Can Run Python and Still Miscalculate](financial-agent-python-result-consumption.md)
-- [A Trustworthy Evidence Chain for Financial Agents](financial-agent-trustworthy-evidence-chain.md)
+- [A Trustworthy Evidence Chain for Financial Agents](/articles/financial-agent-trustworthy-evidence-chain)
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
