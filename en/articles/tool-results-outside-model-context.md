@@ -172,7 +172,7 @@ We then prepared **65 records** with decisive information near the tail, causing
 | Parsing or filtering skips records | Preserve `filteredCount` and the corresponding gap |
 | Counts match but identities differ | Continue reporting identity mismatch; duplicates cannot fill the missing population |
 
-The original controlled window reproduced the silent **50 → 20** loss, and the 65-record tail fixture exercised incomplete status. Truncation-focused checks moved from **6 failed / 2 passed** to **8 passed** in that window; related regressions also passed at that time. These results remain limited to that controlled verification window.
+A controlled test reproduced the silent **50 → 20** loss: later records disappeared while the result could still appear complete. The fix makes this incomplete state visible within the tested input boundary; it is not a guarantee for every possible dataset.
 
 Externalized results need other checks too: large results yield the selected content; current selections reach the final request; failed refreshes never impersonate new snapshots; and cross-research references cannot be accessed. Data larger than one read can be processed in batches, but each batch must retain its coverage, and final aggregation must not erase the gaps.
 
