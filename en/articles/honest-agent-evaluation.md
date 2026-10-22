@@ -243,23 +243,11 @@ The essential rule is that RawLedger remains unchanged. A further correction can
 
 This matters for model tuning. Otherwise a leaderboard that has been silently revised several times cannot reveal whether an apparent improvement came from the model, Runtime, or the evaluator itself.
 
-## Keep Historical Numbers Within Their Original Windows
+## Do Not Merge Different Verification Windows into One Score
 
-The following counts come from different controlled windows preserved in the original articles. They cannot be combined into one pass rate or used to fill one another's evidence gaps.
+A passing mock suite and unfinished broader acceptance work can both be true. The relevant question is not which count looks better but which dependency boundary each check actually crosses. Database, network, model-output and user-visible delivery behavior cannot borrow credit from unrelated local checks.
 
-| Object in the original window | Recorded observation | Evidence boundary |
-| --- | --- | --- |
-| Focused mocks and broader checks | **32/32** mock checks passed; the broader collection completed **8/11** | Different scopes; the broader set still had uncollected evidence |
-| Tiered work checklist | **0** dynamic gaps and **4** deferred items | Describes that checklist, not the absence of unknown risks across the repository; deferred work remains deferred |
-| Isolated database | **3** executions, **0** skipped | Does not establish production-database behavior |
-| Loopback listener | **65** checks in approximately **1.84 seconds**; no residual processes recorded, with temporary ports and resources recovered | Does not cover cross-machine networks or long timeout behavior |
-| Standard-I/O channel | **4** passes; a large result produced typed truncation, with no channel corruption observed in that window | Does not establish arbitrary output sizes or long-term stability |
-| Historical offline evaluation, evidence-closure checks and larger evaluation suite | **583/583**, **59/59** and **677/677**, respectively | Their own local contracts passed; no production model recommendation follows |
-| Timeout-propagation counterexample | **45 seconds / 80 seconds / 60 seconds** | The boundary failed then; the post-fix rerun remained uncollected |
-
-These observations explain how to read evidence. Their counts do not establish long-term model quality, tail latency, provider stability or real tool availability. Those claims require their own samples, revisions and observations.
-
-The original terms “pending,” “return to baseline” and “adoptable” described review conventions in those cases. They do not require every project to implement three new automated gates. Repair the established defect or collect the specific missing observation; do not expand verification indefinitely to obtain an all-green display.
+The evaluator can itself misclassify outcomes, so keep original observations and later corrections distinct. Repair confirmed defects and collect missing observations without indefinitely expanding verification merely to produce a green dashboard.
 
 ## Release Model Conclusions Only After Three Gates
 
@@ -317,10 +305,6 @@ Completed, candidate text, judge pass, server send and client display are differ
 
 **When a result is green, first ask which boundary, revision and actual content it establishes something about.** A number can be correct while the conclusion drawn from it exceeds the evidence.
 
-## Evidence Scope and References
+## Further Reading
 
-The evaluation cases come from September 2026 records on fixed test suites, emitted-answer evidence, evaluation corrections and the evidence loop. Dependency-boundary and timeout counts retain their original controlled-window scope. The thirty questions, twenty unfinished cases and nine-of-ten responses used above are a hypothetical denominator example, not a combined report from one real batch.
-
-This consolidation checked the relevant historical records. It did not rerun models, databases, network probes or timeout experiments, and it does not restore the old evaluation mechanism as the current implementation. The internal engineering records were not published with these essays and are not independently accessible external verification for readers.
-
-For how original observations are maintained during development, see [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md). More essays are available in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article); stars and discussion are welcome.
+For how original execution observations are retained and corrected during development, see [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md). More essays are available in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article).
