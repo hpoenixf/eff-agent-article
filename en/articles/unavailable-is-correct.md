@@ -12,8 +12,6 @@ The mechanism introduced a safe refresh path: fixed operations, constrained data
 
 Controlled checks exercised the handoffs from evidence creation to readback and the rejection or downgrade of untrusted sources. They show how those specific paths behave, not how a real gateway performs over time.
 
-Those measurements describe only that window. They cannot be extrapolated across environments, loads, or later implementations without new observations. Their historical context is preserved at the end of this article.
-
 ## 2. Two Core Concepts
 
 ### 2.1 Source trust: where did the answer come from?
