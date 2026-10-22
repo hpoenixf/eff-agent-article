@@ -26,6 +26,7 @@
     "agent-subagent-context-specialization": "Subagent：从隔离到专业化协作",
     "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
     "agent-veto-authority-and-run-termination": "Run 终结权、阶段预算与安全恢复",
+    "agent-weekly-thesis-history-continuous-research": "一份周报过去后，Agent 还记得为什么这样判断吗？",
     "ai-citations-do-not-prove-reliability": "很多引用为什么不等于可靠",
     "financial-agent-python-result-consumption": "Python 算过了，投研报告为什么还会错",
     "financial-agent-trustworthy-evidence-chain": "金融 Agent 的可信证据链",
@@ -108,7 +109,8 @@
       "related": [
         "ai-citations-do-not-prove-reliability",
         "financial-agent-trustworthy-evidence-chain",
-        "financial-agent-python-result-consumption"
+        "financial-agent-python-result-consumption",
+        "agent-weekly-thesis-history-continuous-research"
       ]
     },
     "A17": {
@@ -137,7 +139,8 @@
     "A22": {
       "primary": "agent-html-evolution-challenges",
       "related": [
-        "agent-python-compute-workbench-evolution"
+        "agent-python-compute-workbench-evolution",
+        "agent-weekly-thesis-history-continuous-research"
       ]
     },
     "A23": {
