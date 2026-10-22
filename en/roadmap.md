@@ -9,11 +9,11 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
-## Published from this roadmap
+## Existing articles to deepen
 
 The [weekly-review staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) explains why comprehensive design must not delay the first usable result, and how we changed the Spec workflow.
 
-The [engineering knowledge retirement retrospective](/en/articles/agent-engineering-knowledge-lifecycle) shows how obsolete instructions and tests can revive old mechanisms. Both are complete bilingual articles in the [engineering collection](/en/engineering).
+The [engineering context, memory and knowledge retirement article](/en/articles/027-agent-context-document-history) now incorporates the cases about obsolete instructions and tests reviving old mechanisms. Both reading paths have complete bilingual articles in the [engineering collection](/en/engineering); knowledge retirement is no longer a separate essay.
 
 ## First: Deepen existing articles
 
@@ -25,7 +25,7 @@ The [engineering knowledge retirement retrospective](/en/articles/agent-engineer
 
 ## Only if an independent, evidence-backed question emerges
 
-- **Reasoning versus experiments in agent engineering.** Differentiate deterministic architectural reasoning from real-model performance comparisons. Existing baselines: [Specs](/en/articles/026-agent-spec-evidence-workflow), [green tests](/en/articles/green-tests-can-lie).
+- **Reasoning versus experiments in agent engineering.** Differentiate deterministic architectural reasoning from real-model performance comparisons. Existing baselines: [Specs](/en/articles/026-agent-spec-evidence-workflow), [green tests](/en/articles/honest-agent-evaluation).
 - **Conservative lineage versus exact output attribution.** First strengthen the [evidence chain, Chinese original](/articles/financial-agent-trustworthy-evidence-chain); create a new essay only if it answers a distinct reader question.
 - **Untrusted content and instruction authority across tools, child agents and summaries.** This remains a design and verification topic; do not present it as an already qualified prompt-injection defense.
 

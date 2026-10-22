@@ -9,7 +9,7 @@ description: "A dated first-week retrospective: timeouts, stale data, disappeari
 >
 > This retrospective is based on development notes from August 26 to September 2, 2026. Early token usage was only roughly estimated; no verifiable billing data was available.
 
-This is an origin story, **not the current architecture specification**. For the ongoing separation of understanding and authority, see [Models Understand; Code Authorizes](/articles/011-model-understands-code-authorizes). For the broader series, see [Why an Agent Needs Brakes First](/articles/010-agent-first-brakes). Those linked full articles remain in Chinese at the time of this translation.
+This is an origin story, **not the current architecture specification**. For the ongoing separation of understanding and authority, see [Models Understand; Code Authorizes](/articles/011-model-understands-code-authorizes). For the broader series, see [Why an Agent Needs Brakes First](/articles/011-model-understands-code-authorizes). Those linked full articles remain in Chinese at the time of this translation.
 
 Originally, I thought I was building a simple ETF assistant.
 

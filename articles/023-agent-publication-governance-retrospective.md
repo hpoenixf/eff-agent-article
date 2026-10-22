@@ -4,6 +4,13 @@ sidebar: false
 outline: false
 editLink: false
 search: false
+head:
+  - - meta
+    - name: robots
+      content: noindex, follow
+  - - link
+    - rel: canonical
+      href: https://hpoenixf.github.io/eff-agent-article/articles/019-agent-answer-publication
 ---
 
 # Agent 发布治理为什么做了两次？问题不只是校验太严格

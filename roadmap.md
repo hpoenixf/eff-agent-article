@@ -11,11 +11,11 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 先看[八条核心原则与六组外围系统方法](/principles)，再决定是深化原文、积累案例，还是形成新文章。
 
-## 本轮已成文 · 从预告转入正式目录
+## 已有正文 · 优先在主稿中深化
 
 [做了一整晚，周报还停在外围：我们为什么把一个大 Spec 拆成三期？](/articles/agent-weekly-review-staged-delivery)完整复盘首份交付、二三期、通用 HTML 能力，以及写进研发流程的防复发措施。
 
-[代码已经删了，旧文档为什么还在指挥 Agent？](/articles/agent-engineering-knowledge-lifecycle)讲述旧评测命令、旧设计、测试兼容层与历史检查误判。两篇都属于[AI Agent 研发工程实践](/engineering)，不是 Owner 专文。
+[工程 Context、长期记忆与知识退役](/articles/027-agent-context-document-history)已吸收旧评测命令、旧设计、测试兼容层与历史检查误判的案例。两条阅读线都属于[AI Agent 研发工程实践](/engineering)，知识退役不再单独占一篇。
 
 ## P0 · 优先深化已有文章（不是新篇）
 
@@ -29,7 +29,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 | 候选问题 | 现有基础 | 尚欠的素材 |
 | --- | --- | --- |
-| **Agent 研发什么时候靠推理，什么时候应该做真实实验？** | [Spec 验证流程](/articles/026-agent-spec-evidence-workflow)、[假绿测试](/articles/green-tests-can-lie)、[任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 至少两种不同性质的工程决策和不同验证方式；不能只是重述“测试要真实” |
+| **Agent 研发什么时候靠推理，什么时候应该做真实实验？** | [Spec 验证流程](/articles/026-agent-spec-evidence-workflow)、[假绿测试](/articles/honest-agent-evaluation)、[任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 至少两种不同性质的工程决策和不同验证方式；不能只是重述“测试要真实” |
 | **安全依赖、执行输入与结论依据为什么不是一回事？** | [金融证据链](/articles/financial-agent-trustworthy-evidence-chain)、[Result 消费](/articles/financial-agent-python-result-consumption) | 优先把 A/B/C 等有边界的关系例子纳入已有文章；只有出现独立读者问题再拆新稿 |
 | **内容经过工具、Child 和摘要后，是否改变了指令权威？** | [模型/Runtime 分工](/articles/agent-model-runtime-mcp-skill-boundaries)、[Context 压缩](/articles/agent-main-run-context-compaction) | A35 仍属于设计/实施验证议题；待有真实生产接缝和对照证据再写实践稿，不冒称已有抗注入质量证明 |
 

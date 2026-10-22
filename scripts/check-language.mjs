@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { localizedSitePath } from '../language-routing.mjs'
-const translations = ['tool-results-outside-model-context']
+const translations = ['tool-results-outside-model-context', '011-model-understands-code-authorizes']
 const testCases = [
   ['', 'en', '/en/'],
   ['modules', 'en', '/en/modules'],
@@ -8,6 +8,11 @@ const testCases = [
   ['en/engineering', 'zh', '/engineering'],
   ['en/articles/tool-results-outside-model-context', 'zh', '/articles/tool-results-outside-model-context'],
   ['articles/tool-results-outside-model-context', 'en', '/en/articles/tool-results-outside-model-context'],
+  ['articles/partial-is-not-complete', 'en', '/en/articles/tool-results-outside-model-context'],
+  ['en/articles/partial-is-not-complete', 'zh', '/articles/tool-results-outside-model-context'],
+  ['articles/010-agent-first-brakes', 'en', '/en/articles/011-model-understands-code-authorizes'],
+  ['articles/honest-agent-failure-semantics', 'zh', '/articles/agent-veto-authority-and-run-termination'],
+  ['articles/honest-agent-failure-semantics', 'en', null],
   ['articles/unavailable-is-correct', 'en', null],
   ['en/articles/unavailable-is-correct', 'en', null],
   ['en/fintech', 'en', '/en/fintech'],

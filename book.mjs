@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 47 unique essays.
+// One canonical reading tree: three perspectives and 42 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -51,15 +51,11 @@ export const collections = [
         "items": [
           [
             "tool-results-outside-model-context",
-            "工具结果为什么不必全部入上下文"
+            "结果外置与完整性：模型到底读到了多少"
           ],
           [
             "agent-main-run-context-compaction",
             "Main 压缩：摘要不改写原始事实"
-          ],
-          [
-            "partial-is-not-complete",
-            "静默截断：真实数据为什么变少"
           ],
           [
             "026-agent-memory-forget-durable-effects",
@@ -120,10 +116,6 @@ export const collections = [
           [
             "agent-progressive-answer-coherence",
             "渐进式回答如何保持连贯"
-          ],
-          [
-            "honest-agent-failure-semantics",
-            "失败终态与安全恢复"
           ]
         ]
       }
@@ -144,10 +136,6 @@ export const collections = [
             "从一句问题到六层系统全景"
           ],
           [
-            "010-agent-first-brakes",
-            "一个 Agent 为什么先装刹车"
-          ],
-          [
             "011-model-understands-code-authorizes",
             "模型会理解，代码才授权"
           ],
@@ -161,7 +149,7 @@ export const collections = [
           ],
           [
             "agent-veto-authority-and-run-termination",
-            "散落的否决权与 Run 终结权"
+            "Run 终结权、阶段预算与安全恢复"
           ],
           [
             "mcp-market-responsibility-retrospective",
@@ -239,11 +227,7 @@ export const collections = [
           ],
           [
             "027-agent-context-document-history",
-            "文档按需加载与长期工程记忆"
-          ],
-          [
-            "agent-engineering-knowledge-lifecycle",
-            "代码删了，旧文档为什么还在指挥 Agent？"
+            "工程知识：按需加载、长期记忆与退役"
           ]
         ]
       },
@@ -252,12 +236,8 @@ export const collections = [
         "desc": "区分假绿、模型返回与最终任务完成，让研发从局部修补走向可验证收敛。",
         "items": [
           [
-            "green-tests-can-lie",
-            "绿测不等于生产能力"
-          ],
-          [
             "honest-agent-evaluation",
-            "模型有输出不等于评测通过"
+            "测试与评测：绿灯究竟证明什么"
           ],
           [
             "032-ai-development-from-bug-loop-to-task-convergence",
@@ -275,5 +255,10 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 export const mergedArticles = {
   "023-agent-publication-governance-retrospective": "019-agent-answer-publication",
   "runtime-natural-language-boundary-article-v2": "runtime-model-protocol-boundary-agent-article-v2",
-  "028-agent-feedback-system-without-false-learning": "agent-failure-is-a-boundary-problem"
+  "028-agent-feedback-system-without-false-learning": "agent-failure-is-a-boundary-problem",
+  "010-agent-first-brakes": "011-model-understands-code-authorizes",
+  "partial-is-not-complete": "tool-results-outside-model-context",
+  "green-tests-can-lie": "honest-agent-evaluation",
+  "agent-engineering-knowledge-lifecycle": "027-agent-context-document-history",
+  "honest-agent-failure-semantics": "agent-veto-authority-and-run-termination"
 };

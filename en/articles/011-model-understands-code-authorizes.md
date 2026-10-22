@@ -1,253 +1,149 @@
 ---
 title: "Models Understand; Code Authorizes"
-description: "Why natural-language understanding cannot grant execution rights, and how capabilities, sources, PDF routes and citations retain independent checks."
+description: "How recorded Run grants, portfolio ledger facts and execution receipts keep interpretation, permission and actual effects separate."
 ---
 
 # 011 Models Understand; Code Authorizes
 
-> A self-contained article for engineers new to this system.
->
-> In one sentence: **a model interprets the world; code decides what actions are allowed**.
->
-> **October 11, 2026 revision:** Earlier statements about authorization and source verification have been corrected. This article is about admitting capabilities, **not granting investment execution rights**. Public citation gaps, private-resource authorization and answer quality are handled separately.
+A user says, “That fund looks good; I could buy a little.” The model may understand the user's interest and propose a research direction. The sentence does not establish how much money is in the account, or prove that a trade has happened.
 
-## 1. The Core Claim
+An investment research assistant handles three different activities: interpreting the user, developing an analysis, and producing controlled effects. The model can explain a question, choose research methods and propose actions. The system must use real identity, granted scope and execution records to determine whether a concrete action is allowed and whether it actually occurred.
 
-Models are good at interpreting language. Understanding language is not authorization.
+That is the useful meaning of “build brakes first”: **keep permissions and ledger facts where they can be checked, while letting the model research freely within its granted scope.** It does not require every answer to pass through a fixed checklist, or imply that code can determine whether every sentence is correct.
 
-When a user says “buy a little,” the model may understand the approximate intention. It can propose an asset and an amount. Whether any trade may actually proceed, however, must be determined by independent identity, resource, confirmation and execution contracts. Research capability carries no implicit trading authority.
+This article incorporates the ledger and confirmation examples from *Why an Agent Needs Brakes Before Intelligence*, and aligns older statements with the October 2026 Run authorization contract. The teaching scenarios below are not real trading incidents. Research capability also does not establish that a live trading channel has been enabled.
 
-That is what the title means: **interpretation is flexible; authorization is strict**.
+## 1. Interpretation Can Produce a Proposal, Not Permission
 
-## 2. Why the Responsibilities Must Be Separated
+An earlier design tried to express intent interpretation, research planning and execution arrangements in one heavyweight Intent v2 object. That proposal was withdrawn. Its fields and fixed workflow are no longer the authorization basis.
 
-Allowing the model itself to decide operations creates three types of drift:
+The useful question it left behind was how to separate the model's interpretation from actions the system actually permits.
 
-1. **Policy drift:** Similar wording produces different execution behavior.
-2. **Evidence drift:** The model fills gaps by inventing plausible material.
-3. **Accountability drift:** After failure, nobody can locate the authoritative decision.
+“The user seems to want to buy,” “this material looks public,” and “the model thinks the evidence is sufficient” are interpretations or judgments. They can influence a research route, but cannot replace account identity, resource scope, tool admission or an actual execution receipt. Passing a schema check does not turn a structured field into an authorization mechanism.
 
-With a clean separation, the model proposes an interpretation; code admits or denies concrete actions using facts and rules.
+The system therefore checks **the concrete action proposed by the model**: which resource it would read, which tool it would call, which account it would affect, and whether it fits the granted scope. Code does not need to classify the user's prose as “safe,” “confirmed” or “investment advice” and then manufacture permission from that label.
 
-## 3. The Retraction of the Old Intent v2 Design
+```mermaid
+graph TD
+ModelProposesAction --> CheckRecordedGrant
+CheckRecordedGrant --> DenyProtectedAction
+CheckRecordedGrant --> DispatchAllowedAction
+DispatchAllowedAction --> RecordExecutionOutcome
+RecordExecutionOutcome --> ModelInterpretsResult
+ModelInterpretsResult --> PublicationPreparesAnswer
+```
 
-An earlier, heavyweight intent proposal attempted to package interpretation, planning and execution inside a single intent object. **That version was withdrawn and is no longer the current standard.**
+Actions outside granted scope are denied before dispatch. An admitted action can still fail during execution, and its receipt must preserve the actual outcome. The model can interpret success or failure; answer delivery has its own records. No stage can announce that a later stage succeeded on its behalf.
 
-It gave too much decision-making weight to inferred language. New readers do not need to learn its fields or process. The surviving lesson is: **never drive real execution from an uncertain interpretation alone**.
+## 2. Authorization Follows a Run; Execution Conditions Remain Separate
 
-## 4. Three Ideas Worth Preserving from the Old Design
+A Run is one logical research execution. The current contract uses the Host's recorded Run grant as its permission authority: initial admission establishes source and tool scope, and later reads, analysis, publication, suspension and recovery within that Run inherit the grant.
 
-The obsolete proposal was not entirely wrong. Three principles survived:
+This differs from the old wording that permission should be looked up again on every use. **An existing Run does not revoke an earlier grant because an external permission table changes, or clear previously authorized material during recovery based on a current ACL.** Explicit additional grants can extend scope. A new Run needs its own admission; an old conversation, cache or receipt does not automatically supply permission.
 
-- Separate **speech acts** from **operations**.
-- Do not launch evidence-producing searches against a guessed target.
-- Admit capabilities by **intersection**, not by union.
+Execution checks still apply. Each action must match its account, scope, Run, tool and source identities, and respect the relevant resource budget, explicit cancellation and execution state. Checking an action against a recorded grant is different from querying current permissions again.
 
-Preserving these ideas does not mean that the old intent fields, object or fixed planning stages still execute. Their present meanings follow.
+| Changed condition | Required handling |
+| --- | --- |
+| The same Run resumes after suspension | Restore the original grant and execution records without querying current ACLs again |
+| A request targets a resource outside the original grant | Use the existing additional-admission path; a model declaration cannot expand permission |
+| A new Run wants material read previously | Obtain that new Run's own grant; past exposure cannot substitute for it |
+| A file is missing, content identity differs, or computation fails | Report the availability or execution problem rather than relabeling it as revoked permission |
+| Budget is exhausted or the user cancels | The relevant lifecycle rules constrain subsequent effects without inventing success |
 
-## 5. Separate Speech Acts from Operations
+Tool registration, model visibility and permission to execute are also distinct. The tool surface can narrow because of phase, admitted capability or resource constraints. Seeing a tool proves neither execution nor success; having no tools available does not automatically prohibit a general explanation. Exposure records describe what the model actually received. They do not grant or shrink permission.
 
-Each user utterance has two dimensions.
+This design makes an explicit tradeoff: stable authorization throughout one research execution and its recovery. New-Run admission remains independent, as do account and scope isolation for the original Run. It is not a mechanism for immediate revocation during an existing Run.
 
-A **speech act** is what the user is doing conversationally: asking, confirming or chatting.
+## 3. Missing Information Restricts the Actions That Depend on It
 
-An **operation** is a system effect: retrieving data, proposing a recommendation or recording an execution.
+If the user says “look at this” and the available context does not identify an object, the model should explain what is missing and ask. It must not guess a fund and then use real query results to substantiate the guess.
 
-A question is not an order; chat is not confirmation.
+But “clarification needed” does not mean “zero tool calls everywhere.” Authorized material may already identify the object, or the question may require only a general explanation. A missing purchase amount can prevent an amount calculation without preventing access to public product documentation.
 
-The model interprets the utterance and proposes an action. The Host checks the current admission rules and actual arguments. Code should not let a natural-language classifier manufacture permissions merely by labeling the user's intent.
+Whether to read more, explain first or ask is a task-dependent model judgment. Code checks the resource, identity and arguments of the concrete call. Restrict the affected action while allowing independent research to continue.
 
-~~~mermaid
-flowchart TD
-  U["User message"] --> M["Model proposes action"]
-  M --> H["Host checks current scope"]
-  H --> E["Authorized execution"]
-  E --> P["Publish allowed result or limit output"]
-~~~
+Personal holdings and research documents also require distinct permissions. A user denying access to a private portfolio does not automatically prohibit access to already-authorized research material. Permission to read a report does not grant access to accounts, plan confirmation or trade execution. Capability intersection means an action must meet all applicable objective constraints; it does not mean the model maintains an object whose completed fields automatically admit the action.
 
-Natural-language interpretation belongs to the model; operation admission belongs to code. The two should not be combined into one confidence score.
+## 4. Units Times NAV: Analysis Must Not Rewrite the Ledger
 
-## 6. Clarification Must Not Turn a Guess into Evidence
+One concrete rule from the earlier “brakes” article matters more than a general reliability slogan: **units held are a portfolio fact; a monetary value is derived from those units and the corresponding NAV.**
 
-When a user says “look at this” without identifying an object, the model should explain what is missing and ask for it. It must not guess a fund and then treat the real results of that query as evidence for the guessed target.
+The following data is a synthetic teaching example:
 
-But clarification does not require **zero tool calls whenever some information is missing**. An authorized context may already identify the item, or a question may only need a general explanation. The model decides whether to read more or clarify based on the task. Code checks identities, scopes and parameters for each concrete tool.
-
-A missing amount may block an amount calculation without blocking public-product documentation retrieval. Restrict the dependent action, not every independent branch of research.
-
-## 7. Capability Intersection: Visible Tools Are Not Execution Rights
-
-Three conditions differ: the model wants to invoke a tool, the system has registered it, and this user is currently authorized to use it.
-
-The visible tool surface is narrowed per turn by Host admission, current package governance, network permissions, stage and budgets. Execution checks again. **Seeing a tool does not bypass a later denial.**
-
-Conversely, an empty visible tool list does not imply “always clarify” or “always refuse.” General explanations may be answerable directly. Protected reads must respect the resource boundary. The model judges whether it has enough evidence; the system does not turn the capability catalog into an answer-quality score.
-
-Approved research documents and personal portfolio holdings are different permissions. Denying a private portfolio read need not deny research documents within the authorized scope. Research-document access does not grant portfolio, confirmation or execution rights.
-
-## 8. Runtime Facts and Answers: Fields Cannot Grant Permission
-
-An older account used “capabilities, observations, gaps, answer blocks” to describe research. These are still useful reading perspectives, but they are **not a modern authorization token**, nor a mandatory four-stage process for every answer.
-
-In the current Native Research loop, the model proposes tools; the Host owns admission and actual execution receipts; the Projector prepares material for the next turn; Publication handles send_answer_part and normal assistant prose. Observations and gaps explain what was obtained, but cannot create read or trade permissions.
-
-A number having a citation also does not prove every conclusion about it. Controlled personal numerical authority comes only from authorized Portfolio results. A webpage or user message repeating the same number does not acquire Portfolio authority. Public sources whose verification is incomplete should be described with their limits, not expanded into a full semantic certificate for the answer.
-
-~~~mermaid
-flowchart TD
-  M["Model proposal"] --> H["Host execution"]
-  H --> R["Execution receipt"]
-  R --> P["Projector prepares context"]
-  P --> A["Model drafts answer"]
-  A --> G["Publication checks"]
-~~~
-
-Each handoff retains its own facts. Successfully committing prose does not prove its semantic correctness or completion of every subsequent task.
-
-## 9. Current Eligibility: Authorization, Freshness and Coverage Are Separate
-
-Registering a capability does not mean it may be invoked at this moment. Current scope, revocation, remaining budget and service state may all reject a call.
-
-After obtaining data, we still need to preserve time, source and coverage gaps. One success flag cannot express all these properties.
-
-Earlier writing described a universal pre-approved trusted-root set, which could misleadingly suggest one system-wide allowlist for all public research. Actual governance must be interpreted for each resource and contract. Private material requires explicit permission; public sources require honest documentation of acquisition and eligibility. An authentic source can still fail to support the conclusion drawn from it.
-
-Approval of one integration does not establish a global certificate for every source. Nor does one expired source automatically revoke all unrelated tool capabilities. Restrict the affected data or attachment and preserve other legitimately usable material.
-
-## 10. Citation Checks: A Boolean Is Not Reliability
-
-These are separate facts:
-
-1. A source exists.
-2. A page or passage was actually obtained.
-3. The quoted source supports the particular claim.
-4. The claim answers the user's question.
-
-The older idea that a code-verified marker on each evidence block proves correctness is **not** a current system-wide contract. Similarly, sourceVerified in an evaluation cannot certify all research conclusions.
-
-Publication currently handles missing, stale, malformed or over-capacity public citations by locally degrading the relevant citation attachment and presenting a Host explanation. Bad citations must not erase independent, authorized answer text. Revocation of protected sources still restricts the relevant effects; deleting a citation does not remove an underlying dependency.
-
-Code enforces identity and authorization; semantic review assesses support for claims. See the [citation reliability essay](/articles/ai-citations-do-not-prove-reliability) and current publication rules.
-
-## 11. Two PDF Routes Must Never Certify One Another
-
-The system has two distinct PDF paths.
-
-One imports **portfolio statements** to extract holdings and totals. Another reads **research documents** to retrieve pages and quotations.
-
-Parsing a statement successfully does not prove research retrieval works. Finding a research excerpt does not prove ledger units are trustworthy.
-
-Success on one route must not be promoted to success on the other.
-
-~~~mermaid
-flowchart TD
-  S["Statement import"] --> L["Portfolio ledger"]
-  R["Research PDF reading"] --> E["Research evidence"]
-~~~
-
-Separate states and labels prevent this tempting shortcut.
-
-## 12. Pages and Excerpts: Existing Capabilities, Unverified Quality
-
-The old manuscript broadly declared page and excerpt reading “unfinished.” That needs narrowing.
-
-The document Reader already supplies locatable research material. Selected provider-free contracts for PDF page imagery were closed on **October 11, 2026**, but rendering remained disabled by default. Real visual quality and production enablement still required independent acceptance.
-
-Receiving a page image does not prove the model consumed it. Receiving an excerpt does not prove that it supports an answer. Never invent a page number or present a model paraphrase as original text. Public citation gaps degrade the relevant attachments locally; private-source permissions do not loosen merely because some answer text can be shown.
-
-Statement parsing and research reading still cannot certify each other.
-
-## 13. Freshness and Trusted Portfolios
-
-Freshness asks whether evidence is current. Portfolio trust asks whether the ledger is fit to support an action. Those are different questions.
-
-Market prices may be ten minutes old, while a statement may be a month old. Fresh quotes do not make an outdated portfolio statement authoritative.
-
-An amount-sensitive operation requires clearly identified units, NAV timestamps and eligible portfolio sources.
-
-~~~json
+```json
 {
-  "freshness": "Temporal status of evidence, e.g. delayed quotes or NAV",
-  "trustedPortfolio": "Whether the ledger is eligible as a basis for an operation",
-  "rule": "Current quotes cannot compensate for an untrusted ledger",
-  "failAction": "If the ledger is untrusted, discuss method rather than amounts"
+  "holdingTruth": {
+    "shares": 1000,
+    "currentNav": 1.234,
+    "holdingValue": 1234.0,
+    "formula": "holdingValue = shares * currentNav"
+  },
+  "forbidden": "shares != staleAmount / newNav"
 }
-~~~
+```
 
-## 14. Case One: Mistaking Casual Praise for an Order
+Suppose the account still holds 1,000 units. When a new NAV arrives, the system can recompute the holding value. It must not divide an old monetary value by that new NAV to infer a different unit balance. Distributions, splits or changes in reporting dates can invalidate that reverse calculation. An actual change in units requires its own ledger basis.
 
-A user says, “That fund looks good; maybe I could buy it.” The model can interpret the positive tone, but the speech act is casual discussion or a question, not an execution command.
+Now suppose a cross-border fund's NAV report is delayed. The appropriate response is to preserve known units, record the NAV date and describe valuation limits, rather than make units fluctuate with each daily estimate. Fresh market prices cannot automatically update a month-old account snapshot either.
 
-An unsafe implementation interprets tone as confirmation or even a fill. The current approach offers analysis without advancing execution state. Only an explicit, authorized purchase instruction can reach the next gate.
+Freshness, account identity and calculation basis must therefore remain explicit. Missing data may still allow an explanation of the method or a clearly labeled hypothetical scenario. It does not justify presenting assumed amounts as current account facts, or granting investment execution authority from them.
 
-## 15. Case Two: A Research Conclusion Without a Page Reference
+## 5. Confirming a Plan, Instructing Execution and Observing Execution Are Different
 
-A user asks what a report says. The system finds a relevant lead but has no authenticated excerpt or page number.
+“That looks good; I could buy it” might be an evaluation or an invitation to discuss further. Positive wording alone cannot advance an account's execution state.
 
-The obsolete approach lets the model expand that lead into a definitive claim. The safer approach marks the missing verification, provides only a lead-level response, and explains that the original passage and page are required to support a stronger conclusion.
+Even when the user clearly agrees to a plan, **agreement does not mean a trade occurred**. An explicit execution instruction is still only a prerequisite. Whether dispatch was permitted and execution completed requires records from the relevant execution path. A research system cannot substitute its own published prose for those facts.
 
-This degradation protects the reader and the system.
-
-## 16. Case Three: Using Successful Statement Parsing to Trust a Research Report
-
-A portfolio statement is parsed successfully; all units reconcile.
-
-Someone concludes that the research-report search feature must also work.
-
-That is exactly the cross-route promotion we prohibit. The ledger branch passes; the research branch still has its own unresolved gaps.
-
-One status record cannot rubber-stamp another.
-
-## 17. Evolution Comparison
-
-| Dimension | Obsolete approach | Current approach |
+| Established fact | What may be recorded | What it does not establish |
 | --- | --- | --- |
-| Intent | Heavyweight intent object drove execution | Withdrawn; not an authorization basis |
-| Interpretation vs. authorization | Often mixed together | Speech acts and operations separated |
-| Missing information | Guess, then search | Clarify only when needed; avoid fabricated targets |
-| Capability selection | Use everything registered | Intersect request, Host permission and current admissible capability |
-| Authorization | Model judgment | Concrete identity, resource, confirmation and execution contracts |
-| Source trust | Model self-rating or universal trusted-root language | Specific resource eligibility and provenance, never blanket semantic certification |
-| PDF reading | Two paths could be conflated | Statement and research routes cannot certify one another |
-| Gaps | Silence or invented content | Disclose gaps and limit only dependent actions |
+| The model proposes an allocation direction | A proposal for discussion or a hypothetical scenario | Current holdings have changed |
+| The user confirms a plan | The user's confirmation of that plan | A trade was submitted or filled |
+| The user issues an explicit execution instruction | A request to process under the identity, permission and confirmation contract | Execution will necessarily succeed |
+| The execution path obtains an actual receipt | The operation and status established by that receipt | Fills, returns or other effects beyond its evidence |
 
-The original table's heavy intent terms and universal-source assumptions were historical simplifications. This revision states the current interpretation rather than reinstating obsolete gates.
+Unconfirmed suggestions must not alter portfolio estimates. Hypothetical scenarios discussed in conversation must remain separate from account facts. The table explains different facts; it is not a four-label state machine that can execute trades, or proof that the read-only research path discussed here has order-placement capability.
 
-## 18. What Must Survive After Old Designs Are Archived?
+Clarify when necessary, focusing on missing execution conditions. The system should neither trade automatically based on tone nor require trade confirmation merely to inspect ordinary information.
 
-Three earlier essays may be archived, but four principles remain:
+## 6. Source Identity and Citations Do Not Substitute for Answer Quality
 
-1. Separate operations from speech acts.
-2. Do not search for guessed entities as if they were facts.
-3. Admit capabilities by intersection, never by union.
-4. Never use success in one PDF route as proof that the other succeeded.
+In the research loop, the model proposes tool actions, the Host records actual calls and results, the context layer prepares material for the next turn, and Publication accepts ordinary assistant prose and explicitly submitted answers. These handoff records support traceability. They do not establish correct understanding.
 
-Heavy Intent objects, obsolete fields and superseded workflows can be deleted. These principles should survive in admission checks and engineering judgment.
+Controlled personal numeric bindings can originate only from authorized Portfolio results. An identical number on a webpage, in a user message or in the model's self-assessment does not acquire personal ledger authority. The model can discuss user-provided numbers while retaining that identity; it cannot turn them into Host-verified account fields.
 
-## 19. Evidence Boundaries of This Revision
+Likewise, source existence, obtaining an exact passage, that passage supporting a claim, and that claim answering the question are different properties. No universal “trusted root” or `sourceVerified=true` can certify all research conclusions.
 
-| Subject | Basis checked | Supported claim | Unsupported inference |
-| --- | --- | --- | --- |
-| Visible tools | Current native-tool-surface.ts | MCP descriptors and Host admission jointly shape this turn's tools | Visibility implies execution or full end-to-end success |
-| Publication | Accepted research-answer-publication rules | Local degradation of public citations; protected dependencies governed separately | Published prose is semantically correct |
-| PDF page images | Selected archived provider-free verification | Local contract closed while default-off remains | Production enablement or live vision quality is proven |
-| Two routes and private data | Current behavior and owner contracts | Research data cannot create portfolio or execution permission | Every statement or source in every environment is eligible |
-| This review | Documentation, code and existing receipts | Corrected historical scope and dates | Fresh production tests or a measured model improvement |
+Missing public citations, malformed references or insufficient attachment capacity are handled locally under the publication contract, preserving independently authorized prose with a source limitation notice. A private source absent from the original Run grant is a real permission issue. Removing its citation marker cannot erase the underlying dependency. **The same Run and its recovery use the original grant; this does not reintroduce permission revocation during the Run.**
 
-Past principles, old approaches and historical tests cannot all be stamped “verified today.” Source authenticity, runtime completion, permission and answer quality remain independent judgments.
+For example, when only a search lead has been obtained for a report, the answer can describe that lead or continue reading within granted scope. It must not invent quotations or page numbers. Missing page numbers should not become a blanket reason to reject an entire answer, either. Whether a particular conclusion is supported still depends on the material actually available.
 
-## 20. Three Sentences for New Readers
+The [Publication article](/articles/019-agent-answer-publication) explains delivery mechanisms, while the [citation reliability article](/articles/ai-citations-do-not-prove-reliability) covers the relationship between claims and sources. This article focuses on their authorization handoff.
 
-Models understand; only code can authorize.
+## 7. Two PDF Routes Cannot Certify Each Other
 
-When evidence is insufficient, safe degradation is a capability.
+The same distinction applies to document reading. Statement import and research PDF reading serve different consumers:
 
-Success on separate paths must never certify each other.
+| Route | Principal output | What success does not establish |
+| --- | --- | --- |
+| Statement import | Units, amounts and records for ledger reconciliation | Research retrieval or page-image understanding is working |
+| Research PDF reading | Passages, quotations, tables or page images as research material | Statement units are trustworthy, the account is authorized, or the research conclusion is correct |
 
-## Evidence Sources
+In a teaching scenario, every unit in a statement could reconcile without establishing that a separate research report was retrieved correctly. Each route retains its own results and gaps instead of borrowing the other's passing status.
 
-- Early intent understanding, dual PDF route guards and model-semantic discussions: evolutionary context only.
-- The withdrawn heavy Intent proposal is superseded by this article's retraction.
-- Current tool-surface implementation for visibility and admission.
-- Research Runtime behavior for Evidence Workspace and personal data.
-- Current publication rules and PDF page-imagery verification.
+The old article reviewed selected provider-free PDF page-image contracts on October 11, 2026. At that time, the local contract was closed, rendering remained disabled by default, and real visual quality and production enablement still needed separate acceptance. That is a historical evidence window, not a claim that all documents have been verified today. The [PDF article](/en/articles/024-agent-pdf-from-text-to-evidence) covers the reading mechanisms.
+
+## 8. The Judgments Retained After Consolidation
+
+| Question | Judgment used in this article |
+| --- | --- |
+| Does understanding the user permit execution? | Interpretation produces a proposal; identity, the Run grant and the execution contract govern concrete actions |
+| Does missing information stop everything? | Do not fabricate a target as evidence; restrict dependent actions while preserving independent work |
+| Does every call query current permissions again? | Check the original Run's granted scope; the same Run and recovery do not repeat current-ACL queries, while a new Run has independent admission |
+| Do complete fields and citations prove correctness? | Assess structure, source identity, semantic support and delivery separately |
+| Can a confirmed plan be recorded as executed? | Preserve confirmation, instruction and execution receipts separately; hypothetical scenarios do not rewrite account facts |
+| Can one document route certify another? | Each retains its own evidence scope; success is not promoted across routes |
+
+This consolidation corrects wording against existing ledger invariants and the current Run authorization and publication contracts, while preserving the original evidence boundaries. It did not rerun production tests or introduce claims about model success rates, cost or investment returns.
+
+The model can keep adapting its research route. The system needs stable records of what it was permitted to do, what it actually did, and which effects have not occurred. Keeping those facts separate makes each operation explainable as capabilities expand.

@@ -1,11 +1,11 @@
 ---
-title: "Does a Model Response Mean the Agent Succeeded?"
-description: "Why completed, answer quality, evidence coverage, actual streaming delivery and evaluation corrections are different facts."
+title: "Do Green Tests and a Model Response Mean the Agent Succeeded?"
+description: "Mock versus real-boundary verification, timeout semantics, fixed denominators, actual streaming delivery and traceable evaluation corrections."
 ---
 
-# Does Getting a Model Response Mean an Agent Successfully Ran?
+# Do Green Tests and a Model Response Mean the Agent Succeeded?
 
-While evaluating models for an agent recently, I encountered a puzzling situation.
+During early model evaluations for an agent, I encountered a puzzling situation.
 
 The server had an answer candidate, the automated judge returned a verdict, and the Run was even marked completed. From the evaluation report alone, the request looked finished.
 
@@ -15,28 +15,55 @@ I used to treat those states as nearly interchangeable. The most misleading eval
 
 So what are we evaluating, and on what basis can we say an agent request actually succeeded?
 
+This article brings together two questions: did the engineering test cross the boundary it claims to verify, and did the model evaluation inspect the material actually delivered? The cases belong to their original historical verification windows. They explain a method; they are not a catalog of current evaluation modules, commands or model rankings.
+
+## First Establish Which Boundary the Test Actually Crossed
+
+In another engineering-verification window, a focused mock suite recorded **32/32 passes**, while a broader collection had completed only **8 of 11 items**. Both observations can be true without jointly establishing that the system is ready. The first exercises isolated logic; the second exposes gaps in the declared acceptance scope.
+
+Mock tests control inputs, external dependencies and time. They are useful for locating logic defects. Real-dependency checks actually start processes, connect to isolated databases, or cross standard-I/O and loopback-network boundaries. Each pass supports only the boundary it reached.
+
+Three questions must remain separate:
+
+| Dimension | What to record | What it must not be mistaken for |
+| --- | --- | --- |
+| Observed evidence | What happened on which revision and environment; record not collected when nothing ran | A real observation automatically means behavior passed |
+| Follow-up work | An established defect or a specific missing observation, with a targeted next step | Unknown means failed, or every check must be rerun |
+| Adoption decision | Whether the evidence supports completion or release within the declared scope | A local pass means the entire product was delivered |
+
+A real execution can establish that a boundary **did not hold**. Its evidence is valid while the behavioral outcome is a failure. “Verified” must not silently become “passed,” and uncollected evidence must not become zero failures.
+
+This does not require every small change to invoke real external dependencies. Match verification to the claim. Appropriate deterministic tests can establish local logic. A claim about a process, database or network handoff needs evidence crossing that boundary. Sufficient existing evidence need not be rerun merely because a report is being edited while behavior remains unchanged.
+
+### Why Must Three Timeout Values Be Read Together?
+
+A command-line timeout check supplied a concrete counterexample. In the original controlled window, the unit-side default was **45 seconds**, the model setting was propagated as **80 seconds per call**, and the governance cap was **60 seconds**. The mock never actually waited for 80 seconds, so reading the default alone concealed a propagated value that exceeded the cap.
+
+A whole-task deadline and a per-call timeout constrain different things. The repair direction was to align clock origins, scopes and propagation semantics—not simply raise every limit after observing a long wait.
+
+This is a teaching representation of that record, not the current runtime protocol:
+
+```json
+{
+  "boundary": "per-call timeout propagation",
+  "unitDefaultTimeoutSec": 45,
+  "modelTimeoutSec": 80,
+  "governanceCapSec": 60,
+  "observation": "the propagated per-call value exceeds the stated cap",
+  "boundaryHolds": false,
+  "postFixRerun": "not collected in this window"
+}
+```
+
+The original window contained no post-fix rerun. Identifying a repair direction does not turn the failing record into a pass. A timeout report should show the default, the actual propagated value and the cap together, along with their clock semantics. Those numbers are not interchangeable.
+
 ## Completed Describes One Program State
 
 In ordinary HTTP APIs, success versus failure may appear relatively straightforward. An agent request has a much longer path.
 
-~~~mermaid
-sequenceDiagram
-  participant U as User
-  participant R as Runtime
-  participant M as Model
-  participant S as Server
-  participant C as Client
-  U->>R: Submit question
-  R->>M: Request research and answer
-  M-->>R: Candidate answer
-  R->>S: Publish and send events
-  S-->>C: Transport content
-  C-->>U: Receive and display
-~~~
+After the user submits a question, Runtime asks the model to research and answer. The candidate passes through publication, the server sends it, and the client receives and displays it. Each handoff establishes only its own facts: candidate generation, server send, client receipt and UI rendering need separate observations.
 
-Each arrow proves only its own handoff. Candidate generation, server send, client receipt and UI rendering need separate observations.
-
-~~~text
+```text
 User question
 → Planning
 → Tool calls
@@ -45,7 +72,7 @@ User question
 → Quality checks
 → Streaming delivery
 → Client reception and display
-~~~
+```
 
 These stages do not all pass or fail together.
 
@@ -75,13 +102,13 @@ If a model writes beautiful prose but lacks essential evidence, language quality
 
 I prefer a vector of outcomes:
 
-~~~text
+```text
 Protocol = pass
 Planning = pass
 Evidence = inconclusive
 Answer = not_evaluated
 Delivery = pass
-~~~
+```
 
 It is less visually impressive but much more diagnostic: protocol and planning worked; the delivery mechanism ran; evidence was not closed, so the run cannot support claims about answer quality.
 
@@ -111,7 +138,7 @@ Only evaluating completed cases measures performance **conditional on already ha
 
 We therefore freeze the denominator and the experiment identity before a run:
 
-~~~json
+```json
 {
   "suite": "agent-cases-v1",
   "sourceHash": "sha256:...",
@@ -120,7 +147,7 @@ We therefore freeze the denominator and the experiment identity before a run:
   "profile": "live-read-only",
   "attempt": 1
 }
-~~~
+```
 
 Change the suite, code, model version or environment and you have a different comparison window. You may compare windows, but you cannot pool them into a flattering new percentage while pretending conditions remained identical.
 
@@ -148,13 +175,13 @@ Not:
 
 An evaluation should distinguish at least three representations:
 
-~~~text
+```text
 Model candidate
      ↓
 Actual server-emitted content
      ↓
 Client receipt / display evidence
-~~~
+```
 
 The middle representation is often the easiest to reconstruct reliably: concatenate the actual outbound content events in order.
 
@@ -166,7 +193,7 @@ A streaming answer is an **event history**, not merely one final string.
 
 For example:
 
-~~~text
+```text
 run started
 tool call
 tool result
@@ -174,7 +201,7 @@ text delta #1
 text delta #2
 text delta #3
 terminal
-~~~
+```
 
 The text given to an evaluator should be reconstructed from **actual outbound text delta events**, rather than copied from a saved candidate that might never have been delivered.
 
@@ -196,43 +223,43 @@ The simplest approach is to overwrite the old results. That destroys the explana
 
 We chose an append-only ledger model:
 
-~~~text
+```text
 Unmodified raw evaluation result
            +
 Append correction
            ↓
 Compute a revised view
-~~~
+```
 
 A correction must identify the original evaluation, affected cases, old and new verdicts, the reason for changing them, and the identity of the original inputs and versions.
 
 In shorthand:
 
-~~~text
+```text
 RevisedView = RawLedger + ValidCorrections
-~~~
+```
 
 The essential rule is that RawLedger remains unchanged. A further correction can be appended if the first correction proves wrong.
 
 This matters for model tuning. Otherwise a leaderboard that has been silently revised several times cannot reveal whether an apparent improvement came from the model, Runtime, or the evaluator itself.
 
-## Why I Now Explain Fewer Things from Large Test Counts
+## Keep Historical Numbers Within Their Original Windows
 
-In controlled verification windows, our records included:
+The following counts come from different controlled windows preserved in the original articles. They cannot be combined into one pass rate or used to fill one another's evidence gaps.
 
-- **583/583** passing offline checks in one batch.
-- **59/59** passing evidence-closure checks in another.
-- **677/677** passing checks in a larger model-evaluation collection.
+| Object in the original window | Recorded observation | Evidence boundary |
+| --- | --- | --- |
+| Focused mocks and broader checks | **32/32** mock checks passed; the broader collection completed **8/11** | Different scopes; the broader set still had uncollected evidence |
+| Tiered work checklist | **0** dynamic gaps and **4** deferred items | Describes that checklist, not the absence of unknown risks across the repository; deferred work remains deferred |
+| Isolated database | **3** executions, **0** skipped | Does not establish production-database behavior |
+| Loopback listener | **65** checks in approximately **1.84 seconds**; no residual processes recorded, with temporary ports and resources recovered | Does not cover cross-machine networks or long timeout behavior |
+| Standard-I/O channel | **4** passes; a large result produced typed truncation, with no channel corruption observed in that window | Does not establish arbitrary output sizes or long-term stability |
+| Historical offline evaluation, evidence-closure checks and larger evaluation suite | **583/583**, **59/59** and **677/677**, respectively | Their own local contracts passed; no production model recommendation follows |
+| Timeout-propagation counterexample | **45 seconds / 80 seconds / 60 seconds** | The boundary failed then; the post-fix rerun remained uncollected |
 
-I used to be tempted to call those “everything passed.” Now I add a qualification:
+These observations explain how to read evidence. Their counts do not establish long-term model quality, tail latency, provider stability or real tool availability. Those claims require their own samples, revisions and observations.
 
-> They demonstrate the corresponding local test contracts in those specific windows; they do not prove one candidate model performs better in long-running production.
-
-This is not needless caution. We have repeatedly seen numbers that were correct but conclusions drawn from them that were too strong.
-
-A controlled batch can show the protocol worked under its test conditions. A real call shows a path worked at least once. Automated judge outcomes can provide comparison signals.
-
-Long-term quality, tail latency, provider stability and actual tool availability all require their own evidence. Those claims cannot borrow each other's pass counts.
+The original terms “pending,” “return to baseline” and “adoptable” described review conventions in those cases. They do not require every project to implement three new automated gates. Repair the established defect or collect the specific missing observation; do not expand verification indefinitely to obtain an all-green display.
 
 ## Release Model Conclusions Only After Three Gates
 
@@ -244,7 +271,7 @@ Do the test suite, code, model, configuration, data snapshot and denominator lin
 
 ### 2. Did a hard requirement fail?
 
-Protocol, security, privacy, required evidence and delivery can all be hard gates. An explicit violation should make a candidate ineligible for the current role, regardless of an otherwise high quality score.
+Protocol, security, privacy, required evidence and delivery can all be hard gates. If a condition already declared necessary for this comparison fails, unrelated high scores cannot make the candidate eligible for that role. An optional capability gap must not silently become a veto on every possible use.
 
 ### 3. Are important states still unknown?
 
@@ -252,7 +279,7 @@ If a critical requirement remains inconclusive, keep the candidate provisional. 
 
 Only after these checks do quality, reliability, latency and cost become meaningful comparison metrics.
 
-~~~text
+```text
 if not same_experiment:
     return inconclusive
 
@@ -263,33 +290,37 @@ if hard_gate_unknown:
     return provisional
 
 return compare_quality_reliability_latency_cost()
-~~~
+```
 
 This looks less sophisticated than an all-in-one intelligence formula. I trust it more because it cannot let “95 points” conceal the fact that the answer never went out.
 
-## Final Reflection
+## Stop Each Conclusion at the Boundary Its Evidence Supports
 
-After revising our evaluation approach, I did not suddenly become more capable of testing models. I became less willing to trust a green number without knowing its meaning.
+Start with the claim's scope, select the relevant tests, and interpret observations within that scope:
 
-completed, candidate generated, automated judge pass, server content sent and client display successful are related **but not identical** facts.
+```mermaid
+graph TD
+ClaimScope --> IsolatedChecks
+ClaimScope --> RealBoundaryChecks
+IsolatedChecks --> ScopedEvidence
+RealBoundaryChecks --> ScopedEvidence
+ScopedEvidence --> KnownFailure
+ScopedEvidence --> MissingEvidence
+ScopedEvidence --> SupportedClaim
+KnownFailure --> TargetedRepair
+MissingEvidence --> TargetedObservation
+```
 
-Likewise, 9/10 after twenty unfinished cases is not 90% on the original thirty-question suite.
+The two kinds of checks are selected according to the claim. Every change need not run both. Evidence may support a scoped conclusion, establish failure, or remain insufficient. Targeted repair and targeted observation are therefore different next steps.
 
-As an agent's execution chain becomes more complex, each stage can appear successful while the assembled task is not.
+Completed, candidate text, judge pass, server send and client display are different facts. Mock passes and real-dependency observations are different evidence. Preserve those distinctions before comparing model quality, reliability, latency and cost.
 
-I now ask first:
-
-> What exactly does this green result establish?
-
-Only after answering that question should we compare models. Otherwise we risk precisely calculating the answer to an incorrectly defined question.
+**When a result is green, first ask which boundary, revision and actual content it establishes something about.** A number can be correct while the conclusion drawn from it exceeds the evidence.
 
 ## Evidence Scope and References
 
-The numbers above come from controlled engineering windows and illustrate evaluation mechanisms and observed results—not long-term model ability, a production SLA or an official model ranking.
+The evaluation cases come from September 2026 records on fixed test suites, emitted-answer evidence, evaluation corrections and the evidence loop. Dependency-boundary and timeout counts retain their original controlled-window scope. The thirty questions, twenty unfinished cases and nine-of-ten responses used above are a hypothetical denominator example, not a combined report from one real batch.
 
-The underlying engineering records cited in the original article were:
+This consolidation checked the relevant historical records. It did not rerun models, databases, network probes or timeout experiments, and it does not restore the old evaluation mechanism as the current implementation. The internal engineering records were not published with these essays and are not independently accessible external verification for readers.
 
-- doc/common/history/time/2026-09-10-classic30-evaluation-and-visible-answer-evidence.md
-- doc/common/history/time/2026-09-07-model-evaluation-correction-and-reviewer-gate.md
-- doc/common/history/time/2026-09-08-evaluation-evidence-loop-and-boundaries.md
-- openspec/changes/agent-validate-three-model-tool-portfolio-live-loop/evidence.md
+For how original observations are maintained during development, see [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md). More essays are available in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article); stars and discussion are welcome.

@@ -1,37 +1,31 @@
 ---
 title: Why Tool Results Should Not All Enter Model Context
-description: An engineering retrospective on storing tool results outside model context, selective reads, capacity limits and authorization.
+description: Keeping large tool results outside model context while preserving selective reads, coverage, authorization and exact versions.
 ---
 
 # Why Tool Results Should Not All Enter Model Context
 
-When building an agent, the natural pattern is to send everything a tool retrieves straight to the model. Fetch portfolio holdings, return the holdings; fetch market data, return market data. The model reads the response and decides what to do next.
+A natural starting point for an agent is to send whatever a tool retrieves straight to the model. Fetch holdings, return the holdings; fetch market data, return the market data. The model reads the response and decides what to do next.
 
-This is straightforward and works well for early tool integrations. But as research tasks grow longer, a question emerges: **Must every piece of retrieved data become part of the model's current context?**
+Longer research exposes two problems with that pattern. Repeated full results consume space needed for later work. Meanwhile, an intermediate layer may quietly remove records to satisfy a capacity limit, leaving the model to treat a subset as the complete dataset.
 
-During a holiday engineering iteration, we changed our investment research assistant to keep large tool results outside the prompt and let the model retrieve selected parts. The model did not suddenly gain a larger context window; it gained a different way to access data.
+During a holiday engineering iteration, we moved some tool results outside the prompt and enabled selective reads. In a separate controlled investigation, we found that only 20 of 50 source records reached the actual model input. Both experiences lead to the same engineering question: **How can a model move less data while still knowing exactly what it has received?**
 
 ## A Desk Does Not Need to Hold the Entire Archive
 
-The model's context is the material visible to it during a particular inference step. Injecting entire tool results is like spreading every document across a desk.
+Context is the material available to the model during one inference step. Inserting complete tool results is like spreading every document across a desk. New queries and repeated results keep occupying more space as research continues.
 
-Research continues, however. New queries return more data, and the same portfolio may be fetched repeatedly. Putting every full response in context produces both growing volume and duplicate copies.
+Consider this simplified teaching example: “Are my technology funds too concentrated?” The model first needs fund names and amounts, then perhaps industry exposure. Comparing allocations before and after a proposed change requires another set of computational inputs. The relevant data changes from step to step; the complete holdings table need not travel with every request.
 
-Consider this simplified teaching example: “Are my technology funds too concentrated?” The model initially needs fund names and amounts; later it needs industry exposure. Comparing allocations before and after a proposed change may require a different set of computational inputs.
+We separate data access into three parts:
 
-An analyst typically starts with an inventory of documents and opens the relevant tables on demand. We wanted the agent to work similarly.
+| Part | Responsibility |
+| --- | --- |
+| Result store | Retain an acquired, authorized result view together with its version, source, acquisition time and access scope |
+| Result catalog | Tell the model which materials are available and how to locate and select them |
+| Read interface | Select fields, records or text ranges by reference; approved data may also go directly to Python for computation |
 
-## The Design: Result Store, Catalog and Read Interface
-
-The result working set has three conceptual parts.
-
-**Result store:** retains data that has already been fetched and approved for use. Results have separate versions and carry source, acquisition time and access scope.
-
-**Result catalog:** tells the model which resources are available, exposing only the information needed to locate and select them rather than copying every row into context.
-
-**Read interface:** allows the model to select fields, records or text ranges through a reference. Approved data may also be supplied directly to an isolated Python computation environment.
-
-This is a simplified illustration, not the production protocol:
+A catalog establishes that material exists. It does not establish that the model has read the content. This is a simplified illustration, not the production protocol:
 
 ```json
 {
@@ -43,7 +37,7 @@ This is a simplified illustration, not the production protocol:
 }
 ```
 
-Instead of seeing all 120 rows, the model sees that a table exists. To analyze concentration, it can request:
+For a concentration analysis, the model might select:
 
 ```json
 {
@@ -54,79 +48,134 @@ Instead of seeing all 120 rows, the model sees that a table exists. To analyze c
 }
 ```
 
-The response must report the actual range returned and whether more records remain. It must not silently truncate a result while claiming completeness. If the model already knows which fields it needs, the initial fetch may include that selection; a mandatory extra catalog lookup would add no value.
+The target of this read is the selected range, not the entire 120-row table. Its response must report the actual range, whether more records remain and whether the selection was delivered completely. If the model already knows which fields it needs, it may include that selection in the initial fetch rather than making an obligatory extra catalog request.
 
 ```mermaid
-sequenceDiagram
-  participant T as Tool
-  participant R as ResultStore
-  participant C as Context
-  participant M as Model
-  T->>R: Store authorized result version
-  R-->>C: Expose a scoped catalog
-  C-->>M: Include catalog and read interface
-  M->>R: Select fields or range by reference
-  R-->>M: Return actual content and coverage
+graph TD
+ToolRead --> AuthorizedResultView
+AuthorizedResultView --> VersionedResultStore
+VersionedResultStore --> ScopedCatalog
+ScopedCatalog --> ModelRequest
+ModelRequest --> ExplicitSelection
+ExplicitSelection --> RecordedRunGrant
+RecordedRunGrant --> SelectedContent
+RecordedRunGrant --> ReadDenied
+VersionedResultStore --> SelectedContent
+SelectedContent --> CoverageFacts
+CoverageFacts --> NextModelRequest
 ```
 
-The catalog establishes that a result exists; an explicit read inserts selected content into the current request. Every read still checks the active run's permissions and the referenced result version.
+The catalog and content follow different consumption paths. Explicit reads check the Run's recorded grant, account/scope and result-version identity; the same Run and its recovery do not requery current ACLs. Only selections within that granted scope, together with their coverage facts, enter the subsequent request.
 
-## First Pitfall: Treating Different Limits as One Limit
+## Three Limits Answer Three Different Questions
 
-Once large results live outside context, it is easy to reuse the small-response limit for everything.
+After moving large results outside context, it is easy to keep applying the small automatic-response limit to explicit reads. The system permits storing a result and the model deliberately requests it, yet the smaller automatic-insertion threshold prevents useful access.
 
-This causes a contradiction: the system is allowed to store a large result, and the model explicitly requests it, but the read interface still applies the smaller threshold intended for automatic prompt insertion. The data exists but is difficult to use.
-
-We separated three limits:
+We therefore separated three boundaries:
 
 | Limit | Question |
 | --- | --- |
-| Storage capacity | How much authorized result data can be retained? |
-| Automatic insertion | How much content should enter the prompt without explicit selection? |
-| Explicit read capacity | How much may the model deliberately read at once? |
+| Storage capacity | How much authorized data may one result retain? |
+| Automatic insertion | How much content should enter context without an explicit selection? |
+| Explicit read capacity | How much may the model deliberately request in one read? |
 
-At the time of this implementation, automatic insertion was limited to **24 KiB**, while an explicit read defaulted to **128 KiB**, subject to the actual request's remaining capacity. These are implementation settings, not universal optimal values.
+In the result-presentation implementation at that time, automatic insertion used a **24 KiB** threshold, while an explicit read defaulted to **128 KiB**, still subject to the actual request's remaining capacity. These were implementation settings, not universal optimal values.
 
-**“Do not insert automatically” must not silently become “cannot be read.”**
+**“Do not insert automatically” must not silently become “cannot be read.”** Permission to read does not imply that every possible selection will fit in one request, either. An oversized selection needs explicit coverage information or pagination; a shortened body must not masquerade as a complete response.
 
-## Second Pitfall: An Explicit Selection That Disappears Before Inference
+## When 50 Records Became 20, the Failure Was Before the Model
 
-Before a tool result reaches the model, the request may go through assembly and context fitting. An unpleasant failure mode occurs when a selection succeeds but a later stage removes its content, leaving only a reference while the overall operation still reports success.
+In the controlled investigation, the source contained 50 records, but an intermediate entry limit admitted only 20 into the model input. The logs showed no obvious error, and the model produced a coherent summary. The other 30 records had never entered its field of view.
 
-We therefore need to inspect the actual final model request, not merely the tool response.
+The first suspicions concerned context length, model attention and the prompt. Inspecting the actual input changed the diagnosis: the model had not merely overlooked material it had received. It had never had an opportunity to see the tail of the dataset. Telling it to “omit no entries” could not restore content absent from its request.
 
-The approach distinguishes the result catalog, older reads and reads made in the current turn. Catalog entries are optional context. Earlier reads may be compacted into their immutable version and selection parameters so they can be retrieved again. Newly selected content must not quietly become a successful response with no body.
+We made facts that had been scattered across reading, filtering and capacity handling explicit. This remains a teaching structure rather than the project's exact interface:
 
-“Data fetched,” “reference returned,” and “content included in the inference request” are three separate facts.
+```json
+{
+  "requested": 50,
+  "loaded": 20,
+  "byteComplete": true,
+  "filteredCount": 0,
+  "inputComplete": false,
+  "reason": "entry_limit"
+}
+```
 
-## Third Pitfall: Filtered Data Must Not Reappear Through Storage
+The processing chain should produce these states from what actually happened. The model should not have to infer the denominator from prose. Counts are only one part of the check:
 
-Raw tool output sometimes contains fields that are not permitted to be disclosed. If the result store retains the unfiltered capture, those fields may disappear from the current prompt but return later through a reference.
+| Gap | Why “the call succeeded” misses it |
+| --- | --- |
+| Entry truncation | A request for 50 records returns the first 20, without telling later stages about the remaining 30 |
+| Byte truncation | The count still says 20, but the twentieth record contains only half its content |
+| Parsing or filtering loss | Malformed data, missing fields or failed transformations are skipped, silently changing the target set |
+| Identity mismatch | The expected set is A, B, C, D, E, but the result is A, B, C, D, D; equal counts still leave E missing |
 
-The solution is to store the authorized data view, not the raw capture as if it were readable. Reference reads must also verify the current research scope and authorization.
+For finite sets with stable identities, also reconcile record IDs, page cursors, snapshot versions, ranges or source revisions. An ID set or appropriate digest may be useful; there is no requirement to use one particular hash scheme. The point is that **receiving five records does not establish that they are the correct five records**.
 
-A reference is an address, not a grant of access.
+Authorization filtering can itself be correct. The issue is that the readable set after filtering and the original target are different objects. Later stages cannot silently keep using the old denominator. Coverage metadata must not redisclose fields that are prohibited from being read.
 
-## Reuse and Refresh Require Different Policies
+## Completeness Needs an Object and a Scope
 
-Once results are durable, we must decide whether a query may reuse an existing result.
+Input coverage and answer quality require separate judgments:
 
-“Automatically insert the body” and “reuse a previous fetch” are separate policies. A large response is not necessarily stable, and a read-only tool does not guarantee identical results across repeated calls.
+| Level | What it can establish | What it does not also establish |
+| --- | --- | --- |
+| The source set is defined | Which holdings snapshot, database result or document pages the task concerns | That every relevant source in the world has been found |
+| The target input is covered | That known processing rules have not lost target records or bytes | That the model made meaningful use of every item |
+| The answer is correct | Omissions, citations, attribution and reasoning require their own checks | Correctness does not follow automatically from `inputComplete=true` |
 
-Only explicitly approved queries are matched for reuse, using business arguments, tool/version identity, authorization identity and research scope. A repeated call may return an earlier version reference. A requested refresh fetches again and creates a new version.
+Even if both the source and the input contain 50 records, answer quality is not certified. The model might overlook entry 47 or misinterpret an important exception.
 
-A failed refresh must retain its failure fact and the old version's identity. A failed read of an exact version must not silently refetch upstream and present new data as the old snapshot.
+**Deliberately selecting a subset differs from silently losing a subset.** The 120-row holdings table above can be read in batches of 50. A partial read is reasonable when its selection and coverage are explicit. It simply cannot be described as the complete portfolio.
 
-## A Practical Starting Point
+For example, after reading 80 of 100 holdings, the system can say:
 
-You do not need a full-fledged data platform on day one. Start with one category of large-result tools:
+> No gold ETF was found in the 80 holdings currently read. Another 20 holdings remain unread, so this does not establish that the complete portfolio has no gold exposure.
 
-1. Store an immutable result after authorization and issue a versioned reference.
-2. Expose a compact catalog with selective-field and paginated reads.
-3. Configure storage, automatic insertion and explicit read limits independently.
-4. Introduce reuse and refresh only for queries whose semantics have been reviewed.
-5. Inspect the final inference request to confirm that current-turn selections actually entered context.
+An earlier rule allowing only a draft whenever input was incomplete was too broad. The constraint should concern the population covered by the claim. It should not force vague wording into every sentence or prohibit all answers whenever a result is `partial`.
 
-Tests should cover selected reads from large results, repeated queries without full-body duplication, refresh failures that never impersonate successful new data, and rejected cross-research references.
+This coverage contract applies to finite sets such as holdings, database results, file manifests, fixed documents and paginated APIs. Open-ended web search has no naturally enumerable universe. Twenty returned search results can support a statement such as “the current search plan was executed”; they cannot prove that all relevant knowledge has been covered.
 
-We did not establish how much this change reduced cost. The stronger lesson is about information access: giving the model better access to data does not require placing the entire archive on its desk.
+## A Successful Read Still Needs a Check at the Actual Model Request
+
+Another gap can occur after a tool returns. The model explicitly selects content, but later request assembly trims it again, replacing the body with a reference while the call continues to report success.
+
+The tool response therefore cannot be the last observation point. We distinguish the catalog, historical reads and current-turn reads:
+
+- Catalog entries are auxiliary navigation information and may be fitted to capacity.
+- Older reads may be reduced to their original version and selection parameters, allowing exact retrieval later.
+- Newly selected content must not quietly become a “successful read” with no body.
+
+“Data acquired,” “reference returned,” and “content included in the request” are separate facts. Coverage must follow the actual consumption path as well. Completeness at an earlier stage cannot prove that the final request still contains the complete selection.
+
+## References, Authorization and Refresh Keep Different Meanings
+
+The result store should retain the authorized data view. If private fields are filtered out but the unfiltered capture enters a readable store, a later reference read may bring those fields back. Each read must still fit that Run's recorded grant and preserve account, scope and content-version identity. A new Run requires independent admission; an old reference cannot supply permission. A reference is an address, not an access grant.
+
+Reusing a previous fetch and automatically inserting its body require separate policies. A large response is not necessarily stable, and a read-only tool does not necessarily return the same data for identical parameters.
+
+Only queries explicitly approved for reuse should match existing results by business arguments, tool/version identity, authorization identity and research scope. A requested refresh fetches again and creates a new version. A failed refresh retains both the failure fact and the old version's identity. A failed read of an exact version must not silently refetch upstream and present new data as the original snapshot.
+
+Together, these boundaries let the model return to original material without gaining extra access or unknowingly changing the object being analyzed.
+
+## Put Decisive Records at the Tail of the Test
+
+Changing the entry limit from 20 to 60 solved the immediate problem for the 50-record input. Increasing capacity alone, however, could not establish that the next over-limit response would disclose its limitations.
+
+We then prepared **65 records** with decisive information near the tail, causing the 60-entry limit to exercise the incomplete branch. The checks included:
+
+| Condition | Fact to preserve |
+| --- | --- |
+| Request 65 records and load 60 | `inputComplete=false`, reason `entry_limit`, with 5 missing records made explicit |
+| A byte budget cuts a record short | `byteComplete=false`; record count alone cannot establish completeness |
+| Parsing or filtering skips records | Preserve `filteredCount` and the corresponding gap |
+| Counts match but identities differ | Continue reporting identity mismatch; duplicates cannot fill the missing population |
+
+The original controlled window reproduced the silent **50 → 20** loss, and the 65-record tail fixture exercised incomplete status. Truncation-focused checks moved from **6 failed / 2 passed** to **8 passed** in that window; related regressions also passed at that time. These results remain limited to that controlled verification window.
+
+Externalized results need other checks too: large results yield the selected content; current selections reach the final request; failed refreshes never impersonate new snapshots; and cross-research references cannot be accessed. Data larger than one read can be processed in batches, but each batch must retain its coverage, and final aggregation must not erase the gaps.
+
+These mechanisms did not establish that the model would never overlook an item, that every answer would be correct, that current quotas suited all real workloads or that costs had fallen by a measured amount. They made a previously silent form of data loss observable and separated access to information from repeatedly moving the entire body.
+
+The complete result can stay off the desk, and reading only part of it can be a sensible choice. What must remain explicit is **which result was retained, which part was selected, what the actual request received and which scope the current conclusion can support**.

@@ -13,28 +13,26 @@
     "030-fintech-from-research-to-investment-advice": "从投资研究到投顾与交易的边界",
     "031-fintech-data-time-and-reproducible-numbers": "金融数字的时点、口径与复算",
     "adaptive-research-python-workbench": "Adaptive Research 与 Python",
+    "agent-autonomous-scheduled-research": "定时研究：会话结束后继续",
     "agent-html-evolution-challenges": "HTML 保存了，为什么还是交付失败",
+    "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实",
+    "agent-model-capability-presentation-tool-surface": "Tool Surface：Agent 有工具，模型为什么看不到",
     "agent-model-runtime-mcp-skill-boundaries": "Model / Runtime / MCP / Skill 的分工",
+    "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex",
     "agent-progressive-answer-coherence": "渐进式回答如何保持连贯",
     "agent-python-compute-workbench-evolution": "Python：从工具到计算工作台",
     "agent-runtime-constraint-governance-v2": "Run 预算与约束治理",
     "agent-subagent-context-specialization": "Subagent：从隔离到专业化协作",
     "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
-    "agent-veto-authority-and-run-termination": "散落的否决权与 Run 终结权",
+    "agent-veto-authority-and-run-termination": "Run 终结权、阶段预算与安全恢复",
     "ai-citations-do-not-prove-reliability": "很多引用为什么不等于可靠",
     "financial-agent-python-result-consumption": "Python 算过了，投研报告为什么还会错",
     "financial-agent-trustworthy-evidence-chain": "金融 Agent 的可信证据链",
-    "honest-agent-failure-semantics": "失败终态与安全恢复",
-    "mcp-market-responsibility-retrospective": "金融数据 MCP 为什么变成决策系统",
-    "partial-is-not-complete": "静默截断：真实数据为什么变少",
-    "tool-results-outside-model-context": "工具结果为什么不必全部入上下文",
-    "unavailable-is-correct": "数据过期后的受控刷新",
-    "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex",
     "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
+    "mcp-market-responsibility-retrospective": "金融数据 MCP 为什么变成决策系统",
     "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
-    "agent-autonomous-scheduled-research": "定时研究：会话结束后继续",
-    "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实",
-    "agent-model-capability-presentation-tool-surface": "Tool Surface：Agent 有工具，模型为什么看不到"
+    "tool-results-outside-model-context": "结果外置与完整性：模型到底读到了多少",
+    "unavailable-is-correct": "数据过期后的受控刷新"
   },
   "owners": {
     "A01": {
@@ -44,7 +42,7 @@
     },
     "A02": {
       "related": [
-        "honest-agent-failure-semantics",
+        "agent-veto-authority-and-run-termination",
         "agent-progressive-answer-coherence"
       ]
     },
@@ -62,10 +60,7 @@
       "primary": "agent-runtime-constraint-governance-v2"
     },
     "A06": {
-      "primary": "agent-veto-authority-and-run-termination",
-      "related": [
-        "honest-agent-failure-semantics"
-      ]
+      "primary": "agent-veto-authority-and-run-termination"
     },
     "A07": {
       "primary": "agent-subagent-context-specialization"
@@ -97,9 +92,8 @@
       ]
     },
     "A14": {
-      "primary": "partial-is-not-complete",
+      "primary": "tool-results-outside-model-context",
       "related": [
-        "tool-results-outside-model-context",
         "agent-main-run-context-compaction"
       ]
     },

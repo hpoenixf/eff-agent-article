@@ -1,9 +1,9 @@
 ---
-title: "Documentation Is Not Meant to Be Read All at Once: On-Demand Agent Knowledge and Engineering History"
-description: "Hot/Warm/Cold document routing, authoritative knowledge, History promotion and Handoff for long-running coding agents."
+title: "Documentation Is Not Meant to Be Read All at Once: Knowledge, Memory and Retirement"
+description: "Hot/Warm/Cold routing, History and Handoff, with explicit retirement of obsolete commands, requirements and test compatibility layers."
 ---
 
-# Documentation Isn't Meant to Be Read in Full: How We Designed On-Demand Loading and Long-Term Engineering Memory
+# Documentation Isn't Meant to Be Read in Full: On-Demand Knowledge, Engineering Memory and Retirement
 
 As a project grows, its documentation almost always expands. It begins with a README, then acquires architecture designs, contracts, test strategies, incident reports, agent work instructions, and months of dated history.
 
@@ -13,7 +13,9 @@ Imagine a task to fix one frontend interaction, and an agent that first reads th
 
 More dangerously, the context now mixes currently binding rules, retracted proposals and outdated handoffs. **More context does not guarantee more accurate engineering facts.**
 
-We separated the document workflow into two questions: **how should an agent find the knowledge required for this task, and how should the lessons learned during the task remain useful to future agents?**
+In October 2026, we encountered the opposite problem: an old evaluation implementation had been retired, but development instructions still told agents to run its command. Excessive reading can add noise; obsolete instructions can cause a removed mechanism to be rebuilt.
+
+Engineering knowledge therefore has to answer three questions: **what should this task read, what can each source establish, and when should old knowledge stop directing current work?** On-demand loading, long-term memory and retirement are stages in the same knowledge lifecycle.
 
 ## 1. Turn AGENTS.md Back from an Encyclopedia into a Map
 
@@ -41,19 +43,19 @@ Knowledge is not deleted; **when it enters context** changes.
 
 We introduced Hot/Warm/Cold routing for development context:
 
-~~~mermaid
-flowchart TD
-  T["Task request"] --> H["Hot global rules"]
-  H --> D["Domain router"]
-  D --> W["Warm task pack"]
-  W --> S["Current Spec"]
-  S --> C["Relevant code"]
-  C --> I["Scoped implementation"]
-  I --> E["Need escalation?"]
-  E --> K["Cold History"]
-  E --> V["Focused verification"]
-  K --> V
-~~~
+```mermaid
+graph TD
+TaskRequest --> HotRules
+HotRules --> DomainRouter
+DomainRouter --> WarmPack
+WarmPack --> CurrentSpec
+CurrentSpec --> RelevantCode
+RelevantCode --> ScopedImplementation
+ScopedImplementation --> EscalationDecision
+EscalationDecision --> ColdHistory
+EscalationDecision --> FocusedVerification
+ColdHistory --> FocusedVerification
+```
 
 The chart does not mean every task must enter Cold. Ordinarily the agent reads the Hot entry and matching Warm pack, finds current specs and code, and expands into history only for cross-domain issues, ownership disputes or difficult regressions.
 
@@ -105,6 +107,7 @@ So we distinguish document responsibilities instead of merely sorting files by m
 | ADR and architecture docs | Why were responsibilities divided this way? |
 | History | What happened at the time, and which lessons may be reusable? |
 | Handoff | How far had execution progressed when work was transferred, and what was next then? |
+| Reusable methods and Skills | How might a future task approach the problem, rather than what state a particular revision is in now? |
 
 This is not one universal hierarchy in which one document category always overrides all others. Authority depends on the question.
 
@@ -152,43 +155,63 @@ Another Close operation or change in test counts does not automatically create a
 
 The knowledge production and reading pathway is:
 
-~~~mermaid
-flowchart TD
-  E["Engineering change"] --> L["Evidence ledger"]
-  L --> R["Review material for reusable value"]
-  R --> N["No History needed"]
-  R --> C["Candidate"]
-  R --> T["Canonical Time"]
-  T --> D["Daily digest"]
-  D --> S["Topic summary (Type)"]
-  D --> W["Writing discovery"]
-  S --> W
-  W --> H["Read original historical evidence"]
-  H --> V["Verify current facts"]
-  V --> A["Technical article"]
-~~~
+```mermaid
+graph TD
+EngineeringChange --> EvidenceLedger
+EvidenceLedger --> MaterialReview
+MaterialReview --> NoHistory
+MaterialReview --> Candidate
+MaterialReview --> CanonicalTime
+CanonicalTime --> DailyDigest
+DailyDigest --> TopicSummary
+DailyDigest --> WritingDiscovery
+TopicSummary --> WritingDiscovery
+WritingDiscovery --> ReadOriginalHistory
+ReadOriginalHistory --> VerifyCurrentFacts
+VerifyCurrentFacts --> TechnicalArticle
+```
 
 The branches are intentional. Material with no long-term relevance need not be promoted. Potential lessons with inadequate support may become Candidates. Material demonstrating a reusable engineering judgment may become Canonical Time.
 
 Daily and Type are **compressed navigation layers**, not competing copies of authoritative facts.
 
-## 5. Example: What Should Remain After Fixing a Document Reader?
+## 5. Four Real Counterexamples: How Obsolete Knowledge Outlives Its Code
 
-Suppose an agent knows a web page but cannot resume reading it through the original source identity.
+Knowledge layers are useful only if obsolete mechanisms can actually leave. Cleanup and historical review in October 2026 exposed several reasons why deleting source code and waiting for the remaining documents to expire is insufficient.
 
-This is a simplified teaching scenario, not a full replay of a specific production incident.
+### A Command Was Retired, but Current Instructions Still Required It
 
-**Step one: read current facts.** The agent enters the Web research domain through work guidance, locates current Spec, implementation and tests. It does not scan the entire month's web incidents first.
+New testing paths had replaced an old model-evaluation mechanism. The repository nevertheless retained commands that only printed a retirement notice, while current development instructions still told agents to run them.
 
-**Step two: consult history if the cause requires it.** If the source-identity design is unclear, navigate from Type to relevant representative Time entries. Historical cases suggest diagnostic hypotheses but do not prove the code still behaves the same way.
+For a coding agent, this is an actionable instruction. It may try the command, then decide that restoring the missing capability is a prerequisite for its new task. Deleting the implementation does not remove the old mechanism's authority.
 
-**Step three: run focused verification.** After changing the behavior, record actual RED/GREEN results, revision and outputs in this change's Evidence Ledger. Any live-model quality check not run remains explicitly unverified.
+Retirement must follow actual consumers through commands, tool guidance and current development docs. Obsolete entry points and compatibility branches with no real consumers can leave. Useful historical records do not need to disappear with them.
 
-**Step four: decide whether to preserve a lesson.** If the fix is for a known fault already explained in History, add the evidence without producing a duplicate historical essay. If it reveals a genuinely new source-identity confusion with reusable judgment and support, promote it to Time; compress into Daily; update Type only if that topic's core explanation changes.
+### A Historical Proposal Could Restore a Superseded Structure
 
-The next agent can navigate from the topic summary to representative history, then return to current code to verify.
+A market-data processing path once needed a fix for incomplete data. A design and some tests were produced. Later, a simpler data-access architecture made that older processing path unnecessary.
 
-**History helps the next agent know what to inspect sooner. It should not dictate what code must be changed today.**
+The proposal still said, in effect, “the system should add this capability.” Copying it back into the current specification could instruct a future agent to rebuild the superseded structure.
+
+Retirement does not mean marking unfinished work complete or erasing its failures. Preserve why the design was proposed, what was tested and what remained unfinished, while explicitly removing it from current implementation requirements. **History can explain an old decision without restoring that decision's authority.**
+
+### A Test Adapter Invented Actions and Kept the Old Protocol Alive
+
+After the tool-calling protocol changed, some tests still used the older format. A compatibility layer filled in authorization requests, evidence references and completion signals that the tests did not explicitly supply.
+
+A passing result no longer clearly distinguished behavior performed by the current agent from behavior invented by the helper. Keeping those tests green could also preserve obsolete production compatibility.
+
+The adjustment was to describe model actions explicitly and verify them through the real execution boundary. Useful authorization, evidence and recovery assertions remained; the translator supplying hidden behavior was removed. The relevant question was whether the tests protected required behavior or merely an old implementation—not how many tests imported the obsolete module.
+
+### A History Checker Reported Correct Removals as Missing Requirements
+
+An automated specification check once reported intentionally removed requirements as omissions in the current contract. It had misinterpreted additions versus removals and the time at which requirements applied.
+
+Restoring those supposed omissions would reverse a valid architectural change. We corrected interpretations we could establish as wrong and retained unresolved historical issues. Old failed observations were not rewritten to make the checker green.
+
+All four cases call for the same maintenance work: update current instructions, preserve and migrate necessary behavioral checks, retire obsolete implementation requirements, and retain original facts. That does not require another permanent approval system. It does have to be part of the actual change; otherwise the next agent may reconstruct the old design from documentation and tests.
+
+These cases establish only the problems and adjustments in their respective records. They do not prove that all outdated repository knowledge has been eliminated.
 
 ## 6. Handoff and History Are Different Types of Memory
 
@@ -223,18 +246,22 @@ This is a scope decision, not an objection to RAG as a technique.
 
 The system still needs maintenance. Routes can become stale, task packs must follow interface changes, major decisions must update current docs, and history promotion needs judgment.
 
-But we explicitly avoid generating History for every Change, editing Daily after every test or updating Type whenever a topic is mentioned.
+Both additions and removals need stopping rules. A routine fix can remain in its task evidence without becoming a global rule. A retired mechanism requires obsolete instructions and dependencies to leave with it, rather than only its implementation.
+
+We avoid generating History for every Change, editing Daily after every test or updating Type whenever a topic is mentioned.
 
 Technical writing follows the same funnel: find promising topics in Daily/Type, read a small set of representative Time entries to understand the original reasons, then verify against current Specs, code and tests. Earlier articles can help deduplicate themes but cannot replace checking current implementation.
 
 Our resulting responsibility model is:
 
-**Maintain current rules in authoritative locations; load documentation on demand; save actual executions as Evidence; selectively preserve lasting lessons; let future agents rediscover and verify those lessons from compressed entry points.**
+**Maintain current rules in authoritative locations; load documentation on demand; save actual executions as Evidence; selectively preserve lasting lessons; retire obsolete requirements with their mechanisms; let future agents rediscover and verify lessons from compressed entry points.**
 
 We observed much smaller resident instruction files and implemented routing conventions in historical samples. Cross-project token savings, long-term engineering time and error-rate improvements remain unmeasured; they cannot be inferred from line counts.
 
-For long-lived Coding Agent projects, I would not begin by demanding the agent “remember everything.” I would first teach it three things: **what to read, which source to trust for which question, and what deserves to be preserved**.
+Long-lived coding-agent projects need both useful experience to be discoverable and obsolete knowledge to stop directing new work. Current rules guide the present; historical records explain the past. Preserving history does not grant it permanent decision-making authority.
 
 ---
+
+*Evidence boundary: The line counts belong to the August 2026 context-governance window; retirement examples come from subsequent engineering records. This consolidation did not rerun those historical experiments or turn their old receipts into new passing results.*
 
 Also published on the [personal blog](https://hpoenixf.com/blog/027-agent-context-document-history). More engineering practice is available in the [GitHub collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.

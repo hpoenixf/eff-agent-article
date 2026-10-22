@@ -88,5 +88,13 @@ for (const path of ['index','catalog','modules','thinking','engineering','fintec
   if (!existsSync('en/' + path + '.md')) throw Error('Missing English landing page: ' + path)
 }
 const existingTranslations = (await import('node:fs')).readdirSync('en/articles').filter(path => path.endsWith('.md')).map(path => path.slice(0, -3))
-if (existingTranslations.some(slug => !englishArticleSlugs.includes(slug))) throw Error('Unregistered English article translation')
-console.log('English navigation:', englishKeys.length, 'stable IDs; complete translations:', englishArticleSlugs.length)
+const englishCompatibilityPages = existingTranslations.filter(slug => !englishArticleSlugs.includes(slug))
+for (const slug of englishCompatibilityPages) {
+  const target = mergedArticles[slug]
+  if (!target || !englishArticleSlugs.includes(target)) throw Error('Unregistered English article translation: ' + slug)
+  const text = readFileSync('en/articles/' + slug + '.md', 'utf8')
+  if (!text.includes('search: false') || !text.includes('](' + target + '.md)')) {
+    throw Error('Invalid English merged article pointer: ' + slug)
+  }
+}
+console.log('English navigation:', englishKeys.length, 'stable IDs; complete translations:', englishArticleSlugs.length, '| compatibility pages:', englishCompatibilityPages.length)

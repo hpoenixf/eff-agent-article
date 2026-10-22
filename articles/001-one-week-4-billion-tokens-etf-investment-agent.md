@@ -4,7 +4,7 @@
 >
 > 本文根据 2026-08-26 至 2026-09-02 的开发记录整理。早期对 token 用量只有粗略估算，没有可核验的计费数据。
 
-这是一篇项目起点故事，不是当前架构规范。当前能力和授权边界见 [模型会理解，代码才授权](./011-model-understands-code-authorizes.md)；系列总览见 [一个 Agent 为什么必须先装刹车](./010-agent-first-brakes.md)。
+这是一篇项目起点故事，不是当前架构规范。当前能力和授权边界见 [模型会理解，代码才授权](./011-model-understands-code-authorizes.md)；系列总览见 [一个 Agent 为什么必须先装刹车](./011-model-understands-code-authorizes.md)。
 
 我本来以为，我只是要做一个 ETF 投资助手。
 

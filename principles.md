@@ -5,7 +5,7 @@ description: 八条谨慎纳入的核心判断，以及遇到问题时按需查�
 
 # Agent 架构判断：核心原则与外围方法
 
-这是一张**思考与阅读地图**，不是第 46 篇文章，也不是新的审批流程。核心原则应当少、稳定、能够改变跨模块设计判断；外围方法是具体问题出现时才使用的工具。必要的权限、安全和持久化约束仍应由实际能力的 Owner 负责。
+这是一张**思考与阅读地图**，不计入文章篇数，也不是新的审批流程。核心原则应当少、稳定、能够改变跨模块设计判断；外围方法是具体问题出现时才使用的工具。必要的权限、安全和持久化约束仍应由实际能力的 Owner 负责。
 
 ## 第一层 · 八条核心判断
 
@@ -30,12 +30,12 @@ description: 八条谨慎纳入的核心判断，以及遇到问题时按需查�
 | **职责设计与拒绝评审** | 从**事实、权力、故障、价值**四个角度讨论；出现新拒绝时追问谁有权、影响是否局部、是否复制其他 Owner 的裁决。它们是设计思考，不是六个新 Gate。 | [Model/Runtime/Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [否决权复盘](/articles/agent-veto-authority-and-run-termination) |
 | **证据传递与投影** | 分开存储、可见投影、实际执行输入、安全依赖和输出级依据；转述、压缩与引用都不能凭空创造事实。 | [金融 Agent 证据链](/articles/financial-agent-trustworthy-evidence-chain) · [A34 Tool Surface](/articles/agent-model-capability-presentation-tool-surface) |
 | **完整设计与分期交付** | 可以考虑完整方案，但实施先沿**首份用户可取得的结果**排序必要依赖；外围能力不自动提前，阶段完成和整个产品完成分开。 | [周报三期交付复盘](/articles/agent-weekly-review-staged-delivery) · [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) |
-| **验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/green-tests-can-lie) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
-| **机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [旧文档为何仍指挥 Agent](/articles/agent-engineering-knowledge-lifecycle) · [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) · [工程 Context / History](/articles/027-agent-context-document-history) |
+| **验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/honest-agent-evaluation) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
+| **机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [工程知识的加载、记忆与退役](/articles/027-agent-context-document-history) · [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) |
 
 ## 下一步怎么读、怎么写
 
-已经有正文的观点优先**深化原文章**，不为了增加原则或篇数重复包装。“首份交付”的[周报大 Spec 分期复盘](/articles/agent-weekly-review-staged-delivery)和“知识退役”的[旧文档复盘](/articles/agent-engineering-knowledge-lifecycle)已形成独立文章。其他新选题先在[写作预告](/roadmap)登记，不把预告计为发表。
+已经有正文的观点优先**深化原文章**，不为了增加原则或篇数重复包装。“首份交付”的[周报大 Spec 分期复盘](/articles/agent-weekly-review-staged-delivery)已有独立文章；“知识退役”的案例已并入[工程 Context 与 History 主稿](/articles/027-agent-context-document-history)。其他新选题先在[写作预告](/roadmap)登记，不把预告计为发表。
 
 **边界：** 这张速查不代表所有文章的工程状态实时有效，也不会因添加一条判断就增加 Runtime 规则、模型强制自检或新的项目审批系统。
 
