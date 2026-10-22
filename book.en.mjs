@@ -62,6 +62,8 @@ export const englishArticleSlugs = [
   'agent-autonomous-scheduled-research',
   'honest-agent-evaluation',
   'agent-main-run-context-compaction',
+  'financial-agent-python-result-consumption',
+  '031-fintech-data-time-and-reproducible-numbers',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
