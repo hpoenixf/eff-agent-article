@@ -64,6 +64,9 @@ export const englishArticleSlugs = [
   'agent-main-run-context-compaction',
   'financial-agent-python-result-consumption',
   '031-fintech-data-time-and-reproducible-numbers',
+  '026-agent-spec-evidence-workflow',
+  'partial-is-not-complete',
+  '027-agent-context-document-history',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
