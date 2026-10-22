@@ -186,7 +186,7 @@ npm run docs:build
 
 旧版 023 发布治理、runtime-natural-language-boundary 和 028 反馈专题仍保留指向现有主稿的合稿引导，**不另算正文**。不为分类调整创建旧文章副本。
 
-\n## English editions / 双语发布
+## English editions / 双语发布
 
 The Chinese originals remain at `/articles/<slug>`. Reviewed complete English translations use
 `/en/articles/<slug>`; both editions share the same stable slug, canonical category and order in `book.mjs`.
@@ -202,3 +202,29 @@ never a competing article index. The English catalog marks untranslated essays �
   and run `npm run check:catalog && npm run docs:build`. English must preserve code,
   evidence status, warnings, dates, diagrams, and citation semantics. Do not label a placeholder translated.
 - Existing Chinese-only articles are **not** claimed to have English translations.
+
+### Bilingual diagrams and illustrations / 图表双语规则
+
+Each English article is a full Markdown edition, not a summary. Mermaid source for each article is
+localized **inside the corresponding language's Markdown**: Chinese diagram nodes and edge labels
+in `articles/<slug>.md`, English nodes/edges in `en/articles/<slug>.md`. Technical identifiers
+and stable field names remain unchanged; decision conditions, failure branches and connector counts
+must match. Markdown table headings and cell descriptions are translated too.
+
+Language-bearing `SVG`, `HTML` illustrations and image captions must be localized separately:
+prefer `visuals/<slug>/...` for the Chinese edition and `visuals/en/<slug>/...` for English,
+with the English article linking its localized asset. Truly language-neutral images may be shared;
+do not link Chinese-labeled SVG/HTML from English pages. Diagram links, image URLs and figures
+must survive GitHub Pages base-path resolution. Standalone interactive HTML visualizations need
+independently localized UI labels and text; translating the linking article is not enough.
+
+Run `npm run check:catalog` to validate canonical slugs, route tests and bilingual
+visual structure (Mermaid blocks, table rows, image counts, and Chinese text in English
+Mermaid/SVG/HTML). Review diagram semantics manually: structural checks cannot translate
+embedded screenshots or certify semantic equivalence.
+
+The first retrospective translation batch adds seven complete articles: long-term Memory,
+RAG revocation, investment research authorization, coding-agent task convergence, the
+project origin story, tool lifecycle tracing, and false-green test evidence. Combined with the
+earlier tool-result essay there are **eight complete English article editions** in this batch's
+snapshot; the authoritative live list is `book.en.mjs`, not this count.

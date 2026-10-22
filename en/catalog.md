@@ -7,7 +7,7 @@ description: Three reading paths, one canonical article registry, and transparen
 
 This library lists the original Chinese essays in three canonical categories. Completed English translations live under `/en/articles/<slug>` and share the same slug as the original.
 
-**Availability:** “Chinese original” means the full English version has not been published. Follow the link to read the Chinese article instead.
+**Availability:** Fully translated articles link directly to their English Markdown and localized Mermaid/table content. “Chinese original” means a full English edition has not yet been published; those links still lead to the original Chinese text.
 
 <ContinueReading />
 

@@ -33,13 +33,14 @@
 一条合理的研究路径可以这样拆：
 
 ```mermaid
-graph TD
-UserQuestion --> ResearchScope
-ResearchScope --> SourceAndPortfolioRead
-SourceAndPortfolioRead --> CalculationAndAssumptions
-CalculationAndAssumptions --> AnalysisPublication
-AnalysisPublication --> SeparateDecisionBoundary
-SeparateDecisionBoundary --> AuthorizedExternalAction
+flowchart TD
+  Q["用户请求"] --> S["确定研究范围"]
+  S --> R["公开资料和持仓数据准入"]
+  R --> C["计算敞口并说明假设"]
+  C --> P["在研究范围内发布分析"]
+  P --> B{"是否具备独立业务和行动授权？"}
+  B -- "未获授权" --> N["停留在分析，不产生外部效果"]
+  B -- "独立获准" --> A["通过独立合同执行外部动作"]
 ```
 
 第一道是**数据准入**：哪些公开文件可读，私人持仓是否在当前用户的获准范围内，资料是否过期。模型提出检索范围，但不能通过自己写一句“我已获授权”创造权限。
