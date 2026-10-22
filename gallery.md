@@ -19,11 +19,11 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 41 个 Own
 
 点击任意能力 Owner，可查看职责、局部拒绝范围、交接关系，以及 **专题文章 / 相关文章**。未有独立专文时显示「敬请期待」；相关文章不能冒充专文。可按 Owner ID 或名称搜索，桌面支持交接高亮，手机可按分组阅读。
 
-**新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已完成原送模接缝的无 Hook / 有 Hook 回归、provider-free 正式关闭和 2026-10-22 归档，未宣称线上或 live 投研质量。详见[A34 的历史驱动模块精讲](/articles/agent-model-capability-presentation-tool-surface)，或在交互图中打开 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
+**新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已在受控场景验证最终工具描述的一致性，并于 2026-10-22 归档；真实模型的工具选择与投研效果仍需独立观察。详见[A34 的历史驱动模块精讲](/articles/agent-model-capability-presentation-tool-surface)，或在交互图中打开 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
 
-**新增 A35「内容安全策略与信任」**：保留原生产者的 Host／用户指令身份，在 A14 可变装配与 Hook 后，由 A10 的最终 SDK 映射接缝核对；A35 只提供有界结构事实，不获得 Run／Child 终结、工具派发、发布否决、Memory 效果等权力。Phase 1 的 late projection 对照、定时克隆、Schema、局部效果与一例跨进程 PG 恢复已限定验证并有界归档；formal executor close 与真实模型抗注入资格未完成。见 [A35 内容信任专题](/articles/agent-content-trust-prompt-injection)，或在交互图中打开 [A35](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A35)。
+**新增 A35「内容安全策略与信任」**：保留原生产者的 Host／用户指令身份，在 A14 可变装配与 Hook 后，由 A10 的最终 SDK 映射接缝核对；A35 只提供有界结构事实，不获得 Run／Child 终结、工具派发、发布否决、Memory 效果等权力。第一阶段在受控场景验证了最终请求映射、定时克隆、Schema 与局部安全拒绝，并观察过一次跨进程恢复；已获准有界归档，真实模型抗注入能力仍待检验。见 [A35 内容信任专题](/articles/agent-content-trust-prompt-injection)，或在交互图中打开 [A35](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A35)。
 
-**A28 Main 上下文压缩已于 2026-10-21 按用户批准的例外人工归档。** 已有可恢复的增量摘要、checkpoint 和后继 Main 投影的离线证据；另观察到至少一次真实自然摘要请求与 checkpoint 提交。它不是标准 formal-close PASS，真实自然摘要的后继实际入模、反复压缩语义质量仍留证据边界；不再把 A28 误列为“尚未归档”。见[Main 压缩专文](/articles/agent-main-run-context-compaction)。
+**A28 Main 上下文压缩已于 2026-10-21 按用户批准的例外人工归档。** 已有可恢复的增量摘要、checkpoint 和后继 Main 投影的离线证据；另观察到至少一次真实自然摘要请求与 checkpoint 提交。这次归档不意味着真实摘要一定被后继模型正确消费，多次压缩的语义质量仍需验证。见[Main 压缩专文](/articles/agent-main-run-context-compaction)。
 
 **41 项 = A01–A35 + B01–B05 + E04。** A33 仍只负责显式十进制、单位与舍入残差，金融方法在原领域；Deep 归 A05，收尾归 A06，插件归 A13，Hook 归 A29，MCP 连接归 A31，工具调用归 A11。遥测、服务健康、评测三个工程导航另列，不计入 Owner 总数。能力列入图册不等于所有场景都通过真实模型或部署验收。
 
@@ -31,25 +31,25 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 41 个 Own
 
 | Owner | 2026-10-21～22 的增量与状态 | 仍需保留的边界 |
 | --- | --- | --- |
-| **A34 能力呈现（新增）** | 建立独立逻辑 Owner；最终 pre-wire 工具描述一致性在原请求接缝完成 RED/GREEN；原 provider-free close、accepted Spec 同步及归档均完成。 | 只能拒绝本次不一致的请求组装；不新增权限、资源账或 Manager，不替 A06 结束 Run，也不否决 A23 已可发布的正文；无 live 质量结论。 |
-| **A35 内容安全与信任（新增）** | Producer identity 在 Hook 前绑定、最终 SDK 载体在 A10 送模前核对；定时克隆／Schema 绕行、局部拒绝与一例 PG 冷恢复已有定向证据，按授权有界归档。 | 不新增全局 Safety Manager、效果否决或必调模型；正式 executor close、真实模型对抗、部署资格未取得。 |
-| **A28 Main 压缩** | 安全历史区间、非递归摘要、来源绑定、增量 checkpoint 和后继投影已有实现及离线验证；真实自然摘要至少有一次已提交。10 月 21 日按例外**人工归档**。 | 标准 D.1/E.1 未全部通过；真实后继入模与金融语义质量不冒称完整验收。A14 仍负责材料拟合。 |
-| **A26 长期记忆** | Personal / Test 物理隔离、generation/reset、原来源与送模前有效性校验合入 main；授权开发环境中完成本地自动学习、自用与有限真实模型安全验证。 | 独立 Memory change 的 **正式 close 尚未成功**（旧评测入口阻塞）；通用多用户默认仍关闭，外部 live 生命周期 Phase 3 未验完。 |
-| **A03 / A07 投资视角 Child** | 原三种投资视角的版本绑定、Recovery、真实 Child→Main 合成与 History 保存已验收并归档；随后在注册表扩至六种，新增 Bogle、Howard Marks、Fama–French。 | 扩充三种方法的独立回归 / close 仍待完成；真实单例不代表六种方法的语义质量。视角是 A03/A07 的可选方法，不是新的 Run/Child Owner。 |
-| **A07 / A10 Child 与模型输出** | 修复 Child 调用回合脚本归属、已知响应失败的结算与诊断；取消普通模型请求默认输出 token cap 的强制注入，保留显式授权配置。实现已合入 main。 | 这组修复的独立正式关闭仍需原验收；不能据此宣布所有 Child 恢复、长文质量和供应商行为通过。 |
-| **A08 / A09 定时与后台研究** | 补齐有界 Timer、原 Task 唤醒和后台 at/by 目标交接的实现与局部验证；周报 HTML 的先前正式 Runtime 范围已独立归档。 | App 侧完整状态与取消、治理对账、正式 close，以及周报订阅/论题/深度 Phase 3 仍独立进行。 |
+| **A34 能力呈现（新增）** | 建立独立逻辑 Owner；最终送模工具描述的一致性已在受控路径中确认，相关规范与实现已完成归档。 | 只能拒绝本次不一致的请求组装；不新增权限、资源账或 Manager，不替 A06 结束 Run，也不否决 A23 已可发布的正文；无 live 质量结论。 |
+| **A35 内容安全与信任（新增）** | Producer identity 在 Hook 前绑定、最终 SDK 载体在 A10 送模前核对；定时克隆、Schema 绕行、局部拒绝与跨进程恢复有受控案例，并已按授权归档。 | 不新增全局 Safety Manager、效果否决或必调模型；真实模型对抗效果与实际部署资格尚未验证。 |
+| **A28 Main 压缩** | 安全历史区间、非递归摘要、来源绑定、增量 checkpoint 和后继投影已有实现及离线验证；真实自然摘要至少有一次已提交。10 月 21 日经批准例外归档。 | 真实摘要的后继消费及金融语义质量仍待充分观察。A14 仍负责材料拟合。 |
+| **A26 长期记忆** | Personal / Test 物理隔离、generation/reset、原来源与送模前有效性校验合入 main；授权开发环境中完成本地自动学习、自用与有限真实模型安全验证。 | 该 Memory 变更的独立验收仍有旧评测入口阻碍；通用多用户默认仍关闭，外部 live 生命周期 Phase 3 未验完。 |
+| **A03 / A07 投资视角 Child** | 原三种投资视角的版本绑定、Recovery、真实 Child→Main 合成与 History 保存已验收并归档；随后在注册表扩至六种，新增 Bogle、Howard Marks、Fama–French。 | 新增三种方法还需独立检验；真实单例不代表六种方法的语义质量。视角是 A03/A07 的可选方法，不是新的 Run/Child Owner。 |
+| **A07 / A10 Child 与模型输出** | 修复 Child 调用回合脚本归属、已知响应失败的结算与诊断；取消普通模型请求默认输出 token cap 的强制注入，保留显式授权配置。实现已合入 main。 | 这组修复尚需完成独立确认；不能据此宣布所有 Child 恢复、长文质量和供应商行为通过。 |
+| **A08 / A09 定时与后台研究** | 补齐有界 Timer、原 Task 唤醒和后台 at/by 目标交接的实现与局部验证；周报 HTML 的先前正式 Runtime 范围已独立归档。 | App 侧完整状态与取消、治理对账，以及周报订阅/论题/深度 Phase 3 仍独立进行。 |
 
 **此前已归档的深化不重复计为今天的新完成：** A06 收尾协调、A07 原生命周期归属、A33 精确数值运算以及 A23/A22 共享 HTML 交付已有相应边界；A24 历史恢复和 A18 Web 读取保留各自的局部验证与真实环境限制。参见[HTML 交付复盘](/articles/agent-html-evolution-challenges)与[金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。
 
 **仍在进行（以原任务和验收为准）：**
 
-- **记忆：** A26 Personal/Test 隔离变更待恢复正式关闭；外部六会话 live 生命周期、未知费用结算与清理仍归独立 Phase 3，不以本地自用验收替代。
-- **投资视角与 Child：** 新增三种固定方法的原 Tool Contract / 恢复回归及 close、Child 失败与输出合同修复的独立验收仍开放；方法数量增加不代表研究判断质量提升已测得。
+- **记忆：** A26 Personal/Test 隔离仍有独立验收未完成；外部六会话 live 生命周期、未知费用结算与清理仍归独立 Phase 3，不以本地自用验收替代。
+- **投资视角与 Child：** 新增三种固定方法的 Tool Contract、恢复路径，以及 Child 失败处理仍需独立检验；方法数量增加不代表研究判断质量提升已测得。
 - **复杂研究 → 交付：** Child 连续分析、来源证明 → Python → 同 Run 保存结果回读 → HTML 的完整真实闭环，及周报正式历史、可比资格和更广的语义质量仍须后继真实案例核验；局部保存/下载成功不能替代全链完成。
-- **后台与定时：** A.5 App 状态/取消闭环、A.6 治理观测、E.1 正式关闭，以及周报订阅、投资 Thesis 来源版本与自适应深度的 Phase 3 仍在推进。
-- **外部能力资格：** Web 搜索与抓取的真实环境 smoke、完整来源有效性、provider 成本/吞吐与线上部署不由本次结构回归自动验收。
+- **后台与定时：** A.5 App 状态/取消闭环、A.6 治理观测、后续阶段验收，以及周报订阅、投资 Thesis 来源版本与自适应深度的 Phase 3 仍在推进。
+- **外部能力资格：** Web 搜索与抓取的真实环境 smoke、完整来源有效性、provider 成本/吞吐与线上部署不能凭本次结构性验证得出结论。
 
-A34 的 provider-free 关闭和 A28 的**例外人工归档**已经从“仍在进行”移出；保留其明确未覆盖的 live/质量边界，但不因此重开已关闭的模块工作。
+A34 的正式归档和 A28 的**获准例外归档**已从“仍在进行”移出；保留其明确未覆盖的 live/质量边界，但不因此重开已关闭的模块工作。
 
 **从组件回到设计原则：** 41 个能力 Owner 是系统分工视角，并不是 40 条架构原则。现在可沿[八条核心原则与六组外围系统方法](/principles)查找“正确 Owner、局部拒绝、最小充分、可撤退”的判断，再通过[写作预告](/roadmap)了解已有文章的深化方向；预告不计入 Owner 或已发表文章。相关已写专题：[否决权](/articles/agent-veto-authority-and-run-termination)、[上下文压缩](/articles/agent-main-run-context-compaction)、[五不与架构演化](/articles/code-cheaper-systems-harder-to-evolve)。
 
