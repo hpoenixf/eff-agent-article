@@ -10,7 +10,7 @@ After a source has been rejected, the problem is not how to make the "unavailabl
 
 The mechanism introduced a safe refresh path: fixed operations, constrained data scopes, deduplication by scope, fingerprint, and hourly window, followed by atomic publication only after validation. If the source remains rejected or the refresh fails, the result remains unavailable.
 
-One controlled validation window recorded passing results for the six stages—artifact, tools, streaming, persistence, replay, and readback—with **4/4 offline groups** and **7/7 online groups** passing. All six fail-closed behaviors rejected or degraded as expected instead of admitting unsafe results.
+Controlled checks exercised the handoffs from evidence creation to readback and the rejection or downgrade of untrusted sources. They show how those specific paths behave, not how a real gateway performs over time.
 
 Those measurements describe only that window. They cannot be extrapolated across environments, loads, or later implementations without new observations. Their historical context is preserved at the end of this article.
 
@@ -105,7 +105,7 @@ This can feel overly strict. But admitting internal notes, debugging remarks, or
 
 The strict boundary also improved integration speed. Instead of debating whether to make an exception, reviewers could check membership in the allowlist. Subjective judgment became an objective test.
 
-The associated proposal started with no tasks and grew to **25 review tasks**, covering source boundaries, downgrade wording, and audit fields. Each task could be independently verified. Splitting source checks, degradation, refresh, and audit prevented all risks from accumulating in the final integration pass.
+We separated source checks, downgrading, refresh, and auditing so that each responsibility could be reviewed without bundling every risk into one final integration step.
 
 ## 5. From Input to Structured Output
 
@@ -189,7 +189,7 @@ Four additional atomicity rules matter:
 3. Publication is atomic: all visible or none visible.
 4. Deduplication keys include scope, fingerprint, and an hourly window. Exactly-once continuous processing is scoped **to one session**, not to the world.
 
-During the controlled validation window, **6/6 root-level examples** and **31/31 application-level examples** passed. These are example counts, not universal guarantees. Refresh deliberately did **not** reuse the execution-grade daily job stream; it ran through a separate controlled channel.
+Controlled checks exercised both root-level candidates and application-level answer assembly. Refresh deliberately used a separate controlled channel rather than the execution-grade daily job stream; these paths do not establish universal behavior.
 
 The distinction is architectural: conversational research requires frequent, low-latency, retriable reads, while transaction-related workflows demand stricter validation and heavier audit. Conflating those paths would make both harder to operate safely.
 
@@ -215,39 +215,12 @@ An internal tag appears to contain the correct conclusion and would take one lin
 
 A critical field is missing, but other fields are present. Filling it with common-sense inference may produce a polished response, but it mixes model speculation with trusted facts. Subsequent auditing cannot reliably distinguish them. Preserving the gap and requesting a controlled refresh keeps the answer recoverable: publish new evidence on success, or remain honest about unavailability on failure.
 
-## 8. Verified and Not Collected: An Honest Record
+## 8. What the Mechanism Establishes—and What Remains Open
 
-Design review and runtime observation are separate facts. The former establishes what was reviewed; the latter describes only what was actually measured in the controlled window.
+In controlled scenarios, untrusted sources do not enter citation paths, only eligible candidates may be refreshed, and failed validation leaves the status unavailable rather than relabeling old evidence as fresh. That is the transferable engineering result.
 
-| Design-review item | Status |
-| --- | --- |
-| Source boundaries and downgrade messages | Reviewed; proposal evolved from zero to 25 tasks |
-| Candidates, operations, publication, deduplication, and session semantics | Reviewed; definitions recorded in the flow and rules |
-
-| Runtime-validation item | Controlled-window observation |
-| --- | --- |
-| Six-stage artifact-to-readback path | 4/4 offline groups and 7/7 online groups passed |
-| Six fail-closed behavior classes | All rejected or downgraded as expected |
-| Untrusted source-label rejection | Blocked by allowlist and downgraded to unavailable |
-| Layered refresh examples | 6/6 root-level and 31/31 application-level examples passed |
-
-"Root" and "application" here name layers in the example architecture: candidate evidence versus higher-level answer assembly. Six and thirty-one are test-case counts for that particular sample, not claims about general system scale.
-
-| Not-collected item | Status |
-| --- | --- |
-| Real database and multi-process behavior | Not collected: no real-database load or concurrency validation |
-| External service quality and tail latency | Not collected: no actual gateway quality measurement |
-| Long-running production operation | Not collected: only a bounded controlled validation window |
-
-Leaving these cells unmeasured is essential. Controlled tests can establish intended logic within their scope; they cannot prove concurrency, tail-latency, or real gateway resilience. Later measurement should be reported as new evidence instead of being silently inferred from older GREEN results.
-
-Two qualifications matter. Controlled refresh intentionally remained separate from the execution-grade daily job stream. Exactly-once continuous processing covered the controlled scope **within a single session** only; it is not a promise of global exactly-once behavior.
+We still lack sufficient observations of actual database concurrency, cross-process behavior, external-service latency, and long-running production reliability. Controlled refresh remains separate from the daily execution stream, and exactly-once handling within one session is not a global exactly-once guarantee.
 
 ## 9. Conclusion: Refresh Needs Its Own Boundaries
 
 Controlled refresh solves **how to legally obtain and publish new evidence**, not how to automatically make every unavailable result disappear. Triggers, scopes, fingerprints, time windows, atomic publication, and failure audits remain explicit. Anything beyond the observed validation window or unsupported by real-environment evidence remains **not collected**.
-
-## Evidence Boundaries and Historical Sources
-
-- Historical controlled evidence-refresh retrospective: read-only entry, candidate checks, atomic publication, scope/hourly deduplication, and bounded validation observations.
-- All figures refer to that historical test sample. Real PostgreSQL, multi-process execution, provider quality, and long-term production behavior were not collected.
