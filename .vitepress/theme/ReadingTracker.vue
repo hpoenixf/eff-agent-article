@@ -14,7 +14,7 @@ function updateProgress() {
 }
 function remember() {
   const path = page.value.relativePath
-  const match = /^(?:en\\/)?articles\\/([a-z0-9-]+)\\.md$/.exec(path)
+  const match = /^(?:en\/)?articles\/([a-z0-9-]+)\.md$/.exec(path)
   visible.value = !!match
   if (match) {
     try {
