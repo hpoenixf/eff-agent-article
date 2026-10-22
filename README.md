@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **43 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **44 篇正文，三条主线**
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融科技 × Agent 专题**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -32,9 +32,9 @@
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
 | [模块维度](modules.md) | Agent 如何运行？ | **23 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **15 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **16 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
-| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **6 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
+| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **7 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 40 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
 
@@ -42,7 +42,7 @@
 
 ### 推荐起点
 
-**原则与方法：** [八条核心判断、六组外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 43 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [八条核心判断、六组外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 44 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -50,7 +50,7 @@
 
 **研发：** [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) · [周报分期交付](articles/agent-weekly-review-staged-delivery.md) · [文档、History 与知识退役](articles/027-agent-context-document-history.md) · [任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
-**金融：** [投顾与交易边界](articles/030-fintech-from-research-to-investment-advice.md) · [金融数字复算](articles/031-fintech-data-time-and-reproducible-numbers.md) · [Python 结果消费](articles/financial-agent-python-result-consumption.md) · [可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
+**金融：** [投顾与交易边界](articles/030-fintech-from-research-to-investment-advice.md) · [金融数字复算](articles/031-fintech-data-time-and-reproducible-numbers.md) · [Python 结果消费](articles/financial-agent-python-result-consumption.md) · [可信证据链](articles/financial-agent-trustworthy-evidence-chain.md) · [持续投资研究的历史与论点](articles/agent-weekly-thesis-history-continuous-research.md)
 
 ## 全部文章
 
@@ -132,7 +132,7 @@
 </details>
 
 <details>
-<summary><b>03 · 工程演化与金融边界</b>（7 篇）</summary>
+<summary><b>03 · 工程演化与金融边界</b>（8 篇）</summary>
 
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
 - [HTML 保存了，为什么还是交付失败](articles/agent-html-evolution-challenges.md)
@@ -141,6 +141,7 @@
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 - [Python 算过了，投研报告为什么还会错](articles/financial-agent-python-result-consumption.md)
 - [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
+- [周报历史：投资论点与用户修正](articles/agent-weekly-thesis-history-continuous-research.md)
 
 </details>
 
@@ -168,7 +169,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 43 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 44 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 
