@@ -199,7 +199,7 @@ External effects already initiated by callbacks are **not** thereby undone. If c
 
 This design has costs. Retiring one shared activation process invalidates other sessions depending on it; they must explicitly reactivate. Old closures must not be silently replayed. It is also **not** a sandbox for untrusted code: descendants escaping the process group and uninterruptible kernel waits are outside any absolute termination guarantee.
 
-Scoped engineering acceptance covered **eight CPU/native-block/cancellation/descendant termination probes** plus **26 PostgreSQL Publication-seam checks**. The broader offline run still contained baseline failures; it cannot be reported as repository-wide GREEN.
+Scoped checks covered CPU use, native blocking, cancellation, descendant-process termination, and PostgreSQL publication boundaries. The broader offline run still contained baseline failures, so no repository-wide pass is claimed.
 
 **The terminable-process contract applies to the reviewed production Pi Loader. Manually registered trusted Host-only closures have not all moved to this isolation mechanism.** We cannot describe every JavaScript Hook as forcibly process-isolated.
 
