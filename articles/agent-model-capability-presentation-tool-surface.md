@@ -39,7 +39,7 @@ Native Research 没有对应工具
 
 我们的第一反应很自然：把缺失的工具接进去，让 Skill、Native Contract 和 Host Action 对齐。但实际动手后又发现，`market` capability 的推导可能在 MCP Market 默认开启时宣告可用，生产 Host 的网络策略却不一定允许对应动作，于是 Factory 遇到“能力表宣称可用、Host Action 实际缺失”的矛盾。
 
-这组问题留下了真实的 provider-free RED/GREEN。其后我们又修正了另一侧的边界：Structured Market 本身不应被 Web 搜索开关错误禁用。修复一项错位，不能把两种不同工具能力永远绑在一起。
+受控复现确认了工具可见性与实际能力之间的错位。另一侧也有相反的问题：Structured Market 不应因 Web 搜索关闭就一起被禁用。修复一项错位，不意味着两种工具能力应该永远绑在一起。
 
 **我们原本只想让模型多看见两个工具，结果发现问题并不是少写两行 Tool Definition，而是 Skill 声明、Capability 推导、Host 准入和模型可见接口根本不是同一种事实。**
 
