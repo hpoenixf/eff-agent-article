@@ -501,7 +501,7 @@ Moving from "let the model think about fewer system facts" to "let Runtime own f
 
 ## Further Reading
 
-- [Don't Turn the Model into a State Machine](./runtime-model-protocol-boundary-agent-article-v2.md)
+- [Don't Turn the Model into a State Machine](/articles/runtime-model-protocol-boundary-agent-article-v2)
 - [Run Budget and Constraint Governance](./agent-runtime-constraint-governance-v2.md)
 
 ## Evidence Sources
