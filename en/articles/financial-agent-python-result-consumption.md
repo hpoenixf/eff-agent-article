@@ -150,7 +150,7 @@ So far the bounded engineering handoffs are clearer, but the earliest point of f
 ## Further Reading
 
 - [Financial numbers, dates and reproducible calculations](031-fintech-data-time-and-reproducible-numbers.md)
-- [A trustworthy evidence chain for financial agents](financial-agent-trustworthy-evidence-chain.md)
-- [Python as a computational research workbench](agent-python-compute-workbench-evolution.md)
+- [A trustworthy evidence chain for financial agents](/articles/financial-agent-trustworthy-evidence-chain)
+- [Python as a computational research workbench](/articles/agent-python-compute-workbench-evolution)
 
 Browse the [ETF Agent engineering library](https://hpoenixf.github.io/eff-agent-article/) and its [GitHub repository](https://github.com/hpoenixf/eff-agent-article). Counterexamples and stars are welcome.
