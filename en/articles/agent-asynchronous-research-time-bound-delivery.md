@@ -111,7 +111,7 @@ Observed outcomes included:
 
 The limits matter. Scripted model replies make an integration scenario repeatable, not semantically accurate. The fixture timer cadence is not a production delivery-latency SLA, and a mobile-sized Chrome window does not certify every physical device.
 
-On October 22, 2026, the archived change completed its declared provider-free engineering close: 476/476 selected tests across 19 files passed. This supports the stated engineering path, not long-term SLA or overall user satisfaction.
+The delivery path has been verified under controlled engineering conditions. That alone does not establish real-research delivery latency, long-term service levels, or user satisfaction.
 
 ## 7. Why we did not build another Background Manager
 
