@@ -5,7 +5,7 @@ description: "Rechecking authorization at disclosure, preventing first-stream le
 
 # A Document Was Revoked. Why Can an Agent's Old Answer Still Bring It Back?
 
-> **Historical mechanism note (October 20, 2026):** This article revisits a revocation/publication race from September 2026. Authorization and publication responsibilities were later redesigned. The then-current solution and RED/GREEN evidence are **not** a claim that today's system uses the same publication-denial contract. See the [current architecture guide](/en/architecture) for the ownership boundaries.
+> **Historical case:** This article revisits a September 2026 revocation/publication race. Authorization and publication responsibilities have since changed; the solution discussed here is not necessarily the current design.
 
 > **Reading path:** Module Deep Dives with architectural implications. This concerns when protected knowledge may be disclosed, not generic vector-search recall quality.
 
@@ -81,7 +81,7 @@ The retrospective retained targeted before/after evidence:
 - Publication and concurrent approved-index changes used one logical commit order, with explainable outcomes depending on which committed first.
 - Explicit retention revoke was tested separately from ordinary scope-denied and unknown cases. “Cannot currently show” must not be silently upgraded to “permanently erase.”
 
-Larger RAG completeness and quality evaluation remained open despite those figures. Actual-source evaluation, end-to-end quality and formal closure still had outstanding work; a September 14 follow-up live experiment also left failed screening outcomes. **Passing a disclosure-authorization contract does not prove high-quality financial knowledge retrieval.**
+Controlled revocation and publication checks did not establish the quality of the full RAG system. Later real-source exercises still had unsuccessful screening outcomes. **Preventing unauthorized disclosure and retrieving useful financial evidence are different objectives.**
 
 The distinction matters because one system may effectively prevent revoked text from leaking while still failing to retrieve enough good evidence. Those goals need independent verification.
 
@@ -94,9 +94,3 @@ We had already discussed citations, Publication and runtime authorization. This 
 The answer is neither “the model should be more careful” nor “add another source allowlist.” Retrieved content, approved source index, publication time and replay must all respect current eligibility, while hiding and deletion remain distinct effects.
 
 For question answering over public, immutable documents, this engineering complexity may be unnecessary. For agents reading revocable, revisable and account-scoped content, however, **successful retrieval proves authorization at read time—not permission to publish forever**.
-
-## Source and Validation Limits
-
-This account draws on the September 12, 2026 RAG revocation and publication-ordering review, original Financial Knowledge Evidence records, and the original change's full acceptance status and remaining work. Its public discussion describes observed mechanisms only; it does not certify overall RAG quality, improved investment outcomes or production deployment.
-
-**Public-version note:** Private project specs, tests and logs referenced by the original manuscript are not distributed with this article. We retain the dated examples and bounded claims without representing private tests as publicly reproducible evidence.
