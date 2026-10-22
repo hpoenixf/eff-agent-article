@@ -134,7 +134,7 @@ As of October 21, 2026, three evidence levels existed.
 
 Existing records still did not prove that this live summary was fully consumed by subsequent Main requests, or establish a comparative semantic/citation/financial accuracy study across repeated compactions.
 
-We archived the implementation Spec under a user-confirmed exception process. The original D.1/E.1 formal acceptance gaps and missing standard closure remained; **archived is not synonymous with all live acceptance passed**.
+The implementation and controlled recovery paths are available, but we still lack sufficient observations showing that subsequent Main requests consistently use real summaries correctly across repeated compaction, especially for meaning, citations, and financial numbers.
 
 ## 8. Was the Complexity Worth It?
 
