@@ -55,6 +55,18 @@ export const englishArticleSlugs = [
   '001-one-week-4-billion-tokens-etf-investment-agent',
   'agent-tool-lifecycle-and-model-input',
   'green-tests-can-lie',
+  '010-agent-first-brakes',
+  '024-agent-pdf-from-text-to-evidence',
+  'agent-html-evolution-challenges',
+  '011-model-understands-code-authorizes',
+  'agent-autonomous-scheduled-research',
+  'honest-agent-evaluation',
+  'agent-main-run-context-compaction',
+  'financial-agent-python-result-consumption',
+  '031-fintech-data-time-and-reproducible-numbers',
+  '026-agent-spec-evidence-workflow',
+  'partial-is-not-complete',
+  '027-agent-context-document-history',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
