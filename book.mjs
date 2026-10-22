@@ -84,10 +84,10 @@ export const collections = [
             "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"
           ],
           [
-          [
             "agent-model-capability-presentation-tool-surface",
             "Tool Surface：Agent 有工具，模型为什么看不到"
           ],
+          [
             "agent-multi-ecosystem-hook-execution",
             "多生态 Hook：Claude、Pi 与 Codex"
           ],
