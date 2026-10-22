@@ -169,7 +169,7 @@ Financial AI acceptance should not stop at “Did a report exist?” Select the 
 
 Professional prose is cheap. **Preserving numerical meaning across every handoff and allowing independent reproduction** is the harder achievement.
 
-The first phase corrected particular amount, fee, constraint and consumption paths. The second consolidated bounded metrics and fee semantics under their original owners. Both were archived through an authorized human evidence process; neither ran formal spec:close. They are **not** proofs of repository-wide financial correctness, natural-model analysis quality, actual transaction outcomes or sound investment advice.
+The first phase corrected particular amount, fee, constraint and consumption paths. The second consolidated bounded metrics and fee semantics under their original owners. These changes address specific numeric and consumption paths; they do not establish correctness for every financial calculation, real transaction, model-generated analysis, or investment recommendation.
 
 The independent problem of faithful model interpretation is examined in [Why Python Results Can Still Be Misused in Reports](financial-agent-python-result-consumption.md).
 
