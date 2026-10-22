@@ -328,7 +328,7 @@ It is:
 
 ## Continue Reading
 
-- [Bringing Personal Holdings into a Read-Only Financial MCP](portfolio-mcp-readonly-investment-data.md)
+- [Bringing Personal Holdings into a Read-Only Financial MCP](/articles/portfolio-mcp-readonly-investment-data)
 - [Why a Market Data MCP Became a Research Decision System](mcp-market-responsibility-retrospective.md)
 
 <!-- agent-article-sync:guidance:start -->
