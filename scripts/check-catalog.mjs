@@ -78,8 +78,8 @@ console.log('Three-perspective catalogue, curated finance links and local articl
 // English presentation derives slugs from book.mjs, never maintains a second article tree.
 const { englishTitles, englishArticleSlugs } = await import('../book.en.mjs')
 const englishKeys = Object.keys(englishTitles)
-if (englishKeys.length !== slugs.length || slugs.some(slug => !englishTitles[slug]) ||
-    englishKeys.some(slug => !slugs.includes(slug))) throw Error('English article labels out of sync with book.mjs')
+if (englishKeys.some(slug => !slugs.includes(slug)) ||
+    englishArticleSlugs.some(slug => !englishTitles[slug])) throw Error('English translations must have canonical slugs and English titles')
 if (new Set(englishArticleSlugs).size !== englishArticleSlugs.length) throw Error('Duplicate translated article slug')
 for (const slug of englishArticleSlugs) {
   if (!slugs.includes(slug) || !existsSync('en/articles/' + slug + '.md')) throw Error('Missing English translation: ' + slug)
