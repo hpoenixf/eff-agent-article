@@ -14,7 +14,7 @@
 
 > **Model 负责语义，Runtime 负责过程，MCP 负责能力，Skill 负责方法。**
 
-这不是一开始画出来的架构图，而是从几次真实重构里慢慢收敛出来的。2026-10-11 回看，移除 Runtime 中 synthetic MCP Tool 层已经有实现及 provider-free 回归；原 change 按未完成验收冻结归档，没有应用 delta，不能写成正式关闭。本文保留重构时的推导，并将实现、回归和验收分开。
+这不是一开始画出来的架构图，而是从真实重构里慢慢收敛出来的。历史上的 synthetic MCP Tool 移除工作已有局部实现，却没有完成整体切换；本文区分当时的设计选择与后来真正进入生产调用链的变化。
 
 ---
 
@@ -128,7 +128,7 @@ Host catalog
 → Runtime 查询
 ```
 
-聚焦合同、Host 和生产路径的回归一共跑了 162 个用例；后续整合离线集记录为 438 个文件、3,915 个测试通过、1 个跳过。这里证明的是重复 capability lookup 被移除以及相关 provider-free 行为没有回退，不代表模型质量或正式验收。
+针对合同、Host 和生产调用链的回归验证了重复能力查询的移除，并核对原有合法工具路径仍然可用。这是工具接线的工程结果，而不是模型研究质量的衡量。
 
 第二天我们又发现，重复还不止两份。
 
@@ -249,7 +249,7 @@ result bound
 错误位置的 1 owner → 0 个 shadow owner
 ```
 
-原稿把这一阶段写成目标设计。2026-10-11 核对时，当前 `native-tool-surface.ts` 已接收 MCP discovery 的描述符，并收窄每轮可见性；归档验证记录也已覆盖 Market、Portfolio、Web 直通、回执与恢复等 provider-free 行为。原 change 仍是 **frozen incomplete**：生产组合、完整回归、live 与正式关闭不能由这些局部证据代替，归档也未应用 delta。
+现行 `native-tool-surface.ts` 已经能够接收 MCP discovery 的描述符，并按轮次收窄模型实际看到的工具。历史上的整层替换方案并没有完整落地，因此不能把局部接线成果写成原方案已被整体部署。
 
 ---
 
@@ -547,7 +547,7 @@ T → LegacyModule
 
 测试绿，只能证明 LegacyModule 自己的 Interface 仍然符合测试，并不能证明 production 还经过这里。
 
-因此我们另开了 agent-retire-test-only-and-legacy-seams，把仍有效的约束迁回生产调用边界，再删除无生产消费者的旧模块。2026-09-30 验证记录已包含 `build-context.ts` 等目标删除、断言迁移和架构守卫回归；原正式关闭在隔离数据库建库阶段受阻，后续走 provider-free retirement。它不是“只有设计”，也不能据归档宣称 live 验收通过；当时保留的 28 项历史守卫条目更不意味着全仓旧结构清零。
+因此我们另开了 `agent-retire-test-only-and-legacy-seams`：把仍有效的限制迁到生产调用边界，再删除没有生产消费者的旧模块。这里既有实际代码和断言迁移，也有尚未完全收口的旧结构；历史归档并不意味着所有遗留接缝已经消失。
 
 这个案例让我重新理解了一句话：
 
@@ -639,10 +639,10 @@ complete-or-unavailable 比“看起来成功”更重要。
 
 | 类别 | 当前证据 | 能支持的结论 | 不能推出的结论 |
 | --- | --- | --- | --- |
-| 已验证 | 2026-09-20 native tool-loop 边界有 provider-free 回归，历史记录为 416 个测试文件、3,348 项测试通过 | 模型状态镜像可以减少，同时保留 Host 授权、恢复和终态边界 | live 模型质量、PostgreSQL 重启和正式验收已经通过 |
-| 已验证 | 2026-09-26 Tool Contract / Host capability 收敛；聚焦 162 项测试通过，整合离线记录为 438 files / 3,915 passed / 1 skipped | 重复 capability owner 可以删除并保持现有 provider-free 路由行为 | 开发效率或生产缺陷率提高多少 |
+| 已验证 | Native 工具循环的受控调用路径与终态检查 | 模型状态镜像可以减少，同时保留 Host 授权、恢复和终态边界 | live 模型质量、PostgreSQL 重启和正式验收已经通过 |
+| 已验证 | Tool Contract 与 Host 能力查询职责收拢及回归 | 重复 capability owner 可以删除并保持现有 provider-free 路由行为 | 开发效率或生产缺陷率提高多少 |
 | 已验证 | 2026-09-27 Native Tool exposure 从多份静态映射收敛到单一描述符，focused 101→108 全绿 | “三 owner → 一 owner”可以减少静态映射 drift | 这个单一 owner 就一定是最终正确 owner |
-| 已验证 / 验收未完成 | synthetic-layer 归档 verify 记录局部实现及 provider-free 回归；retirement 为 frozen、未应用 delta | 说明工具面、MCP 身份、回执等所选路径的实现变化 | 正式关闭、完整生产组合或 live 验收已通过 |
+| 局部实现，整体切换未完成 | 旧 synthetic-layer 的局部代码与受控路径；原整体替换未应用 | 说明工具面、MCP 身份、回执等所选路径的实现变化 | 正式关闭、完整生产组合或 live 验收已通过 |
 | 已验证 / live 未验证 | legacy-seams 归档 verify 记录目标删除、断言迁移、架构守卫及本地回归；retirement 单独记录退役 | 所选无消费者模块已经清理，相关约束迁到当前归属方 | 全仓历史结构清零、原隔离 live quick 已成功 |
 | 当前边界 | 本文讨论 Agent 架构职责与工程边界 | 能总结 owner 迁移与设计原则 | 不证明投资建议质量、成本、延迟或业务收益 |
 
