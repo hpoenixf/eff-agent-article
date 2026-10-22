@@ -46,6 +46,8 @@ export const englishTitles = {
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
+  "unavailable-is-correct",
+  "agent-model-capability-presentation-tool-surface",
   "tool-results-outside-model-context",
   "026-agent-memory-forget-durable-effects",
   "027-rag-revocation-publish-replay",
