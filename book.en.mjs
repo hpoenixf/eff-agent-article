@@ -46,6 +46,8 @@ export const englishTitles = {
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
+  "runtime-model-protocol-boundary-agent-article-v2",
+  "code-cheaper-systems-harder-to-evolve",
   "ai-citations-do-not-prove-reliability",
   "agent-subagent-context-specialization",
   "agent-python-compute-workbench-evolution",
