@@ -1,35 +1,38 @@
 ---
 layout: page
 sidebar: false
-title: 架构图册 · 40 个能力 Owner
-description: 按完整能力及最终效果归属展示 ETF Agent 的 40 个 Owner、最新状态与交互流程。
+title: 架构图册 · 41 个能力 Owner
+description: 按完整能力及最终效果归属展示 ETF Agent 的 41 个 Owner、最新状态与交互流程。
 ---
 
 <div class="vp-doc owner-gallery">
 
 # 能力 Owner · 架构图册
 
-**2026-10-22 更新：40 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
+**2026-10-22 更新：41 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
 
 ## 交互式能力总览
 
-[全屏打开：40 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama)
+[全屏打开：41 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama)
 
-<iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 40 个能力 Owner 交互架构图"></iframe>
+<iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 41 个能力 Owner 交互架构图"></iframe>
 
 点击任意能力 Owner，可查看职责、局部拒绝范围、交接关系，以及 **专题文章 / 相关文章**。未有独立专文时显示「敬请期待」；相关文章不能冒充专文。可按 Owner ID 或名称搜索，桌面支持交接高亮，手机可按分组阅读。
 
 **新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已完成原送模接缝的无 Hook / 有 Hook 回归、provider-free 正式关闭和 2026-10-22 归档，未宣称线上或 live 投研质量。详见[A34 的历史驱动模块精讲](/articles/agent-model-capability-presentation-tool-surface)，或在交互图中打开 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
 
+**新增 A35「内容安全策略与信任」**：保留原生产者的 Host／用户指令身份，在 A14 可变装配与 Hook 后，由 A10 的最终 SDK 映射接缝核对；A35 只提供有界结构事实，不获得 Run／Child 终结、工具派发、发布否决、Memory 效果等权力。Phase 1 的 late projection 对照、定时克隆、Schema、局部效果与一例跨进程 PG 恢复已限定验证并有界归档；formal executor close 与真实模型抗注入资格未完成。见 [A35 内容信任专题](/articles/agent-content-trust-prompt-injection)，或在交互图中打开 [A35](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A35)。
+
 **A28 Main 上下文压缩已于 2026-10-21 按用户批准的例外人工归档。** 已有可恢复的增量摘要、checkpoint 和后继 Main 投影的离线证据；另观察到至少一次真实自然摘要请求与 checkpoint 提交。它不是标准 formal-close PASS，真实自然摘要的后继实际入模、反复压缩语义质量仍留证据边界；不再把 A28 误列为“尚未归档”。见[Main 压缩专文](/articles/agent-main-run-context-compaction)。
 
-**40 项 = A01–A34 + B01–B05 + E04。** A33 仍只负责显式十进制、单位与舍入残差，金融方法在原领域；Deep 归 A05，收尾归 A06，插件归 A13，Hook 归 A29，MCP 连接归 A31，工具调用归 A11。遥测、服务健康、评测三个工程导航另列，不计入 Owner 总数。能力列入图册不等于所有场景都通过真实模型或部署验收。
+**41 项 = A01–A35 + B01–B05 + E04。** A33 仍只负责显式十进制、单位与舍入残差，金融方法在原领域；Deep 归 A05，收尾归 A06，插件归 A13，Hook 归 A29，MCP 连接归 A31，工具调用归 A11。遥测、服务健康、评测三个工程导航另列，不计入 Owner 总数。能力列入图册不等于所有场景都通过真实模型或部署验收。
 
 ## 今天深化了哪些既有能力
 
 | Owner | 2026-10-21～22 的增量与状态 | 仍需保留的边界 |
 | --- | --- | --- |
 | **A34 能力呈现（新增）** | 建立独立逻辑 Owner；最终 pre-wire 工具描述一致性在原请求接缝完成 RED/GREEN；原 provider-free close、accepted Spec 同步及归档均完成。 | 只能拒绝本次不一致的请求组装；不新增权限、资源账或 Manager，不替 A06 结束 Run，也不否决 A23 已可发布的正文；无 live 质量结论。 |
+| **A35 内容安全与信任（新增）** | Producer identity 在 Hook 前绑定、最终 SDK 载体在 A10 送模前核对；定时克隆／Schema 绕行、局部拒绝与一例 PG 冷恢复已有定向证据，按授权有界归档。 | 不新增全局 Safety Manager、效果否决或必调模型；正式 executor close、真实模型对抗、部署资格未取得。 |
 | **A28 Main 压缩** | 安全历史区间、非递归摘要、来源绑定、增量 checkpoint 和后继投影已有实现及离线验证；真实自然摘要至少有一次已提交。10 月 21 日按例外**人工归档**。 | 标准 D.1/E.1 未全部通过；真实后继入模与金融语义质量不冒称完整验收。A14 仍负责材料拟合。 |
 | **A26 长期记忆** | Personal / Test 物理隔离、generation/reset、原来源与送模前有效性校验合入 main；授权开发环境中完成本地自动学习、自用与有限真实模型安全验证。 | 独立 Memory change 的 **正式 close 尚未成功**（旧评测入口阻塞）；通用多用户默认仍关闭，外部 live 生命周期 Phase 3 未验完。 |
 | **A03 / A07 投资视角 Child** | 原三种投资视角的版本绑定、Recovery、真实 Child→Main 合成与 History 保存已验收并归档；随后在注册表扩至六种，新增 Bogle、Howard Marks、Fama–French。 | 扩充三种方法的独立回归 / close 仍待完成；真实单例不代表六种方法的语义质量。视角是 A03/A07 的可选方法，不是新的 Run/Child Owner。 |
@@ -48,7 +51,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 40 个 Own
 
 A34 的 provider-free 关闭和 A28 的**例外人工归档**已经从“仍在进行”移出；保留其明确未覆盖的 live/质量边界，但不因此重开已关闭的模块工作。
 
-**从组件回到设计原则：** 40 个能力 Owner 是系统分工视角，并不是 40 条架构原则。现在可沿[八条核心原则与六组外围系统方法](/principles)查找“正确 Owner、局部拒绝、最小充分、可撤退”的判断，再通过[写作预告](/roadmap)了解已有文章的深化方向；预告不计入 Owner 或已发表文章。相关已写专题：[否决权](/articles/agent-veto-authority-and-run-termination)、[上下文压缩](/articles/agent-main-run-context-compaction)、[五不与架构演化](/articles/code-cheaper-systems-harder-to-evolve)。
+**从组件回到设计原则：** 41 个能力 Owner 是系统分工视角，并不是 40 条架构原则。现在可沿[八条核心原则与六组外围系统方法](/principles)查找“正确 Owner、局部拒绝、最小充分、可撤退”的判断，再通过[写作预告](/roadmap)了解已有文章的深化方向；预告不计入 Owner 或已发表文章。相关已写专题：[否决权](/articles/agent-veto-authority-and-run-termination)、[上下文压缩](/articles/agent-main-run-context-compaction)、[五不与架构演化](/articles/code-cheaper-systems-harder-to-evolve)。
 
 ## 能力清单 {#owner-inventory}
 
@@ -66,7 +69,7 @@ A34 的 provider-free 关闭和 A28 的**例外人工归档**已经从“仍在�
 
 ## 六层文章的流程片段
 
-以下 15 张 SVG 继续解释一次研究的局部顺序；每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 40 项。
+以下 15 张 SVG 继续解释一次研究的局部顺序；每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 41 项。
 
 | 流程片段 | 对应 Owner 与阅读边界 |
 | --- | --- |

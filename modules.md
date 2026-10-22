@@ -1,11 +1,11 @@
 ---
 title: 模块维度 · 机制精讲
-description: 23 篇 Agent 模块文章：研究入口、MCP、Portfolio、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: 24 篇 Agent 模块文章：研究入口、MCP、Portfolio、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 23 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 24 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
@@ -14,6 +14,8 @@ description: 23 篇 Agent 模块文章：研究入口、MCP、Portfolio、工具
 **A24 专题：** [用户离开后，异步研究如何按时交付？](/articles/agent-asynchronous-research-time-bound-delivery)——从 at/by 交付时间、partial→final 到浏览器重读，说明 A24 与 A25 的交接。
 
 **A34 专题：** [Agent 有工具，模型为什么还是看不到？](/articles/agent-model-capability-presentation-tool-surface)——从 Skill、MCP 和 Runtime 多轮演进，理解最终 Tool Surface 为什么需要独立准入基准与校验。
+
+**A35 专题：** [Prompt Injection 不只是恶意文本](/articles/agent-content-trust-prompt-injection)——从原生产者身份绑定、最终请求一致性和冷恢复证据，解释为什么数据不能成为指令，安全检查也不能夺取效果权。
 
 **入门路线：** [Entry](/articles/022-agent-entry-from-intent-to-direct-research) → [Web](/articles/021-agent-web-research-from-search-to-deep-reading) → [Subagent](/articles/agent-subagent-context-specialization) → [Python](/articles/agent-python-compute-workbench-evolution) → [Publication](/articles/019-agent-answer-publication)。
 
