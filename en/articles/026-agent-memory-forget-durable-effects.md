@@ -79,7 +79,7 @@ This choice increases engineering work for version and source validation. It als
 
 ## 6. What Was Actually Validated?
 
-The first formal closure on October 9, 2026 reported **45 provider-free offline test files with 444/444 passing tests** and **7 real-PostgreSQL test files with 47/47 passing tests**, with none of the declared assertions skipped. A controlled six-session local path included authenticated HTTP, cross-session consumption, family corrections and forgetting, along with the “model failed after commit” counterexample.
+Controlled application tests covered authenticated HTTP, cross-session consumption, family corrections and forgetting, including the case where a durable effect commits but the model's reply fails. They establish those specific state transitions, not reliable wording in every later model response.
 
 These findings support the Memory contract within its declared scope. They do not establish that every live model will choose precise wording, nor do they certify optional external Hindsight integration, every Docker Analysis journey or long-term production quality. Unresolved and failed live runs remain unresolved and failed in their own records.
 
