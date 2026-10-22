@@ -19,7 +19,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 40 个 Own
 
 点击任意能力 Owner，可查看职责、局部拒绝范围、交接关系，以及 **专题文章 / 相关文章**。未有独立专文时显示「敬请期待」；相关文章不能冒充专文。可按 Owner ID 或名称搜索，桌面支持交接高亮，手机可按分组阅读。
 
-**新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已完成原送模接缝的无 Hook / 有 Hook 回归、provider-free 正式关闭和 2026-10-22 归档，未宣称线上或 live 投研质量。详见交互图中的 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
+**新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已完成原送模接缝的无 Hook / 有 Hook 回归、provider-free 正式关闭和 2026-10-22 归档，未宣称线上或 live 投研质量。详见[A34 的历史驱动模块精讲](/articles/agent-model-capability-presentation-tool-surface)，或在交互图中打开 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
 
 **A28 Main 上下文压缩已于 2026-10-21 按用户批准的例外人工归档。** 已有可恢复的增量摘要、checkpoint 和后继 Main 投影的离线证据；另观察到至少一次真实自然摘要请求与 checkpoint 提交。它不是标准 formal-close PASS，真实自然摘要的后继实际入模、反复压缩语义质量仍留证据边界；不再把 A28 误列为“尚未归档”。见[Main 压缩专文](/articles/agent-main-run-context-compaction)。
 
