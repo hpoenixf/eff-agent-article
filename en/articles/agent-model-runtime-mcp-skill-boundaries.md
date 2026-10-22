@@ -451,20 +451,11 @@ Removing indirection should remove **duplicate Owners**, not important security 
 
 The fifth question prevents "three Owners → one" from becoming the end of architecture review. **One Owner can still be the wrong Owner.**
 
-## 11. What This Case Proves—and What It Cannot Prove
+## 11. Separate the Current Structure from Historical Attempts
 
-| Classification | Recorded evidence | Supported conclusion | Unsupported extrapolation |
-| --- | --- | --- | --- |
-| Verified | Controlled native-tool-loop execution and termination paths | Reduced model state mirroring while keeping Host authorization, Recovery, and terminal boundaries | Live model quality, PostgreSQL restart coverage, or formal acceptance |
-| Verified | Tool Contract and Host capability-lookup responsibilities were consolidated and checked | Duplicate capability lookup can be retired with selected provider-free routing preserved | Quantified development efficiency or production bug-rate improvement |
-| Verified | September 27 Native Tool exposure: focused tests **101 → 108 passing** | Consolidating three static mappings reduces drift | The surviving Owner must be the correct final Owner |
-| Partially implemented; overall cutover incomplete | Original synthetic-layer replacement was not applied as a whole | Selected tool-surface, MCP identity, receipt, and Recovery changes existed | Formal closure, complete production integration, or live acceptance |
-| Verified selections; live not verified | Legacy-seams archival verification of deletion, migrated assertions, architecture guards, and local regression | Selected unconsumed modules were removed and checks moved to current Owners | All legacy code gone or prior isolated live quick-run completed |
-| Scope of this article | Agent ownership and engineering architecture | A useful model for migrating responsibilities | Investment advice quality, latency, cost, or business benefit |
+Native tool execution, tool contracts, and Host capability lookup have undergone real consolidation, reducing duplicate tool mappings and admission decisions. Earlier designs also left partially wired mechanisms without completing the full cutover. The presence of some code does not mean an entire architecture migration was deployed.
 
-Two opposite reporting mistakes are easy to make: a sound target design is **not** automatically implemented; conversely, code already exercised by selected regressions should not be described as mere theory.
-
-State each implemented change together with its recorded scope, frozen archival status, and live-verification gap.
+The case explains **why even one remaining tool definition can live with the wrong Owner**. Controlled regressions alone do not prove that models select tools better, investment research improves, or engineering costs fall. The transferable lesson is how to decide whether a capability calls for a new layer, a relocation, or deletion.
 
 ## Conclusion: Put Complexity with the Right Owner
 
