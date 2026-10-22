@@ -81,16 +81,10 @@ This choice increases engineering work for version and source validation. It als
 
 Controlled application tests covered authenticated HTTP, cross-session consumption, family corrections and forgetting, including the case where a durable effect commits but the model's reply fails. They establish those specific state transitions, not reliable wording in every later model response.
 
-These findings support the Memory contract within its declared scope. They do not establish that every live model will choose precise wording, nor do they certify optional external Hindsight integration, every Docker Analysis journey or long-term production quality. Unresolved and failed live runs remain unresolved and failed in their own records.
+This path still needs separate assessment of real-model wording, optional external memory engines, and long-term operation.
 
 The most important lesson is not that an agent can remember investment preferences. It is an ownership rule:
 
 **After a user asks to forget something, the system must establish whether forgetting happened before deciding how to answer. A later model failure cannot overturn an already committed effect.**
 
 That complexity may not be worthwhile for a disposable one-off chat. It is a prerequisite for a long-lived, corrigible, revocable memory service.
-
-## Source and Validation Limits
-
-The material draws on the October 9, 2026 durable-memory and live-failure retrospective, the phase-one closure and underlying tests, and later controlled validation of corrected-memory source rebinding. These materials come from different source and date windows; they must not be combined into a single production end-to-end acceptance claim.
-
-**Public-version note:** The private project's tests, specs and engineering logs are not published with this article. We retain the cases, their dates and bounded verification claims without presenting private validation as externally inspectable evidence.
