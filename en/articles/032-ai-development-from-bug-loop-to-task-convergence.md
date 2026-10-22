@@ -9,7 +9,7 @@ description: "A retrospective on source-proof loss, actual Python recovery, task
 
 After some time building ETF Agent, we faced a frustrating reality: the architecture kept getting more complete, local tests kept turning green, yet a real investment research task entrusted to the agent still did not finish.
 
-An October 14, 2026 run recorded **26 physical model requests, 24 durable model turns and 4 publication blocks**, but History ended in **partial / research_interrupted**. No normal HTML report was delivered. All six subagent requests returned unavailable inputs; among thirteen script requests, most stopped after describing a method instead of running computation, rendering and export code.
+An October 14, 2026 research run made repeated model requests and publication attempts, yet History ended in **partial / research_interrupted**, with no normal HTML report. Subagents repeatedly received unavailable inputs, while many script requests stopped at describing methods without actually computing or exporting.
 
 Counting tool calls makes the system look busy. Counting passing local tests makes many capabilities look ready. Neither creates the result the user requested.
 
@@ -37,7 +37,7 @@ We could no longer say simply that the model “failed to use the retrieved data
 
 We traced the problem to a specific producer defect: cumulative Run-level source proof incorrectly reused the narrower dependency merger intended for a single Publication. Publication's **eight-dependency** capacity had been applied to Run proof that should support **64 dependencies / 24 KiB**, losing the ninth valid relationship and those following it.
 
-We fixed the producer, rather than weakening the downstream rejection of unauthorized dependencies. Regression coverage included 9, 32 and 64 legitimate dependencies; denial for 65; and negative cases involving missing, tampered and cross-Run proofs. The historical record reported **79 focused, 10 independent and 173 caller-side checks passing**.
+We fixed the producer rather than weakening downstream rejection of unauthorized dependencies. Focused checks covered legitimate dependencies at the limit, overflow rejection, missing or tampered proofs, and cross-Run identity isolation.
 
 This established a narrow engineering result: **we identified why an eligible source lost its authority during subsequent requests and performed bounded regression verification.**
 
@@ -53,9 +53,9 @@ A real subagent initially raised KeyError while reading a field. It switched to 
 
 The result did not stop at “the script succeeded” or “the model says the report was written.”
 
-The subagent exported an **11,384-byte HTML** file through the normal analysis workspace. The Host retained its content type, size and digest. A real HTTP download returned status **200**, and byte comparison matched. Main actually consumed the download path returned by the child task, and a fresh History read still resolved the same file identity.
+The subagent exported HTML through the normal analysis workspace. The Host preserved its file type and content identity; an authenticated HTTP download returned bytes matching the saved record. Main actually consumed the download path returned by the child task, and a fresh History read still resolved the same file identity.
 
-That real execution used **17 physical model requests**. The root run ended in approximately **251.5 seconds**. Separate calculations also checked returns and drawdown for a synthetic case.
+Independent calculations also checked returns and drawdown for a synthetic case, within the scope of this Python correction and file-handoff exercise.
 
 This is meaningful engineering progress. It is not evidence that ETF Agent can now autonomously finish every index-allocation research task. The exercise focused on Python error correction and formal handoff. It did not certify the original task, independent variants, PDF appearance, cancellation, or investment-analysis quality.
 
@@ -109,11 +109,3 @@ Within the evidence window ending October 17, 2026, complete autonomous research
 But the working principle became clearer:
 
 **When using AI to build an agent, track whether each change actually alters a condition required for the user's task—not how many bugs were fixed.** Tests that demonstrate such a change are valuable. Extra model calls that merely dress a partial result as progress are not.
-
-## Source and Validation Limits
-
-This article draws on the autonomous index-allocation task and its original failures; the October 14 partial run and source-proof fix; the October 16 Python R4 correction and genuine HTML handoff; and later unfinished live acceptance work.
-
-All numbers retain their original sample scope. We have not rerun the models or pooled separate test counts into a claim that the entire agent passed.
-
-**Public-version note:** The original manuscript referred to private tests, specs and engineering logs not included with this article. We preserve the dated cases and bounded verification without passing private acceptance records off as publicly inspectable evidence.
