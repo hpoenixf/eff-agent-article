@@ -145,7 +145,7 @@ In a controlled time-scheduling run, the normal application configuration autono
 
 A separate synthetic conditional exercise validated **one firstMatch** and **two everyEdge** report/notice handoffs. These were different source versions and evidence windows, not one combined run.
 
-Real PostgreSQL concurrency, confirm/cancel fences, recovery after lost commit ACK, exhaustion of polling opportunities and non-replenishing budgets have their own bounded evidence. The original extension Spec's provider-free scope formally closed on **October 21, 2026**. Integration into main included targeted compatibility checks against current notification preferences.
+Controlled PostgreSQL runs exercised concurrency, confirm/cancel fences, recovery after a lost commit acknowledgment, and exhaustion of polling opportunities without automatic replenishment. Long-term delivery behavior still needs observation in the actual deployment and notification paths.
 
 The evidence supports this statement: **under the tested application assembly and synthetic inputs, Schedule can start a finite Task outside a conversation, preserve its result, and respect its original identity across retries.**
 
