@@ -1,42 +1,45 @@
 ---
-title: 写作预告 · 下一批独立问题
-description: 已完成正文进入正式目录；尚未成文的模块与系统设计问题在这里保留选题。
+title: 写作预告 · 已有文章的深化与待选题
+description: 区分可立即深化的已发表文章、需要新工程证据的独立议题与仍未成文的模块专题。
 ---
 
 # 接下来写什么
 
-<small>更新：2026-10-21 · 选题与文章状态，不是产品功能已实现的声明。</small>
+<small>更新：2026-10-22 · 这是编辑选题，不是新文章已发表、产品已经实现或工程正式验收的证明。</small>
 
-这次将 Memory、RAG、Python、反馈归因、工程任务收敛和两篇金融边界文章全部移入正式目录。预告页只保留**尚未独立成文**、但值得探索的读者问题。
+我们不再按每次故障或每条设计原则新增文章。优先让已有作品回答更完整的问题，只有**新的读者问题、不能被已有主稿吸收、并有足够独立证据**时才开新篇。
 
-## 模块维度 · 候选专题
+先看[八条核心原则与六组外围系统方法](/principles)，再决定是深化原文、积累案例，还是形成新文章。
 
-| 主题 | 下一篇要回答什么 | 状态 |
+## P0 · 优先深化已有文章（不是新篇）
+
+| 现有文章 | 值得补充的具体问题 | 计划与限制 |
 | --- | --- | --- |
-| **持久控制事件** | 入箱、claim/fence、去重、ack 与实际效果如何归属？ | 待成文 |
-| **Artifact 访问与分享** | 从沙箱文件到固定 revision、私有下载与定向 Share Grant，谁控制实际访问？ | 待成文 |
-| **模型目录与 Provider 容量** | 请求配置、容量租约、排队、未知占用与释放分别属于谁？ | 待成文 |
-| **每日个性研究** | 一天一份个人化研究，如何保证去重、时效、归属与真正有用？ | 待业务证据 |
+| [从 Bug 循环到真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 为什么开发了多个局部能力，仍不能交付第一份用户可取得的结果？如何围绕首份交付组织多期任务？ | 补已有阶段化交付和 HTML 反转实例；不把局部 Runtime 关闭算作整体研究质量提升 |
+| [写了 Spec，为什么还不能说做完了？](/articles/026-agent-spec-evidence-workflow) | Spec 如何帮助做设计取舍，而不是仅管理验证和收尾？ | 融入“事实、权力、故障、价值”四问及验证强度选择，不复制另一份检查清单 |
+| [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) | 新机制的正常路径税和退出成本怎样在真实案例里发现？ | 优先补确实发生的案例；已写的“五不”不再拆五篇文章 |
 
-## 架构设计与系统思考 · 候选专题
+## P1 · 有独立增量才考虑成文
 
-| 主题 | 下一篇要回答什么 | 状态 |
+| 候选问题 | 现有基础 | 尚欠的素材 |
 | --- | --- | --- |
-| **事件、Hook 和消息不是一种事件** | 控制权、扩展生命周期与客户端投递为什么不能共用同一个裁决者？ | 待独立案例 |
-| **Agent 怎样持续升级而不被旧复杂度拖垮？** | 创造、维护、替代、删除及回退的成本如何成为明确架构决策？ | 待成文 |
+| **Agent 研发什么时候靠推理，什么时候应该做真实实验？** | [Spec 验证流程](/articles/026-agent-spec-evidence-workflow)、[假绿测试](/articles/green-tests-can-lie)、[任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 至少两种不同性质的工程决策和不同验证方式；不能只是重述“测试要真实” |
+| **安全依赖、执行输入与结论依据为什么不是一回事？** | [金融证据链](/articles/financial-agent-trustworthy-evidence-chain)、[Result 消费](/articles/financial-agent-python-result-consumption) | 优先把 A/B/C 等有边界的关系例子纳入已有文章；只有出现独立读者问题再拆新稿 |
+| **内容经过工具、Child 和摘要后，是否改变了指令权威？** | [模型/Runtime 分工](/articles/agent-model-runtime-mcp-skill-boundaries)、[Context 压缩](/articles/agent-main-run-context-compaction) | A35 仍属于设计/实施验证议题；待有真实生产接缝和对照证据再写实践稿，不冒称已有抗注入质量证明 |
 
-## AI Agent 研发工程实践 · 已有主线
+## 模块维度 · 仍可取材的独立专题
 
-[Spec、Evidence 与研发关闭](/articles/026-agent-spec-evidence-workflow) 和 [文档按需加载与工程 History](/articles/027-agent-context-document-history) 已从博客补齐至独立阅读站；[真实评测](/articles/honest-agent-evaluation)、[假绿测试](/articles/green-tests-can-lie) 与 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 归入这一主线。新增文章应先证明独立问题与工程证据，不按工具名称填坑。
+| 主题 | 真正要回答的问题 | 状态 |
+| --- | --- | --- |
+| **持久控制事件** | 入箱、claim/fence、去重、ack 与真实效果怎样保持相同身份？ | 待独立成文 |
+| **Artifact 访问与分享** | 静态文件的原身份、当前访问权限与分享授权如何区分？ | 有现有 HTML 实例，先去重 |
+| **模型目录与 Provider 容量** | 路由、容量与请求结算的真实事实由谁维护？ | 需要清晰的独立验收窗口 |
+| **每日个性化研究** | 定时触发能否持续带来有用、可比较的研究价值？ | 等业务效果证据，不能只用定时成功替代 |
 
-## 本轮从预告转为正文
+## 已有完整正文，不再占预告位置
 
-[定时研究：会话结束后继续](/articles/agent-autonomous-scheduled-research) · [Main 上下文压缩：摘要不改写事实](/articles/agent-main-run-context-compaction)。这两篇已具备独立机制和限定工程证据；完整 Weekly Review 业务质量仍待验证。
+[架构演化与“五不”](/articles/code-cheaper-systems-harder-to-evolve) · [Tool Surface](/articles/agent-model-capability-presentation-tool-surface) · [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [后台定时研究](/articles/agent-autonomous-scheduled-research) · [HTML 交付](/articles/agent-html-evolution-challenges) · [工程 Context / History](/articles/027-agent-context-document-history)。
 
-[Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) · [RAG 撤权历史复盘](/articles/027-rag-revocation-publish-replay) · [Python 计算工作台](/articles/agent-python-compute-workbench-evolution) · [反馈误归因](/articles/agent-failure-is-a-boundary-problem) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [金融服务边界](/articles/030-fintech-from-research-to-investment-advice) · [金融数值复算](/articles/031-fintech-data-time-and-reproducible-numbers)。
+**编辑约定：** 上述“深化”指对既有作品取材、校准和修改，不自动创建新 slug、改变已分享状态或承诺具体上线日期。只有完成正文、核验、入正式目录后才计为新文章。
 
-这些文章各自保留其原始时间点、实现状态与验收限制，不把真实个案扩大为系统全局指标。
-
-**写作原则：** 每篇要有独立读者问题、可复述的工程判断和相应证据。不为填满目录重复包装同一结论；已经写好的题目不再占着“预告”坑位。
-
-[模块维度](/modules) · [架构设计与系统思考](/thinking) · [AI Agent 研发工程实践](/engineering) · [金融专题](/fintech) · [全部文章](/catalog)
+[核心原则与外围方法](/principles) · [架构思考](/thinking) · [研发实践](/engineering) · [全部文章](/catalog)

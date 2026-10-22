@@ -11,6 +11,8 @@ description: 16 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈
 
 关注的是跨模块的权责与演进，而不是重复每个工具的使用说明。
 
+**两层架构判断：** [八条核心原则与六组外围方法](/principles)用于快速找设计边界；核心原则谨慎增加，五不、四问、证据传递、分期交付和验证方法则按需取用。阅读现有[五不与系统演化](/articles/code-cheaper-systems-harder-to-evolve)、[Context 压缩](/articles/agent-main-run-context-compaction)和[否决权治理](/articles/agent-veto-authority-and-run-termination)，再看[尚待取材的文章预告](/roadmap)。
+
 **入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
 
 <ChapterCatalog category="thinking" />

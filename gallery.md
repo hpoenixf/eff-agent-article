@@ -48,6 +48,8 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 40 个 Own
 
 A34 的 provider-free 关闭和 A28 的**例外人工归档**已经从“仍在进行”移出；保留其明确未覆盖的 live/质量边界，但不因此重开已关闭的模块工作。
 
+**从组件回到设计原则：** 40 个能力 Owner 是系统分工视角，并不是 40 条架构原则。现在可沿[八条核心原则与六组外围系统方法](/principles)查找“正确 Owner、局部拒绝、最小充分、可撤退”的判断，再通过[写作预告](/roadmap)了解已有文章的深化方向；预告不计入 Owner 或已发表文章。相关已写专题：[否决权](/articles/agent-veto-authority-and-run-termination)、[上下文压缩](/articles/agent-main-run-context-compaction)、[五不与架构演化](/articles/code-cheaper-systems-harder-to-evolve)。
+
 ## 能力清单 {#owner-inventory}
 
 | 阅读分组 | Owner（点击定位详情） |

@@ -11,6 +11,8 @@ description: 5 篇关于 Coding Agent 规范、验证证据、按需加载知识
 
 模块机制回答“系统怎样工作”，架构思考回答“为什么这样设计”；这里聚焦研发流程本身，从 Spec、真实执行证据，到文档路由、History、测试边界和任务收敛。
 
+**研发方法索引：** [架构原则的外围六组方法](/principles#第二层-六组外围系统方法)覆盖设计四问、首份交付、证据投影、验证强度及旧机制退出；具体约束仍以原 Spec 和 Owner 为准。下一步优先[深化 Spec 设计取舍和任务收敛](/roadmap)，而不是再造一套流程。
+
 **建议阅读路线：** [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) → [文档与长期工程记忆](/articles/027-agent-context-document-history) → [假绿测试](/articles/green-tests-can-lie) → [评测与交付](/articles/honest-agent-evaluation) → [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence)。
 
 <ChapterCatalog category="engineering" />

@@ -1,42 +1,42 @@
-# Agent 架构原则速查
+---
+title: Agent 架构原则与系统方法
+description: 八条谨慎纳入的核心判断，以及遇到问题时按需查阅的六组系统设计与研发方法。
+---
 
-> 用于设计、重构与 Code Review 时快速回忆取舍；不记录项目现状、完成进度或测试成绩。
->
-> **总纲：以最少必要机制交付真实任务；事实和裁决有明确归属；新能力的代价尽量局部化，并保留未来撤退和替换的自由。**
->
-> 本文的“可插拔”首先指**开发时**的模块组合与实现替换，不要求运行时动态加载或热卸载；也不主张把所有函数都做成插件。
+# Agent 架构判断：核心原则与外围方法
 
-## 一、职责与裁决
+这是一张**思考与阅读地图**，不是第 46 篇文章，也不是新的审批流程。核心原则应当少、稳定、能够改变跨模块设计判断；外围方法是具体问题出现时才使用的工具。必要的权限、安全和持久化约束仍应由实际能力的 Owner 负责。
 
-1. **模型负责语义，确定性系统负责客观事实。** 模型理解意图、制定研究策略、综合证据；Runtime/Host 管理授权、执行状态、资源边界与真实回执。“能写一个 if”不代表代码有权判断自然语言的真实性或研究充分性。例：文本里出现“买入”不等于获得交易授权。
-2. **提议、批准、执行、实际效果和交付是不同的事实。** Tool Call 不等于获准；获准不等于已执行；函数返回不等于效果已提交；保存不等于用户收到。未知状态必须保留为未知，不能伪装成功或失败。
-3. **复杂度放在正确的 Owner，不是统统下沉 Runtime。** 模型管语义，Runtime 管过程与生命周期，MCP/Tool 管可调用能力，Skill 管方法，Host/业务系统管其权威记录。例：研究 Skill 可以指导方法，但不应该维护第二份权限或预算账本。
-4. **真正的封装是收拢决定权，而不只是合并代码和状态。** 每类事实与效果要有清晰 Owner；外围模块不得再次解释其内部状态并作影子裁决。例：有了 Publication 还允许上游预过滤正文，不算完成封装。
-5. **局部失败不能自动获得全局否决权。** 模块只拒绝自己负责的效果；Run 的继续、恢复和终结由其生命周期 Owner 决定。例：公开引用不可用可降级链接，不应删掉独立合法正文；真实隐私、来源授权和执行权限仍须严格保护。
+## 第一层 · 八条核心判断
 
-## 二、执行、恢复与交付
+| 原则 | 值得记住的一句话 | 深入文章 |
+| --- | --- | --- |
+| **1. 模型负责语义，系统负责客观事实** | 模型理解任务、研究与解释；Host/Runtime 管权限、执行和真实回执。代码能写规则，不代表代码理解自然语言。 | [别让模型当状态机](/articles/runtime-model-protocol-boundary-agent-article-v2) · [职责分工](/articles/agent-model-runtime-mcp-skill-boundaries) |
+| **2. 提议、批准、执行、生效是不同事实** | 工具提议不等于许可，执行返回不等于持久效果；恢复时不能把 unknown 当作未发生。 | [独立 Publication](/articles/019-agent-answer-publication) · [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) |
+| **3. 复杂度必须归属正确的 Owner** | 真正的封装是收拢知识和决定权，不是增加一个包住所有东西的 Manager。 | [Owner 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [工具表面归属](/articles/agent-model-capability-presentation-tool-surface) |
+| **4. 局部失败不能取得全局否决权** | 模块只能拒绝自己负责的效果；引用或附件局部失效不能自动抹掉独立合法正文。 | [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination) |
+| **5. Context 是工作台，不是事实数据库** | 当前上下文是容量受限、可能有损的工作投影；工具回执、来源、历史和 Memory 不能只靠摘要保存。 | [工具结果外置](/articles/tool-results-outside-model-context) · [Main 压缩](/articles/agent-main-run-context-compaction) |
+| **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
+| **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
+| **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) |
 
-6. **研究动态演进，避免过早固定编排。** 尽量由简洁 Entry 和 Native Agent Loop 根据证据推进任务，不为所有查询强加复杂 Intent 分类、规划协议和固定阶段流水线。
-7. **隔离执行，不复制系统治理。** Subagent、Plugin 可以拥有独立工作上下文与局部结果，但不应另建一套 Run 授权、资源账本、生命周期或事实权威。
-8. **Context 是有限投影，不是事实数据库。** 工具结果、证据、历史与回执由其权威存储负责；模型上下文只装当前必要的可用材料。例：压缩上下文不应抹掉已提交的研究证据。
-9. **持久化记录已发生的事实，恢复不能重新创造事实。** 恢复沿用原身份、授权、资源消耗和副作用回执；遇到 unknown 先核实，不能当作“没执行”就盲目重放。
-10. **预算是对可完成工作的资源承诺，而不只是计数器。** 资源 Owner 统一裁决额度，区分已用、剩余和收尾所需能力；局部工具不维护影子账本。例：搜索预算耗尽，不应天然耗尽已经可以完成的最终交付。
-11. **生成答案不等于交付答案，系统成功不等于用户任务成功。** 模型生成、发布接受、持久保存、客户端收到、研究结论正确是不同层次。验收最终看真实任务是否完成，而不只看工具调用、返回码或测试通过。
+**不轻易加第九条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
 
-## 三、功能代价与持续演化
+## 第二层 · 六组外围系统方法
 
-12. **坚持最小充分机制。** 新增模块、状态、校验或 Prompt 规则前，先解释它带来什么不可替代的收益，能删除或封装哪些旧复杂度；不要为了假想的扩展提前拆出多层接口。
-13. **独立能力优先具备开发时的引入、撤退、替换能力。** 尽量在有限的组合入口接入实现；移除能力或把 A 换成 B，不应迫使无关模块修改。例：替换 Sandbox Provider，不要求 Research 知道它的具体类名。
-14. **依赖少量明确的公共契约，不维护四处散落的私有契约。** 契约由明确 Owner 定义；消费者依赖能力与必要事实，不依赖提供者的内部标志、异常类别或隐藏调用顺序。避免“名义上是插件，实质上所有模块都要理解它的特殊分支”。
-15. **评估正常路径税和行为副作用。** 一个只处理少数异常的机制，可能让所有任务增加 Token、延迟、状态组合、失败点；工具与 Prompt 的变化还可能让模型过度调用、过早放弃或更保守。让代价尽量由实际使用该能力的路径承担。
-16. **对经验性收益用反事实验证，而不是只证明功能可用。** 对 Prompt、Skill、Reviewer 等效果取决于模型行为或真实任务质量、且值得额外验证的变更，按风险选择针对性观察或启用/停用对照，比较完成率、质量、成本与异常行为；不为可由架构不变量直接推导的 Owner 收拢强加质量 A/B。必要的授权、安全与真实业务不变量不能为做对照而关闭。
-17. **验证强度与决策不确定性及错误代价相匹配。** 能由权威归属、系统不变量和确定性契约推导的设计，依靠工程判断、Code Review 与必要的边界回归，验证实现是否符合设计，不要求统计实验；依赖模型随机行为、实际研究质量或用户效果的判断，再按影响范围、错误代价与可撤退性选择直接小步迭代、定向测评或正式对照。例：收拢四散否定权，核对发布与权限边界即可；通用 Prompt 的大范围效果不明确时，才值得重复真实任务比较。验证本身也有研发路径税，只在预期净收益为正时加码，不设所有改动必做 A/B 的统一门槛。
+| 遇到的场景 | 按需使用的方法 | 已有正文 |
+| --- | --- | --- |
+| **新功能取舍** | 用“五不”审查新增机制、复杂度外溢、影子否决、正常路径税和退出成本。即使不调用某项能力，它仍可能让所有任务承担 Prompt、工具声明或检查成本。 | [五不与系统演化](/articles/code-cheaper-systems-harder-to-evolve) |
+| **职责设计与拒绝评审** | 从**事实、权力、故障、价值**四个角度讨论；出现新拒绝时追问谁有权、影响是否局部、是否复制其他 Owner 的裁决。它们是设计思考，不是六个新 Gate。 | [Model/Runtime/Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [否决权复盘](/articles/agent-veto-authority-and-run-termination) |
+| **证据传递与投影** | 分开存储、可见投影、实际执行输入、安全依赖和输出级依据；转述、压缩与引用都不能凭空创造事实。 | [金融 Agent 证据链](/articles/financial-agent-trustworthy-evidence-chain) · [A34 Tool Surface](/articles/agent-model-capability-presentation-tool-surface) |
+| **完整设计与分期交付** | 可以考虑完整方案，但实施先沿**首份用户可取得的结果**排序必要依赖；外围能力不自动提前，阶段完成和整个产品完成分开。 | [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 架构反转](/articles/agent-html-evolution-challenges) |
+| **验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/green-tests-can-lie) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
+| **机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) · [工程 Context / History](/articles/027-agent-context-document-history) |
 
-## 新功能评审四问
+## 下一步怎么读、怎么写
 
-- **归属：** 新能力掌握哪些事实与决定？是否复制已有 Owner 的裁决？
-- **演化：** 引入、撤退、替换分别要改哪些模块？是否让私有契约向外扩散？
-- **代价：** 不使用它的正常任务承担什么成本？是否改变模型的行为倾向？
-- **验收：** 哪些最小充分证据能证明设计和实现正确？若主张经验性收益，是否值得用真实任务对比？必要的局部失败、无关路径和合法拒绝边界是否得到验证？
+已经有正文的观点优先**深化原文章**，不为了增加原则或篇数重复包装。当前优先考虑补充 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 的“首份交付”案例，以及 [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) 的设计取舍、验证选择；新选题先在[写作预告](/roadmap)登记，不把预告计为发表。
 
-**最终判断：好的架构不是功能最多，而是新增能力有净收益、旧机制能撤退、全局依赖不随功能数量失控。**
+**边界：** 这张速查不代表所有文章的工程状态实时有效，也不会因添加一条判断就增加 Runtime 规则、模型强制自检或新的项目审批系统。
+
+[阅读架构文章](/thinking) · [进入研发工程实践](/engineering) · [查看写作预告](/roadmap) · [完整目录](/catalog)

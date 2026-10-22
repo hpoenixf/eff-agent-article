@@ -42,6 +42,8 @@ Mermaid diagrams, tables and their decision labels are localized in the respecti
 
 The [complete catalog](/en/catalog) follows the canonical reading tree and includes every original article. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
 
+For an architecture decision map, see [eight core principles and six on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
+
 Browse [financial technology topics](/en/fintech), the [architecture gallery](/en/gallery), or our [writing roadmap](/en/roadmap).
 
 Our articles discuss engineering mechanisms and bounded evidence; they do not constitute investment advice or claims of production-level validation.

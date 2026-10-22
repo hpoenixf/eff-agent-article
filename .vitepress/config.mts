@@ -56,6 +56,7 @@ export default defineConfig({
             { text: 'Engineering Practice', link: '/en/engineering' },
             { text: 'Fintech', link: '/en/fintech' },
             { text: 'Architecture Gallery', link: '/en/gallery' },
+            { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'Writing Roadmap', link: '/en/roadmap' }
           ] }]
         },
