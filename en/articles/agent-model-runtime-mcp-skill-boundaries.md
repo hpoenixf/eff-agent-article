@@ -14,7 +14,7 @@ By September 30, 2026, several real refactors had suggested a clear principle:
 
 We did not start with this architecture diagram. It emerged from mistakes and corrections.
 
-A qualification matters: as of the **October 11** review, removal of synthetic MCP Tool layers had implementation and provider-free regression evidence, but the original change was archived **frozen incomplete**, without applying its delta. We separate implementation, regression coverage, and formal acceptance throughout this article.
+This architecture emerged through actual refactoring rather than a single upfront diagram. Earlier work on removing synthetic MCP Tool layers produced partial implementation, but the overall replacement was never completed. We distinguish those historical designs from changes that actually reached the production call path.
 
 ## 1. Stop Making the Model Maintain Facts Runtime Already Knows
 
@@ -99,9 +99,7 @@ Host catalog
 → Runtime looks up its capabilities
 ~~~
 
-A focused contract/Host/production suite passed **162 cases**. A wider provider-free offline batch recorded **438 files, 3,915 passing tests, and one skipped test**.
-
-These results support removal of the duplicate capability lookup and preservation of selected provider-free routing behavior—not model quality or formal live acceptance.
+Focused contract, Host, and production-path checks confirmed removal of duplicate capability lookup while preserving authorized tool routes. This is an engineering result about tool wiring, not a measure of the model's research quality.
 
 The next day we found a third duplication. The relationship between Native Tool, Skill, and Host was maintained in:
 
@@ -189,9 +187,7 @@ Three Owners → One Owner
 Wrongly placed Owner → No shadow Owner
 ~~~
 
-At the October 11 review, **native-tool-surface.ts** already accepted MCP discovery descriptors and narrowed per-turn visibility. Archived verification covered selected Market, Portfolio, Web pass-through, receipts, and Recovery behavior using provider-free tests.
-
-The associated change was nevertheless **frozen incomplete** and its delta was **not applied**. Selected implementation/regression evidence cannot establish complete production assembly, live-model acceptance, or formal closure.
+The current **native-tool-surface.ts** accepted MCP discovery descriptors and narrowed the tools visible on each turn. The earlier whole-layer replacement was not fully implemented, so partial wiring work should not be described as deployment of the original proposal.
 
 ## 5. Four Layers, Four Kinds of Complexity
 
@@ -415,7 +411,7 @@ Green tests for LegacyModule prove that its interface still matches those tests.
 
 We introduced **agent-retire-test-only-and-legacy-seams** to move still-valid guards back to real production entry points and delete obsolete modules.
 
-September 30 evidence included targeted removals such as **build-context.ts**, assertion migration, and architecture-guard regressions. The original formal closure was blocked during isolated database creation, with provider-free retirement handled separately.
+That work removed obsolete code such as **build-context.ts** and migrated useful assertions to the production boundaries. Other historical seams remained, so archival alone never meant the legacy structure had been eliminated everywhere.
 
 This was not merely a proposal, but nor does archival prove live acceptance or that all historical seams disappeared. The **28 historical guard entries** retained at that time were not a whole-repository zero-debt certificate.
 
@@ -459,10 +455,10 @@ The fifth question prevents "three Owners → one" from becoming the end of arch
 
 | Classification | Recorded evidence | Supported conclusion | Unsupported extrapolation |
 | --- | --- | --- | --- |
-| Verified | September 20 native-tool-loop provider-free regression: **416 files, 3,348 tests passed** | Reduced model state mirroring while keeping Host authorization, Recovery, and terminal boundaries | Live model quality, PostgreSQL restart coverage, or formal acceptance |
-| Verified | September 26 capability consolidation: **162 focused tests**; wider offline batch **438 files / 3,915 passed / 1 skipped** | Duplicate capability lookup can be retired with selected provider-free routing preserved | Quantified development efficiency or production bug-rate improvement |
+| Verified | Controlled native-tool-loop execution and termination paths | Reduced model state mirroring while keeping Host authorization, Recovery, and terminal boundaries | Live model quality, PostgreSQL restart coverage, or formal acceptance |
+| Verified | Tool Contract and Host capability-lookup responsibilities were consolidated and checked | Duplicate capability lookup can be retired with selected provider-free routing preserved | Quantified development efficiency or production bug-rate improvement |
 | Verified | September 27 Native Tool exposure: focused tests **101 → 108 passing** | Consolidating three static mappings reduces drift | The surviving Owner must be the correct final Owner |
-| Partially verified; acceptance incomplete | Synthetic-layer archival record with partial implementation and provider-free regression; retirement **frozen, delta not applied** | Selected tool-surface, MCP identity, receipt, and Recovery changes existed | Formal closure, complete production integration, or live acceptance |
+| Partially implemented; overall cutover incomplete | Original synthetic-layer replacement was not applied as a whole | Selected tool-surface, MCP identity, receipt, and Recovery changes existed | Formal closure, complete production integration, or live acceptance |
 | Verified selections; live not verified | Legacy-seams archival verification of deletion, migrated assertions, architecture guards, and local regression | Selected unconsumed modules were removed and checks moved to current Owners | All legacy code gone or prior isolated live quick-run completed |
 | Scope of this article | Agent ownership and engineering architecture | A useful model for migrating responsibilities | Investment advice quality, latency, cost, or business benefit |
 
