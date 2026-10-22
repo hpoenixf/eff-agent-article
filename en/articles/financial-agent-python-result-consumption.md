@@ -112,16 +112,7 @@ The production path is broadly:
 4. The next Main model request consumes that projection.
 5. Publication determines delivery of independently eligible answer text.
 
-The focused work recorded bounded passes for Python attribution regressions, a targeted end-to-end consumption test from packaged Skill to the next Main request, and affected TypeScript call-site regressions. This establishes that **the current production seam can deliver these result types to the model**. It did not create a second result repository or add a global financial semantic reviewer at publication.
-
-The boundary remains explicit:
-
-| Supported finding | Not implied |
-| --- | --- |
-| Selected domain methods return independently expected outputs on fixed inputs | Every financial formula and market source is correct |
-| Selected packaged Skill results reach a subsequent Main request | Natural models always choose or faithfully use those results |
-| Local proxy/insufficient qualifications survive the handoff | Every sentence in a full report obeys financial method semantics |
-| An insufficient metric does not erase unrelated valid answer text | Full autonomous research, investment advice or long-term user value is verified |
+In controlled handoffs, domain methods can pass results with their denominators, qualification flags such as `proxy` or `insufficient`, and source identities through Skill and Result handling into the next Main request. One insufficient metric also need not erase unrelated valid text. This establishes the handoff for those result types, not that a real model will always select the right method, interpret each number faithfully, or finish the research task.
 
 Adding one more universal reviewer might look safer, but it could turn a local metric's insufficiency into rejection of the entire report, while reinterpreting source ownership, formulas and Run status in a new place. We chose to repair the original methods and the actual consumption seam, leaving permission, arithmetic, method eligibility, result identity and publication with their respective owners.
 
