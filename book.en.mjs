@@ -67,6 +67,10 @@ export const englishArticleSlugs = [
   '026-agent-spec-evidence-workflow',
   'partial-is-not-complete',
   '027-agent-context-document-history',
+  '025-agent-langfuse-from-trace-to-trustworthy-observability',
+  'runtime-model-protocol-boundary-agent-article-v2',
+  'ai-citations-do-not-prove-reliability',
+  'portfolio-mcp-readonly-investment-data',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
