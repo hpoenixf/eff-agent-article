@@ -171,7 +171,7 @@ First, the original investment method result was absent from the historical read
 
 Second, some real-model weekly research attempts still failed to assemble or were cancelled without a complete report. Another actual HTML export encountered missing analysis-source identity. Those failures belong to their corresponding source and execution owners; they are not evidence that the thesis module solved every adjacent delivery problem.
 
-On October 22, 2026, phase three completed its declared provider-free Runtime close. That verdict covers the specified application, database, protocol, and test inputs—not semantic investment quality, general production deployment, investment-advice capability, or financial returns.
+Phase three has an implemented and controlled runtime path across the specified protocol, application, and database conditions. Real-model understanding of investment theses, quality across multiple reporting periods, and actual decision support still require independent validation.
 
 A crucial limitation remains: even when the entire original method document is retained, its numeric-observation status can be `partial` if no qualified Portfolio Observation was obtained. A successfully preserved analysis envelope does not magically certify the underlying financial numbers.
 
