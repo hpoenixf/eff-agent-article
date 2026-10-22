@@ -366,28 +366,11 @@ No. Commit, server emission, client receipt, and render are distinct effects. Ma
 
 These rules are not exotic. Long Agent execution chains simply make it easy to narrate convenient transitions that were never verified.
 
-## 13. What the Scoped Verification Proved—and What It Did Not
+## 13. What Diagnosis Can Establish—and What It Cannot Replace
 
-Controlled fixtures and provider-free tests supported mechanisms such as:
+The engineering path now distinguishes failures by stage, traces whether tool results enter subsequent model requests, and separates committed answer text from actual delivery. A rejection no longer has to be attributed generically to the model or Provider, and diagnostic capture must not alter the business outcome.
 
-- Failure classification by stage instead of defaulting everything to Provider.
-- Reduction of a **terminalBlocker** from deterministic facts.
-- Attribution of timeouts to their actual Owner.
-- Identity-based proof of feedback consumption in later model requests.
-- Separation of commit from delivery.
-- Safe diagnostic projections that need not retain raw answer bodies.
-- Non-interference for **some specific paths** when their sinks fail under controlled conditions.
-
-Important gaps remained:
-
-- Complete non-interference integration for another Native Tool lifecycle logging path.
-- Full delivery identity through summaries, individual blocks, and revisions.
-- Comprehensive physical PostgreSQL restart and migration checks in this validation window.
-- Real-provider and real-Langfuse-endpoint runs for this same test group.
-- Actual usage/cost deltas.
-- A defensible real-world repair-recovery rate beyond fixture relationships.
-
-We intentionally do not collapse these into a fictional production signoff. A diagnosis implementation being complete is a different claim from end-to-end production validation.
+Still, locating the last confirmed blocker is not the same as identifying a complete root cause. Seeing feedback in a model request does not prove the model understood or corrected it. Real delivery identity across revisions, long-term recovery, and cost effects require their own operating evidence rather than extrapolation from isolated reproductions.
 
 ## Conclusion
 
