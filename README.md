@@ -6,7 +6,7 @@
 
 模块机制 × 架构思考 × AI Agent 研发工程 · **45 篇正文，三条主线**
 
-[**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融科技 × Agent 专题**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
+[**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
@@ -34,7 +34,7 @@
 | [模块维度](modules.md) | Agent 如何运行？ | **24 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Python、Memory、Runtime 与交付 |
 | [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **16 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
-| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **7 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
+| [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 41 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
 

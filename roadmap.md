@@ -32,6 +32,10 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 | **Agent 研发什么时候靠推理，什么时候应该做真实实验？** | [Spec 验证流程](/articles/026-agent-spec-evidence-workflow)、[假绿测试](/articles/honest-agent-evaluation)、[任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 至少两种不同性质的工程决策和不同验证方式；不能只是重述“测试要真实” |
 | **安全依赖、执行输入与结论依据为什么不是一回事？** | [金融证据链](/articles/financial-agent-trustworthy-evidence-chain)、[Result 消费](/articles/financial-agent-python-result-consumption) | 优先把 A/B/C 等有边界的关系例子纳入已有文章；只有出现独立读者问题再拆新稿 |
 
+## 金融可信工程 · 后续取证方向
+
+[金融可信工程地图](/fintech)已把 A35、运行控制、金融数值、持久交付、观测、审查和第三方治理按金融软件的风险问题重新组合。下一步应先考察**原 Owner 的业务证据消费路径**：只读任务审查包、真实模型对抗、供应商数据边界、故障恢复演练、金融建议独立质量复核。它们尚不是已承诺或已验收的能力；具体最小场景和证据缺口见[金融专题](/fintech)。不因分类而新建万能 Safety/Audit Manager。
+
 ## 模块维度 · 仍可取材的独立专题
 
 | 主题 | 真正要回答的问题 | 状态 |
