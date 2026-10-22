@@ -46,6 +46,8 @@ export const englishTitles = {
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
+  "025-agent-langfuse-from-trace-to-trustworthy-observability",
+  "adaptive-research-python-workbench",
   "agent-progressive-answer-coherence",
   "agent-veto-authority-and-run-termination",
   "unavailable-is-correct",
