@@ -310,7 +310,7 @@ Model-driven research does not grant model-driven permissions. A successful proc
 
 By **October 9**, the inspected implementation contained working-question updates, evidence feedback, Python explicit inputs, per-Run file continuity, authorized result references, and dependency continuation checks.
 
-In the **90-run CLI sample**, **21 runs** contained Python tool proposals and **eight** included proposals across multiple research turns. That shows repeated selection of computational work, **not** an execution-success percentage.
+CLI observations showed the model proposing Python work across research turns. That indicates it considered computational steps, not that the code executed successfully or improved the final answer.
 
 Working questions were also used, but the examples show why list updates, successful computation, research convergence, and correct answers need distinct evidence.
 
