@@ -14,7 +14,7 @@ This is not primarily about adding retries. It is about assigning authority over
 
 ## 1. Control over Published Text Is Not Run Termination Authority
 
-The [Publication system](019-agent-answer-publication.md) handles candidate text, previews, versioned commits, and revisions. Whether a particular passage is eligible for display is a different effect from whether the wider research Run may continue.
+The [Publication system](/articles/019-agent-answer-publication) handles candidate text, previews, versioned commits, and revisions. Whether a particular passage is eligible for display is a different effect from whether the wider research Run may continue.
 
 A tool can reject an unauthorized invocation. A search service can refuse a search that exceeds its quota. Context compaction can discard a summary whose identity no longer matches. All of these may be correct local decisions.
 
@@ -233,7 +233,7 @@ A module can say its *own operation* must stop. **Whether the entire research ta
 
 ## Further Reading and Discussion
 
-- [Publication](019-agent-answer-publication.md): text revisions, partial downgrade, and durable commits.
+- [Publication](/articles/019-agent-answer-publication): text revisions, partial downgrade, and durable commits.
 - [Run Budget and Constraint Governance](agent-runtime-constraint-governance-v2.md): resource admission, output reserves, and stage convergence.
 - [Stop Blaming Every Failure on the Model](agent-failure-is-a-boundary-problem.md): failure identity, diagnosis, and unknown effects.
 - [Avoiding Misleading Green Tests](honest-agent-evaluation.md): separate proof of execution, delivery, and quality.
