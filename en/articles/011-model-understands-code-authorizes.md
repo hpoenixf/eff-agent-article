@@ -131,7 +131,7 @@ The same distinction applies to document reading. Statement import and research 
 
 In a teaching scenario, every unit in a statement could reconcile without establishing that a separate research report was retrieved correctly. Each route retains its own results and gaps instead of borrowing the other's passing status.
 
-The old article reviewed selected provider-free PDF page-image contracts on October 11, 2026. At that time, the local contract was closed, rendering remained disabled by default, and real visual quality and production enablement still needed separate acceptance. That is a historical evidence window, not a claim that all documents have been verified today. The [PDF article](/en/articles/024-agent-pdf-from-text-to-evidence) covers the reading mechanisms.
+PDF page-image reading is a controlled feature disabled by default. A functioning local interface does not establish visual understanding quality or production readiness. The [PDF article](/en/articles/024-agent-pdf-from-text-to-evidence) covers the reading mechanisms.
 
 ## 8. The Judgments Retained After Consolidation
 
