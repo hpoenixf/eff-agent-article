@@ -41,6 +41,8 @@ export const englishTitles = {
   "financial-agent-python-result-consumption": "Why Python Results Can Still Be Misused in Reports",
   "financial-agent-trustworthy-evidence-chain": "A Trustworthy Evidence Chain for Financial Agents",
   "026-agent-spec-evidence-workflow": "Specs, Evidence and Verifiable Engineering Closure",
+  "agent-weekly-review-staged-delivery": "Why We Split a Large Weekly Review Spec into Three Phases",
+  "agent-engineering-knowledge-lifecycle": "Why Retired Documents Still Direct Coding Agents",
   "027-agent-context-document-history": "On-Demand Documentation and Engineering History",
   "green-tests-can-lie": "Green Tests Can Lie",
   "honest-agent-evaluation": "A Model Response Does Not Mean an Evaluation Passed",
@@ -67,6 +69,8 @@ export const englishArticleSlugs = [
   '026-agent-spec-evidence-workflow',
   'partial-is-not-complete',
   '027-agent-context-document-history',
+  'agent-weekly-review-staged-delivery',
+  'agent-engineering-knowledge-lifecycle',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [

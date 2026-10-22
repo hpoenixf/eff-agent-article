@@ -11,11 +11,17 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 先看[八条核心原则与六组外围系统方法](/principles)，再决定是深化原文、积累案例，还是形成新文章。
 
+## 本轮已成文 · 从预告转入正式目录
+
+[做了一整晚，周报还停在外围：我们为什么把一个大 Spec 拆成三期？](/articles/agent-weekly-review-staged-delivery)完整复盘首份交付、二三期、通用 HTML 能力，以及写进研发流程的防复发措施。
+
+[代码已经删了，旧文档为什么还在指挥 Agent？](/articles/agent-engineering-knowledge-lifecycle)讲述旧评测命令、旧设计、测试兼容层与历史检查误判。两篇都属于[AI Agent 研发工程实践](/engineering)，不是 Owner 专文。
+
 ## P0 · 优先深化已有文章（不是新篇）
 
 | 现有文章 | 值得补充的具体问题 | 计划与限制 |
 | --- | --- | --- |
-| [从 Bug 循环到真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 为什么开发了多个局部能力，仍不能交付第一份用户可取得的结果？如何围绕首份交付组织多期任务？ | 补已有阶段化交付和 HTML 反转实例；不把局部 Runtime 关闭算作整体研究质量提升 |
+| [从 Bug 循环到真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 首份交付与分期方法已经有[独立复盘](/articles/agent-weekly-review-staged-delivery)；原文后续应关注真实研究的端到端质量与收敛。 | 仅补新证据与独立结果，不重复周报分期故事 |
 | [写了 Spec，为什么还不能说做完了？](/articles/026-agent-spec-evidence-workflow) | Spec 如何帮助做设计取舍，而不是仅管理验证和收尾？ | 融入“事实、权力、故障、价值”四问及验证强度选择，不复制另一份检查清单 |
 | [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) | 新机制的正常路径税和退出成本怎样在真实案例里发现？ | 优先补确实发生的案例；已写的“五不”不再拆五篇文章 |
 

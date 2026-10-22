@@ -35,7 +35,7 @@ Start with [why tool results should not all enter model context](/en/articles/to
 
 - **Reliable knowledge:** [RAG revocation and disclosure](/en/articles/027-rag-revocation-publish-replay).
 - **Financial boundaries:** [Research versus investment advice and trading](/en/articles/030-fintech-from-research-to-investment-advice).
-- **AI-assisted engineering:** [Task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) and [why green tests can lie](/en/articles/green-tests-can-lie).
+- **AI-assisted engineering:** [Staged delivery from a weekly-review Spec](/en/articles/agent-weekly-review-staged-delivery), [retiring obsolete engineering knowledge](/en/articles/agent-engineering-knowledge-lifecycle), [task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence), and [why green tests can lie](/en/articles/green-tests-can-lie).
 - **Origins:** [The first-week ETF assistant retrospective](/en/articles/001-one-week-4-billion-tokens-etf-investment-agent).
 
 Mermaid diagrams, tables and their decision labels are localized in the respective article editions. Existing standalone SVG/HTML galleries may still use Chinese labels until their separate visual translations are published.

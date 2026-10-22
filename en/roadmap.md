@@ -9,11 +9,17 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
+## Published from this roadmap
+
+The [weekly-review staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) explains why comprehensive design must not delay the first usable result, and how we changed the Spec workflow.
+
+The [engineering knowledge retirement retrospective](/en/articles/agent-engineering-knowledge-lifecycle) shows how obsolete instructions and tests can revive old mechanisms. Both are complete bilingual articles in the [engineering collection](/en/engineering).
+
 ## First: Deepen existing articles
 
 | Priority | Existing essay | Further question |
 | --- | --- | --- |
-| **P0** | [From bug-fixing to full task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) | How should a complex project define its first deliverable and stage only the dependencies needed to ship it? |
+| **P0** | [From bug-fixing to full task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) | Staged delivery now has its own [case study](/en/articles/agent-weekly-review-staged-delivery); add only distinct new observations about full research-task convergence. |
 | **P0** | [Specs, Evidence, and reliable closeout](/en/articles/026-agent-spec-evidence-workflow) | How can facts, authority, failure, value and verification choices improve design decisions without another mandatory checklist? |
 | **P1** | [Sustainable architectural evolution, Chinese original](/articles/code-cheaper-systems-harder-to-evolve) | Add grounded examples of normal-path tax and genuinely retired mechanisms, without re-publishing the same argument. |
 
