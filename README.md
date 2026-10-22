@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **44 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **45 篇正文，三条主线**
 
 [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融科技 × Agent 专题**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
@@ -20,7 +20,7 @@
 | --- | --- | --- |
 | **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 流式内容、修订、客户端与 Host 交付边界的设计判断；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue)了解传统前端经验 |
 | **Agent 应用开发** | [六层研究链路](articles/017-prompt-to-answer-six-layer-panorama.md) → [Subagent](articles/agent-subagent-context-specialization.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
-| **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
+| **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [工程 Context 与 History](articles/027-agent-context-document-history.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 的设计、实施、验证与交接留有可追溯依据 |
 
 **公开证据的边界：** 本仓库的文章、架构图、目录源码与 [GitHub Pages 构建流程](.github/workflows/pages.yml) 可以直接查看；[博客站点源码](https://github.com/hpoenixf/myblog-v2)也公开。ETF Agent 的核心应用源码和完整运行证据**不在本公开仓库**。文章记录特定版本的真实案例或设计判断，但不等于第三方已经复核生产级性能、长期成功率、用户业务收益或 AI-native 前端的完整运行 Demo。
@@ -31,7 +31,7 @@
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **23 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Python、Memory、Runtime 与交付 |
+| [模块维度](modules.md) | Agent 如何运行？ | **24 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Python、Memory、Runtime 与交付 |
 | [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **16 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **5 篇 / 2 组**，Spec、Evidence、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | **6 篇跨分类精选**；不作为第四个一级分类，不重复正文 |
@@ -84,10 +84,11 @@
 </details>
 
 <details>
-<summary><b>03 · 运行时、扩展与观测</b>（7 篇）</summary>
+<summary><b>03 · 运行时、扩展与观测</b>（8 篇）</summary>
 
 - [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
 - [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](articles/mcp-host-from-discovery-to-consumption.md)
+- [Tool Surface：Agent 有工具，模型为什么看不到](articles/agent-model-capability-presentation-tool-surface.md)
 - [多生态 Hook：从 Claude、Pi 到 Codex](articles/agent-multi-ecosystem-hook-execution.md)
 - [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
 - [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
