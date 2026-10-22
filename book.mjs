@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 42 unique essays.
+// One canonical reading tree: three perspectives and 44 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -206,6 +206,10 @@ export const collections = [
           [
             "financial-agent-trustworthy-evidence-chain",
             "金融 Agent 的可信证据链"
+          ],
+          [
+            "agent-weekly-thesis-history-continuous-research",
+            "一份周报过去后，Agent 还记得为什么这样判断吗？"
           ]
         ]
       }
