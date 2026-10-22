@@ -122,13 +122,11 @@ ModelDirectHtml --> SharedArtifactDelivery
 
 不为 HTML 再造一个 Router、DSL、授权中心或自动修复循环；周报 Skill 保留分析框架，移除过期的专用生成协议。既有其他标准报告的固定方法约束并没有因此一律取消。
 
-## 六、我们究竟证明了什么？
+## 六、交付链路实际走通到了哪里？
 
-10 月 16 日已有一条真实模型驱动的 **Child → Python → HTML 导出 → Main 下载**成功记录：文件 **11,384 字节**，HTTP 200，大小与哈希匹配。这是共享链改造前的真实成功样本。
+我们先观察到一条真实模型驱动的 **Child → Python → HTML 导出 → Main 下载**路径：文件不只被生成，还经过正常授权下载，并与保存内容核对一致。随后，统一 HTML 路线在普通 CLI 入口完成了报告生成、持久化、认证下载与浏览器打开。
 
-10 月 20 日，统一链路完成新的验收：**5/5 次普通真实 CLI 请求正常完成，13 个 HTML 版本全部可认证下载，字节大小与 SHA-256 一致**；代表性文件在浏览器中实际打开。此前一轮 **3/5** 的结果仍保留，不能被新的批次覆盖。共享链对 Python 和模型直写两种输入还进行了生产接缝组合验证，但最新五次真实请求不等于对新架构下真实 Python/Child 路径的重新专项验收。
-
-这些数字证明的是**交付效果**，不是金融结论、页面审美或线上部署质量。
+这些经历说明共享交付链能够工作，也保留了早期交付失败的教训。但新架构下 Python/Child 的每一种变体尚未逐一在真实研究中复验，文件成功交付也不等于金融分析正确、页面体验优良或生产环境长期稳定。
 
 ## 结语
 
@@ -136,9 +134,6 @@ ModelDirectHtml --> SharedArtifactDelivery
 
 真正的架构升级，不是再加一个万能生成器，而是让每个 Owner 只对自己能证明的事实负责；当这些事实能可靠衔接时，才有资格删除那条越来越重的专用链路。
 
----
-
-*工程取材：* [隔离 Python 的来源与交付](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-05-isolated-analysis-lineage.md) · [Python 实际交付和 Child 隔离](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-16-python-delivery-isolation-and-cancellation.md) · [计算与文件效果分开验收](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-18-numerical-oracle-and-artifact-delivery.md) · [共享 HTML 的设计决策](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/openspec/changes/archive/2026-10-20-agent-deliver-portfolio-weekly-review-html/design.md) · [真实失败与验收账本](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/openspec/changes/archive/2026-10-20-agent-deliver-portfolio-weekly-review-html/evidence.md) · [下载与访问授权](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-19-artifact-access-and-run-authorization.md)
 
 ## 延伸阅读与交流
 
