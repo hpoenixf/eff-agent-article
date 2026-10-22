@@ -39,6 +39,7 @@ export const englishTitles = {
   "031-fintech-data-time-and-reproducible-numbers": "Financial Data: Time, Definitions and Reproducibility",
   "financial-agent-python-result-consumption": "Why Python Results Can Still Be Misused in Reports",
   "financial-agent-trustworthy-evidence-chain": "A Trustworthy Evidence Chain for Financial Agents",
+  "agent-weekly-thesis-history-continuous-research": "After the Weekly Report, Does the Agent Remember Why?",
   "026-agent-spec-evidence-workflow": "Specs, Evidence and Verifiable Engineering Closure",
   "agent-weekly-review-staged-delivery": "Why We Split a Large Weekly Review Spec into Three Phases",
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
@@ -76,7 +77,8 @@ export const englishArticleSlugs = [
   "026-agent-spec-evidence-workflow",
   "027-agent-context-document-history",
   "agent-weekly-review-staged-delivery",
-  "agent-asynchronous-research-time-bound-delivery"
+  "agent-asynchronous-research-time-bound-delivery",
+  "agent-weekly-thesis-history-continuous-research"
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
