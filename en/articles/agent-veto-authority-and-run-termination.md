@@ -1,6 +1,5 @@
 # When Every Module Can Say No: Agent Run Termination, Stage Budgets, and Safe Recovery
 
-> Merged revision, October 22, 2026: this article incorporates the stage-clock, failure-recovery, and connection-lifecycle cases from the former "Don't Let a Fallback Answer Pretend to Succeed." The old fixed-planner architecture is discussed only as historical context. The Run-termination authority consolidation completed scoped provider-free verification and archival on October 19, 2026; it is **not** proof of real-model research quality or production deployment acceptance.
 
 A research task has read several sources, completed part of its computation, and delivered a few passages to the user. Should a single failed tool, changed optional suggestion, or disconnected browser terminate the entire investigation?
 
