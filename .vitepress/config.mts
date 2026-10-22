@@ -55,6 +55,7 @@ export default defineConfig({
             { text: 'Architecture', link: '/en/thinking' },
             { text: 'Engineering Practice', link: '/en/engineering' },
             { text: 'Fintech', link: '/en/fintech' },
+            { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
             { text: 'Architecture Gallery', link: '/en/gallery' },
             { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'Writing Roadmap', link: '/en/roadmap' }
@@ -116,6 +117,7 @@ export default defineConfig({
           { text: '架构与系统思考', link: '/thinking' },
           { text: '研发工程实践', link: '/engineering' },
           { text: '金融专题', link: '/fintech' },
+          { text: '金融研究清单', link: '/financial-research-backlog' },
           { text: '完整目录', link: '/catalog' },
           { text: '架构原则速查', link: '/principles' },
           { text: '架构导读', link: '/architecture' },

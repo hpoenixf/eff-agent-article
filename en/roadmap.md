@@ -28,6 +28,12 @@ The [engineering context, memory and knowledge retirement article](/en/articles/
 - **Reasoning versus experiments in agent engineering.** Differentiate deterministic architectural reasoning from real-model performance comparisons. Existing baselines: [Specs](/en/articles/026-agent-spec-evidence-workflow), [green tests](/en/articles/honest-agent-evaluation).
 - **Conservative lineage versus exact output attribution.** First strengthen the [evidence chain, Chinese original](/articles/financial-agent-trustworthy-evidence-chain); create a new essay only if it answers a distinct reader question.
 
+## Financial AI Research · One Editorial Backlog
+
+The [finance selection](/en/fintech) now uses **four domains and fifteen second-level topics** focused on securities and wealth management. Each features up to three genuinely relevant essays, including none. A full topic prompts quality review, not an automatic split.
+
+The **[F01–F15 research backlog](/en/financial-research-backlog)** is the sole record of questions, evidence gaps and task status. [F01 on research quality](https://github.com/hpoenixf/eff-agent-article/issues/12) is the first opened issue. Next priorities include financial error cases, brokerage-app AI and employee workflows. These are **editorial research directions**, not implemented product features, engineering Specs or publication commitments.
+
 ## Module candidates still awaiting distinct material
 
 Durable control events; private artifact access and sharing; provider routing and capacity; and long-term personalized research outcomes. Each needs a scoped original case. See the [detailed Chinese writing roadmap](/roadmap) for the existing candidate list.
