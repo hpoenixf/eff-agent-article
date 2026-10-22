@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { collections } from '../book.mjs'
+import { englishCollections, englishArticlePath } from '../book.en.mjs'
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -14,7 +15,60 @@ const readingSidebar = collections.map((collection) => ({
   }))
 }))
 
+const englishSidebar = englishCollections.map(collection => ({
+  text: collection.title,
+  collapsed: false,
+  items: collection.chapters.map(chapter => ({
+    text: chapter.title,
+    collapsed: false,
+    items: chapter.items.map(([slug, title]) => ({
+      text: title + (englishArticlePath(slug).startsWith('/en/') ? '' : ' · 中文'),
+      link: englishArticlePath(slug)
+    }))
+  }))
+}))
+
 export default defineConfig({
+  locales: {
+    root: { label: '简体中文', lang: 'zh-CN' },
+    en: {
+      label: 'English',
+      lang: 'en-US',
+      link: '/en/',
+      title: 'ETF Agent · Engineering Notes',
+      description: 'Engineering notes on AI agent mechanisms, architecture and development.',
+      themeConfig: {
+        nav: [
+          { text: 'Modules', link: '/en/modules' },
+          { text: 'Architecture', link: '/en/thinking' },
+          { text: 'Engineering', link: '/en/engineering' },
+          { text: 'Fintech', link: '/en/fintech' },
+          { text: 'All Articles', link: '/en/catalog' },
+          { text: 'Gallery', link: '/en/gallery' },
+          { text: 'Roadmap', link: '/en/roadmap' }
+        ],
+        sidebar: {
+          '/en/articles/': englishSidebar,
+          '/en/': [{ text: 'Start Reading', items: [
+            { text: 'All Articles', link: '/en/catalog' },
+            { text: 'Module Deep Dives', link: '/en/modules' },
+            { text: 'Architecture', link: '/en/thinking' },
+            { text: 'Engineering Practice', link: '/en/engineering' },
+            { text: 'Fintech', link: '/en/fintech' },
+            { text: 'Architecture Gallery', link: '/en/gallery' },
+            { text: 'Writing Roadmap', link: '/en/roadmap' }
+          ] }]
+        },
+        outline: { level: [2, 3], label: 'On This Page' },
+        docFooter: { prev: 'Previous', next: 'Next' },
+        returnToTopLabel: 'Back to Top',
+        sidebarMenuLabel: 'Menu',
+        darkModeSwitchLabel: 'Toggle Appearance',
+        editLink: { pattern: 'https://github.com/hpoenixf/eff-agent-article/edit/main/:path', text: 'Improve This Page on GitHub' },
+        footer: { message: 'Engineering notes, evidence and boundaries.', copyright: 'ETF Agent Engineering Notes' }
+      }
+    }
+  },
   title: 'ETF Agent · 工程手记',
   description: '从真实工程问题出发，沿模块机制、架构判断和 AI 研发实践连续阅读，并以金融专题串联领域案例。',
   lang: 'zh-CN',

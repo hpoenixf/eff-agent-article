@@ -118,3 +118,13 @@
   .VPNavBar .wrapper { padding-left: 16px; }
   .VPNavBar .content-body { column-gap: 0; }
 }
+
+\n/* Manual language preference is persisted across sessions; hide the unpersisted VitePress locale picker. */
+.VPNavBarTranslations, .VPNavBarMenuGroup[aria-label="Translations"] { display: none !important; }
+.language-pref { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; white-space: nowrap; margin-right: 12px; }
+.language-pref button { background: transparent; border: 0; color: var(--vp-c-text-2); padding: 4px; cursor: pointer; }
+.language-pref button.active { color: var(--vp-c-brand-1); font-weight: 700; }
+.language-pref button:focus-visible { outline: 2px solid var(--vp-c-brand-1); border-radius: 3px; }
+.language-unavailable { font-size: 10px; color: var(--vp-c-text-3); max-width: 110px; white-space: normal; line-height: 1.1; }
+.article-original-label { color: var(--vp-c-text-3); font-size: 0.8em; }
+@media (max-width: 640px) { .language-pref { margin-right: 4px; } .language-unavailable { display: none; } }

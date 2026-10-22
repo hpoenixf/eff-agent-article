@@ -184,3 +184,20 @@ npm run docs:build
 ## 已合并文章的旧链接
 
 旧版 023 发布治理、runtime-natural-language-boundary 和 028 反馈专题仍保留指向现有主稿的合稿引导，**不另算正文**。不为分类调整创建旧文章副本。
+
+\n## English editions / 双语发布
+
+The Chinese originals remain at `/articles/<slug>`. Reviewed complete English translations use
+`/en/articles/<slug>`; both editions share the same stable slug, canonical category and order in `book.mjs`.
+`book.en.mjs` holds only English display labels and the list of **actually translated** slugs,
+never a competing article index. The English catalog marks untranslated essays “Chinese original.”
+
+- Open `?lang=en` or `?lang=zh` on a site page to set the language preference; the reader switcher stores
+  `etf-agent:language` in localStorage. A URL parameter overrides storage. Direct `/en/` links select English.
+- The language switch preserves equivalent article paths only when a complete translation exists.
+  Otherwise the Chinese original remains visible with a clear availability notice, never a fake translation.
+- For each newly approved article, publish and review both `articles/<slug>.md` and
+  `en/articles/<slug>.md`, register its English title and translated slug in `book.en.mjs`,
+  and run `npm run check:catalog && npm run docs:build`. English must preserve code,
+  evidence status, warnings, dates, diagrams, and citation semantics. Do not label a placeholder translated.
+- Existing Chinese-only articles are **not** claimed to have English translations.

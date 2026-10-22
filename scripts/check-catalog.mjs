@@ -73,3 +73,20 @@ if (financeSlugs.length < 2 || new Set(financeSlugs).size !== financeSlugs.lengt
   throw Error('Finance topic must link uniquely to indexed essays')
 }
 console.log('Three-perspective catalogue, curated finance links and local article links validated.')
+
+
+// English presentation derives slugs from book.mjs, never maintains a second article tree.
+const { englishTitles, englishArticleSlugs } = await import('../book.en.mjs')
+const englishKeys = Object.keys(englishTitles)
+if (englishKeys.length !== slugs.length || slugs.some(slug => !englishTitles[slug]) ||
+    englishKeys.some(slug => !slugs.includes(slug))) throw Error('English article labels out of sync with book.mjs')
+if (new Set(englishArticleSlugs).size !== englishArticleSlugs.length) throw Error('Duplicate translated article slug')
+for (const slug of englishArticleSlugs) {
+  if (!slugs.includes(slug) || !existsSync('en/articles/' + slug + '.md')) throw Error('Missing English translation: ' + slug)
+}
+for (const path of ['index','catalog','modules','thinking','engineering','fintech','gallery','architecture','principles','roadmap']) {
+  if (!existsSync('en/' + path + '.md')) throw Error('Missing English landing page: ' + path)
+}
+const existingTranslations = (await import('node:fs')).readdirSync('en/articles').filter(path => path.endsWith('.md')).map(path => path.slice(0, -3))
+if (existingTranslations.some(slug => !englishArticleSlugs.includes(slug))) throw Error('Unregistered English article translation')
+console.log('English navigation:', englishKeys.length, 'stable IDs; complete translations:', englishArticleSlugs.length)
