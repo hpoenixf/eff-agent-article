@@ -55,6 +55,10 @@ export const englishArticleSlugs = [
   '001-one-week-4-billion-tokens-etf-investment-agent',
   'agent-tool-lifecycle-and-model-input',
   'green-tests-can-lie',
+  '010-agent-first-brakes',
+  '024-agent-pdf-from-text-to-evidence',
+  'agent-html-evolution-challenges',
+  '011-model-understands-code-authorizes',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
