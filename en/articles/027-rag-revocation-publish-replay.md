@@ -80,7 +80,6 @@ The retrospective retained targeted before/after evidence:
 - A generated first SSE response previously escaped revocation; after commit-time revalidation, protected content was blocked.
 - Publication and concurrent approved-index changes used one logical commit order, with explainable outcomes depending on which committed first.
 - Explicit retention revoke was tested separately from ordinary scope-denied and unknown cases. “Cannot currently show” must not be silently upgraded to “permanently erase.”
-- The same historical window recorded **371 provider-free offline test files and 2,860 passing tests**, plus **7 isolated-PostgreSQL files and 39 passing tests**. These numbers are historical engineering records, not tests rerun for this translation.
 
 Larger RAG completeness and quality evaluation remained open despite those figures. Actual-source evaluation, end-to-end quality and formal closure still had outstanding work; a September 14 follow-up live experiment also left failed screening outcomes. **Passing a disclosure-authorization contract does not prove high-quality financial knowledge retrieval.**
 
