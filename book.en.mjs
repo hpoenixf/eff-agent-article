@@ -46,7 +46,16 @@ export const englishTitles = {
   "honest-agent-evaluation": "A Model Response Does Not Mean an Evaluation Passed",
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
-export const englishArticleSlugs = ['tool-results-outside-model-context'] // Only complete, reviewed English Markdown belongs here.
+export const englishArticleSlugs = [
+  'tool-results-outside-model-context',
+  '026-agent-memory-forget-durable-effects',
+  '027-rag-revocation-publish-replay',
+  '030-fintech-from-research-to-investment-advice',
+  '032-ai-development-from-bug-loop-to-task-convergence',
+  '001-one-week-4-billion-tokens-etf-investment-agent',
+  'agent-tool-lifecycle-and-model-input',
+  'green-tests-can-lie',
+] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
     "Research, Reading and Computing",

@@ -29,7 +29,16 @@ features:
 
 ## Start here
 
-Read [why tool results do not always belong in model context](/en/articles/tool-results-outside-model-context), an English translation of a practical architecture retrospective.
+Start with [why tool results should not all enter model context](/en/articles/tool-results-outside-model-context), then continue to [traceable tool execution](/en/articles/agent-tool-lifecycle-and-model-input) and [memory effects that survive answer failures](/en/articles/026-agent-memory-forget-durable-effects).
+
+### Newly translated reading paths
+
+- **Reliable knowledge:** [RAG revocation and disclosure](/en/articles/027-rag-revocation-publish-replay).
+- **Financial boundaries:** [Research versus investment advice and trading](/en/articles/030-fintech-from-research-to-investment-advice).
+- **AI-assisted engineering:** [Task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) and [why green tests can lie](/en/articles/green-tests-can-lie).
+- **Origins:** [The first-week ETF assistant retrospective](/en/articles/001-one-week-4-billion-tokens-etf-investment-agent).
+
+Mermaid diagrams, tables and their decision labels are localized in the respective article editions. Existing standalone SVG/HTML galleries may still use Chinese labels until their separate visual translations are published.
 
 The [complete catalog](/en/catalog) follows the canonical reading tree and includes every original article. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
 

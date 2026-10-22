@@ -125,20 +125,20 @@
 挂起是通向回流基线的中间状态，不是第三种终局。
 
 ```mermaid
-graph TD
-DefineRequirements --> CollectBaseline
-CollectBaseline --> MockVerification
-CollectBaseline --> RealDependencyVerification
-MockVerification --> CheckMockTests
-CheckMockTests --> ReturnToBaseline
-CheckMockTests --> MarkMockBoundary
-RealDependencyVerification --> CheckRealProbe
-CheckRealProbe --> ReturnToBaseline
-CheckRealProbe --> CheckRealEvidence
-MarkMockBoundary --> CheckRealEvidence
-CheckRealEvidence --> AcceptEvidence
-CheckRealEvidence --> SuspendAndInvestigate
-SuspendAndInvestigate --> ReturnToBaseline
+flowchart TD
+  A["定义需验证的边界"] --> B["采集基线与初始失败"]
+  B --> C["运行聚焦替身测试"]
+  B --> D["运行真实依赖验证"]
+  C --> E{"替身检查通过？"}
+  E -- "否" --> Z["回流基线：修复并重采证据"]
+  E -- "是" --> F["标记替身边界"]
+  D --> G{"真实探针通过？"}
+  G -- "否" --> Z
+  G -- "是" --> H{"真实证据完整？"}
+  F --> H
+  H -- "是" --> I["可采纳证据"]
+  H -- "否" --> J["挂起：调查缺失证据"]
+  J --> Z
 ```
 
 **关系或判断条件：**
