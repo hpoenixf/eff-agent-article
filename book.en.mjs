@@ -59,6 +59,9 @@ export const englishArticleSlugs = [
   '024-agent-pdf-from-text-to-evidence',
   'agent-html-evolution-challenges',
   '011-model-understands-code-authorizes',
+  'agent-autonomous-scheduled-research',
+  'honest-agent-evaluation',
+  'agent-main-run-context-compaction',
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [
