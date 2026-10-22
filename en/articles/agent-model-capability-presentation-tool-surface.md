@@ -37,7 +37,7 @@ That was an integration gap established by source inspection, **not** an inferen
 
 Our first response was to connect the missing pieces across Skill, Native Contract, and Host Action. Implementing that revealed a second contradiction: the **market** capability might be announced as available when the default MCP Market path was enabled, even though production Host network policy did not permit the action. The Factory then faced a capability declaration with no executable Host Action.
 
-Provider-free RED/GREEN evidence exists for this mismatch. We also corrected the opposite boundary: switching off Web search must not automatically disable Structured Market. One fixed mismatch does not justify conflating these two capabilities forever.
+Controlled reproductions exposed mismatches between model-visible tools and executable capabilities. We also corrected the opposite boundary: disabling Web search must not automatically disable Structured Market. Fixing one mismatch does not justify permanently coupling the two capabilities.
 
 **What began as "show the model two more tools" revealed that Skill declarations, derived capabilities, Host admission, and model-visible tool interfaces are different facts.**
 
