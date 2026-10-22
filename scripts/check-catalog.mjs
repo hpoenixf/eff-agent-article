@@ -74,7 +74,8 @@ if (financeSlugs.length < 2 || new Set(financeSlugs).size !== financeSlugs.lengt
 }
 console.log('Three-perspective catalogue, curated finance links and local article links validated.')
 
-\n// English presentation derives slugs from book.mjs, never maintains a second article tree.
+
+// English presentation derives slugs from book.mjs, never maintains a second article tree.
 const { englishTitles, englishArticleSlugs } = await import('../book.en.mjs')
 const englishKeys = Object.keys(englishTitles)
 if (englishKeys.length !== slugs.length || slugs.some(slug => !englishTitles[slug]) ||
