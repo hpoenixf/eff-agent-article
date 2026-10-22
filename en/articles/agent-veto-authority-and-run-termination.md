@@ -64,7 +64,7 @@ A Run can be limited by requests, tools, time, concurrency, and reserved final-o
 
 The original **Root Resource** owns atomic admission and actual usage facts for shared requests. Runtime consumes the resource view, selects stages, and produces warnings; it does not issue or revoke request eligibility from an independent shadow ledger.
 
-A focused effort on **October 18, 2026** passed **279 targeted checks**; another **88 checks** for the original Root Owner passed separately. Those test selections have different scopes and must **not** be added together as a count of independent scenarios.
+Focused checks confirmed the intended responsibility boundary between Root Resource and Runtime without duplicating the resource-consumption ledger.
 
 Web-search quotas, Provider physical concurrency, and text-revision counts may still belong to different modules because they constrain distinct resources.
 
@@ -200,18 +200,9 @@ Run-termination authority consolidation was implemented, aligned with accepted s
 
 The selected verification covered shared termination decisions, recovery and bounded finalization through existing mechanisms, isolation of optional Needs, advisory Stop, and consistency between durable state and completion callbacks.
 
-The evidence used a production Factory, a scripted model gateway, and fresh-pool replay against an independent PostgreSQL instance:
+Controlled checks covered the production Factory with a scripted model gateway, fresh-pool recovery against independent PostgreSQL, and consistency of terminal receipts. They support these specific control behaviors, not a whole-repository quality score or real-model research success rate.
 
-- **312 targeted tests across 14 files** passed.
-- **One targeted PostgreSQL check** passed.
-- **Root type checking** passed.
-- The provider-free formal closure receipt was **complete**.
-
-These different checks are not combined into a fictional whole-repository quality score. Translating this article does not mean those original tests were run again.
-
-The results support a **scoped control contract**. They do **not** prove the whole codebase has no failures, that natural models always finish investment research, that every browser scenario is stable, or that the feature is deployed.
-
-The older **360-second** and **672-second** observations belong to their distinct historical windows, not to this same acceptance sample.
+Completion of complex research by real models, stability of browser interactions, and production behavior still require verification in their respective operating environments.
 
 Meaningful acceptance examines the original chain: can independent legal work continue after a local failure? Can Stop force an extra turn? Can an unknown effect be repeated? Do Publication settlement and completion callbacks agree?
 
