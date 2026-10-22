@@ -126,7 +126,7 @@ ModelInterpretsResult --> PublicationPreparesAnswer
 
 教学场景中，即使某份账单的份额完全对上，也不能据此断言另一份研报已被正确检索。两条路径各自保留结果与缺口，不互相借用通过状态。
 
-旧稿在 2026 年 10 月 11 日核对过 PDF 页图的选定 provider-free 合同：当时本地合同已关闭，render 默认关闭，真实视觉质量与生产启用仍需单独验收。这是当时的证据窗口，不能把它改写成今天所有文档都已验证。具体读取机制由 [PDF 专文](./024-agent-pdf-from-text-to-evidence.md)展开。
+PDF 页图阅读属于默认关闭的受控能力；本地接口成立并不等于真实视觉质量与生产启用已经验证。具体读取机制由 [PDF 专文](./024-agent-pdf-from-text-to-evidence.md)展开。
 
 ## 八、合并后保留的判断
 
