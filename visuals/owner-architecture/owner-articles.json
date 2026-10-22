@@ -33,7 +33,8 @@
     "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
     "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
     "agent-autonomous-scheduled-research": "定时研究：会话结束后继续",
-    "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实"
+    "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实",
+    "agent-model-capability-presentation-tool-surface": "Tool Surface：Agent 有工具，模型为什么看不到"
   },
   "owners": {
     "A01": {
@@ -188,6 +189,7 @@
       ]
     },
     "A34": {
+      "primary": "agent-model-capability-presentation-tool-surface",
       "related": [
         "mcp-host-from-discovery-to-consumption",
         "agent-model-runtime-mcp-skill-boundaries"
