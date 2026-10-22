@@ -63,7 +63,7 @@ We did not add a broad “allow if a receipt exists” exception. The historical
 
 The old body itself remains unreadable. If the receipt is missing, inaccessible, generically revoked, or insufficient to establish current eligibility, the reader must continue to deny access or preserve an unknown state.
 
-Eighteen Memory-history test cases later passed for these exact source relationships and denial paths. They do not guarantee the wording of every future natural-language response.
+Controlled checks later confirmed those source relationships and denial paths, without guaranteeing the wording of future natural-language responses.
 
 ## 5. Why We Did Not Build Another Memory Execution Engine
 
