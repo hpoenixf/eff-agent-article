@@ -269,7 +269,7 @@ The long-term advantage of a system is not how many capabilities it can add with
 
 ## Further Reading and Discussion
 
-- [Publication: Why Answers Need an Independent Publishing Mechanism](019-agent-answer-publication.md).
+- [Publication: Why Answers Need an Independent Publishing Mechanism](/articles/019-agent-answer-publication).
 - [When Every Module Can Say No: Run Termination](agent-veto-authority-and-run-termination.md).
 - [Extension Host: From Feature Phone to Plugin Platform](020-agent-extension-host-smartphone.md).
 - [Agent Architecture Principles](/principles): concise design/refactoring/Code Review heuristics.
