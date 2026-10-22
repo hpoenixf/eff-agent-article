@@ -238,17 +238,15 @@ For **Research**, it retains the complete legitimate list, rejecting unauthorize
 
 A34 is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
 
-## 9. The Final Test Debt
+## 9. Handling Outdated Tests
 
 The implementation did not end with one effortless green run.
 
-Broader regression testing exposed **17 outdated assertions** across two wider test groups. They contradicted the accepted contract on historical Skill ceilings, current guidance, and legitimate Deep controls.
+Broader regression testing exposed outdated assertions. They contradicted the accepted contract on historical Skill ceilings, current guidance, and legitimate Deep controls.
 
 We did not restore obsolete business rules just to make tests pass. We compared each failing assertion against the current accepted contract, preserved the underlying negative safeguards, and corrected outdated expectations.
 
-Formal provider-free closure then reported **345/345 mock tests** and **352/352 checks** in the declared scope, with the A34 Spec archived.
-
-These results establish parity and local rejection behavior **within the tested request paths**. They do **not** establish paid-model tool-selection quality, full PostgreSQL cold-recovery coverage, production SLA, or real investment-research value.
+Targeted checks established consistency and local rejection behavior in the tested request paths—not the model's research quality.
 
 Even when the model sees exactly the correct tools, it can still choose the wrong method or fail the research task. That is a different layer of performance and must not borrow confidence from A34's GREEN tests.
 
