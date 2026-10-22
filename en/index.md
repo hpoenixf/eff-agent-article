@@ -33,7 +33,7 @@ Start with [why tool results should not all enter model context](/en/articles/to
 
 ### Newly translated reading paths
 
-- **Reliable knowledge:** [RAG revocation and disclosure](/en/articles/027-rag-revocation-publish-replay).
+- **Reliable knowledge:** [RAG revocation and disclosure](/en/articles/027-rag-revocation-publish-replay), and [A35 content trust and prompt injection](/en/articles/agent-content-trust-prompt-injection).
 - **Financial boundaries:** [Research versus investment advice and trading](/en/articles/030-fintech-from-research-to-investment-advice).
 - **AI-assisted engineering:** [Staged delivery from a weekly-review Spec](/en/articles/agent-weekly-review-staged-delivery), [retiring obsolete engineering knowledge](/en/articles/027-agent-context-document-history), [task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence), and [why green tests can lie](/en/articles/honest-agent-evaluation).
 - **Origins:** [The first-week ETF assistant retrospective](/en/articles/001-one-week-4-billion-tokens-etf-investment-agent).
