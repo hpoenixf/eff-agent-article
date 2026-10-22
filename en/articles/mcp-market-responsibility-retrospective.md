@@ -288,7 +288,7 @@ The bytes were within the legitimate output allowance; an unrelated complexity l
 
 This is integration engineering worth preserving after removing semantic adaptation: the correct fix was **a validator scope correction**, not a new financial-field mapper.
 
-The recorded acceptance paths are controlled engineering checks, including provider-free transport and Recovery tests. They do **not** replace live vendor authorization, long-term service availability, or real-model research-quality tests with different Schemas.
+Controlled invocation and recovery checks explain how the connection path behaves. Access to real providers, long-term service availability, and the model's ability to work across differing Schemas still require observation under real conditions.
 
 The trade-off is genuine. Native tools require models to understand more source variation; tool descriptions and context capacity become more important. Deterministic consumers still maintain their strict local schemas.
 
