@@ -35,7 +35,7 @@
     "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
     "tool-results-outside-model-context": "结果外置与完整性：模型到底读到了多少",
     "unavailable-is-correct": "数据过期后的受控刷新",
-    "agent-content-trust-prompt-injection": "Prompt Injection 不只是恶意文本：我们如何为 Agent 建立内容信任边界"
+    "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本"
   },
   "owners": {
     "A01": {
