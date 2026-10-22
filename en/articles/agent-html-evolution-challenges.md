@@ -139,15 +139,11 @@ The model may compose HTML directly, or delegate computation and bulk generation
 
 We did not build another HTML Router, DSL, authorization service or automatic-fix loop. The weekly-review Skill retains the analysis method and discards the outdated dedicated generation protocol. Existing method constraints for other standard reports were not unconditionally removed.
 
-## 6. What Did the Evidence Actually Establish?
+## 6. How Far Did the Delivery Path Actually Work?
 
-On October 16, 2026 there was a real model-driven **Child → Python → HTML export → Main download** success: **11,384 bytes**, HTTP 200, matching size and digest. That was a genuine success recorded before the shared-chain redesign.
+We first observed a real model-driven **Child → Python → HTML export → Main download** path. The file was not merely generated: it was downloaded through normal authorization and matched its saved contents. The shared HTML path later exercised report creation, persistence, authenticated download, and opening the document in a browser through the ordinary CLI entry point.
 
-On October 20, the unified path passed another acceptance window: **5/5 ordinary real CLI requests completed normally**, and **13 HTML revisions were available through authenticated downloads**, with byte sizes and SHA-256 matching. A representative document was opened in a real browser. The prior **3/5** result remains in the historical ledger; it is not erased by the newer run.
-
-Composed production-seam checks also covered both Python-generated and directly model-authored HTML inputs. However, the five latest real runs did **not** constitute a fresh dedicated acceptance of a live Python/Child path under the new architecture.
-
-These figures support **delivery effects**, not the truth of the financial analysis, the beauty of the pages or production deployment quality.
+These runs show that the shared delivery path can work while retaining the lessons of earlier delivery failures. They do not retest every Python/Child variation under the redesigned path or establish correct financial analysis, polished visual experience, or long-term production stability.
 
 ## Conclusion
 
@@ -157,9 +153,6 @@ We started with “How can an agent generate beautiful HTML?” and ended with a
 
 A real architecture upgrade is not another all-powerful generator. Each owner must prove only the facts it owns; once these facts reliably connect, the heavier dedicated chain becomes safe to delete.
 
----
-
-*Engineering sources:* [Isolated Python provenance and delivery](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-05-isolated-analysis-lineage.md) · [Real Python delivery and Child isolation](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-16-python-delivery-isolation-and-cancellation.md) · [Separate acceptance of calculation and file effects](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-18-numerical-oracle-and-artifact-delivery.md) · [Shared HTML design](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/openspec/changes/archive/2026-10-20-agent-deliver-portfolio-weekly-review-html/design.md) · [Real failures and acceptance ledger](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/openspec/changes/archive/2026-10-20-agent-deliver-portfolio-weekly-review-html/evidence.md) · [Download permission and Run authorization](https://github.com/hpoenixf/etf-agent/blob/6fb56b27acd0498799a0e3007fafd705680b646b/doc/common/history/time/2026-10-19-artifact-access-and-run-authorization.md)
 
 ## Further Reading and Discussion
 
