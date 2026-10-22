@@ -276,7 +276,7 @@ We are not removing risk disclosure. We are making the boundary of the claim cle
 
 "The paragraph has no recorded verifiable inline citation" is more precise than declaring an entire long answer unreliable. Put notices near affected passages rather than repeating an article-wide disclaimer after every append.
 
-Publication owns version binding, source downgrade, and presentation eligibility. This essay does not duplicate those contracts; see the [Publication essay](019-agent-answer-publication.md).
+Publication owns version binding, source downgrade, and presentation eligibility. This essay does not duplicate those contracts; see the [Publication essay](/articles/019-agent-answer-publication).
 
 ### 5.3 Change the affordance, not only the instruction
 
