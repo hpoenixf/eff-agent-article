@@ -69,8 +69,11 @@ const readme = readFileSync('README.md', 'utf8')
 if (!engineering.includes('<ChapterCatalog category="engineering" />')) throw Error('Engineering landing page missing')
 if (!catalogue.includes('<ChapterCatalog />') || !readme.includes('AI Agent 研发工程实践')) throw Error('Three-way catalogue entry missing')
 const financeSlugs = [...finance.matchAll(/\/articles\/([a-z0-9-]+)/g)].map(match => match[1])
-if (financeSlugs.length < 2 || new Set(financeSlugs).size !== financeSlugs.length || financeSlugs.some(slug => !knownArticles.has(slug))) {
-  throw Error('Finance topic must link uniquely to indexed essays')
+// The cross-category finance page is a thematic map: an indexed essay may be
+// linked from both a concern matrix and a reading route. This does not create
+// duplicate canonical entries; the single reading tree above still enforces that.
+if (new Set(financeSlugs).size < 2 || financeSlugs.some(slug => !knownArticles.has(slug))) {
+  throw Error('Finance topic must link only to indexed essays')
 }
 console.log('Three-perspective catalogue, curated finance links and local article links validated.')
 
