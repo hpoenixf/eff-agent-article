@@ -277,7 +277,7 @@ Increasing every limit would have obscured the boundary mistake.
 
 We separated **input argument complexity** from **output data capacity**. Output still must be valid finite JSON, satisfy its original output Schema, pass privacy filtering, and fit the byte cap. It no longer inherits the model-input node budget.
 
-The two focused test files passed **37 checks**. They establish the local contract, not every real Provider's large-table behavior.
+Focused checks establish the local table-consumption contract, not reliable handling of every large response from a real provider.
 
 **Preventing incomplete data and preventing false rejection of complete data are both correctness requirements.**
 
