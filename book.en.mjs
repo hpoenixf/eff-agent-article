@@ -98,7 +98,7 @@ export const englishCollections = collections.map(collection => ({
     ...chapter,
     title: headings[chapter.title][0],
     desc: headings[chapter.title][1],
-    items: chapter.items.map(([slug]) => [slug, englishTitles[slug]])
+    items: chapter.items.map(([slug, title]) => [slug, englishTitles[slug] || title])
   }))
 }))
 export function englishArticlePath(slug) {
