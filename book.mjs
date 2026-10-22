@@ -116,6 +116,10 @@ export const collections = [
           [
             "agent-progressive-answer-coherence",
             "渐进式回答如何保持连贯"
+          ],
+          [
+            "agent-asynchronous-research-time-bound-delivery",
+            "异步研究：离开页面后怎样按时交付"
           ]
         ]
       }

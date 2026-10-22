@@ -23,6 +23,7 @@ export const englishTitles = {
   "025-agent-langfuse-from-trace-to-trustworthy-observability": "Langfuse: From Traces to Trustworthy Observability",
   "019-agent-answer-publication": "Publication: Why Answers Need Their Own Delivery System",
   "agent-progressive-answer-coherence": "Keeping Progressive Answers Coherent",
+  "agent-asynchronous-research-time-bound-delivery": "Async Research: Delivering on Time After Users Leave",
   "017-prompt-to-answer-six-layer-panorama": "From One Question to a Six-Layer Agent System",
   "011-model-understands-code-authorizes": "Models Understand; Code Authorizes",
   "runtime-model-protocol-boundary-agent-article-v2": "Don't Turn the Model into a State Machine",
@@ -62,7 +63,8 @@ export const englishArticleSlugs = [
   "031-fintech-data-time-and-reproducible-numbers",
   "026-agent-spec-evidence-workflow",
   "027-agent-context-document-history",
-  "agent-weekly-review-staged-delivery"
+  "agent-weekly-review-staged-delivery",
+  "agent-asynchronous-research-time-bound-delivery"
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [

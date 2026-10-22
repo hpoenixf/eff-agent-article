@@ -13,6 +13,7 @@
     "030-fintech-from-research-to-investment-advice": "从投资研究到投顾与交易的边界",
     "031-fintech-data-time-and-reproducible-numbers": "金融数字的时点、口径与复算",
     "adaptive-research-python-workbench": "Adaptive Research 与 Python",
+    "agent-asynchronous-research-time-bound-delivery": "异步研究：离开页面后怎样按时交付",
     "agent-autonomous-scheduled-research": "定时研究：会话结束后继续",
     "agent-html-evolution-challenges": "HTML 保存了，为什么还是交付失败",
     "agent-main-run-context-compaction": "Main 压缩：摘要不改写原始事实",
@@ -148,11 +149,13 @@
     "A24": {
       "related": [
         "agent-progressive-answer-coherence"
-      ]
+      ],
+      "primary": "agent-asynchronous-research-time-bound-delivery"
     },
     "A25": {
       "related": [
-        "agent-progressive-answer-coherence"
+        "agent-progressive-answer-coherence",
+        "agent-asynchronous-research-time-bound-delivery"
       ]
     },
     "A26": {
