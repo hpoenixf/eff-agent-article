@@ -45,6 +45,7 @@ export const englishTitles = {
   "agent-weekly-review-staged-delivery": "Why We Split a Large Weekly Review Spec into Three Phases",
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
   "honest-agent-evaluation": "Tests and Evaluations: What Does Green Prove?",
+  "test-lifecycle-refactoring-retirement-and-spec": "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec",
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
@@ -79,6 +80,7 @@ export const englishArticleSlugs = [
   "011-model-understands-code-authorizes",
   "agent-autonomous-scheduled-research",
   "honest-agent-evaluation",
+  "test-lifecycle-refactoring-retirement-and-spec",
   "agent-main-run-context-compaction",
   "financial-agent-python-result-consumption",
   "031-fintech-data-time-and-reproducible-numbers",

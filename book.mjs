@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 45 unique essays.
+// One canonical reading tree: three perspectives and 46 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -250,6 +250,10 @@ export const collections = [
           [
             "honest-agent-evaluation",
             "测试与评测：绿灯究竟证明什么"
+          ],
+          [
+            "test-lifecycle-refactoring-retirement-and-spec",
+            "测试也会过期：把重构、退役和删除前移到 Spec"
           ],
           [
             "032-ai-development-from-bug-loop-to-task-convergence",
