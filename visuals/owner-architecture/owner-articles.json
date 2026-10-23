@@ -21,6 +21,8 @@
     "agent-model-runtime-mcp-skill-boundaries": "Model / Runtime / MCP / Skill 的分工",
     "agent-multi-ecosystem-hook-execution": "多生态 Hook：Claude、Pi 与 Codex",
     "agent-progressive-answer-coherence": "渐进式回答如何保持连贯",
+    "agent-provider-architecture-and-admission": "Provider：统一接口之后，为什么还需要共享准入",
+    "agent-provider-failover-without-resetting-the-run": "故障切换：换路线，不重置任务",
     "agent-python-compute-workbench-evolution": "Python：从工具到计算工作台",
     "agent-runtime-constraint-governance-v2": "Run 预算与约束治理",
     "agent-subagent-context-specialization": "Subagent：从隔离到专业化协作",
@@ -63,17 +65,25 @@
       "primary": "agent-runtime-constraint-governance-v2"
     },
     "A06": {
-      "primary": "agent-veto-authority-and-run-termination"
+      "primary": "agent-veto-authority-and-run-termination",
+      "related": [
+        "agent-provider-failover-without-resetting-the-run"
+      ]
     },
     "A07": {
-      "primary": "agent-subagent-context-specialization"
+      "primary": "agent-subagent-context-specialization",
+      "related": [
+        "agent-provider-failover-without-resetting-the-run"
+      ]
     },
     "A09": {
       "primary": "agent-autonomous-scheduled-research"
     },
     "A10": {
+      "primary": "agent-provider-architecture-and-admission",
       "related": [
-        "agent-tool-lifecycle-and-model-input"
+        "agent-tool-lifecycle-and-model-input",
+        "agent-provider-failover-without-resetting-the-run"
       ]
     },
     "A11": {

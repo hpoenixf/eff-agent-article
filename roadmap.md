@@ -5,7 +5,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 # 接下来写什么
 
-<small>更新：2026-10-22 · 这是编辑选题，不是新文章已发表、产品已经实现或工程正式验收的证明。</small>
+<small>更新：2026-10-23 · 这是编辑选题，不是新文章已发表、产品已经实现或工程正式验收的证明。</small>
 
 我们不再按每次故障或每条设计原则新增文章。优先让已有作品回答更完整的问题，只有**新的读者问题、不能被已有主稿吸收、并有足够独立证据**时才开新篇。
 
@@ -16,6 +16,8 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 [做了一整晚，周报还停在外围：我们为什么把一个大 Spec 拆成三期？](/articles/agent-weekly-review-staged-delivery)完整复盘首份交付、二三期、通用 HTML 能力，以及写进研发流程的防复发措施。
 
 [工程 Context、长期记忆与知识退役](/articles/027-agent-context-document-history)已吸收旧评测命令、旧设计、测试兼容层与历史检查误判的案例。两条阅读线都属于[AI Agent 研发工程实践](/engineering)，知识退役不再单独占一篇。
+
+[供应商模块：统一接口与共享准入](/articles/agent-provider-architecture-and-admission)与[安全故障切换：换路线，不重置任务](/articles/agent-provider-failover-without-resetting-the-run)现已分别进入模块和架构主线，均有完整英文版。前者解释配置、协议与容量生命周期，后者解释故障域、原 Run 授权和恢复；故障切换的完整应用验收与部署限制仍在正文中保留，不再作为待写新题。
 
 ## P0 · 优先深化已有文章（不是新篇）
 
@@ -46,12 +48,11 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 | --- | --- | --- |
 | **持久控制事件** | 入箱、claim/fence、去重、ack 与真实效果怎样保持相同身份？ | 待独立成文 |
 | **Artifact 访问与分享** | 静态文件的原身份、当前访问权限与分享授权如何区分？ | 有现有 HTML 实例，先去重 |
-| **模型目录与 Provider 容量** | 路由、容量与请求结算的真实事实由谁维护？ | 需要清晰的独立验收窗口 |
 | **每日个性化研究** | 定时触发能否持续带来有用、可比较的研究价值？ | 等业务效果证据，不能只用定时成功替代 |
 
 ## 已有完整正文，不再占预告位置
 
-[架构演化与“五不”](/articles/code-cheaper-systems-harder-to-evolve) · [Tool Surface](/articles/agent-model-capability-presentation-tool-surface) · [A35 内容信任边界](/articles/agent-content-trust-prompt-injection) · [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [后台定时研究](/articles/agent-autonomous-scheduled-research) · [HTML 交付](/articles/agent-html-evolution-challenges) · [工程 Context / History](/articles/027-agent-context-document-history)。
+[供应商共享准入](/articles/agent-provider-architecture-and-admission) · [故障域感知切换](/articles/agent-provider-failover-without-resetting-the-run) · [架构演化与“五不”](/articles/code-cheaper-systems-harder-to-evolve) · [Tool Surface](/articles/agent-model-capability-presentation-tool-surface) · [A35 内容信任边界](/articles/agent-content-trust-prompt-injection) · [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [后台定时研究](/articles/agent-autonomous-scheduled-research) · [HTML 交付](/articles/agent-html-evolution-challenges) · [工程 Context / History](/articles/027-agent-context-document-history)。
 
 **编辑约定：** 上述“深化”指对既有作品取材、校准和修改，不自动创建新 slug、改变已分享状态或承诺具体上线日期。只有完成正文、核验、入正式目录后才计为新文章。
 
