@@ -367,6 +367,8 @@ The same holds for Agents:
 
 **An Agent's long-term evolution depends less on how many features it embeds than on how continuously it can absorb new capabilities while keeping core complexity under control.**
 
+This Extension Host choice reflects [principle 7, “Capabilities should be easy to introduce, replace and retire”](/en/principles#principle-7): new capabilities join existing execution and authorization paths without recreating Runtime each time. Controlled lifecycle and ownership do not imply that every plugin can be hot-unloaded without cost.
+
 ## Companion Essay: Executing Hooks Across Ecosystems
 
 This article covers extension packages, generation identity, and the Extension Host design. The companion [Hooks Across Claude, Pi, and Codex](agent-multi-ecosystem-hook-execution.md) covers command protocol differences, original Pi Factory execution, killable subprocesses, durable effects, and Recovery. The two articles complement one another.
