@@ -81,7 +81,7 @@ We did not simply remove **pattern**. We expressed supported Latin letters, digi
 
 A regression now traverses the exposed tool definitions' pattern constraints.
 
-The observation applies to that tested model route. It is **not** proof all Providers support every resulting Schema, nor a license to silently discard incompatible constraints.
+The tested route exposed a specific Schema compatibility mismatch; its repair preserves upstream constraints rather than silently dropping them.
 
 ### Preserve the business Schema's meaning
 
@@ -311,7 +311,7 @@ Its checks cover:
 - Original vendor Schema semantics and Host control fields staying separate.
 - Descriptor refresh and final binding seals reflecting the actual next model turn.
 
-These tests support scoped integration capability. They do **not** establish real-model tool choice, external Provider availability, or correctness of financial data returned by a vendor.
+The engineering checks cover tool definitions, invocation identity, and result feedback on scoped integration paths. Live provider behavior, model tool choice, and financial-data correctness require separate evaluation.
 
 Our fixes did not produce a magically smarter MCP Client. They put errors back at the right level:
 

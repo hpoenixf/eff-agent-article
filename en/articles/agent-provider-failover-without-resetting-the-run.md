@@ -284,7 +284,7 @@ These constraints are not accessories to failover. They distinguish reliable rec
 
 At this review, the code includes Root and Native Child failover integration, fixed authorization, and request-receipt support. Historical records include real backup-model invocations after controlled primary-route failures, plus separately executed persistence and permission checks.
 
-Those observations do not combine into one completed, natural-entry, three-route end-to-end run. Complete normal-application acceptance, formal route qualification, and actual deployment enablement remain unproven. The change is retained as frozen, non-release history, and the strategy is default-off. This article describes implemented mechanisms and architectural choices, not completed seamless production high availability.
+These observations cover separate routes, not one complete natural-entry end-to-end run. The strategy remains default-off and the change is retained as non-release history; normal-application acceptance, route qualification, and deployment enablement are still separate tasks.
 
 ---
 
