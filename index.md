@@ -7,14 +7,14 @@ hero:
   tagline: 48 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
+      text: 先读八条架构原则 →
+      link: /principles
+    - theme: alt
       text: 阅读模块精讲 →
       link: /modules
     - theme: alt
-      text: 架构设计与系统思考 →
-      link: /thinking
-    - theme: alt
-      text: 研发工程实践 →
-      link: /engineering
+      text: 浏览全部文章 →
+      link: /catalog
     - theme: alt
       text: ☆ 去 GitHub 点个 Star
       link: https://github.com/hpoenixf/eff-agent-article
@@ -36,6 +36,10 @@ features:
 ---
 
 <ContinueReading />
+
+## 核心入口：Agent 架构的八条原则
+
+如果只读一个入口，先看[八条架构判断与六组系统方法](/principles)：谁理解语义、谁记录事实、谁有权拒绝、Context 能否保存事实，以及系统如何在保持能力的同时替换旧机制。它是跨越三条文章主线的**思考与阅读地图**，不是新增文章类别或审批流程。阅读任一正文后，都可以通过文章内的返回链接回到这里。
 
 ## 第一次访问：从你关心的问题开始
 
@@ -69,10 +73,6 @@ features:
 [金融可信工程阅读地图](/fintech)现在按业务合规、内容信任、可控效果、数据正确、运行韧性、留痕、可审查和第三方风险交叉连接已有文章。A35 只增加金融专题关联，保留模块精讲唯一主分类。
 
 [金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP、Python 研究结果消费等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
-
-## 架构判断与研发方法
-
-从[八条核心原则与六组外围方法](/principles)进入：模型与事实的分界、Context 为什么不是数据库、如何坚持最小充分机制，以及能力怎样引入、撤退、替换。每条都连接已有文章；[写作预告](/roadmap)只登记值得深化的原文和仍缺独立证据的问题，不计入正式文章总数。
 
 ## 接下来仍值得探索的问题
 

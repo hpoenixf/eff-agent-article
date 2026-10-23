@@ -7,11 +7,11 @@ hero:
   tagline: A curated engineering library organized around modules, architecture, and AI-assisted development. English translations are added alongside new articles.
   actions:
     - theme: brand
+      text: Explore the eight architecture principles →
+      link: /en/principles
+    - theme: alt
       text: Browse the library →
       link: /en/catalog
-    - theme: alt
-      text: Read a translated article →
-      link: /en/articles/tool-results-outside-model-context
     - theme: alt
       text: Star on GitHub ↗
       link: https://github.com/hpoenixf/eff-agent-article
@@ -26,6 +26,10 @@ features:
     details: Specs, evidence, test fidelity and end-to-end task convergence.
     link: /en/engineering
 ---
+
+## Start with the architecture principles
+
+The [eight core principles and six engineering methods](/en/principles) are the site's conceptual map across all three reading paths—not a fourth article category or new approval system. Each article has a clear route back to this map, even when it does not belong to any numbered principle.
 
 ## Start here
 
