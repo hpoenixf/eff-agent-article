@@ -6,13 +6,15 @@
 
 模块机制 × 架构思考 × AI Agent 研发工程 · **48 篇正文，三条主线**
 
-[**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
+[**架构原则 · 八条核心判断**](https://hpoenixf.github.io/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
 
 ## 初次访问：90 秒找到最相关的工程证据
+
+**核心判断入口：** [Agent 架构原则与系统方法](https://hpoenixf.github.io/eff-agent-article/principles) 串联八条跨模块原则和六组按需使用的工程方法。它不是第四个文章分类；单篇正文也可返回这张地图。
 
 本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
 

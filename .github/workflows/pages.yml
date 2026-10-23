@@ -31,6 +31,15 @@ jobs:
         run: npm run check:catalog
       - name: Build reading site
         run: npm run docs:build
+      - name: Verify principles entry and static discovery
+        run: |
+          test -f .vitepress/dist/sitemap.xml
+          test -f .vitepress/dist/principles.html
+          test -f .vitepress/dist/en/principles.html
+          grep -q 'id="principle-4"' .vitepress/dist/principles.html
+          grep -q 'id="method-6"' .vitepress/dist/principles.html
+          grep -q 'rel="canonical"' .vitepress/dist/principles.html
+          grep -q 'eff-agent-article/principles' .vitepress/dist/articles/agent-veto-authority-and-run-termination.html
       - name: Include portable visual collection
         run: |
           cp -R visuals .vitepress/dist/visuals

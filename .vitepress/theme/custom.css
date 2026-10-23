@@ -142,3 +142,10 @@
 .article-evidence-item { padding: 3px 8px; border: 1px solid var(--vp-c-border); border-radius: 5px; color: var(--vp-c-text-2); }
 .article-evidence-item b { color: var(--vp-c-text-1); font-weight: 650; }
 @media print { .article-architecture-figure, .diagram-frame { break-inside: avoid; } .article-evidence { break-after: avoid; } }
+
+/* A visible, crawlable return path from every article to the editorial principles map. */
+.article-principles-link { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin: 5px 0 22px; padding: 10px 0 12px; border-bottom: 1px solid var(--vp-c-divider); font-size: .83rem; line-height: 1.65; }
+.article-principles-label { color: var(--vp-c-text-3); font-size: .68rem; font-weight: 750; letter-spacing: .12em; }
+.article-principles-link a { color: var(--vp-c-brand-1); text-decoration: none; font-weight: 650; }
+.article-principles-link a:hover { text-decoration: underline; }
+.vp-doc [id^="principle-"], .vp-doc [id^="method-"] { scroll-margin-top: 100px; }

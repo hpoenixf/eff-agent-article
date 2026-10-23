@@ -5,6 +5,7 @@ import ChapterCatalog from './ChapterCatalog.vue'
 import ContinueReading from './ContinueReading.vue'
 import MermaidDiagram from './MermaidDiagram.vue'
 import EvidenceScope from './EvidenceScope.vue'
+import PrinciplesLink from './PrinciplesLink.vue'
 import ReadingTracker from './ReadingTracker.vue'
 import StarLink from './StarLink.vue'
 import ArticleStar from './ArticleStar.vue'
@@ -16,8 +17,8 @@ export default {
   Layout: () => h(DefaultTheme.Layout, null, {
     'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'home-hero-actions-after': () => h('p', { class: 'hero-star-note' }, 'Engineering notes · 欢迎 Star 支持'),
-    'doc-before': () => h(EvidenceScope),
-    'doc-footer-before': () => h(ArticleStar),
+    'doc-before': () => [h(PrinciplesLink), h(EvidenceScope)],
+    'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar)],
     'layout-bottom': () => h(ReadingTracker)
   }),
   enhanceApp({ app }) {

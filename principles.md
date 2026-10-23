@@ -1,24 +1,26 @@
 ---
 title: Agent 架构原则与系统方法
-description: 八条谨慎纳入的核心判断，以及遇到问题时按需查阅的六组系统设计与研发方法。
+description: Agent 架构八条核心原则：语义与事实、授权与效果、Owner、局部失败、Context、最小机制、可替换性与真实交付；附六组工程方法和深入文章。
 ---
 
 # Agent 架构判断：核心原则与外围方法
 
 这是一张**思考与阅读地图**，不计入文章篇数，也不是新的审批流程。核心原则应当少、稳定、能够改变跨模块设计判断；外围方法是具体问题出现时才使用的工具。必要的权限、安全和持久化约束仍应由实际能力的 Owner 负责。
 
+**如何使用：** 从一条原则进入工程案例，读完后可以通过文章顶部或文末的「返回架构原则」回到这里对照。下方每条原则与方法都提供稳定编号链接，便于分享和复盘；未列入原则层的机制文章仍可从[完整目录](/catalog)阅读。
+
 ## 第一层 · 八条核心判断
 
 | 原则 | 值得记住的一句话 | 深入文章 |
 | --- | --- | --- |
-| **1. 模型负责语义，系统负责客观事实** | 模型理解任务、研究与解释；Host/Runtime 管权限、执行和真实回执。代码能写规则，不代表代码理解自然语言。 | [别让模型当状态机](/articles/runtime-model-protocol-boundary-agent-article-v2) · [职责分工](/articles/agent-model-runtime-mcp-skill-boundaries) |
-| **2. 提议、批准、执行、生效是不同事实** | 工具提议不等于许可，执行返回不等于持久效果；恢复时不能把 unknown 当作未发生。 | [独立 Publication](/articles/019-agent-answer-publication) · [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) |
-| **3. 复杂度必须归属正确的 Owner** | 真正的封装是收拢知识和决定权，不是增加一个包住所有东西的 Manager。 | [Owner 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [工具表面归属](/articles/agent-model-capability-presentation-tool-surface) |
-| **4. 局部失败不能取得全局否决权** | 模块只能拒绝自己负责的效果；引用或附件局部失效不能自动抹掉独立合法正文。 | [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination) |
-| **5. Context 是工作台，不是事实数据库** | 当前上下文是容量受限、可能有损的工作投影；工具回执、来源、历史和 Memory 不能只靠摘要保存。 | [工具结果外置](/articles/tool-results-outside-model-context) · [Main 压缩](/articles/agent-main-run-context-compaction) |
-| **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
-| **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
-| **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) |
+| <span id="principle-1"></span> **1. 模型负责语义，系统负责客观事实** | 模型理解任务、研究与解释；Host/Runtime 管权限、执行和真实回执。代码能写规则，不代表代码理解自然语言。 | [别让模型当状态机](/articles/runtime-model-protocol-boundary-agent-article-v2) · [职责分工](/articles/agent-model-runtime-mcp-skill-boundaries) |
+| <span id="principle-2"></span> **2. 提议、批准、执行、生效是不同事实** | 工具提议不等于许可，执行返回不等于持久效果；恢复时不能把 unknown 当作未发生。 | [独立 Publication](/articles/019-agent-answer-publication) · [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) |
+| <span id="principle-3"></span> **3. 复杂度必须归属正确的 Owner** | 真正的封装是收拢知识和决定权，不是增加一个包住所有东西的 Manager。 | [Owner 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [工具表面归属](/articles/agent-model-capability-presentation-tool-surface) |
+| <span id="principle-4"></span> **4. 局部失败不能取得全局否决权** | 模块只能拒绝自己负责的效果；引用或附件局部失效不能自动抹掉独立合法正文。 | [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination) |
+| <span id="principle-5"></span> **5. Context 是工作台，不是事实数据库** | 当前上下文是容量受限、可能有损的工作投影；工具回执、来源、历史和 Memory 不能只靠摘要保存。 | [工具结果外置](/articles/tool-results-outside-model-context) · [Main 压缩](/articles/agent-main-run-context-compaction) |
+| <span id="principle-6"></span> **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
+| <span id="principle-7"></span> **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
+| <span id="principle-8"></span> **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) |
 
 **不轻易加第九条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
 
@@ -26,12 +28,12 @@ description: 八条谨慎纳入的核心判断，以及遇到问题时按需查�
 
 | 遇到的场景 | 按需使用的方法 | 已有正文 |
 | --- | --- | --- |
-| **新功能取舍** | 用“五不”审查新增机制、复杂度外溢、影子否决、正常路径税和退出成本。即使不调用某项能力，它仍可能让所有任务承担 Prompt、工具声明或检查成本。 | [五不与系统演化](/articles/code-cheaper-systems-harder-to-evolve) |
-| **职责设计与拒绝评审** | 从**事实、权力、故障、价值**四个角度讨论；出现新拒绝时追问谁有权、影响是否局部、是否复制其他 Owner 的裁决。它们是设计思考，不是六个新 Gate。 | [Model/Runtime/Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [否决权复盘](/articles/agent-veto-authority-and-run-termination) |
-| **证据传递与投影** | 分开存储、可见投影、实际执行输入、安全依赖和输出级依据；转述、压缩与引用都不能凭空创造事实。 | [金融 Agent 证据链](/articles/financial-agent-trustworthy-evidence-chain) · [A34 Tool Surface](/articles/agent-model-capability-presentation-tool-surface) |
-| **完整设计与分期交付** | 可以考虑完整方案，但实施先沿**首份用户可取得的结果**排序必要依赖；外围能力不自动提前，阶段完成和整个产品完成分开。 | [周报三期交付复盘](/articles/agent-weekly-review-staged-delivery) · [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) |
-| **验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/honest-agent-evaluation) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
-| **机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [工程知识的加载、记忆与退役](/articles/027-agent-context-document-history) · [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) |
+| <span id="method-1"></span> **1. 新功能取舍** | 用“五不”审查新增机制、复杂度外溢、影子否决、正常路径税和退出成本。即使不调用某项能力，它仍可能让所有任务承担 Prompt、工具声明或检查成本。 | [五不与系统演化](/articles/code-cheaper-systems-harder-to-evolve) |
+| <span id="method-2"></span> **2. 职责设计与拒绝评审** | 从**事实、权力、故障、价值**四个角度讨论；出现新拒绝时追问谁有权、影响是否局部、是否复制其他 Owner 的裁决。它们是设计思考，不是六个新 Gate。 | [Model/Runtime/Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [否决权复盘](/articles/agent-veto-authority-and-run-termination) |
+| <span id="method-3"></span> **3. 证据传递与投影** | 分开存储、可见投影、实际执行输入、安全依赖和输出级依据；转述、压缩与引用都不能凭空创造事实。 | [金融 Agent 证据链](/articles/financial-agent-trustworthy-evidence-chain) · [A34 Tool Surface](/articles/agent-model-capability-presentation-tool-surface) |
+| <span id="method-4"></span> **4. 完整设计与分期交付** | 可以考虑完整方案，但实施先沿**首份用户可取得的结果**排序必要依赖；外围能力不自动提前，阶段完成和整个产品完成分开。 | [周报三期交付复盘](/articles/agent-weekly-review-staged-delivery) · [Spec 与 Evidence](/articles/026-agent-spec-evidence-workflow) · [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) |
+| <span id="method-5"></span> **5. 验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/honest-agent-evaluation) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
+| <span id="method-6"></span> **6. 机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [工程知识的加载、记忆与退役](/articles/027-agent-context-document-history) · [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) |
 
 ## 下一步怎么读、怎么写
 

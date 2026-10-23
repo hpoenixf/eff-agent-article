@@ -1,6 +1,19 @@
 import { defineConfig } from 'vitepress'
-import { collections } from '../book.mjs'
+import { collections, mergedArticles } from '../book.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
+
+const SITE_URL = 'https://hpoenixf.github.io/eff-agent-article/'
+
+function canonicalUrl(relativePath: string) {
+  let path = relativePath.replace(/\.md$/, '')
+  if (path === 'index') path = ''
+  if (path === 'en/index') path = 'en/'
+  const article = /^(en\/)?articles\/([^/]+)$/.exec(path)
+  if (article && Object.hasOwn(mergedArticles, article[2])) {
+    path = (article[1] || '') + 'articles/' + mergedArticles[article[2]]
+  }
+  return SITE_URL + path
+}
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -39,6 +52,7 @@ export default defineConfig({
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
         nav: [
+          { text: 'Principles', link: '/en/principles' },
           { text: 'Modules', link: '/en/modules' },
           { text: 'Architecture', link: '/en/thinking' },
           { text: 'Engineering', link: '/en/engineering' },
@@ -50,6 +64,7 @@ export default defineConfig({
         sidebar: {
           '/en/articles/': englishSidebar,
           '/en/': [{ text: 'Start Reading', items: [
+            { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'All Articles', link: '/en/catalog' },
             { text: 'Module Deep Dives', link: '/en/modules' },
             { text: 'Architecture', link: '/en/thinking' },
@@ -57,7 +72,6 @@ export default defineConfig({
             { text: 'Fintech', link: '/en/fintech' },
             { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
             { text: 'Architecture Gallery', link: '/en/gallery' },
-            { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'Writing Roadmap', link: '/en/roadmap' }
           ] }]
         },
@@ -77,6 +91,35 @@ export default defineConfig({
   base: '/eff-agent-article/',
   cleanUrls: true,
   lastUpdated: false,
+  sitemap: { hostname: SITE_URL },
+  transformPageData(pageData) {
+    const relativePath = pageData.relativePath
+    if (!relativePath.endsWith('.md') || relativePath === '404.md') return
+    const canonical = canonicalUrl(relativePath)
+    const heads = (pageData.frontmatter.head ??= [])
+    heads.push(['link', { rel: 'canonical', href: canonical }])
+
+    // Keep this editorial map discoverable without adding an article classification system.
+    if (relativePath !== 'principles.md' && relativePath !== 'en/principles.md') return
+    const english = relativePath.startsWith('en/')
+    const description = String(pageData.frontmatter.description || '')
+    heads.push(['meta', { property: 'og:type', content: 'website' }])
+    heads.push(['meta', { property: 'og:title', content: pageData.title }])
+    heads.push(['meta', { property: 'og:description', content: description }])
+    heads.push(['meta', { property: 'og:url', content: canonical }])
+    heads.push(['link', { rel: 'alternate', hreflang: 'zh-CN', href: SITE_URL + 'principles' }])
+    heads.push(['link', { rel: 'alternate', hreflang: 'en', href: SITE_URL + 'en/principles' }])
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: pageData.title,
+      description,
+      url: canonical,
+      inLanguage: english ? 'en-US' : 'zh-CN',
+      isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
+    }
+    heads.push(['script', { type: 'application/ld+json' }, JSON.stringify(structuredData).replace(/</g, '\\u003c')])
+  },
   head: [
     ['meta', { name: 'theme-color', content: '#f8f8f4' }],
     ['meta', { name: 'referrer', content: 'strict-origin-when-cross-origin' }],
@@ -106,6 +149,7 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [
+      { text: '架构原则', link: '/principles' },
       { text: '模块维度', link: '/modules' },
       { text: '架构与系统思考', link: '/thinking' },
       { text: '研发工程实践', link: '/engineering' },
@@ -119,13 +163,13 @@ export default defineConfig({
       '/articles/': readingSidebar,
       '/': [
         { text: '开始阅读', items: [
+          { text: '架构原则与方法', link: '/principles' },
           { text: '模块维度', link: '/modules' },
           { text: '架构与系统思考', link: '/thinking' },
           { text: '研发工程实践', link: '/engineering' },
           { text: '金融专题', link: '/fintech' },
           { text: '金融研究清单', link: '/financial-research-backlog' },
           { text: '完整目录', link: '/catalog' },
-          { text: '架构原则速查', link: '/principles' },
           { text: '架构导读', link: '/architecture' },
           { text: '架构图册', link: '/gallery' },
           { text: '写作预告', link: '/roadmap' }
