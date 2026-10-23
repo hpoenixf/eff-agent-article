@@ -5,7 +5,7 @@ description: "Reproducible time-bound market data, exact decimals, cash conserva
 
 # Financial AI's Most Dangerous Appearance of Expertise: The Data Is Real, but the Numbers Are Wrong
 
-> **Reading note:** Index levels in this article illustrate a historical engineering mistake, not current prices, investment views or forecasts. An observed mistake is not system-wide validation.
+> **Historical case:** Index levels are drawn from a 2025 engineering retrospective, not current market quotes.
 >
 > **Series:** Fintech and Compliance, with module and architecture perspectives.
 >
@@ -159,17 +159,13 @@ Financial reports mix several legitimate forms of “truth”: official disclosu
 
 ## 9. An Attractive Report Cannot Close Unfinished Research
 
-As of October 21, 2026, we had bounded engineering acceptance for the first exact-numerics phase and the second federated-metrics phase, plus independent file-delivery checks for the first HTML weekly report.
-
-But historical autonomous portfolio research still included partial tasks, incorrect numerical interpretation and inadequate use of methods or results. **These are different workflows and their acceptance results cannot be borrowed across them.**
-
-Even perfect citations and reproducible arithmetic do not validate return predictions or investment advice, much less actual investor outcomes.
+As of October 21, 2026, the first exact-numerics phase, second federated-metrics phase, and first HTML weekly-report file delivery each had separate, scoped engineering acceptance. Autonomous portfolio research still had historical gaps in full-task completion, numerical interpretation, and consumption of methods or results.
 
 Financial AI acceptance should not stop at “Did a report exist?” Select the numbers on which a conclusion depends, and recompute them from the original question's instrument, time, data definition and method. Then check whether the model accurately explains the derived result.
 
 Professional prose is cheap. **Preserving numerical meaning across every handoff and allowing independent reproduction** is the harder achievement.
 
-The first phase corrected particular amount, fee, constraint and consumption paths. The second consolidated bounded metrics and fee semantics under their original owners. These changes address specific numeric and consumption paths; they do not establish correctness for every financial calculation, real transaction, model-generated analysis, or investment recommendation.
+The first phase corrected selected amount, fee and constraint calculations; the second consolidated bounded metric and fee semantics within their original owners.
 
 The independent problem of faithful model interpretation is examined in [Why Python Results Can Still Be Misused in Reports](financial-agent-python-result-consumption.md).
 

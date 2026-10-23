@@ -270,7 +270,7 @@ Our contribution is not a new theory of Hooks. It is engineering **interoperatio
 
 As of October 2026, Claude Hookify and supported Pi subsets have original-package, Factory, controlled-process, and scoped PostgreSQL/process evidence. Codex dialect compatibility is **not** blanket acceptance of original plugins. OpenCode's executable Profile has **not** received equivalent acceptance.
 
-None of these local engineering checks proves investment-research answer quality or long-term production reliability.
+
 
 **Supporting an Agent plugin means more than invoking a callback: the new Host must let it produce valid effects with explicit, verifiable semantics.**
 

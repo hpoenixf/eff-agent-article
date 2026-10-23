@@ -21,7 +21,7 @@ We did not build our own trace-search interface inside the chat app. We deployed
 
 Even this first step had operational costs. The initial PostgreSQL deployment collided with a host port. Restricting the observability database to the internal Docker Compose network resolved the conflict. A synthetic SDK event then appeared in the UI.
 
-That demonstrated the basic UI and transport path. It did **not** prove complete capture of real research inputs or delivery of user answers.
+This established the basic SDK-to-ingestion-to-UI path. We then turned to capturing real research turns and tracking answer delivery.
 
 We drew an ownership distinction early. The Agent's durable Run records remain the authority for execution, budgets, tool effects, and answer commits. Langfuse is a **diagnostic view** of model requests and tool operations.
 
@@ -100,7 +100,7 @@ Those numbers refer to **different measurement layers and must not simply be add
 
 We did not delete the entire telemetry volume. We first verified offline business/metadata snapshots, then handled old system logs within the authorized scope, and adjusted bounded retention and rotation policies while preserving recoverable business records.
 
-This did **not** prove the entire root cause of the filesystem failure or establish a permanent hard capacity limit.
+The operational work focused on preserving business records, controlling diagnostic-log growth, and making isolated recovery possible.
 
 The lasting architectural lesson is that **an observability platform needs its own configuration boundaries, retention policy, and recovery verification**. It cannot be exempt from data-system governance just because it monitors another system.
 
@@ -165,7 +165,7 @@ Langfuse did not become the one true source of all Run facts. Its responsibiliti
 
 Specific engineering problems were addressed: inherited configuration was isolated; oversized bodies no longer silently hid known calls; an isolated restore recovered comparable historical records; and asynchronous-export issues could be reproduced and checked with a fresh probe.
 
-Each conclusion is scoped to its environment and window. None proves long-term production availability, lossless capture of all historical inputs, or reconciliation of Provider invoices.
+These cases verify specific remediation paths; long-term availability, historical capture completeness, and provider invoicing remain outside their acceptance scope.
 
 The durable principle is how to reason about an empty observation: **first establish what was recorded, where it could have gone missing, and whether it can be independently read through the original identity—then diagnose the Agent**.
 

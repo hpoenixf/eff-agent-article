@@ -99,7 +99,7 @@ Multi-turn local debugging is exactly the process worth isolating. Main can invo
 
 Reviewer can inspect original evidence, look for meaningful counterexamples, and use permitted tools for focused checking. It is not limited to scoring Main's summary.
 
-But its opinion cannot rewrite business facts, compel Main to accept the advice, or veto a correct final answer. We have engineering evidence for independent execution and advisory handoff; **the net effect of automatic review on real research quality remains to be established**.
+But its opinion cannot rewrite business facts, compel Main to accept the advice, or veto a correct final answer. Independent execution and advisory handoff have engineering evidence. Reviewer's role is to surface counterexamples and material for scrutiny while Main retains synthesis.
 
 ### Not every reminder deserves another model
 
@@ -278,7 +278,7 @@ In an **October 21** real-model run with a synthetic investment question, all th
 
 The model still made type-selection mistakes and repeated delegations. Local rejection and cancellation did not erase independent valid content.
 
-The supported conclusion is that **method binding and result handoff can reuse the original Subagent framework**. We cannot yet claim three perspectives improve investment accuracy, advice quality, inference cost, or latency. Those require controlled same-question comparisons of facts, counterexamples, and answer quality—not a count of launched experts.
+The supported conclusion is that **method binding and result handoff can reuse the original Subagent framework**. Perspective count is not a quality measure; assessing different methods requires comparing facts, counterexamples, and final answers for the same investment question.
 
 ## 7. Benefits and Why "More Agents = Faster" Is Not a Claim
 
@@ -301,7 +301,7 @@ Physical model/tool concurrency, retries, and dependencies change the outcome. S
 
 We also have a real counterexample: a Child completed valid citation handoff, but Main repeatedly checked status, canceled, and re-delegated until the turn limit, without publishing. Provider stream interruption occurred too, so blaming the entire failure on orchestration alone would be unjustified. The example still shows that **local success does not imply overall delivery**.
 
-We do not claim unmeasured speed, savings, or answer-quality percentages. Meaningful measurements cover the full task: Main-context reduction, total cost, whether returned results were consumed, and whether the user question was answered.
+Meaningful full-task measurements cover: Main-context reduction, total cost, whether returned results were consumed, and whether the user question was answered.
 
 ## 8. How to Apply the Design
 

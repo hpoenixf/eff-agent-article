@@ -251,7 +251,7 @@ After correcting that path using the original Recovery identity, a deterministic
 
 The original attribution—"the model cannot write a complete final answer"—was withdrawn. Correcting persistence still does **not** establish higher writing quality.
 
-These are historical incidents from distinct windows. This merged article did not rerun them or calculate a combined improvement percentage.
+These historical incidents came from separate execution windows.
 
 ## 9. A Failure Is a Bounded Investigation Chain
 
@@ -370,7 +370,7 @@ These rules are not exotic. Long Agent execution chains simply make it easy to n
 
 The engineering path now distinguishes failures by stage, traces whether tool results enter subsequent model requests, and separates committed answer text from actual delivery. A rejection no longer has to be attributed generically to the model or Provider, and diagnostic capture must not alter the business outcome.
 
-Still, locating the last confirmed blocker is not the same as identifying a complete root cause. Seeing feedback in a model request does not prove the model understood or corrected it. Real delivery identity across revisions, long-term recovery, and cost effects require their own operating evidence rather than extrapolation from isolated reproductions.
+Locating the last confirmed blocker is the starting point of root-cause investigation. Cross-revision delivery identity, long-term recovery, and cost effects need evidence from their respective executions.
 
 ## Conclusion
 
