@@ -33,22 +33,10 @@ Deep 和思考强度各是所属模块里的子能力，不因独立开关或工
 
 下面用这个合成场景带路，不对应真实持仓，也不表示所有故障曾在同一次运行连续发生。真实工程摩擦会在相应位置单独说明。图示简化职责与数据关系；观测贯穿全程，研究会多轮往返，普通问题可以直接回答。复杂研究现在还可能委派 Root 下的 Web、PDF 或 Python Child；用户批准的定时任务由另一条持久控制链路触发，不是主图的必经步骤。
 
-**职责全景：一句问题穿过哪些交接**
-
-```mermaid
-graph TD
-UserQuestion --> EntryGate
-EntryGate --> BuildModelContext
-BuildModelContext --> ModelAction
-ModelAction --> HostExecution
-HostExecution --> ReadAndCalculate
-ReadAndCalculate --> ModelContinues
-ModelContinues --> PublishAnswer
-PublishAnswer --> UserFollowup
-HostExecution --> Observability
-ModelContinues --> Observability
-UserFollowup --> Observability
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg" alt="职责全景：一句问题穿过哪些交接：用户问题经历入口、模型上下文、工具、证据处理与发布；观测从多个阶段独立采集。" loading="lazy" decoding="async" />
+  <figcaption>图 1 · 职责全景：用户问题经历入口、模型上下文、工具、证据处理与发布；观测从多个阶段独立采集。</figcaption>
+</figure>
 
 这是需要工具的研究路径。结果回灌后，模型可以提出下一轮动作或提交答案；观测从各处取得独立记录，并非最后才开始。
 
@@ -75,34 +63,17 @@ UserFollowup --> Observability
 
 这一层的必要性来自两个现实条件：网络会重复交付，研究路线又无法完全预排。把接入、语义路由和运行调度拆开，身份规则可以保持确定，研究策略可以随材料变化。我们引入研究循环的主要背景，是早期结构化回合让模型同时携带计划、状态和完成语义，维护负担与事实归属逐渐交织。
 
-**入口分支：重发、新问题与正文冲突**
-
-```mermaid
-graph TD
-UserMessage --> ValidateMessageId
-ValidateMessageId --> NewMessageId
-ValidateMessageId --> SameMessage
-ValidateMessageId --> ConflictingPayload
-NewMessageId --> StartNewRun
-SameMessage --> ResumeOrReplay
-ConflictingPayload --> RejectConflict
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/identity.svg" alt="入口分支：重发、新问题与正文冲突：同一消息可恢复或重放，新增消息创建 Run，正文冲突必须拒绝。" loading="lazy" decoding="async" />
+  <figcaption>图 2 · 消息身份分流：同一消息可恢复或重放，新增消息创建 Run，正文冲突必须拒绝。</figcaption>
+</figure>
 
 消息身份把一次发送与实际运行关联起来。同一身份的重发查找原运行；正文冲突则拒绝，不覆盖已发生的执行。
 
-**研究驱动：模型选择行动，运行时留下事实**
-
-```mermaid
-graph TD
-ChooseEntryPath --> DirectAnswer
-ChooseEntryPath --> NeedsResearch
-NeedsResearch --> ModelChoosesTool
-ModelChoosesTool --> HostExecutes
-HostExecutes --> ReturnToolResults
-ReturnToolResults --> ContinueResearch
-ContinueResearch --> SubmitAnswer
-DirectAnswer --> SubmitAnswer
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/research.svg" alt="研究驱动：模型选择行动，运行时留下事实：Direct 直接形成答复；Research 在工具回执之后继续决定下一步。" loading="lazy" decoding="async" />
+  <figcaption>图 3 · 入口与研究循环：Direct 直接形成答复；Research 在工具回执之后继续决定下一步。</figcaption>
+</figure>
 
 图中展开一轮研究。需要更多材料时进入下一轮；图中重复的模型节点用于表达前后两次推理，不是两个独立 Agent。
 
@@ -183,17 +154,10 @@ Deep 是这个模块中的资源模式子能力。用户显式选择、注册 Sk
 
 现在 Main 可以用 `spawn_subagent` 开启独立探索，通过 `inspect_subagents` 查询进展，必要时用 `cancel_subagent` 停止。三个已验证的专业工作方式是 Web、PDF 和 Python；Web 在获准时可以读 PDF，PDF 也可回看关联网页，不能递归再派出 Child。Child 使用当前 Root 获准的选定输入与工具，不因角色名称获得新权限。
 
-**按需委派：Root 管理所有 Child，Main 统一交付**
-
-```mermaid
-graph TD
-MainAgent --> AssessDelegation
-AssessDelegation --> DirectTools
-AssessDelegation --> ChildWorker
-ChildWorker --> ChildHandoff
-DirectTools --> MainSynthesis
-ChildHandoff --> MainSynthesis
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/subagent.svg" alt="按需委派：Root 管理所有 Child，Main 统一交付：Main 选择直接调用或委派 Child，Child 交接后仍由 Main 统一综合。" loading="lazy" decoding="async" />
+  <figcaption>图 4 · 按需委派：Main 选择直接调用或委派 Child，Child 交接后仍由 Main 统一综合。</figcaption>
+</figure>
 
 图中两条路径是可选分支，不代表每次都同时启动。Child 用 `submit_subagent_result` 提交部分或最终交接，保留真实引用、产物、已读范围和未解决缺口。**Child 自己读过原文与 Main 只收到它的摘要，是两种不同消费事实**；摘要不自动升级为已核验数值，Child 也不能直接向用户发布最终答案。
 
@@ -207,17 +171,10 @@ Root 负责的执行与三个工具型 worker 已经过受控执行验证；这�
 
 这一层把“装配请求”“复用方法”和“跨会话背景”拆开，是因为它们分别面对容量、方法维护和生命周期问题。Projector 集中最终组装，技能保留领域差异，个人背景控制有限信息；Memory 管理跨会话记录、版本和用户控制，其本地闭环与外部运行资格分别验收。把三者统称为“增强上下文”，会掩盖材料究竟在哪一步进入，以及谁负责更新或撤回。
 
-**模型输入：多种材料在 Projector 收口**
-
-```mermaid
-graph TD
-UserHistory --> ProjectorContext
-SkillsAndProfile --> ProjectorContext
-ToolEvidence --> ProjectorContext
-ProjectorContext --> ValidateToolSchema
-ProjectorContext --> ProjectionDiagnostics
-ValidateToolSchema --> SendModelRequest
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/context.svg" alt="模型输入：多种材料在 Projector 收口：历史、方法和工具证据进入 Projector，经过 Schema 校验才送模。" loading="lazy" decoding="async" />
+  <figcaption>图 5 · 模型上下文装配：历史、方法和工具证据进入 Projector，经过 Schema 校验才送模。</figcaption>
+</figure>
 
 事实由原模块提供，投影器集中组织本轮模型视图。省略与容量处理需要留下记录；投影器不承担取数和授权。
 
@@ -225,17 +182,10 @@ ValidateToolSchema --> SendModelRequest
 
 - **ProjectorContext → ProjectionDiagnostics**：辅助关联。
 
-**背景分流：表达偏好、当前状态与长期记忆**
-
-```mermaid
-graph TD
-StableMemory --> ApprovedProfileProjection
-CurrentPortfolio --> ReadLivePortfolio
-ApprovedProfileProjection --> ModelInput
-ReadLivePortfolio --> ModelInput
-MemoryRequest --> MemoryReceipt
-MemoryReceipt --> ScopedRecall
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/background.svg" alt="背景分流：表达偏好、当前状态与长期记忆：稳定偏好与实时组合分别读取，记忆变更依赖持久回执。" loading="lazy" decoding="async" />
+  <figcaption>图 6 · 长期背景与当前事实：稳定偏好与实时组合分别读取，记忆变更依赖持久回执。</figcaption>
+</figure>
 
 有限背景影响表达，当前组合沿权威读取取得。长期记忆请求必须形成持久化回执，召回复核范围与版本；关系表不表示自动学习默认开启或已生产部署。
 
@@ -298,32 +248,17 @@ MemoryReceipt --> ScopedRecall
 
 我们封装网关、MCP 与 Host、钩子，是为了分别处理协议变化、能力执行和局部扩展。它们相邻，却不共享同一种修改资格。尤其在钩子上，历史评审发现“格式合法”仍能替换来源与数值，因此现在需要约束事实继承关系，而不只检查类型。
 
-**执行链：工具参数越过哪些交接**
-
-```mermaid
-graph TD
-ProviderToolCall --> ParseToolCall
-ParseToolCall --> NormalizeArguments
-NormalizeArguments --> PreToolHook
-PreToolHook --> HostAdmission
-HostAdmission --> ExecuteAndReceipt
-ExecuteAndReceipt --> PostToolHook
-PostToolHook --> NextModelContext
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/execution.svg" alt="执行链：工具参数越过哪些交接：供应商调用先规范参数，经 Hook 与 Host 准入，再执行并形成回执。" loading="lazy" decoding="async" />
+  <figcaption>图 7 · 工具执行链：供应商调用先规范参数，经 Hook 与 Host 准入，再执行并形成回执。</figcaption>
+</figure>
 
 MCP 适配器接入能力，Host 管理实际执行。调用前检查不替代 Host 准入；返回后收窄的模型投影与原始回执各有归属。
 
-**扩展边界：收窄投影，保留事实**
-
-```mermaid
-graph TD
-HostToolFacts --> RawObservations
-HostToolFacts --> ModelProjection
-ModelProjection --> RemoveFields
-ModelProjection --> AttemptFactRewrite
-RemoveFields --> NarrowSafeProjection
-AttemptFactRewrite --> RejectRewrite
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/hooks.svg" alt="扩展边界：收窄投影，保留事实：原始事实保留，模型投影可以收窄，但不能替换来源或数值。" loading="lazy" decoding="async" />
+  <figcaption>图 8 · 钩子改写约束：原始事实保留，模型投影可以收窄，但不能替换来源或数值。</figcaption>
+</figure>
 
 这是调用后钩子的简化关系。原始回执独立保存；投影可以删除，留下的值与路径必须继承原事实。等形替换来源或数字属于禁止分支。
 
@@ -395,33 +330,17 @@ MCP 服务接入本身是独立能力模块，负责连接与握手、工具目�
 
 这一层因此分成找材料、继续读材料、确定性领域计算和临时探索四项职责。封装背景是证据长度、版本与分析方式都在变化，而投资真值和生产规则需要稳定。研究可以按问题自由组合这几条路径；缺少行业穿透数据时，讲清覆盖缺口仍是有价值的结果。
 
-**证据消费：命中段落只是研究的中途**
-
-```mermaid
-graph TD
-ResearchQuestion --> SearchCandidates
-ResearchQuestion --> MissingSources
-SearchCandidates --> VerifySourceVersion
-VerifySourceVersion --> ReadScopedEvidence
-MissingSources --> RecordEvidenceGap
-ReadScopedEvidence --> ExplainOrReadMore
-RecordEvidenceGap --> ExplainOrReadMore
-ApprovedPortfolioFacts --> ExplainOrReadMore
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/evidence.svg" alt="证据消费：命中段落只是研究的中途：检索候选须核实版本并继续读取，缺失资料单独留下覆盖缺口。" loading="lazy" decoding="async" />
+  <figcaption>图 9 · 证据读取范围：检索候选须核实版本并继续读取，缺失资料单独留下覆盖缺口。</figcaption>
+</figure>
 
 资料路径展示候选、读取与覆盖的区别；组合结果在后续推理中汇合。缺少材料可以形成明确缺口，不能被当作完整证据。
 
-**计算分工：生产数字与探索结果怎样汇合**
-
-```mermaid
-graph TD
-ApprovedData --> DomainRules
-ApprovedData --> PythonAnalysis
-DomainRules --> ReproducibleNumbers
-PythonAnalysis --> AnalysisReceipts
-ReproducibleNumbers --> ModelExplains
-AnalysisReceipts --> ModelExplains
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/calculation.svg" alt="计算分工：生产数字与探索结果怎样汇合：领域规则产出可复算数字，Python 探索保留执行记录，再供模型解释。" loading="lazy" decoding="async" />
+  <figcaption>图 10 · 确定性计算与探索：领域规则产出可复算数字，Python 探索保留执行记录，再供模型解释。</figcaption>
+</figure>
 
 两条计算路径使用各自适用的输入。确定性领域结果可复算，Python 分析保留假设与执行记录；模型最后解释用途和限制。
 
@@ -498,34 +417,17 @@ AnalysisReceipts --> ModelExplains
 
 我们把正文发布、引用展示、前端交付、同一 Run 恢复和新 Run 续聊拆开，背景来自这些不同时间轴。历史上的局部引用失败曾连带抹去正文，异步保存又可能让早读历史暂时为空。现在由对应模块分别处理局部降级、引用呈现、可见预览、耐久回执和新一轮关系，避免用一个“完成”概括整个交接。
 
-**交付分叉：可见正文与后台保存有各自时点**
-
-```mermaid
-graph TD
-ModelAnswer --> PublicationPipeline
-PublicationPipeline --> ApprovedText
-ApprovedText --> ServerEvents
-ServerEvents --> ClientRenders
-ApprovedText --> PersistAnswer
-PersistAnswer --> ReceiptAndHistory
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/delivery.svg" alt="交付分叉：可见正文与后台保存有各自时点：用户可见事件与持久化回执是两个不同的完成时点。" loading="lazy" decoding="async" />
+  <figcaption>图 11 · 正文交付与保存：用户可见事件与持久化回执是两个不同的完成时点。</figcaption>
+</figure>
 
 这是正文已允许展示后的关系。浏览器收到内容与后台保存可以在不同时间结算，需要按同一正文身份核对，不能相互冒充成功。
 
-**继续分流：消息重发、任务续接与普通追问**
-
-```mermaid
-graph TD
-ResubmittedMessage --> SameMessageReplay
-ResubmittedMessage --> ExplicitContinuation
-ResubmittedMessage --> NewFollowUp
-SameMessageReplay --> ResolveExistingRun
-ExplicitContinuation --> LinkParentRun
-NewFollowUp --> NewRunHistory
-ResolveExistingRun --> ContinueOrRecover
-LinkParentRun --> ContinueOrRecover
-NewRunHistory --> ContinueOrRecover
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/continuity.svg" alt="继续分流：消息重发、任务续接与普通追问：重发、显式续接和新追问分别关联已有或新的 Run。" loading="lazy" decoding="async" />
+  <figcaption>图 12 · 多种继续语义：重发、显式续接和新追问分别关联已有或新的 Run。</figcaption>
+</figure>
 
 这张图按请求关系分流，省略每条路径上的权限与来源检查。普通追问和显式任务续接都可以建立新运行，重发则查找原消息。
 
@@ -601,20 +503,10 @@ HTML 生成与文件交付沿既有 Owner 协作：模型生成语义内容，Pu
 
 2026 年 10 月 12 日已完成并归档的一期把**控制事件**与**模型研究循环**拆开：已认证的控制事件先耐久接收、去重、排序，再交给原 Run/Child/Task owner；只有原 owner 的真实 receipt 才证明执行效果，Control Inbox 不成为第二个执行引擎。等待 Child 结果时，Root 可以持久停车，`run-parked` 结束当前 SSE 连接但不宣称业务完成；结果到达后沿原 checkpoint、lease/fence 和预算唤醒同一个非终态 Run，不通过空闲心跳反复调用模型。
 
-**两类持久工作：原 Run 唤醒与新 Task occurrence**
-
-```mermaid
-graph TD
-ConfirmedSchedule --> NewOccurrence
-NewOccurrence --> TaskRun
-TaskRun --> RunOwner
-ControlEvent --> ControlInbox
-ControlInbox --> RunOwner
-RunOwner --> ParkedRun
-ParkedRun --> WakeReceipt
-WakeReceipt --> ResumeSameRun
-StopRequest --> RunOwner
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/control.svg" alt="两类持久工作：原 Run 唤醒与新 Task occurrence：原 Run 的停车唤醒与已确认计划产生的新 Task occurrence 不得混淆。" loading="lazy" decoding="async" />
+  <figcaption>图 13 · 持久控制与任务执行：原 Run 的停车唤醒与已确认计划产生的新 Task occurrence 不得混淆。</figcaption>
+</figure>
 
 图中左上的 Schedule 路径是用户**确认后**才生效的一次定时任务；`TaskRun` 是该 occurrence 的 Root Run。右侧的 parked/wake 则延续**原来那一个**非终态 Run。两者共用受控事件入口和真实生命周期 owner，却不能因收到通知就相互转换，更不能把 `finish_research({isSuspend:true})` 这种终态暂停解释为同 Run 睡眠。
 
@@ -650,19 +542,10 @@ StopRequest --> RunOwner
 
 观测贯穿前面所有层，评估回到用户任务，两者并不是流程末尾串行执行的两个按钮。现在还要分别追踪 Root/Child 的委派与交接、控制事件的 accepted/claimed/wake、定时 occurrence 与独立通知，以及回答的服务端发布、客户端实际绘制和耐久保存；不能只看一个 `completed`。我们将它们单独封装，是因为工具成功、执行完成、正文保存和语义质量来自不同事实。历史诊断中的早读空记录与 trace 缺尾段也提醒我们，观察时点本身会影响判断。
 
-**观测关联：沿同一运行拼回事实，而非拼出成功**
-
-```mermaid
-graph TD
-RunIdentity --> ModelIO
-RunIdentity --> ToolReceipts
-RunIdentity --> DeliveryObservation
-ModelIO --> LangfuseView
-ToolReceipts --> LangfuseView
-DeliveryObservation --> LangfuseView
-DurableConsistency --> LangfuseView
-ClientObservation --> LangfuseView
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/observation.svg" alt="观测关联：沿同一运行拼回事实，而非拼出成功：模型、工具、交付与客户端事实进入诊断视图，却不能相互冒充成功。" loading="lazy" decoding="async" />
+  <figcaption>图 14 · 关联观测：模型、工具、交付与客户端事实进入诊断视图，却不能相互冒充成功。</figcaption>
+</figure>
 
 Langfuse 关联可取得的观察。界面绘制需要独立观测；未取得时保持未知。观测异常不会改变真实执行与正文保存。
 
@@ -677,17 +560,10 @@ Langfuse 关联可取得的观察。界面绘制需要独立观测；未取得�
 - **DurableConsistency → LangfuseView**：辅助关联。
 - **ClientObservation → LangfuseView**：辅助关联。
 
-**质量回看：从原问题和实际交付出发**
-
-```mermaid
-graph TD
-FixedTask --> SemanticReview
-PublishedEvidence --> SemanticReview
-SemanticReview --> SupportedOutcome
-SemanticReview --> FailedCases
-SemanticReview --> UnreviewedCases
-FailedCases --> FixResponsibleModule
-```
+<figure class="article-architecture-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/evaluation.svg" alt="质量回看：从原问题和实际交付出发：通过、失败与未评审是不同结果；问题需回到承担责任的机制。" loading="lazy" decoding="async" />
+  <figcaption>图 15 · 语义评估：通过、失败与未评审是不同结果；问题需回到承担责任的机制。</figcaption>
+</figure>
 
 评估使用固定任务和明确评审对象。通过、失败和未知都保留；修复先回到失真模块，避免把所有问题都变成新增提示。
 

@@ -1,3 +1,10 @@
+---
+evidence:
+  implementation: "Direct / Research 路线已采用（按本文记录）"
+  scoped: "历史案例与入口行为观察"
+  live: "路由选择质量仍需验证"
+---
+
 # 为什么我们把 Agent 的 Entry 越做越简单？
 
 ### 从 Intent、Planner 到 Direct / Research：一次 Agent 入口架构的演进

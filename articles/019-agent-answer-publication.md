@@ -1,3 +1,10 @@
+---
+evidence:
+  implementation: "Publication 机制已实施（按本文记录）"
+  scoped: "受控调用链与 PostgreSQL 恢复案例"
+  live: "用户端展示与研究语义质量另验"
+---
+
 # Agent 已经生成答案，为什么还需要一个独立的发布系统？
 
 一个研究 Agent 先后查了组合、检索了资料，模型终于写出了回答。服务端已经拿到 Markdown，似乎只要把字符串转发给浏览器就可以了。
