@@ -5,7 +5,7 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 # What We Might Write Next
 
-<small>Updated October 22, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
+<small>Updated October 23, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
@@ -14,6 +14,8 @@ We will **improve existing essays before adding new slugs**. The [eight core pri
 The [weekly-review staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) explains why comprehensive design must not delay the first usable result, and how we changed the Spec workflow.
 
 The [engineering context, memory and knowledge retirement article](/en/articles/027-agent-context-document-history) now incorporates the cases about obsolete instructions and tests reviving old mechanisms. Both reading paths have complete bilingual articles in the [engineering collection](/en/engineering); knowledge retirement is no longer a separate essay.
+
+[Provider architecture and shared admission](/en/articles/agent-provider-architecture-and-admission) and [failure-domain-aware failover](/en/articles/agent-provider-failover-without-resetting-the-run) now have complete bilingual editions in the module and architecture collections respectively. The first covers configuration, protocols, and capacity lifecycles; the second covers failure domains, original Run authorization, and recovery. Full-application acceptance and deployment limitations remain explicit; these are no longer unwritten topics.
 
 ## First: Deepen existing articles
 
@@ -36,7 +38,7 @@ The **[F01–F15 research backlog](/en/financial-research-backlog)** is the sole
 
 ## Module candidates still awaiting distinct material
 
-Durable control events; private artifact access and sharing; provider routing and capacity; and long-term personalized research outcomes. Each needs a scoped original case. See the [detailed Chinese writing roadmap](/roadmap) for the existing candidate list.
+Durable control events; private artifact access and sharing; and long-term personalized research outcomes. Each needs a scoped original case. See the [detailed Chinese writing roadmap](/roadmap) for the existing candidate list.
 
 The first-phase structural question of source and instruction identity is now covered by the [bilingual A35 case study](/en/articles/agent-content-trust-prompt-injection). Formal executor completion and real-model prompt-injection resistance remain unverified; they are evidence limitations, not a second promised article.
 

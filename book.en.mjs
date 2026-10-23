@@ -13,6 +13,7 @@ export const englishTitles = {
   "agent-main-run-context-compaction": "Main Context Compaction Without Rewriting Facts",
   "026-agent-memory-forget-durable-effects": "Memory: A Forget Operation That Committed Before the Answer Failed",
   "027-rag-revocation-publish-replay": "RAG: Revocation and Historical Replay",
+  "agent-provider-architecture-and-admission": "Provider: Why a Unified API Still Needs Shared Admission",
   "020-agent-extension-host-smartphone": "Extension Host: From Feature Phone to Smartphone",
   "mcp-host-from-discovery-to-consumption": "MCP Host: From Discovery to Usable Tools",
   "agent-model-capability-presentation-tool-surface": "Tool Surface: Why the Model Cannot See an Available Tool",
@@ -33,6 +34,7 @@ export const englishTitles = {
   "mcp-market-responsibility-retrospective": "Why Financial Market MCP Became a Decision System",
   "ai-citations-do-not-prove-reliability": "Why More Citations Do Not Prove Reliability",
   "agent-failure-is-a-boundary-problem": "Stop Blaming Every Failure on the Model",
+  "agent-provider-failover-without-resetting-the-run": "Failover: Change the Route Without Resetting the Task",
   "code-cheaper-systems-harder-to-evolve": "Code Is Cheaper; Why Are Systems Harder to Evolve?",
   "agent-html-evolution-challenges": "Why Saved HTML Can Still Fail Delivery",
   "001-one-week-4-billion-tokens-etf-investment-agent": "Building an ETF Research Assistant",
@@ -88,7 +90,9 @@ export const englishArticleSlugs = [
   "027-agent-context-document-history",
   "agent-weekly-review-staged-delivery",
   "agent-asynchronous-research-time-bound-delivery",
-  "agent-weekly-thesis-history-continuous-research"
+  "agent-weekly-thesis-history-continuous-research",
+  "agent-provider-architecture-and-admission",
+  "agent-provider-failover-without-resetting-the-run"
 ] // Register only reviewed, full English editions; never summary placeholders.
 const headings = {
   "研究入口、阅读与计算": [

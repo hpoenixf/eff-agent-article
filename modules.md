@@ -1,15 +1,17 @@
 ---
 title: 模块维度 · 机制精讲
-description: 24 篇 Agent 模块文章：研究入口、MCP、Portfolio、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: 25 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 24 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 25 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
 这里不是 API 手册，也不是为了每个代码模块机械写一篇文章。每一篇都围绕独立故障、设计选择和可核查的工程结果；相关跨模块论证留给[架构与系统思考](/thinking)。
+
+**A10 专题：** [统一模型接口之后，为什么还需要共享准入？](/articles/agent-provider-architecture-and-admission)——从模型身份、协议适配、跨进程容量和租约生命周期，解释供应商模块的职责与取舍。
 
 **A24 专题：** [用户离开后，异步研究如何按时交付？](/articles/agent-asynchronous-research-time-bound-delivery)——从 at/by 交付时间、partial→final 到浏览器重读，说明 A24 与 A25 的交接。
 

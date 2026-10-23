@@ -17,7 +17,7 @@ hero:
       link: https://github.com/hpoenixf/eff-agent-article
 features:
   - title: Module Deep Dives
-    details: Execution loops, tool results, MCP, memory, research, context and publication mechanisms.
+    details: Execution loops, provider admission, tool results, MCP, memory, research, context and publication mechanisms.
     link: /en/modules
   - title: Architecture and Systems Thinking
     details: Separation of responsibilities, reliable effects, boundaries and sustainable evolution.
@@ -33,6 +33,7 @@ Start with [why tool results should not all enter model context](/en/articles/to
 
 ### Newly translated reading paths
 
+- **Provider architecture and failover:** [Shared admission and request lifecycles](/en/articles/agent-provider-architecture-and-admission), followed by [changing routes without resetting the task](/en/articles/agent-provider-failover-without-resetting-the-run). These explain implemented mechanisms and architectural tradeoffs, not completed production high availability.
 - **Reliable knowledge:** [RAG revocation and disclosure](/en/articles/027-rag-revocation-publish-replay), and [A35 content trust and prompt injection](/en/articles/agent-content-trust-prompt-injection).
 - **Financial boundaries:** [Research versus investment advice and trading](/en/articles/030-fintech-from-research-to-investment-advice).
 - **AI-assisted engineering:** [Staged delivery from a weekly-review Spec](/en/articles/agent-weekly-review-staged-delivery), [retiring obsolete engineering knowledge](/en/articles/027-agent-context-document-history), [task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence), and [why green tests can lie](/en/articles/honest-agent-evaluation), and [why tests must be refactored or retired as part of a Spec](/en/articles/test-lifecycle-refactoring-retirement-and-spec).
