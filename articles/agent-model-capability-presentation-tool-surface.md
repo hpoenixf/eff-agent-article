@@ -254,6 +254,8 @@ A34 的答案不是造一个更大的 Capability Manager，而是保存独立的
 
 **有些架构升级，是增加一道必要的约束；有些架构升级，则是拒绝增加一个不必要的 Owner。A34 恰好同时体现了这两件事。**
 
+A34 体现了[原则 3「复杂度必须归属正确的 Owner」](/principles#principle-3)：工具表面的原始准入依据和最终请求一致性需要有清楚的负责者，却不必再生出一个包办全部能力的 Manager。具体检查则借助[方法 3「证据传递与投影」](/principles#method-3)，将原始准入事实、模型实际可见投影与最终派发回执分开核对。
+
 ---
 
 延伸阅读：[MCP Host：从接上服务到真正用上工具](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model / Runtime / MCP / Skill 的分工](https://hpoenixf.github.io/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [代码越来越便宜，为什么系统却越来越难升级？](https://hpoenixf.github.io/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)
