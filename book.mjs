@@ -145,7 +145,7 @@ export const collections = [
         "items": [
           [
             "017-prompt-to-answer-six-layer-panorama",
-            "从一句问题到六层系统全景"
+            "六层系统全景 V2：从一次提问到持续协作"
           ],
           [
             "011-model-understands-code-authorizes",
@@ -286,4 +286,10 @@ export const mergedArticles = {
   "green-tests-can-lie": "honest-agent-evaluation",
   "agent-engineering-knowledge-lifecycle": "027-agent-context-document-history",
   "honest-agent-failure-semantics": "agent-veto-authority-and-run-termination"
+};
+
+// Historical full-text editions remain readable at independent URLs but are not
+// counted as new canonical essays or converted into merge-pointer stubs.
+export const historicalEditions = {
+  "017-prompt-to-answer-six-layer-panorama-v1": "017-prompt-to-answer-six-layer-panorama"
 };
