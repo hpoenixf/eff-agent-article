@@ -36,7 +36,7 @@ for (const [historical, current] of Object.entries(historicalEditions)) {
   if (!existsSync(path) || !slugs.includes(current)) missing.push(historical + ' -> ' + current)
   else {
     const source = readFileSync(path, 'utf8')
-    if (!source.startsWith('---\\nsearch: false\\n---\\n') ||
+    if (!source.startsWith('---\nsearch: false\n---\n') ||
         !source.includes('## 版本演进：从 V1 到 V2') ||
         !source.includes('/articles/' + current)) broken.push(historical + ': incomplete historical edition')
   }
