@@ -53,13 +53,11 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Principles', link: '/en/principles' },
+          { text: 'Gallery', link: '/en/gallery' },
           { text: 'Modules', link: '/en/modules' },
           { text: 'Architecture', link: '/en/thinking' },
           { text: 'Engineering', link: '/en/engineering' },
-          { text: 'Fintech', link: '/en/fintech' },
-          { text: 'All Articles', link: '/en/catalog' },
-          { text: 'Gallery', link: '/en/gallery' },
-          { text: 'Roadmap', link: '/en/roadmap' }
+          { text: 'Fintech', link: '/en/fintech' }
         ],
         sidebar: {
           '/en/articles/': englishSidebar,
@@ -150,13 +148,11 @@ export default defineConfig({
     siteTitle: 'ETF Agent / Notes',
     nav: [
       { text: '架构原则', link: '/principles' },
+      { text: '架构图册', link: '/gallery' },
       { text: '模块维度', link: '/modules' },
       { text: '架构与系统思考', link: '/thinking' },
       { text: '研发工程实践', link: '/engineering' },
       { text: '金融专题', link: '/fintech' },
-      { text: '全部文章', link: '/catalog' },
-      { text: '架构图册', link: '/gallery' },
-      { text: '写作预告', link: '/roadmap' },
       { text: '博客 ↗', link: 'https://hpoenixf.com/' }
     ],
     sidebar: {
