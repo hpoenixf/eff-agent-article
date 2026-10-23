@@ -11,3 +11,5 @@ Explore the [eight core principles and six on-demand methods](/en/principles), i
 **Reliability case study:** [How Does an Agent Continue After a Model Failure?](/en/articles/agent-provider-failover-without-resetting-the-run) covers failure domains, original Run authorization and budgets, disclosure, and recovery identity. It describes controlled continuation, not completed seamless production high availability.
 
 <ChapterCatalog category="thinking" />
+
+[Concurrent interaction: Keep Chatting](/en/articles/agent-background-research-collaborative-experience) — delegation, side questions, and adjustments in one conversation.

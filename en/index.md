@@ -52,3 +52,5 @@ For an architecture decision map, see [eight core principles and six on-demand e
 Browse [financial technology topics](/en/fintech), the [architecture gallery](/en/gallery), or our [writing roadmap](/en/roadmap).
 
 Our articles discuss engineering mechanisms and bounded evidence; they do not constitute investment advice or claims of production-level validation.
+
+Latest: [Keep Chatting: Async Background Research](/en/articles/agent-background-research-collaborative-experience). Message handoffs, concurrency resources, and out-of-order UI delivery in one conversation.

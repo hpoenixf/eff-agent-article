@@ -1,11 +1,11 @@
 ---
 title: 架构设计与系统思考
-description: 17 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
+description: 18 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
 ---
 
 # 架构设计与系统思考
 
-<small>WHY IT WORKS · 17 篇 · 3 个主题</small>
+<small>WHY IT WORKS · 18 篇 · 3 个主题</small>
 
 从一次技术取舍的背后看系统：**模型和 Runtime 各能做什么？谁最终裁决？为什么有些机制应该被删除而不是继续叠加？怎样证明用户目标真的完成？**
 
@@ -28,3 +28,5 @@ description: 17 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈
 - [金融科技 × Agent](/fintech)：金融边界、数字复算、可信证据与金融 MCP 的跨分类阅读路径
 
 [回到全部目录](/catalog) · [查看未来系统思考选题](/roadmap)
+
+[并发交互案例：想聊就聊](/articles/agent-background-research-collaborative-experience)——Personal Agent 的委托、插问与调整如何共享一段对话。

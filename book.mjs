@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 48 unique essays.
+// One canonical reading tree: three perspectives and 49 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -173,6 +173,7 @@ export const collections = [
         "title": "可靠性、反馈与系统治理",
         "desc": "弄清哪个环节真的失败，以及评测、追踪和护栏何时会制造误诊。",
         "items": [
+          ["agent-background-research-collaborative-experience", "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"],
           [
             "ai-citations-do-not-prove-reliability",
             "很多引用为什么不等于可靠"

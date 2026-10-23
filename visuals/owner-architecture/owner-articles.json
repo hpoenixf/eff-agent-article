@@ -37,7 +37,8 @@
     "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
     "tool-results-outside-model-context": "结果外置与完整性：模型到底读到了多少",
     "unavailable-is-correct": "数据过期后的受控刷新",
-    "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本"
+    "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本",
+    "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"
   },
   "owners": {
     "A01": {
@@ -48,7 +49,8 @@
     "A02": {
       "related": [
         "agent-veto-authority-and-run-termination",
-        "agent-progressive-answer-coherence"
+        "agent-progressive-answer-coherence",
+        "agent-background-research-collaborative-experience"
       ]
     },
     "A03": {
@@ -162,14 +164,16 @@
     },
     "A24": {
       "related": [
-        "agent-progressive-answer-coherence"
+        "agent-progressive-answer-coherence",
+        "agent-background-research-collaborative-experience"
       ],
       "primary": "agent-asynchronous-research-time-bound-delivery"
     },
     "A25": {
       "related": [
         "agent-progressive-answer-coherence",
-        "agent-asynchronous-research-time-bound-delivery"
+        "agent-asynchronous-research-time-bound-delivery",
+        "agent-background-research-collaborative-experience"
       ]
     },
     "A26": {

@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-background-research-collaborative-experience": "Keep Chatting: Adding Async Background Research to an Agent in a Day",
   "022-agent-entry-from-intent-to-direct-research": "Entry: Why the Entry Point Became Simpler",
   "021-agent-web-research-from-search-to-deep-reading": "Web Research: From Search to Deep Reading",
   "024-agent-pdf-from-text-to-evidence": "PDF: From Text to Evidence",
@@ -51,6 +52,7 @@ export const englishTitles = {
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
+  "agent-background-research-collaborative-experience",
   "mcp-host-from-discovery-to-consumption",
   "mcp-market-responsibility-retrospective",
   "runtime-model-protocol-boundary-agent-article-v2",
