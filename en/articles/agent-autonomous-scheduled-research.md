@@ -85,7 +85,7 @@ There are two distinct trigger modes.
 
 **everyEdge** observes the first match and an explicit **false → true** transition, subject to cooldown, overlap and budget rules. An edge suppressed during cooldown is recorded as suppressed, not secretly queued for later. Staying true does not rerun research at every polling interval. An unknown observation cannot re-arm the edge.
 
-The conditional path has controlled proof using **synthetic mockQuote** observations with real PostgreSQL and the standard application assembly. That is **not** an enabled live-stock-price monitoring service. Market-provider authorization, freshness and physical failure semantics still require separate integration and acceptance.
+The conditional path was validated with **synthetic mockQuote** observations, real PostgreSQL, and normal application assembly. Live market providers still require integration and operating qualification.
 
 ## 5. Six Facts from Trigger to Report Must Remain Separate
 
@@ -149,9 +149,7 @@ Controlled PostgreSQL runs exercised concurrency, confirm/cancel fences, recover
 
 The evidence supports this statement: **under the tested application assembly and synthetic inputs, Schedule can start a finite Task outside a conversation, preserve its result, and respect its original identity across retries.**
 
-It does **not** establish that user schedules are deployed, that live market monitoring is enabled, or that paid-model long-running task reliability is proven. Nor does it mean weekly research reports already make mature investment judgments.
-
-“Notify only on important changes,” multi-period investment-thesis revisions and corrections remain part of Weekly Review product acceptance. Their incompleteness must not be confused with absence of the underlying A09 scheduling mechanism.
+This engineering evidence covers A09 scheduling foundations. User-facing deployment, live market-provider integration, and paid-model long-running reliability require their own validation. Important-change notifications, multi-period thesis revisions, and user corrections remain Weekly Review product work.
 
 ## Conclusion: The Durable Thing Is an Agreement, Not a Reasoning Loop
 
