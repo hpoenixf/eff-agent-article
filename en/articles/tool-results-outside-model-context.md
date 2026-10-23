@@ -179,3 +179,5 @@ Externalized results need other checks too: large results yield the selected con
 These mechanisms did not establish that the model would never overlook an item, that every answer would be correct, that current quotas suited all real workloads or that costs had fallen by a measured amount. They made a previously silent form of data loss observable and separated access to information from repeatedly moving the entire body.
 
 The complete result can stay off the desk, and reading only part of it can be a sensible choice. What must remain explicit is **which result was retained, which part was selected, what the actual request received and which scope the current conclusion can support**.
+
+Keeping the complete result outside the model's current context is an application of [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5). The model may read only the slice needed for its current task; result identity, selection coverage, completeness and permissions must remain independently verifiable.

@@ -237,6 +237,8 @@ Deleting them to minimize line count would not be better architecture.
 
 The goal is **necessary complexity with correct ownership and bounded costs for optional capabilities**.
 
+The five “do nots” therefore belong in [method 1, “Deciding whether to add a feature”](/en/principles#method-1) as design questions, not five mandatory Runtime gates. They support [principle 7, “Capabilities should be easy to introduce, replace and retire”](/en/principles#principle-7): any new mechanism should explain both the problem it solves now and the circumstances in which it could later be consolidated or deleted.
+
 ## 6. From Creating More to Continuously Renewing the System
 
 AI coding's most visible effect is how much more quickly we can create things.

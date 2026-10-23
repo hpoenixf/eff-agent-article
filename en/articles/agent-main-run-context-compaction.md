@@ -136,6 +136,8 @@ Existing records still did not prove that this live summary was fully consumed b
 
 The implementation and controlled recovery paths are available, but we still lack sufficient observations showing that subsequent Main requests consistently use real summaries correctly across repeated compaction, especially for meaning, citations, and financial numbers.
 
+This design follows [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5): a compacted summary is a lossy work hint, not an authoritative receipt, number or source. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) separates original records, model-visible projections and the actual request so compression cannot silently promote a summary into fact.
+
 ## 8. Was the Complexity Worth It?
 
 Protected originals do not magically disappear. Exact user text, tool receipts, citation catalogs and the new summary itself all occupy capacity. If little safely compactable old work remains, the system must still follow its normal bounded continuation, partial delivery or failure rules—not recursively summarize until everything appears to fit.
