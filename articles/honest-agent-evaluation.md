@@ -418,6 +418,8 @@ MissingEvidence --> TargetedObservation
 
 ---
 
+这里用到的是[方法 5「验证与故障归因」](/principles#method-5)：确定性契约适合做明确的边界回归，模型与用户效果则按风险选择真实对照；评测结论不能越过本次观察实际覆盖的版本、输入与交付范围。
+
 ## 延伸阅读
 
 想进一步了解原始运行观察怎样留存和修订，可阅读 [Spec 与 Evidence 工作流](026-agent-spec-evidence-workflow.md)。更多文章见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)，欢迎交流。
