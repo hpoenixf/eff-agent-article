@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs'
-import { collections, chapters, articleCount, mergedArticles } from '../book.mjs'
+import { collections, chapters, articleCount, mergedArticles, historicalEditions } from '../book.mjs'
 
 if (collections.length !== 3 || collections.map(entry => entry.id).join(',') !== 'modules,thinking,engineering') {
   console.error('The site must expose three canonical reading perspectives.')
@@ -9,7 +9,7 @@ const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
 const duplicates = slugs.filter((slug, idx) => slugs.indexOf(slug) !== idx)
 const actual = (await import('node:fs')).readdirSync('articles').filter(name => name.endsWith('.md')).map(name => name.slice(0, -3))
 const missing = slugs.filter(slug => !existsSync('articles/' + slug + '.md'))
-const unindexed = actual.filter(slug => !slugs.includes(slug) && !Object.hasOwn(mergedArticles, slug))
+const unindexed = actual.filter(slug => !slugs.includes(slug) && !Object.hasOwn(mergedArticles, slug) && !Object.hasOwn(historicalEditions, slug))
 const broken = []
 for (const slug of slugs) {
   if (!existsSync('articles/' + slug + '.md')) continue
@@ -29,6 +29,16 @@ for (const [oldSlug, target] of Object.entries(mergedArticles)) {
   else {
     const text = readFileSync(page, 'utf8')
     if (!text.includes('search: false') || !text.includes('](' + target + '.md)')) broken.push(oldSlug + ': invalid merged article pointer')
+  }
+}
+for (const [historical, current] of Object.entries(historicalEditions)) {
+  const path = 'articles/' + historical + '.md'
+  if (!existsSync(path) || !slugs.includes(current)) missing.push(historical + ' -> ' + current)
+  else {
+    const source = readFileSync(path, 'utf8')
+    if (!source.startsWith('---\\nsearch: false\\n---\\n') ||
+        !source.includes('## 版本演进：从 V1 到 V2') ||
+        !source.includes('/articles/' + current)) broken.push(historical + ': incomplete historical edition')
   }
 }
 console.log('Indexed essays:', articleCount, '| compatibility pages:', Object.keys(mergedArticles).length, '| files:', actual.length)
