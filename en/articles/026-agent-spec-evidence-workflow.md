@@ -219,6 +219,8 @@ The change left traceable RED/GREEN, targeted tests and local closure records in
 
 **The engineering workflow itself must pass a complexity review.** If a process adds forms without explaining which invariant it protects or which uncertainties it reduces, it may need to be merged or deleted.
 
+This workflow uses [method 4, “Planning a multi-phase delivery”](/en/principles#method-4) to distinguish the intended design from the current implementation stage, and [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) to constrain each closure claim to execution evidence from the relevant revision. They are design and verification methods, not a demand that every small change pass the same heavyweight gates.
+
 ## 7. Which Projects Benefit?
 
 [GitHub Spec Kit](https://github.github.com/spec-kit/) also connects specification, plan, tasks and implementation. We did not create a new universal standard beyond these methods. We adapted their ideas to long-lived Agent projects, adding durable multi-turn execution evidence, unambiguous completion states and timely acceptance convergence.

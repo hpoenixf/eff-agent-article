@@ -305,6 +305,8 @@ Completed, candidate text, judge pass, server send and client display are differ
 
 **When a result is green, first ask which boundary, revision and actual content it establishes something about.** A number can be correct while the conclusion drawn from it exceeds the evidence.
 
+This evaluation approach follows [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5): deterministic contracts deserve focused boundary checks, while model and user outcomes need proportionate real-world comparisons. A conclusion must not exceed the version, input and delivery scope the evidence actually covered.
+
 ## Further Reading
 
 For how original execution observations are retained and corrected during development, see [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md). More essays are available in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article).

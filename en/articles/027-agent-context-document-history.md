@@ -260,6 +260,8 @@ We observed much smaller resident instruction files and implemented routing conv
 
 Long-lived coding-agent projects need both useful experience to be discoverable and obsolete knowledge to stop directing new work. Current rules guide the present; historical records explain the past. Preserving history does not grant it permanent decision-making authority.
 
+From retired commands to on-demand current knowledge, we use [method 6, “Retiring mechanisms and retaining knowledge”](/en/principles#method-6). Historical records explain the past; active instructions need a single authoritative home. Removing an implementation is incomplete if obsolete docs, prompts or compatibility tests still direct future work.
+
 ---
 
 *Evidence boundary: The line counts belong to the August 2026 context-governance window; retirement examples come from subsequent engineering records. This consolidation did not rerun those historical experiments or turn their old receipts into new passing results.*
