@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # 一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统
 
 [系列目录](/catalog) · [HTML 图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html) · [组件系列总纲](/architecture)
