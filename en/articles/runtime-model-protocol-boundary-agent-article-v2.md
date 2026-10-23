@@ -413,6 +413,8 @@ Which permission and Publication gates are objectively enforced
 
 Protocol design and real-world product value require separate evidence.
 
+This protocol reduction is an application of [principle 1, “The model interprets meaning; the system owns objective facts”](/en/principles#principle-1). We stopped asking the model to reproduce execution state while keeping permissions, receipts and Recovery facts under Host authority; string rules do not become semantic judgments just because they are deterministic.
+
 ## Conclusion
 
 Two rules are enough to anchor this redesign:
