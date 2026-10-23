@@ -136,7 +136,7 @@ HistoryRead --> RunBoundClientView
 
 以上能力解决了“研究在后台继续、用户仍能聊天”。下一道工程题是：**Agent 在研究过程中真的需要用户输入或批准时，怎样提问、等待、收到回复并返回正确的工作，而不阻塞无关任务？**
 
-2026-10-23 的 [Human Interaction Owner 设计](https://github.com/hpoenixf/etf-agent)选择一个双向的 HIO（Human Interaction Owner）。这一设计已写入 OpenSpec，**Stage A–D 的产品任务仍未完成**。以下用计划语气描述，不是产品现状：
+2026-10-23 的 内部 Human Interaction Owner（HIO）设计选择一个双向的 HIO（Human Interaction Owner）。这一设计已写入 OpenSpec，**Stage A–D 的产品任务仍未完成**。以下用计划语气描述，不是产品现状：
 
 **第一步：默认非阻塞提问。** 模型决定问什么和是否需要阻塞；新 `ask_user` 默认 `non_blocking`。用户未答时，原研究继续独立可做的工作，也可以带着真实缺口交付。不能因为提问了就阻止所有正文或强迫模型多转一轮。
 
