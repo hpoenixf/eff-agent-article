@@ -27,7 +27,7 @@ export const englishTitles = {
   "019-agent-answer-publication": "Publication: Why Answers Need Their Own Delivery System",
   "agent-progressive-answer-coherence": "Keeping Progressive Answers Coherent",
   "agent-asynchronous-research-time-bound-delivery": "Async Research: Delivering on Time After Users Leave",
-  "017-prompt-to-answer-six-layer-panorama": "From One Question to a Six-Layer Agent System",
+  "017-prompt-to-answer-six-layer-panorama": "Six-Layer Agent Architecture V2: From One Question to Continuous Collaboration",
   "011-model-understands-code-authorizes": "Models Understand; Code Authorizes",
   "runtime-model-protocol-boundary-agent-article-v2": "Don't Turn the Model into a State Machine",
   "agent-model-runtime-mcp-skill-boundaries": "Responsibilities of Model, Runtime, MCP and Skills",
@@ -52,6 +52,7 @@ export const englishTitles = {
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
 }
 export const englishArticleSlugs = [
+  "017-prompt-to-answer-six-layer-panorama",
   "agent-background-research-collaborative-experience",
   "mcp-host-from-discovery-to-consumption",
   "mcp-market-responsibility-retrospective",
