@@ -90,7 +90,13 @@ export default defineConfig({
         const token = tokens[idx]
         if (token.info.trim().split(/\s+/)[0] === 'mermaid') {
           const code = encodeURIComponent(token.content)
-          return '<MermaidDiagram source="' + code + '" />\n'
+          // Expose the diagram's editorial context in the server-rendered HTML.
+          const preceding = tokens[idx - 2]?.type === 'inline' ? tokens[idx - 2].content.trim() : ''
+          const title = /^\*\*([^\n*]{2,100})\*\*$/.exec(preceding)?.[1] || ''
+          const summary = preceding.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[\x60*]/g, '').trim()
+          const safeTitle = encodeURIComponent(title)
+          const safeSummary = encodeURIComponent((summary.length > 10 ? summary : title).slice(0,180))
+          return '<MermaidDiagram source="' + code + '" title="' + safeTitle + '" description="' + safeSummary + '" />\n'
         }
         return fallback ? fallback(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
       }

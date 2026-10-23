@@ -128,3 +128,17 @@
 .language-unavailable { font-size: 10px; color: var(--vp-c-text-3); max-width: 110px; white-space: normal; line-height: 1.1; }
 .article-original-label { color: var(--vp-c-text-3); font-size: 0.8em; }
 @media (max-width: 640px) { .language-pref { margin-right: 4px; } .language-unavailable { display: none; } }
+
+/* Static diagrams remain legible in print, without JS, and in dark mode. */
+.article-architecture-figure { margin: 22px 0 30px; padding: 14px; border: 1px solid var(--vp-c-border); border-radius: 14px; background: #fbfcfa; }
+.article-architecture-figure img { display: block; width: 100%; height: auto; max-height: 650px; object-fit: contain; }
+.article-architecture-figure figcaption { margin-top: 12px; font-size: .85rem; line-height: 1.7; color: #34443f; text-align: center; }
+.diagram-static-fallback p { margin: 0 0 10px; font-size: .9rem; color: var(--vp-c-text-2); }
+.diagram-static-fallback pre, .diagram-fallback pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.6; }
+.diagram-caption { margin-top: 10px; font-size: .82rem; color: var(--vp-c-text-2); text-align: center; }
+/* Three independent evidence dimensions, not a single pass/fail score. */
+.article-evidence { display: flex; flex-wrap: wrap; gap: 7px 10px; align-items: center; padding: 0 0 14px; margin: 6px 0 24px; border-bottom: 1px solid var(--vp-c-divider); font-size: .77rem; line-height: 1.55; }
+.article-evidence-label { color: var(--vp-c-text-2); margin-right: 2px; }
+.article-evidence-item { padding: 3px 8px; border: 1px solid var(--vp-c-border); border-radius: 5px; color: var(--vp-c-text-2); }
+.article-evidence-item b { color: var(--vp-c-text-1); font-weight: 650; }
+@media print { .article-architecture-figure, .diagram-frame { break-inside: avoid; } .article-evidence { break-after: avoid; } }

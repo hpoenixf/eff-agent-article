@@ -1,3 +1,10 @@
+---
+evidence:
+  implementation: "Observability and missing-data handling implemented (as reported)"
+  scoped: "Synthetic traces, focused probes and isolated restore"
+  live: "Long-term completeness and live research outcomes unverified"
+---
+
 # From Traces to Trustworthy Observability: How Our Agent Telemetry Evolved
 
 When we integrated Langfuse, our requirement sounded simple. A financial-research Agent might make more than a dozen model requests and invoke several tools, yet finish with only "research interrupted" visible. We needed to see the chain of events rather than infer it from scattered logs.
