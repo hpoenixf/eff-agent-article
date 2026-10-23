@@ -145,7 +145,7 @@ export const collections = [
         "items": [
           [
             "017-prompt-to-answer-six-layer-panorama",
-            "从一句问题到六层系统全景"
+            "六层系统全景 V2：从一次提问到持续协作"
           ],
           [
             "011-model-understands-code-authorizes",
