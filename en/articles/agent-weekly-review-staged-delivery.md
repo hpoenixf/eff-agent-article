@@ -262,6 +262,8 @@ There is no mandatory number of phases, tasks, or pages.
 
 **The goal is not to make every project procedural. It is to establish the right delivery order when a complex request first enters design.**
 
+Splitting the weekly review into deliverable phases is a direct use of [method 4, “Planning a multi-phase delivery”](/en/principles#method-4): establish the first report the user can receive, then introduce subscriptions, history and richer HTML only when necessary. Peripheral designs should not become hidden prerequisites for the initial result.
+
 ## 8. What Changed in Our Idea of a Complete Design
 
 Thinking through the full solution was not the mistake.

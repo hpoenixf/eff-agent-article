@@ -674,6 +674,8 @@ Runtime → 过程复杂度
 
 ---
 
+这条分工可以回到[原则 3「复杂度必须归属正确的 Owner」](/principles#principle-3)理解：不是把判断全部下沉到 Runtime，而是让事实、能力、过程与方法各有负责者。实际 Review 时，我们再用[方法 2「职责设计与拒绝评审」](/principles#method-2)追问谁拥有决定权、谁承担局部故障，以及有没有复制另一个 Owner 的裁决。
+
 ## 延伸阅读
 
 - [别再让模型当状态机：一次 Agent 协议减负实践](./runtime-model-protocol-boundary-agent-article-v2.md)

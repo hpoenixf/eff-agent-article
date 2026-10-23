@@ -7,7 +7,7 @@ description: Eight core AI agent architecture principles on evidence, authority,
 
 This is a **reference and reading map**, not another published essay or a new approval process. Core principles should be rare, durable and broadly useful. Engineering methods should be consulted when the relevant design problem arises. Actual security, authorization and effect requirements remain with their owning components.
 
-**How to use this map:** Follow an essay from a principle, then use the link at the top or bottom of the article to return here. Each judgment and method has a stable numbered URL anchor. Mechanism essays without a named principle still belong in the [complete catalog](/en/catalog).
+**How to use this map:** Follow a core judgment or engineering method into a selected essay. The relevant passages of those essays link back to this page's stable numbered anchors, explaining the actual design connection. Other essays do not need a forced principle assignment; their footers still provide a route back to the full map.
 
 ## Layer 1 · Eight core judgments
 

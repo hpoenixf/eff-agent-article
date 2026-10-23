@@ -272,6 +272,8 @@ They can be correlated; none can impersonate the others.
 
 **Some architecture upgrades add a necessary constraint. Others refuse to add an unnecessary Owner. A34 illustrates both.**
 
+A34 applies [principle 3, “Complexity belongs with its rightful owner”](/en/principles#principle-3): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
+
 ---
 
 Further reading: [MCP Host: From Connecting a Service to Using Its Tools](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model, Runtime, MCP and Skill Responsibilities](https://hpoenixf.github.io/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [Code Is Cheaper; Why Are Systems Harder to Evolve?](https://hpoenixf.github.io/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)

@@ -145,6 +145,8 @@ We first observed a real model-driven **Child → Python → HTML export → Mai
 
 These runs show that the shared delivery path can work while retaining the lessons of earlier delivery failures. They do not retest every Python/Child variation under the redesigned path or establish correct financial analysis, polished visual experience, or long-term production stability.
 
+HTML delivery makes [principle 8, “Internal success is not user-task success”](/en/principles#principle-8) observable. Successful Python execution, a persisted Artifact and an accessible download are distinct pieces of evidence; none alone proves that the user received the intended authorized report in a usable form.
+
 ## Conclusion
 
 We started with “How can an agent generate beautiful HTML?” and ended with a tougher question:

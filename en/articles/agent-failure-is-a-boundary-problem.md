@@ -372,6 +372,8 @@ The engineering path now distinguishes failures by stage, traces whether tool re
 
 Locating the last confirmed blocker is the starting point of root-cause investigation. Cross-revision delivery identity, long-term recovery, and cost effects need evidence from their respective executions.
 
+This diagnostic approach applies [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5): locate the last confirmed blocker and its owner before deciding whether to repair code, add observation or retain an unknown outcome. The most visible error code is not necessarily the cause of the entire task's failure.
+
 ## Conclusion
 
 When an Agent fails to answer, the model might be at fault. So might Runtime, parsing, tools, Publication, persistence, or delivery.

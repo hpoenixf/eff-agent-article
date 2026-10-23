@@ -108,4 +108,6 @@ Within the evidence window ending October 17, 2026, complete autonomous research
 
 But the working principle became clearer:
 
+This is [principle 8, “Internal success is not user-task success”](/en/principles#principle-8) applied to engineering: bug counts, local passes and actual delivery are different outcomes. [Method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) calls for evidence aimed at the missing condition in the original task, not an indiscriminate full evaluation after every small change.
+
 **When using AI to build an agent, track whether each change actually alters a condition required for the user's task—not how many bugs were fixed.** Tests that demonstrate such a change are valuable. Extra model calls that merely dress a partial result as progress are not.

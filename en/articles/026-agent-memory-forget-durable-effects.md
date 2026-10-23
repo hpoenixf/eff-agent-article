@@ -77,6 +77,8 @@ We chose to reuse the existing application repository. Explicit saves, correctio
 
 This choice increases engineering work for version and source validation. It also means that when an answer fails, the system does not need to guess whether a persistent side effect happened.
 
+This Memory decision also illustrates [principle 2, “Proposal, approval, execution and effect are different facts”](/en/principles#principle-2). Interpreting “forget” requires a semantic judgment; proving that forgetting took effect requires a durable application receipt. A later failed model answer cannot rewrite an already committed effect.
+
 ## 6. What Was Actually Validated?
 
 Controlled application tests covered authenticated HTTP, cross-session consumption, family corrections and forgetting, including the case where a durable effect commits but the model's reply fails. They establish those specific state transitions, not reliable wording in every later model response.

@@ -387,6 +387,8 @@ Agent 也是一样。
 
 ---
 
+这里真正用到的是[原则 7「能力应当容易引入、撤退和替换」](/principles#principle-7)：Extension Host 让新能力沿既有执行与授权路径接入，扩展的发布、禁用和退出不要求每次重造 Runtime。但「可替换」首先是职责与生命周期可控，并不等于任何插件都能无代价热卸载。
+
 ## 技术下篇：多生态 Hook 的实际执行
 
 本篇介绍插件包、代际与 Extension Host 架构。独立下篇 [《从 Claude、Pi 到 Codex：我们如何在自己的 Agent Runtime 中实现多生态 Hook？》](agent-multi-ecosystem-hook-execution.md) 进一步讲清命令 Hook 的协议差异、Pi 原始 Factory、可终止子进程、持久效果与恢复。两篇互为补充。

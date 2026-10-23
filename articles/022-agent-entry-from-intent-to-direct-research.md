@@ -49,6 +49,8 @@ evidence:
 
 这篇文章想分享的，不是一套新的意图识别算法，而是我们为什么从复杂的 Intent 和 Planner 一路做减法，以及这个过程中遇到的实际问题。
 
+回头看，这次 Entry 做减法正对应[原则 6「坚持最小充分机制」](/principles#principle-6)：模型已能在 Direct 与 Research 之间作语义判断，就不必再由入口预写整份研究计划。我们也借助[方法 1「新功能取舍」](/principles#method-1)追问：额外的 Planner、Validator 或 Gate 究竟保护了什么不可替代的事实，又给正常请求增加了多少成本？
+
 ## 一、最初的想法：让入口一次理解整个任务
 
 最早的 ETF Agent 主要依靠关键词进行路由。

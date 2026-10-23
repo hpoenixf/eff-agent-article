@@ -101,3 +101,31 @@ for (const slug of englishCompatibilityPages) {
   }
 }
 console.log('English navigation:', englishKeys.length, 'stable IDs; complete translations:', englishArticleSlugs.length, '| compatibility pages:', englishCompatibilityPages.length)
+
+
+// Curated principles are reciprocal editorial links, not another mandatory article category.
+const principleMap = readFileSync('principles.md', 'utf8')
+const principleLinks = new Map()
+for (const row of principleMap.split('\n')) {
+  const anchor = row.match(/id="(principle-[1-8]|method-[1-6])"/)?.[1]
+  if (!anchor) continue
+  for (const [, slug] of row.matchAll(/\]\(\/articles\/([a-z0-9-]+)\)/g)) {
+    if (!principleLinks.has(slug)) principleLinks.set(slug, new Set())
+    principleLinks.get(slug).add(anchor)
+  }
+}
+for (const [slug, anchors] of principleLinks) {
+  if (!knownArticles.has(slug)) throw Error('Principles map references an unindexed essay: ' + slug)
+  const source = readFileSync('articles/' + slug + '.md', 'utf8')
+  if (![...anchors].some(anchor => source.includes('](/principles#' + anchor + ')'))) {
+    throw Error('Missing contextual principle/method backlink: ' + slug)
+  }
+  const englishPath = 'en/articles/' + slug + '.md'
+  if (existsSync(englishPath)) {
+    const englishSource = readFileSync(englishPath, 'utf8')
+    if (![...anchors].some(anchor => englishSource.includes('](/en/principles#' + anchor + ')'))) {
+      throw Error('Missing English contextual principle/method backlink: ' + slug)
+    }
+  }
+}
+console.log('Curated principle/method cross-links validated:', principleLinks.size, 'distinct essays.')

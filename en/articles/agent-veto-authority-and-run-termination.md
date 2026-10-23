@@ -221,6 +221,8 @@ Reliable execution does not mean returning polished prose every time. It means p
 
 A module can say its *own operation* must stop. **Whether the entire research task can continue belongs to the lifecycle that knows the original execution facts and recovery conditions.**
 
+This governance change implements [principle 4, “A local failure must not become a global veto”](/en/principles#principle-4): refusal of one operation must not terminate unrelated work that can still proceed lawfully. In review, we apply [method 2, “Reviewing responsibilities and rejections”](/en/principles#method-2) by asking who owns the decision, which effect is blocked, and whether a different owner's settled fact is being reinterpreted.
+
 ## Further Reading and Discussion
 
 - [Publication](/articles/019-agent-answer-publication): text revisions, partial downgrade, and durable commits.
