@@ -24,29 +24,12 @@ The public owner gallery currently recognizes **41 capability owners**. The dura
 
 No owner is automatically a new process. The conversational application manages research and conversation. A read-only investment data facade provides authoritative data and deterministic calculations; monitoring collects bounded observations. The Agent’s own database does not become a replacement portfolio ledger.
 
-**Figure 1 · The six-layer research and delivery path**
+<figure class="article-architecture-figure v2-overview-figure">
+  <img src="../../visuals/en/017-prompt-to-answer-six-layer-panorama/v2-native-loop-en.svg" alt="Six-layer ETF Agent architecture: model decisions drive authorized tool calls, evidence and computation return as receipts into the next decision through an orthogonal loop. Direct responses bypass research but use Publication; HIL, Recovery and observability retain their own responsibilities." loading="lazy" decoding="async" />
+  <figcaption>Figure 1 · Six architectural layers around the Native Agent Loop: decide → execute → consume evidence → decide again.</figcaption>
+</figure>
 
-```mermaid
-flowchart TD
-    A["User request"]
-    B["Entry decision"]
-    C["Context composition"]
-    D["Tool execution"]
-    E["Evidence and computation"]
-    F["Publication and recovery"]
-    G["Delivered answer"]
-    H["End-to-end observation"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> C
-    E --> F
-    F --> G
-    B --> H
-    D --> H
-    F --> H
-```
+The highlighted return arrow is the **Native Agent Loop**: the model decides the next action, the Host executes it, and source-backed tool results return for another model decision. Only a sufficiently researched answer exits to Publication. A Direct response bypasses the research loop but uses the same publication system. Human waiting, recovery and observation support the Run without replacing this loop.
 
 | Layer | Main question | What it explains |
 | --- | --- | --- |
@@ -64,6 +47,7 @@ Users can retry a send, ask a small question, correct a long analysis or stop a 
 **Figure 2 · Message identity: replay, new Run or conflict**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["User submission"]
     B{"Known message ID?"}
@@ -76,11 +60,14 @@ flowchart TD
     B --> F
     C --> D
     C --> E
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 3 · Entry and native research loop**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Interpret request"]
     B{"Need external evidence?"}
@@ -98,6 +85,8 @@ flowchart TD
     F --> G
     G --> E
     G --> H
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | Mechanism | Input and output | Value of the separate responsibility |
@@ -136,6 +125,7 @@ Main can directly perform a simple read or delegate a multi-step Web, PDF or Pyt
 **Figure 4 · Delegation: Main owns final delivery**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Main chooses"]
     B["Direct read"]
@@ -153,6 +143,8 @@ flowchart TD
     D --> F
     E --> F
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 ### Focus: foreground interaction and background research coexist
@@ -162,6 +154,7 @@ One long background Run can analyze the funds while a short foreground Run answe
 **Figure 5 · Foreground replies alongside background research**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["One conversation"]
     B["Long background research"]
@@ -175,6 +168,8 @@ flowchart TD
     C --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **One Conversation can relate multiple Runs, but there is still one Runtime, Host authorization model, result identity system and publication path.** That is the key architectural change, not simply raising a concurrency limit.
@@ -186,6 +181,7 @@ Information saved somewhere in the application is not automatically information 
 **Figure 6 · Projector: actual model input**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["User question and history"]
     B["Skills and preferences"]
@@ -200,11 +196,14 @@ flowchart TD
     D --> E
     E --> F
     E --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 7 · Memory versus current portfolio facts**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["User request"]
     B["Stable preferences"]
@@ -218,6 +217,8 @@ flowchart TD
     D --> E
     C --> F
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | Context material | Owner | Purpose |
@@ -246,6 +247,7 @@ The tool may be installed, registered with MCP, described to a model, admitted f
 **Figure 8 · From proposed tool to actual invocation**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Visible tool"]
     B["Validate arguments"]
@@ -260,11 +262,14 @@ flowchart TD
     D --> E
     E --> F
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 9 · Post-call hooks narrow, never replace facts**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Original receipt"]
     B["Preserve source facts"]
@@ -277,6 +282,8 @@ flowchart TD
     C --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | Execution seam | What changes there | What it must preserve |
@@ -306,6 +313,7 @@ Retrieval, document reading, financial definitions, exact arithmetic and sandbox
 **Figure 10 · From retrieval hit to consumed evidence**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Retrieve candidates"]
     B["Verify version"]
@@ -321,11 +329,14 @@ flowchart TD
     E --> F
     E --> G
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 11 · Separate source, formula and computation**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Sourced data"]
     B["Choose financial definition"]
@@ -339,6 +350,8 @@ flowchart TD
     C --> E
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | Activity | Output | Supported inference |
@@ -371,6 +384,7 @@ The time when an answer is drafted, rendered, published, saved or read from Hist
 **Figure 12 · Visible preview versus durable publication**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Candidate body"]
     B["Publication disposition"]
@@ -384,11 +398,14 @@ flowchart TD
     C --> F
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 13 · Three kinds of continuation**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Receive message"]
     B{"Identical retry?"}
@@ -401,6 +418,8 @@ flowchart TD
     B --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | User action | How it is handled | Why it matters |
@@ -438,6 +457,7 @@ An original nonterminal Run can be safely parked and then awakened through an or
 **Figure 14 · Durable control: wake versus new scheduled Run**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Original Run parked"]
     B["Original Control event"]
@@ -449,6 +469,8 @@ flowchart TD
     B --> C
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 ### 23. Run termination and bounded finalization
@@ -468,6 +490,7 @@ By default, asking is **non-blocking**. Work continues until a true dependency i
 **Figure 15 · Human interaction: request, reply, adoption and resumption**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Model asks user"]
     B["HIO durable admission"]
@@ -488,6 +511,8 @@ flowchart TD
     G --> H
     G --> I
     I --> J
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 If the original Run is terminal, a late answer stays associated with the original interaction. The user must explicitly confirm **Continue Research** before the existing Continue path creates a parent-linked new Run. Stable response identity, conflict handling and lost-ack reconciliation prevent retries from creating new work merely because a button was pressed again.
@@ -501,6 +526,7 @@ Observability spans all preceding layers; quality review asks whether the user a
 **Figure 16 · Observable handoffs, not one success flag**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Run identity"]
     B["Model input and output"]
@@ -516,11 +542,14 @@ flowchart TD
     C --> F
     D --> F
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 **Figure 17 · Evaluation of actual delivery**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Original user goal"]
     B["Delivered answer"]
@@ -534,6 +563,8 @@ flowchart TD
     C --> E
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 | Observation | What it captures | What it does not prove |
