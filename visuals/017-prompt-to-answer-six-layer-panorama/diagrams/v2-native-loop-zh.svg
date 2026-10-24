@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 930" width="1480" height="930" role="img" aria-labelledby="arch-title arch-desc">
+<title id="arch-title">六层协作：从一次提问到可持续交付</title>
+<desc id="arch-desc">六层系统围绕同一个原生 Agent 循环协作，模型决策、工具执行、证据结果按直角箭头往返；Direct 直接答复绕过研究循环，Publication、HIL、Recovery 和观测仍独立协作。</desc>
+<defs>
+ <marker id="arrowNormal" markerWidth="11" markerHeight="11" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="#567A91"/></marker>
+ <marker id="arrowTeal" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M 1 1 L 10 6 L 1 11 Z" fill="#119E98"/></marker>
+ <marker id="arrowMuted" markerWidth="11" markerHeight="11" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="#92A3B4"/></marker>
+ <style>
+  text { font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Inter,Arial,sans-serif; }
+  .main-title { font-size:29px; font-weight:740; fill:#183346; letter-spacing:-.3px; }
+  .sub-title { font-size:16px; font-weight:400; fill:#617887; }
+  .edition { font-size:14px; letter-spacing:1px; font-weight:680; fill:#5B7C8C; }
+  .card-meta { font-size:14px; font-weight:730; letter-spacing:.4px; fill:#567385; }
+  .card-title { font-size:22px; font-weight:720; fill:#1C3446; }
+  .card-sub { font-size:15px; fill:#697E8C; }
+  .group-title { font-size:23px; font-weight:770; fill:#176660; }
+  .group-sub { font-size:14px; font-weight:620; fill:#5C7D7B; }
+  .flow-note { font-size:14px; fill:#627B88; font-weight:640; }
+  .feedback { font-size:18px; fill:#168A84; font-weight:735; }
+  .legend { font-size:13px; fill:#718A98; }
+ </style>
+</defs>
+<rect x="0" y="0" width="1480" height="930" rx="20" fill="#F7F9FB"/>
+<rect x="0" y="0" width="1480" height="10" rx="5" fill="#147B81"/>
+<text x="82" y="80" class="main-title" >从一次提问到持续研究：六层系统如何协作</text>
+<text x="82" y="111" class="sub-title" >核心是同一 Run 中不断重复的「决策 → 执行 → 结果回灌」，而不是单向流水线。</text>
+<rect x="1242" y="57" width="160" height="34" rx="17" fill="#E9F1F4"/>
+<text x="1322" y="79" class="edition" text-anchor="middle">架构总览 · V2</text>
+<rect x="94" y="326" width="1292" height="389" rx="18" fill="#EFF7F7" stroke="#BFDAD6" stroke-width="1.5"/>
+<rect x="94" y="326" width="1292" height="7" rx="3" fill="#1D9B92"/>
+<text x="128" y="374" class="group-title" >原生 Agent 研究循环</text>
+<rect x="1045" y="346" width="299" height="41" rx="8" fill="#DDF0ED"/>
+<text x="1194" y="371" class="group-sub" text-anchor="middle">模型决定下一步，代码保存事实</text>
+<!-- Exactly orthogonal paths: no Bezier or diagonal connector segments -->
+<path d="M 660 207 H 819" fill="none" stroke="#567A91" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowNormal)"/>
+<path d="M 1005 266 V 402 H 309 V 425" fill="none" stroke="#567A91" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowNormal)"/>
+<path d="M 160 237 H 67 V 817 H 142" fill="none" stroke="#92A3B4" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter" stroke-dasharray="8 7" marker-end="url(#arrowMuted)"/>
+<path d="M 460 491 H 590" fill="none" stroke="#567A91" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowNormal)"/>
+<path d="M 890 491 H 1020" fill="none" stroke="#567A91" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowNormal)"/>
+<path d="M 1169 557 V 619 H 309 V 557" fill="none" stroke="#119E98" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowTeal)"/>
+<path d="M 218 557 V 758" fill="none" stroke="#567A91" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter"  marker-end="url(#arrowNormal)"/>
+<path d="M 778 758 V 717" fill="none" stroke="#92A3B4" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter" stroke-dasharray="8 7" marker-end="url(#arrowMuted)"/>
+<path d="M 1197 715 V 758" fill="none" stroke="#92A3B4" stroke-width="2.25" stroke-linecap="square" stroke-linejoin="miter" stroke-dasharray="3 7" marker-end="url(#arrowMuted)"/>
+<text x="740" y="192" class="flow-note" text-anchor="middle">研究路径</text>
+<text x="525" y="477" class="flow-note" text-anchor="middle">工具调用</text>
+<text x="955" y="477" class="flow-note" text-anchor="middle">执行回执</text>
+<text x="738" y="662" class="feedback" text-anchor="middle">研究结果回灌 · 进入下一轮模型决策</text>
+<text x="176" y="723" class="flow-note" >研究已充分</text>
+<text x="53" y="696" class="flow-note" transform="rotate(-90 53 696)">直接答复</text>
+<g>
+ <rect x="160" y="151" width="500" height="118" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="160" y="148" width="500" height="118" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="160" y="168" width="5" height="78" rx="2" fill="#2D7893"/>
+ <text x="184" y="179" class="card-meta" >01  /  交互与研究驱动</text>
+ <text x="184" y="220" class="card-title" >会话身份与入口决策</text>
+ <text x="184" y="250" class="card-sub" >消息去重 · Direct / Research · Run 准入</text>
+ </g>
+<g>
+ <rect x="819" y="151" width="500" height="118" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="819" y="148" width="500" height="118" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="819" y="168" width="5" height="78" rx="2" fill="#5579A1"/>
+ <text x="843" y="179" class="card-meta" >02  /  上下文与方法</text>
+ <text x="843" y="220" class="card-title" >模型输入与研究方法</text>
+ <text x="843" y="250" class="card-sub" >Projector · 技能 · 记忆 · 上下文压缩</text>
+ </g>
+<g>
+ <rect x="160" y="428" width="300" height="132" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="160" y="425" width="300" height="132" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="160" y="445" width="5" height="92" rx="2" fill="#129F95"/>
+ <text x="184" y="456" class="card-meta" >模型决策</text>
+ <text x="184" y="497" class="card-title" >判断下一步行动</text>
+ <text x="184" y="527" class="card-sub" >调用工具 · 继续研究 · 提交结束</text>
+ </g>
+<g>
+ <rect x="590" y="428" width="300" height="132" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="590" y="425" width="300" height="132" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="590" y="445" width="5" height="92" rx="2" fill="#447A98"/>
+ <text x="614" y="456" class="card-meta" >03  /  能力接入与执行</text>
+ <text x="614" y="497" class="card-title" >执行获准工具</text>
+ <text x="614" y="527" class="card-sub" >Host 准入 · MCP · 子任务</text>
+ </g>
+<g>
+ <rect x="1020" y="428" width="300" height="132" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="1020" y="425" width="300" height="132" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="1020" y="445" width="5" height="92" rx="2" fill="#B3834D"/>
+ <text x="1044" y="456" class="card-meta" >04  /  证据与计算</text>
+ <text x="1044" y="497" class="card-title" >结果回执与计算</text>
+ <text x="1044" y="527" class="card-sub" >来源、覆盖、数值与缺口</text>
+ </g>
+<g>
+ <rect x="142" y="761" width="392" height="120" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="142" y="758" width="392" height="120" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="142" y="778" width="5" height="80" rx="2" fill="#1B8391"/>
+ <text x="166" y="789" class="card-meta" >05  /  交付与连续性</text>
+ <text x="166" y="830" class="card-title" >正文发布与历史</text>
+ <text x="166" y="860" class="card-sub" >部分答案 · 最终结果 · 客户端可见</text>
+ </g>
+<g>
+ <rect x="583" y="761" width="392" height="120" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="583" y="758" width="392" height="120" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="583" y="778" width="5" height="80" rx="2" fill="#727994"/>
+ <text x="607" y="789" class="card-meta" >恢复与人工协作</text>
+ <text x="607" y="830" class="card-title" >持久等待与恢复</text>
+ <text x="607" y="860" class="card-sub" >人工回复 · 安全停放 · 同一 Run 唤醒</text>
+ </g>
+<g>
+ <rect x="1024" y="761" width="345" height="120" rx="12" fill="#B9CBD4" opacity=".11"/>
+ <rect x="1024" y="758" width="345" height="120" rx="12" fill="#FFFFFF" stroke="#D4E0E7" stroke-width="1.2"/>
+ <rect x="1024" y="778" width="5" height="80" rx="2" fill="#768B99"/>
+ <text x="1048" y="789" class="card-meta" >06  /  观测与评估</text>
+ <text x="1048" y="830" class="card-title" >执行与质量观察</text>
+ <text x="1048" y="860" class="card-sub" >请求 · 回执 · 交付 · 语义评审</text>
+ </g>
+<path d="M 142 908 H 179" stroke="#567A91" stroke-width="2.5"/>
+<text x="188" y="913" class="legend" >执行与数据流</text>
+<path d="M 462 908 H 498" stroke="#119E98" stroke-width="3.5"/>
+<text x="508" y="913" class="legend" >原生研究循环</text>
+<path d="M 827 908 H 863" stroke="#92A3B4" stroke-width="2.5" stroke-dasharray="6 5"/>
+<text x="875" y="913" class="legend" >Direct 旁路 / 恢复控制</text>
+</svg>
