@@ -12,7 +12,7 @@ The gallery now identifies **41 capability owners**, including A35 Content Secur
 
 ### Updated scope — October 24, 2026
 
-The original capability count remains 41. The current update adds bounded status notes for concurrency, asynchronous delivery, Reviewable result attachments, personal subagent profiles, optional market-calendar evidence, and a unified evaluation question catalog. It does **not** add A36 or proposed human-interaction workflows as fully accepted owners.
+The original capability count remains 41. The current update adds bounded status notes for concurrency, asynchronous delivery, Reviewable result attachments, personal subagent profiles, optional market-calendar evidence, and a unified evaluation question catalog. It does **not** add A36 or human-interaction workflows as fully accepted new owners. The Human Interaction work has bounded Stage A (Main questions/recovery), Stage B (Effect Approval), and Stage C (Permission Request) implementation evidence; Child coordination (Stage D), whole-change formal close, and production qualification remain open.
 
 The code paths are not the same as end-to-end acceptance: financial research completion, authenticated account and PostgreSQL recovery, real calendar-source usage, model quality and deployment retain separate evidence requirements. Open a related owner's detail in the Chinese interactive map for the narrower source-level status; this page remains a guide rather than a fully translated diagram.
 
