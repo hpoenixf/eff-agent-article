@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import ChapterCatalog from './ChapterCatalog.vue'
+import FlagshipEntry from './FlagshipEntry.vue'
 import ContinueReading from './ContinueReading.vue'
 import MermaidDiagram from './MermaidDiagram.vue'
 import EvidenceScope from './EvidenceScope.vue'
@@ -23,6 +24,7 @@ export default {
   }),
   enhanceApp({ app }) {
     app.component('ChapterCatalog', ChapterCatalog)
+    app.component('FlagshipEntry', FlagshipEntry)
     app.component('ContinueReading', ContinueReading)
     app.component('MermaidDiagram', MermaidDiagram)
   }
