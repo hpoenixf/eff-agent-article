@@ -277,26 +277,10 @@ Root 与三个工具型 worker 已经过受控执行验证；是否委派仍由�
 
 原 Scope 准入已经区分后台长研究和前台短交互，并用有界的 PostgreSQL 原子准入控制竞争。多条运行的回复、进展、Stop、Correction 目标必须分别绑定到实际 Run。新的短问答可以先交付，后台则继续研究、提交部分正文或最终报告；中途的用户补充究竟是纠偏还是新追问，仍由原会话关系和研究语义决定。
 
-**图 5 · 前台短答与后台研究并行**
-
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["一个会话"]
-    B["后台深度研究"]
-    C["前台短问答"]
-    D["按Run隔离"]
-    E["短答先交付"]
-    F["后台持续研究"]
-    A --> B
-    A --> C
-    B --> D
-    C --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+<figure class="article-architecture-figure v2-feature-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v2-concurrent-runs-zh.svg" alt="ETF Agent 并发架构：一个会话分为 Run A 后台长期研究与 Run B/C 前台短答和定向纠偏，分别管理发布、预算、来源和 Stop，仍共享原 Runtime、Host、Publication、Recovery。" loading="lazy" decoding="async" />
+  <figcaption>图 5 · 一个 Conversation、多个 Run：长研究与短答并行，纠偏准确回到原研究。</figcaption>
+</figure>
 
 这种并行不需要第二个 Background Agent 或跨运行的通用模型总管：**一份消息关系，多份独立运行，一套事实与交付体系**。
 
@@ -879,33 +863,10 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 **默认非阻塞**：提出问题后，原研究继续独立可完成的读取与分析；回复在原 Correction 的真实安全点进入 Main。收到回复、保存原文和模型实际采用是三件不同的事实。**确实需要等人时**，由原 Recovery/Control 在安全点 Human Park 同一个未终结的 Run；释放执行槽并在回复或到期时按原准入唤醒。Run 已耗用资源、已记录的费用、用户硬截止时间不会被等待重置。
 
-**图 15 · HIL：请求、回复、采用和恢复**
-
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["模型提出问题"]
-    B["HIO持久接纳"]
-    C["非阻塞独立研究"]
-    D["安全Human Park"]
-    E["跨会话待办"]
-    F["用户按请求身份回复"]
-    G{"原运行仍在？"}
-    H["原Correction或Wake"]
-    I["用户确认继续分析"]
-    J["关联新运行"]
-    A --> B
-    B --> C
-    B --> D
-    B --> E
-    E --> F
-    F --> G
-    G --> H
-    G --> I
-    I --> J
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+<figure class="article-architecture-figure v2-feature-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v2-durable-human-loop-zh.svg" alt="持久 Human-in-the-Loop 的双向交接架构。模型提出问题，HIO 持久接纳，用户从全局待办回复；原 Run 未终结时通过 Correction 或 Recovery 继续，同 Run 安全停放及唤醒；已终结时明确确认 Continue 创建关联新 Run。" loading="lazy" decoding="async" />
+  <figcaption>图 15 · 持久 HIL：问答进入原 Correction 或 Recovery；终态后的继续必须由用户确认。</figcaption>
+</figure>
 
 原 Run 已终结的迟到回复不会静默把它重新打开。系统保留原回复，再要求用户显式选择**继续分析**；这时由原 Continue 创建一个带父任务关系的新 Run。丢 ACK、重复提交与互相冲突的回复使用稳定的请求和响应身份核对，不重复发送工具或恢复出第二份效果。HIO 不持有模型循环、授权账本、财务效果或 Publication 正文，它只负责交互请求与答复准入、身份与路由。
 
