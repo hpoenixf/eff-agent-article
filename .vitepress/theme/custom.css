@@ -149,3 +149,19 @@
 .article-principles-link a { color: var(--vp-c-brand-1); text-decoration: none; font-weight: 650; }
 .article-principles-link a:hover { text-decoration: underline; }
 .vp-doc [id^="principle-"], .vp-doc [id^="method-"] { scroll-margin-top: 100px; }
+
+/* The V2 panorama is a designed architecture plate, not a tiny auto-layout flowchart. */
+.article-architecture-figure.v2-overview-figure {
+  overflow-x: auto;
+  background: #f7f9fb;
+  border-color: #dae5eb;
+}
+.article-architecture-figure.v2-overview-figure img {
+  width: 100%;
+  min-width: 930px;
+  max-height: none;
+  object-fit: contain;
+}
+.article-architecture-figure.v2-overview-figure figcaption {
+  color: var(--vp-c-text-2);
+}
