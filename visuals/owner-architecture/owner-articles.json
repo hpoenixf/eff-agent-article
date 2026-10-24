@@ -38,7 +38,10 @@
     "tool-results-outside-model-context": "结果外置与完整性：模型到底读到了多少",
     "unavailable-is-correct": "数据过期后的受控刷新",
     "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本",
-    "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"
+    "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究",
+    "agent-durable-human-interaction-response-adoption": "Agent 问完用户之后：持久人机交互",
+    "agent-temporal-semantics-market-calendar": "Agent 说“今天”时，到底是哪一天",
+    "agent-personal-credits-shadow-accounting": "Agent 的请求数、Token 与 Credits 记账"
   },
   "owners": {
     "A01": {
@@ -50,7 +53,8 @@
       "related": [
         "agent-veto-authority-and-run-termination",
         "agent-progressive-answer-coherence",
-        "agent-background-research-collaborative-experience"
+        "agent-background-research-collaborative-experience",
+        "agent-durable-human-interaction-response-adoption"
       ]
     },
     "A03": {
@@ -64,7 +68,10 @@
       "primary": "011-model-understands-code-authorizes"
     },
     "A05": {
-      "primary": "agent-runtime-constraint-governance-v2"
+      "primary": "agent-runtime-constraint-governance-v2",
+      "related": [
+        "agent-personal-credits-shadow-accounting"
+      ]
     },
     "A06": {
       "primary": "agent-veto-authority-and-run-termination",
@@ -75,7 +82,8 @@
     "A07": {
       "primary": "agent-subagent-context-specialization",
       "related": [
-        "agent-provider-failover-without-resetting-the-run"
+        "agent-provider-failover-without-resetting-the-run",
+        "agent-durable-human-interaction-response-adoption"
       ]
     },
     "A09": {
@@ -85,7 +93,8 @@
       "primary": "agent-provider-architecture-and-admission",
       "related": [
         "agent-tool-lifecycle-and-model-input",
-        "agent-provider-failover-without-resetting-the-run"
+        "agent-provider-failover-without-resetting-the-run",
+        "agent-personal-credits-shadow-accounting"
       ]
     },
     "A11": {
@@ -109,7 +118,8 @@
     "A14": {
       "primary": "tool-results-outside-model-context",
       "related": [
-        "agent-main-run-context-compaction"
+        "agent-main-run-context-compaction",
+        "agent-temporal-semantics-market-calendar"
       ]
     },
     "A15": {
@@ -132,7 +142,10 @@
       ]
     },
     "A18": {
-      "primary": "021-agent-web-research-from-search-to-deep-reading"
+      "primary": "021-agent-web-research-from-search-to-deep-reading",
+      "related": [
+        "agent-temporal-semantics-market-calendar"
+      ]
     },
     "A19": {
       "primary": "024-agent-pdf-from-text-to-evidence"
@@ -165,7 +178,8 @@
     "A24": {
       "related": [
         "agent-progressive-answer-coherence",
-        "agent-background-research-collaborative-experience"
+        "agent-background-research-collaborative-experience",
+        "agent-durable-human-interaction-response-adoption"
       ],
       "primary": "agent-asynchronous-research-time-bound-delivery"
     },
@@ -173,7 +187,8 @@
       "related": [
         "agent-progressive-answer-coherence",
         "agent-asynchronous-research-time-bound-delivery",
-        "agent-background-research-collaborative-experience"
+        "agent-background-research-collaborative-experience",
+        "agent-durable-human-interaction-response-adoption"
       ]
     },
     "A26": {
@@ -212,7 +227,8 @@
     },
     "B01": {
       "related": [
-        "unavailable-is-correct"
+        "unavailable-is-correct",
+        "agent-temporal-semantics-market-calendar"
       ],
       "primary": "mcp-market-responsibility-retrospective"
     },
@@ -239,7 +255,8 @@
     },
     "E04": {
       "related": [
-        "agent-tool-lifecycle-and-model-input"
+        "agent-tool-lifecycle-and-model-input",
+        "agent-personal-credits-shadow-accounting"
       ]
     },
     "A35": {

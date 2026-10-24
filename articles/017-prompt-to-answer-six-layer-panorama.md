@@ -74,7 +74,7 @@ description: "ETF Agent 架构必读：六层系统、四十余个能力 Owner�
 
 ## 能力 Owner 导航：四十余个模块怎样参与六层系统
 
-模块按事实及效果的最终 Owner 划分。公开站点当前的架构图册识别 **41 个 Owner**，HIL 在开发分支中进一步扩展这套能力，因此本文统一称“四十余个”，不把 26 个阅读环节误认成模块总数。分组只帮助阅读，不表示模块层级、进程数量或控制关系。
+模块按事实及效果的最终 Owner 划分。公开站点当前的架构图册识别 **41 个 Owner**，HIL 已在既有交接中完成限定本地工程关闭，A36 仍按独立验收推进，因此本文统一称“四十余个”，不把 26 个阅读环节误认成模块总数。分组只帮助阅读，不表示模块层级、进程数量或控制关系。
 
 | 阅读分组 | 独立能力模块 | 各自负责的效果 |
 | --- | --- | --- |
@@ -874,7 +874,7 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 原 Run 已终结的迟到回复不会静默把它重新打开。系统保留原回复，再要求用户显式选择**继续分析**；这时由原 Continue 创建一个带父任务关系的新 Run。丢 ACK、重复提交与互相冲突的回复使用稳定的请求和响应身份核对，不重复发送工具或恢复出第二份效果。HIO 不持有模型循环、授权账本、财务效果或 Publication 正文，它只负责交互请求与答复准入、身份与路由。
 
-2026-10-24 的 `codex/durable-human-interaction-20261024` 分支已包含持久问答、原生非阻塞路径、跨会话待办、原文保存、Correction/Continue、可选择的 Human Park/Recovery 接线；非阻塞问答已留下浏览器与 PostgreSQL 的端到端观察记录。阻塞式跨进程冷恢复需要单独完成验收后才适合默认开放；Effect 审批、Permission 请求和 Child 咨询按同一 HIO 合同分期接入。自动执行的 Scheduled Task 不等待人工输入，受保护的授权仍归 Authorization 与 Effect 原 Owner。
+截至 2026-10-24，HIO 的 Main 问答、非阻塞与 Human Park、跨会话待办、原文 Correction/Continue、Effect Approval、Permission Request 与 Child 协调均已完成声明范围的 provider-free 正式关闭和归档；PostgreSQL、冷进程与认证浏览器有各自限定工程证据。**生产 Human Park 仍默认关闭**，真实模型何时提问及长期线上体验未获验收。自动执行的 Scheduled Task 不等待人工输入，受保护的授权仍归 Authorization 与 Effect 原 Owner。详见[持久 HIL 的完整交接与恢复机制](/articles/agent-durable-human-interaction-response-adoption)。
 
 <span id="layer-6"></span>
 
@@ -994,6 +994,8 @@ Langfuse 将分散的请求、模型交换、工具与正文观察关联起来�
 我们最值得保留的几次调整，都发生在交接处：让模型提议动作，把执行账本留给运行时；让钩子定制可见投影，保留工具事实；让正文、附件、保存与质量分别表达结果。它们让错误答案有了更具体的调查入口，也让局部失败能够被明确交付给用户。
 
 下一次再看聊天框里的“已完成”，更值得问的是：完成了哪一件事，依据在哪里，用户实际拿到了什么？
+
+[A36 时间语义与市场日历](/articles/agent-temporal-semantics-market-calendar)单独解释“用户的今天”和“最后已完成市场场次”为何不同；[Shadow Credits](/articles/agent-personal-credits-shadow-accounting)解释物理尝试、用量未知与原资源预算的区别。它们是新增专题，不改变六层叙事或 V1 的历史正文。
 
 ## 从 V1 到 V2：让新能力沿原责任链增长
 

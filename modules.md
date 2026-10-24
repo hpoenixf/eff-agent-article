@@ -1,15 +1,21 @@
 ---
 title: 模块维度 · 机制精讲
-description: 25 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: 28 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 25 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 28 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
 这里不是 API 手册，也不是为了每个代码模块机械写一篇文章。每一篇都围绕独立故障、设计选择和可核查的工程结果；相关跨模块论证留给[架构与系统思考](/thinking)。
+
+**HIO 专题：** [Agent 问完用户之后，回答如何回到原研究](/articles/agent-durable-human-interaction-response-adoption)——真正区分请求接纳、回复保存、原消费者采用与 Effect；HIL 本地工程已关闭，生产停放仍默认关闭。
+
+**A36 专题：** [Agent 说“今天”时，到底是哪一天](/articles/agent-temporal-semantics-market-calendar)——用户时区、冻结任务锚点、市场排期与实际报价时点；完整真实研究仍在资格化。
+
+**Credits 专题：** [请求数、Token 与个人 Credits 为何不能混账](/articles/agent-personal-credits-shadow-accounting)——Shadow 物理尝试、已知与 unknown、个人只读视图；非强制额度或真实发票。
 
 **A10 专题：** [统一模型接口之后，为什么还需要共享准入？](/articles/agent-provider-architecture-and-admission)——从模型身份、协议适配、跨进程容量和租约生命周期，解释供应商模块的职责与取舍。
 

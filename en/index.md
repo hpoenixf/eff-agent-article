@@ -30,6 +30,10 @@ features:
     link: /en/engineering
 ---
 
+## New Essays: Human Interaction, Time and Usage
+
+[Durable HIL](/en/articles/agent-durable-human-interaction-response-adoption) explains how a reply reaches its original research consumer. [Temporal semantics](/en/articles/agent-temporal-semantics-market-calendar) separates user days, market sessions and quote as-of times. [Shadow Credits](/en/articles/agent-personal-credits-shadow-accounting) tracks proven dispatches and missing usage without introducing billing or production quota denial.
+
 ## Essential first reads: architecture and principles
 
 Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [eight architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.

@@ -9,6 +9,12 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
+## October 24, 2026: Three New Mechanism Essays
+
+[Durable human response adoption](/en/articles/agent-durable-human-interaction-response-adoption) examines actual receipt, correction, park/wake and Child consumption; it does not claim production Human Park is on. [Temporal semantics and market sessions](/en/articles/agent-temporal-semantics-market-calendar) distinguishes user dates, frozen anchors, qualified session calendars and quote as-of data; ordinary live-agent acceptance is still open. [Personal Shadow Credits accounting](/en/articles/agent-personal-credits-shadow-accounting) focuses on physical-attempt identities and partial usage without introducing billing or hard quotas. E04 delivery-cost attribution remains a separate design.
+
+These essays do not add three new Runtime managers or change the gallery's 41 approved Owner entries.
+
 ## Existing articles to deepen
 
 The [weekly-review staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) explains why comprehensive design must not delay the first usable result, and how we changed the Spec workflow.

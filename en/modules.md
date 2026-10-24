@@ -10,4 +10,6 @@ Follow the mechanisms that take an agent from an input through research, tool ex
 
 **A35 deep dive:** [Prompt Injection Is More Than Malicious Text](/en/articles/agent-content-trust-prompt-injection) explains producer-bound instruction identity, final SDK projection checks, and local effect authority. The evidence is structural; real-model resistance remains unqualified.
 
+**New mechanism deep dives:** [Durable human response adoption](/en/articles/agent-durable-human-interaction-response-adoption) explains HIO request/response identity and the actual research consumer; [temporal semantics](/en/articles/agent-temporal-semantics-market-calendar) distinguishes user days, exchange sessions and data-as-of facts; [Shadow Credits](/en/articles/agent-personal-credits-shadow-accounting) tracks physical model attempts with explicit unknown usage. Their local implementation evidence is not production qualification.
+
 <ChapterCatalog category="modules" />

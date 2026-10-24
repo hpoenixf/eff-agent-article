@@ -23,6 +23,12 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](/articles/multi-layer-agent-collaboration-outlook)记录截至 2026-10-24 的模块实现前提、尚未验收的整体协作价值及将来对照单 Main 的方法。未来完整任务、真实金融质量和成本证据取得后，应另写复盘并保留原展望版本，不能在旧文里事后改写预测。
 
+## 2026-10-24 已补齐的三篇独立机制稿
+
+[HIO：持久人机交互怎样接回原研究](/articles/agent-durable-human-interaction-response-adoption) 已覆盖原回复、重复接纳、Human Park、Correction/Continue 和 Child 原文消费；本地关闭不代表生产默认开启。 [A36：用户日期与市场交易日](/articles/agent-temporal-semantics-market-calendar) 解释当前时钟、冻结任务锚点、市场日历和行情时点，仍保留普通真实请求验收缺口。[Shadow Credits：请求与用量身份](/articles/agent-personal-credits-shadow-accounting) 专注账户自身用量与物理尝试，非支付或额度硬拒绝；交付物成本归因 E04 仍是未来独立研发工作。
+
+这三篇属于同一次选题补漏，而不是三个新增运行时 Manager；图册现有 41 个正式 Owner 不因此先行扩容。专题入库不替代源码实现、真实模型质量或站点线上验收。
+
 ## P0 · 优先深化已有文章（不是新篇）
 
 | 现有文章 | 值得补充的具体问题 | 计划与限制 |
