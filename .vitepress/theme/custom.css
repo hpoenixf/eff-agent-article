@@ -264,3 +264,10 @@
 @media (prefers-reduced-motion: reduce) {
   .flagship-entry__card, .architecture-layer-index a { transition: none; }
 }
+
+/* Dedicated editorial plates remain legible and horizontally inspectable on phones. */
+.article-architecture-figure.v2-feature-figure { overflow-x: auto; background: #f7f9fb; border-color: #d6e4e9; }
+.article-architecture-figure.v2-feature-figure img { display: block; min-width: 850px; max-height: none; width: 100%; height: auto; object-fit: contain; }
+.article-architecture-figure.v2-feature-figure figcaption { color: #445b64; }
+.dark .article-architecture-figure.v2-feature-figure, .dark .article-architecture-figure.v2-overview-figure { background: #192729; border-color: #38575b; }
+.dark .article-architecture-figure.v2-feature-figure figcaption { color: #b6cbc9; }
