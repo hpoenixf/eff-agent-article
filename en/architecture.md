@@ -18,6 +18,6 @@ Bounded front-end conversation responses and background research now share the o
 
 Account-scoped subagent profiles and frozen Run/Child selection have source-level integration; end-to-end account, PostgreSQL, browser, and research validation remain open. The optional Nasdaq 2026 calendar path distinguishes user-local time, task anchors and scheduled sessions, but is disabled by default. A scheduled market session is not proof of actual trading or quote freshness. The curated question catalog likewise does not certify answer quality.
 
-The [41-owner gallery](/en/gallery) preserves the previous structural inventory while updating the existing owner details; the interactive map still uses Chinese labels. Durable human interaction beyond the implemented controls is a staged design, not an accepted product capability.
+The [41-owner gallery](/en/gallery) preserves the previous structural inventory while updating the existing owner details; the interactive map still uses Chinese labels. Durable human interaction has bounded implementation and recovery/browser evidence for Stage A (Main questions), Stage B (Effect Approval) and Stage C (Permission Request), while Stage D Child coordination and formal closure remain open. These effects still belong to the existing owners, not a newly accepted authority.
 
 The [original architecture guide](/architecture) contains further Chinese-language details.
