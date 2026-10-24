@@ -121,7 +121,7 @@ You do not need to memorize all forty-plus owners. Read each layer in order, or 
 | A35 content trust | [13](#handoff-13) | External content is evidence, never an authorization instruction |
 | A33 precise computation | [16](#handoff-16) | Source/time, domain formula, decimal arithmetic have separate owners |
 | HIO / persistent HIL | [HIL focus](#hil-loop) | Bounded engineering closure; production Human Park is off by default |
-| A36 time and market sessions | [Separate article](/en/articles/agent-temporal-semantics-market-calendar) | Independently verified; do not infer global production readiness |
+| A36 time and market sessions | [Separate article](/en/articles/agent-temporal-semantics-market-calendar) | Independent verification still in progress; do not infer production readiness |
 | Durable control, schedules and finalization | [22](#handoff-22), [23](#handoff-23) | Real outcomes belong to existing effect owners |
 
 This is an architectural snapshot, not a certificate that every capability has been verified in production. Historical V1 is preserved.
@@ -603,7 +603,7 @@ Source and version owners establish where data came from and its effective date.
 
 Numerically exact computation cannot choose the correct denominator or validate an investment strategy. Outputs need source references, definitions and assumptions to be reproducible.
 
-**Recorded engineering case:** Combining an old holdings snapshot with a new price can wrongly infer share quantity.
+**Synthetic walkthrough:** Combining an old holdings snapshot with a new price can wrongly infer share quantity.
 
 <span id="handoff-16"></span>
 
