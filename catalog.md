@@ -11,6 +11,8 @@ description: 49 篇 Agent 工程文章，分为模块机制、架构设计与系
 
 每篇正文只归入一个主类；[金融科技 × Agent](/fintech) 是跨分类主题精选，不复制正文。侧栏、篇章顺序与上一篇／下一篇由 `book.mjs` 统一维护。
 
+<FlagshipEntry compact />
+
 <ContinueReading />
 
 <ChapterCatalog />
