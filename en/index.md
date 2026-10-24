@@ -54,6 +54,8 @@ The [complete catalog](/en/catalog) follows the canonical reading tree and inclu
 
 For an architecture decision map, see [eight core principles and six on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
 
+**Owner status, October 24, 2026:** The [architecture gallery](/en/gallery) now explains recently integrated concurrency, Reviewable result details, private subagent profiles and optional time/calendar evidence. Its 41-owner map is unchanged, and integration should not be mistaken for live or financial-quality acceptance.
+
 Browse [financial technology topics](/en/fintech), the [architecture gallery](/en/gallery), or our [writing roadmap](/en/roadmap).
 
 Our articles discuss engineering mechanisms and bounded evidence; they do not constitute investment advice or claims of production-level validation.
