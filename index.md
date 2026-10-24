@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 52 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 55 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层系统全景 →
@@ -41,7 +41,11 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 52 篇文章的入口。**
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 55 篇文章的入口。**
+
+## 最近补齐 · 人工交互、时间与用量
+
+[持久 HIL](/articles/agent-durable-human-interaction-response-adoption)讲用户的回答怎样真正进入原研究；[A36 时间语义](/articles/agent-temporal-semantics-market-calendar)区分用户自然日、市场 Session 与数据 `dataAsOf`；[Shadow Credits](/articles/agent-personal-credits-shadow-accounting)解释 Token、物理模型尝试和未知用量。这三篇都是独立机制稿，不表示功能已在生产默认开放。
 
 ## 第一次访问：从你关心的问题开始
 

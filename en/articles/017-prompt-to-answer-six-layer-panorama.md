@@ -592,7 +592,7 @@ By default, asking is **non-blocking**. Work continues until a true dependency i
 
 If the original Run is terminal, a late answer stays associated with the original interaction. The user must explicitly confirm **Continue Research** before the existing Continue path creates a parent-linked new Run. Stable response identity, conflict handling and lost-ack reconciliation prevent retries from creating new work merely because a button was pressed again.
 
-The October 24 development branch already includes durable request/reply contracts, non-blocking asking, a cross-conversation inbox, original Correction/Continue routing, and opt-in Human Park and Recovery composition. Browser and PostgreSQL-path evidence covers the default non-blocking flow. Cross-process blocking qualification and later Effect, Permission and Child integration continue along the same small interface. HIO does not itself grant permission, approve changed parameters, execute an investment effect or own a second model loop.
+As of October 24, 2026, HIO Stages A–D have completed their stated local provider-free formal close and archive, covering non-blocking questions, Human Park and recovery, the cross-conversation inbox, Effect Approval, Permission Requests and original-text Child coordination. Scoped PostgreSQL, fresh-process and authenticated-browser evidence supports the corresponding engineering seams. **Production Human Park remains disabled by default**; natural model behavior, real-user quality and production reliability are not thereby qualified. HIO does not grant permissions, execute protected effects or own a second model loop. See [the detailed durable human-response mechanism](/en/articles/agent-durable-human-interaction-response-adoption).
 
 <span id="layer-6"></span>
 
@@ -668,6 +668,8 @@ When a reported source seems missing, the investigator needs the actual model re
 An excellent candidate answer that never reached the user is not successful delivery. The sector-overlap case needs reproducible numbers and documented coverage, valid citation support, and a meaningful explanation of uncertainty. Model-judge scores may help compare semantic outputs, but they cannot replace source reading or deterministic calculation. Keep failed, partial and unknown cases in the denominator and repair the owner controlling the actual failure.
 
 **Go deeper · Observation and evaluation:** [Langfuse and trustworthy traces](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability) · [What green tests prove](/en/articles/honest-agent-evaluation) · [From bug loops to task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) · [Principle 8: Actual user outcomes](/en/principles#principle-8)
+
+[Temporal semantics and market sessions](/en/articles/agent-temporal-semantics-market-calendar) explains user-local days, frozen task time and calendar evidence. [Shadow Credits](/en/articles/agent-personal-credits-shadow-accounting) keeps dispatch identity and observed usage separate from Run budgets.
 
 ## From V1 to V2: evolving interfaces rather than piling on controllers
 

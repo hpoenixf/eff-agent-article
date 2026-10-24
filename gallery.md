@@ -45,7 +45,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 41 个 Own
 
 **当前最重要的开放工作**仍然是交付一份能独立复核的真实基金研究：正常入口获得正确来源和计算、生成可读正文及可读取的 History，再由独立判断确认其价值。后台复杂研究的 partial 原样保留；Profile 与 A36 分别补原账户/数据来源/跨进程/普通请求验收。
 
-**HIO（双向人机交互）**现已完成 Main 问答与等待／恢复（Stage A）、原 Effect Approval（Stage B）和 Permission Request（Stage C）的有界工程及恢复／浏览器验收；Child 协调（Stage D）、整项收尾与正式关闭仍开放。它沿现有 Conversation、Effect、Authorization 与 Recovery Owner 接入，不新增独立审批权威，亦不代表生产部署或真实研究质量通过。**E04 成本归因**仍处独立设计，不把已有 Tool／模型调用计数视为完整账单。Memory 外部生命周期、真实模型可靠性及部署也保持独立验证。
+**HIO（双向人机交互）**已完成 Main/Child 问答、非阻塞与安全等待、Effect Approval 和 Permission Request 的声明范围本地 provider-free 正式关闭及归档；原 Conversation、Effect、Authorization、Recovery 仍分别拥有自己的效果。生产 Human Park 默认关闭，真实模型提问质量和线上部署独立未验。完整机制见[持久 HIL 专题](/articles/agent-durable-human-interaction-response-adoption)。**A36 时间语义**已有主干实现、仍缺普通真实请求和完整关闭，见[时间语义专题](/articles/agent-temporal-semantics-market-calendar)。**个人 Shadow Credits**已有账户页面及有限工程验收，但原 Scheduler/Task PG 非干扰性和整项关闭仍开放，见[Credits 专题](/articles/agent-personal-credits-shadow-accounting)。**E04 交付物成本归因**仍处设计，不以 Shadow 或现有 Tool/模型计数代替完整账单。
 
 A34 Tool Surface、A35 有界内容信任、A28 Main 压缩等历史收口保留上方专文说明；它们的局部通过不自动转化为金融业务验收。更多判断方法见[架构原则](/principles)，主流程见[六层全景 V2](/articles/017-prompt-to-answer-six-layer-panorama)。
 
