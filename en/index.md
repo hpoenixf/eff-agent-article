@@ -7,7 +7,10 @@ hero:
   tagline: A curated engineering library organized around modules, architecture, and AI-assisted development. English translations are added alongside new articles.
   actions:
     - theme: brand
-      text: Explore the eight architecture principles →
+      text: Read the six-layer architecture →
+      link: /en/articles/017-prompt-to-answer-six-layer-panorama
+    - theme: alt
+      text: Explore the eight principles →
       link: /en/principles
     - theme: alt
       text: Browse the library →
@@ -27,13 +30,15 @@ features:
     link: /en/engineering
 ---
 
-## Start with the architecture principles
+## Essential first reads: architecture and principles
 
-The [eight core principles and six engineering methods](/en/principles) are the site's conceptual map across all three reading paths—not a fourth article category or new approval system. Each article has a clear route back to this map, even when it does not belong to any numbered principle.
+Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [eight architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.
 
-## Start here
+<FlagshipEntry />
 
-Start with [why tool results should not all enter model context](/en/articles/tool-results-outside-model-context), then continue to [traceable tool execution](/en/articles/agent-tool-lifecycle-and-model-input) and [memory effects that survive answer failures](/en/articles/026-agent-memory-forget-durable-effects).
+## Dig deeper by mechanism
+
+Continue with [why tool results should not all enter model context](/en/articles/tool-results-outside-model-context), then continue to [traceable tool execution](/en/articles/agent-tool-lifecycle-and-model-input) and [memory effects that survive answer failures](/en/articles/026-agent-memory-forget-durable-effects).
 
 ### Newly translated reading paths
 
