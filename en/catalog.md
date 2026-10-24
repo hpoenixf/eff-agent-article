@@ -11,6 +11,8 @@ This library lists the original Chinese essays in three canonical categories. Co
 
 **Availability:** Fully translated articles link directly to their English Markdown and localized Mermaid/table content. “Chinese original” means a full English edition has not yet been published; those links still lead to the original Chinese text.
 
+<FlagshipEntry compact />
+
 <ContinueReading />
 
 <ChapterCatalog />
