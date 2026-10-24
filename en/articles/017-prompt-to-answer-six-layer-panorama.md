@@ -64,7 +64,76 @@ You do not need to memorize all forty-plus owners. Read each layer in order, or 
   <a href="#layer-6"><span class="index">06 / SYSTEM LAYER</span><strong>Observation & evaluation</strong><small>Trace actual outcomes and investigate errors</small></a>
 </section>
 
+
+## Reading terminology: separate capability ownership from code ownership
+
+**Four anchors:** a Run is one execution; Main synthesizes the answer; Host dispatches authorized tools; Publication decides how answer text is delivered.
+
+| Term | Meaning here | Not equivalent to |
+| --- | --- | --- |
+| Conversation / Message / Run | Exchange history / idempotent send / traceable execution | One ID or one lifecycle |
+| Root / Main / Child | Root execution scope / primary researcher / delegated bounded worker | Separate authorization and budget ledgers |
+| **Capability Owner** | Module accountable for a fact, decision or effect | Repository code maintainer or chapter heading |
+| **Code owner** | Engineer/team maintaining a file or repository | Runtime permission to act |
+| **Ownership** | The responsibility and authority to attest or correct an effect | An instruction to create another service |
+| Host / Tool Surface | Actual tool-call authority / tools finally presented to the model | Tool discovery means permission |
+| Projector / Publication | Model-input assembly / disposition and delivery of answer text | Source authority or numerical truth |
+| HIO / HIL | Human Interaction Owner / Human-in-the-Loop interaction mode | User replies bypass all other runtime controls |
+
+::: details Advanced glossary: recovery, effects and continuity
+
+| Term | Definition |
+| --- | --- |
+| ModelTurn / sealed turn | One model exchange, with durable facts protected against rewriting |
+| Checkpoint / Recovery | Saved resume point / resuming the original Run from recorded facts |
+| lease / fence | Bounded execution ownership / protection against stale actors committing effects |
+| Correction / Continue | Adoption of new input at a safe point / creation of a linked new Run |
+| Human Park | Safely parked but nonterminal Run awaiting a human or control event |
+| Projection / Projector | Consumer-specific view / module assembling that view |
+| ResultRef / Artifact | Durable result reference / separately versioned and authorized output |
+| Publication / Effect | Candidate answer disposition / separate proposal, approval, execution and effect |
+| TaskExecution / Schedule | One scheduled occurrence / a user-confirmed schedule |
+| HIO / HIL | Human Interaction Owner / Human-in-the-Loop; the former owns request routing, the latter is a coordination pattern |
+
+:::
+
+## Why not compose LangGraph, AutoGen or OpenAI tooling?
+
+**The position:** they can provide orchestration primitives. The application still has to define authoritative financial data, permission scope, actual effect receipts and user-visible delivery. The six-layer model describes those obligations; it does not argue that generic frameworks are incapable.
+
+| Platform | Useful building blocks | Additional ETF Agent contracts |
+| --- | --- | --- |
+| [LangGraph](https://docs.langchain.com/oss/python/langgraph/persistence) | Graphs, checkpoints, durable execution, human interrupts | Portfolio authority, Run grants, effect deduplication, publication and sharing |
+| [AutoGen AgentChat](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/) | Multi-agent teams and coordination | Shared Root/Child authorization, deterministic finance, real delivery auditing |
+| [OpenAI Responses API](https://developers.openai.com/api/docs/guides/migrate-to-responses) / Agents SDK | Models, hosted tools, MCP and agent-building primitives | Cross-provider application receipts, account permissions and domain consistency |
+| **ETF Agent six-layer architecture** | Composition of orchestration with domain modules | Explicit authority for execution, evidence, calculation, Publication, HIO and Recovery |
+
+**Historical note:** OpenAI's Assistants API was **sunset on August 26, 2026**, so new projects should compare against Responses. [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework) is also relevant to AutoGen's evolution.
+
+> **Takeaway:** a framework reduces orchestration code, not the obligation to prove who could read, compute, execute, persist and deliver.
+
+::: details V2 delta index — expand for October 2026 details
+
+| New or deepened capability | Where it appears | Evidence / status boundary |
+| --- | --- | --- |
+| Root-owned Child; concurrent foreground/background runs | [Layer 1](#layer-1), [06](#handoff-06) | One Root scope, separate lifecycles for separate Runs |
+| Deep, action reminders, Main compaction | [04](#handoff-04), [05](#handoff-05), [07](#handoff-07) | Existing owners; a toggle does not validate research quality |
+| A34 Tool Surface | [11](#handoff-11) | Final model presentation and Host admission are distinct |
+| A35 content trust | [13](#handoff-13) | External content is evidence, never an authorization instruction |
+| A33 precise computation | [16](#handoff-16) | Source/time, domain formula, decimal arithmetic have separate owners |
+| HIO / persistent HIL | [HIL focus](#hil-loop) | Bounded engineering closure; production Human Park is off by default |
+| A36 time and market sessions | [Separate article](/en/articles/agent-temporal-semantics-market-calendar) | Independent verification still in progress; do not infer production readiness |
+| Durable control, schedules and finalization | [22](#handoff-22), [23](#handoff-23) | Real outcomes belong to existing effect owners |
+
+This is an architectural snapshot, not a certificate that every capability has been verified in production. Historical V1 is preserved.
+
+:::
+
 ## Capability owners: how more than forty modules contribute
+
+A **capability owner** is the module accountable for a durable fact, decision or effect; it is neither a GitHub code owner nor a numbered chapter. Readers can follow the six-layer skeleton first, then expand the inventory to find the accountable module.
+
+::: details Complete owner inventory and implementation snapshot
 
 The public owner gallery currently recognizes **41 capability owners**. The durable Human Interaction Owner is an evolving design and implementation seam, so “more than forty” is a practical label, not an eternal inventory. **Six layers are an explanatory map, not six services. Twenty-six numbered topics are a reading route, not the module count.** Peripheral capabilities still belong to the system but need not crowd every paragraph.
 
@@ -79,6 +148,8 @@ The public owner gallery currently recognizes **41 capability owners**. The dura
 | Control and delivery | Durable Control, scheduled tasks, Artifact, Publication, History and client | Commands, occurrences, storage and rendered output |
 | Memory and observation | Long-term Memory, daily research and trajectories | Personal context and execution records |
 | Human interaction | HIO plus original Correction, Recovery and Continue | Durable question/reply routing without copying grants |
+
+:::
 
 <span id="layer-1"></span>
 
@@ -146,37 +217,71 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 01. Conversation and message identity
 
-The Conversation stores exchanges; a Run is an execution instance with its own tool receipts and publication. A stable client message ID lets the server recognize a retry. The same identity and same body lead to a replay or recovery of the original Run, whereas a reused identity with different content is rejected. Account and scope admission happens in code before the model can examine private holdings.
+> **One point to remember:** A Conversation holds exchanges, a Message identifies a send, and a Run records one execution.
+
+The Conversation stores exchanges; a Run is an execution instance with its own tool receipts and publication. A stable client message ID lets the server recognize a retry.
+
+The same identity and same body lead to a replay or recovery of the original Run, whereas a reused identity with different content is rejected. Account and scope admission happens in code before the model can examine private holdings.
+
+**Synthetic walkthrough:** A retry with the same message ID and body replays the old Run; a conflicting body must fail.
 
 <span id="handoff-02"></span>
 
 ### 02. Entry selects work, not a simplistic topic label
 
-“What is industry concentration?” can be Direct. “Calculate the concentration of my actual funds from their latest reports” needs Research. Entry receives the question and bounded authorized context, then selects a structured short answer or a research route. A directory describing available sources is not evidence that those sources were read. Skills may initiate relevant research, but they do not grant new access.
+> **One point to remember:** Entry chooses direct explanation or evidence-backed research based on required work.
+
+” can be Direct. “Calculate the concentration of my actual funds from their latest reports” needs Research. Entry receives the question and bounded authorized context, then selects a structured short answer or a research route.
+
+A directory describing available sources is not evidence that those sources were read. Skills may initiate relevant research, but they do not grant new access.
+
+**Synthetic walkthrough:** A definition of sector concentration can be Direct; a question about my funds needs authorized data.
 
 <span id="handoff-03"></span>
 
 ### 03. Native research loop: propose, execute, inspect
 
-For a complex request, the model proposes an actual action, Host and Runtime record admission and execution, and the resulting receipt enters the next model turn. The model may then read more sources, compute a comparison or publish its conclusion. It should not be asked to maintain a second authoritative ledger of whether a tool ran, how many requests were billed, or which action can be safely retried. The runtime retains these observable facts.
+> **One point to remember:** The model chooses research steps; Runtime records actual actions and their receipts.
+
+For a complex request, the model proposes an actual action, Host and Runtime record admission and execution, and the resulting receipt enters the next model turn. The model may then read more sources, compute a comparison or publish its conclusion.
+
+It should not be asked to maintain a second authoritative ledger of whether a tool ran, how many requests were billed, or which action can be safely retried. The runtime retains these observable facts.
+
+**Synthetic walkthrough:** If a fund report conflicts with classifications, Main obtains more evidence before answering.
 
 <span id="handoff-04"></span>
 
 ### 04. Run resources and Deep research
 
-A single Run’s request count, actual usage, bounded execution time and finalization allowance have one accounting owner. Child workers, retries and recovery do not independently reset the limit. Deep is an authorized resource-mode adjustment; it is not automatically a different model, reasoning effort, or permission scope. A rejected upgrade cannot erase earlier usage or unknown effects.
+> **One point to remember:** Main, Child and Recovery consume the same Root budget, with no separate Deep ledger.
+
+A single Run’s request count, actual usage, bounded execution time and finalization allowance have one accounting owner. Child workers, retries and recovery do not independently reset the limit.
+
+Deep is an authorized resource-mode adjustment; it is not automatically a different model, reasoning effort, or permission scope. A rejected upgrade cannot erase earlier usage or unknown effects.
+
+**Synthetic walkthrough:** After a Child spends model calls, Main sees that spending in the same Run.
 
 <span id="handoff-05"></span>
 
 ### 05. Unified action reminders
 
-Context pressure, approaching budget limits and publication constraints may be turned into bounded guidance for the model. Only a reminder actually incorporated into a dispatched model request counts as delivered guidance. A suggestion to wrap up does not itself terminate the Run, authorize a more expensive tool, or increase available budget.
+> **One point to remember:** Reminders advise the model but do not grant resources or prove delivery.
+
+Context pressure, approaching budget limits and publication constraints may be turned into bounded guidance for the model. Only a reminder actually incorporated into a dispatched model request counts as delivered guidance.
+
+A suggestion to wrap up does not itself terminate the Run, authorize a more expensive tool, or increase available budget.
+
+**Synthetic walkthrough:** A reminder omitted by context fitting must not be logged as already sent to the model.
 
 <span id="handoff-06"></span>
 
 ### 06. Root-owned subagents
 
-Main can directly perform a simple read or delegate a multi-step Web, PDF or Python investigation. Child subagents use their own bounded turns but derive authority from the Root. They return identified sources, read ranges, artifacts, partial answers and gaps to Main, which owns the final synthesis. A Child having read a PDF does not mean Main consumed the entire PDF; the handoff has to preserve that distinction.
+> **One point to remember:** A Child explores a bounded branch while Root owns the scope and Main owns synthesis.
+
+Main can directly perform a simple read or delegate a multi-step Web, PDF or Python investigation. Child subagents use their own bounded turns but derive authority from the Root.
+
+They return identified sources, read ranges, artifacts, partial answers and gaps to Main, which owns the final synthesis. A Child having read a PDF does not mean Main consumed the entire PDF; the handoff has to preserve that distinction.
 
 **Figure 4 · Delegation: Main owns final delivery**
 
@@ -202,6 +307,8 @@ flowchart TD
 classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
 linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
+
+**Synthetic walkthrough:** A PDF Child finds a table, a Python Child computes a scenario, and Main checks both.
 
 <span id="parallel-runs"></span>
 
@@ -278,19 +385,37 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 07. Projector: what actually reached the model
 
-The Projector assembles current instructions, the exact user question, relevant history, selected Skill guidance, tool receipts, references and the final available tool surface. Context fitting can omit or externalize material while retaining the identity of omitted sources. Main compaction commits a source-linked summary of a settled earlier range to the original checkpoint; summaries never become independent evidence or new execution receipts.
+> **One point to remember:** Projector establishes what was actually included in a model request.
+
+The Projector assembles current instructions, the exact user question, relevant history, selected Skill guidance, tool receipts, references and the final available tool surface. Context fitting can omit or externalize material while retaining the identity of omitted sources.
+
+Main compaction commits a source-linked summary of a settled earlier range to the original checkpoint; summaries never become independent evidence or new execution receipts.
+
+**Synthetic walkthrough:** A source was stored but left out of the request; investigate projection first.
 
 <span id="handoff-08"></span>
 
 ### 08. Skills provide methods, not unlimited tools
 
-An ETF research Skill may instruct the model to confirm product identity and report dates, inspect sources, use appropriate calculation assumptions, and disclose gaps. It cannot turn a missing or unauthorized capability into an executable tool. Generic instructions belong in common guidance; domain procedures belong in Skills; concrete arguments and output formats belong in tool contracts. Extension packages also require controlled source, lifecycle and profile admission.
+> **One point to remember:** Skills reuse domain research methods, not tool permissions.
+
+An ETF research Skill may instruct the model to confirm product identity and report dates, inspect sources, use appropriate calculation assumptions, and disclose gaps. It cannot turn a missing or unauthorized capability into an executable tool.
+
+Generic instructions belong in common guidance; domain procedures belong in Skills; concrete arguments and output formats belong in tool contracts. Extension packages also require controlled source, lifecycle and profile admission.
+
+**Synthetic walkthrough:** A Skill can suggest checking a report date but cannot grant access to private tools.
 
 <span id="handoff-09"></span>
 
 ### 09. Memory versus actual holdings
 
-Long-lived expression preferences should not be confused with current investment balances. Explicit save, correction and forget operations have durable versions and receipts; a later failed answer cannot undo a previously committed forget operation. Private and temporary modes must preserve their own boundaries. A recollected conversation can help phrase an explanation but is not a substitute for a fresh authorized read of the user's portfolio.
+> **One point to remember:** Long-term preferences differ from authoritative current portfolio facts.
+
+Long-lived expression preferences should not be confused with current investment balances. Explicit save, correction and forget operations have durable versions and receipts; a later failed answer cannot undo a previously committed forget operation.
+
+Private and temporary modes must preserve their own boundaries. A recollected conversation can help phrase an explanation but is not a substitute for a fresh authorized read of the user's portfolio.
+
+**Synthetic walkthrough:** Remember 'be concise'; read the user's holdings afresh from authorized sources.
 
 <span id="layer-3"></span>
 
@@ -354,19 +479,37 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 10. Model Gateway and provider requests
 
-Gateway normalizes different provider protocols, streams and tool-call argument encodings. A partial response cannot be treated as a complete authorized action. Provider admission controls shared concurrency and endpoint lease; the Run resources owner controls the execution's own consumption. The configured model catalogue determines eligible routes while the model-call owner binds requested settings, including supported reasoning effort.
+> **One point to remember:** Gateway preserves provider protocol facts and must not invent an incomplete tool call.
+
+Gateway normalizes different provider protocols, streams and tool-call argument encodings. A partial response cannot be treated as a complete authorized action. Provider admission controls shared concurrency and endpoint lease; the Run resources owner controls the execution's own consumption.
+
+The configured model catalogue determines eligible routes while the model-call owner binds requested settings, including supported reasoning effort.
+
+**Synthetic walkthrough:** An interrupted JSON tool-call stream must not trigger a guessed call.
 
 <span id="handoff-11"></span>
 
 ### 11. MCP, Host and actual Tool Surface
 
-The MCP owner handles service connections, discovery, schemas, protocol transport and close behavior. Host validates the concrete Run and tool invocation. A34 guards the actual tool synopsis and final model-visible tool surface against mismatch with admitted capability contracts. Discovery does not imply the model saw a tool; visibility does not imply the action passed Host authorization. The real invocation also needs valid parameters, permission, reservation and a settled receipt.
+> **One point to remember:** MCP connects tools; Host admits, dispatches and settles each actual invocation.
+
+The MCP owner handles service connections, discovery, schemas, protocol transport and close behavior. Host validates the concrete Run and tool invocation. A34 guards the actual tool synopsis and final model-visible tool surface against mismatch with admitted capability contracts.
+
+Discovery does not imply the model saw a tool; visibility does not imply the action passed Host authorization. The real invocation also needs valid parameters, permission, reservation and a settled receipt.
+
+**Synthetic walkthrough:** An MCP service lists a tool without giving this Run permission to use it.
 
 <span id="handoff-12"></span>
 
 ### 12. Hooks and plugins with limited authority
 
-Pre-call hooks may block a particular invocation; post-call hooks may remove details from a model-visible projection. They cannot replace a source, timestamp or amount while retaining the same field path as though the tool returned it. Original receipts stay intact. The extension owner manages package admission and profile lifecycle, while hook execution manages callbacks and local errors. Neither acquires Root termination or Publication ownership.
+> **One point to remember:** Hooks may block or narrow model-visible content, not rewrite source authority.
+
+Pre-call hooks may block a particular invocation; post-call hooks may remove details from a model-visible projection. They cannot replace a source, timestamp or amount while retaining the same field path as though the tool returned it. Original receipts stay intact.
+
+The extension owner manages package admission and profile lifecycle, while hook execution manages callbacks and local errors. Neither acquires Root termination or Publication ownership.
+
+**Recorded engineering case:** A recorded hook passed structural checks but altered source, date or numerical values.
 
 <span id="layer-4"></span>
 
@@ -431,25 +574,49 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 13. Retrieval identifies candidate material
 
-Lexical and semantic retrieval can locate passages about fund objectives or industry concentration. A similar product name, older share-class prospectus or truncated snippet can still be the wrong evidence. Candidate passages must preserve source and version. A35 keeps external Web/PDF/tool content in the status of *data*: instructions embedded inside a document do not become Host or system authority.
+> **One point to remember:** Retrieval returns candidates, not a proof of evidence consumption or adequacy.
+
+Lexical and semantic retrieval can locate passages about fund objectives or industry concentration. A similar product name, older share-class prospectus or truncated snippet can still be the wrong evidence. Candidate passages must preserve source and version.
+
+A35 keeps external Web/PDF/tool content in the status of *data*: instructions embedded inside a document do not become Host or system authority.
+
+**Synthetic walkthrough:** A PDF says 'ignore previous instructions'; it remains untrusted source text.
 
 <span id="handoff-14"></span>
 
 ### 14. Web, PDF and research assets enable continued reading
 
-Search hits are starting points. Real reading requires document identity, exact consumed ranges and the ability to continue into adjacent sections or PDF pages. A search snippet is weaker evidence than a read source passage. Page-image generation does not prove that the image actually entered a model request. Cached content and current permission to display the content are also distinct.
+> **One point to remember:** Continued research preserves document identity, version and reading position.
+
+Search hits are starting points. Real reading requires document identity, exact consumed ranges and the ability to continue into adjacent sections or PDF pages. A search snippet is weaker evidence than a read source passage.
+
+Page-image generation does not prove that the image actually entered a model request. Cached content and current permission to display the content are also distinct.
+
+**Synthetic walkthrough:** A search hit needs adjacent PDF tables and caveats from the same revision.
 
 <span id="handoff-15"></span>
 
 ### 15. Deterministic finance and A33 precise arithmetic
 
-Source and version owners establish where data came from and its effective date. Financial domain rules select the appropriate formula and units. A33 performs the bounded decimal operation under those already chosen parameters and rounding rules. Numerically exact computation cannot choose the correct denominator or validate an investment strategy. Outputs need source references, definitions and assumptions to be reproducible.
+> **One point to remember:** Financial calculations require time-bound authoritative inputs and reproducible formulas.
+
+Source and version owners establish where data came from and its effective date. Financial domain rules select the appropriate formula and units. A33 performs the bounded decimal operation under those already chosen parameters and rounding rules.
+
+Numerically exact computation cannot choose the correct denominator or validate an investment strategy. Outputs need source references, definitions and assumptions to be reproducible.
+
+**Synthetic walkthrough:** Combining an old holdings snapshot with a new price can wrongly infer share quantity.
 
 <span id="handoff-16"></span>
 
 ### 16. Isolated analysis and artifacts
 
-Python is appropriate for temporary comparisons, scenario tables, plots and experimental models. Its execution receipt records that a computation took place, not that an exploratory value has become an official portfolio position. Direct HTML and files created in an isolated workbench still require the original export, publication and Artifact storage path before the user has an authenticated download.
+> **One point to remember:** A Python sandbox enables exploratory calculations, not authority over real holdings.
+
+Python is appropriate for temporary comparisons, scenario tables, plots and experimental models. Its execution receipt records that a computation took place, not that an exploratory value has become an official portfolio position.
+
+Direct HTML and files created in an isolated workbench still require the original export, publication and Artifact storage path before the user has an authenticated download.
+
+**Synthetic walkthrough:** A hypothetical sector exposure script can succeed without changing any account data.
 
 <span id="layer-5"></span>
 
@@ -514,37 +681,73 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 17. Publication and progressive answers
 
-Publication determines which candidate text and associated citations may become user-visible and durable answer revisions. A missing optional attachment or citation can be handled locally without erasing unrelated allowed prose. Real account authorization and sensitive-data constraints still apply to the relevant content. Progressive corrections should identify the part being revised rather than append another duplicate full answer.
+> **One point to remember:** Text, citations, attachments and durable save are separate publication effects.
+
+Publication determines which candidate text and associated citations may become user-visible and durable answer revisions. A missing optional attachment or citation can be handled locally without erasing unrelated allowed prose.
+
+Real account authorization and sensitive-data constraints still apply to the relevant content. Progressive corrections should identify the part being revised rather than append another duplicate full answer.
+
+**Recorded engineering case:** A failed citation binding previously suppressed independent usable answer text.
 
 <span id="handoff-18"></span>
 
 ### 18. Citation presentation is not evidence certification
 
-A citation renderer converts recognized source links into readable navigation and ordered markers. The underlying source identity, grant and supporting passages are still owned elsewhere. Displaying a citation number does not mean every sentence nearby is established by the material. An unmatched citation is a limited navigation problem, not permission for a renderer to silently delete the complete answer.
+> **One point to remember:** Citation rendering is navigation, not a certification of support.
+
+A citation renderer converts recognized source links into readable navigation and ordered markers. The underlying source identity, grant and supporting passages are still owned elsewhere. Displaying a citation number does not mean every sentence nearby is established by the material.
+
+An unmatched citation is a limited navigation problem, not permission for a renderer to silently delete the complete answer.
+
+**Synthetic walkthrough:** Displaying a `research-citation:` marker as [1] does not validate the adjacent claim.
 
 <span id="handoff-19"></span>
 
 ### 19. History, events and frontend rendering
 
-Provider streaming and browser delivery are different streams. The client receives approved answer, progress and terminal events, then projects them by Run and Publication revision. A visible preview may temporarily precede the durable database record; an immediate empty History read should not erase that still-authorized preview. Once authoritative History arrives, it reconciles by identity and version. The UI cannot treat a stale message array or animation as an execution fact.
+> **One point to remember:** Visible previews can precede durable history, so reconciliation must protect identity.
+
+Provider streaming and browser delivery are different streams. The client receives approved answer, progress and terminal events, then projects them by Run and Publication revision.
+
+A visible preview may temporarily precede the durable database record; an immediate empty History read should not erase that still-authorized preview. Once authoritative History arrives, it reconciles by identity and version.
+
+The UI cannot treat a stale message array or animation as an execution fact.
+
+**Recorded engineering case:** An empty history read once overwrote a visible authorized answer preview.
 
 <span id="handoff-20"></span>
 
 ### 20. Artifact access and sharing
 
-A saved HTML report, chart or Python file has immutable identity and authenticated access rules. A sharing grant must bind the exact recipient, Run and revision and cannot simply turn a URL into a reusable download credential. Artifact failure should be reported for that effect; it does not automatically revoke an independent legitimate explanation already published as text.
+> **One point to remember:** An Artifact URL is only a locator; readers still need revision-specific access.
+
+A saved HTML report, chart or Python file has immutable identity and authenticated access rules. A sharing grant must bind the exact recipient, Run and revision and cannot simply turn a URL into a reusable download credential.
+
+Artifact failure should be reported for that effect; it does not automatically revoke an independent legitimate explanation already published as text.
+
+**Synthetic walkthrough:** A shared artifact grant is rejected for a mismatched reader or file revision.
 
 <span id="handoff-21"></span>
 
 ### 21. Durable Recovery and idempotent retry
 
-Recovery reconstructs sealed model turns, executed actions, unknown effects, checkpoints, grants, leases, fences and committed answer versions. It must not ask a model to invent what supposedly happened. A previously settled tool action can be replayed from its original receipt; an uncertain external effect must remain uncertain until reconciled. The original lease and fence ensure stale workers cannot publish over a newer claimant.
+> **One point to remember:** Recovery consumes sealed effect receipts; unknown outcomes cannot be replayed blindly.
+
+Recovery reconstructs sealed model turns, executed actions, unknown effects, checkpoints, grants, leases, fences and committed answer versions. It must not ask a model to invent what supposedly happened.
+
+A previously settled tool action can be replayed from its original receipt; an uncertain external effect must remain uncertain until reconciled. The original lease and fence ensure stale workers cannot publish over a newer claimant.
+
+**Synthetic walkthrough:** After restart, a completed tool call must not execute again just because it is missing from context.
 
 <span id="handoff-22"></span>
 
 ### 22. Durable Control versus a scheduled occurrence
 
-An original nonterminal Run can be safely parked and then awakened through an original Control event, with its identity and budget retained. A user-confirmed recurring schedule instead creates a fresh bounded occurrence and Task Run at the scheduled time. Both reuse the existing Control system, but a wake is not a new task and a scheduled task is not infinite authorization to keep invoking a model. Automatic scheduled research does not initiate human waiting.
+> **One point to remember:** Parking and schedules are durable control facts rather than model polling loops.
+
+An original nonterminal Run can be safely parked and then awakened through an original Control event, with its identity and budget retained. A user-confirmed recurring schedule instead creates a fresh bounded occurrence and Task Run at the scheduled time.
+
+Both reuse the existing Control system, but a wake is not a new task and a scheduled task is not infinite authorization to keep invoking a model. Automatic scheduled research does not initiate human waiting.
 
 **Figure 14 · Durable control: wake versus new scheduled Run**
 
@@ -565,17 +768,31 @@ classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
 linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
+**Synthetic walkthrough:** A parked Run wakes on a Child result; a confirmed weekly schedule creates a new occurrence.
+
 <span id="handoff-23"></span>
 
 ### 23. Run termination and bounded finalization
 
-A local optional-tool failure or pressure reminder cannot decide the whole Run has failed. The original Run-level termination owner combines actual receipts, resource limits, recoverability and finalization protection before choosing an allowed closing phase. It leaves financial data, accounting, Publication and underlying transaction state with their original owners.
+> **One point to remember:** Run finalization owns the terminal decision, not every local optional failure.
+
+A local optional-tool failure or pressure reminder cannot decide the whole Run has failed. The original Run-level termination owner combines actual receipts, resource limits, recoverability and finalization protection before choosing an allowed closing phase.
+
+It leaves financial data, accounting, Publication and underlying transaction state with their original owners.
+
+**Synthetic walkthrough:** A failed optional tool cannot terminate the entire Run without the finalization decision.
 
 <span id="handoff-24"></span>
 
 ### 24. Follow-ups, replay and explicit continuation
 
-An identical network retry reuses existing execution identity. An ordinary follow-up creates a new Run using selected authorized context. A user-approved continuation of unfinished or terminal work creates a linked Run under the existing Continue contract rather than silently waking a terminal record. Textual similarity never grants access to an old source, read cursor or action.
+> **One point to remember:** Retry, follow-up, explicit continuation and clarification have different semantics.
+
+An identical network retry reuses existing execution identity. An ordinary follow-up creates a new Run using selected authorized context.
+
+A user-approved continuation of unfinished or terminal work creates a linked Run under the existing Continue contract rather than silently waking a terminal record. Textual similarity never grants access to an old source, read cursor or action.
+
+**Synthetic walkthrough:** 'Continue the research' creates a linked Run while a network retry reuses a message ID.
 
 <span id="hil-loop"></span>
 
@@ -592,7 +809,13 @@ By default, asking is **non-blocking**. Work continues until a true dependency i
 
 If the original Run is terminal, a late answer stays associated with the original interaction. The user must explicitly confirm **Continue Research** before the existing Continue path creates a parent-linked new Run. Stable response identity, conflict handling and lost-ack reconciliation prevent retries from creating new work merely because a button was pressed again.
 
+**Implementation boundary:** durable human interaction has bounded engineering validation, but production Human Park is disabled by default. Real-model behavior and long-term quality are not yet established.
+
+::: details October 24, 2026: HIO acceptance scope and exclusions
+
 As of October 24, 2026, HIO Stages A–D have completed their stated local provider-free formal close and archive, covering non-blocking questions, Human Park and recovery, the cross-conversation inbox, Effect Approval, Permission Requests and original-text Child coordination. Scoped PostgreSQL, fresh-process and authenticated-browser evidence supports the corresponding engineering seams. **Production Human Park remains disabled by default**; natural model behavior, real-user quality and production reliability are not thereby qualified. HIO does not grant permissions, execute protected effects or own a second model loop. See [the detailed durable human-response mechanism](/en/articles/agent-durable-human-interaction-response-adoption).
+
+:::
 
 <span id="layer-6"></span>
 
@@ -659,13 +882,25 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 ### 25. Langfuse and trace: locate the first incorrect handoff
 
-When a reported source seems missing, the investigator needs the actual model request, not just proof that a PDF existed in the repository. The source might not have been consumed, may have been omitted by context fitting, or may have arrived in a Child summary without the original caveat. Run-scoped model requests, tool receipts, Publication revisions and rendered-content observations expose where evidence was lost. HIL adds separate request-admitted, reply-saved, Correction-committed and Main-adopted facts.
+> **One point to remember:** Tracing locates the first wrong handoff in real request and delivery records.
+
+When a reported source seems missing, the investigator needs the actual model request, not just proof that a PDF existed in the repository. The source might not have been consumed, may have been omitted by context fitting, or may have arrived in a Child summary without the original caveat.
+
+Run-scoped model requests, tool receipts, Publication revisions and rendered-content observations expose where evidence was lost. HIL adds separate request-admitted, reply-saved, Correction-committed and Main-adopted facts.
+
+**Synthetic walkthrough:** If a document existed but never reached the model, inspect Projector rather than blaming retrieval.
 
 <span id="handoff-26"></span>
 
 ### 26. Evaluation: compare the original question to actual delivery
 
-An excellent candidate answer that never reached the user is not successful delivery. The sector-overlap case needs reproducible numbers and documented coverage, valid citation support, and a meaningful explanation of uncertainty. Model-judge scores may help compare semantic outputs, but they cannot replace source reading or deterministic calculation. Keep failed, partial and unknown cases in the denominator and repair the owner controlling the actual failure.
+> **One point to remember:** Quality review must examine what the user actually received, not just draft text.
+
+An excellent candidate answer that never reached the user is not successful delivery. The sector-overlap case needs reproducible numbers and documented coverage, valid citation support, and a meaningful explanation of uncertainty.
+
+Model-judge scores may help compare semantic outputs, but they cannot replace source reading or deterministic calculation. Keep failed, partial and unknown cases in the denominator and repair the owner controlling the actual failure.
+
+**Synthetic walkthrough:** An excellent model candidate never delivered to the user cannot pass outcome evaluation.
 
 **Go deeper · Observation and evaluation:** [Langfuse and trustworthy traces](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability) · [What green tests prove](/en/articles/honest-agent-evaluation) · [From bug loops to task convergence](/en/articles/032-ai-development-from-bug-loop-to-task-convergence) · [Principle 8: Actual user outcomes](/en/principles#principle-8)
 
