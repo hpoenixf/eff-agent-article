@@ -25,7 +25,7 @@ description: Agent 架构九条核心原则：语义与事实、授权与效果�
 | <span id="principle-6"></span> **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
 | <span id="principle-7"></span> **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
 | <span id="principle-8"></span> **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) · [全景中的结果与恢复](/articles/017-prompt-to-answer-six-layer-panorama) |
-| <span id="principle-9"></span> **9. 局部改善不等于整体进步** | 工具投影、观测和评测的改善，应按原身份追到实际模型输入、持久结果与用户任务；先区分局部修复、测量修正和端到端收益。 | [局部改善与整体进步](/articles/local-improvement-is-not-system-progress) |
+| <span id="principle-9"></span> **9. 局部改善不等于整体进步** | 工具投影、观测和评测的改善，应按原身份追到实际模型输入、持久结果与用户任务；区分局部修复、测量修正与端到端收益；核对完整工具说明等正常路径成本，明确质量、成本、延迟之间的取舍。 | [局部改善与整体进步](/articles/local-improvement-is-not-system-progress) |
 
 **不轻易加第十条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
 
