@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 57 unique essays.
+// One canonical reading tree: three perspectives and 58 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -205,6 +205,10 @@ export const collections = [
           [
             "agent-failure-is-a-boundary-problem",
             "别把每个失败都算给模型"
+          ],
+          [
+            "local-improvement-is-not-system-progress",
+            "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"
           ],
           [
             "agent-provider-failover-without-resetting-the-run",
