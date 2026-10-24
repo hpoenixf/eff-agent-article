@@ -207,26 +207,10 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 One long background Run can analyze the funds while a short foreground Run answers a definition question. Scope concurrency admits the appropriate class under a common bounded capacity policy. The client shows progress by Run identity rather than holding a single Conversation-wide busy flag. A correction and Stop must target the intended Run; an unrelated quick answer must not overwrite the background result.
 
-**Figure 5 · Foreground replies alongside background research**
-
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["One conversation"]
-    B["Long background research"]
-    C["Short foreground question"]
-    D["Run-level isolation"]
-    E["Quick answer delivered"]
-    F["Research continues"]
-    A --> B
-    A --> C
-    B --> D
-    C --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+<figure class="article-architecture-figure v2-feature-figure">
+  <img src="../../visuals/en/017-prompt-to-answer-six-layer-panorama/v2-concurrent-runs-en.svg" alt="Concurrent Agent architecture: background research Run A and foreground Runs B/C stay isolated by identity and budget while sharing Runtime, Host, Publication and Recovery. Targeted Correction returns only to original Run A." loading="lazy" decoding="async" />
+  <figcaption>Figure 5 · One Conversation, several Runs: concurrent research and quick replies with targeted Correction.</figcaption>
+</figure>
 
 **One Conversation can relate multiple Runs, but there is still one Runtime, Host authorization model, result identity system and publication path.** That is the key architectural change, not simply raising a concurrency limit.
 
@@ -597,33 +581,10 @@ A research agent sometimes needs a human answer while still being capable of ind
 
 By default, asking is **non-blocking**. Work continues until a true dependency is reached, while the user can respond to the exact persistent request. Receipt of the user's text is different from adoption: the original Correction safe point carries it into an actual Main model input. When necessary, the original Recovery owner may safely **Human Park** an unfinished Run; Control and Scope then manage wake-up and readmission. Parking never resets consumed model usage or explicit hard deadlines.
 
-**Figure 15 · Human interaction: request, reply, adoption and resumption**
-
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Model asks user"]
-    B["HIO durable admission"]
-    C["Independent work proceeds"]
-    D["Safe Human Park"]
-    E["Cross-conversation inbox"]
-    F["User replies to exact request"]
-    G{"Original Run active?"}
-    H["Original Correction or Wake"]
-    I["Explicit continue confirmation"]
-    J["Linked new Run"]
-    A --> B
-    B --> C
-    B --> D
-    B --> E
-    E --> F
-    F --> G
-    G --> H
-    G --> I
-    I --> J
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+<figure class="article-architecture-figure v2-feature-figure">
+  <img src="../../visuals/en/017-prompt-to-answer-six-layer-panorama/v2-durable-human-loop-en.svg" alt="Durable HIL workflow: an ask_user proposal becomes an HIO request and a global inbox reply. An active Run adopts at Correction or wakes through Recovery, while a terminal Run requires explicit user confirmation for linked Continue." loading="lazy" decoding="async" />
+  <figcaption>Figure 15 · Durable HIL: return to the original Correction or Recovery; explicit Continue for a terminal Run.</figcaption>
+</figure>
 
 If the original Run is terminal, a late answer stays associated with the original interaction. The user must explicitly confirm **Continue Research** before the existing Continue path creates a parent-linked new Run. Stable response identity, conflict handling and lost-ack reconciliation prevent retries from creating new work merely because a button was pressed again.
 
