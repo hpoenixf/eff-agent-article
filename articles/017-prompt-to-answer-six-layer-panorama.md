@@ -34,31 +34,12 @@ Deep 和思考强度各是所属模块里的子能力，不因独立开关或工
 
 下面用这个合成场景带路，不对应真实持仓，也不表示所有故障曾在同一次运行连续发生。真实工程摩擦会在相应位置单独说明。图示简化职责与数据关系；观测贯穿全程，研究会多轮往返，普通问题可以直接回答。复杂研究现在还可能委派 Root 下的 Web、PDF 或 Python Child；用户批准的定时任务由另一条持久控制链路触发，不是主图的必经步骤。
 
-**图 1 · 六层协作：一次提问怎样成为持久答案**
+<figure class="article-architecture-figure v2-overview-figure">
+  <img src="../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v2-native-loop-zh.svg" alt="ETF Agent 六层架构全景：上下文进入原生模型决策，模型提出工具调用，Host 执行并返回证据计算结果，回执通过直角闭环返回模型继续决策；Direct 绕过研究循环也走统一发布，人工等待、恢复和观测分别与原 Run 协作。" loading="lazy" decoding="async" />
+  <figcaption>图 1 · 六层架构与原生研究闭环：模型决策 → 工具执行 → 证据计算 → 再次决策。</figcaption>
+</figure>
 
-```mermaid
-flowchart TD
-    A["用户问题"]
-    B["入口决策"]
-    C["上下文装配"]
-    D["工具执行"]
-    E["证据计算"]
-    F["发布恢复"]
-    G["用户见到答案"]
-    H["全程观测"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> C
-    E --> F
-    F --> G
-    B --> H
-    D --> H
-    F --> H
-```
-
-这是需要工具的研究路径。结果回灌后，模型可以提出下一轮动作或提交答案；观测从各处取得独立记录，并非最后才开始。
+图中最显眼的青绿色闭环才是 **Native Agent Loop**：模型提出动作，Host 执行，工具结果与证据回灌后，由同一个 Main 再次决定下一步。只有研究充分才走向 Publication；简单问题可以走左侧 Direct 旁路，仍复用统一发布。HIL、Recovery 与观测是协作能力，不是另一个 Agent 循环。
 
 | 层次 | 接住的问题 | 模块 |
 | --- | --- | --- |
@@ -80,6 +61,7 @@ flowchart TD
 **图 2 · 请求身份分流：重发、创建与冲突**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["用户发送"]
     B{"消息身份已存在？"}
@@ -92,6 +74,8 @@ flowchart TD
     B --> F
     C --> D
     C --> E
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 消息身份把一次发送与实际运行关联起来。同一身份的重发查找原运行；正文冲突则拒绝，不覆盖已发生的执行。
@@ -99,6 +83,7 @@ flowchart TD
 **图 3 · 入口与研究循环**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["理解请求"]
     B{"需要外部证据？"}
@@ -116,6 +101,8 @@ flowchart TD
     F --> G
     G --> E
     G --> H
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 图中展开一轮研究。需要更多材料时进入下一轮；图中重复的模型节点用于表达前后两次推理，不是两个独立 Agent。
@@ -200,6 +187,7 @@ Deep 是这个模块中的资源模式子能力。用户显式选择、注册 Sk
 **图 4 · 委派有界：主研究统一交付**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["主研究判断"]
     B["直接读取"]
@@ -217,6 +205,8 @@ flowchart TD
     D --> F
     E --> F
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 图中两条路径是可选分支，不代表每次都同时启动。Child 用 `submit_subagent_result` 提交部分或最终交接，保留真实引用、产物、已读范围和未解决缺口。**Child 自己读过原文与 Main 只收到它的摘要，是两种不同消费事实**；摘要不自动升级为已核验数值，Child 也不能直接向用户发布最终答案。
@@ -234,6 +224,7 @@ Root 与三个工具型 worker 已经过受控执行验证；是否委派仍由�
 **图 5 · 前台短答与后台研究并行**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["一个会话"]
     B["后台深度研究"]
@@ -247,6 +238,8 @@ flowchart TD
     C --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 这种并行不需要第二个 Background Agent 或跨运行的通用模型总管：**一份消息关系，多份独立运行，一套事实与交付体系**。
@@ -260,6 +253,7 @@ flowchart TD
 **图 6 · Projector：实际送模内容**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["用户原话历史"]
     B["技能与偏好"]
@@ -274,6 +268,8 @@ flowchart TD
     D --> E
     E --> F
     E --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 事实由原模块提供，投影器集中组织本轮模型视图。省略与容量处理需要留下记录；投影器不承担取数和授权。
@@ -281,6 +277,7 @@ flowchart TD
 **图 7 · 长期偏好与当前持仓分开**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["用户提问"]
     B["稳定偏好"]
@@ -294,6 +291,8 @@ flowchart TD
     D --> E
     C --> F
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 有限背景影响表达，当前组合沿权威读取取得。长期记忆请求必须形成持久化回执，召回复核范围与版本；关系表不表示自动学习默认开启或已生产部署。
@@ -360,6 +359,7 @@ flowchart TD
 **图 8 · 从工具提议到真实执行**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["模型可见工具"]
     B["参数校验"]
@@ -374,6 +374,8 @@ flowchart TD
     D --> E
     E --> F
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 MCP 适配器接入能力，Host 管理实际执行。调用前检查不替代 Host 准入；返回后收窄的模型投影与原始回执各有归属。
@@ -381,6 +383,7 @@ MCP 适配器接入能力，Host 管理实际执行。调用前检查不替代 H
 **图 9 · 钩子只能收窄不能改写事实**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["原始回执"]
     B["保留源数据"]
@@ -393,6 +396,8 @@ flowchart TD
     C --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 这是调用后钩子的简化关系。原始回执独立保存；投影可以删除，留下的值与路径必须继承原事实。等形替换来源或数字属于禁止分支。
@@ -470,6 +475,7 @@ MCP 服务接入本身是独立能力模块，负责连接与握手、工具目�
 **图 10 · 从检索候选到证据消费**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["检索候选"]
     B["核对版本"]
@@ -485,6 +491,8 @@ flowchart TD
     E --> F
     E --> G
     F --> G
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 资料路径展示候选、读取与覆盖的区别；组合结果在后续推理中汇合。缺少材料可以形成明确缺口，不能被当作完整证据。
@@ -492,6 +500,7 @@ flowchart TD
 **图 11 · 计算：来源、公式与实验不同权**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["有来源数据"]
     B["确定领域口径"]
@@ -505,6 +514,8 @@ flowchart TD
     C --> E
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 两条计算路径使用各自适用的输入。确定性领域结果可复算，Python 分析保留假设与执行记录；模型最后解释用途和限制。
@@ -589,6 +600,7 @@ A33 **精确数值**把计算拆成“来源和时点 → 领域口径与公式 
 **图 12 · 已显示与已保存是两件事**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["候选正文"]
     B["Publication处置"]
@@ -602,6 +614,8 @@ flowchart TD
     C --> F
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 这是正文已允许展示后的关系。浏览器收到内容与后台保存可以在不同时间结算，需要按同一正文身份核对，不能相互冒充成功。
@@ -609,6 +623,7 @@ flowchart TD
 **图 13 · 重发、追问、续接三分支**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["接收消息"]
     B{"同消息重发？"}
@@ -621,6 +636,8 @@ flowchart TD
     B --> D
     D --> E
     D --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 这张图按请求关系分流，省略每条路径上的权限与来源检查。普通追问和显式任务续接都可以建立新运行，重发则查找原消息。
@@ -700,6 +717,7 @@ HTML 生成与文件交付沿既有 Owner 协作：模型生成语义内容，Pu
 **图 14 · 控制事件：原运行醒来与新定时运行**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["原运行安全停放"]
     B["原控制事件回执"]
@@ -711,6 +729,8 @@ flowchart TD
     B --> C
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 图中左上的 Schedule 路径是用户**确认后**才生效的一次定时任务；`TaskRun` 是该 occurrence 的 Root Run。右侧的 parked/wake 则延续**原来那一个**非终态 Run。两者共用受控事件入口和真实生命周期 owner，却不能因收到通知就相互转换，更不能把 `finish_research({isSuspend:true})` 这种终态暂停解释为同 Run 睡眠。
@@ -752,6 +772,7 @@ flowchart TD
 **图 15 · HIL：请求、回复、采用和恢复**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["模型提出问题"]
     B["HIO持久接纳"]
@@ -772,6 +793,8 @@ flowchart TD
     G --> H
     G --> I
     I --> J
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 原 Run 已终结的迟到回复不会静默把它重新打开。系统保留原回复，再要求用户显式选择**继续分析**；这时由原 Continue 创建一个带父任务关系的新 Run。丢 ACK、重复提交与互相冲突的回复使用稳定的请求和响应身份核对，不重复发送工具或恢复出第二份效果。HIO 不持有模型循环、授权账本、财务效果或 Publication 正文，它只负责交互请求与答复准入、身份与路由。
@@ -787,6 +810,7 @@ flowchart TD
 **图 16 · 观测拼回真实交接**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["Run身份"]
     B["模型输入输出"]
@@ -802,6 +826,8 @@ flowchart TD
     C --> F
     D --> F
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 Langfuse 关联可取得的观察。界面绘制需要独立观测；未取得时保持未知。观测异常不会改变真实执行与正文保存。
@@ -809,6 +835,7 @@ Langfuse 关联可取得的观察。界面绘制需要独立观测；未取得�
 **图 17 · 评估实际交付而非草稿**
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
     A["用户目标"]
     B["实际交付"]
@@ -822,6 +849,8 @@ flowchart TD
     C --> E
     D --> E
     E --> F
+classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
+linkStyle default stroke:#517A8D,stroke-width:1.8px;
 ```
 
 评估使用固定任务和明确评审对象。通过、失败和未知都保留；修复先回到失真模块，避免把所有问题都变成新增提示。
