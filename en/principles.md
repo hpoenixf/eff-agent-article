@@ -9,6 +9,10 @@ This is a **reference and reading map**, not another published essay or a new ap
 
 **How to use this map:** Follow a core judgment or engineering method into a selected essay. The relevant passages of those essays link back to this page's stable numbered anchors, explaining the actual design connection. Other essays do not need a forced principle assignment; their footers still provide a route back to the full map.
 
+This decision map pairs with the [complete six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama). The guide explains **how one research request moves through the system**; the principles explain **why the owners and constraints are designed this way**.
+
+<FlagshipEntry compact />
+
 ## Layer 1 · Eight core judgments
 
 | Principle | What changes in how we think | Read more |
