@@ -64,7 +64,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 近期后台研究与前台短答已经能够复用原 Conversation/Run 做有界并发，原复杂研究仍有 partial 结果。可选 Reviewable 审阅细节沿 **A16 结果身份 → A23 正文处置 → A24 History → A25 阅读** 读取；审阅附件和意见不改写正文权威，也不代替金融事实核验。
 
-个人 Subagent Profile 的账户设置、Run 版本冻结、Child 按方法选择及 History 接线已经进入主干；**A01/A07/A14/A25/A34** 各守原职责，真实账户、PostgreSQL、浏览器与完整研究质量仍须独立验收。A36 的时区、冻结任务锚点和选择性 Nasdaq 2026 排期日历也已接线，但来源默认关闭，预定交易时段不等于实际开市、成交或行情时点。这些变化没有自动产生新 Owner、HIO 审批系统或来源权威。
+个人 Subagent Profile 的账户设置、Run 版本冻结、Child 按方法选择及 History 接线已经进入主干；**A01/A07/A14/A25/A34** 各守原职责，真实账户、PostgreSQL、浏览器与完整研究质量仍须独立验收。A36 的时区、冻结任务锚点和选择性 Nasdaq 2026 排期日历也已接线，但来源默认关闭，预定交易时段不等于实际开市、成交或行情时点。这些变化没有产生新的独立审批 Owner 或来源权威。HIO 已沿原 Conversation、Effect、Authorization、Recovery 接缝完成阶段 A 的 Main 问答/恢复、阶段 B 的 Effect Approval 与阶段 C 的 Permission Request 的限定工程验收；Child 协调 D、整体 formal close、真实部署和任务质量仍保留独立门。
 
 评测问句已归到一份精选目录，默认只选有限核心题；目录覆盖、独立评分与真实业务有效性不是同一种证据。查看[最新的 41 项 Owner 图册及逐模块状态](/gallery)，可在弹窗中阅读上述交接与未验证范围。图册结构图保留其原审阅时点，新增的是现有 Owner 的状态补充。
 
