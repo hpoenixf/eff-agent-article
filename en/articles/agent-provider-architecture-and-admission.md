@@ -39,6 +39,14 @@ This keeps a running task from silently changing its model identity because an a
 
 Dynamic configuration is not inherently wrong. **Flexibility that the product does not yet need is not worth trading away the explainability it needs now.**
 
+### A32 model catalog: registration, routing and eligibility are different actions
+
+The architecture assigns these facts to **A32, the Model Catalog and Route Configuration Owner**. The catalog holds server-allowed model IDs and defaults, the deterministic mapping from profiles to providers/protocols, declared capabilities and route eligibility. It does not own the runtime's provider-capacity ledger. A25's UI submits an authorized model selection; A10 binds its route and protocol for the particular invocation; A30 subsequently decides when that capacity group may admit a physical request.
+
+When a model ID exists but the mapping is duplicate, incomplete or bound to the wrong provider, catalog validation must refuse the configuration or unsupported selection. The Gateway must not guess another vendor after a failed call. Likewise, inclusion in a model list is not evidence that real tool invocation, long research or semantic output quality has passed acceptance. The current implementation uses server-side configuration, startup assembly and qualification records; **it is not a live editable model-administration platform that silently migrates old Runs**.
+
+This article retains the "catalog identity to protocol request" storyline. The dedicated [A30 capacity-lease article](agent-provider-admission-capacity-lease.md) explains cross-Run queueing, leases, unknown occupancy and safe release. A32's registration facts, A10's dispatch facts and A30's shared capacity admission are three distinct effects.
+
 ## 2. A gateway unifies invocation, not model capabilities
 
 A gateway is a protocol adapter. It gives the application a relatively stable request and event interface while handling provider-specific protocol differences. Current registered configurations include actual Chat Completions and Responses routes; the browser does not choose the protocol.

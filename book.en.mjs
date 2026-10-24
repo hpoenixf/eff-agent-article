@@ -18,6 +18,8 @@ export const englishTitles = {
   "026-agent-memory-forget-durable-effects": "Memory: A Forget Operation That Committed Before the Answer Failed",
   "027-rag-revocation-publish-replay": "RAG: Revocation and Historical Replay",
   "agent-provider-architecture-and-admission": "Provider: Why a Unified API Still Needs Shared Admission",
+  "agent-provider-admission-capacity-lease": "Why the Next Model Request Still Queues After HTTP 200", 
+  "agent-control-events-durable-owner-adoption": "Why an Agent Cannot Execute a Stop Command Immediately",
   "020-agent-extension-host-smartphone": "Extension Host: From Feature Phone to Smartphone",
   "mcp-host-from-discovery-to-consumption": "MCP Host: From Discovery to Usable Tools",
   "agent-model-capability-presentation-tool-surface": "Tool Surface: Why the Model Cannot See an Available Tool",
@@ -58,6 +60,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-control-events-durable-owner-adoption",
+  "agent-provider-admission-capacity-lease",
   "agent-durable-human-interaction-response-adoption",
   "agent-temporal-semantics-market-calendar",
   "agent-personal-credits-shadow-accounting",
