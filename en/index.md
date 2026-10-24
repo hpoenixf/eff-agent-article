@@ -10,7 +10,7 @@ hero:
       text: Read the six-layer architecture →
       link: /en/articles/017-prompt-to-answer-six-layer-panorama
     - theme: alt
-      text: Explore the eight principles →
+      text: Explore the nine principles →
       link: /en/principles
     - theme: alt
       text: Browse the library →
@@ -30,6 +30,10 @@ features:
     link: /en/engineering
 ---
 
+## New Architecture Principle: Local vs. End-to-End Improvement
+
+[Principle 9: Local Improvements Are Not System Progress](/en/articles/local-improvement-is-not-system-progress) follows tool-result projection, traces and judge evaluations to distinguish local repairs and measurement corrections from real task outcomes.
+
 ## New Module Essays: Durable Control and Provider Capacity
 
 [A08 durable control events](/en/articles/agent-control-events-durable-owner-adoption) separates delivery ACKs, original effects and unknown outcomes. [A30 Provider Admission](/en/articles/agent-provider-admission-capacity-lease) explains shared queues, leases and unknown remote occupancy after HTTP 200. The existing [Provider architecture guide](/en/articles/agent-provider-architecture-and-admission) now also clarifies A32 model-catalog eligibility instead of adding a third overlapping essay.
@@ -40,7 +44,7 @@ features:
 
 ## Essential first reads: architecture and principles
 
-Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [eight architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.
+Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [nine architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.
 
 <FlagshipEntry />
 
@@ -60,7 +64,7 @@ Mermaid diagrams, tables and their decision labels are localized in the respecti
 
 The [complete catalog](/en/catalog) follows the canonical reading tree and includes every original article. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
 
-For an architecture decision map, see [eight core principles and six on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
+For an architecture decision map, see [nine core principles and six on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
 
 **Owner status, October 24, 2026:** The [architecture gallery](/en/gallery) now explains recently integrated concurrency, Reviewable result details, private subagent profiles and optional time/calendar evidence. Its inventory now has 43 Owners including A36 Temporal Semantics and A37 durable Human Interaction; neither the inventory nor implementation by itself proves production or investment-research quality.
 
