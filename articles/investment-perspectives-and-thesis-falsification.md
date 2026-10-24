@@ -111,6 +111,17 @@ Main 应综合三类东西：有来源的事实和已执行计算；各专家真
 
 它对用户的收益并不是“AI 看起来更自信”，而是**知道哪条理由已经改变、其他条件还欠什么**。至于是否提高真实决策质量，还需要独立对照验证，不能仅凭这个合成案例断言。
 
+### 可选 Research Reviewer：检查研究，而不是加入投票
+
+投资视角解决“从哪种方法看问题”，Bull/Bear 解决“谁来质疑这条假设”。我们还实现了独立的 **Research Reviewer 子代理**，负责检查一轮研究**原始证据是否充分、是否存在明显遗漏，以及该补查还是收尾**。它不是第七位投资大师，也不是 Bull/Bear 的第三位辩论者。
+
+例如 Main 准备解释“新增科技 ETF 让组合更加分散”，Reviewer 可以在原有授权下核对真实持仓、计算结果和披露日期，而不只读 Main 的摘要：是否把行业占比当成整体波动率？是否漏掉半年后的现金需求？如有必要，它可用继承的获准工具补查，并提出 `continue`、`pivot`、`finalize` 或 `suspend` 等建议。
+
+它复用 Child 执行、预算与恢复路径。Main 可在手动咨询开启时调用 `consult_research_reviewer`；Runtime 也能在配置和事实候选满足条件时自动准入检查。**Reviewer 的建议不负责批准答案、决定投资真值或阻止 Main 合法发布**；没有审阅也可以交付已有充分依据的研究。
+
+这条路径已有[限定工程验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md)，但真实模型自动审阅的金融质量收益与额外成本仍待独立验证。另有对已发布答案**显式触发的事后金融语义审查报告**，它是独立评审工具，不属于当前 Run 的 Reviewer Child，也不是强制终审。
+
+
 ## 七、技术往深处看：一套 Child，怎样装配不同方法？
 
 我们没有为 Markowitz、Taleb、Bernstein、Bogle、Marks、Fama–French 分别开发六套 Runtime。常规 `web/pdf/python` 是执行专长；`perspectiveId` 是可选的投资方法；`peer.role` 是多空对抗职责；用户保存的 `subagentProfileId` 是另一个独立来源的角色指引。**它们是可组合的维度，不是四级上下级。** 自定义角色的完整使用链仍在独立验收中。

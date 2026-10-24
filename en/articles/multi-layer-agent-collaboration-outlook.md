@@ -45,8 +45,11 @@ The real gap is not a missing seventh expert. It is the usefulness of the combin
 | Main/Child with Web, PDF and Python | Delegation, context isolation, handoff, existing resource and authorization controls | Every complicated end-to-end study will succeed |
 | Six trusted investment methods | Distinct financial analytical guidance on the same Child runtime | Six methods necessarily provide more accurate judgments |
 | Bounded Bull/Bear dialogue | Independent openings, real public messages, bounded exchange and scoped durable recovery | Models will consistently discover stronger financial disconfirmation |
+| Optional Research Reviewer Child | Rechecks original sources, calculations and research gaps, offering non-authoritative advice to continue, pivot or finalize | Scoped engineering acceptance does not prove financial review quality or mandatory final approval |
 | User-configured Profiles | Settings, versions, frozen Run selection and Child binding on main | Full account/PG/browser/peer integration has been qualified |
 | Investment Thesis and History | Original hypotheses, versions, falsification criteria and optional challenge association | Future models reliably understand and revise beliefs correctly |
+
+**Research Reviewer is not the same as post-publication financial review.** The former is an optional in-Run Child. The latter generates a separate financial-semantic report for a selected published answer only when explicitly invoked. Neither may authorize trades, rewrite the answer, or impose an approval gate.
 
 Several locally functioning components are **not the same as one reliable, usable investment study**. We want that limitation to remain visible when we return to this essay in the future.
 
@@ -74,9 +77,16 @@ flowchart TD
     F -- Yes --> P[Optional Bull Bear direct challenge]
     P --> H
     G --> H
-    H --> T[Link findings to thesis evidence and versions]
+    H --> Q{Is independent Reviewer worthwhile?}
+    Q -- No --> T[Link findings to thesis evidence and versions]
+    Q -- Yes --> V[Optional Reviewer rechecks evidence and gaps]
+    V --> W{Does Main choose further investigation?}
+    W -- Yes --> B
+    W -- No --> T
     T --> R[Publish answer and accessible history]
 ~~~
+
+Reviewer in this diagram is **not mandatory final approval**. It provides bounded advice only when admitted and worth the extra cost; Main may adopt, investigate further, or deliver supported work with explicit limits. Automatic review is off by code default; an operator template selecting `advisory` does not prove live deployment or semantic quality.
 
 If this workflow eventually passes the necessary acceptance tests, the investor should receive something like the following. **This is a desired output example, not a record of a real executed Run:**
 
@@ -118,6 +128,13 @@ A missing PDF, a Child timeout or incomplete opposing evidence should not erase 
 
 Our target is **local degradation for local failures, while overall completion remains tied to the actual user task**. Both the successful and failed paths still need validation in the same full real-world research scenario.
 
+### 4.5 Reviewer Finds a Gap—Who Decides What Happens Next?
+
+Bear tests a specific Thesis. Research Reviewer can independently inspect **the original materials and calculations of the broader study**, potentially finding important omissions shared by the specialists. It cannot force Main to investigate again; `finalize` is only advisory. Failure, stale advice or missing evidence must not erase independent lawful findings.
+
+The implemented `off`, `shadow`, and `advisory` modes are different: `shadow` can execute without delivering automatic advice to Main but still consumes Root resources; `advisory` may inject advice into a later lawful Main request. Real-model quality, false positives, false negatives, and cost-benefit have not received complete acceptance.
+
+
 ## 5. Why We Did Not Add a Universal “Chief Expert”
 
 The more Agents appear, the more tempting it becomes to introduce an Orchestrator to select them, route messages, own calculations, declare a winner or even authorize investment actions.
@@ -141,6 +158,8 @@ We want to compare three approaches on the same investor question, with a compar
 | **One Main plus tools** | Can it find essential facts, weak premises and a usable answer? | Long context, debugging noise and missed challenges |
 | **Main plus targeted Children** | Are retrieval and calculation easier to finish and actually consumed by Main? | Delegation, duplicated reads and lost handoff context |
 | **Main plus methods and optional Bull/Bear** | Does it add material counterevidence, correct weak reasons and preserve real disagreement? | Extra model requests, waiting and agents anchoring on each other's opinions |
+
+For these research modes, separately observe **Reviewer absent, Reviewer actually dispatched, and advice actually included and used by Main**. Only matched tasks can show whether the reviewer catches material omissions, introduces new errors, or just adds cost. Its potential effects must not be credited automatically to Bull/Bear.
 
 First test **absolute usefulness**: did the answer satisfy the user's request; were dates and sources applicable; can calculations be reproduced; are central claims supported; and are missing information and user authorization handled correctly? Only then assess relative value: which new significant counterexample appeared, which new errors were introduced, and how much extra time, token use, money and human review were required?
 

@@ -111,6 +111,17 @@ Main should bring together three categories: sourced facts and actual calculatio
 
 The investor benefit is not that AI sounds more confident. It is **knowing which reason changed and what remains necessary for a decision**. Demonstrating a real quality improvement requires independent comparison, not this synthetic case alone.
 
+### Optional Research Reviewer: Audit the Study, Not the Vote
+
+Investment perspectives determine **which method to apply**; Bull/Bear determine **who challenges a specific premise**. ETF Agent also implements an independent **Research Reviewer Child** to inspect **the original evidence, material gaps, and whether further investigation is worth the cost**. It is neither a seventh investing method nor a third peer in the Bull/Bear dialogue.
+
+If Main is preparing to claim that another technology ETF improves diversification, Reviewer can check the original authorized portfolio facts, calculations, and disclosure dates—not just Main's summary. Has the analysis confused industry weight with total portfolio volatility? Did it overlook cash needed in six months? Reviewer may conduct authorized targeted verification and suggest `continue`, `pivot`, `finalize`, or `suspend`.
+
+Reviewer reuses existing Child execution, budget, and recovery. Main can call `consult_research_reviewer` when manual review is enabled; Runtime may admit a bounded automatic review only under configured factual triggers and resource limits. **Reviewer cannot approve an answer, certify investment truth, or block a lawful Main publication**. Sufficiently supported research can be delivered without a review.
+
+The path has [scoped engineering acceptance](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md), but real financial-quality gains and incremental cost still need separate evaluation. There is also an **explicit post-publication financial-semantic review report**; this separate evaluation tool is not the in-Run Reviewer Child or a mandatory final approval step.
+
+
 ## 7. Under the Hood: Several Methods, One Child Runtime
 
 We did not build six separate runtimes for Markowitz, Taleb, Bernstein, Bogle, Marks and Fama–French. Ordinary `web/pdf/python` expresses an execution specialty; optional `perspectiveId` identifies an investment method; `peer.role` represents a legitimate Bull/Bear assignment; and `subagentProfileId` refers to a saved user-authored method. **These are composable dimensions, not four levels of supervision.** The end-to-end qualification of the custom-profile combination remains separate and open.

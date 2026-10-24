@@ -45,8 +45,11 @@ ETF Agent 已有通用 Subagent、六种投资方法、有界 Bull/Bear 对话�
 | 通用 Main/Child 与 Web/PDF/Python | 任务委派、隔离上下文、局部成果交回、受原预算与授权约束 | 任意复杂研究都能顺利完成 |
 | 六种受信投资方法 | 同一 Child 执行底座装配不同的金融研究方法 | 六种方法参与就一定更正确 |
 | 有界 Bull/Bear 对话 | 独立 opening、真实公开消息、限轮交互与持久恢复的限定工程行为 | 模型一定发现更有效的金融反证 |
+| 可选 Research Reviewer Child | 复查原文、计算与研究缺口，并提出非权威的继续、调整或收尾建议 | 已完成限定工程验收，不代表真实金融审查质量或必经终审 |
 | 用户自定义 Profile | 设置、版本化记录、Run 冻结和 Child 选用已进入主干 | 账户/PG/浏览器/多空组合的完整验收已通过 |
 | 投资论点与 History | 保留原假设、版本、证伪条件及可选反证关联 | 后续模型稳定理解并正确改变观点 |
+
+**Research Reviewer 与金融事后审查不是同一功能。** 前者是原 Run 中的可选 Child，后者对选定的已发布答案另行生成金融语义审查报告，只有显式请求才执行。两者都不能授权交易、重写原正文或充当审批门禁。
 
 几件事情单独可行，**不等于它们串起来后已经形成一份可以供投资者使用的完整研究**。这一点我们希望未来回来看时还能记得。
 
@@ -74,9 +77,16 @@ flowchart TD
     F -- 是 --> P[可选 Bull Bear 交叉质疑]
     P --> H
     G --> H
-    H --> T[关联论点证据与版本]
+    H --> Q{值得启动独立 Reviewer 吗?}
+    Q -- 否 --> T[关联论点证据与版本]
+    Q -- 是 --> V[可选 Reviewer 复查原证据与缺口]
+    V --> W{Main 决定再补查吗?}
+    W -- 是 --> B
+    W -- 否 --> T
     T --> R[向用户发布并保留可读历史]
 ~~~
+
+图中的 Reviewer **不是每次收尾前的强制审批**。它只在已准入且值得额外成本时提供独立审阅意见；Main 可以采纳、补查或保留限制后交付。代码默认自动审阅为关闭，operator 模板选择 `advisory` 并不等于实际生产部署或质量已验收。
 
 假设未来能够成功跑通，投资者理应看到的是类似这样的结果，而不是一场“专家表演”（**以下为目标输出示例，不是实际运行记录**）：
 
@@ -118,6 +128,13 @@ Bull/Bear 可以在原授权下发送公开消息，不意味着 Main 的结论�
 
 我们的目标是**局部错误局部降级，全局完成取决于实际任务要求**。这些正常与失败路径，还需要在同一完整真实问题下核验。
 
+### 5. 审查发现遗漏，谁决定下一步？
+
+Bear 检验特定 Thesis，Research Reviewer 则可以独立查阅**整个研究已获得的真实原始材料与计算**，发现之前各专家共同遗漏的关键事实。它不要求 Main 必须再做一次调查；`finalize` 也只是非权威建议。审查失败、过期或资料不足不应抹去此前合法取得的研究成果。
+
+已实现的 `off`、`shadow`、`advisory` 模式也需要区分：`shadow` 可以执行并记录建议却不自动投递给 Main，但仍占用原 Root 预算；`advisory` 才可能把自动建议放进后续合法的 Main 请求。它们的真实模型效果、误报漏报和成本收益尚未通过完整验收。
+
+
 ## 五、我们为什么不新增一个万能的“专家总控”？
 
 多 Agent 越多，越容易想再加一个 Orchestrator：专门选专家、管理消息、汇总计算、宣布赢家，甚至签发交易建议。
@@ -141,6 +158,8 @@ Bull/Bear 可以在原授权下发送公开消息，不意味着 Main 的结论�
 | **单 Main + 工具** | 是否自行发现重要事实、错误假设并形成可用结论 | 长上下文、局部调试噪音、遗漏挑战 |
 | **Main + 按需 Child** | 局部取证与计算是否更易完成，并真正被 Main 消费 | 委派成本、重复读取、交接丢失 |
 | **Main + 投资方法 + 可选 Bull/Bear** | 是否新增实质性的反证、修正错误理由和保留分歧 | 更多模型请求、等待、错误观点互相锚定 |
+
+对这三种研究路径，还需要分别记录 **Reviewer 未启用、独立审阅已触发、Main 实际看见并使用建议** 的事实。只有同题比较才能知道 Reviewer 有没有发现其他 Agent 漏掉的关键问题、是否带来新的误判和额外成本；不能把它的潜在收益直接算到 Bull/Bear 头上。
 
 首先应判断**绝对可用性**：是否真的回答投资者原问题、引用来源是否适用、金融数字能否复算、关键判断是否受证据支持、缺口和用户授权是否明确。然后才比较相对价值：额外专家是否发现了单 Main 没有找到的有效问题？新增加了哪些错误？多花多少时间、Token、费用及人工复核？
 
@@ -169,6 +188,6 @@ Bull/Bear 可以在原授权下发送公开消息，不意味着 Main 的结论�
 
 想先理解已实现的单项机制，可读[Subagent 从隔离到专业化协作](agent-subagent-context-specialization.md)、[有界多空直接对话](bounded-bull-bear-peer-dialogue.md)、[多视角 Agent 与投资假设检验](investment-perspectives-and-thesis-falsification.md)。自定义 Agent 另有独立文章草稿，尚未计入正式文集。
 
-目前工程事实与独立待验收范围，可分别核对 ETF Agent 的[投资方法规范](https://github.com/hpoenixf/etf-agent/blob/main/openspec/specs/investment-perspective-subagents/spec.md)、[多空对话验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-23-agent-add-bounded-adversarial-peer-dialogue/verify.md)、[自定义 Profile 验证记录](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-user-subagent-profiles/verification.md)，以及[金融研究质量待验任务](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-qualify-financial-research-quality/tasks.md)。这些来源支持分项事实，不构成整条流程完成的证明。
+目前工程事实与独立待验收范围，可分别核对 ETF Agent 的[投资方法规范](https://github.com/hpoenixf/etf-agent/blob/main/openspec/specs/investment-perspective-subagents/spec.md)、[多空对话验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-23-agent-add-bounded-adversarial-peer-dialogue/verify.md)、[自定义 Profile 验证记录](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-user-subagent-profiles/verification.md)、[Research Reviewer 限定验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md)，以及[金融研究质量待验任务](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-qualify-financial-research-quality/tasks.md)。这些来源支持分项事实，不构成整条流程完成的证明。
 
 更多实践文章见 [ETF Agent 文集](https://github.com/hpoenixf/eff-agent-article)，欢迎 Star。本篇为工程架构展望，不构成投资建议，也不表示已完成真实业务质量验收。
