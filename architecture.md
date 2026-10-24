@@ -24,9 +24,9 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 | 05 · 交付与连续性 | 生成了文字是否就等于用户收到？ | Publication / Client / Recovery / Task |
 | 06 · 观测与评测 | 发生了什么，是否真正解决用户问题？ | Trace / Evidence / Evals |
 
-![41 个能力 Owner 与主要交接](./visuals/owner-architecture/overview.svg)
+![43 个能力 Owner 与主要交接](./visuals/owner-architecture/overview.svg)
 
-**当前模块口径统一为 41 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[六层系统全景 V2：从提问到原生研究循环、持久交付与 HIL](/articles/017-prompt-to-answer-six-layer-panorama)。
+**当前模块口径统一为 43 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[六层系统全景 V2：从提问到原生研究循环、持久交付与 HIL](/articles/017-prompt-to-answer-six-layer-panorama)。
 
 ## 架构判断分为核心与外围两层
 
@@ -54,7 +54,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 收尾阶段、请求意图和结束投影已收拢到既有 **A06**，没有新增 Finalizer。**A23/A16/A22** 将模型直接 HTML 与 Python 工作区 HTML 接入共享内容准备、结果引用、Artifact 保存及认证下载，删除专用周报生成/renderer；直接 HTML 无 Python/Docker 或先发文字前置。
 
-**A07** 的 Child 技术终态与 **A24** 的历史/辅助恢复读取边界完成各自窄范围归档。**A18** 的 DeepSeek Search/Fetch 是既有能力的可选适配，不是新的模块。2026-10-20 时为 39 项，后续 A34 作为独立逻辑 Owner 加入后为 40 项，A35 作为独立内容信任逻辑 Owner 再增加为 41 项；A33 精确数值运算，只负责显式十进制与舍入残差，不继承金融公式、来源或正文发布权，具体关系与当前限制统一看[架构图册](/gallery)。
+**A07** 的 Child 技术终态与 **A24** 的历史/辅助恢复读取边界完成各自窄范围归档。**A18** 的 DeepSeek Search/Fetch 是既有能力的可选适配，不是新的模块。2026-10-20 时为 39 项，后续 A34 作为独立逻辑 Owner 加入后为 40 项，A35 作为独立内容信任逻辑 Owner 再增加为 41 项；**2026-10-24 将 A36 时间语义与 A37 HIO 独立编号纳入全量图册，现为 43 项**；A33 精确数值运算，只负责显式十进制与舍入残差，不继承金融公式、来源或正文发布权，具体关系与当前限制统一看[架构图册](/gallery)。
 
 连续 Child HTML 交接、同 Run 已保存结果回读、周报历史/比较资格和更广质量验收仍在推进；[写作预告](/roadmap)记录文章缺口，不能拿文章或未提交原型当作产品关闭证明。
 
@@ -64,8 +64,8 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 近期后台研究与前台短答已经能够复用原 Conversation/Run 做有界并发，原复杂研究仍有 partial 结果。可选 Reviewable 审阅细节沿 **A16 结果身份 → A23 正文处置 → A24 History → A25 阅读** 读取；审阅附件和意见不改写正文权威，也不代替金融事实核验。
 
-个人 Subagent Profile 的账户设置、Run 版本冻结、Child 按方法选择及 History 接线已经进入主干；**A01/A07/A14/A25/A34** 各守原职责，真实账户、PostgreSQL、浏览器与完整研究质量仍须独立验收。A36 的时区、冻结任务锚点和选择性 Nasdaq 2026 排期日历也已接线，但来源默认关闭，预定交易时段不等于实际开市、成交或行情时点。这些变化没有产生新的独立审批 Owner 或来源权威。HIO 已沿原 Conversation、Effect、Authorization、Recovery 接缝完成阶段 A 的 Main 问答/恢复、阶段 B 的 Effect Approval 与阶段 C 的 Permission Request 的限定工程验收；Child 协调 D、整体 formal close、真实部署和任务质量仍保留独立门。
+个人 Subagent Profile 的账户设置、Run 版本冻结、Child 按方法选择及 History 接线已经进入主干；**A01/A07/A14/A25/A34** 各守原职责，真实账户、PostgreSQL、浏览器与完整研究质量仍须独立验收。A36 的时区、冻结任务锚点和选择性 Nasdaq 2026 排期日历也已接线，但来源默认关闭，预定交易时段不等于实际开市、成交或行情时点。**A36 是独立的确定性时间解释 Owner，A37 是独立双向交互准入 Owner**；这没有增加审批或市场来源的新权威。HIO Stage A–D 与整项 provider-free close 已完成，生产 Human Park 默认关闭；A36 的普通认证 Agent、真实日历消费及正式验收仍开放。两者都不保证真实模型或生产部署质量。
 
-评测问句已归到一份精选目录，默认只选有限核心题；目录覆盖、独立评分与真实业务有效性不是同一种证据。查看[最新的 41 项 Owner 图册及逐模块状态](/gallery)，可在弹窗中阅读上述交接与未验证范围。图册结构图保留其原审阅时点，新增的是现有 Owner 的状态补充。
+评测问句已归到一份精选目录，默认只选有限核心题；目录覆盖、独立评分与真实业务有效性不是同一种证据。查看[最新的 43 项 Owner 图册及逐模块状态](/gallery)，可在弹窗中阅读上述交接与未验证范围。图册结构图保留其原审阅时点，新增的是现有 Owner 的状态补充。
 
 > 这是一份公开可读的架构理解索引。私有项目里的测试报告、状态台账、研发日志和未审定草稿没有被复制到这里。
