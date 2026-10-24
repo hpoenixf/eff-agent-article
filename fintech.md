@@ -5,7 +5,7 @@ description: 围绕金融产品、投研方法、责任治理和机构落地，�
 
 # 金融科技 × Agent：从信息获取到可靠的投资判断
 
-<small>FINANCIAL AI RESEARCH · 2026-10-22 · 4 个领域 / 15 个专题</small>
+<small>FINANCIAL AI RESEARCH · 2026-10-24 · 4 个领域 / 15 个专题</small>
 
 AI 让更多人获得研究资料和分析工具，但**看见不等于判断，数字算对不等于研究有效，模型提出动作也不等于用户授权执行**。本专题聚焦证券投资与财富管理中的产品、金融方法、责任和机构经营，而不是为通用 Agent 工程能力寻找金融应用例子。
 
@@ -29,7 +29,7 @@ AI 让更多人获得研究资料和分析工具，但**看见不等于判断，
 | --- | --- | --- |
 | **B1 · 金融数据质量、口径与可复算** | 时点、基金份额、净值、币种、费用、穿透覆盖与假设如何改变结论？ | [金融数字的时点、口径与可复算](/articles/031-fintech-data-time-and-reproducible-numbers) · [只读 Portfolio MCP 与持仓事实](/articles/portfolio-mcp-readonly-investment-data) |
 | **B2 · 研究方法与可信证据链** | 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？ | [金融研究的可信证据链](/articles/financial-agent-trustworthy-evidence-chain) · [Python 结果消费与研究方法](/articles/financial-agent-python-result-consumption) |
-| **B3 · 投资研究质量与反证方法** | 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？ | 暂留空；[F01 研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12) |
+| **B3 · 投资研究质量与反证方法** | 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？ | [多视角分析与投资假设证伪](/articles/investment-perspectives-and-thesis-falsification) · [F01 质量研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12) |
 | **B4 · 回测、策略有效性与市场适应** | 前视、幸存者、样本外验证、滑点与策略失效如何影响结论？ | 暂留空 |
 
 ## C · 业务责任与可信治理

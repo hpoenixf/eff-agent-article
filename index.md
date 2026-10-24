@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 49 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 51 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层系统全景 →
@@ -41,7 +41,7 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 49 篇文章的入口。**
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 51 篇文章的入口。**
 
 ## 第一次访问：从你关心的问题开始
 
@@ -78,10 +78,16 @@ features:
 
 [金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP、Python 研究结果消费等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
 
+## 新增：从多空协作到可证伪投研
+
+当投资者说“多买一只科技 ETF 应该更分散”，真正有帮助的研究不是凑齐看多与看空，而是检查底层持仓、让原论证者回应反例，并保存当初怎样得出结论。
+
+先读[两个 Agent 如何直接展开有界质询](/articles/bounded-bull-bear-peer-dialogue)，再读[如何用六种视角与 Investment Thesis 检验投资理由](/articles/investment-perspectives-and-thesis-falsification)。两篇从用户问题开始，后半部分再深入协议、证据与恢复。
+
 ## 接下来仍值得探索的问题
 
 持久控制事件、文件访问与分享、个人化研究等主题已经预留[写作预告](/roadmap)。已写好的正文不再留在“待写”目录；预告只记录尚未成文的独立问题。
 
 浏览[架构图册](/gallery) · 阅读[架构原则速查](/principles) · 返回[个人博客](https://hpoenixf.com/)。
 
-最新文章：[想聊就聊：异步后台研究](/articles/agent-background-research-collaborative-experience)。从入口交接、并发资源到前端乱序，复盘同一段对话里的委托、插问与调整。
+新近文章：[多空 Agent 的真实对话与恢复](/articles/bounded-bull-bear-peer-dialogue) · [多视角投研与 Thesis 证伪](/articles/investment-perspectives-and-thesis-falsification)。此前的[异步后台研究](/articles/agent-background-research-collaborative-experience)继续保留独立入口。
