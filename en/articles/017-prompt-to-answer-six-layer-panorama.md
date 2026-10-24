@@ -1,6 +1,6 @@
 ---
-title: Six-Layer Agent Architecture V2 · The Native Research Loop
-description: The essential ETF Agent architecture guide: six layers, more than forty capability owners, twenty-six handoffs, Native Agent Loop, tools, financial evidence, Publication, HIL and Recovery.
+title: "Six-Layer Agent Architecture V2 · The Native Research Loop"
+description: "The essential ETF Agent architecture guide: six layers, more than forty capability owners, twenty-six handoffs, Native Agent Loop, tools, financial evidence, Publication, HIL and Recovery."
 ---
 
 # From a Portfolio Question to Continuous Collaboration: ETF Agent’s Six-Layer Architecture · V2
