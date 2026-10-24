@@ -11,6 +11,8 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 这一套 Agent 的关键变化不是接入了更多工具，而是逐渐弄清了：**谁提出研究判断，谁批准动作，谁保存事实，谁能够宣布交付。**
 
+<FlagshipEntry compact />
+
 ## 一次问题的六层视角
 
 | 层 | 要回答的问题 | 主要边界 |
@@ -24,7 +26,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ![41 个能力 Owner 与主要交接](./visuals/owner-architecture/overview.svg)
 
-**当前模块口径统一为 41 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[系统全景文章](/articles/017-prompt-to-answer-six-layer-panorama)。
+**当前模块口径统一为 41 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[六层系统全景 V2：从提问到原生研究循环、持久交付与 HIL](/articles/017-prompt-to-answer-six-layer-panorama)。
 
 ## 架构判断分为核心与外围两层
 
