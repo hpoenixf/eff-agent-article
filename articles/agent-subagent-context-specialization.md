@@ -283,7 +283,6 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 ## 新的角色来源：个人 Profile 要冻结版本，不复制授权
 
-
 2026-10-24 的主干新增了用户自定义 Subagent Profile 的账户配置、方法版本与 Run 快照接线。它提供的是角色描述和方法指引，不是另一种 Child Runtime。Main 可在允许的目录里选择 Profile，原 A07 Child 消费这次 Run 冻结的身份、revision 与内容指纹；用户后来编辑或停用 Profile，不能倒过来改写旧 Run 曾收到的指引。历史读取仍要遵守当前查看者的账户权限。
 
 这条能力在源代码层面已进入主干，但原账户真实 PostgreSQL、浏览器与完整 Child→Main 产品闭环的 owning tasks 仍未正式完成。它值得补进 Subagent 的机制文章，而不值得另写一篇“全新 Agent 平台已经上线”。角色可定制不意味着工具更可用，也不意味着个人角色可以扩张来源、预算、模型和交易权限。
