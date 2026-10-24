@@ -93,6 +93,7 @@ You do not need to memorize all forty-plus owners. Read each layer in order, or 
 | ResultRef / Artifact | Durable result reference / separately versioned and authorized output |
 | Publication / Effect | Candidate answer disposition / separate proposal, approval, execution and effect |
 | TaskExecution / Schedule | One scheduled occurrence / a user-confirmed schedule |
+| HIO / HIL | Human Interaction Owner / Human-in-the-Loop; the former owns request routing, the latter is a coordination pattern |
 
 :::
 
