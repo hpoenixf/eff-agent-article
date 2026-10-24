@@ -52,6 +52,7 @@ export default defineConfig({
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
         nav: [
+          { text: 'Six-Layer Guide', link: '/en/articles/017-prompt-to-answer-six-layer-panorama' },
           { text: 'Principles', link: '/en/principles' },
           { text: 'Gallery', link: '/en/gallery' },
           { text: 'Modules', link: '/en/modules' },
@@ -62,6 +63,7 @@ export default defineConfig({
         sidebar: {
           '/en/articles/': englishSidebar,
           '/en/': [{ text: 'Start Reading', items: [
+            { text: 'Six-Layer Agent Architecture', link: '/en/articles/017-prompt-to-answer-six-layer-panorama' },
             { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'All Articles', link: '/en/catalog' },
             { text: 'Module Deep Dives', link: '/en/modules' },
@@ -147,6 +149,7 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [
+      { text: '六层系统全景', link: '/articles/017-prompt-to-answer-six-layer-panorama' },
       { text: '架构原则', link: '/principles' },
       { text: '架构图册', link: '/gallery' },
       { text: '模块维度', link: '/modules' },
@@ -159,6 +162,7 @@ export default defineConfig({
       '/articles/': readingSidebar,
       '/': [
         { text: '开始阅读', items: [
+          { text: '六层系统全景 · 必读', link: '/articles/017-prompt-to-answer-six-layer-panorama' },
           { text: '架构原则与方法', link: '/principles' },
           { text: '模块维度', link: '/modules' },
           { text: '架构与系统思考', link: '/thinking' },

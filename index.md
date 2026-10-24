@@ -7,11 +7,11 @@ hero:
   tagline: 49 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
-      text: 先读八条架构原则 →
-      link: /principles
+      text: 先看六层系统全景 →
+      link: /articles/017-prompt-to-answer-six-layer-panorama
     - theme: alt
-      text: 阅读模块精讲 →
-      link: /modules
+      text: 再读八条架构原则 →
+      link: /principles
     - theme: alt
       text: 浏览全部文章 →
       link: /catalog
@@ -37,9 +37,11 @@ features:
 
 <ContinueReading />
 
-## 核心入口：Agent 架构的八条原则
+<FlagshipEntry />
 
-如果只读一个入口，先看[八条架构判断与六组系统方法](/principles)：谁理解语义、谁记录事实、谁有权拒绝、Context 能否保存事实，以及系统如何在保持能力的同时替换旧机制。它是跨越三条文章主线的**思考与阅读地图**，不是新增文章类别或审批流程。阅读任一正文后，都可以通过文章内的返回链接回到这里。
+## 核心必读：系统全景与架构原则
+
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 49 篇文章的入口。**
 
 ## 第一次访问：从你关心的问题开始
 

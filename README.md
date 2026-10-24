@@ -6,7 +6,7 @@
 
 模块机制 × 架构思考 × AI Agent 研发工程 · **49 篇正文，三条主线**
 
-[**架构原则 · 八条核心判断**](https://hpoenixf.github.io/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
+[**首要必读 · 六层系统全景 V2**](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [**架构原则 · 八条核心判断**](https://hpoenixf.github.io/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
@@ -14,14 +14,14 @@
 
 ## 初次访问：90 秒找到最相关的工程证据
 
-**核心判断入口：** [Agent 架构原则与系统方法](https://hpoenixf.github.io/eff-agent-article/principles) 串联八条跨模块原则和六组按需使用的工程方法。它不是第四个文章分类；单篇正文也可返回这张地图。
+**两篇首要必读：** [六层系统全景 V2](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) 是运行地图，讲清一次提问怎样经过 Native Loop、证据、发布与持久 HIL；[Agent 架构原则与系统方法](https://hpoenixf.github.io/eff-agent-article/principles) 是设计判断地图，归纳八条跨模块原则和六组工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
 
 本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
 
 | 关注方向 | 建议先读 | 可以观察到什么 |
 | --- | --- | --- |
 | **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [异步研究的前端交付](articles/agent-asynchronous-research-time-bound-delivery.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 分段正文、后台通知、重连重读、事件去重与 Host 交付边界；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue) |
-| **Agent 应用开发** | [六层系统全景 V2](articles/017-prompt-to-answer-six-layer-panorama.md)（[V1 历史原稿](articles/017-prompt-to-answer-six-layer-panorama-v1.md)）→ [Subagent](articles/agent-subagent-context-specialization.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
+| **Agent 应用开发** | [六层系统全景 V2](articles/017-prompt-to-answer-six-layer-panorama.md)→ [Subagent](articles/agent-subagent-context-specialization.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
