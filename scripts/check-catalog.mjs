@@ -59,6 +59,12 @@ for (const [id, expectedPrimary] of Object.entries({A36:'agent-temporal-semantic
     throw Error('Missing canonical Owner or primary essay: ' + id)
   }
 }
+// The prose inventory is a distinct navigation surface from the interactive graph.
+const galleryInventory = readFileSync('gallery.md', 'utf8')
+  .split('## 能力清单 {#owner-inventory}')[1]?.split('## 六层文章')[0] ?? ''
+for (const id of primaryOwnerIds) {
+  if (!galleryInventory.includes('#owner=' + id + ')')) throw Error('Gallery prose inventory missing Owner ' + id)
+}
 const knownArticles = new Map(chapters.flatMap(chapter => chapter.items))
 const referenced = new Set()
 for (const [ownerId, reading] of Object.entries(registry.owners)) {
