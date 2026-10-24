@@ -1,6 +1,6 @@
 ---
 title: Agent 架构原则与系统方法
-description: Agent 架构八条核心原则：语义与事实、授权与效果、Owner、局部失败、Context、最小机制、可替换性与真实交付；附六组工程方法和深入文章。
+description: Agent 架构九条核心原则：语义与事实、授权与效果、Owner、局部失败、Context、最小机制、可替换性与真实交付；附六组工程方法和深入文章。
 ---
 
 # Agent 架构判断：核心原则与外围方法
@@ -9,11 +9,11 @@ description: Agent 架构八条核心原则：语义与事实、授权与效果�
 
 **如何使用：** 从下面的原则或方法进入精选工程案例；在正文涉及相应取舍的位置，读者可以沿语义链接回到本页对应的编号条目。其他文章不必强制归类，仍可通过文末入口回到整张地图。每条原则与方法都有稳定锚点，便于分享和复盘。
 
-与本页并列的首要必读是[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：这里解释**为什么要这样设计**，全景文章解释**一次研究实际怎样跨层运行**。可以先读全景，再回来用八条原则复核具体模块。
+与本页并列的首要必读是[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：这里解释**为什么要这样设计**，全景文章解释**一次研究实际怎样跨层运行**。可以先读全景，再回来用九条原则复核具体模块。
 
 <FlagshipEntry compact />
 
-## 第一层 · 八条核心判断
+## 第一层 · 九条核心判断
 
 | 原则 | 值得记住的一句话 | 深入文章 |
 | --- | --- | --- |
@@ -25,8 +25,9 @@ description: Agent 架构八条核心原则：语义与事实、授权与效果�
 | <span id="principle-6"></span> **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
 | <span id="principle-7"></span> **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
 | <span id="principle-8"></span> **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) · [全景中的结果与恢复](/articles/017-prompt-to-answer-six-layer-panorama) |
+| <span id="principle-9"></span> **9. 局部改善不等于整体进步** | 工具投影、观测和评测的改善，应按原身份追到实际模型输入、持久结果与用户任务；先区分局部修复、测量修正和端到端收益。 | [局部改善与整体进步](/articles/local-improvement-is-not-system-progress) |
 
-**不轻易加第九条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
+**不轻易加第十条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
 
 ## 第二层 · 六组外围系统方法
 
