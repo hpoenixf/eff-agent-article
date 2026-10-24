@@ -58,10 +58,10 @@ flowchart TD
   K -- Yes --> H
   K -- No --> L[Preserve Unknown and reconcile only]
   I -- No --> L
-  G -- Unreadable --> L
+  G -- Temporarily unreadable --> M[Defer receipt read, never admit a new effect]
 ```
 
-The original Owner's `readReceipt` may return `null` only when the authoritative store positively establishes that the receipt does not exist. A database read failure must throw rather than masquerade as null. Deferral followed by a new admission can be safe only when no uncertain dispatch has occurred and the original Owner can prove its admission transaction rolled back. If admission began and the result disappeared, or an earlier claim is marked `ownerUncertain`, the event must remain unknown. Subsequent delivery attempts reconcile the original receipt first; they must not assume it is safe to invoke `admit` again.
+The original Owner's `readReceipt` may return `null` only when the authoritative store positively establishes that the receipt does not exist. A database read failure must throw rather than masquerade as null. When a receipt read is temporarily unavailable before an uncertain admission, A08 defers another read without initiating a domain effect. A subsequent admission is safe only when no uncertain dispatch has occurred and the original Owner can prove its admission transaction rolled back. If admission began and the result disappeared, or an earlier claim is marked `ownerUncertain`, the event must remain unknown. Subsequent delivery attempts reconcile the original receipt first; they must not assume it is safe to invoke `admit` again.
 
 Exhausted delivery attempts or unsupported commands can be quarantined. Quarantine records a bounded disposition. It is neither a successful domain effect nor permission to discard the underlying uncertainty.
 
@@ -75,7 +75,8 @@ The correct action is to **query the original receipt under the same `commandKey
 | --- | --- | --- |
 | Original Owner has `accepted`; A08 has no ACK | Domain admission occurred; delivery settlement is behind | Reuse the receipt and settle delivery without repeating the effect |
 | Original Owner proves absence and no uncertain effect existed | Eligibility for a first admission can be checked | Attempt admission with a live fence in the original transaction |
-| Owner store is unreadable or commit status is ambiguous | Domain outcome is not established | Preserve unknown; do not invent another action |
+| Original receipt temporarily unreadable, before admission | No evidence yet permits a new domain effect | Defer another read; do not treat failure as null |
+| Original admission began but its commit outcome is ambiguous | The domain effect may already have happened | Preserve unknown; reconcile under the original identity |
 | Target revision changed or claim expired | Old delivery authority is invalid | Reject the stale claim, without deciding for the new revision |
 
 This is a teaching reconstruction of current contracts, not a disclosed real user's Stop log. The difficult failure falls precisely between two durable facts: the original effect has been admitted, but the delivery ACK has not committed. Adding a single global `completed` flag does not remove that sequencing problem.
