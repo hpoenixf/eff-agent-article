@@ -121,7 +121,7 @@ You do not need to memorize all forty-plus owners. Read each layer in order, or 
 | A34 Tool Surface | [11](#handoff-11) | Final model presentation and Host admission are distinct |
 | A35 content trust | [13](#handoff-13) | External content is evidence, never an authorization instruction |
 | A33 precise computation | [16](#handoff-16) | Source/time, domain formula, decimal arithmetic have separate owners |
-| HIO / persistent HIL | [HIL focus](#hil-loop) | Bounded engineering closure; production Human Park is off by default |
+| A37 HIO / persistent HIL | [HIL focus](#hil-loop) | Bounded engineering closure; production Human Park is off by default |
 | A36 time and market sessions | [Separate article](/en/articles/agent-temporal-semantics-market-calendar) | Independent verification still in progress; do not infer production readiness |
 | Durable control, schedules and finalization | [22](#handoff-22), [23](#handoff-23) | Real outcomes belong to existing effect owners |
 
@@ -135,7 +135,7 @@ A **capability owner** is the module accountable for a durable fact, decision or
 
 ::: details Complete owner inventory and implementation snapshot
 
-The public owner gallery currently recognizes **41 capability owners**. The durable Human Interaction Owner is an evolving design and implementation seam, so “more than forty” is a practical label, not an eternal inventory. **Six layers are an explanatory map, not six services. Twenty-six numbered topics are a reading route, not the module count.** Peripheral capabilities still belong to the system but need not crowd every paragraph.
+The public owner gallery now recognizes **43 capability Owners (A01–A37, B01–B05 and E04)**, including **A36 Temporal Semantics** and **A37 bidirectional Human Interaction**. A36 still needs qualified real-agent calendar acceptance; A37 has scoped local provider-free formal close while production Human Park remains off. “More than forty” remains a descriptive label rather than an immutable inventory. **Six layers are an explanatory map, not six services. Twenty-six numbered topics are a reading route, not the module count.** Peripheral capabilities still belong to the system but need not crowd every paragraph.
 
 | Reading group | Independent capability owners | Responsibility for effects |
 | --- | --- | --- |
@@ -798,7 +798,7 @@ A user-approved continuation of unfinished or terminal work creates a linked Run
 
 ### Focus: durable Human-in-the-Loop (HIL)
 
-A research agent sometimes needs a human answer while still being capable of independent reads and calculations. HIO is a **bidirectional owner of interaction admission and response routing**. The model proposes a question using the Native ask-user tool; HIO durably binds it to the original authenticated scope, Conversation, Run, Action, request revision and deadline. A cross-conversation inbox shows accessible pending items without assuming whichever chat is newest must be the answer target.
+A research agent sometimes needs a human answer while still being capable of independent reads and calculations. A37 HIO is a **standalone logical Owner for bidirectional interaction admission and response routing**. The model proposes a question using the Native ask-user tool; HIO durably binds it to the original authenticated scope, Conversation, Run, Action, request revision and deadline. A cross-conversation inbox shows accessible pending items without assuming whichever chat is newest must be the answer target.
 
 By default, asking is **non-blocking**. Work continues until a true dependency is reached, while the user can respond to the exact persistent request. Receipt of the user's text is different from adoption: the original Correction safe point carries it into an actual Main model input. When necessary, the original Recovery owner may safely **Human Park** an unfinished Run; Control and Scope then manage wake-up and readmission. Parking never resets consumed model usage or explicit hard deadlines.
 
