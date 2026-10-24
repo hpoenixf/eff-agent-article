@@ -39,9 +39,9 @@
     "unavailable-is-correct": "数据过期后的受控刷新",
     "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本",
     "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究",
-    "agent-durable-human-interaction-response-adoption": "HIL：回答如何被原研究真正采用",
-    "agent-temporal-semantics-market-calendar": "A36：用户时间与市场交易日",
-    "agent-personal-credits-shadow-accounting": "Shadow Credits：请求、Token 与用量身份"
+    "agent-durable-human-interaction-response-adoption": "Agent 问完用户之后：持久人机交互",
+    "agent-temporal-semantics-market-calendar": "Agent 说“今天”时，到底是哪一天",
+    "agent-personal-credits-shadow-accounting": "Agent 的请求数、Token 与 Credits 记账"
   },
   "owners": {
     "A01": {
