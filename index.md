@@ -54,6 +54,8 @@ features:
 
 ## 推荐从这里开始
 
+**Owner 最新对账（2026-10-24）：** [架构图册](/gallery)已补充并发后台研究、可审阅结果、个人 Subagent Profile、时间语义与评测目录的主干实现及验收边界；41 项职责不增加，新代码不自动成为已验证的研究质量或已上线功能。
+
 想理解系统整体架构：从 [41 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
 想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
