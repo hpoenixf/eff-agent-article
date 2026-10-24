@@ -1,5 +1,5 @@
 ---
-title: Local Improvements Are Not System Progress: How Do We Know an Agent Actually Got Better?
+title: "Local Improvements Are Not System Progress: How Do We Know an Agent Actually Got Better?"
 description: Lessons from tool-result projection, model inputs, Langfuse traces, and model evaluation on distinguishing a local repair from an end-to-end benefit.
 ---
 
