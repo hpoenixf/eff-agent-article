@@ -1,6 +1,6 @@
 ---
-title: 六层系统全景 V2 · 从提问到 Agent 研究闭环
-description: ETF Agent 架构必读：六层系统、四十余个能力 Owner、Native Agent Loop、MCP 与工具执行、证据计算、Publication、HIL 和持久恢复，附中文架构图和专题导航。
+title: "六层系统全景 V2 · 从提问到 Agent 研究闭环"
+description: "ETF Agent 架构必读：六层系统、四十余个能力 Owner、Native Agent Loop、MCP 与工具执行、证据计算、Publication、HIL 和持久恢复，附中文架构图和专题导航。"
 ---
 
 # 一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统 · V2
