@@ -1,11 +1,11 @@
 ---
 title: 模块维度 · 机制精讲
-description: 28 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: 30 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 28 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 30 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
@@ -17,7 +17,11 @@ description: 28 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provid
 
 **Credits 专题：** [请求数、Token 与个人 Credits 为何不能混账](/articles/agent-personal-credits-shadow-accounting)——Shadow 物理尝试、已知与 unknown、个人只读视图；非强制额度或真实发票。
 
-**A10 专题：** [统一模型接口之后，为什么还需要共享准入？](/articles/agent-provider-architecture-and-admission)——从模型身份、协议适配、跨进程容量和租约生命周期，解释供应商模块的职责与取舍。
+**A08 专题：** [Stop 指令为什么不能直接执行？](/articles/agent-control-events-durable-owner-adoption)——持久意图、Claim/Fence、原 Owner 回执与 unknown 只对账；不是通用 EventBus。
+
+**A30 专题：** [模型返回 HTTP 200，为什么还要排队？](/articles/agent-provider-admission-capacity-lease)——共享端点组、短事务、容量租约与安全释放；模型质量、Run 预算仍分账。
+
+**A10 专题：** [统一模型接口之后，为什么还需要共享准入？](/articles/agent-provider-architecture-and-admission)——新增 A32 模型目录／路由资格的边界段落；配置身份和协议适配仍由原稿说明，具体跨进程租约详见 A30 新文。
 
 **A24 专题：** [用户离开后，异步研究如何按时交付？](/articles/agent-asynchronous-research-time-bound-delivery)——从 at/by 交付时间、partial→final 到浏览器重读，说明 A24 与 A25 的交接。
 

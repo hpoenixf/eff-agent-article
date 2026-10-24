@@ -21,6 +21,10 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 点击任意能力 Owner，可查看职责、局部拒绝范围、交接关系，以及 **专题文章 / 相关文章**。未有独立专文时显示「敬请期待」；相关文章不能冒充专文。可按 Owner ID 或名称搜索，桌面支持交接高亮，手机可按分组阅读。
 
+**新增 Owner 专文入口：A08 与 A30。** [A08 持久控制事件](/articles/agent-control-events-durable-owner-adoption) 独立讲事件入箱、Claim/Fence、原 Owner 回执优先、ACK/unknown 的交接；[A30 Provider 容量准入](/articles/agent-provider-admission-capacity-lease) 独立讲共享端点组、排队、租约、流式终止与未知占用。两项均保留已有 43 个 Owner 身份，不因新增文章增加模块数量。[打开 A08](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) · [打开 A30](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A30)。
+
+**A32 模型目录边界**已深化在[既有 Provider 主稿](/articles/agent-provider-architecture-and-admission)，保留 related 而非独立 primary；登记模型不表示模型的真实研究质量或调用容量获准。
+
 **新增 A34「模型能力呈现与工具表面」**：Entry 负责向模型呈现当前、有界的 Host 能力摘要；Research 在最终送模前核对已准入的有序逻辑 Tool Surface（名称、顺序、描述与 Schema）。它消费 A04 的原授权、A31 的 MCP 描述、A12 的方法与 A18 的真实可用性；**A14 仍管输入材料拟合，A10 仍管协议与请求发送**。A34 已在受控场景验证最终工具描述的一致性，并于 2026-10-22 归档；真实模型的工具选择与投研效果仍需独立观察。详见[A34 的历史驱动模块精讲](/articles/agent-model-capability-presentation-tool-surface)，或在交互图中打开 [A34](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34)。
 
 **本轮正式新增 A36「时间语义与市场 Session」**：独立拥有 A03 已选时间意图之后的确定性解析；用户 IANA 时区从可信请求/账户绑定而来，B01 仍拥有经资格核实的交易日历，行情 `dataAsOf` 仍归原来源。其 P0 真实普通认证研究尚未验收，日历默认关闭。[打开 A36](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) · [A36 专文](/articles/agent-temporal-semantics-market-calendar)。

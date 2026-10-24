@@ -41,7 +41,9 @@
     "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究",
     "agent-durable-human-interaction-response-adoption": "Agent 问完用户之后：持久人机交互",
     "agent-temporal-semantics-market-calendar": "Agent 说“今天”时，到底是哪一天",
-    "agent-personal-credits-shadow-accounting": "Agent 的请求数、Token 与 Credits 记账"
+    "agent-personal-credits-shadow-accounting": "Agent 的请求数、Token 与 Credits 记账",
+    "agent-control-events-durable-owner-adoption": "Agent 收到控制指令后，为什么不能立刻执行",
+    "agent-provider-admission-capacity-lease": "模型返回 HTTP 200，为什么下一次还要排队"
   },
   "owners": {
     "A01": {
@@ -277,6 +279,26 @@
       "related": [
         "agent-background-research-collaborative-experience",
         "agent-asynchronous-research-time-bound-delivery"
+      ]
+    },
+    "A08": {
+      "primary": "agent-control-events-durable-owner-adoption",
+      "related": [
+        "agent-autonomous-scheduled-research",
+        "agent-durable-human-interaction-response-adoption"
+      ]
+    },
+    "A30": {
+      "primary": "agent-provider-admission-capacity-lease",
+      "related": [
+        "agent-provider-architecture-and-admission",
+        "agent-runtime-constraint-governance-v2"
+      ]
+    },
+    "A32": {
+      "related": [
+        "agent-provider-architecture-and-admission",
+        "agent-provider-admission-capacity-lease"
       ]
     }
   }

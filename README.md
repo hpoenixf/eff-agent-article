@@ -4,13 +4,17 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **55 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **57 篇正文，三条主线**
 
 [**首要必读 · 六层系统全景 V2**](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [**架构原则 · 八条核心判断**](https://hpoenixf.github.io/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
+
+## 最近的 Owner 专文：控制事件与 Provider 容量
+
+- [A08：Agent 收到控制指令后，为什么不能立刻执行](articles/agent-control-events-durable-owner-adoption.md) · [A30：模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md)。两个独立模块案例均提供中文及完整英文版本；[A32 模型目录边界](articles/agent-provider-architecture-and-admission.md)则深化在既有 Provider 专文中，不增重复文章。
 
 ## 最近的机制文章：人机协作、时间与用量
 
@@ -45,8 +49,8 @@
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **28 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **18 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
+| [模块维度](modules.md) | Agent 如何运行？ | **30 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **21 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **6 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
@@ -56,9 +60,9 @@
 
 ### 推荐起点
 
-**原则与方法：** [八条核心判断、六组外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 55 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [八条核心判断、六组外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 57 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
-**模块：** [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
+**模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
 **架构：** [想聊就聊：异步后台研究](articles/agent-background-research-collaborative-experience.md) · [故障域感知切换](articles/agent-provider-failover-without-resetting-the-run.md) · [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与 Run 终结权](articles/agent-veto-authority-and-run-termination.md) · [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md)
 
@@ -75,10 +79,11 @@
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/modules)
 
 <details>
-<summary><b>01 · 研究入口、阅读与计算</b>（8 篇）</summary>
+<summary><b>01 · 研究入口、阅读与计算</b>（9 篇）</summary>
 
 - [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
+- [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md)
 - [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md)
 - [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
 - [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
@@ -99,9 +104,10 @@
 </details>
 
 <details>
-<summary><b>03 · 运行时、扩展与观测</b>（10 篇）</summary>
+<summary><b>03 · 运行时、扩展与观测</b>（13 篇）</summary>
 
 - [Provider：统一接口之后，为什么还需要共享准入](articles/agent-provider-architecture-and-admission.md)
+- [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md)
 - [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
 - [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](articles/mcp-host-from-discovery-to-consumption.md)
 - [Tool Surface：Agent 有工具，模型为什么看不到](articles/agent-model-capability-presentation-tool-surface.md)
@@ -109,17 +115,20 @@
 - [多生态 Hook：Claude、Pi 与 Codex](articles/agent-multi-ecosystem-hook-execution.md)
 - [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
 - [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
+- [Agent 的请求数、Token 与 Credits 记账](articles/agent-personal-credits-shadow-accounting.md)
+- [Agent 收到控制指令后，为什么不能立刻执行](articles/agent-control-events-durable-owner-adoption.md)
 - [定时研究：会话结束后继续](articles/agent-autonomous-scheduled-research.md)
 - [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
 </details>
 
 <details>
-<summary><b>04 · 答案、发布与恢复</b>（3 篇）</summary>
+<summary><b>04 · 答案、发布与恢复</b>（4 篇）</summary>
 
 - [Publication：为什么需要独立发布系统](articles/019-agent-answer-publication.md)
 - [渐进式回答如何保持连贯](articles/agent-progressive-answer-coherence.md)
 - [异步研究：离开页面后怎样按时交付](articles/agent-asynchronous-research-time-bound-delivery.md)
+- [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md)
 
 </details>
 
@@ -130,7 +139,7 @@
 <details>
 <summary><b>01 · 系统全景与职责边界</b>（6 篇）</summary>
 
-- [从一句问题到六层系统全景](articles/017-prompt-to-answer-six-layer-panorama.md)
+- [六层系统全景 V2：从一次提问到持续协作](articles/017-prompt-to-answer-six-layer-panorama.md)
 - [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
@@ -140,8 +149,10 @@
 </details>
 
 <details>
-<summary><b>02 · 可靠性、反馈与系统治理</b>（3 篇）</summary>
+<summary><b>02 · 可靠性、反馈与系统治理</b>（5 篇）</summary>
 
+- [想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究](articles/agent-background-research-collaborative-experience.md)
+- [当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计](articles/bounded-bull-bear-peer-dialogue.md)
 - [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
 - [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
 - [故障切换：换路线，不重置任务](articles/agent-provider-failover-without-resetting-the-run.md)
@@ -149,7 +160,7 @@
 </details>
 
 <details>
-<summary><b>03 · 工程演化与金融边界</b>（8 篇）</summary>
+<summary><b>03 · 工程演化与金融边界</b>（10 篇）</summary>
 
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
 - [HTML 保存了，为什么还是交付失败](articles/agent-html-evolution-challenges.md)
@@ -158,7 +169,9 @@
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 - [Python 算过了，投研报告为什么还会错](articles/financial-agent-python-result-consumption.md)
 - [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
-- [周报历史：投资论点与用户修正](articles/agent-weekly-thesis-history-continuous-research.md)
+- [一份周报过去后，Agent 还记得为什么这样判断吗？](articles/agent-weekly-thesis-history-continuous-research.md)
+- [不止一个投资专家：多视角 Agent 如何共同检验投资假设](articles/investment-perspectives-and-thesis-falsification.md)
+- [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](articles/multi-layer-agent-collaboration-outlook.md)
 
 </details>
 
@@ -187,7 +200,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 55 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 57 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

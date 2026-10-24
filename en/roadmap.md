@@ -9,6 +9,12 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
+## October 24, 2026: A08 and A30 Owner Deep Dives
+
+[**A08 durable control events**](/en/articles/agent-control-events-durable-owner-adoption) explains why an acknowledged delivery and an original committed effect must be reconciled separately. [**A30 Provider Admission**](/en/articles/agent-provider-admission-capacity-lease) explains endpoint-group capacity, leases and uncertain remote work even after HTTP 200. Both have full Chinese and English essays and preserve the limits of actual engineering acceptance.
+
+**A32 model catalog** is developed further inside the existing [Provider architecture guide](/en/articles/agent-provider-architecture-and-admission), without adding a redundant standalone essay. **A27 personalized daily research** remains the one Owner with no substantial mechanism essay pending stronger user-value evidence. Of 43 Owners, 29 have dedicated essays, 13 are partially covered and 1 remains unwritten.
+
 ## October 24, 2026: Three New Mechanism Essays
 
 [Durable human response adoption](/en/articles/agent-durable-human-interaction-response-adoption) examines actual receipt, correction, park/wake and Child consumption; it does not claim production Human Park is on. [Temporal semantics and market sessions](/en/articles/agent-temporal-semantics-market-calendar) distinguishes user dates, frozen anchors, qualified session calendars and quote as-of data; ordinary live-agent acceptance is still open. [Personal Shadow Credits accounting](/en/articles/agent-personal-credits-shadow-accounting) focuses on physical-attempt identities and partial usage without introducing billing or hard quotas. E04 has optional cost-evidence projection and readback code, but complete attribution and its own acceptance remain separate.
@@ -44,7 +50,7 @@ The **[F01–F15 research backlog](/en/financial-research-backlog)** is the sole
 
 ## Module candidates still awaiting distinct material
 
-Durable control events; private artifact access and sharing; and long-term personalized research outcomes. Each needs a scoped original case. See the [detailed Chinese writing roadmap](/roadmap) for the existing candidate list.
+Durable control events now have a [dedicated A08 study](/en/articles/agent-control-events-durable-owner-adoption). Private artifact access and sharing can extend the existing HTML article when evidence merits it; meaningful personalized research outcomes still need stronger source evidence. See the [detailed Chinese writing roadmap](/roadmap) for the existing candidate list.
 
 The first-phase structural question of source and instruction identity is now covered by the [bilingual A35 case study](/en/articles/agent-content-trust-prompt-injection). Formal executor completion and real-model prompt-injection resistance remain unverified; they are evidence limitations, not a second promised article.
 
