@@ -84,6 +84,8 @@ The public owner gallery currently recognizes **41 capability owners**. The dura
 
 ## Layer one: conversation identity and research control
 
+*Related judgment: [Principle 1 · the model interprets; the system records execution facts](/en/principles#principle-1).*
+
 Users can retry a send, ask a small question, correct a long analysis or stop a background run. These actions cannot all be inferred from the most recent visible message.
 
 **Figure 2 · Message identity: replay, new Run or conflict**
@@ -454,6 +456,8 @@ Python is appropriate for temporary comparisons, scenario tables, plots and expe
 **Go deeper · Sources and numbers:** [Web research (Chinese original)](/articles/021-agent-web-research-from-search-to-deep-reading) · [PDF evidence](/en/articles/024-agent-pdf-from-text-to-evidence) · [Financial definitions and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Python research workbench](/en/articles/agent-python-compute-workbench-evolution)
 
 ## Layer five: answer delivery, human interaction and continuity
+
+*Related judgment: [Principle 2 · proposal, approval, execution and effects are different facts](/en/principles#principle-2).*
 
 The time when an answer is drafted, rendered, published, saved or read from History can differ. Partial results and background work make this distinction essential.
 
