@@ -27,7 +27,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 [HIO：持久人机交互怎样接回原研究](/articles/agent-durable-human-interaction-response-adoption) 已覆盖原回复、重复接纳、Human Park、Correction/Continue 和 Child 原文消费；本地关闭不代表生产默认开启。 [A36：用户日期与市场交易日](/articles/agent-temporal-semantics-market-calendar) 解释当前时钟、冻结任务锚点、市场日历和行情时点，仍保留普通真实请求验收缺口。[Shadow Credits：请求与用量身份](/articles/agent-personal-credits-shadow-accounting) 专注账户自身用量与物理尝试，非支付或额度硬拒绝；E04 已有受限成本证据投影与读回代码，完整来源归因与自身验收仍独立进行。
 
-这三篇属于同一次选题补漏，而不是三个新增运行时 Manager；图册现有 41 个正式 Owner 不因此先行扩容。专题入库不替代源码实现、真实模型质量或站点线上验收。
+这三篇属于同一次选题补漏，而不是三个新增运行时 Manager；图册已按明确决定新增 A36、A37 为独立逻辑 Owner，当前共 43 项；Credits 仍不单独增设执行 Owner。专题入库不替代源码实现、真实模型质量或站点线上验收。
 
 ## P0 · 优先深化已有文章（不是新篇）
 

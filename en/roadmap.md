@@ -13,7 +13,7 @@ We will **improve existing essays before adding new slugs**. The [eight core pri
 
 [Durable human response adoption](/en/articles/agent-durable-human-interaction-response-adoption) examines actual receipt, correction, park/wake and Child consumption; it does not claim production Human Park is on. [Temporal semantics and market sessions](/en/articles/agent-temporal-semantics-market-calendar) distinguishes user dates, frozen anchors, qualified session calendars and quote as-of data; ordinary live-agent acceptance is still open. [Personal Shadow Credits accounting](/en/articles/agent-personal-credits-shadow-accounting) focuses on physical-attempt identities and partial usage without introducing billing or hard quotas. E04 has optional cost-evidence projection and readback code, but complete attribution and its own acceptance remain separate.
 
-These essays do not add three new Runtime managers or change the gallery's 41 approved Owner entries.
+The gallery now has 43 Owners after separately admitting A36 temporal semantics and A37 durable human interaction. Credits remains scoped accounting, not a third Runtime manager.
 
 ## Existing articles to deepen
 

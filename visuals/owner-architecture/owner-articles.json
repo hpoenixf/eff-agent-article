@@ -265,6 +265,19 @@
         "011-model-understands-code-authorizes",
         "agent-model-capability-presentation-tool-surface"
       ]
+    },
+    "A36": {
+      "primary": "agent-temporal-semantics-market-calendar",
+      "related": [
+        "031-fintech-data-time-and-reproducible-numbers"
+      ]
+    },
+    "A37": {
+      "primary": "agent-durable-human-interaction-response-adoption",
+      "related": [
+        "agent-background-research-collaborative-experience",
+        "agent-asynchronous-research-time-bound-delivery"
+      ]
     }
   }
 }
