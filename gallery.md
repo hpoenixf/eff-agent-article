@@ -9,6 +9,8 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 41 个 Own
 
 # 能力 Owner · 架构图册
 
+**能力图册与六层全景是两种互补入口。** 想先了解整个 Agent 如何完成一次研究，请阅读[六层系统全景 V2：Native Loop 到持久 HIL](/articles/017-prompt-to-answer-six-layer-panorama)；要逐一定位模块及最终责任，再使用本页的交互式 Owner 图册。
+
 **2026-10-22 更新：41 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
 
 ## 交互式能力总览
@@ -73,7 +75,7 @@ A34 的正式归档和 A28 的**获准例外归档**已从“仍在进行”移�
 
 | 流程片段 | 对应 Owner 与阅读边界 |
 | --- | --- |
-| [01 · 提问到回答](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/overview.svg) | 跨 Owner 的研究交接；不是完整模块总览。 |
+| [01 · 六层研究闭环（V2）](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v2-native-loop-zh.svg) | 跨 Owner 的研究交接；不是完整模块总览。 |
 | [02 · 消息身份](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/identity.svg) | A02 消息接纳；账户身份另归 A01。 |
 | [03 · 研究循环](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/research.svg) | A03 提出策略/完成建议；A11 执行工具，A06 持有技术终结权。 |
 | [04 · Child 协作](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/subagent.svg) | A07 管局部执行/交接；Main 的综合仍归 A03。 |
