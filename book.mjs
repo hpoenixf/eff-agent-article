@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 51 unique essays.
+// One canonical reading tree: three perspectives and 52 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -230,7 +230,11 @@ export const collections = [
           ],
           [
             "investment-perspectives-and-thesis-falsification",
-            "AI 投研不能只有支持意见：从多视角分析到投资假设证伪"
+            "不止一个投资专家：多视角 Agent 如何共同检验投资假设"
+          ],
+          [
+            "multi-layer-agent-collaboration-outlook",
+            "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"
           ]
         ]
       }

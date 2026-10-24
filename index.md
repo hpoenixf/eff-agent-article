@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 51 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 52 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层系统全景 →
@@ -41,7 +41,7 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 51 篇文章的入口。**
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 52 篇文章的入口。**
 
 ## 第一次访问：从你关心的问题开始
 
@@ -78,11 +78,11 @@ features:
 
 [金融科技 × Agent](/fintech) 汇集真实数据口径、投顾与交易授权、可信证据、金融数据 MCP、Python 研究结果消费等跨分类文章；现有讨论稿不意味着金融业务价值已经验证。
 
-## 新增：从多空协作到可证伪投研
+## 多 Agent 投研：从有界对话到完整协作展望
 
-当投资者说“多买一只科技 ETF 应该更分散”，真正有帮助的研究不是凑齐看多与看空，而是检查底层持仓、让原论证者回应反例，并保存当初怎样得出结论。
+投资者真正需要的是：不同研究者围绕同一组事实检查不同问题，重要反证能够被原论证者回应，而最终结论保留仍未查明的条件。
 
-先读[两个 Agent 如何直接展开有界质询](/articles/bounded-bull-bear-peer-dialogue)，再读[如何用六种视角与 Investment Thesis 检验投资理由](/articles/investment-perspectives-and-thesis-falsification)。两篇从用户问题开始，后半部分再深入协议、证据与恢复。
+先读[两个 Agent 如何展开有界质询](/articles/bounded-bull-bear-peer-dialogue)，再看[六种投资方法如何按需协作、共同检验假设](/articles/investment-perspectives-and-thesis-falsification)。最后阅读[2026 多层 Agent 协作展望](/articles/multi-layer-agent-collaboration-outlook)：它公开记录尚未通过整体效果验收的目标，未来再依据真实对照复盘。
 
 ## 接下来仍值得探索的问题
 
@@ -90,4 +90,4 @@ features:
 
 浏览[架构图册](/gallery) · 阅读[架构原则速查](/principles) · 返回[个人博客](https://hpoenixf.com/)。
 
-新近文章：[多空 Agent 的真实对话与恢复](/articles/bounded-bull-bear-peer-dialogue) · [多视角投研与 Thesis 证伪](/articles/investment-perspectives-and-thesis-falsification)。此前的[异步后台研究](/articles/agent-background-research-collaborative-experience)继续保留独立入口。
+新近文章：[多层 Agent 协作的 2026 展望](/articles/multi-layer-agent-collaboration-outlook) · [多视角 Agent 如何共同检验投资假设](/articles/investment-perspectives-and-thesis-falsification) · [多空直接对话与恢复](/articles/bounded-bull-bear-peer-dialogue)。[异步后台研究](/articles/agent-background-research-collaborative-experience)继续保留独立入口。

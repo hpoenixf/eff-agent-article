@@ -1,252 +1,169 @@
-# Investment AI Needs More Than Supporting Arguments: From Multiple Perspectives to Falsifiable Theses
+# More Than One Investment Expert: How Multi-Perspective Agents Test an Investment Thesis
 
-> Multi-Agent Investment Research · Part Three | From an investor’s question to a judgment that can actually be tested
+> Multi-Agent Investment Research · Part Three | Shared facts, different methods, and disagreements worth resolving
 
-Suppose you already hold several funds and are considering a technology ETF. You ask an AI assistant: “Should I add some?”
+Imagine you already own several funds. You are considering a technology ETF and ask an AI assistant: “If I add this fund, will my portfolio become more diversified?”
 
-It may quickly summarize the sector outlook, fund expenses, recent performance and risk disclosures, before concluding that you should consider your risk preferences. None of those statements is necessarily wrong. Yet two important questions remain unanswered: **What would this purchase change in my whole portfolio? And does my original reason for buying actually hold?**
+An assistant can easily produce a polished report: promising industry prospects, valuation concerns, fees, and a familiar reminder to invest carefully. What you actually need is more specific: **How much of this ETF overlaps with the funds I already hold? If someone claims the purchase improves diversification, who checks whether that claim is true?**
 
-That is a recurring problem in ETF Agent. Retrieving information is one task; turning it into a judgment relevant to an investor’s existing holdings is another. We also want the AI to ask which evidence could overturn its initial conclusion.
+That is why ETF Agent introduces multiple investment perspectives and optional Bull/Bear research. The point is not to let six simulated “investment legends” deliver six speeches. It is to break a vague assertion into checkable questions, bring in only useful specialists, allow meaningful disagreement, and keep Main Agent responsible for one evidence-based, conditional synthesis.
 
-We therefore connected distinct investment methodologies, an independent counterargument role and versioned investment theses. A fully synthetic example will illustrate the investor benefit and the engineering and financial trade-offs behind it.
+This article focuses on **how investment-perspective Agents are selected, how they share facts, and how they handle disagreement**. The details of Peer Messages, waiting, waking and cold recovery belong to [the preceding article on the Bull/Bear runtime](bounded-bull-bear-peer-dialogue.md). The broader end-to-end research workflow is reserved for [our architecture outlook](multi-layer-agent-collaboration-outlook.md).
 
-## 1. A Good Fund Is Not Automatically a Good Addition to My Portfolio
+## 1. Investors Do Not Simply Need More Experts
 
-“What is this fund like?” can often be answered from product disclosures: its benchmark, fees, trading constraints and underlying holdings.
+“What is this ETF?” can often be answered using its benchmark, fees, holdings and risk disclosures. “Should I add it to my portfolio?” also requires information about existing exposures, the funding source and the investor's longer-term plan.
 
-“Should I add it to my portfolio?” is a different question. It depends on existing exposures, the source of funding, the change the investor hopes to make and the risks they can actually bear.
+No single metric answers all those questions. High growth does not imply a low valuation; owning more fund names does not ensure less underlying concentration; lower historical volatility does not exclude severe losses.
 
-Consider the claim that owning one more fund must increase diversification. Two differently named funds may own the same companies. Adding both names may increase a count without changing the underlying risk very much.
+We want multi-perspective research to do three things: **identify important assumptions, apply suitable methods to the same underlying facts, and revise a reason when legitimate counterevidence emerges—rather than vote on competing recommendations.**
 
-**Look-through analysis** means going past fund names and inspecting the underlying companies, industries or economic risk factors. Investor-education material likewise cautions that diversification depends on the investments underneath the wrapper, not just the number of funds. [1]
+That means specialists are optional. If the only question is a fund's current management fee, a permitted disclosure lookup may be sufficient. An extra Child Agent is justified only when different analytical methods or an independent challenge might add material value relative to its cost in time and model calls.
 
-For an investor, the useful comparison often involves at least three alternatives: do nothing; buy with available cash; or sell part of a current holding to fund the new ETF. Each has a different effect on the portfolio.
+## 2. What Do the Six Investment Methods Actually Examine?
 
-## 2. Why One Investment Perspective Is Not Enough
+We registered six optional investment methods on the existing Child execution mechanism. Their names refer to analytical schools and established research traditions. **The model does not impersonate these people or invent their current investment advice.**
 
-No single metric answers every investment question.
-
-Diversification requires understanding how holdings move together. Long-term suitability also depends on cash needs and the ability to stick to a plan. For a fund replacement, tracking difference, total costs and liquidity may matter more than an attractive industry narrative. Even an excellent asset need not be attractive at every price.
-
-ETF Agent therefore registers six optional research methodologies inspired by well-known bodies of investment thought:
-
-| Perspective | What it asks |
-| --- | --- |
-| **Markowitz: portfolio allocation** | How does a proposed holding change marginal risk, weights and correlations? |
-| **Taleb: tails and fragility** | What could break in extreme markets, funding stress or market-infrastructure disruptions? |
-| **Bernstein: long-term discipline** | Is the change consistent with the actual time horizon, cash needs and investment plan? |
-| **Bogle: implementation cost** | What fees, tracking differences, overlap and trading frictions must be paid for the desired exposure? |
-| **Marks: price and compensation** | Does today’s price offer enough reward for valuation, credit, liquidity and other risks? |
-| **Fama–French: factor explanation** | Which qualified historical factor exposures might explain observed returns without inventing alpha? |
-
-The Agent is **not impersonating these people** or presenting fabricated contemporary advice. It uses analytical frameworks, not celebrity authority.
-
-And we do not require six Children for every question. A validated look-through calculation can settle a narrow exposure question without six independent recalculations. Missing valuation or factor-series data cannot be created by invoking an impressive role name.
-
-The hoped-for investor benefit is more precise questioning: identify what should be calculated, what should be challenged and what is still unknown.
-
-## 3. Bull–Bear Research Is About Testing a Reason, Not Staging a Debate
-
-Investors commonly form a preference first and seek information that supports it. An AI-generated report with polished “pros” and “cons” can still fail to examine the central premise.
-
-Our Bull role assembles a supporting case. Bear searches for meaningful evidence that would undermine it. Each first researches independently; an optional direct exchange then challenges actual statements before Main produces the user-facing synthesis.
-
-Unlike multi-model voting, the goal is to **allow a judgment to change in response to evidence**.
-
-If an investor says “a new technology ETF improves diversification,” Bear should investigate actual overlap rather than merely add a generic warning that technology valuations are high.
-
-Bear may acknowledge finding no sound disconfirmation. Bull may concede an error. Agreement does not automatically turn a shared opinion into a sourced fact. We want investors to stop relying on weak reasons, not watch agents collect victories.
-
-Let us make that concrete with numbers anyone can verify.
-
-## 4. A Checkable Example: Does Adding a Fund Actually Diversify Risk?
-
-The following is **entirely synthetic teaching data**. It represents no real portfolio, security, investor or forecast. Imagine total assets of 100 monetary units. Real look-through calculations must also align valuation times, currencies, classifications and disclosure coverage.
-
-The original portfolio holds 50% in a broad equity fund, 30% in bonds and 20% in cash. Compare two ways to add a 10% technology ETF allocation:
-
-| Plan | Broad equity | Technology ETF | Bonds | Cash |
-| --- | ---: | ---: | ---: | ---: |
-| A: leave unchanged | 50% | 0% | 30% | 20% |
-| B: fund with 10 points of cash | 50% | 10% | 30% | 10% |
-| C: replace 10 points of broad equity | 40% | 10% | 30% | 20% |
-
-Suppose the broad fund has 30% technology-sector exposure and the technology ETF has 80%. Assume the holdings use the same observation date and industry classification with complete coverage; in this teaching definition, bonds and cash carry no equity technology exposure.
-
-Weight the fund exposures by their portfolio allocations:
-
-~~~text
-A: 50% × 30%                          = 15%
-B: 50% × 30% + 10% × 80%              = 23%
-C: 40% × 30% + 10% × 80%              = 20%
-~~~
-
-Both proposed purchases **increase** technology-sector exposure. B adds eight percentage points; C adds five. B also reduces cash from 20% to 10% and raises the total equity share.
-
-We can now withdraw the statement “more funds automatically means less technology concentration.”
-
-But **greater technology weight alone does not prove that total portfolio volatility rises**, or that the purchase is necessarily unsuitable. If the investor intentionally wants more technology, that is a separate thesis requiring its own evaluation.
-
-This limited result is still valuable: it distinguishes observed changes from unsupported conclusions and unconfirmed personal goals.
-
-## 5. Turn “I Like Technology” Into a Thesis That Can Be Checked Later
-
-Investment retrospectives have a familiar weakness. Three months ago someone said “technology has a bright long-term future”; three months later, whatever the performance, a new paragraph can explain why the original idea was supposedly right all along.
-
-A versioned **Investment Thesis** prevents that kind of retroactive editing. It records a proposition, its subject, the supporting information, the date, and **the condition under which the proposition should be reconsidered**.
-
-The last element is a *falsification condition*: evidence that would make the original statement untenable.
-
-Our example contains three separate hypotheses:
-
-| Hypothesis | Original claim | What the given evidence establishes |
+| Perspective | Its first question | What it cannot conclude from the label alone |
 | --- | --- | --- |
-| H1 | Plan B does not increase technology-sector weight | Complete synthetic look-through shows a rise from 15% to 23% |
-| H2 | Plan B reduces overall portfolio volatility | Comparable return history and correlations are missing |
-| H3 | Plan B fits the investor’s long-term needs better | Confirmed cash requirements and investment goals are missing |
+| **Markowitz: allocation** | How do correlations, marginal risk and risk contributions change? | Without aligned return series, sector names cannot yield an optimal allocation |
+| **Taleb: tails and fragility** | What happens under market, liquidity or cross-border infrastructure stress? | Historical VaR does not capture every black swan or justify fabricated probabilities |
+| **Bernstein: long-term discipline** | Is the change consistent with the time horizon, cash needs and plan? | Current holdings do not establish the investor's true risk tolerance |
+| **Bogle: implementation cost** | Which index, tracking difference, overlap and total costs matter? | The lowest displayed price is not always the most suitable implementation |
+| **Marks: compensation for risk** | Does today's price adequately reward the risks being taken? | A macro story cannot precisely forecast a market turning point |
+| **Fama–French: factor explanation** | Which comparable historical factors may explain observed returns? | An explanatory regression is not manager skill, causality or a forecast of alpha |
 
-H1 can specify an exact falsification condition: “Comparable, complete look-through shows B has higher technology weight than A.” The provided calculation meets it, so H1 must be withdrawn.
+For a proposed technology ETF, Markowitz may focus on correlation with current holdings; Bernstein may question whether cash earmarked for a payment six months from now is truly available; Bogle may compare the total cost of alternative funds offering the same intended exposure. They need not arrive at identical sentences because they are answering different questions.
 
-H2 cannot substitute sector exposure for a properly defined total-risk estimate. H3 cannot invent a drawdown tolerance or cash plan from a role instruction.
+The value for the investor is not that “six professionals appeared.” It is that **one decision is tested against different, clearly identified criteria**.
 
-**Disproving one hypothesis does not prove or disprove everything else.**
+## 3. Independence Starts With Shared Facts, Not Shared Opinions
 
-## 6. What Should One Useful Round of Dialogue Actually Change?
+Generating three separate reports is easy. The hard part is avoiding different disclosure dates, incompatible data definitions and seemingly irreconcilable conclusions.
 
-The following exchange is constructed for teaching; it is **not** quoted from an actual ETF Agent model run.
+Our design prefers to reuse **the current Run's authorized source material and deterministic calculations** that Main already has. Existing `inputRefs` and Result/Lineage identities can pass actual result references to a Child. A new expert should not automatically fetch the same portfolio again or maintain its own competing truth database.
 
-> **Bull:** A technology ETF may offer additional growth exposure, but I have not verified whether the claim “more funds mean better diversification” holds for the current portfolio.
+Three concepts must remain separate:
+
+1. **Fact:** dated holdings, a product disclosure or an actually executed calculation, with its source and measurement basis.
+2. **Hypothesis:** a testable proposition such as “adding this ETF improves diversification.”
+3. **Opinion:** the interpretation a particular investment method develops from those facts and hypotheses.
+
+If Main tells every Child that it already believes the purchase improves diversification, and smuggles that provisional belief into the source facts, “independent analysis” may simply repeat Main's initial position. A better handoff carries the original materials and user restrictions. When critiquing an earlier view, label that view as a **claim to be examined**, not verified evidence.
+
+Sharing result identities also does not share permissions. A Child authorized to read protected data cannot grant sibling Children access by paraphrasing it. Host authorization and resource rules still govern every real tool call, disclosure and action.
+
+## 4. What Should Several Agents Do With the Same Portfolio?
+
+We use **entirely synthetic teaching data**, not real holdings. Suppose the original portfolio contains a broad equity fund (50%), bonds (30%), and cash (20%). The broad fund is 30% technology by the chosen classification, while the candidate technology ETF is 80% technology. We assume the disclosure dates, classifications and coverage are aligned and complete; bonds and cash have no equity technology exposure under this teaching definition.
+
+| Plan | Broad equity fund | Technology ETF | Bonds | Cash | Technology-sector exposure |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A: do nothing | 50% | 0% | 30% | 20% | **15%** |
+| B: buy with cash | 50% | 10% | 30% | 10% | **23%** |
+| C: replace broad equity | 40% | 10% | 30% | 20% | **20%** |
+
+The deterministic calculation is simply the sum of each fund's portfolio weight multiplied by its technology-sector weight. Three experts need not each recalculate it. The interesting question is **how they use the same qualified number differently**.
+
+- **Allocation perspective:** Plan B lifts technology-sector exposure from 15% to 23%, raises the overall equity allocation and reduces cash. Without comparable return and covariance data, it still cannot prove that overall portfolio volatility must increase.
+- **Long-term discipline:** Does that reduction in cash use money needed for a near-term payment? Until the investor confirms the need, the answer remains unknown.
+- **Implementation perspective:** If the real objective is an intentional technology overweight, which ETF benchmark, fees, trading conditions and overlapping holdings justify the implementation? Missing actual fee data cannot be replaced with precise-sounding numbers.
+
+These observations challenge a **specific proposition**: “Because there is one more fund, technology exposure cannot rise.” They do not establish that all measures of diversification worsened, or that the investor must buy or sell.
+
+This is a common multi-Agent failure mode: concatenate three expert reports and call the result “synthesis.” **Genuine synthesis relates different methods to one choice, including conditions that are still unresolved.**
+
+## 5. When Is a Bull–Bear Exchange Worthwhile?
+
+Different methods do not always require a debate. For “What is the overlap percentage?”, source retrieval and calculation matter most. When an important decision depends on a **falsifiable hypothesis**, an independent challenger may become valuable.
+
+Suppose original hypothesis H1 says: “Plan B does not increase technology-sector exposure.” Its original falsification condition is: on complete, comparable look-through data, B's technology weight is greater than A's.
+
+A simplified **synthetic teaching exchange**, not a transcript from a real model run, might look like this:
+
+> **Bull:** The technology ETF might increase targeted growth exposure, but I have not verified the assertion that more funds necessarily improve diversification.
 >
-> **Bear:** On the stated industry look-through, Plan B raises technology weight from 15% to 23%, which meets the original falsification condition for H1. Please withdraw H1. Overall volatility remains unknown.
+> **Bear:** Under the aligned data, Plan B increases technology exposure from 15% to 23%, satisfying H1's original falsification condition. Should you withdraw that specific proposition?
 >
-> **Bull:** I withdraw H1. If the goal is intentional technology overweight, we can examine valuation and funding, but that is not the original diversification claim.
+> **Bull:** I withdraw H1. If the investor wants an intentional technology overweight, we still need to assess the price, cash needs and whole-portfolio risk. We cannot claim that improved diversification was already demonstrated.
 
-One round is enough. The investor learns precisely which premise failed, why it failed and which new questions matter before proceeding.
+The useful change is not that Bear “won.” Bull actually revised a clearly identified reason.
 
-We do not ask Main to average a “buy 10%” recommendation with a “buy 0%” recommendation into a 5% trade. Financial decisions are not majority votes, and a missing input is not repaired by compromise.
+ETF Agent retains ordinary Main-to-Child delegation and Child-to-Main result handoff, while an admitted pair of Bull/Bear Children can **directly exchange public challenges and replies** within the original authorization. Main need not rephrase every exchange. They may stop early rather than exhaust a round quota. The actual transport, round bookkeeping, waiting and recovery mechanics are covered separately in [the Bull/Bear runtime article](bounded-bull-bear-peer-dialogue.md).
 
-## 7. The Engineering Challenge: Remember Why We Believed Something
+## 6. Main Is Responsible for Synthesis, Not a Vote
 
-An isolated answer can say “I changed my mind.” Sustainable research must answer a harder question months later: **Which hypothesis was recorded at the time, and what original evidence led to the revision?**
+If two experts disagree, which one should the investor trust?
 
-Our approach preserves versioned hypotheses, provenance and optional review associations rather than keeping every report and chat transcript in an endlessly expanding model context. A later user correction produces an explicit successor record; it does not overwrite the previous claim.
+**A vote, averaged position or consensus score cannot replace a supported investment assessment.** If one perspective needs correlations and another needs confirmation of cash requirements, averaging “buy 10%” and “do not buy” into a 5% order resolves neither missing input.
 
-This is a **conceptual illustration**, not an exact production schema:
+Main should bring together three categories: sourced facts and actual calculations; attributed findings and material differences from the specialists who truly participated; and conditions still unknown or awaiting investor clarification. If a Child fails or has not produced a result, Main cannot manufacture that specialist's vote. Independent valid findings remain deliverable.
+
+**A suitable user-facing synthesis**, still entirely hypothetical, might say:
+
+> Verified change: under these complete synthetic inputs, Plan B takes technology exposure from 15% to 23% and cash from 20% to 10%.
+>
+> Revised rationale: owning one additional fund did not establish that technology exposure was diversified. That specific reason should be withdrawn.
+>
+> Unresolved: total portfolio volatility, actual cash needs, ETF fees and valuation inputs remain insufficiently established.
+>
+> Next step: if the true goal is an intentional technology overweight, analyze that goal and its implementation directly. Do not create an automatic trading instruction.
+
+The investor benefit is not that AI sounds more confident. It is **knowing which reason changed and what remains necessary for a decision**. Demonstrating a real quality improvement requires independent comparison, not this synthetic case alone.
+
+## 7. Under the Hood: Several Methods, One Child Runtime
+
+We did not build six separate runtimes for Markowitz, Taleb, Bernstein, Bogle, Marks and Fama–French. Ordinary `web/pdf/python` expresses an execution specialty; optional `perspectiveId` identifies an investment method; `peer.role` represents a legitimate Bull/Bear assignment; and `subagentProfileId` refers to a saved user-authored method. **These are composable dimensions, not four levels of supervision.** The end-to-end qualification of the custom-profile combination remains separate and open.
+
+A conceptual example follows; it is **not an unchanged receipt from a real model request**:
 
 ~~~json
 {
-  "thesisId": "demo-tech-allocation",
-  "version": 1,
-  "hypothesisId": "H1",
-  "claim": "Plan B does not increase technology-sector weight",
-  "falsificationCondition": "Comparable, complete look-through shows B above A",
-  "source": "synthetic-lookthrough-v1"
+  "type": "python",
+  "task": "Review the marginal risk of the proposed technology allocation",
+  "perspectiveId": "investment-perspective/markowitz@1",
+  "inputRefs": ["the-current-run-authorized-calculation"]
 }
 ~~~
 
-When the challenge occurs, the system links the original thesis version to actual evidence and the public Bull/Bear messages that really occurred. It records the date, the reviewing author and unresolved gaps. Any replacement rationale becomes a successor, never a silent edit of version one.
+The important properties are identity and authority, not the JSON syntax:
 
-Old reports need not represent today’s reality. They **must** faithfully represent what was argued at the time. If “I bought it for diversification” can be silently rewritten as “I always intended a technology overweight,” there is no meaningful historical test.
-
-## 8. Four Assessment States—and the Important Fifth Case
-
-A completed thesis assessment can produce four attributed research judgments:
-
-| State | Plain-language meaning | Important limitation |
-| --- | --- | --- |
-| **Supported** | Current evidence supports the stated claim | Not a permanent truth or return guarantee |
-| **Challenged** | Material counterevidence exists but the original condition has not been established as met | Identify the unresolved dispute |
-| **Invalidated** | Qualified evidence establishes that the original falsification condition was met | H1 in this synthetic case |
-| **Inconclusive** | An assessment was performed, but evidence is insufficient or conflicting | Record the missing information |
-
-A fifth case sits **outside** those four labels: **no assessment was performed at all**. If no one examined the user’s actual cash requirements in H3, that is “not assessed,” not automatically Inconclusive and certainly not evidence of safety.
-
-Similarly, Bear’s failure to find a counterexample does not automatically support a thesis. The sample may be too short, coverage too weak or affirmative evidence absent.
+- A Host-registered method has a stable ID, version and content hash. Cold recovery cannot quietly replace it with a different method that happens to have the same name.
+- Main should reuse real `inputRefs` and original provenance, never promote its provisional thesis into source fact.
+- A saved personal Profile is identified user-authored method guidance, not an elevated system instruction or permission for peer messages, trading, additional tools or budget.
+- Children return attributed findings and gaps. Main owns the investment synthesis and final prose. Failure of an optional perspective cannot veto independently authorized results.
 
 ~~~mermaid
 flowchart TD
-    A[Read original thesis and falsification condition] --> B{Was an assessment actually performed?}
-    B -- No --> C[Record not assessed]
-    B -- Yes --> D[Inspect available supporting and opposing evidence]
-    D --> E{Enough evidence for a judgment?}
-    E -- No --> F[Record insufficient evidence and gaps]
-    E -- Yes --> G{Original falsification condition met?}
-    G -- Yes --> H[Record invalidated with reasons]
-    G -- No --> I{Material opposing evidence?}
-    I -- Yes --> J[Record challenged and unresolved dispute]
-    I -- No --> K{Clear affirmative support?}
-    K -- Yes --> L[Record supported]
-    K -- No --> F
-    C --> M[Preserve original version; never auto-trade]
-    F --> M
-    H --> M
-    J --> M
-    L --> M
+    U[Investor asks a question] --> M[Main confirms goal and available evidence]
+    M --> Q{One research path sufficient?}
+    Q -- Yes --> R[Main researches and delivers]
+    Q -- No --> P[Select relevant method and Child on demand]
+    P --> S[Children read the same authorized facts]
+    S --> D{Material hypothesis worth challenging?}
+    D -- No --> H[Hand back findings and gaps]
+    D -- Yes --> B[Optional Bull Bear falsification dialogue]
+    B --> H
+    H --> T[Main synthesizes sources and unresolved conditions]
+    T --> R
 ~~~
 
-This diagram explains a **review methodology**, not a program that mechanically proves investment truth from four fields. Each assessment is a dated, attributed research opinion rather than an instruction to trade. User authorization and execution controls remain separate.
+This is a **conceptual coordination diagram**, not a mandatory execution DAG. Its purpose is to avoid needless delegation while retaining meaningful independent challenges.
 
-## 9. Even Correct Arithmetic Can Produce an Incorrect Financial Story
+## 8. Engineering Success and Financial Quality Are Separate Questions
 
-The arithmetic behind 15%, 23% and 20% is elementary. In real fund portfolios, much of the difficulty occurs **before** arithmetic.
+Six methods already have scoped engineering evidence around immutable registration, actual Child requests and recovery. Bounded Bull/Bear dialogue has independent evidence for real pairing, public messages and cold recovery. None of that by itself establishes that the combination gives investors better answers.
 
-A fund may disclose only its largest holdings, not the complete book. Two disclosures may cover different dates. Domestic and overseas funds can differ in currency, time zone, share class or classification. Treating missing exposure as zero creates fictional completeness.
+Real models can choose the wrong specialist, duplicate delegated work, recast a hypothesis as a fact or spend much longer while producing only additional prose. **Subagent cost includes model calls, waiting, duplicate retrieval and Main's synthesis**, so it is not necessarily cheaper or faster than a capable single Main.
 
-Sector exposure and whole-portfolio risk are also different measures. For compatible asset-return series with consistent frequency and assumptions, portfolio variance is:
+The meaningful future comparison uses the same investor question and authorized data basis. Would a single Main discover the critical counterexample? Did a specialist contribute new verifiable information? Did Bull/Bear actually correct a mistaken reason? Was the extra time and resource use justified? Independent financial-quality qualification of the full picture is still open.
 
-\[
-\sigma_p^2 = w^\mathsf{T}\Sigma w
-\]
-
-In ordinary language, **w** describes portfolio weights; **Σ** describes each asset’s variability and how holdings move together. Knowing how much technology is held is not enough to know total portfolio volatility.
-
-Our teaching example provides no aligned historical return series, covariance estimate or rebalancing convention. We therefore cannot calculate a justified total-volatility change. Nor does it give credible valuation or fee inputs for a precise “cheap or expensive” conclusion.
-
-The following minimal Python example calculates technology weight for **fully supplied synthetic data** and refuses missing look-through rather than silently assigning zeros:
-
-~~~python
-from math import isclose, isfinite
-
-def tech_exposure(weights, lookthrough):
-    if set(weights) - set(lookthrough):
-        raise ValueError("Missing look-through data")
-    if not isclose(sum(weights.values()), 1, abs_tol=1e-9):
-        raise ValueError("Weights must sum to one")
-    if any(not isfinite(x) or not 0 <= x <= 1
-           for x in [*weights.values(), *lookthrough.values()]):
-        raise ValueError("Invalid proportion")
-    return sum(w * lookthrough[k] for k, w in weights.items())
-
-lookthrough = {"broad": .30, "tech": .80, "bond": 0., "cash": 0.}
-plans = {
-    "A": {"broad": .50, "tech": 0., "bond": .30, "cash": .20},
-    "B": {"broad": .50, "tech": .10, "bond": .30, "cash": .10},
-    "C": {"broad": .40, "tech": .10, "bond": .30, "cash": .20},
-}
-for name, weights in plans.items():
-    print(f"{name}: {tech_exposure(weights, lookthrough):.1%}")
-~~~
-
-The output is A: 15.0%, B: 23.0%, C: 20.0%. This verifies one weighted-exposure calculation, **not** a full engine for fund-of-funds nesting, leverage, derivatives or incomplete disclosures.
-
-That is why the investment perspectives should share verified inputs and deterministic calculations wherever possible before offering different interpretations. When source coverage cannot support a conclusion, narrow the conclusion instead of manufacturing a number.
-
-## 10. Personalization and Collaboration: Assist a Decision, Never Make It Without the Investor
-
-An investor might save recurring instructions such as “compare doing nothing before any rebalance,” “check my cash needs first,” or “explain how the thesis could fail.” Such instructions can improve relevance without pretending that the system already knows the user’s actual needs.
-
-A saved profile is not a verified statement of risk tolerance, and it is not permission to execute trades. Someone enthusiastic about technology needs an assistant that can challenge the extra risks, not one engineered to agree with their preference.
-
-As of October 24, 2026, ETF Agent had six optional investment methods, bounded direct Bull/Bear exchange and versioned links to the original investment thesis, with scoped engineering verification. Whether real models consistently discover more valid counterexamples than a single Main, and whether the cost is justified, still requires comparable live tasks under the same evidence, time and financial-quality criteria. One convincing simulated dialogue or passing implementation test cannot establish the benefit.
-
-We did not build these features so that an AI report could claim to contain more experts. We built them in pursuit of a rarer research process: **one that states its reasons clearly, explains how those reasons might fail, and is willing to revise them when qualified counterevidence arrives.**
+The point of investment-perspective Agents is not to manufacture more voices. It is to let each useful voice **test the same verifiable facts with an appropriate method**, disagree when warranted and remain accountable to the investor's actual question.
 
 ---
 
-### References and related reading
+### Further reading
 
-[1] Investor.gov, [Asset Allocation and Diversification](https://www.investor.gov/introduction-investing/getting-started/asset-allocation). General context for underlying investments and diversification, not a source for our synthetic numbers.
+[Subagent foundations](agent-subagent-context-specialization.md) explains context isolation and handoff. [Bounded Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) explains direct transport, waiting and recovery. [Multi-layer collaboration: an architecture outlook](multi-layer-agent-collaboration-outlook.md) preserves what has not yet been validated across the complete workflow. For versioned investment reasoning, see [Investment Thesis and continuing weekly research](agent-weekly-thesis-history-continuous-research.md).
 
-For fees and ownership costs, see Investor.gov’s [Mutual Fund and ETF Fees and Expenses](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/mutual-fund-and-etf-fees-and-expenses-investor-bulletin). Factor methods require market- and return-basis discipline; see the [Kenneth French Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/Data_Library/f-f_5developed.html).
-
-Engineering background: [Subagent collaboration](/en/articles/agent-subagent-context-specialization) and [bounded Bull–Bear peer dialogue](/en/articles/bounded-bull-bear-peer-dialogue). For continuous research, see [After the weekly report, does the Agent remember why?](/en/articles/agent-weekly-thesis-history-continuous-research). More essays are in the [ETF Agent article collection](https://github.com/hpoenixf/eff-agent-article); Stars welcome. This article is not investment advice.
+Every example here is synthetic and is not an investment recommendation. The engineering work is documented in [ETF Agent](https://github.com/hpoenixf/etf-agent); the [article collection](https://github.com/hpoenixf/eff-agent-article) welcomes Stars.
