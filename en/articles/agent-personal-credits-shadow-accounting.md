@@ -73,7 +73,7 @@ Any future enforced Credit admission requires independently designed atomic rese
 
 ## 5. Cost Attribution for a Particular Report Is Another Problem
 
-Users may eventually ask, “How much did this weekly report cost?” rather than “How much did I use this month?” Answering requires durable readback connections from physical requests to original Run/Action/Child, Publication revision, and Artifact identity. Shared costs need explicit attribution, retries need deduplication, and Web/API cost bases need their own evidence. **That is the separate E04 delivery-cost evidence design, not a completed property of P0 personal Credits.**
+Users may eventually ask, “How much did this weekly report cost?” rather than “How much did I use this month?” Answering requires durable readback connections from physical requests to original Run/Action/Child, Publication revision, and Artifact identity. Shared costs need explicit attribution, retries need deduplication, and Web/API cost bases need their own evidence. **Main now contains optional E04 Run/call and delivery-cost evidence projection and readback seams, but complete source coverage, formal acceptance and provider invoicing remain unproven. This is not a completed property of P0 personal Credits.**
 
 Existing Langfuse traces can help locate a model call, but the presence of a trace is neither complete usage accounting nor a provider invoice. Conversely, a Credits page that knows some usage cannot prove the final report was numerically correct or actually delivered. Resource cost and research value have different evidence requirements.
 

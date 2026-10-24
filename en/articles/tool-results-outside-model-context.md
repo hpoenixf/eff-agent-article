@@ -159,6 +159,14 @@ Only queries explicitly approved for reuse should match existing results by busi
 
 Together, these boundaries let the model return to original material without gaining extra access or unknowingly changing the object being analyzed.
 
+## A New Consumption Form: Reviewable Is Not a Second Answer
+
+After a research result is saved, readers may want to inspect supporting detail, input and coverage. By October 24, 2026, ETF Agent main included an **optional Reviewable research attachment**. Original A16 still owns result identity, versions and source lineage. After the final text transformation, A23 binds eligible review details to the corresponding Publication revision; A24/A25 expose already-saved details through existing History and client reading surfaces.
+
+This is not a new “the review must pass before publication” gate. When an attachment fails to load, exceeds its limits, or is no longer eligible for the current reader, the attachment degrades locally. Independently authorized answer text remains under the original Publication owner and is not erased by review-attachment errors. Reviewable can show **how materials were associated with a result**, but cannot certify the semantic truth of a conclusion or replace human financial review.
+
+The implementation seams exist in main. A readable review panel, however, does not establish that every natural research answer has sufficient sources, that citations support each claim, or that users completed meaningful review. This change deepens **result consumption and inspection**, without creating a second Result Manager or duplicating the research fact ledger.
+
 ## Put Decisive Records at the Tail of the Test
 
 Changing the entry limit from 20 to 60 solved the immediate problem for the 50-record input. Increasing capacity alone, however, could not establish that the next over-limit response would disclose its limitations.

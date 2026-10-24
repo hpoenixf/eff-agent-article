@@ -319,6 +319,14 @@ A complete capability set does not mean every problem merits delegation. Straigh
 
 **Choose Subagents because a task benefits from autonomous local work and isolated context—not because the system happens to support many roles.**
 
+## New Role Sources: Freeze Personal Profiles, Not Permissions
+
+By October 24, 2026, ETF Agent main contained account settings, method revisions, and Run snapshot integration for user-defined Subagent Profiles. A Profile contributes role description and method guidance, not a new Child Runtime. Main may select an eligible Profile from the catalog; the original A07 Child consumes the identity, revision, and content hash frozen for that Run. Editing or disabling a Profile later must not retroactively rewrite instructions belonging to a previous Run. History access still obeys the current reader's account permissions.
+
+These production seams are integrated in source, but the owning tasks for real PostgreSQL, authenticated-browser, and complete Child-to-Main user delivery are not formally closed. They belong inside the existing Subagent explanation, not in an article claiming that an entirely new Agent platform has been launched. Customizable roles do not grant additional tools, model routes, data sources, budgets, or investment execution rights.
+
+The adjacent [durable human-interaction mechanism](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
+
 ## Conclusion
 
 Our first objective was to reduce local context in Main and perhaps improve efficiency.
