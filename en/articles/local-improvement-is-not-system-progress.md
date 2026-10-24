@@ -49,7 +49,27 @@ Together, these episodes suggest the same method: **locate where loss really occ
 
 For the mechanics of externalized results, explicit reads, and coverage, see [Why Tool Results Do Not All Belong in Model Context](tool-results-outside-model-context.md).
 
-## 3. Better observation does not automatically make execution more reliable
+## 3. Why richer tool descriptions can make an agent more expensive
+
+To help the model choose the right tool, we tend to expand descriptions of purpose, appropriate uses, arguments, and error semantics. Clearer documentation for a single tool may reduce mistakes. But when many definitions enter the same model request, their names, descriptions, and schemas share its input budget even if some tools are never invoked. Claude's official [tool-use pricing documentation](https://platform.claude.com/docs/en/about-claude/pricing) counts those definitions as input tokens. Its [tool context guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context) also distinguishes prompt caching, which may reduce repeated charges, from actually reducing loaded context.
+
+Our own history also contains the opposite lesson. An early MCP discovery wrapper replaced an entire legitimate tool description with a generic warning when it contained certain innocent topic words. We restored trusted guidance at the time: removing useful instructions was not an adequate substitute for real authorization. As native MCP ownership evolved, the registered MCP Server became the source for complete business-tool descriptions and schemas. A34 Tool Surface now presents the lawful tools for the turn using original Run, Host, phase, and admission facts.
+
+**There is a correctness boundary we cannot cross just to save tokens.** The current A34 contract preserves complete descriptions and schemas for legal sibling tools within an active research domain. If the full surface cannot fit, the request must report a capacity problem. It must not silently truncate to a Top-N list or hide an otherwise admitted sibling just because a Skill did not mention it.
+
+We made a related trade-off for optional direct communication between Child agents: only an admitted paired Child should receive the dedicated communication tool and instructions. Ordinary Main, Child, and Reviewer requests should not pay for that extra tool surface. Main's existing spawn arguments may still contain a few optional fields, however. This is **reducing the normal-path tax**, not pretending it is zero.
+
+| Tool presentation strategy | Potential benefit | Trade-off |
+| --- | --- | --- |
+| Always include every tool with full guidance | Immediate choice, without discovery | Unrelated definitions repeatedly consume input budget |
+| Present complete tools using existing admission and task phase | Less unrelated overhead on ordinary requests | Preserve the legal set, full schemas, and final request parity |
+| Search for tools and load definitions on demand | Smaller initial context for large catalogs | Extra discovery turns, latency, and failure modes; not our existing A34 implementation |
+
+The third option has a concrete external precedent in [Anthropic Tool Search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool). Before adapting it to our runtime, we would have to reconcile discovery eligibility, original authorization, and final Tool Surface parity rather than simply dropping legal tools.
+
+**The objective is not to minimize the length of each description, but to balance the value and cost of relevant tool information across the entire request.** A real improvement would need comparable tasks measuring the actual submitted definitions, tool-selection and argument errors, input usage, latency, and final outcomes. That net benefit has not yet been measured here.
+
+## 4. Better observation does not automatically make execution more reliable
 
 The second illusion is subtler because we use dashboards to show that engineering work succeeded.
 
@@ -65,7 +85,7 @@ What we need is not a bigger “success dashboard.” We need stable identities 
 
 For the capture gaps, restoration, and diagnostics, see [From Traces to Trustworthy Observability](025-agent-langfuse-from-trace-to-trustworthy-observability.md).
 
-## 4. Fewer red evaluation lights can leave answer quality unchanged
+## 5. Fewer red evaluation lights can leave answer quality unchanged
 
 On another occasion, an independent judge repeatedly failed to produce parseable strict JSON. It was tempting to read the red lights as evidence that the worker model was unfit.
 
@@ -79,7 +99,21 @@ An evaluation therefore needs to distinguish at least three outcomes: **product 
 
 For denominators, actual delivery, and failure attribution, continue with [What Does a Green Test Really Prove?](honest-agent-evaluation.md).
 
-## 5. How can we tell whether an improvement propagated through the system?
+## 6. From local optimization to Pareto improvement
+
+In economics, a **Pareto improvement** makes at least one party better off without making anyone else worse off. A **Pareto-efficient** state admits no further improvement of that kind within the feasible set. This is not the same as maximizing a sum of metrics, nor does it identify one universally best solution. See the [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu/entries/economics/).
+
+For agent engineering, we borrow this multi-objective framing to compare correctness, task completion, cost, latency, and reliability over comparable workloads. This is an engineering analogy, not an equivalence between human welfare and machine metrics. Authorization, privacy, and financial safety first impose feasibility constraints that cannot be compensated for by higher scores elsewhere.
+
+Suppose richer tool descriptions really improve correct selection but consume more tokens. That may be **a worthwhile trade-off, not a strict Pareto improvement**. If ordinary requests can avoid unrelated tool-definition overhead while preserving complete tool contracts, safety, and quality, that might create a Pareto improvement. But an added discovery step may worsen latency. Widening the result projector from 20 to 60 records has the same tension: the importance of fixing correctness does not erase its resource costs.
+
+The repaired judge and trace-capture gaps reveal an earlier problem: **when the measurement apparatus changes, the metrics are not yet comparable**. A corrected pass rate alone does not place an agent closer to the Pareto frontier. Nor do we usually know the true frontier: model versions, task distributions, caching, and provider capacity change the feasible set.
+
+An architecture review should therefore ask: **Which end-to-end result improved? What was sacrificed? Is there an equally safe and effective alternative with a lower normal-path tax? Which costs remain unknown?**
+
+Not every worthwhile change must be a strict Pareto improvement. Quality gains may justify additional tokens; protecting safety may justify more latency. What matters is describing that trade-off instead of treating a local metric gain as free system-wide progress.
+
+## 7. How can we tell whether an improvement propagated through the system?
 
 I prefer to treat a change as an effect that must travel through a chain, rather than a local percentage we can immediately celebrate:
 
@@ -112,7 +146,7 @@ Consider changing a 20-item projection limit to 60.
 
 The point is not to invent one universal “overall score.” It is to know **where the benefit occurred, where risks moved, and what changed for the actual task**.
 
-## 6. This does not mean rerunning the entire research workflow for every change
+## 8. This does not mean rerunning the entire research workflow for every change
 
 There is a serious objection: if every field change, receipt repair, or monitoring adjustment requires repeated paid-model experiments, agent development becomes prohibitively slow.
 
@@ -130,7 +164,7 @@ What should stop is a different habit: steering every new optimization by a gree
 
 ## Conclusion: Progress must be confirmed along the outcome chain
 
-Expanding a tool projection improves what can be seen. Trustworthy traces improve our ability to explain execution. Repairing a judge improves its ability to express a judgment. All three changes are valuable, but their value is different.
+Expanding a tool projection changes what can be seen. Richer guidance affects tool selection and input burden. Trustworthy traces make execution easier to explain, while fixing a judge restores its ability to evaluate. These improvements can be valuable without adding up to a net system-level gain.
 
 Agent engineering should not aim to make every local metric individually maximal. It should make complete tasks better within trustworthy constraints, while remaining willing to say, “this time we only fixed measurement,” or “we do not yet know whether the system improved.”
 
@@ -138,4 +172,4 @@ Agent engineering should not aim to make every local metric individually maximal
 
 ---
 
-This is [Principle 9: Local improvements are not system progress](/en/principles#principle-9). It complements [Principle 5 on context projections](/en/principles#principle-5) and [Principle 8 on user-task success](/en/principles#principle-8): one asks where facts live, another asks whether the task finished, and this one asks **how we know a change really made things better**.
+This is [Principle 9: Local improvements are not system progress](/en/principles#principle-9). It complements [Principle 5 on context projections](/en/principles#principle-5) and [Principle 8 on user-task success](/en/principles#principle-8): one asks where facts live, another asks whether the task finished, and this one asks **how we distinguish true benefits, measurement corrections, and multi-objective resource trade-offs**.
