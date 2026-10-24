@@ -19,6 +19,12 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 [供应商模块：统一接口与共享准入](/articles/agent-provider-architecture-and-admission)与[安全故障切换：换路线，不重置任务](/articles/agent-provider-failover-without-resetting-the-run)现已分别进入模块和架构主线，均有完整英文版。前者解释配置、协议与容量生命周期，后者解释故障域、原 Run 授权和恢复；故障切换的完整应用验收与部署限制仍在正文中保留，不再作为待写新题。
 
+## 2026-10-24 补齐 A08 与 A30 专文
+
+[**A08 持久控制事件**](/articles/agent-control-events-durable-owner-adoption) 聚焦原效果已提交、投递 ACK 却丢失时如何读取回执、识别失效 Claim 和保护 unknown；[**A30 Provider 容量准入**](/articles/agent-provider-admission-capacity-lease) 聚焦 HTTP 200 与远端真实完成的差距，以及多进程共享容量的 Lease/隔离。两篇均提供完整中英文正文，继续区分源码机制、限定工程证据和生产资格。
+
+**A32 模型目录与路由配置** 沿 [既有 Provider 专文](/articles/agent-provider-architecture-and-admission) 新增章节深化，保留部分覆盖；**A27 每日个性研究** 继续等待可复核的真实用户结果。43 项 Owner 中有 29 个已形成独立主线、13 个部分覆盖、1 个尚未写，避免把这一数字误读为产品验收覆盖。
+
 ## 已发布展望 · 等真实结果后再写对照复盘
 
 [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](/articles/multi-layer-agent-collaboration-outlook)记录截至 2026-10-24 的模块实现前提、尚未验收的整体协作价值及将来对照单 Main 的方法。未来完整任务、真实金融质量和成本证据取得后，应另写复盘并保留原展望版本，不能在旧文里事后改写预测。
@@ -56,13 +62,13 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 | 主题 | 真正要回答的问题 | 状态 |
 | --- | --- | --- |
-| **持久控制事件** | 入箱、claim/fence、去重、ack 与真实效果怎样保持相同身份？ | 待独立成文 |
+| [**A08 持久控制事件**](/articles/agent-control-events-durable-owner-adoption) | 入箱、claim/fence、去重、ack 与真实效果怎样保持相同身份？ | 已形成独立中英文专文；后续只补新的跨进程证据 |
 | **Artifact 访问与分享** | 静态文件的原身份、当前访问权限与分享授权如何区分？ | 有现有 HTML 实例，先去重 |
 | **每日个性化研究** | 定时触发能否持续带来有用、可比较的研究价值？ | 等业务效果证据，不能只用定时成功替代 |
 
 ## 已有完整正文，不再占预告位置
 
-[供应商共享准入](/articles/agent-provider-architecture-and-admission) · [故障域感知切换](/articles/agent-provider-failover-without-resetting-the-run) · [架构演化与“五不”](/articles/code-cheaper-systems-harder-to-evolve) · [Tool Surface](/articles/agent-model-capability-presentation-tool-surface) · [A35 内容信任边界](/articles/agent-content-trust-prompt-injection) · [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [后台定时研究](/articles/agent-autonomous-scheduled-research) · [HTML 交付](/articles/agent-html-evolution-challenges) · [工程 Context / History](/articles/027-agent-context-document-history)。
+[A08 持久控制](/articles/agent-control-events-durable-owner-adoption) · [A30 共享容量](/articles/agent-provider-admission-capacity-lease) · [供应商共享准入](/articles/agent-provider-architecture-and-admission) · [故障域感知切换](/articles/agent-provider-failover-without-resetting-the-run) · [架构演化与“五不”](/articles/code-cheaper-systems-harder-to-evolve) · [Tool Surface](/articles/agent-model-capability-presentation-tool-surface) · [A35 内容信任边界](/articles/agent-content-trust-prompt-injection) · [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [后台定时研究](/articles/agent-autonomous-scheduled-research) · [HTML 交付](/articles/agent-html-evolution-challenges) · [工程 Context / History](/articles/027-agent-context-document-history)。
 
 **编辑约定：** 上述“深化”指对既有作品取材、校准和修改，不自动创建新 slug、改变已分享状态或承诺具体上线日期。只有完成正文、核验、入正式目录后才计为新文章。
 
