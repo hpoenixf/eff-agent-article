@@ -52,9 +52,15 @@ export const englishTitles = {
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
   "honest-agent-evaluation": "Tests and Evaluations: What Does Green Prove?",
   "test-lifecycle-refactoring-retirement-and-spec": "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec",
-  "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence"
+  "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence",
+  "agent-durable-human-interaction-response-adoption": "After an Agent Asks: Durable Human Response Adoption",
+  "agent-temporal-semantics-market-calendar": "When an Agent Says Today: User Time and Market Sessions",
+  "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-durable-human-interaction-response-adoption",
+  "agent-temporal-semantics-market-calendar",
+  "agent-personal-credits-shadow-accounting",
   "017-prompt-to-answer-six-layer-panorama",
   "agent-background-research-collaborative-experience",
   "mcp-host-from-discovery-to-consumption",
