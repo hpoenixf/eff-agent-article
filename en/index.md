@@ -30,6 +30,10 @@ features:
     link: /en/engineering
 ---
 
+## New Module Essays: Durable Control and Provider Capacity
+
+[A08 durable control events](/en/articles/agent-control-events-durable-owner-adoption) separates delivery ACKs, original effects and unknown outcomes. [A30 Provider Admission](/en/articles/agent-provider-admission-capacity-lease) explains shared queues, leases and unknown remote occupancy after HTTP 200. The existing [Provider architecture guide](/en/articles/agent-provider-architecture-and-admission) now also clarifies A32 model-catalog eligibility instead of adding a third overlapping essay.
+
 ## New Essays: Human Interaction, Time and Usage
 
 [Durable HIL](/en/articles/agent-durable-human-interaction-response-adoption) explains how a reply reaches its original research consumer. [Temporal semantics](/en/articles/agent-temporal-semantics-market-calendar) separates user days, market sessions and quote as-of times. [Shadow Credits](/en/articles/agent-personal-credits-shadow-accounting) tracks proven dispatches and missing usage without introducing billing or production quota denial.

@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 55 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 57 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层系统全景 →
@@ -41,7 +41,11 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 55 篇文章的入口。**
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[八条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 57 篇文章的入口。**
+
+## 新增模块深读 · 控制事件与共享容量
+
+[A08：Stop 命令为什么不能直接执行](/articles/agent-control-events-durable-owner-adoption)讲原事件、Claim/Fence 与原业务 ACK；[A30：HTTP 200 后为什么还要排队](/articles/agent-provider-admission-capacity-lease)讲跨进程租约与未知占用。A32 模型目录的适用范围已补进 [Provider 原文](/articles/agent-provider-architecture-and-admission)，不另开第三篇重复稿。
 
 ## 最近补齐 · 人工交互、时间与用量
 
