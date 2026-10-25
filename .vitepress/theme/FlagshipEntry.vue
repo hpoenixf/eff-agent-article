@@ -9,8 +9,8 @@ const isEnglish = computed(() => lang.value.startsWith('en'))
 const labels = computed(() => isEnglish.value ? {
   eyebrow: 'ESSENTIAL READING · START HERE',
   panoramaIndex: '01 / THE SYSTEM MAP',
-  panoramaTitle: 'Six-layer Agent architecture',
-  panoramaText: 'Follow one question through the Native Loop, tool execution, evidence, publication and durable human collaboration.',
+  panoramaTitle: 'Six-layer request lifecycle V3',
+  panoramaText: 'Follow a question through admission, context, Main and subagents, optional tools, Publication and the user interface.',
   panoramaAction: 'Read the complete architecture →',
   principlesIndex: '02 / THE DECISION MAP',
   principlesTitle: 'Eight architecture principles',
@@ -20,8 +20,8 @@ const labels = computed(() => isEnglish.value ? {
 } : {
   eyebrow: 'START HERE · 两篇首要必读',
   panoramaIndex: '01 / 系统运行地图',
-  panoramaTitle: '六层系统全景',
-  panoramaText: '从一句提问，走过 Native Loop、工具执行、证据计算、发布恢复与持久人机协作。',
+  panoramaTitle: '六层调用全景 V3',
+  panoramaText: '沿一次请求看接入、上下文、Main 与子代理、可选工具、发布和界面渲染。',
   panoramaAction: '完整阅读六层全景 →',
   principlesIndex: '02 / 架构判断地图',
   principlesTitle: '八条架构核心原则',
@@ -36,7 +36,7 @@ const labels = computed(() => isEnglish.value ? {
     <p class="flagship-entry__eyebrow">{{ labels.eyebrow }}</p>
     <div class="flagship-entry__grid">
       <a class="flagship-entry__card flagship-entry__card--panorama"
-         :href="withBase(isEnglish ? '/en/articles/017-prompt-to-answer-six-layer-panorama' : '/articles/017-prompt-to-answer-six-layer-panorama')">
+         :href="withBase(isEnglish ? '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' : '/articles/017-prompt-to-answer-six-layer-panorama-v3')">
         <span class="flagship-entry__index">{{ labels.panoramaIndex }}</span>
         <strong class="flagship-entry__title">{{ labels.panoramaTitle }}</strong>
         <span class="flagship-entry__body">{{ labels.panoramaText }}</span>

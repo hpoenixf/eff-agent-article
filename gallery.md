@@ -9,13 +9,13 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 # 能力 Owner · 架构图册
 
-**能力图册与六层全景是两种互补入口。** 想先了解整个 Agent 如何完成一次研究，请阅读[六层系统全景 V2：Native Loop 到持久 HIL](/articles/017-prompt-to-answer-six-layer-panorama)；要逐一定位模块及最终责任，再使用本页的交互式 Owner 图册。
+**能力图册与六层全景是两种互补入口。** 想先了解整个 Agent 如何完成一次研究，请阅读[六层调用全景 V3：从提问到可见答案](/articles/017-prompt-to-answer-six-layer-panorama-v3)；要逐一定位模块及最终责任，再使用本页的交互式 Owner 图册。
 
-**2026-10-25 状态对账：43 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
+**2026-10-25 状态对账：43 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。旧 V2 的 26 个环节是历史叙事视角；V3 使用六个请求处理阶段与跨层能力柱，不作为模块计数。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
 
 ## 交互式能力总览
 
-[全屏打开：43 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama)
+[全屏打开：43 个 Owner 与主要交接](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html) · [下载 SVG 总览](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/overview.svg) · [阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3)
 
 <iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 43 个能力 Owner 交互架构图"></iframe>
 
@@ -74,7 +74,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 **A37 HIO（双向人机交互，逻辑 Owner）**已完成 Main/Child 问答、非阻塞与安全等待、Effect Approval 和 Permission Request 的声明范围本地 provider-free 正式关闭及归档；原 Conversation、Effect、Authorization、Recovery 仍分别拥有自己的效果。生产 Human Park 默认关闭，真实模型提问质量和线上部署独立未验。完整机制见[持久 HIL 专题](/articles/agent-durable-human-interaction-response-adoption)。**A36 时间语义（独立 Owner）**已有主干实现、仍缺普通真实请求和完整关闭，见[时间语义专题](/articles/agent-temporal-semantics-market-calendar)。**个人 Shadow Credits**已在声明的 P0 账户用量范围完成本地 provider-free close 与归档，含选定 PG／浏览器非干扰性验收；仍不证明真实账单、完整成本归因或生产部署，见[Credits 专题](/articles/agent-personal-credits-shadow-accounting)。**E04 交付物成本归因**已有可选源代码投影与读取接缝，完整来源/正式验收仍在途；不能以 Shadow 或 Tool 计数代替完整发票。
 
-A34 Tool Surface、A35 有界内容信任、A28 Main 压缩等历史收口保留上方专文说明；它们的局部通过不自动转化为金融业务验收。更多判断方法见[架构原则](/principles)，主流程见[六层全景 V2](/articles/017-prompt-to-answer-six-layer-panorama)。
+A34 Tool Surface、A35 有界内容信任、A28 Main 压缩等历史收口保留上方专文说明；它们的局部通过不自动转化为金融业务验收。更多判断方法见[架构原则](/principles)，主流程见[六层全景 V2](/articles/017-prompt-to-answer-six-layer-panorama-v3)。
 
 ## 能力清单 {#owner-inventory}
 
@@ -92,10 +92,11 @@ A34 Tool Surface、A35 有界内容信任、A28 Main 压缩等历史收口保留
 
 ## 六层文章的流程片段
 
-以下 15 张 SVG 继续解释一次研究的局部顺序；每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 43 项。
+以下保留的 15 张历史 SVG 继续解释研究局部顺序；V3 另外提供按模块名称阅读的六层主图。每张可以跨多个 Owner，同一个 Owner 也会出现在多条路径中。图中的步骤名不是另一套模块名，模块数量与归属统一看上面的 43 项。
 
 | 流程片段 | 对应 Owner 与阅读边界 |
 | --- | --- |
+| [V3 · 六层请求处理与能力竖柱](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg) | 按模块名称聚合，展示主层与跨层参与；不替代 43 个 Owner 的权威图。 |
 | [01 · 六层研究闭环（V2）](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v2-native-loop-zh.svg) | 跨 Owner 的研究交接；不是完整模块总览。 |
 | [02 · 消息身份](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/identity.svg) | A02 消息接纳；账户身份另归 A01。 |
 | [03 · 研究循环](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/research.svg) | A03 提出策略/完成建议；A11 执行工具，A06 持有技术终结权。 |

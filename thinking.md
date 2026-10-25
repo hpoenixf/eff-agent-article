@@ -21,7 +21,7 @@ description: 22 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈
 
 **金融科技案例：** [一份周报过去后，Agent 还记得当初为什么这样判断吗？](/articles/agent-weekly-thesis-history-continuous-research)——历史事实、原始 Investment Thesis 和用户修正的不同归属；同时进入[金融科技 × Agent 精选](/fintech)。
 
-**入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
+**入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
 
 <ChapterCatalog category="thinking" />
 

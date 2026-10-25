@@ -4,11 +4,11 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 59 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 60 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
-      text: 先看六层系统全景 →
-      link: /articles/017-prompt-to-answer-six-layer-panorama
+      text: 先看六层调用全景 V3 →
+      link: /articles/017-prompt-to-answer-six-layer-panorama-v3
     - theme: alt
       text: 再读九条架构原则 →
       link: /principles
@@ -47,7 +47,7 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 59 篇文章的入口。**
+建议先读[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 60 篇文章的入口。**
 
 ## 新增架构原则 · 局部改善与整体进步
 
@@ -68,7 +68,7 @@ features:
 ## 第一次访问：从你关心的问题开始
 
 - **AI-native 前端：** [渐进式回答与实时内容修订](/articles/agent-progressive-answer-coherence) → [答案发布与可追溯版本](/articles/019-agent-answer-publication) → [HTML 与文件交付](/articles/agent-html-evolution-challenges)。这些是交互与交付机制文章，不代替公开可操作的前端 Demo。
-- **Agent 应用开发：** [六层运行链路](/articles/017-prompt-to-answer-six-layer-panorama) → [Subagent](/articles/agent-subagent-context-specialization) → [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)。
+- **Agent 应用开发：** [六层运行链路](/articles/017-prompt-to-answer-six-layer-panorama-v3) → [Subagent](/articles/agent-subagent-context-specialization) → [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)。
 - **Agent 系统架构：** [模型、运行时与协议职责](/articles/agent-model-runtime-mcp-skill-boundaries) → [代码授权](/articles/011-model-understands-code-authorizes) → [Run 终结权](/articles/agent-veto-authority-and-run-termination) → [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) → [Tool Surface 的真实演进](/articles/agent-model-capability-presentation-tool-surface) → [A35 内容信任](/articles/agent-content-trust-prompt-injection)。
 - **用 AI 研发 Agent：** [Spec 与执行证据](/articles/026-agent-spec-evidence-workflow) → [周报分期交付](/articles/agent-weekly-review-staged-delivery) → [旧知识退役](/articles/027-agent-context-document-history) → [测试生命周期](/articles/test-lifecycle-refactoring-retirement-and-spec) → [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence)。
 
@@ -78,7 +78,7 @@ features:
 
 **Owner 最新对账（2026-10-25）：** [架构图册](/gallery)已补充并发后台研究、可审阅结果、个人 Subagent Profile、时间语义与评测目录的主干实现及验收边界；当前为 43 项独立职责（新增 A36 时间语义与 A37 HIO），但代码与图册收录仍不构成真实模型或生产验收，新代码不自动成为已验证的研究质量或已上线功能。
 
-想理解系统整体架构：从 [43 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
+想理解系统整体架构：从 [43 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama-v3) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 
 想解决 Agent 产品运行难题：从 [Python 计算工作台](/articles/agent-python-compute-workbench-evolution)、[Memory 遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)、[Publication 独立发布](/articles/019-agent-answer-publication) 或 [任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) 切入。
 

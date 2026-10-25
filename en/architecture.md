@@ -6,6 +6,8 @@ title: Architecture Guide
 
 <FlagshipEntry compact />
 
+**Start with the [six-layer request lifecycle V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3)**. It follows one request through admission, conversation/context, Main and subagents, optional tools, publication and visible client results. [V2 is preserved](/en/articles/017-prompt-to-answer-six-layer-panorama) and the [original V1 remains readable](/articles/017-prompt-to-answer-six-layer-panorama-v1).
+
 The engineering articles separate model judgment from runtime facts and permissions. For a structured starting point, explore the [architecture reading path](/en/thinking), then the [module mechanisms](/en/modules).
 
 The [architecture principles](/en/principles) now distinguish eight durable judgments from six on-demand engineering methods; the [writing roadmap](/en/roadmap) distinguishes article revisions from unpublished candidates.

@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 59 unique essays.
+// One canonical reading tree: three perspectives and 60 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -168,8 +168,12 @@ export const collections = [
         "desc": "回答谁理解、谁授权、谁拥有事实，以及为什么必须能收回旧结构。",
         "items": [
           [
+            "017-prompt-to-answer-six-layer-panorama-v3",
+            "六层调用全景 V3：从提问到答案可见"
+          ],
+          [
             "017-prompt-to-answer-six-layer-panorama",
-            "六层系统全景 V2：从一次提问到持续协作"
+            "六层系统全景 V2（历史版本）：从提问到持续协作"
           ],
           [
             "011-model-understands-code-authorizes",
