@@ -17,7 +17,13 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 早期的六层文章按架构能力罗列模块，后来新增的后台 Research、Coord、Subagent、HIO、模型路由和异步交付很难放入原来的顺序，Subagent 甚至被挤成入口层的一小节。V3 改用“输入 URL 到页面渲染”式的讲法：**沿一次请求前进，再对有分支和回环的地方局部放大。**
 
-![六层处理模型：横向是请求环节，纵向是跨层能力](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
+    <a href="https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg">打开 SVG 模块导航图</a>
+  </object>
+</div>
+
+**交互导航：** 点击主图中任意实线 Owner 标签，可直达其专文；尚无独立专文的模块会打开对应 [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html)。虚线流程说明不是独立模块。图可横向滚动，或使用下方的 SVG 全屏链接；[正文模块索引](#capability-owner-links)也提供相同入口。
 
 [打开可放大的 SVG 全景图](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)：9 个能力分组、43 个独立模块标签；研究工具与金融工具、身份与授权分别合列。
 
@@ -51,19 +57,19 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 ## 三、L2 身份、会话与上下文：核对触发后准备任务
 
-**账户身份**先核验触发归属的真实主体、会话范围和可信变更来源；定时执行使用已确认的 Task/账户身份与原始授权记录，不能绕过认证。**对话接纳与任务接续**再建立或复用消息与 Run，分开 Conversation 与单次执行身份。显式 Continue、普通追问、同消息重发以及已在运行的后台任务，不共享一种“继续”语义。
+**[账户身份](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A01)**先核验触发归属的真实主体、会话范围和可信变更来源；定时执行使用已确认的 Task/账户身份与原始授权记录，不能绕过认证。**[对话接纳与任务接续](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A02)**再建立或复用消息与 Run，分开 Conversation 与单次执行身份。显式 Continue、普通追问、同消息重发以及已在运行的后台任务，不共享一种“继续”语义。
 
-**Run 授权与能力准入**把来源、工具和能力范围绑定到原 Run。账户身份回答“是谁的任务”，Run 授权回答“这个 Run 具体可以做什么”，二者都在 L2 有自己的 Owner，任何一种入口都不得绕过。恢复后的同 Run 使用原获准事实，不让某次重新装配的上下文变成新的授权。
+**[Run 授权与能力准入](/articles/011-model-understands-code-authorizes)**把来源、工具和能力范围绑定到原 Run。账户身份回答“是谁的任务”，Run 授权回答“这个 Run 具体可以做什么”，二者都在 L2 有自己的 Owner，任何一种入口都不得绕过。恢复后的同 Run 使用原获准事实，不让某次重新装配的上下文变成新的授权。
 
-每次模型调用还需要准备材料。**上下文投影与拟合**组装本轮历史、已获准工具结果、来源身份与容量限制；**长期记忆**提供受控的偏好或回忆；**Main 上下文压缩**决定哪些已结算历史可生成摘要、采纳并恢复；**行动提醒协调**把资源或上下文压力转成不具有授权效果的建议。四者会相遇，但负责的事实不同。
+每次模型调用还需要准备材料。**[上下文投影与拟合](/articles/tool-results-outside-model-context)**组装本轮历史、已获准工具结果、来源身份与容量限制；**[长期记忆](/articles/026-agent-memory-forget-durable-effects)**提供受控的偏好或回忆；**[Main 上下文压缩](/articles/agent-main-run-context-compaction)**决定哪些已结算历史可生成摘要、采纳并恢复；**[行动提醒协调](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)**把资源或上下文压力转成不具有授权效果的建议。四者会相遇，但负责的事实不同。
 
-方法也在这里装配：**Skill 方法与资源**提供版本化研究方法，**插件准入与生命周期**约束扩展包的激活和冻结版本，**生命周期事件与 Hook 执行**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
+方法也在这里装配：**[Skill 方法与资源](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)**提供版本化研究方法，**[插件准入与生命周期](/articles/020-agent-extension-host-smartphone)**约束扩展包的激活和冻结版本，**[生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution)**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
 
 L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新投影上下文、读取当前合格结果或触发压缩，**但不会因此重新创建 Run 或放大原授权**。
 
 ## 四、L3 Agent 决策与运行：先分支，再多轮执行
 
-这一层是模型真正参加决策的地方。**研究决策与综合**消费原问题与可见上下文，提出 Direct、Research 或 Coord；但可用分支由当前合法会话状态和资源条件决定，不能假定三种动作永远同时出现。
+这一层是模型真正参加决策的地方。**[研究决策与综合](/articles/adaptive-research-python-workbench)**消费原问题与可见上下文，提出 Direct、Research 或 Coord；但可用分支由当前合法会话状态和资源条件决定，不能假定三种动作永远同时出现。
 
 ![L3 Agent 决策与运行：Direct、Research 与 Coord 的条件分支、Main/Child 调用和各自交付出口](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-zh.svg)
 
@@ -71,7 +77,7 @@ L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新
 
 ### 4.1 Direct：调用模型，但跳过研究工具
 
-“行业集中度是什么意思？”可以直接形成短回答。它仍要走**模型目录与路由配置**、**模型调用与请求配置（Gateway）**和必要的 **Provider 容量准入**，但可以不执行 Web、PDF、Python 或金融工具。已有生产契约明确：Direct 内容也进入既有 Publication Owner，而非绕开正式发布机制。
+“行业集中度是什么意思？”可以直接形成短回答。它仍要走**[模型目录与路由配置](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A32)**、**[模型调用与请求配置（Gateway）](/articles/agent-provider-architecture-and-admission)**和必要的 **[Provider 容量准入](/articles/agent-provider-admission-capacity-lease)**，但可以不执行 Web、PDF、Python 或金融工具。已有生产契约明确：Direct 内容也进入既有 Publication Owner，而非绕开正式发布机制。
 
 模型选择需要看四个不同事实：客户端只能提出已配置的模型 ID；模型目录决定哪些路由与能力声明有效；本次 Gateway 绑定并发送实际配置；容量与 Run Budget 分别负责本次 Provider 资源和原 Run 的消耗。**Deep 由 Run 资源管理批准，不等于切换模型；思考强度属于具体模型请求配置，也不自动证明供应商实际采用了更深思考。**
 
@@ -79,7 +85,7 @@ L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新
 
 用户要求结合真实持仓与基金报告时，Main 在 Native Loop 中选择下一步：取数、读资料、复算、要求 Child 探索、合成结论，或提出结束。循环的底层执行语义仍由已有 `AgentTurn → ActionRuntime → CompletionGate` 承担，不需要新造一套 Supervisor 或通用 Workflow。
 
-**Child 执行生命周期**不是入口的小功能。Subagent 拥有自己的局部执行、重试、取消、结果身份和 Handoff；但继续共享 Root Run 的授权、资源与可靠恢复事实，不能因为独立执行就建立第二套投资账本或公共发布权。Main 消费 Child 的真实结果，负责综合和最终面向用户的正文。
+**[Child 执行生命周期](/articles/agent-subagent-context-specialization)**不是入口的小功能。Subagent 拥有自己的局部执行、重试、取消、结果身份和 Handoff；但继续共享 Root Run 的授权、资源与可靠恢复事实，不能因为独立执行就建立第二套投资账本或公共发布权。Main 消费 Child 的真实结果，负责综合和最终面向用户的正文。
 
 Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机制；是否值得委派由 Main 按任务判断。Child 读过某份原文、Main 只看过它提交的摘要，代表不同的证据消费事实，不可混用。
 
@@ -97,7 +103,7 @@ Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机
 
 ### 4.3 Coord：协调原 Run，不是第三套 Agent
 
-当同一个 Conversation 已有后台 Research，用户说“给刚才那项研究补上汇率因素”，普通新消息可以走 Coord。它必须关联合法的目标 Run，提出 `inspect`、`correct` 或 `stop` 等有界动作，再由原 **持久控制事件**、Correction、Continue 或终结 Owner 接纳真正的效果。模糊目标只澄清，不靠最新消息猜对象。
+当同一个 Conversation 已有后台 Research，用户说“给刚才那项研究补上汇率因素”，普通新消息可以走 Coord。它必须关联合法的目标 Run，提出 `inspect`、`correct` 或 `stop` 等有界动作，再由原 **[持久控制事件](/articles/agent-control-events-durable-owner-adoption)**、Correction、Continue 或终结 Owner 接纳真正的效果。模糊目标只澄清，不靠最新消息猜对象。
 
 当前初始并发配置下，**没有活动后台 Research 时普通 Entry 可选 Direct/Research；有活动后台 Research 时普通 Entry 可选 Direct/Coord**。这只是经准入的动作集合，而不是先按 `hasBackground` 做一轮固定分类。显式 Research/Deep 可跳过普通分类，但仍受后台容量、Scope 总额、Provider 租约和原预算约束。
 
@@ -105,13 +111,13 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 五、L4 工具与领域能力：把模型的“去查”变成可核对的回执
 
-模型提出一次工具动作，并不说明外部执行已经发生。**模型能力呈现与工具表面**确认模型真正看到的可用工具与 Host 当次获准执行面一致；**受控工具调用**核对参数、执行、结算并留存回执；**MCP 服务接入**负责远端连接、目录与协议通信。它们的权限、发送与结果职责不能互相替代。
+模型提出一次工具动作，并不说明外部执行已经发生。**[模型能力呈现与工具表面](/articles/agent-model-capability-presentation-tool-surface)**确认模型真正看到的可用工具与 Host 当次获准执行面一致；**[受控工具调用](/articles/agent-tool-lifecycle-and-model-input)**核对参数、执行、结算并留存回执；**[MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption)**负责远端连接、目录与协议通信。它们的权限、发送与结果职责不能互相替代。
 
-读研究资料时，可复用 **Web 研究读取、PDF 文档读取、知识检索、研究资料资产、隔离分析**。基金相关的数据与计算则通过“金融工具”族提供：市场证据采集、投资事实读取、确定性投资计算、投资账本与确认、原子报告生产。财务或时间敏感任务还会使用时间语义与市场 Session 解释，必要时使用精确数值运算。
+读研究资料时，可复用 **[Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading)、[PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence)、[知识检索](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)、[研究资料资产](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)、[隔离分析](/articles/agent-python-compute-workbench-evolution)**。基金相关的数据与计算则通过“金融工具”族提供：市场证据采集、投资事实读取、确定性投资计算、投资账本与确认、原子报告生产。财务或时间敏感任务还会使用时间语义与市场 Session 解释，必要时使用精确数值运算。
 
 因此，V3 不再设一层通用必经的“证据与计算”。它们是**L4 里可选、可组合的研究与领域工具能力**。普通 Direct 完全可以跳过；复杂投研可以反复取数、重读和计算。
 
-但有两条责任不能隐藏：第一，**研究结果与引用管理**保留 ResultRef、版本和来源/派生谱系，不能因为模型改写摘要就把新断言变成原始事实；第二，**投资账本与确认**的真实写入仍由业务 Owner 和用户确认要求控制，不能把模型建议当成已获批准的交易效果。
+但有两条责任不能隐藏：第一，**[研究结果与引用管理](/articles/tool-results-outside-model-context)**保留 ResultRef、版本和来源/派生谱系，不能因为模型改写摘要就把新断言变成原始事实；第二，**[投资账本与确认](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B04)**的真实写入仍由业务 Owner 和用户确认要求控制，不能把模型建议当成已获批准的交易效果。
 
 ### 5.1 四个容易混淆的交接
 
@@ -130,7 +136,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 六、L5 结果发布与交付：生成了内容，还不代表已经交给用户
 
-**正文发布与内容准备**负责候选正文、预览、版本修订、提交及其回执。Direct、Research 的部分结果与最终结果都要尊重它的内容处置权。**私有产物保存、访问与分享**另管 HTML、图表等 Artifact 的字节身份和下载许可；**会话事件与历史交付**负责 SSE、顺序、History 重放和后台通知。
+**[正文发布与内容准备](/articles/019-agent-answer-publication)**负责候选正文、预览、版本修订、提交及其回执。Direct、Research 的部分结果与最终结果都要尊重它的内容处置权。**[私有产物保存、访问与分享](/articles/agent-html-evolution-challenges)**另管 HTML、图表等 Artifact 的字节身份和下载许可；**[会话事件与历史交付](/articles/agent-asynchronous-research-time-bound-delivery)**负责 SSE、顺序、History 重放和后台通知。
 
 同一段文字可能经历不同事实：模型生成了正文、Publication 接纳了预览、数据库提交了修订、服务端推送了事件、客户端最终绘制了它。它们不是一个 `completed`。合法的部分正文可以先发布；后续工具失败不能把此前已提交的正文自动清空。
 
@@ -148,7 +154,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 七、L6 用户界面：交付对象必须能对回原 Run
 
-**客户端交互与阅读**负责输入、消息时间线、Markdown 和引用卡片、研究面板、SSE 消费、历史重放，以及中途插话后的多个 Run 展示。
+**[客户端交互与阅读](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A25)**负责输入、消息时间线、Markdown 和引用卡片、研究面板、SSE 消费、历史重放，以及中途插话后的多个 Run 展示。
 
 它不应该靠数组最后一条消息或一个全局 `busy` 决定所有消息归属。后台 Research A 尚未完成时，用户可以发起 Direct B；B 可以先完成，而 A 的阶段性结果和 Final 仍显示在 A 的研究视图下。History 快照也必须按照 Run 与 Publication revision 做有序还原，不把旧内容覆盖为新结果。
 
@@ -168,7 +174,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 六层是“什么时候需要完成什么交接”，Owner 是“谁对这项事实负责”。两种视角不是强制一一对应。
 
-**账户身份**与 **Run 授权与能力准入**主要在 L2，但 L4 的 Host 执行和 L5 的来源相关处置都要消费原授权。**长期记忆、上下文投影、Main 上下文压缩**主要归 L2，却会在 L3 的下一次模型请求中再次出现。**模型目录与路由配置**、**模型调用与请求配置**主要服务 L3，但模型选择从 L6 发起并经 L1/L2 验证或绑定。
+**账户身份**与 **Run 授权与能力准入**主要在 L2，但 L4 的 Host 执行和 L5 的来源相关处置都要消费原授权。**长期记忆、上下文投影、Main 上下文压缩**主要归 L2，却会在 L3 的下一次模型请求中再次出现。**模型目录与路由配置**、**[模型调用与请求配置](/articles/agent-provider-architecture-and-admission)**主要服务 L3，但模型选择从 L6 发起并经 L1/L2 验证或绑定。
 
 **Child 执行生命周期**在 L3 形成核心协作，在 L4 触达真实工具；**研究结果与引用管理**贯穿工具结果与发布消费。**发布与交付**主要在 L5，用户界面通过 L6 消费其合法版本。它们可以在图中形成连续或断裂的纵向柱子，不要求调用总是沿着柱子上下执行。
 
@@ -192,7 +198,7 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 
 ---
 
-## 附录：能力 Owner 与六层的主归属索引
+## 附录：能力 Owner 与六层的主归属索引 {#capability-owner-links}
 
 > 正文与主图使用模块名称；编号仅供查阅 [权威 Owner 清单](https://github.com/hpoenixf/etf-agent/blob/main/doc/agent-backend/system-map/module-owners.md) 和代码。下表的“主层”不表示只在该层运行。
 
@@ -201,74 +207,74 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A09 | 定时任务 | L2、L3、L5 |
-| A27 | 每日个性研究 | L2、L3、L5 |
+| A09 | [定时任务](/articles/agent-autonomous-scheduled-research) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A09) | L2、L3、L5 |
+| A27 | [每日个性研究](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A27) | L2、L3、L5 |
 
 ### L2 · 身份、会话与上下文
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A01 | 账户身份 | L1、L4 |
-| A02 | 对话接纳与任务接续 | L1、L5、L6 |
-| A04 | Run 授权与能力准入 | L1、L3、L4、L5 |
-| A08 | 持久控制事件 | L3、L5 |
-| A12 | Skill 方法与资源 | L3、L4 |
-| A13 | 插件准入与生命周期 | L3、L4 |
-| A14 | 上下文投影与拟合 | L3 |
-| A15 | 行动提醒协调 | L3 |
-| A26 | 长期记忆 | L3、L4 |
-| A28 | Main 上下文压缩 | L3 |
-| A35 | 内容安全策略与信任 | L3、L4 |
-| A37 | 持久人机交互（HIO） | L3、L5、L6 |
+| A01 | [账户身份](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [相关文章](/articles/011-model-understands-code-authorizes) | L1、L4 |
+| A02 | [对话接纳与任务接续](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [相关文章](/articles/agent-veto-authority-and-run-termination) | L1、L5、L6 |
+| A04 | [Run 授权与能力准入](/articles/011-model-understands-code-authorizes) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1、L3、L4、L5 |
+| A08 | [持久控制事件](/articles/agent-control-events-durable-owner-adoption) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3、L5 |
+| A12 | [Skill 方法与资源](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12) · [相关文章](/articles/agent-model-runtime-mcp-skill-boundaries) | L3、L4 |
+| A13 | [插件准入与生命周期](/articles/020-agent-extension-host-smartphone) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3、L4 |
+| A14 | [上下文投影与拟合](/articles/tool-results-outside-model-context) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
+| A15 | [行动提醒协调](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [相关文章](/articles/agent-subagent-context-specialization) | L3 |
+| A26 | [长期记忆](/articles/026-agent-memory-forget-durable-effects) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3、L4 |
+| A28 | [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
+| A35 | [内容安全策略与信任](/articles/agent-content-trust-prompt-injection) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3、L4 |
+| A37 | [持久人机交互（HIO）](/articles/agent-durable-human-interaction-response-adoption) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3、L5、L6 |
 
 ### L3 · Agent 决策与运行
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A03 | 研究决策与综合 | L2、L4、L5 |
-| A05 | Run 资源管理（含 Deep） | L2、L4、L5 |
-| A06 | Run 继续与终结 | L2、L5 |
-| A07 | Child 执行生命周期 | L2、L4 |
-| A10 | 模型调用与请求配置 | L2 |
-| A29 | 生命周期事件与 Hook 执行 | L2、L4 |
-| A30 | Provider 容量准入 | L2 |
-| A32 | 模型目录与路由配置 | L1、L2 |
-| A34 | 模型能力呈现与工具表面 | L2、L4 |
-| E04 | 研究调用证据留存与回读 | L4、L5 |
+| A03 | [研究决策与综合](/articles/adaptive-research-python-workbench) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A03) | L2、L4、L5 |
+| A05 | [Run 资源管理（含 Deep）](/articles/agent-runtime-constraint-governance-v2) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) | L2、L4、L5 |
+| A06 | [Run 继续与终结](/articles/agent-veto-authority-and-run-termination) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) | L2、L5 |
+| A07 | [Child 执行生命周期](/articles/agent-subagent-context-specialization) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) | L2、L4 |
+| A10 | [模型调用与请求配置](/articles/agent-provider-architecture-and-admission) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A10) | L2 |
+| A29 | [生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A29) | L2、L4 |
+| A30 | [Provider 容量准入](/articles/agent-provider-admission-capacity-lease) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A30) | L2 |
+| A32 | [模型目录与路由配置](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A32) · [相关文章](/articles/agent-provider-architecture-and-admission) | L1、L2 |
+| A34 | [模型能力呈现与工具表面](/articles/agent-model-capability-presentation-tool-surface) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34) | L2、L4 |
+| E04 | [研究调用证据留存与回读](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=E04) · [相关文章](/articles/agent-tool-lifecycle-and-model-input) | L4、L5 |
 
 ### L4 · 工具与领域能力
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A11 | 受控工具调用 | L2、L3 |
-| A16 | 研究结果与引用管理 | L3、L5 |
-| A17 | 研究资料资产 | L2 |
-| A18 | Web 研究读取 | L3 |
-| A19 | PDF 文档读取 | L3 |
-| A20 | 知识检索 | L3 |
-| A21 | 隔离分析 | L3、L5 |
-| A31 | MCP 服务接入 | L2、L3 |
-| A33 | 精确数值运算 | L3 |
-| A36 | 时间语义与市场 Session 解释 | L2、L3 |
-| B01 | 市场证据采集 | L3 |
-| B02 | 投资事实读取 | L3 |
-| B03 | 确定性投资计算 | L3 |
-| B04 | 投资账本与确认 | L6 |
-| B05 | 原子报告生产 | L3、L5 |
+| A11 | [受控工具调用](/articles/agent-tool-lifecycle-and-model-input) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2、L3 |
+| A16 | [研究结果与引用管理](/articles/tool-results-outside-model-context) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3、L5 |
+| A17 | [研究资料资产](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [相关文章](/articles/024-agent-pdf-from-text-to-evidence) | L2 |
+| A18 | [Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
+| A19 | [PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
+| A20 | [知识检索](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
+| A21 | [隔离分析](/articles/agent-python-compute-workbench-evolution) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3、L5 |
+| A31 | [MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2、L3 |
+| A33 | [精确数值运算](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A33) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| A36 | [时间语义与市场 Session 解释](/articles/agent-temporal-semantics-market-calendar) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2、L3 |
+| B01 | [市场证据采集](/articles/mcp-market-responsibility-retrospective) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
+| B02 | [投资事实读取](/articles/portfolio-mcp-readonly-investment-data) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
+| B03 | [确定性投资计算](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| B04 | [投资账本与确认](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [相关文章](/articles/030-fintech-from-research-to-investment-advice) | L6 |
+| B05 | [原子报告生产](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [相关文章](/articles/portfolio-mcp-readonly-investment-data) | L3、L5 |
 
 ### L5 · 结果发布与交付
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A22 | 私有产物保存、访问与分享 | L4、L6 |
-| A23 | 正文发布与内容准备 | L3、L4、L6 |
-| A24 | 会话事件与历史交付 | L2、L6 |
+| A22 | [私有产物保存、访问与分享](/articles/agent-html-evolution-challenges) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4、L6 |
+| A23 | [正文发布与内容准备](/articles/019-agent-answer-publication) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3、L4、L6 |
+| A24 | [会话事件与历史交付](/articles/agent-asynchronous-research-time-bound-delivery) · [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2、L6 |
 
 ### L6 · 用户界面
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A25 | 客户端交互与阅读 | L1、L2、L5 |
+| A25 | [客户端交互与阅读](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [相关文章](/articles/agent-progressive-answer-coherence) | L1、L2、L5 |
 
 工程导航 E01–E03 不计入上述 43 个生产能力 Owner。各模块是否已实施、限定验证、生产启用，仍以自身 Spec 与验收记录为准。
 

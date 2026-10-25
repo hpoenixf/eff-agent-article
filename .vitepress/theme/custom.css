@@ -273,3 +273,21 @@
 .article-architecture-figure.v2-feature-figure figcaption { color: #445b64; }
 .dark .article-architecture-figure.v2-feature-figure, .dark .article-architecture-figure.v2-overview-figure { background: #192729; border-color: #38575b; }
 .dark .article-architecture-figure.v2-feature-figure figcaption { color: #b6cbc9; }
+
+/* Interactive V3 Owner map: preserve in-SVG links (an <img> would disable them).
+   The scrollable canvas keeps 43 targets legible on narrow reading columns. */
+.v3-owner-map-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 12px;
+  background: #f6f8fc;
+  -webkit-overflow-scrolling: touch;
+}
+.v3-owner-map {
+  display: block;
+  width: 1500px;
+  height: 889px;
+  border: 0;
+}
+.v3-owner-map-scroll:focus-within { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }

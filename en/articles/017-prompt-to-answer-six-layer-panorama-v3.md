@@ -15,7 +15,13 @@ A user asks: “Analyze the industry concentration and currency exposure of my f
 
 The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
 
-![Six horizontal request stages and vertical capability-owner families](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg)
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 43 clickable capability owners">
+    <a href="https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg">Open the interactive SVG owner map</a>
+  </object>
+</div>
+
+**Interactive navigation:** Select any solid Owner chip to open its dedicated article, or its Owner detail when no dedicated article exists. Dashed notes are not standalone modules. Scroll horizontally or open the full-size SVG below; the [owner index](#capability-owner-links) offers the same destinations.
 
 [Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 43 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
 
@@ -49,19 +55,19 @@ All inputs converge on the original Task/Conversation, Run, grant, budget, Main/
 
 ## 3. L2 Identity, Conversation and Context — validate the trigger and prepare the Run
 
-**Account Identity** validates the actual subject, scope and trustworthy origin of the accepted trigger; a scheduled occurrence retains its confirmed task/account binding rather than bypassing authorization. **Conversation Admission and Continuation** then creates or reuses a message and Run. Ordinary follow-up, same-message replay, explicit Continue and an existing background task are four distinct relationships. Conversation identity is not the same thing as one execution's identity.
+**[Account Identity](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A01)** validates the actual subject, scope and trustworthy origin of the accepted trigger; a scheduled occurrence retains its confirmed task/account binding rather than bypassing authorization. **[Conversation Admission and Continuation](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A02)** then creates or reuses a message and Run. Ordinary follow-up, same-message replay, explicit Continue and an existing background task are four distinct relationships. Conversation identity is not the same thing as one execution's identity.
 
-**Run Authorization and Capability Admission** binds the originally permitted sources and tools. Account Identity answers *whose task this is*; Run Authorization answers *what this Run may use*. Both have independent Owners in L2, and no input path bypasses them. Same-Run recovery preserves the established grant, rather than asking a newly generated summary to reauthorize facts.
+**[Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes)** binds the originally permitted sources and tools. Account Identity answers *whose task this is*; Run Authorization answers *what this Run may use*. Both have independent Owners in L2, and no input path bypasses them. Same-Run recovery preserves the established grant, rather than asking a newly generated summary to reauthorize facts.
 
-**Context Projection and Fitting** assembles the actual model request from admitted history, tool results, provenance and token limits. **Long-Term Memory** supplies separately governed records and preferences. **Main Context Compaction** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **Action Reminder Coordination** offers advice about resource or context pressure, never an extra budget or permission.
+**[Context Projection and Fitting](/en/articles/tool-results-outside-model-context)** assembles the actual model request from admitted history, tool results, provenance and token limits. **[Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects)** supplies separately governed records and preferences. **[Main Context Compaction](/en/articles/agent-main-run-context-compaction)** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **[Action Reminder Coordination](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)** offers advice about resource or context pressure, never an extra budget or permission.
 
-**Skill Methods and Resources** provide versioned techniques. **Plugin Admission and Lifecycle** controls which reviewed extension generations can be loaded; **Lifecycle Events and Hook Execution** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
+**[Skill Methods and Resources](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)** provide versioned techniques. **[Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone)** controls which reviewed extension generations can be loaded; **[Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution)** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
 
 L2 is revisited before further ModelTurns. Reassembling context is not the same as restarting a Run or minting a new grant.
 
 ## 4. L3 Agent Decision and Runtime — choose a branch, then iterate
 
-The model participates in interpretation here. **Research Decision and Synthesis** can propose Direct, Research or Coord, but only from the action set allowed by the current authorized conversation snapshot and effective resource configuration. These are conditional branches, not three universal choices.
+The model participates in interpretation here. **[Research Decision and Synthesis](/en/articles/adaptive-research-python-workbench)** can propose Direct, Research or Coord, but only from the action set allowed by the current authorized conversation snapshot and effective resource configuration. These are conditional branches, not three universal choices.
 
 ![L3 Agent decision and runtime: conditional Direct, Research and Coord routes with Main/Child execution and distinct result delivery](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-en.svg)
 
@@ -69,7 +75,7 @@ The model participates in interpretation here. **Research Decision and Synthesis
 
 ### 4.1 Direct — still uses a model Gateway, but can skip L4
 
-“What does industry concentration mean?” can be answered directly. **Model Catalog and Routing Configuration** identifies valid models, provider mappings and declared capabilities; **Model Invocation and Request Configuration** binds and actually sends the model request through its Gateway; **Provider Capacity Admission** handles shared supply limits. **Run Resource Management** accounts for the separate Run budget.
+“What does industry concentration mean?” can be answered directly. **[Model Catalog and Routing Configuration](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A32)** identifies valid models, provider mappings and declared capabilities; **[Model Invocation and Request Configuration](/en/articles/agent-provider-architecture-and-admission)** binds and actually sends the model request through its Gateway; **[Provider Capacity Admission](/en/articles/agent-provider-admission-capacity-lease)** handles shared supply limits. **[Run Resource Management](/en/articles/agent-runtime-constraint-governance-v2)** accounts for the separate Run budget.
 
 A model selected in the UI does not determine the provider URL or grant an extra tool. Deep approval is a Run resource effect, not a model switch. Requested reasoning effort belongs to an individual model invocation; it does not prove how the provider internally reasoned. Direct can skip Web/PDF/Python or investment tools, **but still uses the proper Publication owner**.
 
@@ -77,7 +83,7 @@ A model selected in the UI does not determine the provider URL or grant an extra
 
 For source-grounded portfolio analysis, Main selects another read, computation, comparison, delegation or synthesis after observing real prior results. The existing Native Loop retains the AgentTurn → ActionRuntime → CompletionGate semantics. A new generic Supervisor, Coordinator or Graph runtime would merely recreate orchestration that the project deliberately retired.
 
-**Child Execution Lifecycle** is a central execution capability: bounded Child identity, model requests, status, retry, cancellation, result binding and handoff. Web, PDF, Python and expert-perspective children can share that mechanism. Main decides whether to delegate and ultimately synthesizes user-facing content; a Child does not own a second Root budget, investment ledger or public publication right.
+**[Child Execution Lifecycle](/en/articles/agent-subagent-context-specialization)** is a central execution capability: bounded Child identity, model requests, status, retry, cancellation, result binding and handoff. Web, PDF, Python and expert-perspective children can share that mechanism. Main decides whether to delegate and ultimately synthesizes user-facing content; a Child does not own a second Root budget, investment ledger or public publication right.
 
 A Child reading an original report and Main reading only that Child's summary are different evidence-consumption facts. The handoff must preserve actual source and result identities, including gaps and partial results, rather than silently promoting the summary to verified primary evidence.
 
@@ -95,7 +101,7 @@ This preserves V2's central Native Loop insight but names the Context, Agent, To
 
 ### 4.3 Coord — targeted control, not a third Agent engine
 
-If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **Durable Control Events**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.
+If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **[Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption)**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.
 
 In the initially qualified concurrency setup, ordinary Entry offers **Direct/Research without an active background Research**, and **Direct/Coord with one active background Research**. This is the authorized action set, not a global hasBackground classifier. Explicit Research/Deep may bypass ordinary route classification but must still pass background, scope, provider and resource admission.
 
@@ -103,13 +109,13 @@ Coord consumes a short-interaction allowance and may also publish an independent
 
 ## 5. L4 Tools and Domain Capabilities — from proposed call to receipt
 
-A model's “I'll look that up” is only a proposal. **Model Capability Presentation and Tool Surface** checks what tools the model actually sees against the admitted execution surface. **Controlled Tool Invocation** validates arguments, dispatches the action and settles an observed receipt. **MCP Service Connectivity** owns discovery, connection and protocol transport. Neither protocol discovery nor tool visibility grants new permission.
+A model's “I'll look that up” is only a proposal. **[Model Capability Presentation and Tool Surface](/en/articles/agent-model-capability-presentation-tool-surface)** checks what tools the model actually sees against the admitted execution surface. **[Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input)** validates arguments, dispatches the action and settles an observed receipt. **[MCP Service Connectivity](/en/articles/mcp-host-from-discovery-to-consumption)** owns discovery, connection and protocol transport. Neither protocol discovery nor tool visibility grants new permission.
 
-**Web Research Reading**, **PDF Reading**, **Knowledge Retrieval**, **Research Material Assets** and **Isolated Analysis** can be assembled as needed. The five B-class financial capabilities are folded into one **Financial Tools** family for the diagram: market evidence, authorized investment facts, deterministic calculation, ledger/confirmation and atomic reporting. **Temporal Semantics and Market Sessions** and **Exact Numeric Operations** are other opt-in tools.
+**[Web Research Reading](/articles/021-agent-web-research-from-search-to-deep-reading)**, **[PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence)**, **[Knowledge Retrieval](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)**, **[Research Material Assets](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)** and **[Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution)** can be assembled as needed. The five B-class financial capabilities are folded into one **Financial Tools** family for the diagram: market evidence, authorized investment facts, deterministic calculation, ledger/confirmation and atomic reporting. **[Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar)** and **[Exact Numeric Operations](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A33)** are other opt-in tools.
 
 Evidence and computation are not a universal fourth stage through which every answer must pass. These are optional capabilities of L4. Research can call them repeatedly; a simple Direct answer can omit them entirely.
 
-Two facts must remain distinct even in the simplified diagram. **Research Results and References** preserves ResultRef identity, derivation and source lineage across model turns and publication. **Investment Ledger and Confirmation** protects real financial changes: model advice cannot replace applicable user confirmation and business authorization.
+Two facts must remain distinct even in the simplified diagram. **[Research Results and References](/en/articles/tool-results-outside-model-context)** preserves ResultRef identity, derivation and source lineage across model turns and publication. **[Investment Ledger and Confirmation](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B04)** protects real financial changes: model advice cannot replace applicable user confirmation and business authorization.
 
 ### 5.1 Four handoffs that are easy to confuse
 
@@ -128,7 +134,7 @@ When date, coverage or financial methodology is insufficient, Partial or Unknown
 
 ## 6. L5 Publication and Delivery — generating is not committing
 
-**Answer Publication and Preparation** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **Private Artifact Storage and Sharing** owns separately authorized downloadable file bytes and revisions. **Conversation Events and Historical Delivery** owns ordered SSE events, replay and background notifications.
+**[Answer Publication and Preparation](/articles/019-agent-answer-publication)** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **[Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges)** owns separately authorized downloadable file bytes and revisions. **[Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)** owns ordered SSE events, replay and background notifications.
 
 Model text, accepted preview, committed body, server delivery event and browser rendering are five distinguishable facts. A well-written candidate is not evidence of user-visible delivery; failure of a later tool does not erase an independently committed earlier answer.
 
@@ -146,7 +152,7 @@ This is also why **Run termination, committed text, notification and browser ren
 
 ## 7. L6 User Interface — show the right Run and the right revision
 
-**Client Interaction and Reading** owns the composer, timeline, citations, cards, background research panel and ordered event/History consumption. A single global busy boolean or the last message in an array cannot explain concurrent Runs.
+**[Client Interaction and Reading](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A25)** owns the composer, timeline, citations, cards, background research panel and ordered event/History consumption. A single global busy boolean or the last message in an array cannot explain concurrent Runs.
 
 Research A may remain active while Direct B completes first. B's answer must not overwrite A's publications, and History refresh must reconcile per Run and Publication revision. A displayed answer-preview is not yet a durable commit; server-sent content does not itself prove browser rendering or user reading. L5 owns the legitimate publication; L6 owns client presentation.
 
@@ -174,7 +180,7 @@ The horizontal view says *when a concern occurs*; Owner identity says *who owns 
 
 **Run Authorization**, **Run Budget**, **Provider Capacity**, **Content Trust** and **HIO** supply constraints and interactions where required. HIO has completed scoped local Stage A–D provider-free verification, but production Human Park remains disabled by default. The fact that the model asked, the user replied and a protected business effect was actually accepted must not collapse into one status.
 
-**Research Exchange Evidence Capture**, Langfuse tracing and independent evaluation provide observation and feedback, not authority to publish, terminate or approve investment effects. A successful request, correct tool invocation, persisted publication and grounded financial conclusion have different evidentiary requirements.
+**[Research Exchange Evidence Capture](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=E04)**, Langfuse tracing and independent evaluation provide observation and feedback, not authority to publish, terminate or approve investment effects. A successful request, correct tool invocation, persisted publication and grounded financial conclusion have different evidentiary requirements.
 
 ## 11. What this diagram explains—and what it does not
 
@@ -186,7 +192,7 @@ V1 and V2 remain available as historical snapshots of real design evolution. **V
 
 ---
 
-## Appendix: the 43 capability owners by primary stage
+## Appendix: the 43 capability owners by primary stage {#capability-owner-links}
 
 The original capability Owner registry is authoritative for effects and facts. This appendix assigns each to one primary stage for orientation, and shows other stages it touches without inventing parent authority.
 
@@ -194,74 +200,74 @@ The original capability Owner registry is authoritative for effects and facts. T
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A09 | Scheduled Tasks | L2, L3, L5 |
-| A27 | Daily Personalized Research | L2, L3, L5 |
+| A09 | [Scheduled Tasks](/en/articles/agent-autonomous-scheduled-research) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A09) | L2, L3, L5 |
+| A27 | [Daily Personalized Research](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A27) | L2, L3, L5 |
 
 ### L2 · Identity, Conversation and Context
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A01 | Account Identity | L1, L4 |
-| A02 | Conversation Admission and Continuation | L1, L5, L6 |
-| A04 | Run Authorization and Capability Admission | L1, L3, L4, L5 |
-| A08 | Durable Control Events | L3, L5 |
-| A12 | Skill Methods and Resources | L3, L4 |
-| A13 | Plugin Admission and Lifecycle | L3, L4 |
-| A14 | Context Projection and Fitting | L3 |
-| A15 | Action Reminder Coordination | L3 |
-| A26 | Long-Term Memory | L3, L4 |
-| A28 | Main Context Compaction | L3 |
-| A35 | Content Trust and Security Policy | L3, L4 |
-| A37 | Durable Human Interaction (HIO) | L3, L5, L6 |
+| A01 | [Account Identity](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [Related reading](/en/articles/011-model-understands-code-authorizes) | L1, L4 |
+| A02 | [Conversation Admission and Continuation](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
+| A04 | [Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1, L3, L4, L5 |
+| A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3, L5 |
+| A12 | [Skill Methods and Resources](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A12) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
+| A13 | [Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3, L4 |
+| A14 | [Context Projection and Fitting](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
+| A15 | [Action Reminder Coordination](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Related reading](/en/articles/agent-subagent-context-specialization) | L3 |
+| A26 | [Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3, L4 |
+| A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
+| A35 | [Content Trust and Security Policy](/en/articles/agent-content-trust-prompt-injection) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3, L4 |
+| A37 | [Durable Human Interaction (HIO)](/en/articles/agent-durable-human-interaction-response-adoption) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3, L5, L6 |
 
 ### L3 · Agent Decision and Runtime
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A03 | Research Decision and Synthesis | L2, L4, L5 |
-| A05 | Run Resource Management (Deep) | L2, L4, L5 |
-| A06 | Run Continuation and Termination | L2, L5 |
-| A07 | Child Execution Lifecycle | L2, L4 |
-| A10 | Model Invocation and Request Configuration | L2 |
-| A29 | Lifecycle Events and Hook Execution | L2, L4 |
-| A30 | Provider Capacity Admission | L2 |
-| A32 | Model Catalog and Routing Configuration | L1, L2 |
-| A34 | Model Capability Presentation and Tool Surface | L2, L4 |
-| E04 | Research Exchange Evidence Capture and Readback | L4, L5 |
+| A03 | [Research Decision and Synthesis](/en/articles/adaptive-research-python-workbench) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A03) | L2, L4, L5 |
+| A05 | [Run Resource Management (Deep)](/en/articles/agent-runtime-constraint-governance-v2) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) | L2, L4, L5 |
+| A06 | [Run Continuation and Termination](/en/articles/agent-veto-authority-and-run-termination) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) | L2, L5 |
+| A07 | [Child Execution Lifecycle](/en/articles/agent-subagent-context-specialization) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) | L2, L4 |
+| A10 | [Model Invocation and Request Configuration](/en/articles/agent-provider-architecture-and-admission) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A10) | L2 |
+| A29 | [Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A29) | L2, L4 |
+| A30 | [Provider Capacity Admission](/en/articles/agent-provider-admission-capacity-lease) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A30) | L2 |
+| A32 | [Model Catalog and Routing Configuration](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A32) · [Related reading](/en/articles/agent-provider-architecture-and-admission) | L1, L2 |
+| A34 | [Model Capability Presentation and Tool Surface](/en/articles/agent-model-capability-presentation-tool-surface) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A34) | L2, L4 |
+| E04 | [Research Exchange Evidence Capture and Readback](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=E04) · [Related reading](/en/articles/agent-tool-lifecycle-and-model-input) | L4, L5 |
 
 ### L4 · Tools and Domain Capabilities
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A11 | Controlled Tool Invocation | L2, L3 |
-| A16 | Research Results and References | L3, L5 |
-| A17 | Research Material Assets | L2 |
-| A18 | Web Research Reading | L3 |
-| A19 | PDF Reading | L3 |
-| A20 | Knowledge Retrieval | L3 |
-| A21 | Isolated Analysis | L3, L5 |
-| A31 | MCP Service Connectivity | L2, L3 |
-| A33 | Exact Numeric Operations | L3 |
-| A36 | Temporal Semantics and Market Sessions | L2, L3 |
-| B01 | Market Evidence Collection | L3 |
-| B02 | Investment Fact Reading | L3 |
-| B03 | Deterministic Investment Calculations | L3 |
-| B04 | Investment Ledger and Confirmation | L6 |
-| B05 | Atomic Report Production | L3, L5 |
+| A11 | [Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
+| A16 | [Research Results and References](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3, L5 |
+| A17 | [Research Material Assets](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
+| A18 | [Web Research Reading](/articles/021-agent-web-research-from-search-to-deep-reading) (Chinese original) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
+| A19 | [PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
+| A20 | [Knowledge Retrieval](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L3 |
+| A21 | [Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3, L5 |
+| A31 | [MCP Service Connectivity](/en/articles/mcp-host-from-discovery-to-consumption) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2, L3 |
+| A33 | [Exact Numeric Operations](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A33) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| A36 | [Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2, L3 |
+| B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
+| B02 | [Investment Fact Reading](/articles/portfolio-mcp-readonly-investment-data) (Chinese original) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
+| B03 | [Deterministic Investment Calculations](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| B04 | [Investment Ledger and Confirmation](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |
+| B05 | [Atomic Report Production](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [Related reading](/articles/portfolio-mcp-readonly-investment-data) (Chinese original) | L3, L5 |
 
 ### L5 · Publication and Delivery
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A22 | Private Artifact Storage and Sharing | L4, L6 |
-| A23 | Answer Publication and Preparation | L3, L4, L6 |
-| A24 | Conversation Events and Historical Delivery | L2, L6 |
+| A22 | [Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
+| A23 | [Answer Publication and Preparation](/articles/019-agent-answer-publication) (Chinese original) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
+| A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
 
 ### L6 · User Interface
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A25 | Client Interaction and Reading | L1, L2, L5 |
+| A25 | [Client Interaction and Reading](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [Related reading](/en/articles/agent-progressive-answer-coherence) | L1, L2, L5 |
 
 Engineering navigation E01–E03 is not counted among these 43 production-capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
 
