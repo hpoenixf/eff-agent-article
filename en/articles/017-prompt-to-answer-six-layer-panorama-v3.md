@@ -19,7 +19,7 @@ The earlier six-layer story grouped architectural capabilities. Background Resea
 
 [Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 43 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
 
-The figure contains six horizontal request-processing bands and vertical capability bars. **Each solid-bordered chip names one real capability Owner; its module name is prominent and its ID is secondary. Pale dashed boxes describe workflow actions or capability groups, not additional modules.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
+The figure contains six horizontal request-processing bands and vertical capability bars. **Each solid chip is a real Owner; its name is primary and its ID is an index. Every dashed workflow note names the Owner(s) it derives from. Dashed column headings are reading groups, not modules.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
 
 | Stage | Core question | Hand-off |
 | --- | --- | --- |
@@ -98,6 +98,18 @@ For source-grounded portfolio analysis, Main selects another read, computation, 
 
 A Child reading an original report and Main reading only that Child's summary are different evidence-consumption facts. The handoff must preserve actual source and result identities, including gaps and partial results, rather than silently promoting the summary to verified primary evidence.
 
+**Zoom in: why Research is a loop, not a one-way six-stage pipeline**
+
+![Native research loop: Main strategy, Host execution, receipts and another model turn, with Direct bypass, recovery and publication](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-native-loop-en.svg)
+
+[Open the full-size loop illustration](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-native-loop-en.svg)
+
+The central loop is **Main chooses an action → Host executes → real receipts/results are returned → Main chooses again**. Main may delegate a bounded task to a Child; the Child submits local results and source references, while Main decides whether to investigate further or synthesize. **One iteration is not the same as a completed Run.** Valid partial text may already pass through Publication while Research is still running.
+
+The three lower paths are not sequential phases: **Publication** owns content revisions, **Recovery/HIO** manages safe suspension and continuation under the original identity, and **observation/evaluation** explains failures from independent evidence. These concerns cannot grant each other authority merely because they touch the same Run. Direct still uses the model Gateway and Publication; it only skips research tools.
+
+This preserves V2's central Native Loop insight but names the Context, Agent, Tool, Result, Publication and recovery handoffs according to the revised six-stage view.
+
 ### 4.3 Coord — targeted control, not a third Agent engine
 
 If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **Durable Control Events**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.
@@ -116,6 +128,21 @@ Evidence and computation are not a universal fourth stage through which every an
 
 Two facts must remain distinct even in the simplified diagram. **Research Results and References** preserves ResultRef identity, derivation and source lineage across model turns and publication. **Investment Ledger and Confirmation** protects real financial changes: model advice cannot replace applicable user confirmation and business authorization.
 
+### 5.1 Four handoffs that are easy to confuse
+
+A research failure often starts when success at one seam is mistaken for success at another. Consider a fund-document task:
+
+| Handoff | What is actually established | What remains unproven | Primary responsible capability |
+| --- | --- | --- | --- |
+| **Model → Gateway** | A request returned text or a proposed tool call; completeness is checked against the actual protocol | Half-returned tool arguments are executable, or the provider used the requested internal reasoning effort | Model Invocation and Request Configuration |
+| **Tool discovery → Host** | MCP discovered and described a tool; Host still checks current arguments and Run Grant | Discovery alone granted this user permission to invoke it | MCP Connectivity, Controlled Tool Invocation, Run Authorization |
+| **Search hit → Source reading** | RAG found an attributed candidate excerpt or PDF reader located a page | The entire report and all conditions or missing pages have been checked | Knowledge Retrieval, Research Assets, PDF Reading |
+| **Tool receipt → Next model turn** | Python or a remote tool returned an identified, versioned result with provenance | Execution proves financial methodology is suitable, or a Child summary equals Main reading the original source | Research Results and References, Context Projection |
+
+A further extension constraint matters: **a post-tool Hook may narrow what the model sees, but must not silently replace surviving numbers, provenance or their original paths with fabricated facts**. A local Hook rejection does not own termination of the entire Run.
+
+When date, coverage or financial methodology is insufficient, Partial or Unknown may be the accurate result. The model interprets gaps, deterministic financial computation owns domain formulae, and Numeric performs only explicitly contracted arithmetic. None automatically certifies the other.
+
 ## 6. L5 Publication and Delivery — generating is not committing
 
 **Answer Publication and Preparation** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **Private Artifact Storage and Sharing** owns separately authorized downloadable file bytes and revisions. **Conversation Events and Historical Delivery** owns ordered SSE events, replay and background notifications.
@@ -123,6 +150,16 @@ Two facts must remain distinct even in the simplified diagram. **Research Result
 Model text, accepted preview, committed body, server delivery event and browser rendering are five distinguishable facts. A well-written candidate is not evidence of user-visible delivery; failure of a later tool does not erase an independently committed earlier answer.
 
 Background Research can continue while foreground messages are answered, publish partial results and deliver a final report later. Time promises such as at/by, research completion and actual notification are separate records. Sending a notice must not rerun research or mint a second report identity.
+
+### 6.1 “Continue” can mean three different things
+
+| User-visible situation | Correct system behavior | What must not be substituted |
+| --- | --- | --- |
+| **Research is still running in the background** | The original Run continues and may publish partial or final text; a new short question gets its own Run | Automatically cancel earlier Research or reuse one global `busy` flag |
+| **A Run is safely parked for a real dependency** | The original Control/Recovery path claims a valid wake under its fence, retaining budget, grant and settled receipts | Redispatch completed tools or refresh the deadline for more budget |
+| **The original Run is terminal and the user explicitly continues** | Conversation/Continue prepares a related new Run with lawfully inherited context and authorization | Pretend the new study was always the same still-running Run |
+
+This is also why **Run termination, committed text, notification and browser rendering** are four different facts. Observability must use the corresponding real receipts, not one `completed` value or the last Trace span.
 
 ## 7. L6 User Interface — show the right Run and the right revision
 
