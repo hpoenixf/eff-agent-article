@@ -65,26 +65,9 @@ L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新
 
 这一层是模型真正参加决策的地方。**研究决策与综合**消费原问题与可见上下文，提出 Direct、Research 或 Coord；但可用分支由当前合法会话状态和资源条件决定，不能假定三种动作永远同时出现。
 
-```mermaid
-flowchart TD
-    U[聊天或已确认 Task 触发] --> C[身份与 Run 准入、上下文装配]
-    C --> E{Agent 本次可选什么}
-    E -->|Direct| D[生成短回答]
-    E -->|Research| R[Main 进入研究循环]
-    E -->|Coord| Q[提议检查或调整目标 Run]
-    R --> T[调用获准工具]
-    T --> R
-    R -->|按需委派| S[Subagent 局部研究]
-    S --> T
-    S -->|提交 Handoff| R
-    Q --> X[由原控制 Owner 验证目标与效果]
-    D --> P[Publication]
-    R -->|部分或最终成果| P
-    Q -->|独立回答或控制结果| P
-    X -->|反馈结果| P
-    P --> H[History / SSE / 异步通知]
-    H --> V[用户界面]
-```
+![L3 Agent 决策与运行：Direct、Research 与 Coord 的条件分支、Main/Child 调用和各自交付出口](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-zh.svg)
+
+[放大查看 L3 条件分支图](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-zh.svg)
 
 ### 4.1 Direct：调用模型，但跳过研究工具
 

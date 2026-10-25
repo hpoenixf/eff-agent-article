@@ -63,26 +63,9 @@ L2 is revisited before further ModelTurns. Reassembling context is not the same 
 
 The model participates in interpretation here. **Research Decision and Synthesis** can propose Direct, Research or Coord, but only from the action set allowed by the current authorized conversation snapshot and effective resource configuration. These are conditional branches, not three universal choices.
 
-```mermaid
-flowchart TD
-    U[Chat or accepted Task trigger] --> C[Verify identity and Run, prepare context]
-    C --> E{Which actions are available?}
-    E -->|Direct| D[Generate short response]
-    E -->|Research| R[Main enters research loop]
-    E -->|Coord| Q[Propose targeted Run coordination]
-    R --> T[Invoke admitted tools]
-    T --> R
-    R -->|Delegate as needed| S[Subagent explores task]
-    S --> T
-    S -->|Submit handoff| R
-    Q --> X[Control owner checks target and effect]
-    D --> P[Publication]
-    R -->|Partial or final content| P
-    Q -->|Independent answer / control outcome| P
-    X -->|Return control outcome| P
-    P --> H[History / SSE / Async notice]
-    H --> V[User interface]
-```
+![L3 Agent decision and runtime: conditional Direct, Research and Coord routes with Main/Child execution and distinct result delivery](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-en.svg)
+
+[Open the full-size L3 routing diagram](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-entry-routing-en.svg)
 
 ### 4.1 Direct — still uses a model Gateway, but can skip L4
 
