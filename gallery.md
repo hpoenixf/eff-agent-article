@@ -11,7 +11,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 **能力图册与六层全景是两种互补入口。** 想先了解整个 Agent 如何完成一次研究，请阅读[六层系统全景 V2：Native Loop 到持久 HIL](/articles/017-prompt-to-answer-six-layer-panorama)；要逐一定位模块及最终责任，再使用本页的交互式 Owner 图册。
 
-**2026-10-24 状态对账：43 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
+**2026-10-25 状态对账：43 个能力 Owner。** 按完整能力及其负责效果的最终归属划分；分组只用于阅读，不增加父级裁决权。六层文章中的 26 个环节是叙事视角，不作为模块清单。本文区分 **源码已交付、限定验收通过、Spec 归档、真实模型质量**，不以其中一项替代其他项。
 
 ## 交互式能力总览
 
@@ -39,6 +39,23 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 **43 项 = A01–A37 + B01–B05 + E04。** A33 仍只负责显式十进制、单位与舍入残差，金融方法在原领域；Deep 归 A05，收尾归 A06，插件归 A13，Hook 归 A29，MCP 连接归 A31，工具调用归 A11。遥测、服务健康、评测三个工程导航另列，不计入 Owner 总数。能力列入图册不等于所有场景都通过真实模型或部署验收。
 
+## 2026-10-25：今日更新与等待协作 {#daily-status-20261025}
+
+根据本日主干提交、原 Owner 的任务与证据、以及站点发布记录同步。**「已完成」只针对明确的工程验收范围；「等待协作」指原 Owner 仍需实施或验收，不推断执行者已认领、后台正在运行或功能已经上线。** 下文 10 月 24 日记录保留为历史快照。
+
+| 状态 | 今日确认的进展 | 下一步／等待协作 |
+| --- | --- | --- |
+| **限定 P0 已完成** · Shadow Credits | 账户用量展示、账户隔离及选定 PG／浏览器非干扰性有原范围 provider-free close 与归档。 | 不等于 Provider 发票、完整交付成本、付费额度硬门或生产部署。[机制说明](/articles/agent-personal-credits-shadow-accounting) |
+| **中英文章已发布** · 自定义专家 | [自定义专家工程案例](/articles/agent-custom-expert-from-prompt-to-recovery)已入站，解释私有方法、冻结版本、Child 绑定及 History；[Subagent 原文](/articles/agent-subagent-context-specialization)继续深化专家资源与编排依赖。 | 文章发布不替代个人 Profile 原任务的普通账户、PG 恢复及端到端研究验收。 |
+| **持续验收** · 统一专家 / A07 | General/Python 文件交付与两组投资方法协作有 **3 条符合本轮标准的真实对话**；Reviewer 顺序与提前 HIL 已有定向工程修复。 | Peer／Reviewer／HIL 完整自然对话、Native 跨进程与整项 close 未完成；此前 partial 与失败保留。 |
+| **已接线，质量待验** · 前后台协作 | 后台长研究与前台短答的有界并发沿原 Conversation／Run／History 接线。 | 复杂研究仍有 partial／轮次耗尽；默认开关、完整研究结果、质量与部署须独立验收。 |
+| **P0 等待真实结果** · 来源／计算／交付 | 来源身份、可审阅结果、确定性数值和保存通路各有实现或有限证据。 | **首份真实公开基金研究**须由普通入口完整核对来源、数字口径、可读正文、实际文件与 fresh History，并独立复核；工具调用成功不是交付成功。 |
+| **部分实现，原验收开放** · Profile / A36 | 个人 Subagent Profile 的账户、版本化 Child/History 与 A36 时间语义已存在主干实现。 | Profile 的原账户／PG／正常研究闭环，A36 的合格市场日历来源、认证请求和 formal close 仍开放；日历默认关闭。 |
+| **设计／部分候选** · E04 / Sidecar | E04 成本归因存在局部候选接线，Sidecar Conversation 已有分期 Spec。 | E04 原任务及周报 costEvidence 完整回读未关闭；Sidecar A/B/C 尚未实施，不作为已开放产品交互。 |
+| **评审与 Spec** · Runtime 解耦 | 已完成 Child/HIL、Recovery、共享状态与 Memory 耦合的静态评审；深度重构另有 Spec 草案。 | 待原执行者对账在途改动、分期实施和验收；**没有生产重构已完成的依据**。 |
+
+**最高优先级仍是可复核的真实金融研究结果。** 当前仍是 **43 个能力 Owner**；不要因 Spec、可调用模块或单项 close 增设裁决者或宣布金融质量合格。
+
 ## 2026-10-24：哪些能力已经进入主干，哪些仍待验证
 
 本轮以**已提交的实现**与原责任方的验收记录为依据，更新图册的状态说明；并不声称已审查或运行完整产品。本轮由用户批准把独立 A36（时间语义）与 A37（持久 HIO）正式纳入交互图，**能力清单现为 43 项**。两个 Owner 的负责事实与局部拒绝不同于其依赖的 A03/B01/Recovery/Authorization；列入图册只确认职责，不替代 P0 验收与默认生产启用。
@@ -55,7 +72,7 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 **当前最重要的开放工作**仍然是交付一份能独立复核的真实基金研究：正常入口获得正确来源和计算、生成可读正文及可读取的 History，再由独立判断确认其价值。后台复杂研究的 partial 原样保留；Profile 与 A36 分别补原账户/数据来源/跨进程/普通请求验收。
 
-**A37 HIO（双向人机交互，逻辑 Owner）**已完成 Main/Child 问答、非阻塞与安全等待、Effect Approval 和 Permission Request 的声明范围本地 provider-free 正式关闭及归档；原 Conversation、Effect、Authorization、Recovery 仍分别拥有自己的效果。生产 Human Park 默认关闭，真实模型提问质量和线上部署独立未验。完整机制见[持久 HIL 专题](/articles/agent-durable-human-interaction-response-adoption)。**A36 时间语义（独立 Owner）**已有主干实现、仍缺普通真实请求和完整关闭，见[时间语义专题](/articles/agent-temporal-semantics-market-calendar)。**个人 Shadow Credits**已有账户页面及有限工程验收，但原 Scheduler/Task PG 非干扰性和整项关闭仍开放，见[Credits 专题](/articles/agent-personal-credits-shadow-accounting)。**E04 交付物成本归因**已有可选源代码投影与读取接缝，完整来源/正式验收仍在途；不能以 Shadow 或 Tool 计数代替完整发票。
+**A37 HIO（双向人机交互，逻辑 Owner）**已完成 Main/Child 问答、非阻塞与安全等待、Effect Approval 和 Permission Request 的声明范围本地 provider-free 正式关闭及归档；原 Conversation、Effect、Authorization、Recovery 仍分别拥有自己的效果。生产 Human Park 默认关闭，真实模型提问质量和线上部署独立未验。完整机制见[持久 HIL 专题](/articles/agent-durable-human-interaction-response-adoption)。**A36 时间语义（独立 Owner）**已有主干实现、仍缺普通真实请求和完整关闭，见[时间语义专题](/articles/agent-temporal-semantics-market-calendar)。**个人 Shadow Credits**已在声明的 P0 账户用量范围完成本地 provider-free close 与归档，含选定 PG／浏览器非干扰性验收；仍不证明真实账单、完整成本归因或生产部署，见[Credits 专题](/articles/agent-personal-credits-shadow-accounting)。**E04 交付物成本归因**已有可选源代码投影与读取接缝，完整来源/正式验收仍在途；不能以 Shadow 或 Tool 计数代替完整发票。
 
 A34 Tool Surface、A35 有界内容信任、A28 Main 压缩等历史收口保留上方专文说明；它们的局部通过不自动转化为金融业务验收。更多判断方法见[架构原则](/principles)，主流程见[六层全景 V2](/articles/017-prompt-to-answer-six-layer-panorama)。
 

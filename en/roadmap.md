@@ -9,6 +9,12 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
+## October 25, 2026: Evidence for further publication
+
+The [bilingual custom-expert case study](/en/articles/agent-custom-expert-from-prompt-to-recovery) is now published as related reading for A07, retaining the 43-Owner count. Shadow Credits' bounded P0 account-usage engineering close is recorded; it is not a Provider invoice or release qualification.
+
+Further retrospective work should await a genuinely reviewed fund-research result, complete expert dialogues/recovery, qualified A36 calendar usage, personal Profile acceptance or attributable E04 report cost evidence. The Runtime decoupling review and staged Spec are design work, **not a shipped refactor**. See the [latest status board](/en/gallery).
+
 ## October 24, 2026: A08 and A30 Owner Deep Dives
 
 [**A08 durable control events**](/en/articles/agent-control-events-durable-owner-adoption) explains why an acknowledged delivery and an original committed effect must be reconciled separately. [**A30 Provider Admission**](/en/articles/agent-provider-admission-capacity-lease) explains endpoint-group capacity, leases and uncertain remote work even after HTTP 200. Both have full Chinese and English essays and preserve the limits of actual engineering acceptance.
