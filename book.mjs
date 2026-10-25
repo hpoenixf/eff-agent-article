@@ -167,47 +167,116 @@ export const collections = [
         "title": "深度持续研究",
         "desc": "后台异步研究、阶段交付、持久恢复和历史论点连续性：让复杂研究跨时间真正完成。",
         "items": [
-          "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究",
-          "一份周报过去后，Agent 还记得为什么这样判断吗？",
-          "HTML 保存了，为什么还是交付失败",
-          "故障切换：换路线，不重置任务",
-          "Run 终结权、阶段预算与安全恢复"
+          [
+            "agent-background-research-collaborative-experience",
+            "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"
+          ],
+          [
+            "agent-weekly-thesis-history-continuous-research",
+            "一份周报过去后，Agent 还记得为什么这样判断吗？"
+          ],
+          [
+            "agent-html-evolution-challenges",
+            "HTML 保存了，为什么还是交付失败"
+          ],
+          [
+            "agent-provider-failover-without-resetting-the-run",
+            "故障切换：换路线，不重置任务"
+          ],
+          [
+            "agent-veto-authority-and-run-termination",
+            "Run 终结权、阶段预算与安全恢复"
+          ]
         ]
       },
       {
         "title": "Subagent 与专家",
         "desc": "从多视角研究和有界对抗，到专业化协作、独立交接与 Main 综合。",
         "items": [
-          "不止一个投资专家：多视角 Agent 如何共同检验投资假设",
-          "当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计",
-          "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"
+          [
+            "investment-perspectives-and-thesis-falsification",
+            "不止一个投资专家：多视角 Agent 如何共同检验投资假设"
+          ],
+          [
+            "bounded-bull-bear-peer-dialogue",
+            "当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计"
+          ],
+          [
+            "multi-layer-agent-collaboration-outlook",
+            "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"
+          ]
         ]
       },
       {
         "title": "金融与工程",
         "desc": "金融事实、数字与引用的可信性，以及架构演化、故障归因和端到端质量。",
         "items": [
-          "金融数据 MCP 为什么变成决策系统",
-          "从投资研究到投顾与交易的边界",
-          "金融数字的时点、口径与复算",
-          "Python 算过了，投研报告为什么还会错",
-          "金融 Agent 的可信证据链",
-          "很多引用为什么不等于可靠",
-          "一个 ETF 投资助手的工程起点",
-          "代码越来越便宜，为什么系统却越来越难升级？",
-          "别把每个失败都算给模型",
-          "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"
+          [
+            "mcp-market-responsibility-retrospective",
+            "金融数据 MCP 为什么变成决策系统"
+          ],
+          [
+            "030-fintech-from-research-to-investment-advice",
+            "从投资研究到投顾与交易的边界"
+          ],
+          [
+            "031-fintech-data-time-and-reproducible-numbers",
+            "金融数字的时点、口径与复算"
+          ],
+          [
+            "financial-agent-python-result-consumption",
+            "Python 算过了，投研报告为什么还会错"
+          ],
+          [
+            "financial-agent-trustworthy-evidence-chain",
+            "金融 Agent 的可信证据链"
+          ],
+          [
+            "ai-citations-do-not-prove-reliability",
+            "很多引用为什么不等于可靠"
+          ],
+          [
+            "001-one-week-4-billion-tokens-etf-investment-agent",
+            "一个 ETF 投资助手的工程起点"
+          ],
+          [
+            "code-cheaper-systems-harder-to-evolve",
+            "代码越来越便宜，为什么系统却越来越难升级？"
+          ],
+          [
+            "agent-failure-is-a-boundary-problem",
+            "别把每个失败都算给模型"
+          ],
+          [
+            "local-improvement-is-not-system-progress",
+            "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"
+          ]
         ]
       },
       {
         "title": "其他",
         "desc": "系统全景和通用架构基础：模型与 Runtime 的边界、授权和 Owner 职责。",
         "items": [
-          "六层调用全景 V3：从提问到答案可见",
-          "六层系统全景 V2（历史版本）：从提问到持续协作",
-          "模型会理解，代码才授权",
-          "别让模型当状态机",
-          "Model / Runtime / MCP / Skill 的分工"
+          [
+            "017-prompt-to-answer-six-layer-panorama-v3",
+            "六层调用全景 V3：从提问到答案可见"
+          ],
+          [
+            "017-prompt-to-answer-six-layer-panorama",
+            "六层系统全景 V2（历史版本）：从提问到持续协作"
+          ],
+          [
+            "011-model-understands-code-authorizes",
+            "模型会理解，代码才授权"
+          ],
+          [
+            "runtime-model-protocol-boundary-agent-article-v2",
+            "别让模型当状态机"
+          ],
+          [
+            "agent-model-runtime-mcp-skill-boundaries",
+            "Model / Runtime / MCP / Skill 的分工"
+          ]
         ]
       }
     ]
