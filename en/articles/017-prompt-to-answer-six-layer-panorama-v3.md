@@ -17,7 +17,9 @@ The earlier six-layer story grouped architectural capabilities. Background Resea
 
 ![Six horizontal request stages and vertical capability-owner families](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg)
 
-The figure contains six horizontal request-processing bands and vertical capability bars. **Dark cells mean primary responsibility; light cells mean participation; gaps indicate no direct involvement.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
+[Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 43 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
+
+The figure contains six horizontal request-processing bands and vertical capability bars. **Each solid-bordered chip names one real capability Owner; its module name is prominent and its ID is secondary. Pale dashed boxes describe workflow actions or capability groups, not additional modules.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
 
 | Stage | Core question | Hand-off |
 | --- | --- | --- |
