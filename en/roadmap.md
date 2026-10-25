@@ -5,7 +5,7 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 # What We Might Write Next
 
-<small>Updated October 23, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
+<small>Updated October 25, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
 
 We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
 
@@ -41,6 +41,7 @@ The [engineering context, memory and knowledge retirement article](/en/articles/
 
 - **Reasoning versus experiments in agent engineering.** Differentiate deterministic architectural reasoning from real-model performance comparisons. Existing baselines: [Specs](/en/articles/026-agent-spec-evidence-workflow), [green tests](/en/articles/honest-agent-evaluation).
 - **Conservative lineage versus exact output attribution.** First strengthen the [evidence chain, Chinese original](/articles/financial-agent-trustworthy-evidence-chain); create a new essay only if it answers a distinct reader question.
+- **Who should own dependencies between experts—Prompt, Main, or Runtime?** [Subagents](/en/articles/agent-subagent-context-specialization) and the [multi-layer outlook](/en/articles/multi-layer-agent-collaboration-outlook) cover the foundations. The [usage-guidance Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-expert-usage-guidance/design.md) proposes soft `relationHint`, while a later design adds delegation guidance and autonomous updates. A new article must wait for a real upstream result → lawful downstream `inputRefs` → Main synthesis/recovery chain, a failure counterexample, and matched evidence about quality, cost, and waiting. Neither a new DAG nor a new published article exists yet.
 
 ## Financial AI Research · One Editorial Backlog
 

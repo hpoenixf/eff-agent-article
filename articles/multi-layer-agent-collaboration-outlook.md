@@ -182,11 +182,20 @@ Bear 检验特定 Thesis，Research Reviewer 则可以独立查阅**整个研究
 
 截至 2026 年 10 月 24 日，这是我们的方向与待验证假设，还不是已经完成的业务效果。
 
+
+## 2026-10-25 后记：协作依赖不只是关系字段
+
+上文保存的是 10 月 24 日的预期。次日真实模型研究出现了普通方法 Child 独立完成、Main 消费两份专家结果和隔离 Python 产物交付的正例，也留下了反例：一次要求选择 2–3 位专家却实际派发 4 位；Bull/Bear 虽配对却未发生实际质疑与回应；Reviewer 先行后双方 opening 已记录，但后续唤醒和恢复仍有缺口。这些不同任务的观察不能拼成一个成功率，也不能视为完整协作成熟。
+
+从现行机制和后继设计看，所谓依赖至少分三层。**方法关系**用于表达互补、反证、复核或接力，后继[专家使用指导 Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-expert-usage-guidance/design.md)计划以 `relationHint` 描述；它只是软提示，并不自动等待或形成 DAG。**结果依赖**则要求 Main 实际取得原 `taskRef`，以获准 `inputRefs` 将材料交给下游。**协议依赖**归 Peer 的配对、消息与轮次，或 HIL 的原回答及安全点；提示文字不能替代这些已发生的效果。另一个[协作体验 Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-improve-expert-collaboration-experience/design.md)提出独立委派指南和 Child 自主调整任务描述，目前也仍是待实施设计。
+
+这里可能发展出一篇真正独立的文章，但需要先收集上游研究→下游合法消费→Main 综合的真实依赖链、一条漏等/错引或恢复失败反例，并在可比输入下观察无关系提示、软提示与明确接力的质量及成本。到那时，文章才能回答“谁拥有专家依赖”，而非再介绍一个新字段。
+
 ---
 
 ### 已有实践与证据边界
 
-想先理解已实现的单项机制，可读[Subagent 从隔离到专业化协作](agent-subagent-context-specialization.md)、[有界多空直接对话](bounded-bull-bear-peer-dialogue.md)、[多视角 Agent 与投资假设检验](investment-perspectives-and-thesis-falsification.md)。自定义 Agent 另有独立文章草稿，尚未计入正式文集。
+想先理解已实现的单项机制，可读[Subagent 从隔离到专业化协作](agent-subagent-context-specialization.md)、[有界多空直接对话](bounded-bull-bear-peer-dialogue.md)、[多视角 Agent 与投资假设检验](investment-perspectives-and-thesis-falsification.md)。个人自定义专家在本篇初稿时仍属独立草稿；2026-10-25 已作为[《自定义专家，不应该只是一个 Prompt 输入框》](agent-custom-expert-from-prompt-to-recovery.md)正式收录，主题与本篇的整体协作展望不同。
 
 目前工程事实与独立待验收范围，可分别核对 ETF Agent 的[投资方法规范](https://github.com/hpoenixf/etf-agent/blob/main/openspec/specs/investment-perspective-subagents/spec.md)、[多空对话验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-23-agent-add-bounded-adversarial-peer-dialogue/verify.md)、[自定义 Profile 验证记录](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-user-subagent-profiles/verification.md)、[Research Reviewer 限定验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md)，以及[金融研究质量待验任务](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-qualify-financial-research-quality/tasks.md)。这些来源支持分项事实，不构成整条流程完成的证明。
 

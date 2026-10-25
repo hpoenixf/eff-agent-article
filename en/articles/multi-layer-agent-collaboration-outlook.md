@@ -182,11 +182,20 @@ At that point, we should publish a **separate retrospective with matched compari
 
 As of October 24, 2026, that is our direction and hypothesis—not an established end-to-end business outcome.
 
+
+## October 25, 2026 Addendum: Collaboration Dependencies Are More Than Relationship Fields
+
+The original text preserves the October 24 outlook. The following day's real-model work produced positive examples of independent method Children, Main consuming two specialist findings, and sandboxed Python artifact delivery. It also retained failures: a request for two or three experts dispatched four; a Bull/Bear pair formed without an actual challenge-and-reply exchange; and a Reviewer-first sequence recorded both openings but encountered later wake/recovery gaps. These observations belong to separate tasks and should not be combined into a success rate or called mature collaboration.
+
+At least three kinds of dependency have different owners. A **method relationship** describes complementing, challenging, reviewing, or handing off work. The proposed [expert usage guidance Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-expert-usage-guidance/design.md) calls its soft hint `relationHint`; it does not automatically wait or create a DAG. A **result dependency** requires Main to obtain a real upstream `taskRef` and pass lawful `inputRefs` downstream. A **protocol dependency** belongs to Peer pairing, messages and turns, or to original HIL answers and safe points; prose does not substitute for these effects. A separate [collaboration experience Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-improve-expert-collaboration-experience/design.md) proposes delegation guidance and autonomous Child task-description updates. Those remain implementation plans.
+
+A distinct essay may eventually be warranted, once a real upstream → downstream consumption → Main synthesis chain exists alongside a missing-wait, wrong-reference, or recovery failure case, with comparable input and cost/quality observations across no hint, soft hints, and explicit handoff. Only then can we answer who owns expert dependencies, rather than introducing another parameter.
+
 ---
 
 ### Related work and evidence limits
 
-For the local building blocks, read [Subagents: from isolation to collaboration](agent-subagent-context-specialization.md), [bounded direct Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) and [investment perspectives testing one thesis](investment-perspectives-and-thesis-falsification.md). A standalone article on user-configured agents remains in draft and is not counted in the formal collection.
+For the local building blocks, read [Subagents: from isolation to collaboration](agent-subagent-context-specialization.md), [bounded direct Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) and [investment perspectives testing one thesis](investment-perspectives-and-thesis-falsification.md). The user-defined expert essay was still a draft at the date of this outlook. On October 25, it was published as [A Custom Expert Should Be More Than a Prompt Field](agent-custom-expert-from-prompt-to-recovery.md), an implementation study distinct from this larger collaboration outlook.
 
 The supported engineering scope and still-open gates are recorded in ETF Agent's [investment-perspective specification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/specs/investment-perspective-subagents/spec.md), [peer-dialogue verification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-23-agent-add-bounded-adversarial-peer-dialogue/verify.md), [custom-profile verification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-user-subagent-profiles/verification.md) and [financial research quality tasks](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-qualify-financial-research-quality/tasks.md). These sources support individual facts, not completion of this entire workflow.
 

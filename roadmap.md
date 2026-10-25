@@ -5,7 +5,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 # 接下来写什么
 
-<small>更新：2026-10-24 · 这是编辑选题；展望文章已发布不等于产品完成整体效果验收。</small>
+<small>更新：2026-10-25 · 这是编辑选题；展望文章已发布不等于产品完成整体效果验收。</small>
 
 我们不再按每次故障或每条设计原则新增文章。优先让已有作品回答更完整的问题，只有**新的读者问题、不能被已有主稿吸收、并有足够独立证据**时才开新篇。
 
@@ -49,6 +49,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 | --- | --- | --- |
 | **Agent 研发什么时候靠推理，什么时候应该做真实实验？** | [Spec 验证流程](/articles/026-agent-spec-evidence-workflow)、[假绿测试](/articles/honest-agent-evaluation)、[任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) | 至少两种不同性质的工程决策和不同验证方式；不能只是重述“测试要真实” |
 | **安全依赖、执行输入与结论依据为什么不是一回事？** | [金融证据链](/articles/financial-agent-trustworthy-evidence-chain)、[Result 消费](/articles/financial-agent-python-result-consumption) | 优先把 A/B/C 等有边界的关系例子纳入已有文章；只有出现独立读者问题再拆新稿 |
+| **专家之间的依赖，该由 Prompt、Main 还是 Runtime 管理？** | [Subagent](/articles/agent-subagent-context-specialization)、[多层协作展望](/articles/multi-layer-agent-collaboration-outlook)，已有 [`relationHint` 软关系 Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-expert-usage-guidance/design.md) 与委派指南/自主任务修订设计 | 先取得一条上游真实产物→下游合法 `inputRefs` 消费→Main 综合及恢复链，再收集漏等/错引/错误编排反例；同题比较无提示、软关系和明确接力的质量、成本与等待。暂不新建正文或 DAG |
 
 ## 金融 AI 深度研究 · 单一选题清单
 

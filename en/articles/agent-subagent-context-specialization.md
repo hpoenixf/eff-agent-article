@@ -280,11 +280,22 @@ The model still made type-selection mistakes and repeated delegations. Local rej
 
 The supported conclusion is that **method binding and result handoff can reuse the original Subagent framework**. Perspective count is not a quality measure; assessing different methods requires comparing facts, counterexamples, and final answers for the same investment question.
 
+
+### When an expert method becomes an executable package
+
+After normal Child execution was unified, managed built-in experts also gained directory-based packages. The PDF expert describes its method in `subagent/pdf/SKILL.md`, can read `references/table-reading.md` when useful, and may call `scripts/inspect_tables.py` on actually authorized extracted table data. Its script runs through the existing `run_skill_script` and Analysis Sandbox; discovery of a directory or script name is not a new permission grant.
+
+The integration encountered a real data-shape mismatch. Document reads can return `data.pdfTables`, while browse observations may contain `data.items[].pdfTables`; the early helper understood only a simplified table object. After adapting to supported inputs, it could count delivered pages, rows, cells, and empty values. Zero geometry-extracted tables means **the extraction delivered no countable tables**, not that the original PDF contained none or that a visual check occurred.
+
+Package content identity, the prepared execution environment, and actual returned script effects must be checked separately. Existing Skill, sandboxed Python, and result owners remain responsible; no second PDF Runtime is needed. These managed packages mainly serve built-in experts. [User-defined experts](agent-custom-expert-from-prompt-to-recovery.md) remain text-based Profiles rather than arbitrary executable ZIP uploads.
+
 ## 7. Benefits and Why "More Agents = Faster" Is Not a Claim
 
 The clearest demonstrated capability is that complex local work can maintain its own context, multi-step tools, and usable outputs. Main need not import every debugging step while retaining a way to verify important evidence.
 
 Limited parallelism can help independent subquestions. It cannot remove real dependencies between document confirmation and subsequent calculation.
+
+A suggested collaboration relationship is different from a result dependency that actually occurred. “Have another expert review the first expert's fee conclusion” can be natural-language task guidance, but the downstream Child needs a real upstream receipt and lawful `taskRef`/`inputRefs` handed over after Main actually waits or reads. A follow-up Spec proposes `relationHint` for soft relationships. It **does not schedule, wait for, or retrieve sibling Child material**, and is not an implemented workflow engine.
 
 An idealized relation is:
 
