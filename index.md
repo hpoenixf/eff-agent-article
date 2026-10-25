@@ -39,6 +39,12 @@ features:
 
 <FlagshipEntry />
 
+## 2026-10-25 · 今日更新与等待协作
+
+**已确认：** [自定义专家双语案例](/articles/agent-custom-expert-from-prompt-to-recovery)已发布；Shadow Credits 账户用量的限定 P0 工程验收已关闭；统一专家已有真实 General/Python 与投资方法协作结果。**仍在推进：** 完整专家对话／恢复及复杂研究的前后台协作质量验收。
+
+**等待原 Owner：** 首份真实基金研究的来源、金融数字、正文、实际附件与 History；个人 Profile、A36 日历真实资格；E04 交付成本与 Sidecar 分期。Runtime 解耦目前仅是静态评审与 Spec 草案，**尚未实施生产重构**。[查看今日状态与协作缺口](/gallery#daily-status-20261025)。
+
 ## 核心必读：系统全景与架构原则
 
 建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 59 篇文章的入口。**
@@ -70,7 +76,7 @@ features:
 
 ## 推荐从这里开始
 
-**Owner 最新对账（2026-10-24）：** [架构图册](/gallery)已补充并发后台研究、可审阅结果、个人 Subagent Profile、时间语义与评测目录的主干实现及验收边界；当前为 43 项独立职责（新增 A36 时间语义与 A37 HIO），但代码与图册收录仍不构成真实模型或生产验收，新代码不自动成为已验证的研究质量或已上线功能。
+**Owner 最新对账（2026-10-25）：** [架构图册](/gallery)已补充并发后台研究、可审阅结果、个人 Subagent Profile、时间语义与评测目录的主干实现及验收边界；当前为 43 项独立职责（新增 A36 时间语义与 A37 HIO），但代码与图册收录仍不构成真实模型或生产验收，新代码不自动成为已验证的研究质量或已上线功能。
 
 想理解系统整体架构：从 [43 个能力 Owner 架构图册](/gallery)及[六层研究全景](/articles/017-prompt-to-answer-six-layer-panorama) 出发，接着看 [模型与代码的职责](/articles/011-model-understands-code-authorizes) 和 [Runtime 为什么不该猜语义](/articles/runtime-model-protocol-boundary-agent-article-v2)。
 

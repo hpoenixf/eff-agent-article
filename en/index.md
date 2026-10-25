@@ -30,6 +30,12 @@ features:
     link: /en/engineering
 ---
 
+## October 25, 2026: Updates and work awaiting collaboration
+
+The [latest Owner status board](/en/gallery) separates bounded engineering completion from remaining owner acceptance. Shadow Credits reached its limited P0 local close; the [custom expert case study](/en/articles/agent-custom-expert-from-prompt-to-recovery) is published in both languages. Unified experts have real execution samples, but Peer/Reviewer/HIL full dialogues and cross-process continuation remain open.
+
+A genuinely reviewable fund research result—qualified sources, financial arithmetic, published text, real artifact and fresh History—remains the P0 goal. Personal Profile, qualified US calendar data, E04 cost attribution and Sidecar work are unfinished. Runtime ownership decoupling is currently review and Spec, not production implementation. The architecture stays at **43 capability Owners**.
+
 ## New Architecture Principle: Local vs. End-to-End Improvement
 
 [Principle 9: Local Improvements Are Not System Progress](/en/articles/local-improvement-is-not-system-progress) follows tool-result projection, traces and judge evaluations to distinguish local repairs and measurement corrections from real task outcomes.
