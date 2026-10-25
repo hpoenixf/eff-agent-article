@@ -15,12 +15,12 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ## 一次问题的六层视角
 
-本次改用**“输入消息到前端可见”**的请求处理顺序，而不是把所有能力强行排成一条工具流水线。模型做 Direct/Research/Coord 语义决策在 L3；Direct 可跳过 L4 的研究工具，但始终调用模型 Gateway 并走统一 Publication。
+本次改用**“任务触发到前端可见”**的请求处理顺序，而不是把所有能力强行排成一条工具流水线。模型做 Direct/Research/Coord 语义决策在 L3；Direct 可跳过 L4 的研究工具，但始终调用模型 Gateway 并走统一 Publication。
 
 | 层 | 一句话 | 主要能力（按名称） |
 | --- | --- | --- |
-| **L1 请求接入** | 谁发出请求，是否允许进入？ | 身份与 API 准入 |
-| **L2 会话与上下文** | 哪个 Run、哪些合法材料与方法？ | 会话、Run 授权、Projector、Memory、Compaction、Skill |
+| **L1 任务输入与触发** | 从聊天、周报、定时或个性化主题怎样启动工作？ | 消息输入、Schedule、每日个性研究入口 |
+| **L2 身份、会话与上下文** | 属于谁、哪个 Run、哪些合法材料与方法？ | 账户身份、会话、Run 授权、Projector、Memory、Compaction、Skill |
 | **L3 Agent 决策与运行** | 模型选择 Direct/Research/Coord，Main/Child 如何行动？ | 研究决策、Subagent、模型目录与 Gateway、预算、终结 |
 | **L4 工具与领域能力** | 哪些真实工具与业务计算被调用？ | Host/MCP、Web、PDF、RAG、Python、金融工具、结果引用 |
 | **L5 发布与交付** | 哪版正文或附件被接纳、保存、发送？ | Publication、Artifact、History、SSE、通知 |
@@ -29,6 +29,8 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 ![六层处理与跨层能力柱](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)
 
 主图按模块名称聚合纵向能力柱：深色为主要责任，浅色为跨层参与，留白表示该层没有直接责任。金融 B 类能力合为一个工具族以降低复杂度。**43 个 Owner 的最终事实归属**仍以[交互图册](/gallery)为准。
+
+关注主题当前是研究选择上下文，**不代表自动订阅监控已经上线**。
 
 [**阅读六层调用全景 V3（新版入口）**](/articles/017-prompt-to-answer-six-layer-panorama-v3) · [保留 V2 原文](/articles/017-prompt-to-answer-six-layer-panorama) · [V1 历史版](/articles/017-prompt-to-answer-six-layer-panorama-v1)
 

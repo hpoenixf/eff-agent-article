@@ -7,11 +7,11 @@ description: "Follow one user request through Main/subagents, model and tools, D
 
 > **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
 >
-> **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
+> **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
 
 ## 1. One user question, six processing concerns
 
-A user asks: “Analyze the industry concentration and currency exposure of my fund portfolio.” The UI appears to do one thing: send, then display an answer. Internally, the system must separately establish **who made the request; which Run and context it belongs to; what the model decides; which tools or effects must be executed; which answer revision was accepted and delivered; and what the client actually rendered**.
+A user asks: “Analyze the industry concentration and currency exposure of my fund portfolio.” The UI appears to do one thing: send, then display an answer. Internally, the system must separately establish **which input or scheduled event initiated work; whose Run and eligible context it belongs to; what the model decides; which tools or effects must execute; which answer revision was accepted and delivered; and what the client actually rendered**.
 
 The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
 
@@ -21,26 +21,35 @@ The figure contains six horizontal request-processing bands and vertical capabil
 
 | Stage | Core question | Hand-off |
 | --- | --- | --- |
-| **L1 Request Admission** | Is this request legitimate? | Verified identity, request and scope |
-| **L2 Conversation and Context** | Which task, data and methods apply? | Run identity, authorized context and methods |
+| **L1 Task Inputs and Triggers** | What starts the Agent's work? | Message, report request, scheduled task or personalized-research trigger |
+| **L2 Identity, Conversation and Context** | Whose task is it, is it allowed and what may it see? | Verified subject, stable Run identity, original grant, eligible context and methods |
 | **L3 Agent Decision and Runtime** | Direct answer, research or coordinate? | Text, research action or targeted control proposal |
 | **L4 Tools and Domain Capabilities** | Who performs external reads, calculations or effects? | Receipts, material, derived results and gaps |
 | **L5 Publication and Delivery** | Which revision was accepted, saved and sent? | Publication, SSE/History, notice or artifact |
 | **L6 User Interface** | Which Run and revision appeared? | Readable answer, status and follow-up controls |
 
-The input composer and model picker belong to L6 at the start as well; the numbering is a walkthrough, not the only chronological path.
+The input composer and model picker also belong to L6, but L1 accepts more than chat: an already accepted Task occurrence may trigger work without a new chat message. L2 validates its identity, Run and grant. The numbering is an explanatory walkthrough, not a requirement to mint a new Run.
 
-## 2. L1 Request Admission — authentication is not routing
+## 2. L1 Task Inputs and Triggers — research need not begin in chat
 
-The client submits a message over HTTP. **Account Identity** validates subject, session scope and trustworthy origin. A client-supplied message ID, optional model ID or a claim in the prompt never grants permission. This is not where an LLM should decide Direct or Research.
+L1 is **where a unit of Agent work originates**, not an authentication layer. Someone may send a message, explicitly request a weekly or daily report, or have a previously confirmed schedule reach an eligible occurrence. Each enters the same execution system rather than starting a separate scheduler-driven Agent implementation.
 
-A lost response, an exact retry and a conflicting re-submission require different handling. Network retries must not create a new paid Run or repeat a committed effect merely because the browser did not receive an acknowledgement.
+| Input or trigger | Supported capability | Hand-off from L1 |
+| --- | --- | --- |
+| **Chat or explicit Research/Deep request** | Client input and conversation submission | Original message and explicit work intent |
+| **On-demand weekly or daily report** | User-triggered report and personalized research | Chosen method, original input, date/context candidates |
+| **Scheduled, recurring or qualified conditional task** | Original Schedule / Task owner | Task identity, occurrence and accepted trigger facts |
+| **Followed topics** | Saved Follow strings and daily research selection | Explicit topic preferences as eligible context |
 
-## 3. L2 Conversation and Context — a question gains identity and eligible material
+A critical distinction: **following a topic does not by itself start unattended monitoring**. The subscription-to-daily-digest MVP is still an implementation plan; it is not an already-enabled push product. Similarly, report generation support is not evidence that every report has an admitted timed trigger.
 
-**Conversation Admission and Continuation** creates or reuses a message and Run. Ordinary follow-up, same-message replay, explicit Continue and an existing background task are four distinct relationships. Conversation identity is not the same thing as one execution's identity.
+All inputs converge on the original Task/Conversation, Run, grant, budget, Main/Child and Publication owners. Different triggers must not introduce another execution engine.
 
-**Run Authorization and Capability Admission** binds the originally permitted sources and tools. L1 answers *who submitted the request*; this owner answers *what this Run may use*. Same-Run recovery preserves the established grant, rather than asking a newly generated summary to reauthorize facts.
+## 3. L2 Identity, Conversation and Context — validate the trigger and prepare the Run
+
+**Account Identity** validates the actual subject, scope and trustworthy origin of the accepted trigger; a scheduled occurrence retains its confirmed task/account binding rather than bypassing authorization. **Conversation Admission and Continuation** then creates or reuses a message and Run. Ordinary follow-up, same-message replay, explicit Continue and an existing background task are four distinct relationships. Conversation identity is not the same thing as one execution's identity.
+
+**Run Authorization and Capability Admission** binds the originally permitted sources and tools. Account Identity answers *whose task this is*; Run Authorization answers *what this Run may use*. Both have independent Owners in L2, and no input path bypasses them. Same-Run recovery preserves the established grant, rather than asking a newly generated summary to reauthorize facts.
 
 **Context Projection and Fitting** assembles the actual model request from admitted history, tool results, provenance and token limits. **Long-Term Memory** supplies separately governed records and preferences. **Main Context Compaction** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **Action Reminder Coordination** offers advice about resource or context pressure, never an extra budget or permission.
 
@@ -54,7 +63,7 @@ The model participates in interpretation here. **Research Decision and Synthesis
 
 ```mermaid
 flowchart TD
-    U[Admitted message] --> C[Prepare conversation and context]
+    U[Chat or accepted Task trigger] --> C[Verify identity and Run, prepare context]
     C --> E{Which actions are available?}
     E -->|Direct| D[Generate short response]
     E -->|Research| R[Main enters research loop]
@@ -121,7 +130,7 @@ Research A may remain active while Direct B completes first. B's answer must not
 
 ## 8. Three messages, three routes
 
-First the user explicitly requests a background source-backed portfolio study. L1/L2 admit Research A, recording its grant and task identity. L3 Main plans and may delegate PDF reading or Python transformations. L4 returns actual tool and source receipts. L5 publishes a partial and later a final result, shown under A's panel by L6.
+First the user explicitly requests a background source-backed portfolio study. L1 receives the input; L2 authenticates and admits Research A, recording its grant and task identity. L3 Main plans and may delegate PDF reading or Python transformations. L4 returns actual tool and source receipts. L5 publishes a partial and later a final result, shown under A's panel by L6.
 
 Next the user asks “Why does sector concentration matter?” Short interaction B can produce a Direct response without waiting for A or inventing access to A's private, unreleased work. It publishes under B's own identity.
 
@@ -133,7 +142,7 @@ This experience has scoped engineering evidence, but **concurrent-conversation m
 
 The horizontal view says *when a concern occurs*; Owner identity says *who owns the underlying fact or effect*. An Owner may legitimately participate in several stages. No diagram cell grants another stage the right to rewrite its facts.
 
-**Account Identity** is primarily L1. **Run Authorization** begins in L2 and is consumed when L4 tools and L5 protected publications need it. **Long-Term Memory**, **Context Projection** and **Main Compaction** mainly sit in L2, but may contribute to later L3 model requests. **Model Catalog** and **Gateway** primarily support L3, even though the user chooses a model via L6.
+**Account Identity** and **Run Authorization** are primarily L2 capabilities. Run Authorization begins there and is consumed when L4 tools and L5 protected publications need it. **Long-Term Memory**, **Context Projection** and **Main Compaction** mainly sit in L2, but may contribute to later L3 model requests. **Model Catalog** and **Gateway** primarily support L3, even though the user chooses a model via L6.
 
 **Child Execution Lifecycle** spans L3 collaboration and L4 tool use. **Research Results and References** connect tool results to L5 delivery. **Publication and Delivery** mostly live in L5 and feed L6. Continuous or interrupted vertical bands visualize these touch points rather than imposing a new call sequence.
 
@@ -159,26 +168,26 @@ V1 and V2 remain available as historical snapshots of real design evolution. **V
 
 The original capability Owner registry is authoritative for effects and facts. This appendix assigns each to one primary stage for orientation, and shows other stages it touches without inventing parent authority.
 
-### L1 · Request Admission
+### L1 · Task Inputs and Triggers
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A01 | Account Identity | L2 |
+| A09 | Scheduled Tasks | L2, L3, L5 |
+| A27 | Daily Personalized Research | L2, L3, L5 |
 
-### L2 · Conversation and Context
+### L2 · Identity, Conversation and Context
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
+| A01 | Account Identity | L1, L4 |
 | A02 | Conversation Admission and Continuation | L1, L5, L6 |
 | A04 | Run Authorization and Capability Admission | L1, L3, L4, L5 |
 | A08 | Durable Control Events | L3, L5 |
-| A09 | Scheduled Tasks | L3, L5 |
 | A12 | Skill Methods and Resources | L3, L4 |
 | A13 | Plugin Admission and Lifecycle | L3, L4 |
 | A14 | Context Projection and Fitting | L3 |
 | A15 | Action Reminder Coordination | L3 |
 | A26 | Long-Term Memory | L3, L4 |
-| A27 | Daily Personalized Research | L3, L5 |
 | A28 | Main Context Compaction | L3 |
 | A35 | Content Trust and Security Policy | L3, L4 |
 | A37 | Durable Human Interaction (HIO) | L3, L5, L6 |
