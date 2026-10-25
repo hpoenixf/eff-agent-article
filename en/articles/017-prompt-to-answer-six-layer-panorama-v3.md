@@ -15,7 +15,7 @@ A user asks: “Analyze the industry concentration and currency exposure of my f
 
 The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
 
-![Six horizontal request stages and vertical capability-owner families](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg)
+![Six horizontal request stages and vertical capability-owner families](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg)
 
 The figure contains six horizontal request-processing bands and vertical capability bars. **Dark cells mean primary responsibility; light cells mean participation; gaps indicate no direct involvement.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
 
