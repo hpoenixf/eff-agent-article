@@ -119,8 +119,10 @@
   .VPNavBar .content-body { column-gap: 0; }
 }
 
-\n/* Manual language preference is persisted across sessions; hide the unpersisted VitePress locale picker. */
-.VPNavBarTranslations, .VPNavBarMenuGroup[aria-label="Translations"] { display: none !important; }
+/* The persisted header control is the sole language selector on desktop, tablet and mobile. */
+.VPNavBarTranslations,
+.VPNavBarExtra .group.translations,
+.VPNavScreenTranslations { display: none !important; }
 .language-pref { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; white-space: nowrap; margin-right: 12px; }
 .language-pref button { background: transparent; border: 0; color: var(--vp-c-text-2); padding: 4px; cursor: pointer; }
 .language-pref button.active { color: var(--vp-c-brand-1); font-weight: 700; }

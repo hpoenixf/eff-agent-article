@@ -52,13 +52,15 @@ export default defineConfig({
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
         nav: [
-          { text: 'Six-Layer V3', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+          { text: 'System Overview', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
           { text: 'Principles', link: '/en/principles' },
           { text: 'Gallery', link: '/en/gallery' },
-          { text: 'Modules', link: '/en/modules' },
-          { text: 'Architecture', link: '/en/thinking' },
-          { text: 'Engineering', link: '/en/engineering' },
-          { text: 'Fintech', link: '/en/fintech' }
+          { text: 'Topics', items: [
+            { text: 'Modules', link: '/en/modules' },
+            { text: 'Architecture', link: '/en/thinking' },
+            { text: 'Engineering', link: '/en/engineering' },
+            { text: 'Fintech', link: '/en/fintech' }
+          ] }
         ],
         sidebar: {
           '/en/articles/': englishSidebar,
@@ -149,13 +151,15 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [
-      { text: '六层调用全景 V3', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+      { text: '系统全景', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
       { text: '架构原则', link: '/principles' },
       { text: '架构图册', link: '/gallery' },
-      { text: '模块维度', link: '/modules' },
-      { text: '架构与系统思考', link: '/thinking' },
-      { text: '研发工程实践', link: '/engineering' },
-      { text: '金融专题', link: '/fintech' },
+      { text: '文章分类', items: [
+        { text: '模块维度', link: '/modules' },
+        { text: '架构与系统思考', link: '/thinking' },
+        { text: '研发工程实践', link: '/engineering' },
+        { text: '金融专题', link: '/fintech' }
+      ] },
       { text: '博客 ↗', link: 'https://hpoenixf.com/' }
     ],
     sidebar: {
