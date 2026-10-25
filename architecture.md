@@ -7,7 +7,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 本页是[架构设计与系统思考](/thinking)的总览入口；按能力看机制从[模块维度](/modules)开始，研发验证与工程记忆见[AI Agent 研发工程实践](/engineering)。金融业务相关的跨分类文章另见[金融专题](/fintech)。
 
-<small>架构导读更新：2026-10-24 · 基于已经公开的工程文章整理，**不是**私有代码的实时验收证明。</small>
+<small>架构导读更新：2026-10-25 · 基于已经公开的工程文章整理，**不是**私有代码的实时验收证明。</small>
 
 这一套 Agent 的关键变化不是接入了更多工具，而是逐渐弄清了：**谁提出研究判断，谁批准动作，谁保存事实，谁能够宣布交付。**
 
@@ -15,18 +15,22 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ## 一次问题的六层视角
 
-| 层 | 要回答的问题 | 主要边界 |
+本次改用**“输入消息到前端可见”**的请求处理顺序，而不是把所有能力强行排成一条工具流水线。模型做 Direct/Research/Coord 语义决策在 L3；Direct 可跳过 L4 的研究工具，但始终调用模型 Gateway 并走统一 Publication。
+
+| 层 | 一句话 | 主要能力（按名称） |
 | --- | --- | --- |
-| 01 · 交互与研究驱动 | 用户到底要求什么，是否需要进入研究？ | Entry / Main Loop / Root-owned Subagent |
-| 02 · 上下文与方法 | 哪些材料可以交给模型，哪些方法按需启用？ | Projector / Skill / Memory |
-| 03 · 能力接入与执行 | 模型提出的调用何时变成真实动作？ | Host / Run 授权 / MCP / Hook |
-| 04 · 证据与计算 | 搜到的信息是否完整、可追溯、可复算？ | Web / PDF / 资料身份 / Python / 确定性计算 |
-| 05 · 交付与连续性 | 生成了文字是否就等于用户收到？ | Publication / Client / Recovery / Task |
-| 06 · 观测与评测 | 发生了什么，是否真正解决用户问题？ | Trace / Evidence / Evals |
+| **L1 请求接入** | 谁发出请求，是否允许进入？ | 身份与 API 准入 |
+| **L2 会话与上下文** | 哪个 Run、哪些合法材料与方法？ | 会话、Run 授权、Projector、Memory、Compaction、Skill |
+| **L3 Agent 决策与运行** | 模型选择 Direct/Research/Coord，Main/Child 如何行动？ | 研究决策、Subagent、模型目录与 Gateway、预算、终结 |
+| **L4 工具与领域能力** | 哪些真实工具与业务计算被调用？ | Host/MCP、Web、PDF、RAG、Python、金融工具、结果引用 |
+| **L5 发布与交付** | 哪版正文或附件被接纳、保存、发送？ | Publication、Artifact、History、SSE、通知 |
+| **L6 用户界面** | 哪个 Run 的哪版内容被呈现？ | 消息流、研究卡片、引用、交互 |
 
-![43 个能力 Owner 与主要交接](./visuals/owner-architecture/overview.svg)
+![六层处理与跨层能力柱](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)
 
-**当前模块口径统一为 43 个能力 Owner**，见[交互架构图册](/gallery)。模块拥有完整能力及其负责效果的最终裁决权；Runtime 是执行体系，阅读分组不取得父级裁决权。六层文章的 26 个环节继续用于解释一次研究的路径，不作为模块计数。详细交接见[六层系统全景 V2：从提问到原生研究循环、持久交付与 HIL](/articles/017-prompt-to-answer-six-layer-panorama)。
+主图按模块名称聚合纵向能力柱：深色为主要责任，浅色为跨层参与，留白表示该层没有直接责任。金融 B 类能力合为一个工具族以降低复杂度。**43 个 Owner 的最终事实归属**仍以[交互图册](/gallery)为准。
+
+[**阅读六层调用全景 V3（新版入口）**](/articles/017-prompt-to-answer-six-layer-panorama-v3) · [保留 V2 原文](/articles/017-prompt-to-answer-six-layer-panorama) · [V1 历史版](/articles/017-prompt-to-answer-six-layer-panorama-v1)
 
 ## 架构判断分为核心与外围两层
 

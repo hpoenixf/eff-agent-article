@@ -7,8 +7,8 @@ hero:
   tagline: A curated engineering library organized around modules, architecture, and AI-assisted development. English translations are added alongside new articles.
   actions:
     - theme: brand
-      text: Read the six-layer architecture →
-      link: /en/articles/017-prompt-to-answer-six-layer-panorama
+      text: Read the six-layer request lifecycle V3 →
+      link: /en/articles/017-prompt-to-answer-six-layer-panorama-v3
     - theme: alt
       text: Explore the nine principles →
       link: /en/principles
@@ -54,7 +54,7 @@ A genuinely reviewable fund research result—qualified sources, financial arith
 
 ## Essential first reads: architecture and principles
 
-Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [nine architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.
+Read the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) to follow a question through the Native Loop, evidence, delivery and recovery. Then study the [nine architecture principles](/en/principles) to learn how semantic decisions, authorization and capability ownership are designed. **These two guides serve as the system map and the decision map** for the rest of the library.
 
 <FlagshipEntry />
 

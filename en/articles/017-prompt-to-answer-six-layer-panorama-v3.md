@@ -1,0 +1,237 @@
+---
+title: "ETF Agent Six-Layer Request Lifecycle V3 · From Prompt to Visible Answer"
+description: "Follow one user request through Main/subagents, model and tools, Direct/Research/Coord, asynchronous delivery and cross-layer capability owners."
+---
+
+# From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle · V3
+
+> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
+>
+> **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
+
+## 1. One user question, six processing concerns
+
+A user asks: “Analyze the industry concentration and currency exposure of my fund portfolio.” The UI appears to do one thing: send, then display an answer. Internally, the system must separately establish **who made the request; which Run and context it belongs to; what the model decides; which tools or effects must be executed; which answer revision was accepted and delivered; and what the client actually rendered**.
+
+The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
+
+![Six horizontal request stages and vertical capability-owner families](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg)
+
+The figure contains six horizontal request-processing bands and vertical capability bars. **Dark cells mean primary responsibility; light cells mean participation; gaps indicate no direct involvement.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
+
+| Stage | Core question | Hand-off |
+| --- | --- | --- |
+| **L1 Request Admission** | Is this request legitimate? | Verified identity, request and scope |
+| **L2 Conversation and Context** | Which task, data and methods apply? | Run identity, authorized context and methods |
+| **L3 Agent Decision and Runtime** | Direct answer, research or coordinate? | Text, research action or targeted control proposal |
+| **L4 Tools and Domain Capabilities** | Who performs external reads, calculations or effects? | Receipts, material, derived results and gaps |
+| **L5 Publication and Delivery** | Which revision was accepted, saved and sent? | Publication, SSE/History, notice or artifact |
+| **L6 User Interface** | Which Run and revision appeared? | Readable answer, status and follow-up controls |
+
+The input composer and model picker belong to L6 at the start as well; the numbering is a walkthrough, not the only chronological path.
+
+## 2. L1 Request Admission — authentication is not routing
+
+The client submits a message over HTTP. **Account Identity** validates subject, session scope and trustworthy origin. A client-supplied message ID, optional model ID or a claim in the prompt never grants permission. This is not where an LLM should decide Direct or Research.
+
+A lost response, an exact retry and a conflicting re-submission require different handling. Network retries must not create a new paid Run or repeat a committed effect merely because the browser did not receive an acknowledgement.
+
+## 3. L2 Conversation and Context — a question gains identity and eligible material
+
+**Conversation Admission and Continuation** creates or reuses a message and Run. Ordinary follow-up, same-message replay, explicit Continue and an existing background task are four distinct relationships. Conversation identity is not the same thing as one execution's identity.
+
+**Run Authorization and Capability Admission** binds the originally permitted sources and tools. L1 answers *who submitted the request*; this owner answers *what this Run may use*. Same-Run recovery preserves the established grant, rather than asking a newly generated summary to reauthorize facts.
+
+**Context Projection and Fitting** assembles the actual model request from admitted history, tool results, provenance and token limits. **Long-Term Memory** supplies separately governed records and preferences. **Main Context Compaction** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **Action Reminder Coordination** offers advice about resource or context pressure, never an extra budget or permission.
+
+**Skill Methods and Resources** provide versioned techniques. **Plugin Admission and Lifecycle** controls which reviewed extension generations can be loaded; **Lifecycle Events and Hook Execution** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
+
+L2 is revisited before further ModelTurns. Reassembling context is not the same as restarting a Run or minting a new grant.
+
+## 4. L3 Agent Decision and Runtime — choose a branch, then iterate
+
+The model participates in interpretation here. **Research Decision and Synthesis** can propose Direct, Research or Coord, but only from the action set allowed by the current authorized conversation snapshot and effective resource configuration. These are conditional branches, not three universal choices.
+
+```mermaid
+flowchart TD
+    U[Admitted message] --> C[Prepare conversation and context]
+    C --> E{Which actions are available?}
+    E -->|Direct| D[Generate short response]
+    E -->|Research| R[Main enters research loop]
+    E -->|Coord| Q[Propose targeted Run coordination]
+    R --> T[Invoke admitted tools]
+    T --> R
+    R -->|Delegate as needed| S[Subagent explores task]
+    S --> T
+    S -->|Submit handoff| R
+    Q --> X[Control owner checks target and effect]
+    D --> P[Publication]
+    R -->|Partial or final content| P
+    Q -->|Independent answer / control outcome| P
+    X -->|Return control outcome| P
+    P --> H[History / SSE / Async notice]
+    H --> V[User interface]
+```
+
+### 4.1 Direct — still uses a model Gateway, but can skip L4
+
+“What does industry concentration mean?” can be answered directly. **Model Catalog and Routing Configuration** identifies valid models, provider mappings and declared capabilities; **Model Invocation and Request Configuration** binds and actually sends the model request through its Gateway; **Provider Capacity Admission** handles shared supply limits. **Run Resource Management** accounts for the separate Run budget.
+
+A model selected in the UI does not determine the provider URL or grant an extra tool. Deep approval is a Run resource effect, not a model switch. Requested reasoning effort belongs to an individual model invocation; it does not prove how the provider internally reasoned. Direct can skip Web/PDF/Python or investment tools, **but still uses the proper Publication owner**.
+
+### 4.2 Research — Main and subagents jointly do the work
+
+For source-grounded portfolio analysis, Main selects another read, computation, comparison, delegation or synthesis after observing real prior results. The existing Native Loop retains the AgentTurn → ActionRuntime → CompletionGate semantics. A new generic Supervisor, Coordinator or Graph runtime would merely recreate orchestration that the project deliberately retired.
+
+**Child Execution Lifecycle** is a central execution capability: bounded Child identity, model requests, status, retry, cancellation, result binding and handoff. Web, PDF, Python and expert-perspective children can share that mechanism. Main decides whether to delegate and ultimately synthesizes user-facing content; a Child does not own a second Root budget, investment ledger or public publication right.
+
+A Child reading an original report and Main reading only that Child's summary are different evidence-consumption facts. The handoff must preserve actual source and result identities, including gaps and partial results, rather than silently promoting the summary to verified primary evidence.
+
+### 4.3 Coord — targeted control, not a third Agent engine
+
+If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **Durable Control Events**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.
+
+In the initially qualified concurrency setup, ordinary Entry offers **Direct/Research without an active background Research**, and **Direct/Coord with one active background Research**. This is the authorized action set, not a global hasBackground classifier. Explicit Research/Deep may bypass ordinary route classification but must still pass background, scope, provider and resource admission.
+
+Coord consumes a short-interaction allowance and may also publish an independent answer. Accepting its message is not evidence that A has incorporated a correction. The real target owner must record the effect.
+
+## 5. L4 Tools and Domain Capabilities — from proposed call to receipt
+
+A model's “I'll look that up” is only a proposal. **Model Capability Presentation and Tool Surface** checks what tools the model actually sees against the admitted execution surface. **Controlled Tool Invocation** validates arguments, dispatches the action and settles an observed receipt. **MCP Service Connectivity** owns discovery, connection and protocol transport. Neither protocol discovery nor tool visibility grants new permission.
+
+**Web Research Reading**, **PDF Reading**, **Knowledge Retrieval**, **Research Material Assets** and **Isolated Analysis** can be assembled as needed. The five B-class financial capabilities are folded into one **Financial Tools** family for the diagram: market evidence, authorized investment facts, deterministic calculation, ledger/confirmation and atomic reporting. **Temporal Semantics and Market Sessions** and **Exact Numeric Operations** are other opt-in tools.
+
+Evidence and computation are not a universal fourth stage through which every answer must pass. These are optional capabilities of L4. Research can call them repeatedly; a simple Direct answer can omit them entirely.
+
+Two facts must remain distinct even in the simplified diagram. **Research Results and References** preserves ResultRef identity, derivation and source lineage across model turns and publication. **Investment Ledger and Confirmation** protects real financial changes: model advice cannot replace applicable user confirmation and business authorization.
+
+## 6. L5 Publication and Delivery — generating is not committing
+
+**Answer Publication and Preparation** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **Private Artifact Storage and Sharing** owns separately authorized downloadable file bytes and revisions. **Conversation Events and Historical Delivery** owns ordered SSE events, replay and background notifications.
+
+Model text, accepted preview, committed body, server delivery event and browser rendering are five distinguishable facts. A well-written candidate is not evidence of user-visible delivery; failure of a later tool does not erase an independently committed earlier answer.
+
+Background Research can continue while foreground messages are answered, publish partial results and deliver a final report later. Time promises such as at/by, research completion and actual notification are separate records. Sending a notice must not rerun research or mint a second report identity.
+
+## 7. L6 User Interface — show the right Run and the right revision
+
+**Client Interaction and Reading** owns the composer, timeline, citations, cards, background research panel and ordered event/History consumption. A single global busy boolean or the last message in an array cannot explain concurrent Runs.
+
+Research A may remain active while Direct B completes first. B's answer must not overwrite A's publications, and History refresh must reconcile per Run and Publication revision. A displayed answer-preview is not yet a durable commit; server-sent content does not itself prove browser rendering or user reading. L5 owns the legitimate publication; L6 owns client presentation.
+
+## 8. Three messages, three routes
+
+First the user explicitly requests a background source-backed portfolio study. L1/L2 admit Research A, recording its grant and task identity. L3 Main plans and may delegate PDF reading or Python transformations. L4 returns actual tool and source receipts. L5 publishes a partial and later a final result, shown under A's panel by L6.
+
+Next the user asks “Why does sector concentration matter?” Short interaction B can produce a Direct response without waiting for A or inventing access to A's private, unreleased work. It publishes under B's own identity.
+
+Then the user says “Add FX exposure to A.” Short interaction C proposes Coord. Once the original target owner has accepted the correction, A adopts it at a lawful safe point under its original identity and resource constraints. If A has already terminated, C cannot pretend the old Run changed; the user may explicitly Continue with a related new Run.
+
+This experience has scoped engineering evidence, but **concurrent-conversation mode is disabled by default in production configuration**. Initial short/background concurrency is configured at 3/1 and is also subject to aggregate scope and Provider capacity. Multi-target data structures do not certify production multi-background execution.
+
+## 9. Vertical capability bars may span stages, or break
+
+The horizontal view says *when a concern occurs*; Owner identity says *who owns the underlying fact or effect*. An Owner may legitimately participate in several stages. No diagram cell grants another stage the right to rewrite its facts.
+
+**Account Identity** is primarily L1. **Run Authorization** begins in L2 and is consumed when L4 tools and L5 protected publications need it. **Long-Term Memory**, **Context Projection** and **Main Compaction** mainly sit in L2, but may contribute to later L3 model requests. **Model Catalog** and **Gateway** primarily support L3, even though the user chooses a model via L6.
+
+**Child Execution Lifecycle** spans L3 collaboration and L4 tool use. **Research Results and References** connect tool results to L5 delivery. **Publication and Delivery** mostly live in L5 and feed L6. Continuous or interrupted vertical bands visualize these touch points rather than imposing a new call sequence.
+
+## 10. Recovery, governance and observation are cross-cutting—not more numbered layers
+
+**Recovery** owns durable continuation, sealed ModelTurns, committed receipts and lease/fence facts used by the Native execution lifecycle. Resuming after process loss must preserve original identity and avoid reissuing settled tools and publications. Run control, resource management, authorization, Child execution, Publication and History keep distinct ownership; no new all-purpose Recovery Manager is proposed.
+
+**Run Authorization**, **Run Budget**, **Provider Capacity**, **Content Trust** and **HIO** supply constraints and interactions where required. HIO has completed scoped local Stage A–D provider-free verification, but production Human Park remains disabled by default. The fact that the model asked, the user replied and a protected business effect was actually accepted must not collapse into one status.
+
+**Research Exchange Evidence Capture**, Langfuse tracing and independent evaluation provide observation and feedback, not authority to publish, terminate or approve investment effects. A successful request, correct tool invocation, persisted publication and grounded financial conclusion have different evidentiary requirements.
+
+## 11. What this diagram explains—and what it does not
+
+V3 tells a reader how a question reaches the UI, why Direct may bypass research tools, why Main and subagents are central, and where model selection, Gateway, memory, compaction, authorization, tools, delivery and rendering sit. Background work can outlast an immediate foreground answer without introducing another pipeline.
+
+The illustration is **not** the full call graph, deployment topology, authoritative owner map or a live-quality report. Related modules are grouped into readable vertical families and B-class financial owners are presented as one Financial Tools family. Their distinct contracts still live in the original Owner registry.
+
+V1 and V2 remain available as historical snapshots of real design evolution. **V3 changes the reading model, not execution authority: six request-processing stages, a repeating Agent/tool loop, conditionally admitted Direct/Research/Coord branches and reusable capabilities across stages.**
+
+---
+
+## Appendix: the 43 capability owners by primary stage
+
+The original capability Owner registry is authoritative for effects and facts. This appendix assigns each to one primary stage for orientation, and shows other stages it touches without inventing parent authority.
+
+### L1 · Request Admission
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A01 | Account Identity | L2 |
+
+### L2 · Conversation and Context
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A02 | Conversation Admission and Continuation | L1, L5, L6 |
+| A04 | Run Authorization and Capability Admission | L1, L3, L4, L5 |
+| A08 | Durable Control Events | L3, L5 |
+| A09 | Scheduled Tasks | L3, L5 |
+| A12 | Skill Methods and Resources | L3, L4 |
+| A13 | Plugin Admission and Lifecycle | L3, L4 |
+| A14 | Context Projection and Fitting | L3 |
+| A15 | Action Reminder Coordination | L3 |
+| A26 | Long-Term Memory | L3, L4 |
+| A27 | Daily Personalized Research | L3, L5 |
+| A28 | Main Context Compaction | L3 |
+| A35 | Content Trust and Security Policy | L3, L4 |
+| A37 | Durable Human Interaction (HIO) | L3, L5, L6 |
+
+### L3 · Agent Decision and Runtime
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A03 | Research Decision and Synthesis | L2, L4, L5 |
+| A05 | Run Resource Management (Deep) | L2, L4, L5 |
+| A06 | Run Continuation and Termination | L2, L5 |
+| A07 | Child Execution Lifecycle | L2, L4 |
+| A10 | Model Invocation and Request Configuration | L2 |
+| A29 | Lifecycle Events and Hook Execution | L2, L4 |
+| A30 | Provider Capacity Admission | L2 |
+| A32 | Model Catalog and Routing Configuration | L1, L2 |
+| A34 | Model Capability Presentation and Tool Surface | L2, L4 |
+| E04 | Research Exchange Evidence Capture and Readback | L4, L5 |
+
+### L4 · Tools and Domain Capabilities
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A11 | Controlled Tool Invocation | L2, L3 |
+| A16 | Research Results and References | L3, L5 |
+| A17 | Research Material Assets | L2 |
+| A18 | Web Research Reading | L3 |
+| A19 | PDF Reading | L3 |
+| A20 | Knowledge Retrieval | L3 |
+| A21 | Isolated Analysis | L3, L5 |
+| A31 | MCP Service Connectivity | L2, L3 |
+| A33 | Exact Numeric Operations | L3 |
+| A36 | Temporal Semantics and Market Sessions | L2, L3 |
+| B01 | Market Evidence Collection | L3 |
+| B02 | Investment Fact Reading | L3 |
+| B03 | Deterministic Investment Calculations | L3 |
+| B04 | Investment Ledger and Confirmation | L6 |
+| B05 | Atomic Report Production | L3, L5 |
+
+### L5 · Publication and Delivery
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A22 | Private Artifact Storage and Sharing | L4, L6 |
+| A23 | Answer Publication and Preparation | L3, L4, L6 |
+| A24 | Conversation Events and Historical Delivery | L2, L6 |
+
+### L6 · User Interface
+
+| ID | Capability owner | Other stages |
+| --- | --- | --- |
+| A25 | Client Interaction and Reading | L1, L2, L5 |
+
+Engineering navigation E01–E03 is not counted among these 43 production-capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
+
+[V2 architecture](https://hpoenixf.github.io/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1 original Chinese edition](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Owner gallery](/en/gallery) · [GitHub engineering library](https://github.com/hpoenixf/eff-agent-article)

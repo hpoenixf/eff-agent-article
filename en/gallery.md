@@ -4,7 +4,7 @@ title: Architecture Gallery
 
 # Architecture Gallery
 
-**Start with the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama)** to understand the Native Agent Loop, evidence, publication and durable human interaction; then use this owner gallery to locate individual capabilities. The [localized six-layer diagram](../visuals/en/017-prompt-to-answer-six-layer-panorama/v2-native-loop-en.svg) presents the same story visually.
+**Start with the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama-v3)** to understand the Native Agent Loop, evidence, publication and durable human interaction; then use this owner gallery to locate individual capabilities. The [localized six-layer diagram](../visuals/en/017-prompt-to-answer-six-layer-panorama/v2-native-loop-en.svg) presents the same story visually.
 
 The [architecture gallery](/gallery) maps system capability owners, dependencies and article entry points. The interactive diagram currently uses Chinese labels; this English page is a guided entry, not a claim that the source diagram has been translated.
 
