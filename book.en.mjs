@@ -136,17 +136,21 @@ const headings = {
     "Answer Delivery and Recovery",
     "An answer candidate, durable effects and delivery are separate facts."
   ],
-  "系统全景与职责边界": [
-    "System Architecture and Responsibilities",
-    "Who interprets, authorizes, owns facts and removes obsolete structures."
+  "深度持续研究": [
+    "Deep and Continuous Research",
+    "Long-running background research, staged delivery, recovery and continuity of investment theses."
   ],
-  "可靠性、反馈与系统治理": [
-    "Reliability, Feedback and Governance",
-    "Find the real point of failure instead of misdiagnosing feedback."
+  "Subagent 与专家": [
+    "Subagents and Experts",
+    "Investment perspectives, bounded peer dialogues and collaboration across expert agents."
   ],
-  "工程演化与金融边界": [
-    "Evolution and Financial Boundaries",
-    "Distinguish analysis, advice, execution and reproducible financial calculations."
+  "金融与工程": [
+    "Finance and Engineering",
+    "Financial evidence, reproducible results, system evolution and end-to-end engineering quality."
+  ],
+  "其他": [
+    "Other Architecture Topics",
+    "System overviews, model/runtime responsibilities, authorization and capability ownership."
   ],
   "Spec、证据与工程记忆": [
     "Specs, Evidence and Engineering Memory",

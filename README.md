@@ -58,7 +58,7 @@
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
 | [模块维度](modules.md) | Agent 如何运行？ | **31 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **22 篇 / 3 组**，Owner、授权、复杂度、恢复与演化 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **23 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **6 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
@@ -145,45 +145,54 @@
 
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/thinking)
 
-<details>
-<summary><b>01 · 系统全景与职责边界</b>（6 篇）</summary>
+按 Roadmap 的三项技术攻坚和金融业务价值验证方向重新组织为四组；文章保持唯一主归属，旧版链接继续有效。
 
-- [六层调用全景 V3：从一次提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)（[V2 原文](articles/017-prompt-to-answer-six-layer-panorama.md) · [V1 存档](articles/017-prompt-to-answer-six-layer-panorama-v1.md)）
-- [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
-- [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
-- [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
-- [Run 终结权、阶段预算与安全恢复](articles/agent-veto-authority-and-run-termination.md)
-- [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
+<details>
+<summary><b>01 · 深度持续研究</b>（5 篇）</summary>
+
+- [聊](articles/agent-background-research-collaborative-experience.md)
+- [份](articles/agent-weekly-thesis-history-continuous-research.md)
+- [T](articles/agent-html-evolution-challenges.md)
+- [障](articles/agent-provider-failover-without-resetting-the-run.md)
+- [u](articles/agent-veto-authority-and-run-termination.md)
 
 </details>
 
 <details>
-<summary><b>02 · 可靠性、反馈与系统治理</b>（5 篇）</summary>
+<summary><b>02 · Subagent 与专家</b>（3 篇）</summary>
 
-- [想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究](articles/agent-background-research-collaborative-experience.md)
-- [当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计](articles/bounded-bull-bear-peer-dialogue.md)
-- [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
-- [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
-- [故障切换：换路线，不重置任务](articles/agent-provider-failover-without-resetting-the-run.md)
+- [止](articles/investment-perspectives-and-thesis-falsification.md)
+- [两](articles/bounded-bull-bear-peer-dialogue.md)
+- [多](articles/multi-layer-agent-collaboration-outlook.md)
 
 </details>
 
 <details>
-<summary><b>03 · 工程演化与金融边界</b>（10 篇）</summary>
+<summary><b>03 · 金融与工程</b>（10 篇）</summary>
 
-- [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
-- [HTML 保存了，为什么还是交付失败](articles/agent-html-evolution-challenges.md)
-- [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
-- [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
-- [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
-- [Python 算过了，投研报告为什么还会错](articles/financial-agent-python-result-consumption.md)
-- [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
-- [一份周报过去后，Agent 还记得为什么这样判断吗？](articles/agent-weekly-thesis-history-continuous-research.md)
-- [不止一个投资专家：多视角 Agent 如何共同检验投资假设](articles/investment-perspectives-and-thesis-falsification.md)
-- [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](articles/multi-layer-agent-collaboration-outlook.md)
+- [融](articles/mcp-market-responsibility-retrospective.md)
+- [投](articles/030-fintech-from-research-to-investment-advice.md)
+- [融](articles/031-fintech-data-time-and-reproducible-numbers.md)
+- [y](articles/financial-agent-python-result-consumption.md)
+- [融](articles/financial-agent-trustworthy-evidence-chain.md)
+- [多](articles/ai-citations-do-not-prove-reliability.md)
+- [个](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
+- [码](articles/code-cheaper-systems-harder-to-evolve.md)
+- [把](articles/agent-failure-is-a-boundary-problem.md)
+- [部](articles/local-improvement-is-not-system-progress.md)
 
 </details>
 
+<details>
+<summary><b>04 · 其他</b>（5 篇）</summary>
+
+- [层](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
+- [层](articles/017-prompt-to-answer-six-layer-panorama.md)
+- [型](articles/011-model-understands-code-authorizes.md)
+- [让](articles/runtime-model-protocol-boundary-agent-article-v2.md)
+- [o](articles/agent-model-runtime-mcp-skill-boundaries.md)
+
+</details>
 ### 3 / AI Agent 研发工程实践
 
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/engineering)

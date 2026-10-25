@@ -1,11 +1,11 @@
 ---
 title: 架构设计与系统思考
-description: 22 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
+description: 23 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
 ---
 
 # 架构设计与系统思考
 
-<small>WHY IT WORKS · 22 篇 · 3 个主题</small>
+<small>WHY IT WORKS · 23 篇 · 4 个主题</small>
 
 从一次技术取舍的背后看系统：**模型和 Runtime 各能做什么？谁最终裁决？为什么有些机制应该被删除而不是继续叠加？怎样证明用户目标真的完成？**
 
@@ -22,6 +22,8 @@ description: 22 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈
 **金融科技案例：** [一份周报过去后，Agent 还记得当初为什么这样判断吗？](/articles/agent-weekly-thesis-history-continuous-research)——历史事实、原始 Investment Thesis 和用户修正的不同归属；同时进入[金融科技 × Agent 精选](/fintech)。
 
 **入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
+
+**按照 Roadmap 的战略重点，下面按四条阅读路径组织：**「深度持续研究」聚焦后台异步、交付与恢复；「Subagent 与专家」聚焦多视角协作；「金融与工程」聚焦可信金融事实与工程质量；「其他」保留系统全景与基础设计边界。这是文章组织方式，**不代表 Roadmap 中的规划能力均已上线**。模块机制仍在[模块维度](/modules)，工程研发流程仍在[研发工程实践](/engineering)。
 
 <ChapterCatalog category="thinking" />
 
