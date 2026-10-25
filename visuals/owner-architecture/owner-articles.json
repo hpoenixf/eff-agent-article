@@ -43,7 +43,8 @@
     "agent-temporal-semantics-market-calendar": "Agent 说“今天”时，到底是哪一天",
     "agent-personal-credits-shadow-accounting": "Agent 的请求数、Token 与 Credits 记账",
     "agent-control-events-durable-owner-adoption": "Agent 收到控制指令后，为什么不能立刻执行",
-    "agent-provider-admission-capacity-lease": "模型返回 HTTP 200，为什么下一次还要排队"
+    "agent-provider-admission-capacity-lease": "模型返回 HTTP 200，为什么下一次还要排队",
+    "agent-custom-expert-from-prompt-to-recovery": "自定义专家，不应该只是一个 Prompt 输入框"
   },
   "owners": {
     "A01": {
@@ -85,7 +86,8 @@
       "primary": "agent-subagent-context-specialization",
       "related": [
         "agent-provider-failover-without-resetting-the-run",
-        "agent-durable-human-interaction-response-adoption"
+        "agent-durable-human-interaction-response-adoption",
+        "agent-custom-expert-from-prompt-to-recovery"
       ]
     },
     "A09": {
@@ -190,7 +192,8 @@
         "agent-progressive-answer-coherence",
         "agent-asynchronous-research-time-bound-delivery",
         "agent-background-research-collaborative-experience",
-        "agent-durable-human-interaction-response-adoption"
+        "agent-durable-human-interaction-response-adoption",
+        "agent-custom-expert-from-prompt-to-recovery"
       ]
     },
     "A26": {

@@ -6,6 +6,8 @@ title: Module Deep Dives
 
 Follow the mechanisms that take an agent from an input through research, tool execution, stored results, memory and final publication. Translations are published separately and retain the original article identity.
 
+**New custom-expert case study:** [A Custom Expert Should Be More Than a Prompt Field](/en/articles/agent-custom-expert-from-prompt-to-recovery) follows account revisions, frozen Run identities, Child method inputs, History attribution, and lessons from real integration defects. It also compares the design with Octop's persistent expert instances.
+
 **A08 deep dive:** [Durable control events](/en/articles/agent-control-events-durable-owner-adoption) separates original business receipts, claim/fence validity and delivery acknowledgment.
 
 **A30 deep dive:** [Provider capacity leases after HTTP 200](/en/articles/agent-provider-admission-capacity-lease) covers shared endpoint queues, streaming terminals and unknown occupancy.

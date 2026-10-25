@@ -21,6 +21,8 @@ description: 按完整能力及最终效果归属展示 ETF Agent 的 43 个 Own
 
 点击任意能力 Owner，可查看职责、局部拒绝范围、交接关系，以及 **专题文章 / 相关文章**。未有独立专文时显示「敬请期待」；相关文章不能冒充专文。可按 Owner ID 或名称搜索，桌面支持交接高亮，手机可按分组阅读。
 
+**个人自定义专家工程实践：** [自定义专家，不应该只是一个 Prompt 输入框](/articles/agent-custom-expert-from-prompt-to-recovery)新增为 A07 的相关文章，说明账户方法、Child 绑定和 History 真实归属；A07 原 [Subagent 专文](/articles/agent-subagent-context-specialization) 仍为 primary，不新增 Owner。
+
 **新增 Owner 专文入口：A08 与 A30。** [A08 持久控制事件](/articles/agent-control-events-durable-owner-adoption) 独立讲事件入箱、Claim/Fence、原 Owner 回执优先、ACK/unknown 的交接；[A30 Provider 容量准入](/articles/agent-provider-admission-capacity-lease) 独立讲共享端点组、排队、租约、流式终止与未知占用。两项均保留已有 43 个 Owner 身份，不因新增文章增加模块数量。[打开 A08](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) · [打开 A30](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html#owner=A30)。
 
 **A32 模型目录边界**已深化在[既有 Provider 主稿](/articles/agent-provider-architecture-and-admission)，保留 related 而非独立 primary；登记模型不表示模型的真实研究质量或调用容量获准。

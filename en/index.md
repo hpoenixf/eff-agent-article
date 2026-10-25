@@ -34,6 +34,10 @@ features:
 
 [Principle 9: Local Improvements Are Not System Progress](/en/articles/local-improvement-is-not-system-progress) follows tool-result projection, traces and judge evaluations to distinguish local repairs and measurement corrections from real task outcomes.
 
+## New Case Study: User-Defined Experts
+
+[A Custom Expert Should Be More Than a Prompt Field](/en/articles/agent-custom-expert-from-prompt-to-recovery) shows how private research methods are saved, frozen for a Run, bound to a Child, and attributed in History. It includes real request-assembly, migration, and UI-fixture lessons, plus a comparison with Octop.
+
 ## New Module Essays: Durable Control and Provider Capacity
 
 [A08 durable control events](/en/articles/agent-control-events-durable-owner-adoption) separates delivery ACKs, original effects and unknown outcomes. [A30 Provider Admission](/en/articles/agent-provider-admission-capacity-lease) explains shared queues, leases and unknown remote occupancy after HTTP 200. The existing [Provider architecture guide](/en/articles/agent-provider-architecture-and-admission) now also clarifies A32 model-catalog eligibility instead of adding a third overlapping essay.

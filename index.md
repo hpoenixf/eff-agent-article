@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 58 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 59 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层系统全景 →
@@ -41,11 +41,15 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 58 篇文章的入口。**
+建议先读[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 59 篇文章的入口。**
 
 ## 新增架构原则 · 局部改善与整体进步
 
 [第九原则：局部改善不等于整体进步](/articles/local-improvement-is-not-system-progress)用工具投影、可信观测和 Judge 评测三个案例，解释怎样判断一次改动是否真正改善了端到端研究，而不把局部绿灯当成用户收益。
+
+## 新增模块实践 · 用户自定义专家
+
+[自定义专家，不应该只是一个 Prompt 输入框](/articles/agent-custom-expert-from-prompt-to-recovery)解释用户自己的研究方法怎样安全、稳定地进入原 Subagent 执行与历史读取，并保留真实的版本冲突、请求层级和 History 迁移教训。原 [Subagent 专文](/articles/agent-subagent-context-specialization) 继续介绍统一执行底座。
 
 ## 新增模块深读 · 控制事件与共享容量
 
