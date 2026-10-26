@@ -35,6 +35,12 @@ features:
     linkText: 走进研发流程
 ---
 
+::: tip 联系作者 · 技术交流与合作
+
+**邮箱：** [hpeonixf@foxmail.com](mailto:hpeonixf@foxmail.com)　 **微信：** `hpoenixf0510`
+
+:::
+
 <ContinueReading />
 
 <FlagshipEntry />
