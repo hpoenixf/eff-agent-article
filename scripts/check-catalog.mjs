@@ -128,7 +128,7 @@ console.log('English navigation:', englishKeys.length, 'stable IDs; complete tra
 const principleMap = readFileSync('principles.md', 'utf8')
 const principleLinks = new Map()
 for (const row of principleMap.split('\n')) {
-  const anchor = row.match(/id="(principle-[1-9]|method-[1-6])"/)?.[1]
+  const anchor = row.match(/id="(principle-[1-9]|method-[1-7])"/)?.[1]
   if (!anchor) continue
   for (const [, slug] of row.matchAll(/\]\(\/articles\/([a-z0-9-]+)\)/g)) {
     if (!principleLinks.has(slug)) principleLinks.set(slug, new Set())

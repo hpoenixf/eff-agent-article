@@ -196,3 +196,5 @@ PreserveStateOnConflict --> ReturnLocalRejection
 [Agent 架构如何做到该稳定的稳定，该变化的变化？](agent-differentiated-evolution-contracts.md)讨论这次重构引出的差异化演进契约；[测试也会过期](test-lifecycle-refactoring-retirement-and-spec.md)讨论有效保护与旧实现断言怎样分别处理。
 
 本文收录于 [ETF Agent 工程手记](https://hpoenixf.github.io/eff-agent-article/articles/agent-runtime-refactor-one-day-blocked)。如果这些真实工程案例对你有帮助，欢迎在[公开文集仓库](https://github.com/hpoenixf/eff-agent-article)点一个 Star。
+
+与本次职责收拢相对应的思考，可回到[核心原则 3：复杂度归属正确的 Owner](/principles#principle-3)。

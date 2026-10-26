@@ -78,7 +78,7 @@ Mermaid diagrams, tables and their decision labels are localized in the respecti
 
 The [complete catalog](/en/catalog) follows the canonical reading tree and includes every original article. Articles without an English translation are clearly labeled **Chinese original** and keep linking to their original text. We do not substitute summaries for full translations.
 
-For an architecture decision map, see [nine core principles and six on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
+For an architecture decision map, see [nine core principles and seven on-demand engineering methods](/en/principles). The [writing roadmap](/en/roadmap) separates planned additions from revisions to existing essays; neither is counted as a published article.
 
 **Owner status, October 24, 2026:** The [architecture gallery](/en/gallery) now explains recently integrated concurrency, Reviewable result details, private subagent profiles and optional time/calendar evidence. Its inventory now has 43 Owners including A36 Temporal Semantics and A37 durable Human Interaction; neither the inventory nor implementation by itself proves production or investment-research quality.
 

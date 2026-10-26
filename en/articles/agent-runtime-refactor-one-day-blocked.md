@@ -196,3 +196,5 @@ Which parts of different capabilities should remain stable, and which should evo
 [What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md) develops the differentiated evolution contracts prompted by this refactor. [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md) examines how to separate valid protections from assertions about retired implementations.
 
 This article is part of [ETF Agent Engineering Notes](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-runtime-refactor-one-day-blocked). If these engineering cases are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
+
+The ownership lesson maps to [Core Principle 3: complexity belongs with its rightful owner](/en/principles#principle-3).
