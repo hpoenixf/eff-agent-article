@@ -36,7 +36,7 @@ export const englishTitles = {
   "agent-progressive-answer-coherence": "Keeping Progressive Answers Coherent",
   "agent-asynchronous-research-time-bound-delivery": "Async Research: Delivering on Time After Users Leave",
   "017-prompt-to-answer-six-layer-panorama-v3": "Six-Layer Request Lifecycle V3: From Prompt to Visible Answer",
-  "etf-agent-model-harness-research-loop": "From Retrieval to Sustained Research: Model, Harness and Loops in ETF Agent",
+  "etf-agent-model-harness-research-loop": "A Research Agent Needs More Than Tools: Model, Harness, and Loop",
   "011-model-understands-code-authorizes": "Models Understand; Code Authorizes",
   "runtime-model-protocol-boundary-agent-article-v2": "Don't Turn the Model into a State Machine",
   "agent-model-runtime-mcp-skill-boundaries": "Responsibilities of Model, Runtime, MCP and Skills",
