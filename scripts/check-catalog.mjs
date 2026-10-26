@@ -7,6 +7,14 @@ if (collections.length !== 3 || collections.map(entry => entry.id).join(',') !==
 }
 const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
 const duplicates = slugs.filter((slug, idx) => slugs.indexOf(slug) !== idx)
+// Cross-listed reading links must point to existing canonical essays without duplicating the chapter's own entries.
+for (const chapter of chapters) {
+  const relatedSlugs = (chapter.related || []).map(([slug]) => slug)
+  if (new Set(relatedSlugs).size !== relatedSlugs.length ||
+      relatedSlugs.some(slug => !slugs.includes(slug) || chapter.items.some(([itemSlug]) => itemSlug === slug))) {
+    throw Error('Invalid cross-listed chapter links: ' + chapter.title)
+  }
+}
 const actual = (await import('node:fs')).readdirSync('articles').filter(name => name.endsWith('.md')).map(name => name.slice(0, -3))
 const missing = slugs.filter(slug => !existsSync('articles/' + slug + '.md'))
 const unindexed = actual.filter(slug => !slugs.includes(slug) && !Object.hasOwn(mergedArticles, slug) && !Object.hasOwn(historicalEditions, slug))
