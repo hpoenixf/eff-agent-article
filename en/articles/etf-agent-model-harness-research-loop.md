@@ -132,6 +132,6 @@ A mature financial research agent is not defined by longer loops or more special
 
 ---
 
-[Six-layer lifecycle V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) · [Result provenance](/en/articles/tool-results-outside-model-context) · [Trustworthy financial evidence](/en/articles/financial-agent-trustworthy-evidence-chain) · [Asynchronous research delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)
+[Six-layer lifecycle V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) · [Result provenance](/en/articles/tool-results-outside-model-context) · [Trustworthy financial evidence (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain) · [Asynchronous research delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)
 
 [ETF Agent engineering essays on GitHub](https://github.com/hpoenixf/eff-agent-article) — if this engineering case is useful, consider giving the repository a Star.
