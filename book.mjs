@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 60 unique essays.
+// One canonical reading tree: three perspectives and 62 unique essays.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -244,6 +244,10 @@ export const collections = [
             "代码越来越便宜，为什么系统却越来越难升级？"
           ],
           [
+            "agent-differentiated-evolution-contracts",
+            "Agent 架构如何做到该稳定的稳定，该变化的变化？"
+          ],
+          [
             "agent-failure-is-a-boundary-problem",
             "别把每个失败都算给模型"
           ],
@@ -316,6 +320,10 @@ export const collections = [
           [
             "test-lifecycle-refactoring-retirement-and-spec",
             "测试也会过期：把重构、退役和删除前移到 Spec"
+          ],
+          [
+            "agent-runtime-refactor-one-day-blocked",
+            "一个 Subagent 改动，为什么拖住了我们整整一天？"
           ],
           [
             "032-ai-development-from-bug-loop-to-task-convergence",

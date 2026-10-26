@@ -4,13 +4,17 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **60 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **62 篇正文，三条主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.github.io/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.github.io/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.github.io/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.github.io/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.github.io/eff-agent-article/fintech) · [全部文章](https://hpoenixf.github.io/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
+
+## 2026-10-26 · 一次重构，两种阅读视角
+
+[一个 Subagent 改动，为什么拖住了我们整整一天？](articles/agent-runtime-refactor-one-day-blocked.md)复盘职责耦合、旧测试入口与并行整合的真实代价；[Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)用 Child、Memory、金融计算与 Provider 案例解释差异化演进契约。两篇均有完整英文版，分别收录于研发工程与架构思考，开头和文末互相引用。
 
 ## 新增架构原则：局部改善与系统进步
 
@@ -38,7 +42,7 @@
 
 ## 初次访问：90 秒找到最相关的工程证据
 
-**两篇首要必读：** [六层调用全景 V3](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 是运行地图，沿一次请求讲清会话、Main/Subagent、可选工具、发布与界面；[Agent 架构原则与系统方法](https://hpoenixf.github.io/eff-agent-article/principles) 是设计判断地图，归纳八条跨模块原则和六组工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
+**两篇首要必读：** [六层调用全景 V3](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 是运行地图，沿一次请求讲清会话、Main/Subagent、可选工具、发布与界面；[Agent 架构原则与系统方法](https://hpoenixf.github.io/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
 
 本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
 
@@ -58,8 +62,8 @@
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
 | [模块维度](modules.md) | Agent 如何运行？ | **31 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **23 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
-| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **6 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **24 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
+| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **7 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 43 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
@@ -68,7 +72,7 @@
 
 ### 推荐起点
 
-**原则与方法：** [八条核心判断、六组外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 60 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.github.io/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.github.io/eff-agent-article/roadmap)。两者是阅读导航，不计入 62 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -87,7 +91,7 @@
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/modules)
 
 <details>
-<summary><b>01 · 研究入口、阅读与计算</b>（9 篇）</summary>
+<summary><b>01 · 研究入口、阅读与计算</b>（10 篇）</summary>
 
 - [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
@@ -168,7 +172,7 @@
 </details>
 
 <details>
-<summary><b>03 · 金融与工程</b>（10 篇）</summary>
+<summary><b>03 · 金融与工程</b>（11 篇）</summary>
 
 - [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
 - [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
@@ -178,6 +182,7 @@
 - [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
 - [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
+- [Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)
 - [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
 - [局部改善不等于整体进步：怎样判断 Agent 真的变好了？](articles/local-improvement-is-not-system-progress.md)
 
@@ -193,6 +198,7 @@
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
 
 </details>
+
 ### 3 / AI Agent 研发工程实践
 
 [进入在线目录 →](https://hpoenixf.github.io/eff-agent-article/engineering)
@@ -207,10 +213,11 @@
 </details>
 
 <details>
-<summary><b>02 · 真实验证与任务收敛</b>（3 篇）</summary>
+<summary><b>02 · 真实验证与任务收敛</b>（4 篇）</summary>
 
 - [测试与评测：绿灯究竟证明什么](articles/honest-agent-evaluation.md)
 - [测试也会过期：把重构、退役和删除前移到 Spec](articles/test-lifecycle-refactoring-retirement-and-spec.md)
+- [一个 Subagent 改动，为什么拖住了我们整整一天？](articles/agent-runtime-refactor-one-day-blocked.md)
 - [从 Bug 循环到完整任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
 </details>
@@ -218,7 +225,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 60 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 62 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-runtime-refactor-one-day-blocked": "Why Did One Subagent Change Hold Up Our Work for an Entire Day?",
+  "agent-differentiated-evolution-contracts": "What Should Stay Stable—and What Should Change—in an Agent Architecture?",
   "agent-background-research-collaborative-experience": "Keep Chatting: Adding Async Background Research to an Agent in a Day",
   "022-agent-entry-from-intent-to-direct-research": "Entry: Why the Entry Point Became Simpler",
   "021-agent-web-research-from-search-to-deep-reading": "Web Research: From Search to Deep Reading",
@@ -63,6 +65,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-runtime-refactor-one-day-blocked",
+  "agent-differentiated-evolution-contracts",
   "agent-control-events-durable-owner-adoption",
   "agent-provider-admission-capacity-lease",
   "agent-durable-human-interaction-response-adoption",

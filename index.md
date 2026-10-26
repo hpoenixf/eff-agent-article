@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 60 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 62 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层调用全景 V3 →
@@ -39,15 +39,19 @@ features:
 
 <FlagshipEntry />
 
+## 2026-10-26 · 一次重构，两种阅读视角
+
+[一个 Subagent 改动，为什么拖住了我们整整一天？](/articles/agent-runtime-refactor-one-day-blocked)保留当天的时间线、关键数字和失败代价；[Agent 架构如何做到该稳定的稳定，该变化的变化？](/articles/agent-differentiated-evolution-contracts)用 Child、Memory、金融计算与 Provider 案例解释差异化演进契约。两篇互相引用，并提供完整英文版。
+
 ## 2026-10-25 · 今日更新与等待协作
 
 **已确认：** [自定义专家双语案例](/articles/agent-custom-expert-from-prompt-to-recovery)已发布；Shadow Credits 账户用量的限定 P0 工程验收已关闭；统一专家已有真实 General/Python 与投资方法协作结果。**仍在推进：** 完整专家对话／恢复及复杂研究的前后台协作质量验收。
 
-**等待原 Owner：** 首份真实基金研究的来源、金融数字、正文、实际附件与 History；个人 Profile、A36 日历真实资格；E04 交付成本与 Sidecar 分期。Runtime 解耦目前仅是静态评审与 Spec 草案，**尚未实施生产重构**。[查看今日状态与协作缺口](/gallery#daily-status-20261025)。
+**等待原 Owner：** 首份真实基金研究的来源、金融数字、正文、实际附件与 History；个人 Profile、A36 日历真实资格；E04 交付成本与 Sidecar 分期。**Runtime 补充：** 当日已记录 Child/HIO 首批有限集成，完整重构与轻恢复不能据此视为完成；过程见[当日复盘](/articles/agent-runtime-refactor-one-day-blocked)。[查看原状态与协作缺口](/gallery#daily-status-20261025)。
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 60 篇文章的入口。**
+建议先读[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 62 篇文章的入口。**
 
 ## 新增架构原则 · 局部改善与整体进步
 

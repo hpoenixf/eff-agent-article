@@ -30,11 +30,15 @@ features:
     link: /en/engineering
 ---
 
+## October 26, 2026: One Refactor, Two Perspectives
+
+[Why Did One Subagent Change Hold Up Our Work for an Entire Day?](/en/articles/agent-runtime-refactor-one-day-blocked) follows the timeline, concrete figures and failed validation attempts. [What Should Stay Stable—and What Should Change—in an Agent Architecture?](/en/articles/agent-differentiated-evolution-contracts) develops differentiated evolution contracts through Child, Memory, financial calculation and Provider cases. Both full editions cross-link to each other and have Chinese counterparts.
+
 ## October 25, 2026: Updates and work awaiting collaboration
 
 The [latest Owner status board](/en/gallery) separates bounded engineering completion from remaining owner acceptance. Shadow Credits reached its limited P0 local close; the [custom expert case study](/en/articles/agent-custom-expert-from-prompt-to-recovery) is published in both languages. Unified experts have real execution samples, but Peer/Reviewer/HIL full dialogues and cross-process continuation remain open.
 
-A genuinely reviewable fund research result—qualified sources, financial arithmetic, published text, real artifact and fresh History—remains the P0 goal. Personal Profile, qualified US calendar data, E04 cost attribution and Sidecar work are unfinished. Runtime ownership decoupling is currently review and Spec, not production implementation. The architecture stays at **43 capability Owners**.
+A genuinely reviewable fund research result—qualified sources, financial arithmetic, published text, real artifact and fresh History—remains the P0 goal. Personal Profile, qualified US calendar data, E04 cost attribution and Sidecar work are unfinished. **Runtime update:** the day included a bounded first Child/HIO ownership batch; this does not complete the whole refactor or light recovery. See the [day's retrospective](/en/articles/agent-runtime-refactor-one-day-blocked). The architecture stays at **43 capability Owners**.
 
 ## New Architecture Principle: Local vs. End-to-End Improvement
 
