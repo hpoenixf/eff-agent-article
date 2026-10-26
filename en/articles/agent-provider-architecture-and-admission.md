@@ -150,23 +150,9 @@ A single total-duration number cannot distinguish slow model execution, unavaila
 
 ## 6. A lease proves local ownership, not remote termination
 
-Receiving a slot cannot mean keeping it forever. The implementation uses leases and heartbeats to maintain holder liveness, with an execution deadline bounding the request lifecycle.
+A capacity slot uses leases, heartbeats and execution deadlines, but two questions remain distinct: **may the local holder still act, and has the remote model request actually ended?** Cancellation, disconnect, process loss or lease expiry may establish only local facts. They do not prove that the remote request stopped or incurred no cost.
 
-But two different questions are involved:
-
-**Does this process still have authority to act? Has the remote request ended?**
-
-A missed heartbeat can invalidate the first without answering the second. Browser cancellation, a local AbortSignal, or a process crash may only establish that the local caller stopped waiting.
-
-If capacity were immediately released and reused while the old request continued remotely, the coordinator would underestimate actual occupancy.
-
-The implementation therefore distinguishes confirmed termination from uncertain termination. A confirmed protocol terminal permits normal release. When remote termination cannot be established, the request’s occupancy is quarantined and reclaimed according to the existing execution deadline and isolation window—not simply reused when its heartbeat TTL expires.
-
-That reclamation boundary is a conservative application-side policy, not proof of physical cancellation at the provider. Reaching the local reclamation boundary cannot retroactively turn an unknown request into “never executed” or “zero cost.”
-
-The tradeoff is temporarily underusing capacity in some failure cases. We accept it because admitting extra calls against inaccurately low occupancy can amplify congestion, rate limiting, and recovery problems.
-
-A database-client lifecycle repair reinforced the same principle: a transaction may have committed without the client reliably receiving confirmation. The caller must not treat that uncertainty as a confirmed grant for a new dispatch. Better error ownership and connection cleanup should not manufacture successful admission by catching an exception.
+Confirmed termination can release capacity; uncertain remote activity receives bounded conservative quarantine, even if that temporarily underuses capacity. A missing acknowledgement after a control transaction likewise cannot fabricate successful admission. The detailed Claim, Lease, generation and renewal rules belong in the [A30 shared-capacity article](agent-provider-admission-capacity-lease.md); here they explain why a unified Gateway does not eliminate a separate Provider Admission Owner.
 
 ## 7. A circuit breaker coordinates the next attempt; it does not permanently label a provider
 
