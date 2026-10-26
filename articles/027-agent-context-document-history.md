@@ -1,6 +1,6 @@
 ---
 title: '文档不是给 Agent 全部读完的：按需加载、长期记忆与旧知识退出'
-description: '用 Hot/Warm/Cold、History 与 Handoff 组织工程知识，并让退役命令、旧规范和测试兼容层退出当前指导。'
+description: '用 Hot/Warm/Cold、History 与 Handoff 治理工程知识，附开源 Engineering History Skill 的真实工具机制。'
 ---
 
 # 文档不是给 Agent 全部读完的：按需加载、长期记忆与旧知识退出
@@ -172,6 +172,40 @@ VerifyCurrentFacts --> TechnicalArticle
 ```
 
 图中的分叉代表：没有长期价值的材料可以不晋升；暂时有用但证据不足的材料进入 Candidate；真正形成可复用判断的材料才进入 Canonical Time。Daily/Type 是历史的压缩与导航层，不是另外两份权威事实副本。
+
+### 独立开源：History Skill 怎样落实“少量、可追溯、可维护”
+
+四层组织不是另一套强制日报。我们把其中可移植的部分做成了 [Engineering History Skill](https://github.com/hpoenixf/engineering-history-skill)（[v0.1.0](https://github.com/hpoenixf/engineering-history-skill/releases/tag/v0.1.0)，MIT）：一个可以整体复制给 Agent 的 Skill，以及使用 Node 26.11.1–26.x、无运行时依赖的离线 CLI。它并不移植 ETF Agent 内部的完整任务关闭规则。
+
+举个**构造的教学例子**：团队决定由解析器统一维护缓存，而不是让两个调用方各自缓存。现在值得保留的不是“缓存代码已修改”，而是重复缓存引发怎样的失效责任、为什么选择一个 Owner、哪些效果还没有测量。
+
+```bash
+npm install --save-dev github:hpoenixf/engineering-history-skill#v0.1.0
+npx --no-install engineering-history init
+npx --no-install engineering-history candidate \
+  --task "缓存归属决策" \
+  --summary "比较两处缓存与解析器统一缓存；记录取舍，性能收益未测量" \
+  --source-id "demo:cache:decision-1" \
+  --material-value share
+npx --no-install engineering-history validate
+```
+
+`init` 在默认的 `docs/history/` 创建基础索引，已有文件不会被覆盖。`candidate` 把材料写入 `.work/history-candidates/`；同一个 `--source-id` 即使跨日重试或改写摘要也会被识别为同一事件。日期默认按 UTC 计算，可用 `--timezone Asia/Shanghai` 等 IANA 时区指定事件的本地日期。
+
+注意，`--material-value share` 只是供后续审阅的标签。CLI 不会根据任务名称推断“很重要”，`sync: true` 也不意味着晋升成功。真正形成 `time/` 正文，仍需要人或 Agent 核对**非显然的判断、实际观察、可复用性和与既有历史的重合**；随后才把它压缩到 `daily/`，在确有理解变化时更新 `type/`。这些正文的提炼不是 CLI 自动完成的。
+
+另一个容易忽视的问题是 Agent 自动更新摘要时覆盖手写内容。工具把 `daily/`、`type/` 中的 `<!-- BEGIN AUTO-REFINE -->` 到 `<!-- END AUTO-REFINE -->` 视为可编辑区；区外原有字节受保护，没有标记的旧文件则整体受保护。修改前后可以这样检查：
+
+```bash
+npx --no-install engineering-history snapshot --out history-before.json
+# 人或 Agent 审阅后，只编辑允许自动维护的摘要区域
+npx --no-install engineering-history verify --snapshot history-before.json
+npx --no-install engineering-history validate
+```
+
+`snapshot` 记录保护区摘要，`verify` 对比并报告被改动的受保护内容；它**不自动修改或恢复**历史文件。`validate` 检查索引和本地 Markdown 链接，不评判历史结论是否正确。已有写入锁或符号链接风险也会以错误返回，避免在不确定的文件状态下继续写入。
+
+如果在 Coding Agent 中使用，还可以直接复制仓库内完整的 `skills/engineering-history/` 目录；Skill 随包携带脚本和写作指引。这里可复用的是“**模型判断哪些经历值得成为知识，确定性程序保护日期、身份、链接与人工文字**”这一分工，而不是声称自动整理就产生了高质量的工程记忆。完整的安装步骤和示例见[开源仓库](https://github.com/hpoenixf/engineering-history-skill)。
 
 ## 五、四个真实反例：代码退出以后，旧知识还会从哪里回来？
 
