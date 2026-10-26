@@ -16,3 +16,8 @@ This library lists the original Chinese essays in three canonical categories. Co
 <ContinueReading />
 
 <ChapterCatalog />
+
+
+## Historical architecture editions
+
+The [current six-layer V3 lifecycle](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) is the one canonical reading entry. The [complete V2 English edition](/en/articles/017-prompt-to-answer-six-layer-panorama) and the [V1 Chinese original](/articles/017-prompt-to-answer-six-layer-panorama-v1) remain readable as dated historical snapshots and are not counted again.

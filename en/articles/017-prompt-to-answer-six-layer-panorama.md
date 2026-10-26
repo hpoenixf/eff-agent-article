@@ -1,13 +1,16 @@
 ---
+search: false
 title: "Six-Layer Agent Architecture V2 · The Native Research Loop"
 description: "The essential ETF Agent architecture guide: six layers, more than forty capability owners, twenty-six handoffs, Native Agent Loop, tools, financial evidence, Publication, HIL and Recovery."
 ---
 
 # From a Portfolio Question to Continuous Collaboration: ETF Agent’s Six-Layer Architecture · V2
 
+> **Full historical edition (October 23, 2026):** This is the complete V2 article, retained with its original engineering context and diagrams. It is no longer counted or promoted as current architecture. Read the [current six-layer V3 lifecycle](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) for the latest request-level map. Implementation and validation claims below retain their original time scope.
+
 <section class="flagship-hero" aria-label="Six-layer architecture field guide">
   <div>
-    <p class="flagship-hero__eyebrow">ARCHITECTURE FIELD GUIDE · ESSENTIAL READ 01</p>
+    <p class="flagship-hero__eyebrow">ARCHITECTURE FIELD GUIDE · V2 ARCHIVE</p>
     <p class="flagship-hero__headline">Understand how an Agent researches, acts, delivers and continues collaborating.</p>
     <p class="flagship-hero__body">Not six isolated pipelines: one Native Agent Loop supported by clearly owned capabilities. Start with the system picture, follow the actual handoffs, and then study the principles.</p>
     <div class="flagship-hero__actions">
@@ -913,3 +916,10 @@ The first six-layer story still explains admission, methods, execution, evidence
 ### Historical edition
 
 [V1 (October 20, 2026): the original complete Chinese architecture story](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
+
+
+## Evolution: From V2 to V3 (October 25, 2026)
+
+V3 reorganizes the story around six request-processing stages and identifies cross-stage capability Owners without treating them as six services. This V2 full-text edition remains available to explain the original trade-offs in research, durable recovery, HIL, tools, evidence and publishing; it is not a live system-status report.
+
+[Read the current V3 lifecycle](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) · [Original V1 historical Chinese edition](/articles/017-prompt-to-answer-six-layer-panorama-v1)

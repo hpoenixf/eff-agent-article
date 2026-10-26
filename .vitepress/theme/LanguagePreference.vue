@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, withBase } from 'vitepress'
-import { englishArticleSlugs } from '../../book.en.mjs'
+import { englishArticleSlugs, historicalEnglishArticleSlugs } from '../../book.en.mjs'
 import { localizedSitePath } from '../../language-routing.mjs'
 
 type Language = 'zh' | 'en'
@@ -17,7 +17,7 @@ function relativePath() {
   return clean.replace(/\/$/, '').replace(/\.html$/, '')
 }
 function urlFor(lang: Language): string | null {
-  const path = localizedSitePath(relativePath(), lang, englishArticleSlugs)
+  const path = localizedSitePath(relativePath(), lang, [...englishArticleSlugs, ...historicalEnglishArticleSlugs])
   return path ? withBase(path) + window.location.hash : null
 }
 function save(value: Language) {

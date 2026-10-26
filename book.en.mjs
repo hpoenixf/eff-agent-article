@@ -36,7 +36,6 @@ export const englishTitles = {
   "agent-progressive-answer-coherence": "Keeping Progressive Answers Coherent",
   "agent-asynchronous-research-time-bound-delivery": "Async Research: Delivering on Time After Users Leave",
   "017-prompt-to-answer-six-layer-panorama-v3": "Six-Layer Request Lifecycle V3: From Prompt to Visible Answer",
-  "017-prompt-to-answer-six-layer-panorama": "Six-Layer Agent Architecture V2: From One Question to Continuous Collaboration",
   "011-model-understands-code-authorizes": "Models Understand; Code Authorizes",
   "runtime-model-protocol-boundary-agent-article-v2": "Don't Turn the Model into a State Machine",
   "agent-model-runtime-mcp-skill-boundaries": "Responsibilities of Model, Runtime, MCP and Skills",
@@ -73,7 +72,6 @@ export const englishArticleSlugs = [
   "agent-temporal-semantics-market-calendar",
   "agent-personal-credits-shadow-accounting",
   "017-prompt-to-answer-six-layer-panorama-v3",
-  "017-prompt-to-answer-six-layer-panorama",
   "agent-background-research-collaborative-experience",
   "mcp-host-from-discovery-to-consumption",
   "mcp-market-responsibility-retrospective",
@@ -123,6 +121,9 @@ export const englishArticleSlugs = [
   "agent-provider-architecture-and-admission",
   "agent-provider-failover-without-resetting-the-run"
 ] // Register only reviewed, full English editions; never summary placeholders.
+// Kept as an independently readable full-text historical edition; not counted as a new essay.
+export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama']
+
 const headings = {
   "研究入口、阅读与计算": [
     "Research, Reading and Computing",
@@ -183,5 +184,5 @@ export const englishCollections = collections.map(collection => ({
 }))
 export function englishArticlePath(slug) {
   const canonical = mergedArticles[slug] || slug
-  return (englishArticleSlugs.includes(canonical) ? '/en' : '') + '/articles/' + canonical
+  return (englishArticleSlugs.includes(canonical) || historicalEnglishArticleSlugs.includes(canonical) ? '/en' : '') + '/articles/' + canonical
 }

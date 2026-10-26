@@ -1,13 +1,16 @@
 ---
+search: false
 title: "六层系统全景 V2 · 从提问到 Agent 研究闭环"
 description: "ETF Agent 架构必读：六层系统、四十余个责任模块、Native Agent Loop、MCP 与工具执行、证据计算、Publication、HIL 和持久恢复，附中文架构图和专题导航。"
 ---
 
 # 一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统 · V2
 
+> **历史全文存档（2026-10-23）：** 此页保留 V2 当时的机制论证、图文与完整正文，不再参与当前文章目录、站内搜索和推荐排序。请从[当前六层全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)了解现行请求处理视角；原文中的实现与验收口径以取材时间为准。
+
 <section class="flagship-hero" aria-label="六层系统全景导读">
   <div>
-    <p class="flagship-hero__eyebrow">ARCHITECTURE FIELD GUIDE · 核心必读 01</p>
+    <p class="flagship-hero__eyebrow">ARCHITECTURE FIELD GUIDE · V2 历史版本</p>
     <p class="flagship-hero__headline">从一句问题，看懂 Agent 怎样研究、行动、交付与继续协作。</p>
     <p class="flagship-hero__body">不是六条独立流水线，而是一条 Native Agent Loop 与多种责任明确的能力协作。先看全景，再沿图中的交接深入，最后回到架构原则。</p>
     <div class="flagship-hero__actions">
@@ -1301,3 +1304,10 @@ Langfuse 将分散的请求、模型交换、工具与正文观察关联起来�
 ### 历史版本
 
 [V1（2026-10-20）：一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
+
+
+## 版本演进：从 V2 到 V3（2026-10-25）
+
+V3 以一次请求从触发到界面可见的**六阶段阅读顺序**重新组织 Agent Loop，将横跨阶段的能力作为 Owner 柱展示；保留了 V2 对持久恢复、工具、HIL、引用与发布机制的历史说明。这里的 V2 全文和图仍用于追溯演进，而不是当前代码状态声明。
+
+[进入当前六层全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3) · [V1 原始历史版本](/articles/017-prompt-to-answer-six-layer-panorama-v1)

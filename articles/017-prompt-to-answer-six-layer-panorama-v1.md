@@ -636,7 +636,12 @@ Langfuse 将分散的请求、模型交换、工具与正文观察关联起来�
 
 V2 的重点不再只是“一次提问如何走完六层”：它增加了**后台 Research 与前台短交互的并行关系**、按 Run 的交付和纠偏、**A33 精确数值 / A34 Tool Surface / A35 内容信任**，并重新解释异步时间约定、阶段性 Publication 和实际交付。人机交互（HIL）按 2026-10-23 的 Human Interaction Owner 设计作为**待实施展望**单列，而不是当前功能。
 
-- [阅读六层系统全景 V2（默认新版）](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama)
+- [阅读六层系统全景 V2（当时的新版；现作为历史全文保留）](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama)
 - [查看 V1 的原版 HTML 图文存档](https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
 
 版本变化是系统演进的记录，不意味着 V1 所述方案在当时没有价值。
+
+
+### 当前阅读入口 · V3
+
+[六层调用全景 V3：从提问到答案可见](/articles/017-prompt-to-answer-six-layer-panorama-v3)是现行阅读入口，V1/V2 保留原始架构决策及发布时间，不以后来的能力修改历史结论。

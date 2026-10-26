@@ -36,9 +36,12 @@ for (const [historical, current] of Object.entries(historicalEditions)) {
   if (!existsSync(path) || !slugs.includes(current)) missing.push(historical + ' -> ' + current)
   else {
     const source = readFileSync(path, 'utf8')
-    if (!source.startsWith('---\nsearch: false\n---\n') ||
-        !source.includes('## 版本演进：从 V1 到 V2') ||
-        !source.includes('/articles/' + current)) broken.push(historical + ': incomplete historical edition')
+    const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n/)?.[1] || ''
+    const edition = historical.endsWith('-v1') ? 'V1' : historical === '017-prompt-to-answer-six-layer-panorama' ? 'V2' : null
+    if (!/^search:\s*false\s*$/m.test(frontmatter) ||
+        !edition || !source.includes('版本演进：从 ' + edition) ||
+        !source.includes('/articles/' + current) ||
+        source.length < 5000) broken.push(historical + ': incomplete historical full-text edition')
   }
 }
 console.log('Indexed essays:', articleCount, '| compatibility pages:', Object.keys(mergedArticles).length, '| files:', actual.length)
@@ -100,7 +103,7 @@ console.log('Three-perspective catalogue, curated finance links and local articl
 
 
 // English presentation derives slugs from book.mjs, never maintains a second article tree.
-const { englishTitles, englishArticleSlugs } = await import('../book.en.mjs')
+const { englishTitles, englishArticleSlugs, historicalEnglishArticleSlugs } = await import('../book.en.mjs')
 const englishKeys = Object.keys(englishTitles)
 if (englishKeys.some(slug => !slugs.includes(slug)) ||
     englishArticleSlugs.some(slug => !englishTitles[slug])) throw Error('English translations must have canonical slugs and English titles')
@@ -112,7 +115,16 @@ for (const path of ['index','catalog','modules','thinking','engineering','fintec
   if (!existsSync('en/' + path + '.md')) throw Error('Missing English landing page: ' + path)
 }
 const existingTranslations = (await import('node:fs')).readdirSync('en/articles').filter(path => path.endsWith('.md')).map(path => path.slice(0, -3))
-const englishCompatibilityPages = existingTranslations.filter(slug => !englishArticleSlugs.includes(slug))
+const historicEnglish = existingTranslations.filter(slug => historicalEnglishArticleSlugs.includes(slug))
+for (const slug of historicalEnglishArticleSlugs) {
+  const text = readFileSync('en/articles/' + slug + '.md', 'utf8')
+  const frontmatter = text.match(/^---\n([\s\S]*?)\n---\n/)?.[1] || ''
+  if (!historicalEditions[slug] || !/^search:\s*false\s*$/m.test(frontmatter) ||
+      !text.includes('/en/articles/' + historicalEditions[slug]) || text.length < 5000) {
+    throw Error('Incomplete English historical full-text edition: ' + slug)
+  }
+}
+const englishCompatibilityPages = existingTranslations.filter(slug => !englishArticleSlugs.includes(slug) && !historicalEnglishArticleSlugs.includes(slug))
 for (const slug of englishCompatibilityPages) {
   const target = mergedArticles[slug]
   if (!target || !englishArticleSlugs.includes(target)) throw Error('Unregistered English article translation: ' + slug)
@@ -121,7 +133,7 @@ for (const slug of englishCompatibilityPages) {
     throw Error('Invalid English merged article pointer: ' + slug)
   }
 }
-console.log('English navigation:', englishKeys.length, 'stable IDs; complete translations:', englishArticleSlugs.length, '| compatibility pages:', englishCompatibilityPages.length)
+console.log('English navigation:', englishKeys.length, 'current IDs; complete current translations:', englishArticleSlugs.length, '| full historical editions:', historicEnglish.length, '| compatibility pages:', englishCompatibilityPages.length)
 
 
 // Curated principles are reciprocal editorial links, not another mandatory article category.
