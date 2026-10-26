@@ -111,56 +111,11 @@ remainingReadActions = 3
 
 ## 三、第一次 Tool 收敛：从多份定义变成一个 Tool Contract
 
-2026-09-26，我们先处理了一类很典型的 drift：同一个 Tool 的能力关系在多个位置重复定义。
+2026 年 9 月，我们连续两次发现 Tool 定义的重复维护。26 日，Host catalog 与生产 Runtime capability table 对同一关系各有解释；删除重复查询后，受控回归仍能使用原来获准的工具。27 日又发现 Native Tool、Skill Context 和 Runtime Factory 各自保存 Tool 与 Host 的映射，Web search/read 还可能因共用 route 错误暴露兄弟能力。
 
-当时 Tool Contract 已经存在，但 production Runtime 还维护一份 capability table。新增或调整一条 Host route 时，两个地方都要保持一致。
+当时的合理修复，是用**一份 Tool Contract 派生 Host、Skill 与模型工具的映射**：从三处静态解释收敛到一处，减少 drift。这并不代表模型选择一定正确，也没有改变原权限与派发事实。
 
-这次改造的方向很直接：
-
-```text
-做前：
-Host catalog
-+
-Runtime capability table
-
-做后：
-Host catalog
-→ Runtime 查询
-```
-
-针对合同、Host 和生产调用链的回归验证了重复能力查询的移除，并核对原有合法工具路径仍然可用。这是工具接线的工程结果，而不是模型研究质量的衡量。
-
-第二天我们又发现，重复还不止两份。
-
-Native Tool、Skill 和 Host 的关系分别存在于：
-
-```text
-Research Tool Contract
-Research Skill Context
-Research Runtime Factory
-```
-
-比如一个 Skill 允许哪个 MCP Tool，会进一步映射成哪个 Native Model Tool、哪个 Host Action、哪种 capability。Web search 和 read 又共享 Host route，单靠 route 很容易把 sibling Tool 一起暴露出来。
-
-于是 2026-09-27 又做了一次收敛：
-
-```text
-三份静态 owner
-↓
-一个 Tool Contract
-↓
-派生 Skill / Host / capability exposure
-```
-
-这次历史记录里留下了一句很漂亮的总结：
-
-> **三 owner → 一 owner。**
-
-当时这个判断是正确的。重复定义确实减少了，search-only / browse-only Skill 的暴露也能更精确地控制。
-
-但后来的问题说明：**单一 owner 只是第一层问题。**
-
----
+这个历史选择后来又暴露下一层问题：**把三份重复定义合成一份，仍要追问剩下的那一份是否属于正确的 Owner。** 最终请求中工具描述能否如实抵达模型，另由[A34 Tool Surface 专文](agent-model-capability-presentation-tool-surface.md)说明；这里继续讨论更一般的 Model / Runtime / MCP / Skill 责任划分。
 
 ## 四、真正的问题：剩下的这个 owner，放对地方了吗？
 

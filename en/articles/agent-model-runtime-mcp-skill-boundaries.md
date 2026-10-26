@@ -86,44 +86,11 @@ The real trouble began when Runtime started redefining the **business capabiliti
 
 ## 3. First Tool Consolidation: Multiple Definitions into One Contract
 
-On September 26, 2026, we tackled repeated capability relationships. A Tool Contract existed, but production Runtime maintained a separate capability table. New or modified Host routes had to stay aligned in both locations.
+In September 2026, two successive revisions exposed duplicated tool definitions. On the 26th, the Host catalog and a production Runtime capability table maintained the same relationships independently; targeted checks confirmed that removing the duplicate lookup preserved authorized tool routes. On the 27th, Native Tool, Skill Context and Runtime Factory still each mapped model-facing tools to Host capabilities. Web search and read shared a route, risking exposure of unintended sibling methods.
 
-~~~text
-Before:
-Host catalog
-+
-Runtime capability table
+The appropriate fix **derived Host, Skill and model-tool exposure from one Tool Contract** rather than three static interpretations. It reduced mapping drift; it did not prove the model's tool choices correct or change the original permission and dispatch facts.
 
-After:
-Host catalog
-→ Runtime looks up its capabilities
-~~~
-
-Focused contract, Host, and production-path checks confirmed removal of duplicate capability lookup while preserving authorized tool routes. This is an engineering result about tool wiring, not a measure of the model's research quality.
-
-The next day we found a third duplication. The relationship between Native Tool, Skill, and Host was maintained in:
-
-~~~text
-Research Tool Contract
-Research Skill Context
-Research Runtime Factory
-~~~
-
-A Skill's allowed MCP method might need to map through a Native Model Tool, Host Action, and capability. Web search and page read shared a Host route, so route-only reasoning risked exposing an unintended sibling tool.
-
-The September 27 refactor consolidated those static relationships into one Tool Contract and derived Skill/Host/capability exposure:
-
-~~~text
-Three static Owners
-        ↓
-One Tool Contract
-        ↓
-Derived Skill / Host / capability exposure
-~~~
-
-The historical shorthand was **"three Owners → one Owner."** That consolidation reduced mapping drift and allowed more precise search-only versus browse-only exposure.
-
-It was appropriate at the time, but **one Owner is only a first-order solution**.
+That decision revealed the next problem: **even one consolidated contract can belong to the wrong Owner**. The separate [A34 Tool Surface article](agent-model-capability-presentation-tool-surface.md) examines whether the final model request actually carries authorized descriptors. This article stays focused on the broader Model / Runtime / MCP / Skill division of responsibilities.
 
 ## 4. The Deeper Question: Does the Remaining Owner Belong Here?
 
