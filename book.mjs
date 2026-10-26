@@ -242,6 +242,10 @@ export const collections = [
             "金融 Agent 的可信证据链"
           ],
           [
+            "etf-agent-model-harness-research-loop",
+            "投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop"
+          ],
+          [
             "ai-citations-do-not-prove-reliability",
             "很多引用为什么不等于可靠"
           ],
@@ -274,10 +278,6 @@ export const collections = [
           [
             "017-prompt-to-answer-six-layer-panorama-v3",
             "六层调用全景 V3：从提问到答案可见"
-          ],
-          [
-            "etf-agent-model-harness-research-loop",
-            "从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop"
           ],
           [
             "011-model-understands-code-authorizes",
