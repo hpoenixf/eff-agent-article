@@ -57,6 +57,8 @@
 .chapter-card li a { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: var(--vp-c-text-1); text-decoration: none; padding: 10px 0; font-size: .89rem; font-weight: 500; }
 .chapter-card li a:hover { color: var(--vp-c-brand-1); }
 .chapter-card li a span { color: var(--vp-c-text-3); }
+.chapter-related { margin-top: 14px; }
+.chapter-related .chapter-related-label { margin: 0 0 6px; color: var(--vp-c-text-2); font-size: .78rem; font-weight: 650; }
 .chapter-more { display: inline-block; margin-top: 15px; font-size: .85rem; font-weight: 600; }
 .resume-reading { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0 0 28px; border: 1px solid var(--vp-c-border); border-radius: 14px; padding: 16px 19px; background: var(--vp-c-brand-soft); text-decoration: none !important; }
 .resume-reading strong { flex: 1 1 260px; }
