@@ -37,7 +37,7 @@ features:
 
 ::: tip 联系作者 · 技术交流与合作
 
-**邮箱：** [hpeonixf@foxmail.com](mailto:hpeonixf@foxmail.com)　 **微信：** `hpoenixf0510`
+**邮箱：** [hpoenixf@foxmail.com](mailto:hpoenixf@foxmail.com)　 **微信：** `hpoenixf0510`
 
 :::
 
