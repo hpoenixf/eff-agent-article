@@ -1,206 +1,79 @@
 # Why Did One Subagent Change Hold Up Our Work for an Entire Day?
 
-*The real cost of an agent-runtime refactor, and what it taught us about ownership and historical compatibility*
+*A retrospective on an agent-runtime refactor: why a local change spread, and how to keep the next one within reasonable boundaries.*
 
-> This article follows how the day was spent and how we began to contain the problem. Its companion, [What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md), asks what evolution contracts different capabilities need once their responsibilities are clear. Both articles stand on their own.
+On October 25, 2026, we set out to improve the subagent capabilities of our investment-research agent. The change appeared to concern subtask execution and handoff. In practice, it repeatedly touched recovery encoding and decoding, the in-memory store, and the PostgreSQL store, then reached main requests and child execution as well.
 
-## 1. We set out to improve subagents—and ended up repairing the runtime
+This was not a production outage, and not all work stopped for a day. The shared Runtime and Subagent development stream was held up: developers first had to establish which places interpreted the same rules, while parallel work had to avoid potentially overlapping changes. By evening, an initial adjustment had reached main, but we were still determining what could safely proceed in parallel the next day.
 
-On October 25, 2026, we intended to continue developing the subagent capabilities of ETF Agent, our investment-research assistant. A subagent is a task delegated by the main agent: one reads sources, another computes results, and another examines a conclusion from a different investment perspective.
+The difficulty was not a particularly complicated algorithm. **We had put code in separate files without giving every rule and every piece of state a clear owner.** Wiring that once made extension convenient, historical compatibility, and test helpers had gradually become implicit contracts that every change had to account for.
 
-Work was already under way on expert collaboration, human questions, durable recovery, and research delivery. The next step should have been making those capabilities cooperate so that complex fund research could be divided, synthesized, and delivered.
+## Why did one rule spread across modules?
 
-Instead, one maintenance problem kept returning: **why did changing a subtask also require changes to Memory, Recovery, and even PostgreSQL?**
+Whether a child task can continue after a human reply involves different questions: whether the reply was accepted, whether the task can hand off now, and how to save the result reliably. As recovery, human interaction, and different storage implementations were added, related conditions appeared in the recovery codec and both stores.
 
-Two recent commits made the pattern concrete. A fix at 08:07 changed recovery encoding/decoding, the in-memory store, and the PostgreSQL store together. A follow-up at 09:46 touched all three again, along with Main request handling and Child execution. All times in this article are Beijing time, UTC+8.
+Initially, adding a check near the available data was understandable: the store knew the current record, and recovery code knew the historical format. Both needed to prevent invalid state from advancing. But when each interpreted the same business rule, changing a handoff condition meant checking every copy for consistency. Two related commits on October 25 touched the codec and both stores: a concrete sign of change spreading.
 
-Touching several files is not inherently wrong. A genuinely new durable fact may require changes in execution and storage. The warning sign is narrower: **when no durable fact has been added, changing one business rule still requires several modules to update equivalent conditions independently.**
+Cross-module changes are not inherently wrong. A new durable fact can reasonably change a contract, storage, and recovery. The warning is narrower: **the durable facts have not changed, yet equivalent business conditions must still be updated in multiple adapters.** The recovery codec then exceeded five thousand lines; the line count was not the root cause. More relevantly, it combined encoding and decoding with child admission and handoff planning.
 
-### Code size was an alarm, not a verdict
+This is a shallow module: files and interfaces exist, yet a developer still needs to understand many internal conditions to change behavior safely. In [Module Assembly](https://martinfowler.com/ieeeSoftware/moduleAssembly.pdf), Martin Fowler describes modules as hiding implementation details their callers need not know. Our specific problem comes down to **who interprets the rule**: moving a judgment to another file does not by itself consolidate decision-making.
 
-The static review recorded the following snapshot:
+The subsequent design clarified the split: human interaction supplies the fact that a reply was accepted; Child interprets the subtask handoff rule; the store reads facts and commits the result inside its existing lock or transaction; and the Run lifecycle still decides the state of the overall execution. Consolidating interpretation does not remove transaction, concurrency-version, or idempotency protections.
 
-| Object inspected | Size at that time |
-| --- | ---: |
-| TypeScript files in Research Runtime | 130 |
-| Physical runtime lines, including comments and blanks | 57,786 |
-| One Recovery Codec file | 5,247 lines |
-| Direct Recovery Store methods | 75, plus inherited interfaces |
+**Prevention rule:** For every new or changed state transition, identify the source of facts, the single business interpreter, and the module responsible for committing. Check whether both stores must copy equivalent conditions; adapter-specific locks, transactions, and storage constraints may still be necessary. Apply a deletion test in review: after removing a forwarding layer or duplicate check, must the caller still know the rule? If so, the boundary has not really been tightened.
 
-A file of more than five thousand lines is not automatically a bad design. A narrow interface that hides necessary complexity can still form a useful deep module.
+## Shared state defeats file boundaries
 
-But this codec—nominally concerned with encoding and reading state—also participated in child admission, researcher snapshots, request planning, handoffs, and some terminal rules. The in-memory and database stores separately orchestrated conditions involving subtasks and human replies.
+`ProductionRunContext` then held multiple groups of mutable runtime state. Several modules received the whole object, could read fields owned by others, and depended on initialization order. The Factory also handled user Memory caching, waiting, usage deduplication, and summaries. Passing the entire context was convenient during assembly: a new capability could reach existing information. The cost was that consumers could depend on internal state they did not own.
 
-Elsewhere, a shared Run Context collected eight groups of mutable state. Modules received the entire object and could read or write one another's internals. The Factory, originally an assembly point, had accumulated user-memory caching, waiting, deduplication, and usage tracking.
+Separate files therefore did not imply independent change. A field change could reach several callers, and initialization order could become an agreement absent from the interface. Dividing work by directory alone can let different files modify the same logical object concurrently.
 
-**The files were separate. The knowledge and decision rights were not.**
+One migration example shows how subtle the boundary can be. The publication module moved candidate content into private state, but an object returned to callers still shared an internal reference. Changing the preview could therefore change the internal candidate. A private field does not automatically prevent outside mutation through a reference.
 
-## 2. The painful part was how the day disappeared
+**Prevention rule:** Let the module responsible for an invariant own its state, exposing necessary operations and read-only facts. Check for mutable references escaping in return values, as well as callback binding, dependency-read timing, and construction order. A seam should let a caller express what it needs done, without requiring it to know which fields to modify or which initialization sequence to follow. Add an interface when it supports an actual substitution or responsibility boundary; do not rename the whole context as dependencies and pass it through, or introduce a universal manager just to encapsulate it.
 
-We chose to address the coupling before adding more related subagent features. Once implementation began, “move a few functions back to the right place” proved to be only a small part of the work.
+There is a trade-off: narrower interfaces cost design and migration effort, and some shared read-only facts really do cross boundaries. The question is whether callers must understand another module's state machine, not whether an interface can be made smaller.
 
-A few checkpoints summarize the day:
+## Old compatibility promises quietly become permanent costs
 
-| Time | What happened | What it meant for development |
-| --- | --- | --- |
-| 08:07 and 09:46 | Related commits repeatedly touched the codec and both stores | A subtask rule was already entangled with the shared foundation |
-| 12:31–12:37 | We fixed a source baseline and inspected existing code and tests | Establish exactly which version was being changed before moving code |
-| Afternoon | Runtime and shared-contract responsibilities were assigned | Other implementers moved to independent work; related changes required handoff |
-| 17:34 | One of six targeted PostgreSQL scenarios failed | Reopen diagnosis: production regression or test setup? |
-| 17:55 | All six original scenarios passed after a test-helper correction | The first delivery could proceed, but the complete refactor was not finished |
-| 18:14 | The first child/human-interaction ownership slice reached main | Deliver the verified slice and keep remaining work separate |
-| 23:38 | The overnight handoff was still defining the next day's development baseline | Continuing feature development still required explicit coordination |
+Recovery must interpret requests left by earlier code as well as current execution. Each retained reader adds another branch to understand and verify during future rule changes; deleting one can also damage real work awaiting recovery.
 
-This was not a production outage, nor a day with no repository output. Independent research, UI, and documentation work continued. What was held up was the shared Runtime/Subagent development stream that we had intended to advance.
+The system was not yet formally launched. The team decided to retire old pending Main `@39` and `@44` readers for which no current consumer was needed. At the same time, original HIO `@41` and composed Child `@43` sealed requests that still required reading had to retain their original identity, arguments, and tool descriptions. Changed bindings should cause rejection, not a new current-protocol wrapper that makes history appear valid.
 
-### 2.1 Avoiding overwrites first meant restricting parallel changes
+The key is not the age of a version number, but **whether the commitment still has a consumer and which facts recovery must faithfully retain**. Prelaunch does not automatically mean there are no durable records to protect; the project owner's statement that there were no real users does not replace an examination of the actual durable-data scope.
 
-The refactor covered child handoffs, recovery storage, shared execution state, and user memory. Those were also the places other development tasks needed to modify.
+**Prevention rule:** When adding a compatibility branch, record its consumer, historical facts to preserve, verification method, and retirement conditions. Revisit actual readers and durable records. Before removal, distinguish unused development protocols from sealed requests that still need recovery; verify the latter's original identity and binding instead of constructing a plausible old record in the current shape. When the actual data scope cannot be established, keep it unknown rather than calling an absence of findings proof of absence.
 
-The afternoon collaboration plan temporarily assigned the entire Research Runtime and its shared interfaces to one responsible implementer. Another coding agent moved to independent fund-research quality, account configuration, and UI work. A change requiring the shared foundation had to pause that portion and hand over a minimal reproduction and interface need.
+## Tests inherit obsolete contracts too
 
-There was a valid reason: several implementers cannot independently reshape the same state and expect the merge to be correct by default.
+One PostgreSQL scenario appeared to show a handoff problem: a child was still running when a human reply arrived, and the test failed. Investigation found an extra 1.5-second whole-run wait limit in the helper; it fired before the final business assertion. After the helper's waiting behavior was corrected, the same scenarios passed with the original stage controls and assertions retained. This supports the diagnosis of a test-helper deadline; it does not mean every similar failure is a test problem.
 
-The cost was equally real. **Coupling reduced not only change locality, but also the amount of work people and agents could safely perform in parallel.**
+Other old tests still created children with `type: "web"`, while the current entry point used `agentId`. They were rejected before reaching the recovery behavior they were meant to test. Adding a production compatibility branch in response could turn a retired test input back into a product promise; simply deleting the failing tests could lose valuable recovery, authorization, and concurrency protections.
 
-By evening, the handoff explicitly narrowed that restriction. An unfinished whole refactor must not become a blanket ban on new features. Stable interfaces could still be used; genuinely overlapping edits should be coordinated at the relevant change fragments.
+[Martin Fowler's discussion of contract tests](https://martinfowler.com/bliki/ContractTest.html) notes that a test double can drift from the real service it represents. Our example is not identical, but the concern is related: test entry points and helpers also have contracts that need maintenance when production interfaces change.
 
-That is part of the lesson, too. Protecting shared code is necessary, but an overly broad exclusion zone can magnify the blockage.
+**Prevention rule:** When an interface changes, review test producers, data, and helpers together, and construct inputs through the real current assembly path. For a failure, first determine whether it occurred in preparation, waiting, or the target assertion; then assess it against the current contract as a production defect, an obsolete test, or insufficient evidence. Preserve business assertions and negative protections when migrating inputs; do not weaken them merely to get green. Coordinate asynchronous tests with explicit stage conditions and retain a reasonable outer timeout.
 
-### 2.2 Old test entry points blocked validation of the new structure
+## Parallel work depends on boundaries, not just headcount
 
-Some Child tests still created tasks with an old selector, such as `type: "web"`, while the fresh admission interface now used `agentId`.
+Coupling eventually became a collaboration problem. To avoid people or coding agents concurrently reshaping shared runtime state, the team temporarily assigned a broad Research Runtime area to one owner that afternoon and redirected other work. That reduced overwrite risk, but also made some work without a direct conflict wait. The later handoff narrowed the restriction: stable interfaces remained usable, while genuinely overlapping changes or shared invariants needed coordination.
 
-The old field was not invalid everywhere: readers of stored historical tasks could still need it. But creating a new child and reading an old record had become different entry points.
+The lesson is not that collaboration always creates conflicts, or that only one person may touch a file. Changes in different files can share a single state rule; changes in different parts of one file need not conflict in substance. Git can reveal textual conflicts, but it cannot determine whether two pieces of code independently changed the same business decision.
 
-As a result, some tests failed while setting up the child, before reaching the notification, recovery, or handoff behavior they were meant to exercise.
+**Prevention rule:** Before parallel work begins, identify each task's rule ownership, state writers, interfaces, and durable facts, then define concrete write scopes and an integration owner. When a shared invariant or interface is changing, agree on the contract and integration order first; consumers of stable boundaries can continue. Handoffs should identify the source baseline, uncommitted changes, dependencies, and verification scope. During integration, inspect semantic overlap as well as automatic mergeability. Restrict concurrent writing only where actual conflict requires it, rather than locking an entire system to one person indefinitely.
 
-The disposition notes identified **33 shared fixture-precondition symptoms** in one selected group. A fixture prepares test inputs and dependencies. This does not mean “33 production bugs,” nor does it mean that all 33 scenarios had individually completed before-and-after validation.
+## Leave each problem with the right owner
 
-The proper correction was to load the current managed expert definitions and task bindings while retaining the original authorization, idempotency, and concurrency assertions. Renaming a field—or inventing an identity that happened to pass validation—was insufficient.
+Subsequent changes consolidated Child handoff rules, reduced shared Run state and the Factory's exposure to Memory internals, and retired some old readers. Targeted verification supports those specific changes. As of the records checked on October 27, full formal acceptance remained incomplete, so the local results cannot be described as overall acceptance; nor do we have data showing how much maintenance time was saved.
 
-That work did not directly improve research output, but it was unavoidable. Until tests were aligned with the real admission path, neither their red nor their green results were easy to interpret.
+For the next change, we want to notice a few observable signals earlier: an equivalent condition appears in a second adapter; a new module needs to change another's internal fields; an old protocol remains without an identifiable consumer; a test fails before reaching its business assertion; or parallel tasks keep expanding one another's write scope.
 
-### 2.3 A 1.5-second guard sent us back into diagnosis
-
-At 17:34, five of six PostgreSQL scenarios passed. The failing scenario accepted a human reply while a child request was still in flight.
-
-Several explanations were plausible: lock contention, a lost reply, or a refactor that had changed task completion conditions.
-
-The execution trace revealed an extra **1.5-second whole-run wait limit** in the test helper. It fired before the final assertions. The child had already been dispatched, the related requests did not record an execution failure, and later steps had not yet completed.
-
-We changed only the helper: removed that extra short race and awaited the real execution promise. The original ordering barriers, business assertions, and **20-second** per-case PostgreSQL timeout stayed intact.
-
-No production code, SQL, or database configuration was changed for this correction. Rerunning the original six scenarios passed all six. The affected human-interaction/Factory offline file also passed its nine scenarios.
-
-The value of those results was not another impressive pass count. It was a precise diagnosis: **this failure called for a test-assembly repair, not another waiting or retry mechanism in the runtime.**
-
-Had we reacted only to the red result, a constraint invented by the test could have become permanent production complexity.
-
-### 2.4 Checks remained inconclusive while branches kept moving
-
-Two full type-check attempts also failed to produce usable conclusions. One lacked a complete retained exit result. The other ended with code **137**, printed `Killed`, and emitted no compiler diagnostic.
-
-That establishes an incomplete check. It does not establish an out-of-memory cause, a successful type check, or a diagnosed production bug.
-
-We subsequently compared targeted source and dependency closures, keeping the incomplete full-check boundary explicit rather than repeatedly changing parameters until something turned green.
-
-Parallel branches increased integration work as well. At fixed snapshots, the complete Runtime refactor shared **18 paths** with the first Child/human-interaction batch and **3 paths** with the light-recovery work.
-
-Shared paths are not confirmed Git conflicts. The first number partly reflects that the larger branch already contained the smaller batch; the counts cannot be added into a rework total.
-
-They did show why applying old branches wholesale was risky. We had to select remaining increments against the integrated baseline and preserve behavior already repaired by the earlier batch.
-
-**Writing code had become only one part of the job. Establishing current facts, repairing validation preconditions, tracing consumers, and integrating safely consumed much of the effort.**
-
-## 3. Three layers of problems—not one root cause
-
-Blaming the entire day on “too much reliability” would be inaccurate. At least three layers required different responses.
-
-The first was ownership coupling. Child rules were distributed across the codec and stores; Memory lifecycle knowledge had leaked into the Factory. Local changes kept spreading. The response was to consolidate responsibilities.
-
-The second was historical compatibility. To keep old tasks executable, the runtime retained previous tool contracts and recovery matching logic. The fresh contract was already at `@45`, while we still had to decide which `@39`, `@44`, and other historical reading or execution paths remained necessary. That required a product decision and a consumer audit, not just moving functions.
-
-The third was validation and collaboration. Stale fixtures, an extra wait guard, inconclusive checks, and overlapping branches made the first two problems harder to deliver safely. The response was better assembly, precise scope, and incremental integration.
-
-The layers amplified one another, but “the system is too complex” is not a sufficient diagnosis. Nor are authorization, concurrency protection, and actual request reconciliation burdens that can simply be deleted.
-
-## 4. The first slice: one place interprets each rule
-
-For human replies and child partial handoffs, we separated four responsibilities. The interaction module determines whether a reply was accepted. The Child module interprets what the accepted facts permit for that handoff. The Store commits state within the right transaction. The Run lifecycle module decides how the overall research continues or ends.
-
-Crucially, this does not mean making a decision outside the database and entering a transaction merely to write it. **Reading current facts, planning the transition, and committing must remain inside the original transaction and concurrency protection.**
-
-```mermaid
-graph TD
-StoreTransaction --> ReadCurrentFacts
-ReadCurrentFacts --> ChildRule
-ChildRule --> CommitAllowedTransition
-ChildRule --> PreserveStateOnConflict
-CommitAllowedTransition --> ReturnReceipt
-PreserveStateOnConflict --> ReturnLocalRejection
-```
-
-The two outcome paths depend on current task state, reply identity, and concurrency facts. An allowed transition is committed and returns an actual receipt. A conflict preserves state and rejects that handoff. A local rejection does not automatically terminate unrelated lawful research.
-
-The following is an explanatory example, not a new production interface:
-
-| Input facts | Structured decision | Next behavior |
-| --- | --- | --- |
-| The original task can still hand off; reply identity and revision match | Allow transition | Commit once in the original transaction |
-| The same result was already committed | Return original receipt | Do not execute or charge again |
-| The task was cancelled, or the reply/writer identity is stale | Reject this effect | Preserve state; do not revive the old task |
-
-The first batch integrated on October 25 touched **6 production files and 5 test/helper files**. The original codec lost **145 lines** of related logic, with responsibility moving to Child and human-interaction modules. New domain code was also added, so 145 lines must not be presented as the system's net reduction.
-
-The batch established that particular ownership change and behavior in the selected scenarios. Broader recovery coverage, historical reader disposition, and the whole refactor remained open.
-
-The useful future test is practical: when the same handoff rule changes again without adding a durable fact, will equivalent conditions still need to be edited separately in both stores and the codec?
-
-## 5. A separate decision: which historical promises may end?
-
-Clear ownership does not, by itself, decide whether old formats must remain supported.
-
-The original refactor explicitly allowed retiring unreleased development formats with no current consumers. At the same time, it preserved the recovery guarantees still required for the current version, authorization isolation, actual receipts, and already committed text.
-
-Only later did the separate light-recovery design ask a further question: could an ordinary research task honestly stop after a service failure, with an explicit continuation creating a new task that uses still-permitted saved work, instead of reconstructing the entire old execution state?
-
-These are different decisions. One narrows compatibility with old development versions. The other changes ordinary research's recovery promise. The latter must not be described as an outcome already delivered by the first ownership refactor.
-
-A reader with real consumers cannot be removed merely because its name contains “legacy.” Accepted human replies still need their wake-up state where current tasks rely on it. External requests without definite outcomes must retain their unknown status and original reconciliation identity.
-
-The aim is to retire unnecessary executable promises—not to erase things that actually happened.
-
-## 6. What remained after the day?
-
-The day did produce work. The initial handoff-rule slice reached main, and some private-state changes became independent deliveries later that evening. Yet the overnight coordination still had to answer, “How do we resume subagent feature development tomorrow?”
-
-That is what being blocked for a whole day meant for us. There was no dramatic production incident. Instead, time intended for new capability went into foundation maintenance, test repairs, and coordination.
-
-Our execution approach also needed improvement. Shared code needs coordination, not a permanent lock on an entire directory. Existing tests need classification, but “obsolete” cannot explain every failure. A complex refactor can be delivered in slices; unrelated work need not wait for every phase to close.
-
-After this experience, I start with three questions: **who actually interprets this rule, who still needs this compatibility promise, and which real behavior did this validation reach?**
-
-They concern ownership, product commitments, and evidence respectively. Missing any one of them can keep the work circling.
-
-Which parts of different capabilities should remain stable, and which should evolve quickly, is the next architectural question. We develop it in the [companion article](agent-differentiated-evolution-contracts.md), rather than turning one difficult refactor into a universal argument for less reliability.
-
-**Good architecture gives necessary complexity a clear home—and lets unnecessary historical mechanisms leave.**
-
----
-
-*Engineering scope: this article reconstructs development work on October 25, 2026. Size, commit, and validation figures come from contemporaneous records. “A day” describes disruption of the shared development stream, not a precise labor-hour measurement or an outage statistic. Targeted tests qualify particular versions, not the whole repository, live-model quality, or production acceptance. Later progress is not backdated into the event, and maintenance-efficiency gains remain unmeasured.*
-
-## October 26, 2026: Progress without full closure
-
-The incident and the numbers above remain a snapshot of **October 25**, rather than being retroactively labeled a completed refactor. Since then, main has received the initial run-scoped Access/Exposure slice, private Access Skill-session state, and a run-local Memory lifecycle with separate evidence. An eight-group mutable-field ownership/writer reconciliation was recorded on October 26. Original tasks **1.1, 2.1, 3.1 and 3.2** each have a bounded completion status; duplicated Factory Memory Maps/Sets and bookkeeping have been consolidated or retired under the original Memory Owner.
-
-Tasks **1.2, 1.3, 2.2, 4.1 and E.1** remain open: wider Memory/PostgreSQL recovery coverage, retiring repeated codec/store conditions, remaining private-state migration and overall closure. Local checks are not complete live-model or production qualification, and maintenance savings have not been measured. See the [dated Owner status update](/en/gallery#daily-status-20261026).
+These signals do not require an immediate rewrite of everything. They are a prompt to establish the boundaries of rules, state, historical commitments, and collaboration before the change spreads further. Whether a local modification stays local often depends on those decisions.
 
 ## Further reading
 
-[What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md) develops the differentiated evolution contracts prompted by this refactor. [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md) examines how to separate valid protections from assertions about retired implementations.
+[What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md) discusses evolution contracts across modules. [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md) explores how to retain valid protections while retiring obsolete assertions.
 
 This article is part of [ETF Agent Engineering Notes](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-runtime-refactor-one-day-blocked). If these engineering cases are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
 
-The ownership lesson maps to [Core Principle 3: complexity belongs with its rightful owner](/en/principles#principle-3).
+The corresponding architectural discussion is [Core Principle 3: complexity belongs with its rightful owner](/en/principles#principle-3).
