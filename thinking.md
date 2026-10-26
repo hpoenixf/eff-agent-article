@@ -1,11 +1,11 @@
 ---
 title: 架构设计与系统思考
-description: 23 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
+description: 24 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈归因与工程演化的文章。
 ---
 
 # 架构设计与系统思考
 
-<small>WHY IT WORKS · 23 篇 · 4 个主题</small>
+<small>WHY IT WORKS · 24 篇 · 4 个主题</small>
 
 从一次技术取舍的背后看系统：**模型和 Runtime 各能做什么？谁最终裁决？为什么有些机制应该被删除而不是继续叠加？怎样证明用户目标真的完成？**
 
@@ -19,7 +19,7 @@ description: 23 篇关于 Agent 系统边界、职责 Owner、可靠性、反馈
 
 **可靠性案例：** [模型失败之后，Agent 怎么继续？](/articles/agent-provider-failover-without-resetting-the-run)——故障域感知选路、原 Run 授权与预算、数据披露和恢复身份；讨论受控继续，不承诺已经实现生产无感高可用。
 
-**金融科技案例：** [一份周报过去后，Agent 还记得当初为什么这样判断吗？](/articles/agent-weekly-thesis-history-continuous-research)——历史事实、原始 Investment Thesis 和用户修正的不同归属；同时进入[金融科技 × Agent 精选](/fintech)。
+**金融科技案例：** [一份周报过去后，Agent 还记得当初为什么这样判断吗？](/articles/agent-weekly-thesis-history-continuous-research)——历史事实、原始 Investment Thesis 和用户修正的不同归属；[投研 Agent 的关键不是多调用工具](/articles/etf-agent-model-harness-research-loop)则通过 Main、原生 Loop、金融时点、证据链和真实交付解释研究为何能够修正判断。两篇均可从[金融科技 × Agent 精选](/fintech)进入。
 
 **入门路线：** [六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3) → [模型会理解，代码才授权](/articles/011-model-understands-code-authorizes) → [收回散落的否决权](/articles/agent-veto-authority-and-run-termination) → [代码越来越便宜，为什么系统却越来越难升级？](/articles/code-cheaper-systems-harder-to-evolve) → [失败诊断与反馈误归因](/articles/agent-failure-is-a-boundary-problem)。
 

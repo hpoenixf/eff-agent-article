@@ -115,7 +115,7 @@ Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机
 
 结束也是两个判断：**Main** 负责回答是否足够、需要哪些反证及不确定性解释；**CompletionGate/Publication** 处理合法的完成、资源耗尽、部分正文及实际发布。Run 终态不认证金融分析质量，`resolved` 也不等于任务已完成。Child、Reviewer 和多空视角可以在需要时参与，但不是每项研究都必经的外围循环。
 
-这三个时间尺度的真实机制、一个失败示例以及当前验收缺口，另见[从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)。
+这三个时间尺度的真实机制、一个失败示例以及当前验收缺口，另见[投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)。
 
 ### 4.3 Coord：协调原 Run，不是第三套 Agent
 

@@ -14,7 +14,7 @@
 
 ## 2026-10-26 · 研究推进的第二种阅读视角
 
-[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)微调了研究推进的三个时间尺度；新增[从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)沿同一基金问题讲清模型判断、真实工具回执、重开研究问题、停放接续与交付。它不是六层的替代版本，也不新增独立研究调度器。两篇均提供完整中文与英文正文。
+[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)微调了研究推进的三个时间尺度；新增[投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)沿同一基金问题讲清模型判断、真实工具回执、重开研究问题、停放接续与交付。它不是六层的替代版本，也不新增独立研究调度器。两篇均提供完整中文与英文正文。
 
 ## 2026-10-26 · 一次重构，两种阅读视角
 
@@ -181,13 +181,14 @@
 </details>
 
 <details>
-<summary><b>03 · 金融与工程</b>（11 篇）</summary>
+<summary><b>03 · 金融与工程</b>（12 篇）</summary>
 
 - [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
 - [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 - [Python 算过了，投研报告为什么还会错](articles/financial-agent-python-result-consumption.md)
 - [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
+- [投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)
 - [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
 - [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
@@ -198,10 +199,9 @@
 </details>
 
 <details>
-<summary><b>04 · 其他</b>（4 篇）</summary>
+<summary><b>04 · 其他</b>（3 篇）</summary>
 
 - [六层调用全景 V3：从提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
-- [从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)
 - [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)

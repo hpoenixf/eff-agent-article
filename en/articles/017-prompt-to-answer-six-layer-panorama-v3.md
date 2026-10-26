@@ -113,7 +113,7 @@ Suppose a user asks whether a fund's sector concentration has changed. An articl
 
 Finishing also involves distinct decisions: **Main** judges what to investigate and how to explain remaining uncertainty; **CompletionGate and Publication** own legal termination, resource limits, partial content and actual delivery. A terminal Run does not certify the financial conclusion, and a `resolved` working item does not certify task completion. Children, reviewers and peer perspectives remain optional collaboration, not mandatory outer loops.
 
-For a full mechanism-level walkthrough and the remaining acceptance gaps, see [From Retrieval to Sustained Research: Model, Harness and Loops in ETF Agent](/en/articles/etf-agent-model-harness-research-loop).
+For a full mechanism-level walkthrough and the remaining acceptance gaps, see [A Research Agent Needs More Than Tools: Model, Harness, and Loop](/en/articles/etf-agent-model-harness-research-loop).
 
 ### 4.3 Coord — targeted control, not a third Agent engine
 
