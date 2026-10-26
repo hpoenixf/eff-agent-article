@@ -87,7 +87,7 @@ export default defineConfig({
         darkModeSwitchLabel: 'Toggle Appearance',
         editLink: { pattern: 'https://github.com/hpoenixf/eff-agent-article/edit/main/:path', text: 'Improve This Page on GitHub' },
         footer: {
-          message: 'Engineering notes, evidence and boundaries. · Contact: <a href="mailto:hpeonixf@foxmail.com">hpeonixf@foxmail.com</a> · WeChat: hpoenixf0510',
+          message: 'Engineering notes, evidence and boundaries. · Contact: <a href="mailto:hpoenixf@foxmail.com">hpoenixf@foxmail.com</a> · WeChat: hpoenixf0510',
           copyright: 'ETF Agent Engineering Notes'
         }
       }
@@ -215,7 +215,7 @@ export default defineConfig({
       }
     },
     footer: {
-      message: '与个人博客并行：这里按问题连续阅读，博客保留时间线。 · 联系邮箱：<a href="mailto:hpeonixf@foxmail.com">hpeonixf@foxmail.com</a> · 微信：hpoenixf0510',
+      message: '与个人博客并行：这里按问题连续阅读，博客保留时间线。 · 联系邮箱：<a href="mailto:hpoenixf@foxmail.com">hpoenixf@foxmail.com</a> · 微信：hpoenixf0510',
       copyright: 'ETF Agent Engineering Notes · 思考、证据与边界'
     }
   }
