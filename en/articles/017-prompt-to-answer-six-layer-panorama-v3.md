@@ -99,6 +99,22 @@ The three lower paths are not sequential phases: **Publication** owns content re
 
 This preserves V2's central Native Loop insight but names the Context, Agent, Tool, Result, Publication and recovery handoffs according to the revised six-stage view.
 
+### 4.2.1 Why research continues, changes course, waits, or finishes
+
+The diagram shows **one model turn, action, and observation**. The same architecture can also be read at three time scales. These are explanatory perspectives, **not three nested schedulers**.
+
+| Time scale | Who chooses the next step? | What must remain distinct? |
+| --- | --- | --- |
+| **Within a turn: observation-driven work** | Main reads a settled Host result and decides to search again, compute, delegate to a Child, or answer | A successful tool call is not a completed research question |
+| **Within a Run: research judgment** | Main may revise or reopen working questions after contradictory evidence | `researchNeeds` are model-authored working notes, not certified evidence coverage or a completion/publication gate |
+| **Across time: durable continuation** | Existing Recovery, Control and HIO owners park, wake and correct under the original identity; explicit Continue starts a linked Run after termination | Previous receipts, grants, budgets and committed text are not newly authorized facts |
+
+Suppose a user asks whether a fund's sector concentration has changed. An article **reposted today** may summarize holdings whose data cutoff was months earlier. Main must distinguish the reposting date, original disclosure date and underlying `as-of` date. It may consult the original disclosure, qualify the historical data, or explicitly say the change is unknown; it should not label an old portfolio snapshot as current holdings. The existing [A36 temporal-semantics owner](/en/articles/agent-temporal-semantics-market-calendar) supplies a separate time contract, but normal end-to-end research acceptance is still open. This example illustrates a desired judgment, not proven automatic financial accuracy.
+
+Finishing also involves distinct decisions: **Main** judges what to investigate and how to explain remaining uncertainty; **CompletionGate and Publication** own legal termination, resource limits, partial content and actual delivery. A terminal Run does not certify the financial conclusion, and a `resolved` working item does not certify task completion. Children, reviewers and peer perspectives remain optional collaboration, not mandatory outer loops.
+
+For a full mechanism-level walkthrough and the remaining acceptance gaps, see [From Retrieval to Sustained Research: Model, Harness and Loops in ETF Agent](/en/articles/etf-agent-model-harness-research-loop).
+
 ### 4.3 Coord — targeted control, not a third Agent engine
 
 If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **[Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption)**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.

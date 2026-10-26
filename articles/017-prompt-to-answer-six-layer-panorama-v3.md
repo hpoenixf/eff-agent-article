@@ -101,6 +101,22 @@ Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机
 
 这与 V2 强调的 Native Loop 是同一个架构选择；V3 只是把 Context、Agent、Tool、Result、Publication 和恢复的实际交接重新标到当前六层。
 
+### 4.2.1 研究如何继续、改道、等待与结束
+
+上图放大的是**一次模型回合的决策与观察**。如果从完整任务看，还可以区分三个时间尺度；它们是同一架构的阅读视角，**不是三套嵌套的调度器**。
+
+| 时间尺度 | 谁改变下一步 | 哪项事实不能被偷换 |
+| --- | --- | --- |
+| **回合内：观察驱动** | Main 看到 Host 已结算的工具结果后，决定再查、计算、委派 Child 或回答 | 工具返回成功不等于原问题已解决 |
+| **同一 Run：研究判断** | Main 可以维护、修订或重新打开工作问题，发现反例时改变研究方向 | `researchNeeds` 是模型的工作笔记，不是证据覆盖、完成或发布硬门 |
+| **跨时间：安全接续** | 原 Recovery/Control/HIO 依据持久身份停放、唤醒、纠偏；终态后由显式 Continue 建立关联的新 Run | 旧回执、权限、预算和已经发布的正文不能被重新签发为新事实 |
+
+例如，用户询问“我的基金行业集中度是否变化”。检索结果中一篇**今天重新转载**的基金报告可能对应数月前的持仓截止日。Main 应区分资料转载日、实际披露日与数据 `as-of`，决定是否补查原始披露、保留旧数据并注明范围，或者坦诚输出尚无法确认的变化；不能因为搜到了“最新文章”就生成“最新持仓”的结论。时间来源与市场日历有独立的 [A36 时间语义](/articles/agent-temporal-semantics-market-calendar) Owner，其普通真实研究验收尚未完成，不应把这种理想研究行为写成已验证的全自动正确性。
+
+结束也是两个判断：**Main** 负责回答是否足够、需要哪些反证及不确定性解释；**CompletionGate/Publication** 处理合法的完成、资源耗尽、部分正文及实际发布。Run 终态不认证金融分析质量，`resolved` 也不等于任务已完成。Child、Reviewer 和多空视角可以在需要时参与，但不是每项研究都必经的外围循环。
+
+这三个时间尺度的真实机制、一个失败示例以及当前验收缺口，另见[从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)。
+
 ### 4.3 Coord：协调原 Run，不是第三套 Agent
 
 当同一个 Conversation 已有后台 Research，用户说“给刚才那项研究补上汇率因素”，普通新消息可以走 Coord。它必须关联合法的目标 Run，提出 `inspect`、`correct` 或 `stop` 等有界动作，再由原 **[持久控制事件](/articles/agent-control-events-durable-owner-adoption)**、Correction、Continue 或终结 Owner 接纳真正的效果。模糊目标只澄清，不靠最新消息猜对象。

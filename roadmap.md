@@ -11,6 +11,14 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 先看[九条核心原则与七组外围系统方法](/principles)，再决定是深化原文、积累案例，还是形成新文章。
 
+## 2026-10-26 · 六层地图与研究推进专文
+
+[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)本轮只在 Native Loop 段落补充“回合内观察—同一 Run 研究判断—跨时间安全接续”三种阅读尺度，不改变六层、Owner 数量或 V1/V2 的原版本身份。
+
+独立新增[从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)，沿一项基金行业与汇率研究的教学例子解释模型决定下一步、Harness 结算真实效果、资料时点冲突、研究问题重开、恢复和最终交付。它回答**研究如何推进**，V3 回答**责任如何组织**，避免在两文重复介绍全部模块。中文与英文正文同篇成对收录，英文图表不可使用中文标签。
+
+**后续更新原则：** 只拿真实新证据深化两篇主稿，尤其是金融时点与披露口径、矛盾来源导致的研究修订、Reviewer／人类意见的不同权威、以及已经可取得的报告和 History。当前金融质量剩余付费试跑已停止，不能把本文提出的反例写成已运行的模型测试；也不新建 Outer Loop、Workflow Manager 或金融合规总闸。
+
 ## 2026-10-26 · 先维护现有正文，再扩大目录
 
 最新主干已把 **Runtime 局部职责收拢**推进到原任务 1.1、2.1、3.1、3.2 的限定进度：Child/HIO 规则、Run-local Memory、Access/Exposure 和 Skill 会话私有化有实现或原范围证据；Factory Memory 内部状态的删除及组合职责回归已在限定范围核实；PG/Memory 广泛恢复、重复 Codec/Store 规则删除、其余字段迁移和总体验收仍在途。站点应更新[10 月 25 日重构复盘](/articles/agent-runtime-refactor-one-day-blocked)的进度附记，不应把那天的历史阻塞直接改写成已完成。
