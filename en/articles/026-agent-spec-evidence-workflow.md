@@ -1,6 +1,6 @@
 ---
 title: "Writing a Spec Doesn't Mean the Work Is Done: Verifiable Agent Engineering"
-description: "A traceable workflow combining OpenSpec, Superpowers, test-driven development, evidence ledgers and formal change closure."
+description: "OpenSpec, TDD, evidence ledgers and the open-source Evidence Kit: how to inspect Agent completion claims."
 ---
 
 # Why Can't We Call an Agent Feature Finished After Writing the Spec?
@@ -17,7 +17,7 @@ The workflow builds on **OpenSpec**, uses design and test-driven ideas from **Su
 
 One useful idea in [OpenSpec](https://github.com/Fission-AI/OpenSpec) is to distinguish accepted specifications from proposed changes. We retain that separation.
 
-~~~text
+```text
 openspec/
   specs/
     capability/
@@ -31,7 +31,7 @@ openspec/
       plan.md
       evidence.md
       verify.md
-~~~
+```
 
 This directory listing is illustrative. Not every change must create every optional file.
 
@@ -47,25 +47,25 @@ In long-running projects, this distinction prevents a coding agent from treating
 
 ## 2. A Spec Workflow Is About Facts Produced at Each Stage, Not File Order
 
-Our custom superpowers-bridge schema expresses the development process.
+Our internal superpowers-bridge schema expresses ETF Agent's development process; the open-source kit discussed later extracts only its portable evidence-checking mechanisms.
 
-~~~mermaid
-flowchart TD
-  U["User need"] --> P["Proposal"]
-  P --> D["Design"]
-  D --> S["Spec delta"]
-  S --> B["Evidence baseline"]
-  B --> T["Tasks and plan"]
-  T --> R["Observe RED"]
-  R --> G["Implement GREEN"]
-  G --> E["Evidence ledger"]
-  E --> V["Verify"]
-  V --> C["Formal closure decision"]
-  C --> A["Accepted spec"]
-  C --> F["Targeted repair"]
-  F --> E
-  A --> H["History handoff"]
-~~~
+```mermaid
+graph TD
+UserNeed --> Proposal
+Proposal --> Design
+Design --> SpecDelta
+SpecDelta --> EvidenceBaseline
+EvidenceBaseline --> TasksAndPlan
+TasksAndPlan --> ObserveRed
+ObserveRed --> ImplementGreen
+ImplementGreen --> EvidenceLedger
+EvidenceLedger --> Verify
+Verify --> FormalClose
+FormalClose --> AcceptedSpec
+FormalClose --> TargetedRepair
+TargetedRepair --> EvidenceLedger
+AcceptedSpec --> HistoryHandoff
+```
 
 The two closure exits mean that successful formal acceptance under the declared scope may synchronize accepted specs and archive the change; unverified or failed outcomes retain their status and direct work toward specific gaps.
 
@@ -109,7 +109,7 @@ Every substantive change maintains evidence.md. Before implementation it records
 
 For example:
 
-~~~text
+```text
 Evidence: EV-01
 Task: 1.1
 Phase: GREEN
@@ -118,7 +118,7 @@ Result: actual pass and test scope
 Revision: source revision at execution
 Artifact: locatable test output
 Origin: observed-run
-~~~
+```
 
 The point is not that the fields look professional. **Every conclusion must trace back to execution that actually happened at the time.**
 
@@ -157,20 +157,20 @@ We assigned one primary responsibility per artifact:
 
 A meaningful implementation change made verify.md a generated **projection** of the ledger:
 
-~~~bash
+```bash
 npm run spec:verify -- --change example-change
 npm run spec:verify -- --change example-change --check
-~~~
+```
 
 This generator does **not execute tests**. It projects existing tasks and observations while preserving original dates, revisions and execution origins. It never overwrites hand-authored Verify. If inputs change and the generated view becomes stale, checking reports that mismatch rather than presenting the old view as current.
 
 Structural linting became stage-specific:
 
-~~~bash
+```bash
 npm run spec:lint -- --change example-change --stage plan
 npm run spec:lint -- --change example-change --stage apply
 npm run spec:lint -- --change example-change --stage verify
-~~~
+```
 
 plan checks minimum operability such as task IDs. apply verifies real RED/GREEN or CHECK evidence for completed tasks. verify checks finished states, evidence and conclusions.
 
@@ -180,9 +180,9 @@ This is a **read-only structural checker**, not a substitute for running tests o
 
 Formal spec:close is independent of checking off Tasks:
 
-~~~bash
+```bash
 npm run spec:close -- --change example-change
-~~~
+```
 
 It runs the gates required by the declared validation route. Local contracts, genuine integrations, paid-model validation and product release are different facts; a PASS in one cannot certify the others.
 
@@ -221,7 +221,51 @@ The change left traceable RED/GREEN, targeted tests and local closure records in
 
 This workflow uses [method 4, “Planning a multi-phase delivery”](/en/principles#method-4) to distinguish the intended design from the current implementation stage, and [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) to constrain each closure claim to execution evidence from the relevant revision. They are design and verification methods, not a demand that every small change pass the same heavyweight gates.
 
-## 7. Which Projects Benefit?
+## 7. Extracting the Portable Part: OpenSpec Evidence Kit
+
+The workflow above describes ETF Agent's own `superpowers-bridge` schema, project-specific verification and `spec:close`. Copying those parts wholesale into another repository would also copy application assumptions. In October 2026, we extracted a narrower, independently installable subset as [OpenSpec Evidence Kit](https://github.com/hpoenixf/openspec-evidence-kit) ([v0.1.0](https://github.com/hpoenixf/openspec-evidence-kit/releases/tag/v0.1.0), MIT): **structural checks for tasks and observations, a generated Verify view, and read-only inspection of recorded completion**.
+
+It uses Node 26.11.1–26.x, with no runtime dependencies, database, or model calls. OpenSpec itself is optional: the package also works with an ordinary local directory. Its separately written [`evidence-driven` schema](https://github.com/hpoenixf/openspec-evidence-kit/tree/main/schema/evidence-driven) is an optional OpenSpec adapter, not a republication of our internal schema or closure machinery.
+
+### From one task to an inspectable observation
+
+Consider this **fictional format example**. A change named `cache-fix` already has `tasks.md` and `evidence.md`. After an inspection, its author records the local artifact `result.txt`:
+
+```text
+# tasks.md
+- [x] 1.1 [check-only] Inspect the cache result file
+
+# evidence.md
+## Observation Log
+| Date / phase | Evidence ID | Task | Command | Actual result | Artifact | Revision | Origin |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: illustrative check | result.txt | demo-revision | observed-run |
+```
+
+The point is not a ceremonial table. It is a **stable task ID, an ordered observation, a local artifact and the original revision**. A completed ordinary task requires an ordered `RED → GREEN` sequence by default. The explicit `[check-only]` marker selects `CHECK`, `[baseline-green]` selects `BASELINE → VERIFY`, and `[tests-after]` records a later `VERIFY`. Imported `reused-historical` evidence does not satisfy a fresh completed task.
+
+With the files under `openspec/changes/cache-fix/`, the project can run:
+
+```bash
+npm install --save-dev github:hpoenixf/openspec-evidence-kit#v0.1.0
+npx --no-install spec-evidence lint --change cache-fix --stage plan
+npx --no-install spec-evidence lint --change cache-fix --stage apply
+npx --no-install spec-evidence verify --change cache-fix
+npx --no-install spec-evidence verify --change cache-fix --check
+npx --no-install spec-evidence status --change cache-fix
+```
+
+`plan` checks task labels and duplicate IDs. `apply` checks recorded phases and local artifact existence for checked tasks. `verify` requires complete tasks and usable observations before generating `verify.md` with a digest of its inputs; `verify --check` detects a stale generated view without rewriting it. The writer preserves handwritten verification files and refuses paths outside the selected change or through symlinks.
+
+`status` deliberately does less: it reads task state and an **authored** `completion.json`, if present. It may report `recorded-complete` when all tasks are checked and the typed record is valid, preserving its original timestamp, revision and verification lane. It neither reruns the old checks nor requires vanished temporary artifacts merely to inspect the record.
+
+### Why this is not another acceptance authority
+
+The responsibilities remain separate: **test runners execute checks; developers or agents record observations; the CLI validates recorded structure; the consuming project decides acceptance**. `observed-run` is an authored provenance label, not proof that the command actually ran. A recorded completion is not a fresh verification of current code or permission to release.
+
+This makes the kit suitable as a small local or CI check rather than a replacement for product-specific test execution, model-quality evaluation or formal closure. The [repository](https://github.com/hpoenixf/openspec-evidence-kit) includes offline examples and the evidence format. Its optional schema follows the [OpenSpec](https://github.com/Fission-AI/OpenSpec) ecosystem, while its [NOTICE](https://github.com/hpoenixf/openspec-evidence-kit/blob/main/NOTICE.md) attributes relevant Superpowers influences.
+
+## 8. Which Projects Benefit?
 
 [GitHub Spec Kit](https://github.github.com/spec-kit/) also connects specification, plan, tasks and implementation. We did not create a new universal standard beyond these methods. We adapted their ideas to long-lived Agent projects, adding durable multi-turn execution evidence, unambiguous completion states and timely acceptance convergence.
 

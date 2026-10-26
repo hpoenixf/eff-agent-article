@@ -1,6 +1,6 @@
 ---
 title: '写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程'
-description: 'OpenSpec、Superpowers、TDD 与 Evidence Ledger 如何构成可追溯、可验证的 Agent 研发关闭流程。'
+description: 'OpenSpec、TDD、Evidence Ledger 与开源 Evidence Kit：怎样让 Agent 的完成声明有可检查的依据。'
 ---
 
 # 写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程
@@ -41,7 +41,7 @@ openspec/
 
 ## 二、Spec 流的核心不是文件顺序，而是每个阶段留下什么事实
 
-我们使用自定义的 `superpowers-bridge` Schema 组织研发过程。整体可以概括为：
+我们使用自定义的 `superpowers-bridge` Schema 组织原仓库的研发过程；后文介绍的开源工具只抽取其中可移植的证据检查机制。整体可以概括为：
 
 ```mermaid
 graph TD
@@ -202,7 +202,51 @@ npm run spec:close -- --change example-change
 
 因此，这套流程既需要[方法 4「完整设计与分期交付」](/principles#method-4)来区分目标方案与当前阶段，也需要[方法 5「验证与故障归因」](/principles#method-5)让每次关闭声明只由对应版本的真实证据支持。它们是设计与验证的思考工具，不意味着每个小变更都要经过同样沉重的阶段门。
 
-## 七、哪些项目适合这样做？
+## 七、从内部流程到独立工具：OpenSpec Evidence Kit
+
+前面介绍的是 ETF Agent 自己的研发流程：它有内部的 `superpowers-bridge` Schema、`spec:close` 和项目专属验证入口。这套完整流程不适合原样搬进其他仓库。2026 年 10 月，我们把其中**任务与观测的结构检查、Verify 生成视图、已有完成记录读取**抽成了独立的 [OpenSpec Evidence Kit](https://github.com/hpoenixf/openspec-evidence-kit)（[v0.1.0](https://github.com/hpoenixf/openspec-evidence-kit/releases/tag/v0.1.0)，MIT）。
+
+这个版本要求 Node 26.11.1–26.x，不需要运行时依赖、数据库或模型调用。它能直接处理普通本地目录；[`evidence-driven` Schema](https://github.com/hpoenixf/openspec-evidence-kit/tree/main/schema/evidence-driven) 是可选的 OpenSpec 适配，并不是把内部 `superpowers-bridge` 或正式关闭流程整体开源。
+
+### 一条任务怎样形成可以检查的记录
+
+下面是**虚构的格式示例**。假设项目中的 `openspec/changes/cache-fix/` 已有 `tasks.md`、`evidence.md`，检查命令执行后留下了本地 `result.txt`。最小任务和观测可以这样写：
+
+```text
+# tasks.md
+- [x] 1.1 [check-only] 检查缓存结果文件
+
+# evidence.md
+## Observation Log
+| Date / phase | Evidence ID | Task | Command | Actual result | Artifact | Revision | Origin |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: 示例检查 | result.txt | demo-revision | observed-run |
+```
+
+这里的关键是**有稳定任务标识、有序观测、对应的本地文件和原始版本身份**。普通已完成任务默认需要依序记录 `RED → GREEN`；`[check-only]` 用 `CHECK`，`[baseline-green]` 用 `BASELINE → VERIFY`，`[tests-after]` 则明确记录事后 `VERIFY`。历史导入的 `reused-historical` 不会冒充本次已完成任务的新观测。
+
+将它接入项目后，可以逐阶段检查：
+
+```bash
+npm install --save-dev github:hpoenixf/openspec-evidence-kit#v0.1.0
+npx --no-install spec-evidence lint --change cache-fix --stage plan
+npx --no-install spec-evidence lint --change cache-fix --stage apply
+npx --no-install spec-evidence verify --change cache-fix
+npx --no-install spec-evidence verify --change cache-fix --check
+npx --no-install spec-evidence status --change cache-fix
+```
+
+`plan` 关注任务标签与重复 ID；`apply` 检查已勾选任务是否有符合阶段顺序的记录及本地文件；`verify` 需要任务完整且证据可用，才会生成带输入摘要的 `verify.md`。`verify --check` 只对照视图是否陈旧，不重写文件。生成器不会覆盖手写 `verify.md`，也会拒绝越出选定变更范围、通过符号链接绕行的文件路径。
+
+最后一条 `status` 有意做得更窄：它读取任务状态，以及项目**自行提供**的 `completion.json`。当任务已完成且记录格式有效时，它可以报告 `recorded-complete`，同时保留当时日期、版本和验证路线；不会为读取历史结论而重跑测试，也不会把旧临时测试产物缺失误判成新的执行失败。
+
+### 为什么没有做成第二个验收系统
+
+这次抽取保留了一个刻意的分工：**测试执行器产生观察，开发者或 Agent 记录事实，CLI 检查记录结构，是否接受变更由原项目决定。** `observed-run` 是记录者填写的来源标签，而不是工具对命令执行真实性的认证；`status` 看到了完成记录，也不等于重新验证了当时的代码或取得发布批准。
+
+这样的工具更适合作为现有 CI 和 OpenSpec 流程中的一个小型检查环节，而不是接管测试、模型质量判断和发布权。源码、离线示例、字段格式与独立安装说明都在[开源仓库](https://github.com/hpoenixf/openspec-evidence-kit)中；Schema 的设计沿用 [OpenSpec](https://github.com/Fission-AI/OpenSpec) 的生态接口，并在 [NOTICE](https://github.com/hpoenixf/openspec-evidence-kit/blob/main/NOTICE.md) 中列明 Superpowers 相关实践的影响。
+
+## 八、哪些项目适合这样做？
 
 [GitHub Spec Kit](https://github.github.com/spec-kit/) 也强调从需求规范走向计划、任务和实现。我们的实践不是在这些方法之外另造一套标准，而是面向长期演进的 Agent 项目，补足「多轮执行怎样保存原始证据」「完成状态怎样不被混淆」和「验收如何及时收敛」。
 
