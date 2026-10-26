@@ -32,7 +32,7 @@ features:
 
 ::: tip Contact · Engineering conversations and collaboration
 
-**Email:** [hpeonixf@foxmail.com](mailto:hpeonixf@foxmail.com)　 **WeChat:** `hpoenixf0510`
+**Email:** [hpoenixf@foxmail.com](mailto:hpoenixf@foxmail.com)　 **WeChat:** `hpoenixf0510`
 
 :::
 
