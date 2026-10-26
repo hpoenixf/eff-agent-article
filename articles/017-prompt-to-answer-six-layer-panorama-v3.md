@@ -17,13 +17,15 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 早期的六层文章按架构能力罗列模块，后来新增的后台 Research、Coord、Subagent、HIO、模型路由和异步交付很难放入原来的顺序，Subagent 甚至被挤成入口层的一小节。V3 改用“输入 URL 到页面渲染”式的讲法：**沿一次请求前进，再对有分支和回环的地方局部放大。**
 
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
     <a href="https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg">打开 SVG 模块导航图</a>
   </object>
 </div>
+</PanoramaViewer>
 
-**交互导航：** 点击主图中任意实线 Owner 标签，可直达其专文；尚无独立专文的模块会打开对应 [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html)。虚线流程说明不是独立模块。图可横向滚动，或使用下方的 SVG 全屏链接；[正文模块索引](#capability-owner-links)也提供相同入口。
+**交互导航：** 点击主图中任意实线 Owner 标签，可直达其专文；尚无独立专文的模块会打开对应 [Owner 详情](https://hpoenixf.github.io/eff-agent-article/visuals/owner-architecture/index.html)。虚线流程说明不是独立模块。点击图上方的“全屏展开”，可适应屏幕、缩放或按原始尺寸滚动查看，按 Esc 或“退出全屏”返回正文；[正文模块索引](#capability-owner-links)也提供相同入口。
 
 [打开可放大的 SVG 全景图](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)：9 个能力分组、43 个独立模块标签；研究工具与金融工具、身份与授权分别合列。
 

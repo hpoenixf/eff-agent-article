@@ -5,6 +5,7 @@ import ChapterCatalog from './ChapterCatalog.vue'
 import FlagshipEntry from './FlagshipEntry.vue'
 import ContinueReading from './ContinueReading.vue'
 import MermaidDiagram from './MermaidDiagram.vue'
+import PanoramaViewer from './PanoramaViewer.vue'
 import EvidenceScope from './EvidenceScope.vue'
 import PrinciplesLink from './PrinciplesLink.vue'
 import ReadingTracker from './ReadingTracker.vue'
@@ -27,5 +28,6 @@ export default {
     app.component('FlagshipEntry', FlagshipEntry)
     app.component('ContinueReading', ContinueReading)
     app.component('MermaidDiagram', MermaidDiagram)
+    app.component('PanoramaViewer', PanoramaViewer)
   }
 } satisfies Theme

@@ -15,13 +15,15 @@ A user asks: “Analyze the industry concentration and currency exposure of my f
 
 The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
 
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 43 clickable capability owners">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 43 clickable capability owners">
     <a href="https://hpoenixf.github.io/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg">Open the interactive SVG owner map</a>
   </object>
 </div>
+</PanoramaViewer>
 
-**Interactive navigation:** Select any solid Owner chip to open its dedicated article, or its Owner detail when no dedicated article exists. Dashed notes are not standalone modules. Scroll horizontally or open the full-size SVG below; the [owner index](#capability-owner-links) offers the same destinations.
+**Interactive navigation:** Select any solid Owner chip to open its dedicated article, or its Owner detail when no dedicated article exists. Dashed notes are not standalone modules. Select “Expand fullscreen” above the map to fit it to the screen, zoom in, or scroll at actual size. Press Esc or “Close” to return to the article; the [owner index](#capability-owner-links) offers the same destinations.
 
 [Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 43 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
 
