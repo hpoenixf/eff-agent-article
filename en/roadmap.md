@@ -11,7 +11,7 @@ We will **improve existing essays before adding new slugs**. The [nine core prin
 
 ## October 26, 2026: Deepen existing articles first
 
-The latest source and original task evidence confirm scoped Runtime locality progress for Child/Human Interaction, run-local Memory, initial Access/Exposure and Skill-session state (tasks 1.1, 2.1, 3.1); broader Recovery, state privacy, Factory cleanup and closure are still outstanding. This is a [dated follow-up to the existing retrospective](/en/articles/agent-runtime-refactor-one-day-blocked), not proof of a complete refactor.
+The latest source and original task evidence confirm scoped Runtime locality progress for Child/Human Interaction, run-local Memory, initial Access/Exposure and Skill-session state (tasks 1.1, 2.1, 3.1, 3.2), including removal of duplicate Factory Memory internals; broader Recovery, remaining state privacy and whole-change closure are still outstanding. This is a [dated follow-up to the existing retrospective](/en/articles/agent-runtime-refactor-one-day-blocked), not proof of a complete refactor.
 
 The existing [Chinese Web deep-reading article](/articles/021-agent-web-research-from-search-to-deep-reading) should absorb the governed default dynamic-rendering fallback instead of spawning another essay. A bounded real-path concurrent-conversation qualification has also been archived, but complete financial research is a separate acceptance question. Consult the [October 26 owner status](/en/gallery#daily-status-20261026).
 

@@ -13,7 +13,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 ## 2026-10-26 · 先维护现有正文，再扩大目录
 
-最新主干已把 **Runtime 局部职责收拢**推进到原任务 1.1、2.1、3.1 的限定进度：Child/HIO 规则、Run-local Memory、Access/Exposure 和 Skill 会话私有化有实现或原范围证据；PG/Memory 广泛恢复、重复逻辑删除、其余字段迁移、Factory 清理和总体验收仍在途。站点应更新[10 月 25 日重构复盘](/articles/agent-runtime-refactor-one-day-blocked)的进度附记，不应把那天的历史阻塞直接改写成已完成。
+最新主干已把 **Runtime 局部职责收拢**推进到原任务 1.1、2.1、3.1、3.2 的限定进度：Child/HIO 规则、Run-local Memory、Access/Exposure 和 Skill 会话私有化有实现或原范围证据；Factory Memory 内部状态的删除及组合职责回归已在限定范围核实；PG/Memory 广泛恢复、重复 Codec/Store 规则删除、其余字段迁移和总体验收仍在途。站点应更新[10 月 25 日重构复盘](/articles/agent-runtime-refactor-one-day-blocked)的进度附记，不应把那天的历史阻塞直接改写成已完成。
 
 原 Web Source 已接入受治理的条件式默认渲染兜底；优先深化[Web 深度阅读原文](/articles/021-agent-web-research-from-search-to-deep-reading)，不增一篇“浏览器能力已成功”的新稿。正常前后台并发对话已完成限定真实链路资格化，优先在[图册状态补记](/gallery#daily-status-20261026)区分它与**尚待复核的完整复杂基金研究**。来源、计算、附件、History 的最终质量结论不能由这些进度替代。
 

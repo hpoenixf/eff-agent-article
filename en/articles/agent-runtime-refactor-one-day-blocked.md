@@ -193,9 +193,9 @@ Which parts of different capabilities should remain stable, and which should evo
 
 ## October 26, 2026: Progress without full closure
 
-The incident and the numbers above remain a snapshot of **October 25**, rather than being retroactively labeled a completed refactor. Since then, main has received the initial run-scoped Access/Exposure slice, private Access Skill-session state, and a run-local Memory lifecycle with separate evidence. An eight-group mutable-field ownership/writer reconciliation was recorded on October 26. Original tasks **1.1, 2.1 and 3.1** each have their own bounded completion status.
+The incident and the numbers above remain a snapshot of **October 25**, rather than being retroactively labeled a completed refactor. Since then, main has received the initial run-scoped Access/Exposure slice, private Access Skill-session state, and a run-local Memory lifecycle with separate evidence. An eight-group mutable-field ownership/writer reconciliation was recorded on October 26. Original tasks **1.1, 2.1, 3.1 and 3.2** each have a bounded completion status; duplicated Factory Memory Maps/Sets and bookkeeping have been consolidated or retired under the original Memory Owner.
 
-Tasks **1.2, 1.3, 2.2, 3.2, 4.1 and E.1** remain open: wider Memory/PostgreSQL recovery coverage, retiring repeated codec/store conditions, remaining private-state migration, Factory cleanup and overall closure. Local checks are not complete live-model or production qualification, and maintenance savings have not been measured. See the [dated Owner status update](/en/gallery#daily-status-20261026).
+Tasks **1.2, 1.3, 2.2, 4.1 and E.1** remain open: wider Memory/PostgreSQL recovery coverage, retiring repeated codec/store conditions, remaining private-state migration and overall closure. Local checks are not complete live-model or production qualification, and maintenance savings have not been measured. See the [dated Owner status update](/en/gallery#daily-status-20261026).
 
 ## Further reading
 
