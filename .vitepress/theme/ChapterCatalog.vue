@@ -48,6 +48,14 @@ const selectedCollections = computed(() =>
             <a :href="withBase(pathFor(slug))">{{ label }} <span v-if="isEnglish && !pathFor(slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span> <span aria-hidden="true">↗</span></a>
           </li>
         </ol>
+        <div v-if="!compact && chapter.related?.length" class="chapter-related">
+          <p class="chapter-related-label">{{ isEnglish ? 'Related reading · primary category elsewhere' : '关联阅读 · 正文归属其他主类' }}</p>
+          <ol>
+            <li v-for="([slug, label]) in chapter.related" :key="slug">
+              <a :href="withBase(pathFor(slug))">{{ label }} <span v-if="isEnglish && !pathFor(slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span> <span aria-hidden="true">↗</span></a>
+            </li>
+          </ol>
+        </div>
         <a v-if="compact && chapter.items.length > 3" class="chapter-more" :href="withBase('/' + collection.id)">
           {{ isEnglish ? 'More articles →' : '查看本类其余文章 →' }}
         </a>
