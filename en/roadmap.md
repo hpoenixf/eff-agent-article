@@ -5,9 +5,17 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 # What We Might Write Next
 
-<small>Updated October 25, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
+<small>Updated October 26, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
 
-We will **improve existing essays before adding new slugs**. The [eight core principles and six on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
+We will **improve existing essays before adding new slugs**. The [nine core principles and seven on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
+
+## October 26, 2026: Deepen existing articles first
+
+The latest source and original task evidence confirm scoped Runtime locality progress for Child/Human Interaction, run-local Memory, initial Access/Exposure and Skill-session state (tasks 1.1, 2.1, 3.1); broader Recovery, state privacy, Factory cleanup and closure are still outstanding. This is a [dated follow-up to the existing retrospective](/en/articles/agent-runtime-refactor-one-day-blocked), not proof of a complete refactor.
+
+The existing [Chinese Web deep-reading article](/articles/021-agent-web-research-from-search-to-deep-reading) should absorb the governed default dynamic-rendering fallback instead of spawning another essay. A bounded real-path concurrent-conversation qualification has also been archived, but complete financial research is a separate acceptance question. Consult the [October 26 owner status](/en/gallery#daily-status-20261026).
+
+For consolidation, preserve public legacy links and distinguish the current V3 panorama from full-text V1/V2 historical editions. Reduce overlapping context before combining essays that describe distinct capability owners.
 
 ## October 25, 2026: Evidence for further publication
 

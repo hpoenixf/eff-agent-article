@@ -10,7 +10,7 @@ title: Architecture Guide
 
 The engineering articles separate model judgment from runtime facts and permissions. For a structured starting point, explore the [architecture reading path](/en/thinking), then the [module mechanisms](/en/modules).
 
-The [architecture principles](/en/principles) now distinguish eight durable judgments from six on-demand engineering methods; the [writing roadmap](/en/roadmap) distinguishes article revisions from unpublished candidates.
+The [architecture principles](/en/principles) now distinguish nine durable judgments from seven on-demand engineering methods; the [writing roadmap](/en/roadmap) distinguishes article revisions from unpublished candidates.
 
 The [A35 content trust deep dive](/en/articles/agent-content-trust-prompt-injection) distinguishes trusted producer identities from source data and effect permissions. Its Phase 1 structural tests are not a real-model security qualification.
 
@@ -23,3 +23,8 @@ Account-scoped subagent profiles and frozen Run/Child selection have source-leve
 The [43-owner gallery](/en/gallery) now includes A36 Temporal Semantics and A37 durable Human Interaction as two first-class logical Owners. The interactive map currently retains Chinese labels. A36 source/calendar/ordinary real-agent acceptance is still open. A37 Stages A–D and provider-free formal close are complete in the scoped local lane, while production Human Park remains disabled by default. Its interaction handoff authority does not replace Authorization, Effect, Recovery or Publication.
 
 The [original architecture guide](/architecture) contains further Chinese-language details.
+
+
+## October 26, 2026: Updated implementation boundaries
+
+The runtime's initial Child/Human Interaction, run-local Memory, Access/Exposure and private Skill-session slices have scoped evidence, and the eight-group field ownership reconciliation is recorded; the whole Runtime locality change remains open. Governed Source reading now has a conditional default dynamic-rendering fallback with a 1 MiB intermediate HTML limit. Bounded real-path foreground/background conversation qualification has been archived, but does not establish a completed financial report. See the [October 26 status update](/en/gallery#daily-status-20261026).
