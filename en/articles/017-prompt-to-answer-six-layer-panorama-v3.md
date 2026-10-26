@@ -271,4 +271,6 @@ The original capability Owner registry is authoritative for effects and facts. T
 
 Engineering navigation E01–E03 is not counted among these 43 production-capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
 
+**Two judgments run across all six stages:** [Model judgment must not replace recorded execution authority](/en/principles#principle-1), and [the user's actually delivered result is the measure of completion](/en/principles#principle-8). Generated text, committed answer content and what the client can read require separate checks; a stage cannot certify the whole task by succeeding locally.
+
 [V2 architecture](https://hpoenixf.github.io/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1 original Chinese edition](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Owner gallery](/en/gallery) · [GitHub engineering library](https://github.com/hpoenixf/eff-agent-article)
