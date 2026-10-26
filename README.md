@@ -14,7 +14,7 @@
 
 ## 2026-10-26 · 研究推进的第二种阅读视角
 
-[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)微调了研究推进的三个时间尺度；新增[从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)沿同一基金问题讲清模型判断、真实工具回执、重开研究问题、停放接续与交付。它不是六层的替代版本，也不新增独立研究调度器。两篇均提供完整中文与英文正文。
+[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)微调了研究推进的三个时间尺度；新增[投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)沿同一基金问题讲清模型判断、真实工具回执、重开研究问题、停放接续与交付。它不是六层的替代版本，也不新增独立研究调度器。两篇均提供完整中文与英文正文。
 
 ## 2026-10-26 · 一次重构，两种阅读视角
 
