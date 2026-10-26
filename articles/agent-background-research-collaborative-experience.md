@@ -177,6 +177,12 @@ Personal Agent 需要连续上下文，但连续性仍要建立在实际发生�
 延伸阅读：[异步研究的时间约定与离线交付](agent-asynchronous-research-time-bound-delivery.md)讨论何时交付与如何重读；[渐进回答的连贯性](agent-progressive-answer-coherence.md)讨论正文怎样持续完善。本文聚焦并发会话中意图、执行与视图的关系。
 
 <!-- agent-article-sync:guidance:start -->
+## 2026-10-26 · 后续验收与 Sidecar 的分界
+
+本文最初演示的部分研究结果仍保留原状。此后原并发会话变更取得了**限定的正常真实交互资格化并归档**，验证前台短问、定向纠偏与后台 Run 的既有身份关系；这不等于那份需要完整行情、计算与 History 的基金研究已经合格。
+
+另外，Sidecar 参考侧聊是不同的产品设计：它希望从 Main 打开独立且可恢复的小对话。当前仅有**默认关闭的 Stage A 主干基础接线**，原 Stage A/B/C 验收任务仍开放；Sidecar 不因正常并发会话通过而自动可用，也不应替代 Main 的原授权与结果提交。
+
 ## 延伸阅读与交流
 
 本文也收录于 [ETF Agent 工程手记](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience)，另有[完整英文版](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-background-research-collaborative-experience)。如果这些工程记录对你有帮助，欢迎在 [GitHub 文集](https://github.com/hpoenixf/eff-agent-article)点个 Star，方便后续阅读。

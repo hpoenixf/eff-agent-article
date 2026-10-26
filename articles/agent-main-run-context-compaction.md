@@ -144,6 +144,12 @@ NoCompaction --> NextMainRequest
 ---
 
 <!-- agent-article-sync:guidance:start -->
+## 2026-10-26 · 归档与质量证据的范围
+
+该变更已于 **10 月 21 日依明确例外人工归档**，不是标准 `spec:close` 通过。原任务仍为 **5/7**：离线场景验证了摘要进入后续 Main 输入，也观察到至少一次真实自然摘要请求完成并提交 checkpoint；但那次真实请求的**后继送模采用**、多次压缩的语义/数字/引用及成本收益仍未完整核实。默认压力触发的工程启用不等于上述质量通过。
+
+近期 Runtime 的 Access/Memory/Factory 重构也没有把摘要升级为 Memory 或历史数据权威。需要精确数值时，仍沿原来源和结果回读；后继请求实际看到什么与最后研究是否完成，继续分别验证。
+
 ## 延伸阅读与交流
 
 [在个人博客阅读本篇](https://hpoenixf.com/blog/agent-main-run-context-compaction) · [公开工程文章文集](https://github.com/hpoenixf/eff-agent-article)（欢迎 Star）。

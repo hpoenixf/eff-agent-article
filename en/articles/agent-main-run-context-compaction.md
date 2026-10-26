@@ -152,6 +152,12 @@ For long-running agents, context management resembles a lossy caching policy—n
 
 ---
 
+## October 26, 2026: Archive and Quality Evidence
+
+The change was **manually archived by an explicit October 21 exception**, not through a passing standard `spec:close`. The original task ledger remains **5/7**: offline scenarios confirmed subsequent Main-request inclusion, and at least one natural live-model summary request committed a checkpoint. Subsequent **live** request inclusion in that observation, repeated-compaction semantics, date/number/citation integrity and cost/quality effects remain incompletely verified. Enabling pressure-triggered compaction does not close those questions.
+
+More recent Access/Memory/Factory ownership changes do not turn summaries into Memory records or historical numeric authority. Exact calculations and evidence still require the original source/result read path; subsequent model consumption and complete task delivery are separate facts.
+
 ## Further Reading and Discussion
 
 [Read the original on the author's blog](https://hpoenixf.com/blog/agent-main-run-context-compaction) · [ETF Agent Engineering Library](https://github.com/hpoenixf/eff-agent-article) (stars welcome).

@@ -177,6 +177,12 @@ The next issues are the data gaps and whether research can complete the remainin
 Further reading: [Async Research: Delivering on Time After Users Leave](agent-asynchronous-research-time-bound-delivery.md) discusses delivery timing and rereading results. [Keeping Progressive Answers Coherent](agent-progressive-answer-coherence.md) explains how an answer develops over time. This article focuses on intent, execution, and views in a concurrent conversation.
 
 <!-- agent-article-sync:guidance:start -->
+## October 26, 2026: Qualification and the Sidecar Boundary
+
+The partial research outcome in the original demonstration remains a historical fact. A later **bounded real-path concurrent conversation qualification** has been completed and archived, confirming original foreground/background run identities and targeted correction behavior. This does not certify a complete source-grounded fund report with computation, artifacts and durable History.
+
+The separate Sidecar reference chat aims to open a recoverable side conversation from Main. Only an **initially disabled Stage A integration baseline** is present; its A/B/C acceptance tasks remain open. Qualified ordinary concurrent interaction neither makes Sidecar available nor grants a second Main authorization or Publication owner.
+
 ## Further reading and discussion
 
 Read this article in [English](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-background-research-collaborative-experience) or [Chinese](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience) in ETF Agent Engineering Notes. If these engineering notes are useful, consider starring the [GitHub collection](https://github.com/hpoenixf/eff-agent-article) to follow future articles.

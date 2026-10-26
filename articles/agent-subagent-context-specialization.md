@@ -300,6 +300,12 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 与此相邻的[持久 HIL 机制](https://hpoenixf.github.io/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)解决另一个实际交接：用户回复究竟有没有进入原 Child 的独立消息，而不只是进入 Main 的转述。Profile 约束“谁按哪一版方法工作”，HIL 验证“谁实际采用了哪条输入”，二者共同复用原 Child 身份和恢复。
 
+## 2026-10-26 · 统一专家当前进度
+
+最新原任务记录显示，General/Python 专家、投资视角与 Peer/Reviewer 的部分串联已有 **6 份真实模型 CLI 对话样本**；它们覆盖不同方法、部分顺序与早期 HIL/交付路径，而不是六次独立完成的整项基金研究。统一专家的原任务 **1.5 与 E.1** 仍开放；Native 跨进程、完整交接与金融研究质量不能由限定样本推定通过。
+
+另一条正在开发的 Sidecar 参考侧聊仍是**默认关闭的 Stage A 接线基底**，A/B/C 产品验收尚未完成。Sidecar 不是另一种 Child Profile，也不是这里的通用子任务机制。新的跨专家依赖仍须沿原结果身份、合法输入引用及 Main 实际消费核对，不靠提示词宣告协作完成。
+
 ## 结语
 
 我们最初只是想让主 Agent 少背一些局部上下文，顺便争取一点效率。
