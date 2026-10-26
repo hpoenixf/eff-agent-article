@@ -205,6 +205,16 @@ export const collections = [
             "multi-layer-agent-collaboration-outlook",
             "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"
           ]
+        ],
+        "related": [
+          [
+            "agent-subagent-context-specialization",
+            "Subagent：从隔离到专业化协作"
+          ],
+          [
+            "agent-custom-expert-from-prompt-to-recovery",
+            "自定义专家，不应该只是一个 Prompt 输入框"
+          ]
         ]
       },
       {
