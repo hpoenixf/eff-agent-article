@@ -1,6 +1,6 @@
 ---
 title: "Documentation Is Not Meant to Be Read All at Once: Knowledge, Memory and Retirement"
-description: "Hot/Warm/Cold routing, History and Handoff, with explicit retirement of obsolete commands, requirements and test compatibility layers."
+description: "Hot/Warm/Cold routing, History and Handoff, plus the portable open-source Engineering History Skill."
 ---
 
 # Documentation Isn't Meant to Be Read in Full: On-Demand Knowledge, Engineering Memory and Retirement
@@ -174,6 +174,40 @@ VerifyCurrentFacts --> TechnicalArticle
 The branches are intentional. Material with no long-term relevance need not be promoted. Potential lessons with inadequate support may become Candidates. Material demonstrating a reusable engineering judgment may become Canonical Time.
 
 Daily and Type are **compressed navigation layers**, not competing copies of authoritative facts.
+
+### Open-Sourced: Making History Small, Traceable and Maintainable
+
+Four history layers should not become another mandatory daily-report system. We extracted a portable subset as [Engineering History Skill](https://github.com/hpoenixf/engineering-history-skill) ([v0.1.0](https://github.com/hpoenixf/engineering-history-skill/releases/tag/v0.1.0), MIT): a self-contained Skill that an agent can load, and an offline CLI using Node 26.11.1–26.x without runtime dependencies. It does not export ETF Agent's complete internal task-close rules.
+
+Consider a **constructed teaching example**: two callers previously maintained separate caches for one parser output. The useful lesson is not “the cache code changed.” It is which invalidation responsibility was duplicated, why the parser became the single owner, and which performance outcomes were never measured.
+
+```bash
+npm install --save-dev github:hpoenixf/engineering-history-skill#v0.1.0
+npx --no-install engineering-history init
+npx --no-install engineering-history candidate \
+  --task "Cache ownership decision" \
+  --summary "Compare caller caches with one parser-owned cache; performance impact unmeasured" \
+  --source-id "demo:cache:decision-1" \
+  --material-value share
+npx --no-install engineering-history validate
+```
+
+`init` scaffolds index files under `docs/history/` without overwriting existing ones. `candidate` appends to `.work/history-candidates/`. The stable `--source-id` deduplicates the event across different recording days or rewritten summaries. UTC is the default; an IANA value such as `--timezone Asia/Shanghai` controls the local event date when relevant.
+
+The `share` value is only an advisory material-value label. A recorded `sync: true` requests review; it does **not** promote the candidate. A person or agent must still assess the non-obvious decision, observed outcome, usefulness and overlap with existing history before writing the canonical `time/` account. The `daily/` view can then select a brief topic summary; `type/` should change only when understanding actually evolves. The CLI does not perform this semantic synthesis.
+
+Automated summaries raise a separate problem: accidentally overwriting handwritten notes. Under `daily/` and `type/`, a single ordered `<!-- BEGIN AUTO-REFINE -->` / `<!-- END AUTO-REFINE -->` region is editable. Existing bytes outside it are protected; a file without markers is protected in full. Take a baseline before an authorized edit:
+
+```bash
+npx --no-install engineering-history snapshot --out history-before.json
+# A person or agent reviews and edits only the intended generated region.
+npx --no-install engineering-history verify --snapshot history-before.json
+npx --no-install engineering-history validate
+```
+
+`snapshot` records hashes of protected content; `verify` reports changes to those bytes and does **not** edit or restore files. `validate` checks required indexes and local Markdown links, not the truth of the narrative. Conflicting writer locks and symlink paths are also reported rather than silently repaired.
+
+For a coding agent, the entire `skills/engineering-history/` directory can be copied into a supported Skills folder; scripts and guidance are bundled. The reusable division of labor is **human or model judgment for what deserves lasting memory, deterministic tooling for event identity, dates, links and protection of manual writing**—not a claim that automatic collection creates good engineering knowledge. See the [open-source repository](https://github.com/hpoenixf/engineering-history-skill) for installation and examples.
 
 ## 5. Four Real Counterexamples: How Obsolete Knowledge Outlives Its Code
 
