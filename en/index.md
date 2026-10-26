@@ -30,6 +30,12 @@ features:
     link: /en/engineering
 ---
 
+::: tip Contact · Engineering conversations and collaboration
+
+**Email:** [hpeonixf@foxmail.com](mailto:hpeonixf@foxmail.com)　 **WeChat:** `hpoenixf0510`
+
+:::
+
 ## October 26, 2026: One Refactor, Two Perspectives
 
 [Why Did One Subagent Change Hold Up Our Work for an Entire Day?](/en/articles/agent-runtime-refactor-one-day-blocked) follows the timeline, concrete figures and failed validation attempts. [What Should Stay Stable—and What Should Change—in an Agent Architecture?](/en/articles/agent-differentiated-evolution-contracts) develops differentiated evolution contracts through Child, Memory, financial calculation and Provider cases. Both full editions cross-link to each other and have Chinese counterparts.
