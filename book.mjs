@@ -276,6 +276,10 @@ export const collections = [
             "六层调用全景 V3：从提问到答案可见"
           ],
           [
+            "etf-agent-model-harness-research-loop",
+            "从一次检索到持续研究：ETF Agent 的模型、Harness 与 Loop"
+          ],
+          [
             "011-model-understands-code-authorizes",
             "模型会理解，代码才授权"
           ],
