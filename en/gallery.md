@@ -10,6 +10,19 @@ The [architecture gallery](/gallery) maps system capability owners, dependencies
 
 The gallery now identifies **43 capability owners**, including A35 Content Security and Trust. Its dedicated [English case study](/en/articles/agent-content-trust-prompt-injection) explains why source data must not silently become system instructions. The visual labels remain Chinese and are not presented as a fully translated gallery.
 
+### October 26, 2026: Scoped source updates and qualification {#daily-status-20261026}
+
+This is a dated addition, not a revision of the October 25 snapshot. Merged source, a checked task, bounded acceptance, and production readiness are different claims.
+
+| Area | What the latest main supports | What remains open |
+| --- | --- | --- |
+| **Runtime locality** | The first Child/Human Interaction handoff ownership slice, run-local Memory session, initial Access/Exposure slice, private Skill session state, and an eight-group field/writer reconciliation are present. Original tasks **1.1, 2.1, 3.1 and 3.2** have their own scoped evidence, including retirement of duplicate Factory Memory internals. | Broader Memory/PostgreSQL recovery, codec/store rule retirement, remaining state privacy and whole-change closure (**1.2, 1.3, 2.2, 4.1, E.1**) remain open. No measured maintenance-cost reduction or complete production refactor is claimed. |
+| **Governed page rendering** | The original Source reader now has a conditional default rendering fallback, retaining source/security/resource controls and a **1 MiB** intermediate rendered-HTML limit. If rendering fails, permitted static evidence may survive with a warning; missing readable content is not treated as success. | Scoped Source evidence does not establish universal dynamic-site coverage, authentication bypass, complete financial research or live browser success rates. |
+| **Sidecar reference chat** | An initially disabled Stage A integration baseline is present on main; the Sidecar A/B/C acceptance tasks remain open. | This is separate from qualified ordinary concurrent conversation interaction and is not an available, accepted Sidecar research experience. |
+| **Foreground/background interaction** | A bounded real-path concurrent-conversation qualification was completed and archived on October 26; short answers, research and control still use original Conversation/Run identity and authority. | An end-to-end fund report with independently verified sources, computation, artifact and History is a separate, unfinished quality question. |
+
+The public status summary is not a substitute for each owning task's exact evidence and scope.
+
 ### October 25, 2026: Today's updates and pending collaboration
 
 The [status board](/gallery#daily-status-20261025) distinguishes bounded engineering outcomes from remaining product qualification. The interactive map still has **43 capability Owners**, not newly invented managers.

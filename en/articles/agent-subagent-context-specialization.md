@@ -338,6 +338,12 @@ These production seams are integrated in source, but the owning tasks for real P
 
 The adjacent [durable human-interaction mechanism](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
 
+## October 26, 2026: Unified Expert Progress
+
+The owning acceptance notes record **six real-model CLI dialogue samples** spanning General/Python delivery, investment perspectives, Peer/Reviewer ordering and early Human Interaction. These scoped samples are not six completed end-to-end fund-research tasks. Unified Expert tasks **1.5 and E.1** remain open; the unqualified Native cross-process window, complete handoffs and financial research quality are not certified by this sample count.
+
+The separate Sidecar reference chat has an **initially disabled Stage A integration baseline** but no completed A/B/C acceptance. Sidecar is not another Child Profile or a second execution runtime. Cross-expert dependencies still require authorized input references, preserved result identity and actual Main consumption—not a prompt asserting that collaboration happened.
+
 ## Conclusion
 
 Our first objective was to reduce local context in Main and perhaps improve efficiency.

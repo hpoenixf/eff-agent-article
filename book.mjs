@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 62 unique essays.
+// One canonical reading tree: three perspectives and 61 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -266,10 +266,6 @@ export const collections = [
             "六层调用全景 V3：从提问到答案可见"
           ],
           [
-            "017-prompt-to-answer-six-layer-panorama",
-            "六层系统全景 V2（历史版本）：从提问到持续协作"
-          ],
-          [
             "011-model-understands-code-authorizes",
             "模型会理解，代码才授权"
           ],
@@ -352,5 +348,6 @@ export const mergedArticles = {
 // Historical full-text editions remain readable at independent URLs but are not
 // counted as new canonical essays or converted into merge-pointer stubs.
 export const historicalEditions = {
-  "017-prompt-to-answer-six-layer-panorama-v1": "017-prompt-to-answer-six-layer-panorama"
+  "017-prompt-to-answer-six-layer-panorama-v1": "017-prompt-to-answer-six-layer-panorama-v3",
+  "017-prompt-to-answer-six-layer-panorama": "017-prompt-to-answer-six-layer-panorama-v3"
 };

@@ -191,6 +191,12 @@ Which parts of different capabilities should remain stable, and which should evo
 
 *Engineering scope: this article reconstructs development work on October 25, 2026. Size, commit, and validation figures come from contemporaneous records. “A day” describes disruption of the shared development stream, not a precise labor-hour measurement or an outage statistic. Targeted tests qualify particular versions, not the whole repository, live-model quality, or production acceptance. Later progress is not backdated into the event, and maintenance-efficiency gains remain unmeasured.*
 
+## October 26, 2026: Progress without full closure
+
+The incident and the numbers above remain a snapshot of **October 25**, rather than being retroactively labeled a completed refactor. Since then, main has received the initial run-scoped Access/Exposure slice, private Access Skill-session state, and a run-local Memory lifecycle with separate evidence. An eight-group mutable-field ownership/writer reconciliation was recorded on October 26. Original tasks **1.1, 2.1, 3.1 and 3.2** each have a bounded completion status; duplicated Factory Memory Maps/Sets and bookkeeping have been consolidated or retired under the original Memory Owner.
+
+Tasks **1.2, 1.3, 2.2, 4.1 and E.1** remain open: wider Memory/PostgreSQL recovery coverage, retiring repeated codec/store conditions, remaining private-state migration and overall closure. Local checks are not complete live-model or production qualification, and maintenance savings have not been measured. See the [dated Owner status update](/en/gallery#daily-status-20261026).
+
 ## Further reading
 
 [What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md) develops the differentiated evolution contracts prompted by this refactor. [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md) examines how to separate valid protections from assertions about retired implementations.

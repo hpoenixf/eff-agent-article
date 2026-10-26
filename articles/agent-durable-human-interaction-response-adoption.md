@@ -111,6 +111,12 @@ Child 可以提出缺口，再由 Main 决定是否合并普通问题或向用�
 
 这项实现真正改变的是判断方法：**收到回复，只是交接开始；正确的原消费者采用它，才算回答回到了研究。** 新的交互模块应该持有足够少但足够准的事实，让真实效果继续由原 Owner 承担，而不是为了方便显示一张“完成”卡片复制整套运行时。
 
+### 2026-10-26 · HIO 与 Runtime 规则收口
+
+新的 Runtime 局部重构把**已接纳回复如何影响 Child 阶段**的判断集中到原 Child/HIO Owner，并要求 Memory/PostgreSQL Store 在原事务保护中消费同一规划。这并非给 HIO 新增发布、授权或全 Run 终结权。首批交接规则已有范围限定的实现证据；更完整的重复、取消、过期 fence、跨进程恢复矩阵及旧规则清理仍在原 Runtime 变更中开放。
+
+本篇介绍的 A37 本地关闭不因此变成生产 Human Park 已启用或真实提问质量合格；当用户回复与原研究之间的最后一跳仍不可核验时，应保留 unknown，而不是仅凭“已收到”显示为已采用。
+
 ## 延伸阅读
 
 [前台与后台研究的并行体验](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience)解释为何聊天无需被长任务阻塞；[异步研究按时交付](https://hpoenixf.github.io/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)讨论时间承诺与历史结果。这两条交付路径与本文的双向人工回复可以协作，但有不同的 Owner。

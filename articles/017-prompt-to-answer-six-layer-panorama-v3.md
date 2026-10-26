@@ -278,4 +278,6 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 
 工程导航 E01–E03 不计入上述 43 个生产能力 Owner。各模块是否已实施、限定验证、生产启用，仍以自身 Spec 与验收记录为准。
 
+**贯穿全景的两条判断：** [模型负责语义、系统负责执行事实](/principles#principle-1)用来区分模型的研究提议与 Host 的授权和回执；[用户实际收到的结果才是任务终点](/principles#principle-8)要求把模型生成、正文提交和浏览器可见交付分别核验。六层是读懂交接的地图，而不是任何一层的自我成功声明。
+
 [旧版 V2](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [V1 历史存档](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Owner 图册](https://hpoenixf.github.io/eff-agent-article/gallery) · [技术文章仓库（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

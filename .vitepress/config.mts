@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { collections, mergedArticles } from '../book.mjs'
+import { collections, mergedArticles, historicalEditions } from '../book.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 
 const SITE_URL = 'https://hpoenixf.github.io/eff-agent-article/'
@@ -11,6 +11,9 @@ function canonicalUrl(relativePath: string) {
   const article = /^(en\/)?articles\/([^/]+)$/.exec(path)
   if (article && Object.hasOwn(mergedArticles, article[2])) {
     path = (article[1] || '') + 'articles/' + mergedArticles[article[2]]
+  } else if (article && Object.hasOwn(historicalEditions, article[2])) {
+    // Preserve full-text historical URLs but don't make them competing search canonicals.
+    path = (article[1] || '') + 'articles/' + historicalEditions[article[2]]
   }
   return SITE_URL + path
 }
