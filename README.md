@@ -169,6 +169,11 @@
 - [当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计](articles/bounded-bull-bear-peer-dialogue.md)
 - [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](articles/multi-layer-agent-collaboration-outlook.md)
 
+**关联阅读（以下两篇主分类为「模块维度」，不计入本组篇数）：**
+
+- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
+- [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)
+
 </details>
 
 <details>
