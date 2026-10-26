@@ -1,137 +1,118 @@
 ---
-title: "From Retrieval to Sustained Research: Model, Harness and Loops in ETF Agent"
-description: "A fund research question reveals model judgment, the native loop, temporal evidence, durable continuation, actual delivery, and the limits of current verification."
+title: "A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together"
+description: "Lessons from ETF Agent's native loop, research needs, child agents, source lineage, recovery, and publication: how evidence changes a financial research judgment without rewriting execution facts."
 ---
 
-# From Retrieval to Sustained Research: Model, Harness and Loops in ETF Agent
+# A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together
 
-> This article describes ETF Agent's engineering state in late October 2026. Its fund-research walkthrough is a **constructed teaching example based on existing mechanisms**, not an unedited real-model trace or proof that an entire financial research task has passed acceptance. The [six-layer lifecycle V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) maps responsibilities; this article examines how an actual research question is supposed to progress.
+> The [six-layer panorama](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) explains which parts of an Agent own which responsibilities. To understand why an Agent continues researching, changes direction, or revises its initial view, we need another lens: **how it works through one question over time**. This article draws on mechanisms already built into ETF Agent. The fund-investment scenario is a composite illustration, not a verbatim production trace.
 
-## 1. Why finding sources does not finish the question
+## 1. The investor wants a judgment, not ten searches
 
-Imagine an investor asking: “Has the sector concentration of my fund portfolio increased? Use the latest disclosures and currency movements to explain the risks and the arguments for changing—or keeping—the allocation.”
+Suppose someone asks: “Has my fund portfolio become more concentrated in certain sectors? Given currency movements, should I change the allocation?”
 
-Search can quickly locate several reports. A tool can return numbers successfully. Yet those documents may not answer the question. Two holdings reports may have different cutoff dates. A fund's equity-sector weights and an investor's allocation among funds have different denominators. An article republished today may simply repeat data from months ago.
+Several different questions hide inside that sentence. Which reporting date do the holdings belong to? How do sector weights inside individual funds translate into exposure at the investor's portfolio level? Which FX date makes a cross-currency comparison meaningful? If exposure changed, was it due to prices, fund trading, or the investor's own allocations? Might holding the position still be reasonable?
 
-The real task is neither “find more pages” nor “generate a long report.” It repeatedly asks: **What is known now? What is missing? Which facts conflict? What should be investigated next? Which conclusions are conditional? What was actually delivered to the user?**
+If an Agent merely receives an instruction to “research thoroughly” and loops through search-and-summary tools, it can produce an impressive report by combining different dates and incompatible denominators.
 
-ETF Agent has gradually adopted a particular engineering approach: the model handles research judgment; the existing execution system records authorized actions and enables safe continuation; financial facts and deterministic calculations retain their own authority. Model, Harness and Loop describe this arrangement. They are not three new platforms waiting to be stacked together.
+**Our central design insight while building ETF Agent is that tools expand information access, while a research loop makes revised judgment possible. Trustworthy execution and source relationships make those revisions auditable.**
 
-## 2. Separate judgment from proof that an action actually happened
+![A research journey from the investor's question through qualified sources and counterevidence to usable delivery](../../visuals/en/etf-agent-model-harness-research-loop/01-journey-en.svg)
 
-The **Model** handles semantic decisions. It can decompose the question into look-through sector exposure, reporting dates, currency risk and alternative allocations. It can choose tools, revise an interpretation in light of new evidence and ask a child agent to examine a counterexample. Saying “I searched” is not an execution receipt. Saying “finished” cannot override settled Host state.
+An essential distinction follows: **more information is not automatically better research; longer execution is not automatically deeper reasoning**. Unless an observation changes the next action or the current conclusion, the loop is just repetition.
 
-The **Harness** is neither merely a system prompt nor a second brain supervising the model. It includes model-request preparation, admitted tools, budgets and capacity, lifecycle receipts, context fitting, durable Run identity, recovery and publication handoffs. It makes model proposals execute within real permissions and observable effects. A harness may itself implement the agent loop; it is misleading to define Harness and Loop as mutually exclusive layers.
+## 2. Model exercises judgment; Harness connects it to actual execution
 
-**Financial capabilities** supply independent constraints. Which holdings came from an original disclosure? What was the cutoff date? Which denominator does a weight use? Which currency and FX timestamp apply? Can a calculation be reproduced? The model may explain numbers, but generating plausible language cannot authorize source data, arithmetic or actual business effects.
+Open-ended investment research is hard to prescribe as a fixed workflow. A disclosure may introduce a different industry classification. Two apparently independent sources may turn out to cite the same outdated filing. Only after reading can Main decide whether to search further, switch methodology, delegate original-document review to a Child, or qualify the conclusion as historical.
 
-| Question | Judgment or authority | Common failure |
+That is the **Model's** job: understand the investor's concern, select methods, compare evidence, form hypotheses, and respond to counterevidence.
+
+The **Harness** is the environment in which these choices can actually execute. It prepares what the model may see and call, records whether a tool was really dispatched, binds receipts to a particular Run, controls resource limits, resumes safely after process loss, and hands content to publication. A harness can *contain* the agent loop; the two are not mutually exclusive architectural layers.
+
+Finance brings a third kind of authority: **source facts and calculations**. Disclosures, holdings, exchange-rate timestamps, and deterministic arithmetic have their own data and execution contracts. The model can interpret them, but a sentence saying “I verified it” cannot amend the original numbers. An analytical recommendation cannot approve a trade on the user's behalf.
+
+This led us away from the idea of an omniscient supervisory Agent. Instead, three kinds of work remain distinct:
+
+| What must be decided | Primary responsibility | Transferable lesson |
 | --- | --- | --- |
-| What to research next and which counterexamples matter | Main model's research judgment | Runtime rules mechanically choose the research strategy |
-| Whether a tool was admitted, executed and settled | Existing Run Grant, Host and ActionRuntime owners | Treating a proposed tool call as a successful execution |
-| Which source revision and arithmetic support a result | Source/Result and financial facts/calculation owners | Treating a Python number as a validated investment conclusion |
-| Whether to park, resume or publish | Existing Recovery/Control, CompletionGate and Publication owners | A single `completed` field supposedly certifies every stage |
+| What to investigate next and how to respond to counterevidence | Main model | Leave open semantic questions to the component capable of interpreting them |
+| Tool permissions, settled receipts, budgets, and continuation | Existing Host, Runtime, and Recovery owners | Ground execution in verifiable events rather than model narration |
+| Data provenance, numeric definitions, and actual business effects | Source/Result, finance tools, and business owners | A generated number or recommendation carries no automatic factual or execution authority |
 
-Our choice is therefore not to make “the Harness manage everything.” We **keep deterministic authority with its existing owner and research strategy with the model**. A newly invented umbrella coordinator would usually create competing interpretations of authorization, recovery and result versions.
+**A model should not act as a transaction manager, and the Harness should not pretend to be an investment analyst.** The gain is not necessarily fewer lines of code; it is fewer competing sources of truth.
 
-## 3. A loop is not a picture of endless repetition
+## 3. The point of a loop is not repetition—it is a changed strategy
 
-At execution level, Native Research has a small central cycle: `AgentTurn` proposes the next move, `ActionRuntime` executes admitted actions and records receipts, and `CompletionGate` decides whether the run can continue or terminate according to established runtime facts.
+ETF Agent's Native Research does not rely on an additional general-purpose graph workflow. Its execution rhythm is `AgentTurn → ActionRuntime → CompletionGate`.
 
-```mermaid
-graph TD
-Question --> RunIdentity
-RunIdentity --> ModelTurn
-ModelTurn --> HostAction
-HostAction --> Observation
-Observation --> ModelTurn
-ModelTurn --> CompletionGate
-CompletionGate --> ModelTurn
-CompletionGate --> Publication
-Publication --> DurableHistory
-Observation --> DurableRecovery
-DurableRecovery --> ModelTurn
-```
+`AgentTurn` lets Main propose an action using currently authorized context. `ActionRuntime` executes admitted actions and makes settled results available. `CompletionGate` handles continuation, resource limits, and completion according to existing runtime facts. A subsequent model turn can consume the new observation—and change what it had intended to do.
 
-This depicts **possible handoffs**, not edges that must fire in every task. Direct answers need not use research tools. When resources or authorization are insufficient, the system can stop and truthfully deliver partial results. Recovery must not replay settled tools. Formal answer content goes through Publication, rather than being declared delivered by the model.
+![Native research loop: Main judgment, Host execution, settled observations, and a choice to recheck, delegate, or publish](../../visuals/en/etf-agent-model-harness-research-loop/02-native-loop-en.svg)
 
-What matters more is that the same architecture can be understood at three time scales.
+Three time scales make this especially useful.
 
-### 3.1 A model turn: observations alter the next action
+**First, an observation changes the next action.** Main may discover that a fund's NAV is current but its disclosed holdings are from a previous quarter. It should not therefore describe today's sector exposure as known. It can seek the filing, use an explicitly dated historical view, or state that the needed data is unavailable.
 
-Main might first retrieve NAV figures, then request a holdings disclosure. If the disclosure is older than expected, the next Main turn can change course: examine the original filing, explicitly adopt a historical reference date, or state that current holdings are unavailable.
+**Second, research questions can reopen within the same Run.** ETF Agent's optional `researchNeeds` hold model-authored working questions. “Confirm changes in sector exposure” may once have been marked `resolved`, only for Main to discover that the reported holdings cover too little of the fund. The model can reopen the question. This permits genuine revision without turning working-note status into a completion gate. A `resolved` flag is not a certificate of financial correctness.
 
-This is not a DAG that blindly executes “search A, search B, search C.” **A settled observation can change the plan.** Only currently authorized receipts can become model input. A complete document read by a Child and an excerpt actually consumed by Main are different evidence-consumption facts.
+**Third, continuation across time must not recreate the past.** Existing durable execution and recovery preserve the original Run identity, grant, budgets, and settled tool receipts. If a process disappears, the system continues from the durable position instead of rerunning actions that already took effect. User corrections to background work travel through the original control mechanism. An explicit Continue after a terminal Run starts a linked new investigation.
 
-### 3.2 Within one Run: working questions can reopen
+These distinctions explain why ETF Agent has repeatedly concentrated Main, Child, Memory, Recovery, and Publication responsibilities in their original owners: **research strategy should be allowed to change, but recorded execution history should not change along with the model's opinion**.
 
-ETF Agent's optional `researchNeeds` are model-authored working questions. An item may change from `open` to `resolved`, and reopen if subsequent evidence contradicts the original assumption. This helps Main track unresolved questions during long research, without turning the list into a deterministic evidence-coverage meter.
+## 4. Finance makes time—and the denominator—part of the answer
 
-For example, “confirm the latest sector exposure” may appear resolved until the classification scheme changes. Main can reopen it. Conversely, a list whose every item is `resolved` does not prove citation correctness, arithmetic validity, original-question coverage or successful delivery. The model handles sufficiency judgments; CompletionGate and Publication settle their own facts and do not replace independent financial-quality review.
+In generic technical systems, freshness is often modeled as one timestamp. An investment claim may involve several: market-event time, the holdings `dataAsOf` date, original disclosure date, correction date, news repost date, and the moment an Agent fetched the material.
 
-### 3.3 Across time: waiting and recovery are not restarting
+Imagine an article published this morning that quotes a fund's six-month-old portfolio. The search result is recent; the portfolio is not. Similarly, a quarterly holdings report and a newer NAV observation may both be accurate without describing the same portfolio at the same instant.
 
-A long task may exhaust context, encounter a failed tool, lose its process, require a human response or continue in the background. Recovery should resume under the original Run identity, authorization, budget and settled receipts. User corrections travel through existing Control mechanisms, becoming effects only after the targeted research owner adopts them.
+![Different clocks in financial evidence: market event, data cutoff, official filing, reposting, and retrieval](../../visuals/en/etf-agent-model-harness-research-loop/03-financial-time-en.svg)
 
-When the original Run has terminated, explicit Continue starts a **new, linked Run**. It does not silently pretend the old run never ended. Future scheduled research also needs to preserve previous conclusions and their original conditions. Launching another run does not, by itself, mean that an investment thesis has been correctly updated.
+ETF Agent's existing Web/PDF reading, source identity, ResultRef, temporal semantics, and market tools provide different pieces of this problem. Source/Result preserves provenance and derivation relationships; temporal semantics explains user-relative dates and market sessions; finance tools supply the actual holdings or market-data definitions. The model consumes those materials and decides how to investigate contradictions or qualify its language.
 
-This across-time continuity is a meaningful engineering capability, but it also opens a different product-quality question: a background run may truly execute without ultimately yielding a trustworthy research result.
+There is also an easily missed arithmetic issue:
 
-## 4. Walk one fund-research question through these time scales
+`Portfolio sector exposure ≈ Σ (investor's allocation to fund × that fund's weight in the sector)`
 
-The following is a **plausible design path**, not a claim that the full sequence has already passed production acceptance.
+This is a simplified relationship to illustrate denominators, not a complete financial formula. Actual analysis must consider cash, non-equity assets, look-through coverage, overlapping exposures, reporting periods, and currencies. A Python calculation can be numerically precise while answering the wrong question if the lineage and assumptions get lost between fund-level data and portfolio-level conclusions.
 
-**First, preserve the question and permissions.** The user wants to compare sector and currency risks. Account identity, original Run Grant, accessible portfolio data and approved tools are independently established. Main may choose Research but cannot enlarge data access on its own.
+The broader insight is that **a financial Agent needs to preserve the number, its denominator, and the date when that number was valid**. A citation link points the reader somewhere. A traceable relationship among sources, transformations, and conclusions explains what the analysis actually depends on.
 
-**Second, obtain applicable sources.** Main uses read-only financial tools for portfolio and fund facts. A Web or PDF Child may examine original report text. Search snippets are candidates; they cannot stand in for the original report's tables, cutoff dates and qualifications.
+## 5. Subagents should divide research work, not vote on the conclusion
 
-**Third, resolve a time conflict.** Today's reposted “latest holdings analysis” actually cites an older filing. Main must distinguish event, disclosure, reposting and holdings `dataAsOf` dates. If historical holdings are all that exist, the answer should say “as of the disclosed period,” not fabricate today's exposure. A36 temporal semantics has a partial implementation, while qualified live calendar sourcing, consumption in ordinary authenticated research and end-to-end acceptance remain open.
+Some investment questions benefit from specialists. ETF Agent already has Child lifecycles, different research methods, investment perspectives, and bounded bull–bear conversations. That does not imply every investigation needs a fixed team of expert personas.
 
-**Fourth, calculate without hiding uncertainty.** Comparing portfolio sector weights requires fund-allocation denominators, underlying holdings coverage, industry classifications and suitable FX dates. Deterministic tools can multiply and sum inputs; missing holdings, overlap, fees and currency assumptions still require explanation. A precise decimal is not proof that the data and method are correct.
+A better rule is for Main to delegate when an independent branch is useful. One Child can compare two original filings; another can recalculate sector look-through within authorized data access. Different investment perspectives can challenge the premise that a rise in concentration automatically calls for selling.
 
-**Fifth, collaborate only when it helps.** If two disclosures disagree, Main may delegate close reading to a Child or ask a Reviewer to check for omissions. Multiple agents add value when they supply genuinely different evidence or counterarguments, not merely different role names. A reviewer's opinion, a human reply, formal financial approval and an actual trade remain different authorities.
+A Child returns **its own result and source relationships**. Main consuming the Child's summary is not equivalent to Main reading the entire source document. A Reviewer flagging a possible issue contributes an opinion, not an automatic veto over publication or permission to place a trade.
 
-**Sixth, deliver complete, partial or unknown results accurately.** Independently valid explanations can be published during the run. A final answer should identify data dates, sector-exposure denominators, important risks, reasons not to change the portfolio and unresolved gaps. A downloadable report, durable storage and fresh History must be confirmed through their actual delivery mechanisms. Tool success, model termination, file generation and user retrieval are four different states.
+The right question about multi-agent collaboration is therefore not “how many agents participated?” It is **whether the extra branch supplied missing evidence, better arithmetic, or a counterargument that actually changed the judgment**. If not, fewer Children may be clearer, cheaper, and easier to resume safely.
 
-The important feature is not the six-step ordering: **step three can force step two to repeat; step five may happen during any turn; insufficient data in step four may cause step six to remain Partial**. Research is continuously shaped by observations and constraints.
+## 6. A finished Run is not the same as a delivered result
 
-## 5. Why we did not add a “research commander”
+It is tempting to define completion in terms of internal events: the model stops calling tools, the Run terminates, a report string is generated, and the task is marked successful.
 
-Predefined workflows work well for stable, enumerable tasks. Open-ended research encounters discoveries and counterarguments that cannot be listed in advance. A DAG prescribing “fetch ten reports, then obtain three expert ratings” may produce an attractive final artifact even when the original documents are stale or decisive information is missing.
+The investor cares about something different: does the report actually describe their portfolio? Do cash and total allocations reconcile? Why was that recommendation made? Can they open the file? Will the same evidence still appear when they return?
 
-The opposite extreme puts every control in a prompt. It asks the model to “verify carefully” or “comply with every rule,” without ensuring that a financial effect was actually approved, a committed tool will not execute twice after recovery, or an answer file can still be retrieved in another session.
+ETF Agent's existing Publication, Artifact, History, and progressive-answer mechanisms separate these facts. Independently sound partial explanations can be delivered early; a final answer can be committed later. Files have their own durable identity and access conditions. History should replay the correct version. A background study can continue while the user asks a separate short question.
 
-ETF Agent takes a middle course: **one Main research loop, optional small Child delegations, methods supplied through Skills where appropriate, tools and recovery constrained by their original deterministic owners, and financial judgment grounded in actual facts**. If two capabilities only need to share materials and tools, another Agent is rarely justified just to make the architecture symmetrical.
+![From model output to actual delivery: execution, source relationships, publication versions, files, and history are separate facts](../../visuals/en/etf-agent-model-harness-research-loop/04-delivery-en.svg)
 
-There is relevant external engineering precedent. Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) discusses the tradeoff between composable workflows and model-directed agents. Its [long-running harness research](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) explores cross-context handoffs. These are external references, not evidence that ETF Agent has proved better financial research quality.
+This is not a call for a complicated approval workflow around every sentence. Quite the opposite: **deliver what can stand on its own, and describe what remains unknown without disguising it as finished research**. A Run may stop because the question has been sufficiently addressed, resources ran out, it is waiting for an external event, or the user cancelled. One attractive `completed` value should not erase those distinctions.
 
-## 6. Where we stand: substantial execution machinery, an unfinished financial outcome
+## 7. Three design choices worth carrying into other Agents
 
-This is not a system starting from zero on Model, Harness and Loop.
+If we distill these engineering lessons into a single investment-research story, the interesting part is not the number of modules. It is three choices.
 
-- **Mechanisms with explicit existing contracts:** A framework-free Native Loop, Main/Child lifecycles, original Run authorization and resources, tool receipts, result citations, Publication, durable continuation and optional working research questions. Asynchronous delivery and short foreground replies alongside background research also have bounded engineering verification.
-- **Code or scoped evidence with important qualifications:** Market-time interpretation, human interaction, research-progress presentation, investment-perspective collaboration and different recovery paths vary by default-off configuration, source integration and acceptance scope. Listing a capability does not mean it is available or accepted for every user.
-- **The outcome still unproven:** One complex fund question, from ordinary ingress, autonomously validating documents, calculating correctly, answering the user's actual concern and delivering both an accessible report and consistent fresh History. Existing research samples exposed problems involving cash, totals, classification and report retrieval. Passing local infrastructure checks does not erase those outcomes.
+**First, let the model change its mind.** Do not turn it into a natural-language wrapper around a rigid workflow. New disclosures, contradictory sources, and counterevidence should affect the next research action. But changing a strategy does not require rewriting execution history.
 
-At publication time, the project had explicitly **stopped automatically adding paid financial-quality reruns**. The current priority is to repair existing reports and confirm their accessibility. Subsequent financial-quality phases remain unverified. More paid real-model comparisons require renewed explicit authorization; publishing this article does not trigger them.
+**Second, give every deterministic fact one owner.** Authorization, source identity, arithmetic, tool receipts, recovery, and publication each have a real place where their effects are settled. Connecting them into an investigation does not justify adding a commander that can overrule every owner.
 
-This makes “we have built most of it” more precise: **the execution architecture is substantial; the bottleneck is moving from the availability of capabilities to sustained correction and the delivery of genuinely useful research conclusions**.
+**Third, work backward from the deliverable rather than treating architectural complexity as value.** Recoverable loops, collaborating Children, and traceable citations matter because they help an investor receive a study that explains its dates, denominators, evidence, and reasons *not* to act.
 
-## 7. Deepen the existing owners, not the layer count
-
-| What needs strengthening | A more useful verification question | Existing responsibility |
-| --- | --- | --- |
-| **Financial time semantics** | When repost, disclosure and data-cutoff dates conflict, can the system avoid calling holdings “current” while still permitting a qualified historical study? | Existing temporal semantics, market sources and fund facts |
-| **Research conclusion revisions** | When evidence overturns an earlier inference, can the original conclusion, reason for revision and citations survive without relabeling old facts as new? | Research, Source/Result, Publication and Thesis/History |
-| **Actual deliverables** | Can the user retrieve the correctly classified cash and totals, final text, report file and reviewable History? | Financial calculation, Publication, Artifact and conversation delivery |
-| **Review and human adoption** | Can logs and UI distinguish a Reviewer's opinion, a user's response, business approval and committed effects? | Reviewer, HIO, Run Control and business-effect owners |
-
-These are **questions for testing and refining existing ownership**, not proposals for four new modules or a separate compliance gate. Start from recorded failures, already approved samples and narrow deterministic checks; do not automatically initiate unapproved paid model experiments or real financial actions.
-
-A mature financial research agent is not defined by longer loops or more specialists. Each turn should move closer to the user's question through reliable observations. When it cannot continue, it must still explain what is known and unknown—and get the real output into the user's hands.
+A good investment-research Agent need not know every answer. It should recognize when to continue investigating, when to revise a belief, and when only a qualified conclusion is justified. **The goal is not a loop that never stops; it is a system that can be corrected by evidence without losing the evidence.**
 
 ---
 
-[Six-layer lifecycle V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) · [Result provenance](/en/articles/tool-results-outside-model-context) · [Trustworthy financial evidence (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain) · [Asynchronous research delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)
+[Six-layer panorama V3](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) · [Financial evidence chain (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain) · [Research results and provenance](/en/articles/tool-results-outside-model-context) · [Asynchronous research and delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)
 
-[ETF Agent engineering essays on GitHub](https://github.com/hpoenixf/eff-agent-article) — if this engineering case is useful, consider giving the repository a Star.
+[ETF Agent engineering essays on GitHub](https://github.com/hpoenixf/eff-agent-article) · If these design choices are useful, consider giving the repository a Star.
