@@ -214,13 +214,13 @@ The following is a **conceptual institutional-target structure**, not an ETF-Age
   "authorization_ref": "AUTH-B1",
   "client_request_id": "REQ-B1",
   "order_state": "submitted",
-  "effect_observation": "known"
+  "effect_observation": "awaiting_receipt"
 }
 ```
 
 The business authorization system associates `authorization_ref` with the **exact account, product, amount, and proposal version**, and the submitter validates it independently. The presence of a similarly named string in a request or model response does not confer authority. `client_request_id` stays stable across inquiries, retries, and receipts; the business side still implements deduplication and reconciliation.
 
-For actions that create real orders, this simplified projection shows success, partial fills, and exceptions:
+For **exchange-traded orders that support partial fills**, this simplified projection shows success and exceptions. The off-exchange fund-subscription example above follows its own acceptance and share-confirmation rules:
 
 ```mermaid
 stateDiagram-v2
@@ -242,6 +242,7 @@ stateDiagram-v2
 
 | Local observation | Evidence condition | Required behavior |
 | --- | --- | --- |
+| `awaiting_receipt` | Submission sent, normally awaiting the first external receipt | Retain submission identity, await a receipt, and apply timeout detection |
 | `known` | Trustworthy acceptance or execution receipt | Record receipt identity and advance the corresponding state |
 | `unknown` | No reliable outcome after submission | Freeze automatic resubmission; retain the original `client_request_id` |
 | `reconciling` | Query by original request/order identity | Check authoritative receipts and deduplicate; retain uncertainty if none is found |
