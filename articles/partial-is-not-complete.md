@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/tool-results-outside-model-context
+      href: https://hpoenixf.com/eff-agent-article/articles/tool-results-outside-model-context
 ---
 
 # 静默截断：真实数据为什么变少
