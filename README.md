@@ -4,13 +4,17 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **65 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **66 篇正文，三条主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
+
+## 2026-10-27 · Agent 研究恢复与专家交接
+
+新增[《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md)与[完整英文版](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)，明确客户端重连、服务中断结算、受控 Human/Child 唤醒和新 Run 复用原材料之间的产品承诺。同期更新[自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md)、[Subagent](articles/agent-subagent-context-specialization.md)、[评测证据](articles/honest-agent-evaluation.md)和[终结权](articles/agent-veto-authority-and-run-termination.md)已有中英文主稿。工程验证不等于自然模型研究质量证明，旧文章保留原路径与图表。
 
 ## 2026-10-27 · 金融 Agent 系统全景
 
