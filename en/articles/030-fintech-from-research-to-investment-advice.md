@@ -5,13 +5,13 @@ description: "Data authorization, financial calculation and externally effective
 
 # When AI Starts Saying “What to Buy,” How Far Is a Research Assistant from Investment Advice and Trading?
 
-> **Reading note:** This is a discussion of product and engineering boundaries, not legal advice, securities investment advice or a representation of financial-services licensing. Applicable rules depend on current official regulations, the entity concerned and its jurisdiction.
->
-> **Series:** Fintech and Compliance (primary theme), with architectural implications.
+> **Reading note:** This article discusses product and engineering responsibility, not legal advice, securities investment advice, or any claim of a financial-services license. Applicable rules must be assessed for the actual entity, service, and jurisdiction.
 
-Asking an agent to look up fund information and asking it to decide which fund a user should buy might look like a single prompt change: “Make a recommendation from these sources.” Architecturally, though, the difference is not tone. It is **the service promise, the authorized subject, responsibility for facts, and who may produce an actual economic effect**.
+> **Series:** Fintech and Compliance, with architectural implications.
 
-While developing a personal ETF research assistant, we repeatedly encountered the ambiguous phrase *helping investment decisions*. It can mean explaining the differences between public indexes or finding overlapping portfolio exposures. It can also mean making a personalized recommendation about a security, quantity and action—or sending an order. Collapsing all these activities into one “investment analysis” tool leaves the product's actual service unclear, regardless of how fluent the model sounds.
+**Moving a financial Agent from explaining a fund to recommending a purchase and then executing an order is not one more prompt instruction. It changes the service promise and the potential economic consequences for the user.** Decide which service the product is allowed to provide before implementing its tool surface.
+
+That is why ETF Agent separates read-only investment research from potential trading effects. Explaining a public index, comparing allocations using private holdings, and executing a real order require different data permissions, business obligations, and action approvals. Calling them all “AI investment analysis” hides the contract the product is actually making.
 
 ## 1. Similar Questions Can Require Very Different Permissions
 
@@ -68,6 +68,10 @@ Real runs have still shown incomplete research evidence, incomplete numerical re
 
 On June 18, 2026, China's National Financial Regulatory Administration published its [Guiding Opinions on the Secure Development and Application of AI in Banking and Insurance](https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1261784&generaltype=1&itemId=4216). These emphasize user-side responsibility and risk-tiered governance for the banks, insurers and other entities within their stated scope. They cannot automatically replace rules for the securities industry. Lessons may transfer technically without making all financial institutions subject to identical legal duties.
 
-What engineers can establish is an **auditable business-capability boundary**: who the user is; what data is accessed; which assumptions the output declares; whether a side effect occurred; and when another regulated business process is required. The model proposes. The product contract authorizes. External actions require independently verifiable consent and execution facts.
+**Engineering should establish what service the product may provide before deciding which powers to expose to the model.** Before moving a research assistant toward personalized advice or trading, the team should answer:
 
-For a personal research agent, saying “we currently provide research, not trades on your behalf” is not a weakness. It aligns what is promised with what is actually available. For teams expanding toward advisory or execution, the same line reveals why adding a buy/sell tool is insufficient: product, compliance and execution responsibility must be redesigned first.
+- **Service commitment:** What explanations, recommendations, or actions can this entity and product actually offer? Which separate product, compliance, and human-confirmation workflows are required?
+- **Data eligibility:** Who authorizes public and private portfolio inputs, and which time, definition, and use restrictions must travel with the output?
+- **External effect:** Is the model only proposing a plan, or will account state change? Who owns approval, idempotency, execution receipts, and unknown outcomes?
+
+These decisions belong in product contracts and protected execution, not in a generic “invest carefully” prompt. **A read-only research scope is not an engineering weakness. It is an appropriate product choice until advice and trading obligations are explicitly established.**
