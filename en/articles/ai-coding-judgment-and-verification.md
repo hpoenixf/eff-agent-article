@@ -112,6 +112,12 @@ Ordinary research does not automatically need this additional review. When furth
 
 There is a practical tradeoff here.
 
+One actual call makes the investment in review more concrete. On October 25, during a controlled collaboration test, an independent reviewer using `deepseek-v4.1-flash` examined a fictional investment claim and identified missing premises in its reasoning about liquidity and tail losses. The reviewer examined only the text of the claim and did not read external material, so this was not verification of real-world investment facts.
+
+The model request used **6,963 input tokens and 5,586 output tokens** and took approximately **51.6 seconds** from request start to completion. The input included 4,096 cache-read tokens; cache-write usage was not fully recorded. The record provides no verifiable charge or pricing basis, so the actual cost remains unknown. The elapsed time for this request is also not the same as the extra wait for the complete report.
+
+One sample shows that review requires additional model usage and time; it does not establish how much an on-demand strategy saves or whether it finds errors as effectively as reviewing every report. High-consequence cases still need appropriate scrutiny. Comparing strategies requires costs, latency, and error detection to be recorded against the same tasks and evaluation criteria.
+
 For a question about a fund's management fee, clear primary material and an explicit field may make several model-review rounds disproportionate. For a comparison of complex investment proposals, where a conclusion could materially affect asset allocation, examining the critical assumptions may justify the additional effort.
 
 More verification is not automatically better. The effort should reflect uncertainty, the cost of being wrong, and the intended use.
