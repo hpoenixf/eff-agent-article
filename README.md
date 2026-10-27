@@ -6,7 +6,7 @@
 
 模块机制 × 架构思考 × AI Agent 研发工程 · **64 篇正文，三条主线**
 
-[**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [个人博客](https://hpoenixf.com/)
+[**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
