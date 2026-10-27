@@ -1,14 +1,12 @@
 # How Does an Agent Continue After a Model Failure? Designing Failure-Domain-Aware Failover
 
-> October 23, 2026
->
-> This is an architectural account of failover, not an announcement of completed, seamless production high availability.
+> October 23, 2026 · An architectural account with scoped engineering evidence, not a claim of seamless production high availability.
 
-A model request fails halfway through a research task. Other models are already configured. Why not immediately switch to one of them and continue?
+**Agent failover is a fresh decision about execution and data-recipient eligibility, not merely a list of backup model names.** A route may change, but the original task cannot gain new permissions, forget past requests or replay an uncertain effect as though it never happened.
 
-For a simple text exchange, that can look like a small `try/catch`. For an agent that has read sources, executed tools, and stored intermediate results, switching models can also change the data recipient, invocation cost, and recovery path.
+ETF Agent considered three routes. Two model choices can share the same capacity group; moving to an independent Provider also changes who receives the request. **Another model name is not automatically another usable backup.** One 503 does not establish group failure. A same-group switch may not escape rate limiting. A healthy backup may still be ineligible to receive private research context.
 
-Our choice was not “run it again whenever something fails.” It was: **select another eligible route for the next model request within the original task’s authorization and budget. Continue the task without resetting its responsibilities.**
+Our design therefore preserves the original Run identity, retry authority and budget. A selector excludes ineligible routes; each new physical attempt must independently pass capability, disclosure and capacity checks and leave its own record. The mechanisms below explain why this cannot be hidden inside a Gateway `catch` block.
 
 ## 1. First decide which layer needs recovery
 
@@ -230,53 +228,29 @@ Evaluation makes the reason especially clear: if the question is how model A per
 
 The same principle applies throughout: **technical ability to dispatch does not establish that this task permits that continuation.**
 
-## 9. Three contrasting scenarios reveal the value of these choices
+## 9. Three Cases That Actually Determine Whether a Switch Helps
 
-### Scenario one: a 503 without established shared-endpoint unavailability
+| Observed fact | Appropriate next action | False inference to avoid |
+| --- | --- | --- |
+| One 503 without evidence that the shared endpoint is unavailable | Consider another eligible model only if the original Run may retry, recording a new attempt and charge | One failed request does not prove the whole group is down |
+| Trusted cooldown for the shared Go capacity group | Skip same-group candidates; check a separate Provider's capability, capacity and data eligibility if one is configured | Changing a model name does not evade the same resource limit |
+| A healthy backup, but request context is not authorized for that recipient | Refuse the cross-provider dispatch and preserve prior lawful research outputs | Technical availability is not permission to disclose private data |
 
-The current request produced no effective output, its rejection was settled under the original identity, and the Run retains retry authority. The system reads fresh group state and considers Go GLM when shared-group failure has not been established.
+These are conditional decisions, not a fixed “primary → backup one → backup two” queue. A request that already produced usable output, or an attempt with unknown effects, cannot be treated as though it never happened.
 
-The next invocation has a new Attempt and debit identity but belongs to the same Run. The system does not rebuild the conversation or hide the switch inside the gateway.
+## 10. Why Not Add a Universal Router?
 
-This adds a model-route option. It does not diagnose the 503 as necessarily originating in the model itself.
+Configuration, shared capacity, Run budgets, source authorization, physical dispatch and recovery records already have rightful owners. A router that owns everything may create duplicate health state, retry ledgers and permission decisions.
 
-### Scenario two: the Go capacity group is in a trusted cooldown
+**The route selector may eliminate bad candidates; it must not create new retry authority, permission or budget.** The original Run decides whether work may continue, Admission owns capacity, source/confirmation owners control disclosure, the Gateway sends an approved attempt, and Recovery preserves what actually happened.
 
-Trying GLM in the same group does not escape the group’s wait. The full policy can consider the independent official route, but its qualification, disclosure, and capacity checks still apply.
+## Conclusion: An Available Backup Is Not Necessarily an Eligible Recovery Route
 
-An explicit Go-only policy has no independent group and cannot invent permission to use the official provider. Missing candidate configuration or qualification must not silently become a different, looser policy.
+In the next failover review, start with three questions: **Which request or shared failure domain is actually affected? Does the original Run still have permission to retry? May the complete payload lawfully be sent to the new recipient?** If any answer is negative, do not force a route switch merely to report higher availability.
 
-A new Run may acquire a narrower disclosure-eligible candidate scope through the original confirmation mechanism. That is different from adding new authority to an old Run during recovery.
+There is another invariant: **completed tools, published content and uncertain effects must not disappear or be replayed during redispatch.** The task identity stays; every new attempt remains separately accountable.
 
-### Scenario three: the backup is available, but the context is not proven transferable
-
-The user approved current input only, while the actual request contains uncovered history or derived material.
-
-The system rejects that candidate dispatch. It does not declare the original task’s existing results invalid. Preservable answer content remains, and the new cross-provider request does not occur.
-
-This should not be described as a failed failover feature that needs weaker checks. It means the intersection of recovery routes and data authorization is currently empty.
-
-## 10. Why didn’t we build another universal router?
-
-The system already has configuration, capacity admission, Run budgets, source authorization, recovery, and publication. Most facts required for failover already belong to those mechanisms.
-
-A router that owns everything might make the flow look centralized initially, but it can also duplicate health state, retry counters, and authorization decisions. Once the copies disagree, the system must again decide which one is authoritative.
-
-The new core logic is therefore intentionally narrow: consume existing facts, eliminate unsuitable candidates, and return a selected route to the original request lifecycle.
-
-That does not mean there is no orchestration. Entry, Main, and Child still need to connect these checks in the correct order. We avoid a second independently authoritative governance system, not the necessary steps.
-
-The composition has defined ownership: Admission retains capacity facts; the Run retains retry authority; confirmation and source mechanisms retain recipient eligibility; the gateway dispatches the physical request; recovery records retain what happened.
-
-## Conclusion: reliable failover is more than keeping spare models
-
-A backup becomes a genuine recovery route only when it matches the failure domain, the task may continue, capabilities are compatible, disclosure is permitted, and historical state is trustworthy.
-
-I therefore see this change as adding a controlled continuation option to an existing Run, rather than attaching a fallback to every exception.
-
-**Change the route, not the task. Add an attempt, not permission. Recover execution without rewriting the past.**
-
-These constraints are not accessories to failover. They distinguish reliable recovery from silently starting the problem over.
+**Change the route, not the task. Add an attempt, not permission. Recover execution without rewriting the past.** The bounded, default-off implementation state described below does not establish natural-entry end-to-end or production failover readiness.
 
 ---
 
