@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "open-etf-agent-v01-first-readable-report": "Start with a Report You Can Read Back: Open ETF Agent v0.1",
   "agent-runtime-refactor-one-day-blocked": "Why Did One Subagent Change Hold Up Our Work for an Entire Day?",
   "agent-differentiated-evolution-contracts": "What Should Stay Stable—and What Should Change—in an Agent Architecture?",
   "agent-background-research-collaborative-experience": "Keep Chatting: Adding Async Background Research to an Agent in a Day",
@@ -65,6 +66,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "open-etf-agent-v01-first-readable-report",
   "agent-runtime-refactor-one-day-blocked",
   "agent-differentiated-evolution-contracts",
   "agent-control-events-durable-owner-adoption",

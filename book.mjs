@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 61 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 63 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -323,6 +323,10 @@ export const collections = [
         "title": "真实验证与任务收敛",
         "desc": "区分假绿、模型返回与最终任务完成，让研发从局部修补走向可验证收敛。",
         "items": [
+          [
+            "open-etf-agent-v01-first-readable-report",
+            "Open ETF Agent v0.1：从第一份可回读报告开始"
+          ],
           [
             "honest-agent-evaluation",
             "测试与评测：绿灯究竟证明什么"

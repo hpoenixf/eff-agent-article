@@ -4,7 +4,7 @@ title: ETF Agent · 工程手记
 hero:
   name: ETF Agent · Notes
   text: 一套 Agent，三条阅读主线。
-  tagline: 62 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
+  tagline: 63 篇工程长文：看模块如何运行、架构如何演化，以及 Coding Agent 如何持续开发和验证。金融专题提供跨分类阅读入口。
   actions:
     - theme: brand
       text: 先看六层调用全景 V3 →
@@ -57,7 +57,7 @@ features:
 
 ## 核心必读：系统全景与架构原则
 
-建议先读[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 62 篇文章的入口。**
+建议先读[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)：沿一次提问看 Native Loop、工具、证据和交付怎样真正协作。再读[九条架构原则](/principles)：理解语义、授权、Owner 与系统演化的设计判断。**全景是运行地图，原则是判断地图，两篇共同构成后续 63 篇文章的入口。**
 
 ## 新增架构原则 · 局部改善与整体进步
 
