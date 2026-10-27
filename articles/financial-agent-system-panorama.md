@@ -214,13 +214,13 @@ ETF-Agent 的持久人机交互提供了请求、回复及向原消费者交接�
   "authorization_ref": "AUTH-B1",
   "client_request_id": "REQ-B1",
   "order_state": "submitted",
-  "effect_observation": "known"
+  "effect_observation": "awaiting_receipt"
 }
 ```
 
 其中 `authorization_ref` 由业务授权系统关联到**准确的账户、产品、金额和方案版本**，并由提交方独立校验；模型输出或请求中出现一个同名字符串，并不构成授权。`client_request_id` 在重试、查询和回执中保持稳定，业务端仍须提供去重和对账机制。
 
-对实际发生订单的业务，可以用如下简化状态投影说明成功、部分成交和异常分支：
+对于**支持部分成交的场内交易订单**，可以用如下简化状态投影说明成功、部分成交和异常分支；上面的场外基金申购示例应根据实际受理、确认份额等规则单独建模：
 
 ```mermaid
 stateDiagram-v2
@@ -242,6 +242,7 @@ stateDiagram-v2
 
 | 本地观察 | 可验证条件 | 系统动作 |
 | --- | --- | --- |
+| `awaiting_receipt` | 已发起提交，正在正常等待首次外部回报 | 维持原提交身份，等待回报并执行超时检测 |
 | `known` | 有可信受理或成交回报 | 记录原回报身份并推进对应状态 |
 | `unknown` | 提交后无法确认外部结果 | 冻结自动重提，保留原 `client_request_id` |
 | `reconciling` | 按原请求/订单身份主动查询 | 查询权威回报并去重，持续未知则保持待核 |
