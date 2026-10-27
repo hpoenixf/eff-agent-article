@@ -128,7 +128,7 @@ export default defineConfig({
       description,
       canonical,
       image: 'https://hpoenixf.com/static/images/twitter-card.png',
-      article: /^(?:en\\/)?articles\\//.test(relativePath),
+      article: relativePath.startsWith('articles/') || relativePath.startsWith('en/articles/'),
       english
     }))
 
@@ -150,7 +150,7 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#f8f8f4' }],
     ['meta', { name: 'referrer', content: 'strict-origin-when-cross-origin' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/eff-agent-article/brand.svg' }],
-    ['link', { rel: 'alternate', type: 'application/rss+xml', title: 'ETF Agent Engineering Notes', href: SITE_URL + 'feed.xml' }]
+    ['link', { rel: 'alternate', type: 'application/rss+xml', title: 'ETF Agent 工程手记', href: SITE_URL + 'feed.xml' }]
   ],
   markdown: {
     lineNumbers: true,
