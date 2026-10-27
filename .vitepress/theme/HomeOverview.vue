@@ -33,7 +33,9 @@ const zh = {
   topics: [
     { label: '金融可信工程', href: '/fintech' },
     { label: '架构图册', href: '/gallery' },
-    { label: '写作路线图', href: '/roadmap' }
+    { label: '写作路线图', href: '/roadmap' },
+    { label: '术语速查', href: '/glossary' },
+    { label: '订阅 RSS', href: '/feed.xml' }
   ],
   moreLabel: 'EXPLORE MORE',
   moreTitle: '想再深入一点？',
@@ -83,7 +85,7 @@ const zh = {
   ],
   aboutTitle: '关于本站与联系作者',
   aboutHint: '公开内容范围、合作方式',
-  aboutText: '本站公开 Agent 工程文章、架构示意和阅读站源码，不包含完整 Agent 产品源码、运行凭据或生产指标。文章中的局部验证不代表生产级效果。',
+  aboutText: '本站公开 Agent 工程文章、阅读站源码及独立 MIT 教学实现 Open ETF Agent；不公开内部完整产品源码、运行凭据或生产指标。局部验证不等于生产级效果。',
   aboutLabel: '作者与博客',
   emailLabel: '邮件联系',
   contactLabel: '微信 hpoenixf0510',
@@ -118,7 +120,9 @@ const en = {
   topics: [
     { label: 'Trustworthy fintech', href: '/en/fintech' },
     { label: 'Architecture gallery', href: '/en/gallery' },
-    { label: 'Writing roadmap', href: '/en/roadmap' }
+    { label: 'Writing roadmap', href: '/en/roadmap' },
+    { label: 'Glossary', href: '/en/glossary' },
+    { label: 'Subscribe via RSS', href: '/en/feed.xml' }
   ],
   moreLabel: 'EXPLORE MORE',
   moreTitle: 'Go a little deeper',
@@ -168,7 +172,7 @@ const en = {
   ],
   aboutTitle: 'About this site and the author',
   aboutHint: 'Scope, contact, and collaboration',
-  aboutText: 'This site publishes engineering articles, architecture diagrams, and its own source code. The full Agent application, production credentials, and production metrics are not public. A local validation result is not a production guarantee.',
+  aboutText: 'This site publishes engineering notes and an independent MIT-licensed teaching implementation, Open ETF Agent. Full product source, credentials, and production metrics are not public; local checks are not production guarantees.',
   aboutLabel: 'Author and blog',
   emailLabel: 'Email',
   contactLabel: 'WeChat hpoenixf0510',
