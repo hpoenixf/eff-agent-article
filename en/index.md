@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: Browse all articles
       link: /en/catalog
+    - theme: alt
+      text: Runnable source code ↗
+      link: https://github.com/hpoenixf/open-etf-agent
 features:
   - title: Modules · How it works
     details: Follow a request through tools, context, recovery and publication.
