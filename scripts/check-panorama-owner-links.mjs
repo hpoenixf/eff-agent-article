@@ -7,7 +7,7 @@ const root = 'visuals/017-prompt-to-answer-six-layer-panorama/diagrams/'
 const articles = JSON.parse(readFileSync('visuals/owner-architecture/owner-articles.json', 'utf8'))
 const english = new Set(englishArticleSlugs)
 const owners = [
-  ...Array.from({ length: 37 }, (_, i) => 'A' + String(i + 1).padStart(2, '0')),
+  ...Array.from({ length: 41 }, (_, i) => 'A' + String(i + 1).padStart(2, '0')),
   ...Array.from({ length: 5 }, (_, i) => 'B' + String(i + 1).padStart(2, '0')),
   'E04'
 ]
@@ -45,17 +45,17 @@ for (const lang of ['zh', 'en']) {
     assert.equal(href, target(id, lang, true), 'SVG link mismatch ' + lang + ':' + id)
     discovered.add(id)
   }
-  assert.equal(matches.length, 43, 'SVG chips count ' + lang)
+  assert.equal(matches.length, 47, 'SVG chips count ' + lang)
   assert.equal(discovered.size, owners.length, 'SVG owner coverage ' + lang)
   assert(doc.includes('<object class="v3-owner-map"'), 'SVG must be interactive object in ' + markdownPath)
   assert(doc.includes('data="/eff-agent-article/' + svgPath + '"'), 'incorrect SVG object source')
   assert(doc.includes('{#capability-owner-links}'), 'owner index anchor missing')
 
   const rows = [...doc.matchAll(/^\| ([ABE]\d{2}) \| (.+) \| (.+) \|$/gm)]
-  assert.equal(rows.length, 43, 'module index row count ' + lang)
+  assert.equal(rows.length, 47, 'module index row count ' + lang)
   for (const [, id, cell] of rows) {
     assert(discovered.has(id), 'appendix owner not on SVG: ' + id)
     assert(cell.includes('](' + target(id, lang, false) + ')'), 'appendix link mismatch ' + lang + ':' + id)
   }
 }
-console.log('V3: 43 interactive owner chips and matching Chinese/English article links validated.')
+console.log('V3: 47 interactive owner chips and matching Chinese/English article links validated.')

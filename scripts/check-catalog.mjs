@@ -64,8 +64,8 @@ if (!embedded) throw Error('Owner diagram data not found')
 const ownerData = JSON.parse(embedded[1])
 const registry = JSON.parse(readFileSync('visuals/owner-architecture/owner-articles.json', 'utf8'))
 const primaryOwnerIds = new Set(ownerData.owners.filter(o => /^(?:A\d\d|B\d\d|E04)$/u.test(o.id)).map(o => o.id))
-if (primaryOwnerIds.size !== 43 || registry.schemaVersion !== 1) throw Error('Owner article map requires 43 recognized owners and schema v1')
-for (const [id, expectedPrimary] of Object.entries({A36:'agent-temporal-semantics-market-calendar',A37:'agent-durable-human-interaction-response-adoption'})) {
+if (primaryOwnerIds.size !== 47 || registry.schemaVersion !== 1) throw Error('Owner article map requires 47 recognized owners and schema v1')
+for (const [id, expectedPrimary] of Object.entries({A36:'agent-temporal-semantics-market-calendar',A37:'agent-durable-human-interaction-response-adoption',A38:'agent-personal-credits-shadow-accounting',A39:'agent-custom-expert-from-prompt-to-recovery'})) {
   if (!primaryOwnerIds.has(id) || registry.owners[id]?.primary !== expectedPrimary) {
     throw Error('Missing canonical Owner or primary essay: ' + id)
   }

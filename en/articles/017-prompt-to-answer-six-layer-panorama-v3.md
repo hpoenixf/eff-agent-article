@@ -5,7 +5,7 @@ description: "Follow one user request through Main/subagents, model and tools, D
 
 # From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle · V3
 
-> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 (47 as of October 27) and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
+> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 (47 currently) (47 as of October 27) and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
 >
 > **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
 
@@ -17,7 +17,7 @@ The earlier six-layer story grouped architectural capabilities. Background Resea
 
 <PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 47 clickable capability owners">
 <div class="v3-owner-map-scroll">
-  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 43 clickable capability owners">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 47 clickable capability owners">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg">Open the interactive SVG owner map</a>
   </object>
 </div>
@@ -210,7 +210,7 @@ V1 and V2 remain available as historical snapshots of real design evolution. **V
 
 ---
 
-## Appendix: the 43 capability owners by primary stage {#capability-owner-links}
+## Appendix: the 47 capability owners by primary stage {#capability-owner-links}
 
 The original capability Owner registry is authoritative for effects and facts. This appendix assigns each to one primary stage for orientation, and shows other stages it touches without inventing parent authority.
 
@@ -235,8 +235,11 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Related reading](/en/articles/agent-subagent-context-specialization) | L3 |
 | A26 | [Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3, L4 |
 | A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
+| A41 | [Cross-Run Conversation History Compaction](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [Content Trust and Security Policy](/en/articles/agent-content-trust-prompt-injection) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3, L4 |
 | A37 | [Durable Human Interaction (HIO)](/en/articles/agent-durable-human-interaction-response-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3, L5, L6 |
+| A39 | [User Expert Profiles and Presets](/en/articles/agent-custom-expert-from-prompt-to-recovery) | L3, L4 |
+| A38 | [Personal Credits Account and Usage Attribution](/en/articles/agent-personal-credits-shadow-accounting) | L3, L6 |
 
 ### L3 · Agent Decision and Runtime
 
@@ -280,6 +283,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A22 | [Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
 | A23 | [Answer Publication and Preparation](/articles/019-agent-answer-publication) (Chinese original) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
 | A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
+| A40 | [User Answer Feedback Records](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |
 
 ### L6 · User Interface
 
@@ -287,7 +291,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | --- | --- | --- |
 | A25 | [Client Interaction and Reading](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [Related reading](/en/articles/agent-progressive-answer-coherence) | L1, L2, L5 |
 
-Engineering navigation E01–E03 is not counted among these 43 production-capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
+Engineering navigation E01–E03 is not counted among 上述 47 个生产能力 Owner. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
 
 **Two judgments run across all six stages:** [Model judgment must not replace recorded execution authority](/en/principles#principle-1), and [the user's actually delivered result is the measure of completion](/en/principles#principle-8). Generated text, committed answer content and what the client can read require separate checks; a stage cannot certify the whole task by succeeding locally.
 

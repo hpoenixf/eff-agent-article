@@ -19,7 +19,7 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 <PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
 <div class="v3-owner-map-scroll">
-  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg">打开 SVG 模块导航图</a>
   </object>
 </div>
@@ -242,8 +242,11 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 | A15 | [行动提醒协调](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [相关文章](/articles/agent-subagent-context-specialization) | L3 |
 | A26 | [长期记忆](/articles/026-agent-memory-forget-durable-effects) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3、L4 |
 | A28 | [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
+| A41 | [跨 Run 会话历史压缩](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [内容安全策略与信任](/articles/agent-content-trust-prompt-injection) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3、L4 |
 | A37 | [持久人机交互（HIO）](/articles/agent-durable-human-interaction-response-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3、L5、L6 |
+| A39 | [用户专家配置与组合](/articles/agent-custom-expert-from-prompt-to-recovery) | L3、L4 |
+| A38 | [个人 Credits 账户与用量归属](/articles/agent-personal-credits-shadow-accounting) | L3、L6 |
 
 ### L3 · Agent 决策与运行
 
@@ -287,6 +290,7 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 | A22 | [私有产物保存、访问与分享](/articles/agent-html-evolution-challenges) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4、L6 |
 | A23 | [正文发布与内容准备](/articles/019-agent-answer-publication) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3、L4、L6 |
 | A24 | [会话事件与历史交付](/articles/agent-asynchronous-research-time-bound-delivery) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2、L6 |
+| A40 | [用户回答反馈事实](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2、L6 |
 
 ### L6 · 用户界面
 
@@ -294,7 +298,7 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 | --- | --- | --- |
 | A25 | [客户端交互与阅读](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [相关文章](/articles/agent-progressive-answer-coherence) | L1、L2、L5 |
 
-工程导航 E01–E03 不计入上述 43 个生产能力 Owner。各模块是否已实施、限定验证、生产启用，仍以自身 Spec 与验收记录为准。
+工程导航 E01–E03 不计入上述 47 个生产能力 Owner。各模块是否已实施、限定验证、生产启用，仍以自身 Spec 与验收记录为准。
 
 **贯穿全景的两条判断：** [模型负责语义、系统负责执行事实](/principles#principle-1)用来区分模型的研究提议与 Host 的授权和回执；[用户实际收到的结果才是任务终点](/principles#principle-8)要求把模型生成、正文提交和浏览器可见交付分别核验。六层是读懂交接的地图，而不是任何一层的自我成功声明。
 
