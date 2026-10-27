@@ -123,6 +123,27 @@ Task 可以根据明确的持久续接意图创建后继 Root Run，但所有 Ro
 
 最终通知同样有自己的 outbox、投递身份和重试。通知失败可以重试那份已提交报告的引用，不能借此再次运行研究。这是我们最想避免的一类“重试表面成功，后台多做了一轮工作”的隐患。
 
+### 先把独立执行缩到一个可运行的例子
+
+如果只想理解“提交进程退出以后，谁继续执行原来的工作”，不必先部署整套日程系统。[Open ETF Agent v0.9 的固定实现](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)只提炼这一层：提交一个明确身份的 Run，另一进程拿到原 Session 的执行租约，再进入同一个 Runtime。本文前面的日历、条件触发、Task History 和通知仍是原 ETF Agent 的完整能力，不因这个小切片而一并成为公开版功能。
+
+使用 Node 26（README 声明的支持区间）在新目录中取代码后，可以运行下面的合成示例；[本次核对的稳定 main README](https://github.com/hpoenixf/open-etf-agent/blob/e888ee911ca784d6488f33def31abf225293719a/README.md)提供使用入口。
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git
+cd open-etf-agent
+git switch --detach dad9c6e64f32c3d7579aea96613776b40917ec6d
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+node dist/src/session-cli.mjs submit --session runs/worker-example --run original-example --case durable-publication
+node dist/src/session-cli.mjs work --session runs/worker-example --run original-example
+node dist/src/session-cli.mjs publication --session runs/worker-example --run original-example
+```
+
+`submit` 写下请求、绑定、额度和截止时间后就退出，不调用模型或工具。`work` 是另一个进程：它读取两份合成资料、保存报告并提交正文；最后一条命令只读原正文与回执，不重新研究。示例的模型动作由脚本给出，SQLite 提交、文件和进程交接则实际执行。原来的 30 秒截止时间从提交时开始，等到执行进程启动才重新计时会改变任务本身。
+
+这里最容易混淆的是停止原因：Worker 收到 SIGTERM，并不等于用户取消研究。已封存的动作可以留给下一进程；但模型请求已经发出、结果又没有可靠落盘时，恢复不会猜测“应该没成功”而再发一次。这个区别可以沿[薄 Worker 入口](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs)进入原 Runtime，并在[实际进程中断用例](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs)中观察。它守住的是原身份与已发生效果，不是给不确定请求加一个自动重试按钮。
+
 ## 七、我们究竟验证到了哪里
 
 这次能力不是只有一份 Spec。

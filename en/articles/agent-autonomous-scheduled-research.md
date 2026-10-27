@@ -137,6 +137,27 @@ If the database actually committed but a test wrapper dropped the post-commit AC
 
 Final notification has a separate outbox, delivery identity and retry rule. A failed notice can be retried with the already committed report reference. It must never use a delivery retry as an excuse to rerun research.
 
+### Start with one independently executed Run
+
+To understand who continues the original work after its submitting process exits, you do not need to deploy a complete scheduling system. The [fixed Open ETF Agent v0.9 implementation](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d) extracts just this layer: admit a Run with an explicit identity, then let another process acquire its original Session execution lease and enter the same Runtime. The calendars, conditional triggers, Task History and notices described above remain capabilities of the full ETF Agent system; this small public slice does not include them.
+
+With Node 26 in the range declared by the README, use a new directory to run this synthetic example. The [stable main README checked for this update](https://github.com/hpoenixf/open-etf-agent/blob/e888ee911ca784d6488f33def31abf225293719a/README.md) provides the usage entry point.
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git
+cd open-etf-agent
+git switch --detach dad9c6e64f32c3d7579aea96613776b40917ec6d
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+node dist/src/session-cli.mjs submit --session runs/worker-example --run original-example --case durable-publication
+node dist/src/session-cli.mjs work --session runs/worker-example --run original-example
+node dist/src/session-cli.mjs publication --session runs/worker-example --run original-example
+```
+
+`submit` persists the request, bindings, limits and deadline, then exits without calling a model or tool. `work` is another process: it reads two synthetic documents, saves a report and commits answer text. The last command only reads the original body and receipt; it does not repeat research. Model actions come from a script, while SQLite commits, files and process handoffs really execute. The fixture's original 30-second deadline begins at submission; restarting that clock when the execution process begins would change the task itself.
+
+Stop reasons are easy to confuse. A Worker receiving SIGTERM does not mean the user cancelled research. A sealed action can be left for the next process. But if a model request was dispatched and its result was never durably recorded, recovery does not guess that it probably failed and send it again. Follow the [thin Worker entry](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs) into the original Runtime, or inspect the [actual process-interruption cases](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs). This preserves original identity and observed effects; it is not an automatic retry button for uncertain requests.
+
 ## 7. What Was Actually Validated?
 
 This capability is more than a Spec.
