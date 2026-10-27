@@ -1,20 +1,10 @@
 # From Asking the Model to Do Less to Asking Runtime to Own Less: Model, Runtime, MCP, and Skill Responsibilities
 
-A serious Agent project often goes through two phases.
+**An agent does not become safer simply because every uncertain decision moves into Runtime.** A model should not maintain authorization or execution receipts. Yet Runtime's ability to invoke a tool does not make it the right owner of what financial evidence to investigate next. **Semantics, methods, capabilities, and execution facts belong in different places.**
 
-First, models appear unreliable, so developers move more state, validation, permission, and completion decisions into Runtime. Second, Runtime becomes more reliable—and much heavier. It begins to own tool definitions, business classifications, data projections, and invocation semantics as well.
+ETF Agent made two related changes: away from a heavyweight AgentTurn state mirror toward native tool calls, and then away from Runtime-owned interpretations of financial tools. The first kept execution facts out of model output; the second returned knowledge to its real provider.
 
-Our investment-research Agent has followed that trajectory.
-
-The first question was **what should the model stop maintaining?** The later question became **what should Runtime stop owning, even when the model should not own it either?**
-
-By September 30, 2026, several real refactors had suggested a clear principle:
-
-> **Model handles semantic complexity; Runtime handles process complexity; MCP owns capability complexity; Skills describe methodological complexity.**
-
-We did not start with this architecture diagram. It emerged from mistakes and corrections.
-
-This architecture emerged through actual refactoring rather than a single upfront diagram. Earlier work on removing synthetic MCP Tool layers produced partial implementation, but the overall replacement was never completed. We distinguish those historical designs from changes that actually reached the production call path.
+This did not emerge from one architecture diagram. We retain the rationale and counterexamples, distinguishing actual execution changes from the incomplete synthetic Tool retirement work at the September 2026 evidence window. Before adding another validator, ask: **Who is qualified to decide what its rule means?**
 
 ## 1. Stop Making the Model Maintain Facts Runtime Already Knows
 
@@ -424,19 +414,13 @@ Native tool execution, tool contracts, and Host capability lookup have undergone
 
 The case explains **why even one remaining tool definition can live with the wrong Owner**. Controlled regressions alone do not prove that models select tools better, investment research improves, or engineering costs fall. The transferable lesson is how to decide whether a capability calls for a new layer, a relocation, or deletion.
 
-## Conclusion: Put Complexity with the Right Owner
+## Conclusion: Decide Who Owns the Next Rule
 
-Our earlier principle was:
+Moving from AgentTurn to native tool calls taught us to let models research while Runtime records what happened. The second half matters equally: **Runtime being able to do something does not make it the owner of that action's business meaning.**
 
-> **Do not ask the model to maintain facts Runtime already knows.**
+Whether an API returned fund data is a tool or source fact. Whether another risk measure is needed is a research judgment. Whether a proposed action was authorized and executed belongs with the owner of its effect.
 
-That helped us move from a heavyweight AgentTurn protocol to native tool calling.
-
-Evolution added a second principle:
-
-> **Runtime being able to execute something does not mean it should own that business concept.**
-
-A helpful shorthand is:
+The division can be summarized as:
 
 ~~~text
 Model   → Semantic complexity
@@ -445,15 +429,9 @@ MCP     → Capability complexity
 Runtime → Process complexity
 ~~~
 
-Hooks govern mechanical interactions, while Tool Surface presents the authorized capabilities of the current turn.
+When reviewing a Validator, Tool, Hook, or Skill, ask: **Does this rule interpret user meaning? Does it define a reusable method or capability? Or does it govern this run's permissions, sequence, and receipts?** Different answers should not collapse into another central manager.
 
-Good Agent architecture does not make complexity vanish or force all of it into Runtime.
-
-**The Owner of a fact maintains that fact. The provider of a capability defines its interface. Tasks that require interpretation belong to the model.**
-
-Moving from "let the model think about fewer system facts" to "let Runtime own fewer business concepts" is the same deeper move: **returning complexity to the layer best suited to bear it**.
-
-This division follows [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2). Rather than moving every decision into Runtime, we place facts, capabilities, execution process and methods with their respective owners. During design review, [method 2, “Reviewing responsibilities and rejections”](/en/principles#method-2) asks who can decide, which effects a failure can block, and whether another owner's decision has been duplicated.
+**Let each layer maintain the knowledge it truly owns without requiring others to decide it again.** That is more sustainable than continually moving rules into Runtime. See [principle 2](/en/principles#principle-2) and [method 2](/en/principles#method-2).
 
 ## Further Reading
 
