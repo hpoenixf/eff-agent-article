@@ -1,8 +1,10 @@
 # When Data Goes Stale: How Should an Agent Refresh Evidence Instead of Retrying Blindly?
 
-> A retrospective on controlled evidence refresh: producing, deduplicating, and atomically publishing new evidence while preserving source rejection and read-only guarantees.
+**When financial data becomes stale, the priority is not to keep calling tools. It is to avoid relabeling old facts as a current investment conclusion.** Retrying the same rejected source creates no new evidence. A refresh helps only when the source, reading permission and candidate-publication path are explicitly qualified.
 
-This article describes a controlled refresh window on September 4, 2026, and a particular cross-root/application design. It does **not** claim that every current Research Runtime path uses the same mechanism.
+In a controlled ETF Agent integration case, an internal note label was mistakenly treated as a citeable source. It looked structurally plausible but did not establish financial evidence authority. Preserving an unavailable result was safer than admitting a number merely to complete the answer.
+
+**This is a historical engineering account of September 4, 2026.** Later accepted contracts retain a read-only root refresh and controlled publication of valid report candidates. The former Agent auto-refresh, preference/settings entry points and continuation path were retired. Historical trigger and hourly-window descriptions below **do not describe an automatic refresh capability active across current research**. The transferable lesson is how to separate old data, explicit unavailability and truly new evidence.
 
 ## 1. Repeating a Rejected Request Does Not Create New Evidence
 
@@ -93,17 +95,13 @@ The not-collected branch is explicit even where a diagram uses a normal connecto
 
 Only two trigger classes are permitted: **an explicit user retry** and **a scheduled collection task**. Both share the same hourly rate limit. An ordinary question never triggers refresh implicitly.
 
-## 4. What a Rejected Source Taught Us
+## 4. What Did a Rejected Source Teach Us?
 
-In early integration work, a seemingly harmless internal source label—for example an internal note tag—was used for debugging and then mistakenly treated as citeable evidence.
+During early integration, an internal annotation label was mistakenly treated as citeable material. Its fields looked valid, but it was not an approved evidence source. The source check rejected it rather than letting a debugging note support a current portfolio-status claim.
 
-In structured terms, **source_label** referred to an internal note, **allowlisted** was false, and so the derived **trusted_hit** was false. The allowlist rejected it, and dependent state claims were downgraded to unavailable.
+The wrong response would have been to admit that one label and promise to tighten the rule later. **Evidence authority does not come from a field name, plausible prose or model confidence.** The immediate cost was an honest missing result; the avoided risk was promoting implementation notes into financial facts.
 
-This can feel overly strict. But admitting internal notes, debugging remarks, or a model's paraphrase as though they were trusted sources creates a systemic failure mode. More unavailable results were preferable to opening that door.
-
-The strict boundary also improved integration speed. Instead of debating whether to make an exception, reviewers could check membership in the allowlist. Subjective judgment became an objective test.
-
-We separated source checks, downgrading, refresh, and auditing so that each responsibility could be reviewed without bundling every risk into one final integration step.
+The reusable engineering move is to identify the actual producer of source identity and check how that material becomes a legitimate citation, rather than adding an output-time exception for one convenient case.
 
 ## 5. From Input to Structured Output
 
@@ -155,6 +153,8 @@ Inputs express whether the request needs numbers and action inclination. Outputs
 This contract also simplifies the client. With numbers, show values and citations; without them, show disclosure and an explicit refresh control. The frontend does not have to interpret half-structured prose. Troubleshooting reads the source match, freshness, and disabled action fields directly. Uniform audit records can later support unavailable-rate, refresh-success, and downgrade-reason analysis rather than anecdotal quality assessments.
 
 ## 6. Runtime Rules: Inputs, Priorities, Failures, and Safety
+
+The following is the **historical controlled design**, not an option that silently enables Agent auto-refresh in current Native research.
 
 The following rules are evaluated in order. A later step cannot bypass an earlier gate.
 
@@ -219,6 +219,11 @@ In controlled scenarios, untrusted sources do not enter citation paths, only eli
 
 We still lack sufficient observations of actual database concurrency, cross-process behavior, external-service latency, and long-running production reliability. Controlled refresh remains separate from the daily execution stream, and exactly-once handling within one session is not a global exactly-once guarantee.
 
-## 9. Conclusion: Refresh Needs Its Own Boundaries
+## 9. Conclusion: Knowing When Evidence Is Unavailable Beats Blind Retries
 
-Controlled refresh solves **how to legally obtain and publish new evidence**, not how to automatically make every unavailable result disappear. Triggers, scopes, fingerprints, time windows, atomic publication, and failure audits remain explicit. Anything beyond the observed validation window or unsupported by real-environment evidence remains **not collected**.
+**A correct refresh does not merely turn a status green. It replaces an old state with a newly qualified report without rewriting investment ledger facts.** Review this kind of mechanism by asking: Can the original material support a present-tense claim? Is there a separately authorized, read-only, inspectable way to produce a candidate? If candidate validation fails, does the system preserve the original report identity instead of presenting old numbers as new?
+
+The September 2026 controlled work illustrated source rejection, candidate validation and safe publication. It did not establish live-provider reliability, global exactly-once effects or better investment advice. Subsequent accepted contracts retired the Agent's automatic refresh route while retaining supported explicit and read-only report-refresh behavior.
+
+**Sometimes stating “the current evidence is unavailable” is more reliable financial research than another tool call.**
+
