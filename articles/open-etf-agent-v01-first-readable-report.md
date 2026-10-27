@@ -21,7 +21,7 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 选定上述快照并按 README 安装构建后，依次执行 `node dist/src/session-cli.mjs submit --session runs/article-v09 --run original-example --case durable-publication`、`node dist/src/session-cli.mjs work --session runs/article-v09 --run original-example`，再以 `node dist/src/session-cli.mjs publication --session runs/article-v09 --run original-example` 读取原正文与回执。示例的 30 秒截止时间从提交开始；[对应的进程用例](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs)还检查了停止、竞争与提交后退出的边界。资料和模型动作仍是合成脚本，SQLite 提交与进程间回读则真实发生；下文的真实模型观察仍只属于它原来的版本。
 
-Worker 停止不等于用户取消，未知请求也不能靠换一个进程自动重试。这层最小机制已补进既有[定时研究文章](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)，而日历、条件触发与通知不在本版范围内。下一候选是 **v0.10 只读交付适配**：仍以 CLI 为先，有明确网络消费者才增加必要读取接口；Web 界面和更多模块分开安排，不预设 SSE 或浏览器资格。
+Worker 停止不等于用户取消，未知请求也不能靠换一个进程自动重试。这层最小机制已补进既有[定时研究文章](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)，而日历、条件触发与通知不在本版范围内。0.10 只读适配经核查尚无独立消费者，现有计划已记录取消建议，不改名为 Web。沿原计划继续的 **Result / Reference 消费增量**已有[无编号的固定公开候选](https://github.com/hpoenixf/open-etf-agent/tree/e442f600891be79625fc78751e2d9f39905920da)：从明确的原始选区计算，让下一请求、报告与 CSV 使用同一结果；示例和边界补进[结果消费文章](https://hpoenixf.com/eff-agent-article/articles/financial-agent-python-result-consumption)。这不是 v1.0 或 v1.1 已发布，采用候选前须阅读 [`tool-host@2` 恢复兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/openspec/changes/result-reference-consumption/design.md)。
 
 ## 先选一个能核对的问题
 

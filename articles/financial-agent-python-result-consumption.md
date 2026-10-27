@@ -99,6 +99,16 @@ ModelInterpretation --> Publication
 
 这也解释了为什么“新增一个总审查模块”不是自然的下一步。统一检查看似更安全，却可能把一个局部指标的数据不足升级成整篇文章不能发布，还会让新模块重复解释来源、公式和 Run 状态。我们选择先修原方法和真实消费链，把权限、算术、方法资格、结果身份和正文处置留给各自的归属方。
 
+### 用公开代码观察一次结果消费
+
+这条交接问题也能缩小成不依赖 Python 的例子。[Open ETF Agent 的固定公开候选](https://github.com/hpoenixf/open-etf-agent/tree/e442f600891be79625fc78751e2d9f39905920da)从一份不可变合成表选取明确行，再由既有计算器比较 100 与 250。原行身份、USD 币种和数据截止日随计算引用一起进入后续请求；报告与 CSV 读取同一引用，不各算一遍。按该快照 README 安装后运行：
+
+```sh
+node src/cli.mjs --case result-consumption --output runs/result-consumption
+```
+
+CLI 会给出本次运行目录，其中报告、CSV 附件与 manifest 可以相互核对。[来源与消费反例](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/result-consumption-delivery.test.mjs)进一步检查：所需尾行不在选区、币种或日期不一致、分母未知时，只让对应数值或附件不可用，不吞掉独立合法正文。示例动作是合成脚本；下一请求的检查使用生产 Gateway 编码和离线注入的传输，不是自然模型投研。它提炼的是结果交接合同，既不公开 Python 工作台或 A33，也不把这组数解释为投资收益。日常入口仍见[当前 main](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；这里的固定候选未被赋予新版本号，升级恢复协议的限制见[兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/openspec/changes/result-reference-consumption/design.md)。
+
 ## 六、A33 精确数值运算在这里处于什么位置？
 
 最新架构增加了 **A33 Numeric**，负责显式十进制加减/比较、受单位绑定的乘法、比例缩放、指定舍入和残差。这是很必要但范围刻意有限的能力。

@@ -224,10 +224,10 @@ HostChecksFinish --> CheckFinalBudget
 
 历史诊断显示，本地额度拒绝的归属、耗尽工具的可见性和收尾修正机会都曾出现实际矛盾，其中一些已沿原调用链修正。仍未完成的研究和 Reviewer 判断则保留原状态；单凭这些修复，无法估算整题成功率、费用或时延改善。
 
-<!-- open-etf-case:budget@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
+<!-- open-etf-case:budget@e442f600891be79625fc78751e2d9f39905920da -->
 ### 让第二次模型请求在根预算处停下
 
-固定公开快照的[根预算拒绝用例](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/test/cooperation-integration.test.mjs)把“额度属于实际调用链”缩成一个明确反例。
+固定公开快照的[根预算拒绝用例](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/cooperation-integration.test.mjs)把“额度属于实际调用链”缩成一个明确反例。
 
 在所链固定快照按 README 安装依赖后，运行：
 

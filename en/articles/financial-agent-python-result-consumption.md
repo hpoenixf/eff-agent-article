@@ -116,6 +116,16 @@ In controlled handoffs, domain methods can pass results with their denominators,
 
 Adding one more universal reviewer might look safer, but it could turn a local metric's insufficiency into rejection of the entire report, while reinterpreting source ownership, formulas and Run status in a new place. We chose to repair the original methods and the actual consumption seam, leaving permission, arithmetic, method eligibility, result identity and publication with their respective owners.
 
+### Observe one result handoff in the public code
+
+The same handoff problem can be reduced to an example without Python. A [fixed public Open ETF Agent candidate](https://github.com/hpoenixf/open-etf-agent/tree/e442f600891be79625fc78751e2d9f39905920da) selects explicit rows from an immutable synthetic table, then uses the existing calculator to compare 100 with 250. Original row identities, the USD currency and the data cutoff travel with the calculation reference into the next request. The report and CSV read that same reference instead of computing again. After installing the selected snapshot as its README describes, run:
+
+```sh
+node src/cli.mjs --case result-consumption --output runs/result-consumption
+```
+
+The CLI prints the Run directory, where the report, CSV attachment and manifest can be compared. The [source-consumption counterexamples](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/result-consumption-delivery.test.mjs) also check a required tail row outside the selection, mismatched currencies or dates, and an unknown denominator: only the affected number or attachment becomes unavailable, without discarding independently valid prose. Actions are scripted synthetic fixtures; next-request checks use the production Gateway encoder with an injected offline transport, not a natural model conducting research. This extracts a result-handoff contract, not the Python workbench or A33, and does not turn these numbers into investment returns. The ongoing entry point remains the [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md). This fixed candidate has no new version number; the [compatibility note](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/openspec/changes/result-reference-consumption/design.md) describes its recovery-protocol upgrade boundary.
+
 ## 6. Where Does A33 Numeric Fit?
 
 The newer architecture includes **A33 Numeric** for explicit decimal addition, subtraction and comparison, unit-bound multiplication, scaling, specified rounding and residuals. Its value is real, and its scope intentionally narrow.

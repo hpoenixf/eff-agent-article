@@ -198,10 +198,10 @@ The public implementation also addresses an easily missed input path. Removing a
 This public slice therefore lets readers inspect **explicitly authorized durable writes, current-revision reads and post-forget input revocation**. It does not include the authenticated HTTP, PostgreSQL or automatic-learning paths discussed earlier. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not exercise memory writes or forgetting, so its report cannot establish cross-session response quality here. Whether Runtime acted under authorization and recorded the effects remains separate from whether a model explains those facts accurately.
 <!-- open-etf-agent:minimal-experiment:end -->
 
-<!-- open-etf-case:memory@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
+<!-- open-etf-case:memory@e442f600891be79625fc78751e2d9f39905920da -->
 ### Inspect the three explicit Memory receipts
 
-To revisit save, revise, and forget at the current fixed public snapshot, run the synthetic lifecycle through its [CLI entry point](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/src/cli.mjs).
+To revisit save, revise, and forget at the current fixed public snapshot, run the synthetic lifecycle through its [CLI entry point](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/src/cli.mjs).
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 
