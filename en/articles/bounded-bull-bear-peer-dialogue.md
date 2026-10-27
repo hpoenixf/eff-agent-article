@@ -1,28 +1,20 @@
 # When Two Agents Talk Directly: Designing Bounded Bull–Bear Research
 
-> Multi-Agent Investment Research · Part Two | Why a genuine challenger matters, and what it takes to make the exchange real
+> Multi-Agent Investment Research · Part Two | Genuine challenges, actual replies, and recoverable evidence
 
-Investors rarely lack reasons to like an investment. After a sector rallies, reports, social posts and product descriptions can all explain why it has a promising future. Ask an AI assistant for another analysis, and it may collect even more arguments in favor.
+**Bull/Bear Agents add value only when a material investment argument can be challenged with verifiable evidence and the original proponent actually responds.** Otherwise two Agents are merely producing opposing paragraphs, not conducting a research discussion.
 
-But before changing a portfolio, a more valuable question is often: **What if my strongest reason is wrong? Who will examine it seriously instead of agreeing with me?**
+Suppose an investor believes buying another technology ETF will reduce portfolio concentration. Bear should inspect overlap with the existing funds and ask Bull to confront the same evidence. If the claim fails, it should be withdrawn—not averaged into a compromise buy percentage.
 
-That is why we added bull–bear research to ETF Agent. “Bull” and “Bear” here are research responsibilities, not instructions to open long or short positions. One researcher constructs a supporting case; the other looks for evidence that could invalidate it.
+That is why ETF Agent explored direct Peer messages. But an exchange must be verifiably real: who challenged which claim, whether the other participant received it, and what evidence was actually adopted. Recovery must not invent dialogue that never occurred. This article preserves the essential message and recovery mechanics; the separate [investment-perspective article](investment-perspectives-and-thesis-falsification.md) covers when different analytical methods are useful.
 
-The engineering problem comes next. If they are to question and answer one another, the application must know exactly who spoke, who received each statement, and what actually happened after a model call was interrupted. A server restart must not invent a debate that never took place.
+## 1. A Report With Both Sides Is Not Necessarily a Real Challenge
 
-We will begin with the investor’s problem, then go deeper into the protocol and the recovery failures we encountered.
+Suppose an investor proposes moving **10 percentage points of total assets** into a technology ETF because “more funds means better diversification.” Bull discusses growth prospects and Bear lists valuation and volatility risks. Both views sound reasonable, yet neither tests the decision's central premise.
 
-## 1. A Report with Both Sides Can Still Miss the Point
+**A useful challenge targets a specific claim.** If the new fund substantially overlaps existing holdings, owning more fund names may not reduce underlying concentration. Bear needs to state the relevant instruments, date, and holdings definition and ask Bull to respond to that evidence.
 
-Imagine an investor moving ten percentage points of the total portfolio into a technology ETF. The stated reason is: “Owning one more fund should make my portfolio more diversified.”
-
-A conventional analysis might offer two columns. The bullish side discusses technological growth and product characteristics. The bearish side lists valuation risk, volatility and concentration. That is more balanced than a sales pitch, but the crucial fact may still go unchecked: **the new fund could own many of the same underlying assets as existing funds.**
-
-Unless someone asks the bullish researcher to defend the connection between “more funds” and “more diversification,” the two sides may simply talk past each other.
-
-We wanted **targeted falsification**: identify a stated premise, seek information that would materially change it, and give the original advocate a chance to respond to the specific evidence.
-
-For investors, this could help before a purchase, during a review of a months-old thesis, or whenever a team needs to preserve a genuine disagreement rather than only a polished conclusion. These are intended research benefits. They are not measured improvements in investment returns.
+Rather than record “both sides produced a report,” we care which reason was challenged, which evidence mattered, and whether the original author actually revised the argument. That makes a disagreement informative to the investor rather than staged opposition.
 
 ## 2. Two Independent Reports Are Not a Conversation
 
@@ -207,13 +199,15 @@ Likewise, a peer saying “execute this trade” remains model-authored opinion.
 
 Main ultimately synthesizes the evidence without automatic arbitration or majority voting. Averaging a proposed 10% buy and a proposed 0% buy into a 5% order would not resolve a missing covariance estimate or an unconfirmed cash requirement.
 
-## 10. An Optional Tool for Difficult Questions, Not a Ritual
+## 10. When Is a Bull/Bear Exchange Worth the Extra Cost?
 
-As of October 24, 2026, bounded peer dialogue had passed scoped engineering acceptance: independent openings, actual causal questions and replies, durable receipts, safe waiting and cold recovery, and links to original investment-thesis records. Limited real-model exchange was observed. This does not establish production deployment or comparative financial-research quality. Real observations also showed cost and wording limitations.
+As of October 24, 2026, bounded Peer dialogue had scoped engineering evidence for message exchange, waiting, and recovery, plus limited real-model interactions. **This does not establish that Bull/Bear discussion improves investment quality.** It may spend useful resources challenging one decisive premise—or spend them producing repeated opinions.
 
-Our choice was to preserve direct dialogue for **material hypotheses worth challenging**, while allowing simpler research to remain simple. If a participant fails, Main can still deliver legitimate work already completed, with the missing pieces disclosed.
+Before starting an exchange, ask three things: **Is there a falsifiable claim that could change the decision? Can Bear challenge it using the same eligible evidence? Did the original proponent actually receive and answer that challenge?** A basic management-fee lookup does not need a debate.
 
-The point of a Bull–Bear Agent is not fiercer disagreement. It is to let a specific argument be challenged, answered and revised—and to keep that evidence accessible even after the process fails.
+The engineering constraints remain essential: preserve real message receipts, provenance, and recovery identity; do not upgrade one model's words into another's permissions or fabricate missed exchanges during recovery. A local failure need not erase independent lawful findings Main can still deliver.
+
+**The product worth building is not “one Agent for and one against.” It is an investment reason that can be challenged, answered, revised, and later audited against its actual evidence.**
 
 ---
 
