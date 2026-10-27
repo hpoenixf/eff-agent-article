@@ -5,7 +5,7 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 # 从一次提问到答案可见：ETF Agent 六层调用全景 · V3
 
-> **架构阅读版本：2026-10-25。** 本文依据 `etf-agent` 的六层 V2、2026-10-24 的 43 项能力 Owner 清单及当前 `main` 中的 Native Runtime、并发会话与交付契约重写。它是一张**用户请求的阅读地图**，不是六个物理进程、严格单向调用栈，也不改变任何 Owner 的授权和事实归属。受控验证、真实模型质量和生产默认启用分别判断。
+> **架构阅读版本：2026-10-25；2026-10-27 Owner 更新。** 本文依据 `etf-agent` 的六层 V2、2026-10-24 的 43 项历史 Owner 清单（现为 47 项）及当前 `main` 中的 Native Runtime、并发会话与交付契约重写。它是一张**用户请求的阅读地图**，不是六个物理进程、严格单向调用栈，也不改变任何 Owner 的授权和事实归属。受控验证、真实模型质量和生产默认启用分别判断。
 >
 > **版本保留：** [V2：从一次提问到持续协作](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [V1：一句“帮我看看组合”](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [原版图文存档](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
 
@@ -17,7 +17,7 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 早期的六层文章按架构能力罗列模块，后来新增的后台 Research、Coord、Subagent、HIO、模型路由和异步交付很难放入原来的顺序，Subagent 甚至被挤成入口层的一小节。V3 改用“输入 URL 到页面渲染”式的讲法：**沿一次请求前进，再对有分支和回环的地方局部放大。**
 
-<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：43 个可点击的 Owner 模块">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg">打开 SVG 模块导航图</a>
@@ -27,7 +27,7 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 **交互导航：** 点击主图中任意实线 Owner 标签，可直达其专文；尚无独立专文的模块会打开对应 [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html)。虚线流程说明不是独立模块。点击图上方的“全屏展开”，可适应屏幕、缩放或按原始尺寸滚动查看，按 Esc 或“退出全屏”返回正文；[正文模块索引](#capability-owner-links)也提供相同入口。
 
-[打开可放大的 SVG 全景图](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)：9 个能力分组、43 个独立模块标签；研究工具与金融工具、身份与授权分别合列。
+[打开可放大的 SVG 全景图](../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)：9 个能力分组、47 个独立模块标签；研究工具与金融工具、身份与授权分别合列。
 
 图中六条横带对应六个请求处理环节；每条彩色竖柱是为了阅读而聚合的一组能力。**每个实线标签代表独立 Owner 模块；浅色虚线框代表处理动作或使用说明，并在框内标明“来源：对应 Owner”。顶部的虚线列标题只是阅读分组，并非单一模块。** 纵向分组可以跨层、也可以断开，但不会因此增加授权或控制权。横向分层与纵向能力并不是彼此排斥的分类：一个 Owner 可以参与多层，但其事实归属不会因此复制。
 

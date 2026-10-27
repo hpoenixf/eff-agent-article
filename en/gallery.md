@@ -8,7 +8,11 @@ title: Architecture Gallery
 
 The [architecture gallery](/gallery) maps system capability owners, dependencies and article entry points. The interactive diagram currently uses Chinese labels; this English page is a guided entry, not a claim that the source diagram has been translated.
 
-The gallery now identifies **43 capability owners**, including A35 Content Security and Trust. Its dedicated [English case study](/en/articles/agent-content-trust-prompt-injection) explains why source data must not silently become system instructions. The visual labels remain Chinese and are not presented as a fully translated gallery.
+The gallery now identifies **47 capability owners**, including A35 Content Security and Trust. Its dedicated [English case study](/en/articles/agent-content-trust-prompt-injection) explains why source data must not silently become system instructions. The visual labels remain Chinese and are not presented as a fully translated gallery.
+
+### October 27, 2026: Four ownership gaps resolved
+
+The current registry has **47 capability owners** (A01–A41, B01–B05, E04). Newly registered: [A38 Personal Credits Shadow](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A38), [A39 User-authored Expert Configuration](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A39), [A40 User Answer Feedback](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40), and [A41 Cross-Run Conversation History Compaction](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41). They own distinct recorded facts, not new permission, publication or hard-quota authority. The interactive Owner map uses Chinese labels; this English guide does not claim a fully localized interactive map.
 
 ### October 26, 2026: Scoped source updates and qualification {#daily-status-20261026}
 
@@ -25,7 +29,7 @@ The public status summary is not a substitute for each owning task's exact evide
 
 ### October 25, 2026: Today's updates and pending collaboration
 
-The [status board](/gallery#daily-status-20261025) distinguishes bounded engineering outcomes from remaining product qualification. The interactive map still has **43 capability Owners**, not newly invented managers.
+The [status board](/gallery#daily-status-20261025) distinguishes bounded engineering outcomes from remaining product qualification. The October 25 snapshot had **43 capability Owners**, not newly invented managers.
 
 **Completed in scope:** Shadow Credits reached its bounded P0 provider-free close, with selected PostgreSQL/browser and non-interference evidence. The [custom expert case study](/en/articles/agent-custom-expert-from-prompt-to-recovery) is published in both languages; the [Subagent study](/en/articles/agent-subagent-context-specialization) now also covers resource packages and collaboration dependencies. Publications do not close personal Profile tasks.
 
@@ -35,7 +39,7 @@ The [status board](/gallery#daily-status-20261025) distinguishes bounded enginee
 
 ### New Owner reading entries — A08 and A30
 
-[A08 durable control](/en/articles/agent-control-events-durable-owner-adoption) now has its own complete essay explaining claim/fence, original business receipts, delivery ACK and unknown reconciliation; [A30 Provider Admission](/en/articles/agent-provider-admission-capacity-lease) separately explains shared queues, leases and unconfirmed remote completion. Both are existing members of the 43-owner inventory. The [Provider architecture article](/en/articles/agent-provider-architecture-and-admission) adds A32 catalog/route eligibility as a related topic rather than falsely claiming A32 has a standalone primary essay.
+[A08 durable control](/en/articles/agent-control-events-durable-owner-adoption) now has its own complete essay explaining claim/fence, original business receipts, delivery ACK and unknown reconciliation; [A30 Provider Admission](/en/articles/agent-provider-admission-capacity-lease) separately explains shared queues, leases and unconfirmed remote completion. Both are existing members of the 47-owner inventory. The [Provider architecture article](/en/articles/agent-provider-architecture-and-admission) adds A32 catalog/route eligibility as a related topic rather than falsely claiming A32 has a standalone primary essay.
 
 ### Updated scope — October 24, 2026
 

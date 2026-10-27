@@ -5,7 +5,7 @@ description: "Follow one user request through Main/subagents, model and tools, D
 
 # From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle · V3
 
-> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
+> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 (47 as of October 27) and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
 >
 > **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
 
@@ -15,7 +15,7 @@ A user asks: “Analyze the industry concentration and currency exposure of my f
 
 The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
 
-<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 43 clickable capability owners">
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 47 clickable capability owners">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 43 clickable capability owners">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg">Open the interactive SVG owner map</a>
@@ -25,7 +25,7 @@ The earlier six-layer story grouped architectural capabilities. Background Resea
 
 **Interactive navigation:** Select any solid Owner chip to open its dedicated article, or its Owner detail when no dedicated article exists. Dashed notes are not standalone modules. Select “Expand fullscreen” above the map to fit it to the screen, zoom in, or scroll at actual size. Press Esc or “Close” to return to the article; the [owner index](#capability-owner-links) offers the same destinations.
 
-[Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 43 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
+[Open the scalable SVG map](../../visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg): nine reading groups with 47 distinct Owner tags; research/financial tools and identity/authorization share grouped columns.
 
 The figure contains six horizontal request-processing bands and vertical capability bars. **Each solid chip is a real Owner; its name is primary and its ID is an index. Every dashed workflow note names the Owner(s) it derives from. Dashed column headings are reading groups, not modules.** The labels show actual capability names, not cryptic Owner IDs. Reuse across layers does not duplicate authority.
 

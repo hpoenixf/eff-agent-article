@@ -303,6 +303,28 @@
         "agent-provider-architecture-and-admission",
         "agent-provider-admission-capacity-lease"
       ]
+    },
+    "A38": {
+      "primary": "agent-personal-credits-shadow-accounting",
+      "related": [
+        "agent-provider-architecture-and-admission"
+      ]
+    },
+    "A39": {
+      "primary": "agent-custom-expert-from-prompt-to-recovery",
+      "related": [
+        "agent-subagent-context-specialization"
+      ]
+    },
+    "A40": {
+      "related": [
+        "agent-failure-is-a-boundary-problem"
+      ]
+    },
+    "A41": {
+      "related": [
+        "agent-main-run-context-compaction"
+      ]
     }
   }
 }
