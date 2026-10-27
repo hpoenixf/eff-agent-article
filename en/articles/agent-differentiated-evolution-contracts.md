@@ -2,7 +2,11 @@
 
 *Rethinking module evolution after a real agent-runtime refactor*
 
-> The companion retrospective, [Why Did One Subagent Change Hold Up Our Work for an Entire Day?](agent-runtime-refactor-one-day-blocked.md), records the concrete cost. Rather than repeat its timeline, this article asks what follows: who should maintain each kind of complexity, and how should it change?
+**What deserves stability is not a whole module, but the specific commitment its interface makes.** Research methods, prompts, and adapters should be able to evolve. Authorization, effects that actually occurred, and historical outcomes that must remain readable cannot silently change meaning during refactoring.
+
+Our Subagent, Memory, and financial-calculation work revealed that moving rules back to their rightful owners is only half the job. We also need to decide which promises remain stable and which implementations are free to change. This is not a grading scale for modules.
+
+The companion [one-day Runtime refactor retrospective](agent-runtime-refactor-one-day-blocked.md) covers the immediate cost. Here the focus is how to choose stability and verification when changing an interface.
 
 ## 1. Many modules, but difficult upgrades
 
@@ -156,23 +160,19 @@ That is a scenario-specific choice to narrow executable promises—not a general
 
 If in-place continuation is essential to a product, it should bear the corresponding versioning and recovery cost. The four categories make the choice explicit; they do not prescribe light recovery for every system.
 
-## 10. Clear responsibilities and clear ways to change
+## 10. Keep commitments stable and methods open to change
 
-The two efforts address consecutive questions.
+**First identify who owns a rule; then identify what that rule promises.** These architectural decisions reinforce each other. Ownership stops knowledge from being duplicated across callers; evolution contracts stop us from treating all code in a “core” module as equally frozen.
 
-**First: who owns the rules and state?** Consolidated responsibility, private state, and narrower interfaces make change more local.
+For the next change, ask three questions: Is it replacing an implementation or changing an external commitment? Which identities, ordering, and historical meanings do actual consumers depend on? Which effects must still hold after an algorithm or Provider is replaced?
 
-**Second: what do those interfaces promise?** Protect effects and historical outcomes while allowing research methods and technical implementations appropriate freedom to evolve.
+Memory retrieval can evolve without undoing a valid forgetting effect. Investment methods can improve without silently changing the denominator used for comparison. Child execution can be refactored without rewriting the historical meaning of authorization or completed tool actions.
 
-Doing only the first can produce an orderly but inflexible system. Doing only the second, without encapsulation and real-consumer constraints, can leave classification as a paper exercise.
-
-The goal is neither identical change rates for every module nor a ranking of modules by importance.
-
-**Specific commitments should remain stable; implementations and methods should remain open to change. Good architecture allows both.**
+None of this requires four new modules or the same validation budget for every interface. **Keep concrete commitments stable while letting implementations and methods evolve.** That is what allows reliability and continued improvement to coexist.
 
 ---
 
-*Engineering scope: this article draws on ETF Agent's October 2026 ownership refactor, domain specifications, and differentiated-evolution RFC. It distinguishes recorded problems, first-batch implementation, and design direction. The four contracts are not four new modules and do not claim complete refactoring or live-model quality acceptance. Quantified maintenance-cost improvements have not been collected.*
+*Engineering scope: This discussion draws on ETF Agent's October 2026 ownership refactor, current domain contracts, and differentiated-evolution RFC. It distinguishes observed problems, scoped implementation, and design direction. These observations do not establish a complete refactor, live-model research quality, or measured long-term maintenance savings.*
 
 ## Further reading
 
