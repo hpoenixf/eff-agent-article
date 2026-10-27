@@ -22,6 +22,8 @@ Account-scoped subagent profiles and frozen Run/Child selection have source-leve
 
 The [43-owner gallery](/en/gallery) now includes A36 Temporal Semantics and A37 durable Human Interaction as two first-class logical Owners. The interactive map currently retains Chinese labels. A36 source/calendar/ordinary real-agent acceptance is still open. A37 Stages A–D and provider-free formal close are complete in the scoped local lane, while production Human Park remains disabled by default. Its interaction handoff authority does not replace Authorization, Effect, Recovery or Publication.
 
+**October 27 navigation update:** the gallery now represents 47 capability Owners. [A40 feedback facts](/en/articles/agent-feedback-facts-not-automatic-learning) and [A41 cross-Run conversation compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) each have a dedicated English mechanism essay. Article availability is not proof of production qualification.
+
 The [original architecture guide](/architecture) contains further Chinese-language details.
 
 

@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **66 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **68 篇正文，三条主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
@@ -14,12 +14,19 @@
 
 ## 最近更新
 
+- [A41：跨 Run 历史压缩为什么不能直接总结对话](articles/agent-conversation-history-compaction-source-boundaries.md) · [English](en/articles/agent-conversation-history-compaction-source-boundaries.md)
+- [A40：用户点了踩，Agent 就该学习吗？](articles/agent-feedback-facts-not-automatic-learning.md) · [English](en/articles/agent-feedback-facts-not-automatic-learning.md)
 - [《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md) · [English](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)
 - [金融 Agent 全景：连接研究、业务与责任的系统架构](articles/financial-agent-system-panorama.md) · [English](en/articles/financial-agent-system-panorama.md)
 - [AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md) · [English](en/articles/ai-coding-judgment-and-verification.md)
 
 <details>
 <summary>最近更新完整记录（展开查看）</summary>
+
+## 2026-10-27 · A40 / A41 机制文章与 Owner 阅读入口
+
+[A41 跨 Run 会话历史压缩](articles/agent-conversation-history-compaction-source-boundaries.md)与[A40 用户回答反馈事实](articles/agent-feedback-facts-not-automatic-learning.md)已补完整中英正文、目录、六层图芯片和 Owner 弹窗的主文入口。A41 与同 Run Main 压缩是两种不同的生命周期；A40 的读取修复仍待真实浏览器／隔离 PG 的完整验收。文章同步不代表功能生产资格。
+
 
 ## 2026-10-27 · Agent 研究恢复与专家交接
 
@@ -99,9 +106,9 @@
 
 ### 推荐起点
 
-**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 66 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 68 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
-**模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
+**模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [跨 Run 历史压缩](articles/agent-conversation-history-compaction-source-boundaries.md) · [用户回答反馈事实](articles/agent-feedback-facts-not-automatic-learning.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
 **架构：** [想聊就聊：异步后台研究](articles/agent-background-research-collaborative-experience.md) · [故障域感知切换](articles/agent-provider-failover-without-resetting-the-run.md) · [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与 Run 终结权](articles/agent-veto-authority-and-run-termination.md) · [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md)
 
@@ -260,7 +267,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 66 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 68 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

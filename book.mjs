@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 66 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 68 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -29,6 +29,7 @@ export const collections = [
         "items": [
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
           ["agent-main-run-context-compaction", "Main 压缩：摘要不改写原始事实"],
+          ["agent-conversation-history-compaction-source-boundaries", "跨 Run 会话压缩：旧助手摘要不能替代用户原文"],
           ["026-agent-memory-forget-durable-effects", "Memory：从保存、召回到安全遗忘"],
           ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"]
         ]
@@ -58,6 +59,7 @@ export const collections = [
         "items": [
           ["019-agent-answer-publication", "Publication：为什么需要独立发布系统"],
           ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"],
+          ["agent-feedback-facts-not-automatic-learning", "用户点了踩，Agent 就该学习吗？"],
           ["agent-asynchronous-research-time-bound-delivery", "异步研究：离开页面后怎样按时交付"],
           ["agent-durable-human-interaction-response-adoption", "Agent 问完用户之后：持久人机交互"]
         ]

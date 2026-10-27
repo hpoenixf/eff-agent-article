@@ -28,7 +28,7 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ![六层处理与跨层能力柱](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)
 
-主图收敛成九组纵向能力柱：**每个实线标签对应独立 Owner，淡色虚线框只代表流程动作或分组**。身份与授权同列，研究与金融工具同列；纵向留白表示该层没有直接责任。**43 个 Owner 的最终事实归属**仍以[交互图册](/gallery)为准。
+主图收敛成九组纵向能力柱：**每个实线标签对应独立 Owner，淡色虚线框只代表流程动作或分组**。身份与授权同列，研究与金融工具同列；纵向留白表示该层没有直接责任。**47 个 Owner 的最终事实归属**仍以[交互图册](/gallery)为准。
 
 关注主题当前是研究选择上下文，**不代表自动订阅监控已经上线**。
 

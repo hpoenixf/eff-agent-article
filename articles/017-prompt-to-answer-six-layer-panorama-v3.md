@@ -65,6 +65,8 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 每次模型调用还需要准备材料。**[上下文投影与拟合](/articles/tool-results-outside-model-context)**组装本轮历史、已获准工具结果、来源身份与容量限制；**[长期记忆](/articles/026-agent-memory-forget-durable-effects)**提供受控的偏好或回忆；**[Main 上下文压缩](/articles/agent-main-run-context-compaction)**决定哪些已结算历史可生成摘要、采纳并恢复；**[行动提醒协调](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)**把资源或上下文压力转成不具有授权效果的建议。四者会相遇，但负责的事实不同。
 
+**跨 Run 会话历史压缩**则为新 Run 消费已完成的旧问答提供有来源的有损材料，保留用户原文，不能与上述同 Run 的 Checkpoint 混同；详见[A41 独立机制文](/articles/agent-conversation-history-compaction-source-boundaries)。
+
 方法也在这里装配：**[Skill 方法与资源](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)**提供版本化研究方法，**[插件准入与生命周期](/articles/020-agent-extension-host-smartphone)**约束扩展包的激活和冻结版本，**[生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution)**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
 
 L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新投影上下文、读取当前合格结果或触发压缩，**但不会因此重新创建 Run 或放大原授权**。
@@ -242,7 +244,7 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 | A15 | [行动提醒协调](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [相关文章](/articles/agent-subagent-context-specialization) | L3 |
 | A26 | [长期记忆](/articles/026-agent-memory-forget-durable-effects) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3、L4 |
 | A28 | [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
-| A41 | [跨 Run 会话历史压缩](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
+| A41 | [跨 Run 会话历史压缩](/articles/agent-conversation-history-compaction-source-boundaries) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [内容安全策略与信任](/articles/agent-content-trust-prompt-injection) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3、L4 |
 | A37 | [持久人机交互（HIO）](/articles/agent-durable-human-interaction-response-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3、L5、L6 |
 | A39 | [用户专家配置与组合](/articles/agent-custom-expert-from-prompt-to-recovery) | L3、L4 |
@@ -290,7 +292,7 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 | A22 | [私有产物保存、访问与分享](/articles/agent-html-evolution-challenges) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4、L6 |
 | A23 | [正文发布与内容准备](/articles/019-agent-answer-publication) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3、L4、L6 |
 | A24 | [会话事件与历史交付](/articles/agent-asynchronous-research-time-bound-delivery) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2、L6 |
-| A40 | [用户回答反馈事实](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2、L6 |
+| A40 | [用户回答反馈事实](/articles/agent-feedback-facts-not-automatic-learning) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2、L6 |
 
 ### L6 · 用户界面
 

@@ -1,15 +1,19 @@
 ---
 title: 模块维度 · 机制精讲
-description: 31 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: 33 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 31 篇 · 4 个主题</small>
+<small>HOW IT WORKS · 33 篇 · 4 个主题</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
 这里不是 API 手册，也不是为了每个代码模块机械写一篇文章。每一篇都围绕独立故障、设计选择和可核查的工程结果；相关跨模块论证留给[架构与系统思考](/thinking)。
+
+**A41 跨 Run 会话历史压缩：** [为什么 Agent 不能直接总结历史对话？](/articles/agent-conversation-history-compaction-source-boundaries)——精确问答对、来源哈希、原子 Claim、不可变摘要与后续 Run 的容量拟合；不同于同 Run Main Checkpoint。
+
+**A40 用户回答反馈事实：** [用户点了踩，Agent 就该学习吗？](/articles/agent-feedback-facts-not-automatic-learning)——回答身份、Scope、幂等写入和保存状态重开；精确读取的隔离 PG／真实浏览器完整验收仍待完成，点踩不是自动训练。
 
 **个人自定义专家专题：** [自定义专家，不应该只是一个 Prompt 输入框](/articles/agent-custom-expert-from-prompt-to-recovery)——账户私有研究方法怎样保存、冻结、选用并在 History 中准确归属；对照 Octop 的持久专家实例，解释为什么这里复用 General Child。
 

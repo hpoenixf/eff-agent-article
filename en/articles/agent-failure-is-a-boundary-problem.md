@@ -379,3 +379,7 @@ This diagnostic approach applies [method 5, “Choosing verification and diagnos
 This does not automatically establish root cause. It prevents a costly alternative: treating the most visible error code as the plan, repeatedly retrying a healthy component, and ignoring the point where delivery actually stopped.
 
 **An accurate account of what remains unknown is often more useful than a complete but invented failure story.**
+
+## Related Mechanism: A User Rating Is Not an Error Verdict
+
+Diagnostics asks which stage demonstrably failed. Feedback first records which completed answer a user rated. The dedicated [A40 feedback ownership article](/en/articles/agent-feedback-facts-not-automatic-learning) covers Scope, idempotent conflicts, reopening saved ratings, and the distinction between an unavailable read and no rating. Dislikes do not automatically become training examples, verified error labels, or trading permissions.

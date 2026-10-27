@@ -199,5 +199,7 @@ node src/cli.mjs --case compact-and-reread --output runs/article-compaction
 
 ## 延伸阅读与交流
 
+**不要混淆两类摘要：** 本文聚焦一次 Run 内旧工具回合的 Checkpoint；[A41 跨 Run 会话压缩](/articles/agent-conversation-history-compaction-source-boundaries)则把同一 Conversation 已完成的旧问答对按来源身份、不可变摘要和容量投影交给后续 Run。两者的最终负责事实、失败回退和验证范围不同。
+
 [在个人博客阅读本篇](https://hpoenixf.com/blog/agent-main-run-context-compaction) · [公开工程文章文集](https://github.com/hpoenixf/eff-agent-article)（欢迎 Star）。
 <!-- agent-article-sync:guidance:end -->

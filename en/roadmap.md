@@ -5,9 +5,14 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 # What We Might Write Next
 
-<small>Updated October 26, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
+<small>Updated October 27, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
 
 We will **improve existing essays before adding new slugs**. The [nine core principles and seven on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
+
+## October 27, 2026: Dedicated A40 and A41 Mechanism Essays
+
+[A41 cross-Run conversation compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) and [A40 feedback identity and idempotency](/en/articles/agent-feedback-facts-not-automatic-learning) now have complete Chinese and English editions. The current 47-Owner article coverage is 33 dedicated, 13 partial, and 1 unwritten (A27)—a publication inventory, not runtime production acceptance. A40 still needs isolated PostgreSQL, real-browser and formal closure evidence; A41 does not yet establish long-term model fidelity or cost benefits. Older 43-Owner numbers below remain dated historical snapshots.
+
 
 ## October 26, 2026: Deepen existing articles first
 
