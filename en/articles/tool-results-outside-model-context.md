@@ -211,10 +211,10 @@ In [`src/retrieval-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ec
 
 [`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs) keeps original pages, source descriptions and exact references under one result owner; `manifest.json` records the references associated with the report. The [same-document version case](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs) shows that after a new version appears, the old reference still reads the old version rather than silently returning the latest content. That is fundamentally different from fetching a document again by name.
 
-<!-- open-etf-case:reread@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+<!-- open-etf-case:reread@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
 ### Connect candidates, original-byte rereading, and the report
 
-The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs) lets you compare a search hit with an actual original-source read in one inspectable Run.
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/src/cli.mjs) lets you compare a search hit with an actual original-source read in one inspectable Run.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

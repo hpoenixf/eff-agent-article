@@ -206,10 +206,10 @@ npm run demo -- --case retrieve-reread --query "Markdown"
 
 [`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs)把原始页面、来源描述和精确引用保存在同一个结果所有者中；`manifest.json` 记录报告关联的结果引用。沿着[同文档新版本用例](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs)还可以看到：同一文档产生新版本后，旧引用仍回到旧版本，而不是改为最新内容。这与普通“按文档名重新获取”有本质区别。
 
-<!-- open-etf-case:reread@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+<!-- open-etf-case:reread@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
 ### 把候选、原文回读和报告连起来
 
-沿固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)，可以把“检索命中”与“实际读到原文”放在同一次可回读执行里比较。
+沿固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/src/cli.mjs)，可以把“检索命中”与“实际读到原文”放在同一次可回读执行里比较。
 
 在所链固定快照按 README 安装依赖后，运行：
 

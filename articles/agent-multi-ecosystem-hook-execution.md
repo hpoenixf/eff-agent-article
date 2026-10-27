@@ -63,10 +63,10 @@ ValidateOutcome --> OriginalRuntimeOwner
 
 一次运行还会保留已选插件代际。插件在调用途中升级，不能让新版回调突然接入旧调用。这使原执行和恢复有相同的身份依据。
 
-<!-- open-etf-case:hooks@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+<!-- open-etf-case:hooks@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
 ### 把 Hook 改参交回原 Host 复验
 
-固定公开快照的[Host 改参用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs)先检验一个基础边界：Hook 可以提出变更，实际执行仍须通过原 Host 的参数检查。
+固定公开快照的[Host 改参用例](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/test/cooperation-integration.test.mjs)先检验一个基础边界：Hook 可以提出变更，实际执行仍须通过原 Host 的参数检查。
 
 在所链固定快照按 README 安装依赖后，运行：
 

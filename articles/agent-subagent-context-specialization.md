@@ -292,10 +292,10 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 完整能力不意味着每件事都要委派。简单查询、一次工具调用，或者高度依赖整段对话的工作，留在 Main 可能更合适。**是否使用 Subagent，应由任务能否从隔离与自主工作中受益决定，而不是由系统里已经有多少种角色决定。**
 
-<!-- open-etf-case:child@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+<!-- open-etf-case:child@62b70d1a512ad97fc560ed0bf84351cc091ae048 -->
 ### 用一个只读 Child 检查交接
 
-如果先验证“局部工作怎样回到 Main”，可以从固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)运行一个脚本驱动的 Child。
+如果先验证“局部工作怎样回到 Main”，可以从固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/62b70d1a512ad97fc560ed0bf84351cc091ae048/src/cli.mjs)运行一个脚本驱动的 Child。
 
 在所链固定快照按 README 安装依赖后，运行：
 
