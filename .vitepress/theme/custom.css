@@ -516,3 +516,48 @@
   .diagram-static { overflow: visible; }
   .diagram-static img { max-width: 100%; }
 }
+
+/* A distinct editorial cover gives the reading site its own visual identity. */
+.VPHome .VPHero { padding-top: 34px; padding-bottom: 45px; }
+.VPHome .VPHero .container {
+  position: relative; overflow: hidden; min-height: 420px;
+  padding: 64px 68px; border-radius: 18px;
+  background: #123c35; color: #f5f8ef;
+}
+.VPHome .VPHero .container::before {
+  content: ''; position: absolute; right: -35px; top: -90px; width: 500px; height: 500px;
+  border: 1px solid rgba(183, 226, 202, .18); border-radius: 50%;
+  box-shadow: 0 0 0 55px rgba(185, 224, 205, .025), 0 0 0 56px rgba(185, 224, 205, .12),
+    0 0 0 112px rgba(185, 224, 205, .025), 0 0 0 113px rgba(185, 224, 205, .09);
+  pointer-events: none;
+}
+.VPHome .VPHero .container::after {
+  content: 'FIELD NOTES  /  AGENT SYSTEMS'; position: absolute; right: 50px; bottom: 48px;
+  color: #a7c9b9; font-size: 10px; font-weight: 700; letter-spacing: .2em;
+}
+.VPHome .VPHero .main { max-width: 690px; }
+.VPHome .VPHero .name { color: #a5d6bd; }
+.VPHome .VPHero .text { color: #f5f8ef; }
+.VPHome .VPHero .tagline { color: #c8dbd0; }
+.VPHome .VPHero .VPButton.brand { background: #d9efbd; border-color: #d9efbd; color: #173a30; }
+.VPHome .VPHero .VPButton.brand:hover { background: #eff9df; border-color: #eff9df; }
+.VPHome .VPHero .VPButton.alt { background: transparent; border-color: rgba(219, 237, 226, .38); color: #eef7ee; }
+.VPHome .VPHero .VPButton.alt:hover { background: rgba(255,255,255,.1); border-color: #dceee1; }
+.VPHome .VPFeatures .container { border-top: 0; padding-top: 0; }
+.VPHome .VPFeatures .items { counter-reset: home-path; }
+.VPHome .VPFeatures .item { counter-increment: home-path; }
+.VPHome .VPFeature::before { content: '0' counter(home-path) ' /'; display: block; margin-bottom: 16px; color: var(--vp-c-brand-1); font-size: 11px; font-weight: 750; letter-spacing: .12em; }
+.VPHome .flagship-entry__grid { border-radius: 14px; }
+.VPHome .flagship-entry.is-compact .flagship-entry__card { min-height: 190px; }
+@media (max-width: 767px) {
+  .VPHome .VPHero { padding-top: 18px; padding-bottom: 28px; }
+  .VPHome .VPHero .container { min-height: 0; padding: 38px 26px 58px; border-radius: 14px; }
+  .VPHome .VPHero .container::before { width: 280px; height: 280px; right: -175px; top: -105px; }
+  .VPHome .VPHero .container::after { right: 25px; bottom: 20px; font-size: 8px; }
+  .VPHome .VPHero .text { font-size: clamp(2rem, 8vw, 2.8rem); }
+  .VPHome .VPFeature::before { margin-bottom: 8px; }
+  .VPHome .flagship-entry.is-compact .flagship-entry__card { min-height: 0; }
+}
+.VPHome .VPHero { padding-top: 80px; }
+.VPHome .VPHero .name, .VPHome .VPHero .name .clip { color: #b9dfcc; background: none; -webkit-text-fill-color: currentColor; }
+@media (max-width: 767px) { .VPHome .VPHero { padding-top: 76px; } }
