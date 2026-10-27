@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 65 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 66 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
