@@ -448,3 +448,19 @@
   .open-source-bridge { margin: 12px 16px 24px; padding: 15px; }
   .open-source-bridge__links { width: 100%; }
 }
+
+/* Static Mermaid SVG is rendered during the build, not in the browser.
+   A light canvas keeps labels readable in both VitePress color modes. */
+.diagram-static { text-align: center; }
+.diagram-static img {
+  display: block; height: auto; max-width: none; width: auto; min-width: min(100%, 440px);
+  max-height: 860px; margin: 0 auto; background: #fff; border-radius: 8px;
+}
+@media (max-width: 760px) {
+  .diagram-static { padding: 10px; }
+  .diagram-static img { min-width: min(100%, 340px); }
+}
+@media print {
+  .diagram-static { overflow: visible; }
+  .diagram-static img { max-width: 100%; }
+}
