@@ -17,7 +17,7 @@ description: 浏览 ETF Agent 的能力 Owner、职责与交接关系。
 
 <iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 47 个能力 Owner 交互架构图"></iframe>
 
-点击 Owner 查看职责、局部拒绝范围、交接关系和相关文章；也可按名称或 Owner ID 搜索。
+点击 Owner 查看职责、局部拒绝范围、交接关系和相关文章；也可按名称或 Owner ID 搜索。当前 **A40 用户回答反馈事实**的[独立专文](/articles/agent-feedback-facts-not-automatic-learning)与 **A41 跨 Run 会话压缩**的[独立专文](/articles/agent-conversation-history-compaction-source-boundaries)已纳入图册 primary 阅读入口。
 
 ## 能力清单 {#owner-inventory}
 
