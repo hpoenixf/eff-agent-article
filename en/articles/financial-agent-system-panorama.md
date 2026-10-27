@@ -126,7 +126,7 @@ The main agent delegates when additional reading, computation, or an independent
 
 ### 3. Preserve financial meaning between data and conclusions
 
-Suppose funds A and B represent 40% and 20% of total portfolio assets. In comparable disclosures, company X represents 8% and 12% of their respective fund assets. These are synthetic values.
+Suppose funds A and B represent 40% and 20% of assets in portfolio snapshot P1. In disclosures with comparable periods and definitions, company X represents 8% and 12% of the respective fund assets. These are synthetic values.
 
 The contribution to company X exposure from this observed portion is:
 
@@ -150,7 +150,7 @@ A corresponding output might be summarized as follows. It remains a teaching exa
 }
 ```
 
-**Counterexample: retain observations and withhold an incomparable aggregate.** Suppose A reports company X as of June 30, 2026, using net-asset weights, while B reports as of September 30, 2026, using a different denominator that includes derivatives exposure. The original 5.6% aggregate is no longer comparable. Retain A’s individually verifiable contribution (40% × 8% = 3.2%) and expose the missing common-period, common-denominator evidence for B:
+**Counterexample: retain observations and withhold an incomparable aggregate.** Suppose A reports company X as of June 30, 2026, using net-asset weights, while B reports as of September 30, 2026, using a different denominator that includes derivatives exposure. The original 5.6% aggregate is no longer comparable. Retain A’s calculation fragment with both time identities attached: A’s 40% weight in portfolio snapshot P1 × its 8% weight for X in the historic fund disclosure = 3.2%. This explains the inputs rather than asserting complete exposure on a particular date; B still requires comparable-period, comparable-denominator evidence:
 
 ```json
 {
@@ -158,7 +158,7 @@ A corresponding output might be summarized as follows. It remains a teaching exa
   "status": "not_comparable",
   "reason_codes": ["disclosure_period_mismatch", "denominator_mismatch"],
   "partial_observations": [
-    {"fund_ref": "A", "contribution_pct": 3.2, "as_of": "2026-06-30"}
+    {"fund_ref": "A", "portfolio_snapshot_ref": "P1", "contribution_pct": 3.2, "disclosure_as_of": "2026-06-30"}
   ],
   "complete_portfolio_exposure": null
 }
@@ -233,6 +233,7 @@ stateDiagram-v2
     accepted --> cancelled: Confirmed cancellation
     partially_filled --> remaining_cancelled: Remaining qty cancelled
     filled --> settled: All linked fills settled
+    remaining_cancelled --> settled: Executed fills settled
 ```
 
 `settled` here is a simplified projection indicating that all fills linked to this sample order have settled. Real settlement is tracked per fill and corresponding cash or position record. If the remaining quantity is cancelled after a partial fill, the executed portion still requires settlement.
