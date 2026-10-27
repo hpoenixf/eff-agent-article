@@ -408,7 +408,21 @@ Removing indirection should remove **duplicate Owners**, not important security 
 
 The fifth question prevents "three Owners → one" from becoming the end of architecture review. **One Owner can still be the wrong Owner.**
 
-## 11. Separate the Current Structure from Historical Attempts
+## 11. How Does This Responsibility Map Compare with Existing Agent Frameworks?
+
+The Model / Skill / MCP / Runtime split above is an **ownership map derived from real maintenance problems**. It is not a required layout for every framework, nor is it mandated by an external protocol.
+
+| External reference | Public focus | Comparison with this design |
+| --- | --- | --- |
+| [Anthropic · Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) | Distinguishes predetermined code-path workflows from agents that dynamically choose actions, and recommends adding orchestration complexity only when it has a demonstrable benefit. | We likewise do not force all research through a fixed Planner or Reviewer. Our native loop lets models choose research actions while the Host owns actual execution facts. |
+| [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/) | Provides agents, tools, handoffs, guardrails, sessions, tracing, and extensible orchestration primitives. | Those primitives can cover many of the same use cases. The question here is **who ultimately owns state, authorization, and committed effects**, not whether another agent-orchestration abstraction can be created. |
+| [Official MCP specification](https://modelcontextprotocol.io/specification) | Specifies Host/Client/Server integration and mechanisms for exposing tools and resources. | MCP describes how capabilities are connected and invoked. Financial authorization, portfolio conventions, source revocation, and effect receipts still require explicit application and capability ownership. An MCP connection is not by itself business authorization. |
+
+The **common ground** is simple, composable, inspectable tool-and-model loops. The **additional engineering choice** here is to place durable task identity, eligible effects, and recovery with their appropriate owners so that Runtime does not become a second business-decision layer. This is a comparison of design questions, not a benchmark proving one SDK faster, safer, or more accurate.
+
+A practical rule follows: reuse an existing SDK loop, handoff, and tool runtime when they already satisfy the task. Add the smallest adapter only when verifiable financial authorization, artifact readback, or recovery requirements are not met by that responsibility split, and make the adapter's eventual removal possible. The contract of the task matters more than a framework's brand or its number of modules.
+
+## 12. Separate the Current Structure from Historical Attempts
 
 Native tool execution, tool contracts, and Host capability lookup have undergone real consolidation, reducing duplicate tool mappings and admission decisions. Earlier designs also left partially wired mechanisms without completing the full cutover. The presence of some code does not mean an entire architecture migration was deployed.
 

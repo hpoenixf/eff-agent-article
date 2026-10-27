@@ -6,12 +6,14 @@
     "docs:dev": "vitepress dev .",
     "docs:build": "vitepress build .",
     "docs:preview": "vitepress preview .",
-    "check:catalog": "node scripts/check-catalog.mjs && node scripts/check-language.mjs && node scripts/check-bilingual-visuals.mjs && node scripts/check-panorama-owner-links.mjs && node --test scripts/seo-routes.test.mjs scripts/seo-content.test.mjs",
+    "check:catalog": "node scripts/check-catalog.mjs && node scripts/check-language.mjs && node scripts/check-bilingual-visuals.mjs && node scripts/check-panorama-owner-links.mjs && node --test scripts/seo-routes.test.mjs scripts/seo-content.test.mjs scripts/static-mermaid.test.mjs",
     "postdocs:build": "node scripts/check-seo-output.mjs",
-    "predocs:build": "node scripts/generate-rss.mjs"
+    "predocs:build": "node scripts/generate-rss.mjs && node scripts/build-static-mermaid.mjs",
+    "predocs:dev": "node scripts/build-static-mermaid.mjs",
+    "diagrams:build": "node scripts/build-static-mermaid.mjs"
   },
   "devDependencies": {
     "vitepress": "1.6.4",
-    "mermaid": "11.17.2"
+    "@mermaid-js/mermaid-cli": "11.17.0"
   }
 }

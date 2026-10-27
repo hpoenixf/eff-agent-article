@@ -81,3 +81,25 @@ for (const home of ['index.html', 'en/index.html']) {
     'Runnable source entry must be visible in SSR homepage: ' + home)
 }
 console.log('Social / discovery build verified:', descriptions.size, 'unique descriptions, RSS and source links')
+
+const mermaidManifest = JSON.parse(readFileSync(resolve(output, 'generated/mermaid/manifest.json'), 'utf8'))
+assert.ok(mermaidManifest.diagramCount > 0 && mermaidManifest.occurrences >= mermaidManifest.diagramCount)
+for (const id of Object.keys(mermaidManifest.diagrams)) {
+  const filepath = resolve(output, 'generated/mermaid/' + id + '.svg')
+  assert.ok(existsSync(filepath), 'Missing build-time Mermaid asset: ' + id)
+  const svg = readFileSync(filepath, 'utf8')
+  assert.match(svg, /<svg[\s>]/, 'Invalid Mermaid SVG: ' + id)
+  assert.ok(!/<script[\s>]/i.test(svg), 'Unsafe executable SVG: ' + id)
+}
+for (const htmlName of socialPages) {
+  const html = readFileSync(resolve(output, htmlName), 'utf8')
+  assert.ok(!html.includes('diagram-static-fallback'),
+    'Diagram source fallback leaked into built HTML: ' + htmlName)
+  const diagramIds = [...html.matchAll(/generated\/mermaid\/([a-f0-9]{24})\.svg/g)]
+    .map(m => m[1])
+  for (const id of diagramIds) {
+    assert.ok(mermaidManifest.diagrams[id], 'SSR references an unknown SVG: ' + htmlName + ':' + id)
+  }
+}
+console.log('Static Mermaid verified:', mermaidManifest.diagramCount,
+  'SVG assets for', mermaidManifest.occurrences, 'fences')

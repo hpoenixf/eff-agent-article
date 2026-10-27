@@ -86,7 +86,53 @@ A better approach preserves original results, appends corrections, and generates
 
 The purpose is not another audit ritual. It is to preserve a valid basis for comparison: **a changed execution result and a changed understanding of the same result are different kinds of progress.**
 
-## 6. Decide Whether Comparison Is Valid Before Deciding Which Model Is Better
+## 6. Building a Small Agent Evaluation Set You Can Actually Reuse
+
+The previous sections explained why green checks, answer candidates, and user outcomes must not be conflated. The practical follow-up is: **after the next code change, what evidence tells us the same class of failure has not returned?**
+
+There is no need to build another evaluation platform first. Start with a confirmed historical failure, retain inputs that can be legally reconstructed, and add a few ordinary-path cases and adjacent counterexamples. Each case needs at least the following contract:
+
+| What to retain | Why it matters |
+| --- | --- |
+| **Task identity** | Stable case ID, original user question, and intended business task—not merely a rewritten prompt. |
+| **Reconstructable input** | Sanitized source snapshot, effective dates, model/code/tool versions, and authorized scope; freeze changing data for comparisons. |
+| **Object being evaluated** | The tool effect, candidate answer, server-emitted text, or evidence of client display. Each needs its own identity. |
+| **Criteria and grader** | Code-checkable invariants, questions for an LLM judge, and situations requiring domain-expert review. Separate hard requirements from optional quality. |
+| **Execution and observation** | Completion, known failure, unknown status, budget, latency, and missing evidence, preserving the complete planned task set. |
+
+For illustration, a **synthetic fund-fee comparison case** could have this compact contract. It is not a measured result from the current system and contains no client holdings:
+
+```json
+{
+  "caseId": "fund-fee-asof",
+  "question": "Compare two funds' fees using the supplied documents and explain effective-date differences",
+  "snapshot": "fixtures/synthetic-fees-v1.json",
+  "requiredEvidence": ["feeA", "feeB", "effectiveDate"],
+  "mustNotDo": ["placeOrder"],
+  "gradeTarget": "server_emitted_answer"
+}
+```
+
+The **code-based checks** are that no order execution receipt exists without trading authorization, that each number carries an identifiable source and effective date, and that the judged answer matches the actual emitted content. An **LLM judge** can assess whether the explanation mixes time frames or fee conventions and whether the original question is answered, using concrete calibration examples. **Human reviewers** concentrate on grader disagreements, conflicting evidence, and high-impact errors that might influence real trading decisions. A judge's claim of "good citation coverage" does not substitute for source identity or recomputing the numbers.
+
+### Minimal workflow: freeze, run, attribute, review
+
+1. **Freeze the task set and conditions.** Retain stable IDs and replayable snapshots. Compare candidate and baseline versions under the same authorized inputs; changed conditions need a separately labelled observation window.
+2. **Choose the necessary depth.** Check authorization, persistent receipts, and arithmetic invariants deterministically first. If a change affects model-visible inputs or research strategy, run targeted real-model tasks. A claim about user outcomes requires evidence reaching the relevant delivery surface.
+3. **Keep every planned case in the denominator.** Report completed, failed, and unknown cases separately. Score answer quality within completed cases, but do not relabel that ratio as overall task success.
+4. **Separate three kinds of change.** An actual change in product behavior, a repair to Judge parsing or labeling, and better observation records each need their own evidence. Retain original verdicts and append reasoned corrections.
+5. **Calibrate model graders with human examples.** Review disagreements and high-risk cases first. The judge itself needs comparable inputs and inspectable grading rules.
+6. **Only compare sufficiently matched windows.** Keep quality, cost, latency, and failure modes visible. When required observations are missing, report a localized fix or provisional finding, not a verified system-level gain.
+
+This is not an obligation to attach a new dashboard to every article or run an expensive full-model benchmark on every pull request. Regression depth and frequency follow the risk and the behavior changed. Sufficient evidence for a deterministic invariant does not require performative extra inference runs.
+
+### External practices: what do we add?
+
+[Anthropic's guidance on agent evaluations](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) combines code, model, and human graders and emphasizes isolated execution and measurable outcomes. [OpenAI's agent workflow evaluation guide](https://developers.openai.com/api/docs/guides/agent-evals) distinguishes trace grading for diagnosis from datasets and repeated eval runs for comparisons. These are useful building blocks; we do not need to invent a new scoring framework.
+
+The additional point drawn from our own delivery failures is **alignment between the declared outcome and the exact evaluated artifact**. When the claim is "the user received a reliable answer," the judged content must correspond to what was sent or displayed—not the most complete draft saved inside a trace. Traces help diagnose failed transitions; they cannot create missing client acknowledgment evidence. This is a difference in our evaluation scope, not a claim that those external tools are incapable of delivery verification.
+
+## 7. Decide Whether Comparison Is Valid Before Deciding Which Model Is Better
 
 Before publishing a model conclusion, I now ask three questions: Are the experimental conditions and original denominators comparable? Has a requirement explicitly necessary for this use failed? Which critical facts remain unknown?
 

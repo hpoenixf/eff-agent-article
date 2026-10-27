@@ -576,7 +576,21 @@ complete-or-unavailable 比“看起来成功”更重要。
 
 ---
 
-## 十一、现行结构与历史尝试需要分开看
+## 十一、和主流 Agent 框架放在一起看，哪些分工是我们的选择？
+
+前面的 Model / Skill / MCP / Runtime 四分法，是**面对实际维护问题得到的责任地图**，不是要求其他框架都照此组织，更不是声称这些分工由某个开放协议强制规定。
+
+| 外部参照 | 公开定义与实现重点 | 与本文的对照 |
+| --- | --- | --- |
+| [Anthropic · Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) | 区分预设代码路径的 Workflow 与模型自主选择动作的 Agent；从足够简单的组合开始，在确有收益时才加入复杂编排。 | 我们同样不要求所有任务先过固定 Planner 或 Reviewer；Native Loop 保留模型对研究下一步的判断，同时让实际执行事实由 Host 负责。 |
+| [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/) | 提供 Agent、工具、Handoff、Guardrails、Session 与 Trace 等编排与调试原语，也允许应用按需扩展。 | SDK 可以承载许多相同任务；本文更关心**哪些状态和效果最终归谁负责**，而不是再发明一套有相同功能的 Agent 编排层。 |
+| [MCP 官方架构](https://modelcontextprotocol.io/specification) | 用 Host、Client、Server 及 Tools/Resources 等机制规定能力连接方式。 | MCP 解决如何描述、发现、调用外部能力，但具体金融授权、持仓口径、资料撤权和效果回执仍须由应用及相应能力 Owner 落实；“使用 MCP”不是业务许可本身。 |
+
+因此，**与行业实践的共同点**是尽量保持工具与研究循环简单、可组合、可观察；**我们的额外工程取舍**是让长任务的资格、可恢复状态和持久效果有明确归属，避免后续业务功能把 Runtime 改成又一套业务裁决层。这不是框架能力排名，也没有通过横向实测证明某个 SDK 更快或更可靠。
+
+一个实用判断是：如果现有 SDK 的 Loop、Handoff、工具执行已满足需求，就复用它；只有当原有责任归属无法满足可验证的金融授权、持久回读或恢复需求时，才增加最小适配层，并定义未来如何退出。区别来自任务契约，而不是品牌或模块数量。
+
+## 十二、现行结构与历史尝试需要分开看
 
 Native 工具循环、工具契约与 Host 能力查询的职责已经经历实际收敛，减少了重复的工具映射与准入判断。但历史上也有只做完局部接线、未完成整体替换的路线，不能因为部分代码存在就宣布整个架构迁移成功。
 
