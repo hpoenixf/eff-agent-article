@@ -13,6 +13,16 @@ Open ETF Agent therefore starts with something smaller: **read two documents, co
 
 v0.1 makes that engineering path publicly available. Its default example uses a script to choose actions while executing real reads, calculations, and saves. This lets us inspect how the program works; it does not establish whether a real model understands the documents. This article explains the first path. Later increments will connect runnable source code to the module articles we already have.
 
+## Where to continue now — as of 2026-10-27
+
+The current stable code has reached **v0.8.0**. Use the [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) for the ongoing entry point. The [main snapshot checked here is `3484c608`](https://github.com/hpoenixf/open-etf-agent/blob/3484c608dc0e7540b145b6484d9601a80f105171/README.md); choose the [fixed v0.8 snapshot](https://github.com/hpoenixf/open-etf-agent/tree/2c096ce47be2161f97531170af07ef255872f8b1) to reproduce this version. The rest of this article preserves v0.1 and its original boundaries rather than attributing later capabilities to the first version.
+
+The public implementation has progressed from file readback to immutable artifacts, SQLite checkpoint recovery, and durable answer text. The new **Publication slice handles one answer block**: revisions retain its block identity and delivery position; repeating identical content with identical bindings returns the original receipt. A later Run failure does not erase an already committed body. The existing [answer-publication article](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication), currently in Chinese, explains the mechanism and a minimal example without introducing another execution loop.
+
+To inspect it, select the v0.8 snapshot above, install and build as described in the README, then run `node dist/src/session-cli.mjs start --session runs/article-v08 --case durable-publication`. Use the returned Run ID with `node dist/src/session-cli.mjs publication --session runs/article-v08 --run <Run-ID>` to read the committed body and original receipt. The [corresponding recovery cases](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/test/publication-runtime.test.mjs) also inspect process death after commit. Documents and model actions are synthetic scripts; SQLite commits and cross-process readback are real. This does not certify model judgment, and the real-model observation below remains evidence only for its original version.
+
+The next planned module is a **v0.9 independent Worker**, allowing another process to continue the original Run. It is not implemented, and existing recovery support does not imply that it already exists. Development remains CLI-first, with one module per version. A Web interface is a separate later step, not a prerequisite for using this path.
+
 ## Choose a question whose answer can be checked
 
 The example uses neither personal holdings nor a market-data service. We wrote two synthetic product guides for Atlas versions A and B.
@@ -144,7 +154,7 @@ This real-model run did not establish the report-save path, let alone exercise l
 
 v0.1 gets its own article to provide a practical starting point for the series. It answers one question: what is the smallest set of responsibilities needed to connect source documents, an execution, and a report that can be read back?
 
-Later versions do not each need another equivalent architecture overview. Method and tool integration belong with the [MCP article](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption); externalized originals belong with [results and context](https://hpoenixf.github.io/eff-agent-article/articles/tool-results-outside-model-context); summaries and long-lived preferences belong with [Main compaction](https://hpoenixf.github.io/eff-agent-article/articles/agent-main-run-context-compaction) and [Memory](https://hpoenixf.github.io/eff-agent-article/articles/026-agent-memory-forget-durable-effects). These links point to the existing Chinese articles.
+Later versions do not each need another equivalent architecture overview. Method and tool integration belong with the [MCP article](https://hpoenixf.com/eff-agent-article/articles/mcp-host-from-discovery-to-consumption); externalized originals belong with [results and context](https://hpoenixf.com/eff-agent-article/articles/tool-results-outside-model-context); summaries and long-lived preferences belong with [Main compaction](https://hpoenixf.com/eff-agent-article/articles/agent-main-run-context-compaction) and [Memory](https://hpoenixf.com/eff-agent-article/articles/026-agent-memory-forget-durable-effects). These links point to the existing Chinese articles.
 
 Those articles will retain their own questions and history, then add the relevant version's minimal runnable implementation. When an advanced mechanism is absent from the public code, its boundary remains explicit. A similarly named function cannot count as full coverage.
 

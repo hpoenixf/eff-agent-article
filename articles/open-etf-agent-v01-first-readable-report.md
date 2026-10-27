@@ -13,6 +13,16 @@ description: 从固定源码运行离线示例，理解资料身份、工具执�
 
 v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选择动作，真实执行读取、计算与保存；它让我们检查程序怎样工作，还不能据此判断真实模型会不会读懂资料。这篇先把第一条路径讲清楚，后续再回到已有的模块文章，逐步补上对应源码。
 
+## 当前可以从哪里继续（截至 2026-10-27）
+
+当前稳定代码已推进到 **v0.8.0**。日常使用看[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；这次核对的 [main 为 `3484c608`](https://github.com/hpoenixf/open-etf-agent/blob/3484c608dc0e7540b145b6484d9601a80f105171/README.md)，复现本版请选[固定 v0.8 快照](https://github.com/hpoenixf/open-etf-agent/tree/2c096ce47be2161f97531170af07ef255872f8b1)。下面仍保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。
+
+公开实现已经从文件回读，走到不可变附件、SQLite 检查点恢复和持久正文。本次新增的 **Publication 只做一个正文块**：修订保留原块与投递位置，重复提交相同内容和绑定时返回原回执；正文已经提交后，Run 后续失败也不会把它抹掉。机制与最小实例放在既有[正文发布文章](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication)，不是再造一套执行循环。
+
+要亲手观察，选定上述 v0.8 快照并按 README 安装构建后，运行 `node dist/src/session-cli.mjs start --session runs/article-v08 --case durable-publication`；再用输出中的 Run ID 执行 `node dist/src/session-cli.mjs publication --session runs/article-v08 --run <Run-ID>`，读取已提交正文和原回执。[对应的恢复用例](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/test/publication-runtime.test.mjs)还检查了提交后进程退出的边界。资料和模型动作仍是合成脚本，实际发生的是 SQLite 提交与进程间回读，不是模型判断质量认证；下文的真实模型观察仍只属于它原来的版本。
+
+下一步规划是 **v0.9 独立 Worker**，让另一个进程接续原 Run；它尚未实现，不能由现有恢复能力推定已经具备。后续仍以 CLI 为先，一版完成一个模块；Web 界面另行安排，不把浏览器或一组新平台作为使用这条路径的前提。
+
 ## 先选一个能核对的问题
 
 示例不是个人持仓，也没有调用行情服务。我们编写了两份合成产品指南，分别描述 Atlas A、B 两个版本。
@@ -144,7 +154,7 @@ npm run demo -- --case document-compare --output runs/article-v01
 
 v0.1 单独成篇，是为了给整个系列一个能开始动手的入口。它回答的是：最少保留哪些职责，才能把资料、一次执行和一份可回读报告连起来。
 
-后续不必每个版本再写一篇同义架构总论。方法与工具接入回到 [MCP 文章](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption)，原文外置回到[结果与上下文文章](https://hpoenixf.github.io/eff-agent-article/articles/tool-results-outside-model-context)，摘要和长期偏好分别回到 [Main 压缩](https://hpoenixf.github.io/eff-agent-article/articles/agent-main-run-context-compaction)与 [Memory](https://hpoenixf.github.io/eff-agent-article/articles/026-agent-memory-forget-durable-effects)。
+后续不必每个版本再写一篇同义架构总论。方法与工具接入回到 [MCP 文章](https://hpoenixf.com/eff-agent-article/articles/mcp-host-from-discovery-to-consumption)，原文外置回到[结果与上下文文章](https://hpoenixf.com/eff-agent-article/articles/tool-results-outside-model-context)，摘要和长期偏好分别回到 [Main 压缩](https://hpoenixf.com/eff-agent-article/articles/agent-main-run-context-compaction)与 [Memory](https://hpoenixf.com/eff-agent-article/articles/026-agent-memory-forget-durable-effects)。
 
 这些文章会保留自己的问题和历史，再补对应版本的最小可运行实现。高级机制尚未进入公开代码时，就继续明确它的范围，不用一个相似的函数名充当完整覆盖。
 
