@@ -207,4 +207,6 @@ More recent Access/Memory/Factory ownership changes do not turn summaries into M
 
 ## Further Reading and Discussion
 
+**Two forms of compaction, two identities:** this essay covers checkpointed work inside one Main Run. [A41 cross-Run conversation compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) prepares source-bound histories of completed question–answer pairs for later Runs, with immutable summaries and original user text retained separately. Their failure and recovery contracts differ.
+
 [Read the original on the author's blog](https://hpoenixf.com/blog/agent-main-run-context-compaction) · [ETF Agent Engineering Library](https://github.com/hpoenixf/eff-agent-article) (stars welcome).
