@@ -285,4 +285,4 @@ As of October 2026, Claude Hookify and supported Pi subsets have original-packag
 
 ---
 
-[Chinese original on the author's blog](https://hpoenixf.com/blog/agent-multi-ecosystem-hook-execution) · [Module collection](https://hpoenixf.github.io/eff-agent-article/modules) · [Star the public article repository](https://github.com/hpoenixf/eff-agent-article).
+[Chinese original on the author's blog](https://hpoenixf.com/blog/agent-multi-ecosystem-hook-execution) · [Module collection](https://hpoenixf.com/eff-agent-article/modules) · [Star the public article repository](https://github.com/hpoenixf/eff-agent-article).

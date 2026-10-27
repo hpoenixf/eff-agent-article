@@ -107,6 +107,6 @@ The lasting engineering distinction is: **the model can interpret the user's tem
 
 ## Further Reading
 
-[Scheduled research after a conversation](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-autonomous-scheduled-research) explains when the next task begins. [Financial data: time, definitions, and reproducibility](https://hpoenixf.github.io/eff-agent-article/en/articles/031-fintech-data-time-and-reproducible-numbers) explains source dates and computation. This article addresses the temporal meaning of ordinary research requests.
+[Scheduled research after a conversation](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research) explains when the next task begins. [Financial data: time, definitions, and reproducibility](https://hpoenixf.com/eff-agent-article/en/articles/031-fintech-data-time-and-reproducible-numbers) explains source dates and computation. This article addresses the temporal meaning of ordinary research requests.
 
 This is part of [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). A Star on the public collection is welcome.

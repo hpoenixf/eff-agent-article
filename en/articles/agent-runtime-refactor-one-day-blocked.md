@@ -74,6 +74,6 @@ These signals do not require an immediate rewrite of everything. They are a prom
 
 [What Should Stay Stable—and What Should Change—in an Agent Architecture?](agent-differentiated-evolution-contracts.md) discusses evolution contracts across modules. [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md) explores how to retain valid protections while retiring obsolete assertions.
 
-This article is part of [ETF Agent Engineering Notes](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-runtime-refactor-one-day-blocked). If these engineering cases are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
+This article is part of [ETF Agent Engineering Notes](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-refactor-one-day-blocked). If these engineering cases are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
 
 The corresponding architectural discussion is [Core Principle 3: complexity belongs with its rightful owner](/en/principles#principle-3).

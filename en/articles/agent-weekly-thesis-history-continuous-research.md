@@ -199,6 +199,6 @@ We will refine this article when that evidence is strong enough. The next questi
 
 ---
 
-Related reading: [Why the Weekly Review Spec Was Split into Three Phases](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-weekly-review-staged-delivery) explains the engineering delivery sequence. [A Trustworthy Evidence Chain for Financial Agents](https://hpoenixf.github.io/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) covers provenance and eligibility across research tools. This article addresses historical portfolio observations, original theses, and later corrections; it is not investment advice.
+Related reading: [Why the Weekly Review Spec Was Split into Three Phases](https://hpoenixf.com/eff-agent-article/en/articles/agent-weekly-review-staged-delivery) explains the engineering delivery sequence. [A Trustworthy Evidence Chain for Financial Agents](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) covers provenance and eligibility across research tools. This article addresses historical portfolio observations, original theses, and later corrections; it is not investment advice.
 
 More engineering notes are available in the [ETF Agent collection](https://github.com/hpoenixf/eff-agent-article). If these case studies are useful, please consider giving the repository a **Star**.

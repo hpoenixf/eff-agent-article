@@ -230,4 +230,4 @@ This governance change implements [principle 4, “A local failure must not beco
 - [Stop Blaming Every Failure on the Model](agent-failure-is-a-boundary-problem.md): failure identity, diagnosis, and unknown effects.
 - [Avoiding Misleading Green Tests](honest-agent-evaluation.md): separate proof of execution, delivery, and quality.
 
-Read more at the [ETF Agent Engineering Notes site](https://hpoenixf.github.io/eff-agent-article/). Examples and counterarguments are welcome through the [GitHub article repository](https://github.com/hpoenixf/eff-agent-article); feel free to Star it.
+Read more at the [ETF Agent Engineering Notes site](https://hpoenixf.com/eff-agent-article/). Examples and counterarguments are welcome through the [GitHub article repository](https://github.com/hpoenixf/eff-agent-article); feel free to Star it.

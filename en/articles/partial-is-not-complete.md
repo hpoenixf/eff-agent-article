@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/en/articles/tool-results-outside-model-context
+      href: https://hpoenixf.com/eff-agent-article/en/articles/tool-results-outside-model-context
 ---
 
 # Silent Truncation: Why Data Goes Missing

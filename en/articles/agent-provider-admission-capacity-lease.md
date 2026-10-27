@@ -97,6 +97,6 @@ The goal is not a system where no model call ever waits. It is to make the waiti
 
 ## Further reading
 
-[Provider configuration and route identity](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-provider-architecture-and-admission) explains the broader A32/A10 layer. [Run budget and constraint governance](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) covers A05's separate per-task allowance. [Failover and original Run identity](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-provider-failover-without-resetting-the-run) shows why retry still belongs to the original Run.
+[Provider configuration and route identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-architecture-and-admission) explains the broader A32/A10 layer. [Run budget and constraint governance](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) covers A05's separate per-task allowance. [Failover and original Run identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-failover-without-resetting-the-run) shows why retry still belongs to the original Run.
 
 Find more case studies at [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article); Star the repository to follow the series.

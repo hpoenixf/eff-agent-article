@@ -334,7 +334,7 @@ It is:
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
 
-[Read the independent article collection](https://hpoenixf.github.io/eff-agent-article/) with catalog and architecture diagrams.
+[Read the independent article collection](https://hpoenixf.com/eff-agent-article/) with catalog and architecture diagrams.
 
 All articles and diagrams live in the [GitHub repository](https://github.com/hpoenixf/eff-agent-article). If useful, feel free to Star it or discuss a counterexample through Issues.
 <!-- agent-article-sync:guidance:end -->
