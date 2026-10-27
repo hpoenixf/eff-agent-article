@@ -13,6 +13,8 @@ These apparently different problems point to the same engineering fact: **long-t
 
 We organize Memory into three cooperating paths: **writing, recall, and governance**. Writing decides what deserves to persist. Recall decides what is actually used in a later request. Governance decides who has authority when data expires, conflicts, or must be forgotten. These paths may join in a single research task, but they must not collapse into an ambiguous “memory succeeded” flag.
 
+The article below explains the original system’s full lifecycle. The final section uses the runnable public slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) to inspect explicit save, revision, forgetting and future-input eligibility. This single-writer file-library experiment is not the original PostgreSQL, automatic-learning or complete recall service.
+
 ## 1. The Big Picture: Three Paths, Two Authorities
 
 ```mermaid
@@ -169,3 +171,29 @@ The most valuable next metrics are not counts of new Memory classes or tests. Th
 Returning to the opening question: a dependable Memory system must **provide a durable receipt when writing, enforce authorization when reading, use versions when correcting, and prevent forgotten content from returning to future use**.
 
 Those guarantees are harder than making a model appear to remember the user. They are what make a long-lived assistant genuinely corrigible and accountable.
+
+<!-- open-etf-agent:minimal-experiment:start -->
+## 9. Run a Save–Revise–Forget Sequence in the Public Code
+
+[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) now makes this ownership boundary independently runnable. Rather than exporting the PostgreSQL system described above, it uses an **explicitly selected, single-writer file library** to show how saves, corrections, forgetting and subsequent input relate. The preferences are synthetic and a fixed script chooses the tools; persistence, revisions and reads use the real implementation.
+
+In [`memory-tools.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory-tools.mjs), model arguments have no “I am authorized” switch. Outside those arguments, the host binds a write intent to the library, operation, approved text hash or previous revision. [`memory.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory.mjs) durably reserves that one-use intent before publishing a new revision and updating the current index. A failure in between can leave an explicit partial effect: the intent was consumed but the revision did not complete. A failure receipt is not permission for unconditional replay.
+
+With Node.js 26.11.1–26.x, run the fixed snapshot in a new directory:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-memory-demo
+cd open-etf-agent-memory-demo
+git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case explicit-memory --memory-library runs/article-synthetic-memory
+```
+
+Initial installation may access npm; this case makes no remote model calls after installation. Select a new synthetic library, or one with no active entries—not your actual memory directory. If the demonstration finds active entries, it refuses to continue rather than clearing them.
+
+[`working-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-demo.mjs) performs save, revise and forget in three separate Runs. Inspect `memory.receipts` in the terminal JSON: the same entry receives increasing revisions and the operations `saved`, `revised` and `forgotten`; `memory.current` is empty after forgetting. Earlier revisions remain in the library, while the final revision is a tombstone. The demonstration report subsequently saved cites newly acquired synthetic original pages, not preference records promoted into research evidence. **Readable receipts and current eligibility are the output—not a terminal sentence saying “forgotten.”**
+
+The public implementation also addresses an easily missed input path. Removing a current search hit is not enough if old tool arguments or derived notes can reintroduce its text. When assembling the next model request, [`memory-projection.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory-projection.mjs) rechecks library, entry and revision identity. It removes bodies from stale typed memories, settled write arguments and their Hook copies, and notes dependent on stale memories. The original execution history is not rewritten. This boundary applies to identified memory dependencies; it is neither global phrase erasure nor deletion of previously exported reports.
+
+This public slice therefore lets readers inspect **explicitly authorized durable writes, current-revision reads and post-forget input revocation**. It does not include the authenticated HTTP, PostgreSQL or automatic-learning paths discussed earlier. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not exercise memory writes or forgetting, so its report cannot establish cross-session response quality here. Whether Runtime acted under authorization and recorded the effects remains separate from whether a model explains those facts accurately.
+<!-- open-etf-agent:minimal-experiment:end -->

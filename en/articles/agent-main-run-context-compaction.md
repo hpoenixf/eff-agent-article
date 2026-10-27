@@ -11,6 +11,8 @@ A common strategy asks a model to summarize the preceding conversation and conti
 
 Our Main Research Run compaction feature is organized around a different decision: **the model creates only a lossy summary of its prior work; the original task, permissions, tool effects, financial numbers, citations and recovery state remain owned by deterministic records elsewhere**.
 
+The main discussion describes the original system; the final section demonstrates its runnable public note-adoption and original-rereading slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent). That smaller implementation lacks the original system’s cold recovery, so one demo must not stand in for validation of the entire research path.
+
 ## 1. Three Ways to Reduce Context Cost Are Not the Same
 
 Initially every tool result could be carried into subsequent model history. That was acceptable for simple queries but caused old results, duplicate materials and repeated correction attempts to crowd out relevant context in long research.
@@ -150,11 +152,39 @@ The payoff is not “context can never overflow.” It is three verifiable rules
 
 For long-running agents, context management resembles a lossy caching policy—not a new memory authority. Its real effectiveness must be judged by actual model input, recoverability and whether semantic omissions degrade final research.
 
+<!-- open-etf-agent:minimal-experiment:start -->
+## Observe Note Adoption and Original-Source Rereading in the Public Code
+
+[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) now exposes one runnable slice: acquire synthetic material, derive a working note under explicit byte pressure, include it in the next request, then read both the note and an original page. It reproduces the boundary that **compaction must not replace originals**, not the full Main Recovery checkpoint described above.
+
+[`compaction.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/compaction.mjs) starts from the existing reversible context projection, then selects older, complete, successfully settled tool-call groups while preserving the latest group and user question. A candidate note, including its original references, must be smaller than that actual baseline—not an inflated raw-text history that would already have been externalized. If summarization fails, yields no net savings, or the basis changes while the summary is generated or saved, the candidate is not adopted. A written file alone does not prove inclusion in the next request.
+
+With Node.js 26.11.1–26.x, run the fixed snapshot in a new directory:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-compaction-demo
+cd open-etf-agent-compaction-demo
+git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case compact-and-reread
+```
+
+Initial installation may access npm; this case makes no remote model calls after installation. [`working-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-demo.mjs) explicitly sets a low synthetic byte threshold and uses a fixed script to produce the summary. That threshold is not a provider token window. Runtime performs the actual basis checks, net-byte comparison, note persistence and subsequent request assembly.
+
+The case checks more than the existence of a summary file. The next Gateway invocation must find a `derived-working-note` in its actual input before issuing `read_note`. It then calls `read_result` with the previously acquired `resultRef`, checks the original page identity and saves a report citing original sources. The terminal JSON returns the run's `directory` and report `receipt`. Pass that directory to `node src/cli.mjs --observe` to inspect the `working_note` event's `applied` status, adopted `noteRef` and before/after byte counts alongside subsequent real reads and the file-save event.
+
+[`working-note.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-note.mjs) retains `origin: derived-summary` and `semanticStatus: unreviewed`. Its references point back to original records; the note does not acquire original-source identity. The call/result pair used to display the note in context is also marked `projectionOnly` and `dispatched: false`, so a constructed working view is not mistaken for a real tool execution.
+
+Readers can therefore reproduce an engineering path in which **a note is actually adopted, originals remain readable under their original identities, and a report is actually saved**. This public slice lacks the cold-recovery capability discussed earlier, and does not establish that a real model interprets the summary correctly. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not trigger compaction and cannot validate that mechanism. The scripted observation here tests input handoffs and real effects; summary semantics require separate evaluation.
+<!-- open-etf-agent:minimal-experiment:end -->
+
 ---
 
-## October 26, 2026: Archive and Quality Evidence
+## What Still Needs Observation
 
-The change was **manually archived by an explicit October 21 exception**, not through a passing standard `spec:close`. The original task ledger remains **5/7**: offline scenarios confirmed subsequent Main-request inclusion, and at least one natural live-model summary request committed a checkpoint. Subsequent **live** request inclusion in that observation, repeated-compaction semantics, date/number/citation integrity and cost/quality effects remain incompletely verified. Enabling pressure-triggered compaction does not close those questions.
+This change was manually archived under an explicit October 21 exception, not through a passing standard `spec:close`.
+
+Controlled paths confirmed summary inclusion in subsequent Main input, and a real research run completed a summary request and committed its checkpoint. Whether that real summary was correctly used by the next request, and how repeated compaction affects meaning, numbers, citations and cost, still need further observation. Enabling pressure-triggered compaction does not resolve those quality questions.
 
 More recent Access/Memory/Factory ownership changes do not turn summaries into Memory records or historical numeric authority. Exact calculations and evidence still require the original source/result read path; subsequent model consumption and complete task delivery are separate facts.
 

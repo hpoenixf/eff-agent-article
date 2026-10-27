@@ -6,6 +6,8 @@
 
 我们为 ETF Agent 的 Main Research Run 增加上下文压缩，最重要的设计决定不是压缩率，而是**让模型只负责生成有损工作摘要；原始任务、授权、工具执行、金融数字、引用和恢复状态继续由原来的确定性记录负责。**
 
+本文主体解释原系统的完整设计，末节用 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 的公开实验展示其中已经可运行的“便笺采用—原文回读”切片。后者没有原系统的冷恢复能力，不能用一个 demo 代替整条研究链路的验收。
+
 ## 一、三种减负手段，不能当成同一件事
 
 最初，工具一旦返回结果，就可以全部跟着对话历史进入后续模型请求。对于一次简单查询，问题不明显；研究变长以后，旧结果、重复材料和多轮修错记录会挤占真正需要的上下文。
@@ -141,12 +143,40 @@ NoCompaction --> NextMainRequest
 
 面对持续运行的 Agent，上下文管理更像一种有损缓存策略，而不是一种新的记忆权威。判断它是否有效，要同时看请求实际送达了什么、系统是否能恢复，以及最终研究有没有因为语义遗漏而变差。
 
+<!-- open-etf-agent:minimal-experiment:start -->
+## 在公开代码里观察“便笺采用—原文回读”
+
+[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 已把其中一条路径做成可运行的公开实验：读取合成材料，在显式字节压力下生成派生便笺，把便笺放进后继请求，再分别读取便笺和原始页面。它复现的是**压缩不能替代原件**这条边界，不是前文整套 Main Recovery checkpoint。
+
+[`compaction.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/compaction.mjs) 先以现有的可逆上下文投影作为基线，再选择较早、完整且成功结算的工具调用组，保留最近一组和用户问题。候选便笺必须连同原始引用一起比这份实际基线更小，而不是拿一份本来就会外置的巨大原文虚算节省量。摘要等待失败、没有净收益，或者摘要生成与保存期间依据已经变化，就不采用候选；“文件已经写下”本身不等于“后继请求已经使用”。
+
+使用 Node.js 26.11.1–26.x，在一个新的目录运行固定快照：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-compaction-demo
+cd open-etf-agent-compaction-demo
+git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case compact-and-reread
+```
+
+首次安装可能访问 npm；安装后的这个案例不调用远程模型。演示在 [`working-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-demo.mjs) 中显式设置较低的合成字节阈值，用固定脚本产生摘要；这个阈值不是模型的 token 窗口。Runtime 真正执行的是依据检查、净字节比较、便笺持久化和后继请求装配。
+
+这条案例不止检查磁盘上有没有一个摘要文件。后继 Gateway 必须先在实际输入中找到 `derived-working-note`，才会发出 `read_note`；随后用原先获得的 `resultRef` 调用 `read_result`，核对原始页面身份，再保存带原始来源引用的报告。终端 JSON 给出本次 `directory` 和报告 `receipt`；将该目录作为 `node src/cli.mjs --observe` 的参数，可以看到 `working_note` 的 `applied` 状态、采用的 `noteRef` 及前后字节数，和后面的实际读取、文件保存事件。
+
+[`working-note.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-note.mjs) 给便笺保留 `origin: derived-summary` 与 `semanticStatus: unreviewed`。它的引用仍指回原始记录，便笺并没有取得原件身份。上下文里用于展示便笺的调用对还标为 `projectionOnly`、`dispatched: false`，避免把装配视图伪装成一次真实工具执行。
+
+读者因此可以复现**便笺确实被采用、原文仍按原身份可读、报告确实保存**这条工程路径。这个公开切片没有前文的冷恢复能力，也没有证明真实模型会正确理解摘要。[首批真实模型调用](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)尚未触发压缩，不能替这条机制完成实测；这里的脚本观察验证的是输入交接和真实效果，摘要语义仍要单独评估。
+<!-- open-etf-agent:minimal-experiment:end -->
+
 ---
 
 <!-- agent-article-sync:guidance:start -->
-## 2026-10-26 · 归档与质量证据的范围
+## 当前还需要观察什么
 
-该变更已于 **10 月 21 日依明确例外人工归档**，不是标准 `spec:close` 通过。原任务仍为 **5/7**：离线场景验证了摘要进入后续 Main 输入，也观察到至少一次真实自然摘要请求完成并提交 checkpoint；但那次真实请求的**后继送模采用**、多次压缩的语义/数字/引用及成本收益仍未完整核实。默认压力触发的工程启用不等于上述质量通过。
+此变更已于 10 月 21 日按明确例外人工归档，并非标准 `spec:close` 通过。
+
+受控路径已经确认摘要进入后继 Main 输入，真实研究也出现过摘要请求完成并提交 checkpoint。但那次真实摘要是否被后继请求正确使用，以及连续压缩后的语义、数字、引用和成本收益，仍需进一步观察；压力触发已经启用，不等于这些质量问题已经解决。
 
 近期 Runtime 的 Access/Memory/Factory 重构也没有把摘要升级为 Memory 或历史数据权威。需要精确数值时，仍沿原来源和结果回读；后继请求实际看到什么与最后研究是否完成，继续分别验证。
 

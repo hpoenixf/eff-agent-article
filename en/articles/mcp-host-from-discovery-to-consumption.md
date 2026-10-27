@@ -10,6 +10,8 @@ We learned to separate **connection established**, **tool discovered**, **tool v
 
 This article follows actual integration failures rather than describing a generic MCP SDK demo. It covers read-only research. Visibility is **not** permission, and MCP transport does not establish the authenticity of financial conclusions.
 
+The public code exercise below lets readers inspect this path directly: local method reads, real stdio transport and report saving already run independently. Its scope is narrower than the original system discussed here; the distinction is explicit below.
+
 MCP's [architecture documentation](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture) distinguishes the Host coordinating capabilities, a Client maintaining the protocol connection, and a Server exposing methods. The protocol does not, by itself, prove what the model actually receives on a particular turn.
 
 Most of our problems arose at these handoff points.
@@ -325,6 +327,42 @@ With a few static internal tools, not every mechanism may be necessary. Once res
 It is:
 
 **Which interface did the model see, which one did Host invoke, what actually returned, and what did the next model request truly receive?**
+
+## 7. Run Discovery, Reading and Saving in the Public Code
+
+The [Open ETF Agent public code repository](https://github.com/hpoenixf/open-etf-agent) provides a narrow, independently runnable path: discover and explicitly read a local comparison method, acquire pages from two synthetic documents through a real MCP stdio child process, and save a sourced report through the same Runtime. It makes several handoffs in this article observable without claiming to port the original system's full remote integration.
+
+The distinction is deliberate: **a scripted fixture proposes actions in a fixed order; transport and file effects actually execute**. Reading a Skill does not show that a model learned its method. Starting an MCP child does not show that a real model independently chose to use it. This experiment helps developers inspect integration before evaluating answer quality.
+
+### Run it and inspect the actual artifacts
+
+Use Node.js 26.11.1–26.x in a separate directory:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-mcp-demo
+cd open-etf-agent-mcp-demo
+git checkout --detach a10d4f1bd1ecc39224272156221fe29792b64094
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case skill-mcp
+```
+
+Initial installation may access npm; the installed case needs no remote model. The console prints the actual Run directory. Open its `report.md` and `manifest.json` to compare the report with the method, document versions and pages actually read. This case acquires only the first page of each document. Its recorded tool sequence is:
+
+```text
+list_skills → read_skill → mcp_read_page → mcp_read_page → save_report
+```
+
+`manifest.json` also preserves the model-side call ID and the SDK protocol request ID; these are not the same identifier. The console's `mcp.closed` records closure of the child owned by this invocation, while `semanticStatus: unreviewed` preserves the fact that report content has not undergone semantic review. A single completion status cannot establish correctness at every layer.
+
+### Inspect three boundaries in the code
+
+In [`src/mcp.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/src/mcp.mjs), catalog pagination is actually consumed, but extra discovered methods do not automatically receive permission. Only the allowlisted `read_page` is accepted, and its remote input Schema must match the narrow local binding. A returned page must match the requested document and page as well as its own content hash. Otherwise a complete but wrong page could become a trusted source.
+
+[`src/extensions.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/src/extensions.mjs) connects method reads, MCP page reads and saving to the existing Runtime rather than introducing a separate execution loop. The [protocol boundary cases](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/test/mcp.test.mjs) also show how wrong pages, duplicate catalog entries, stdout pollution and cancellation are rejected or cleaned up. They test transport and identity handling under controlled inputs, not the security of arbitrary third-party services.
+
+This pinned checkout is a maintenance version for a reason directly related to the article: the earlier scripted report acquired only page one but asserted an offline-editing condition present only on page two. The [maintenance record](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/docs/verification/v02-maintenance-observations.md) preserves that counterexample. The correction removed the unsupported sentence instead of treating “the catalog knows page two exists” as “page two was read.” This was not an improvement in model semantics; the report fixture needed to respect the source scope it demonstrated.
+
+The slice pins official SDK 1.32.2 and [MCP protocol 2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25/server/tools). It launches only the repository's allowlisted server, not the remote HTTP, OAuth or full Schema adaptation described earlier. The [first live-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not exercise MCP either. What can be reproduced now is discovery, admission, real transport, source checks and file persistence. Whether a real model selects and uses those tools correctly during research remains a separate question.
 
 ## Continue Reading
 

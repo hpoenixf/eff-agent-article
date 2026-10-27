@@ -11,6 +11,8 @@ Longer research exposes two problems with that pattern. Repeated full results co
 
 During a holiday engineering iteration, we moved some tool results outside the prompt and enabled selective reads. In a separate controlled investigation, we found that only 20 of 50 source records reached the actual model input. Both experiences lead to the same engineering question: **How can a model move less data while still knowing exactly what it has received?**
 
+The sections below explain selection and coverage in the original system, then use a public code experiment to inspect the independently implemented slice: query-driven page reads, immutable results and exact rereads. That slice does not count the historical 50 → 20 case as its own execution result.
+
 ## A Desk Does Not Need to Hold the Entire Archive
 
 Context is the material available to the model during one inference step. Inserting complete tool results is like spreading every document across a desk. New queries and repeated results keep occupying more space as research continues.
@@ -184,8 +186,37 @@ A controlled test reproduced the silent **50 → 20** loss: later records disapp
 
 Externalized results need other checks too: large results yield the selected content; current selections reach the final request; failed refreshes never impersonate new snapshots; and cross-research references cannot be accessed. Data larger than one read can be processed in batches, but each batch must retain its coverage, and final aggregation must not erase the gaps.
 
-These mechanisms did not establish that the model would never overlook an item, that every answer would be correct, that current quotas suited all real workloads or that costs had fallen by a measured amount. They made a previously silent form of data loss observable and separated access to information from repeatedly moving the entire body.
+These mechanisms make previously silent data loss observable and separate access to information from repeatedly moving the entire body. Whether the model fully uses the material it has seen still needs to be assessed at the answer layer.
 
 The complete result can stay off the desk, and reading only part of it can be a sensible choice. What must remain explicit is **which result was retained, which part was selected, what the actual request received and which scope the current conclusion can support**.
+
+## Use the Public Code to Compare “Found” with “Read”
+
+The public v0.4 slice of [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) narrows the problem to two synthetic documents: submit a query, obtain candidate pages, actually read them, retain immutable originals, reread an exact result through `read_result`, and save a report. The query is not a decorative parameter; it changes the pages passed to `read_page`. A scripted fixture chooses the actions, while retrieval, result persistence, rereading and report files use real implementations.
+
+Use Node.js 26.11.1–26.x in a separate directory:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-results-demo
+cd open-etf-agent-results-demo
+git checkout --detach ecf6cb45b4062586614e83aed917c92d704cb63b
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case retrieve-reread --query "offline editing"
+npm run demo -- --case retrieve-reread --query "Markdown"
+```
+
+Initial installation may use the network; the cases make no remote model calls. Open `manifest.json` and `report.md` in each Run directory printed by the console. `offline editing` acquires page two of both A and B. `Markdown` acquires only page one of B, so its report explicitly does not claim a complete two-document comparison. The important comparison is not prose style: **does changing the query change the set of sources actually acquired?**
+
+In [`src/retrieval-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/retrieval-demo.mjs), a candidate hit is not yet a citable original. It must pass through `read_page` and receive source identity and a `resultRef` before rereading and saving. With no candidates, no page is read and no comparison report is fabricated. Interpret the unsuccessful outcome in terms of that missing material, rather than assuming a successful search already produced an answer.
+
+[`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs) keeps original pages, source descriptions and exact references under one result owner; `manifest.json` records the references associated with the report. The [same-document version case](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs) shows that after a new version appears, the old reference still reads the old version rather than silently returning the latest content. That is fundamentally different from fetching a document again by name.
+
+### How the public implementation handles capacity
+
+[`src/context.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/context.mjs) does not delete original history. It creates a copy for the current request and, when the byte budget is exceeded, attempts to replace original text in older, fully settled call groups with actionable exact-reread references. It retains the original question and the latest complete tool group. If those still do not fit, it fails explicitly rather than silently retaining half a tool result.
+
+Nor can replacement rely on a payload merely looking like a source. The public [evolution record](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/docs/evolution/evidence-index.md) preserves a controlled counterexample: an earlier shortcut using `sourceId` and a hash could replace a lookalike tool payload with an original-source reference. Replacement now also requires a matching Host-issued `ResultRef`, a verified text hash and complete intrinsic source identity. Unconfirmed payloads do not gain source eligibility through projection. The [integration cases](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/research-integration.test.mjs) observe the next actual Gateway input, not merely whether the result store wrote a record.
+
+This code reproduces local document scope, immutable originals and exact rereads. It does not reproduce the original system's 50 → 20 incident or implement its full field selection, coverage population, account authorization or Reviewable publication path. Its capacity limit counts bytes, not an estimate for every model's token window. The [first live-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) acquired result references but did not perform query-driven retrieval or `read_result`. These experiments therefore establish executable mechanisms, not whether a model correctly selects, uses and interprets the material.
 
 Keeping the complete result outside the model's current context is an application of [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5). The model may read only the slice needed for its current task; result identity, selection coverage, completeness and permissions must remain independently verifiable.

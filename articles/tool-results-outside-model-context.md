@@ -6,6 +6,8 @@
 
 我们在国庆期间把一部分工具结果移到上下文之外，允许模型按需读取。另一次受控排查则发现，源端的 50 条记录只有 20 条进入了实际模型输入。这两段经历回答的是同一个工程问题：**怎样让模型少搬数据，同时知道自己到底读到了什么？**
 
+下面先解释原系统的选择与覆盖机制，再用公开代码实验查看其中已经独立实现的部分：查询驱动读页、不可变结果和精确回读。公开切片不把前述 50 → 20 历史案例算作自己的运行结果。
+
 ## 一张桌面，不必摊开整个资料库
 
 上下文是模型这一次推理能看到的材料。把工具结果全部放进去，相当于把所有文件摊在桌面上；研究继续，新的查询和重复结果又不断占用空间。
@@ -179,8 +181,37 @@ CoverageFacts --> NextModelRequest
 
 对于外置结果，另一些检查同样必要：大结果能读出选中内容，当前选区确实进入最终请求，刷新失败不冒充新快照，跨研究引用不能访问。大于单次容量的数据可以分批处理，但每批都要留下覆盖，最后汇总也不能抹去缺口。
 
-这些机制没有证明模型不会漏读、最终答案必然正确、当前配额适合所有真实负载，也没有证明成本下降了多少。它们使一种原本无声的数据缺失变成可检测的事实，并让数据访问不再等于反复搬运全文。
+这些机制让原本无声的数据缺失变得可检测，也让数据访问不再等于反复搬运全文；模型是否充分使用已见材料，仍需要在回答层另行检查。
 
 完整结果可以留在桌面之外；模型当前只读一部分，也可以是合理选择。需要始终说清的是：**保存了哪份结果、这次选择了哪一部分、实际请求收到多少，以及当前结论能够覆盖哪里。**
+
+## 用公开代码比较“找到了”和“读到了”
+
+[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent)的公开 v0.4 切片把问题缩到两份合成文档：输入查询，取得候选页，实际读页，将原件保存为不可变结果，再用 `read_result` 精确回读并保存报告。查询不是装饰参数；它会改变真正进入 `read_page` 的页面。动作选择由脚本 fixture 完成，检索、结果保存、回读和报告文件则走真实实现。
+
+使用 Node.js 26.11.1–26.x，在独立目录运行：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-results-demo
+cd open-etf-agent-results-demo
+git checkout --detach ecf6cb45b4062586614e83aed917c92d704cb63b
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case retrieve-reread --query "offline editing"
+npm run demo -- --case retrieve-reread --query "Markdown"
+```
+
+首次安装可能联网，案例本身不调用远程模型。分别打开控制台所列 Run 目录中的 `manifest.json` 和 `report.md`：`offline editing` 会取得 A、B 两份文档的第二页；`Markdown` 只取得 B 的第一页，报告因此明确不声称完成了两文档比较。这里最值得比较的不是行文，而是**查询改变以后，实际取得的来源集合是否随之变化**。
+
+在 [`src/retrieval-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/retrieval-demo.mjs)中，候选命中还不是可引用的原件：必须经过 `read_page`，取得来源身份和 `resultRef`，才进入后面的回读与保存。没有候选时，不会读取页面或编造比较报告。输出的失败状态应按这个缺口理解，而不是误认为“检索成功就已有答案”。
+
+[`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs)把原始页面、来源描述和精确引用保存在同一个结果所有者中；`manifest.json` 记录报告关联的结果引用。沿着[同文档新版本用例](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs)还可以看到：同一文档产生新版本后，旧引用仍回到旧版本，而不是改为最新内容。这与普通“按文档名重新获取”有本质区别。
+
+### 容量不足时，公开实现怎样取舍
+
+[`src/context.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/context.mjs)不直接删除原始历史。它为这次请求建立副本，在字节容量不足时，尝试把较早、已结算的完整调用组里的原文替换成可执行的精确回读引用。原问题和最新的完整工具组被保留；如果这样仍放不下，就明确失败，不悄悄只留一半工具结果。
+
+这条替换也不能只看“长得像来源”。公开版本的[演进记录](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/docs/evolution/evidence-index.md)保留了一个受控反例：仅靠 `sourceId` 和哈希的捷径，曾可能把外形相似的工具载荷替换成正式原件引用。现在替换前还要求 Host 给出的匹配 `ResultRef`、真实正文哈希及完整来源身份；无法确认的载荷不因此获得来源资格。[调用链用例](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/research-integration.test.mjs)观察的正是下一次实际 Gateway 输入，而不仅是结果仓库是否写入成功。
+
+这些代码可以复现本地文档范围、不可变原件与精确回读，但没有复现前文 50 → 20 的原系统故障，也不是完整的字段选区、覆盖分母、账户授权或 Reviewable 发布链。这里的容量是字节预算，不是对任意模型 token 窗口的估计。[首批真实模型记录](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)虽取得过结果引用，却没有执行查询驱动检索或 `read_result`；上述实验因此说明可执行机制，而不替代模型是否正确选择、使用和解释材料的评估。
 
 把完整结果留在上下文之外，对应[原则 5「Context 是工作台，不是事实数据库」](/principles#principle-5)。模型只需按当前任务选取材料，但结果身份、选区范围、完整性与权限必须留在能被复核的原始记录中，而不是依赖它记住一段摘要。

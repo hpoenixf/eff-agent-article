@@ -6,6 +6,8 @@
 
 我们因此重新审视了 ETF Agent 的 MCP 接入链路。本文不介绍如何从零写一个 MCP SDK Demo，而是沿着几次真实故障，说明怎样把连接、目录、Schema、回合绑定、结果校验和后续模型消费连成一条可验证的工程路径。**本文覆盖只读研究接入，不把模型工具可见性当成授权，也不把金融结果真实性交给连接层。**
 
+读者也可以用文末的公开代码实验对照这条路径：本地方法读取、真实 stdio 传输与报告保存已经可以独立运行；它比本文记录的原系统能力更窄，具体范围会分别说明。
+
 MCP 官方的[架构说明](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)区分 Host、Client、Server：应用 Host 协调连接与能力，Client 负责具体协议连接，Server 暴露方法。协议定义了交互形式，却不会替应用保证“模型这一轮实际拿到了什么”。我们碰到的坑，几乎都出现在这些交接处。
 
 ## 一、工具注册了，为什么 Agent 还是看不到它？
@@ -182,7 +184,7 @@ flowchart TD
 
 这里不能靠增大所有上限来补救。我们将输入参数的复杂度预算和**结果数据的容量预算**分开：输出仍须是合法、有限的 JSON，仍须满足原输出 Schema、隐私过滤与 Host 字节上限，但不再用模型输入的节点门槛拒绝一张正常表格。定向验证核对了本地表格消费边界；真实供应商返回的大表仍须在实际链路中核验。
 
-这次事故也说明“拒绝不完整数据”与“错误拒绝完整数据”同样值得追查。前者防止假完整，后者会让 Agent 在明明有数据时告诉用户查不到。
+这次受控回归也说明“拒绝不完整数据”与“错误拒绝完整数据”同样值得追查。前者防止假完整，后者会让 Agent 在明明有数据时告诉用户查不到。
 
 ## 六、把观察点放到下一次模型请求
 
@@ -201,6 +203,42 @@ flowchart TD
 回头看，这几次修复没有带来一个“更聪明的 MCP Client”。相反，它们让错误停留在正确的位置：**模型请求级**的 Schema 400，不假装是市场数据失败；**可选来源级**的连接故障，不宣判应用整体不可用；**调用级**的绑定不一致，不暗中切换供应商；**结果级**的容量和结构问题，不谎称查询为空。
 
 如果只有固定的少量内部工具，未必需要全部机制。但当接入从本地 stdio 扩展到远程 HTTP、多个不同供应商和多轮研究时，最重要的不是目录里有多少工具，而是每次都能回答：**模型看见了哪份接口、Host 按哪份接口派发、返回的是什么、下一轮又实际拿到了什么。**
+
+## 七、用公开代码走完一次“发现—读取—保存”
+
+[Open ETF Agent 的公开代码仓库](https://github.com/hpoenixf/open-etf-agent)提供了一条可以独立运行的窄路径：先发现并显式读取本地比较方法，再通过真正的 MCP stdio 子进程取得两份合成文档的页面，最后沿同一个 Runtime 保存带来源的报告。它把前文的几个交接点变成可观察对象，但不是原系统远程接入能力的完整移植。
+
+这里故意分开两件事：**动作由脚本 fixture 按固定次序提出，工具传输与文件效果则真实发生**。读取 Skill 不等于模型学会了方法；启动 MCP 子进程，也不等于有一个真实模型自主决定使用它。这个实验首先帮助开发者检查接线，而不是评比答案质量。
+
+### 运行并查看实际产物
+
+使用 Node.js 26.11.1–26.x，在独立目录执行：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-mcp-demo
+cd open-etf-agent-mcp-demo
+git checkout --detach a10d4f1bd1ecc39224272156221fe29792b64094
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case skill-mcp
+```
+
+首次安装可能访问 npm；安装后的案例不需要远程模型。控制台输出实际 Run 目录，打开其中的 `report.md` 和 `manifest.json`，可以对照报告与被读取的方法、文档版本和页码。这个案例只取得两份文档的第一页。执行记录的顺序是：
+
+```text
+list_skills → read_skill → mcp_read_page → mcp_read_page → save_report
+```
+
+`manifest.json` 还保留模型侧调用 ID 与 SDK 协议请求 ID；它们不是同一个编号。控制台的 `mcp.closed` 表达本次拥有的子进程已经关闭，`semanticStatus: unreviewed` 则保留报告内容尚未经过语义评审的事实。不能从一个完成状态同时推断所有层次都正确。
+
+### 沿着代码检查三个边界
+
+在 [`src/mcp.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/src/mcp.mjs)中，目录分页会被实际消费，但发现的额外方法不会自动获准；这里只接受白名单中的 `read_page`，并要求远端输入 Schema 与本地窄绑定一致。返回页面除了自身哈希正确，还必须与请求的文档和页码一致。否则“一份完整却错误的页面”也可能成为可信来源。
+
+[`src/extensions.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/src/extensions.mjs)负责把方法读取、MCP 页面读取和保存动作接入原 Runtime，而不是另造一套执行循环。相应的[协议边界用例](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/test/mcp.test.mjs)还展示了错误页、目录重复、stdout 污染和取消如何被拒绝或收尾。它们检验的是受控输入下的传输与身份处理，不是任意第三方服务的安全认证。
+
+这个固定点使用的是维护版，原因也与本文主线直接相关：早期脚本报告只取得第一页，却写入第二页才有的离线编辑条件。[维护记录](https://github.com/hpoenixf/open-etf-agent/blob/a10d4f1bd1ecc39224272156221fe29792b64094/docs/verification/v02-maintenance-observations.md)保留了这个反例；修复删除了没有取得来源支持的句子，没有把“目录知道第二页存在”冒充“已经读过第二页”。这不是模型语义能力提升，而是报告示例应当遵守自己展示的来源范围。
+
+该切片固定使用官方 SDK 1.32.2 与 [MCP 2025-11-25 协议](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)，只启动仓库内的白名单服务，不覆盖前文远程 HTTP、OAuth 或完整 Schema 适配。[首批真实模型记录](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)也没有触达 MCP。因此当前可以直接复现的是发现、准入、真实传输、来源核对与文件保存；真实模型能否在研究中正确选择和使用这些工具，仍是另一个问题。
 
 ## 继续阅读
 

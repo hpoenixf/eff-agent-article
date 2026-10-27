@@ -8,6 +8,8 @@
 
 我们最终将 Memory 分为三条相互协作的路径：**写入、召回和治理**。写入解决“该留下什么”，召回解决“下一次真正用到什么”，治理解决“过期、冲突和遗忘时谁说了算”。它们最终汇入同一次研究，却不共享一个含糊的“记忆成功”状态。
 
+下文解释原系统的完整生命周期；末节再用 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 中已经能运行的公开切片，具体观察显式保存、更正、遗忘和未来输入资格。这个单写者文件库实验不等同于前文的 PostgreSQL、自动学习或完整召回服务。
+
 ## 一、先看全貌：三条路径，两种权威
 
 ```mermaid
@@ -164,3 +166,29 @@ ETF Agent 的选择相对克制：
 回到开头：一套可靠的长期记忆系统必须做到**该写时有回执，该读时有授权，该改时有版本，该忘时未来不复活**。
 
 这四件事比“模型看起来记得我”更难，却决定了长期陪伴的 Agent 能否真正被用户纠正和信任。
+
+<!-- open-etf-agent:minimal-experiment:start -->
+## 九、在公开代码里运行一次“保存—更正—遗忘”
+
+现在，[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 已经把这条责任边界做成可独立运行的本地实验。它不是把前文的 PostgreSQL 系统整套搬出来，而是用一个**显式选择、单写者的文件库**，展示保存、更正、遗忘和下一轮输入之间的关系。示例使用合成偏好，工具选择由固定脚本驱动；落盘、修订和读取则走真实实现。
+
+从 [memory-tools.mjs](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory-tools.mjs) 可以看到，模型参数里没有“我已获准”的开关。写入意图由宿主在模型参数之外绑定到具体库、操作、正文哈希或旧修订。[memory.mjs](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory.mjs) 先持久化占用一次性意图，再发布新修订并更新当前索引。中途失败可能留下“意图已用、修订尚未完成”的部分效果；失败回执不能被解释为可以无条件重放。
+
+使用 Node.js 26.11.1–26.x，在一个新的目录运行固定快照：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-memory-demo
+cd open-etf-agent-memory-demo
+git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
+npm ci --ignore-scripts --no-audit --no-fund
+npm run demo -- --case explicit-memory --memory-library runs/article-synthetic-memory
+```
+
+首次安装可能访问 npm；安装后的这个案例不调用远程模型。请给它一个新的合成库，或者一个没有活动条目的合成库，不要指向自己的真实记忆目录。示例发现已有活动条目会拒绝继续，不会先清空它们。
+
+[`working-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-demo.mjs) 会让三个独立 Run 依次完成保存、更正、遗忘。观察终端 JSON 中的 `memory.receipts`：同一条目的修订随操作递增，操作分别是 `saved`、`revised`、`forgotten`；`memory.current` 在遗忘后为空。库里的旧修订仍保留，最后的新修订是墓碑。随后保存的演示报告引用的是重新取得的合成原始页面，而不是把偏好记录当成研究证据。**可以读回的回执与当前资格，才是这次实验的输出，不是终端里一句“已经忘记”。**
+
+公开实现还处理了一个容易漏掉的后继输入问题：删除当前检索结果并不足够，旧工具参数和派生便笺也可能把文字带回来。[`memory-projection.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/memory-projection.mjs) 在组装下一次模型请求时重新核对库、条目和修订；过期的有类型记忆、已结算写入参数及其 Hook 副本、依赖旧记忆的便笺都会撤去正文。原始执行历史不因此被改写。这个边界针对已识别的记忆依赖，不是全局搜索并抹除任意相同措辞，也不会删除已经导出的报告。
+
+因此，这个公开切片已经能让读者检查**明确授权的持久写入、当前版本读取和遗忘后的输入撤权**；它尚不包含前文的认证 HTTP、PostgreSQL 或自动学习。[首批真实模型调用](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)没有触达记忆写入与遗忘，不能借那份报告给这里的跨会话表达能力背书。Runtime 是否按授权执行、留下什么效果，与模型是否把这些事实解释得准确，仍分别判断。
+<!-- open-etf-agent:minimal-experiment:end -->
