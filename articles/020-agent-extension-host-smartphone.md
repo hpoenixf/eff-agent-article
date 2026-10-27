@@ -12,6 +12,8 @@
 
 于是我们开始研究 Agent Plugins、Claude、Pi、Codex 等生态。但我们给自己定了一个约束：尽量让原插件运行在自己的 Agent Host 里，而不是再启动一个 Claude、Pi 或 Codex Agent 帮我们做任务。只有这样，扩展出来的仍是我们的 Agent，而不是几个 Agent 的拼接。
 
+本文主体保留原系统接入第三方生态的设计与历史；现在还可以用 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 的公开 v0.7 切片，运行一次“选择可信本地包—发布能力—读取材料—保存报告—释放资源”的最小流程。它实现的是下面讨论的一部分生命周期，不是把原系统的 Claude、Pi、Codex 兼容层整体开源出来。
+
 ## 一、插件不是一个 Markdown 文件
 
 一开始，插件似乎很简单：Skill 负责告诉模型怎么做，MCP 负责提供工具和数据。把两者放进一个包，就能扩展 Agent。
@@ -97,6 +99,8 @@ type ExtensionGenerationIdentity = {
 ```
 
 可迁移的经验是：**动态执行系统需要将“批准的内容”“实际加载的内容”和“当前有权执行的实例”分开验证。**
+
+公开 v0.7 对这里作了更窄的取舍：[`plugins.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/plugins.mjs)只接受调用方已经显式导入的可信本地 JavaScript 描述符，重新读取指定模块文件并核对内容哈希。它没有实现上面的受审转换加载器，也没有证明依赖闭包或函数闭包状态与文件哈希等价；因此不能拿这条校验去认证任意第三方代码。这个范围较小，却允许我们把注意力先放在能力发布和清理是否正确。
 
 ## 三、第二类坑：Hook 已经执行，为什么没有产生预期效果？
 
@@ -355,6 +359,46 @@ cc-research 还有一个原始 `audit.py`，通过 Stop Hook 检查报告引用�
 > **Extension Host 是外部生态与现有 Agent Runtime 之间的适配和治理边界，不是第二个 Agent。**
 
 这让插件能继续扩展，但不必把每种插件的状态机、权限系统和工具循环全部塞进研究 Runtime。
+
+### 公开切片怎样避免“只装好一半”
+
+扩展声明、激活和清理并不是 Agent 特有的发明。例如，[VS Code 的扩展说明](https://code.visualstudio.com/api/get-started/extension-anatomy)已经把声明式贡献、激活事件与 `activate` / `deactivate` 分开。这里要解决的本地问题更具体：**一批能力将进入同一个研究 Runtime，后面的包出错时，前面的包不能已经留下一套对模型可见的半成品。**
+
+公开实现先检查整批描述符：包身份、工具重名、输入 Schema、Skill 正文身份、Hook 阶段与限制，以及所有选定文件的内容身份。全部通过以后，才开始激活第一个包。工具和 Skill 在描述符中先声明，不能等到 `activate` 返回时再偷偷增加；只有全部激活完成，接口才返回这一批冻结的能力与绑定。后一个包的声明不合法时，前一个包甚至不会开始激活。
+
+如果错误发生得更晚——第一个包已取得资源，第二个包才激活失败——已经通过 `deferRelease` 登记的清理函数会按相反顺序执行。某个清理失败不阻止其余清理，结果保留 `PLUGIN_RELEASE_FAILED`，不把它写成完全释放。[生命周期用例](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/plugins.test.mjs)还保留了一个实际发现的重入反例：清理回调再次触发 `release` 时，旧实现可能重复执行清理。当前实现先保存共享的释放 Promise，再进入回调，让并发或非等待式重入复用同一轮清理。
+
+这里的“原子发布”只指**这个接口交出的能力集合**，不是为任意 JavaScript 副作用提供事务回滚。可信包仍有本进程权限，必须及时登记自己取得的资源；这不是沙箱，也不能强制终止任意同步死循环。一次 Run 持有选定的函数引用、元数据和包绑定直到自己的生命周期结束；后来选择新版本，不会改绑已经运行的旧版本。释放同样不是对进行中任务的热卸载。
+
+### 运行两个包，读回它们真正产生的结果
+
+[当前 main 的 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)是持续使用入口。下面则固定到已公开的 v0.7 提交，避免后来版本改变接口；本地资格记录使用 Node.js 26.11.1，包声明支持 26.8.1–26.x，但不是每个补丁版本都已在同一环境实测。
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-plugin-demo
+cd open-etf-agent-plugin-demo
+git checkout --detach 5f70dc0b4760ad70ef211f4823828ab2fee5c525
+npm ci --ignore-scripts --no-audit --no-fund
+npm run session -- start --session runs/plugin-article --case trusted-plugins
+```
+
+首次安装可能访问 npm；示例使用合成文档和脚本 Gateway，不调用远程模型。SQLite、方法读取、工具执行和文件保存则真实发生。请使用新的示例 session 目录，不要指向现有研究数据。
+
+[`example-plugins.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/example-plugins.mjs)提供两个原创包：一个读取合成文档的方法与页面，一个读取明确标注为虚构数据的 ETF 方法与材料。它们没有启动另一个 Agent，也没有把 Skill 注册误当成方法已读；[`durable-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/durable-demo.mjs)先实际调用两份方法的读取工具，再取得来源，最后调用原来的 `save_report`。ETF 示例不是行情接入，更不是投资结论。
+
+终端 JSON 中的 `directory` 指向本次 Run；打开其中的 `report.md` 和 `manifest.json`，可以核对报告、两份已取得的方法和两份原始来源。`receipt` 是实际文件回执，`pluginRelease.status` 是本轮插件清理结果；当前两个示例包没有申请额外外部资源，因而不能仅凭这里的 `released` 推断任意资源都能正确清理。要观察激活中途失败、逆序清理和清理错误，可以单独运行上面的生命周期用例，而不必跑完整项目测试：
+
+```bash
+node --test --test-concurrency=1 test/plugins.test.mjs
+```
+
+包绑定也写入同一个 SQLite Session。把下列 `run-YOUR_ID` 替换为 `start` 输出的实际 `runId`，可以检查 `definition.bindings.plugins` 中的包 ID、版本、描述符版本和内容哈希：
+
+```bash
+npm run session -- inspect --session runs/plugin-article --run run-YOUR_ID
+```
+
+[`runtime.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/runtime.mjs)把发布后的工具与 Hook 接回原执行循环，结束时调用同一插件集合的 `release`。这是当前可以复现的能力：**可信包贡献进入真实方法/来源所有者，并沿原 Runtime 产生可读报告和清理结果**。包的生命周期与 Run 的持久取消、恢复仍是不同责任，后者可继续读[控制交接的公开切片](https://hpoenixf.com/eff-agent-article/articles/agent-control-events-durable-owner-adoption)；不能由一次插件示例推导多生态兼容、后台调度或真实模型采用质量。
 
 ## 七、扩展能力由谁接管
 

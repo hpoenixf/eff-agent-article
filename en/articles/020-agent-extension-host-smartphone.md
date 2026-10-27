@@ -14,6 +14,8 @@ We studied Agent Plugins and the Claude, Pi, and Codex ecosystems with one firm 
 
 The result should remain *one Agent with extensions*, not a chain of loosely connected Agents.
 
+The main article retains the original system's third-party integration design and history. A public v0.7 slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) now makes a smaller lifecycle runnable: select trusted local packages, expose their contributions, read materials, save a report and release owned resources. It implements part of the lifecycle discussed below, not the original system's complete Claude, Pi or Codex compatibility layer.
+
 ## 1. A Plugin Is More Than a Markdown File
 
 It is tempting to describe the plugin problem as bundling Skill instructions and MCP tools.
@@ -97,6 +99,8 @@ type ExtensionGenerationIdentity = {
 ~~~
 
 **A dynamic extension Host must separately verify approved content, executed content, and the installation generation presently entitled to run.**
+
+Public v0.7 takes a narrower position here. [`plugins.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/plugins.mjs) accepts only trusted local JavaScript descriptors already explicitly imported by the caller, then rereads the selected module file and checks its content hash. It does not implement the reviewed transformation loader above or attest a dependency closure or mutable function-closure state. That check cannot certify arbitrary third-party code. The smaller scope lets us focus first on correct contribution publication and cleanup.
 
 ## 3. Second Trap: A Hook Ran but Its Intended Effect Did Not Happen
 
@@ -339,6 +343,46 @@ In one sentence:
 > **Extension Host is the compatibility and governance seam between outside ecosystems and the existing Agent Runtime—not a second Agent.**
 
 It permits new behaviors without embedding each third-party plugin's private state machine, permissions, and tool loop into Research Runtime.
+
+### How the public slice avoids half-installed capabilities
+
+Contribution declarations, activation and cleanup are not inventions unique to Agents. For example, [VS Code's extension documentation](https://code.visualstudio.com/api/get-started/extension-anatomy) already distinguishes declarative contributions, activation events and `activate` / `deactivate`. The local problem here is more specific: **a batch of capabilities enters one research Runtime; a later package failing must not leave an earlier package's partially assembled surface visible to the model.**
+
+The public implementation checks the entire descriptor batch first: package identity, tool-name collisions, input Schemas, Skill body identity, Hook phases and limits, and every selected file's content identity. Only then does the first activation begin. Tools and Skills are declared up front; `activate` cannot return extra contributions afterward. The API returns the frozen capability set and bindings only after every activation succeeds. If a later descriptor is invalid, the first package never even starts activating.
+
+If failure occurs later—after the first package acquired resources but while the second activates—cleanup callbacks registered through `deferRelease` execute in reverse order. One cleanup failure does not suppress the remaining callbacks, and `PLUGIN_RELEASE_FAILED` remains visible rather than becoming a clean-release result. The [lifecycle cases](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/plugins.test.mjs) preserve a concrete reentrancy defect: a cleanup callback that triggered `release` again could make the earlier implementation repeat cleanup. The implementation now stores a shared release Promise before entering callbacks, so concurrent calls or non-awaiting reentrancy reuse that cleanup attempt.
+
+“Atomic publication” means **the capability set returned by this API**, not transactional rollback of arbitrary JavaScript effects. Trusted packages retain process privileges and must promptly register acquired resources. This is not a sandbox and cannot forcibly stop an arbitrary synchronous infinite loop. A Run retains its selected function references, metadata and package bindings for its lifecycle. Selecting a later version does not rebind the earlier Run; release is not hot-unloading an active task.
+
+### Run two packages and inspect their actual results
+
+The [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) is the continuing entry point. The commands below pin the published v0.7 commit so later interface changes do not alter this example. Local qualification used Node.js 26.11.1. Package metadata supports 26.8.1–26.x, which is not a claim that every patch version was tested in the same environment.
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-plugin-demo
+cd open-etf-agent-plugin-demo
+git checkout --detach 5f70dc0b4760ad70ef211f4823828ab2fee5c525
+npm ci --ignore-scripts --no-audit --no-fund
+npm run session -- start --session runs/plugin-article --case trusted-plugins
+```
+
+Initial installation may access npm. The example uses synthetic documents and a scripted Gateway, with no remote model calls. SQLite, method reads, tool execution and file persistence are real. Use a new demonstration session directory, not existing research data.
+
+[`example-plugins.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/example-plugins.mjs) supplies two original packages: one reads a synthetic document method and page; the other reads an ETF method and material explicitly labeled as invented. They do not start another Agent or mistake Skill registration for an actual method read. [`durable-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/durable-demo.mjs) first invokes both method-reading tools, then acquires sources and calls the existing `save_report`. The ETF fixture is neither market-data integration nor an investment conclusion.
+
+The terminal JSON's `directory` identifies this Run. Open its `report.md` and `manifest.json` to inspect the report, two acquired methods and two original sources. `receipt` is an actual file receipt; `pluginRelease.status` reports cleanup for this activation. The two example packages acquire no additional external resources, so their `released` status alone cannot establish arbitrary resource cleanup. To inspect mid-activation failure, reverse cleanup and cleanup errors, run the lifecycle cases independently rather than the whole project suite:
+
+```bash
+node --test --test-concurrency=1 test/plugins.test.mjs
+```
+
+Package bindings are also recorded in the same SQLite Session. Replace `run-YOUR_ID` below with the actual `runId` printed by `start`, then inspect `definition.bindings.plugins` for package IDs, versions, descriptor versions and content hashes:
+
+```bash
+npm run session -- inspect --session runs/plugin-article --run run-YOUR_ID
+```
+
+[`runtime.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/runtime.mjs) connects the published tools and Hooks to the existing loop and releases that selected package set when the invocation ends. This is the reproducible capability: **trusted contributions reach the actual method/source owners and produce a readable report plus cleanup results through the original Runtime**. Package lifecycle and durable Run cancellation/recovery remain separate responsibilities; see the [public control-handoff slice](https://hpoenixf.com/eff-agent-article/en/articles/agent-control-events-durable-owner-adoption) for the latter. One plugin example does not establish cross-ecosystem compatibility, background scheduling or real-model adoption quality.
 
 ## 7. Who Owns an Extension's Effects?
 

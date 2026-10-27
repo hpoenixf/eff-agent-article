@@ -6,6 +6,8 @@
 
 A08 的工作不是管理整个 Agent，而是把持久控制事件作为一条有身份、顺序、领取资格和交付回执的窄通道。实际终止 Run、接纳 Correction、建立 Task 或恢复 Child 的权力，仍由它们各自的原 Owner 持有。
 
+本文先解释原系统 A08 的完整交接设计，再用 [Open ETF Agent 的公开实现](https://github.com/hpoenixf/open-etf-agent)对照其中一条更窄的路径：同一个 Run 的 SQLite 领取、取消和重启恢复。公开切片已经能独立运行，但没有搬出 A08 的多 Owner 控制事件总线；两者的能力范围会分别说明。
+
 ## 一、为什么普通事件总线不等于持久控制事件
 
 在 Agent 内部，“事件”至少有几种完全不同的含义。
@@ -38,6 +40,8 @@ A08 的工作不是管理整个 Agent，而是把持久控制事件作为一条�
 更重要的是，**Worker 在领取时有效，不等于稍后接纳业务效果时依然有效**。外部 I/O、线程停顿或数据库重试都可能跨过租约期限。原业务 Owner 在自己的事务中使用同一命令身份，重新检查当前 claim、Worker、fence、目标与有效期，然后才有资格接纳效果。
 
 这不是让 A08 变成第二个权限中心。Claim 只证明投递者现在可以携带哪条封存命令去敲原 Owner 的门；那扇门是否接受，由原 Owner 的身份、授权、资源和业务状态决定。
+
+公开 v0.7 把这一原则落在一个可以直接检查的本地实现中。[`session.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/session.mjs)用短 SQLite 事务领取一个 Run；有效租约仍被占用时，另一个领取者得到 `LEASE_BUSY`。租约到期并被新领取者接手后，fence 递增，旧领取者即使醒来，也不能继续写 checkpoint 或预留新的工具额度。这里保护的是数据库写入资格，不是远程服务的副作用；数据库中的旧 fence 失效，不能撤回已经发往外部的请求。[对应的存储用例](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/session.test.mjs)分别检验这两个时间点，而不把“抢到锁”当成永久执行授权。
 
 ## 四、真正困难的是：先看业务回执，再决定要不要重投
 
@@ -81,6 +85,8 @@ flowchart TD
 
 示例是对当前合同的教学重构，不是公开的真实用户 Stop 记录。它之所以重要，是因为失败发生的地方恰好在两个数据库事实之间：业务已接纳，投递 ACK 尚未写回。复制一个统一的“完成”布尔字段不能消除这个时序差异。
 
+公开代码也把“不重投未知效果”落实到恢复位置，而不是只保存一个完成标志。在同一个 [`runtime.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/runtime.mjs) 循环中，`proposal-sealed` 表示已有封存的提议，重启不需要重新请求模型来生成它；`result-committed` 表示原工具回执已经提交，后继只消费它。相反，`tool-dispatched` 却找不到可核实的原结果时，保留 `TOOL_OUTCOME_UNKNOWN`，不因换了进程就再次派发。同一个 Run 的原问题、授权绑定、绝对截止时间和已用额度也不会随恢复刷新。它不是原文 A08 的投递 ACK 协议，却能让读者观察相同的判断原则：**恢复位置必须来自已发生的事实，不能来自希望重试成功的愿望。**
+
 ## 六、A08 与 HIO、Task、Recovery 怎样协作
 
 A37 HIO 接纳的是人与 Agent 的交互请求和回复身份；它需要恢复原研究时，仍经原 Correction/Recovery 合法入口，必要的持久控制命令才使用 A08 投递。A09 Schedule 拥有确认日程、Task 与取消；A08 不因为收到了 timer_due 就有权创造未来研究额度。A06 决定 Run 的继续、有限收尾与技术终态；A08 的 ACK 从来不是 A06 的完成回执。
@@ -94,6 +100,39 @@ A37 HIO 接纳的是人与 Agent 的交互请求和回复身份；它需要恢�
 这并不等于所有目标、生产部署和跨进程故障都已完成统一全链验收。特别是一次真实控制命令是否最终导致正确的 Run/Task/Child 效果，仍要读原业务回执；模型是否问了正确的问题、文章是否交付，也不能由 A08 的队列状态证明。
 
 **可靠的控制事件，不是“消息至少发出去一次”，而是失败后仍能明确区分“事件到了”“原效果成立了”“结果还不知道”。**
+
+## 八、在公开代码中观察取消与恢复，而不是再造一条任务
+
+可以从[当前 main 的运行说明](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入项目；为了让本文命令与机制对应，下面固定到公开 v0.7 提交。本次资格验证使用 Node.js 26.11.1；包声明支持 26.8.1–26.x，但并非每个补丁版本都已经实测。首次安装可能访问 npm，案例使用合成材料和脚本式模型替身，不调用远程模型；SQLite 持久化、独立进程与报告文件是真实的。
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-control-demo
+cd open-etf-agent-control-demo
+git checkout --detach 5f70dc0b4760ad70ef211f4823828ab2fee5c525
+npm ci --ignore-scripts --no-audit --no-fund
+npm run session -- start --session runs/control-example --case durable-report
+```
+
+`start` 输出实际 `runId`、`directory`、报告 `receipt` 和 `rootUsage`，会话目录保存 `session.sqlite`。用输出中的真实 ID 替换下方的 `run-YOUR_ID`，再由独立命令读取同一运行：
+
+```bash
+npm run session -- inspect --session runs/control-example --run run-YOUR_ID
+npm run session -- resume --session runs/control-example --run run-YOUR_ID
+```
+
+默认示例在 `start` 返回前已经完成。因此这里的 `resume` 是**终态回读**：保持同一 Run、原报告回执和已用额度，检查现有产物，而不是再写一份报告。这一行为可沿 [`session-cli.test.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/session-cli.test.mjs)核对；它不能单独证明运行中断后的续接。也不要对一个已完成 Run 调用 `cancel`，再把未变化的终态当成取消失效——取消只使仍活动的根运行及其活动子运行失去继续资格，不改写已经完成的历史。
+
+要观察真正有竞争条件的分支，可以运行仓库已有的定向进程用例：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern="after result commit|cancel during pending model|dispatched-without-result" test/durable-runtime.test.mjs
+```
+
+这些[进程用例](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/durable-runtime.test.mjs)把取消放在脚本模型请求尚未返回时，检查迟到提议没有派发工具、另一个进程读回仍是 cancelled；另外在结果提交后或合成外部效果派发后真实终止进程，等待退出，再换一个 PID 打开同一数据库。前者消费原回执，后者在无法确认结果时停在 unknown。重点是这些不同出口，而不是都恢复成 completed。
+
+取消也不应抹掉已经发生的效果。[公开验证记录](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/docs/verification/v07-observations.md)保留了“取消后丢失已保存报告回执”的受控反例；[修复后的用例](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/durable-review.test.mjs)保留 cancelled 终态，同时读回原报告回执，没有再次调用模型。**不再继续运行，不等于先前什么都没发生。**
+
+这条公开路径的控制权只覆盖选定的本地 Session 与受支持的合成配置。CLI 不会把真实模型绑定替换成 fixture 来冒充恢复，也没有提供原文完整的 HIO、定时控制、多租户或任意外部副作用对账。对本地开发者，它已经足够回答一个具体问题：进程换了以后，哪些动作可以继续，哪些事实只能读回，哪些未知结果必须诚实停下。如果关心扩展包怎样先完整发布贡献、再沿原 Runtime 执行和释放资源，可接着读 [Extension Host](https://hpoenixf.com/eff-agent-article/articles/020-agent-extension-host-smartphone)；包的生命周期与 Run 的取消、恢复仍各有归属。
 
 ---
 
