@@ -83,7 +83,7 @@ try {
       throw Error('Mermaid CLI failed: ' + (error.stderr?.toString() || error.message))
     }
     const assets = readdirSync(temp).filter(name =>
-      new RegExp('^rendered-' + index + '-[0-9]+\\.svg.test(name)
+      name.startsWith('rendered-' + index + '-') && /-[0-9]+\\.svg$/.test(name)
     ).sort((a, b) =>
       Number(a.match(/-(\d+)\.svg$/)?.[1] || 0) - Number(b.match(/-(\d+)\.svg$/)?.[1] || 0)
     )
