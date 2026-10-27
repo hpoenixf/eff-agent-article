@@ -34,6 +34,8 @@ features:
 
 <FlagshipEntry compact />
 
+> **Financial systems overview** · [Financial Agents in Context: Systems, Lifecycles, and Accountability](/en/articles/financial-agent-system-panorama). Three diagrams connect user services, institutional systems, research and business lifecycles, and traceable responsibility.
+
 <HomeOverview />
 
 <OpenSourceBridge />

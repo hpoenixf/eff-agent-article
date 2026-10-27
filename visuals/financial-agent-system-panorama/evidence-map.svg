@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="960" viewBox="0 0 1240 960" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">03 · 可审查的是事实交接，不是一段想象中的“完整思维链”</title><desc id="desc">原始记录仍归各自系统；运行诊断、研究质量和业务审计回答不同的问题。</desc>
+<defs><marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39688C"/></marker><marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#136F70"/></marker><marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9C6014"/></marker><marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7B8997"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
+<rect x="0" y="0" width="1240" height="960" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="32" y="46" class="title" text-anchor="start">03 · 可审查的是事实交接，不是一段想象中的“完整思维链”</text>
+<text x="32" y="77" class="sub" text-anchor="start">原始记录仍归各自系统；运行诊断、研究质量和业务审计回答不同的问题。</text>
+<text x="32" y="126" class="head" text-anchor="start">可关联的原始记录 · 不要求复制进同一张“全量日志表”</text>
+<rect x="32" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="49" y="193" class="tag" text-anchor="start" style="fill:#136F70">发起与准入</text>
+<text x="49" y="223" class="head" text-anchor="start" style="font-size:20px">谁发起哪次研究？</text>
+<text x="49" y="252" class="body" text-anchor="start" style="font-size:15px">主体与原问题</text>
+<text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run 身份</text>
+<text x="49" y="298" class="body" text-anchor="start" style="font-size:15px">权限与使用范围</text>
+<rect x="277" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="294" y="193" class="tag" text-anchor="start" style="fill:#136F70">来源与实际读取</text>
+<text x="294" y="223" class="head" text-anchor="start" style="font-size:20px">实际读到什么？</text>
+<text x="294" y="252" class="body" text-anchor="start" style="font-size:15px">来源、版本、实际时点</text>
+<text x="294" y="275" class="body" text-anchor="start" style="font-size:15px">读取范围、缺失与失败</text>
+<rect x="522" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="539" y="193" class="tag" text-anchor="start" style="fill:#136F70">方法与计算</text>
+<text x="539" y="223" class="head" text-anchor="start" style="font-size:20px">怎样得到数字？</text>
+<text x="539" y="252" class="body" text-anchor="start" style="font-size:15px">方法版本、输入与结果</text>
+<text x="539" y="275" class="body" text-anchor="start" style="font-size:15px">单位、口径、假设</text>
+<rect x="767" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="784" y="193" class="tag" text-anchor="start" style="fill:#136F70">发布与交付</text>
+<text x="784" y="223" class="head" text-anchor="start" style="font-size:20px">交付了哪版报告？</text>
+<text x="784" y="252" class="body" text-anchor="start" style="font-size:15px">正文、文件及修订版本</text>
+<text x="784" y="275" class="body" text-anchor="start" style="font-size:15px">提交与访问回执</text>
+<rect x="1012" y="166" width="196" height="161" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1029" y="193" class="tag" text-anchor="start" style="fill:#9C6014">机构业务目标</text>
+<text x="1029" y="223" class="head" text-anchor="start" style="font-size:20px">谁批了，做了吗？</text>
+<text x="1029" y="252" class="body" text-anchor="start" style="font-size:15px">审查与授权的准确版本</text>
+<text x="1029" y="275" class="body" text-anchor="start" style="font-size:15px">订单、成交、结算回报</text>
+<path d="M 228 247 L 277 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 473 247 L 522 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 718 247 L 767 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 963 247 L 1012 247" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="32" y="406" width="1176" height="96" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
+<text x="52" y="440" class="head" text-anchor="start">按权限回读与关联核对</text>
+<text x="52" y="474" class="body" text-anchor="start">按原身份关联实际回执；缺失、截断和未知保留，不能从摘要补造原始执行。</text>
+<path d="M 130 327 L 130 395 L 130 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 375 327 L 375 395 L 375 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 620 327 L 620 395 L 620 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 865 327 L 865 395 L 865 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 1110 327 L 1110 395 L 1110 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<rect x="180" y="341" width="870" height="32" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="615" y="363" class="body" text-anchor="middle">引用关系保留身份，不自动证明结论正确，也不自动授予读取权限。</text>
+<rect x="32" y="585" width="360" height="170" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="49" y="612" class="tag" text-anchor="start" style="fill:#136F70">工程视角</text>
+<text x="49" y="642" class="head" text-anchor="start" style="font-size:20px">运行诊断</text>
+<text x="49" y="671" class="body" text-anchor="start" style="font-size:17px">实际执行或失败发生在哪里？</text>
+<text x="49" y="696" class="body" text-anchor="start" style="font-size:17px">哪次交付中断了？</text>
+<text x="49" y="721" class="body" text-anchor="start" style="font-size:17px">Trace 不取代原业务事实</text>
+<rect x="440" y="585" width="360" height="170" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="457" y="612" class="tag" text-anchor="start" style="fill:#136F70">投研视角</text>
+<text x="457" y="642" class="head" text-anchor="start" style="font-size:20px">研究质量评估</text>
+<text x="457" y="671" class="body" text-anchor="start" style="font-size:17px">是否回答了原问题？</text>
+<text x="457" y="696" class="body" text-anchor="start" style="font-size:17px">来源、方法和数值是否正确？</text>
+<text x="457" y="721" class="body" text-anchor="start" style="font-size:17px">技术完成不等于研究正确</text>
+<rect x="848" y="585" width="360" height="170" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="865" y="612" class="tag" text-anchor="start" style="fill:#9C6014">机构目标</text>
+<text x="865" y="642" class="head" text-anchor="start" style="font-size:20px">独立复核与业务审计</text>
+<text x="865" y="671" class="body" text-anchor="start" style="font-size:17px">谁获准产生哪项业务效果？</text>
+<text x="865" y="696" class="body" text-anchor="start" style="font-size:17px">必要的审查实际发生了吗？</text>
+<text x="865" y="721" class="body" text-anchor="start" style="font-size:17px">没有审查记录就不声称已审查</text>
+<path d="M 212 502 L 212 585" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 620 502 L 620 585" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 1028 502 L 1028 585" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="32" y="806" width="1176" height="110" rx="14" fill="#FFFFFF" stroke="#7B8997" stroke-width="1.8"/>
+<text x="52" y="840" class="head" text-anchor="start">隐私与留存同样属于架构约束</text>
+<text x="52" y="872" class="body" text-anchor="start">普通日志最小化；敏感原文单独受控；访问、留存与删除遵循适用规则。</text>
+<text x="52" y="899" class="body" text-anchor="start">证据回读不授权重新执行；历史报告不升级为当前持仓；审计也不等于无限期保存全部原文。</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1320" viewBox="0 0 1240 1320" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">02 · Two lifecycles, one deliberate handoff</title><desc id="desc">Current research mechanisms above; institutional action flow below is a target design.</desc>
+<defs><marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39688C"/></marker><marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#136F70"/></marker><marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9C6014"/></marker><marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7B8997"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
+<rect x="0" y="0" width="1240" height="1320" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="32" y="46" class="title" text-anchor="start">02 · Two lifecycles, one deliberate handoff</text>
+<text x="32" y="77" class="sub" text-anchor="start">Current research mechanisms above; institutional action flow below is a target design.</text>
+<rect x="32" y="105" width="1176" height="582" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="52" y="138" class="head" text-anchor="start">RESEARCH · permission to investigate is not permission to transact</text>
+<rect x="50" y="174" width="220" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="67" y="201" class="tag" text-anchor="start" style="fill:#136F70">01</text>
+<text x="67" y="231" class="head" text-anchor="start" style="font-size:20px">Financial question</text>
+<text x="67" y="260" class="body" text-anchor="start" style="font-size:15px">Object · period · purpose</text>
+<rect x="350" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="367" y="201" class="tag" text-anchor="start" style="fill:#136F70">02</text>
+<text x="367" y="231" class="head" text-anchor="start" style="font-size:20px">Admit an original Run</text>
+<text x="367" y="260" class="body" text-anchor="start" style="font-size:17px">Identity · grants · budget</text>
+<rect x="680" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="697" y="201" class="tag" text-anchor="start" style="fill:#136F70">03</text>
+<text x="697" y="231" class="head" text-anchor="start" style="font-size:20px">Select next action</text>
+<text x="697" y="260" class="body" text-anchor="start" style="font-size:17px">Model + method + context</text>
+<path d="M 270 231 L 350 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 595 231 L 680 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="680" y="345" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="697" y="372" class="tag" text-anchor="start" style="fill:#136F70">04</text>
+<text x="697" y="402" class="head" text-anchor="start" style="font-size:20px">Read / calculate</text>
+<text x="697" y="431" class="body" text-anchor="start" style="font-size:17px">Actual receipts and gaps</text>
+<rect x="985" y="345" width="205" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="1002" y="372" class="tag" text-anchor="start" style="fill:#136F70">05</text>
+<text x="1002" y="402" class="head" text-anchor="start" style="font-size:20px">Synthesize</text>
+<text x="1002" y="431" class="body" text-anchor="start" style="font-size:15px">Claims + limitations</text>
+<path d="M 803 288 L 803 345" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="809.0" y="306" width="68" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="843" y="321" class="edge" text-anchor="middle" style="fill:#39688C">Execute</text>
+<path d="M 925 403 L 985 403" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 1088 345 L 1088 231 L 925 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="1003.0" y="202" width="156" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1081" y="217" class="edge" text-anchor="middle" style="fill:#39688C">Need more evidence</text>
+<rect x="350" y="345" width="245" height="114" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8"/>
+<text x="367" y="372" class="tag" text-anchor="start" style="fill:#136F70">LOCAL OUTCOME</text>
+<text x="367" y="402" class="head" text-anchor="start" style="font-size:20px">Failure / unavailable</text>
+<text x="367" y="431" class="body" text-anchor="start" style="font-size:17px">Keep valid findings</text>
+<path d="M 680 402 L 595 402" fill="none" stroke="#9C6014" stroke-width="2.2" marker-end="url(#amber)"/>
+<path d="M 473 459 L 473 488 L 953 488 L 953 432 L 985 432" fill="none" stroke="#9C6014" stroke-width="2.2" marker-end="url(#amber)"/>
+<rect x="985" y="531" width="205" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="1002" y="558" class="tag" text-anchor="start" style="fill:#136F70">06</text>
+<text x="1002" y="588" class="head" text-anchor="start" style="font-size:20px">Publish revision</text>
+<text x="1002" y="617" class="body" text-anchor="start" style="font-size:15px">Body / artifact receipt</text>
+<rect x="680" y="531" width="245" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="697" y="558" class="tag" text-anchor="start" style="fill:#136F70">07</text>
+<text x="697" y="588" class="head" text-anchor="start" style="font-size:20px">User reads / reviews</text>
+<text x="697" y="617" class="body" text-anchor="start" style="font-size:17px">No trade required</text>
+<rect x="350" y="531" width="245" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="367" y="558" class="tag" text-anchor="start" style="fill:#136F70">08</text>
+<text x="367" y="588" class="head" text-anchor="start" style="font-size:20px">Retain research</text>
+<text x="367" y="617" class="body" text-anchor="start" style="font-size:17px">New facts → new Run</text>
+<path d="M 1088 459 L 1088 531" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="1089.0" y="495" width="124" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1151" y="510" class="edge" text-anchor="middle" style="fill:#136F70">Ready findings</text>
+<path d="M 985 588 L 925 588" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 680 588 L 595 588" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<text x="50" y="520" class="small" text-anchor="start">Same Run: wait / stop / recover</text>
+<text x="50" y="547" class="small" text-anchor="start">Retain grants and budget</text>
+<text x="50" y="574" class="small" text-anchor="start">Preserve committed results</text>
+<text x="50" y="601" class="small" text-anchor="start">Local failure is not Run failure</text>
+<text x="50" y="628" class="small" text-anchor="start">Publication is not a checkpoint</text>
+<rect x="32" y="776" width="1176" height="475" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="52" y="810" class="head" text-anchor="start" style="fill:#9C6014">BUSINESS ACTION · institutional target, not a connected trading feature</text>
+<path d="M 803 645 L 803 717 L 160 717 L 160 856" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="392.0" y="694" width="396" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="590" y="709" class="edge" text-anchor="middle" style="fill:#9C6014">Only after a separate, explicit business request</text>
+<rect x="50" y="856" width="220" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="67" y="883" class="tag" text-anchor="start" style="fill:#9C6014">A</text>
+<text x="67" y="913" class="head" text-anchor="start" style="font-size:20px">New action request</text>
+<text x="67" y="942" class="body" text-anchor="start" style="font-size:15px">Exact scope and version</text>
+<rect x="350" y="856" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="367" y="883" class="tag" text-anchor="start" style="fill:#9C6014">B</text>
+<text x="367" y="913" class="head" text-anchor="start" style="font-size:20px">Business checks</text>
+<text x="367" y="942" class="body" text-anchor="start" style="font-size:17px">Risk / suitability / access</text>
+<rect x="680" y="856" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="697" y="883" class="tag" text-anchor="start" style="fill:#9C6014">C</text>
+<text x="697" y="913" class="head" text-anchor="start" style="font-size:20px">Valid authorization</text>
+<text x="697" y="942" class="body" text-anchor="start" style="font-size:17px">Review or mandate</text>
+<rect x="985" y="856" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1002" y="883" class="tag" text-anchor="start" style="fill:#9C6014">D</text>
+<text x="1002" y="913" class="head" text-anchor="start" style="font-size:20px">Submit order</text>
+<text x="1002" y="942" class="body" text-anchor="start" style="font-size:15px">Acknowledge ≠ fill</text>
+<path d="M 270 916 L 350 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 595 916 L 680 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 925 916 L 985 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="350" y="1040" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="367" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">DENIED</text>
+<text x="367" y="1097" class="head" text-anchor="start" style="font-size:20px">Reject this action</text>
+<text x="367" y="1126" class="body" text-anchor="start" style="font-size:17px">Existing report remains</text>
+<rect x="680" y="1040" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="697" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">UNCERTAIN</text>
+<text x="697" y="1097" class="head" text-anchor="start" style="font-size:20px">Reconcile original ID</text>
+<text x="697" y="1126" class="body" text-anchor="start" style="font-size:17px">Never blindly resubmit</text>
+<rect x="985" y="1040" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1002" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">ACTUAL RECEIPTS</text>
+<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:20px">Fill / settlement</text>
+<text x="1002" y="1126" class="body" text-anchor="start" style="font-size:15px">Distinct recorded effects</text>
+<path d="M 473 976 L 473 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 1088 976 L 1088 1010 L 803 1010 L 803 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 1088 976 L 1088 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<text x="52" y="1220" class="head" text-anchor="start" style="fill:#9C6014">Only business-owned receipts update orders, cash and holdings; a report never does.</text>
+<text x="32" y="1286" class="small" text-anchor="start">Illustrative lifecycle—not one fixed workflow or a claim of production trading readiness.</text>
+</svg>

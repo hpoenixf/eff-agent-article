@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1030" viewBox="0 0 1240 1030" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">01 · Where a financial agent belongs</title><desc id="desc">Four existing responsibility domains; institutional targets are explicitly separate.</desc>
+<defs><marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39688C"/></marker><marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#136F70"/></marker><marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9C6014"/></marker><marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7B8997"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
+<rect x="0" y="0" width="1240" height="1030" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="32" y="46" class="title" text-anchor="start">01 · Where a financial agent belongs</text>
+<text x="32" y="77" class="sub" text-anchor="start">Four existing responsibility domains; institutional targets are explicitly separate.</text>
+<rect x="32" y="106" width="1176" height="87" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
+<text x="52" y="138" class="head" text-anchor="start">APPLICABLE RULES → INSTITUTIONAL GOVERNANCE</text>
+<text x="52" y="170" class="body" text-anchor="start">A design and accountability envelope—not a regulator API in the model loop.</text>
+<rect x="32" y="225" width="280" height="130" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="49" y="252" class="tag" text-anchor="start" style="fill:#136F70">SERVICE USERS</text>
+<text x="49" y="282" class="head" text-anchor="start" style="font-size:20px">Investor / researcher</text>
+<text x="49" y="311" class="body" text-anchor="start" style="font-size:17px">Ask · read · correct</text>
+<text x="49" y="336" class="body" text-anchor="start" style="font-size:17px">Staff roles are a target use case</text>
+<rect x="365" y="225" width="280" height="130" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="382" y="252" class="tag" text-anchor="start" style="fill:#136F70">EXTERNAL DEPENDENCY</text>
+<text x="382" y="282" class="head" text-anchor="start" style="font-size:20px">Model provider</text>
+<text x="382" y="311" class="body" text-anchor="start" style="font-size:17px">Configured route and protocol</text>
+<text x="382" y="336" class="body" text-anchor="start" style="font-size:17px">Only permitted input is sent</text>
+<rect x="705" y="225" width="503" height="460" rx="14" fill="#EDF5FC" stroke="#39688C" stroke-width="1.8"/>
+<text x="725" y="256" class="head" text-anchor="start">D3 · AGENT COPILOT</text>
+<rect x="725" y="278" width="463" height="93" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="743" y="307" class="head" text-anchor="start">Conversation &amp; scoped Run</text>
+<text x="743" y="336" class="body" text-anchor="start">Question · scope · context · original grants</text>
+<rect x="725" y="414" width="463" height="125" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="743" y="445" class="head" text-anchor="start">Model-led research ↔ governed execution</text>
+<text x="743" y="475" class="body" text-anchor="start">Skills · specialist methods · Main / Child</text>
+<text x="743" y="501" class="body" text-anchor="start">MCP Host · Web / PDF / Python · results</text>
+<rect x="725" y="583" width="463" height="77" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="743" y="613" class="head" text-anchor="start">Publication · History · artifacts</text>
+<text x="743" y="641" class="body" text-anchor="start">Versioned results; not an investment write</text>
+<path d="M 956 371 L 956 414" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 956 539 L 956 583" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="32" y="405" width="280" height="190" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="49" y="432" class="tag" text-anchor="start" style="fill:#136F70">D1 · INVESTMENT CORE</text>
+<text x="49" y="462" class="head" text-anchor="start" style="font-size:20px">Investment facts</text>
+<text x="49" y="491" class="body" text-anchor="start" style="font-size:17px">Shares · confirmed records</text>
+<text x="49" y="516" class="body" text-anchor="start" style="font-size:17px">Budgets · calculations</text>
+<text x="49" y="541" class="body" text-anchor="start" style="font-size:17px">Canonical report snapshots</text>
+<text x="49" y="566" class="body" text-anchor="start" style="font-size:17px">Not a brokerage execution API</text>
+<rect x="365" y="405" width="280" height="190" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="382" y="432" class="tag" text-anchor="start" style="fill:#136F70">D2 · DATA-SOURCE BOUNDARY</text>
+<text x="382" y="462" class="head" text-anchor="start" style="font-size:20px">Governed read views</text>
+<text x="382" y="491" class="body" text-anchor="start" style="font-size:17px">Source identity · data as of</text>
+<text x="382" y="516" class="body" text-anchor="start" style="font-size:17px">Coverage · availability</text>
+<text x="382" y="541" class="body" text-anchor="start" style="font-size:17px">Portfolio and market results</text>
+<text x="382" y="566" class="body" text-anchor="start" style="font-size:17px">Never a second ledger</text>
+<rect x="32" y="641" width="280" height="160" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="49" y="668" class="tag" text-anchor="start" style="fill:#136F70">EXTERNAL RESEARCH INPUTS</text>
+<text x="49" y="698" class="head" text-anchor="start" style="font-size:20px">Market &amp; documents</text>
+<text x="49" y="727" class="body" text-anchor="start" style="font-size:17px">Quotes · disclosures · reports</text>
+<text x="49" y="752" class="body" text-anchor="start" style="font-size:17px">Public / licensed sources</text>
+<text x="49" y="777" class="body" text-anchor="start" style="font-size:17px">Dedicated document readers</text>
+<path d="M 312 285 L 345 285 L 345 203 L 690 203 L 690 302 L 725 302" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="477.0" y="200" width="68" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="511" y="215" class="edge" text-anchor="middle" style="fill:#39688C">Request</text>
+<path d="M 725 350 L 677 350 L 677 389 L 330 389 L 330 325 L 312 325" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="433.0" y="367" width="140" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="503" y="382" class="edge" text-anchor="middle" style="fill:#136F70">Delivered result</text>
+<path d="M 705 276 L 645 276" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="649.0" y="250" width="52" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="265" class="edge" text-anchor="middle" style="fill:#39688C">Input</text>
+<path d="M 645 333 L 705 333" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="645.0" y="307" width="60" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="322" class="edge" text-anchor="middle" style="fill:#39688C">Output</text>
+<path d="M 172 355 L 172 405" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="46.0" y="369" width="252" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="172" y="384" class="edge" text-anchor="middle" style="fill:#136F70">Separate import / confirmation</text>
+<path d="M 312 467 L 365 467" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="316.0" y="439" width="44" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="338" y="454" class="edge" text-anchor="middle" style="fill:#136F70">Read</text>
+<path d="M 645 479 L 705 479" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="645.0" y="451" width="60" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="466" class="edge" text-anchor="middle" style="fill:#136F70">Result</text>
+<path d="M 705 533 L 645 533" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="653.0" y="543" width="44" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="558" class="edge" text-anchor="middle" style="fill:#39688C">Read</text>
+<path d="M 312 682 L 350 682 L 350 574 L 365 574" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 312 750 L 690 750 L 690 519 L 725 519" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="385.0" y="728" width="228" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="499" y="743" class="edge" text-anchor="middle" style="fill:#39688C">Authorized document reading</text>
+<rect x="365" y="801" width="843" height="88" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
+<text x="385" y="835" class="head" text-anchor="start">D4 · OPERATIONAL MONITORING</text>
+<text x="385" y="866" class="body" text-anchor="start">Bounded observations; no authority to change research or investment facts.</text>
+<path d="M 505 595 L 505 710 L 570 710 L 570 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 1115 685 L 1115 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<rect x="1065.0" y="747" width="100" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1115" y="762" class="edge" text-anchor="middle" style="fill:#7B8997">Observation</text>
+<path d="M 40 595 L 17 595 L 17 838 L 365 838" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<rect x="32" y="916" width="1176" height="79" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="52" y="947" class="head" text-anchor="start" style="fill:#9C6014">INSTITUTIONAL TARGETS · NOT THE CURRENT CHAT WRITE PATH</text>
+<text x="52" y="978" class="body" text-anchor="start">CRM / KYC · suitability · approvals · orders / settlement · independent audit</text>
+</svg>

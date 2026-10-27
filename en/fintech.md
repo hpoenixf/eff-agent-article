@@ -50,7 +50,7 @@ Use-case selection, domain error assets, employee workflows and provider governa
 | Research topic | Core question | Curated essays |
 | --- | --- | --- |
 | **D1 · Financial evaluation cases and error assets** | How do mistakes, near misses and changing business rules become a reproducible financial evaluation set? | Open |
-| **D2 · Employee-facing AI and organizational workflows** | How do adviser workstations, research production, compliance review and approval change work and costs? | Open |
+| **D2 · Employee-facing AI and organizational workflows** | How do adviser workstations, research production, compliance review and approval change work and costs? | [Financial-agent systems, lifecycles and accountability](/en/articles/financial-agent-system-panorama) |
 | **D3 · Use-case selection and business ROI** | Which workflow bottleneck improves versus manual or existing software, after verification and maintenance costs? | Open |
 | **D4 · Market-data provider governance and service continuity** | How should multiple sources handle conflicting values, provider failures and exits without making research decisions? | [Market-data MCP responsibilities](/en/articles/mcp-market-responsibility-retrospective) |
 

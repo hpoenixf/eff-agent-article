@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1320" viewBox="0 0 1240 1320" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">02 · 研究闭环与业务闭环：不是默认直通的流水线</title><desc id="desc">上半部为当前研究机制示意；下半部为机构目标流程，必须另行准入。</desc>
+<defs><marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39688C"/></marker><marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#136F70"/></marker><marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9C6014"/></marker><marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7B8997"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
+<rect x="0" y="0" width="1240" height="1320" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="32" y="46" class="title" text-anchor="start">02 · 研究闭环与业务闭环：不是默认直通的流水线</text>
+<text x="32" y="77" class="sub" text-anchor="start">上半部为当前研究机制示意；下半部为机构目标流程，必须另行准入。</text>
+<rect x="32" y="105" width="1176" height="582" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="52" y="138" class="head" text-anchor="start">研究生命周期 · 允许研究，不等于允许交易</text>
+<rect x="50" y="174" width="220" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="67" y="201" class="tag" text-anchor="start" style="fill:#136F70">01</text>
+<text x="67" y="231" class="head" text-anchor="start" style="font-size:20px">用户研究问题</text>
+<text x="67" y="260" class="body" text-anchor="start" style="font-size:15px">对象、时间范围、服务目的</text>
+<rect x="350" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="367" y="201" class="tag" text-anchor="start" style="fill:#136F70">02</text>
+<text x="367" y="231" class="head" text-anchor="start" style="font-size:20px">接纳原始研究 Run</text>
+<text x="367" y="260" class="body" text-anchor="start" style="font-size:17px">身份、授权、资源、任务</text>
+<rect x="680" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="697" y="201" class="tag" text-anchor="start" style="fill:#136F70">03</text>
+<text x="697" y="231" class="head" text-anchor="start" style="font-size:20px">选择下一步研究</text>
+<text x="697" y="260" class="body" text-anchor="start" style="font-size:17px">模型、方法与当前上下文</text>
+<path d="M 270 231 L 350 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 595 231 L 680 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="680" y="345" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="697" y="372" class="tag" text-anchor="start" style="fill:#136F70">04</text>
+<text x="697" y="402" class="head" text-anchor="start" style="font-size:20px">获准取证与计算</text>
+<text x="697" y="431" class="body" text-anchor="start" style="font-size:17px">实际结果、回执和缺口</text>
+<rect x="985" y="345" width="205" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="1002" y="372" class="tag" text-anchor="start" style="fill:#136F70">05</text>
+<text x="1002" y="402" class="head" text-anchor="start" style="font-size:20px">综合研究判断</text>
+<text x="1002" y="431" class="body" text-anchor="start" style="font-size:15px">结论、条件与局限</text>
+<path d="M 803 288 L 803 345" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="822.0" y="306" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="843" y="321" class="edge" text-anchor="middle" style="fill:#39688C">执行</text>
+<path d="M 925 403 L 985 403" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 1088 345 L 1088 231 L 925 231" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="1045.0" y="202" width="72" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1081" y="217" class="edge" text-anchor="middle" style="fill:#39688C">仍需补查</text>
+<rect x="350" y="345" width="245" height="114" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8"/>
+<text x="367" y="372" class="tag" text-anchor="start" style="fill:#136F70">局部结果</text>
+<text x="367" y="402" class="head" text-anchor="start" style="font-size:20px">失败 / 数据不足</text>
+<text x="367" y="431" class="body" text-anchor="start" style="font-size:17px">保留独立成立的研究内容</text>
+<path d="M 680 402 L 595 402" fill="none" stroke="#9C6014" stroke-width="2.2" marker-end="url(#amber)"/>
+<path d="M 473 459 L 473 488 L 953 488 L 953 432 L 985 432" fill="none" stroke="#9C6014" stroke-width="2.2" marker-end="url(#amber)"/>
+<rect x="985" y="531" width="205" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="1002" y="558" class="tag" text-anchor="start" style="fill:#136F70">06</text>
+<text x="1002" y="588" class="head" text-anchor="start" style="font-size:20px">提交成果版本</text>
+<text x="1002" y="617" class="body" text-anchor="start" style="font-size:15px">正文/文件各有回执</text>
+<rect x="680" y="531" width="245" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="697" y="558" class="tag" text-anchor="start" style="fill:#136F70">07</text>
+<text x="697" y="588" class="head" text-anchor="start" style="font-size:20px">用户阅读与复核</text>
+<text x="697" y="617" class="body" text-anchor="start" style="font-size:17px">研究交付可以在此完成</text>
+<rect x="350" y="531" width="245" height="114" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="367" y="558" class="tag" text-anchor="start" style="fill:#136F70">08</text>
+<text x="367" y="588" class="head" text-anchor="start" style="font-size:20px">保存与跨期复核</text>
+<text x="367" y="617" class="body" text-anchor="start" style="font-size:17px">新事实重评 → 独立新 Run</text>
+<path d="M 1088 459 L 1088 531" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="1107.5" y="495" width="87" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1151" y="510" class="edge" text-anchor="middle" style="fill:#136F70">可交付成果</text>
+<path d="M 985 588 L 925 588" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 680 588 L 595 588" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<text x="50" y="520" class="small" text-anchor="start">Run 可以等待、停止或恢复。</text>
+<text x="50" y="547" class="small" text-anchor="start">沿原身份保留预算与已提交成果；</text>
+<text x="50" y="574" class="small" text-anchor="start">局部失败不自动取得整轮终结权。</text>
+<text x="50" y="601" class="small" text-anchor="start">已发布结果不是执行检查点。</text>
+<rect x="32" y="776" width="1176" height="475" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="52" y="810" class="head" text-anchor="start" style="fill:#9C6014">业务效果生命周期 · 机构目标，不是当前已接通的交易功能</text>
+<path d="M 803 645 L 803 717 L 160 717 L 160 856" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="419.0" y="694" width="342" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="590" y="709" class="edge" text-anchor="middle" style="fill:#9C6014">用户另行提出具体操作请求，才进入独立业务流程</text>
+<rect x="50" y="856" width="220" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="67" y="883" class="tag" text-anchor="start" style="fill:#9C6014">A</text>
+<text x="67" y="913" class="head" text-anchor="start" style="font-size:20px">新的业务请求</text>
+<text x="67" y="942" class="body" text-anchor="start" style="font-size:15px">对象、金额、范围与版本</text>
+<rect x="350" y="856" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="367" y="883" class="tag" text-anchor="start" style="fill:#9C6014">B</text>
+<text x="367" y="913" class="head" text-anchor="start" style="font-size:20px">适用业务检查</text>
+<text x="367" y="942" class="body" text-anchor="start" style="font-size:17px">适当性、风控与操作权限</text>
+<rect x="680" y="856" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="697" y="883" class="tag" text-anchor="start" style="fill:#9C6014">C</text>
+<text x="697" y="913" class="head" text-anchor="start" style="font-size:20px">有效的业务授权</text>
+<text x="697" y="942" class="body" text-anchor="start" style="font-size:17px">按业务要求取得复核/委托</text>
+<rect x="985" y="856" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1002" y="883" class="tag" text-anchor="start" style="fill:#9C6014">D</text>
+<text x="1002" y="913" class="head" text-anchor="start" style="font-size:20px">业务系统提交</text>
+<text x="1002" y="942" class="body" text-anchor="start" style="font-size:15px">受理不等于成交</text>
+<path d="M 270 916 L 350 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 595 916 L 680 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 925 916 L 985 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<rect x="350" y="1040" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="367" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">不满足条件</text>
+<text x="367" y="1097" class="head" text-anchor="start" style="font-size:20px">拒绝本次业务操作</text>
+<text x="367" y="1126" class="body" text-anchor="start" style="font-size:17px">不抹掉独立合法的报告</text>
+<rect x="680" y="1040" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="697" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">结果不确定</text>
+<text x="697" y="1097" class="head" text-anchor="start" style="font-size:20px">沿原身份查询与对账</text>
+<text x="697" y="1126" class="body" text-anchor="start" style="font-size:17px">未知不是失败，不盲目重发</text>
+<rect x="985" y="1040" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="1002" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">真实业务回报</text>
+<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:20px">成交 / 结算事实</text>
+<text x="1002" y="1126" class="body" text-anchor="start" style="font-size:15px">不同阶段分别记录</text>
+<path d="M 473 976 L 473 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 1088 976 L 1088 1010 L 803 1010 L 803 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<path d="M 1088 976 L 1088 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
+<text x="52" y="1220" class="head" text-anchor="start" style="fill:#9C6014">订单、资金与份额由原业务系统依据真实回报更新；研究报告不会代写账本。</text>
+<text x="32" y="1286" class="small" text-anchor="start">示意表达职责与分支，不要求所有研究走固定流程，也不表示项目具备生产交易资格。</text>
+</svg>

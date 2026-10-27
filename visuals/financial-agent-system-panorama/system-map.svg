@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1030" viewBox="0 0 1240 1030" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">01 · 金融 Agent 应该处在什么位置？</title><desc id="desc">四个现有责任领域；机构治理贯穿全局，目标能力不冒充当前接线。</desc>
+<defs><marker id="line" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39688C"/></marker><marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#136F70"/></marker><marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9C6014"/></marker><marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7B8997"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
+<rect x="0" y="0" width="1240" height="1030" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="32" y="46" class="title" text-anchor="start">01 · 金融 Agent 应该处在什么位置？</text>
+<text x="32" y="77" class="sub" text-anchor="start">四个现有责任领域；机构治理贯穿全局，目标能力不冒充当前接线。</text>
+<rect x="32" y="106" width="1176" height="87" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
+<text x="52" y="138" class="head" text-anchor="start">监管视角：适用规则 → 机构治理、服务范围、职责与审计安排</text>
+<text x="52" y="170" class="body" text-anchor="start">这是制度与责任的约束视角，不是逐次调用的“监管服务”，也不授予模型任何业务权限。</text>
+<rect x="32" y="225" width="280" height="130" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="49" y="252" class="tag" text-anchor="start" style="fill:#136F70">用户视角</text>
+<text x="49" y="282" class="head" text-anchor="start" style="font-size:20px">投资者 / 投研人员</text>
+<text x="49" y="311" class="body" text-anchor="start" style="font-size:17px">提出问题、查看成果、补充条件</text>
+<text x="49" y="336" class="body" text-anchor="start" style="font-size:17px">机构岗位是目标使用场景</text>
+<rect x="365" y="225" width="280" height="130" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="382" y="252" class="tag" text-anchor="start" style="fill:#136F70">外部技术依赖</text>
+<text x="382" y="282" class="head" text-anchor="start" style="font-size:20px">模型供应商</text>
+<text x="382" y="311" class="body" text-anchor="start" style="font-size:17px">模型路由、协议与调用配置</text>
+<text x="382" y="336" class="body" text-anchor="start" style="font-size:17px">只发送本次允许披露的材料</text>
+<rect x="705" y="225" width="503" height="460" rx="14" fill="#EDF5FC" stroke="#39688C" stroke-width="1.8"/>
+<text x="725" y="256" class="head" text-anchor="start">D3 · Agent Copilot：研究与交付领域</text>
+<rect x="725" y="278" width="463" height="93" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="743" y="307" class="head" text-anchor="start">会话入口与有身份的研究 Run</text>
+<text x="743" y="336" class="body" text-anchor="start">原问题、任务关系、上下文与原始授权</text>
+<rect x="725" y="414" width="463" height="125" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="743" y="445" class="head" text-anchor="start">模型主导研究 ↔ 受控执行</text>
+<text x="743" y="475" class="body" text-anchor="start">Skill 方法、主代理与子代理协作</text>
+<text x="743" y="501" class="body" text-anchor="start">MCP Host、网页/PDF/Python、结果与引用</text>
+<rect x="725" y="583" width="463" height="77" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="743" y="613" class="head" text-anchor="start">正文发布、历史与报告文件</text>
+<text x="743" y="641" class="body" text-anchor="start">保存和交付有版本的成果，不产生投资写入</text>
+<path d="M 956 371 L 956 414" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<path d="M 956 539 L 956 583" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="32" y="405" width="280" height="190" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="49" y="432" class="tag" text-anchor="start" style="fill:#136F70">D1 · INVESTMENT CORE</text>
+<text x="49" y="462" class="head" text-anchor="start" style="font-size:20px">投资事实与确定性规则</text>
+<text x="49" y="491" class="body" text-anchor="start" style="font-size:17px">份额、已确认记录、资金约束</text>
+<text x="49" y="516" class="body" text-anchor="start" style="font-size:17px">确定性投资计算</text>
+<text x="49" y="541" class="body" text-anchor="start" style="font-size:17px">原子报告快照</text>
+<text x="49" y="566" class="body" text-anchor="start" style="font-size:17px">不是券商自动下单接口</text>
+<rect x="365" y="405" width="280" height="190" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
+<text x="382" y="432" class="tag" text-anchor="start" style="fill:#136F70">D2 · DATA-SOURCE BOUNDARY</text>
+<text x="382" y="462" class="head" text-anchor="start" style="font-size:20px">受控只读投影</text>
+<text x="382" y="491" class="body" text-anchor="start" style="font-size:17px">来源身份、实际数据时点</text>
+<text x="382" y="516" class="body" text-anchor="start" style="font-size:17px">覆盖范围、可用与失败状态</text>
+<text x="382" y="541" class="body" text-anchor="start" style="font-size:17px">投资事实和外部证据分开</text>
+<text x="382" y="566" class="body" text-anchor="start" style="font-size:17px">投影不成为第二份账本</text>
+<rect x="32" y="641" width="280" height="160" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
+<text x="49" y="668" class="tag" text-anchor="start" style="fill:#136F70">外部研究材料</text>
+<text x="49" y="698" class="head" text-anchor="start" style="font-size:20px">市场数据与研究文档</text>
+<text x="49" y="727" class="body" text-anchor="start" style="font-size:17px">行情、净值、基金披露、研报</text>
+<text x="49" y="752" class="body" text-anchor="start" style="font-size:17px">公开或取得许可的来源</text>
+<text x="49" y="777" class="body" text-anchor="start" style="font-size:17px">文档仍由相应读取能力处理</text>
+<path d="M 312 285 L 345 285 L 345 203 L 690 203 L 690 302 L 725 302" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="475.0" y="200" width="72" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="511" y="215" class="edge" text-anchor="middle" style="fill:#39688C">研究请求</text>
+<path d="M 725 350 L 677 350 L 677 389 L 330 389 L 330 325 L 312 325" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="467.0" y="367" width="72" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="503" y="382" class="edge" text-anchor="middle" style="fill:#136F70">交付成果</text>
+<path d="M 705 276 L 645 276" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="654.0" y="250" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="265" class="edge" text-anchor="middle" style="fill:#39688C">送模</text>
+<path d="M 645 333 L 705 333" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="654.0" y="307" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="322" class="edge" text-anchor="middle" style="fill:#39688C">返回</text>
+<path d="M 172 355 L 172 405" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="94.0" y="369" width="156" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="172" y="384" class="edge" text-anchor="middle" style="fill:#136F70">独立导入 / 确认记录</text>
+<path d="M 312 467 L 365 467" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="317.0" y="439" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="338" y="454" class="edge" text-anchor="middle" style="fill:#136F70">只读</text>
+<path d="M 645 479 L 705 479" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
+<rect x="654.0" y="451" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="466" class="edge" text-anchor="middle" style="fill:#136F70">结果</text>
+<path d="M 705 533 L 645 533" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="654.0" y="543" width="42" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="675" y="558" class="edge" text-anchor="middle" style="fill:#39688C">读取</text>
+<path d="M 312 682 L 350 682 L 350 574 L 365 574" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<path d="M 312 750 L 690 750 L 690 519 L 725 519" fill="none" stroke="#39688C" stroke-width="2.2" marker-end="url(#line)"/>
+<rect x="448.0" y="728" width="102" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="499" y="743" class="edge" text-anchor="middle" style="fill:#39688C">获准文档读取</text>
+<rect x="365" y="801" width="843" height="88" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
+<text x="385" y="835" class="head" text-anchor="start">D4 · Operational Monitoring：运行观察与诊断</text>
+<text x="385" y="866" class="body" text-anchor="start">接收受限运行与交付观察；不改写源事实，不拥有投资决定权。</text>
+<path d="M 505 595 L 505 710 L 570 710 L 570 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<path d="M 1115 685 L 1115 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<rect x="1079.0" y="747" width="72" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
+<text x="1115" y="762" class="edge" text-anchor="middle" style="fill:#7B8997">观察投影</text>
+<path d="M 40 595 L 17 595 L 17 838 L 365 838" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
+<rect x="32" y="916" width="1176" height="79" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
+<text x="52" y="947" class="head" text-anchor="start" style="fill:#9C6014">机构扩展目标 · 不代表当前聊天 Agent 已接通</text>
+<text x="52" y="978" class="body" text-anchor="start">客户/KYC与适当性、岗位审核、订单与结算、正式档案和独立审计——由相应业务系统承担。</text>
+</svg>

@@ -4,13 +4,17 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **64 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **65 篇正文，三条主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
 </div>
 
 ---
+
+## 2026-10-27 · 金融 Agent 系统全景
+
+[金融 Agent 全景：连接研究、业务与责任的系统架构](articles/financial-agent-system-panorama.md)从用户、机构与监管三个视角，讲清四个责任领域、研究与业务双生命周期，以及可追溯的事实关系。配套三张可放大 SVG，并提供[完整英文正文与英文图件](en/articles/financial-agent-system-panorama.md)。这是独立的金融主题主稿，不替换六层调用全景；机构目标能力与现有个人研究系统明确区分。
 
 ## 2026-10-27 · AI Coding：把验证投入到真正重要的问题
 
@@ -70,7 +74,7 @@
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
 | [模块维度](modules.md) | Agent 如何运行？ | **31 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **25 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **26 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **8 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
@@ -80,7 +84,7 @@
 
 ### 推荐起点
 
-**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 64 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 65 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -88,7 +92,7 @@
 
 **研发：** [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) · [周报分期交付](articles/agent-weekly-review-staged-delivery.md) · [文档、History 与知识退役](articles/027-agent-context-document-history.md) · [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) · [任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
-**金融：** [投顾与交易边界](articles/030-fintech-from-research-to-investment-advice.md) · [金融数字复算](articles/031-fintech-data-time-and-reproducible-numbers.md) · [Python 结果消费](articles/financial-agent-python-result-consumption.md) · [可信证据链](articles/financial-agent-trustworthy-evidence-chain.md) · [持续投资研究的历史与论点](articles/agent-weekly-thesis-history-continuous-research.md)
+**金融：** [金融 Agent 系统全景](articles/financial-agent-system-panorama.md) · [投顾与交易边界](articles/030-fintech-from-research-to-investment-advice.md) · [金融数字复算](articles/031-fintech-data-time-and-reproducible-numbers.md) · [Python 结果消费](articles/financial-agent-python-result-consumption.md) · [可信证据链](articles/financial-agent-trustworthy-evidence-chain.md) · [持续投资研究的历史与论点](articles/agent-weekly-thesis-history-continuous-research.md)
 
 ## 全部文章
 
@@ -185,8 +189,9 @@
 </details>
 
 <details>
-<summary><b>03 · 金融与工程</b>（13 篇）</summary>
+<summary><b>03 · 金融与工程</b>（14 篇）</summary>
 
+- [金融 Agent 全景：连接研究、业务与责任的系统架构](articles/financial-agent-system-panorama.md)
 - [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
 - [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
@@ -240,7 +245,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 64 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 65 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

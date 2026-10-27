@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 64 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 65 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -98,6 +98,7 @@ export const collections = [
         "title": "金融与工程",
         "desc": "金融事实、数字与引用的可信性，以及架构演化、故障归因和端到端质量。",
         "items": [
+          ["financial-agent-system-panorama", "金融 Agent 全景：连接研究、业务与责任的系统架构"],
           ["mcp-market-responsibility-retrospective", "金融数据 MCP 为什么变成决策系统"],
           ["030-fintech-from-research-to-investment-advice", "从投资研究到投顾与交易的边界"],
           ["031-fintech-data-time-and-reproducible-numbers", "金融数字的时点、口径与复算"],
