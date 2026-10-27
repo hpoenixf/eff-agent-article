@@ -1,14 +1,10 @@
 # Why a Financial Market Data MCP Started Turning into a Research Decision System
 
-We built a Market MCP for an investment-research Agent. It connected several quote Providers, public interfaces, and local data programs so the model could request index prices, fund NAV, and product information.
+**A financial-data MCP should faithfully deliver available material. It should not silently decide what evidence is sufficient or what the research should do next.** Once an adapter starts interpreting financial fields, scheduling follow-up research and certifying completeness, a unified tool interface risks becoming a second research decision system.
 
-Initially we wanted an integration layer that handled vendor differences, leaving the model with a uniform set of tools.
+This is the trade-off we encountered while connecting market Providers, public interfaces and local data programs. The convenience of one tool surface was real, but “source unavailable” sometimes reflected decisions made inside the adapter rather than a lack of source data.
 
-Later, information that might have been available was repeatedly reported as **source unavailable** or **not read**. Following the execution path showed that the integration layer had begun interpreting financial fields, judging evidence completeness, planning follow-up searches, and using one failed request to suppress unrelated products.
-
-The problem was not the number of Providers. It was **combining data access with the decision about how a research question should be answered**.
-
-We retained multi-source capabilities but separated **open-ended research** from **deterministic, contract-bound data consumption**.
+We retained multi-source connectivity and stable formats for deterministic consumers, while moving open-ended research decisions back to native tools and model reasoning. The useful question for another architect is not which Provider is best, but **whether the next adapter rule handles protocol mechanics or begins making research decisions.**
 
 ## 1. One Investment Question Needs Several Different Data Capabilities
 
@@ -276,31 +272,17 @@ Changing one condition changes the result:
 
 This is the real utility of multi-source integration: several candidates can contribute to one constrained read, while the chosen origin, coverage, and uncertainty survive into downstream reasoning.
 
-## 8. What the Redesign Delivered and What It Cost
+## 8. What Did This Redesign Teach Us?
 
-When the original retrospective was first drafted, native protocol consumption remained a target. Subsequent engineering acceptance covered native descriptor/content preservation, invocation-level isolation, narrow tool pre/post processing, retirement of Research normalization paths, and selected persistence/Recovery handoffs.
+Subsequent scoped engineering checks covered preservation of native tool descriptions and results, isolation of individual invocation failures, necessary pre/post processing, and selected persistence and Recovery handoffs. Live Provider authorization, service reliability, and how models handle varied Schemas require their own checks.
 
-The structured path still has explicit consumers; we did not merely hide old logic under a different filename.
+One particularly revealing counterexample survived the redesign: a legitimate native result contained **2,100 rows** and was below **32 KiB**, yet an output validator reused a separate **4,096-node** model-input limit and rejected it. We corrected the scope of that output check without abandoning Schema, privacy, or byte-size protections. Adding another financial-field mapper would have solved the wrong problem.
 
-A concrete counterexample during refactoring was a legal **2,100-row** native result under **32 KiB** rejected because its output Schema check reused a **4,096-node** model-input budget.
+The trade-off is concrete. Native MCP avoids redundant semantic adaptation but exposes the model to more source variation. A deterministic calculation still needs the domain producer's stable input format. **Complexity has moved to the place best equipped to justify it; it has not disappeared.**
 
-The bytes were within the legitimate output allowance; an unrelated complexity limit still vetoed the result. The repair aligned output traversal with the existing result-byte budget while keeping Schema, privacy, and final size checks.
+Before adding a Provider, ask which real data gap it fills. When an operation fails, locate whether the fault concerns transport, arguments, instrument identity or financial interpretation. Add a specialized transformation only when a real consumer needs its stable structure.
 
-This is integration engineering worth preserving after removing semantic adaptation: the correct fix was **a validator scope correction**, not a new financial-field mapper.
-
-Controlled invocation and recovery checks cover key handoffs in the connection path. The next checks focus on live provider access, service stability, and model behavior across differing Schemas.
-
-The trade-off is genuine. Native tools require models to understand more source variation; tool descriptions and context capacity become more important. Deterministic consumers still maintain their strict local schemas.
-
-The work has not disappeared. It has moved to Owners that can justify it: transport handles protocol and resources; dedicated data producers handle stable formats; the model handles research interpretation and next-step choice.
-
-The next time we add a Provider, we will first ask which real data gap it fills, then decide whether it belongs in native MCP, fixed HTTP, or a Python bridge.
-
-When reading fails, we will distinguish arguments, protocol, object identity, missing data, and connection health before deciding what to modify.
-
-**Only when a specific deterministic consumer actually needs a stable financial structure should we add a dedicated transformation.**
-
-A Market MCP can connect many sources and supply reliable inputs for well-defined calculations. Its maintainability depends on consistently separating **read facts**, **calculation premises**, and **judgments that only make sense in the research context**.
+**Data access owns reading facts. Domain methods own calculation premises. The researcher owns choices that depend on the meaning of the question.** A convenient unified adapter must not quietly acquire research authority.
 
 ## Continue Reading
 
