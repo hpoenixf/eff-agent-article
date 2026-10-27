@@ -155,6 +155,14 @@ MissingEvidence --> TargetedObservation
 
 Select the two kinds of checks according to the claim; not every change needs both. Evidence may support a bounded conclusion, reveal a defect, or leave an observation missing. Sufficient existing evidence need not be rerun merely to edit a report when behavior has not changed.
 
+### A Recorded Research Answer Still May Not Support A/B
+
+The October 2026 financial research evaluation retained an actual C04 answer and reopenable original records. A separate scoped path used **public synthetic disclosures** through real Tool, containerized Python, result references, and an isolated PostgreSQL Human checkpoint reopened in a different process. It confirmed that stored source and computation results could be read without rerunning effects. That is evidence for **persistence and recovery**, not a qualified model comparison.
+
+The real C04 had only one candidate. Immutable model-version and configuration identities were incomplete, and no appropriately matched alternative existed: **0/1 real comparable pairs**. Synthetic A/B/C cases tested the comparator itself: a single controlled difference can qualify, but two simultaneous changes, missing repetitions, or unknown configuration must not. A correct synthetic comparator cannot create a missing real control group.
+
+The responsible report may therefore say: retain the original research and defer any claim of model improvement. Original answers, independent arithmetic references, source eligibility, human and automated judgments, and known or unknown costs have separate evidence requirements. A higher mean without the right identity and denominator is not a sound reason to switch models.
+
 Engineers should state the behavior their change intends to establish. Evaluation designers should freeze inputs and denominators and give judges the actual content corresponding to the claim. Decision-makers should treat failures, unknowns, and quality differences separately.
 
 **The value of testing is not a green dashboard. It is knowing what to repair, which evidence to collect, and which decision can now be made with confidence.**
