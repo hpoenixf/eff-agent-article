@@ -9,11 +9,11 @@ description: "Financial method choice, eligible input, Python result projection,
 >
 > The engineering source window ends on October 21, 2026. Numerical counterexamples are explicitly safe test or teaching inputs. Bounded regression success is not evidence that a natural model consistently completes autonomous investment research.
 
-“Use Python to calculate portfolio returns, risk contributions and differences from the benchmark.” That sounds as if we have avoided arithmetic errors from the language model. But we repeatedly encountered a harder problem: the run contained market data and Python calls, yet the final report still omitted the portfolio's overall annualized return, lacked necessary covariance analysis, or explained an obtained number in the wrong direction.
+**Delegating arithmetic to Python does not delegate financial judgment along with it.** A defensible investment conclusion still requires an applicable method, eligible inputs, and an interpretation that preserves the result's original meaning. A successful script solves only one part of the problem.
 
-The question is not merely whether a tool was invoked. An investment conclusion requires three independent achievements: **select a suitable financial method; compute traceable results from eligible inputs; interpret those results without changing their meaning**. Python handles the numerical portion of the second step. It does not automatically do the first or the third.
+We encountered research with market data and Python calls that nevertheless omitted portfolio-wide annualization, lacked covariance analysis, or reversed the meaning of an obtained number. More script calls or a universal Reviewer do not identify the right repair.
 
-We did not respond by creating another Financial Reviewer or forcing every question through a script. We traced the actual research chain: Was a required method never discovered? Were input preconditions invalid? Did execution fail? Was the result omitted from context? Or did the model receive a qualified number and still misuse it?
+Instead, trace one pivotal conclusion: Was the method applicable? Were inputs sufficient? Did the model actually receive the result and its limitations? Did the final explanation preserve them?
 
 ## 1. A Script Running Is Not the Same as Answering the Question
 
@@ -124,19 +124,19 @@ It can solve arithmetic such as “When the exact value is **2.055**, does a dec
 
 Those remain contracts of the fee, investment-research and attribution domains.
 
-Likewise **A21** owns isolated Python execution, **A16** result identity and references, **A03** method selection and research synthesis, and **A23** publication of authorized answer text. Calling all of this “Python correctness” or creating a Financial Metrics Manager would make defects harder to locate.
+Likewise, isolated execution, result identity, research synthesis, and publication have different responsibilities. Calling all of them “Python correctness” and giving them to a new central manager would obscure the place that actually needs repair.
 
 The companion article [Financial Data, Precision and Reproducibility](031-fintech-data-time-and-reproducible-numbers.md) focuses on **arithmetical correctness and domain metric semantics**. This article focuses on **why a correctly computed or explicitly qualified result can still be misconsumed**.
 
 ## 7. Acceptance Still Depends on the Financial Question
 
-The next acceptance must assess more than the number of successful Python executions.
+**The important capability is not using Python. It is connecting an applicable method, eligible inputs, checkable results, and faithful explanation.**
 
-For the same natural research question, did the agent autonomously choose necessary methods, obtain eligible inputs, distinguish proxies from formal metrics, draw falsifiable comparisons and deliver a checkable report? Model interpretation quality, completion rates, cost and latency need their own real-path evidence.
+When reviewing a portfolio report, start with a claim that could change the decision. Trace its instrument, shared period, denominator, unit, and proxy qualifications to the original result. Without dividend data, retain the price-performance limitation. When contribution share exceeds 100%, check the net-gain denominator. When calculation is right but prose says the opposite, inspect interpretation and consumption instead of rewriting the calculator.
 
-So far the bounded engineering handoffs are clearer, but the earliest point of failure in the original historical autonomous task remains incompletely established. We have not claimed that the ability to calculate a given set of values improves investment returns.
+Divide engineering verification along the same chain: targeted checks for calculation and handoff, real tasks for method selection and interpretation quality. The earliest failure in the original historical autonomous task remains incompletely established. That does not establish a stable completion rate or improved investment returns.
 
-**The distinguishing question for financial agents is not “Can they use Python?” but “Can they connect an appropriate method, an eligible result and a final explanation into one defensible judgment?”** Computation is necessary; consuming it correctly is what brings it into research.
+**The next time you see “Python executed,” ask: Why does this particular result support that particular conclusion in the report?** That is how a tool capability becomes a research capability.
 
 ## Further Reading
 
