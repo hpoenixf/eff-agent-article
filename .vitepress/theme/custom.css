@@ -448,3 +448,61 @@
   .open-source-bridge { margin: 12px 16px 24px; padding: 15px; }
   .open-source-bridge__links { width: 100%; }
 }
+
+/* Home: one editorial system for the introduction, reading paths and articles. */
+.VPHome .VPHero { padding-top: 64px; padding-bottom: 48px; }
+.VPHome .VPHero .container { position: relative; }
+.VPHome .VPHero .main { position: relative; max-width: 760px; z-index: 1; }
+.VPHome .VPHero .name { color: var(--vp-c-brand-1); font-size: 13px; line-height: 1.5; letter-spacing: .16em; text-transform: uppercase; font-weight: 750; }
+.VPHome .VPHero .text { max-width: 700px; margin-top: 16px; font-size: clamp(2.35rem, 4.7vw, 4rem); line-height: 1.22; letter-spacing: -.045em; }
+.VPHome .VPHero .tagline { max-width: 580px; margin-top: 20px; color: var(--vp-c-text-2); font-size: 1rem; line-height: 1.85; }
+.VPHome .VPHero .actions { padding-top: 24px; }
+.VPHome .VPHero .action { padding-right: 10px; }
+.VPHome .VPHero .VPButton { border-radius: 8px; font-weight: 650; }
+.VPHome .VPFeatures .container { border-top: 1px solid var(--vp-c-divider); padding-top: 26px; }
+.VPHome .VPFeatures .items { gap: 0; }
+.VPHome .VPFeatures .item { padding: 0 24px; border: 0; border-radius: 0; background: transparent; }
+.VPHome .VPFeatures .item + .item { border-left: 1px solid var(--vp-c-divider); }
+.VPHome .VPFeatures .item:hover { transform: none; }
+.VPHome .VPFeature { height: 100%; padding: 4px 0 12px; background: transparent; }
+.VPHome .VPFeature .title { font-size: 16px; }
+.VPHome .VPFeature .details { line-height: 1.75; }
+.VPHome .VPFeatures { padding-bottom: 54px; }
+.VPHome .vp-doc { max-width: 1152px; }
+.VPHome .flagship-entry.is-compact { margin: 0 0 72px; }
+.VPHome .flagship-entry__eyebrow, .home-overview__eyebrow { margin-bottom: 14px !important; letter-spacing: .13em; }
+.VPHome .flagship-entry__grid { gap: 1px; overflow: hidden; border: 1px solid var(--vp-c-border); border-radius: 14px; background: var(--vp-c-border); }
+.VPHome .flagship-entry.is-compact .flagship-entry__card { padding: 28px 30px; gap: 10px; border: 0; border-radius: 0; box-shadow: none; background: var(--vp-c-bg-soft); color: var(--vp-c-text-1) !important; }
+.VPHome .flagship-entry__card::before { display: none; }
+.VPHome .flagship-entry__card:hover { transform: none; background: var(--vp-c-bg-alt); box-shadow: none; }
+.VPHome .flagship-entry__index, .VPHome .flagship-entry__card--principles .flagship-entry__index { color: var(--vp-c-brand-1); }
+.VPHome .flagship-entry__body { color: var(--vp-c-text-2); }
+.VPHome .flagship-entry__action, .VPHome .flagship-entry__card--principles .flagship-entry__action { color: var(--vp-c-brand-1); }
+.home-overview__heading { margin-bottom: 24px; }
+.home-overview__cards { gap: 0; border-top: 1px solid var(--vp-c-divider); border-bottom: 1px solid var(--vp-c-divider); }
+.home-overview__card { padding: 24px; border: 0; border-radius: 0; background: transparent; }
+.home-overview__card:first-child { padding-left: 0; }
+.home-overview__card + .home-overview__card { border-left: 1px solid var(--vp-c-divider); }
+.home-overview__card:hover { background: var(--vp-c-bg-soft); transform: none; }
+.home-overview__card > strong { font-size: 17px; line-height: 1.5; }
+.home-overview__topics { margin-top: 24px; margin-bottom: 72px; }
+.home-overview__topics a { border-radius: 7px; }
+.home-overview__more { max-width: 800px; }
+.VPHome .open-source-bridge { margin: 48px 0 0; border-radius: 10px; }
+@media (max-width: 767px) {
+  .VPHome .VPHero { padding-top: 42px; padding-bottom: 35px; }
+  .VPHome .VPHero .text { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .VPHome .VPFeatures .item { padding: 14px 0; }
+  .VPHome .VPFeatures .item + .item { border-left: 0; border-top: 1px solid var(--vp-c-divider); }
+  .VPHome .VPFeatures { padding-bottom: 40px; }
+  .VPHome .flagship-entry.is-compact { margin-bottom: 48px; }
+  .VPHome .flagship-entry.is-compact .flagship-entry__card { padding: 23px; }
+  .home-overview__cards { gap: 0; }
+  .home-overview__card, .home-overview__card:first-child { padding: 20px 0; }
+  .home-overview__card + .home-overview__card { border-left: 0; border-top: 1px solid var(--vp-c-divider); }
+  .home-overview__topics { margin-bottom: 48px; }
+}
+.VPHome .VPFeatures .VPFeature { border: 0; border-radius: 0; }
+@media (max-width: 767px) {
+  .VPNavBar .nav-star-link { display: none; }
+}

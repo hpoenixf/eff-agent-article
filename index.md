@@ -30,10 +30,10 @@ features:
     linkText: 工程实践
 ---
 
-<OpenSourceBridge />
-
 <ContinueReading />
 
 <FlagshipEntry compact />
 
 <HomeOverview />
+
+<OpenSourceBridge />
