@@ -1,16 +1,10 @@
 # Stop Blaming Every Agent Failure on the Model: From Coarse Error Codes to a Verifiable Failure Chain
 
-The longer I build Agents, the less I trust a single catch-all error such as **PROVIDER_UNAVAILABLE**.
+**When an agent fails to deliver, first locate the stage that demonstrably failed rather than automatically blaming the model.** Only then can we decide whether to retry, repair a protocol, inspect a tool, or fix delivery.
 
-It seems precise: the model provider is unavailable. So developers retry, switch models, increase timeouts, inspect provider status, and run the task again.
+We encountered a failure that looked like `PROVIDER_UNAVAILABLE`. The provider request had in fact completed with HTTP 200 and a full stream; the refusal came later from Publication validation. Switching models and raising timeouts would have repaired the wrong part of the system.
 
-But we eventually encountered a much more awkward situation: the model request **had completed normally**, with HTTP 200 and a complete stream. The failure was **downstream Publication validation**. We had been retrying the part that was not broken.
-
-"No answer" describes the outcome, not the cause. It can result from dispatch never happening, provider failure, stream interruption, structured-output parsing, tool execution, publication validation, persistence, or delivery.
-
-If all these conditions collapse into **PROVIDER_UNAVAILABLE**, the error vocabulary gets simpler while diagnosis becomes less accurate.
-
-Our first change was deliberately modest: do not automatically guess the "root cause." **Record the last definitively observed blocking stage first.**
+A research task also crosses parsing, tools, persistence, and actual user receipt. **“No answer” is a symptom, not a root-cause finding.** Our diagnostic work therefore starts with recorded execution facts and their relationships, not with a model-generated explanation of what supposedly happened.
 
 ## 1. We Had Enough Logs, but No Reliable Relationships Between Them
 
@@ -374,16 +368,14 @@ Locating the last confirmed blocker is the starting point of root-cause investig
 
 This diagnostic approach applies [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5): locate the last confirmed blocker and its owner before deciding whether to repair code, add observation or retain an unknown outcome. The most visible error code is not necessarily the cause of the entire task's failure.
 
-## Conclusion
+## Conclusion: Check Three Facts Before Blaming the Model
 
-When an Agent fails to answer, the model might be at fault. So might Runtime, parsing, tools, Publication, persistence, or delivery.
+**Do not begin with “Why did the model fail?” Begin with “Which stage is proven to have failed?”** For an undelivered research task, investigate in this order:
 
-I now begin with the sequence of actual facts: was a request dispatched, did the Provider respond, did parsing pass, did the tool execute, was text accepted and committed, and what evidence exists that it reached the user?
+- **Locate:** Was the request submitted? How far did the provider, parser, tools, publication, persistence, server delivery, and client actually progress?
+- **Link:** Did later success repair the same artifact and revision? Did the model really receive the earlier failure feedback? Adjacent timestamps are not proof of causation.
+- **Decide:** Should we fix that component, add a necessary observation, or preserve an unknown outcome and stop unproductive retries? Diagnosis itself must not acquire the right to cancel unrelated lawful work.
 
-**Do not automate a guessed root cause before recording what happened at each hop.**
+This does not automatically establish root cause. It prevents a costly alternative: treating the most visible error code as the plan, repeatedly retrying a healthy component, and ignoring the point where delivery actually stopped.
 
-**terminalBlocker** is not root-cause analysis. A timeline is not proof of causation. Commit is not delivery. Feedback being present in context is not model comprehension.
-
-These constraints make the story less satisfyingly simple—but they make diagnosis faster and more reliable.
-
-An accurate **"we do not know yet"** is often a better next step than a fluent, complete, and incorrect explanation.
+**An accurate account of what remains unknown is often more useful than a complete but invented failure story.**
