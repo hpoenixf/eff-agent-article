@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "vitepress": "1.6.4",
-    "mermaid": "11.17.2",
     "@mermaid-js/mermaid-cli": "11.17.0"
   }
 }
