@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: 浏览全部文章
       link: /catalog
+    - theme: alt
+      text: 查看可运行源码 ↗
+      link: https://github.com/hpoenixf/open-etf-agent
 features:
   - title: 模块机制 · How it works
     details: 看一条请求如何经过工具、上下文、恢复与发布。
