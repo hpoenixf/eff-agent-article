@@ -17,6 +17,8 @@ evidence:
 
 到 2026 年 10 月，我们又遇到更深一层的问题：模型已经写出了可读正文，但 Runtime、Native 工具解析或恢复路径仍可能在 Publication 之前做出独立拒绝。我们因此把**正文是否保留、怎样局部降级、哪个发布效果必须拒绝**的处置尽量收回 Publication；原始授权、执行权限与持久回执依旧由各自的事实归属方掌握。
 
+本文主体回顾原工程的发布机制与演进。文中补充的 [Open ETF Agent v0.8 固定实现](https://github.com/hpoenixf/open-etf-agent/tree/2c096ce47be2161f97531170af07ef255872f8b1)只提炼其中的单块正文、修订与持久化读回，不包含预览界面、多块引用或动态来源撤销；两者的能力范围不要混用。
+
 ## 一、模型有正文，不等于系统已经发布了正文
 
 早期的问答接口容易把三个事件压成一次操作：模型返回文本、服务端保存消息、客户端展示文本。只要回答只能在末尾整体返回，这种简化在一段时间内可以工作。
@@ -171,6 +173,26 @@ Publication 使用统一的 `AnswerBlock` 结构契约，供运行时、发布�
 
 当前默认修改额度是单块 2 次、一次 Research 共 8 次；它限制修改已有块，不是禁止新增回答段。超限拒绝该次修改，不应抹去此前合法内容，或自动宣告整个研究失败。修订失败与首次发布失败是不同效果：不合法的 `replaces` 不能自动转成新块，原已提交正文也不会因一次修订失败而被删除。
 
+### 把三个坐标缩成一个可运行的例子
+
+不必先搭完整聊天界面，才能观察这些约束。公开版的 [Session 实现](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/session.mjs)把正文修订和当前交付位置放在同一个 SQLite 事务里：单个 Host 答案块的身份和位置保持不变，显式替换只推进修订号；正文完全相同，也要核对原运行与 Host 绑定后才能复用回执。文字没变、绑定变了，仍须明确替换。
+
+下面在 Node 26.11.1 上运行过的本地示例使用合成回复和真实 SQLite，不需要模型账户。后续开发进度见 [main 入口](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；复现这段机制时使用下面的固定提交：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git
+cd open-etf-agent
+git checkout 2c096ce47be2161f97531170af07ef255872f8b1
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+node dist/src/session-cli.mjs start --session runs/publication-demo --case durable-publication
+# 将下面的 run-YOUR_ID 替换为上一条输出的 runId
+node dist/src/session-cli.mjs publication --session runs/publication-demo --run run-YOUR_ID
+node dist/src/session-cli.mjs publication-event --session runs/publication-demo --run run-YOUR_ID
+```
+
+启动结果中的 `publication` 是已提交正文的回执；再次执行读取命令，可以取得原正文、修订和当前交付位置，而不是重新生成回答。报告文件另有 Artifact 回执，不能拿它代替正文提交事实。这个例子保留的是发布机制，不是在评价合成回答的研究质量。
+
 ## 六、真实问题一：同修订预览曾遮住已提交回执
 
 2026 年 10 月 11 日的回归案例尤其能说明为什么“正文一样”还不够。
@@ -211,6 +233,10 @@ Publication 使用统一的 `AnswerBlock` 结构契约，供运行时、发布�
 这也避免另一种不必要的复核：**阅读旧回答不是重新进行当下的组合投资计算**。历史正文可以在原展示授权下保留其当时身份；新的分析或执行仍须检查当前资料和权限，不能借历史提交取得今天的数值权威。
 
 2026 年 10 月 11 日的认证应用、隔离 PostgreSQL 与重启路径实际暴露并验证了这一类恢复缺口。修复包括读取原始受保护回执、重新检查继承来源，以及保留旧来源提示的 unknown 语义。
+
+公开单块实现把同一类时间窗口做成了[可复现的进程中断反例](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/test/publication-runtime.test.mjs#L70)：正文事务提交后、运行终态检查点写入前，实际终止进程；另一个进程沿原封存提议恢复，得到原正文和原回执，不新增修订，也不再调用合成模型。这不是用保存一份内存快照代替重启。
+
+相邻的失败分支同样重要：正文已经提交，随后检查发现任务要求的报告并不存在，Run 仍然可以失败。此前正文继续可读，却不能据此宣称报告已经生成。[Runtime 的提交位置](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/runtime.mjs)把“正文已保存”和“整个任务完成”留在两个结算点，正是为了保留这两个同时成立的事实。
 
 ## 八、为什么“后来的失败”不能抹掉“之前的提交”
 
