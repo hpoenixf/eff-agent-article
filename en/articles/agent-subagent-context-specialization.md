@@ -1,12 +1,10 @@
 # Why We Added Subagents to an Investment Research Agent: From Context Isolation to Specialized Collaboration
 
-When we first introduced Subagents into ETF Agent, our goal was modest: **keep local exploration from polluting Main's context, and perhaps improve efficiency**.
+**A Subagent is useful when a local research task deserves independent work and Main can actually consume its results.** The goal is not to launch more models or route every Web, PDF and Python step through another specialist. It is to isolate lengthy exploration while returning the original evidence needed for a sound decision.
 
-We did not want a rigid pipeline of investment "experts," nor did we assume more model calls would automatically improve answers.
+ETF Agent first gave Child its own context so Main would not inherit every PDF lookup or Python debugging turn. Development exposed the harder problem: **separating the process is easy; preserving evidence, identity and responsibility at handoff is not.** One Child completed a valid citation handoff, yet Main repeatedly polled and delegated again without delivering. Another completed local computation and HTML repairs, exported a downloadable report, and gave Main an artifact it could genuinely use.
 
-Our analogy was several capable engineers with different strengths: one excellent at source discovery, another at complex documents, another at computation and debugging. Each can still understand problems, select tools, and handle tasks end to end. Work should not be endlessly transferred just because a file's format changes.
-
-Implementation exposed the difficult part. Starting an independent model loop is manageable. **Separating local processes without losing important facts—and adding executors without diffusing overall responsibility—is much harder.**
+This article focuses on shared Child execution, bounded failure and handoff. For how different investment methods challenge one thesis, see [investment perspectives and falsification](investment-perspectives-and-thesis-falsification.md). The prior architecture question is simpler: **Which work should be delegated, what is a real deliverable, and when are extra model calls justified?**
 
 ## 1. Isolate Local Work, Not the Ability to Solve a Problem
 
@@ -338,25 +336,23 @@ These production seams are integrated in source, but the owning tasks for real P
 
 The adjacent [durable human-interaction mechanism](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
 
-## October 26, 2026: Unified Expert Progress
+## October 26, 2026: Scoped Progress on Unified Experts
 
-The owning acceptance notes record **six real-model CLI dialogue samples** spanning General/Python delivery, investment perspectives, Peer/Reviewer ordering and early Human Interaction. These scoped samples are not six completed end-to-end fund-research tasks. Unified Expert tasks **1.5 and E.1** remain open; the unqualified Native cross-process window, complete handoffs and financial research quality are not certified by this sample count.
+The owning records include six different real-model CLI samples across general and Python Children, investment methods, and selected dialogue/handoff paths. They are not six successfully completed fund-research tasks. Fresh expert selection was being unified around versioned `agentId` identities while sealed historical executions retained their original contracts. Certain owning tasks and cross-process, full-handoff, and financial-quality verification remained open at that point.
 
-The separate Sidecar reference chat has an **initially disabled Stage A integration baseline** but no completed A/B/C acceptance. Sidecar is not another Child Profile or a second execution runtime. Cross-expert dependencies still require authorized input references, preserved result identity and actual Main consumption—not a prompt asserting that collaboration happened.
+Actual dependencies still require original result identities, authorized input references, and evidence that Main consumed the findings. A prompt claiming collaboration is not evidence that collaboration occurred.
 
-## Conclusion
+## Conclusion: Three Questions Before Adding a Subagent
 
-Our first objective was to reduce local context in Main and perhaps improve efficiency.
+**Delegation is worthwhile when an independently executable piece of work can return useful, inspectable results to the original user task.** A role label alone proves nothing.
 
-What emerged was not a rigid expert pipeline. It was **shared execution capability, distinct methods, independent local work, and unified responsibility for user-facing delivery**.
+Before creating another specialist, ask:
 
-Web, PDF, Python, and Reviewer help because each can investigate a question in depth under the same constraints, not because each is artificially restricted to one tool type. Remind and Runtime governance keep those tasks anchored to actual resources and effects.
+1. **Does the task benefit from isolation?** A simple lookup, a single calculation or work tightly coupled to Main's complete context may be better handled directly.
+2. **What will it hand back?** Not merely “done,” but readable source evidence, measurement definitions, genuine calculation or file artifacts, and stated gaps. Main must actually consume them.
+3. **Is the extra cost justified?** Child model calls, waiting, repeated reading, and synthesis all count. Local execution success does not prove end-to-end completion or improved investment research.
 
-A useful Subagent design must do two things at once:
-
-**Allow local work to complete independently, and bring its important evidence and results back to the main research narrative.**
-
-The goal is not to keep more Agents busy. It is to help Main remain focused on the user's question and convert local exploration into a result the user can actually receive, understand, and use.
+ETF Agent's design lesson is: **separate local work without losing critical facts; vary the method without diffusing responsibility for delivery.** That matters more than keeping additional Agents busy.
 
 ---
 
