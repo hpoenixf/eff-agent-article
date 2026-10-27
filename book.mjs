@@ -67,7 +67,7 @@ export const collections = [
           ],
           [
             "026-agent-memory-forget-durable-effects",
-            "Memory：遗忘已提交，回答却失败"
+            "Memory：从保存、召回到安全遗忘"
           ],
           [
             "027-rag-revocation-publish-replay",
