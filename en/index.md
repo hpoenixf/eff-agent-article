@@ -30,6 +30,8 @@ features:
     linkText: Explore engineering
 ---
 
+<OpenSourceBridge />
+
 <ContinueReading />
 
 <FlagshipEntry compact />
