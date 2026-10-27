@@ -1,22 +1,7 @@
 import { defineConfig } from 'vitepress'
-import { collections, mergedArticles, historicalEditions } from '../book.mjs'
+import { collections } from '../book.mjs'
+import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
-
-const SITE_URL = 'https://hpoenixf.com/eff-agent-article/'
-
-function canonicalUrl(relativePath: string) {
-  let path = relativePath.replace(/\.md$/, '')
-  if (path === 'index') path = ''
-  if (path === 'en/index') path = 'en/'
-  const article = /^(en\/)?articles\/([^/]+)$/.exec(path)
-  if (article && Object.hasOwn(mergedArticles, article[2])) {
-    path = (article[1] || '') + 'articles/' + mergedArticles[article[2]]
-  } else if (article && Object.hasOwn(historicalEditions, article[2])) {
-    // Preserve full-text historical URLs but don't make them competing search canonicals.
-    path = (article[1] || '') + 'articles/' + historicalEditions[article[2]]
-  }
-  return SITE_URL + path
-}
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -99,13 +84,27 @@ export default defineConfig({
   base: '/eff-agent-article/',
   cleanUrls: true,
   lastUpdated: false,
-  sitemap: { hostname: SITE_URL },
+  sitemap: {
+    hostname: SITE_URL,
+    transformItems: filterSitemapItems
+  },
   transformPageData(pageData) {
     const relativePath = pageData.relativePath
     if (!relativePath.endsWith('.md') || relativePath === '404.md') return
     const canonical = canonicalUrl(relativePath)
+    const legacy = isLegacyArticleRoute(relativePath)
     const heads = (pageData.frontmatter.head ??= [])
+    // Frontmatter compatibility pages already declare canonical/robots. Normalize
+    // them here so VitePress emits exactly one authoritative pair of SEO tags.
+    for (let index = heads.length - 1; index >= 0; index--) {
+      const [tag, attrs] = heads[index]
+      if ((tag === 'link' && attrs?.rel === 'canonical') ||
+          (legacy && tag === 'meta' && attrs?.name === 'robots')) {
+        heads.splice(index, 1)
+      }
+    }
     heads.push(['link', { rel: 'canonical', href: canonical }])
+    if (legacy) heads.push(['meta', { name: 'robots', content: 'noindex,follow' }])
 
     // Keep this editorial map discoverable without adding an article classification system.
     if (relativePath !== 'principles.md' && relativePath !== 'en/principles.md') return
