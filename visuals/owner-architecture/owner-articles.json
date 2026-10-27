@@ -45,7 +45,9 @@
     "agent-control-events-durable-owner-adoption": "Agent 收到控制指令后，为什么不能立刻执行",
     "agent-provider-admission-capacity-lease": "模型返回 HTTP 200，为什么下一次还要排队",
     "agent-custom-expert-from-prompt-to-recovery": "自定义专家，不应该只是一个 Prompt 输入框",
-    "agent-failure-is-a-boundary-problem": "别把每个失败都算给模型"
+    "agent-failure-is-a-boundary-problem": "别把每个失败都算给模型",
+    "agent-conversation-history-compaction-source-boundaries": "跨 Run 会话压缩：旧助手摘要不能替代用户原文",
+    "agent-feedback-facts-not-automatic-learning": "用户点了踩，Agent 就该学习吗？"
   },
   "owners": {
     "A01": {
@@ -318,11 +320,13 @@
       ]
     },
     "A40": {
+      "primary": "agent-feedback-facts-not-automatic-learning",
       "related": [
         "agent-failure-is-a-boundary-problem"
       ]
     },
     "A41": {
+      "primary": "agent-conversation-history-compaction-source-boundaries",
       "related": [
         "agent-main-run-context-compaction"
       ]
