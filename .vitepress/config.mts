@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { collections } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
+import { seoDescription, socialHead } from '../seo-content.mjs'
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -43,6 +44,7 @@ export default defineConfig({
           { text: 'System Overview', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
           { text: 'Principles', link: '/en/principles' },
           { text: 'Gallery', link: '/en/gallery' },
+          { text: 'Runnable code ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
           { text: 'Topics', items: [
             { text: 'Modules', link: '/en/modules' },
             { text: 'Architecture', link: '/en/thinking' },
@@ -62,10 +64,12 @@ export default defineConfig({
             { text: 'Fintech', link: '/en/fintech' },
             { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
             { text: 'Architecture Gallery', link: '/en/gallery' },
-            { text: 'Writing Roadmap', link: '/en/roadmap' }
+            { text: 'Writing Roadmap', link: '/en/roadmap' },
+            { text: 'Glossary', link: '/en/glossary' }
           ] }]
         },
         outline: { level: [2, 3], label: 'On This Page' },
+        lastUpdated: { text: 'Last updated' },
         docFooter: { prev: 'Previous', next: 'Next' },
         returnToTopLabel: 'Back to Top',
         sidebarMenuLabel: 'Menu',
@@ -83,7 +87,7 @@ export default defineConfig({
   lang: 'zh-CN',
   base: '/eff-agent-article/',
   cleanUrls: true,
-  lastUpdated: false,
+  lastUpdated: true,
   sitemap: {
     hostname: SITE_URL,
     transformItems: filterSitemapItems
@@ -94,26 +98,41 @@ export default defineConfig({
     const canonical = canonicalUrl(relativePath)
     const legacy = isLegacyArticleRoute(relativePath)
     const heads = (pageData.frontmatter.head ??= [])
-    // Frontmatter compatibility pages already declare canonical/robots. Normalize
-    // them here so VitePress emits exactly one authoritative pair of SEO tags.
+    const english = relativePath.startsWith('en/')
+    const description = seoDescription({
+      title: pageData.title,
+      headers: pageData.headers,
+      frontmatter: pageData.frontmatter,
+      english
+    })
+    pageData.description = description
+    // VitePress reads pageData.description for the ordinary search snippet.
+    // Normalize pre-existing per-page SEO heads so the build has one owner.
     for (let index = heads.length - 1; index >= 0; index--) {
       const [tag, attrs] = heads[index]
       if ((tag === 'link' && attrs?.rel === 'canonical') ||
-          (legacy && tag === 'meta' && attrs?.name === 'robots')) {
+          (legacy && tag === 'meta' && attrs?.name === 'robots') ||
+          (tag === 'meta' && (String(attrs?.property || '').startsWith('og:') ||
+            String(attrs?.name || '').startsWith('twitter:')))) {
         heads.splice(index, 1)
       }
     }
     heads.push(['link', { rel: 'canonical', href: canonical }])
-    if (legacy) heads.push(['meta', { name: 'robots', content: 'noindex,follow' }])
+    if (legacy) {
+      heads.push(['meta', { name: 'robots', content: 'noindex,follow' }])
+      return
+    }
 
-    // Keep this editorial map discoverable without adding an article classification system.
+    heads.push(...socialHead({
+      title: pageData.title,
+      description,
+      canonical,
+      image: 'https://hpoenixf.com/static/images/twitter-card.png',
+      article: /^(?:en\\/)?articles\\//.test(relativePath),
+      english
+    }))
+
     if (relativePath !== 'principles.md' && relativePath !== 'en/principles.md') return
-    const english = relativePath.startsWith('en/')
-    const description = String(pageData.frontmatter.description || '')
-    heads.push(['meta', { property: 'og:type', content: 'website' }])
-    heads.push(['meta', { property: 'og:title', content: pageData.title }])
-    heads.push(['meta', { property: 'og:description', content: description }])
-    heads.push(['meta', { property: 'og:url', content: canonical }])
     heads.push(['link', { rel: 'alternate', hreflang: 'zh-CN', href: SITE_URL + 'principles' }])
     heads.push(['link', { rel: 'alternate', hreflang: 'en', href: SITE_URL + 'en/principles' }])
     const structuredData = {
@@ -130,7 +149,8 @@ export default defineConfig({
   head: [
     ['meta', { name: 'theme-color', content: '#f8f8f4' }],
     ['meta', { name: 'referrer', content: 'strict-origin-when-cross-origin' }],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/eff-agent-article/brand.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/eff-agent-article/brand.svg' }],
+    ['link', { rel: 'alternate', type: 'application/rss+xml', title: 'ETF Agent Engineering Notes', href: SITE_URL + 'feed.xml' }]
   ],
   markdown: {
     lineNumbers: true,
@@ -159,6 +179,7 @@ export default defineConfig({
       { text: '系统全景', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
       { text: '架构原则', link: '/principles' },
       { text: '架构图册', link: '/gallery' },
+      { text: '可运行源码 ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
       { text: '文章分类', items: [
         { text: '模块维度', link: '/modules' },
         { text: '架构与系统思考', link: '/thinking' },
@@ -181,11 +202,13 @@ export default defineConfig({
           { text: '完整目录', link: '/catalog' },
           { text: '架构导读', link: '/architecture' },
           { text: '架构图册', link: '/gallery' },
-          { text: '写作预告', link: '/roadmap' }
+          { text: '写作预告', link: '/roadmap' },
+          { text: '术语速查', link: '/glossary' }
         ]}
       ]
     },
     outline: { level: [2, 3], label: '本页目录' },
+    lastUpdated: { text: '最近修订' },
     docFooter: { prev: '上一篇', next: '下一篇' },
     returnToTopLabel: '返回顶部',
     sidebarMenuLabel: '目录',
