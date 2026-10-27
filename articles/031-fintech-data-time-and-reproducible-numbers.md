@@ -135,4 +135,4 @@ JavaScript 的 `number` 使用二进制浮点。金融系统里，问题不只�
 - [金融 Agent 的可信证据链](financial-agent-trustworthy-evidence-chain.md)：从来源到计算、发布及历史的身份与口径。
 - [Python：从工具到计算工作台](agent-python-compute-workbench-evolution.md)：计算隔离与实际执行能力。
 
-更多文章见 [ETF Agent 独立阅读站](https://hpoenixf.github.io/eff-agent-article/)及 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article)。如果有帮助，欢迎 Star 或在 Issues 讨论其中的金融口径与工程反例。
+更多文章见 [ETF Agent 独立阅读站](https://hpoenixf.com/eff-agent-article/)及 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article)。如果有帮助，欢迎 Star 或在 Issues 讨论其中的金融口径与工程反例。

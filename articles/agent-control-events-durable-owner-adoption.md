@@ -99,6 +99,6 @@ A37 HIO 接纳的是人与 Agent 的交互请求和回复身份；它需要恢�
 
 ## 延伸阅读
 
-[持久 HIL：用户回复如何接回研究](https://hpoenixf.github.io/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)讨论 A37 交互准入，[定时研究](https://hpoenixf.github.io/eff-agent-article/articles/agent-autonomous-scheduled-research)解释 A09 Task 的长期承诺；[异步交付](https://hpoenixf.github.io/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)解释 A24 的通知与 History。
+[持久 HIL：用户回复如何接回研究](https://hpoenixf.com/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)讨论 A37 交互准入，[定时研究](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)解释 A09 Task 的长期承诺；[异步交付](https://hpoenixf.com/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)解释 A24 的通知与 History。
 
 [公开工程文集](https://github.com/hpoenixf/eff-agent-article)收录更多基于实际系统演化的文章。欢迎 Star 关注后续更新。

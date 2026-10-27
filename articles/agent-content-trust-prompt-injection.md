@@ -141,6 +141,6 @@ return originalGateway.dispatch(sdkPayload);
 
 ## 延伸阅读与交流
 
-关于与之相邻、但职责不同的最终工具可见性问题，可阅读 [A34 Tool Surface](https://hpoenixf.github.io/eff-agent-article/articles/agent-model-capability-presentation-tool-surface)；关于授权与执行事实，可阅读 [模型会理解，代码才授权](https://hpoenixf.github.io/eff-agent-article/articles/011-model-understands-code-authorizes)。
+关于与之相邻、但职责不同的最终工具可见性问题，可阅读 [A34 Tool Surface](https://hpoenixf.com/eff-agent-article/articles/agent-model-capability-presentation-tool-surface)；关于授权与执行事实，可阅读 [模型会理解，代码才授权](https://hpoenixf.com/eff-agent-article/articles/011-model-understands-code-authorizes)。
 
 本系列收录于 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。如果这些工程实践对你有帮助，欢迎为公开文集点一个 Star。

@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/agent-failure-is-a-boundary-problem
+      href: https://hpoenixf.com/eff-agent-article/articles/agent-failure-is-a-boundary-problem
 ---
 
 # 做了评测、日志和护栏，为什么 Agent 仍可能越改越偏？
