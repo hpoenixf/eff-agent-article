@@ -5,21 +5,17 @@ description: "Reproducible time-bound market data, exact decimals, cash conserva
 
 # Financial AI's Most Dangerous Appearance of Expertise: The Data Is Real, but the Numbers Are Wrong
 
-> **Historical case:** Index levels are drawn from a 2025 engineering retrospective, not current market quotes.
->
+> **Historical case:** Index levels come from a 2025 engineering retrospective, not current market quotes.
+
 > **Series:** Fintech and Compliance, with module and architecture perspectives.
->
-> Updated October 21, 2026 to include A33 Numeric, the first financial-calculation phase and the second metric-federation phase. Calculation counterexamples use safe test inputs—not actual user trading losses or certification of investment performance.
 
-The first line of defense in financial question answering is often “attach a source to every number.” In actual development, however, some of the hardest errors happen **after correct data has already reached the model**. The sources are real, the time window is available, yet the final answer supplies a different figure in prose that still sounds like professional research.
+> This account draws on the exact-calculation and federated-metrics phases as of October 21, 2026. Calculation counterexamples use safe test inputs, not actual investor losses.
 
-One real ETF Agent record showed an index's lowest 2025 closing value as **3,589.44** in the retrieved series, but the model answered **3,722.51**. Stranger still, elsewhere in the answer it used **3,589.44** in a drawdown calculation. Subsequent review confirmed both retrieved closing-price tables contained **243 trading-day records for 2025**. The error occurred in interpretation and final-answer organization; the evidence did not justify immediately blaming Runtime for dropping the correct quote.
+**The most misleading number in financial AI may not be fabricated. It may come from a real source and then be interpreted under the wrong definition.** An investment conclusion needs the right instrument, time, unit, and denominator before anyone checks arithmetic or trusts the final explanation.
 
-The lesson is not about those index levels. **Sourcing data, calculating numbers and explaining a report are three independent capabilities**.
+In one real ETF Agent research record, the lowest closing value in a retrieved 2025 index series was **3,589.44**, but the model answered **3,722.51**. Elsewhere it had correctly used 3,589.44 in drawdown work. Each of the two retrieved tables contained 243 trading-day records. The evidence pointed to interpretation and answer composition; it did not by itself show Runtime had hidden the right data.
 
-Later we found a different defect inside a portfolio-rebalancing calculation producer: even without the model doing arithmetic, ordinary binary floating point and comparisons made after display rounding could miscalculate amounts or classify a cash-deficient plan as feasible.
-
-We therefore separated two responsibilities: **A33 performs explicit decimal arithmetic and rounding; each financial domain decides what should be calculated and whether its result is eligible for use**. We did not replace both with a single “financial numeric manager.”
+A separate controlled counterexample showed that fee precision and cash constraints can also fail without model involvement. We therefore kept **deterministic decimal computation** separate from the domain decision about **what should be calculated and compared**, rather than centralizing financial truth in one manager.
 
 ## 1. A Financial Number First Needs an Instrument, Time and Definition
 
@@ -157,17 +153,15 @@ In our controlled numerical chain, an amount that happens to match a public webp
 
 Financial reports mix several legitimate forms of “truth”: official disclosures, historical price observations, derived calculations, and actual personal profit/loss ledger entries. Packaging them in one professional-looking PDF does not cause them to validate one another.
 
-## 9. An Attractive Report Cannot Close Unfinished Research
+## 9. A Financial Number Matters Only When It Supports the Decision
 
-As of October 21, 2026, the first exact-numerics phase, second federated-metrics phase, and first HTML weekly-report file delivery each had separate, scoped engineering acceptance. Autonomous portfolio research still had historical gaps in full-task completion, numerical interpretation, and consumption of methods or results.
+As of October 21, 2026, exact arithmetic, bounded metric definitions, and the first HTML weekly-report delivery had their own scoped engineering evidence. Autonomous portfolio research still had historical gaps in full-task completion, numerical interpretation, and proper consumption of results.
 
-Financial AI acceptance should not stop at “Did a report exist?” Select the numbers on which a conclusion depends, and recompute them from the original question's instrument, time, data definition and method. Then check whether the model accurately explains the derived result.
+When reviewing an investment report, select **two or three numbers that could actually change its conclusion**. Ask what instrument and time they describe, which return, fee or constraint definition applies, whether qualified inputs allow independent recalculation, and whether the final prose goes beyond what those values support.
 
-Professional prose is cheap. **Preserving numerical meaning across every handoff and allowing independent reproduction** is the harder achievement.
+That is why computation and research should have different responsibilities. One performs precise operations under declared premises; the other chooses appropriate methods and explains their limitations. Repeating a calculation ten times cannot rescue an invalid comparison.
 
-The first phase corrected selected amount, fee and constraint calculations; the second consolidated bounded metric and fee semantics within their original owners.
-
-The independent problem of faithful model interpretation is examined in [Why Python Results Can Still Be Misused in Reports](financial-agent-python-result-consumption.md).
+**A number with a source is a starting point. Reproducible definitions and qualified interpretation make it useful for judgment.** For more on how results can be misread after Python has calculated them, see [Python result consumption](financial-agent-python-result-consumption.md). A polished report alone is not evidence of successful investment research.
 
 ## Further Reading
 
