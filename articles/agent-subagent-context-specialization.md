@@ -298,7 +298,7 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 这条能力在源代码层面已进入主干，但原账户真实 PostgreSQL、浏览器与完整 Child→Main 产品闭环的 owning tasks 仍未正式完成。它值得补进 Subagent 的机制文章，而不值得另写一篇“全新 Agent 平台已经上线”。角色可定制不意味着工具更可用，也不意味着个人角色可以扩张来源、预算、模型和交易权限。
 
-与此相邻的[持久 HIL 机制](https://hpoenixf.github.io/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)解决另一个实际交接：用户回复究竟有没有进入原 Child 的独立消息，而不只是进入 Main 的转述。Profile 约束“谁按哪一版方法工作”，HIL 验证“谁实际采用了哪条输入”，二者共同复用原 Child 身份和恢复。
+与此相邻的[持久 HIL 机制](https://hpoenixf.com/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)解决另一个实际交接：用户回复究竟有没有进入原 Child 的独立消息，而不只是进入 Main 的转述。Profile 约束“谁按哪一版方法工作”，HIL 验证“谁实际采用了哪条输入”，二者共同复用原 Child 身份和恢复。
 
 ## 2026-10-26 · 统一专家当前进度
 

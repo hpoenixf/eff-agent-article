@@ -1303,7 +1303,7 @@ Langfuse 将分散的请求、模型交换、工具与正文观察关联起来�
 
 ### 历史版本
 
-[V1（2026-10-20）：一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
+[V1（2026-10-20）：一句“帮我看看组合”，怎样走过 ETF Agent 的六层系统](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
 
 
 ## 版本演进：从 V2 到 V3（2026-10-25）

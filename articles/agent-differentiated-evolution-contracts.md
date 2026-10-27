@@ -178,6 +178,6 @@ AffectedContracts --> AdapterChecks
 
 [一个 Subagent 改动，为什么拖住了我们整整一天？](agent-runtime-refactor-one-day-blocked.md)提供完整事件背景；[代码越来越便宜，为什么系统却越来越难升级？](code-cheaper-systems-harder-to-evolve.md)讨论引入、替换与退出的长期成本。
 
-本文收录于 [ETF Agent 工程手记](https://hpoenixf.github.io/eff-agent-article/articles/agent-differentiated-evolution-contracts)。如果这些架构取舍对你有帮助，欢迎在[公开文集仓库](https://github.com/hpoenixf/eff-agent-article)点一个 Star。
+本文收录于 [ETF Agent 工程手记](https://hpoenixf.com/eff-agent-article/articles/agent-differentiated-evolution-contracts)。如果这些架构取舍对你有帮助，欢迎在[公开文集仓库](https://github.com/hpoenixf/eff-agent-article)点一个 Star。
 
 这四类契约在阅读地图中对应[外围方法 7：按 Interface 区分稳定性与演进方式](/principles#method-7)，不是新增第十条核心原则。

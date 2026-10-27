@@ -204,13 +204,13 @@ flowchart TD
 
 ## 继续阅读
 
-- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](https://hpoenixf.github.io/eff-agent-article/articles/portfolio-mcp-readonly-investment-data)
-- [一个金融数据 MCP，为什么长成了研究决策系统](https://hpoenixf.github.io/eff-agent-article/articles/mcp-market-responsibility-retrospective)
+- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](https://hpoenixf.com/eff-agent-article/articles/portfolio-mcp-readonly-investment-data)
+- [一个金融数据 MCP，为什么长成了研究决策系统](https://hpoenixf.com/eff-agent-article/articles/mcp-market-responsibility-retrospective)
 
 <!-- agent-article-sync:guidance:start -->
 ## 延伸阅读与交流
 
-欢迎到[独立阅读站](https://hpoenixf.github.io/eff-agent-article/)，结合目录、架构图和前后篇连续阅读。
+欢迎到[独立阅读站](https://hpoenixf.com/eff-agent-article/)，结合目录、架构图和前后篇连续阅读。
 
 系列文章与图文资料整理在 [GitHub 仓库](https://github.com/hpoenixf/eff-agent-article)。如果这篇文章对你有帮助，欢迎点个 **Star** 支持，也欢迎通过 Issues 交流问题。
 <!-- agent-article-sync:guidance:end -->

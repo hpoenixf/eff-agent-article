@@ -107,6 +107,6 @@ A36 的原 P0 任务仍未完成：普通认证 Agent 请求使用真实资格�
 
 ## 延伸阅读
 
-[定时研究：会话结束后继续](https://hpoenixf.github.io/eff-agent-article/articles/agent-autonomous-scheduled-research)解释何时生成下一次任务；[金融数字的时点、口径与复算](https://hpoenixf.github.io/eff-agent-article/articles/031-fintech-data-time-and-reproducible-numbers)讲实际数据时点。本文讨论的是用户自然语言时间与市场日历怎样进入普通研究，三篇文章互为补充。
+[定时研究：会话结束后继续](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)解释何时生成下一次任务；[金融数字的时点、口径与复算](https://hpoenixf.com/eff-agent-article/articles/031-fintech-data-time-and-reproducible-numbers)讲实际数据时点。本文讨论的是用户自然语言时间与市场日历怎样进入普通研究，三篇文章互为补充。
 
 本文属于 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article) 的工程案例。欢迎 Star 公开文集。

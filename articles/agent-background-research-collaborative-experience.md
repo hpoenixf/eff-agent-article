@@ -185,5 +185,5 @@ Personal Agent 需要连续上下文，但连续性仍要建立在实际发生�
 
 ## 延伸阅读与交流
 
-本文也收录于 [ETF Agent 工程手记](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience)，另有[完整英文版](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-background-research-collaborative-experience)。如果这些工程记录对你有帮助，欢迎在 [GitHub 文集](https://github.com/hpoenixf/eff-agent-article)点个 Star，方便后续阅读。
+本文也收录于 [ETF Agent 工程手记](https://hpoenixf.com/eff-agent-article/articles/agent-background-research-collaborative-experience)，另有[完整英文版](https://hpoenixf.com/eff-agent-article/en/articles/agent-background-research-collaborative-experience)。如果这些工程记录对你有帮助，欢迎在 [GitHub 文集](https://github.com/hpoenixf/eff-agent-article)点个 Star，方便后续阅读。
 <!-- agent-article-sync:guidance:end -->

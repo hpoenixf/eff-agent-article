@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/agent-veto-authority-and-run-termination
+      href: https://hpoenixf.com/eff-agent-article/articles/agent-veto-authority-and-run-termination
 ---
 
 # 失败终态与安全恢复

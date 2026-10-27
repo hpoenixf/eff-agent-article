@@ -123,4 +123,4 @@ ModelInterpretation --> Publication
 - [金融 Agent 的可信证据链](financial-agent-trustworthy-evidence-chain.md)：来源、计算与报告之间的完整证据关系。
 - [Python：从工具到计算工作台](agent-python-compute-workbench-evolution.md)：隔离执行与工作区本身怎样建设。
 
-更多文章见 [ETF Agent 独立阅读站](https://hpoenixf.github.io/eff-agent-article/)和 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article)。如果内容有帮助，欢迎 Star 或提出反例交流。
+更多文章见 [ETF Agent 独立阅读站](https://hpoenixf.com/eff-agent-article/)和 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article)。如果内容有帮助，欢迎 Star 或提出反例交流。

@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/en/articles/011-model-understands-code-authorizes
+      href: https://hpoenixf.com/eff-agent-article/en/articles/011-model-understands-code-authorizes
 ---
 
 # Why an Agent Needs Brakes First

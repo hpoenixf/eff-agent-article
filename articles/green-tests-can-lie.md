@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/honest-agent-evaluation
+      href: https://hpoenixf.com/eff-agent-article/articles/honest-agent-evaluation
 ---
 
 # 绿测不等于生产能力

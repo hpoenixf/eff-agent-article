@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/runtime-model-protocol-boundary-agent-article-v2
+      href: https://hpoenixf.com/eff-agent-article/articles/runtime-model-protocol-boundary-agent-article-v2
 ---
 
 # Runtime 不知道的，不要因为能写一个规则，就假装它知道

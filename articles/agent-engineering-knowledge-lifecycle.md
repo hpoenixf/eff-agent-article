@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/027-agent-context-document-history
+      href: https://hpoenixf.com/eff-agent-article/articles/027-agent-context-document-history
 ---
 
 # 代码删了，旧文档为什么还在指挥 Agent？

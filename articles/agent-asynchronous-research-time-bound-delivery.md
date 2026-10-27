@@ -135,6 +135,6 @@ HistoryProjection --> BrowserReopen
 
 ---
 
-延伸阅读：[定时研究](https://hpoenixf.github.io/eff-agent-article/articles/agent-autonomous-scheduled-research)、[渐进式回答](https://hpoenixf.github.io/eff-agent-article/articles/agent-progressive-answer-coherence)与[独立 Publication](https://hpoenixf.github.io/eff-agent-article/articles/019-agent-answer-publication)分别解释周期任务、正文组织与正式发布；本文聚焦已启动研究的时间约定、离线交付与客户端重读。
+延伸阅读：[定时研究](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)、[渐进式回答](https://hpoenixf.com/eff-agent-article/articles/agent-progressive-answer-coherence)与[独立 Publication](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication)分别解释周期任务、正文组织与正式发布；本文聚焦已启动研究的时间约定、离线交付与客户端重读。
 
 更多工程案例见 [ETF Agent 工程文集](https://github.com/hpoenixf/eff-agent-article)。如果这些实践对你有帮助，欢迎为文集点一个 Star。

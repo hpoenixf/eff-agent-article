@@ -87,6 +87,6 @@ We chose to preserve unknown because **an honest, recoverable partial usage reco
 
 ## Further Reading
 
-[Run budget and constraint governance](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) explains research admissions and finalization protection. [Langfuse and trustworthy observability](https://hpoenixf.github.io/eff-agent-article/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability) distinguishes physical attempts from visible traces. This essay focuses on the personal Shadow ledger rather than repeating those subjects.
+[Run budget and constraint governance](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) explains research admissions and finalization protection. [Langfuse and trustworthy observability](https://hpoenixf.com/eff-agent-article/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability) distinguishes physical attempts from visible traces. This essay focuses on the personal Shadow ledger rather than repeating those subjects.
 
 More engineering notes are collected at [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). Star the public collection if it helps.

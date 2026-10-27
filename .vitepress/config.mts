@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { collections, mergedArticles, historicalEditions } from '../book.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 
-const SITE_URL = 'https://hpoenixf.github.io/eff-agent-article/'
+const SITE_URL = 'https://hpoenixf.com/eff-agent-article/'
 
 function canonicalUrl(relativePath: string) {
   let path = relativePath.replace(/\.md$/, '')

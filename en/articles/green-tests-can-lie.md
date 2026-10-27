@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/en/articles/honest-agent-evaluation
+      href: https://hpoenixf.com/eff-agent-article/en/articles/honest-agent-evaluation
 ---
 
 # Green Tests Can Lie

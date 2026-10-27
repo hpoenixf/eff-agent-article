@@ -99,6 +99,6 @@ Provider Admission 的 `release` 还需要区分传输完成、暂态失败与�
 
 ## 延伸阅读
 
-[Provider 统一接口与路由身份](https://hpoenixf.github.io/eff-agent-article/articles/agent-provider-architecture-and-admission)讲 A32/A10 和总体架构，[Run 预算与约束治理](https://hpoenixf.github.io/eff-agent-article/articles/agent-runtime-constraint-governance-v2)区分 A05 的任务额度；[故障切换与原任务身份](https://hpoenixf.github.io/eff-agent-article/articles/agent-provider-failover-without-resetting-the-run)讨论重试为什么仍需原 Run 批准。
+[Provider 统一接口与路由身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-architecture-and-admission)讲 A32/A10 和总体架构，[Run 预算与约束治理](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-constraint-governance-v2)区分 A05 的任务额度；[故障切换与原任务身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-failover-without-resetting-the-run)讨论重试为什么仍需原 Run 批准。
 
 更多模块机制见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎 Star。

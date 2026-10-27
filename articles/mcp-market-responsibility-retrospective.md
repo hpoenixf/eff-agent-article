@@ -202,17 +202,17 @@ NativeEvidence --> ResearchModel
 
 ## 继续阅读
 
-- [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption)
-- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](https://hpoenixf.github.io/eff-agent-article/articles/portfolio-mcp-readonly-investment-data)
-- [金融 AI 最危险的“专业感”：数据是真的，数字却算错了](https://hpoenixf.github.io/eff-agent-article/articles/031-fintech-data-time-and-reproducible-numbers)：对象、日期、运算和方法口径怎样共同影响金融数字。
-- [Agent 明明调用了 Python，为什么投研报告还是会算错？](https://hpoenixf.github.io/eff-agent-article/articles/financial-agent-python-result-consumption)：计算已经发生之后，结果怎样被模型正确消费。
-- [金融 Agent 的可信证据链](https://hpoenixf.github.io/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain)：来源、计算与发布之间的事实如何保持可追索。
+- [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](https://hpoenixf.com/eff-agent-article/articles/mcp-host-from-discovery-to-consumption)
+- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](https://hpoenixf.com/eff-agent-article/articles/portfolio-mcp-readonly-investment-data)
+- [金融 AI 最危险的“专业感”：数据是真的，数字却算错了](https://hpoenixf.com/eff-agent-article/articles/031-fintech-data-time-and-reproducible-numbers)：对象、日期、运算和方法口径怎样共同影响金融数字。
+- [Agent 明明调用了 Python，为什么投研报告还是会算错？](https://hpoenixf.com/eff-agent-article/articles/financial-agent-python-result-consumption)：计算已经发生之后，结果怎样被模型正确消费。
+- [金融 Agent 的可信证据链](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain)：来源、计算与发布之间的事实如何保持可追索。
 
 
 <!-- agent-article-sync:guidance:start -->
 ## 延伸阅读与交流
 
-欢迎到[独立阅读站](https://hpoenixf.github.io/eff-agent-article/)，结合目录、架构图和前后篇连续阅读。
+欢迎到[独立阅读站](https://hpoenixf.com/eff-agent-article/)，结合目录、架构图和前后篇连续阅读。
 
 系列文章与图文资料整理在 [GitHub 仓库](https://github.com/hpoenixf/eff-agent-article)。如果这篇文章对你有帮助，欢迎点个 **Star** 支持，也欢迎通过 Issues 交流问题。
 <!-- agent-article-sync:guidance:end -->

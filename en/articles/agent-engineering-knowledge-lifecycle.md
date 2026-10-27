@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/en/articles/027-agent-context-document-history
+      href: https://hpoenixf.com/eff-agent-article/en/articles/027-agent-context-document-history
 ---
 
 # Why Retired Documents Still Direct Coding Agents

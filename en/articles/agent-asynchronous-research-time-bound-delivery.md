@@ -135,6 +135,6 @@ That is what makes this work different from recurring schedules, progressive ans
 
 ---
 
-Further reading: [Scheduled Research](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-autonomous-scheduled-research), [Progressive Answers](https://hpoenixf.github.io/eff-agent-article/articles/agent-progressive-answer-coherence), and [Independent Publication](https://hpoenixf.github.io/eff-agent-article/articles/019-agent-answer-publication) cover neighboring concerns. This article focuses on delivery times, continued research, and client replay.
+Further reading: [Scheduled Research](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research), [Progressive Answers](https://hpoenixf.com/eff-agent-article/articles/agent-progressive-answer-coherence), and [Independent Publication](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication) cover neighboring concerns. This article focuses on delivery times, continued research, and client replay.
 
 Explore more at the [ETF Agent engineering collection](https://github.com/hpoenixf/eff-agent-article). If the work is useful, consider giving the collection a Star.

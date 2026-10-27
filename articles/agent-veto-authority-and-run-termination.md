@@ -186,4 +186,4 @@ Settled --> ReplayOriginal
 - [别把每个失败都算给模型](agent-failure-is-a-boundary-problem.md)：故障身份、诊断归因与未知状态。
 - [测试与评测怎样避免假绿](honest-agent-evaluation.md)：执行、交付与质量证据各自证明什么。
 
-更多文章见 [ETF Agent 阅读站](https://hpoenixf.github.io/eff-agent-article/)；欢迎在 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article) Star 或提出反例。
+更多文章见 [ETF Agent 阅读站](https://hpoenixf.com/eff-agent-article/)；欢迎在 [GitHub 文章仓库](https://github.com/hpoenixf/eff-agent-article) Star 或提出反例。

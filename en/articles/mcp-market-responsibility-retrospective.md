@@ -313,7 +313,7 @@ A Market MCP can connect many sources and supply reliable inputs for well-define
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
 
-Read adjacent essays and diagrams at the [article collection](https://hpoenixf.github.io/eff-agent-article/).
+Read adjacent essays and diagrams at the [article collection](https://hpoenixf.com/eff-agent-article/).
 
 The [GitHub repository](https://github.com/hpoenixf/eff-agent-article) hosts these materials; Stars and issue discussions are welcome.
 <!-- agent-article-sync:guidance:end -->

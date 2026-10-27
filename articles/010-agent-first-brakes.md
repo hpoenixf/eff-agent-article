@@ -10,7 +10,7 @@ head:
       content: noindex, follow
   - - link
     - rel: canonical
-      href: https://hpoenixf.github.io/eff-agent-article/articles/011-model-understands-code-authorizes
+      href: https://hpoenixf.com/eff-agent-article/articles/011-model-understands-code-authorizes
 ---
 
 # 一个 Agent 为什么先装刹车

@@ -121,6 +121,6 @@ A37's earlier local close does not enable production Human Park or certify live-
 
 ## Further Reading
 
-[Concurrent front-end chat and background research](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-background-research-collaborative-experience) explains why chat need not block on a long task. [Time-bound asynchronous delivery](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-asynchronous-research-time-bound-delivery) examines delivery promises and saved results. They can cooperate with human replies, but have different Owners.
+[Concurrent front-end chat and background research](https://hpoenixf.com/eff-agent-article/en/articles/agent-background-research-collaborative-experience) explains why chat need not block on a long task. [Time-bound asynchronous delivery](https://hpoenixf.com/eff-agent-article/en/articles/agent-asynchronous-research-time-bound-delivery) examines delivery promises and saved results. They can cooperate with human replies, but have different Owners.
 
 More case studies are published in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). A Star is welcome if the material helps.
