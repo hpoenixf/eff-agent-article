@@ -279,6 +279,23 @@ never a competing article index. The English catalog marks untranslated essays �
   evidence status, warnings, dates, diagrams, and citation semantics. Do not label a placeholder translated.
 - Existing Chinese-only articles are **not** claimed to have English translations.
 
+### 静态 Mermaid 架构图 / Build-time diagrams
+
+正文中保留真实的 Mermaid 源码，中英文各自维护可读节点与判断分支。运行 ```bash
+npm install
+npm run check:catalog
+npm run docs:build
+```
+时，站点在构建期使用固定的 Mermaid CLI 与本机 Chrome/Chromium，批量生成内容寻址 SVG。部署页面直接显示图片；**浏览器没有 JavaScript 仍能看到图**，旧客户端 Mermaid 渲染器已退出。图源码语法错误、预期文件缺失或 SVG 校验失败会阻断构建。
+
+本机需要 Chrome/Chromium；命令查找不到浏览器时设置 ```text
+MERMAID_CHROME_PATH=/path/to/chrome
+```
+并重试。CI 使用 Runner 自带 Chrome 和 ```text
+PUPPETEER_SKIP_DOWNLOAD=1
+```
+避免再次下载浏览器。静态图片属于构建产物，保留文章里的 Mermaid 作为**唯一图源**，不在公开仓库另维护一份容易漂移的 SVG 正文。英文本地图不是简单复用带中文标签的图片：只有图源码与正文译文达到原有双语检查要求，才算该语言图文齐备。
+
 ### Bilingual diagrams and illustrations / 图表双语规则
 
 Each English article is a full Markdown edition, not a summary. Mermaid source for each article is
