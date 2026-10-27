@@ -384,6 +384,22 @@ npm run session -- inspect --session runs/plugin-article --run run-YOUR_ID
 
 [`runtime.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/runtime.mjs) connects the published tools and Hooks to the existing loop and releases that selected package set when the invocation ends. This is the reproducible capability: **trusted contributions reach the actual method/source owners and produce a readable report plus cleanup results through the original Runtime**. Package lifecycle and durable Run cancellation/recovery remain separate responsibilities; see the [public control-handoff slice](https://hpoenixf.com/eff-agent-article/en/articles/agent-control-events-durable-owner-adoption) for the latter. One plugin example does not establish cross-ecosystem compatibility, background scheduling or real-model adoption quality.
 
+<!-- open-etf-case:plugins@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Verify that two packages enter the same Host
+
+The [plugin integration case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/plugins.test.mjs) sends two trusted package contributions through the ordinary Runtime and Host, beyond merely loading them.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^7\.1 two trusted packages use the ordinary Host and acquired source/method owners$' test/plugins.test.mjs
+```
+
+It reads two methods and two synthetic sources, saves a report, checks the two source and two method entries in `manifest.json`, and verifies resource release. The terminal should report this exact test as passing.
+
+The case establishes trusted local-package integration with one execution path. It supplies neither a sandbox for third-party code nor full Claude, Pi, or Codex ecosystem qualification.
+<!-- /open-etf-case -->
+
 ## 7. Who Owns an Extension's Effects?
 
 Our original question was how to support more third-party plugins. The actual work confronted loader identity, Hook output consumption, state-write ordering, terminal replay, constrained file exchange, and external scripts' assumptions about clocks and filesystems.

@@ -244,6 +244,22 @@ This is more informative than "all tests green." Some real execution contradicti
 
 Historical runs exposed real conflicts in the ownership of local quota errors, the visibility of exhausted tools, and the room left for final-answer correction. Some were fixed at their original call sites, while incomplete research and inconclusive reviewer results retained their status. These changes alone cannot quantify improvements in overall task success, cost, or latency.
 
+<!-- open-etf-case:budget@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Stop the second model request at the root budget
+
+The [root-budget refusal case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs) reduces ownership of actual usage to one explicit counterexample.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.3 root budget refusal stops before a second model request$' test/cooperation-integration.test.mjs
+```
+
+The model budget is 1. The first request proposes and completes one read; the second must be refused before dispatch. Assertions require one actual model call, a Run code of `ROOT_BUDGET_EXHAUSTED`, and root usage `{ model: 1, tool: 1 }`.
+
+A `failed` Run is the expected protective outcome here; a passing test does not mean the research completed. This slice does not implement the article's finalization repair reserve, full constraint governance, or task-quality evaluation.
+<!-- /open-etf-case -->
+
 ## 8. What I Would Inspect First Next Time
 
 The important lesson was not the final numeric settings.

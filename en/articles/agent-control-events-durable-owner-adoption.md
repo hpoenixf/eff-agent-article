@@ -136,6 +136,22 @@ This public path controls only the selected local Session and its supported synt
 
 ---
 
+<!-- open-etf-case:control@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Check durable cancellation while a model request is pending
+
+The [process-level cancellation case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/durable-runtime.test.mjs) places the boundary after a model request reserves budget but before its result returns.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^7\.3 cancel during pending model is durable and late proposal cannot dispatch$' test/durable-runtime.test.mjs
+```
+
+It waits for a real child process to reach `model-pending`, cancels durably through another Session connection, and checks that the late proposal dispatches no tool. A new process reads the same Run as `cancelled`, with model usage still 1.
+
+The model behavior is synthetic. This checks durable Run cancellation and rejection of a late proposal, not the article's complete A08 delivery, deduplication, and business-owner adoption system.
+<!-- /open-etf-case -->
+
 ## Further reading
 
 [Durable human response adoption](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) explains A37's admission boundary; [scheduled research](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research) describes A09's long-lived Task obligations; and [asynchronous delivery](https://hpoenixf.com/eff-agent-article/en/articles/agent-asynchronous-research-time-bound-delivery) explains A24's notifications and History.

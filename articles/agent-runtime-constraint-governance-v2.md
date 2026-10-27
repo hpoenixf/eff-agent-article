@@ -224,6 +224,22 @@ HostChecksFinish --> CheckFinalBudget
 
 历史诊断显示，本地额度拒绝的归属、耗尽工具的可见性和收尾修正机会都曾出现实际矛盾，其中一些已沿原调用链修正。仍未完成的研究和 Reviewer 判断则保留原状态；单凭这些修复，无法估算整题成功率、费用或时延改善。
 
+<!-- open-etf-case:budget@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 让第二次模型请求在根预算处停下
+
+固定公开快照的[根预算拒绝用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs)把“额度属于实际调用链”缩成一个明确反例。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.3 root budget refusal stops before a second model request$' test/cooperation-integration.test.mjs
+```
+
+模型额度设为 1，第一次请求提出并完成一次读取；第二次请求必须在发出前被拒绝。测试要求实际模型调用仍为 1，Run 返回 `ROOT_BUDGET_EXHAUSTED`，根用量保持 `{ model: 1, tool: 1 }`。
+
+被测 Run 的 `failed` 是这里预期的保护结果，测试通过不表示研究完成。这个切片不包含全文的收尾修正预留、多层约束治理或任务质量评估。
+<!-- /open-etf-case -->
+
 ## 下次再设计 Agent，我会先检查什么
 
 这次最值得留下的，不是那几个后来采用的上限值。

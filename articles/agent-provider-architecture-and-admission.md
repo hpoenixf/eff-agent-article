@@ -63,6 +63,22 @@ Gateway 是协议适配层：上层用相对稳定的请求和事件接口，下
 
 把能力资格留给 Host、把协议差异留给 Gateway，可以避免两个极端：上层到处判断供应商名字，或者 Gateway 自己决定某个模型能承担哪些研究任务。
 
+<!-- open-etf-case:provider@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 先检验 Gateway 的编码与配对
+
+固定公开快照的[Gateway 用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/gateway.test.mjs)可以先检查协议适配的最小责任，而不把共享准入系统一起带入实验。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^1\.4 injected offline transport verifies request encoding and matched tool results$' test/gateway.test.mjs
+```
+
+它注入离线 transport，捕获实际构造的请求，核对原问题、工具调用 ID 与对应结果 ID，并要求重定向策略为拒绝。通过时终端显示这一精确测试成功；不需要真实 API 凭据。
+
+这个切片没有发起外部 HTTP 请求，不验证真实供应商兼容性，也不实现本文的跨进程队列、容量租约或 PostgreSQL 准入库。
+<!-- /open-etf-case -->
+
 ## 三、为什么限流不能写在每个 Gateway 实例里？
 
 假设 API 服务、研究子任务和独立评审进程都连接到同一个模型端点。每个进程都维护一个“最多同时调用 K 次”的本地计数器，那么它们限制的只是自己的视角，而不是共同消耗的外部资源。

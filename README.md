@@ -12,6 +12,15 @@
 
 ---
 
+## 最近更新
+
+- [《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md) · [English](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)
+- [金融 Agent 全景：连接研究、业务与责任的系统架构](articles/financial-agent-system-panorama.md) · [English](en/articles/financial-agent-system-panorama.md)
+- [AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md) · [English](en/articles/ai-coding-judgment-and-verification.md)
+
+<details>
+<summary>最近更新完整记录（展开查看）</summary>
+
 ## 2026-10-27 · Agent 研究恢复与专家交接
 
 新增[《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md)与[完整英文版](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)，明确客户端重连、服务中断结算、受控 Human/Child 唤醒和新 Run 复用原材料之间的产品承诺。同期更新[自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md)、[Subagent](articles/agent-subagent-context-specialization.md)、[评测证据](articles/honest-agent-evaluation.md)和[终结权](articles/agent-veto-authority-and-run-termination.md)已有中英文主稿。工程验证不等于自然模型研究质量证明，旧文章保留原路径与图表。
@@ -56,6 +65,8 @@
 
 自定义 Agent 仍是独立草稿，暂不纳入正式目录；展望文章不代表完整协作效果已验收。
 
+</details>
+
 ## 初次访问：90 秒找到最相关的工程证据
 
 **两篇首要必读：** [六层调用全景 V3](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 是运行地图，沿一次请求讲清会话、Main/Subagent、可选工具、发布与界面；[Agent 架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
@@ -69,7 +80,7 @@
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
-**两种公开资产，两个仓库：** 本仓库 [eff-agent-article](https://github.com/hpoenixf/eff-agent-article) 是工程文章、图册与阅读站源码；[open-etf-agent](https://github.com/hpoenixf/open-etf-agent) 是独立 MIT 开源、可运行的分阶段教学实现（截至 2026-10-27 为 v0.8），提供合成离线 Demo、测试及交付回读。后者**不是内部完整 ETF Agent 产品的开源替代品**，其通过的 Runtime 测试不代表真实模型语义质量、投资服务或生产就绪；内部产品源码、凭据和完整生产运行证据仍不公开。两套资产均不能单独证明第三方复核过长期成功率或用户收益。
+**两种公开资产，两个仓库：** 本仓库 [eff-agent-article](https://github.com/hpoenixf/eff-agent-article) 是工程文章、图册与阅读站源码；[open-etf-agent](https://github.com/hpoenixf/open-etf-agent) 是独立 MIT 开源、可运行的分阶段教学实现（截至 2026-10-27 为 v0.9），提供合成离线 Demo、测试及交付回读。后者**不是内部完整 ETF Agent 产品的开源替代品**，其通过的 Runtime 测试不代表真实模型语义质量、投资服务或生产就绪；内部产品源码、凭据和完整生产运行证据仍不公开。两套资产均不能单独证明第三方复核过长期成功率或用户收益。
 
 [从在线阅读站开始](https://hpoenixf.com/eff-agent-article/) · [博客与作者简介](https://hpoenixf.com/about) · [金融领域案例专题](fintech.md)
 
@@ -78,7 +89,7 @@
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
 | [模块维度](modules.md) | Agent 如何运行？ | **31 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **26 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **27 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
 | [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **8 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
@@ -88,7 +99,7 @@
 
 ### 推荐起点
 
-**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 65 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 66 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -249,7 +260,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 65 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 66 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 
@@ -267,79 +278,4 @@ npm run docs:build
 
 当前目录仅收录[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)。[V2 全文（2026-10-23）](articles/017-prompt-to-answer-six-layer-panorama.md)与[V1 全文（2026-10-20）](articles/017-prompt-to-answer-six-layer-panorama-v1.md)保留独立网址、原始正文和版本演进说明，**不计为新增当前文章**；历史全文与合并到主稿的旧入口是两种不同处理方式。
 
-## 已合并文章的旧链接
-
-旧版 023 发布治理、runtime-natural-language-boundary 和 028 反馈专题仍保留指向现有主稿的合稿引导，**不另算正文**。不为分类调整创建旧文章副本。
-
-## English editions / 双语发布
-
-The Chinese originals remain at `/articles/<slug>`. Reviewed complete English translations use
-`/en/articles/<slug>`; both editions share the same stable slug, canonical category and order in `book.mjs`.
-`book.en.mjs` holds only English display labels and the list of **actually translated** slugs,
-never a competing article index. The English catalog marks untranslated essays “Chinese original.”
-
-- Open `?lang=en` or `?lang=zh` on a site page to set the language preference; the reader switcher stores
-  `etf-agent:language` in localStorage. A URL parameter overrides storage. Direct `/en/` links select English.
-- The language switch preserves equivalent article paths only when a complete translation exists.
-  Otherwise the Chinese original remains visible with a clear availability notice, never a fake translation.
-- For each newly approved article, publish and review both `articles/<slug>.md` and
-  `en/articles/<slug>.md`, register its English title and translated slug in `book.en.mjs`,
-  and run `npm run check:catalog && npm run docs:build`. English must preserve code,
-  evidence status, warnings, dates, diagrams, and citation semantics. Do not label a placeholder translated.
-- Existing Chinese-only articles are **not** claimed to have English translations.
-
-### 静态 Mermaid 架构图 / Build-time diagrams
-
-正文中保留真实的 Mermaid 源码，中英文各自维护可读节点与判断分支。运行：
-
-```bash
-npm install
-npm run check:catalog
-npm run docs:build
-```
-时，站点在构建期使用固定的 Mermaid CLI 与本机 Chrome/Chromium，批量生成内容寻址 SVG。部署页面直接显示图片；**浏览器没有 JavaScript 仍能看到图**，旧客户端 Mermaid 渲染器已退出。图源码语法错误、预期文件缺失或 SVG 校验失败会阻断构建。
-
-本机需要 Chrome/Chromium；命令找不到浏览器时设置 `MERMAID_CHROME_PATH=/path/to/chrome` 并重试。CI 使用 Runner 自带 Chrome 和 `PUPPETEER_SKIP_DOWNLOAD=1`
-避免再次下载浏览器。静态图片属于构建产物，保留文章里的 Mermaid 作为**唯一图源**，不在公开仓库另维护一份容易漂移的 SVG 正文。英文本地图不是简单复用带中文标签的图片：只有图源码与正文译文达到原有双语检查要求，才算该语言图文齐备。
-
-### Bilingual diagrams and illustrations / 图表双语规则
-
-Each English article is a full Markdown edition, not a summary. Mermaid source for each article is
-localized **inside the corresponding language's Markdown**: Chinese diagram nodes and edge labels
-in `articles/<slug>.md`, English nodes/edges in `en/articles/<slug>.md`. Technical identifiers
-and stable field names remain unchanged; decision conditions, failure branches and connector counts
-must match. Markdown table headings and cell descriptions are translated too.
-
-Language-bearing `SVG`, `HTML` illustrations and image captions must be localized separately:
-prefer `visuals/<slug>/...` for the Chinese edition and `visuals/en/<slug>/...` for English,
-with the English article linking its localized asset. Truly language-neutral images may be shared;
-do not link Chinese-labeled SVG/HTML from English pages. Diagram links, image URLs and figures
-must survive GitHub Pages base-path resolution. Standalone interactive HTML visualizations need
-independently localized UI labels and text; translating the linking article is not enough.
-
-Run `npm run check:catalog` to validate canonical slugs, route tests and bilingual
-visual structure (Mermaid blocks, table rows, image counts, and Chinese text in English
-Mermaid/SVG/HTML). Review diagram semantics manually: structural checks cannot translate
-embedded screenshots or certify semantic equivalence.
-
-The first retrospective translation batch adds seven complete articles: long-term Memory,
-RAG revocation, investment research authorization, coding-agent task convergence, the
-project origin story, tool lifecycle tracing, and false-green test evidence. Combined with the
-earlier tool-result essay there are **eight complete English article editions** in this batch's
-snapshot; the authoritative live list is `book.en.mjs`, not this count.
-
-
-## 唯一正式发布链 / One canonical publication path
-
-公开正文只由 `hpoenixf/myblog-v2` 发布到 **https://hpoenixf.com/eff-agent-article/**。
-本仓库是唯一文章源；每次发布由博客仓库的 `reader-source.json` 锁定已审核 source commit
-及本次中英正文 SHA-256。文章源提交通过检查以后，仍须更新并提交博客发布锁，等待其
-Pages 部署并读回新域名的 `reader-release.json` 和实际正文，才算发布完成。
-
-本仓库 CI 保留目录、双语、构建检查，但给旧 `github.io` Pages 上传的只有逐页跳转，
-没有第二套正文或静态应用资产。旧中英文、历史版本和图册 URL 跳到新域同路径，保留
-查询参数与章节 hash。不要恢复独立正文部署，也不要用文章仓库 CI 代替新域名验收。
-
-The article repository is the source, not a second publishing owner. The blog's immutable
-release pin selects the source commit; its deployment receipt and exact public HTML bytes
-must agree on the canonical domain. Legacy GitHub Pages serves redirects only.
+正式阅读入口为 [hpoenixf.com/eff-agent-article](https://hpoenixf.com/eff-agent-article/)（[English](https://hpoenixf.com/eff-agent-article/en/)）；仓库维护与发布约定见 [MAINTENANCE.md](MAINTENANCE.md)。

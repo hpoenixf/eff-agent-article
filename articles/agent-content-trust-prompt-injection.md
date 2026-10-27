@@ -131,6 +131,22 @@ return originalGateway.dispatch(sdkPayload);
 
 尤其不能把两件事混为一谈：**结构上没有把 Web 结果提升成 system，不代表模型不会在合法的工具或用户载体中被恶意文字诱导。** 前者可以靠程序的不变量测试验证；后者仍需要针对真实模型、真实输入通道和执行效果的独立对抗评估。
 
+<!-- open-etf-case:trust@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 用伪造原文身份检查投影拒绝
+
+固定公开快照的[Context 反例用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/context.test.mjs)把“内容不能自行取得权威”缩成几次可检查的输入变更。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^4\.2 projection never launders a lookalike or altered payload into an acquired ref$' test/context.test.mjs
+```
+
+它分别删除 `resultRef`、替换未取得的版本、改页码和伪造正文，要求有界 Context 投影拒绝这些输入，而不是替它们生成看似合法的原文引用。这里观察的是拒绝断言成功，不会生成一份研究报告。
+
+这检验已取得原文身份的结构保护，不能当作完整 A35 实现、恶意文本分类器或真实模型抗提示注入能力的证明。
+<!-- /open-etf-case -->
+
 ## 结语：内容可以影响研究，不能自行取得权力
 
 这个设计最后没有留下庞大的安全控制中心。它留下的是一条可追踪的身份线：生产者先确定原始身份，后续变换不能自行重新签发；最终请求检查真实发送的版本；具体执行、保存、发布与恢复仍由原来拥有事实的地方负责。

@@ -292,6 +292,22 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 完整能力不意味着每件事都要委派。简单查询、一次工具调用，或者高度依赖整段对话的工作，留在 Main 可能更合适。**是否使用 Subagent，应由任务能否从隔离与自主工作中受益决定，而不是由系统里已经有多少种角色决定。**
 
+<!-- open-etf-case:child@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 用一个只读 Child 检查交接
+
+如果先验证“局部工作怎样回到 Main”，可以从固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)运行一个脚本驱动的 Child。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node src/cli.mjs --case fixture-child --output runs/article-child
+```
+
+查看终端 JSON 的 `rootUsage`，再到返回的 `directory` 读 `report.md` 和 `manifest.json`：Child 取得的原始页面由 Main 回读并引用，Child 的派生结论不自行成为新来源。
+
+这个案例只有一层只读 Child，共享根预算；不调用独立真实模型，也不覆盖多层专家编排、PDF 或 Python 协作。
+<!-- /open-etf-case -->
+
 ## 新的角色来源：个人 Profile 要冻结版本，不复制授权
 
 2026-10-24 的主干新增了用户自定义 Subagent Profile 的账户配置、方法版本与 Run 快照接线。它提供的是角色描述和方法指引，不是另一种 Child Runtime。Main 可在允许的目录里选择 Profile，原 A07 Child 消费这次 Run 冻结的身份、revision 与内容指纹；用户后来编辑或停用 Profile，不能倒过来改写旧 Run 曾收到的指引。历史读取仍要遵守当前查看者的账户权限。

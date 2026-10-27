@@ -130,6 +130,22 @@ sequenceDiagram
 
 这些是不应被观测层改变的工程行为，和最终研究内容好不好是两类问题。
 
+<!-- open-etf-case:batch@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 沿批量读取观察结果怎样进入报告
+
+固定公开快照的[批量读取 CLI](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)提供一条容易读回的执行链：两个固定读取任务交回合成原文，再由 Main 保存引用报告。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node src/cli.mjs --case batch-read --output runs/article-batch
+```
+
+终端 JSON 的 `observations` 保留工具结果返回与 Run 释放观察；返回的 `directory` 中有 `run.jsonl`、`report.md` 和 `manifest.json`。可以对照调用、取得的来源和最终报告，而不只看一个成功标志。
+
+这里是固定读取 worker 和本地 Hook 观察，不是通用并发模型专家、完整模型输入追踪平台或 Langfuse 导出器；观察记录也不单独证明外部效果持久化。
+<!-- /open-etf-case -->
+
 ## 结语
 
 对多轮 Agent，工具生命周期和模型输入追踪最好一起设计：前者解释一次动作怎样执行，后者解释这次执行的结果怎样参与后续推理。

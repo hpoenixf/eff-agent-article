@@ -211,6 +211,22 @@ In [`src/retrieval-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ec
 
 [`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs) keeps original pages, source descriptions and exact references under one result owner; `manifest.json` records the references associated with the report. The [same-document version case](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs) shows that after a new version appears, the old reference still reads the old version rather than silently returning the latest content. That is fundamentally different from fetching a document again by name.
 
+<!-- open-etf-case:reread@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Connect candidates, original-byte rereading, and the report
+
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs) lets you compare a search hit with an actual original-source read in one inspectable Run.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node src/cli.mjs --case retrieve-reread --output runs/article-reread
+```
+
+The terminal returns the Run's `directory` and save receipt. Inspect `report.md`, `manifest.json`, and `run.jsonl` there to follow a candidate into an acquired source, an exact result-reference reread, and the saved report.
+
+Inputs are local synthetic documents and retrieval selects lexical candidates. This does not validate dynamic ACLs, revocation propagation, or real-model citation quality.
+<!-- /open-etf-case -->
+
 ### How the public implementation handles capacity
 
 [`src/context.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/context.mjs) does not delete original history. It creates a copy for the current request and, when the byte budget is exceeded, attempts to replace original text in older, fully settled call groups with actionable exact-reread references. It retains the original question and the latest complete tool group. If those still do not fit, it fails explicitly rather than silently retaining half a tool result.

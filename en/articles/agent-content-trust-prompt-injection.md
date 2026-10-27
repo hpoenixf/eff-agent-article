@@ -131,6 +131,22 @@ Return to the opening regression. Before the fix, the old path promoted Web cont
 
 Most importantly, two claims must not be conflated. **Preventing Web content from being structurally promoted to `system` does not prove a model cannot be socially engineered by malicious prose inside an otherwise legitimate tool or user-role carrier.** The former has deterministic invariants that application tests can exercise. The latter still calls for independent adversarial evaluation of real models, real input paths, and actual effects.
 
+<!-- open-etf-case:trust@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Test projection rejection with forged source identity
+
+The [Context counterexample at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/context.test.mjs) reduces “content cannot grant itself authority” to several inspectable input changes.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^4\.2 projection never launders a lookalike or altered payload into an acquired ref$' test/context.test.mjs
+```
+
+It removes `resultRef`, substitutes an unacquired version, changes the page, and forges the body in separate cases. Bounded Context projection must reject them rather than mint a plausible original-source reference. The observable result is passing rejection assertions, not a research report.
+
+This checks structural protection of acquired source identity. It is not the complete A35 design, a malicious-text classifier, or evidence of real-model resistance to prompt injection.
+<!-- /open-etf-case -->
+
 ## Conclusion: Content May Inform Research, but It Must Not Grant Itself Power
 
 The result of this design is not a large security control plane. It is a traceable identity chain: the original producer establishes an identity before mutation; subsequent transformations cannot reissue it on their own; the final sender compares the actual version; and execution, storage, publication, and recovery remain with the original owners of their respective facts.

@@ -238,6 +238,22 @@ For **Research**, it retains the complete legitimate list, rejecting unauthorize
 
 A34 is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
 
+<!-- open-etf-case:surface@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Inspect the tools Child actually receives each round
+
+The [read-only Child case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs) observes actual Gateway arguments rather than treating a registry entry as proof of visibility.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.4 fixture child shares root counters and advertises only allowed read tool$' test/cooperation-integration.test.mjs
+```
+
+Both scripted model calls see only `read_page`; the root counters end at two model calls and one tool call. Child returns a derived result without its own report-save receipt. The exact test result reflects those assertions.
+
+This covers restricted Child tool presentation and shared counters, not the complete A34 dynamic-capability design or a real model's ability to choose the right tool.
+<!-- /open-etf-case -->
+
 ## 9. Handling Outdated Tests
 
 The implementation did not end with one effortless green run.

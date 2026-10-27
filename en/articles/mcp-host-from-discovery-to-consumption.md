@@ -364,6 +364,22 @@ This pinned checkout is a maintenance version for a reason directly related to t
 
 The slice pins official SDK 1.32.2 and [MCP protocol 2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25/server/tools). It launches only the repository's allowlisted server, not the remote HTTP, OAuth or full Schema adaptation described earlier. The [first live-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not exercise MCP either. What can be reproduced now is discovery, admission, real transport, source checks and file persistence. Whether a real model selects and uses those tools correctly during research remains a separate question.
 
+<!-- open-etf-case:mcp@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Follow acquisition and saving through the real stdio path
+
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs) connects Skill reading, MCP discovery, and original-page acquisition in one runnable slice.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node src/cli.mjs --case skill-mcp --output runs/article-mcp
+```
+
+Terminal JSON provides the `directory`, report receipt, and `mcp` shutdown result. Read `report.md` and `manifest.json` to check that the cited pages were acquired through the synthetic stdio service, rather than merely named in a tool descriptor.
+
+Process startup, protocol exchanges, and saved artifacts are real local operations; tool selection is scripted. No financial account, remote data service, or paid model is connected.
+<!-- /open-etf-case -->
+
 ## Continue Reading
 
 - [Bringing Personal Holdings into a Read-Only Financial MCP](/articles/portfolio-mcp-readonly-investment-data)

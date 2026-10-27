@@ -158,6 +158,22 @@ node dist/src/session-cli.mjs publication --session runs/worker-example --run or
 
 Stop reasons are easy to confuse. A Worker receiving SIGTERM does not mean the user cancelled research. A sealed action can be left for the next process. But if a model request was dispatched and its result was never durably recorded, recovery does not guess that it probably failed and send it again. Follow the [thin Worker entry](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs) into the original Runtime, or inspect the [actual process-interruption cases](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs). This preserves original identity and observed effects; it is not an automatic retry button for uncertain requests.
 
+<!-- open-etf-case:worker@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Execute the original Run after submission exits
+
+The [Worker CLI case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/worker-cli.test.mjs) separates durable submission from execution into different processes and checks that they still refer to the original work.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^9\.1 submit exits before a separate work process drives and reads the original Run$' test/worker-cli.test.mjs
+```
+
+After `submit`, the Run is `ready`, has no owner, and has consumed no model or tool usage. A separate `work` process completes that same Run with Publication revision 1. Repeating `work` reads the terminal state without increasing usage or creating another body revision.
+
+This test sets no calendar trigger, creates no Task queue, and does not validate notifications or concurrent Workers. Its scope is independent execution, original identity, and terminal readback.
+<!-- /open-etf-case -->
+
 ## 7. What Was Actually Validated?
 
 This capability is more than a Spec.

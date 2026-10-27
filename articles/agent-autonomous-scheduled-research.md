@@ -144,6 +144,22 @@ node dist/src/session-cli.mjs publication --session runs/worker-example --run or
 
 这里最容易混淆的是停止原因：Worker 收到 SIGTERM，并不等于用户取消研究。已封存的动作可以留给下一进程；但模型请求已经发出、结果又没有可靠落盘时，恢复不会猜测“应该没成功”而再发一次。这个区别可以沿[薄 Worker 入口](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs)进入原 Runtime，并在[实际进程中断用例](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs)中观察。它守住的是原身份与已发生效果，不是给不确定请求加一个自动重试按钮。
 
+<!-- open-etf-case:worker@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 让提交进程退出后再执行原 Run
+
+固定公开快照的[Worker CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/worker-cli.test.mjs)把“提交已落盘”和“实际开始执行”拆成两个进程，直接检查它们是否仍指向原来的工作。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^9\.1 submit exits before a separate work process drives and reads the original Run$' test/worker-cli.test.mjs
+```
+
+`submit` 返回时 Run 是 `ready`、没有 owner，模型与工具用量均为零；随后独立 `work` 进程完成同一个 Run，Publication 修订为 1。再次 `work` 只回读终态，不新增用量或正文修订。
+
+这条测试不设置日历触发、不创建 Task 队列，也不验证通知或多 Worker 并发；它只检查独立执行、原身份和终态回读。
+<!-- /open-etf-case -->
+
 ## 七、我们究竟验证到了哪里
 
 这次能力不是只有一份 Spec。

@@ -192,3 +192,20 @@ npm run demo -- --case explicit-memory --memory-library runs/article-synthetic-m
 
 因此，这个公开切片已经能让读者检查**明确授权的持久写入、当前版本读取和遗忘后的输入撤权**；它尚不包含前文的认证 HTTP、PostgreSQL 或自动学习。[首批真实模型调用](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)没有触达记忆写入与遗忘，不能借那份报告给这里的跨会话表达能力背书。Runtime 是否按授权执行、留下什么效果，与模型是否把这些事实解释得准确，仍分别判断。
 <!-- open-etf-agent:minimal-experiment:end -->
+
+<!-- open-etf-case:memory@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 核对显式记忆的三份操作回执
+
+若要在当前固定公开快照复查保存、更正、遗忘，可以从[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)运行下面的合成生命周期。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node src/cli.mjs --case explicit-memory --output runs/article-memory --memory-library runs/article-memory/synthetic-memory
+```
+
+先确认 `runs/article-memory/synthetic-memory` 是新的合成库路径或没有活动条目的合成库，不要使用真实个人记忆目录。终端 `memory.receipts` 应分别记录保存、更正、遗忘，`memory.current` 在最后为空；各 Run 的保存回执指向可读报告。
+
+旧修订保留，遗忘改变后续使用资格。这仍是显式单写者文件库，不包括自动学习、认证多用户服务或真实模型的跨会话理解评测。
+<!-- /open-etf-case -->
+

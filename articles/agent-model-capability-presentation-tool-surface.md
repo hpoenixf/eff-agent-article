@@ -222,6 +222,22 @@ A34 的独立责任极窄：
 
 因此 A34 是一个跨现有文件的**逻辑效果 Owner**，不是新服务、数据库表或新的权限机关。
 
+<!-- open-etf-case:surface@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 直接看 Child 每轮收到的工具集合
+
+固定公开快照的[只读 Child 用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs)把可见性落到真实 Gateway 调用参数：不是检查注册表里“有什么”，而是记录每轮实际呈现了什么。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.4 fixture child shares root counters and advertises only allowed read tool$' test/cooperation-integration.test.mjs
+```
+
+两次脚本模型调用都只能看到 `read_page`，最终根计数是两次模型、一次工具；Child 返回派生结果，没有自行保存报告的回执。终端的精确测试结果对应这些断言。
+
+这只是受限 Child 的工具呈现与共享计数，不是完整 A34 动态能力编排，也不证明真实模型会选择正确工具。
+<!-- /open-etf-case -->
+
 ## 九、收尾时如何处理过期测试
 
 这一轮也不是加完断言就一次全绿。

@@ -137,6 +137,22 @@ Cross-interface handoffs must preserve the identity of execution and consumption
 
 These are invariants that observation must not change; they do not evaluate the quality of the research itself.
 
+<!-- open-etf-case:batch@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Follow batch-read results into the saved report
+
+The [batch-read CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs) offers an inspectable chain: two fixed read tasks return synthetic originals, then Main saves a cited report.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node src/cli.mjs --case batch-read --output runs/article-batch
+```
+
+Terminal `observations` records tool-result return and Run release. The returned `directory` contains `run.jsonl`, `report.md`, and `manifest.json`, allowing calls, acquired sources, and the final report to be compared rather than reduced to a success flag.
+
+These are fixed read workers and local Hook observations, not concurrent model experts, a complete model-input tracing platform, or a Langfuse exporter. An observation alone does not prove an external effect was durably committed.
+<!-- /open-etf-case -->
+
 ## Conclusion
 
 For a multi-turn agent, tool lifecycle and model-input observability should be designed together. One explains how an action executed; the other explains how its result participated in subsequent inference.

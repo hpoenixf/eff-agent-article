@@ -74,6 +74,22 @@ Native Host first determines a stable callback sequence using registration scope
 
 The Run also binds the chosen plugin generation. A plugin upgraded mid-call must not slip a new callback into an old invocation. Execution and Recovery then share a stable identity basis.
 
+<!-- open-etf-case:hooks@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Return Hook argument changes to the original Host
+
+The [Host argument-change case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs) checks one basic boundary: a Hook may propose a change, but the original Host still validates what executes.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.3 Host revalidates effective Hook arguments and preserves original call$' test/cooperation-integration.test.mjs
+```
+
+A permitted change moves the page from 1 to 2 while retaining both `original` and `effective` arguments. Another change requests page 99 and must return `rejected` before dispatch. The exact test checks both paths.
+
+This runs a local Hook chain, not a Claude/Codex command Hook or a Pi Factory. It does not qualify cross-ecosystem lifecycle compatibility.
+<!-- /open-etf-case -->
+
 ## 3. Claude and Codex: Command Hooks Require Separate Dialect Adapters
 
 Claude and Codex command Hooks are **processes**, not JavaScript functions registered inside Runtime.

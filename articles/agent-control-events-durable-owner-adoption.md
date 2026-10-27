@@ -136,6 +136,22 @@ node --test --test-concurrency=1 --test-name-pattern="after result commit|cancel
 
 ---
 
+<!-- open-etf-case:control@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 在模型等待期间检查持久取消
+
+固定公开快照的[进程级取消用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/durable-runtime.test.mjs)把控制边界放在模型请求已占用预算、但结果尚未返回的位置。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^7\.3 cancel during pending model is durable and late proposal cannot dispatch$' test/durable-runtime.test.mjs
+```
+
+用例等待实际子进程到达 `model-pending`，通过另一个 Session 连接持久取消，再核对迟到提案没有派发工具。新进程回读同一个 Run 后仍是 `cancelled`，模型预算消费保持为 1。
+
+这条测试使用合成模型过程，证明的是原 Run 的持久取消和迟到提案拒绝；它不覆盖本文完整的 A08 控制事件投递、去重与跨业务 Owner 采用。
+<!-- /open-etf-case -->
+
 ## 延伸阅读
 
 [持久 HIL：用户回复如何接回研究](https://hpoenixf.com/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)讨论 A37 交互准入，[定时研究](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)解释 A09 Task 的长期承诺；[异步交付](https://hpoenixf.com/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)解释 A24 的通知与 History。

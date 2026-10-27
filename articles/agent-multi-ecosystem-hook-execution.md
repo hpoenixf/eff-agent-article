@@ -63,6 +63,22 @@ ValidateOutcome --> OriginalRuntimeOwner
 
 一次运行还会保留已选插件代际。插件在调用途中升级，不能让新版回调突然接入旧调用。这使原执行和恢复有相同的身份依据。
 
+<!-- open-etf-case:hooks@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 把 Hook 改参交回原 Host 复验
+
+固定公开快照的[Host 改参用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/cooperation-integration.test.mjs)先检验一个基础边界：Hook 可以提出变更，实际执行仍须通过原 Host 的参数检查。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^3\.3 Host revalidates effective Hook arguments and preserves original call$' test/cooperation-integration.test.mjs
+```
+
+合法变更把读取页码从 1 改到 2，结果同时保留 `original` 与 `effective` 参数；另一条变更把页码改成 99，必须在派发前返回 `rejected`。运行精确测试即可核对两条路径。
+
+这里运行的是本地 Hook 链，不启动 Claude/Codex 命令 Hook 或 Pi Factory，也不承担跨生态生命周期兼容性的证明。
+<!-- /open-etf-case -->
+
 ## 三、Claude 与 Codex：命令 Hook 是独立的协议适配
 
 Claude 和 Codex 的命令 Hook 不是加载进程内的 JavaScript 函数。它们需要按对应协议执行受审命令：

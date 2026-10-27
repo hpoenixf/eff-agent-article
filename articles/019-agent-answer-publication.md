@@ -193,6 +193,22 @@ node dist/src/session-cli.mjs publication-event --session runs/publication-demo 
 
 启动结果中的 `publication` 是已提交正文的回执；再次执行读取命令，可以取得原正文、修订和当前交付位置，而不是重新生成回答。报告文件另有 Artifact 回执，不能拿它代替正文提交事实。这个例子保留的是发布机制，不是在评价合成回答的研究质量。
 
+<!-- open-etf-case:publication@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 分别回读正文、当前事件与报告
+
+固定公开快照的[Publication CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/publication-cli.test.mjs)提供另一条观察入口：让多个 CLI 调用分别读正文、指定修订、当前事件和不可变报告。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^8\.2 local CLI starts same Runtime and separately reads body, current event and immutable Artifact$' test/publication-cli.test.mjs
+```
+
+用例核对正文等于原答案，指定修订和当前事件指向同一 Publication 回执；报告则通过 Artifact owner 按保存身份读回，并与 `report.md` 字节和摘要比较。正文提交身份没有被报告文件身份替代。
+
+范围仍是单块正文、修订与本地 CLI 回读，不包含浏览器渐进显示、HTTP/SSE 发布产品层或模型答案质量验收。
+<!-- /open-etf-case -->
+
 ## 六、真实问题一：同修订预览曾遮住已提交回执
 
 2026 年 10 月 11 日的回归案例尤其能说明为什么“正文一样”还不够。

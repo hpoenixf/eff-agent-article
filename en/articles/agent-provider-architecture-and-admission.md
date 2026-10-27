@@ -63,6 +63,22 @@ Returning some text does not establish that a route can correctly terminate a to
 
 Keeping qualification in the Host and protocol differences in the gateway avoids two extremes: provider-name conditionals scattered across application code, or a gateway that independently decides which research responsibilities a model may assume.
 
+<!-- open-etf-case:provider@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Start with Gateway encoding and call-result pairing
+
+The [Gateway case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/test/gateway.test.mjs) isolates the adapter's smallest responsibility without bringing the shared-admission system into the experiment.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^1\.4 injected offline transport verifies request encoding and matched tool results$' test/gateway.test.mjs
+```
+
+An injected offline transport captures the constructed request. Assertions check the original question, the tool-call ID and its matching result ID, and rejection of redirects. The terminal reports this exact test; no real API credential is needed.
+
+No external HTTP request is sent. This does not qualify a real provider or implement the article's cross-process queue, capacity leases, or PostgreSQL admission store.
+<!-- /open-etf-case -->
+
 ## 3. Why not put rate limiting inside each gateway instance?
 
 Suppose the API service, research child tasks, and an independent reviewer process all use the same model endpoint. If each process maintains a local “at most K concurrent calls” counter, each limits only its own view, not the external resource they collectively consume.

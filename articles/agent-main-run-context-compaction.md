@@ -169,6 +169,23 @@ npm run demo -- --case compact-and-reread
 读者因此可以复现**便笺确实被采用、原文仍按原身份可读、报告确实保存**这条工程路径。这个公开切片没有前文的冷恢复能力，也没有证明真实模型会正确理解摘要。[首批真实模型调用](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)尚未触发压缩，不能替这条机制完成实测；这里的脚本观察验证的是输入交接和真实效果，摘要语义仍要单独评估。
 <!-- open-etf-agent:minimal-experiment:end -->
 
+<!-- open-etf-case:compaction@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 检查便笺采用后还能回读什么
+
+固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)保留了同一个最小对照：先采用派生便笺，再回读便笺和原始页面。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node src/cli.mjs --case compact-and-reread --output runs/article-compaction
+```
+
+从终端给出的 `directory` 查看 `run.jsonl` 中的便笺采用、`read_note`、`read_result`，并读回 `report.md` 与 `manifest.json`。报告引用原始页面，派生便笺不替它取得来源资格。
+
+便笺由合成脚本生成；这个案例检验采用与回读链路，不证明真实摘要的语义准确性，也不承诺压缩后所有历史仍在上下文内。
+<!-- /open-etf-case -->
+
+
 ---
 
 <!-- agent-article-sync:guidance:start -->

@@ -206,6 +206,22 @@ npm run demo -- --case retrieve-reread --query "Markdown"
 
 [`src/results.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/results.mjs)把原始页面、来源描述和精确引用保存在同一个结果所有者中；`manifest.json` 记录报告关联的结果引用。沿着[同文档新版本用例](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/test/results.test.mjs)还可以看到：同一文档产生新版本后，旧引用仍回到旧版本，而不是改为最新内容。这与普通“按文档名重新获取”有本质区别。
 
+<!-- open-etf-case:reread@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### 把候选、原文回读和报告连起来
+
+沿固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs)，可以把“检索命中”与“实际读到原文”放在同一次可回读执行里比较。
+
+在所链固定快照按 README 安装依赖后，运行：
+
+```bash
+node src/cli.mjs --case retrieve-reread --output runs/article-reread
+```
+
+终端返回实际 Run 的 `directory` 与保存回执；在其中核对 `report.md`、`manifest.json` 和 `run.jsonl`，看候选页怎样取得原文身份，再按原结果引用回读并进入报告。
+
+输入是本地合成文档，检索是词法候选选择；这里不验证动态 ACL、撤权传播或真实模型的引用质量。
+<!-- /open-etf-case -->
+
 ### 容量不足时，公开实现怎样取舍
 
 [`src/context.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/ecf6cb45b4062586614e83aed917c92d704cb63b/src/context.mjs)不直接删除原始历史。它为这次请求建立副本，在字节容量不足时，尝试把较早、已结算的完整调用组里的原文替换成可执行的精确回读引用。原问题和最新的完整工具组被保留；如果这样仍放不下，就明确失败，不悄悄只留一半工具结果。

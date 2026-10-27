@@ -178,6 +178,23 @@ The case checks more than the existence of a summary file. The next Gateway invo
 Readers can therefore reproduce an engineering path in which **a note is actually adopted, originals remain readable under their original identities, and a report is actually saved**. This public slice lacks the cold-recovery capability discussed earlier, and does not establish that a real model interprets the summary correctly. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not trigger compaction and cannot validate that mechanism. The scripted observation here tests input handoffs and real effects; summary semantics require separate evaluation.
 <!-- open-etf-agent:minimal-experiment:end -->
 
+<!-- open-etf-case:compaction@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Inspect what remains readable after note adoption
+
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs) retains the same narrow comparison: adopt a derived note, then reread both the note and an original page.
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node src/cli.mjs --case compact-and-reread --output runs/article-compaction
+```
+
+Use the returned `directory` to inspect note adoption, `read_note`, and `read_result` in `run.jsonl`, alongside `report.md` and `manifest.json`. The report cites original pages; the derived note does not inherit their source authority.
+
+A synthetic script creates the note. This checks adoption and readback, not real-summary semantic accuracy or retention of every historical byte in context.
+<!-- /open-etf-case -->
+
+
 ---
 
 ## What Still Needs Observation

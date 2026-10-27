@@ -330,6 +330,22 @@ A complete capability set does not mean every problem merits delegation. Straigh
 
 **Choose Subagents because a task benefits from autonomous local work and isolated context—not because the system happens to support many roles.**
 
+<!-- open-etf-case:child@2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e -->
+### Check the handoff with one read-only Child
+
+To inspect how local work returns to Main, run one scripted Child through the [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2ddd44fe5e6546c62d0347916bf11bb5f7cd2a9e/src/cli.mjs).
+
+After installing dependencies according to the README at the linked fixed snapshot, run:
+
+```bash
+node src/cli.mjs --case fixture-child --output runs/article-child
+```
+
+Inspect `rootUsage` in the terminal JSON, then open `report.md` and `manifest.json` in the returned `directory`. Main reads back and cites the original pages acquired by Child; the derived Child conclusion does not become a new source.
+
+This is one read-only Child sharing the root budget. It makes no independent live-model call and does not cover multi-layer experts, PDF, or Python collaboration.
+<!-- /open-etf-case -->
+
 ## New Role Sources: Freeze Personal Profiles, Not Permissions
 
 By October 24, 2026, ETF Agent main contained account settings, method revisions, and Run snapshot integration for user-defined Subagent Profiles. A Profile contributes role description and method guidance, not a new Child Runtime. Main may select an eligible Profile from the catalog; the original A07 Child consumes the identity, revision, and content hash frozen for that Run. Editing or disabling a Profile later must not retroactively rewrite instructions belonging to a previous Run. History access still obeys the current reader's account permissions.
