@@ -299,3 +299,19 @@ RAG revocation, investment research authorization, coding-agent task convergence
 project origin story, tool lifecycle tracing, and false-green test evidence. Combined with the
 earlier tool-result essay there are **eight complete English article editions** in this batch's
 snapshot; the authoritative live list is `book.en.mjs`, not this count.
+
+
+## 唯一正式发布链 / One canonical publication path
+
+公开正文只由 `hpoenixf/myblog-v2` 发布到 **https://hpoenixf.com/eff-agent-article/**。
+本仓库是唯一文章源；每次发布由博客仓库的 `reader-source.json` 锁定已审核 source commit
+及本次中英正文 SHA-256。文章源提交通过检查以后，仍须更新并提交博客发布锁，等待其
+Pages 部署并读回新域名的 `reader-release.json` 和实际正文，才算发布完成。
+
+本仓库 CI 保留目录、双语、构建检查，但给旧 `github.io` Pages 上传的只有逐页跳转，
+没有第二套正文或静态应用资产。旧中英文、历史版本和图册 URL 跳到新域同路径，保留
+查询参数与章节 hash。不要恢复独立正文部署，也不要用文章仓库 CI 代替新域名验收。
+
+The article repository is the source, not a second publishing owner. The blog's immutable
+release pin selects the source commit; its deployment receipt and exact public HTML bytes
+must agree on the canonical domain. Legacy GitHub Pages serves redirects only.

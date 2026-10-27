@@ -1,4 +1,4 @@
-name: Article Library · Build & Pages
+name: Article Library · Checks & Legacy Redirects
 
 on:
   push:
@@ -49,6 +49,11 @@ jobs:
           test -f .vitepress/dist/index.html
           test -f .vitepress/dist/articles/017-prompt-to-answer-six-layer-panorama.html
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html
+      - name: Test legacy redirect contract
+        run: node --test scripts/build-legacy-redirects.test.mjs
+      - name: Build redirect-only legacy site
+        run: node scripts/build-legacy-redirects.mjs
+      # Canonical article bodies are deployed only by hpoenixf/myblog-v2.
       # This public repo can build before the owner enables GitHub Pages.
       # GITHUB_TOKEN cannot enable a Pages site; initial enablement is a repo setting.
       - name: Setup Pages
@@ -58,7 +63,7 @@ jobs:
         if: github.event_name != 'pull_request' && github.event.repository.has_pages == true
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist
+          path: .vitepress/legacy-redirects
 
   deploy:
     if: github.event_name != 'pull_request' && github.event.repository.has_pages == true
@@ -71,6 +76,7 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy legacy redirects (no article bodies)
         id: deployment
         uses: actions/deploy-pages@v4
+
