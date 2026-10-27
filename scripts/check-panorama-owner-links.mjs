@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
 import { englishArticleSlugs } from '../book.en.mjs'
 
-const site = 'https://hpoenixf.github.io/eff-agent-article/'
+const site = 'https://hpoenixf.com/eff-agent-article/'
 const root = 'visuals/017-prompt-to-answer-six-layer-panorama/diagrams/'
 const articles = JSON.parse(readFileSync('visuals/owner-architecture/owner-articles.json', 'utf8'))
 const english = new Set(englishArticleSlugs)
