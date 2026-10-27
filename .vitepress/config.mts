@@ -3,6 +3,7 @@ import { collections } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 import { seoDescription, socialHead } from '../seo-content.mjs'
+import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -159,14 +160,18 @@ export default defineConfig({
       md.renderer.rules.fence = (tokens, idx, options, env, self) => {
         const token = tokens[idx]
         if (token.info.trim().split(/\s+/)[0] === 'mermaid') {
-          const code = encodeURIComponent(token.content)
-          // Expose the diagram's editorial context in the server-rendered HTML.
-          const preceding = tokens[idx - 2]?.type === 'inline' ? tokens[idx - 2].content.trim() : ''
-          const title = /^\*\*([^\n*]{2,100})\*\*$/.exec(preceding)?.[1] || ''
-          const summary = preceding.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[\x60*]/g, '').trim()
-          const safeTitle = encodeURIComponent(title)
-          const safeSummary = encodeURIComponent((summary.length > 10 ? summary : title).slice(0,180))
-          return '<MermaidDiagram source="' + code + '" title="' + safeTitle + '" description="' + safeSummary + '" />\n'
+          // Static, same-origin SVG: no JavaScript or Mermaid runtime is needed to
+          // read figures. Built from exactly the same source as the Markdown fence.
+          const previous = tokens[idx - 2]?.type === 'inline' ? tokens[idx - 2].content.trim() : ''
+          const title = /^\*\*([^\n*]{2,100})\*\*$/.exec(previous)?.[1] || ''
+          const summary = previous.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[\x60*]/g, '').trim()
+          const description = (summary.length > 10 ? summary : title).slice(0, 180) || 'Agent architecture diagram'
+          const caption = escapeAttribute(title || 'Agent architecture diagram')
+          return '<figure class="diagram-frame diagram-static">' +
+            '<img src="' + IMAGE_ROOT + diagramId(token.content) +
+            '.svg" alt="' + escapeAttribute(description) +
+            '" loading="lazy" decoding="async" />' +
+            '<figcaption class="diagram-caption">' + caption + '</figcaption></figure>\n'
         }
         return fallback ? fallback(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
       }
