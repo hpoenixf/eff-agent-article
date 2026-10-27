@@ -61,7 +61,7 @@
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
-**公开证据的边界：** 本仓库的文章、架构图、目录源码与 [GitHub Pages 构建流程](.github/workflows/pages.yml) 可以直接查看；[博客站点源码](https://github.com/hpoenixf/myblog-v2)也公开。ETF Agent 的核心应用源码和完整运行证据**不在本公开仓库**。文章记录特定版本的真实案例或设计判断，但不等于第三方已经复核生产级性能、长期成功率、用户业务收益或 AI-native 前端的完整运行 Demo。
+**两种公开资产，两个仓库：** 本仓库 [eff-agent-article](https://github.com/hpoenixf/eff-agent-article) 是工程文章、图册与阅读站源码；[open-etf-agent](https://github.com/hpoenixf/open-etf-agent) 是独立 MIT 开源、可运行的分阶段教学实现（截至 2026-10-27 为 v0.8），提供合成离线 Demo、测试及交付回读。后者**不是内部完整 ETF Agent 产品的开源替代品**，其通过的 Runtime 测试不代表真实模型语义质量、投资服务或生产就绪；内部产品源码、凭据和完整生产运行证据仍不公开。两套资产均不能单独证明第三方复核过长期成功率或用户收益。
 
 [从在线阅读站开始](https://hpoenixf.com/eff-agent-article/) · [博客与作者简介](https://hpoenixf.com/about) · [金融领域案例专题](fintech.md)
 
