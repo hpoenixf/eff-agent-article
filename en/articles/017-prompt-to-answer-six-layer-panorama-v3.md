@@ -63,6 +63,8 @@ All inputs converge on the original Task/Conversation, Run, grant, budget, Main/
 
 **[Context Projection and Fitting](/en/articles/tool-results-outside-model-context)** assembles the actual model request from admitted history, tool results, provenance and token limits. **[Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects)** supplies separately governed records and preferences. **[Main Context Compaction](/en/articles/agent-main-run-context-compaction)** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **[Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)** offers advice about resource or context pressure, never an extra budget or permission.
 
+**Cross-Run conversation compaction** separately prepares source-bound, lossy histories of completed question–answer pairs for future Runs. It preserves original user text and must not be confused with a Main checkpoint; see the [A41 dedicated mechanism essay](/en/articles/agent-conversation-history-compaction-source-boundaries).
+
 **[Skill Methods and Resources](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)** provide versioned techniques. **[Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone)** controls which reviewed extension generations can be loaded; **[Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution)** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
 
 L2 is revisited before further ModelTurns. Reassembling context is not the same as restarting a Run or minting a new grant.
@@ -235,7 +237,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Related reading](/en/articles/agent-subagent-context-specialization) | L3 |
 | A26 | [Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3, L4 |
 | A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
-| A41 | [Cross-Run Conversation History Compaction](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
+| A41 | [Cross-Run Conversation History Compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [Content Trust and Security Policy](/en/articles/agent-content-trust-prompt-injection) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3, L4 |
 | A37 | [Durable Human Interaction (HIO)](/en/articles/agent-durable-human-interaction-response-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3, L5, L6 |
 | A39 | [User Expert Profiles and Presets](/en/articles/agent-custom-expert-from-prompt-to-recovery) | L3, L4 |
@@ -283,7 +285,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A22 | [Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
 | A23 | [Answer Publication and Preparation](/articles/019-agent-answer-publication) (Chinese original) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
 | A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
-| A40 | [User Answer Feedback Records](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |
+| A40 | [User Answer Feedback Records](/en/articles/agent-feedback-facts-not-automatic-learning) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |
 
 ### L6 · User Interface
 
