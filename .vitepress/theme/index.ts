@@ -5,7 +5,6 @@ import ChapterCatalog from './ChapterCatalog.vue'
 import FlagshipEntry from './FlagshipEntry.vue'
 import ContinueReading from './ContinueReading.vue'
 import HomeOverview from './HomeOverview.vue'
-import MermaidDiagram from './MermaidDiagram.vue'
 import PanoramaViewer from './PanoramaViewer.vue'
 import EvidenceScope from './EvidenceScope.vue'
 import OpenSourceBridge from './OpenSourceBridge.vue'
@@ -30,7 +29,6 @@ export default {
     app.component('ContinueReading', ContinueReading)
     app.component('HomeOverview', HomeOverview)
     app.component('OpenSourceBridge', OpenSourceBridge)
-    app.component('MermaidDiagram', MermaidDiagram)
     app.component('PanoramaViewer', PanoramaViewer)
   }
 } satisfies Theme
