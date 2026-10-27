@@ -429,3 +429,22 @@
 @media (prefers-reduced-motion: reduce) {
   .home-overview__card { transition: none; }
 }
+
+/* The runnable source is a separate teaching implementation, not a product claim. */
+.open-source-bridge {
+  display: flex; gap: 12px 24px; flex-wrap: wrap; align-items: center;
+  margin: 16px auto 26px; padding: 17px 22px; max-width: 1152px;
+  border: 1px solid var(--vp-c-border); border-radius: 15px;
+  background: var(--vp-c-bg-soft);
+}
+.open-source-bridge__copy { flex: 1 1 380px; min-width: 0; }
+.open-source-bridge__copy strong { font-size: 16px; }
+.open-source-bridge__copy p { margin: 6px 0 0; color: var(--vp-c-text-2); font-size: 13px; line-height: 1.75; }
+.open-source-bridge__links { display: flex; flex: 0 1 auto; flex-direction: column; gap: 9px; font-size: 13px; }
+.open-source-bridge__links a, .article-star__actions > a { color: var(--vp-c-brand-1); text-decoration: underline; text-underline-offset: 3px; }
+.open-source-bridge__links code { font-size: 12px; white-space: normal; overflow-wrap: anywhere; }
+.article-star__actions { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 13px; }
+@media (max-width: 640px) {
+  .open-source-bridge { margin: 12px 16px 24px; padding: 15px; }
+  .open-source-bridge__links { width: 100%; }
+}
