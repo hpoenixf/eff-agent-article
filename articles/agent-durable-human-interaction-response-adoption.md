@@ -119,6 +119,6 @@ Child 可以提出缺口，再由 Main 决定是否合并普通问题或向用�
 
 ## 延伸阅读
 
-[前台与后台研究的并行体验](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience)解释为何聊天无需被长任务阻塞；[异步研究按时交付](https://hpoenixf.github.io/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)讨论时间承诺与历史结果。这两条交付路径与本文的双向人工回复可以协作，但有不同的 Owner。
+[前台与后台研究的并行体验](https://hpoenixf.com/eff-agent-article/articles/agent-background-research-collaborative-experience)解释为何聊天无需被长任务阻塞；[异步研究按时交付](https://hpoenixf.com/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)讨论时间承诺与历史结果。这两条交付路径与本文的双向人工回复可以协作，但有不同的 Owner。
 
 更多机制案例收录于 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎 Star 公开技术文集。

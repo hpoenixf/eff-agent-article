@@ -260,4 +260,4 @@ ETF Agent 的 Native Recovery 已有原始动作与回执，因此我们没有�
 
 ---
 
-[在博客阅读本文](https://hpoenixf.com/blog/agent-multi-ecosystem-hook-execution) · [返回模块专题](https://hpoenixf.github.io/eff-agent-article/modules) · 如果这些工程实践有帮助，欢迎 [在 GitHub 文集点 Star](https://github.com/hpoenixf/eff-agent-article)。
+[在博客阅读本文](https://hpoenixf.com/blog/agent-multi-ecosystem-hook-execution) · [返回模块专题](https://hpoenixf.com/eff-agent-article/modules) · 如果这些工程实践有帮助，欢迎 [在 GitHub 文集点 Star](https://github.com/hpoenixf/eff-agent-article)。

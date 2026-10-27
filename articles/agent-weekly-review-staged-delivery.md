@@ -293,6 +293,6 @@ HTML 通用能力不是“第四期周报”，而是从具体场景中识别出
 
 ## 延伸阅读与交流
 
-这次经历与[从 Bug 循环走向真实任务收敛](https://hpoenixf.github.io/eff-agent-article/articles/032-ai-development-from-bug-loop-to-task-convergence)、[HTML 交付架构反转](https://hpoenixf.github.io/eff-agent-article/articles/agent-html-evolution-challenges)、[Spec 与 Evidence 工作流](https://hpoenixf.github.io/eff-agent-article/articles/026-agent-spec-evidence-workflow)相互补充。另一篇[代码删了，旧文档为什么仍在指挥 Agent？](https://hpoenixf.github.io/eff-agent-article/articles/027-agent-context-document-history)继续讨论长期工程知识怎样跟着架构演进。
+这次经历与[从 Bug 循环走向真实任务收敛](https://hpoenixf.com/eff-agent-article/articles/032-ai-development-from-bug-loop-to-task-convergence)、[HTML 交付架构反转](https://hpoenixf.com/eff-agent-article/articles/agent-html-evolution-challenges)、[Spec 与 Evidence 工作流](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow)相互补充。另一篇[代码删了，旧文档为什么仍在指挥 Agent？](https://hpoenixf.com/eff-agent-article/articles/027-agent-context-document-history)继续讨论长期工程知识怎样跟着架构演进。
 
 更多实践见 [ETF Agent 工程文章与阅读目录](https://github.com/hpoenixf/eff-agent-article)。如果这些真实开发经验对你有帮助，欢迎到 GitHub 点个 **Star**。

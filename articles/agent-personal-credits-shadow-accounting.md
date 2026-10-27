@@ -87,6 +87,6 @@ Shadow 账本采用有版本的内部 tariff：收到 SDK 正式报告的输入�
 
 ## 延伸阅读
 
-[Run 预算与约束治理](https://hpoenixf.github.io/eff-agent-article/articles/agent-runtime-constraint-governance-v2)解释研究额度与收尾保护；[Langfuse 观测](https://hpoenixf.github.io/eff-agent-article/articles/025-agent-langfuse-from-trace-to-trustworthy-observability)说明物理尝试与真实追踪的区别。本文聚焦个人 Shadow 账本，不与这两篇重复解释运行阶段。
+[Run 预算与约束治理](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-constraint-governance-v2)解释研究额度与收尾保护；[Langfuse 观测](https://hpoenixf.com/eff-agent-article/articles/025-agent-langfuse-from-trace-to-trustworthy-observability)说明物理尝试与真实追踪的区别。本文聚焦个人 Shadow 账本，不与这两篇重复解释运行阶段。
 
 更多案例见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎为技术文集点一个 Star。

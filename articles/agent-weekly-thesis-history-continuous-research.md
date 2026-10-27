@@ -199,6 +199,6 @@ NewAssessment --> RetainSuccessor
 
 ---
 
-相关阅读：[周报项目为什么拆成三期？](https://hpoenixf.github.io/eff-agent-article/articles/agent-weekly-review-staged-delivery)聚焦研发交付顺序；[金融 Agent 的可信证据链](https://hpoenixf.github.io/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain)聚焦来源身份与消费资格。本文只讨论跨期投资观察、原始论点及后续修正，不构成任何具体投资建议。
+相关阅读：[周报项目为什么拆成三期？](https://hpoenixf.com/eff-agent-article/articles/agent-weekly-review-staged-delivery)聚焦研发交付顺序；[金融 Agent 的可信证据链](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain)聚焦来源身份与消费资格。本文只讨论跨期投资观察、原始论点及后续修正，不构成任何具体投资建议。
 
 更多工程文章见 [ETF Agent 工程文集](https://github.com/hpoenixf/eff-agent-article)。如果这些实践对你有帮助，欢迎在 GitHub 点个 **Star**。

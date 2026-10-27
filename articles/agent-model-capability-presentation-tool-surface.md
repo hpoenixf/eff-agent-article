@@ -258,6 +258,6 @@ A34 体现了[原则 3「复杂度必须归属正确的 Owner」](/principles#pr
 
 ---
 
-延伸阅读：[MCP Host：从接上服务到真正用上工具](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model / Runtime / MCP / Skill 的分工](https://hpoenixf.github.io/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [代码越来越便宜，为什么系统却越来越难升级？](https://hpoenixf.github.io/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)
+延伸阅读：[MCP Host：从接上服务到真正用上工具](https://hpoenixf.com/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model / Runtime / MCP / Skill 的分工](https://hpoenixf.com/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [代码越来越便宜，为什么系统却越来越难升级？](https://hpoenixf.com/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)
 
 更多独立工程案例见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。如果这些真实架构演进与你正在处理的问题相似，欢迎到 GitHub 阅读、交流或 Star。
