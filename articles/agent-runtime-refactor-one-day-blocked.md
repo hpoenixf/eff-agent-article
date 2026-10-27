@@ -76,4 +76,4 @@
 
 本文收录于 [ETF Agent 工程手记](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-refactor-one-day-blocked)。如果这些工程经历对你有帮助，也欢迎在[公开文集仓库](https://github.com/hpoenixf/eff-agent-article)点一个 Star。
 
-相应的架构思考见[核心原则 3：复杂度应归属正确的 Owner](/principles#principle-3)。
+相应的架构思考见[核心原则 2：复杂度应归属正确的 Owner](/principles#principle-2)。
