@@ -4,9 +4,9 @@
 <style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
 <rect x="0" y="0" width="1240" height="1320" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="32" y="46" class="title" text-anchor="start">02 · Two lifecycles, one deliberate handoff</text>
-<text x="32" y="77" class="sub" text-anchor="start">Current research mechanisms above; institutional action flow below is a target design.</text>
+<text x="32" y="77" class="sub" text-anchor="start">Current research above; institution-owned authorization and reconciliation below.</text>
 <rect x="32" y="105" width="1176" height="582" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
-<text x="52" y="138" class="head" text-anchor="start">RESEARCH · permission to investigate is not permission to transact</text>
+<text x="52" y="138" class="head" text-anchor="start">RESEARCH · scoped Run grants for investigation</text>
 <rect x="50" y="174" width="220" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="67" y="201" class="tag" text-anchor="start" style="fill:#136F70">01</text>
 <text x="67" y="231" class="head" text-anchor="start" style="font-size:20px">Financial question</text>
@@ -14,7 +14,7 @@
 <rect x="350" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="367" y="201" class="tag" text-anchor="start" style="fill:#136F70">02</text>
 <text x="367" y="231" class="head" text-anchor="start" style="font-size:20px">Admit an original Run</text>
-<text x="367" y="260" class="body" text-anchor="start" style="font-size:17px">Identity · grants · budget</text>
+<text x="367" y="260" class="body" text-anchor="start" style="font-size:17px">Identity · Run grant · budget</text>
 <rect x="680" y="174" width="245" height="114" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="697" y="201" class="tag" text-anchor="start" style="fill:#136F70">03</text>
 <text x="697" y="231" class="head" text-anchor="start" style="font-size:20px">Select next action</text>
@@ -65,7 +65,7 @@
 <text x="50" y="601" class="small" text-anchor="start">Local failure is not Run failure</text>
 <text x="50" y="628" class="small" text-anchor="start">Publication is not a checkpoint</text>
 <rect x="32" y="776" width="1176" height="475" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
-<text x="52" y="810" class="head" text-anchor="start" style="fill:#9C6014">BUSINESS ACTION · institutional target, not a connected trading feature</text>
+<text x="52" y="810" class="head" text-anchor="start" style="fill:#9C6014">BUSINESS ACTION · institutional target: admitted, receipted effects</text>
 <path d="M 803 645 L 803 717 L 160 717 L 160 856" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <rect x="392.0" y="694" width="396" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="590" y="709" class="edge" text-anchor="middle" style="fill:#9C6014">Only after a separate, explicit business request</text>
@@ -84,7 +84,7 @@
 <rect x="985" y="856" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
 <text x="1002" y="883" class="tag" text-anchor="start" style="fill:#9C6014">D</text>
 <text x="1002" y="913" class="head" text-anchor="start" style="font-size:20px">Submit order</text>
-<text x="1002" y="942" class="body" text-anchor="start" style="font-size:15px">Acknowledge ≠ fill</text>
+<text x="1002" y="942" class="body" text-anchor="start" style="font-size:15px">Accepted ≠ Filled</text>
 <path d="M 270 916 L 350 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <path d="M 595 916 L 680 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <path d="M 925 916 L 985 916" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
@@ -93,12 +93,12 @@
 <text x="367" y="1097" class="head" text-anchor="start" style="font-size:20px">Reject this action</text>
 <text x="367" y="1126" class="body" text-anchor="start" style="font-size:17px">Existing report remains</text>
 <rect x="680" y="1040" width="245" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
-<text x="697" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">UNCERTAIN</text>
+<text x="697" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">LOCAL UNKNOWN</text>
 <text x="697" y="1097" class="head" text-anchor="start" style="font-size:20px">Reconcile original ID</text>
-<text x="697" y="1126" class="body" text-anchor="start" style="font-size:17px">Never blindly resubmit</text>
+<text x="697" y="1126" class="body" text-anchor="start" style="font-size:17px">Freeze auto resubmission</text>
 <rect x="985" y="1040" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
 <text x="1002" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">ACTUAL RECEIPTS</text>
-<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:20px">Fill / settlement</text>
+<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:20px">Partial / full / settle</text>
 <text x="1002" y="1126" class="body" text-anchor="start" style="font-size:15px">Distinct recorded effects</text>
 <path d="M 473 976 L 473 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <path d="M 1088 976 L 1088 1010 L 803 1010 L 803 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>

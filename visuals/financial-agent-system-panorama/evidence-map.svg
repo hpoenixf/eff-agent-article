@@ -4,13 +4,13 @@
 <style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
 <rect x="0" y="0" width="1240" height="960" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="32" y="46" class="title" text-anchor="start">03 · 可审查的是事实交接，不是一段想象中的“完整思维链”</text>
-<text x="32" y="77" class="sub" text-anchor="start">原始记录仍归各自系统；运行诊断、研究质量和业务审计回答不同的问题。</text>
+<text x="32" y="77" class="sub" text-anchor="start">原记录各归其主；审计索引关联主体、对象、方法、来源、效果和时间。</text>
 <text x="32" y="126" class="head" text-anchor="start">可关联的原始记录 · 不要求复制进同一张“全量日志表”</text>
 <rect x="32" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="49" y="193" class="tag" text-anchor="start" style="fill:#136F70">发起与准入</text>
 <text x="49" y="223" class="head" text-anchor="start" style="font-size:20px">谁发起哪次研究？</text>
 <text x="49" y="252" class="body" text-anchor="start" style="font-size:15px">主体与原问题</text>
-<text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run 身份</text>
+<text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run · grant 引用</text>
 <text x="49" y="298" class="body" text-anchor="start" style="font-size:15px">权限与使用范围</text>
 <rect x="277" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="294" y="193" class="tag" text-anchor="start" style="fill:#136F70">来源与实际读取</text>
@@ -37,8 +37,8 @@
 <path d="M 718 247 L 767 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
 <path d="M 963 247 L 1012 247" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <rect x="32" y="406" width="1176" height="96" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
-<text x="52" y="440" class="head" text-anchor="start">按权限回读与关联核对</text>
-<text x="52" y="474" class="body" text-anchor="start">按原身份关联实际回执；缺失、截断和未知保留，不能从摘要补造原始执行。</text>
+<text x="52" y="440" class="head" text-anchor="start">最小审计索引：主体 · 对象 · 方法 · 来源 · 效果 · 时间</text>
+<text x="52" y="474" class="body" text-anchor="start">关联 Run、grant、方法、发布与回执；缺失与未知保留，回查各自原记录。</text>
 <path d="M 130 327 L 130 395 L 130 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <path d="M 375 327 L 375 395 L 375 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <path d="M 620 327 L 620 395 L 620 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>

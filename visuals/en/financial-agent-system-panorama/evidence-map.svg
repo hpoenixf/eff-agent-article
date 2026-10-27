@@ -4,13 +4,13 @@
 <style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
 <rect x="0" y="0" width="1240" height="960" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="32" y="46" class="title" text-anchor="start">03 · Trace records, not an imagined chain of thought</text>
-<text x="32" y="77" class="sub" text-anchor="start">Source records remain with their owners. Observability, quality and audit ask different questions.</text>
+<text x="32" y="77" class="sub" text-anchor="start">Source facts retain owners; audit links actor, object, method, source, effect and time.</text>
 <text x="32" y="126" class="head" text-anchor="start">LINKED ORIGINAL RECORDS</text>
 <rect x="32" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="49" y="193" class="tag" text-anchor="start" style="fill:#136F70">REQUEST</text>
 <text x="49" y="223" class="head" text-anchor="start" style="font-size:19px">Who / which Run?</text>
 <text x="49" y="252" class="body" text-anchor="start" style="font-size:15px">Subject · original text</text>
-<text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run · scope</text>
+<text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run · grant reference</text>
 <rect x="277" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="294" y="193" class="tag" text-anchor="start" style="fill:#136F70">SOURCE</text>
 <text x="294" y="223" class="head" text-anchor="start" style="font-size:20px">Which evidence?</text>
@@ -39,8 +39,8 @@
 <path d="M 718 247 L 767 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
 <path d="M 963 247 L 1012 247" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <rect x="32" y="406" width="1176" height="96" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
-<text x="52" y="440" class="head" text-anchor="start">PERMITTED READ / RECONCILIATION</text>
-<text x="52" y="474" class="body" text-anchor="start">Join original identities and receipts; keep missing, truncated and unknown evidence explicit.</text>
+<text x="52" y="440" class="head" text-anchor="start">MINIMUM AUDIT INDEX · SIX LINKED FACTS</text>
+<text x="52" y="474" class="body" text-anchor="start">Actor · object · method · source · effect · time; resolve source records with permission.</text>
 <path d="M 130 327 L 130 395 L 130 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <path d="M 375 327 L 375 395 L 375 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <path d="M 620 327 L 620 395 L 620 406" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>

@@ -4,10 +4,10 @@
 <style>text{font-family:"Noto Sans CJK SC",Arial,"Microsoft YaHei",sans-serif;fill:#172D43}.title{font-size:28px;font-weight:700}.sub{font-size:16px;fill:#53667A}.head{font-size:20px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#53667A}.tag{font-size:14px;font-weight:700;letter-spacing:.5px}.edge{font-size:15px;fill:#39688C;}.label{font-size:16px;font-weight:700}</style>
 <rect x="0" y="0" width="1240" height="1030" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="32" y="46" class="title" text-anchor="start">01 · Where a financial agent belongs</text>
-<text x="32" y="77" class="sub" text-anchor="start">Four existing responsibility domains; institutional targets are explicitly separate.</text>
+<text x="32" y="77" class="sub" text-anchor="start">Domains follow original fact ownership; trusted admission issues Run grants.</text>
 <rect x="32" y="106" width="1176" height="87" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
 <text x="52" y="138" class="head" text-anchor="start">APPLICABLE RULES → INSTITUTIONAL GOVERNANCE</text>
-<text x="52" y="170" class="body" text-anchor="start">A design and accountability envelope—not a regulator API in the model loop.</text>
+<text x="52" y="170" class="body" text-anchor="start">Governance sets institutional rules, admission, retention and audit controls.</text>
 <rect x="32" y="225" width="280" height="130" rx="14" fill="#EDF5FC" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="49" y="252" class="tag" text-anchor="start" style="fill:#136F70">SERVICE USERS</text>
 <text x="49" y="282" class="head" text-anchor="start" style="font-size:20px">Investor / researcher</text>
@@ -22,7 +22,7 @@
 <text x="725" y="256" class="head" text-anchor="start">D3 · AGENT COPILOT</text>
 <rect x="725" y="278" width="463" height="93" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="743" y="307" class="head" text-anchor="start">Conversation &amp; scoped Run</text>
-<text x="743" y="336" class="body" text-anchor="start">Question · scope · context · original grants</text>
+<text x="743" y="336" class="body" text-anchor="start">Question · scope · Run grant ref · checks</text>
 <rect x="725" y="414" width="463" height="125" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="743" y="445" class="head" text-anchor="start">Model-led research ↔ governed execution</text>
 <text x="743" y="475" class="body" text-anchor="start">Skills · specialist methods · Main / Child</text>
@@ -38,14 +38,14 @@
 <text x="49" y="491" class="body" text-anchor="start" style="font-size:17px">Shares · confirmed records</text>
 <text x="49" y="516" class="body" text-anchor="start" style="font-size:17px">Budgets · calculations</text>
 <text x="49" y="541" class="body" text-anchor="start" style="font-size:17px">Canonical report snapshots</text>
-<text x="49" y="566" class="body" text-anchor="start" style="font-size:17px">Not a brokerage execution API</text>
+<text x="49" y="566" class="body" text-anchor="start" style="font-size:17px">Personal confirmation ≠ broker fill</text>
 <rect x="365" y="405" width="280" height="190" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="382" y="432" class="tag" text-anchor="start" style="fill:#136F70">D2 · DATA-SOURCE BOUNDARY</text>
 <text x="382" y="462" class="head" text-anchor="start" style="font-size:20px">Governed read views</text>
 <text x="382" y="491" class="body" text-anchor="start" style="font-size:17px">Source identity · data as of</text>
 <text x="382" y="516" class="body" text-anchor="start" style="font-size:17px">Coverage · availability</text>
 <text x="382" y="541" class="body" text-anchor="start" style="font-size:17px">Portfolio and market results</text>
-<text x="382" y="566" class="body" text-anchor="start" style="font-size:17px">Never a second ledger</text>
+<text x="382" y="566" class="body" text-anchor="start" style="font-size:17px">Projection refers to source ledger</text>
 <rect x="32" y="641" width="280" height="160" rx="14" fill="#FFFFFF" stroke="#CCDAE5" stroke-width="1.8"/>
 <text x="49" y="668" class="tag" text-anchor="start" style="fill:#136F70">EXTERNAL RESEARCH INPUTS</text>
 <text x="49" y="698" class="head" text-anchor="start" style="font-size:20px">Market &amp; documents</text>
@@ -82,13 +82,13 @@
 <text x="499" y="743" class="edge" text-anchor="middle" style="fill:#39688C">Authorized document reading</text>
 <rect x="365" y="801" width="843" height="88" rx="14" fill="#F4F0FA" stroke="#66518D" stroke-width="1.8"/>
 <text x="385" y="835" class="head" text-anchor="start">D4 · OPERATIONAL MONITORING</text>
-<text x="385" y="866" class="body" text-anchor="start">Bounded observations; no authority to change research or investment facts.</text>
+<text x="385" y="866" class="body" text-anchor="start">Owns diagnostic records; investment decisions remain with source systems.</text>
 <path d="M 505 595 L 505 710 L 570 710 L 570 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <path d="M 1115 685 L 1115 801" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <rect x="1065.0" y="747" width="100" height="20" rx="4" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8"/>
 <text x="1115" y="762" class="edge" text-anchor="middle" style="fill:#7B8997">Observation</text>
 <path d="M 40 595 L 17 595 L 17 838 L 365 838" fill="none" stroke="#7B8997" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#gray)"/>
 <rect x="32" y="916" width="1176" height="79" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
-<text x="52" y="947" class="head" text-anchor="start" style="fill:#9C6014">INSTITUTIONAL TARGETS · NOT THE CURRENT CHAT WRITE PATH</text>
+<text x="52" y="947" class="head" text-anchor="start" style="fill:#9C6014">INSTITUTIONAL TARGETS · SEPARATE BUSINESS ADMISSION</text>
 <text x="52" y="978" class="body" text-anchor="start">CRM / KYC · suitability · approvals · orders / settlement · independent audit</text>
 </svg>
