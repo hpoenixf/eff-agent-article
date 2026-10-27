@@ -142,7 +142,7 @@ Labeling the whole sequence merely “task failed” risks prompting recovery to
 
 We separated the evidence: Did the repository commit and return the original receipt? Did the old revision lose eligibility? What memory actually entered the next model request? Could derived history disclose withdrawn content again? Controlled local cross-session paths produced positive evidence, but **the unfinished real-model sequence was not retroactively classified as a success**.
 
-This illustrates [principle 2, “Proposal, approval, execution and effect are different facts”](/en/principles#principle-2): a committed Memory effect and delivery of the explanatory answer have separate states.
+This illustrates [principle 3, “Proposal, approval, execution and effect are different facts”](/en/principles#principle-3): a committed Memory effect and delivery of the explanatory answer have separate states.
 
 It also explains why conversation text alone is insufficient for recovery. The database effect may already exist even though the final “I forgot it” sentence never reached the user. The next response must reconcile the real operation, not guess again from the dialogue.
 

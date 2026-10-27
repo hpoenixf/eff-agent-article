@@ -76,4 +76,4 @@ These signals do not require an immediate rewrite of everything. They are a prom
 
 This article is part of [ETF Agent Engineering Notes](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-refactor-one-day-blocked). If these engineering cases are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
 
-The corresponding architectural discussion is [Core Principle 3: complexity belongs with its rightful owner](/en/principles#principle-3).
+The corresponding architectural discussion is [Core Principle 2: complexity belongs with its rightful owner](/en/principles#principle-2).

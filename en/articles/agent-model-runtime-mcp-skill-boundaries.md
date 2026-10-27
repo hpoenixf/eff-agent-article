@@ -453,7 +453,7 @@ Good Agent architecture does not make complexity vanish or force all of it into 
 
 Moving from "let the model think about fewer system facts" to "let Runtime own fewer business concepts" is the same deeper move: **returning complexity to the layer best suited to bear it**.
 
-This division follows [principle 3, “Complexity belongs with its rightful owner”](/en/principles#principle-3). Rather than moving every decision into Runtime, we place facts, capabilities, execution process and methods with their respective owners. During design review, [method 2, “Reviewing responsibilities and rejections”](/en/principles#method-2) asks who can decide, which effects a failure can block, and whether another owner's decision has been duplicated.
+This division follows [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2). Rather than moving every decision into Runtime, we place facts, capabilities, execution process and methods with their respective owners. During design review, [method 2, “Reviewing responsibilities and rejections”](/en/principles#method-2) asks who can decide, which effects a failure can block, and whether another owner's decision has been duplicated.
 
 ## Further Reading
 

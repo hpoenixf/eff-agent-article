@@ -1,6 +1,6 @@
 ---
 title: Agent 架构原则与系统方法
-description: Agent 架构九条核心原则：语义与事实、授权与效果、Owner、局部失败、Context、最小机制、可替换性与真实交付；附七组工程方法和深入文章。
+description: Agent 架构九条核心原则：语义与事实、Owner 归属、授权与效果、局部失败、Context、最小机制、可替换性、任务成功与整体进步；附七组工程方法和深入文章。
 ---
 
 # Agent 架构判断：核心原则与外围方法
@@ -15,17 +15,24 @@ description: Agent 架构九条核心原则：语义与事实、授权与效果�
 
 ## 第一层 · 九条核心判断
 
-| 原则 | 值得记住的一句话 | 深入文章 |
-| --- | --- | --- |
-| <span id="principle-1"></span> **1. 模型负责语义，系统负责客观事实** | 模型理解任务、研究与解释；Host/Runtime 管权限、执行和真实回执。代码能写规则，不代表代码理解自然语言。 | [别让模型当状态机](/articles/runtime-model-protocol-boundary-agent-article-v2) · [职责分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [六层全景中的执行链](/articles/017-prompt-to-answer-six-layer-panorama-v3) |
-| <span id="principle-2"></span> **2. 提议、批准、执行、生效是不同事实** | 工具提议不等于许可，执行返回不等于持久效果；恢复时不能把 unknown 当作未发生。 | [独立 Publication](/articles/019-agent-answer-publication) · [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) |
-| <span id="principle-3"></span> **3. 复杂度必须归属正确的 Owner** | 真正的封装是收拢知识和决定权，不是增加一个包住所有东西的 Manager。 | [Owner 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [工具表面归属](/articles/agent-model-capability-presentation-tool-surface) · [一次 Runtime 重构的真实代价](/articles/agent-runtime-refactor-one-day-blocked) |
-| <span id="principle-4"></span> **4. 局部失败不能取得全局否决权** | 模块只能拒绝自己负责的效果；引用或附件局部失效不能自动抹掉独立合法正文。 | [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination) |
-| <span id="principle-5"></span> **5. Context 是工作台，不是事实数据库** | 当前上下文是容量受限、可能有损的工作投影；工具回执、来源、历史和 Memory 不能只靠摘要保存。 | [工具结果外置](/articles/tool-results-outside-model-context) · [Main 压缩](/articles/agent-main-run-context-compaction) |
-| <span id="principle-6"></span> **6. 坚持最小充分机制** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
-| <span id="principle-7"></span> **7. 能力应当容易引入、撤退和替换** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
-| <span id="principle-8"></span> **8. 系统内部成功不等于用户任务成功** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) · [全景中的结果与恢复](/articles/017-prompt-to-answer-six-layer-panorama-v3) |
-| <span id="principle-9"></span> **9. 局部改善不等于整体进步** | 工具投影、观测和评测的改善，应按原身份追到实际模型输入、持久结果与用户任务；区分局部修复、测量修正与端到端收益；核对完整工具说明等正常路径成本，明确质量、成本、延迟之间的取舍。 | [局部改善与整体进步](/articles/local-improvement-is-not-system-progress) |
+**价值总纲：** Agent 架构的最终价值，是持续、可靠地完成用户的真实任务。为此，要分清语义解释、客观事实、权威归属与执行效果，用最小充分、可恢复、可替换的机制交付成果，并检验局部改善是否真正传递为整体进步。
+
+**阅读顺序：** ①—④ 可信性（认知、权威、效果、局部失败）→ ⑤—⑦ 可演进性（上下文、最小机制、替换退出）→ ⑧—⑨ 有效性（任务成功、系统进步）。这是设计推理顺序，不是新增的 Runtime 流水线、审批或强制评测门。
+
+
+| 原则 | 核心问题 | 值得记住的一句话 | 深入文章 |
+| --- | --- | --- | --- |
+| <span id="principle-1"></span> **1. 模型负责语义，系统负责客观事实** | **谁负责理解？** | 模型理解任务、研究与解释；Host/Runtime 管权限、执行和真实回执。代码能写规则，不代表代码理解自然语言。 | [别让模型当状态机](/articles/runtime-model-protocol-boundary-agent-article-v2) · [职责分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [六层全景中的执行链](/articles/017-prompt-to-answer-six-layer-panorama-v3) |
+| <span id="principle-2"></span> **2. 复杂度必须归属正确的 Owner** | **谁拥有决定权？** | 真正的封装是收拢知识和决定权，不是增加一个包住所有东西的 Manager。 | [Owner 分工](/articles/agent-model-runtime-mcp-skill-boundaries) · [工具表面归属](/articles/agent-model-capability-presentation-tool-surface) · [一次 Runtime 重构的真实代价](/articles/agent-runtime-refactor-one-day-blocked) |
+| <span id="principle-3"></span> **3. 提议、批准、执行、生效是不同事实** | **什么才算真正发生？** | 工具提议不等于许可，执行返回不等于持久效果；恢复时不能把 unknown 当作未发生。 | [独立 Publication](/articles/019-agent-answer-publication) · [Memory 持久效果](/articles/026-agent-memory-forget-durable-effects) |
+| <span id="principle-4"></span> **4. 局部失败不能取得全局否决权** | **失败影响到哪里？** | 模块只能拒绝自己负责的效果；引用或附件局部失效不能自动抹掉独立合法正文。 | [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination) |
+| <span id="principle-5"></span> **5. Context 是工作台，不是事实数据库** | **事实如何在长任务中保留？** | 当前上下文是容量受限、可能有损的工作投影；工具回执、来源、历史和 Memory 不能只靠摘要保存。 | [工具结果外置](/articles/tool-results-outside-model-context) · [Main 压缩](/articles/agent-main-run-context-compaction) |
+| <span id="principle-6"></span> **6. 坚持最小充分机制** | **需要多少机制才够？** | 模型本可处理的研究选择，不必总被固定 Planner、Validator、Hook 和状态机取代；先看既有机制够不够。 | [Entry 做减法](/articles/022-agent-entry-from-intent-to-direct-research) · [五不原则](/articles/code-cheaper-systems-harder-to-evolve) |
+| <span id="principle-7"></span> **7. 能力应当容易引入、撤退和替换** | **怎样持续升级而不堆积旧结构？** | 架构升级是让新结构替代旧结构，而不是永远叠加兼容层；不等于万物插件化或运行时热卸载。 | [代码与架构演化](/articles/code-cheaper-systems-harder-to-evolve) · [Extension Host](/articles/020-agent-extension-host-smartphone) |
+| <span id="principle-8"></span> **8. 系统内部成功不等于用户任务成功** | **用户任务是否真正完成？** | 工具能调用、模型能写、文件能保存，均不能单独证明用户获得了正确且可用的结果。 | [真实任务收敛](/articles/032-ai-development-from-bug-loop-to-task-convergence) · [HTML 交付](/articles/agent-html-evolution-challenges) · [全景中的结果与恢复](/articles/017-prompt-to-answer-six-layer-panorama-v3) |
+| <span id="principle-9"></span> **9. 局部改善不等于整体进步** | **怎样证明整体变好了？** | 工具投影、观测和评测的改善，应按原身份追到实际模型输入、持久结果与用户任务；区分局部修复、测量修正与端到端收益；核对完整工具说明等正常路径成本，明确质量、成本、延迟之间的取舍。 | [局部改善与整体进步](/articles/local-improvement-is-not-system-progress) |
+
+**为什么保留第八和第九条？** 第八条界定成功是否真正到达用户任务；第九条进一步核对一次改动是否产生可比较的端到端净收益，明确质量、成本、延迟与风险的取舍。不要把局部绿灯当作整体进步。
 
 **不轻易加第十条：** 只有新认知真正改变一类问题的判断、可以跨多个模块使用、而且无法自然归入已有原则时，才考虑晋升。Budget 收尾、Memory 世代锁、特定 Schema parity 等属于值得查阅的实现经验，不必占据核心层。
 
