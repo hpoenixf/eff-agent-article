@@ -1,6 +1,5 @@
 import { execFileSync, spawnSync } from 'node:child_process'
-import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync, copyFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { findMermaidBlocks, RENDERER_VERSION } from '../static-mermaid.mjs'
@@ -84,7 +83,33 @@ try {
       throw Error('Mermaid CLI failed: ' + (error.stderr?.toString() || error.message))
     }
     const assets = readdirSync(temp).filter(name =>
-      new RegExp('^rendered-' + index + '-[0-9]+\\\\.svg$').test(name)
+      new RegExp('^rendered-' + index + '-[0-9]+\\.svg.test(name)
+    ).sort((a, b) =>
+      Number(a.match(/-(\d+)\.svg$/)?.[1] || 0) - Number(b.match(/-(\d+)\.svg$/)?.[1] || 0)
+    )
+    if (assets.length !== batch.length) throw Error('Mermaid output count ' + assets.length +
+      ' != expected ' + batch.length + ', files: ' + readdirSync(temp).join(', '))
+    for (let i = 0; i < assets.length; i++) {
+      const [id] = batch[i]
+      const content = readFileSync(join(temp, assets[i]), 'utf8')
+      auditSvg(content, assets[i])
+      writeFileSync(join(target, id + '.svg'), content)
+      rendered++
+    }
+  }
+  const publicManifest = {
+    generator: RENDERER_VERSION,
+    diagramCount: rendered,
+    occurrences: [...usages.values()].reduce((n, x) => n + x.pages.length, 0),
+    diagrams: Object.fromEntries([...usages.entries()].map(([id, v]) => [id, { pages: v.pages }]))
+  }
+  writeFileSync(manifestPath, JSON.stringify(publicManifest, null, 2) + '\n')
+  console.log('Static Mermaid SVG generated:', rendered, 'unique,', publicManifest.occurrences,
+    'occurrences,', files.length, 'Markdown files')
+} finally {
+  rmSync(temp, { recursive: true, force: true })
+}
+).test(name)
     ).sort((a, b) =>
       Number(a.match(/-(\d+)\.svg$/)?.[1] || 0) - Number(b.match(/-(\d+)\.svg$/)?.[1] || 0)
     )
