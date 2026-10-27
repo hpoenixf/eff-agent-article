@@ -136,10 +136,10 @@ node --test --test-concurrency=1 --test-name-pattern="after result commit|cancel
 
 ---
 
-<!-- open-etf-case:control@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:control@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### 在模型等待期间检查持久取消
 
-固定公开快照的[进程级取消用例](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/durable-runtime.test.mjs)把控制边界放在模型请求已占用预算、但结果尚未返回的位置。
+固定公开快照的[进程级取消用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs)把控制边界放在模型请求已占用预算、但结果尚未返回的位置。
 
 在所链固定快照按 README 安装依赖后，运行：
 

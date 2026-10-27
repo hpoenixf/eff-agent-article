@@ -240,10 +240,10 @@ list_skills → read_skill → mcp_read_page → mcp_read_page → save_report
 
 该切片固定使用官方 SDK 1.32.2 与 [MCP 2025-11-25 协议](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)，只启动仓库内的白名单服务，不覆盖前文远程 HTTP、OAuth 或完整 Schema 适配。[首批真实模型记录](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md)也没有触达 MCP。因此当前可以直接复现的是发现、准入、真实传输、来源核对与文件保存；真实模型能否在研究中正确选择和使用这些工具，仍是另一个问题。
 
-<!-- open-etf-case:mcp@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:mcp@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### 沿实际 stdio 链路核对取得与保存
 
-固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/src/cli.mjs)把 Skill 读取、MCP 工具发现和原始页面取得连成一个可运行切片。
+固定公开快照的[CLI 入口](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/src/cli.mjs)把 Skill 读取、MCP 工具发现和原始页面取得连成一个可运行切片。
 
 在所链固定快照按 README 安装依赖后，运行：
 

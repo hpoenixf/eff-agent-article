@@ -178,10 +178,10 @@ The case checks more than the existence of a summary file. The next Gateway invo
 Readers can therefore reproduce an engineering path in which **a note is actually adopted, originals remain readable under their original identities, and a report is actually saved**. This public slice lacks the cold-recovery capability discussed earlier, and does not establish that a real model interprets the summary correctly. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not trigger compaction and cannot validate that mechanism. The scripted observation here tests input handoffs and real effects; summary semantics require separate evaluation.
 <!-- open-etf-agent:minimal-experiment:end -->
 
-<!-- open-etf-case:compaction@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:compaction@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### Inspect what remains readable after note adoption
 
-The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/src/cli.mjs) retains the same narrow comparison: adopt a derived note, then reread both the note and an original page.
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/src/cli.mjs) retains the same narrow comparison: adopt a derived note, then reread both the note and an original page.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

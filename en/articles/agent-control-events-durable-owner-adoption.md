@@ -136,10 +136,10 @@ This public path controls only the selected local Session and its supported synt
 
 ---
 
-<!-- open-etf-case:control@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:control@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### Check durable cancellation while a model request is pending
 
-The [process-level cancellation case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/durable-runtime.test.mjs) places the boundary after a model request reserves budget but before its result returns.
+The [process-level cancellation case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) places the boundary after a model request reserves budget but before its result returns.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

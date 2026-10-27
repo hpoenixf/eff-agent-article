@@ -193,10 +193,10 @@ node dist/src/session-cli.mjs publication-event --session runs/publication-demo 
 
 启动结果中的 `publication` 是已提交正文的回执；再次执行读取命令，可以取得原正文、修订和当前交付位置，而不是重新生成回答。报告文件另有 Artifact 回执，不能拿它代替正文提交事实。这个例子保留的是发布机制，不是在评价合成回答的研究质量。
 
-<!-- open-etf-case:publication@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:publication@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### 分别回读正文、当前事件与报告
 
-固定公开快照的[Publication CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/publication-cli.test.mjs)提供另一条观察入口：让多个 CLI 调用分别读正文、指定修订、当前事件和不可变报告。
+固定公开快照的[Publication CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/publication-cli.test.mjs)提供另一条观察入口：让多个 CLI 调用分别读正文、指定修订、当前事件和不可变报告。
 
 在所链固定快照按 README 安装依赖后，运行：
 

@@ -222,10 +222,10 @@ A34 的独立责任极窄：
 
 因此 A34 是一个跨现有文件的**逻辑效果 Owner**，不是新服务、数据库表或新的权限机关。
 
-<!-- open-etf-case:surface@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:surface@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### 直接看 Child 每轮收到的工具集合
 
-固定公开快照的[只读 Child 用例](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/cooperation-integration.test.mjs)把可见性落到真实 Gateway 调用参数：不是检查注册表里“有什么”，而是记录每轮实际呈现了什么。
+固定公开快照的[只读 Child 用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/cooperation-integration.test.mjs)把可见性落到真实 Gateway 调用参数：不是检查注册表里“有什么”，而是记录每轮实际呈现了什么。
 
 在所链固定快照按 README 安装依赖后，运行：
 

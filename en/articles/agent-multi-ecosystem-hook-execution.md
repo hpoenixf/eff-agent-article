@@ -74,10 +74,10 @@ Native Host first determines a stable callback sequence using registration scope
 
 The Run also binds the chosen plugin generation. A plugin upgraded mid-call must not slip a new callback into an old invocation. Execution and Recovery then share a stable identity basis.
 
-<!-- open-etf-case:hooks@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:hooks@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### Return Hook argument changes to the original Host
 
-The [Host argument-change case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/cooperation-integration.test.mjs) checks one basic boundary: a Hook may propose a change, but the original Host still validates what executes.
+The [Host argument-change case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/cooperation-integration.test.mjs) checks one basic boundary: a Hook may propose a change, but the original Host still validates what executes.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

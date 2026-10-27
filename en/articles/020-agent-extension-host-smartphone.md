@@ -384,10 +384,10 @@ npm run session -- inspect --session runs/plugin-article --run run-YOUR_ID
 
 [`runtime.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/src/runtime.mjs) connects the published tools and Hooks to the existing loop and releases that selected package set when the invocation ends. This is the reproducible capability: **trusted contributions reach the actual method/source owners and produce a readable report plus cleanup results through the original Runtime**. Package lifecycle and durable Run cancellation/recovery remain separate responsibilities; see the [public control-handoff slice](https://hpoenixf.com/eff-agent-article/en/articles/agent-control-events-durable-owner-adoption) for the latter. One plugin example does not establish cross-ecosystem compatibility, background scheduling or real-model adoption quality.
 
-<!-- open-etf-case:plugins@e442f600891be79625fc78751e2d9f39905920da -->
+<!-- open-etf-case:plugins@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
 ### Verify that two packages enter the same Host
 
-The [plugin integration case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/test/plugins.test.mjs) sends two trusted package contributions through the ordinary Runtime and Host, beyond merely loading them.
+The [plugin integration case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/plugins.test.mjs) sends two trusted package contributions through the ordinary Runtime and Host, beyond merely loading them.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

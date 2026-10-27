@@ -15,13 +15,13 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 当前可以从哪里继续（截至 2026-10-27）
 
-当前稳定代码已推进到 **v0.9.0**。日常使用看[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；这次核对的 [main 为 `e888ee91`](https://github.com/hpoenixf/open-etf-agent/blob/e888ee911ca784d6488f33def31abf225293719a/README.md)，复现本版请选[固定 v0.9 快照](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)。下面仍保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。
+最新可复现的编号版本是 **v0.10.0**：沿用同一执行链，补齐原始选区、派生计算与实际消费的对应关系。日常入口见[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，复现本版选[固定 v0.10 源码](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)；此前的[固定 v0.9 Worker 快照](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)仍保留。下面仍保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。
 
-公开实现已经从文件回读，走到不可变附件、SQLite 检查点恢复和持久正文。Publication 保留原正文块、投递位置与修订回执，提交后的正文不会被后续 Run 失败抹掉；机制仍见既有[正文发布文章](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication)。本次增加的 **单 Run Worker** 让提交进程先退出，再由另一进程按原身份、额度和截止时间驱动同一个 Runtime；它不是一套新队列，也没有顺带实现整套定时研究。
+公开实现已经从文件回读，走到不可变附件、SQLite 检查点恢复和持久正文。Publication 保留原正文块、投递位置与修订回执，提交后的正文不会被后续 Run 失败抹掉；机制仍见既有[正文发布文章](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication)。v0.9 增加的 **单 Run Worker** 让提交进程先退出，再由另一进程按原身份、额度和截止时间驱动同一个 Runtime；它不是一套新队列，也没有顺带实现整套定时研究。
 
 选定上述快照并按 README 安装构建后，依次执行 `node dist/src/session-cli.mjs submit --session runs/article-v09 --run original-example --case durable-publication`、`node dist/src/session-cli.mjs work --session runs/article-v09 --run original-example`，再以 `node dist/src/session-cli.mjs publication --session runs/article-v09 --run original-example` 读取原正文与回执。示例的 30 秒截止时间从提交开始；[对应的进程用例](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs)还检查了停止、竞争与提交后退出的边界。资料和模型动作仍是合成脚本，SQLite 提交与进程间回读则真实发生；下文的真实模型观察仍只属于它原来的版本。
 
-Worker 停止不等于用户取消，未知请求也不能靠换一个进程自动重试。这层最小机制已补进既有[定时研究文章](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)，而日历、条件触发与通知不在本版范围内。0.10 只读适配经核查尚无独立消费者，现有计划已记录取消建议，不改名为 Web。沿原计划继续的 **Result / Reference 消费增量**已有[无编号的固定公开候选](https://github.com/hpoenixf/open-etf-agent/tree/e442f600891be79625fc78751e2d9f39905920da)：从明确的原始选区计算，让下一请求、报告与 CSV 使用同一结果；示例和边界补进[结果消费文章](https://hpoenixf.com/eff-agent-article/articles/financial-agent-python-result-consumption)。这不是 v1.0 或 v1.1 已发布，采用候选前须阅读 [`tool-host@2` 恢复兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/e442f600891be79625fc78751e2d9f39905920da/openspec/changes/result-reference-consumption/design.md)。
+Worker 停止不等于用户取消，未知请求也不能靠换一个进程自动重试。这层最小机制已补进既有[定时研究文章](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)，而日历、条件触发与通知不在本版范围内。旧 0.10 只读适配因没有独立消费者而取消，不改名为 Web。已完成的 **Result / Reference 消费模块**按顺序编号为[v0.10 固定公开代码](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)：从明确的原始选区计算，让下一请求、报告与 CSV 使用同一结果；示例和边界补进[结果消费文章](https://hpoenixf.com/eff-agent-article/articles/financial-agent-python-result-consumption)。原计划 1.1 的这项最小增量已纳入 v0.10，不再排第二遍；1.0 仍是尚未宣布完成的稳定里程碑。升级前须阅读 [`tool-host@2` 恢复兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/design.md)。
 
 ## 先选一个能核对的问题
 
