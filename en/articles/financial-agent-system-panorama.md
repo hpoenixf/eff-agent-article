@@ -7,13 +7,13 @@ description: A financial-agent architecture viewed through users, institutions, 
 
 *From a user's question to reviewable research—and then, only when separately authorized, to a business effect.*
 
-> Architecture observations as of October 27, 2026. ETF-Agent is an engineering project for personal fund research and investment tools. Solid domain boxes describe existing responsibilities; orange dashed boxes identify institutional targets, not already deployed advisory, trading, or compliance systems.
+> **Scope and engineering status (October 27, 2026):** ETF-Agent is a personal fund-research and investment-tool engineering project. Solid boxes show existing responsibilities; orange dashed boxes show institutional targets such as advice admission, trading, settlement, and formal audit. Current confirmation records manage personal investment state rather than brokerage fills. The grant, order, and audit structures below are synthetic design examples; applicable institutional rules and systems determine actual business admission.
 
 A user asks: “Do the two technology funds I hold own many of the same companies? Would investing more simply buy the same risk twice?”
 
 A model can find information, read fund reports, perform calculations, and produce an illustrated analysis. A financial service must also answer different questions: whose portfolio and which disclosure period did it analyze? What definitions support the result? If the user then says “make that adjustment,” may the system execute it? Can someone recover the original basis three months later?
 
-**The central architecture problem is not which layer should contain the model. It is how exploratory research can work alongside financial operations with explicit accountability.** Research may propose hypotheses; a ledger must not change with them. A model may propose an action; the proposal is not evidence of authorization, a fill, or settlement.
+**The central architecture problem is enabling exploratory research to work alongside financial operations with explicit accountability.** Research proposes hypotheses while the investment core maintains the ledger. The model proposes actions while business systems independently verify authorization, fills, and settlement.
 
 This article follows one portfolio review. We first define the service, map its systems, trace the separate research and business lifecycles, and then examine governance and institutional adoption. The three main diagrams answer three questions: **how systems connect, how work progresses, and how results can be traced.**
 
@@ -21,24 +21,26 @@ This article follows one portfolio review. We first define the service, map its 
 
 For an investor, the product is a service, not a collection of tools. Product education, personal portfolio analysis, individualized advice, and investment operations may share a chat interface. They must not consequently share one vague authorization.
 
-The following distinctions are product-design commitments, not a legal classification of activities. Whether a service constitutes regulated advice, distribution, or another activity depends on its provider, substance, delivery model, and applicable rules.
+The table groups commitments useful for product design. Whether a service constitutes regulated advice, distribution, or another activity must still be assessed against the provider, substance, delivery model, and applicable rules.
 
-| User request | Appropriate deliverable | Authority it must not acquire by implication |
+| User request | Appropriate deliverable | Authorized data and effect scope |
 | --- | --- | --- |
-| “How do these fund categories differ?” | A sourced explanation of public product information | Automatic access to a personal account |
-| “Analyze overlap using my holdings” | Portfolio research within the permitted data scope | Treating historical disclosure as complete live holdings |
-| “Compare holding, reducing, and continuing contributions” | Scenario analysis with assumptions, constraints, and limitations | Turning a research scenario into a confirmed operation |
-| “Carry out this plan” | A separately defined business-admission and execution process | Replacing valid business authorization with conversational intent |
+| “How do these fund categories differ?” | A sourced explanation of public product information | Public or otherwise permitted product material only |
+| “Analyze overlap using my holdings” | Portfolio research within the permitted data scope | Permitted snapshots with disclosure dates and missing coverage retained |
+| “Compare holding, reducing, and continuing contributions” | Scenario analysis with assumptions, constraints, and limitations | Research scenarios only; operations require new admission |
+| “Carry out this plan” | A separately defined business-admission and execution process | Business systems validate exact object, authorization, and real receipts |
 
 Our running example combines the first two services: **research duplicate exposure in specified funds, compare scenarios when appropriate, and do not operate the account.** It is a synthetic teaching example, not real customer data or a retelling of a fully qualified live run.
 
-Once this scope is explicit, the user experience has a meaningful standard. Provide a readable conclusion, its basis, and its gaps. There is no need to invoke every tool to appear intelligent, and producing a report is no justification for expanding account access.
+Once this scope is explicit, the product has a meaningful standard: deliver a readable conclusion, its basis, and its gaps; select tools only as needed; and restrict account access to the admitted grant.
 
-## 2. The system map: four responsibility domains, not four mandatory services
+## 2. The system map: four responsibility domains and their factual authority
 
-ETF-Agent began with deterministic investment tools for portfolio imports, contribution calculations, and confirmation records. Conversation, MCP, Skills, subagents, Python, knowledge retrieval, and report delivery came later. The important choice was not to let those new intelligent capabilities take over the original investment ledger.
+ETF-Agent began with deterministic investment tools for portfolio imports, contribution calculations, and confirmation records. Conversation, MCP, Skills, subagents, Python, knowledge retrieval, and report delivery came later. The original investment core continues to maintain the ledger; intelligent capabilities participate through governed reads.
 
-The project separates four domains: the investment core, a governed data boundary, agent research and delivery, and operational observation. A domain assigns knowledge and decision authority; it does not specify a process, database, or microservice count.
+The project separates four domains: the investment core, a governed data boundary, agent research and delivery, and operational observation. They follow **ownership of original facts and decision rights** and can map to different modules or share a deployment.
+
+To place a responsibility, ask: **who writes the original record, who may correct it, and who governs its retention and access?** Portfolio positions and confirmations belong to the investment core; source-read metadata and coverage to data access; Runs and publications to the agent; diagnostic events to operational monitoring. Monitoring spans workflows but owns independent diagnostic records and retention obligations. Identity and authorization are cross-cutting controls: a trusted admission process and institutional IAM grant capabilities that are checked at each access point, without inventing a fifth competing source of business facts.
 
 ![Financial-agent system map: investment core, governed read-only views, research and delivery, and operational monitoring; institutional targets are separate](../../visuals/en/financial-agent-system-panorama/system-map.svg)
 
@@ -46,40 +48,40 @@ The project separates four domains: the investment core, a governed data boundar
 
 **How to read the diagram:** blue and teal solid arrows represent principal request, data, or result handoffs. Gray dashed arrows represent bounded observations. Orange dashed boxes are institutional targets. The governance band shows how institutions implement applicable rules—not a “regulator API” called for each research request. External providers and research resources are not data or permissions the institution automatically owns.
 
-| Responsibility domain | Core facts it holds | What it provides | What it must not take over |
+| Responsibility domain | Core facts it holds | What it provides | Scope of authority |
 | --- | --- | --- | --- |
-| **Investment Core** | Accepted holdings, confirmation records, budgets, and deterministic investment rules | Inspectable investment outputs and report snapshots | Open-ended model research judgments |
-| **Data-Source Boundary** | Bounded reads and projections, source identity, data time, coverage, and availability | Limited views of investment facts and external evidence | A second investment ledger |
-| **Agent Copilot** | Conversations, Runs, tool receipts, research results, and publication versions | Explanations, research, scenarios, and readable reports | Root-ledger writes or actual trading authority |
-| **Operational Monitoring** | Sanitized operational records, errors, and report-health observations | Diagnostic and operational-review material | Investment decisions, source-data repair, or statutory audit conclusions |
+| **Investment Core** | Accepted holdings, confirmation records, budgets, and deterministic investment rules | Inspectable investment outputs and report snapshots | Maintains investment facts; the agent owns open-ended research judgments |
+| **Data-Source Boundary** | Bounded reads and projections, source identity, data time, coverage, and availability | Limited views of investment facts and external evidence | Maintains projection metadata; the original ledger stays with the core |
+| **Agent Copilot** | Conversations, Runs, tool receipts, research results, and publication versions | Explanations, research, scenarios, and readable reports | Owns research and publication; source business systems own ledger writes and trading |
+| **Operational Monitoring** | Sanitized operational records, errors, and report-health observations | Diagnostic and operational-review material | Owns diagnostics; decisions, source repairs, and formal audits retain their owners |
 
-### Data can flow without transferring write authority
+### Separate governed reads from write authority
 
-The investment core supplies the agent through read-only projections. The agent may explain holdings and deterministic outputs. Conversations, memory, research documents, and subagent conclusions do not automatically change actual shares, confirmed plans, or execution records.
+The investment core supplies the agent through read-only projections. The agent explains holdings and deterministic outputs; changes to shares, confirmed plans, and execution records follow the authoritative core workflow. Research memory and subagent findings remain referenced evidence.
 
-The root tools' separate confirmation and execution-recording paths manage personal investment state. **They are not an already connected brokerage order-execution API.** This distinction prevents a diagram from making “record a confirmed operation” look like “complete an external trade.”
+The investment core provides native confirmation and execution-recording tools to maintain personal investment state. **Those records are separate from brokerage orders and external fill receipts.** The diagram therefore treats an internal confirmation and an externally executed trade as different facts.
 
-The data boundary is not a universal financial data platform either. Market feeds, websites, PDFs, and knowledge retrieval retain their respective readers. Grouping them as governed inputs explains access and factual handoffs; it does not claim that every resource uses one interface.
+Market feeds, websites, PDFs, and knowledge retrieval retain their respective readers. The diagram groups them as governed inputs to explain identity, access, timestamps, and factual handoffs; integration may use different adapters.
 
-### In an institution, the agent is not a replacement core-business system
+### Institutional integration through governed interfaces
 
 An institutional deployment also needs customer and account services, KYC and suitability, product master data, risk management, approvals, orders, and settlement. Names and organizational structures differ. The essential questions remain: who maintains customer state, admits business activity, submits orders, and updates cash and holdings from actual business reports?
 
-These are the separately identified target capabilities, not features implied by the personal project's existence. The agent is better positioned as a governed research and collaboration interface than as a parallel authority for customers, risk, and trading.
+The diagram identifies these as institutional targets. The agent provides a governed research and collaboration interface while the relevant institutional systems retain original customer, risk, order, and settlement records.
 
-Our existing [six-layer request overview](https://hpoenixf.com/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama-v3) explains how a request moves from input to a visible answer. The four domains answer another question: **however many technical stages a request crosses, who retains the original facts and decision rights?** The views complement one another; they need not become another hierarchy.
+Our existing [six-layer request overview](https://hpoenixf.com/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama-v3) explains how a request moves from input to a visible answer. The four domains answer another question: **however many technical stages a request crosses, who retains the original facts and decision rights?** The two views complement each other: one traces calls, the other assigns factual authority.
 
-## 3. The research lifecycle: investigate a question, not fill in a fixed workflow
+## 3. The research lifecycle: autonomous follow-up and partial delivery
 
 System boundaries explain who owns what. A lifecycle explains what happens. A financial agent first needs a research loop: admit the question, form a strategy, obtain evidence and calculations, synthesize, deliver, and review.
 
-This is not a one-way pipeline. New evidence can change the model's decomposition and prompt another read. Independently useful findings may be delivered early. Outside that loop is a business-effect lifecycle that requires separate admission.
+Research moves in an evidence-driven loop. New evidence can change the model's decomposition and prompt another read; independently useful findings may be delivered early. Actions with business effects enter a separately admitted lifecycle.
 
 ![Separate research and business lifecycles, including further investigation, local failure, publication, independent action requests, authorization, reconciliation, and actual business receipts](../../visuals/en/financial-agent-system-panorama/lifecycle.svg)
 
 [Open the full-size lifecycle diagram](../../visuals/en/financial-agent-system-panorama/lifecycle.svg)
 
-**The upper half is based on current research mechanisms; the lower half is an institutional target.** Reading the report may complete the service without any investment operation. Orange connections represent a separately requested business action, not automatic trading, and do not prescribe one approval sequence for every institution.
+**The upper half represents current research mechanisms; the lower half an institutional target.** Reading the report can complete a read-only service. Orange connections take effect only after a new concrete business request and separate admission. Applicable institutional rules determine the approval sequence.
 
 ### 1. Admit a research task, not merely a message
 
@@ -87,29 +89,40 @@ A Conversation is a thread; a Run is a particular attempt to do research. A thre
 
 In the running example, the system needs to establish the target funds, the permitted account or portfolio source, the analysis period, and the restriction to analysis without execution. The system owns identity and source permissions. The model interprets what the user is trying to compare; a few keyword rules cannot replace that understanding.
 
-The following is a **conceptual illustration, not an existing API contract**:
+The following separates **requested intent** from a **trusted grant issued on admission**. Both structures are conceptual designs, not current API contracts. A research request states its target and desired effect:
 
 ```json
 {
   "question": "Compare duplicate exposure in funds A and B",
-  "portfolio_snapshot": "P1",
-  "permitted_service": "read_only_research",
-  "comparison_basis": "Comparable portions of obtained disclosures",
+  "fund_refs": ["A", "B"],
+  "portfolio_snapshot_ref": "P1",
   "requested_effect": "report_only"
 }
 ```
 
-Complete fields do not establish permission. Valid authorization must come from real admission, not a model-populated `permitted_service` value.
+Trusted admission checks the principal, accessible source, and service scope before binding a read-only grant to the Run:
+
+```json
+{
+  "run_ref": "R1",
+  "grant_ref": "G1",
+  "subject_ref": "USER-DEMO",
+  "scope": ["portfolio:P1:read", "research-report:create"],
+  "valid_until": "2026-10-27T11:00:00+08:00"
+}
+```
+
+`grant_ref` **references a server-side admission record**; a user-supplied field or model assertion cannot mint authority. At each protected access, the executor checks the current principal, Run, action, resource, expiration, and revocation. Subagents receive only an approved subset. Subsequent business actions require independent business authorization.
 
 ### 2. Put professional methods in Skills and research choices with the model
 
 The model decides what to read, whether to compute, and when delegation is useful. A Skill describes how a class of research problem should be approached. Tools provide actual capabilities. The runtime manages execution identity, resources, receipts, and recovery.
 
-Fund-overlap research must establish product and share-class identity, disclosure periods, weight denominators, and undisclosed holdings. Tracking-quality research must distinguish fund NAV returns, benchmark returns, and the corresponding calculation basis. Neither is adequately specified by “act as an experienced fund manager.”
+Fund-overlap research establishes product and share-class identity, disclosure periods, weight denominators, and undisclosed holdings. Tracking-quality research distinguishes fund NAV returns, benchmark returns, and the corresponding calculation basis. Skills capture these rules as reviewable method inputs and outputs.
 
-ETF-Agent's fund method bundle, iARK deep research, and associated calculations provide a foundation for this method organization. Registration or successful script execution does not establish that the model selected the right method, or that reports consistently meet a financial quality standard.
+ETF-Agent's fund method bundle, iARK deep research, and associated calculations provide a foundation for organizing methods. Independent evaluation still has to establish appropriate method selection and consistently adequate financial research quality.
 
-The main agent need not assemble a full team of “experts” for every question. A subagent is useful when reading, computation, or an independent perspective adds value. It works within the original research authorization and resources and returns results and sources. A role name grants no new business authority.
+The main agent delegates when additional reading, computation, or an independent perspective adds value. A subagent works within the Run grant and resource subset, returning results and sources; capabilities follow the grant rather than role titles.
 
 ### 3. Preserve financial meaning between data and conclusions
 
@@ -119,9 +132,9 @@ The contribution to company X exposure from this observed portion is:
 
 **0.40 × 0.08 + 0.20 × 0.12 = 0.056 = 5.6%**
 
-The arithmetic is determinate, but its interpretation must preserve the inputs' scope. This is not “the entire portfolio's complete current exposure to X is 5.6%.” Other assets, undisclosed securities, and relevant look-through or derivative definitions may remain outside the analysis.
+The arithmetic is determinate, while the conclusion remains bounded by source coverage: **5.6% is the observed contribution from these comparable disclosures**. Other assets, undisclosed securities, and applicable look-through or derivative exposures may fall outside that coverage.
 
-Likewise, download time is not the disclosure period. A share class's denomination is not automatically the currency of all underlying risk. A fresh quote cannot make an old holdings snapshot current.
+Record the actual disclosure date rather than the download date, preserve share-class and underlying-risk currencies separately, and retain the distinct time identities of new quotes and older holdings snapshots.
 
 A governed result therefore needs to retain the object, source identity, data time, unit, coverage, and method. The model then explains how that result relates to the user's objective. **Authentic sources, correct arithmetic, applicable methods, and faithful conclusions are four separate checks.** See [financial numbers and reproducibility](https://hpoenixf.com/eff-agent-article/en/articles/031-fintech-data-time-and-reproducible-numbers) and the [research evidence chain, in Chinese](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) for the underlying mechanisms.
 
@@ -137,11 +150,27 @@ A corresponding output might be summarized as follows. It remains a teaching exa
 }
 ```
 
+**Counterexample: retain observations and withhold an incomparable aggregate.** Suppose A reports company X as of June 30, 2026, using net-asset weights, while B reports as of September 30, 2026, using a different denominator that includes derivatives exposure. The original 5.6% aggregate is no longer comparable. Retain A’s individually verifiable contribution (40% × 8% = 3.2%) and expose the missing common-period, common-denominator evidence for B:
+
+```json
+{
+  "observed_exposure_pct": null,
+  "status": "not_comparable",
+  "reason_codes": ["disclosure_period_mismatch", "denominator_mismatch"],
+  "partial_observations": [
+    {"fund_ref": "A", "contribution_pct": 3.2, "as_of": "2026-06-30"}
+  ],
+  "complete_portfolio_exposure": null
+}
+```
+
+Currency differences also require explicit valuation and FX definitions, but a different share-class currency is not by itself grounds for rejection. Downgrade when no defensible common-basis conversion is available. **`null` means the evidence cannot support that measure; it is not zero exposure.**
+
 ### 4. Keep a local failure local to its conclusion or effect
 
-If B's disclosure is temporarily unavailable, the system must not replace its weight with zero. A complete overlap estimate remains unavailable, but A's known product facts, an explanation of the method, and a list of required additional material can still be useful.
+If B's disclosure is temporarily unavailable, return `null` with a coverage gap for the complete overlap measure. A's known product facts, a method explanation, and the outstanding evidence request remain independently deliverable.
 
-A formatting error in one public-source citation should not automatically remove an independently permitted answer. Conversely, deleting a private-source label cannot turn unauthorized content into public information.
+Fix a malformed citation locally while preserving independently permitted findings. Preserve private-source labels with the underlying content so restricted evidence cannot be relabeled as public.
 
 This distinction preserves research value without sacrificing real permissions. The runtime enforces observable execution conditions and protected effects; it does not become a financial judge certifying that the research is “good enough.”
 
@@ -149,27 +178,77 @@ This distinction preserves research value without sacrificing real permissions. 
 
 ETF-Agent handles answer publication, historical delivery, and file artifacts separately. Generated text is not necessarily durably committed. A file in a workspace is not necessarily a saved, downloadable artifact. An emitted server event does not prove client rendering.
 
-For the user, the report should present conclusions, evidence, calculation definitions, and material gaps. For the system, the published revision, file identity, and delivery receipts should be recoverable separately. Useful findings may be delivered while research continues; a later local failure should not erase independently valid earlier work.
+For the user, the report presents conclusions, evidence, calculation definitions, and material gaps. The system can separately recover the published revision, file identity, and delivery receipts. Useful findings can be delivered while research continues; later local failures are recorded according to their scope.
 
-“Complete” must therefore name its object. Execution ending, a result being saved, a user being able to see it, and research meeting a quality standard are not one state.
+Completion criteria must name their object: execution termination, durable publication, user visibility, and financial research quality each require their own acceptance check.
 
 ## 4. The business lifecycle: research may inform an action, but cannot impersonate one
 
-After reading the report, suppose the user asks to reduce contributions to A and move part of the budget elsewhere. This is a new business request. It cannot simply reuse read-only research permission.
+After reading the report, suppose the user asks to reduce contributions to A and move part of the budget elsewhere. The system admits this as a new business request with its own identity, checks, and authorization.
 
-In the institutional target architecture, research may enter a business process as an input. Authorization and execution remain with the responsible business systems. Three distinctions matter particularly.
+In the institutional target architecture, research is an attributable proposal input; business systems own authorization and execution. Three separate factual handoffs matter.
 
-**First, intent is not valid authorization.** “Do it” must resolve to an exact account, product, amount, proposal version, and scope. Applicable checks, disclosures, and staff review follow actual business requirements and policy, not an unconstrained model judgment.
+**First, intent enters independent authorization.** “Do it” resolves to an exact account, product, amount, proposal version, and scope. Business policy and systems enforce the relevant checks, disclosures, and staff review.
 
-**Second, human interaction is not automatically financial approval.** Supplying an investment horizon adds research information. Approving report sharing permits a content-access effect. Authorizing an investment operation is a different business effect. These cannot all be collapsed into `approved=true`.
+**Second, interactions produce different effects.** Providing an investment horizon adds research information; approving report sharing grants content access; authorizing an investment operation grants a business effect. Record their distinct types, objects, and versions rather than collapsing them into `approved=true`.
 
-ETF-Agent's durable human-interaction mechanisms establish requests, responses, and handoff to original consumers. They are not institutional suitability, advisory approval, or trading-authorization systems. Agreement from a “risk officer agent” likewise does not discharge a real organizational role's responsibilities.
+ETF-Agent's durable human-interaction mechanisms establish requests, responses, and handoff to original consumers. Institutional suitability, advisory approvals, and trading authorizations require their own business systems and accountable human roles.
 
-**Third, submission is not effect.** Order acknowledgment, partial fills, fills, settlement, cancellation, and rejection have different meanings. Cash and holdings must change according to the relevant rules and actual business reports, not through a generic “the model submitted successfully” update.
+**Third, establish effects through authoritative receipts.** Order submission, acceptance, partial fill, full fill, settlement, cancellation, and rejection are recorded separately. Business rules and confirmed external reports determine cash and position updates.
 
-When an external outcome is unknown, inspect and reconcile using the original request or order identity before considering another action. A timeout does not establish non-execution. If the proposal changes, the applicability of an earlier approval must also be reconsidered; approval must not drift to a different amount or product.
+### Inspectable business requests and state transitions
 
-These are requirements for a target institutional workflow, not trading capabilities claimed for ETF-Agent. Its research interface remains read-only, and the root tools' confirmation records are not equivalent to brokerage fill reports.
+The following is a **conceptual institutional-target structure**, not an ETF-Agent API. Suppose the user separately confirms a CNY 1,000 subscription to fund B. After applicable admission, the business system creates a request snapshot associated with an authorization. Changes to a recurring-contribution plan have their own effect model and should not be conflated with securities-order states:
+
+```json
+{
+  "business_request_ref": "B1",
+  "proposal_ref": "REPORT-1:v1",
+  "account_ref": "ACCOUNT-DEMO",
+  "operation": {
+    "type": "fund_subscription",
+    "fund_ref": "FUND-B",
+    "amount": "1000.00",
+    "currency": "CNY"
+  },
+  "authorization_ref": "AUTH-B1",
+  "client_request_id": "REQ-B1",
+  "order_state": "submitted",
+  "effect_observation": "known"
+}
+```
+
+The business authorization system associates `authorization_ref` with the **exact account, product, amount, and proposal version**, and the submitter validates it independently. The presence of a similarly named string in a request or model response does not confer authority. `client_request_id` stays stable across inquiries, retries, and receipts; the business side still implements deduplication and reconciliation.
+
+For actions that create real orders, this simplified projection shows success, partial fills, and exceptions:
+
+```mermaid
+stateDiagram-v2
+    [*] --> submitted
+    submitted --> accepted: External acceptance
+    submitted --> rejected: External rejection
+    accepted --> partially_filled: Partial fill
+    accepted --> filled: Full fill
+    partially_filled --> filled: Remaining fill
+    accepted --> cancelled: Confirmed cancellation
+    partially_filled --> remaining_cancelled: Remaining qty cancelled
+    filled --> settled: All linked fills settled
+```
+
+`settled` here is a simplified projection indicating that all fills linked to this sample order have settled. Real settlement is tracked per fill and corresponding cash or position record. If the remaining quantity is cancelled after a partial fill, the executed portion still requires settlement.
+
+**`unknown` is a local observation about an external effect, not a brokerage order state.** A timeout, lost response, or disconnection can leave local observation `unknown` while the external order is already `accepted` or `filled`. Recovery follows this separate dimension:
+
+| Local observation | Evidence condition | Required behavior |
+| --- | --- | --- |
+| `known` | Trustworthy acceptance or execution receipt | Record receipt identity and advance the corresponding state |
+| `unknown` | No reliable outcome after submission | Freeze automatic resubmission; retain the original `client_request_id` |
+| `reconciling` | Query by original request/order identity | Check authoritative receipts and deduplicate; retain uncertainty if none is found |
+| `resolved` | Trustworthy result recovered | Update the local projection; any new submission follows business idempotency rules |
+
+When a proposal changes, recheck the exact scope of the earlier authorization. Changes to account, fund, or amount trigger the corresponding business validation.
+
+These are acceptance requirements for a target institutional workflow. ETF-Agent research remains read-only, and the investment core’s personal confirmation records remain distinct from external brokerage receipts.
 
 The cost of this separation is explicit business handoffs and state association. The benefit is that research can evolve rapidly without every model, Prompt, or Skill update implicitly changing the authority for moving money.
 
@@ -187,9 +266,9 @@ Three distinct operations are possible.
 
 ETF-Agent's weekly reviews, research snapshots, and Investment Thesis work allow selected historical observations, original method outputs, hypotheses, and user corrections to be retained and read by identity. They support continued review; they are not yet a fully validated long-running autonomous research system.
 
-The point is not to put more old prose into Memory. Memory can preserve preferences, and summaries can help thinking continue. Original holdings, calculations, user confirmations, and delivered reports still need to be interpreted through their original records.
+Cross-period research should link reviewable source records. Memory can preserve preferences and summaries can help continue analysis; original holdings, calculations, user confirmations, and delivered reports are interpreted through their original records.
 
-Comparisons across time must also preserve financial definitions. If portfolio value rises from CNY 1 million to CNY 1.1 million while intervening cash flows are unknown, the system cannot simply report a 10% return. If fund disclosure periods differ, it cannot attribute every difference to actual portfolio trading.
+Comparisons across time must preserve financial definitions. If portfolio value rises from CNY 1 million to CNY 1.1 million and intervening cash flows are unknown, report a `null` return pending cash-flow evidence. If disclosure dates differ, label the result an observed disclosure difference until actual trading has been verified.
 
 The durable unit of research should therefore be **a judgment with its original premises and scope, capable of being tested against new evidence**, rather than a “latest summary” that continually overwrites the past. A model-inferred thesis and a user-confirmed investment objective also need different attribution.
 
@@ -197,7 +276,7 @@ The durable unit of research should therefore be **a judgment with its original 
 
 A regulatory view starts with who provides which service to whom, which rules apply, and how accountability is implemented. Technical design then distributes those requirements across identity, data access, method management, business approval, execution, and retention.
 
-The examples here concern mainland China's securities and fund-related context. No single rule is presented as a universal regime for all financial institutions or AI products.
+The examples concern mainland China's securities and fund-related context. Applicability requires a separate assessment of entity, business activity, and jurisdiction.
 
 Articles 43 and 44 of the CSRC's [Measures for the Administration of Information Technology of Securities and Fund Operating Institutions](https://www.csrc.gov.cn/csrc/c106256/c1653896/content.shtml) address outsourcing responsibility, knowledge and control of important systems, and arrangements for replacing providers. They support **retaining responsibility and substantive control despite procurement**, not a blanket requirement to write all software internally.
 
@@ -205,7 +284,7 @@ Articles 2 and 3 of the [Measures for the Administration of Securities and Futur
 
 Article 2 of the [Interim Measures for the Management of Generative Artificial Intelligence Services](https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm) distinguishes services offered to the public in China from development and use that do not provide such public services. Internal tools should not mechanically inherit every public-service requirement; other applicable sector, data, and personal-information obligations still require separate assessment.
 
-These rules are not an exhaustive compliance checklist. The table below is this article's engineering interpretation, not a claim that legislation prescribes these module names.
+The table below is a limited engineering interpretation of the cited rules, useful for design review. Applicable institutions must establish the actual compliance checklist.
 
 | Governance question | Relevant fact or control | What to inspect instead of relying on appearances |
 | --- | --- | --- |
@@ -215,7 +294,29 @@ These rules are not an exhaustive compliance checklist. The table below is this 
 | What happens when an external service fails? | Replacement, exit, recovery, and reconciliation arrangements | Preservation of original facts, not provider count |
 | How can the result be examined later? | Associations among source, execution, publication, and business receipts | Available original records, not a uniformly green Trace |
 
-### Reviewability comes from factual handoffs, not a purported complete chain of thought
+### Minimum audit index: six questions, resolvable references
+
+An institution must at least be able to link **who acted, which object, which method version, which source versions, which effect, and when**. The following is a **conceptual reference index**, not a statutory field list or an existing ETF-Agent audit API:
+
+```json
+{
+  "audit_ref": "AUD-001",
+  "actor_ref": "ACTOR-DEMO",
+  "object_ref": "PORTFOLIO-P1",
+  "run_ref": "R1",
+  "grant_ref": "G1",
+  "method_ref": "fund-overlap:v2",
+  "source_refs": ["DISCLOSURE-A:v3", "DISCLOSURE-B:v2"],
+  "publication_ref": "REPORT-1:v1",
+  "authorization_ref": null,
+  "business_effect_ref": null,
+  "occurred_at": "2026-10-27T10:00:00+08:00"
+}
+```
+
+This is a **read-only research** index, so business authorization and effect references are `null`. If a separate business action follows, it adds its own review and execution records, linked by stable object/version references and retaining event times and receipts. The index carries permission-checked references rather than duplicating source content. Formal audit also needs integrity, access-control, and retention controls under the applicable rules.
+
+### Reviewability comes from factual handoffs
 
 ![Traceable responsibility records: request, sources, computation, report, and business receipts remain distinct; diagnostics, research evaluation, and institutional audit consume them separately](../../visuals/en/financial-agent-system-panorama/evidence-map.svg)
 
@@ -267,7 +368,7 @@ For the move from a personal research tool to an institutional service, I prefer
 
 The first two stages can create value without automatic trading. Conversely, generating a report or displaying a confirmation dialog is insufficient for the third. Each institution must set scope within its product and compliance boundaries.
 
-Evaluation must also be separated. Engineering asks whether requests, data, and reports flow reliably. Research asks whether entities, dates, methods, numbers, and conclusions are correct. Business asks whether people actually use the results and whether review is affordable. Governance asks about unauthorized effects, traceability, and provider exit. A single `completed` state or aggregate success rate cannot substitute for these judgments.
+Evaluation must also be separated. Engineering asks whether requests, data, and reports flow reliably. Research asks whether entities, dates, methods, numbers, and conclusions are correct. Business asks whether people actually use the results and whether review is affordable. Governance asks about unauthorized effects, traceability, and provider exit. Each dimension needs its own metrics and acceptance conditions.
 
 Useful acceptance tasks should cover both normal work and consequential counterexamples. When holdings are missing, can personal conclusions be limited while public research remains available? When one disclosure fails, are valid findings retained? When a delivered report is followed by a rejected action, are both facts preserved? When an external effect is unknown, does the system avoid blind retries?
 
