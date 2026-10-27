@@ -18,7 +18,7 @@ export const englishTitles = {
   "unavailable-is-correct": "Controlled Refresh for Stale Data",
   "tool-results-outside-model-context": "Externalized Results and Input Completeness",
   "agent-main-run-context-compaction": "Main Context Compaction Without Rewriting Facts",
-  "026-agent-memory-forget-durable-effects": "Memory: A Forget Operation That Committed Before the Answer Failed",
+  "026-agent-memory-forget-durable-effects": "Memory: From Saving and Recall to Safe Forgetting",
   "027-rag-revocation-publish-replay": "RAG: Revocation and Historical Replay",
   "agent-provider-architecture-and-admission": "Provider: Why a Unified API Still Needs Shared Admission",
   "agent-provider-admission-capacity-lease": "Why the Next Model Request Still Queues After HTTP 200", 
