@@ -79,4 +79,4 @@ description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill �
 
 ## 2026-10-26 · 工程增量与阅读提醒
 
-Runtime 的 Access/Exposure、Memory 及 Child/HIO 职责收拢已出现有界实现与证据，原变更仍未整体关闭；Web Source 增加有资源限制的条件式默认渲染兜底；前后台并发交互已取得限定真实链路资格化。三者都不证明完整金融研究的用户交付与生产质量。按 [10 月 26 日图册补记](/gallery#daily-status-20261026) 读取现状，再沿原 Owner 专文深入。
+Runtime 的 Access/Exposure、Memory 及 Child/HIO 职责收拢已出现有界实现与证据，原变更仍未整体关闭；Web Source 增加有资源限制的条件式默认渲染兜底；前后台并发交互已取得限定真实链路资格化。三者都不证明完整金融研究的用户交付与生产质量。按 [架构图册](/gallery) 读取现状，再沿原 Owner 专文深入。

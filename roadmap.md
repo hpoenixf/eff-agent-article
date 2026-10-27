@@ -23,7 +23,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 最新主干已把 **Runtime 局部职责收拢**推进到原任务 1.1、2.1、3.1、3.2 的限定进度：Child/HIO 规则、Run-local Memory、Access/Exposure 和 Skill 会话私有化有实现或原范围证据；Factory Memory 内部状态的删除及组合职责回归已在限定范围核实；PG/Memory 广泛恢复、重复 Codec/Store 规则删除、其余字段迁移和总体验收仍在途。站点应更新[10 月 25 日重构复盘](/articles/agent-runtime-refactor-one-day-blocked)的进度附记，不应把那天的历史阻塞直接改写成已完成。
 
-原 Web Source 已接入受治理的条件式默认渲染兜底；优先深化[Web 深度阅读原文](/articles/021-agent-web-research-from-search-to-deep-reading)，不增一篇“浏览器能力已成功”的新稿。正常前后台并发对话已完成限定真实链路资格化，优先在[图册状态补记](/gallery#daily-status-20261026)区分它与**尚待复核的完整复杂基金研究**。来源、计算、附件、History 的最终质量结论不能由这些进度替代。
+原 Web Source 已接入受治理的条件式默认渲染兜底；优先深化[Web 深度阅读原文](/articles/021-agent-web-research-from-search-to-deep-reading)，不增一篇“浏览器能力已成功”的新稿。正常前后台并发对话已完成限定真实链路资格化，优先在[图册](/gallery)区分它与**尚待复核的完整复杂基金研究**。来源、计算、附件、History 的最终质量结论不能由这些进度替代。
 
 **目录清理约束：** 已合并的旧文章继续保留可用链接；六层全景 V3 作为当前主阅读入口，V1/V2 作为带时点的完整历史版本，不得直接删除。其余近题文章先去除重复段落并明确各自 Owner，只有读者问题、核心论证和证据实际重复时才正式合稿。
 
@@ -31,7 +31,7 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 [自定义专家工程案例](/articles/agent-custom-expert-from-prompt-to-recovery)已发布完整中英文正文；它属于 A07 相关文章，不新增 Owner。Shadow Credits 的 P0 用量工程已在原限定范围关闭，不再把 P0 写为待关闭；费用归因仍归独立 E04。
 
-下一轮写作优先等待**完整可复核基金研究**、统一专家完整真实对话／恢复、A36 合格市场日历、个人 Profile 正常账户验收及 E04 交付成本证据。Runtime 解耦已有静态评审和 Spec 草案，但尚无已实施效果或质量对照；不将设计写成升级已完成。见[今日更新与等待协作](/gallery#daily-status-20261025)。
+下一轮写作优先等待**完整可复核基金研究**、统一专家完整真实对话／恢复、A36 合格市场日历、个人 Profile 正常账户验收及 E04 交付成本证据。Runtime 解耦已有静态评审和 Spec 草案，但尚无已实施效果或质量对照；不将设计写成升级已完成。见[架构图册](/gallery)。
 
 ## 已有正文 · 优先在主稿中深化
 
