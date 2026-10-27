@@ -2,6 +2,10 @@
 
 *From DeepSeek Harness's pluggable design to the architecture principles we developed while building an Agent*
 
+**AI reduces the cost of creating a capability. It does not automatically reduce the cost of replacing or retiring it. An architectural upgrade should preserve necessary behavior while allowing old mechanisms and their maintenance burden to leave.**
+
+Before accepting a new design, ask: What knowledge will callers have to maintain? Which unrelated modules would need to change to replace it?
+
 ## 1. Zero to One Is Getting Easier; One to A Is Getting Harder
 
 AI coding is changing the cost structure of software development.
@@ -241,33 +245,13 @@ The five “do nots” therefore belong in [method 1, “Deciding whether to add
 
 ## 6. From Creating More to Continuously Renewing the System
 
-AI coding's most visible effect is how much more quickly we can create things.
+**Judge an architectural upgrade not only by what it adds, but by which old burdens can leave.** DSH's lifecycle design illustrated the value of retirement. Our Publication and Run Termination work revealed why relocating code does not automatically reclaim dispersed decision-making authority.
 
-As creation gets cheaper, the abilities that matter increasingly include knowing:
+For the next proposal, ask three questions: Does it solve a problem the existing capability cannot? Do callers genuinely need fewer internal rules? Can the old states, branches, and obsolete specifications stop being maintained after the replacement takes over?
 
-- **What not to build.** Not every failure needs a new mechanism; not every potential requirement warrants a generic framework.
-- **What to preserve.** Essential safety, state, and business rules cannot be deleted merely because they are complex. A deep module hides them from unrelated callers.
-- **What to retire.** When a new design owns the old design's responsibilities, can the redundant states, obsolete rules, and compatibility paths actually disappear?
+Retirement has limits: authorization protections, effects that actually occurred, and historical results that must remain readable retain their obligations. Retire redundant mechanisms, not those commitments.
 
-We learned capability composition, replacement, and lifecycle retirement from DSH. Publication, Run Termination, Extension Host, and internal design governance taught us that **pluggability is a means; sustainable evolution is the goal**.
-
-True architecture upgrades do not simply stack new mechanisms. They replace old structures with better ones **while preserving the capabilities that are still necessary**.
-
----
-
-**Zero → one** tests creation.
-
-**One → A** tests maintenance and evolution.
-
-**A → zero** tests whether we can escape historical complexity that no longer earns its place.
-
-AI is making the first ability cheaper. The other two do not become automatic as code generation accelerates.
-
-> **Creation determines how fast a system can develop. Maintenance determines how long it survives. Evolution determines how far it can go.**
-
-The long-term advantage of a system is not how many capabilities it can add without limit. It is whether it can continuously renew itself **without being crushed by historical complexity**.
-
-**We need the ability not only to create new systems, but to retire old ones gracefully.**
+**Creation determines how quickly a system can grow; maintenance how long it survives; evolution how far it goes.** The durable advantage is not unlimited feature growth. It is renewal without being trapped by historical complexity.
 
 ## Further Reading and Discussion
 
