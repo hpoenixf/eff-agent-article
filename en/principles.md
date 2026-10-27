@@ -5,11 +5,11 @@ description: Nine agent architecture principles covering semantic interpretation
 
 # Agent Architecture: Core Principles and On-Demand Methods
 
-This is a **reference and reading map**, not another published essay or a new approval process. Core principles should be rare, durable and broadly useful. Engineering methods should be consulted when the relevant design problem arises. Actual security, authorization and effect requirements remain with their owning components.
+**The point of this map is not to memorize nine slogans. It is to make a better decision in your next agent design review.** Identify who interprets a request and who owns its facts, determine what a local failure may affect, and then ask whether the change actually improved the user's task.
 
-**How to use this map:** Follow a core judgment or engineering method into a selected essay. The relevant passages of those essays link back to this page's stable numbered anchors, explaining the actual design connection. Other essays do not need a forced principle assignment; their footers still provide a route back to the full map.
+Three practical questions lead to the principles: **Who may authorize a model-proposed action and confirm its effect?** (1–4); **Does a new module hide complexity or spread it to callers?** (5–7); **After the tools and tests turn green, what actually improved for the user?** (8–9). For decisions about problem framing and proportionate verification, see the [AI Coding judgment and verification essay](/en/articles/ai-coding-judgment-and-verification).
 
-This decision map pairs with the [complete six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama-v3). The guide explains **how one research request moves through the system**; the principles explain **why the owners and constraints are designed this way**.
+This page retains nine durable judgments and seven on-demand engineering methods. It is **not another approval workflow or Runtime gate**. Security, authorization, and persistent effects remain with their rightful owners. For how a request actually moves through the system, start with the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama-v3).
 
 <FlagshipEntry compact />
 
