@@ -107,7 +107,7 @@ export const collections = [
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
           ["etf-agent-model-harness-research-loop", "投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop"],
           ["ai-citations-do-not-prove-reliability", "很多引用为什么不等于可靠"],
-          ["001-one-week-4-billion-tokens-etf-investment-agent", "一个 ETF 投资助手的工程起点"],
+          ["etf-assistant-engineering-origins", "一个 ETF 投资助手的工程起点"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
           ["ai-coding-judgment-and-verification", "AI Coding 最贵的不是写代码，而是决定什么值得验证"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
@@ -161,6 +161,7 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 
 // Previously published URLs remain readable, without duplicating essays in search/navigation.
 export const mergedArticles = {
+  "001-one-week-4-billion-tokens-etf-investment-agent": "etf-assistant-engineering-origins",
   "023-agent-publication-governance-retrospective": "019-agent-answer-publication",
   "runtime-natural-language-boundary-article-v2": "runtime-model-protocol-boundary-agent-article-v2",
   "028-agent-feedback-system-without-false-learning": "agent-failure-is-a-boundary-problem",

@@ -214,7 +214,7 @@
 - [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
 - [投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)
 - [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
-- [一个 ETF 投资助手的工程起点](articles/001-one-week-4-billion-tokens-etf-investment-agent.md)
+- [一个 ETF 投资助手的工程起点](articles/etf-assistant-engineering-origins.md)
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
 - [AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md)
 - [Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)
