@@ -193,6 +193,14 @@ If background persistence ultimately records only **partial**, the public outcom
 
 Chunked text and file delivery have the same separation. Failure of chunk two does not erase chunk one; the existence of chunk one does not prove the entire question was answered. Saving an article body does not prove that an attachment was saved or downloaded. Publication and file Owners retain their respective mechanisms; Run Lifecycle should not recreate their validators.
 
+### A Closed Physical Request Is Not an Accepted Child Result
+
+In October 2026, Child finalization exposed a narrower contract conflict. The original model request may have a durable completion receipt but no output that the Child can accept. Earlier length-truncation rules differed, and interpreting returned and thrown responses in separate Native branches risked conflicting terminal decisions.
+
+We moved that decision back to the **original Child lifecycle owner**, not a new global termination judge. The original Request owner first establishes that this exact admitted physical request genuinely closed. The Child then checks previously accepted content, cancellation, fences, source identity, committed effects, and whether a permitted continuation or final handoff remains. Only when those conditions are satisfied may it settle its own technical-failure outcome. That does not relabel the physical request as failed, refund usage, retry automatically, or erase Main's committed answer.
+
+By contrast, an interrupted transport, an unacknowledged completion commit, or an unresolved external effect remains **unknown**, not “failed because no text arrived.” Independently valid partial work survives. Controlled integration evidence supports this bounded decision; the separate Child completion change's formal close must be verified on its own, not inferred from the older Run-termination acceptance.
+
 ## 9. What Was Verified, and What Still Needs Separate Evidence
 
 Run-termination authority consolidation was implemented, aligned with accepted specs, and archived on **October 19, 2026**.
