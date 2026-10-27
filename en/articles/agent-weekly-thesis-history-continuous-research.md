@@ -2,6 +2,8 @@
 
 *An engineering case study in historical observations, original investment theses, and versioned corrections for continuous investment research.*
 
+**The most valuable thing to retain across investment reviews is not just the previous report. It is why the conclusion was reached and which future evidence would require it to change.** A polished historical summary alone can tempt a model to rewrite yesterday's reasons using today's information.
+
 Imagine that three months ago an agent reviewed a fund portfolio and found its allocation broadly reasonable, while flagging technology-sector concentration as an issue worth monitoring.
 
 Three months later, the user asks: “What has changed about the risks? Do the reasons for holding still stand?”
@@ -175,27 +177,15 @@ Phase three has an implemented and controlled runtime path across the specified 
 
 A crucial limitation remains: even when the entire original method document is retained, its numeric-observation status can be `partial` if no qualified Portfolio Observation was obtained. A successfully preserved analysis envelope does not magically certify the underlying financial numbers.
 
-## 8. What can a weekly report evolve into?
+## 8. What Should the Next Weekly Review Actually Test?
 
-Looking back, the three phases added distinct capabilities.
+The work progressed through three different capabilities: deliver a real research artifact, compare qualified historical observations on compatible bases, and retain original investment theses, user corrections, and successor revisions. The third step gives weekly reports a chance to become continuing research rather than a series of unrelated documents.
 
-Phase one asked **whether a real research artifact could be delivered**.
+But **preserving a reason does not prove the next run will actually test it**. Storage and version handoffs have scoped engineering evidence; the quality of real multi-period investment research and its value to users still need independent verification.
 
-Phase two asked **whether qualified historical observations could be compared across dates and compatible measurement bases**.
+In the next review, we want three things: retrieve the original conclusion and its data date; identify new facts that strengthen, weaken, or overturn its assumptions; then state when holding the original course remains reasonable and when a fresh decision is warranted. If the observations are not comparable, preserve that uncertainty rather than reconstructing a convenient historical story.
 
-Phase three asked **whether the original investment reasoning, user corrections, and successor versions could remain readable for later reassessment**.
-
-Together, these give a weekly report a chance to become part of a continuing research process rather than another independent document.
-
-They do not prove that the agent already has reliable long-term investment judgment. That requires real multi-period runs on comparable objects, valid historical comparisons, independent checking of changes in hypotheses, and evidence that the results actually help users decide what deserves attention.
-
-**The most valuable thing to retain from a weekly report is not only its conclusion, but why it was reached and what future evidence would require it to change.**
-
-### Coming next: from readable history to genuinely useful continuous research
-
-This article covers historical storage and versioning that were implemented and verified in a bounded engineering environment. Our next line of work is to collect evidence from **real successive portfolio reviews, challenges to investment hypotheses, autonomous detection of meaningful changes, and whether users actually benefit from those follow-ups**.
-
-We will refine this article when that evidence is strong enough. The next question is not merely, “Does the agent remember the past?” It is: **Can the agent use that past to produce a more valuable next research decision?**
+**Useful long-term memory does not preserve conclusions as permanently true. It gives the agent a way to change its mind without rewriting the past.**
 
 ---
 
