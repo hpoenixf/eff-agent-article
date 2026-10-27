@@ -131,7 +131,7 @@ const en = {
       links: [
         { label: 'Progressive answers', href: '/en/articles/agent-progressive-answer-coherence' },
         { label: 'Background delivery', href: '/en/articles/agent-asynchronous-research-time-bound-delivery' },
-        { label: 'Publication', href: '/en/articles/019-agent-answer-publication' }
+        { label: 'Publication (Chinese original)', href: '/articles/019-agent-answer-publication' }
       ]
     },
     {
