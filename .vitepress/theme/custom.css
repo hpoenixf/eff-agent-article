@@ -64,10 +64,6 @@
 .resume-reading strong { flex: 1 1 260px; }
 .resume-reading span { font-size: .85rem; }
 .diagram-frame { overflow-x: auto; margin: 20px 0; background: var(--vp-c-bg-soft); padding: 20px; border: 1px solid var(--vp-c-border); border-radius: 14px; }
-.mermaid-output { display: flex; justify-content: center; min-width: 450px; }
-.mermaid-output svg { max-width: 100%; height: auto; }
-.diagram-loading { text-align: center; padding: 15px; color: var(--vp-c-text-2); font-size: .85rem; }
-.diagram-fallback pre { white-space: pre-wrap; font-size: 12px; }
 .reading-progress { position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 3px; pointer-events: none; }
 .reading-progress > div { height: 100%; background: var(--vp-c-brand-1); transition: width .08s linear; }
 @media (min-width: 960px) {
@@ -137,8 +133,6 @@
 .article-architecture-figure { margin: 22px 0 30px; padding: 14px; border: 1px solid var(--vp-c-border); border-radius: 14px; background: #fbfcfa; }
 .article-architecture-figure img { display: block; width: 100%; height: auto; max-height: 650px; object-fit: contain; }
 .article-architecture-figure figcaption { margin-top: 12px; font-size: .85rem; line-height: 1.7; color: #34443f; text-align: center; }
-.diagram-static-fallback p { margin: 0 0 10px; font-size: .9rem; color: var(--vp-c-text-2); }
-.diagram-static-fallback pre, .diagram-fallback pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.6; }
 .diagram-caption { margin-top: 10px; font-size: .82rem; color: var(--vp-c-text-2); text-align: center; }
 /* Three independent evidence dimensions, not a single pass/fail score. */
 .article-evidence { display: flex; flex-wrap: wrap; gap: 7px 10px; align-items: center; padding: 0 0 14px; margin: 6px 0 24px; border-bottom: 1px solid var(--vp-c-divider); font-size: .77rem; line-height: 1.55; }
