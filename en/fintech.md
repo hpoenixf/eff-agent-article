@@ -5,7 +5,7 @@ description: "Curated financial AI essays on products, investment research, acco
 
 # Fintech × Agent: From Information Access to Informed Investment Decisions
 
-<small>FINANCIAL AI RESEARCH · October 22, 2026 · 4 domains / 15 topics</small>
+<small>FINANCIAL AI RESEARCH · October 27, 2026 · 4 domains / 15 topics</small>
 
 AI makes information and analytical tools more accessible, but **access is not judgment, correct calculations are not research validity, and a proposed action is not authorization to execute it**. This collection focuses on securities investing and wealth management, not a general map of Agent Runtime features.
 
@@ -29,7 +29,7 @@ Provenance, methodology, conclusions and strategy validity are separate problems
 | --- | --- | --- |
 | **B1 · Financial data quality and reproducibility** | How do dates, share classes, NAVs, currencies, fees, look-through coverage and assumptions change the answer? | [Financial data: dates and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Read-only Portfolio MCP](/articles/portfolio-mcp-readonly-investment-data) (**Chinese original**) |
 | **B2 · Research methods and trustworthy lineage** | Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable? | [Trustworthy financial evidence chain](/articles/financial-agent-trustworthy-evidence-chain) (**Chinese original**) · [Financial Python result consumption](/en/articles/financial-agent-python-result-consumption) |
-| **B3 · Research quality and counterevidence** | Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision? | [Multi-perspective investment research](/en/articles/investment-perspectives-and-thesis-falsification) · [Model / Harness / Loop: evidence-led research](/en/articles/etf-agent-model-harness-research-loop) · [F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12) |
+| **B3 · Research quality and counterevidence** | Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision? | [Multi-perspective investment research](/en/articles/investment-perspectives-and-thesis-falsification) · [Model / Harness / Loop: evidence-led research](/en/articles/etf-agent-model-harness-research-loop) · [Financial premises, counterexamples and verification effort](/en/articles/ai-coding-judgment-and-verification) · [F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12) |
 | **B4 · Backtests, strategy validity and regime change** | How do look-ahead and survivorship bias, out-of-sample validation, slippage and strategy decay affect claims? | Open |
 
 ## C · Business Accountability and Trustworthy Governance
