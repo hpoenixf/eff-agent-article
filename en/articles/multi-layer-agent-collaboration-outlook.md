@@ -6,17 +6,13 @@ date: 2026-10-24
 
 # From Multiple Experts to One Research Result: The Next Step for Multi-Layer Agents (2026 Outlook)
 
-> **An architecture outlook dated October 24, 2026, not a retrospective claiming full system-level success.** This edition intentionally preserves the goals, assumptions, design choices and validation gaps known at this point. Once full-scenario evidence exists, we intend to write a separate comparison and link back here, rather than quietly rewriting yesterday's predictions as accomplishments.
+> **An architecture outlook dated October 24, 2026—not evidence that multiple experts already outperform Main.** We preserve the original hypothesis and its date, and use later observations to test it rather than rewriting the outlook as a retrospective success story.
 
-Ask AI, “Is this semiconductor ETF worth buying?” A report covering industry prospects, fees and risks is no longer especially difficult to produce.
+**Layered Agents are valuable only if, on the same investment question, they produce materially useful evidence or corrections beyond what “one capable Main plus tools” could achieve, and still deliver a coherent answer.** Six separate expert reports that merely increase requests and waiting time would not justify the complexity.
 
-Now ask, “I own several funds already. Would this ETF buy more of the same companies? I might need this money six months from now. If you recommend buying, what evidence would make you change your mind?” The task changes substantially.
+Consider an investor who already owns several funds and wants to add a semiconductor ETF, while worrying about overlapping holdings and a cash need six months later. The important work is not polling experts for a yes/no vote. It is examining overlapping exposure, dates and liquidity constraints, and identifying which facts would overturn the purchase rationale.
 
-A useful answer requires **product disclosures, existing portfolio facts, funding constraints, calculations, opposing views and subsequent reassessment** to work together. The investor wants neither six disconnected expert essays nor a staged debate. They need one piece of research that clearly explains what is known, why the current judgment is warranted and what remains unresolved.
-
-ETF Agent now has a foundation of ordinary Subagents, six investment methods, bounded Bull/Bear dialogue and user-configured agent profiles. The next question is **whether combining these mechanisms within one genuine research task produces more value than a capable Main Agent working directly with tools**.
-
-As of this article's date, the answer is not yet established. Individual mechanisms have different levels of scoped engineering evidence, while independent qualification of end-to-end financial usefulness, cross-capability integration and cost-benefit remains open. That is exactly why this outlook is worth preserving.
+At the date of this outlook, ETF Agent had distinct foundations for Subagents, investment methods, bounded Bull/Bear dialogue and user-defined methods, but lacked a matched end-to-end comparison of quality, actual handoffs and cost. This article therefore sets out **criteria for when collaboration might be worthwhile**, not a proven benefit claim.
 
 ## 1. Why Might an Investor Need Layered Collaboration?
 
@@ -165,31 +161,23 @@ First test **absolute usefulness**: did the answer satisfy the user's request; w
 
 Until those measurements exist, “multi-Agent is smarter,” “our accuracy improved,” and “we saved X%” are unverified claims. An outcome showing that extra collaboration rarely pays off would also be useful: simpler requests should remain with Main, and only materially difficult cases should justify the additional cost.
 
-## 7. What Should Our Future Retrospective Compare Against This Outlook?
+## 7. What Evidence Would Support—or Refute—This Design?
 
-This article is worth retaining not because it predicts inevitable success, but because it records our criteria **before the results are known**.
+This was a hypothesis as of October 24, 2026, not a claim that multi-Agent research is inherently superior. A later comparison should hold the user question, qualified sources and calculation methods steady while evaluating ordinary Main, optional Children, additional methods and bounded challenge.
 
-A later retrospective should answer four questions:
+Three observations matter most: **Did the investor receive one usable research result? Did an added participant change a material reason for the conclusion? Was that improvement worth the extra time, model usage and recovery complexity?** If experts merely repeat facts Main already had, passing local execution checks is not sufficient reason to retain the extra layer.
 
-1. **Was the end-to-end task delivered?** From an ordinary Chat request through admitted sources, calculations, specialist findings, publication, requested files and fresh-session History, can we retrieve the real results and preserve partial/unknown states?
-2. **Did opinions actually affect the analysis?** Which exact thesis was challenged, who revised it and why—or did we merely generate more paragraphs?
-3. **Was the extra cost justified?** Relative to Main alone, did quality gains outweigh time, model usage, tools and human review?
-4. **Can we retreat to a simpler design?** If optional method and peer admission is disabled, do ordinary research and legitimately stored history remain usable?
+A negative finding can still improve the system. Turning off optional specialists should preserve ordinary research, original execution identities and valid historical outcomes.
 
-At that point, we should publish a **separate retrospective with matched comparisons and actual failure cases**, linked back here. We should not overwrite this dated outlook. That allows architecture decisions to be tested against reality rather than always being rewritten into success stories afterward.
+**Successful collaboration is not more conversation between models. It is independent work that changes the research without losing the original question or evidence.** Once matched real-task results exist, they deserve a separate retrospective linked here, not a silent rewrite of this dated outlook.
 
-**Real multi-Agent collaboration is not keeping more Agents busy. It is assigning necessary work around one investor question, and bringing genuinely important evidence, disagreement and uncertainty back into a single understandable result.**
+## October 25, 2026 Addendum: A Suggested Relationship Is Not a Completed Handoff
 
-As of October 24, 2026, that is our direction and hypothesis—not an established end-to-end business outcome.
+Real-model work the next day produced both useful local completions consumed by Main and missing coordination. In separate tasks, a request for two to three experts dispatched four; a Bull/Bear pair formed without actual challenge-and-reply; and Reviewer plus opening messages were recorded before later wake/recovery gaps appeared. These observations cannot be combined into one end-to-end success rate.
 
+The resulting distinction is practical: a **method relationship** describes a hoped-for complement or critique; a **result dependency** requires an actual authorized handoff and consumption of original material; and a **protocol dependency** requires real pairing, messages, waiting or adopted replies. A prompt field cannot create these effects or justify a second authority for budgets and communication.
 
-## October 25, 2026 Addendum: Collaboration Dependencies Are More Than Relationship Fields
-
-The original text preserves the October 24 outlook. The following day's real-model work produced positive examples of independent method Children, Main consuming two specialist findings, and sandboxed Python artifact delivery. It also retained failures: a request for two or three experts dispatched four; a Bull/Bear pair formed without an actual challenge-and-reply exchange; and a Reviewer-first sequence recorded both openings but encountered later wake/recovery gaps. These observations belong to separate tasks and should not be combined into a success rate or called mature collaboration.
-
-At least three kinds of dependency have different owners. A **method relationship** describes complementing, challenging, reviewing, or handing off work. The proposed [expert usage guidance Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-expert-usage-guidance/design.md) calls its soft hint `relationHint`; it does not automatically wait or create a DAG. A **result dependency** requires Main to obtain a real upstream `taskRef` and pass lawful `inputRefs` downstream. A **protocol dependency** belongs to Peer pairing, messages and turns, or to original HIL answers and safe points; prose does not substitute for these effects. A separate [collaboration experience Spec](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-improve-expert-collaboration-experience/design.md) proposes delegation guidance and autonomous Child task-description updates. Those remain implementation plans.
-
-A distinct essay may eventually be warranted, once a real upstream → downstream consumption → Main synthesis chain exists alongside a missing-wait, wrong-reference, or recovery failure case, with comparable input and cost/quality observations across no hint, soft hints, and explicit handoff. Only then can we answer who owns expert dependencies, rather than introducing another parameter.
+The next meaningful test is whether such guidance produces new evidence and fewer duplicate delegations on the same task, with justified cost. Without that comparison, the result remains open.
 
 ---
 
