@@ -141,6 +141,6 @@ A fund report can change an agent's investment hypothesis, motivate more researc
 
 ## Further Reading and Discussion
 
-For the related but distinct question of final tool visibility, see [A34 Tool Surface](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-model-capability-presentation-tool-surface). For the authorization and effect boundary, see [Models Understand; Code Authorizes](https://hpoenixf.github.io/eff-agent-article/en/articles/011-model-understands-code-authorizes).
+For the related but distinct question of final tool visibility, see [A34 Tool Surface](https://hpoenixf.com/eff-agent-article/en/articles/agent-model-capability-presentation-tool-surface). For the authorization and effect boundary, see [Models Understand; Code Authorizes](https://hpoenixf.com/eff-agent-article/en/articles/011-model-understands-code-authorizes).
 
 This article belongs to [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). If these engineering investigations are useful to you, consider starring the public collection on GitHub.

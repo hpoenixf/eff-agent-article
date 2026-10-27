@@ -178,6 +178,6 @@ The goal is neither identical change rates for every module nor a ranking of mod
 
 [Why Did One Subagent Change Hold Up Our Work for an Entire Day?](agent-runtime-refactor-one-day-blocked.md) provides the full incident context. [Code Is Cheaper; Why Are Systems Harder to Evolve?](code-cheaper-systems-harder-to-evolve.md) examines the long-term costs of adding, replacing, and retiring capabilities.
 
-This article is part of [ETF Agent Engineering Notes](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-differentiated-evolution-contracts). If these architectural tradeoffs are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
+This article is part of [ETF Agent Engineering Notes](https://hpoenixf.com/eff-agent-article/en/articles/agent-differentiated-evolution-contracts). If these architectural tradeoffs are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
 
 These four categories belong to [On-Demand Method 7: differentiate interface stability and evolution](/en/principles#method-7), not a new tenth core principle.

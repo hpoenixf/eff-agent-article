@@ -185,5 +185,5 @@ The separate Sidecar reference chat aims to open a recoverable side conversation
 
 ## Further reading and discussion
 
-Read this article in [English](https://hpoenixf.github.io/eff-agent-article/en/articles/agent-background-research-collaborative-experience) or [Chinese](https://hpoenixf.github.io/eff-agent-article/articles/agent-background-research-collaborative-experience) in ETF Agent Engineering Notes. If these engineering notes are useful, consider starring the [GitHub collection](https://github.com/hpoenixf/eff-agent-article) to follow future articles.
+Read this article in [English](https://hpoenixf.com/eff-agent-article/en/articles/agent-background-research-collaborative-experience) or [Chinese](https://hpoenixf.com/eff-agent-article/articles/agent-background-research-collaborative-experience) in ETF Agent Engineering Notes. If these engineering notes are useful, consider starring the [GitHub collection](https://github.com/hpoenixf/eff-agent-article) to follow future articles.
 <!-- agent-article-sync:guidance:end -->

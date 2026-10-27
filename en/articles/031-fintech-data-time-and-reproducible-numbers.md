@@ -175,4 +175,4 @@ The independent problem of faithful model interpretation is examined in [Why Pyt
 - [A trustworthy financial evidence chain](/articles/financial-agent-trustworthy-evidence-chain)
 - [Python as a computational research workbench](/articles/agent-python-compute-workbench-evolution)
 
-Browse the [independent ETF Agent reading site](https://hpoenixf.github.io/eff-agent-article/) or [GitHub article repository](https://github.com/hpoenixf/eff-agent-article). Counterexamples about definitions and numbers are welcome.
+Browse the [independent ETF Agent reading site](https://hpoenixf.com/eff-agent-article/) or [GitHub article repository](https://github.com/hpoenixf/eff-agent-article). Counterexamples about definitions and numbers are welcome.

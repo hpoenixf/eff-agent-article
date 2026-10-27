@@ -915,7 +915,7 @@ The first six-layer story still explains admission, methods, execution, evidence
 
 ### Historical edition
 
-[V1 (October 20, 2026): the original complete Chinese architecture story](https://hpoenixf.github.io/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
+[V1 (October 20, 2026): the original complete Chinese architecture story](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1)
 
 
 ## Evolution: From V2 to V3 (October 25, 2026)

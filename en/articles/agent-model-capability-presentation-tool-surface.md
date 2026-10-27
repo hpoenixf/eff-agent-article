@@ -276,6 +276,6 @@ A34 applies [principle 3, “Complexity belongs with its rightful owner”](/en/
 
 ---
 
-Further reading: [MCP Host: From Connecting a Service to Using Its Tools](https://hpoenixf.github.io/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model, Runtime, MCP and Skill Responsibilities](https://hpoenixf.github.io/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [Code Is Cheaper; Why Are Systems Harder to Evolve?](https://hpoenixf.github.io/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)
+Further reading: [MCP Host: From Connecting a Service to Using Its Tools](https://hpoenixf.com/eff-agent-article/articles/mcp-host-from-discovery-to-consumption) · [Model, Runtime, MCP and Skill Responsibilities](https://hpoenixf.com/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [Code Is Cheaper; Why Are Systems Harder to Evolve?](https://hpoenixf.com/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve)
 
 More independent engineering cases: [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). If these evolution problems look familiar, feel free to read, discuss, or Star the repository.
