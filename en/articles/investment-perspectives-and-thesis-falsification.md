@@ -2,13 +2,11 @@
 
 > Multi-Agent Investment Research · Part Three | Shared facts, different methods, and disagreements worth resolving
 
-Imagine you already own several funds. You are considering a technology ETF and ask an AI assistant: “If I add this fund, will my portfolio become more diversified?”
+**The value of multiple investment experts is not a vote. It is an opportunity to falsify a claim that could materially affect an investor's decision.** Agreement is not independent confirmation if every specialist relies on the same incomplete material.
 
-An assistant can easily produce a polished report: promising industry prospects, valuation concerns, fees, and a familiar reminder to invest carefully. What you actually need is more specific: **How much of this ETF overlaps with the funds I already hold? If someone claims the purchase improves diversification, who checks whether that claim is true?**
+Suppose an investor already holds several funds and wants to add a technology ETF because “more funds means better diversification.” The useful questions are whether underlying exposures overlap, whether liquidity constraints permit the change, and what evidence could overturn the diversification claim.
 
-That is why ETF Agent introduces multiple investment perspectives and optional Bull/Bear research. The point is not to let six simulated “investment legends” deliver six speeches. It is to break a vague assertion into checkable questions, bring in only useful specialists, allow meaningful disagreement, and keep Main Agent responsible for one evidence-based, conditional synthesis.
-
-This article focuses on **how investment-perspective Agents are selected, how they share facts, and how they handle disagreement**. The details of Peer Messages, waiting, waking and cold recovery belong to [the preceding article on the Bull/Bear runtime](bounded-bull-bear-peer-dialogue.md). The broader end-to-end research workflow is reserved for [our architecture outlook](multi-layer-agent-collaboration-outlook.md).
+That is why ETF Agent uses optional investment methods such as Markowitz and Taleb alongside Bull/Bear challenge. A Child is worth the additional calls and delay only when a different method can test something material. Main remains responsible for a qualified, evidence-based synthesis. Peer-message and recovery mechanics belong to the [Bull/Bear Runtime article](bounded-bull-bear-peer-dialogue.md); here the focus is choosing and using different perspectives.
 
 ## 1. Investors Do Not Simply Need More Experts
 
@@ -124,25 +122,13 @@ The path has [scoped engineering acceptance](https://github.com/hpoenixf/etf-age
 
 ## 7. Under the Hood: Several Methods, One Child Runtime
 
-We did not build six separate runtimes for Markowitz, Taleb, Bernstein, Bogle, Marks and Fama–French. Ordinary `web/pdf/python` expresses an execution specialty; optional `perspectiveId` identifies an investment method; `peer.role` represents a legitimate Bull/Bear assignment; and `subagentProfileId` refers to a saved user-authored method. **These are composable dimensions, not four levels of supervision.** The end-to-end qualification of the custom-profile combination remains separate and open.
+We did not create six runtimes for six investment methods. **New expert Children now select a registered method using the unified `agentId`**, reusing existing Child tools, grants, budgets, input handoff, and recovery. Already sealed historical descriptors retain their original meaning; new parameters must not silently reinterpret them.
 
-A conceptual example follows; it is **not an unchanged receipt from a real model request**:
+Independent analysis depends less on extra role fields than on three conditions:
 
-~~~json
-{
-  "type": "python",
-  "task": "Review the marginal risk of the proposed technology allocation",
-  "perspectiveId": "investment-perspective/markowitz@1",
-  "inputRefs": ["the-current-run-authorized-calculation"]
-}
-~~~
-
-The important properties are identity and authority, not the JSON syntax:
-
-- A Host-registered method has a stable ID, version and content hash. Cold recovery cannot quietly replace it with a different method that happens to have the same name.
-- Main should reuse real `inputRefs` and original provenance, never promote its provisional thesis into source fact.
-- A saved personal Profile is identified user-authored method guidance, not an elevated system instruction or permission for peer messages, trading, additional tools or budget.
-- Children return attributed findings and gaps. Main owns the investment synthesis and final prose. Failure of an optional perspective cannot veto independently authorized results.
+- Every expert method has a traceable version that cannot quietly change during historical recovery.
+- Main should pass the actual user question and originally authorized results, not promote its own provisional conclusion into source truth. Incomplete evidence may justify more research.
+- An expert returns findings, disagreements, and gaps. It does not acquire additional private sources, trading authority, or final publication power.
 
 ~~~mermaid
 flowchart TD
@@ -159,22 +145,20 @@ flowchart TD
     T --> R
 ~~~
 
-This is a **conceptual coordination diagram**, not a mandatory execution DAG. Its purpose is to avoid needless delegation while retaining meaningful independent challenges.
+The diagram illustrates **optional collaboration**, not a mandatory workflow for every investment question. A simple fee lookup may not need an expert; a material hypothesis with genuinely different available methods might.
 
-## 8. Engineering Success and Financial Quality Are Separate Questions
+## 8. When Is an Extra Specialist Worth the Cost?
 
-Six methods already have scoped engineering evidence around immutable registration, actual Child requests and recovery. Bounded Bull/Bear dialogue has independent evidence for real pairing, public messages and cold recovery. None of that by itself establishes that the combination gives investors better answers.
+The six registered methods have scoped engineering evidence for registration, handoff, and recovery; Bull/Bear communication has separate execution evidence. **This does not yet show that more expert Agents produce better investment decisions.** Real models may still choose the wrong specialist, delegate repeatedly, or produce more prose without a useful counterexample.
 
-Real models can choose the wrong specialist, duplicate delegated work, recast a hypothesis as a fact or spend much longer while producing only additional prose. **Subagent cost includes model calls, waiting, duplicate retrieval and Main's synthesis**, so it is not necessarily cheaper or faster than a capable single Main.
+Before adding a specialist, we now prefer three questions: **Can ordinary Main already answer the task? Will a new perspective challenge an assumption that affects the decision? Can the new finding be checked against the same authorized evidence?**
 
-The meaningful future comparison uses the same investor question and authorized data basis. Would a single Main discover the critical counterexample? Did a specialist contribute new verifiable information? Did Bull/Bear actually correct a mistaken reason? Was the extra time and resource use justified? Independent financial-quality qualification of the full picture is still open.
+A management-fee lookup may need only one direct read. A claim that a technology ETF lowers concentration may benefit from different tests of correlation, tail risk, and liquidity discipline. Disagreement should become a conditional statement about what would change the decision, not a vote count.
 
-The point of investment-perspective Agents is not to manufacture more voices. It is to let each useful voice **test the same verifiable facts with an appropriate method**, disagree when warranted and remain accountable to the investor's actual question.
+A full benefit claim still needs comparable single-Main and multi-expert research on the same questions and data, including new falsifications, latency, and cost. Such financial-quality comparisons remain open.
+
+**The value of investment research is not how many experts agree. It is whether an important reason survives meaningful tests from different methods.**
 
 ---
 
-### Further reading
 
-[Subagent foundations](agent-subagent-context-specialization.md) explains context isolation and handoff. [Bounded Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) explains direct transport, waiting and recovery. [Multi-layer collaboration: an architecture outlook](multi-layer-agent-collaboration-outlook.md) preserves what has not yet been validated across the complete workflow. For versioned investment reasoning, see [Investment Thesis and continuing weekly research](agent-weekly-thesis-history-continuous-research.md).
-
-Every example here is synthetic and is not an investment recommendation. The engineering work is documented in [ETF Agent](https://github.com/hpoenixf/etf-agent); the [article collection](https://github.com/hpoenixf/eff-agent-article) welcomes Stars.
