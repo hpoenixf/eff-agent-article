@@ -85,7 +85,7 @@ sequenceDiagram
     else Valid
         Host->>Store: Store unique message and receipt
         Store-->>Host: Return original message identity
-        Host-->>Bear: Accepted; safe to wait
+        Host-->>Bear: Accepted and safe to wait
         Host-->>Bull: Send deduplicated wake hint
         Bull->>Host: Request continuation
         Host->>Store: Read original message and cursor
@@ -93,7 +93,7 @@ sequenceDiagram
             Host->>Bull: Include original message in next model request
             Bull->>Host: Submit linked response
         else Stopped or expired
-            Host-->>Bull: End peer work; retain existing results
+            Host-->>Bull: End peer work and retain existing results
         end
     end
 ~~~
