@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "ai-coding-judgment-and-verification": "The Expensive Part of AI Coding Is Deciding What Deserves Verification",
   "open-etf-agent-v01-first-readable-report": "Start with a Report You Can Read Back: Open ETF Agent v0.1",
   "agent-runtime-refactor-one-day-blocked": "Why Did One Subagent Change Hold Up Our Work for an Entire Day?",
   "agent-differentiated-evolution-contracts": "What Should Stay Stable—and What Should Change—in an Agent Architecture?",
@@ -22,7 +23,7 @@ export const englishTitles = {
   "026-agent-memory-forget-durable-effects": "Memory: From Saving and Recall to Safe Forgetting",
   "027-rag-revocation-publish-replay": "RAG: Revocation and Historical Replay",
   "agent-provider-architecture-and-admission": "Provider: Why a Unified API Still Needs Shared Admission",
-  "agent-provider-admission-capacity-lease": "Why the Next Model Request Still Queues After HTTP 200", 
+  "agent-provider-admission-capacity-lease": "Why the Next Model Request Still Queues After HTTP 200",
   "agent-control-events-durable-owner-adoption": "Why an Agent Cannot Execute a Stop Command Immediately",
   "020-agent-extension-host-smartphone": "Extension Host: From Feature Phone to Smartphone",
   "mcp-host-from-discovery-to-consumption": "MCP Host: From Discovery to Usable Tools",
@@ -66,6 +67,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "ai-coding-judgment-and-verification",
   "open-etf-agent-v01-first-readable-report",
   "agent-runtime-refactor-one-day-blocked",
   "agent-differentiated-evolution-contracts",
@@ -129,46 +131,16 @@ export const englishArticleSlugs = [
 export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama']
 
 const headings = {
-  "研究入口、阅读与计算": [
-    "Research, Reading and Computing",
-    "How Entry, Web, PDF, subagents and isolated computation cooperate."
-  ],
-  "上下文、研究资产与知识": [
-    "Context, Results and Knowledge",
-    "What the model sees and which evidence it may read."
-  ],
-  "运行时、扩展与观测": [
-    "Runtime, Extensions and Observability",
-    "How capabilities are discovered, authorized, executed and observed."
-  ],
-  "答案、发布与恢复": [
-    "Answer Delivery and Recovery",
-    "An answer candidate, durable effects and delivery are separate facts."
-  ],
-  "深度持续研究": [
-    "Deep and Continuous Research",
-    "Long-running background research, staged delivery, recovery and continuity of investment theses."
-  ],
-  "Subagent 与专家": [
-    "Subagents and Experts",
-    "Investment perspectives, bounded peer dialogues and collaboration across expert agents."
-  ],
-  "金融与工程": [
-    "Finance and Engineering",
-    "Financial evidence, reproducible results, system evolution and end-to-end engineering quality."
-  ],
-  "其他": [
-    "Other Architecture Topics",
-    "System overviews, model/runtime responsibilities, authorization and capability ownership."
-  ],
-  "Spec、证据与工程记忆": [
-    "Specs, Evidence and Engineering Memory",
-    "From specifications to execution evidence and durable project history."
-  ],
-  "真实验证与任务收敛": [
-    "Real Validation and Task Convergence",
-    "From misleading green tests to verifiable task completion."
-  ]
+  "研究入口、阅读与计算": ["Research, Reading and Computing", "How Entry, Web, PDF, subagents and isolated computation cooperate."],
+  "上下文、研究资产与知识": ["Context, Results and Knowledge", "What the model sees and which evidence it may read."],
+  "运行时、扩展与观测": ["Runtime, Extensions and Observability", "How capabilities are discovered, authorized, executed and observed."],
+  "答案、发布与恢复": ["Answer Delivery and Recovery", "An answer candidate, durable effects and delivery are separate facts."],
+  "深度持续研究": ["Deep and Continuous Research", "Long-running background research, staged delivery, recovery and continuity of investment theses."],
+  "Subagent 与专家": ["Subagents and Experts", "Investment perspectives, bounded peer dialogues and collaboration across expert agents."],
+  "金融与工程": ["Finance and Engineering", "Financial evidence, reproducible results, system evolution and end-to-end engineering quality."],
+  "其他": ["Other Architecture Topics", "System overviews, model/runtime responsibilities, authorization and capability ownership."],
+  "Spec、证据与工程记忆": ["Specs, Evidence and Engineering Memory", "From specifications to execution evidence and durable project history."],
+  "真实验证与任务收敛": ["Real Validation and Task Convergence", "From misleading green tests to verifiable task completion."]
 }
 const labels = {
   modules: ['Module Deep Dives','Concrete mechanisms from input through execution to delivery.'],

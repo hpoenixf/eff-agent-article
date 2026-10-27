@@ -1,290 +1,98 @@
 ---
 title: "Do Green Tests and a Model Response Mean the Agent Succeeded?"
-description: "Mock versus real-boundary verification, timeout semantics, fixed denominators, actual streaming delivery and traceable evaluation corrections."
+description: "Match claims to observed boundaries, preserve the original denominator, and evaluate the actual delivered content before comparing models."
 ---
 
 # Do Green Tests and a Model Response Mean the Agent Succeeded?
 
-During early model evaluations for an agent, I encountered a puzzling situation.
+**Green means a particular check passed under particular conditions. It does not automatically establish that the user's task was completed.** Agent evaluation should first identify the boundary examined, the exact content judged, and the tasks included in the denominator—then compare quality and cost.
 
-The server had an answer candidate, the automated judge returned a verdict, and the Run was even marked completed. From the evaluation report alone, the request looked finished.
+This does not mean rerunning an entire research workflow after every change. It means matching evidence to claims: local checks for local logic, actual handoffs for cross-process effects, and actual outputs for model quality. Otherwise, an accurate test statistic can support an inaccurate product conclusion.
 
-Following the frontend delivery chain revealed a different story. The existence of a candidate does not mean it was sent. Even a server-side send event does not prove the browser fully received and rendered the response.
+In our early evaluations, the server had an answer candidate, the automated judge returned a verdict, and the run was even marked `completed`. Following the frontend path showed that candidate existence, server transmission, browser receipt, and display were not the same fact.
 
-I used to treat those states as nearly interchangeable. The most misleading evaluation reports do exactly that: **collapse success at different levels into one pass status**. A score may look good while the actual delivery path has serious gaps.
+The historical cases below explain how to avoid that confusion. They are not a current model ranking or a complete production acceptance result.
 
-So what are we evaluating, and on what basis can we say an agent request actually succeeded?
+## 1. First Ask What the Green Check Actually Reached
 
-This article brings together two questions: did the engineering test cross the boundary it claims to verify, and did the model evaluation inspect the material actually delivered? The cases belong to their original historical verification windows. They explain a method; they are not a catalog of current evaluation modules, commands or model rankings.
+Mocks control inputs, dependencies, and time, making them useful for examining local logic. Real-dependency checks start processes, connect to databases, or cross network boundaries. Both matter, but they answer different questions.
 
-## First Establish Which Boundary the Test Actually Crossed
+We observed a focused mock suite pass while broader acceptance work remained incomplete. The useful distinction was not which count looked better. The smaller check had never reached the unsettled handoffs.
 
-In another engineering-verification window, a focused mock suite recorded **32/32 passes**, while a broader collection had completed only **8 of 11 items**. Both observations can be true without jointly establishing that the system is ready. The first exercises isolated logic; the second exposes gaps in the declared acceptance scope.
+A command-line timeout check provided a more concrete counterexample:
 
-Mock tests control inputs, external dependencies and time. They are useful for locating logic defects. Real-dependency checks actually start processes, connect to isolated databases, or cross standard-I/O and loopback-network boundaries. Each pass supports only the boundary it reached.
-
-Three questions must remain separate:
-
-| Dimension | What to record | What it must not be mistaken for |
+| Value in the original controlled window | Amount | Meaning |
 | --- | --- | --- |
-| Observed evidence | What happened on which revision and environment; record not collected when nothing ran | A real observation automatically means behavior passed |
-| Follow-up work | An established defect or a specific missing observation, with a targeted next step | Unknown means failed, or every check must be rerun |
-| Adoption decision | Whether the evidence supports completion or release within the declared scope | A local pass means the entire product was delivered |
+| Unit-side default | 45 seconds | The default configuration seen by the local test |
+| Actual model-side propagated value | 80 seconds per call | The limit passed into the subsequent invocation |
+| Governance cap | 60 seconds | The upper bound declared at that time |
 
-A real execution can establish that a boundary **did not hold**. Its evidence is valid while the behavioral outcome is a failure. “Verified” must not silently become “passed,” and uncollected evidence must not become zero failures.
+The mock never actually waited 80 seconds. Checking only the default could therefore miss a propagated value that exceeded the cap. A whole-task deadline and a per-call timeout also have different starting points and scopes; a long wait is not a reason to raise every limit together.
 
-This does not require every small change to invoke real external dependencies. Match verification to the claim. Appropriate deterministic tests can establish local logic. A claim about a process, database or network handoff needs evidence crossing that boundary. Sufficient existing evidence need not be rerun merely because a report is being edited while behavior remains unchanged.
+That window located the issue and a repair direction, but did not collect a post-fix rerun. It remains a failing observation, not a pass written retrospectively.
 
-### Why Must Three Timeout Values Be Read Together?
+**Verify the behavior a caller actually depends on, not merely the configuration or return value easiest to inspect.** A database-handoff claim needs evidence reaching the database. A change to a pure function does not require rerunning every external dependency to establish its local behavior.
 
-A command-line timeout check supplied a concrete counterexample. In the original controlled window, the unit-side default was **45 seconds**, the model setting was propagated as **80 seconds per call**, and the governance cap was **60 seconds**. The mock never actually waited for 80 seconds, so reading the default alone concealed a propagated value that exceeded the cap.
+## 2. Do Not Average Away Different Kinds of Failure
 
-A whole-task deadline and a per-call timeout constrain different things. The repair direction was to align clock origins, scopes and propagation semantics—not simply raise every limit after observing a long wait.
+An agent request may pass through task interpretation, material acquisition, candidate generation, publication, transmission, and display. A valid protocol does not establish understanding. A tool response does not establish applicable evidence. A good answer may still fail delivery.
 
-This is a teaching representation of that record, not the current runtime protocol:
+Evaluation should distinguish at least these questions:
 
-```json
-{
-  "boundary": "per-call timeout propagation",
-  "unitDefaultTimeoutSec": 45,
-  "modelTimeoutSec": 80,
-  "governanceCapSec": 60,
-  "observation": "the propagated per-call value exceeds the stated cap",
-  "boundaryHolds": false,
-  "postFixRerun": "not collected in this window"
-}
-```
-
-The original window contained no post-fix rerun. Identifying a repair direction does not turn the failing record into a pass. A timeout report should show the default, the actual propagated value and the cap together, along with their clock semantics. Those numbers are not interchangeable.
-
-## Completed Describes One Program State
-
-In ordinary HTTP APIs, success versus failure may appear relatively straightforward. An agent request has a much longer path.
-
-After the user submits a question, Runtime asks the model to research and answer. The candidate passes through publication, the server sends it, and the client receives and displays it. Each handoff establishes only its own facts: candidate generation, server send, client receipt and UI rendering need separate observations.
-
-```text
-User question
-→ Planning
-→ Tool calls
-→ Evidence assembly
-→ Candidate answer
-→ Quality checks
-→ Streaming delivery
-→ Client reception and display
-```
-
-These stages do not all pass or fail together.
-
-A JSON object may be valid while planning misunderstands the task. A good plan may fail to invoke a necessary tool. A successful tool invocation may return stale evidence. A fluent candidate may be rejected at publication. A stream may terminate halfway through. Or the server may record a complete send without enough client evidence of a complete render.
-
-An isolated success=true cannot preserve these distinctions.
-
-I now separate the questions:
-
-| Layer | What we need to establish |
+| Layer | What must be established |
 | --- | --- |
-| Protocol | Can the system parse the response? |
-| Planning | Did the model understand the task and evidence requirements? |
-| Evidence | Was the required eligible data actually obtained? |
-| Answer | Is the final content accurate, safe and supported? |
-| Delivery | Did the content actually enter the user-facing delivery path? |
+| Protocol | Whether the response can be parsed |
+| Research and evidence | Whether the task was understood and the required eligible material obtained |
+| Answer | Whether the content is accurate, appropriate, and supported |
+| Delivery | Whether actual content reached server transmission, client receipt, or display |
 
-Success in one layer does not certify the next. HTTP 200 does not establish answer quality. completed does not prove the user saw an answer.
+Some requirements cannot be averaged away. Fluent language does not compensate for missing essential material. An unsent answer should not receive an attractive overall score because its server-side draft reads well.
 
-## I No Longer Rush to Compute One Overall Score
+Failure and uncertainty also differ. `failed` means evidence establishes that a requirement was not met; `inconclusive` means the evidence is insufficient to decide. The former calls for repair, the latter for a relevant observation. Assigning both zero mixes infrastructure gaps into assessments of model capability.
 
-It is tempting to rate protocol, planning, tool calls and answer quality separately, then compute a weighted 82, 87 or 91.
+This does not prohibit comparison. It establishes whether candidates meet the requirements of the intended role before comparing quality, reliability, latency, and cost. A missing optional capability must not become a veto on every possible use.
 
-Some properties should not be averaged away.
+## 3. The Denominator Can Silently Change the Conclusion
 
-If a model writes beautiful prose but lacks essential evidence, language quality must not compensate for that gap. If no answer was ever sent, an excellent server-side candidate should not receive an attractive overall score.
+Consider a hypothetical evaluation of 30 questions. Twenty remain unfinished within the observation window because of queues, timeouts, or tool problems. Nine of the ten completed questions return nonempty content.
 
-I prefer a vector of outcomes:
+“Nine of ten completed samples returned an answer” is accurate. Reporting a “90% success rate” changes the denominator and additionally substitutes nonempty output for task success.
 
-```text
-Protocol = pass
-Planning = pass
-Evidence = inconclusive
-Answer = not_evaluated
-Delivery = pass
-```
+Unfinished questions may be longer, more complex, and require more tools or corrections. They are not necessarily missing at random. Evaluating only completed cases can exclude the samples most likely to reveal a weakness.
 
-It is less visually impressive but much more diagnostic: protocol and planning worked; the delivery mechanism ran; evidence was not closed, so the run cannot support claims about answer quality.
+Freeze the question set, data snapshot, code revision, model version, configuration, and original denominator before evaluation. Changed conditions belong to their own observation window. Comparing versions is legitimate; pooling different conditions into a more flattering single experiment is not.
 
-The term **inconclusive** is important. It does not mean “failed, but politely.”
+The practical rule is simple: **account for every planned task before discussing the quality of the completed subset.** Unfinished, failed, unknown, and usable-answer outcomes should retain their respective places rather than disappear from the statistics.
 
-Failed means we have enough evidence that a requirement was violated. Inconclusive means the evidence is insufficient to decide. The appropriate next actions differ: repair an established failure, but collect evidence for an inconclusive outcome.
+## 4. The Judge Must Know Which Answer It Is Evaluating
 
-Treating both as zero risks ranking models by infrastructure noise rather than model quality.
+Automated evaluation commonly takes a server-side candidate and asks a model to assess facts, formatting, citations, and expression. That can evaluate candidate quality. A streaming product must additionally determine whether the user received that candidate.
 
-## The Denominator Can Be More Deceptive Than the Score
+Publication may reject a complete draft, or transmission may deliver only its first half. Even a server-side send record does not establish complete client receipt or display.
 
-A subtle trap occurs when **the denominator silently shrinks**.
+Keep three objects distinct: the model candidate, the actual server-emitted body, and evidence of client receipt and rendering. An evaluation claiming to assess a delivered answer should reconstruct its material from actual outbound content events in order, rather than substitute the most complete saved draft.
 
-Suppose we planned 30 test questions. Twenty remain unfinished within the observation window because of queues, timeouts or tool problems. Of the ten that completed, nine returned nonempty content.
+If a stream ended early, reconstruction must preserve that incompleteness. A fuller draft saved later cannot rewrite the original delivery. Client acknowledgments, sequence numbers, or rendering receipts can justify a stronger delivery conclusion. Without them, stop at the accurately supported statement that the server sent the material.
 
-This statement is accurate:
+**The identity and scope of the scored object matter more than a sophisticated scoring formula.** That is one difference between agent-product evaluation and a pure model benchmark: product results also pass through a real delivery system.
 
-> Nine of ten completed samples returned an answer.
+## 5. When the Evaluator Is Wrong, Correct the Judgment Without Rewriting Events
 
-This one is not equivalent:
+We also encountered mechanical misclassification caused by a fixture or validation contract. Correcting the evaluator changed judgments for affected samples, while genuine failures remained.
 
-> The success rate was 90%.
+Overwriting the old scores would obscure why the original evaluation failed, why a later examination changed it, and whether apparent progress came from the model, runtime, or measurement instrument.
 
-The twenty unfinished cases may be precisely those requiring long context, multiple tools, repeated correction or complex reasoning. They are not necessarily missing at random.
+A better approach preserves original results, appends corrections, and generates a revised view. Each correction identifies the original run, input revision, affected cases, old and new judgments, and the reason. Further errors can be corrected through another addition rather than rewriting history into its latest interpretation.
 
-Only evaluating completed cases measures performance **conditional on already having finished**, not performance on the original suite.
+The purpose is not another audit ritual. It is to preserve a valid basis for comparison: **a changed execution result and a changed understanding of the same result are different kinds of progress.**
 
-We therefore freeze the denominator and the experiment identity before a run:
+## 6. Decide Whether Comparison Is Valid Before Deciding Which Model Is Better
 
-```json
-{
-  "suite": "agent-cases-v1",
-  "sourceHash": "sha256:...",
-  "revision": "git-revision",
-  "modelId": "provider/model-version",
-  "profile": "live-read-only",
-  "attempt": 1
-}
-```
+Before publishing a model conclusion, I now ask three questions: Are the experimental conditions and original denominators comparable? Has a requirement explicitly necessary for this use failed? Which critical facts remain unknown?
 
-Change the suite, code, model version or environment and you have a different comparison window. You may compare windows, but you cannot pool them into a flattering new percentage while pretending conditions remained identical.
+When conditions differ, explain the difference. When a necessary requirement fails, record ineligibility for that use. When a critical fact is unknown, retain a provisional conclusion. Quality, reliability, latency, and cost comparisons become interpretable after those distinctions.
 
-This convention makes dashboards less appealing. It also keeps the hardest and most informative unfinished samples from disappearing.
-
-## The Judge May Not See What the User Received
-
-This is the most important distinction to me.
-
-Many automated evaluations inspect a candidate on the server. The candidate goes to a judge that checks claims, formatting, citations or tone, then returns a verdict.
-
-That is technically legitimate. But in a streaming product we must ask:
-
-**Did the judge rate the same content the user actually received?**
-
-Maybe not. Publication could reject a complete candidate. The first half of a stream could be delivered before a timeout loses the second half.
-
-Even if a server records send, without a client ACK, receipt event or render evidence, the strongest defensible claim may be:
-
-> The server recorded sending this material.
-
-Not:
-
-> The user definitely saw the entire answer.
-
-An evaluation should distinguish at least three representations:
-
-```text
-Model candidate
-     ↓
-Actual server-emitted content
-     ↓
-Client receipt / display evidence
-```
-
-The middle representation is often the easiest to reconstruct reliably: concatenate the actual outbound content events in order.
-
-If the client produces ACKs, message sequence numbers or rendering receipts, they can support stronger statements about the final level. Without them, do not rename “sent” to “seen” just to make a metric look more satisfying.
-
-### Reconstructing Server-Delivered Content
-
-A streaming answer is an **event history**, not merely one final string.
-
-For example:
-
-```text
-run started
-tool call
-tool result
-text delta #1
-text delta #2
-text delta #3
-terminal
-```
-
-The text given to an evaluator should be reconstructed from **actual outbound text delta events**, rather than copied from a saved candidate that might never have been delivered.
-
-This exposes a common false green:
-
-> The judge marked the answer complete, but the client-side path received only the first half.
-
-If a stream ended early, the evaluated delivery should contain only bytes or text actually emitted before interruption. A better server-side draft written afterward cannot rewrite that run's original history.
-
-This is why agent evaluation differs from a conventional language-model benchmark: it evaluates a **distributed delivery process** as well as model output.
-
-## The Evaluation System Can Be Wrong Too
-
-What happens when the evaluator itself has a defect?
-
-We encountered such a case. One class of outputs was mechanically failed because of an issue in the test fixture or validation contract. Correcting evaluation logic substantially changed verdicts for affected samples, while some genuine failures remained.
-
-The simplest approach is to overwrite the old results. That destroys the explanation of why they failed originally and why a later review changed them.
-
-We chose an append-only ledger model:
-
-```text
-Unmodified raw evaluation result
-           +
-Append correction
-           ↓
-Compute a revised view
-```
-
-A correction must identify the original evaluation, affected cases, old and new verdicts, the reason for changing them, and the identity of the original inputs and versions.
-
-In shorthand:
-
-```text
-RevisedView = RawLedger + ValidCorrections
-```
-
-The essential rule is that RawLedger remains unchanged. A further correction can be appended if the first correction proves wrong.
-
-This matters for model tuning. Otherwise a leaderboard that has been silently revised several times cannot reveal whether an apparent improvement came from the model, Runtime, or the evaluator itself.
-
-## Do Not Merge Different Verification Windows into One Score
-
-A passing mock suite and unfinished broader acceptance work can both be true. The relevant question is not which count looks better but which dependency boundary each check actually crosses. Database, network, model-output and user-visible delivery behavior cannot borrow credit from unrelated local checks.
-
-The evaluator can itself misclassify outcomes, so keep original observations and later corrections distinct. Repair confirmed defects and collect missing observations without indefinitely expanding verification merely to produce a green dashboard.
-
-## Release Model Conclusions Only After Three Gates
-
-We eventually stopped trying to invent a complex universal score and asked three gate questions first.
-
-### 1. Are we comparing the same experiment?
-
-Do the test suite, code, model, configuration, data snapshot and denominator line up? If not, do not compute a direct ranking.
-
-### 2. Did a hard requirement fail?
-
-Protocol, security, privacy, required evidence and delivery can all be hard gates. If a condition already declared necessary for this comparison fails, unrelated high scores cannot make the candidate eligible for that role. An optional capability gap must not silently become a veto on every possible use.
-
-### 3. Are important states still unknown?
-
-If a critical requirement remains inconclusive, keep the candidate provisional. Collect evidence before announcing a winner.
-
-Only after these checks do quality, reliability, latency and cost become meaningful comparison metrics.
-
-```text
-if not same_experiment:
-    return inconclusive
-
-if hard_gate_failed:
-    return not_eligible
-
-if hard_gate_unknown:
-    return provisional
-
-return compare_quality_reliability_latency_cost()
-```
-
-This looks less sophisticated than an all-in-one intelligence formula. I trust it more because it cannot let “95 points” conceal the fact that the answer never went out.
-
-## Stop Each Conclusion at the Boundary Its Evidence Supports
-
-Start with the claim's scope, select the relevant tests, and interpret observations within that scope:
+This need not become another universal runtime gate. It is first a sequence of engineering and evaluation judgments:
 
 ```mermaid
 graph TD
@@ -299,14 +107,16 @@ KnownFailure --> TargetedRepair
 MissingEvidence --> TargetedObservation
 ```
 
-The two kinds of checks are selected according to the claim. Every change need not run both. Evidence may support a scoped conclusion, establish failure, or remain insufficient. Targeted repair and targeted observation are therefore different next steps.
+Select the two kinds of checks according to the claim; not every change needs both. Evidence may support a bounded conclusion, reveal a defect, or leave an observation missing. Sufficient existing evidence need not be rerun merely to edit a report when behavior has not changed.
 
-Completed, candidate text, judge pass, server send and client display are different facts. Mock passes and real-dependency observations are different evidence. Preserve those distinctions before comparing model quality, reliability, latency and cost.
+Engineers should state the behavior their change intends to establish. Evaluation designers should freeze inputs and denominators and give judges the actual content corresponding to the claim. Decision-makers should treat failures, unknowns, and quality differences separately.
 
-**When a result is green, first ask which boundary, revision and actual content it establishes something about.** A number can be correct while the conclusion drawn from it exceeds the evidence.
+**The value of testing is not a green dashboard. It is knowing what to repair, which evidence to collect, and which decision can now be made with confidence.**
 
-This evaluation approach follows [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5): deterministic contracts deserve focused boundary checks, while model and user outcomes need proportionate real-world comparisons. A conclusion must not exceed the version, input and delivery scope the evidence actually covered.
+For every green result, ask which revision, input, boundary, and actual content it establishes something about. This is [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5). Keeping conclusions within their supporting evidence prevents local success from being prematurely declared product success.
 
 ## Further Reading
 
-For how original execution observations are retained and corrected during development, see [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md). More essays are available in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article).
+[Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md) discusses retaining and correcting original observations. [The Expensive Part of AI Coding Is Deciding What Deserves Verification](ai-coding-judgment-and-verification.md) discusses allocating verification effort according to the consequences of error.
+
+More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). Stars and discussion are welcome.
