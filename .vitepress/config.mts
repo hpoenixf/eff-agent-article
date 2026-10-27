@@ -167,9 +167,12 @@ export default defineConfig({
           const summary = previous.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[\x60*]/g, '').trim()
           const description = (summary.length > 10 ? summary : title).slice(0, 180) || 'Agent architecture diagram'
           const caption = escapeAttribute(title || 'Agent architecture diagram')
+          const imageUrl = IMAGE_ROOT + diagramId(token.content) + '.svg'
+          // VitePress compiles static src attributes as build imports, while
+          // public/generated is created during prebuild. A literal Vue binding
+          // emits a plain SSR src without bundling each output SVG as a module.
           return '<figure class="diagram-frame diagram-static">' +
-            '<img src="' + IMAGE_ROOT + diagramId(token.content) +
-            '.svg" alt="' + escapeAttribute(description) +
+            '<img :src="\'' + imageUrl + '\'" alt="' + escapeAttribute(description) +
             '" loading="lazy" decoding="async" />' +
             '<figcaption class="diagram-caption">' + caption + '</figcaption></figure>\n'
         }
