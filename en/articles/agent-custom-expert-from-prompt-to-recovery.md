@@ -162,23 +162,65 @@ This comparison reinforced the value of separating three objects:
 
 We can learn from Octop's discoverable expert cards, example tasks, and template sharing without building a second Agent platform just to support a Prompt settings form. In finance, a shared template must not automatically carry personal holdings, private research history, or the user's source grants.
 
-## 8. What Works Today, and What Still Needs Qualification?
+## 8. From Preferences to Contributions That Actually Happened
 
-The current code and scoped execution evidence cover personal Profile configuration, immutable Run snapshots, generic Child binding, correct model-request assembly, and History attribution. The underlying unified expert system has also completed real-model tasks involving built-in research methods, Main synthesis, and exported computational artifacts.
+Originally we asked whether a user could save an expert. The next question is harder: **after selecting an expert in chat, did that expert actually contribute?**
 
-Those live successes primarily involved built-in methods or General/Python, **not** an end-to-end natural-model qualification of user-created Profiles in the authenticated application. Account-to-Run journeys, cross-process recovery, and further expert discovery experience have their own remaining acceptance work.
+The account-scoped directory displays identity, purpose, and examples, not full private instructions. A directory card and an explicit `@` selection use the same exact `agentId` path. The user message is preserved; the original message and Entry record the selection, after which Main may delegate to a Child under its existing admission rules. An expert name appearing in arbitrary text is not an authorized invocation.
 
-That distinction does not invalidate the engineering lesson already demonstrated: **a personal research method can be versioned as account data and executed through the existing Child/result system, without an all-powerful Expert Manager.**
+Four kinds of facts must remain separate:
+
+| What the user sees | What it actually means | What it cannot prove |
+| --- | --- | --- |
+| Expert directory and method summary | Discoverable account configuration | Tool authorization |
+| Explicit choice or saved preset | A selection or suggestion | Child dispatch |
+| Child request and stage receipt | Work the original executor performed | Main adopted its view |
+| Main answer and History contribution panel | Committed text and visible evidence | Expert consensus |
+
+In a **synthetic** fund research example, the user explicitly selects a PDF specialist to verify fees and applies a preset suggesting a Python specialist for risk calculations. Main might delegate to one, both, or neither as appropriate. A preset containing two names does not prove two Children ran. Once the PDF Child returns real sourced findings, the contribution panel can display its original `taskRef` and permitted result. Main remains responsible for any conclusion about whether to use those findings.
+
+A saved expert preset stores a `presetId`, revision, name, and expert IDs under the existing account owner. Applying it fills editable suggestions. It neither launches a permanent team nor starts Peer messages, Reviewer calls, or additional budgets. Refreshing History must read the original Run's frozen selection and actual execution receipts, not reinterpret past results with today's directory. If the contribution panel fails locally, already published text and permitted downloads stay available.
+
+## 9. Change the Research Description, Not the Execution History
+
+Main's original instruction need not remain an unquestioned premise. Imagine asking a Child to calculate exact overlap between two funds' underlying holdings. After opening the reports, it discovers that one fund discloses only its top ten holdings. Repeating the original task would risk presenting partial overlap as full coverage.
+
+ETF Agent separates **the frozen method identity** from **the revisable description of this Child's current research**. Through an optional `update` on the existing `submit_subagent_result` tool, a Child can revise `task`, `hint`, `relationHint`, and eligible `inputRefs`. An accepted update affects subsequent requests, not the original user message, initial spawn, or any request already dispatched.
+
+The following is a constructed example, not an observed model payload:
+
+```json
+{
+  "summary": "Only the top ten holdings are disclosed; full overlap is unknown",
+  "update": {
+    "task": "Calculate overlap only for disclosed holdings and show coverage limitations",
+    "relationHint": "Inform Main that partial overlap is not a complete exposure measure",
+    "inputRefs": ["an actually authorized result reference from this Run"]
+  }
+}
+```
+
+New materials still require authorization from their original input and source owners. If one new input is refused, that refusal affects the input, not every independently valid update or previously published passage. Task revisions cannot change expert identity, reset budget, expand permissions, erase original facts, or authorize an investment transaction.
+
+Likewise, `relationHint` describes the intended relationship, not an executed dependency graph. It does not wait for another Child, open a sibling's results, or manufacture a Peer conversation. Actual handoff still requires the original task, input, message, and result receipts.
+
+This is adjacent to [the agents-as-tools and handoff distinction in the OpenAI Agents SDK](https://openai.github.io/openai-agents-python/multi_agent/): Main retains the conversation and final answer, while the specialist performs bounded work. ETF Agent's frozen account methods, optional task revisions, and attribution are its own engineering choices rather than capabilities implied by that SDK.
+
+## 10. What Works Today, and What Still Needs Qualification?
+
+As of October 27, 2026, versioned Profiles, exact selection from normal messages, soft Tool/Skill preferences, optional Skill preloading, on-demand calling guides, expert directory and contribution projections, account presets, and Child-authored description updates have scoped engineering implementation and verification evidence.
+
+Isolated PostgreSQL and authenticated browser tests using a scripted model interface verify selected storage, selection, replay, recovery, and presentation paths. They do **not** establish autonomous model selection quality or preference adherence in real investment research. Earlier live-model examples mainly exercised built-in methods or General/Python.
+
+The account does not thereby gain arbitrary executable-package installation, an expert-specific model or budget, or trading permission from a preference. The narrower engineering conclusion is that **versioned personal methods can use the existing Child and result system without a second Expert Manager**.
 
 ## Conclusion
 
-The easiest part of a custom expert is the Prompt field. What makes it maintainable is the identity, revision, provenance, selection, execution, history, and recovery behind that field.
+A Prompt field is the easy part. The durable design is **stable method identity, revisable research descriptions, and contributions backed by actual execution**. What the user prefers and what the system performed must never become the same fact.
 
-ETF Agent does not require a new model instance, budget, permission ledger, or recovery stack every time a user adds another research method. Users can accumulate useful ways of working. The system can still tell which method revision was used, what evidence was available, and what work actually completed.
+Each method need not bring its own model, permission ledger, budget, and recovery system. The user can accumulate research practices while the Runtime retains which revision was selected, what actually changed, and what actually arrived.
 
-**Expert methods should be reusable; execution facts must remain accountable.**
-
-Separating the two turns one-off role prompting into a capability that can evolve without burdening the Runtime with another duplicate lifecycle.
+**Expert methods should be reusable; execution facts must remain attributable.**
 
 ---
 

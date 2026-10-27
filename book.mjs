@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 65 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 66 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -78,6 +78,7 @@ export const collections = [
           ["agent-weekly-thesis-history-continuous-research", "一份周报过去后，Agent 还记得为什么这样判断吗？"],
           ["agent-html-evolution-challenges", "HTML 保存了，为什么还是交付失败"],
           ["agent-provider-failover-without-resetting-the-run", "故障切换：换路线，不重置任务"],
+          ["agent-disconnect-is-not-crash-recovery-contract", "断线不是崩溃：为什么 Agent 不必恢复原来的执行图？"],
           ["agent-veto-authority-and-run-termination", "Run 终结权、阶段预算与安全恢复"]
         ]
       },
