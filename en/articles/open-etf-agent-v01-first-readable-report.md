@@ -5,6 +5,8 @@ description: Run the fixed offline example to inspect source identity, tool exec
 
 # Start with a Report You Can Read Back: Open ETF Agent v0.1
 
+> For the later system design, start with [From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage](./open-etf-agent-v010-system-design.md). This article preserves the v0.1 engineering starting point.
+
 After reading an article about agent architecture, a natural question remains: how do these components actually run together?
 
 We have already written about tool calls, context, memory, subagents, and publication. Putting all of them into the public project on day one would make it harder to see which responsibilities a task needs immediately and which ones emerged from later problems.

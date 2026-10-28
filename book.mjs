@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 69 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 70 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -122,6 +122,7 @@ export const collections = [
         "title": "其他",
         "desc": "系统全景和通用架构基础：模型与 Runtime 的边界、授权和 Owner 职责。",
         "items": [
+          ["open-etf-agent-v010-system-design", "从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景 V3：从提问到答案可见"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
