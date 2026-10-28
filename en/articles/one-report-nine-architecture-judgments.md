@@ -59,6 +59,10 @@ Compare two choices. One implements reading short documents and saving the repor
 
 We can discuss future formats, recovery, and history while implementing the first usable path first. Later capabilities are not denied; they simply do not automatically block the first result. Authorization, document identity, and whether a save actually happened affect this report directly and cannot be omitted in the name of a minimal version.
 
+Imagine three phases for this task. The first delivers a one-time comparison with original sources that the user can open. The second addresses longer research and necessary recovery. The third considers additional formats or ongoing updates. Each phase needs its own completion conditions: the first, for example, must check that the report can be saved, opened, and traced back to the original text. Completing one phase establishes its own promise, not the later capabilities; it does not waive existing authorization or source protections. This is a planning illustration, not a claim that the Lab delivered all three phases.
+
+The ordering draws on our [retrospective on staging a weekly-report spec](https://hpoenixf.com/eff-agent-article/en/articles/agent-weekly-review-staged-delivery). When peripheral capabilities and the first deliverable are bundled together, a project can keep advancing while the user still has no obtainable result. This case borrows the decision to define the first result and its necessary dependencies; it does not transplant the weekly-report history into an actual run of this comparison.
+
 This becomes our reference point. Every added capability should improve a part of the user's task or protect a real boundary. More components, tidier directories, and more runs do not by themselves make the report more useful.
 
 ## 2. The model understands; the system decides what can be done
@@ -104,6 +108,8 @@ Ownership also helps diagnosis. If B's page 3 is missing from the report, the mo
 
 Trace facts and handoffs before deciding how to split directories. A useful module encapsulates knowledge, causes of change, and decision rights, not merely a few lines moved into a new file.
 
+Four perspectives help organize this design discussion: **facts**—where the original passage, source identity, and save receipt reside; **authority**—who can allow a read, deny a download, or decide how text is published; **failure**—what can continue after a page is missing; and **value**—whether the colleague can read and check the comparison. These questions do not become new runtime stages. They expose responsibilities and gaps. For a denial, also ask whether it reinterprets authorization or execution facts already recorded by another owner, creating duplicate arbitration. For the engineering context behind local denials becoming whole-run termination, see our [termination and veto retrospective](https://hpoenixf.com/eff-agent-article/en/articles/agent-veto-authority-and-run-termination).
+
 ## 4. Preparing to save is not the same as a saved report
 
 After reading the text, the colleague asks to save it for later. The model proposes a save; the runtime confirms the destination is within scope; a file service starts writing. The page then says “report saved.”
@@ -131,6 +137,8 @@ SaveReceipt --> SavedStatus
 Consider an interruption: the service wrote the file, but the connection broke before the runtime recorded the receipt. On recovery, there is no local success record. That means the local system does not know; it does not prove the file was never written. Creating it again might produce a duplicate, while announcing success would lack evidence.
 
 One option is to establish an action identity before execution so that an idempotent service recognizes retries. Another is to query the service by the original identity when it supports status lookup. If neither safe retry nor lookup is available, retain the outcome as unknown. The system can say that the text exists but the file's save status is not confirmed, instead of inventing a successful download.
+
+Idempotency keys are also used for retryable writes elsewhere. For example, [Stripe's idempotent request documentation](https://docs.stripe.com/api/idempotent_requests) explains how a client can reuse a key to associate a retry with the original request's result. That describes the semantics of that API; it does not imply that every file service offers the same lookup, deduplication, or saving guarantees. The report case still requires checking the receiver's actual contract.
 
 Not every ordinary function needs a complex transaction protocol. Ask whether an action has a durable effect, whether repetition matters, and whether the receiver already supports idempotency or lookup. Recomputing an in-memory value and creating a report in an external system have different consequences.
 
@@ -210,6 +218,10 @@ ReadSource --> SourceRecord
 
 A return path matters. If the summary says “check the offline condition on page 3,” the model or user needs a way to find the correct version and original passage. If it is unavailable, preserve that gap rather than reconstructing a quotation from an old summary. Search works similarly: candidate snippets locate material, while the need to read surrounding context depends on the question. Ranking alone does not prove a claim.
 
+Tracing a report claim back to its source resembles problems studied in data provenance. [W3C PROV-DM](https://www.w3.org/TR/prov-dm/) describes how an output is produced in terms of entities, activities, and participants. Those concepts can help explain the document, read, and report here, but provenance does not automatically make the model's interpretation correct, and this analogy does not claim conformance to the standard. Our [evidence-chain article](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) discusses what needs to survive retrieval, calculation, context, and delivery; it is a Chinese original. This case focuses on document comparison and does not import its financial conclusions.
+
+Follow page 3 and the relationships become distinct. The original record preserves document identity and content; this turn's projection determines what the model actually sees; the tool's execution input records which version and page were read. If text depends on private material, content identity and authorization are security dependencies for display. The source attached to a particular claim also needs a precise relationship to the actual read. Summaries, citations, and format changes cannot substitute these relationships for each other: an existing original was not necessarily shown to the model, and a matching source identity does not prove support for its interpretation.
+
 This does not require keeping every byte forever or rereading everything every turn. Retention, privacy, and capacity depend on the product's actual contract. The architectural point is narrower: shortening the working view must not quietly change what happened or erase an explicit user restriction.
 
 ## 7. After a disconnect: continue or start again?
@@ -254,6 +266,10 @@ Examine duplication in the same way. Two `try/catch` blocks do not necessarily s
 
 Minimal sufficiency does not mean minimum lines. Reliable saving may need an idempotent identity; private reads need authorization; long tasks may need durable state. Explain what complexity protects and why an existing owner cannot handle it more simply. Necessary complexity should live where the problem is understood, neither erased for appearances nor spread to every caller.
 
+Revisit the proposed reviewer with five counter-questions. Are we adding it simply because we can? Do its state and special decisions spread to other modules? Can it veto independent lawful text? Even when unused, does it impose tool descriptions, context, or checks on normal tasks? Can it later be removed while preserving effects that already occurred? These are the “five don'ts” from our [architecture evolution retrospective](https://hpoenixf.com/eff-agent-article/en/articles/code-cheaper-systems-harder-to-evolve): questions for trade-offs, not five new gates.
+
+[Anthropic's guidance on building effective agents](https://www.anthropic.com/engineering/building-effective-agents) likewise recommends starting with simple, composable approaches and adding complexity as needed. That is a general design direction. This report still requires examining authorized text, actual sources, and normal-path costs; “simple” does not mean removing necessary protection, and the citation alone cannot prove that extra review is ineffective.
+
 ## 9. Why does replacing a reader affect old reports?
 
 The colleague later asks to use web pages or a parser that can handle scanned PDFs. We now need to choose an interface.
@@ -264,6 +280,17 @@ Start with what consumers need: the authorized document, its version, returned c
 
 An interface can be worthwhile with one implementation: it can isolate an external dependency, state an authorization or testing boundary, and limit assumptions about internals. Conversely, several implementations do not make an interface sound if it bakes the first tool's synchronous behavior, complete reads, or private error codes into every consumer. The number of implementations is a clue; whether the contract survives a real change is the question.
 
+Before replacing the reader, lay out the different stability needs in the same report:
+
+| Interface or effect | What this case must preserve or may change | Verification focus |
+| --- | --- | --- |
+| **Protected effect** | Only authorized documents are read; the parser cannot grant access or invent call identities and receipts | Existing authorization, identity, and failure boundaries still hold |
+| **Durable outcome** | Committed text, reports, and source identities remain readable under their original contract | New and old results still locate their own original material |
+| **Evolving behavior** | The model's comparison strategy, follow-up reads, and report organization may improve | Check answers against real tasks and materials rather than freezing current wording into a rule |
+| **Replaceable adapter** | PDF and web readers may change internal formats, parsing, and transport | Consumers still receive the source, status, and failure information they need |
+
+The four categories apply to **specific interfaces and effects**. They do not permanently classify an entire module or create a new parent owner; one owner can hold both protected effects and evolving behavior. See [differentiated evolution contracts](https://hpoenixf.com/eff-agent-article/en/articles/agent-differentiated-evolution-contracts). The table is a design judgment for this case. Actual consumers and risks determine the needed verification; do not mechanically add four test suites.
+
 Suppose the old reader returns text synchronously and the new one must wait asynchronously. If the interface insists on immediate return, a developer might return an empty string first and fill it after the operation completes. The caller receives emptiness and may conclude that the page has no text. The dangerous part is a failure disguised as a successful empty result. The contract must express when work completes and how failure is represented, rather than hiding limitations behind a neat type name.
 
 Replacement is not only routing new tasks to new code. How do old report references find their original material? Are existing tasks still using the old reader? Do historical reports depend on its output format? A capability can stop admitting new tasks while preserving necessary readers for existing results. Only after consumers and durable data have a path can complete removal be considered.
@@ -271,6 +298,8 @@ Replacement is not only routing new tasks to new code. How do old report referen
 Similarly, disabling an optional search index should leave the direct read path for two short documents usable. A few necessary composition points are normal; forcing every module to know an index's private flags, errors, and recovery logic makes future replacement and removal expensive.
 
 The thing to remove is an unnecessary mechanism and its dependencies, not the user's existing report, source identity, or an effect that really occurred. A capability's ability to retire is different from permission to erase history.
+
+When the old reader retires, inspect its call wiring and current specs, prompts, skills, and tests. Do they still require the old path? If the code has switched but a still-used instruction demands the former behavior, a later change may connect it again. Update the current owner of the contract and preserve readers needed by old results. Historical records retain what was true at their original time; do not rewrite them to suggest the new design always existed. Our discussion of [engineering context and knowledge retirement](https://hpoenixf.com/eff-agent-article/en/articles/027-agent-context-document-history) explains why assumptions outside code also need to exit. Martin Fowler's [Strangler Fig Application](https://martinfowler.com/bliki/StranglerFigApplication.html) likewise discusses gradual replacement of an old system. It is a nearby migration approach, not a claim that this report reader already implements the pattern.
 
 ## 10. A clickable citation does not prove a claim
 
@@ -329,6 +358,8 @@ SavedReport --> UserAccess
 Comparisons need understandable conditions. If documents, questions, models, and tool scopes all change, the answer difference is hard to attribute to search. Start with representative tasks: export formats, free-plan offline conditions, export limits, and saving and reopening. Record actual model inputs, tool behavior, report, and file result; then inspect what changed. Real models vary. A small sample can reveal concrete problems, but cannot establish a general success-rate change.
 
 This does not require an expensive model comparison for every line of code. A page-number serialization or filename-encoding fix can start with a focused engineering check. A claim that a new research method improves answer quality needs real task observations proportionate to that claim. Without a comparable baseline, report what the current sample showed rather than inventing an improvement percentage.
+
+This is also the distinction in [Tests and Evaluations: What Does Green Prove?](https://hpoenixf.com/eff-agent-article/en/articles/honest-agent-evaluation): a fixed substitute can check a declared execution path; whether a model understands a condition and whether the full task succeeds require appropriate actual inputs, outputs, and review. First locate whether material was not obtained, incorrectly projected, or misunderstood, then choose the verification. These forms of evidence answer different questions; not every change needs a paid A/B comparison.
 
 Consider trade-offs too. More candidates may reduce omissions but increase cost. Ending earlier may shorten the wait while leaving research incomplete. Extra review may catch a condition but add delay or error. Choose a balance suited to the task, but do not trade away real permission or privacy protections for a better quality metric.
 
