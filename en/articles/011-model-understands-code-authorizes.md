@@ -118,7 +118,7 @@ Missing public citations, malformed references or insufficient attachment capaci
 
 For example, when only a search lead has been obtained for a report, the answer can describe that lead or continue reading within granted scope. It must not invent quotations or page numbers. Missing page numbers should not become a blanket reason to reject an entire answer, either. Whether a particular conclusion is supported still depends on the material actually available.
 
-The [Publication article](/articles/019-agent-answer-publication) explains delivery mechanisms, while the [citation reliability article](/articles/ai-citations-do-not-prove-reliability) covers the relationship between claims and sources. This article focuses on their authorization handoff.
+The [Publication article](/en/articles/019-agent-answer-publication) explains delivery mechanisms, while the [citation reliability article](/articles/ai-citations-do-not-prove-reliability) covers the relationship between claims and sources. This article focuses on their authorization handoff.
 
 ## 7. Two PDF Routes Cannot Certify Each Other
 

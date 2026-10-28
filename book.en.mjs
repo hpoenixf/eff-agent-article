@@ -135,7 +135,11 @@ export const englishArticleSlugs = [
   "agent-asynchronous-research-time-bound-delivery",
   "agent-weekly-thesis-history-continuous-research",
   "agent-provider-architecture-and-admission",
-  "agent-provider-failover-without-resetting-the-run"
+  "agent-provider-failover-without-resetting-the-run",
+  "019-agent-answer-publication",
+  "021-agent-web-research-from-search-to-deep-reading",
+  "022-agent-entry-from-intent-to-direct-research",
+  "portfolio-mcp-readonly-investment-data"
 ] // Register only reviewed, full English editions; never summary placeholders.
 // Kept as an independently readable full-text historical edition; not counted as a new essay.
 export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama']

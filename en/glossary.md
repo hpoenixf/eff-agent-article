@@ -28,7 +28,7 @@ You do not need to learn every internal module to read this site. Start with one
 | --- | --- | --- |
 | **Grant** | Authorized scope, duration, or budget for a Run. Model proposals do not expand it. | [Authorization](/en/articles/011-model-understands-code-authorizes) |
 | **HIL / HIO** | Human interaction and response adoption. Asking, receiving, adopting, and causing an effect are separate facts. | [Durable human interaction](/en/articles/agent-durable-human-interaction-response-adoption) |
-| **Publication** | A versioned, identifiable, receipt-backed answer a user can retrieve, separate from tool execution success. | [Answer publication (Chinese original)](/articles/019-agent-answer-publication) |
+| **Publication** | A versioned, identifiable, receipt-backed answer a user can retrieve, separate from tool execution success. | [Answer publication](/en/articles/019-agent-answer-publication) |
 | **Handoff** | Transfer of a Child's output and identity to another task owner. Proposed, completed, and adopted states differ. | [Subagent collaboration](/en/articles/agent-subagent-context-specialization) |
 | **Checkpoint / Recovery** | Preserved execution state with original identity and already-observed effects; unknown is not automatically unexecuted. | [Recovery authority](/en/articles/agent-veto-authority-and-run-termination) |
 | **ResultRef / Artifact** | Retrievable references to externalized results or files; the model's context is not the durable original. | [Externalized results](/en/articles/tool-results-outside-model-context) |

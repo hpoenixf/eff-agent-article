@@ -328,7 +328,7 @@ One long background Run can analyze the funds while a short foreground Run answe
 
 <span id="layer-2"></span>
 
-**Go deeper · Entry and multi-run research:** [Entry decisions (Chinese original)](/articles/022-agent-entry-from-intent-to-direct-research) · [Root-owned subagents](/en/articles/agent-subagent-context-specialization) · [Chat alongside background research](/en/articles/agent-background-research-collaborative-experience) · [Model and Runtime responsibilities (Chinese original)](/articles/agent-model-runtime-mcp-skill-boundaries)
+**Go deeper · Entry and multi-run research:** [Entry decisions](/en/articles/022-agent-entry-from-intent-to-direct-research) · [Root-owned subagents](/en/articles/agent-subagent-context-specialization) · [Chat alongside background research](/en/articles/agent-background-research-collaborative-experience) · [Model and Runtime responsibilities (Chinese original)](/articles/agent-model-runtime-mcp-skill-boundaries)
 
 ## Layer two: context and reusable methods
 
@@ -623,7 +623,7 @@ Direct HTML and files created in an isolated workbench still require the origina
 
 <span id="layer-5"></span>
 
-**Go deeper · Sources and numbers:** [Web research (Chinese original)](/articles/021-agent-web-research-from-search-to-deep-reading) · [PDF evidence](/en/articles/024-agent-pdf-from-text-to-evidence) · [Financial definitions and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Python research workbench](/en/articles/agent-python-compute-workbench-evolution)
+**Go deeper · Sources and numbers:** [Web research](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [PDF evidence](/en/articles/024-agent-pdf-from-text-to-evidence) · [Financial definitions and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Python research workbench](/en/articles/agent-python-compute-workbench-evolution)
 
 ## Layer five: answer delivery, human interaction and continuity
 
@@ -822,7 +822,7 @@ As of October 24, 2026, HIO Stages A–D have completed their stated local provi
 
 <span id="layer-6"></span>
 
-**Go deeper · Publication and recovery:** [Publication (Chinese original)](/articles/019-agent-answer-publication) · [Progressive answer coherence](/en/articles/agent-progressive-answer-coherence) · [Background delivery by deadline](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Collaborative background research](/en/articles/agent-background-research-collaborative-experience)
+**Go deeper · Publication and recovery:** [Publication](/en/articles/019-agent-answer-publication) · [Progressive answer coherence](/en/articles/agent-progressive-answer-coherence) · [Background delivery by deadline](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Collaborative background research](/en/articles/agent-background-research-collaborative-experience)
 
 ## Layer six: observing facts and evaluating answers
 

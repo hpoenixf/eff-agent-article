@@ -248,7 +248,7 @@ Research Needs helps avoid confusing tool activity with progress or a polished f
 
 **Related engineering articles**
 
-7. [Why the Entry Point Became Simpler](https://hpoenixf.com/eff-agent-article/articles/022-agent-entry-from-intent-to-direct-research) (Chinese original).
+7. [Why the Entry Point Became Simpler](https://hpoenixf.com/eff-agent-article/en/articles/022-agent-entry-from-intent-to-direct-research).
 8. [A Research Agent Needs More Than Tools: Model, Harness, and Loop](https://hpoenixf.com/eff-agent-article/en/articles/etf-agent-model-harness-research-loop).
 
 *Implementation scope: this article draws on October 2026 code, engineering articles, and scoped verification records. Examples and cost figures are illustrative where indicated. The existence of working-note maintenance, a reviewer, or provider-free checks does not certify real investment-research quality or production effectiveness.*

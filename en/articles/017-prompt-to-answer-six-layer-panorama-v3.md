@@ -131,7 +131,7 @@ Coord consumes a short-interaction allowance and may also publish an independent
 
 A model's “I'll look that up” is only a proposal. **[Model Capability Presentation and Tool Surface](/en/articles/agent-model-capability-presentation-tool-surface)** checks what tools the model actually sees against the admitted execution surface. **[Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input)** validates arguments, dispatches the action and settles an observed receipt. **[MCP Service Connectivity](/en/articles/mcp-host-from-discovery-to-consumption)** owns discovery, connection and protocol transport. Neither protocol discovery nor tool visibility grants new permission.
 
-**[Web Research Reading](/articles/021-agent-web-research-from-search-to-deep-reading)**, **[PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence)**, **[Knowledge Retrieval](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)**, **[Research Material Assets](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)** and **[Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution)** can be assembled as needed. The five B-class financial capabilities are folded into one **Financial Tools** family for the diagram: market evidence, authorized investment facts, deterministic calculation, ledger/confirmation and atomic reporting. **[Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar)** and **[Exact Numeric Operations](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A33)** are other opt-in tools.
+**[Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading)**, **[PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence)**, **[Knowledge Retrieval](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)**, **[Research Material Assets](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)** and **[Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution)** can be assembled as needed. The five B-class financial capabilities are folded into one **Financial Tools** family for the diagram: market evidence, authorized investment facts, deterministic calculation, ledger/confirmation and atomic reporting. **[Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar)** and **[Exact Numeric Operations](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A33)** are other opt-in tools.
 
 Evidence and computation are not a universal fourth stage through which every answer must pass. These are optional capabilities of L4. Research can call them repeatedly; a simple Direct answer can omit them entirely.
 
@@ -154,7 +154,7 @@ When date, coverage or financial methodology is insufficient, Partial or Unknown
 
 ## 6. L5 Publication and Delivery — generating is not committing
 
-**[Answer Publication and Preparation](/articles/019-agent-answer-publication)** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **[Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges)** owns separately authorized downloadable file bytes and revisions. **[Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)** owns ordered SSE events, replay and background notifications.
+**[Answer Publication and Preparation](/en/articles/019-agent-answer-publication)** owns answer previews, revised content, accepted commits and their receipts. Direct, partial Research publications and final reports share this rule. **[Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges)** owns separately authorized downloadable file bytes and revisions. **[Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery)** owns ordered SSE events, replay and background notifications.
 
 Model text, accepted preview, committed body, server delivery event and browser rendering are five distinguishable facts. A well-written candidate is not evidence of user-visible delivery; failure of a later tool does not erase an independently committed earlier answer.
 
@@ -265,7 +265,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A11 | [Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
 | A16 | [Research Results and References](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3, L5 |
 | A17 | [Research Material Assets](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
-| A18 | [Web Research Reading](/articles/021-agent-web-research-from-search-to-deep-reading) (Chinese original) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
+| A18 | [Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
 | A20 | [Knowledge Retrieval](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L3 |
 | A21 | [Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3, L5 |
@@ -273,17 +273,17 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A33 | [Exact Numeric Operations](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A33) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | A36 | [Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2, L3 |
 | B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
-| B02 | [Investment Fact Reading](/articles/portfolio-mcp-readonly-investment-data) (Chinese original) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
+| B02 | [Investment Fact Reading](/en/articles/portfolio-mcp-readonly-investment-data) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
 | B03 | [Deterministic Investment Calculations](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [Investment Ledger and Confirmation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |
-| B05 | [Atomic Report Production](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [Related reading](/articles/portfolio-mcp-readonly-investment-data) (Chinese original) | L3, L5 |
+| B05 | [Atomic Report Production](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [Related reading](/en/articles/portfolio-mcp-readonly-investment-data) | L3, L5 |
 
 ### L5 · Publication and Delivery
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
 | A22 | [Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
-| A23 | [Answer Publication and Preparation](/articles/019-agent-answer-publication) (Chinese original) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
+| A23 | [Answer Publication and Preparation](/en/articles/019-agent-answer-publication) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
 | A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
 | A40 | [User Answer Feedback Records](/en/articles/agent-feedback-facts-not-automatic-learning) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |
 
