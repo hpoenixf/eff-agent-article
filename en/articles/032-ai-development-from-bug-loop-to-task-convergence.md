@@ -5,7 +5,7 @@ description: "A retrospective on source-proof loss, actual Python recovery, task
 
 # When an Agent Builds Another Agent, Why Does Fixing Many Bugs Still Leave Real Research Unfinished?
 
-> **Reading path:** AI Agent Engineering Practice, with connections to systems architecture. This article concerns convergence in complex development and acceptance tasks, rather than rating methodology or a single Runtime module.
+> **Two real evidence windows—not one success story.** An investment study still lacked a complete HTML deliverable, while a separate Python exercise corrected errors and proved an exported file could be reopened. The article shows how to report those outcomes without calling a local pass an end-to-end success.
 
 After some time building ETF Agent, we faced a frustrating reality: the architecture kept getting more complete, local tests kept turning green, yet a real investment research task entrusted to the agent still did not finish.
 
@@ -90,7 +90,7 @@ We increasingly apply distinct responsibilities:
 
 These are not documents for documentation's sake. They keep the next Coding Agent from guessing what happened last time or repeating a path that has already been rejected.
 
-The related articles on [Spec and Evidence](/articles/026-agent-spec-evidence-workflow) and [on-demand engineering knowledge](/articles/027-agent-context-document-history) explore those subjects in depth; this is not another Spec tutorial. Their complete English editions were not available in this batch.
+The corresponding English articles on [Spec and Evidence](026-agent-spec-evidence-workflow.md) and [on-demand engineering knowledge](027-agent-context-document-history.md) explain those tools in detail. This retrospective instead focuses on whether a repair reached the original user task.
 
 ## 6. Three Different Measures of Progress
 
@@ -106,7 +106,7 @@ These outcomes are not interchangeable. In particular, a report manually complet
 
 Within the evidence window ending October 17, 2026, complete autonomous research, independent variants and content quality still had outstanding work. We did not have comparable long-term engineering-cost or overall success-rate measurements and cannot claim quantified savings.
 
-But the working principle became clearer:
+The evidence suggests a more testable working rule: prioritize the effect missing from the original user task instead of counting repairs as progress.
 
 This is [principle 8, “Internal success is not user-task success”](/en/principles#principle-8) applied to engineering: bug counts, local passes and actual delivery are different outcomes. [Method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) calls for evidence aimed at the missing condition in the original task, not an indiscriminate full evaluation after every small change.
 
