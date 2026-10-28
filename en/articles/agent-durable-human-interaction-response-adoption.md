@@ -85,6 +85,31 @@ Child consultation has an especially easy-to-miss distinction: a summary of the 
 
 Tests therefore need to inspect **the next real model input and the actual consumer**, and verify that old operations were not dispatched twice. A test that checks only “HTTP reply accepted,” “one model call,” or “Run completed” misses the causal handoff.
 
+### The Public Slice: Return One Ordinary Reply to Its Original Call
+
+The [fixed public v0.13.0 implementation of Open ETF Agent](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278) keeps the smallest useful handoff: `ask_response` asks one question, Session persists its identity and releases the execution lease, another process receives a reply, and an explicit `resume` lets the original Run adopt it. This does not reproduce the full non-blocking HIO, Human Park, approvals or cross-account inbox described above. Receiving a reply does not automatically start research.
+
+The synthetic example asks which label the report should preserve verbatim. Use Node 26.8.1–26.x (the recorded example ran on 26.11.1). After installing dependencies as described in [that fixed version’s README](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/README.md), use a new local directory:
+
+```bash
+npm run session -- start --session runs/article-reply --case durable-response
+# Replace the placeholders with the original runId and questionId printed above
+npm run session -- question --session runs/article-reply --run RUN_ID --question QUESTION_ID
+npm run session -- respond --session runs/article-reply --run RUN_ID --question QUESTION_ID --response reply-1 --text 'Synthetic label: blue'
+npm run session -- resume --session runs/article-reply --run RUN_ID
+npm run session -- response-status --session runs/article-reply --run RUN_ID
+```
+
+The first command returns `awaiting-response`: the question is saved and the execution process can exit. `respond` records only the original reply, yielding `received-not-adopted`. The reply becomes the original `ask_response` tool result only when the original Run's `resume` claims the lease, validates the original checkpoint and commits adoption. The example's next actual Gateway input and final report preserve `Synthetic label: blue`. The report uses the existing file-delivery path; the completed result's `directory` and report receipt locate the original file.
+
+A counterexample makes the boundary useful: if the process exits after adoption and after reserving the next model request, recovery may return `MODEL_OUTCOME_UNKNOWN` rather than dispatching that request again. Saving the answer does not guarantee that research finishes; an unknown outcome does not authorize automatic retry.
+
+This slice supports one ordinary question and one accepted reply per Run. Complete the interaction within the original 300-second deadline; waiting resets neither budgets nor the deadline. The same reply ID and original content return the existing receipt, while conflicting content cannot overwrite it. A reply is untrusted input, not a permission grant or Memory write intent. The Gateway is scripted; SQLite handoff, separate processes and original-file reads really execute, without establishing whether a real model asks appropriate questions.
+
+The explicit response profile uses Session v3, while default profiles remain v2; there is no in-place migration. Finish active old Runs in their original fixed version. Local Session write access is the trust boundary here, not internet authentication.
+
+Compare the [reply contract](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/human-response.mjs), [CLI](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/session-cli.mjs) and [original-call adoption tests](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/test/ordinary-response.test.mjs). The [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) remains the ongoing entry point.
+
 ## 5. Questions, Approvals, and Permission Requests Are Different
 
 “Use the CSI 300 as the benchmark” is research input. “Allow this private document to be read” is a permission request. “Approve sharing this particular artifact with this recipient” is an operation approval. They can use the same durable inbox, but their effects belong to different original Owners.

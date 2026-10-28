@@ -85,6 +85,31 @@ Child 的咨询还有一个特别容易漏掉的细节：Main 解释了用户回
 
 因此，测试不能只断言“回复成功”“模型调用一次”或“最终 Run 已完成”，还要检查**下一次实际模型输入和实际消费者**，以及原操作是否被重复派发。这个问题和普通网页聊天中的 loading 状态无关，是持久运行的因果身份问题。
 
+### 公开提炼：先让一个普通回复回到原调用
+
+[Open ETF Agent v0.13.0 的固定公开实现](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278)先保留这个问题里最小的一段：`ask_response` 提出一个问题，Session 保存问题身份后让出执行租约；另一进程接纳回复，再由显式 `resume` 让原 Run 采用它。这里没有复刻上文完整的非阻塞 HIO、Human Park、审批或跨账号待办，也不会收到回复就自动启动研究。
+
+合成例子问的是“报告应原样保留哪个标签？”。使用 Node 26.8.1–26.x（本例验证环境为 26.11.1），按[该固定版本 README](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/README.zh-CN.md)安装依赖后，使用一个新的本地目录运行：
+
+```bash
+npm run session -- start --session runs/article-reply --case durable-response
+# 用上一条输出的原 runId 和 questionId 替换占位符
+npm run session -- question --session runs/article-reply --run RUN_ID --question QUESTION_ID
+npm run session -- respond --session runs/article-reply --run RUN_ID --question QUESTION_ID --response reply-1 --text 'Synthetic label: blue'
+npm run session -- resume --session runs/article-reply --run RUN_ID
+npm run session -- response-status --session runs/article-reply --run RUN_ID
+```
+
+第一条命令返回 `awaiting-response`，问题已保存，执行进程可以退出。`respond` 只记录原回复，状态是 `received-not-adopted`；直到原 Run 的 `resume` 获得租约、校验原检查点并提交采用，回复才成为原 `ask_response` 的工具结果。示例的下一次实际 Gateway 输入和最终报告都保留 `Synthetic label: blue`，报告仍走已有文件交付路径；完成结果中的 `directory` 与报告回执让读者找到原文件。
+
+这条分界也解释了一个负例：如果进程在采用之后、下一模型请求已经保留额度时退出，恢复可能得到 `MODEL_OUTCOME_UNKNOWN`，而不是再次派发请求。保存了回答，不等于后续研究一定完成；“未知”也不是自动重试的许可。
+
+此例只支持每 Run 一个普通问题和一个接纳的回复。操作需在原有 300 秒截止内完成，等待不重置预算或截止时间；同一回复 ID 和原内容可读回既有回执，冲突内容不会覆盖它。回复是普通不可信输入，不产生授权或 Memory 写入意图。示例用脚本 Gateway，SQLite 交接、独立进程与原文件读取真实执行，并不证明真实模型会提出合适的问题。
+
+新的显式回复 profile 使用 Session v3，旧默认 profile 仍为 v2，不做原地迁移。尚在执行的旧 Run 应留在原固定版本完成；本地 Session 写权限也是这里的信任边界，不是互联网身份认证。
+
+对应的[回复合同](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/human-response.mjs)、[CLI](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/session-cli.mjs)和[原调用采用的测试](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/test/ordinary-response.test.mjs)可以对照阅读；日常使用仍从[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。
+
 ## 五、把询问、审批与权限申请分开
 
 “按沪深300比较”是研究输入；“允许读取这份私有文件”是权限申请；“批准把某份文件分享给指定接收者”是操作审批。这三种交互都能使用同一持久待办机制，却必须由不同的真实效果 Owner 处理。
