@@ -1,21 +1,19 @@
 ---
-title: "ETF Agent 六层调用全景 V3 · 从一次提问到答案可见"
+title: "ETF Agent 六层调用全景 · 从一次提问到答案可见"
 description: "沿用户请求理解六层处理环节、Main/Subagent、多轮工具调用、Direct/Research/Coord、异步交付，以及跨层 Owner 的真实职责。"
 ---
 
-# 从一次提问到答案可见：ETF Agent 六层调用全景 · V3
+# 从一次提问到答案可见：ETF Agent 六层调用全景
 
-> **架构阅读版本：2026-10-25；2026-10-27 Owner 更新。** 本文依据 `etf-agent` 的六层 V2、2026-10-24 的 43 项历史 Owner 清单（现为 47 项）及当前 `main` 中的 Native Runtime、并发会话与交付契约重写。它是一张**用户请求的阅读地图**，不是六个物理进程、严格单向调用栈，也不改变任何 Owner 的授权和事实归属。受控验证、真实模型质量和生产默认启用分别判断。
->
-> **版本保留：** [V2：从一次提问到持续协作](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [V1：一句“帮我看看组合”](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [原版图文存档](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
+**六层的价值，不是把模型套进一条固定流水线，而是分清每次交接：谁提出工作、谁判断下一步、谁真正执行，以及哪份结果已经交到用户手中。** 本文沿一次请求解释当前实现。六层是阅读地图，不是六个进程；跨层参与也不会改变各模块对权限、事实和效果的责任。
 
 ## 一、一次用户提问，为什么需要六个环节
 
-用户在聊天框输入：“分析我的基金组合，看看行业集中度和汇率风险。”
+下面用一个教学场景贯穿主链：用户在聊天框输入“分析我的基金组合，看看行业集中度和汇率风险”。它用于解释调用关系，不是一份投资结论或真实运行成绩。
 
 从界面上看，只发生了一件事：发送消息，然后收到回答。从系统内部看，至少要解决六个不同问题：**工作由什么输入或事件触发；该触发归属哪个用户与 Run、允许使用什么上下文；模型准备如何处理；是否需要调用工具；哪些内容真正获准发布；用户界面如何显示或恢复它。**
 
-早期的六层文章按架构能力罗列模块，后来新增的后台 Research、Coord、Subagent、HIO、模型路由和异步交付很难放入原来的顺序，Subagent 甚至被挤成入口层的一小节。V3 改用“输入 URL 到页面渲染”式的讲法：**沿一次请求前进，再对有分支和回环的地方局部放大。**
+读这张图，可以像追踪“输入 URL 到页面渲染”一样：**先沿请求前进，再放大有分支和回环的地方。** 普通概念问题可以直接回答，资料不足时进入研究；后台研究还在运行时，新消息又可能只是补充条件。这些情况共用底层能力，却不是同一条固定路径。
 
 <PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
 <div class="v3-owner-map-scroll">
@@ -53,7 +51,9 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 | **定时 / 周期 / 条件任务** | 已确认的 Schedule / Task 机制 | 原 Task、Occurrence 与触发事实 |
 | **关注主题（Follow）** | 已实现的关注字符串与每日研究选择器 | 用户明确选择的主题，供获准研究使用 |
 
-注意最后一项的区别：**保存关注主题并不自动触发无人值守监控**。订阅后自动生成每日研究报告仍是独立 MVP 计划，不能把“有 Follow 输入”写成“自动推送已上线”。同理，周报有内容生产能力并不代表每项周报都已经获准按时定时运行。
+**保存关注主题并不自动触发无人值守监控。** 已保存报告的定位和首页回读已有局部能力，订阅后持续生成、完整摘要和通知体验尚不能作为已交付产品来承诺。周报能生成，也不代表每一份周报都已经获准定时运行。
+
+已确认的周期任务则有明确边界：中断后只在允许的宽限范围内接纳最近一期，不把所有错过的日期补成任务队列。是否完成研究、是否赶上约定时点、是否送出通知，分别读取原记录；时间过去本身不能补造成功。
 
 非聊天入口与聊天入口最终复用原 Conversation/Task、Run、授权、Budget、Main/Child 和 Publication 机制。L1 的入口不同，并不产生第二套 Runtime。
 
@@ -65,9 +65,13 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 每次模型调用还需要准备材料。**[上下文投影与拟合](/articles/tool-results-outside-model-context)**组装本轮历史、已获准工具结果、来源身份与容量限制；**[长期记忆](/articles/026-agent-memory-forget-durable-effects)**提供受控的偏好或回忆；**[Main 上下文压缩](/articles/agent-main-run-context-compaction)**决定哪些已结算历史可生成摘要、采纳并恢复；**[行动提醒协调](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)**把资源或上下文压力转成不具有授权效果的建议。四者会相遇，但负责的事实不同。
 
-**跨 Run 会话历史压缩**则为新 Run 消费已完成的旧问答提供有来源的有损材料，保留用户原文，不能与上述同 Run 的 Checkpoint 混同；详见[A41 独立机制文](/articles/agent-conversation-history-compaction-source-boundaries)。
+**跨 Run 会话历史压缩**为新 Run 提供有来源的有损问答材料，保留用户原文；摘要必须对得回原问答，不能创造新的证据或权限。它与同 Run 的 Main 压缩不同，详见[A41 独立机制文](/articles/agent-conversation-history-compaction-source-boundaries)。
+
+用户明确引用一份已提交研究时，新 Run 还可以绑定那份正文的确切版本及获准来源，而不是从整段聊天猜“上一份报告”。引用不可读或不合格，只省略对应材料，不阻断独立合法回答；旧研究也不会因此重新变成当前任务的执行状态。
 
 方法也在这里装配：**[Skill 方法与资源](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)**提供版本化研究方法，**[插件准入与生命周期](/articles/020-agent-extension-host-smartphone)**约束扩展包的激活和冻结版本，**[生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution)**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
+
+**[个人专家与组合](/articles/agent-custom-expert-from-prompt-to-recovery)**也在这里准备。用户可保存个人专家的方法与偏好；新 Run 固定当时采用的版本，Main 先看到简短目录，选中的 Child 再接收对应方法。偏好的工具和 Skill 只是建议，不增加权限；显式预加载仍受资源读取和上下文容量约束。
 
 L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新投影上下文、读取当前合格结果或触发压缩，**但不会因此重新创建 Run 或放大原授权**。
 
@@ -87,11 +91,13 @@ L2 不只发生一次。进入 Research 的下一次 ModelTurn，仍可能重新
 
 ### 4.2 Research：Main 与 Subagent 是执行主角
 
-用户要求结合真实持仓与基金报告时，Main 在 Native Loop 中选择下一步：取数、读资料、复算、要求 Child 探索、合成结论，或提出结束。循环的底层执行语义仍由已有 `AgentTurn → ActionRuntime → CompletionGate` 承担，不需要新造一套 Supervisor 或通用 Workflow。
+用户要求结合真实持仓与基金报告时，Main 在研究循环中选择下一步：取数、读资料、复算、要求 Child 探索、合成结论，或提出结束。模型决定研究方向，原运行时负责执行和结算；不需要为此再造一套 Supervisor 或通用 Workflow。
 
 **[Child 执行生命周期](/articles/agent-subagent-context-specialization)**不是入口的小功能。Subagent 拥有自己的局部执行、重试、取消、结果身份和 Handoff；但继续共享 Root Run 的授权、资源与可靠恢复事实，不能因为独立执行就建立第二套投资账本或公共发布权。Main 消费 Child 的真实结果，负责综合和最终面向用户的正文。
 
 Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机制；是否值得委派由 Main 按任务判断。Child 读过某份原文、Main 只看过它提交的摘要，代表不同的证据消费事实，不可混用。
+
+Child 也不是只能照着最初任务执行。发现假设不成立时，它可以在阶段结果中修订后续任务、方法提示和协作关系说明，下一轮沿新描述继续。已发送请求、用户原文、权限和预算不会被改写；新增材料仍受原来源检查。关系说明也不会自动赋予它读取或控制另一个 Child 的能力。
 
 **放大图：研究为什么是一个回环，而不是从 L1 到 L6 的单向流水线**
 
@@ -101,9 +107,7 @@ Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机
 
 主循环是 **Main 决策 → Host 执行 → 工具回执／研究结果 → 新一轮 Main 决策**。Main 可以在任何合规的研究时点委派 Child；Child 只提交本地结果和引用，Main 再决定是否补查或综合。**一次循环结束不代表整个 Run 已完成**，而在循环尚未结束时，已经成立的部分正文也可以经 Publication 独立提交。
 
-图底部三条路径并不顺序执行：**Publication** 管内容版本，**Recovery/HIO** 管停放与原身份接续，**观测与评估** 用独立证据解释错误。它们不能因为触及同一个 Run 就互相签发权限或重写事实。Direct 仍要调用模型 Gateway 和发布系统，只跳过研究工具。
-
-这与 V2 强调的 Native Loop 是同一个架构选择；V3 只是把 Context、Agent、Tool、Result、Publication 和恢复的实际交接重新标到当前六层。
+图底部三条路径并不顺序执行：**Publication** 管内容版本，**Recovery/HIO** 区分合法等待唤醒与中断结算，**观测与评估**用独立证据解释错误。它们不能因为触及同一个 Run 就互相签发权限或重写事实。Direct 仍要调用模型 Gateway 和发布系统，只跳过研究工具。
 
 ### 4.2.1 研究如何继续、改道、等待与结束
 
@@ -113,19 +117,21 @@ Web/PDF/Python 类型的 Child 和投资视角 Child 可以共用这套执行机
 | --- | --- | --- |
 | **回合内：观察驱动** | Main 看到 Host 已结算的工具结果后，决定再查、计算、委派 Child 或回答 | 工具返回成功不等于原问题已解决 |
 | **同一 Run：研究判断** | Main 可以维护、修订或重新打开工作问题，发现反例时改变研究方向 | `researchNeeds` 是模型的工作笔记，不是证据覆盖、完成或发布硬门 |
-| **跨时间：安全接续** | 原 Recovery/Control/HIO 依据持久身份停放、唤醒、纠偏；终态后由显式 Continue 建立关联的新 Run | 旧回执、权限、预算和已经发布的正文不能被重新签发为新事实 |
+| **跨时间：等待与继续** | 合法的人机/Child 等待由原控制通道唤醒；普通执行者丢失则结算中断，用户显式继续时另建关联 Run | 保存了回执，不等于可以在新进程复活旧执行图 |
 
-例如，用户询问“我的基金行业集中度是否变化”。检索结果中一篇**今天重新转载**的基金报告可能对应数月前的持仓截止日。Main 应区分资料转载日、实际披露日与数据 `as-of`，决定是否补查原始披露、保留旧数据并注明范围，或者坦诚输出尚无法确认的变化；不能因为搜到了“最新文章”就生成“最新持仓”的结论。时间来源与市场日历有独立的 [A36 时间语义](/articles/agent-temporal-semantics-market-calendar) Owner，其普通真实研究验收尚未完成，不应把这种理想研究行为写成已验证的全自动正确性。
+例如，用户询问“我的基金行业集中度是否变化”。检索命中一篇**今天重新转载**的基金报告，其持仓截止日可能在数月前。Main 应区分转载日、披露日和数据 `as-of`，再决定补查原文、使用标明时点的历史数据，或说明无法确认变化。搜到了“最新文章”，不等于拿到了“最新持仓”。
+
+这不是完全缺少时间基础能力。当前 **[A36 时间语义](/articles/agent-temporal-semantics-market-calendar)**已区分当前 UTC、不可变任务锚点和用户本地日期；时区按本次请求、账户偏好、设备提示依次取有效值，无可信来源就保留未知。账户保存和重启后的原请求重放已有真实持久化验证。美股日历也已有针对 **2026 年 Nasdaq 常规时段**的官方年历读取和有界解释：可以区分常规开闭市、休市和提前收盘，但**年历不证明市场实际开盘，也不覆盖临时紧急变更，更不代表行情数据已经更新**。普通真实模型研究实际消费日历的端到端验收仍未完成，不能把这套机制写成全自动时间判断已经可靠。
 
 结束也是两个判断：**Main** 负责回答是否足够、需要哪些反证及不确定性解释；**CompletionGate/Publication** 处理合法的完成、资源耗尽、部分正文及实际发布。Run 终态不认证金融分析质量，`resolved` 也不等于任务已完成。Child、Reviewer 和多空视角可以在需要时参与，但不是每项研究都必经的外围循环。
 
-这三个时间尺度的真实机制、一个失败示例以及当前验收缺口，另见[投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)。
+研究循环怎样让观察改变下一步，另见[投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](/articles/etf-agent-model-harness-research-loop)。
 
 ### 4.3 Coord：协调原 Run，不是第三套 Agent
 
 当同一个 Conversation 已有后台 Research，用户说“给刚才那项研究补上汇率因素”，普通新消息可以走 Coord。它必须关联合法的目标 Run，提出 `inspect`、`correct` 或 `stop` 等有界动作，再由原 **[持久控制事件](/articles/agent-control-events-durable-owner-adoption)**、Correction、Continue 或终结 Owner 接纳真正的效果。模糊目标只澄清，不靠最新消息猜对象。
 
-当前初始并发配置下，**没有活动后台 Research 时普通 Entry 可选 Direct/Research；有活动后台 Research 时普通 Entry 可选 Direct/Coord**。这只是经准入的动作集合，而不是先按 `hasBackground` 做一轮固定分类。显式 Research/Deep 可跳过普通分类，但仍受后台容量、Scope 总额、Provider 租约和原预算约束。
+当前默认容量配置下，**没有活动后台 Research 时普通 Entry 可选 Direct/Research；有活动后台 Research 时普通 Entry 可选 Direct/Coord**。这只是经准入的动作集合，而不是先按 `hasBackground` 做一轮固定分类。显式 Research/Deep 可跳过普通分类，但仍受后台容量、Scope 总额、Provider 租约和原预算约束。
 
 Coord 消耗短交互资格；它可以独立回答问题，也可能请求调整原研究。**一个 Coord 消息接受了，不等于原 Research 已完成纠偏。** 只有目标 Owner 的实际回执能说明效果。
 
@@ -135,7 +141,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 读研究资料时，可复用 **[Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading)、[PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence)、[知识检索](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)、[研究资料资产](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)、[隔离分析](/articles/agent-python-compute-workbench-evolution)**。基金相关的数据与计算则通过“金融工具”族提供：市场证据采集、投资事实读取、确定性投资计算、投资账本与确认、原子报告生产。财务或时间敏感任务还会使用时间语义与市场 Session 解释，必要时使用精确数值运算。
 
-因此，V3 不再设一层通用必经的“证据与计算”。它们是**L4 里可选、可组合的研究与领域工具能力**。普通 Direct 完全可以跳过；复杂投研可以反复取数、重读和计算。
+因此，不应把“证据与计算”当作每次请求的必经关卡。它们是**L4 里可选、可组合的研究与领域工具能力**。普通 Direct 完全可以跳过；复杂投研可以反复取数、重读和计算。
 
 但有两条责任不能隐藏：第一，**[研究结果与引用管理](/articles/tool-results-outside-model-context)**保留 ResultRef、版本和来源/派生谱系，不能因为模型改写摘要就把新断言变成原始事实；第二，**[投资账本与确认](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04)**的真实写入仍由业务 Owner 和用户确认要求控制，不能把模型建议当成已获批准的交易效果。
 
@@ -162,12 +168,13 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 后台研究尤其需要这些区分。Research 可以不占住当前聊天输入，在另一个 Run 中持续执行、阶段性发布、到约定时点报告真实进度，最后提交 Final。`at` 和 `by` 的时间承诺、Research 完成时刻与消息通知时刻是不同事实；通知不会为了重发而重新跑一次研究。
 
-### 6.1 一次“继续”，可能是三件不同的事
+### 6.1 一次“继续”，要先分清哪种情况
 
 | 用户看到的情形 | 系统应该怎样处理 | 不允许偷换成什么 |
 | --- | --- | --- |
 | **Research 仍在后台运行** | 原 Run 继续工作，按需发布 Partial 或最终正文；新的短问有独立 Run | 一条新消息自动取消旧研究，或复用同一个全局 `busy` |
-| **Run 因真实等待而安全停放** | 经原 Control/Recovery 的有效 Claim 与 Fence 唤醒，沿原预算、授权和已结算回执继续 | 重新派发已经完成的工具，或刷新截止时间获得新额度 |
+| **Run 因人机或 Child 交接而合法停放** | 经原控制通道接纳的唤醒恢复有限的当前格式状态，保留原预算、授权和回执 | 把任意进程重启都解释成合法唤醒，或刷新截止时间获得新额度 |
+| **普通研究失去原执行者** | 原 Owner 核验租约与 fence 后结算中断，保留并回读已提交正文 | 在新进程自动重建旧执行图，再派发旧模型或工具请求 |
 | **原 Run 已经终态，用户显式要求继续** | Conversation/Continue 建立有来源关联的新 Run，依法继承可继承的上下文与授权 | 把新一轮研究伪装成原 Run 从未结束 |
 
 这也解释了为什么 **Run 结束、正文已提交、用户被通知、浏览器已经显示** 必须分成不同事实。观测应回到它们各自的真实回执，而不是依赖一条 `completed` 或最后一个 Trace Span。
@@ -180,7 +187,11 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 浏览器显示 `answer-preview` 不等于内容已经耐久保存；服务端说“事件已发送”也不等于浏览器完成绘制，更不等于用户真正阅读。L5 负责可交付的事实，L6 负责客户端实际呈现，两者分开是必要的。
 
-## 八、再用三次用户输入，走一遍真实分支
+界面也能把“选了谁”和“谁真的参与”分开：用户可搜索内置与个人专家，精确选择一位，或应用可编辑的多专家组合建议。协作区展示真正参与的 Child、公开 Peer 交流和受管 Reviewer 贡献，刷新后仍对应原 Run 与专家版本。选择不等于已调用，组合不是强制全员执行的工作流。
+
+并非所有阅读都要重新研究。获准的组合首页可直接显示原报告的可配置组合总额、资产分组、估算与数据缺口，以及同份报告中的已确认策略版本；打开页面不会启动模型或投资写入。报告时点和未知状态必须保留，页面不能把旧快照包装成实时账户，也不能把策略展示说成新的投资批准。
+
+## 八、用三次用户输入，走一遍交互分支
 
 用户先说：“分析我的基金组合行业集中度，给出来源。”并显式开启后台研究。L1 形成任务输入，L2 认证并建立 Research A 和合法 grant；L3 Main 决定研究策略，可能委派 PDF Child 核对报告或 Python Child 做数据转换；L4 返回工具真实回执与来源；L5 可以先发布部分材料，再发布最终报告；L6 用 A 的身份显示研究卡片。
 
@@ -188,7 +199,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 再随后用户说：“给刚才的 A 加上汇率风险。”新的短交互 C 经 L3 判断为 Coord，仅向明确的目标 Run 提出纠偏；原控制 Owner 接纳后，A 在合法安全点消费它，继续已有预算和恢复身份。C 不自己生成第二份金融分析账本。若 A 此时已结束，Coord 不能装作成功注入，用户可以再选择显式 Continue 建立关联的新 Run。
 
-这套并发交互目前有受控工程路径，但配置开关**默认关闭**；初始短交互、后台研究容量配置为 3/1，仍受 Scope 总上限和 Provider 容量共同约束。支持多个目标身份的结构，不等于多后台真实执行已经通过生产验收。
+这套后台研究、短问、原目标纠偏与分开回读的路径，已有包含真实模型、持久 History 和浏览器的限定场景验证；但并发会话配置仍**默认关闭**。默认短交互/后台容量为 3/1，同时受 Scope 总额、交互实例容量和 Provider 容量约束。实例限制不是集群总限额，独立定时 worker 与控制唤醒另有各自的容量约束；这些局部验证也不等于生产部署或金融分析质量已经通过。
 
 ## 九、纵向能力柱为什么允许跨层，甚至断裂
 
@@ -202,9 +213,9 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 十、Recovery、治理、观测为什么没有第七、第八层
 
-**Recovery** 不是用户提交后必经的独立工序。它在当前 Native Runtime 中持有 durable continuation、sealed ModelTurn、回执及 lease/fence 事实；进程丢失后沿原身份恢复，已结算工具调用和 Publication 不得再次执行。对应的 Run 继续/终结、资源、授权、Child、发布与历史交付 Owner 仍保持各自职责，不再新增包办一切的 Recovery Manager。
+**Recovery 首先保住事实，不承诺复活任意执行。** 浏览器重连只等待或重放已有结果；普通 Root 失去原执行者时，系统核验租约与 fence，按已保存正文结算为中断后的部分结果或失败，不在新进程自动重建旧执行图。已提交回执、用量和未知外部效果继续保留。只有经原控制通道接纳的人机/Child 唤醒，才使用保留下来的有限当前格式状态；用户显式继续则建立关联的新 Run，复用合格材料而不是旧执行权限。各项效果仍由原控制、资源、授权、Child、发布和历史 Owner 负责。
 
-**Authorization、Run Budget、Provider Capacity、内容信任、HIO** 分别在多个环节提供约束或交接，而不是集中到单独的“安全层”。其中 HIO 已完成限定本地 Stage A–D 机制关闭和归档，但生产 Human Park 默认关闭；“模型发问—用户答复—原研究继续”必须与真正的 Grant、Effect 以及人类审批区分。
+**Authorization、Run Budget、Provider Capacity、内容信任、HIO**分别在多个环节提供约束或交接，而不是集中到一个“安全层”。HIO 已实现请求、认证回复及向原消费者的交接，生产 Human Park 仍默认关闭；“模型发问—用户答复”也不自动等于来源获准或业务效果已批准。
 
 **研究调用证据留存与回读、Langfuse 和质量评估**属于跨层观测与离线反馈。Trace 可以帮助定位哪次模型请求没看到工具结果，评估可以复核真实发布的答案是否符合原题；它们不承担发布、授权、终结或业务真值的决定权。请求成功、工具返回、正文提交和金融结论正确，也不应合并为一个成功率。
 
@@ -214,13 +225,13 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 它**不能代替**完整 Owner 图谱、源码调用关系、部署拓扑、精确的执行时序或线上质量报告。为保持可读性，主图将相近能力放进纵向能力柱，将五项 B 类金融模块与研究工具放在同一列，同时保留每个模块自己的实线标签；完整名字与编号由权威清单索引，实际授权与事实不因视觉聚合改变。
 
-V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真实演进。**V3 不否定它们，而是换一张更容易解释的地图：六个处理环节（多种任务触发汇入身份与上下文）、一处 Agent/Tool 多轮回环、三个按条件可选的交互分支，以及可以贯穿多层的能力。**
+设计和排查时，先问三件事：**模型此刻拿到了什么，哪个 Owner 真实接纳了效果，用户能回读哪份结果。** 这比沿六层各找一个“成功”更有用：工具成功不证明研究充分，进程重启不授予旧执行权，正文生成也不等于交付完成。
 
 ---
 
 ## 附录：能力 Owner 与六层的主归属索引 {#capability-owner-links}
 
-> 正文与主图使用模块名称；编号仅供查阅 [权威 Owner 清单](https://github.com/hpoenixf/etf-agent/blob/main/doc/agent-backend/system-map/module-owners.md) 和代码。下表的“主层”不表示只在该层运行。
+> 正文与主图使用模块名称；编号便于定位 [模块详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html)。下表的“主层”不表示只在该层运行。
 
 
 ### L1 · 任务输入与触发
@@ -304,4 +315,4 @@ V1 和 V2 记录了研究架构从单次执行走向并发与持续协作的真�
 
 **贯穿全景的两条判断：** [模型负责语义、系统负责执行事实](/principles#principle-1)用来区分模型的研究提议与 Host 的授权和回执；[用户实际收到的结果才是任务终点](/principles#principle-8)要求把模型生成、正文提交和浏览器可见交付分别核验。六层是读懂交接的地图，而不是任何一层的自我成功声明。
 
-[旧版 V2](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama) · [V1 历史存档](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Owner 图册](https://hpoenixf.com/eff-agent-article/gallery) · [技术文章仓库（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)
+[Owner 图册](https://hpoenixf.com/eff-agent-article/gallery) · [技术文章仓库（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

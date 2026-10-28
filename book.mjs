@@ -125,7 +125,7 @@ export const collections = [
         "items": [
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["open-etf-agent-v010-system-design", "从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段"],
-          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景 V3：从提问到答案可见"],
+          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"]

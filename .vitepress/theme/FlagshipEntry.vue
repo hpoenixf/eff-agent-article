@@ -9,7 +9,7 @@ const isEnglish = computed(() => lang.value.startsWith('en'))
 const labels = computed(() => isEnglish.value ? {
   eyebrow: 'ESSENTIAL READING · START HERE',
   panoramaIndex: '01 / THE SYSTEM MAP',
-  panoramaTitle: 'Six-layer request lifecycle V3',
+  panoramaTitle: 'Six-layer request lifecycle',
   panoramaText: 'Follow a question through admission, context, Main and subagents, optional tools, Publication and the user interface.',
   panoramaAction: 'Read the complete architecture →',
   principlesIndex: '02 / THE DECISION MAP',
@@ -20,7 +20,7 @@ const labels = computed(() => isEnglish.value ? {
 } : {
   eyebrow: 'START HERE · 两篇首要必读',
   panoramaIndex: '01 / 系统运行地图',
-  panoramaTitle: '六层调用全景 V3',
+  panoramaTitle: '六层调用全景',
   panoramaText: '沿一次请求看接入、上下文、Main 与子代理、可选工具、发布和界面渲染。',
   panoramaAction: '完整阅读六层全景 →',
   principlesIndex: '02 / 架构判断地图',

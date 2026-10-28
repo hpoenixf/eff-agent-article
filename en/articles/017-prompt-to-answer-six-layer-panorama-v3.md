@@ -1,19 +1,17 @@
 ---
-title: "ETF Agent Six-Layer Request Lifecycle V3 · From Prompt to Visible Answer"
+title: "ETF Agent Six-Layer Request Lifecycle · From Prompt to Visible Answer"
 description: "Follow one user request through Main/subagents, model and tools, Direct/Research/Coord, asynchronous delivery and cross-layer capability owners."
 ---
 
-# From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle · V3
+# From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle
 
-> **Architecture snapshot: October 25, 2026.** This edition reinterprets V2 against the 43 capability owners reviewed on October 24 (47 currently) (47 as of October 27) and the Native Runtime, concurrent conversation and delivery contracts on main. It is a **reader's map of a request**, not six processes, a one-way stack or a new authority hierarchy. Bounded engineering verification, real-model research quality and production enablement are separate facts.
->
-> **Earlier editions remain intact:** [V2: continuous collaboration](/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1: original Chinese overview](/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Original illustrated archive](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/v1.html)
+**The six stages are useful because they separate handoffs—not because they force the model through a fixed pipeline.** Who requested the work, who chooses the next step, who performs an effect, and which result can the user actually read? This article follows the current implementation. The stages are a reading map, not six processes, and participation across stages does not transfer authority over permissions, facts or effects.
 
 ## 1. One user question, six processing concerns
 
-A user asks: “Analyze the industry concentration and currency exposure of my fund portfolio.” The UI appears to do one thing: send, then display an answer. Internally, the system must separately establish **which input or scheduled event initiated work; whose Run and eligible context it belongs to; what the model decides; which tools or effects must execute; which answer revision was accepted and delivered; and what the client actually rendered**.
+Consider a teaching example: a user asks, “Analyze the industry concentration and currency exposure of my fund portfolio.” This illustrates the call relationships, not an investment conclusion or a recorded successful run. The UI appears to do one thing: send, then display an answer. Internally, the system must separately establish **which input or event initiated work; whose Run and eligible context it belongs to; what the model decides; which tools or effects execute; which answer revision was accepted and delivered; and what the client rendered**.
 
-The earlier six-layer story grouped architectural capabilities. Background Research, Coord, subagents, HIO, model routing and timed delivery made that structure harder to follow, and reduced subagents to an aside in the entry stage. V3 instead follows the familiar story of entering a URL and tracing the result to the browser. Branches and loops are enlarged only where needed.
+Read this like the journey from entering a URL to seeing a rendered page: **follow the request first, then zoom into branches and loops.** A concept question may need a direct answer; missing information may require research; a new message during background work may merely add a constraint. These cases share capabilities without following one fixed route.
 
 <PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 47 clickable capability owners">
 <div class="v3-owner-map-scroll">
@@ -51,7 +49,9 @@ L1 is **where a unit of Agent work originates**, not an authentication layer. So
 | **Scheduled, recurring or qualified conditional task** | Original Schedule / Task owner | Task identity, occurrence and accepted trigger facts |
 | **Followed topics** | Saved Follow strings and daily research selection | Explicit topic preferences as eligible context |
 
-A critical distinction: **following a topic does not by itself start unattended monitoring**. The subscription-to-daily-digest MVP is still an implementation plan; it is not an already-enabled push product. Similarly, report generation support is not evidence that every report has an admitted timed trigger.
+**Following a topic does not by itself start unattended monitoring.** Bounded saved-report discovery and home-page readback exist, but continuous subscription-driven generation, a complete digest and its notification experience are not a delivered product promise. Report generation likewise does not mean every report has an authorized timed trigger.
+
+Confirmed recurring tasks have a narrower contract: after an interruption, only the latest eligible occurrence within its grace window is admitted, rather than every missed date becoming backlog. Research completion, the agreed target time and notification delivery are read from their respective records; elapsed time cannot manufacture success.
 
 All inputs converge on the original Task/Conversation, Run, grant, budget, Main/Child and Publication owners. Different triggers must not introduce another execution engine.
 
@@ -63,9 +63,13 @@ All inputs converge on the original Task/Conversation, Run, grant, budget, Main/
 
 **[Context Projection and Fitting](/en/articles/tool-results-outside-model-context)** assembles the actual model request from admitted history, tool results, provenance and token limits. **[Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects)** supplies separately governed records and preferences. **[Main Context Compaction](/en/articles/agent-main-run-context-compaction)** selects, summarizes and commits eligible settled historical turns; its summary does not become a new tool receipt. **[Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15)** offers advice about resource or context pressure, never an extra budget or permission.
 
-**Cross-Run conversation compaction** separately prepares source-bound, lossy histories of completed question–answer pairs for future Runs. It preserves original user text and must not be confused with a Main checkpoint; see the [A41 dedicated mechanism essay](/en/articles/agent-conversation-history-compaction-source-boundaries).
+**Cross-Run conversation compaction** supplies source-bound, lossy question–answer history for a new Run while preserving original user text. A summary must still map to its original messages; it creates neither new evidence nor permission. This differs from same-Run Main compaction; see the [A41 mechanism essay](/en/articles/agent-conversation-history-compaction-source-boundaries).
+
+When the user explicitly references committed research, a new Run can also bind the exact published revision and its admitted sources instead of guessing which report the conversation meant. An unreadable or ineligible reference is omitted locally without blocking an independently authorized answer. Referencing old research does not restore its execution state.
 
 **[Skill Methods and Resources](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)** provide versioned techniques. **[Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone)** controls which reviewed extension generations can be loaded; **[Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution)** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
+
+**[Personal experts and presets](/en/articles/agent-custom-expert-from-prompt-to-recovery)** are prepared here too. Users can save methods and preferences for a personal expert. A new Run freezes the selected revision: Main initially sees a compact directory, and the selected Child receives its method content. Preferred tools and Skills are suggestions, not extra permissions; explicit preloading still obeys resource-read and context-capacity limits.
 
 L2 is revisited before further ModelTurns. Reassembling context is not the same as restarting a Run or minting a new grant.
 
@@ -85,11 +89,13 @@ A model selected in the UI does not determine the provider URL or grant an extra
 
 ### 4.2 Research — Main and subagents jointly do the work
 
-For source-grounded portfolio analysis, Main selects another read, computation, comparison, delegation or synthesis after observing real prior results. The existing Native Loop retains the AgentTurn → ActionRuntime → CompletionGate semantics. A new generic Supervisor, Coordinator or Graph runtime would merely recreate orchestration that the project deliberately retired.
+For source-grounded portfolio analysis, Main selects another read, computation, comparison, delegation or synthesis after observing real prior results. The model chooses the research direction; the original runtime executes and settles effects. No additional Supervisor or generic Workflow engine is needed.
 
 **[Child Execution Lifecycle](/en/articles/agent-subagent-context-specialization)** is a central execution capability: bounded Child identity, model requests, status, retry, cancellation, result binding and handoff. Web, PDF, Python and expert-perspective children can share that mechanism. Main decides whether to delegate and ultimately synthesizes user-facing content; a Child does not own a second Root budget, investment ledger or public publication right.
 
 A Child reading an original report and Main reading only that Child's summary are different evidence-consumption facts. The handoff must preserve actual source and result identities, including gaps and partial results, rather than silently promoting the summary to verified primary evidence.
+
+A Child is not limited to its initial task description. If an assumption fails, it may revise its subsequent task, method hints and relationship description through a staged result, then continue with those descriptions on its next turn. Already sent requests, original user text, permissions and budgets do not change; added material still passes the original source checks. A relationship hint cannot automatically grant access to or control over another Child.
 
 **Zoom in: why Research is a loop, not a one-way six-stage pipeline**
 
@@ -99,9 +105,7 @@ A Child reading an original report and Main reading only that Child's summary ar
 
 The central loop is **Main chooses an action → Host executes → real receipts/results are returned → Main chooses again**. Main may delegate a bounded task to a Child; the Child submits local results and source references, while Main decides whether to investigate further or synthesize. **One iteration is not the same as a completed Run.** Valid partial text may already pass through Publication while Research is still running.
 
-The three lower paths are not sequential phases: **Publication** owns content revisions, **Recovery/HIO** manages safe suspension and continuation under the original identity, and **observation/evaluation** explains failures from independent evidence. These concerns cannot grant each other authority merely because they touch the same Run. Direct still uses the model Gateway and Publication; it only skips research tools.
-
-This preserves V2's central Native Loop insight but names the Context, Agent, Tool, Result, Publication and recovery handoffs according to the revised six-stage view.
+The three lower paths are not sequential phases: **Publication** owns content revisions, **Recovery/HIO** distinguishes admitted dependency wakes from interruption settlement, and **observation/evaluation** explains failures from independent evidence. Sharing a Run does not let these concerns grant each other authority. Direct still uses the model Gateway and Publication; it skips research tools only.
 
 ### 4.2.1 Why research continues, changes course, waits, or finishes
 
@@ -111,19 +115,21 @@ The diagram shows **one model turn, action, and observation**. The same architec
 | --- | --- | --- |
 | **Within a turn: observation-driven work** | Main reads a settled Host result and decides to search again, compute, delegate to a Child, or answer | A successful tool call is not a completed research question |
 | **Within a Run: research judgment** | Main may revise or reopen working questions after contradictory evidence | `researchNeeds` are model-authored working notes, not certified evidence coverage or a completion/publication gate |
-| **Across time: durable continuation** | Existing Recovery, Control and HIO owners park, wake and correct under the original identity; explicit Continue starts a linked Run after termination | Previous receipts, grants, budgets and committed text are not newly authorized facts |
+| **Across time: waiting and continuation** | Admitted Human/Child waits use the original control-wake path; ordinary owner loss is settled as interruption, and explicit Continue starts a linked Run | Saved receipts do not authorize rebuilding an old execution graph in a new process |
 
-Suppose a user asks whether a fund's sector concentration has changed. An article **reposted today** may summarize holdings whose data cutoff was months earlier. Main must distinguish the reposting date, original disclosure date and underlying `as-of` date. It may consult the original disclosure, qualify the historical data, or explicitly say the change is unknown; it should not label an old portfolio snapshot as current holdings. The existing [A36 temporal-semantics owner](/en/articles/agent-temporal-semantics-market-calendar) supplies a separate time contract, but normal end-to-end research acceptance is still open. This example illustrates a desired judgment, not proven automatic financial accuracy.
+Suppose a user asks whether a fund's sector concentration has changed. An article **reposted today** may describe holdings whose data cutoff was months earlier. Main should distinguish the reposting date, original disclosure date and underlying `as-of` date, then consult the source, use clearly dated historical data, or explain that the change is unknown. Finding a recent article is not finding current holdings.
+
+This is not an absence of time infrastructure. The current **[A36 temporal-semantics capability](/en/articles/agent-temporal-semantics-market-calendar)** separates current UTC, the immutable task anchor and the user's local date. It selects a valid time zone from the request, account preference and device hint in that order; no trustworthy input means unknown. Account persistence and replay after restart have real storage-backed verification. An official-calendar reader and bounded interpreter also cover **Nasdaq's published 2026 regular-session schedule**, including holidays and early closes. But **a published timetable does not establish actual market opening, cover emergency changes, or prove quote data is current**. Ordinary real-model research consuming that calendar end to end remains unverified; this mechanism is not a claim of reliable automatic time judgment.
 
 Finishing also involves distinct decisions: **Main** judges what to investigate and how to explain remaining uncertainty; **CompletionGate and Publication** own legal termination, resource limits, partial content and actual delivery. A terminal Run does not certify the financial conclusion, and a `resolved` working item does not certify task completion. Children, reviewers and peer perspectives remain optional collaboration, not mandatory outer loops.
 
-For a full mechanism-level walkthrough and the remaining acceptance gaps, see [A Research Agent Needs More Than Tools: Model, Harness, and Loop](/en/articles/etf-agent-model-harness-research-loop).
+For how observations change the next research step, see [A Research Agent Needs More Than Tools: Model, Harness, and Loop](/en/articles/etf-agent-model-harness-research-loop).
 
 ### 4.3 Coord — targeted control, not a third Agent engine
 
 If Research A is already running and the user says “Add currency risk to that analysis,” a new short interaction may propose Coord. It must bind an authorized target Run and an inspect/correct/stop proposal. **[Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption)**, the original Correction/Continue/Termination owners and their receipts still decide what actually happened. Ambiguous targets trigger clarification, not a guess at the last Run.
 
-In the initially qualified concurrency setup, ordinary Entry offers **Direct/Research without an active background Research**, and **Direct/Coord with one active background Research**. This is the authorized action set, not a global hasBackground classifier. Explicit Research/Deep may bypass ordinary route classification but must still pass background, scope, provider and resource admission.
+With the current default capacity settings, ordinary Entry offers **Direct/Research without an active background Research**, and **Direct/Coord with one active background Research**. This is the authorized action set, not a global hasBackground classifier. Explicit Research/Deep may bypass ordinary route classification but must still pass background, scope, provider and resource admission.
 
 Coord consumes a short-interaction allowance and may also publish an independent answer. Accepting its message is not evidence that A has incorporated a correction. The real target owner must record the effect.
 
@@ -160,12 +166,13 @@ Model text, accepted preview, committed body, server delivery event and browser 
 
 Background Research can continue while foreground messages are answered, publish partial results and deliver a final report later. Time promises such as at/by, research completion and actual notification are separate records. Sending a notice must not rerun research or mint a second report identity.
 
-### 6.1 “Continue” can mean three different things
+### 6.1 First determine what “continue” means
 
 | User-visible situation | Correct system behavior | What must not be substituted |
 | --- | --- | --- |
 | **Research is still running in the background** | The original Run continues and may publish partial or final text; a new short question gets its own Run | Automatically cancel earlier Research or reuse one global `busy` flag |
-| **A Run is safely parked for a real dependency** | The original Control/Recovery path claims a valid wake under its fence, retaining budget, grant and settled receipts | Redispatch completed tools or refresh the deadline for more budget |
+| **A Run is lawfully parked for Human/Child interaction** | An accepted control wake restores bounded current-format state with the original budget, grant and receipts | Treat every process restart as an authorized wake, or refresh a deadline for more budget |
+| **Ordinary research loses its execution owner** | The original owner checks lease/fence, settles interruption and returns saved committed content | Automatically rebuild the old execution graph and resend model or tool requests in a new process |
 | **The original Run is terminal and the user explicitly continues** | Conversation/Continue prepares a related new Run with lawfully inherited context and authorization | Pretend the new study was always the same still-running Run |
 
 This is also why **Run termination, committed text, notification and browser rendering** are four different facts. Observability must use the corresponding real receipts, not one `completed` value or the last Trace span.
@@ -176,6 +183,10 @@ This is also why **Run termination, committed text, notification and browser ren
 
 Research A may remain active while Direct B completes first. B's answer must not overwrite A's publications, and History refresh must reconcile per Run and Publication revision. A displayed answer-preview is not yet a durable commit; server-sent content does not itself prove browser rendering or user reading. L5 owns the legitimate publication; L6 owns client presentation.
 
+The interface also separates selection from participation. Users can search built-in and personal experts, select one precisely, or apply an editable multi-expert preset. The collaboration area shows Children that actually participated, public peer exchanges and managed Reviewer contributions. History preserves the original Run and expert revision. Selection is not invocation, and a preset is not a workflow that forces every expert to run.
+
+Not every read needs new research. An authorized portfolio home can show the original report's allocatable portfolio total, asset groups, estimates and data gaps, together with the confirmed strategy revision from that same report. Opening it starts no model or investment write. The report date and unknowns remain visible: a stale snapshot is not a live account, and displaying a strategy is not a new investment approval.
+
 ## 8. Three messages, three routes
 
 First the user explicitly requests a background source-backed portfolio study. L1 receives the input; L2 authenticates and admits Research A, recording its grant and task identity. L3 Main plans and may delegate PDF reading or Python transformations. L4 returns actual tool and source receipts. L5 publishes a partial and later a final result, shown under A's panel by L6.
@@ -184,7 +195,7 @@ Next the user asks “Why does sector concentration matter?” Short interaction
 
 Then the user says “Add FX exposure to A.” Short interaction C proposes Coord. Once the original target owner has accepted the correction, A adopts it at a lawful safe point under its original identity and resource constraints. If A has already terminated, C cannot pretend the old Run changed; the user may explicitly Continue with a related new Run.
 
-This experience has scoped engineering evidence, but **concurrent-conversation mode is disabled by default in production configuration**. Initial short/background concurrency is configured at 3/1 and is also subject to aggregate scope and Provider capacity. Multi-target data structures do not certify production multi-background execution.
+Background research, short questions, original-target corrections and separate readback have scoped verification involving a real model, durable History and a browser. **Concurrent-conversation mode remains disabled by default.** Default short/background capacity is 3/1, subject to Scope totals, interactive-instance admission and Provider capacity. The instance limit is not a cluster-wide limit; scheduled workers and accepted control wakes have separate capacity bounds. These limited observations do not establish production deployment or financial-analysis quality.
 
 ## 9. Vertical capability bars may span stages, or break
 
@@ -196,19 +207,19 @@ The horizontal view says *when a concern occurs*; Owner identity says *who owns 
 
 ## 10. Recovery, governance and observation are cross-cutting—not more numbered layers
 
-**Recovery** owns durable continuation, sealed ModelTurns, committed receipts and lease/fence facts used by the Native execution lifecycle. Resuming after process loss must preserve original identity and avoid reissuing settled tools and publications. Run control, resource management, authorization, Child execution, Publication and History keep distinct ownership; no new all-purpose Recovery Manager is proposed.
+**Recovery preserves facts; it does not promise to revive arbitrary execution.** Browser reconnection waits for or replays existing results. When an ordinary Root loses its execution owner, the system checks lease/fence and settles interruption as partial or failed according to saved content, without rebuilding the old execution graph in a new process. Committed receipts, usage and uncertain external effects remain intact. Only admitted Human/Child control wakes use the retained bounded current-format state. Explicit Continue creates a linked new Run that reuses eligible material, not old execution authority. Control, resources, authorization, Child execution, Publication and History retain their original ownership.
 
-**Run Authorization**, **Run Budget**, **Provider Capacity**, **Content Trust** and **HIO** supply constraints and interactions where required. HIO has completed scoped local Stage A–D provider-free verification, but production Human Park remains disabled by default. The fact that the model asked, the user replied and a protected business effect was actually accepted must not collapse into one status.
+**Run Authorization**, **Run Budget**, **Provider Capacity**, **Content Trust** and **HIO** supply constraints and interactions at their own seams, not in a single safety layer. HIO implements requests, authenticated replies and handoff to the original consumer; production Human Park remains disabled by default. A model asking and a user replying do not automatically authorize a source or approve a business effect.
 
 **[Research Exchange Evidence Capture](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=E04)**, Langfuse tracing and independent evaluation provide observation and feedback, not authority to publish, terminate or approve investment effects. A successful request, correct tool invocation, persisted publication and grounded financial conclusion have different evidentiary requirements.
 
 ## 11. What this diagram explains—and what it does not
 
-V3 tells a reader how a question reaches the UI, why Direct may bypass research tools, why Main and subagents are central, and where model selection, Gateway, memory, compaction, authorization, tools, delivery and rendering sit. Background work can outlast an immediate foreground answer without introducing another pipeline.
+The six-stage map tells a reader how a question reaches the UI, why Direct may bypass research tools, why Main and subagents are central, and where model selection, Gateway, memory, compaction, authorization, tools, delivery and rendering sit. Background work can outlast an immediate foreground answer without introducing another pipeline.
 
 The illustration is **not** the full call graph, deployment topology, authoritative owner map or a live-quality report. Related modules are grouped into readable vertical families and B-class financial owners are presented as one Financial Tools family. Their distinct contracts still live in the original Owner registry.
 
-V1 and V2 remain available as historical snapshots of real design evolution. **V3 changes the reading model, not execution authority: six request-processing stages, a repeating Agent/tool loop, conditionally admitted Direct/Research/Coord branches and reusable capabilities across stages.**
+For design and debugging, ask three questions: **What did the model actually receive? Which owner accepted the effect? Which result can the user reopen?** This is more useful than finding one success flag per stage. Tool success does not prove research sufficiency, process restart grants no old execution authority, and generated text is not completed delivery.
 
 ---
 
@@ -293,8 +304,8 @@ The original capability Owner registry is authoritative for effects and facts. T
 | --- | --- | --- |
 | A25 | [Client Interaction and Reading](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [Related reading](/en/articles/agent-progressive-answer-coherence) | L1, L2, L5 |
 
-Engineering navigation E01–E03 is not counted among 上述 47 个生产能力 Owner. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
+Engineering navigation E01–E03 is not counted among these 47 production capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
 
 **Two judgments run across all six stages:** [Model judgment must not replace recorded execution authority](/en/principles#principle-1), and [the user's actually delivered result is the measure of completion](/en/principles#principle-8). Generated text, committed answer content and what the client can read require separate checks; a stage cannot certify the whole task by succeeding locally.
 
-[V2 architecture](https://hpoenixf.com/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama) · [V1 original Chinese edition](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v1) · [Owner gallery](/en/gallery) · [GitHub engineering library](https://github.com/hpoenixf/eff-agent-article)
+[Owner gallery](/en/gallery) · [GitHub engineering library](https://github.com/hpoenixf/eff-agent-article)
