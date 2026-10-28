@@ -17,9 +17,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 当前可以从哪里继续（截至 2026-10-28）
 
-最新可复现的编号版本是 **v0.10.0**：沿用同一执行链，补齐原始选区、派生计算与实际消费的对应关系。日常入口见[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，复现本版选[固定 v0.10 源码](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)；此前的[固定 v0.9 Worker 快照](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)仍保留。下面仍保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。
+截至 **2026-10-28**，最新稳定可复现的编号版本是 **v0.11.0**，main 已晋级：在原有执行链上加入一个本地文本层 PDF 的物理页读取、报告与原始文件回读。日常入口见[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，复现本版可用[固定 v0.11 稳定源码](https://github.com/hpoenixf/open-etf-agent/tree/b11f70e57121f5c80a15893d6ba5e10d447d4e6c)。此前的[固定 v0.10 Result / Reference 快照](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)与[固定 v0.9 Worker 快照](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)仍保留。下面仍保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。
 
-另有可检查的 [v0.11 PDF 固定公开候选](https://github.com/hpoenixf/open-etf-agent/tree/9a00106703233754553acc04e49ead79fbe92cf9)：读取一个本地文本层 PDF 的指定物理页，再回读原始文件。具体可运行范围与排除项见[既有 PDF 文章](./024-agent-pdf-from-text-to-evidence.md)。这是已资格核验的固定样例，不表示 main 已完成升级，也不表示完整 PDF Reader 已公开。
+[v0.11 PDF 固定资格快照](https://github.com/hpoenixf/open-etf-agent/tree/9a00106703233754553acc04e49ead79fbe92cf9)保留对应的[固定执行证据](https://github.com/hpoenixf/open-etf-agent/tree/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d)，不是随 main 浮动的 HEAD。具体可运行范围与排除项见[既有 PDF 文章](./024-agent-pdf-from-text-to-evidence.md)。这里的稳定仅指有边界的无模型 Runtime 与交付验证，不等于正式 Release、云部署、模型质量保证或完整 PDF Reader；OCR、页图、布局、多模态与活跃解析恢复均不在本版范围内。
 
 公开实现已经从文件回读，走到不可变附件、SQLite 检查点恢复和持久正文。Publication 保留原正文块、投递位置与修订回执，提交后的正文不会被后续 Run 失败抹掉；机制仍见既有[正文发布文章](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication)。v0.9 增加的 **单 Run Worker** 让提交进程先退出，再由另一进程按原身份、额度和截止时间驱动同一个 Runtime；它不是一套新队列，也没有顺带实现整套定时研究。
 
