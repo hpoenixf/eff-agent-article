@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "docs-code-tests-evolve-together": "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together",
   "agent-engineering-suite": "Agent Engineering Suite: Connecting Requirements to Release",
   "one-report-nine-architecture-judgments": "Nine Architecture Judgments Behind One Report",
   "open-etf-agent-v010-system-design": "From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage",
@@ -75,6 +76,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "docs-code-tests-evolve-together",
   "agent-engineering-suite",
   "one-report-nine-architecture-judgments",
   "open-etf-agent-v010-system-design",

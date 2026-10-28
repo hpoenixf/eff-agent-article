@@ -4,7 +4,7 @@
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **69 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **73 篇正文，三条主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
@@ -15,6 +15,8 @@
 **原则导读：** [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)，沿同一个案例理解九条原则。
 
 ## 最近更新
+
+- [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md) · [English](en/articles/docs-code-tests-evolve-together.md)：从真实规模统计出发，用订单导出教学案例说明旧要求、实现路径和测试怎样共同演进。
 
 - [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md) · [English](en/articles/agent-thinking-fast-slow-research-needs.md)：从人脑的两类加工，到 Direct / Research、成本、信息污染与可修订的研究便签；配套三组中英文 SVG 图解。
 - [A41：跨 Run 历史压缩为什么不能直接总结对话](articles/agent-conversation-history-compaction-source-boundaries.md) · [English](en/articles/agent-conversation-history-compaction-source-boundaries.md)
@@ -98,9 +100,9 @@
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **31 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **28 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
-| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **8 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
+| [模块维度](modules.md) | Agent 如何运行？ | **33 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **31 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
+| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **9 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 47 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
@@ -109,7 +111,7 @@
 
 ### 推荐起点
 
-**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 69 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 73 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [跨 Run 历史压缩](articles/agent-conversation-history-compaction-source-boundaries.md) · [用户回答反馈事实](articles/agent-feedback-facts-not-automatic-learning.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -250,8 +252,9 @@
 [进入在线目录 →](https://hpoenixf.com/eff-agent-article/engineering)
 
 <details>
-<summary><b>01 · Spec、证据与工程记忆</b>（3 篇）</summary>
+<summary><b>01 · Spec、证据与工程记忆</b>（4 篇）</summary>
 
+- [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md)
 - [Spec、Evidence 与可验证研发关闭](articles/026-agent-spec-evidence-workflow.md)
 - [周报做了整晚，为何首份交付还没完成？](articles/agent-weekly-review-staged-delivery.md)
 - [工程知识：按需加载、长期记忆与退役](articles/027-agent-context-document-history.md)
@@ -272,7 +275,7 @@
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 69 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 73 篇正文。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 
