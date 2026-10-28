@@ -49,11 +49,3 @@ description: Agent 架构九条核心原则：语义与事实、Owner 归属、�
 | <span id="method-5"></span> **5. 验证与故障归因** | 确定性不变量用工程判断和边界回归；模型行为及用户效果按风险选择实际对照；诊断必须先定位真正失败的 Owner。 | [假绿测试](/articles/honest-agent-evaluation) · [失败归因](/articles/agent-failure-is-a-boundary-problem) · [Spec 研发流程](/articles/026-agent-spec-evidence-workflow) |
 | <span id="method-6"></span> **6. 机制退出与工程知识** | 旧方案不仅存在于代码，也可能留在 Spec、Skill、Prompt 与测试中；现行约束有唯一维护处，历史原样保留，知识按任务加载。 | [工程知识的加载、记忆与退役](/articles/027-agent-context-document-history) · [五不与删除成本](/articles/code-cheaper-systems-harder-to-evolve) |
 | <span id="method-7"></span> **7. 按 Interface 区分稳定性与演进方式** | 不按整个模块或目录打稳定等级。对具体接口区分**受保护效果、持久成果、演进中的研究行为、可替换 Adapter**：如 Child 交接与遗忘事实必须可靠，Prompt、召回算法可迭代；明确使用者后选择必要验证，不新设上级 Owner。 | [差异化演进契约：稳定什么，改变什么](/articles/agent-differentiated-evolution-contracts) · [产生这一思考的 Runtime 重构](/articles/agent-runtime-refactor-one-day-blocked) |
-
-## 下一步怎么读、怎么写
-
-已经有正文的观点优先**深化原文章**，不为了增加原则或篇数重复包装。“首份交付”的[周报大 Spec 分期复盘](/articles/agent-weekly-review-staged-delivery)已有独立文章；“知识退役”的案例已并入[工程 Context 与 History 主稿](/articles/027-agent-context-document-history)。其他新选题先在[写作预告](/roadmap)登记，不把预告计为发表。
-
-**边界：** 这张速查不代表所有文章的工程状态实时有效，也不会因添加一条判断就增加 Runtime 规则、模型强制自检或新的项目审批系统。
-
-[阅读架构文章](/thinking) · [进入研发工程实践](/engineering) · [查看写作预告](/roadmap) · [完整目录](/catalog)

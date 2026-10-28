@@ -51,9 +51,3 @@ Do not add a tenth principle merely because a bug was fixed. A new core idea sho
 | <span id="method-7"></span> **7. Differentiate interface stability and evolution** | Do not rank whole modules or directories. Separate **protected effects, durable outcomes, evolving research behavior, and replaceable adapters** at concrete interfaces: Child handoffs and forgetting must stay correct, while prompts and retrieval methods can evolve. Verify the actual consumers without adding a parent owner. | [Differentiated evolution contracts](/en/articles/agent-differentiated-evolution-contracts) · [The Runtime refactor that prompted them](/en/articles/agent-runtime-refactor-one-day-blocked) |
 
 These methods are **not seven new runtime gates**. They help select questions and evidence without requiring every change to run the same experiment.
-
-## Further reading and forthcoming work
-
-The [weekly-review staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) remains a separate case study. Knowledge retirement is now part of the [engineering context and history article](/en/articles/027-agent-context-document-history). Further topics still need distinct evidence before becoming standalone essays. See the [writing roadmap](/en/roadmap).
-
-[Architecture reading](/en/thinking) · [Engineering practice](/en/engineering) · [Full catalog](/en/catalog)

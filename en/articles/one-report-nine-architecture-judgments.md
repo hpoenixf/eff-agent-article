@@ -32,6 +32,11 @@ Starting from components makes it easy to create a long list: a parser, search s
 
 Narrow the task to page 2 of A and B. A supports Markdown; B supports Markdown and PDF. Both say exports omit activity history. The report can state that PDF export was added while activity history remains excluded, cite the two versions and pages, and save the result for the user to open.
 
+![From question to report](../../visuals/one-report-nine-architecture-judgments/en/first-result.svg)
+
+<details>
+<summary>View Mermaid source</summary>
+
 ```mermaid
 graph TD
 UserQuestion --> ReadOldPage
@@ -41,6 +46,8 @@ ReadNewPage --> CompareVersions
 CompareVersions --> SaveReport
 SaveReport --> OpenReport
 ```
+
+</details>
 
 *Figure 1: The shortest path to a first report. Two reads feed the comparison; after saving, the user still needs to be able to open it.*
 
@@ -103,6 +110,11 @@ After reading the text, the colleague asks to save it for later. The model propo
 
 At least four different things sit behind that sentence: the model proposed a save, the system authorized it, a request was dispatched, and the service completed the write and returned a checkable result. One function or several processes can organize these steps, but they are not the same fact.
 
+![Save request and receipt](../../visuals/one-report-nine-architecture-judgments/en/save-receipt.svg)
+
+<details>
+<summary>View Mermaid source</summary>
+
 ```mermaid
 graph TD
 SaveProposal --> SaveAuthorization
@@ -111,6 +123,8 @@ SaveDispatch --> SaveEffect
 SaveEffect --> SaveReceipt
 SaveReceipt --> SavedStatus
 ```
+
+</details>
 
 *Figure 2: From a proposal to a saved status. Arrows show handoffs, not guaranteed success. If the receipt is lost after dispatch, the effect may have happened and still needs reconciliation.*
 
@@ -132,6 +146,11 @@ A tempting design is a final check requiring every requested page to succeed; on
 
 It also gives a local failure veto power over unrelated results. Failure to compare B's offline conditions does not invalidate the sourced export comparison. The user may prefer that supported section now, accompanied by a clear statement that the offline comparison cannot yet be confirmed.
 
+![Local failure and partial results](../../visuals/one-report-nine-architecture-judgments/en/partial-result.svg)
+
+<details>
+<summary>View Mermaid source</summary>
+
 ```mermaid
 graph TD
 ComparisonTask --> ExportComparison
@@ -141,6 +160,8 @@ OfflineComparison --> MissingPage
 SupportedSection --> PartialReport
 MissingPage --> PartialReport
 ```
+
+</details>
 
 *Figure 3: Two branches of one report. In this hypothetical case, export claims have both sources while the offline comparison lacks the new page. The report keeps the former and marks the latter unknown. An authorization or content-identity issue affecting the report still belongs to the relevant owner.*
 
@@ -168,6 +189,11 @@ Or a summary says “the report is saved” because it summarized the model's pl
 
 Context compaction has two questions. What does the model need to continue: the user's original restrictions, important material obtained so far, open questions, and available tools? And which facts may the summary not redefine: original versions, source identities, authorization, tool results, save receipts, and committed report versions? A summary can point to these records, but cannot promote its own interpretation into them.
 
+![Context and original records](../../visuals/one-report-nine-architecture-judgments/en/context-and-records.svg)
+
+<details>
+<summary>View Mermaid source</summary>
+
 ```mermaid
 graph TD
 SourceRecord --> WorkingContext
@@ -177,6 +203,8 @@ WorkingContext --> ModelDecision
 ModelDecision --> ReadSource
 ReadSource --> SourceRecord
 ```
+
+</details>
 
 *Figure 4: Working context selects from original material, the user's request, and tool receipts. The model can return to the original record when it needs to check. These arrows denote use or retrieval; a summary does not become the original.*
 
@@ -280,6 +308,11 @@ That depends on what happens next. Which candidates did the model actually recei
 
 Separate three levels. First, search behavior changed: for some inputs it returned candidates previously absent. Second, measurement may have changed: a logging repair may reveal which pages the model received. Third, the complete user task may have improved: the report is more complete or easier to check, or arrives faster without reducing quality. The first two may be real improvements but do not establish the third.
 
+![From search change to user result](../../visuals/one-report-nine-architecture-judgments/en/system-progress.svg)
+
+<details>
+<summary>View Mermaid source</summary>
+
 ```mermaid
 graph TD
 SearchChange --> CandidateResults
@@ -288,6 +321,8 @@ ModelInput --> ComparedClaims
 ComparedClaims --> SavedReport
 SavedReport --> UserAccess
 ```
+
+</details>
 
 *Figure 5: To assess whether a search change affects the final report, follow candidates, actual model input, claims, saving, and user access. Any handoff can have a gap.*
 
