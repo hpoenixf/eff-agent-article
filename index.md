@@ -34,6 +34,8 @@ features:
 
 <FlagshipEntry compact />
 
+> **认知与 Agent** · [为什么 AI Agent 也需要《思考，快与慢》？](/articles/agent-thinking-fast-slow-research-needs)：从直觉与审慎加工，读懂 Direct / Research、信息污染与会反悔的研究便签。[English](/en/articles/agent-thinking-fast-slow-research-needs)
+
 > **金融主题全景** · [连接研究、业务与责任的系统架构](/articles/financial-agent-system-panorama)：从用户、机构与监管视角，借助系统关系、双生命周期和证据追溯三张图，理解金融 Agent 应该处在什么位置。[English](/en/articles/financial-agent-system-panorama)
 
 <HomeOverview />

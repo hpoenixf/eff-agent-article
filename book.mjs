@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 68 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 69 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -108,6 +108,7 @@ export const collections = [
           ["financial-agent-python-result-consumption", "Python 算过了，投研报告为什么还会错"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
           ["etf-agent-model-harness-research-loop", "投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop"],
+          ["agent-thinking-fast-slow-research-needs", "为什么 AI Agent 也需要《思考，快与慢》？"],
           ["ai-citations-do-not-prove-reliability", "很多引用为什么不等于可靠"],
           ["etf-assistant-engineering-origins", "一个 ETF 投资助手的工程起点"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
