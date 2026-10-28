@@ -119,7 +119,7 @@ The layer **actually initiating the abort** records this fact. It is not inferre
 
 Capturing every user question, model response, and raw tool result in the diagnosis store would create a larger privacy and operations problem.
 
-We deliberately separated **diagnostic facts** from **content**:
+We deliberately separated **diagnostic facts** from **content**. The JSON below illustrates a bounded diagnostic excerpt, not a complete API response or a real customer run:
 
 ~~~json
 {
@@ -140,7 +140,10 @@ We deliberately separated **diagnostic facts** from **content**:
     }
   ],
   "summary": {
-    "terminalBlocker": "publication_validation",
+    "terminalBlocker": {
+      "stage": "publication_validation",
+      "entityRef": { "type": "publication", "id": "example-block" }
+    },
     "delivery": "none"
   }
 }
