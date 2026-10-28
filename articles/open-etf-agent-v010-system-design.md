@@ -119,7 +119,7 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 
 这个示例的 30 秒截止时间从提交时开始计算，不是从 `work` 开始。第一次命令返回后进程已经退出，第二次调用的是另一个进程；第三次只读取正文与原回执，不再执行模型动作。再次实验时使用新的 session 目录，不覆盖旧结果。
 
-这组命令展示跨进程接手，不等同于在任意外部调用中强杀后都能透明恢复。安全检查点上的续跑、停止与未知效果分别由[Worker 进程用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs)和恢复路径约束。升级还有一项实际限制：v0.10 使用 `tool-host@2`，旧 `tool-host@1` 的活动检查点不能跨版本续跑；先在原版本结束活动 Run，旧的不可变交付物仍可读取。
+这组命令展示跨进程接手，不等同于在任意外部调用中强杀后都能透明恢复。安全检查点上的续跑、停止与未知效果分别由[Worker 进程用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs)和恢复路径约束。升级还有一项容易误解的执行协议限制：v0.10 使用 `tool-host@2`，持久化的 `tool-host@1` 快照不能被新版 Runtime 续跑或重放，**即使旧 Run 已终结也一样**。替换旧部署前，应先让活动 Run 在原版本完成；无法完成时隔离保留旧代码与数据，不要让新旧 Worker 共用活动 Session。原有 Result、Artifact 和 Publication 可以走独立接口回读，**产物可读不等于旧 Host 可恢复**。[升级操作清单](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.zh-CN.md)还说明：当前兼容测试采用合成旧版本标签，不是一次真实旧 Runtime 快照的迁移验收。
 
 ## 五、这时再看系统，哪些复杂度值得留下
 
