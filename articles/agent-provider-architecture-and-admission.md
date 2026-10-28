@@ -63,10 +63,10 @@ Gateway 是协议适配层：上层用相对稳定的请求和事件接口，下
 
 把能力资格留给 Host、把协议差异留给 Gateway，可以避免两个极端：上层到处判断供应商名字，或者 Gateway 自己决定某个模型能承担哪些研究任务。
 
-<!-- open-etf-case:provider@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:provider@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### 先检验 Gateway 的编码与配对
 
-固定公开快照的[Gateway 用例](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/gateway.test.mjs)可以先检查协议适配的最小责任，而不把共享准入系统一起带入实验。
+固定公开快照的[Gateway 用例](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/gateway.test.mjs)可以先检查协议适配的最小责任，而不把共享准入系统一起带入实验。
 
 在所链固定快照按 README 安装依赖后，运行：
 

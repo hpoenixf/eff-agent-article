@@ -193,10 +193,10 @@ node dist/src/session-cli.mjs publication-event --session runs/publication-demo 
 
 The `publication` in the start result is the receipt for the committed body. Running the read commands again retrieves the original body, revision, and current delivery position rather than regenerating an answer. The report file has a separate Artifact receipt; it cannot substitute for the body-commit fact. This example preserves the publication mechanism; it does not evaluate the research quality of the synthetic answer.
 
-<!-- open-etf-case:publication@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:publication@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Reading Back the Body, Current Event, and Report Separately
 
-The fixed public snapshot's [Publication CLI case](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/publication-cli.test.mjs) offers another way to observe the mechanism: separate CLI calls read the body, a specified revision, the current event, and the immutable report.
+The fixed public snapshot's [Publication CLI case](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/publication-cli.test.mjs) offers another way to observe the mechanism: separate CLI calls read the body, a specified revision, the current event, and the immutable report.
 
 After installing dependencies according to the README in the linked fixed snapshot, run:
 

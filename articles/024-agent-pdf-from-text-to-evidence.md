@@ -18,10 +18,10 @@ Open ETF Agent 的 v0.11 固定公开候选将本文的一小段能力落到了[
 
 **公开版目前没有本文后续讨论的 OCR、页面图像、几何表格、搜索导航、远程文件取得或活动解析跨进程恢复。** 下文保留原系统的设计演进与当时观察；不能把这些更完整的能力算作 v0.11 已公开实现。
 
-<!-- open-etf-case:pdf-local@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:pdf-local@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### 核对选定物理页与原始文件
 
-[固定的 provider-free CLI/回读用例](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/pdf-cli.test.mjs)通过 CLI 与新的只读进程核对本地合成文本层 PDF。在该固定执行快照按 README 安装依赖后运行：
+[固定的 provider-free CLI/回读用例](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/pdf-cli.test.mjs)通过 CLI 与新的只读进程核对本地合成文本层 PDF。在该固定执行快照按 README 安装依赖后运行：
 
 ```bash
 node --test --test-concurrency=1 --test-name-pattern='^11\.3 PDF CLI exits then a fresh process verifies page report and original binary$' test/pdf-cli.test.mjs

@@ -238,10 +238,10 @@ For **Research**, it retains the complete legitimate list, rejecting unauthorize
 
 A34 is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
 
-<!-- open-etf-case:surface@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:surface@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Inspect the tools Child actually receives each round
 
-The [read-only Child case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/cooperation-integration.test.mjs) observes actual Gateway arguments rather than treating a registry entry as proof of visibility.
+The [read-only Child case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/cooperation-integration.test.mjs) observes actual Gateway arguments rather than treating a registry entry as proof of visibility.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

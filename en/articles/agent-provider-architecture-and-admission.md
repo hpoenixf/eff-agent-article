@@ -63,10 +63,10 @@ Returning some text does not establish that a route can correctly terminate a to
 
 Keeping qualification in the Host and protocol differences in the gateway avoids two extremes: provider-name conditionals scattered across application code, or a gateway that independently decides which research responsibilities a model may assume.
 
-<!-- open-etf-case:provider@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:provider@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Start with Gateway encoding and call-result pairing
 
-The [Gateway case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/gateway.test.mjs) isolates the adapter's smallest responsibility without bringing the shared-admission system into the experiment.
+The [Gateway case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/gateway.test.mjs) isolates the adapter's smallest responsibility without bringing the shared-admission system into the experiment.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

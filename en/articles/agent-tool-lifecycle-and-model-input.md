@@ -137,10 +137,10 @@ Cross-interface handoffs must preserve the identity of execution and consumption
 
 These are invariants that observation must not change; they do not evaluate the quality of the research itself.
 
-<!-- open-etf-case:batch@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:batch@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Follow batch-read results into the saved report
 
-The [batch-read CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/src/cli.mjs) offers an inspectable chain: two fixed read tasks return synthetic originals, then Main saves a cited report.
+The [batch-read CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) offers an inspectable chain: two fixed read tasks return synthetic originals, then Main saves a cited report.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

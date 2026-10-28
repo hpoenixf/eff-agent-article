@@ -130,10 +130,10 @@ sequenceDiagram
 
 这些是不应被观测层改变的工程行为，和最终研究内容好不好是两类问题。
 
-<!-- open-etf-case:batch@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:batch@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### 沿批量读取观察结果怎样进入报告
 
-固定公开快照的[批量读取 CLI](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/src/cli.mjs)提供一条容易读回的执行链：两个固定读取任务交回合成原文，再由 Main 保存引用报告。
+固定公开快照的[批量读取 CLI](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs)提供一条容易读回的执行链：两个固定读取任务交回合成原文，再由 Main 保存引用报告。
 
 在所链固定快照按 README 安装依赖后，运行：
 

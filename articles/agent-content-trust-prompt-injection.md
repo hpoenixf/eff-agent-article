@@ -131,10 +131,10 @@ return originalGateway.dispatch(sdkPayload);
 
 尤其不能把两件事混为一谈：**结构上没有把 Web 结果提升成 system，不代表模型不会在合法的工具或用户载体中被恶意文字诱导。** 前者可以靠程序的不变量测试验证；后者仍需要针对真实模型、真实输入通道和执行效果的独立对抗评估。
 
-<!-- open-etf-case:trust@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:trust@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### 用伪造原文身份检查投影拒绝
 
-固定公开快照的[Context 反例用例](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/context.test.mjs)把“内容不能自行取得权威”缩成几次可检查的输入变更。
+固定公开快照的[Context 反例用例](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/context.test.mjs)把“内容不能自行取得权威”缩成几次可检查的输入变更。
 
 在所链固定快照按 README 安装依赖后，运行：
 

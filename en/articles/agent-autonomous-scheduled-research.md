@@ -158,10 +158,10 @@ node dist/src/session-cli.mjs publication --session runs/worker-example --run or
 
 Stop reasons are easy to confuse. A Worker receiving SIGTERM does not mean the user cancelled research. A sealed action can be left for the next process. But if a model request was dispatched and its result was never durably recorded, recovery does not guess that it probably failed and send it again. Follow the [thin Worker entry](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs) into the original Runtime, or inspect the [actual process-interruption cases](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs). This preserves original identity and observed effects; it is not an automatic retry button for uncertain requests.
 
-<!-- open-etf-case:worker@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:worker@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Execute the original Run after submission exits
 
-The [Worker CLI case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/worker-cli.test.mjs) separates durable submission from execution into different processes and checks that they still refer to the original work.
+The [Worker CLI case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/worker-cli.test.mjs) separates durable submission from execution into different processes and checks that they still refer to the original work.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

@@ -23,10 +23,10 @@ The [independent installation and readback record](https://github.com/hpoenixf/o
 
 **The public slice does not include OCR, page images, geometric tables, search navigation, remote-file acquisition or cross-process recovery of an active parse.** The following sections preserve the original system's broader design evolution and observations; they are not a list of capabilities already shipped in public v0.11.
 
-<!-- open-etf-case:pdf-local@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:pdf-local@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Check the selected page and original file
 
-The [exact provider-free CLI/readback case](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/pdf-cli.test.mjs) checks a local synthetic text-layer PDF through the CLI and a fresh read-only process. Install dependencies using the README at that fixed execution snapshot, then run:
+The [exact provider-free CLI/readback case](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/pdf-cli.test.mjs) checks a local synthetic text-layer PDF through the CLI and a fresh read-only process. Install dependencies using the README at that fixed execution snapshot, then run:
 
 ```bash
 node --test --test-concurrency=1 --test-name-pattern='^11\.3 PDF CLI exits then a fresh process verifies page report and original binary$' test/pdf-cli.test.mjs

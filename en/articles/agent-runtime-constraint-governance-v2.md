@@ -244,10 +244,10 @@ This is more informative than "all tests green." Some real execution contradicti
 
 Historical runs exposed real conflicts in the ownership of local quota errors, the visibility of exhausted tools, and the room left for final-answer correction. Some were fixed at their original call sites, while incomplete research and inconclusive reviewer results retained their status. These changes alone cannot quantify improvements in overall task success, cost, or latency.
 
-<!-- open-etf-case:budget@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+<!-- open-etf-case:budget@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Stop the second model request at the root budget
 
-The [root-budget refusal case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/cooperation-integration.test.mjs) reduces ownership of actual usage to one explicit counterexample.
+The [root-budget refusal case at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/test/cooperation-integration.test.mjs) reduces ownership of actual usage to one explicit counterexample.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 
