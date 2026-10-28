@@ -21,3 +21,24 @@ test('all social links use the public canonical host', () => {
   assert.equal(meta.find(([tag, props]) => props.property === 'og:type')[1].content, 'article')
   assert.ok(meta.some(([tag, props]) => props.name === 'twitter:card'))
 })
+
+import { articleStructuredData, structuredDataHead } from '../seo-content.mjs'
+
+test('article schema describes the canonical page without invented provenance', () => {
+  const canonical = 'https://hpoenixf.com/eff-agent-article/en/articles/example'
+  const data = articleStructuredData({ title: 'Example', description: 'Evidence boundaries.', canonical, english: true })
+  assert.equal(data['@type'], 'Article')
+  assert.equal(data.url, canonical)
+  assert.equal(data.mainEntityOfPage['@id'], canonical)
+  assert.equal(data.inLanguage, 'en-US')
+  assert.equal(data.headline, 'Example')
+  for (const key of ['author', 'datePublished', 'dateModified', 'image', 'aggregateRating']) assert.ok(!(key in data))
+})
+
+test('JSON-LD cannot break out of its script element', () => {
+  const data = { description: '</script><script>alert(1)</script>' }
+  const head = structuredDataHead(data)
+  assert.equal(head[1].type, 'application/ld+json')
+  assert.ok(!head[2].includes('<'))
+  assert.deepEqual(JSON.parse(head[2]), data)
+})

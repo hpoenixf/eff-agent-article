@@ -1,3 +1,4 @@
+import SiteAnalytics from './SiteAnalytics.vue'
 import OpenEtfTopic from './OpenEtfTopic.vue'
 import OpenEtfTopicEntry from './OpenEtfTopicEntry.vue'
 import DefaultTheme from 'vitepress/theme'
@@ -23,7 +24,7 @@ export default {
     'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'doc-before': () => [h(EvidenceScope), h(OpenSourceBridge)],
     'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar)],
-    'layout-bottom': () => h(ReadingTracker)
+    'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics)]
   }),
   enhanceApp({ app }) {
     app.component('OpenEtfTopic', OpenEtfTopic)

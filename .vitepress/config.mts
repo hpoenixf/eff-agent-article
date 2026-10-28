@@ -1,8 +1,10 @@
 import { defineConfig } from 'vitepress'
+import { existsSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
-import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems } from '../seo-routes.mjs'
+import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
-import { seoDescription, socialHead } from '../seo-content.mjs'
+import { seoDescription, socialHead, articleStructuredData, structuredDataHead } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
 
 const readingSidebar = collections.map((collection) => ({
@@ -134,10 +136,16 @@ export default defineConfig({
       english
     }))
 
+    heads.push(...languageAlternates(relativePath, path =>
+      existsSync(fileURLToPath(new URL('../' + path, import.meta.url)))))
+    if (/^(?:en\/)?articles\//.test(relativePath)) {
+      heads.push(structuredDataHead(articleStructuredData({
+        title: pageData.title, description, canonical, english
+      })))
+    }
+
     const pairedPage = relativePath.replace(/^en\//, '').replace(/\.md$/, '')
     if (!['principles', 'open-etf-agent'].includes(pairedPage)) return
-    heads.push(['link', { rel: 'alternate', hreflang: 'zh-CN', href: SITE_URL + pairedPage }])
-    heads.push(['link', { rel: 'alternate', hreflang: 'en', href: SITE_URL + 'en/' + pairedPage }])
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',

@@ -1,4 +1,6 @@
 import { mergedArticles, historicalEditions } from './book.mjs'
+import { englishArticleSlugs } from './book.en.mjs'
+import { availableEnglishPages } from './language-routing.mjs'
 
 export const SITE_URL = 'https://hpoenixf.com/eff-agent-article/'
 
@@ -38,4 +40,20 @@ export function canonicalUrl(relativePath) {
 
 export function filterSitemapItems(items) {
   return items.filter(({ url }) => !isLegacyArticleRoute(url))
+}
+
+// Use accepted translations, not speculative English URLs. Check both sources.
+export function languageAlternates(relativePath, sourceExists) {
+  if (isLegacyArticleRoute(relativePath)) return []
+  const path = relativePath.replace(/^en\//, '')
+  const route = path.replace(/\.md$/, '')
+  const article = /^articles\/([a-z0-9-]+)$/.exec(route)
+  const accepted = article
+    ? englishArticleSlugs.includes(article[1])
+    : [...availableEnglishPages, 'glossary'].includes(route)
+  if (!accepted || !sourceExists(path) || !sourceExists('en/' + path)) return []
+  return [
+    ['link', { rel: 'alternate', hreflang: 'zh-CN', href: canonicalUrl(path) }],
+    ['link', { rel: 'alternate', hreflang: 'en', href: canonicalUrl('en/' + path) }]
+  ]
 }

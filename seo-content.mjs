@@ -43,3 +43,23 @@ export function socialHead({ title, description, canonical, image, article = fal
     ['meta', { name: 'twitter:image', content: image }]
   ]
 }
+
+// Do not infer authorship or publication dates from repo ownership or build time.
+// The generic site social card is not evidence of an article illustration.
+export function articleStructuredData({ title, description, canonical, english = false }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': canonical + '#article',
+    headline: clean(title),
+    description,
+    url: canonical,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    inLanguage: english ? 'en-US' : 'zh-CN',
+    isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: 'https://hpoenixf.com/eff-agent-article/' }
+  }
+}
+
+export function structuredDataHead(data) {
+  return ['script', { type: 'application/ld+json' }, JSON.stringify(data).replace(/</g, '\\u003c')]
+}

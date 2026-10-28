@@ -83,3 +83,27 @@ test('renamed origin essay has one canonical bilingual body and redirect-only ol
     assert.equal(/billing|计费|4[ -]*billion|40\s*亿/i.test(body), false)
   }
 })
+
+import { languageAlternates } from '../seo-routes.mjs'
+import { existsSync } from 'node:fs'
+const sourceExists = path => existsSync(new URL('../' + path, import.meta.url))
+
+test('accepted bilingual pages have identical reciprocal alternates, including home', () => {
+  for (const path of ['index.md', 'glossary.md', 'principles.md', 'open-etf-agent.md', ...englishArticleSlugs.map(slug => 'articles/' + slug + '.md')]) {
+    if (isLegacyArticleRoute(path)) continue
+    const links = languageAlternates(path, sourceExists)
+    assert.equal(links.length, 2, path)
+    assert.deepEqual(links, languageAlternates('en/' + path, sourceExists))
+    assert.equal(links[0][1].href, canonicalUrl(path))
+    assert.equal(links[1][1].href, canonicalUrl('en/' + path))
+  }
+})
+
+test('missing, unreviewed and legacy translations never acquire hreflang', () => {
+  assert.deepEqual(languageAlternates('principles.md', () => false), [])
+  assert.deepEqual(languageAlternates('articles/not-reviewed.md', () => true), [])
+  for (const slug of Object.keys(legacy)) {
+    assert.deepEqual(languageAlternates('articles/' + slug + '.md', () => true), [])
+  }
+  assert.deepEqual(languageAlternates('README.md', () => true), [])
+})

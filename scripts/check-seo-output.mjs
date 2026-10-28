@@ -103,3 +103,30 @@ for (const htmlName of socialPages) {
 }
 console.log('Static Mermaid verified:', mermaidManifest.diagramCount,
   'SVG assets for', mermaidManifest.occurrences, 'fences')
+
+// Verify actual rendered heads in the normal postdocs:build pipeline.
+const { englishArticleSlugs } = await import('../book.en.mjs')
+const { languageAlternates } = await import('../seo-routes.mjs')
+let articleSchemas = 0
+for (const chapter of chapters) {
+  for (const [slug] of chapter.items) {
+    for (const locale of ['', 'en/']) {
+      if (locale && !englishArticleSlugs.includes(slug)) continue
+      const source = locale + 'articles/' + slug + '.md'
+      const html = readFileSync(resolve(output, source.replace(/\.md$/, '.html')), 'utf8')
+      const schemas = [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+        .map(match => JSON.parse(match[1])).filter(data => data['@type'] === 'Article')
+      assert.equal(schemas.length, 1, 'Exactly one Article schema: ' + source)
+      assert.equal(schemas[0].url, canonicalUrl(source))
+      assert.equal(schemas[0].mainEntityOfPage['@id'], canonicalUrl(source))
+      assert.equal(schemas[0].inLanguage, locale ? 'en-US' : 'zh-CN')
+      assert.ok(schemas[0].headline && schemas[0].description)
+      for (const [, attrs] of languageAlternates(source, existsSync)) {
+        const alternates = html.match(/<link\b[^>]*rel="alternate"[^>]*>/g) ?? []
+        assert.equal(alternates.filter(tag => tag.includes('hreflang="' + attrs.hreflang + '"') && tag.includes('href="' + attrs.href + '"')).length, 1, 'Reciprocal alternate: ' + source)
+      }
+      articleSchemas++
+    }
+  }
+}
+console.log('Article discovery verified:', articleSchemas, 'canonical schemas and accepted translations')
