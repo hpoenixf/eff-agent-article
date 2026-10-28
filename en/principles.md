@@ -9,6 +9,8 @@ description: Nine agent architecture principles covering semantic interpretation
 
 Three practical questions lead to the principles: **Who may authorize a model-proposed action and confirm its effect?** (1–4); **Does a new module hide complexity or spread it to callers?** (5–7); **After the tools and tests turn green, what actually improved for the user?** (8–9). For decisions about problem framing and proportionate verification, see the [AI Coding judgment and verification essay](/en/articles/ai-coding-judgment-and-verification).
 
+**See the nine principles work together:** [Nine Architecture Judgments Behind One Report](/en/articles/one-report-nine-architecture-judgments) follows one document comparison through ownership, failure, recovery, evolution, and delivery.
+
 This page retains nine durable judgments and seven on-demand engineering methods. It is **not another approval workflow or Runtime gate**. Security, authorization, and persistent effects remain with their rightful owners. For how a request actually moves through the system, start with the [six-layer architecture guide](/en/articles/017-prompt-to-answer-six-layer-panorama-v3).
 
 <FlagshipEntry compact />

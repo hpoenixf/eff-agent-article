@@ -14,8 +14,8 @@ const principlesUrl = computed(() => withBase(english.value ? '/en/principles' :
     <span class="article-principles-label">{{ english ? 'ARCHITECTURE MAP' : '架构判断地图' }}</span>
     <a :href="principlesUrl">
       {{ placement === 'bottom'
-        ? (english ? 'Back to the eight principles and six engineering methods →' : '读完了？回到八条架构原则与六组工程方法 →')
-        : (english ? '← Eight core principles & six engineering methods' : '← 返回八条架构原则与六组工程方法') }}
+        ? (english ? 'Back to the nine principles and seven engineering methods →' : '读完了？回到九条架构原则与七组工程方法 →')
+        : (english ? '← Nine core principles & seven engineering methods' : '← 返回九条架构原则与七组工程方法') }}
     </a>
   </nav>
 </template>

@@ -2,6 +2,7 @@
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
   "agent-engineering-suite": "Agent Engineering Suite: Connecting Requirements to Release",
+  "one-report-nine-architecture-judgments": "Nine Architecture Judgments Behind One Report",
   "open-etf-agent-v010-system-design": "From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage",
   "agent-thinking-fast-slow-research-needs": "Why AI Agents Need Thinking, Fast and Slow",
   "financial-agent-system-panorama": "Financial Agents in Context: Systems, Lifecycles, and Accountability",
@@ -75,6 +76,7 @@ export const englishTitles = {
 }
 export const englishArticleSlugs = [
   "agent-engineering-suite",
+  "one-report-nine-architecture-judgments",
   "open-etf-agent-v010-system-design",
   "agent-thinking-fast-slow-research-needs",
   "financial-agent-system-panorama",

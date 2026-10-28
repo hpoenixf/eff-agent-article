@@ -12,6 +12,8 @@
 
 ---
 
+**原则导读：** [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)，沿同一个案例理解九条原则。
+
 ## 最近更新
 
 - [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md) · [English](en/articles/agent-thinking-fast-slow-research-needs.md)：从人脑的两类加工，到 Direct / Research、成本、信息污染与可修订的研究便签；配套三组中英文 SVG 图解。
@@ -233,8 +235,9 @@
 </details>
 
 <details>
-<summary><b>04 · 其他</b>（4 篇）</summary>
+<summary><b>04 · 其他</b></summary>
 
+- [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)
 - [六层调用全景 V3：从提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
 - [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)

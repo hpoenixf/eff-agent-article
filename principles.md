@@ -9,6 +9,8 @@ description: Agent 架构九条核心原则：语义与事实、Owner 归属、�
 
 三个日常问题可以带你找到相应原则：**模型提出的操作，谁有权批准与确认生效？**（原则 1—4）；**加一个模块，究竟隐藏还是扩散了复杂度？**（原则 5—7）；**工具与测试变绿后，用户真正多得到了什么？**（原则 8—9）。涉及业务前提与验证投入的选择，可结合[AI Coding 的判断与验证实践](/articles/ai-coding-judgment-and-verification)阅读。
 
+**从一个案例读懂九条原则：** [一份报告背后的九个架构判断](/articles/one-report-nine-architecture-judgments)沿一次文档比较，串起职责、失败、恢复、演化与交付。
+
 本页保留九条相对稳定的核心判断和七组按需方法，**不是新的审批流程或 Runtime Gate**。安全、权限和持久化由原责任方保护；每条链接通向说明具体代价与取舍的文章。想先看实际请求怎样跨层运行，可以从[六层系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3)进入。
 
 <FlagshipEntry compact />
