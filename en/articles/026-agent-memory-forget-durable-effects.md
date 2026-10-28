@@ -120,6 +120,11 @@ We avoided a broad exception for historical content. The application must valida
 
 The same rule applies to generated summaries, historical results, background jobs, and indexes. After forgetting, a new Run cannot launder the old preference back through derived context. A late learning job cannot revive the old source by assigning a fresh family ID. But “no longer used in the future” is not a promise that backups, old conversations, or material already sent to a model provider have been physically erased. Those commitments require distinct data-retention operations.
 
+
+**A historical report has two distinct future uses.** Reading a committed report in authorized History does not mean the system may send it to a model again. A frozen grant for the original Run does not automatically make a report derived from a subsequently forgotten Memory record eligible for disclosure. The original report identity and source lineage, the current family/revision eligibility, and the body actually sent in the next model dispatch require separate checks.
+
+A scoped historical wake-path review in late October 2026 left an **unresolved semantic contract**: a recovery path may still read the previously retained report bytes, but that alone does not establish eligibility for a later model request. Immutable Run authorization and subsequent content revocation are different facts. Same-Run wake, retained reports, and Memory forgetting still need a reconciled rule and actual-dispatch acceptance tests; this article does not present that interaction as a qualified production guarantee.
+
 ## 5. A Complete Example: From First Preference to Forgetting
 
 The following fund-research flow is a **synthetic walkthrough of the intended branches**, not proof that every real model successfully followed these natural-language instructions.
@@ -147,6 +152,9 @@ We separated the evidence: Did the repository commit and return the original rec
 This illustrates [principle 3, “Proposal, approval, execution and effect are different facts”](/en/principles#principle-3): a committed Memory effect and delivery of the explanatory answer have separate states.
 
 It also explains why conversation text alone is insufficient for recovery. The database effect may already exist even though the final “I forgot it” sentence never reached the user. The next response must reconcile the real operation, not guess again from the dialogue.
+
+
+The public code provides a narrower recovery counterexample. In the [fixed process-level test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs), the execution process is terminated after the tool result of an explicit Memory mutation commits. A new process resumes the same Run. The test observes a single tool dispatch, one persisted write-intent record, and no leftover writer lock. It establishes that **a durable effect is not repeated simply because the executor changed**. It does not prove real-model interpretation of save/correct/forget requests, or an authenticated end-to-end cross-session Memory lifecycle.
 
 ## 7. Why Not Copy a Full External Memory Engine?
 
