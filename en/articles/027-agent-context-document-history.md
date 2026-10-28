@@ -177,19 +177,21 @@ Daily and Type are **compressed navigation layers**, not competing copies of aut
 
 ### Open-Sourced: Making History Small, Traceable and Maintainable
 
-Four history layers should not become another mandatory daily-report system. We extracted a portable subset as [Engineering History Skill](https://github.com/hpoenixf/engineering-history-skill) ([v0.1.0](https://github.com/hpoenixf/engineering-history-skill/releases/tag/v0.1.0), MIT): a self-contained Skill that an agent can load, and an offline CLI using Node 26.11.1–26.x without runtime dependencies. It does not export ETF Agent's complete internal task-close rules.
+Four history layers should not become another mandatory daily-report system. We extracted a portable subset as [Engineering History Skill](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history) ([v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/engineering-history-skill-releases.json), MIT): a self-contained Skill that an agent can load, and an offline CLI using Node 26.11.1–26.x without runtime dependencies. It does not export ETF Agent's complete internal task-close rules.
+
+The original standalone v0.1.0 release metadata and Git history are preserved in the [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). The maintained entry is **History in Agent Engineering Suite**; the old release number does not certify the entire plugin suite. Before running the commands below, obtain the unified source from the [current installation guide](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md), set `AES_ROOT` to its absolute path, and run from the project whose history you want to maintain.
 
 Consider a **constructed teaching example**: two callers previously maintained separate caches for one parser output. The useful lesson is not “the cache code changed.” It is which invalidation responsibility was duplicated, why the parser became the single owner, and which performance outcomes were never measured.
 
 ```bash
-npm install --save-dev github:hpoenixf/engineering-history-skill#v0.1.0
-npx --no-install engineering-history init
-npx --no-install engineering-history candidate \
+AES_ROOT=/absolute/path/to/agent-engineering-suite
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" init
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" candidate \
   --task "Cache ownership decision" \
   --summary "Compare caller caches with one parser-owned cache; performance impact unmeasured" \
   --source-id "demo:cache:decision-1" \
   --material-value share
-npx --no-install engineering-history validate
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" validate
 ```
 
 `init` scaffolds index files under `docs/history/` without overwriting existing ones. `candidate` appends to `.work/history-candidates/`. The stable `--source-id` deduplicates the event across different recording days or rewritten summaries. UTC is the default; an IANA value such as `--timezone Asia/Shanghai` controls the local event date when relevant.
@@ -199,15 +201,17 @@ The `share` value is only an advisory material-value label. A recorded `sync: tr
 Automated summaries raise a separate problem: accidentally overwriting handwritten notes. Under `daily/` and `type/`, a single ordered `<!-- BEGIN AUTO-REFINE -->` / `<!-- END AUTO-REFINE -->` region is editable. Existing bytes outside it are protected; a file without markers is protected in full. Take a baseline before an authorized edit:
 
 ```bash
-npx --no-install engineering-history snapshot --out history-before.json
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" snapshot --out history-before.json
 # A person or agent reviews and edits only the intended generated region.
-npx --no-install engineering-history verify --snapshot history-before.json
-npx --no-install engineering-history validate
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" verify --snapshot history-before.json
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" validate
 ```
 
 `snapshot` records hashes of protected content; `verify` reports changes to those bytes and does **not** edit or restore files. `validate` checks required indexes and local Markdown links, not the truth of the narrative. Conflicting writer locks and symlink paths are also reported rather than silently repaired.
 
-For a coding agent, the entire `skills/engineering-history/` directory can be copied into a supported Skills folder; scripts and guidance are bundled. The reusable division of labor is **human or model judgment for what deserves lasting memory, deterministic tooling for event identity, dates, links and protection of manual writing**—not a claim that automatic collection creates good engineering knowledge. See the [open-source repository](https://github.com/hpoenixf/engineering-history-skill) for installation and examples.
+For a coding agent, the entire `skills/aes-history/` directory can be copied into a supported Skills folder; scripts and guidance are bundled. The reusable division of labor is **human or model judgment for what deserves lasting memory, deterministic tooling for event identity, dates, links and protection of manual writing**—not a claim that automatic collection creates good engineering knowledge. See the [open-source repository](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history) for installation and examples.
+
+For individual/full-suite Skills and Codex plugins, and how the engineering modules work together, see the [Agent Engineering Suite introduction](/en/articles/agent-engineering-suite).
 
 ## 5. Four Real Counterexamples: How Obsolete Knowledge Outlives Its Code
 

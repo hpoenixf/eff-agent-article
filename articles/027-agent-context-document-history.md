@@ -175,19 +175,21 @@ VerifyCurrentFacts --> TechnicalArticle
 
 ### 独立开源：History Skill 怎样落实“少量、可追溯、可维护”
 
-四层组织不是另一套强制日报。我们把其中可移植的部分做成了 [Engineering History Skill](https://github.com/hpoenixf/engineering-history-skill)（[v0.1.0](https://github.com/hpoenixf/engineering-history-skill/releases/tag/v0.1.0)，MIT）：一个可以整体复制给 Agent 的 Skill，以及使用 Node 26.11.1–26.x、无运行时依赖的离线 CLI。它并不移植 ETF Agent 内部的完整任务关闭规则。
+四层组织不是另一套强制日报。我们把其中可移植的部分做成了 [Engineering History Skill](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history)（[v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/engineering-history-skill-releases.json)，MIT）：一个可以整体复制给 Agent 的 Skill，以及使用 Node 26.11.1–26.x、无运行时依赖的离线 CLI。它并不移植 ETF Agent 内部的完整任务关闭规则。
+
+原独立工具的 v0.1.0 发布元数据和 Git 历史保存在 [迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy) 中；当前维护入口为 **Agent Engineering Suite 的 History 模块**，不是把旧版本号当成整套插件已经验收的证明。使用下面命令前，按[当前安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)取得统一仓库源码，将 `AES_ROOT` 改成它的绝对路径，并在要维护历史的项目目录执行。
 
 举个**构造的教学例子**：团队决定由解析器统一维护缓存，而不是让两个调用方各自缓存。现在值得保留的不是“缓存代码已修改”，而是重复缓存引发怎样的失效责任、为什么选择一个 Owner、哪些效果还没有测量。
 
 ```bash
-npm install --save-dev github:hpoenixf/engineering-history-skill#v0.1.0
-npx --no-install engineering-history init
-npx --no-install engineering-history candidate \
+AES_ROOT=/absolute/path/to/agent-engineering-suite
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" init
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" candidate \
   --task "缓存归属决策" \
   --summary "比较两处缓存与解析器统一缓存；记录取舍，性能收益未测量" \
   --source-id "demo:cache:decision-1" \
   --material-value share
-npx --no-install engineering-history validate
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" validate
 ```
 
 `init` 在默认的 `docs/history/` 创建基础索引，已有文件不会被覆盖。`candidate` 把材料写入 `.work/history-candidates/`；同一个 `--source-id` 即使跨日重试或改写摘要也会被识别为同一事件。日期默认按 UTC 计算，可用 `--timezone Asia/Shanghai` 等 IANA 时区指定事件的本地日期。
@@ -197,15 +199,17 @@ npx --no-install engineering-history validate
 另一个容易忽视的问题是 Agent 自动更新摘要时覆盖手写内容。工具把 `daily/`、`type/` 中的 `<!-- BEGIN AUTO-REFINE -->` 到 `<!-- END AUTO-REFINE -->` 视为可编辑区；区外原有字节受保护，没有标记的旧文件则整体受保护。修改前后可以这样检查：
 
 ```bash
-npx --no-install engineering-history snapshot --out history-before.json
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" snapshot --out history-before.json
 # 人或 Agent 审阅后，只编辑允许自动维护的摘要区域
-npx --no-install engineering-history verify --snapshot history-before.json
-npx --no-install engineering-history validate
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" verify --snapshot history-before.json
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" validate
 ```
 
 `snapshot` 记录保护区摘要，`verify` 对比并报告被改动的受保护内容；它**不自动修改或恢复**历史文件。`validate` 检查索引和本地 Markdown 链接，不评判历史结论是否正确。已有写入锁或符号链接风险也会以错误返回，避免在不确定的文件状态下继续写入。
 
-如果在 Coding Agent 中使用，还可以直接复制仓库内完整的 `skills/engineering-history/` 目录；Skill 随包携带脚本和写作指引。这里可复用的是“**模型判断哪些经历值得成为知识，确定性程序保护日期、身份、链接与人工文字**”这一分工，而不是声称自动整理就产生了高质量的工程记忆。完整的安装步骤和示例见[开源仓库](https://github.com/hpoenixf/engineering-history-skill)。
+如果在 Coding Agent 中使用，还可以直接复制仓库内完整的 `skills/aes-history/` 目录；Skill 随包携带脚本和写作指引。这里可复用的是“**模型判断哪些经历值得成为知识，确定性程序保护日期、身份、链接与人工文字**”这一分工，而不是声称自动整理就产生了高质量的工程记忆。完整的安装步骤和示例见[开源仓库](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history)。
+
+完整的单独/整套 Skill 与 Codex 插件，以及其他研发模块如何配合，见 [Agent Engineering Suite 完整介绍](/articles/agent-engineering-suite)。
 
 ## 五、四个真实反例：代码退出以后，旧知识还会从哪里回来？
 

@@ -223,9 +223,11 @@ This workflow uses [method 4, “Planning a multi-phase delivery”](/en/princip
 
 ## 7. Extracting the Portable Part: OpenSpec Evidence Kit
 
-The workflow above describes ETF Agent's own `superpowers-bridge` schema, project-specific verification and `spec:close`. Copying those parts wholesale into another repository would also copy application assumptions. In October 2026, we extracted a narrower, independently installable subset as [OpenSpec Evidence Kit](https://github.com/hpoenixf/openspec-evidence-kit) ([v0.1.0](https://github.com/hpoenixf/openspec-evidence-kit/releases/tag/v0.1.0), MIT): **structural checks for tasks and observations, a generated Verify view, and read-only inspection of recorded completion**.
+The workflow above describes ETF Agent's own `superpowers-bridge` schema, project-specific verification and `spec:close`. Copying those parts wholesale into another repository would also copy application assumptions. In October 2026, we extracted a narrower, independently installable subset as [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit) ([v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json), MIT): **structural checks for tasks and observations, a generated Verify view, and read-only inspection of recorded completion**.
 
-It uses Node 26.11.1–26.x, with no runtime dependencies, database, or model calls. OpenSpec itself is optional: the package also works with an ordinary local directory. Its separately written [`evidence-driven` schema](https://github.com/hpoenixf/openspec-evidence-kit/tree/main/schema/evidence-driven) is an optional OpenSpec adapter, not a republication of our internal schema or closure machinery.
+The standalone v0.1.0 is a historical release; its release metadata and original Git history are preserved in the unified repository’s [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). The maintained entry is now **Spec Flow in Agent Engineering Suite**. The original version does not describe compatibility or acceptance of the entire plugin suite. For the commands below, obtain the suite source following the [current installation guide](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md), set `AES_ROOT` to its absolute path, and run from the project being checked.
+
+It uses Node 26.11.1–26.x, with no runtime dependencies, database, or model calls. OpenSpec itself is optional: the package also works with an ordinary local directory. Its separately written [`evidence-driven` schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) is an optional OpenSpec adapter, not a republication of our internal schema or closure machinery.
 
 ### From one task to an inspectable observation
 
@@ -247,12 +249,12 @@ The point is not a ceremonial table. It is a **stable task ID, an ordered observ
 With the files under `openspec/changes/cache-fix/`, the project can run:
 
 ```bash
-npm install --save-dev github:hpoenixf/openspec-evidence-kit#v0.1.0
-npx --no-install spec-evidence lint --change cache-fix --stage plan
-npx --no-install spec-evidence lint --change cache-fix --stage apply
-npx --no-install spec-evidence verify --change cache-fix
-npx --no-install spec-evidence verify --change cache-fix --check
-npx --no-install spec-evidence status --change cache-fix
+AES_ROOT=/absolute/path/to/agent-engineering-suite
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage plan
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage apply
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix --check
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
 ```
 
 `plan` checks task labels and duplicate IDs. `apply` checks recorded phases and local artifact existence for checked tasks. `verify` requires complete tasks and usable observations before generating `verify.md` with a digest of its inputs; `verify --check` detects a stale generated view without rewriting it. The writer preserves handwritten verification files and refuses paths outside the selected change or through symlinks.
@@ -263,7 +265,9 @@ npx --no-install spec-evidence status --change cache-fix
 
 The responsibilities remain separate: **test runners execute checks; developers or agents record observations; the CLI validates recorded structure; the consuming project decides acceptance**. `observed-run` is an authored provenance label, not proof that the command actually ran. A recorded completion is not a fresh verification of current code or permission to release.
 
-This makes the kit suitable as a small local or CI check rather than a replacement for product-specific test execution, model-quality evaluation or formal closure. The [repository](https://github.com/hpoenixf/openspec-evidence-kit) includes offline examples and the evidence format. Its optional schema follows the [OpenSpec](https://github.com/Fission-AI/OpenSpec) ecosystem, while its [NOTICE](https://github.com/hpoenixf/openspec-evidence-kit/blob/main/NOTICE.md) attributes relevant Superpowers influences.
+This makes the kit suitable as a small local or CI check rather than a replacement for product-specific test execution, model-quality evaluation or formal closure. The [repository](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit) includes offline examples and the evidence format. Its optional schema follows the [OpenSpec](https://github.com/Fission-AI/OpenSpec) ecosystem, while its [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md) attributes relevant Superpowers influences.
+
+For individual/full-suite Skills and Codex plugins, and how the engineering modules work together, see the [Agent Engineering Suite introduction](/en/articles/agent-engineering-suite).
 
 ## 8. Which Projects Benefit?
 

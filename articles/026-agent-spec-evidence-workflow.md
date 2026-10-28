@@ -204,9 +204,11 @@ npm run spec:close -- --change example-change
 
 ## 七、从内部流程到独立工具：OpenSpec Evidence Kit
 
-前面介绍的是 ETF Agent 自己的研发流程：它有内部的 `superpowers-bridge` Schema、`spec:close` 和项目专属验证入口。这套完整流程不适合原样搬进其他仓库。2026 年 10 月，我们把其中**任务与观测的结构检查、Verify 生成视图、已有完成记录读取**抽成了独立的 [OpenSpec Evidence Kit](https://github.com/hpoenixf/openspec-evidence-kit)（[v0.1.0](https://github.com/hpoenixf/openspec-evidence-kit/releases/tag/v0.1.0)，MIT）。
+前面介绍的是 ETF Agent 自己的研发流程：它有内部的 `superpowers-bridge` Schema、`spec:close` 和项目专属验证入口。这套完整流程不适合原样搬进其他仓库。2026 年 10 月，我们把其中**任务与观测的结构检查、Verify 生成视图、已有完成记录读取**抽成了独立的 [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)（[v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json)，MIT）。
 
-这个版本要求 Node 26.11.1–26.x，不需要运行时依赖、数据库或模型调用。它能直接处理普通本地目录；[`evidence-driven` Schema](https://github.com/hpoenixf/openspec-evidence-kit/tree/main/schema/evidence-driven) 是可选的 OpenSpec 适配，并不是把内部 `superpowers-bridge` 或正式关闭流程整体开源。
+原独立工具的 v0.1.0 是历史发布版本，发布元数据与原始 Git 历史已保存在统一仓库的 [迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy) 中；当前维护入口为 **Agent Engineering Suite 的 Spec Flow 模块**。原版本号不代表整套插件的兼容性或验收范围。下面的命令使用统一仓库源码，先按[当前安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)取得源码，将 `AES_ROOT` 改成它的绝对路径，并在待检查项目目录执行。
+
+这个版本要求 Node 26.11.1–26.x，不需要运行时依赖、数据库或模型调用。它能直接处理普通本地目录；[`evidence-driven` Schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) 是可选的 OpenSpec 适配，并不是把内部 `superpowers-bridge` 或正式关闭流程整体开源。
 
 ### 一条任务怎样形成可以检查的记录
 
@@ -228,12 +230,12 @@ npm run spec:close -- --change example-change
 将它接入项目后，可以逐阶段检查：
 
 ```bash
-npm install --save-dev github:hpoenixf/openspec-evidence-kit#v0.1.0
-npx --no-install spec-evidence lint --change cache-fix --stage plan
-npx --no-install spec-evidence lint --change cache-fix --stage apply
-npx --no-install spec-evidence verify --change cache-fix
-npx --no-install spec-evidence verify --change cache-fix --check
-npx --no-install spec-evidence status --change cache-fix
+AES_ROOT=/absolute/path/to/agent-engineering-suite
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage plan
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage apply
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix --check
+node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
 ```
 
 `plan` 关注任务标签与重复 ID；`apply` 检查已勾选任务是否有符合阶段顺序的记录及本地文件；`verify` 需要任务完整且证据可用，才会生成带输入摘要的 `verify.md`。`verify --check` 只对照视图是否陈旧，不重写文件。生成器不会覆盖手写 `verify.md`，也会拒绝越出选定变更范围、通过符号链接绕行的文件路径。
@@ -244,7 +246,9 @@ npx --no-install spec-evidence status --change cache-fix
 
 这次抽取保留了一个刻意的分工：**测试执行器产生观察，开发者或 Agent 记录事实，CLI 检查记录结构，是否接受变更由原项目决定。** `observed-run` 是记录者填写的来源标签，而不是工具对命令执行真实性的认证；`status` 看到了完成记录，也不等于重新验证了当时的代码或取得发布批准。
 
-这样的工具更适合作为现有 CI 和 OpenSpec 流程中的一个小型检查环节，而不是接管测试、模型质量判断和发布权。源码、离线示例、字段格式与独立安装说明都在[开源仓库](https://github.com/hpoenixf/openspec-evidence-kit)中；Schema 的设计沿用 [OpenSpec](https://github.com/Fission-AI/OpenSpec) 的生态接口，并在 [NOTICE](https://github.com/hpoenixf/openspec-evidence-kit/blob/main/NOTICE.md) 中列明 Superpowers 相关实践的影响。
+这样的工具更适合作为现有 CI 和 OpenSpec 流程中的一个小型检查环节，而不是接管测试、模型质量判断和发布权。源码、离线示例、字段格式与独立安装说明都在[开源仓库](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)中；Schema 的设计沿用 [OpenSpec](https://github.com/Fission-AI/OpenSpec) 的生态接口，并在 [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md) 中列明 Superpowers 相关实践的影响。
+
+完整的单独/整套 Skill 与 Codex 插件，以及其他研发模块如何配合，见 [Agent Engineering Suite 完整介绍](/articles/agent-engineering-suite)。
 
 ## 八、哪些项目适合这样做？
 

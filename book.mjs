@@ -1,4 +1,4 @@
-// One canonical reading tree: three perspectives and 70 current essays. Historical editions remain fully readable.
+// One canonical reading tree: three perspectives and 71 current essays. Historical editions remain fully readable.
 // Cross-cutting finance topics are curated links, never a fourth canonical category.
 export const collections = [
   {
@@ -112,6 +112,7 @@ export const collections = [
           ["ai-citations-do-not-prove-reliability", "很多引用为什么不等于可靠"],
           ["etf-assistant-engineering-origins", "一个 ETF 投资助手的工程起点"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
+          ["agent-engineering-suite", "Agent Engineering Suite：让 Agent 从需求一路接到发布"],
           ["ai-coding-judgment-and-verification", "AI Coding 最贵的不是写代码，而是决定什么值得验证"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
