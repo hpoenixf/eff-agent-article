@@ -42,19 +42,19 @@ Bounded engineering tests can verify much of the first four stages. Natural-lang
 
 Our fund-research methods already cover portfolio returns, tracking, covariance, risk contributions and attribution. The gap is not a missing formula catalog. It is turning **available methods** into **applicable results actually consumed for the current question**.
 
-~~~mermaid
-flowchart TD
-  Q["Research question"] --> M["Model selects suitable method"]
-  M --> D["Authorized source data"]
-  D --> C{"Do method preconditions hold?"}
-  C -- "Yes" --> X["Domain calculation"]
-  C -- "Incomplete" --> P["Qualified proxy or insufficient result"]
-  X --> R["Qualified computed result"]
-  P --> V["Result projection"]
-  R --> V
-  V --> I["Model interpretation"]
-  I --> U["Publication"]
-~~~
+```mermaid
+graph TD
+ResearchQuestion --> ModelChooseMethod
+ModelChooseMethod --> AuthorizedData
+AuthorizedData --> CheckMethodInputs
+CheckMethodInputs --> DomainCalculation
+CheckMethodInputs --> QualifiedPartialResult
+DomainCalculation --> QualifiedResult
+QualifiedPartialResult --> ResultProjection
+QualifiedResult --> ResultProjection
+ResultProjection --> ModelInterpretation
+ModelInterpretation --> Publication
+```
 
 The two output branches carry different qualifications. When input contracts hold, calculation may produce a bounded formal metric. When critical data is absent, only an explicitly labeled proxy, an insufficient status or a reason is valid for the affected metric, while independently useful analysis remains possible.
 
@@ -151,7 +151,7 @@ Divide engineering verification along the same chain: targeted checks for calcul
 ## Further Reading
 
 - [Financial numbers, dates and reproducible calculations](031-fintech-data-time-and-reproducible-numbers.md)
-- [A trustworthy evidence chain for financial agents](/articles/financial-agent-trustworthy-evidence-chain)
-- [Python as a computational research workbench](/articles/agent-python-compute-workbench-evolution)
+- [A trustworthy evidence chain for financial agents (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain)
+- [Python as a computational research workbench](agent-python-compute-workbench-evolution.md)
 
 Browse the [ETF Agent engineering library](https://hpoenixf.com/eff-agent-article/) and its [GitHub repository](https://github.com/hpoenixf/eff-agent-article). Counterexamples and stars are welcome.
