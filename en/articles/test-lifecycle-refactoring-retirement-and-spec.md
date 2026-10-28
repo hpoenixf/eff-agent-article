@@ -1,105 +1,120 @@
-# Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec
-
-While cleaning up ETF Agent's tests, we encountered a failing assertion: even after an execution lease expired, a run must not enter the recovery candidate list as long as the lease record still existed.
-
-That assertion once served a clear protective purpose: keep recovery from interfering with a run still held by an executor. The system's recovery mechanism subsequently changed, however. Runs with missing or expired leases can both be discovered. Whether recovery is permitted, and whether a run may be settled, is determined by later admission and state checks.
-
-The current implementation and the accepted specification both support this behavior. The test was still enforcing the old contract. If our only objective had been to "make the tests green again," reverting the implementation would have silenced the failure but broken behavior the team had deliberately adopted.
-
-We have previously discussed [how systems evolve safely and retire obsolete capabilities](code-cheaper-systems-harder-to-evolve.md) and [what passing tests can actually prove](honest-agent-evaluation.md). This cleanup pushes that discussion one step further, into the test suite itself: **when writing a Spec, we should decide not only what to add, but also how existing tests will be refactored, consolidated, retired, or deleted.**
-
-## 1. What Is a Failing Assertion Still Protecting?
-
-When a test fails, we normally inspect the implementation first. That is a sensible default, but it does not make every existing assertion a permanent product requirement.
-
-The recovery test conflated two distinct stages: discovering a run worth examining and receiving permission to recover or mutate that run. An expired lease can be a reason to investigate, but it does not itself grant execution authority. Subsequent checks must still establish the current executor, the run's identity, and version constraints that prevent stale executors from writing. Reading a candidate list must not change run state.
-
-The revised tests therefore needed to constrain several behaviors together:
-
-- Expired leases can be listed as candidates, while active leases remain excluded.
-- Reading candidates neither settles runs nor changes their existing state.
-- Active executors can still renew their leases normally.
-
-Simply changing the old assertion from "not included" to "included" would not express the full contract change. The newly permitted path and the protections that remain in force must be verified together.
-
-We first confirmed the conflict in the in-memory implementation, then reproduced the same class of failure in a database case using an isolated PostgreSQL test container. The correction was based on an already effective behavioral contract and consistent results from both implementations. We also retained the original failure report.
-
-The order of reasoning matters. The fact that the implementation already behaves a certain way does not prove the test should change. Without an explicit requirements change or contract basis, a failure remains an issue to investigate; it must not be erased by loosening an assertion.
-
-## 2. How Should Migration Tests Exit After a Capability Is Retired?
-
-Another part of the cleanup concerned LangGraph.
-
-The project had already removed the LangGraph runtime layer. The current dependencies and production source no longer wired it in. Yet everyday tests still ran a retirement scan: it traversed the entire production source tree looking for the old package name, types, metadata, and particular historical identity strings.
-
-That scan was valuable during migration. Removing a framework can leave dependencies, adapters, and hidden entry points behind. A focused check helps establish that the migration scope was actually addressed.
-
-Once the migration is complete, though, its continuing maintenance value needs reassessment. The old scan repeatedly read production source files for multiple assertions and maintained parsing logic to distinguish comments, strings, and identifiers. Meanwhile, the actual research loop and recovery behavior had their own tests.
-
-After checking the current dependencies, source code, and test wiring, we removed the retired scan. We did not add caching or build a more elaborate parser to keep it alive. The original retirement evidence and valid recovery contracts remain available, and historical identity fields were not deleted merely because their names contained 'graph'.
-
-This cleanup required distinguishing three things: an obsolete implementation may leave, historical evidence may stay, and still-valid behavioral protections must continue. They do not have to live in the same test file.
-
-Keeping an old scan in every regression run solely to preserve migration history makes the daily suite pay indefinitely for a finished migration. But deleting persisted readers simply because their names evoke the old framework could damage capabilities that remain in use.
-
-When introducing a migration-specific test, it is useful to define its exit criteria at the same time: dependencies and callers have been removed, persistence compatibility has been addressed, and necessary behavior is covered through current entry points. Once those conditions hold, reconsider whether the scan still belongs in every regression run. A scan that uniquely protects a valid architectural constraint may still be worth keeping; exit criteria do not imply that all static checks should be deleted.
-
-## 3. Five Possible Futures for an Existing Test
-
-Test maintenance often falls into one of two extremes: retain every original test while continually adding new ones, or delete troublesome tests until the suite turns green. A better approach is to choose a disposition based on the currently valid behavior the test protects.
-
-| Disposition | When it applies | What must remain protected |
-| --- | --- | --- |
-| Keep | It still protects valid behavior or a unique failure mode | Whether the change affects the original allowed, denied, or recovery path |
-| Refactor | The behavior is valid, but the test depends on internals or unstable assumptions | Whether the revised test can still detect the original defect |
-| Consolidate | Multiple tests prove the same contract but repeat setup or initialization | Whether unique counterexamples disappear along with duplicated code |
-| Retire | An old capability is being phased out, but callers or compatibility requirements remain | Who owns completion, and under what conditions the test can be removed |
-| Delete | It is entirely redundant, has no valid contractual value, or its exit criteria have been met | Whether deletion is justified and active references are cleaned up |
-
-Deleting a test does not mechanically require adding a replacement. An assertion that merely fixes the old location of a file and protects no current contract can disappear outright. But a unique counterexample that protects cross-account isolation cannot be dropped merely because it makes the suite slow.
-
-Refactoring should place assertions back on a stable behavioral interface wherever possible. Google's Andrew Trenk discussed this principle in [*Test Behavior, Not Implementation*](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html): when internal implementation changes without changing externally observable behavior, tests generally should not be forced to change with it.
-
-Call ordering likewise depends on meaning. Whether an internal helper runs first or second may be an implementation detail; the rule that "success must not be reported before persistence succeeds" is externally meaningful behavior worth protecting.
-
-Nor should we assume that a higher-level test is automatically stronger when consolidating tests. An end-to-end case may cross more modules without asserting one unique error condition. The basis for consolidation is defect coverage, not the test layer or line count.
-
-## 4. Make Test Dispositions Concrete While Writing the Spec
-
-If test cleanup waits until implementation is finished, the developer must simultaneously contend with the new behavior, old assertions, shared fixtures, and acceptance selections. Deciding which tests should exit at that point can turn into an improvised response to the latest failure.
-
-The design stage is a better time to answer those questions, because behavioral differences and responsibility boundaries are being clarified. For example, when changing recovery-candidate reads, the design should explain why the old test excluded expired leases, which stage the new contract allows them to enter, where the active-lease protection remains, and how the in-memory and database cases express those constraints.
-
-For each affected test group, these answers can be captured briefly in the existing design decision or execution plan: "file, disposition, rationale, retained coverage or exit condition." There is no need to create a new ledger for every assertion.
-
-Once an execution seam is clear, write or revise the executable cases in the same round, and update affected fixtures, helper functions, test runners, and active selections. If the interface still has unresolved questions, record the specific gap and the earliest point at which a real test can run. Avoid empty shells or tests left permanently skipped as placeholders.
-
-Changing only the Spec template is not enough. Later stages must carry through the same decision:
-
-- **Implementation** keeps using the tests prepared during design and checks whether earlier execution records apply to the current inputs.
-- **Review** examines production code, tests, fixtures, and selected suites together, checking that unique counterexamples were not lost.
-- **Acceptance** confirms the dispositions were implemented and the retained assertions still constrain the correct behavior.
-
-Shared fixtures deserve particular care: inspect their consumers before making changes. Extracting repeated setup into one helper may reduce code, but introducing shared mutable state at the same time can cause more tests to interfere with one another.
-
-We have incorporated these requirements into the existing Spec-writing, implementation, review, and acceptance guidance. They also apply to ordinary small fixes; cleaning up a few assertions does not require a new full Spec. Whether the practice sustainably reduces rework remains something to observe in real changes.
-
-## 5. Recovering Costs from Repeated Reads and Real-Time Waiting
-
-The cleanup also uncovered an audit process that read every test source file once to build a content map and then read the same files again during classification.
-
-No test contract needed changing here. Reusing the contents from the first read removed duplicate I/O while leaving the original classification and assertions intact.
-
-Time fixtures warranted separate treatment. An in-memory recovery case had previously relied on a short real-time wait to let a lease expire. We changed it to advance a controlled clock. The database case instead set the expiration time on its own test lease directly, then let the real database run the candidate query.
-
-[Vitest's date-mocking documentation](https://vitest.dev/guide/mocking/dates) shows how to control system time and restore the real clock. But time manipulation has to match where the actual decision occurs: mocking the application clock does not automatically change PostgreSQL's clock. A database test needs to control the facts the database actually reads.
-
-These changes eliminated identifiable duplicate work and real waiting. Individual runs became somewhat faster, but that is not enough evidence to estimate long-term engineering time saved. We still need comparable observations of execution time, environment failures, and repeat runs. The number of files deleted is not itself a measure of benefit.
-
-Test selections must change along with file dispositions. If the last case in a file is removed, test runners and active plans must not keep pointing to it. If a shared fixture changes, its affected consumers need coverage. Merely excluding slow tests from the default selection usually postpones rather than removes the maintenance cost.
-
-The next time we write a Spec, we can begin by opening the existing tests and articulating the promise each group of assertions protects. Only then should we decide whether they still constrain the new design, need a different expression, or should exit along with an obsolete mechanism. **That makes test maintenance part of design work instead of a debt we chase after implementation.**
-
+---
+title: "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec"
+description: A teaching example adding PNG avatars shows how to distinguish obsolete requirements from valid protections and decide what happens to existing tests during design.
 ---
 
-Related reading: [system evolution and retiring old capabilities](code-cheaper-systems-harder-to-evolve.md) · [the evidence behind passing tests and evaluations](honest-agent-evaluation.md). If this essay helps, consider starring the [engineering library on GitHub](https://github.com/hpoenixf/eff-agent-article).
+# Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec
+
+Avatar uploads originally support JPEG only. PNG support is added, and an old test fails: “A PNG upload should be rejected.”
+
+Reverting the implementation to restore a passing test loses the new requirement. Deleting the entire format-test group may also remove protection against files pretending to be images.
+
+The following is a teaching simulation; its business setting, files, and events are illustrative. The question is: **when a requirement changes, does an existing test still protect a valid promise? Retain valid protection, revise superseded requirements, and consider retiring checks that serve only an old mechanism.**
+
+Make those decisions during design and specification work where possible, rather than guessing from red tests after implementation.
+
+## 1. Find the Behavioral Basis Before Changing the Test
+
+A failure can mean an implementation defect, an incorrect test premise, or an intentional requirement change. Inspect the actual difference, then consult the approved behavior.
+
+“Support PNG” needs clarification: existing JPEG files remain supported; decodable PNG files can upload; existing size limits and user isolation remain; misleading extensions and damaged content are still rejected.
+
+The new requirement replaces “reject every PNG.” It does not invalidate the other protections.
+
+Without that requirement, the implementation allowing PNG is not sufficient reason to change the assertion. Code and tests still need an independent product agreement.
+
+ETF Agent's test cleanup encountered a related conflict. At the time, a missing or expired execution claim could make a task eligible for inspection, while an old assertion excluded some of those tasks. Expiry did not establish that the previous executor had stopped. Revising the assertion also had to preserve protection for active execution and the distinction between discovering a candidate and obtaining permission to recover or modify it. A wider discovery condition did not relax later admission checks.
+
+The avatar example expresses the same judgment in a familiar setting: allowing a format does not make everything labeled PNG trustworthy.
+
+## 2. Inspect the Protections Instead of Deleting the Group
+
+Expand the old tests into behaviors and their treatment becomes clearer:
+
+| Existing requirement | Treatment | Reason |
+| --- | --- | --- |
+| Valid JPEG uploads succeed | Retain | The new requirement does not remove JPEG support |
+| Every PNG is rejected | Replace with a valid-PNG success case | The product's supported formats have changed |
+| An image-like extension with invalid content is rejected | Retain and cover the new format | Adding a format must not bypass content checks |
+| Files beyond the existing size limit are rejected | Retain | Format support does not change the capacity promise |
+| Users can modify only their own avatars | Retain | Format support does not widen operation permissions |
+
+The PNG positive case should pass through the real upload entry point. Read the saved result and establish that it opens as an image. A successful backend-function response can miss a page that still accepts JPEG only.
+
+Negative samples should distinguish implementations too. Rename invalid content as PNG and verify that it still fails. Together, valid and counterfeit PNG samples test the new allowance and the existing protection.
+
+Expected results come from independently prepared and checked samples. Asking the decoder under test to generate its own correct answer can make both sides share the same error.
+
+## 3. Existing Tests Have More Than Two Possible Destinations
+
+Five treatments are useful when selected by current behavior:
+
+| Treatment | When it applies | Action in the avatar example |
+| --- | --- | --- |
+| Retain | A valid requirement or unique counterexample remains | Keep rejection of cross-user avatar changes |
+| Refactor | The requirement is valid but the test depends on internal structure | Replace a private-decoder-name assertion with checks on a valid upload result |
+| Consolidate | Several tests repeat the same behavioral proof | Share stateless sample setup and consolidate repeated assembly without losing format-specific counterexamples |
+| Retire | An old implementation is leaving but still has real dependencies | Keep old-library migration checks until an explicit exit point |
+| Delete | The test is redundant, has no current requirement, or has met exit conditions | Remove an obsolete assertion requiring the old function to exist |
+
+Andrew Trenk's [“Test Behavior, Not Implementation”](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html) explains the value of testing external behavior. Renaming a decoder should not invalidate an unchanged upload promise.
+
+Order is not always an implementation detail, however. “Do not report success before saving succeeds” is behavior the user depends on. A test uniquely protecting it should remain.
+
+Consolidation also requires more than comparing test levels. A page test may traverse more modules without exercising cross-user edits or damaged files. It replaces another test only if it can still detect that test's unique fault.
+
+Deletion does not require one new test per removed test. Redundant assertions without a current requirement can leave directly. Counterexamples protecting isolation, persistence, or other necessary behavior need equivalent or stronger coverage first.
+
+## 4. How Long Should Migration Checks Survive the Old Library?
+
+Suppose avatar processing once used an old image library. Scanning dependencies and callers during migration helps find missed wiring.
+
+After migration, reconsider a routine regression check that still traverses the source tree looking for obsolete packages, types, and filenames. What current requirement does it protect?
+
+ETF Agent removed a comparable retirement scan after moving away from its LangGraph runtime layer. The cleanup checked dependencies, production wiring, and current behavioral tests rather than building a more complex parser to preserve the scan. Historical identities and data still requiring readers were not deleted merely because their names looked related.
+
+For the avatar system, record exit conditions in the existing migration task: new requests no longer call the old library; retained historical avatars remain usable; current-entry tests cover necessary behavior; and no real consumer still needs an unhandled old format. Once those conditions hold, remove checks serving only the library's retirement.
+
+A scan that uniquely protects a valid architectural constraint can remain. Exit conditions prompt reassessment; they do not declare that every static check expires.
+
+An old package name in a comment is not a live runtime dependency. Deleting tests does not establish that migration is complete either. Check those dependency facts independently.
+
+## 5. Make the Decision During Design and Apply It to Files
+
+Open the existing upload tests while designing PNG support. Record affected files, treatments, reasons, and retained coverage in the current task. No assertion-by-assertion register is needed.
+
+An executable teaching task can say:
+
+> Update the format agreement to accept JPEG and PNG while retaining size limits, content checks, and user isolation. Replace the old PNG rejection with a valid-PNG positive case. Keep JPEG and protected negative cases, adding invalid content disguised as PNG. Inspect the page's file-selection restriction and actual upload entry point, then read the saved image. Check consumers before changing shared samples. If the old decoder library also retires, identify remaining historical readers and exit conditions separately.
+
+This connects new behavior to existing tests. Once interfaces are clear, prepare executable cases in the same design round. If an issue remains unresolved, record the gap and earliest executable point. A permanently skipped placeholder is not coverage.
+
+Later stages reuse that decision. Implementation checks new allowances and retained protection. Review examines production code, assertions, samples, and selection changes together. Acceptance checks whether treatments were applied and retained cases were actually collected and executed. Each stage does not need another copied checklist.
+
+Small repairs can use the same reasoning without creating a complete design project for a few assertions. Interface, data, or permission changes still follow the project's existing process.
+
+## 6. Before Deleting a Slow Test, Look for Repeated Work
+
+A slow test may read the same source files twice, repeatedly construct an expensive environment, or wait in real time merely to reach an expiry condition.
+
+Preserve the behavioral assertions while removing such work: reuse content already read in the same operation, consolidate genuinely repeated setup, and control time instead of waiting unnecessarily. Shared helpers should avoid mutable state that allows tests to contaminate one another.
+
+Time control must affect the place making the decision. An application fake clock does not automatically change a database clock. A database test must expose the intended expiry facts to the database itself. Running faster should not change what is being checked.
+
+Update runners and active selections too. If the last case is deleted but configuration still points to its file, retirement is incomplete. Moving slow cases out of the default selection often just postpones their cost.
+
+Assess savings through comparable runs. Fewer files alone do not establish less development time.
+
+## 7. Ask What the Failing Test Still Guards
+
+The “PNG should be rejected” failure now has a defensible treatment. The product accepts valid PNG, so replace the old format restriction. Keep invalid-content, size, and user-isolation protection. Then follow the page upload through to its saved result.
+
+The earlier article on [evolving docs, code, and tests together](docs-code-tests-evolve-together.md) explains coordination. This article adds a decision for each affected test group: its future needs to be explicit, rather than only adding new cases.
+
+**Tests remain useful when they protect current commitments and evolve as those commitments change.** Obsolete requirements should not force implementations backward, and valid protections should not disappear simply because they obstruct a green run.
+
+## Further Reading and Discussion
+
+[System evolution and capability retirement](code-cheaper-systems-harder-to-evolve.md) · [Testing and evaluation](honest-agent-evaluation.md) · [Architecture principles and engineering methods](/en/principles)
+
+Discuss examples in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article), and consider a Star if the article helps your work.

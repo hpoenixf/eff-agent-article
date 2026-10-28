@@ -16,6 +16,8 @@
 
 ## 最近更新
 
+- 四篇原则与方法文章原址精修：用[可选图表](articles/code-cheaper-systems-harder-to-evolve.md)、[图片识别](articles/local-improvement-is-not-system-progress.md)、[工单分派](articles/agent-differentiated-evolution-contracts.md)和[头像格式](articles/test-lifecycle-refactoring-retirement-and-spec.md)教学场景，分别讲清复杂度、整体收益、稳定承诺与旧测试处置；完整英文同步更新。
+
 - [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md) · [English](en/articles/docs-code-tests-evolve-together.md)：从真实规模统计出发，用订单导出教学案例说明旧要求、实现路径和测试怎样共同演进。
 
 - [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md) · [English](en/articles/agent-thinking-fast-slow-research-needs.md)：从人脑的两类加工，到 Direct / Research、成本、信息污染与可修订的研究便签；配套三组中英文 SVG 图解。

@@ -42,6 +42,8 @@ features:
 
 > **研发实践** · [测试比实现还多之后：怎样让文档、代码和测试一起向前](/articles/docs-code-tests-evolve-together)：用导出当前页到全部筛选结果的教学案例，讲清规范、代码与测试怎样一起演进。[English](/en/articles/docs-code-tests-evolve-together)
 
+> **把原则放进日常研发** · 四篇旧文已用不同教学案例重写：[报表与复杂度](/articles/code-cheaper-systems-harder-to-evolve)、[图片识别与优化收益](/articles/local-improvement-is-not-system-progress)、[工单与稳定承诺](/articles/agent-differentiated-evolution-contracts)、[头像与测试演进](/articles/test-lifecycle-refactoring-retirement-and-spec)。
+
 <HomeOverview />
 
 <OpenSourceBridge />

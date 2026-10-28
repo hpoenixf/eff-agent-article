@@ -1,142 +1,95 @@
+---
+title: What Should Stay Stable—and What Should Change—in an Agent Architecture?
+description: A customer-support ticket example separates evolving methods from operation protections and historical results, making stability a property of specific commitments.
+---
+
 # What Should Stay Stable—and What Should Change—in an Agent Architecture?
 
-*Rethinking module evolution after a real agent-runtime refactor*
+A support system routes new tickets to service teams. The team wants a new classification method so that “refund status” is more likely to reach after-sales support than technical support.
 
-**What deserves stability is not a whole module, but the specific commitment its interface makes.** Research methods, prompts, and adapters should be able to evolve. Authorization, effects that actually occurred, and historical outcomes that must remain readable cannot silently change meaning during refactoring.
+The method can change. But an upgrade must not silently rewrite old assignment records, send duplicate notifications for one assignment, or expose one company's tickets to another company's staff.
 
-Our Subagent, Memory, and financial-calculation work revealed that moving rules back to their rightful owners is only half the job. We also need to decide which promises remain stable and which implementations are free to change. This is not a grading scale for modules.
+These requirements sit near the same ticket module, yet need different treatment. Labeling the entire module “core—avoid changes” impedes improvement. Calling it “an algorithm—iterate quickly” can weaken necessary protections.
 
-The companion [one-day Runtime refactor retrospective](agent-runtime-refactor-one-day-blocked.md) covers the immediate cost. Here the focus is how to choose stability and verification when changing an interface.
+The ticket system is a teaching simulation, not an actual ETF Agent feature. **Keep specific commitments stable while allowing implementations and methods to evolve. A directory is too coarse a unit for that choice.**
 
-## 1. Many modules, but difficult upgrades
+## 1. Reduce the Upgrade to a Clear Commitment
 
-While developing ETF Agent's subtask capabilities, we found that changing a handoff rule often required simultaneous edits to recovery encoding/decoding, the in-memory store, and the database store. Changes to user Memory could pull in the Runtime Factory and shared execution state as well.
+“Upgrade automatic routing” can mean changing classification, adding notifications, or reassigning every old ticket.
 
-The October 25, 2026 review counted **130 TypeScript files and 57,786 physical lines** in Research Runtime, including a **5,247-line** recovery codec. Those figures include comments and blank lines. They were navigation signals; the real issue was several places independently interpreting the same rule.
+For this example, establish a narrower agreement: the new version changes recommended teams for new tickets only. Existing company isolation, assignment confirmation, and notification deduplication remain. Historical tickets show who actually received them at the time. Reassigning existing tickets requires a separate explicit decision.
 
-We began returning Child domain rules to their responsible module, encapsulating mutable state within the capability that owned it, and restoring the Factory's assembly role. Here, an Owner is the module responsible for a fact or effect—not an additional manager above the modules.
+Those sentences tell developers what may change and reviewers what must not change incidentally.
 
-That addresses the first question: **who should maintain the complexity?**
+An interface includes more than function arguments. Consumers may depend on record ownership, whether an action already happened, whether a result can be reopened, or whether retrying after failure is safe. A type signature can stay identical while its promise changes.
 
-Even with clear responsibilities, an evolution strategy does not appear automatically. Should permissions, reports, research methods, and model providers all carry the same stability requirements?
+## 2. One Module Can Contain Four Different Kinds of Commitment
 
-That question prompted the next architecture discussion.
+There is no need to grade the entire repository first. Inspect the commitments affected by this change:
 
-## 2. Core business value does not mean code that should rarely change
-
-We initially considered dividing capabilities into core, peripheral, and financial groups, then assigning maintenance requirements to each.
-
-Contradictions appeared quickly.
-
-Financial research is the product's core value, yet expert prompts, research routes, and report structures need frequent improvement. A model gateway is generic infrastructure, but physical request identity, usage accounting, and execution receipts must remain trustworthy.
-
-Memory makes the distinction especially clear: its retrieval algorithm can change, but an already committed forget request must not stop taking effect after an upgrade. The stability requirements differ inside one module.
-
-“Change core modules cautiously; change peripheral modules freely” is therefore too coarse to guide a particular edit.
-
-**Business value explains why a capability exists. Stability requirements identify which outward commitments must continue to hold.**
-
-We later organized the then-current 43 capability Owners into seven maintenance areas. Those areas help people find code; they are not seven stability levels. Financial calculations do not become less important because of their area, and frequently changing orchestration does not earn an authorization exception.
-
-The useful unit of classification is a specific interface or effect, not an entire directory.
-
-## 3. Four evolution contracts—not four grades of quality
-
-An interface includes more than parameter and return types. It also includes the identities, ordering requirements, failure semantics, and storage rules callers rely on. We grouped those commitments into four categories:
-
-| Contract | What must remain trustworthy | What may evolve |
+| Kind | Meaning in the ticket example | How it can evolve |
 | --- | --- | --- |
-| **Protected effect** | Permissions, execution identity, idempotency, confirmation, and actual receipts | The implementation can be rewritten while preserving effective protections and effect meaning |
-| **Durable outcome** | The identity and historical meaning of reports, citations, and calculated results | Presentation and read implementations may change under existing retention, deletion, and forgetting rules |
-| **Evolving behavior** | Accountability for research quality, rather than frozen prompt bytes | Research routes, prompts, retrieval ranking, and summarization can be tested and versioned |
-| **Replaceable Adapter** | Internal contracts, source representation, and failure semantics | Providers, parsers, and external integrations can be replaced |
+| Protections around operations | Company isolation, confirmation, and no duplicate notification on retry | Rewrite implementation while retaining the protection |
+| Saved outcomes | The team actually assigned and the method version used | Change presentation without silently rewriting historical meaning |
+| Methods to improve | How a question is interpreted and a team recommended | Experiment and assess representative tickets |
+| Replaceable external integration | Which classifier is called and how its failures are represented | Replace the service while preserving internal result and failure agreements |
 
-These categories are not ranked from highest to lowest reliability. Rapidly evolving research methods do not make research quality optional. Replaceable adapters do not get weaker rules for private data.
+Our architectural discussion calls these protected effects, durable outcomes, evolving behavior, and replaceable adapters. The names distinguish questions. They are not four modules that must be created or four grades of quality.
 
-One edit can affect several categories. Changing a summarization strategy primarily changes behavior. If it also drops source identity or reintroduces forgotten material, it touches a protected effect too.
+A rapidly changing classifier still owes users good recommendations. A replaceable integration cannot receive private data without authorization. One edit can affect several rows and should be assessed accordingly.
 
-Classification clarifies impact; it does not excuse the change from scrutiny.
+## 3. Why Should Storage Learn the Business Method Again?
 
-## 4. Subagents: change the research method without redesigning execution
+Suppose the new method only distinguishes “refund status” from “system error” more accurately. Ticket identity, recommended team, and method-version fields remain unchanged.
 
-Subtasks were the most direct source of this discussion.
+Keep that change inside classification where possible. Storage continues saving the agreed result. Notifications continue consuming confirmed assignments. Neither needs to know which words the classifier examined or how many reasoning steps it used.
 
-Suppose a fund-research child is reading sources when the user adds a requirement. A partial result from the previous request returns afterward. The system must establish whether the reply was accepted, which task owns the result, whether cancellation occurred, and whether the handoff is duplicate or stale.
+If each prompt adjustment requires changes in memory storage, database storage, and recovery readers, internal knowledge may have escaped into callers.
 
-Those are execution contracts. The first refactor slice separated accepted human-response facts, Child handoff decisions, and transactional Store commits under their existing owners. Both storage implementations consume the same rule. The database still reads facts, plans, and commits under its original locks and transaction.
+This does not promise that every change touches one file. A new persistent “awaiting human confirmation” state would affect real consumers and require coordinated design. Establish whether data or behavioral agreements change before choosing the scope.
 
-That path had a bounded first implementation and targeted verification, while complete recovery and historical-reader disposition remained unfinished at the time.
+ETF Agent's subtask refactoring arose from similar friction. Handoff rules were interpreted repeatedly by the runtime, recovery codecs, and two stores. Returning domain judgments to the module responsible for them, while retaining storage transactions, addressed ownership. Separately distinguishing changeable methods from stable handoff facts addressed evolution. The [runtime refactoring retrospective](agent-runtime-refactor-one-day-blocked.md) covers the concrete work. Its engineering checks do not substitute for research-quality or maintenance-cost comparisons.
 
-Now consider a different request: add an expert focused on overlapping fund holdings, or improve how bullish and bearish views challenge each other.
+## 4. What Should an Old Result Show After an Upgrade?
 
-What the expert asks, what it reads first, and how it compares evidence are evolving research methods. **Provided the handoff data contract is unchanged and no durable fact is added, improving the method should not require both stores to reinterpret expert behavior.**
+A historical ticket really went to technical support. The new method recommends after-sales support. Should reopening the page automatically show the new team?
 
-A new structured handoff field or recovery meaning may legitimately require coordinated foundation changes. We want fewer unrelated edits, not a promise that every upgrade touches one file.
+If the page displays a current recommendation, it can show the new recommendation explicitly. If it displays the actual historical assignment, that fact must remain. Combining both meanings in one field makes the user think a past action changed.
 
-That is the link between the two efforts: the ownership refactor concentrates change within the original owner; the evolution contract says what that change must preserve.
+Give the new recommendation its own method version and keep the actual assignment record distinct. Executing a reassignment still follows the existing confirmation and execution path. Recalculation is not execution, and a recommendation is not an operation receipt.
 
-## 5. Memory: separate algorithm changes from forgetting protection
+A synthetic financial example makes the same distinction visible. Net profit is 100,000 yuan: asset A contributes 150,000 and B contributes −50,000. Relative to net profit, their contributions are 150% and −50%, totaling 100%.
 
-ETF Agent's Memory covers retrieval, summarization, user scope, record revisions, temporary mode, and forgetting. They belong near the same capability, but are not all the same kind of responsibility.
+A new report that silently switches to total positive profit as its denominator to make the figures look tidier changes the question. Another analysis can be offered explicitly with a new method and result. Reopening the old report should not silently replace its basis.
 
-On October 25, the project independently addressed a gap through which forgotten content could be disclosed through a later request's context. That repair was kept separate from Memory's structural extraction; it was not treated as an assertion to relax for refactoring convenience.
+Preserving historical meaning does not mean keeping everything forever. Retention, deletion, and forgetting still follow their respective agreements. The commitment concerns the meaning of results that remain legitimately retained.
 
-The reason is practical. After a delete or forget effect commits, old indexes, caches, and history projections can still provide paths back into model input. The protected property is the material's eligibility, not a particular cache implementation.
+## 5. What Cannot Reset When an External Service Changes?
 
-At the same time, keyword, vector, or hybrid ranking can improve, as can the choice of useful summary length.
+Switching classifiers may help during an outage. First establish whether the routes are independent: different model names may point to the same failing endpoint.
 
-Structurally, Memory should manage per-research reads, caches, references, and usage deduplication. The Factory should assemble its necessary dependencies. Changing the ranker then need not expose new cache fields to callers.
+Then establish whether the replacement is permitted to receive the ticket's private data. Previously sent requests, unknown charges, and notification records remain relevant. Changing services must not reset attempts and send the same notification again.
 
-Contractually, the original Run authorization lifetime, account isolation, and committed forgetting effects remain in force. **Changing an algorithm does not authorize broader disclosure, and does not require inventing a separate mid-Run revocation mechanism.**
+Replacement isolates technical differences. Operation identity, authorization, and accounting stay with their responsible modules. In ETF Agent, a Run and its recovery inherit recorded authorization. An adapter change cannot enlarge the permitted data-recipient scope or introduce a separate in-Run revocation judgment.
 
-That is how one module can combine fast-changing behavior with strict protection.
+When in-flight switching is unnecessary, binding new tasks to the replacement often makes version handling clearer. If seamless switching of active tasks is a product promise, handle the states, versions, and uncertain effects it actually depends on. “Plugin architecture” does not settle those questions.
 
-## 6. Financial research: innovate in methods, not silently in denominators
+## 6. Verification Follows Commitments, Not Directories
 
-Finance makes “core code should rarely change” sound appealing. Yet core research capabilities need continuing improvement. What must remain explicit is the meaning of particular calculations and results.
+Andrew Trenk's [“Test Behavior, Not Implementation”](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html) explains why external behavioral assertions should usually survive implementation changes. The complementary point matters here: when a method is deliberately evolving, old output wording should not become the only permitted answer.
 
-Consider a synthetic example, unrelated to any real portfolio. The portfolio's net gain is **CNY 100,000**. Asset A contributes **CNY 150,000**, and asset B contributes **CNY −50,000**.
+For the routing upgrade, divide verification by the change:
 
-Using net gain as the denominator, A contributes **150%** and B **−50%**. Together they still total **100%**.
+| Change | Suitable checks |
+| --- | --- |
+| Classification method only | Compare recommendations on fixed representative tickets and inspect actual use of the new input and method |
+| Assignment submission | Check normal assignments, duplicate requests, unconfirmed actions, and company isolation |
+| Historical reads | Reopen old-version records and verify actual assignments and method identities |
+| External service replacement | Check responses, failures, settlement of dispatched requests, and eligibility to receive the data |
 
-If a report generator decides that anything above 100% must be wrong and silently changes the denominator to total positive gains, the numbers may look more intuitive—but they answer a different question.
+Every edit need not execute every row. Select necessary checks from the real impact. A claim of better classification requires corresponding content assessment; a successful API response cannot establish it.
 
-Our financial-research contract explicitly preserves the denominator, units, method version, input dependencies, and coverage. The original domain method owns the calculation convention. The model explains it; generating another formula does not make the model a second calculation authority.
-
-Improved explanations and new risk methods can therefore continue. A formula or denominator change needs an explicit new method/result binding. Reopening an old report should not silently recompute it into a new conclusion.
-
-Preserving historical meaning also does not imply retaining all data forever. Retention periods, deletion, and forgetting continue to follow their own contracts.
-
-## 7. Replace the technology without resetting execution facts
-
-Model providers, web retrieval, and PDF parsing involve real external differences. An adapter can hide those differences behind a stable internal interface.
-
-Replacing an implementation still requires more than changing one function call.
-
-In provider failover design, we found that differently named models could share the same service endpoint. Switching between them during an endpoint failure might provide no independent availability.
-
-Moving to an independent provider also requires establishing whether it may receive private material in the current request. Settlement of already dispatched requests, budget held for unknown costs, and which attempt owns each receipt cannot reset when the route changes.
-
-A replaceable implementation and protected execution facts coexist here. The Adapter translates external differences; it does not take ownership of authorization and accounting.
-
-We therefore prefer assembly at startup or binding a new method version to new research and new subtasks. Hot replacement during active work requires additional evidence about versioning and in-flight work. Calling something a plugin does not establish those properties.
-
-Without a second real implementation or a concrete replacement need, an elaborate plugin lifecycle for every internal function is unnecessary.
-
-## 8. Turn classification into edits using the existing review
-
-If classification remains a diagram, development will fall back to either “test everything whenever anything changes” or “peripheral code is safe to change freely.”
-
-We instead want the existing design review to state what the actual change affects:
-
-| Concrete request | Main change | Commitments preserved | Useful verification |
-| --- | --- | --- | --- |
-| Update a fund expert's research method | Evolving behavior | Existing authorization and handoff contract | Real consumer path; representative research and review when claiming quality gains |
-| Change partial-result handoff rules | Protected effect | Original task identity and transactional atomicity | Valid commits, duplicates, stale input, cancellation, and affected races |
-| Replace memory retrieval ranking | Evolving behavior / Adapter | User isolation and post-forget disclosure eligibility | Ranking behavior plus data protection in the actual input path |
-| Change a return-calculation convention | Calculation rule and durable outcome | Units, denominator, version, and historical results | Independent expected values, new result identity, and old-report readback |
-
-These are examples of different edits, not a mandatory approval form. Cross-category changes cover the effects they actually touch. A local implementation adjustment does not need a new test suite for every category.
+The original review diagram remains below: locate the responsible module, identify affected commitments, and choose the corresponding checks. Its four branches may apply separately or together.
 
 ```mermaid
 graph TD
@@ -148,36 +101,23 @@ AffectedContracts --> ResearchEvaluation
 AffectedContracts --> AdapterChecks
 ```
 
-The diagram describes review reasoning, not a new execution pipeline. Several verification branches may apply, or only one. Scope follows actual impact rather than the module's directory.
+Keep these judgments in the existing task and review. They do not require another classification register or approval layer.
 
-## 9. Recovery is an application, not the entire principle
+## 7. Start the Next Upgrade with an Executable Task
 
-Differentiated contracts also changed how we discussed recovery. Reliable preservation of committed outcomes does not automatically require every ordinary research task to reconstruct its complete execution state across versions.
+> Use the new classification method for new tickets. Preserve company isolation, assignment confirmation, and notification deduplication. Keep method details inside classification; storage and notifications continue consuming the existing agreement. Save the method version and preserve actual assignments when reopening old tickets. Label new recommendations separately. Assess representative tickets and verify through the real submission entry point that repeated requests do not send duplicate notifications. If interfaces or persistent states must change, identify affected consumers before editing them.
 
-The later light-recovery design proposed honest interruption for an ordinary old task under existing safeguards, followed by explicit continuation in a new task using bounded, still-permitted saved work. State still consumed by human-interaction or Child wakes, unknown external effects, and actual receipts remains protected.
+This teaching task identifies the change, protections, historical treatment, and observation points. Developers need not infer the scope from “keep the core stable.”
 
-That is a scenario-specific choice to narrow executable promises—not a general reduction in reliability. The design discussed here was still being implemented in stages and does not establish completed delivery.
+The reasoning also applies to recovery. Reading saved results does not imply rebuilding a complete execution environment across versions. A promise to resume in place requires maintaining its actual state dependencies. Readers with current consumers cannot be deleted merely because a narrower future promise is planned.
 
-If in-place continuation is essential to a product, it should bear the corresponding versioning and recovery cost. The four categories make the choice explicit; they do not prescribe light recovery for every system.
+**Room for architectural evolution comes from letting methods change, tying protection to concrete operations, and preserving the meaning of events that already happened.** Establish those distinctions before selecting the code and tests to modify.
 
-## 10. Keep commitments stable and methods open to change
+## Further Reading and Discussion
 
-**First identify who owns a rule; then identify what that rule promises.** These architectural decisions reinforce each other. Ownership stops knowledge from being duplicated across callers; evolution contracts stop us from treating all code in a “core” module as equally frozen.
+- [Runtime refactoring retrospective](agent-runtime-refactor-one-day-blocked.md): the ownership problems behind this reasoning.
+- [Code and system evolution](code-cheaper-systems-harder-to-evolve.md): reduce dependencies and exit costs.
+- [Memory: Saving, Recall, and Forgetting](026-agent-memory-forget-durable-effects.md): a concrete treatment of method changes and data-use protection.
+- [Stability and evolution by interface](/en/principles#method-7): the principle index.
 
-For the next change, ask three questions: Is it replacing an implementation or changing an external commitment? Which identities, ordering, and historical meanings do actual consumers depend on? Which effects must still hold after an algorithm or Provider is replaced?
-
-Memory retrieval can evolve without undoing a valid forgetting effect. Investment methods can improve without silently changing the denominator used for comparison. Child execution can be refactored without rewriting the historical meaning of authorization or completed tool actions.
-
-None of this requires four new modules or the same validation budget for every interface. **Keep concrete commitments stable while letting implementations and methods evolve.** That is what allows reliability and continued improvement to coexist.
-
----
-
-*Engineering scope: This discussion draws on ETF Agent's October 2026 ownership refactor, current domain contracts, and differentiated-evolution RFC. It distinguishes observed problems, scoped implementation, and design direction. These observations do not establish a complete refactor, live-model research quality, or measured long-term maintenance savings.*
-
-## Further reading
-
-[Why Did One Subagent Change Hold Up Our Work for an Entire Day?](agent-runtime-refactor-one-day-blocked.md) provides the full incident context. [Code Is Cheaper; Why Are Systems Harder to Evolve?](code-cheaper-systems-harder-to-evolve.md) examines the long-term costs of adding, replacing, and retiring capabilities.
-
-This article is part of [ETF Agent Engineering Notes](https://hpoenixf.com/eff-agent-article/en/articles/agent-differentiated-evolution-contracts). If these architectural tradeoffs are useful, consider starring the [public article repository](https://github.com/hpoenixf/eff-agent-article).
-
-These four categories belong to [On-Demand Method 7: differentiate interface stability and evolution](/en/principles#method-7), not a new tenth core principle.
+This article is part of [ETF Agent Engineering Notes](/en/catalog). Share examples in the [public GitHub collection](https://github.com/hpoenixf/eff-agent-article), or consider a Star if it helps your work.

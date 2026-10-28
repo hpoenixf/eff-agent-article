@@ -40,6 +40,8 @@ features:
 
 > **Engineering practice** · [When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together](/en/articles/docs-code-tests-evolve-together): an Excel-export teaching example connects requirement changes, retained protections, and the file users actually receive. [中文](/articles/docs-code-tests-evolve-together)
 
+> **Principles in everyday development** · Four revised essays use distinct teaching examples: [reports and complexity](/en/articles/code-cheaper-systems-harder-to-evolve), [image recognition and optimization gains](/en/articles/local-improvement-is-not-system-progress), [tickets and stable commitments](/en/articles/agent-differentiated-evolution-contracts), and [avatars and test evolution](/en/articles/test-lifecycle-refactoring-retirement-and-spec).
+
 <HomeOverview />
 
 <OpenSourceBridge />
