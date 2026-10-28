@@ -79,6 +79,26 @@ We therefore separate a moving `hostNowUtc` from the original `taskAnchorUtc`, w
 
 Schedule occurrences and their own time zones still belong to the existing scheduling Owner. “Deliver by 7 p.m.” belongs to the delivery Owner. Source `publishedAt` and `dataAsOf` remain with their actual producers. Unifying temporal semantics means unifying the **interpretation seam**, not taking over every timer, publication decision, or approval.
 
+### Put the Frozen Date into a Runnable Task
+
+The [fixed public v0.12.0 implementation of Open ETF Agent](https://github.com/hpoenixf/open-etf-agent/tree/46c2822be9865b99696bb70fb9e0ff1b5257ff35) implements just this task-time slice: select an explicit IANA zone, seal the accepted UTC anchor and derived calendar dates in the Session definition, and let the existing runtime and Gateway consume them. It does not bring the original article's market calendar, account preferences, or natural-language time interpretation into the public slice.
+
+Select that fixed source and use Node 26.8.1–26.x (this example was checked on 26.11.1). After installing dependencies as described in [that version’s README](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/README.md), this synthetic task illustrates the time-zone difference:
+
+```bash
+npm run temporal -- submit --session runs/article-time --run fixed \
+  --time-zone America/Los_Angeles --anchor 2026-10-28T00:30:00.000Z
+npm run temporal -- work --session runs/article-time --run fixed
+npm run temporal -- read --session runs/article-time --run fixed
+```
+
+At that instant, Los Angeles is still on October 27. The saved `taskDate` is therefore `2026-10-27`, `yesterday` is `2026-10-26`, and `tomorrow` is `2026-10-28`. Submit and execute within the original 300-second deadline; completed results remain readable afterward. Freezing the task date does not extend execution time. The latter two commands accept no replacement zone or anchor. The readback's `directory` and `receipt.path` locate the original report, with its bytes identified by `receipt.sha256`; reading does not regenerate it against a new “today.”
+
+The previous date means the adjacent calendar date, not subtracting 24 hours and not the preceding trading session. Conversion uses the runtime's IANA time-zone rules. An invalid or missing zone is rejected, as is a local timestamp that could be ambiguous during a daylight-saving rollback when supplied in place of the UTC anchor.
+
+The example uses a scripted Gateway that checks the frozen time in the actual request and saves a report through the existing tools. SQLite persistence and cross-process reads really occur; whether a model correctly interprets a user's “today” is a separate question. The public slice prevents a selected task time from silently changing across processes, host zones or recovery. It does not establish that current market data was obtained.
+See [`temporal.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/src/temporal.mjs) for date construction and the [process example test](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/test/temporal-cli.test.mjs) for independent readback. The [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) remains the ongoing entry point; the commands and behavior above refer to the fixed version linked here.
+
 ## 5. Trading Calendars Cannot Be Derived from Weekdays
 
 Markets observe holidays, exceptional closures, early closes, and venue-specific rules. Knowing that it is Friday in New York does not establish that XNAS is open. Knowing the conventional 16:00 close does not prove that no exceptional suspension occurred.

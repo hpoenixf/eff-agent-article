@@ -24,13 +24,13 @@
       "title": "PDF: From Text to Evidence",
       "scope": "Local text-layer PDF only: physical page, original file and report readback in a fresh process; no OCR, page images, layout, multimodal reading or active-parse recovery.",
       "englishAvailable": true,
-      "articleBlob": "2dbde7266e43161cd9c6d6308df9cb55eedb4023"
+      "articleBlob": "e8e9af401bb2275a0f857f634645545ecdd362ee"
     },
     "agent-subagent-context-specialization": {
       "title": "Subagents: Isolation and Specialized Collaboration",
       "scope": "One-level scripted Child shares budget and returns original results; not live-model experts.",
       "englishAvailable": true,
-      "articleBlob": "76f68c6590abea72053070e53a84b87776c75242"
+      "articleBlob": "617b6e9b6af25711c1eb2b67223c96dbeb41a9ef"
     },
     "agent-custom-expert-from-prompt-to-recovery": {
       "title": "A Custom Expert Should Be More Than a Prompt Field",
@@ -66,19 +66,19 @@
       "title": "Externalized Results and Input Completeness",
       "scope": "Lexical candidates → actual page reads → exact original rereading; not a complete original-source coverage platform.",
       "englishAvailable": true,
-      "articleBlob": "6cb6811a188c645c24a926ed6fb71e37f78fba5b"
+      "articleBlob": "854e8b4fe2b10ab5f0da6ea37e017001e41a37ba"
     },
     "agent-main-run-context-compaction": {
       "title": "Main Context Compaction Without Rewriting Facts",
       "scope": "Derived notes remain separate from originals and support rereading after adoption; summary quality unreviewed.",
       "englishAvailable": true,
-      "articleBlob": "99b1e92cf6a04ab040eeacb1fd7fc0a22856cc33"
+      "articleBlob": "13e3016f0cd31bf42e325a8486c683005c02404e"
     },
     "026-agent-memory-forget-durable-effects": {
       "title": "Memory: From Saving and Recall to Safe Forgetting",
       "scope": "Save/revise/forget using explicit synthetic intent; not an authenticated user Memory service.",
       "englishAvailable": true,
-      "articleBlob": "1987ead1c2cbe8372537d3bcff2c4745bfb67dd2"
+      "articleBlob": "b8feeed2172389fd6d02a0566b4aa4492bbf2c52"
     },
     "027-rag-revocation-publish-replay": {
       "title": "RAG: Revocation and Historical Replay",
@@ -90,7 +90,7 @@
       "title": "Provider: Why a Unified API Still Needs Shared Admission",
       "scope": "Gateway encoding and matching via offline transport; no shared Provider admission.",
       "englishAvailable": true,
-      "articleBlob": "2f598960b26527f9fcd170877bb5bfe85461f0b6"
+      "articleBlob": "a07cd988395794f7d39d7678983649749eae01de"
     },
     "agent-provider-admission-capacity-lease": {
       "title": "Why the Next Model Request Still Queues After HTTP 200",
@@ -102,43 +102,43 @@
       "title": "Extension Host: From Feature Phone to Smartphone",
       "scope": "Trusted packages use the same Host; not an isolation sandbox or complete multi-ecosystem Host.",
       "englishAvailable": true,
-      "articleBlob": "0b0b331f4e2ac29aa947980ffd7598db7596aa99"
+      "articleBlob": "e46badcce9e826f5a380443344274b345c9e1b07"
     },
     "mcp-host-from-discovery-to-consumption": {
       "title": "MCP Host: From Discovery to Usable Tools",
       "scope": "Real stdio synthetic MCP discovery, admission and acquisition; not a financial-data service.",
       "englishAvailable": true,
-      "articleBlob": "b2d657e128a5fad814c1dc6358e2392e656c8928"
+      "articleBlob": "7bb2cdb3ce67bf60a496dc7f4a2c8a34d0d40bcc"
     },
     "agent-model-capability-presentation-tool-surface": {
       "title": "Tool Surface: Why the Model Cannot See an Available Tool",
       "scope": "Child advertises only authorized read tools; not complete dynamic capability orchestration.",
       "englishAvailable": true,
-      "articleBlob": "92737ffd411887a3776a159a5c544b148409804e"
+      "articleBlob": "0834ed6d5398a8093bce3c345ee95df91b1209dd"
     },
     "agent-content-trust-prompt-injection": {
       "title": "Prompt Injection Is More Than Malicious Text: An Agent Content Trust Boundary",
       "scope": "Context rejects fabricated original-source identity; not the complete A35 security module.",
       "englishAvailable": true,
-      "articleBlob": "8538b00eb957e4b1436f2b78cc2295be4b462505"
+      "articleBlob": "ef661c481938a5b2c6adcf504e08e9aefd0353c3"
     },
     "agent-multi-ecosystem-hook-execution": {
       "title": "Multi-Ecosystem Hooks: Claude, Pi and Codex",
       "scope": "The same Host revalidates Hook argument changes and preserves the original call; no multi-ecosystem translation layer.",
       "englishAvailable": true,
-      "articleBlob": "dfe4c36cf9d55c4279f9d8d7f5888767a3832b93"
+      "articleBlob": "b65f15e95b908d2f84242d0630803959d1afcf22"
     },
     "agent-tool-lifecycle-and-model-input": {
       "title": "Observing the Tool-to-Model Input Lifecycle",
       "scope": "Synthetic workers acquire sources through existing Runtime/Host; not a complete observability platform.",
       "englishAvailable": true,
-      "articleBlob": "5f9fd677547ea3362a889a4fe4ed56de2c61abb7"
+      "articleBlob": "7c3bd74503c8d481e8dd2b1a491e8bbdcd21db5f"
     },
     "agent-runtime-constraint-governance-v2": {
       "title": "Run Budget and Constraint Governance",
       "scope": "Root-budget refusal prevents the next model request; not every budget policy.",
       "englishAvailable": true,
-      "articleBlob": "b5724501bcdb89445dc52e5191eaed6b3f8382fb"
+      "articleBlob": "487ec408ba6c63fd0dc395f079fedb3039fc54e9"
     },
     "agent-personal-credits-shadow-accounting": {
       "title": "Agent Usage: Requests, Tokens and Shadow Credits",
@@ -150,13 +150,13 @@
       "title": "Why an Agent Cannot Execute a Stop Command Immediately",
       "scope": "Durable cancellation prevents late-proposal dispatch across processes; not a complete control-event system.",
       "englishAvailable": true,
-      "articleBlob": "19d7f460d65b4bd32aeba3d95d6788b54dab5b9c"
+      "articleBlob": "3c8a64ac4cc09d64ae41141a685418c29c11a00e"
     },
     "agent-autonomous-scheduled-research": {
       "title": "Scheduled Research Beyond a Conversation",
       "scope": "Explicit submit and separate work process read back the original Run; no schedule trigger, Task orchestration, notification or foreground concurrency.",
       "englishAvailable": true,
-      "articleBlob": "795d9e66dcfe3b3df1d32ea91837d14f8d4e7799"
+      "articleBlob": "4d0f2286912b935925689ec26371c6cd9f2ee50d"
     },
     "025-agent-langfuse-from-trace-to-trustworthy-observability": {
       "title": "Langfuse: From Traces to Trustworthy Observability",
@@ -168,7 +168,7 @@
       "title": "Publication: Why Answers Need Their Own Delivery System",
       "scope": "The same Runtime commits body text for independent CLI readback, separate from report Artifact; no Web/SSE/Worker or complete publishing system.",
       "englishAvailable": true,
-      "articleBlob": "e5cc2a9e2a420add30c056803d88fe02b4f0e690"
+      "articleBlob": "fabb04834d347e37173135ccc7b0db804ebbe12e"
     },
     "agent-progressive-answer-coherence": {
       "title": "Keeping Progressive Answers Coherent",

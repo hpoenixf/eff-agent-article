@@ -79,6 +79,26 @@ IANA `America/New_York` 规则处理 EDT/EST 切换，不能把 UTC-4 或 UTC-5 
 
 Schedule 的 occurrence 和时区另归原定时任务 Owner；本文的时间解释不接管何时启动任务。会话“到某时刻交付”也仍由原交付 Owner 结算；研究材料的 `publishedAt` 与 `dataAsOf` 则由原来源管理。所谓统一时间语义，统一的是解释接缝，不是统一所有计时和审批。
 
+### 把冻结日期放进一个可运行任务
+
+[Open ETF Agent v0.12.0 的固定公开实现](https://github.com/hpoenixf/open-etf-agent/tree/46c2822be9865b99696bb70fb9e0ff1b5257ff35)只实现上面的任务时间这一小段：显式选择 IANA 时区，把任务接受时的 UTC 锚点与换算出的自然日封存在 Session 定义中，再交给原运行时和 Gateway 消费。它没有把原文的市场日历、账号偏好或自然语言时间解析一并搬入公开版。
+
+选定上述固定源码，使用 Node 26.8.1–26.x（此例实际验证为 26.11.1），按[该版本 README](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/README.zh-CN.md)安装依赖后，可以用下面这个合成任务观察跨时区差异：
+
+```bash
+npm run temporal -- submit --session runs/article-time --run fixed \
+  --time-zone America/Los_Angeles --anchor 2026-10-28T00:30:00.000Z
+npm run temporal -- work --session runs/article-time --run fixed
+npm run temporal -- read --session runs/article-time --run fixed
+```
+
+这个 instant 在洛杉矶仍是 10 月 27 日，所以保存的 `taskDate` 是 `2026-10-27`，`yesterday` 是 `2026-10-26`，`tomorrow` 是 `2026-10-28`。提交与执行须在原有 300 秒任务截止内完成，之后仍可读回已完成的结果；冻结任务日期不会延长执行期限。后两个命令不再接收新的时区或锚点。读回结果中的 `directory` 与 `receipt.path` 指向原报告，`receipt.sha256` 标识其字节；不是以读取时的“今天”重新生成一份报告。
+
+“前一日”在这里指相邻自然日，不是减去 24 小时，也不是上一个交易日。日期换算使用运行环境的 IANA 时区规则；未给出合法时区、或者把夏令时回拨时可能有歧义的本地时间当作 UTC 锚点，输入会被拒绝。
+
+示例用脚本 Gateway 检查实际请求里的冻结时间，并通过既有工具保存报告；SQLite 持久化与跨进程读取真实发生，模型如何理解用户的“今天”仍是另一项验证。公开提炼的作用，是让已经选定的任务时间不因换进程、换机器时区或恢复而被静默改写，而不是证明取得了最新行情。
+日期构造见 [`temporal.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/src/temporal.mjs)，分进程回读见[对应示例测试](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be9865b99696bb70fb9e0ff1b5257ff35/test/temporal-cli.test.mjs)。日常使用入口仍是[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；上面的命令与行为固定在本文所引版本。
+
 ## 五、市场日历不能靠周一到周五硬算
 
 真实市场有节假日、特殊休市、提前收盘和不同场所规则。知道美东当地是周五，不足以宣布 XNAS 一定开市；知道常规 16:00 收盘，也不能推断当日没有临时停市。
