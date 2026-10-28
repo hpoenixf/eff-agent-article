@@ -186,6 +186,22 @@ node src/cli.mjs --case compact-and-reread --output runs/article-compaction
 <!-- /open-etf-case -->
 
 
+### 进程重启之后，用的还是同一份便笺吗？
+
+上面的 v0.5 演示只检查便笺采用与原文回读；不能把后续能力追记到那个版本。公开工程另有一条[固定 v0.10 进程级用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs)：第一次执行者在便笺已进入工作输入后被终止，第二个进程沿**同一个 Run** 继续。断言核对恢复进程的首个模型输入哈希与中断前封存的工作输入一致，且仍引用同一个便笺，而不是凭摘要文字重新拼一份。
+
+在**新的目录**按固定版本安装后运行以下单项测试，不要直接把前面 v0.5 演示目录切换版本：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-note-recovery
+cd open-etf-agent-note-recovery
+git checkout --detach ff5b9273ef0d239e804f61792702cd2e94174be7
+npm ci --ignore-scripts --no-audit --no-fund
+node --test --test-concurrency=1 --test-name-pattern='adopted note survives process termination' test/durable-runtime.test.mjs
+```
+
+这是合成脚本与真实进程终止、检查点恢复的组合验证，**证明恢复消费了已采用的输入身份**；没有证明真实模型理解摘要、任意中断都可恢复或完整金融研究已经成功。
+
 ---
 
 <!-- agent-article-sync:guidance:start -->
