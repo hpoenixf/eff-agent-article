@@ -112,7 +112,7 @@ rootCause
 
 例如：
 
-```json
+```text
 terminalBlocker.stage = publication_validation
 terminalBlocker.entityRef = 原发布对象的身份
 delivery = none
