@@ -195,6 +195,22 @@ A synthetic script creates the note. This checks adoption and readback, not real
 <!-- /open-etf-case -->
 
 
+### Does the Same Working Note Survive a Process Restart?
+
+The v0.5 example above checks note adoption and original-source readback; later capabilities must not be attributed to that snapshot. A separate [fixed v0.10 process test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) terminates the first executor after a note has entered the working input. Another process continues **the same Run**. The assertions check that the resumed process's first model-input hash matches the previously sealed working input and still refers to the same note rather than reconstructing a new summary from prose.
+
+Install the fixed version in a **fresh directory**, not by switching the v0.5 demo directory in place:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-note-recovery
+cd open-etf-agent-note-recovery
+git checkout --detach ff5b9273ef0d239e804f61792702cd2e94174be7
+npm ci --ignore-scripts --no-audit --no-fund
+node --test --test-concurrency=1 --test-name-pattern='adopted note survives process termination' test/durable-runtime.test.mjs
+```
+
+This combines scripted synthetic behavior with real process termination and checkpoint recovery. It **verifies consumption of the adopted input identity after recovery**, not real-model understanding of the summary, recovery after arbitrary interruptions, or success in a full financial research task.
+
 ---
 
 ## What Still Needs Observation
