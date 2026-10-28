@@ -2,11 +2,39 @@
 
 > 本文基于 [Agent Engineering Suite 的固定公开版本](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0)。后台报告功能是合成教学案例，用于说明工作方式；下文的安装结论来自实际受控验证。
 
-Agent 写出一段代码之后，研发工作并没有结束。接下来还有几个更难回答的问题：它解决的是不是原来的问题？为什么采用这个设计？异常路径有没有验证？换一个会话之后，下一位执行者能不能继续？
+一个 Agent 很快写出了后台任务接口，测试通过，README 也补好了。换一个会话继续开发时，新的 Agent 却不知道取消操作应该终止计算，还是只隐藏结果；它找到一份旧提案，把已经放弃的设计重新实现；最后，项目评分提高了，路线图里的恢复任务却仍然没有真实验收。
+
+这是一个合成场景，但它提出的是具体的工程问题：**当写代码越来越容易，需求、实现、证据和下一步之间的断点由谁负责？** 一个正确的局部结果，可能仍然接不到用户需要的最终结果。多个 Agent 并行时，问题也不只是“它们能不能交流”，而是它们交换的内容究竟是要求、猜测、观察，还是已经接受的结论。
 
 我们把项目中使用的需求追问、Spec 流程、架构深化、代码审查、History、文档维护和成熟度评估整合到同一个仓库：[Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite)。已经独立公开的 Spec 与 History 工具也是本次整合的来源，而不是另起两套实现。它们各自有用，但放在一起的价值，应该体现在一次任务怎样交接，而不是插件数量。
 
 **这套工具要保留下来的，是问题、决定和证据之间的联系。** 代码可以继续改，计划也可以调整，但下一步不能只靠 Agent 记得上一轮说过什么。
+
+## 先看全景：我们补的是工具之间的接缝
+
+Issue 可以保存工作项，CI 可以执行检查，ADR 可以解释决策，Git 可以保留变更。它们都不需要被这套工具替换。缺口出现在交接处：Issue 里的“完成”是否对应本次代码？CI 运行的场景是否覆盖需求？旧 ADR 是否仍然有效？下一个执行者为什么应该相信上一轮总结？
+
+把这些材料全部放进上下文，只会让模型读到更多内容，并不会自动解决版本、权威和时效的差异。另一种办法是写一份很长的全局规则，要求每次任务从头执行所有流程，但普通修复也会因此承担完整项目评审的成本。
+
+Agent Engineering Suite 选择较小的组合：沿用项目已有的代码、测试和工作项，在有实际风险的接缝处补充工作方法、记录格式和确定性检查。它的特点不是某个独创名词，而是把几项容易混淆的职责拆开，再让它们共享能够回读的证据。
+
+[![Agent Engineering Suite 全景：九个模块围绕决定、实现、证据与演进协作](/diagrams/agent-engineering-suite/01-landscape-zh.svg)](/diagrams/agent-engineering-suite/01-landscape-zh.svg)
+
+*图 1：九个模块是一张可选择的工作地图。分组表示职责关系，不要求每项任务按固定顺序执行，也不是后台自动执行系统。*
+
+这里有三条主线：第一条把问题变成可以实现的决定，由 Grilling 与 Spec Flow 承担；第二条把决定变成有责任边界的实现，由架构深化、代码审查及 Workflow 的验收模板协助；第三条让成果能够被未来使用，由 History、文档维护、成熟度评估和 Roadmap 分别处理经验、入口、判断与计划。Workflow 只是可选的导航，不是总调度器，更没有比项目现有负责人更高的发布权。
+
+### 哪几种断裂值得优先修复？
+
+**目标断裂**发生在需求解释逐渐替代原需求时。用户要“重启后继续”，实现却变成“重启后重新生成”；正常路径一样可以返回结果，但成本、副作用和身份语义已经不同。
+
+**证据断裂**发生在一个事实跨越了它能够支持的范围时。某版本的单元测试通过，被写成当前版本已经验收；命令成功退出，被写成用户已经拿到文件；模拟模型返回，被写成真实服务已经接通。问题不在于证据太少，而在于证据被用错了地方。
+
+**知识断裂**发生在前两者无法被接续时。历史只留下“修好了”，没有解释舍弃了什么；路线图只剩下一串勾选项，无法说明下一项为什么重要。下一轮只好重新提问、重新推理，有时还会把旧问题重新制造出来。
+
+[![从重复猜测到可接续工作：决定、证据和下一步需要跨会话保留](/diagrams/agent-engineering-suite/02-failure-loop-zh.svg)](/diagrams/agent-engineering-suite/02-failure-loop-zh.svg)
+
+*图 2：改进不是让 Agent 一直循环检查，而是在必要节点留下可复用的决定、观察与下一步。没有新事实时，应停止重复验证。*
 
 ## 1. 从一个小功能开始，看见真正的工作量
 
@@ -32,6 +60,19 @@ Grilling 的作用是沿着设计分支追问，而不是把所有常识都变�
 
 这一步交给实现者的，应该是一份能判定对错的约定，而不是一段听起来正确的需求摘要。
 
+### 同一个功能，如何避免悄悄换题
+
+假设这次只支持单人使用、一次生成一个报告，不处理大规模多租户调度。这个非目标应该写出来，否则一个“顺手做完善”的 Agent 可能先引入组织管理、配额服务和新调度层，把一个小能力变成一套新平台。
+
+对于真正相关的分支，则需要具体到可观察行为：取消发生在结果发布前，旧结果不得再变成成功；取消发生在已完成之后，读取现有报告不受影响；崩溃发生在已写文件、未登记结果之间，恢复必须识别原任务，不因重试再创建一份交付。这些只是本例选择的合同，不是所有产品都必须采用的唯一答案。
+
+由此形成的最小实现计划可以分三步：先有任务身份和结果读取，再有可取消执行，最后补跨进程恢复。分期不是缩减最终承诺，而是让每一步都能独立说明得到什么、还没得到什么。Spec Flow 可以保存与检查阶段材料；它不会代替开发者判断这个分期是否适合当前产品。
+
+[![后台报告合成案例：从关键决定到实现、验收和用户取得结果](/diagrams/agent-engineering-suite/03-task-journey-zh.svg)](/diagrams/agent-engineering-suite/03-task-journey-zh.svg)
+
+*图 3：任务按结果推进。失败与取消会回到对应责任方，不是无条件重开整个流程；文件可读、代码完成和验收通过仍是不同事实。*
+
+
 这部分已有独立公开基础：原 OpenSpec Evidence Kit 提供 Spec 检查与证据视图相关工具，现已纳入公开套件。它检查记录与约定的结构，不能替人证明一次真实执行已经发生。统一套件保留了这条边界，没有把一个检查命令包装成自动验收。
 
 ## 2. 架构深化与代码审查，分别解决什么问题
@@ -47,6 +88,17 @@ Grilling 的作用是沿着设计分支追问，而不是把所有常识都变�
 回到报告任务：实现可能很整洁，却在恢复路径忘记检查用户权限；也可能覆盖了功能，却把状态转换分散到三个调用方。前一种更靠近需求合同缺口，后一种是结构问题。把两类判断区分开，才能给出可以执行的修复意见，而不是泛泛地说“建议优化”。
 
 两者可以相互触发，但不应该互相冒充。小修复不必先做全仓重构；架构问题也不会因为这次 diff 没有明显错误就自动消失。
+
+### 深化不是把复杂度搬进一个大类
+
+“一个 Owner”也可能被误用：为了统一状态，把队列、文件存储、权限、渲染和通知全部塞进一个管理器，调用方少了几行，内部却失去边界。架构深化要检查的是接口隐藏了什么稳定责任，以及调用者是否仍然需要知道内部步骤；它不是用一个巨大对象遮住全部复杂度。
+
+在本例中，任务生命周期可以集中判断“是否允许发布”，文件存储仍然负责文件写入与读取，访问控制仍然负责谁可以访问。取消与迟到结果相遇时，应该有一个明确位置决定结果资格，而不是由 UI、回调和恢复进程分别猜测。一个合适的接口能让调用者表达意图，且不要求它按神秘顺序拼接多个状态修改。
+
+代码审查再验证这个设计是否真的被执行：固定本次审查的起点，沿正常入口与恢复入口追踪同一合同；找具体的反例和调用方，而不是凭类名给架构打分。对每条问题，说明触发条件、违反的约定和修复方向。如果只有潜在风险而没有实际复现，就保留这个证据身份，不把它写成已发生事故。
+
+两项模块因此能组成一个短反馈：审查发现调用方必须维护第二份状态，架构分析定位重复责任，修改后再用同一合同检查。已有边界足够清楚时，只需修复当前缺陷，不必为了展示“架构深化”制造重构。
+
 
 ## 3. 验收要沿着用户路径走，而不是停在代码通过检查
 
@@ -65,6 +117,47 @@ Grilling 的作用是沿着设计分支追问，而不是把所有常识都变�
 
 证据可以很小。对这个例子，一份说明输入条件、操作、可观察结果和对应版本的记录，比一长串通过数量更有帮助。下一次修复改变了恢复逻辑，也应当知道哪些旧结论需要重新验证。
 
+### 一个确定性工具能给出怎样的答案
+
+这里可以直接试用套件内保留的 Spec CLI。下面使用仓库自带的虚构格式样例，不需要模型、数据库或真实业务数据。进入已取得的套件源码目录，运行：
+
+```bash
+node skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs lint \
+  --root skills/aes-spec-flow/toolkit/examples \
+  --changes-dir changes --change example --stage apply
+```
+
+本次实际执行得到：
+
+```json
+{
+  "change": "example",
+  "stage": "apply",
+  "issues": [],
+  "structuralOnly": true,
+  "semanticQuality": "unverified"
+}
+```
+
+这个小输出比一句“全部通过”更准确。它说明该样例的任务与观测格式满足结构要求，没有宣称后台报告功能已经实现。继续读取样例的 `status` 时，工具报告 `recorded-complete`，同时给出 `rerun: false` 和 `release: not-claimed`：它读到了作者保存的完成记录，没有重新执行历史检查，也没有取得发布批准。
+
+这条路径的源码与样例分别见 [Spec CLI](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs)、[证据格式](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md)及[合成样例](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/examples/changes/example/evidence.md)。
+
+一份可复用的证据目录不必复杂。Spec 描述合同与任务，`evidence.md` 保存本次观察及其产物位置，生成的 Verify 视图整理输入，项目选择采用的 `completion.json` 保存已经作出的完成判断。生成视图不能反过来成为观察的来源，更不能为了凑齐绿色状态替用户补造原始结果。
+
+对于后台报告，可以把一条证据写为：“在版本 X，用合成任务触发生成，在文件写入后中断，再恢复；读取到同一任务的单份文件。”这条记录比“恢复功能已完成”更窄，却让后来的执行者知道该复查哪条路径。若访问控制随后改了，而恢复代码没变，也仍需判断旧测试是否覆盖新权限接缝，不能只比较文件修改时间。
+
+[![各类材料的责任边界：合同、实现、观察、解释、评估和行动不可互相冒充](/diagrams/agent-engineering-suite/04-evidence-ownership-zh.svg)](/diagrams/agent-engineering-suite/04-evidence-ownership-zh.svg)
+
+*图 4：不同材料回答不同问题。它们靠版本和引用连起来，但没有一份总结可以取代所有来源。*
+
+### 接口之外，还要有交接合同
+
+跨 Agent 交接时，至少留下目标、范围、当前版本、实际产物、尚未解决的问题和下一步允许操作。如果存在其他写入者，要说明文件或模块归属；如果付费服务的调用额度不明，应保留未知状态，而不是把计账清零重新开始。这些是工作边界，不需要暴露私人任务记录或账号信息。
+
+因此 Workflow 的价值是帮助提出正确的交接问题，并提供可复制的字段。它不能自动判断一个结果是否被真实消费，也不能通过模板授予另一个 Agent 发布、删除或调用外部服务的权限。执行者拿到交接后，仍应核对当前现场；交接描述的是写下它的那一刻，而不是永久实时状态。
+
+
 ## 4. History 留下决定，文档帮助使用
 
 做完功能之后，最容易丢掉的是“为什么”。几周后有人看到取消逻辑里保留已完成文件，可能认为这是残留数据，顺手删除；另一位执行者看到恢复前再次检查权限，可能认为前面已经检查过，可以合并。
@@ -81,6 +174,31 @@ History 应当留下当时的约束、被放弃的方案、改变判断的证据
 
 最终留下的应当是能够继续使用的知识，而不是越来越大的日志仓库。
 
+### 让记录具体，但别让所有记录都晋升
+
+History 模块提供的四层结构可以理解为一条逐渐收敛的阅读路径。Candidate 是便宜的素材缓冲；Time 记录一次有价值的决定；Daily 汇总一天真正改变判断的内容；Type 帮读者跨时间理解同一主题。普通格式修复可以不进入这条链路，未形成新判断的重复测试也不必每天重写一遍。
+
+在本例中，“新增了一个取消按钮”未必值得成为长期历史。“取消只改变任务后续效果，不删除用户已经取得的报告；恢复仍检查当前访问权限”则可能值得保留，因为它解释了未来维护者容易误删的边界。判断材料是否重要仍归人或 Agent，CLI 负责更确定的事情：标识、日期、文件链接和手工内容保护。
+
+下面是一条可复现的最短路径。在一个专门的合成示例目录运行，不要把教学内容写进真实项目历史：
+
+```bash
+AES_ROOT=/absolute/path/to/agent-engineering-suite
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" init
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" candidate \
+  --task "Synthetic cancellation ownership" \
+  --summary "Teaching example: cancellation and publication need one task identity; no application execution claimed." \
+  --source-id "demo:report:cancel-1"
+node "$AES_ROOT/skills/aes-history/scripts/cli.mjs" validate
+```
+
+本次用独立合成目录实际运行，`init` 创建 `docs/history/` 的索引，`candidate` 返回 `status: written` 并给出 `.work/history-candidates/` 下的记录路径，`validate` 返回 `status: valid`。这里验证的是记录工具工作正常，不是那条取消策略已经在应用中实现。相同 `source-id` 为后续重试提供稳定身份，避免把同一经历反复记成新成果。
+
+记录与保护行为的实际入口在 [History Skill](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history/SKILL.md)与[随包 CLI](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-history/scripts/cli.mjs)。
+
+如果随后要更新 Daily 或 Type，先创建保护区快照，再核对修改是否只发生在允许维护的区域。被人手工补充的上下文不能因为生成摘要而消失。这使文档维护与 History 形成配合：前者让当前使用入口准确，后者解释为什么这样做；旧入口退役时，保留有价值的理由，不让旧要求继续指挥新代码。
+
+
 ## 5. 打分器和 Roadmap 为什么要拆开
 
 项目成熟度评分回答的是“当前能力站在哪里”。Roadmap 回答的是“下一步为什么做这件事，以及怎样才算做完”。
@@ -95,9 +213,43 @@ History 应当留下当时的约束、被放弃的方案、改变判断的证据
 
 共享证据并不要求再建一个大型平台。初期用版本化、可审阅的仓库文件就可以连接这些模块，避免为了追踪研发，又先开发一套新的研发管理系统。
 
+[![成熟度与路线图的反馈：评估提供观察，行动需要独立判断和验收](/diagrams/agent-engineering-suite/05-maturity-roadmap-zh.svg)](/diagrams/agent-engineering-suite/05-maturity-roadmap-zh.svg)
+
+*图 5：评分变化不能直接触发完成。新证据可以更新评估，新的交付工作要有自己的负责人、依赖与接受条件。*
+
+### 一个有用的状态，不一定是“比上次更好”
+
+公开默认评价表分别关注合同、正确性、安全、恢复、可运维性与用户价值，没有把这些维度自动压成一个万能总分。对某项能力，缺乏证据可以明确写为 unknown；实现还不存在则是另一个事实。把两者都写成零，会让“尚未评估”和“已证实缺失”混在一起。
+
+分数变化还应说明原因。它可能来自产品真正改变，也可能来自新发现的证据、评价口径调整或纠正旧错误。相同量表与范围下保留同一证据，就不应该仅为了呈现进展给出不同结论。换了一套公开评价尺度，更不能把旧私有分数直接搬进来制造历史曲线。
+
+Roadmap 则把模糊愿望收敛为一个可执行事项。下列是依据模块示例字段写的合成条目，表达数据形状，不是有自动状态机在后台运行：
+
+```json
+{
+  "id": "BL-001",
+  "title": "Demonstrate restart recovery",
+  "status": "candidate",
+  "owner": "project-maintainer",
+  "dependsOn": [],
+  "acceptance": "Restart preserves identity and does not duplicate an effect",
+  "evidence": [],
+  "nextAction": "Define representative failure fixture"
+}
+```
+
+对应的[公开通用评价表](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-maturity/references/rubric.json)和[Roadmap 条目形状](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-roadmap/references/item.json)可以直接读取。项目仍需自行选择采用范围，不把示例字段当作已执行的任务记录。
+
+此时最有用的信息是下一步需要建立什么反例，而不是把进度估算成 40%。之后如果工作受阻，要保留阻碍与可独立进行的行动；如果范围改变，重开事项也应保留旧接受记录，不把过去曾完成的事实静默改掉。近期承诺应具体，远期方向可以保留不确定性，这样路线图才不会变成伪精确的工期表。
+
+
 公开成熟度模块只提供通用评价标准、确定性计算工具和合成示例，不携带私有项目路径、职责映射或当前基线。使用者需要提供自己的评价和证据；公开量表使用独立身份，不与私有历史量表直接比较。算术正确不代表评价正确。Roadmap 当前提供独立工作方法和事项模板，没有声称已经实现项目专用的状态验证器或自动关闭流程。
 
 ## 6. 一个仓库，两种使用方式
+
+[![一份核心源生成四类交付：单独与整套 Skill、单独与整套插件](/diagrams/agent-engineering-suite/06-source-packaging-zh.svg)](/diagrams/agent-engineering-suite/06-source-packaging-zh.svg)
+
+*图 6：四种安装选择共享核心内容。平台适配与分发包装独立，修复不应在四份手写副本中重复。*
 
 统一仓库维护一份核心内容，通过构建脚本生成 Skill 与 Codex 插件两种形态。目前模块划分为 Spec Flow、History、Grilling、架构深化、代码审查、文档维护、成熟度评估、Roadmap 和可选 Workflow 入口。前面案例中的环节由这些模块分担，验收与发布模板属于 Workflow，并非额外实现了一套运行平台。
 
@@ -123,6 +275,19 @@ codex plugin add agent-engineering-suite-history@agent-engineering-suite
 
 完整套件改用 `codex plugin add agent-engineering-suite@agent-engineering-suite`，不要与已安装的单模块重叠。独立 Skill 的计划预览、更新与移除见[安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)；它们与插件来自同一核心，但使用不同安装机制。当前持续维护入口在[仓库首页](https://github.com/hpoenixf/agent-engineering-suite)。
 
+具体保留、适配与未实现范围列在[模块边界表](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/module-parity.md)；需要了解交接材料时，可以读 [Workflow 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-workflow/references/handoff.md)，而不是假设存在一个隐藏的自动验收服务。
+
+### 为什么需要四种入口，而不是只给一个压缩包
+
+“单独还是整套”回答采用范围，“Skill 还是插件”回答宿主接入方式，这是两个独立选择。只想把 History 放进既有团队流程，可以使用单独 Skill；希望由 Codex 管理发现与安装，可以选择单个插件；正在建立新项目工作方式的人，才可能更适合整套入口。
+
+源码目录保留核心 Skill 与相关脚本，生成目录承担可分发包。完整套件是相同模块的版本一致组合，不应获得更高的能力宣称。修复一次文件保护逻辑之后，单独包与整套包必须获得同一修复，而不是在 README 上声称相同、实际内容逐渐分叉。
+
+这种组合也有成本：同一个模块同时以单独插件和整套插件存在，会产生重复名称；跨宿主的未知缓存不可能靠当前机器一次检查全部发现。安装器选择保守拒绝可识别的冲突，更新前核对受管理文件，保留用户改动。它不承诺发生磁盘故障时能把多模块写入自动回滚为完整事务，遇到部分状态仍要检查后再继续。
+
+因此，正确的采用方式是为同一模块选择一种形态，先看计划、再应用，不把插件缓存当普通文件夹手动修补。需要切换时先通过原宿主正常移除，再安装新的形态。这些约束看起来不如“一键全自动”漂亮，却是在长期更新时保护工作成果的具体机制。
+
+
 ## 7. 套件应该主动，但权限不能随之扩大
 
 研发工具越能连续工作，越需要明确它在哪些地方停下来。
@@ -138,6 +303,13 @@ codex plugin add agent-engineering-suite-history@agent-engineering-suite
 ## 8. 从你最容易断开的地方开始
 
 不必为了使用套件，先把现有研发流程全部替换掉。
+
+一个已经有清晰 CI、代码评审和发布流程的项目，最初甚至只需要 Spec Flow 的结构检查。把它作为已有流程的一个环节，观察哪些完成声明终于变得可追溯；不必为了使用套件重写所有 Issue。一个快速探索的原型，则可以先用 Grilling 压窄决定，用短 History 留下真正改变方向的原因，等恢复和权限开始重要时再引入更完整的证据链。
+
+对于多人或多 Agent 并行开发，优先明确谁拥有当前修改与最终发布，再使用交接模板暴露冲突。不应先启动所有模块同时扫描整个仓库，也不应让多个 Reviewer 因为看到了不同材料就各自产生一套“最终完成”状态。
+
+还要给流程本身设退出条件：普通改动没有产生新设计，就不强迫写 ADR；资料没有长期价值，就不强迫晋升 History；没有新证据，就不重算一份看起来不同的分数。套件应帮助选择下一项有价值的工作，也应该能帮助判断现在没有必要再做什么。
+
 
 如果需求经常做到一半才发现理解不同，可以先接入 Grilling 和 Spec 流程；如果代码持续膨胀、一个改动需要触及许多模块，可以先做架构深化，再让审查检查具体变更；如果任务换一个会话就难以继续，先把 History 与交接整理好；如果总觉得事情很多却不知道下一步，使用成熟度评估识别缺口，再由 Roadmap 排序。
 

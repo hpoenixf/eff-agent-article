@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { englishArticleSlugs } from '../book.en.mjs'
 
 // A deliberately small structural check. Human review remains responsible for semantic accuracy.
@@ -38,12 +39,28 @@ function markdownStructure(source) {
     .concat([...source.matchAll(/<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/g)].map(x => x[1]))
   return { diagrams, tables, images }
 }
-function localAsset(articlePath, link) {
+export function localAsset(articlePath, link, root = '.') {
   const url = link.split(/[?#]/)[0].trim()
   if (!url || /^(?:https?:|data:|#)/i.test(url)) return null
-  if (url.startsWith('/')) return resolve('.', url.slice(1))
-  return resolve(dirname(articlePath), decodeURIComponent(url))
+  if (url.startsWith('/')) {
+    const relative = decodeURIComponent(url.slice(1))
+    const publicAsset = resolve(root, 'public', relative)
+    // VitePress serves public assets at site-root URLs; preserve legacy root assets.
+    return existsSync(publicAsset) ? publicAsset : resolve(root, relative)
+  }
+  return resolve(root, dirname(articlePath), decodeURIComponent(url))
 }
+export function englishImageError(articlePath, link, root = '.') {
+  const path = localAsset(articlePath, link, root)
+  if (!path) return null
+  if (!existsSync(path)) return 'English image missing: ' + link
+  if (/\.(?:svg|html?)$/i.test(path) && han.test(readFileSync(path, 'utf8'))) {
+    return 'Chinese-labelled image in English article: ' + link
+  }
+  return null
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
 for (const slug of englishArticleSlugs) {
   const zhPath = 'articles/' + slug + '.md'
   const enPath = 'en/articles/' + slug + '.md'
@@ -63,13 +80,8 @@ for (const slug of englishArticleSlugs) {
     if (sourceArrows.length !== translatedArrows.length) errors.push(slug + ': Mermaid #' + (i + 1) + ' connector count differs')
   })
   for (const link of en.images) {
-    const path = localAsset(enPath, link)
-    if (!path) continue
-    if (!existsSync(path)) { errors.push(slug + ': English image missing: ' + link); continue }
-    // A Chinese-labelled SVG/HTML must not silently be reused as an English illustration.
-    if (/\.(?:svg|html?)$/i.test(path) && han.test(readFileSync(path, 'utf8'))) {
-      errors.push(slug + ': Chinese-labelled image in English article: ' + link)
-    }
+    const error = englishImageError(enPath, link)
+    if (error) errors.push(slug + ': ' + error)
   }
 }
 if (errors.length) {
@@ -78,3 +90,5 @@ if (errors.length) {
 }
 console.log('Bilingual visual parity:', englishArticleSlugs.length,
   'full article pairs; diagrams, tables and illustrations verified structurally.')
+
+}
