@@ -388,3 +388,35 @@ graph TD
 回答这些问题不一定会得出“不要新增”。有时答案恰恰是必须增加可靠保存、访问控制或恢复能力。但答案应当来自真实任务、具体边界和可以核对的效果，而不是来自对某种架构形状的偏好。
 
 从一份比较报告出发，我们最终讨论的仍是同一件事：当模型能够提出下一步时，系统怎样让它在明确范围内取得材料、形成判断、留下真实效果，并把结果交回用户。架构原则的价值，正在于让这条路在变长、变复杂之后，仍然能够被理解、检查和改变。
+
+## 原则与方法：延伸阅读索引
+
+下面的链接按原则页的两层结构排列。本文用同一份报告说明这些判断如何一起使用；各篇文章继续展开它们的工程背景、取舍与适用边界。
+
+### 九条核心原则
+
+| 原则 | 对应文章 |
+| --- | --- |
+| 1. 模型负责语义，系统负责客观事实 | [别让模型维护运行状态机](https://hpoenixf.com/eff-agent-article/articles/runtime-model-protocol-boundary-agent-article-v2) |
+| 2. 复杂度归属正确的 Owner | [Model、Runtime、MCP、Skill 的职责](https://hpoenixf.com/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) |
+| 3. 提议、批准、执行、生效是不同事实 | [为什么回答需要独立发布系统](https://hpoenixf.com/eff-agent-article/articles/019-agent-answer-publication) |
+| 4. 局部失败不能取得全局否决权 | [Agent 的否决权与 Run 终结权](https://hpoenixf.com/eff-agent-article/articles/agent-veto-authority-and-run-termination) |
+| 5. Context 是工作台，不是事实数据库 | [工具结果外置：模型到底读到了多少](https://hpoenixf.com/eff-agent-article/articles/tool-results-outside-model-context) |
+| 6. 坚持最小充分机制 | [Entry：为什么入口越来越简单](https://hpoenixf.com/eff-agent-article/articles/022-agent-entry-from-intent-to-direct-research) |
+| 7. 能力容易引入、撤退和替换 | [代码越来越便宜，为什么系统却越来越难升级](https://hpoenixf.com/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve) |
+| 8. 系统内部成功不等于用户任务成功 | [修了很多 Bug，为什么真实研究还是没完成](https://hpoenixf.com/eff-agent-article/articles/032-ai-development-from-bug-loop-to-task-convergence) |
+| 9. 局部改善不等于整体进步 | [怎样判断 Agent 真的变好了](https://hpoenixf.com/eff-agent-article/articles/local-improvement-is-not-system-progress) |
+
+### 七组外围系统方法
+
+| 要解决的问题 | 对应文章 |
+| --- | --- |
+| 新增能力值不值得做：五不与正常路径成本 | [五不与架构演化](https://hpoenixf.com/eff-agent-article/articles/code-cheaper-systems-harder-to-evolve) |
+| 设计职责怎样划分：事实、权力、故障与价值 | [Model、Runtime、MCP、Skill 的职责](https://hpoenixf.com/eff-agent-article/articles/agent-model-runtime-mcp-skill-boundaries) · [否决权与 Run 终结权](https://hpoenixf.com/eff-agent-article/articles/agent-veto-authority-and-run-termination) |
+| 一项能力的稳定边界在哪里 | [差异化演进契约：稳定什么，改变什么](https://hpoenixf.com/eff-agent-article/articles/agent-differentiated-evolution-contracts) |
+| 结果经过多次传递还能相信什么 | [金融 Agent 的可信证据链](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) |
+| 复杂需求应该如何分期 | [周报大 Spec 为什么拆成三期](https://hpoenixf.com/eff-agent-article/articles/agent-weekly-review-staged-delivery) |
+| 如何选择验证并定位失败 | [测试全绿、模型有返回，就算 Agent 成功了吗](https://hpoenixf.com/eff-agent-article/articles/honest-agent-evaluation) · [别把每个失败都算给模型](https://hpoenixf.com/eff-agent-article/articles/agent-failure-is-a-boundary-problem) |
+| 如何让旧方案真正退出 | [工程 Context 与 History：知识如何退役](https://hpoenixf.com/eff-agent-article/articles/027-agent-context-document-history) |
+
+也可以回到[架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles)，按问题查阅完整速查表。

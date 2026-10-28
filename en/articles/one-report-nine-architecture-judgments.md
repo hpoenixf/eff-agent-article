@@ -388,3 +388,35 @@ When someone proposes another module for the report, ask: what will the user gai
 Those questions do not always lead to “do not add it.” Sometimes reliable saving, access control, or recovery is necessary. The answer should come from the real task, concrete boundaries, and checkable effects, not a preference for an architectural shape.
 
 Starting with one comparison report, we are still addressing one problem: when a model can propose its next step, how does the system let it obtain material within scope, form judgments, leave real effects, and return a result to the user? Architecture principles matter because they keep that path understandable, inspectable, and changeable as it grows.
+
+## Further reading: principles and methods
+
+These links follow the two-layer structure of the principles page. This article uses one report to show how the judgments work together; the linked essays develop their engineering background, trade-offs, and boundaries.
+
+### Nine core principles
+
+| Principle | Related essay |
+| --- | --- |
+| 1. The model interprets; the system owns objective facts | [Don't Turn the Model into a State Machine](https://hpoenixf.com/eff-agent-article/en/articles/runtime-model-protocol-boundary-agent-article-v2) |
+| 2. Put complexity with the right owner | [Responsibilities of Model, Runtime, MCP and Skills](https://hpoenixf.com/eff-agent-article/en/articles/agent-model-runtime-mcp-skill-boundaries) |
+| 3. Proposal, authorization, execution, and effect are different facts | [Why Answers Need Their Own Delivery System](https://hpoenixf.com/eff-agent-article/en/articles/019-agent-answer-publication) |
+| 4. Local failures must not gain a global veto | [Run Termination and Local Vetoes](https://hpoenixf.com/eff-agent-article/en/articles/agent-veto-authority-and-run-termination) |
+| 5. Context is a working view, not a database of facts | [Externalized Results and Input Completeness](https://hpoenixf.com/eff-agent-article/en/articles/tool-results-outside-model-context) |
+| 6. Use the minimal sufficient mechanism | [Entry: Why the Entry Point Became Simpler](https://hpoenixf.com/eff-agent-article/en/articles/022-agent-entry-from-intent-to-direct-research) |
+| 7. Make capabilities introducible, replaceable, and retireable | [Code Is Cheaper; Why Are Systems Harder to Evolve?](https://hpoenixf.com/eff-agent-article/en/articles/code-cheaper-systems-harder-to-evolve) |
+| 8. Internal success is not the same as user-task success | [From Bug-Fix Loops to Task Convergence](https://hpoenixf.com/eff-agent-article/en/articles/032-ai-development-from-bug-loop-to-task-convergence) |
+| 9. Local improvement is not system progress | [Local Improvements Are Not System Progress](https://hpoenixf.com/eff-agent-article/en/articles/local-improvement-is-not-system-progress) |
+
+### Seven on-demand methods
+
+| Question | Related essay |
+| --- | --- |
+| Is a new capability worthwhile? The five don'ts and normal-path cost | [The Five Don'ts and Architecture Evolution](https://hpoenixf.com/eff-agent-article/en/articles/code-cheaper-systems-harder-to-evolve) |
+| How should responsibilities be divided? Facts, authority, failure, and value | [Model, Runtime, MCP and Skills](https://hpoenixf.com/eff-agent-article/en/articles/agent-model-runtime-mcp-skill-boundaries) · [Run Termination and Vetoes](https://hpoenixf.com/eff-agent-article/en/articles/agent-veto-authority-and-run-termination) |
+| Where are a capability's stability boundaries? | [Differentiated Evolution Contracts](https://hpoenixf.com/eff-agent-article/en/articles/agent-differentiated-evolution-contracts) |
+| What can we trust as results pass between stages? | [A Trustworthy Evidence Chain for Financial Agents](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) (Chinese original) |
+| How should a complex task be staged? | [Why We Split a Weekly Review Spec into Three Phases](https://hpoenixf.com/eff-agent-article/en/articles/agent-weekly-review-staged-delivery) |
+| How should we choose verification and locate a failure? | [Tests and Evaluations: What Does Green Prove?](https://hpoenixf.com/eff-agent-article/en/articles/honest-agent-evaluation) · [Stop Blaming Every Failure on the Model](https://hpoenixf.com/eff-agent-article/en/articles/agent-failure-is-a-boundary-problem) |
+| How can an old approach truly retire? | [Engineering Context, Memory and Knowledge Retirement](https://hpoenixf.com/eff-agent-article/en/articles/027-agent-context-document-history) |
+
+For the full reference organized by question, return to [Agent Architecture: Core Principles and On-Demand Methods](https://hpoenixf.com/eff-agent-article/en/principles).
