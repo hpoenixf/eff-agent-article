@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "repository": "hpoenixf/open-etf-agent",
+  "kind": "public-code-lineage-not-release-registry",
+  "historicalPlan": "https://github.com/hpoenixf/open-etf-agent/blob/c390eb2dd951b53b1dab2d64a9cd72d216fde8dc/docs/plan/versions.json",
+  "versions": {
+    "0.1": {
+      "commit": "f9370b81beef84199293120ee23d245bb0129553",
+      "tree": "a2a04932819be17dd2994bbd5cf27f34253aaecc"
+    },
+    "0.2": {
+      "commit": "a79e89bf709d4a2245b5a8652882a591ba467519",
+      "tree": "0dd72ce7068e2792e2a199443b03e5e784f6bdf6"
+    },
+    "0.3": {
+      "commit": "5d57314826447f024d878674b98057742b4ce4cd",
+      "tree": "934d821a5c0770483fa8249fcb6bd8c08da4068b"
+    },
+    "0.4": {
+      "commit": "ecf6cb45b4062586614e83aed917c92d704cb63b",
+      "tree": "32108642ead238677b47952811b80d2c9c9345fc"
+    },
+    "0.5": {
+      "commit": "05c0dd2dc550f4f7e5da034340ff5c3159768fcf",
+      "tree": "4bf51c7d41febf60d3f964d9e2e9cf0492579132"
+    },
+    "0.6": {
+      "commit": "7480b656b18192e6d6b44aab65255b970d58e6f8",
+      "tree": "f3ffcf86bd8276e3c4d43f959c447deb302c0ede"
+    },
+    "0.7": {
+      "commit": "5f70dc0b4760ad70ef211f4823828ab2fee5c525",
+      "tree": "bc1fe00f7e2d8bfefd99856d3c7c7c9b9cfdd16d"
+    },
+    "0.8": {
+      "commit": "2c096ce47be2161f97531170af07ef255872f8b1",
+      "tree": "62ead44dcdb89fab9f6f6a38bd26634c94f7f802"
+    },
+    "0.9": {
+      "commit": "dad9c6e64f32c3d7579aea96613776b40917ec6d",
+      "tree": "ed7018acf6ed5dab5d4496bcc7aa7d3bd7fe2702"
+    },
+    "0.10": {
+      "commit": "ff5b9273ef0d239e804f61792702cd2e94174be7",
+      "tree": "0d8f3c27a08a1da9bce0fe562683d5721d0d7a61"
+    }
+  },
+  "targets": {
+    "child": {
+      "since": "0.3",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "e9cc47413975e3648b66568c1bbeddfec83aa685",
+      "selector": "fixture-child"
+    },
+    "reread": {
+      "since": "0.4",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "49056bfed3cc658faf9334faf9853e068b74dd79",
+      "selector": "retrieve-reread"
+    },
+    "compaction": {
+      "since": "0.5",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "3411881fde2c13fc586c8bf0f3c784bab885775e",
+      "selector": "compact-and-reread"
+    },
+    "memory": {
+      "since": "0.5",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "3411881fde2c13fc586c8bf0f3c784bab885775e",
+      "selector": "explicit-memory"
+    },
+    "mcp": {
+      "since": "0.2",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "bdc0a307dd3e40a403265b70fecdb5a9171965c9",
+      "selector": "skill-mcp"
+    },
+    "batch": {
+      "since": "0.3",
+      "evidencePath": "src/cli.mjs",
+      "evidenceGitBlob": "e9cc47413975e3648b66568c1bbeddfec83aa685",
+      "selector": "batch-read"
+    },
+    "provider": {
+      "since": "0.1",
+      "evidencePath": "test/gateway.test.mjs",
+      "evidenceGitBlob": "90a8ec0585a5d2225e6743c5b2f02bcf735c1bcc",
+      "selector": "1.4 injected offline transport verifies request encoding and matched tool results"
+    },
+    "plugins": {
+      "since": "0.7",
+      "evidencePath": "test/plugins.test.mjs",
+      "evidenceGitBlob": "2d93911ef9349cc52301cb719e4347f04be96bb2",
+      "selector": "7.1 two trusted packages use the ordinary Host and acquired source/method owners"
+    },
+    "surface": {
+      "since": "0.3",
+      "evidencePath": "test/cooperation-integration.test.mjs",
+      "evidenceGitBlob": "32a2836895d7962961ee1e10c3d4dd0a6830f3b2",
+      "selector": "3.4 fixture child shares root counters and advertises only allowed read tool"
+    },
+    "hooks": {
+      "since": "0.3",
+      "evidencePath": "test/cooperation-integration.test.mjs",
+      "evidenceGitBlob": "32a2836895d7962961ee1e10c3d4dd0a6830f3b2",
+      "selector": "3.3 Host revalidates effective Hook arguments and preserves original call"
+    },
+    "budget": {
+      "since": "0.3",
+      "evidencePath": "test/cooperation-integration.test.mjs",
+      "evidenceGitBlob": "32a2836895d7962961ee1e10c3d4dd0a6830f3b2",
+      "selector": "3.3 root budget refusal stops before a second model request"
+    },
+    "trust": {
+      "since": "0.4",
+      "evidencePath": "test/context.test.mjs",
+      "evidenceGitBlob": "a3ef22c02b5f2bfb3afae3cbbba35c82ea96f0dc",
+      "selector": "4.2 projection never launders a lookalike or altered payload into an acquired ref"
+    },
+    "control": {
+      "since": "0.7",
+      "evidencePath": "test/durable-runtime.test.mjs",
+      "evidenceGitBlob": "12a64e8cc17156f5e154eb9cefdaa020d7f807d6",
+      "selector": "7.3 cancel during pending model is durable and late proposal cannot dispatch"
+    },
+    "publication": {
+      "since": "0.8",
+      "evidencePath": "test/publication-cli.test.mjs",
+      "evidenceGitBlob": "f77cb2dbc2b7e2c20e95bafa404d59e940f2347b",
+      "selector": "8.2 local CLI starts same Runtime and separately reads body, current event and immutable Artifact"
+    },
+    "worker": {
+      "since": "0.9",
+      "evidencePath": "test/worker-cli.test.mjs",
+      "evidenceGitBlob": "6fb768d061d3ae496895acd3b086d8682b15ab02",
+      "selector": "9.1 submit exits before a separate work process drives and reads the original Run"
+    }
+  },
+  "notes": [
+    "since identifies the first fixed public implementation of the limited target, not full article coverage or a formal GitHub Release.",
+    "Current execution qualification remains article-coverage.json verifiedAt and its actual receipt; it never rewrites since.",
+    "v0.2 source-boundary maintenance a10d4f1bd1ecc39224272156221fe29792b64094 follows a79e89bf709d4a2245b5a8652882a591ba467519; MCP already existed.",
+    "ecf6cb45b4062586614e83aed917c92d704cb63b introduced v0.4 Result/Context/Retrieval; Compaction/Memory first appear in its v0.5 successor 05c0dd2dc550f4f7e5da034340ff5c3159768fcf.",
+    "The original plan is preserved as historical, not converted from planned to released. v0.9 records the actual fixed single-Run Worker slice, not full scheduling.",
+    "v0.10 assigns the completed Result/Reference consumption increment to the next version after v0.9. The cancelled duplicate reader-adapter candidate and original1.1 intent are explained in docs/plan/v1-to-v2.md; original target since values remain unchanged."
+  ]
+}

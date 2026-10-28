@@ -45,6 +45,7 @@ export default defineConfig({
           { text: 'System Overview', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
           { text: 'Principles', link: '/en/principles' },
           { text: 'Gallery', link: '/en/gallery' },
+          { text: 'Open ETF Agent', link: '/en/open-etf-agent' },
           { text: 'Runnable code ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
           { text: 'Topics', items: [
             { text: 'Modules', link: '/en/modules' },
@@ -133,9 +134,10 @@ export default defineConfig({
       english
     }))
 
-    if (relativePath !== 'principles.md' && relativePath !== 'en/principles.md') return
-    heads.push(['link', { rel: 'alternate', hreflang: 'zh-CN', href: SITE_URL + 'principles' }])
-    heads.push(['link', { rel: 'alternate', hreflang: 'en', href: SITE_URL + 'en/principles' }])
+    const pairedPage = relativePath.replace(/^en\//, '').replace(/\.md$/, '')
+    if (!['principles', 'open-etf-agent'].includes(pairedPage)) return
+    heads.push(['link', { rel: 'alternate', hreflang: 'zh-CN', href: SITE_URL + pairedPage }])
+    heads.push(['link', { rel: 'alternate', hreflang: 'en', href: SITE_URL + 'en/' + pairedPage }])
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -187,6 +189,7 @@ export default defineConfig({
       { text: '系统全景', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
       { text: '架构原则', link: '/principles' },
       { text: '架构图册', link: '/gallery' },
+      { text: '开源专题', link: '/en/open-etf-agent' },
       { text: '可运行源码 ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
       { text: '文章分类', items: [
         { text: '模块维度', link: '/modules' },

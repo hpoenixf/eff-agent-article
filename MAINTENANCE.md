@@ -78,3 +78,12 @@ Pages 部署并读回新域名的 `reader-release.json` 和实际正文，才算
 The article repository is the source, not a second publishing owner. The blog's immutable
 release pin selects the source commit; its deployment receipt and exact public HTML bytes
 must agree on the canonical domain. Legacy GitHub Pages serves redirects only.
+
+## Open ETF Agent topic
+
+- English-first entry: `/en/open-etf-agent`; Chinese equivalent: `/open-etf-agent`. Keep both home entries, nav discovery, explicit language selection and base-path routing.
+- `book.mjs` is the only article identity/order owner. `open-etf-topic.mjs` joins its module groups with exact public-repository snapshots in `data/open-etf-agent/`; do not hand-maintain a second article list.
+- After a qualified public-code update, update the existing `.github/open-etf-code-source.json` only after the selected code commit is published and independently read back, then run `node scripts/sync-open-etf-topic.mjs --sync`. This copies `docs/verification/article-coverage.json`, `.en.json`, `article-coverage-receipts.json` and root `versions.json` byte-for-byte from that fixed public commit, after cross-checks. `node scripts/sync-open-etf-topic.mjs --check` runs in CI and rejects any snapshot that differs from its published source. No separate source-pin owner is introduced. The snapshot source commit identifies qualification, not necessarily current repository HEAD.
+- Review presentation-only version captions and current stable/WIP text separately: one version, one distinct delivery focus; do not promote WIP, historical test totals, or execution receipts into release/model/investment-quality claims. Preserve `semanticStatus: unreviewed` and per-article scope. Newly cataloged articles remain unassessed unless the authoritative coverage contract says otherwise.
+- Run `npm run check:topic`, `npm run check:catalog`, and `npm run docs:build`; inspect English/Chinese pages at desktop/mobile widths, keyboard focus, language switching with a saved opposite preference, and Back/Forward. Tests of this page do not replace complete deployment CI.
+- Publication remains article source → canonical blog lock/build at `hpoenixf/myblog-v2` → `https://hpoenixf.com/eff-agent-article/`. No parallel website. Verify exact source/lock/CI and public HTML body, routes, links and snapshot counts after deployment.

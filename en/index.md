@@ -30,6 +30,8 @@ features:
     linkText: Explore engineering
 ---
 
+<OpenEtfTopicEntry />
+
 <ContinueReading />
 
 <FlagshipEntry compact />

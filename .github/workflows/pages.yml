@@ -29,6 +29,7 @@ jobs:
         run: |
           node --test --test-concurrency=1 scripts/check-article-backlinks.test.mjs
           node scripts/check-article-backlinks.mjs --article
+          node scripts/sync-open-etf-topic.mjs --check
       - name: Install dependencies
         run: npm install --no-audit --no-fund
         env:
@@ -49,6 +50,29 @@ jobs:
           grep -q 'principles#principle-6' .vitepress/dist/articles/022-agent-entry-from-intent-to-direct-research.html
           grep -q 'principles#method-1' .vitepress/dist/articles/022-agent-entry-from-intent-to-direct-research.html
           grep -q 'en/principles#principle-5' .vitepress/dist/en/articles/agent-main-run-context-compaction.html
+      - name: Verify bilingual topic output and home discovery
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs'
+          import { createHash } from 'node:crypto'
+          import assert from 'node:assert/strict'
+          for (const route of ['open-etf-agent', 'en/open-etf-agent']) {
+            const bytes = readFileSync(`.vitepress/dist/${route}.html`)
+            const html = bytes.toString('utf8')
+            assert.equal((html.match(/<h1[ >]/g) || []).length, 1)
+            assert.ok(html.includes('https://hpoenixf.com/eff-agent-article/' + route))
+            assert.ok(html.includes('hreflang="en"') && html.includes('hreflang="zh-CN"'))
+            assert.ok(html.includes('id="reading"') && html.includes('id="versions"'))
+            assert.ok(html.includes('oet-article') && html.includes('?lang=zh'))
+            console.log(JSON.stringify({ route, bytes: bytes.length, sha256: createHash('sha256').update(bytes).digest('hex') }))
+          }
+          for (const route of ['index', 'en/index']) {
+            const html = readFileSync(`.vitepress/dist/${route}.html`, 'utf8')
+            assert.ok(html.includes('oet-entry'))
+            assert.ok(html.includes('/eff-agent-article/en/open-etf-agent'))
+            assert.ok(html.includes('/eff-agent-article/open-etf-agent?lang=zh'))
+          }
+          NODE
       - name: Include portable visual collection
         run: |
           cp -R visuals .vitepress/dist/visuals

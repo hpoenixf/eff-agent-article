@@ -1,3 +1,5 @@
+import OpenEtfTopic from './OpenEtfTopic.vue'
+import OpenEtfTopicEntry from './OpenEtfTopicEntry.vue'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
@@ -24,6 +26,8 @@ export default {
     'layout-bottom': () => h(ReadingTracker)
   }),
   enhanceApp({ app }) {
+    app.component('OpenEtfTopic', OpenEtfTopic)
+    app.component('OpenEtfTopicEntry', OpenEtfTopicEntry)
     app.component('ChapterCatalog', ChapterCatalog)
     app.component('FlagshipEntry', FlagshipEntry)
     app.component('ContinueReading', ContinueReading)

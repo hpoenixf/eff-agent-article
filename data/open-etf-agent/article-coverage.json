@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 2,
+  "repository": "hpoenixf/open-etf-agent",
+  "articleCatalog": {
+    "repository": "hpoenixf/eff-agent-article",
+    "commit": "ae0f657fccb594716067516fd4f1f4180421160f",
+    "path": "book.mjs",
+    "collection": "modules",
+    "count": 31
+  },
+  "source": "docs/verification/article-coverage-source.json",
+  "receipt": "docs/verification/article-coverage-receipts.json",
+  "targets": {
+    "child": {
+      "kind": "cli",
+      "case": "fixture-child"
+    },
+    "reread": {
+      "kind": "cli",
+      "case": "retrieve-reread"
+    },
+    "compaction": {
+      "kind": "cli",
+      "case": "compact-and-reread"
+    },
+    "memory": {
+      "kind": "cli",
+      "case": "explicit-memory"
+    },
+    "mcp": {
+      "kind": "cli",
+      "case": "skill-mcp"
+    },
+    "batch": {
+      "kind": "cli",
+      "case": "batch-read"
+    },
+    "provider": {
+      "kind": "test",
+      "file": "test/gateway.test.mjs",
+      "name": "1.4 injected offline transport verifies request encoding and matched tool results"
+    },
+    "plugins": {
+      "kind": "test",
+      "file": "test/plugins.test.mjs",
+      "name": "7.1 two trusted packages use the ordinary Host and acquired source/method owners"
+    },
+    "surface": {
+      "kind": "test",
+      "file": "test/cooperation-integration.test.mjs",
+      "name": "3.4 fixture child shares root counters and advertises only allowed read tool"
+    },
+    "trust": {
+      "kind": "test",
+      "file": "test/context.test.mjs",
+      "name": "4.2 projection never launders a lookalike or altered payload into an acquired ref"
+    },
+    "hooks": {
+      "kind": "test",
+      "file": "test/cooperation-integration.test.mjs",
+      "name": "3.3 Host revalidates effective Hook arguments and preserves original call"
+    },
+    "budget": {
+      "kind": "test",
+      "file": "test/cooperation-integration.test.mjs",
+      "name": "3.3 root budget refusal stops before a second model request"
+    },
+    "control": {
+      "kind": "test",
+      "file": "test/durable-runtime.test.mjs",
+      "name": "7.3 cancel during pending model is durable and late proposal cannot dispatch"
+    },
+    "publication": {
+      "kind": "test",
+      "file": "test/publication-cli.test.mjs",
+      "name": "8.2 local CLI starts same Runtime and separately reads body, current event and immutable Artifact"
+    },
+    "worker": {
+      "kind": "test",
+      "file": "test/worker-cli.test.mjs",
+      "name": "9.1 submit exits before a separate work process drives and reads the original Run"
+    }
+  },
+  "articles": [
+    {
+      "slug": "022-agent-entry-from-intent-to-direct-research",
+      "title": "Entry：为什么入口越来越简单",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 Direct/Research 决策、授权目录呈现与普通追问"
+    },
+    {
+      "slug": "021-agent-web-research-from-search-to-deep-reading",
+      "title": "Web：从搜索到连续阅读",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 HTTP 获取、连续阅读、页面状态和来源撤销"
+    },
+    {
+      "slug": "agent-temporal-semantics-market-calendar",
+      "title": "Agent 说“今天”时，到底是哪一天",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺可信时区、日历覆盖和行情 dataAsOf"
+    },
+    {
+      "slug": "024-agent-pdf-from-text-to-evidence",
+      "title": "PDF：从文本到证据",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 PDF 文本/页图/版面定位/多模态读取"
+    },
+    {
+      "slug": "agent-subagent-context-specialization",
+      "title": "Subagent：从隔离到专业化协作",
+      "status": "verified",
+      "target": "child",
+      "scope": "一层脚本 Child 共享预算并交回原始结果；非真实模型专家"
+    },
+    {
+      "slug": "agent-custom-expert-from-prompt-to-recovery",
+      "title": "自定义专家，不应该只是一个 Prompt 输入框",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺专家 CRUD/版本冻结/目录权限/历史身份/恢复"
+    },
+    {
+      "slug": "adaptive-research-python-workbench",
+      "title": "Adaptive Research 与 Python",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺模型研究问题修订、任意获准 Python、数据工件接力"
+    },
+    {
+      "slug": "agent-python-compute-workbench-evolution",
+      "title": "Python：从工具到计算工作台",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺隔离执行/代码与输入身份/失败后工件保留"
+    },
+    {
+      "slug": "portfolio-mcp-readonly-investment-data",
+      "title": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 portfolio-report、份额/现金/快照口径和方案计算"
+    },
+    {
+      "slug": "unavailable-is-correct",
+      "title": "数据过期后的受控刷新",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺刷新任务身份、scope/fingerprint 去重、来源拒绝与原子发布新证据"
+    },
+    {
+      "slug": "tool-results-outside-model-context",
+      "title": "结果外置与完整性：模型到底读到了多少",
+      "status": "verified",
+      "target": "reread",
+      "scope": "词法候选→真实读页→精确原文回读；非完整原文覆盖平台"
+    },
+    {
+      "slug": "agent-main-run-context-compaction",
+      "title": "Main 压缩：摘要不改写原始事实",
+      "status": "verified",
+      "target": "compaction",
+      "scope": "派生便笺与原文分离、采用后回读；摘要质量未评"
+    },
+    {
+      "slug": "026-agent-memory-forget-durable-effects",
+      "title": "Memory：从保存、召回到安全遗忘",
+      "status": "verified",
+      "target": "memory",
+      "scope": "显式合成意图的保存/修订/忘记；非认证用户 Memory 服务"
+    },
+    {
+      "slug": "027-rag-revocation-publish-replay",
+      "title": "RAG：文档撤权与历史回放",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺动态 ACL/撤权传播、发布资格与历史回放再授权"
+    },
+    {
+      "slug": "agent-provider-architecture-and-admission",
+      "title": "Provider：统一接口之后，为什么还需要共享准入",
+      "status": "verified",
+      "target": "provider",
+      "scope": "离线 transport 的 Gateway 编码与配对；无共享 Provider 准入"
+    },
+    {
+      "slug": "agent-provider-admission-capacity-lease",
+      "title": "模型返回 HTTP 200，为什么下一次还要排队",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺跨进程队列、租约/隔离、远端 unknown/释放及 PG 控制库"
+    },
+    {
+      "slug": "020-agent-extension-host-smartphone",
+      "title": "Extension Host：从功能机到智能机",
+      "status": "verified",
+      "target": "plugins",
+      "scope": "可信包接入同一 Host；不是隔离沙箱或完整多生态 Host"
+    },
+    {
+      "slug": "mcp-host-from-discovery-to-consumption",
+      "title": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
+      "status": "verified",
+      "target": "mcp",
+      "scope": "真实 stdio 合成 MCP 发现、准入与取得；非金融数据服务"
+    },
+    {
+      "slug": "agent-model-capability-presentation-tool-surface",
+      "title": "Tool Surface：Agent 有工具，模型为什么看不到",
+      "status": "verified",
+      "target": "surface",
+      "scope": "Child 只呈现获准读工具；非完整动态能力编排"
+    },
+    {
+      "slug": "agent-content-trust-prompt-injection",
+      "title": "A35 内容信任：Prompt Injection 不只是恶意文本",
+      "status": "verified",
+      "target": "trust",
+      "scope": "Context 拒绝伪造原文身份；非完整 A35 安全模块"
+    },
+    {
+      "slug": "agent-multi-ecosystem-hook-execution",
+      "title": "多生态 Hook：Claude、Pi 与 Codex",
+      "status": "verified",
+      "target": "hooks",
+      "scope": "同一 Host 复验 Hook 改参并保留原调用；无多生态转换层"
+    },
+    {
+      "slug": "agent-tool-lifecycle-and-model-input",
+      "title": "工具调用到模型输入的观测链",
+      "status": "verified",
+      "target": "batch",
+      "scope": "合成 worker 经现有 Runtime/Host 保存来源；非完整观测平台"
+    },
+    {
+      "slug": "agent-runtime-constraint-governance-v2",
+      "title": "Run 预算与约束治理",
+      "status": "verified",
+      "target": "budget",
+      "scope": "根预算拒绝阻止下一模型请求；非全部预算政策"
+    },
+    {
+      "slug": "agent-personal-credits-shadow-accounting",
+      "title": "Agent 的请求数、Token 与 Credits 记账",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺账户/物理尝试身份、归因、价格目录与影子成本核算"
+    },
+    {
+      "slug": "agent-control-events-durable-owner-adoption",
+      "title": "Agent 收到控制指令后，为什么不能立刻执行",
+      "status": "verified",
+      "target": "control",
+      "scope": "持久取消阻止迟到提案执行并跨进程保持；非完整控制事件系统"
+    },
+    {
+      "slug": "agent-autonomous-scheduled-research",
+      "title": "定时研究：会话结束后继续",
+      "status": "verified",
+      "target": "worker",
+      "scope": "显式 submit 与独立 work 进程沿原 Run 回读；无定时触发、Task 编排、通知或前台并发"
+    },
+    {
+      "slug": "025-agent-langfuse-from-trace-to-trustworthy-observability",
+      "title": "Langfuse：从 Trace 到可信观测",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 Langfuse exporter/span/session 归属与远端失败隔离"
+    },
+    {
+      "slug": "019-agent-answer-publication",
+      "title": "Publication：为什么需要独立发布系统",
+      "status": "verified",
+      "target": "publication",
+      "scope": "同一 Runtime 提交正文并经独立 CLI 回读，与报告 Artifact 分离；不含 Web / SSE / Worker 或完整发布系统"
+    },
+    {
+      "slug": "agent-progressive-answer-coherence",
+      "title": "渐进式回答如何保持连贯",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 committed blocks/revision、前端渐进展示和历史一致性"
+    },
+    {
+      "slug": "agent-asynchronous-research-time-bound-delivery",
+      "title": "异步研究：离开页面后怎样按时交付",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺离开后持续任务、by/at 交付约定、通知和同 Run 恢复"
+    },
+    {
+      "slug": "agent-durable-human-interaction-response-adoption",
+      "title": "Agent 问完用户之后：持久人机交互",
+      "status": "无公开对应",
+      "target": null,
+      "scope": "缺 request/response/adoption/effect 身份、Human Park/Continue 与认证用户回复"
+    }
+  ],
+  "versions": "versions.json",
+  "verifiedAt": "ff5b9273ef0d239e804f61792702cd2e94174be7"
+}
