@@ -114,7 +114,7 @@ Host projects approved original tools, descriptions, and Schemas from the curren
 
 A remote MCP may connect directly to Host; it need not be rewrapped into a local synthetic Market provider.
 
-~~~mermaid
+```mermaid
 graph TD
 ResearchModel --> McpHost
 McpHost --> LocalMarket
@@ -124,7 +124,7 @@ StructuredProviders --> BoundedEvidence
 NativeSource --> NativeEvidence
 BoundedEvidence --> ResearchModel
 NativeEvidence --> ResearchModel
-~~~
+```
 
 Host holds MCP connections, permission checks, and invocation. The two branches are **alternative modes of consumption**, not a requirement that every research task call all sources.
 
@@ -210,7 +210,7 @@ A coverage check for a requested window likewise does not establish that every e
 
 Suppose the model requests daily CSI 300 index prices for a defined window and wishes to compute the interval change:
 
-~~~json
+```json
 {
   "code": "000300",
   "market": "CN",
@@ -220,7 +220,7 @@ Suppose the model requests daily CSI 300 index prices for a defined window and w
   "frequency": "daily",
   "metrics": ["interval_return"]
 }
-~~~
+```
 
 **All prices and Provider responses below are synthetic teaching values, not real market observations.**
 
@@ -234,15 +234,15 @@ Assume no cached result. The first tier selects three Providers:
 
 Primary ranking may select the CSI sequence. The interval return from its first and last prices is:
 
-~~~text
+```text
 4080 / 4000 - 1 = 0.02 = 2%
-~~~
+```
 
 The first tier satisfies the current request, so there is no need to invoke Wind.
 
 A simplified result view:
 
-~~~json
+```json
 {
   "status": "available",
   "instrument": {
@@ -258,7 +258,7 @@ A simplified result view:
   "corroboration": "confirmed",
   "cache": "miss"
 }
-~~~
+```
 
 The model receives not merely "up 2%" but the **instrument, actual dates, price basis, Provider identity, and limited corroboration state**.
 
@@ -290,7 +290,7 @@ Before adding a Provider, ask which real data gap it fills. When an operation fa
 - [A Read-Only Portfolio MCP](/en/articles/portfolio-mcp-readonly-investment-data)
 - [The Dangerous Professionalism of Incorrect Financial Numbers](031-fintech-data-time-and-reproducible-numbers.md)
 - [Why an Agent Can Run Python and Still Miscalculate](financial-agent-python-result-consumption.md)
-- [A Trustworthy Evidence Chain for Financial Agents](/articles/financial-agent-trustworthy-evidence-chain)
+- [A Trustworthy Evidence Chain for Financial Agents (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain)
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
