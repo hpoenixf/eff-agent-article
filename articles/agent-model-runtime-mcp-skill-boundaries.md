@@ -1,16 +1,16 @@
 # 从让模型少想一点，到让 Runtime 少管一点：重新理解 Agent、Runtime、MCP 与 Skill 的分工
 
-**Agent 架构不是把一切“不可靠”都交给 Runtime 就能变可靠。** 模型不该维护权限和执行回执；但 Runtime 能调用工具，也不代表它应该判断金融研究下一步查什么。真正的选择是：**把语义、方法、能力和执行事实放到各自最能负责的位置。**
+**把 AI 接入产品，难点不只是让它会做事，还要知道每件事究竟由谁负责。**
 
-ETF Agent 的演化走过两个阶段：先从重型 AgentTurn 迁到 native tool loop，避免让模型复制一份运行时状态；后来又发现 Runtime 逐渐替金融能力和工具表面作决定，需要把这些知识交回合适的责任方。
+先看一个教学示例：同事请助手比较两份基金说明书，列出关键差异并保存报告。模型能理解“哪些条款发生变化”；读取工具负责拿到两份文件；保存程序知道报告是否真的落盘。如果把这些决定都塞进一个“总管”，看似集中，出了问题反而难以说清谁的判断有效。
 
-这不是一次架构会议就画出的分工。本文保留旧方案合理的动机与反例，区分截至 2026 年 9 月末进入实际执行链的改动，以及当时尚未完整退役的 synthetic Tool 路线。下次准备“再加一道校验”时，先判断：**这道规则究竟由谁有资格决定？**
+这篇文章要回答一个普通的架构问题：**哪些事需要 AI 理解，哪些事应由工具和程序按事实处理？** 我们用这个小任务解释四种角色，再回看 ETF Agent 中两次真实演进：早期让模型维护过多执行状态，后来又让运行系统承担了不属于它的业务解释。
 
-## 一、第一步：先别让模型维护 Runtime 已经知道的事实
+在这里，**Model（模型）**负责理解和选择；**Skill（技能说明）**提供分析方法；**MCP 工具**提供可调用能力；**Runtime（运行系统）**记录权限、调用和结果。这是帮助理解责任的地图，不是四个必须独立部署的服务。本文的迁移历史以 2026 年 9 月的原始记录为依据；不把当时未完成的替换写成今天已全面落地的事实。
 
-早期 Research 协议里，我们让模型输出一个结构化的 AgentTurn。它不仅表达下一步动作，还会携带状态、缺口、完成声明等信息。
+## 一、第一步：模型说“我保存了”，不等于文件存在
 
-简化后大概是：
+早期我们让模型交回一个结构化的 `AgentTurn`，除了下一步动作，还包含证据缺口和完成声明：
 
 ```json
 {
@@ -20,181 +20,33 @@ ETF Agent 的演化走过两个阶段：先从重型 AgentTurn 迁到 native too
 }
 ```
 
-这个设计一开始并不奇怪。工具调用需要审计，Research 需要恢复，系统也希望知道模型为什么继续、为什么结束。
+这个方案当时有道理：研究要分步进行，系统也要知道为何继续。但随着权限、预算、工具回执和发布状态越来越多，模型不得不复述一份运行系统已经知道的状态。两份记录一旦不一致，就会出现“模型说完成，文件却没保存”的争议。
 
-问题是协议会自然膨胀。
+于是研究逐步转向原生工具调用：模型提出“下一步读取什么”，真正的工具执行、允许范围和保存结果由程序记账。**模型可以改变看法，但不能用一句自述改写已经发生的操作。** 这就是原生工具循环替代状态镜像的主要理由。
 
-当权限、工具集合、证据缺口、发布状态、子目标、完成条件都逐渐进入模型输出后，模型实际上同时做两件事：
+## 二、程序要记执行事实，但不用替模型做研究
 
-```text
-理解问题、判断下一步
-+
-维护一份 Runtime 状态镜像
-```
+对一份报告来说，“还剩几次读取机会”“文件写入有没有回执”“用户是否允许读取私人资料”应由程序判定；不能让模型靠猜。运行系统负责这些可核对的事实，并在中断后使用原有记录，而不是重新编造过程。
 
-第二件事很贵，而且通常没有增加任何权威。
+但另一个极端也不对：看到一段逻辑不适合模型，就全部塞进 Runtime。例如“比较基金时应该先核对披露日期”是一种研究方法，不是进程调度；“读取哪个基金组合”则由已经提供这种数据能力的工具定义。**程序负责安全执行，不代表程序要重新发明业务知识。**
 
-Runtime 本来就知道：
+## 三、同一个工具说明写了三遍，为什么难维护
 
-- 某项能力是否真的获批；
-- 某个 Tool 是否执行；
-- 结果是否成功返回；
-- publication 是否提交；
-- 当前 run 是否取消；
-- 还剩多少预算。
+2026 年 9 月的工具整理暴露了一个很实际的问题：工具叫什么、哪些参数可用、应该调用哪条路径，在不同接线位置重复维护。一处更新了“读取基金持仓”的定义，其他位置可能仍保留旧名字或旧参数。
 
-如果模型再输出一份，这份状态最多是“模型认为现在是什么状态”。一旦冲突，系统仍然只能相信 Host 实际记录的事实。
+当时先把重复映射收敛成一份工具约定，让各处从它派生。这避免了“三处各自解释同一件事”，但没有自动解决更深的问题：**剩下的那份定义，真的由提供数据能力的一方负责吗？**
 
-所以我们后来把 Research 收敛到 native tool loop。模型不再描述完整工作流状态，而是提出下一步 Tool 调用；Host 持久化 ModelTurn、执行结果、receipt 和 publication，Runtime 用这些事实控制恢复和终态。
+这也是[工具可见性专文](agent-model-capability-presentation-tool-surface.md)与本篇的分工：前者讨论模型最终看到了哪些工具，本篇讨论谁应该定义工具及其规则。
 
-2026-09-20 的历史记录里，这个边界被概括成一句话：
+## 四、工具已经能“查某项”，为什么还要包成“查全部”
 
-> **语义决策可以交给模型，权威与恢复不能。**
+拿组合查询举例：数据工具已经分别提供“读取组合概览”“查看某个持仓”“读取分组持仓”等能力。为了统一管理，研究侧曾再包出一个宽泛的 `read_portfolio`。它看起来给模型一个简单入口，却让“究竟能查什么”在两处都有解释。
 
-这一步的核心不是减少系统状态，恰恰相反，系统状态反而需要更严格。减少的是**模型对系统事实的重复维护**。
+可以把它想成：图书馆已经按书名、作者和主题提供检索，门口又设一个只接受“帮我查书”的窗口。窗口不是没有用——它可以检查读者证件和借阅限额；但它不应该再创造一套与馆藏目录不同的分类和书目。
 
----
+因此，设计方向是让工具的能力描述来自真正提供它的地方，Runtime 保留授权、预算、调用回执和结果大小等保护。历史上的整层替换**没有在当时一次完成**：现有工具表面能消费发现的能力描述，不代表所有旧包装、映射已无条件退役。
 
-## 二、把复杂度下沉到 Runtime 是对的，但下沉不是越多越好
-
-从 AgentTurn 迁到 native tool calling 以后，一个很自然的认识是：
-
-> Runtime 已经能确定的事情，就不要再让模型推理。
-
-于是越来越多确定性逻辑进入 Runtime：
-
-```text
-授权
-预算
-调用状态
-取消
-checkpoint
-recovery
-receipt
-publication
-terminal gate
-```
-
-这些职责有一个共同特点：答案应该是确定的。
-
-例如：
-
-```text
-remainingReadActions = 3
-```
-
-不需要模型判断。
-
-某个 receipt 是否已经 durable，也不需要模型判断。
-
-但“确定性逻辑应该下沉”很容易被扩展成另一句话：
-
-> 只要不是模型负责，就放 Runtime。
-
-这两句话并不等价。
-
-我们后来真正踩到的问题，就是 Runtime 开始拥有越来越多**业务能力本身的定义**。
-
----
-
-## 三、第一次 Tool 收敛：从多份定义变成一个 Tool Contract
-
-2026 年 9 月，我们连续两次发现 Tool 定义的重复维护。26 日，Host catalog 与生产 Runtime capability table 对同一关系各有解释；删除重复查询后，受控回归仍能使用原来获准的工具。27 日又发现 Native Tool、Skill Context 和 Runtime Factory 各自保存 Tool 与 Host 的映射，Web search/read 还可能因共用 route 错误暴露兄弟能力。
-
-当时的合理修复，是用**一份 Tool Contract 派生 Host、Skill 与模型工具的映射**：从三处静态解释收敛到一处，减少 drift。这并不代表模型选择一定正确，也没有改变原权限与派发事实。
-
-这个历史选择后来又暴露下一层问题：**把三份重复定义合成一份，仍要追问剩下的那一份是否属于正确的 Owner。** 最终请求中工具描述能否如实抵达模型，另由[A34 Tool Surface 专文](agent-model-capability-presentation-tool-surface.md)说明；这里继续讨论更一般的 Model / Runtime / MCP / Skill 责任划分。
-
-## 四、真正的问题：剩下的这个 owner，放对地方了吗？
-
-最近我们重新看 Portfolio 工具时，发现了一个很明显的信号。
-
-Portfolio MCP 本身已经暴露了多种 scoped capability，例如：
-
-```text
-portfolio__get_portfolio_overview
-portfolio__get_fund_position
-portfolio__get_bucket_holdings
-portfolio__get_sector_exposure
-```
-
-这些名字、参数和返回语义都很明确。
-
-但是 Native Research 没有直接把这些 capability 给模型，而是又定义了一层 synthetic Tool：
-
-```text
-read_portfolio({})
-```
-
-调用链因此变成：
-
-```text
-MCP Tool
-  ↓
-Research Tool Contract
-  ↓
-Model Tool
-  ↓
-Host Action
-  ↓
-mapReadCall
-  ↓
-MCP Tool
-```
-
-每一层单独看都能解释：
-
-- Runtime 要管权限；
-- 要管 Skill ceiling；
-- 要管预算；
-- 要管输入；
-- 要管输出大小。
-
-但这些治理需求并不能推出一个结论：
-
-> Runtime 应该重新定义一次业务 Tool。
-
-Portfolio 场景把问题暴露得很直观：MCP 已经有 bucket holdings，模型却只看到一个宽泛的 read_portfolio。Runtime 为了治理 Tool，顺手成为了 Tool 语义的 owner，结果反而把上游已经表达清楚的能力压扁了。
-
-这时候我们重新做 deletion test：
-
-> 如果删掉 synthetic Tool layer，复杂度会扩散到调用方，还是直接消失？
-
-对 MCP-backed business tools 来说，大量消失的是：
-
-```text
-重复的名字
-重复的 schema
-重复的 mapping
-重复的 Host Action identity
-```
-
-而真正重要的治理并没有消失：
-
-```text
-authorization
-budget
-hook
-recovery
-receipt
-result bound
-```
-
-这说明我们之前完成的是：
-
-```text
-3 owners → 1 owner
-```
-
-这一阶段进一步要做的是：
-
-```text
-错误位置的 1 owner → 0 个 shadow owner
-```
-
-现行 `native-tool-surface.ts` 已经能够接收 MCP discovery 的描述符，并按轮次收窄模型实际看到的工具。历史上的整层替换方案并没有完整落地，因此不能把局部接线成果写成原方案已被整体部署。
-
----
+读者可以用一个很简单的办法检查这类封装：删掉中间包装后，必要保护还在不在？如果都在，而重复名字和参数映射消失了，它可能只是把复杂度搬来搬去。
 
 ## 五、职责分工：模型 / 技能 / MCP / 运行时
 
@@ -435,70 +287,15 @@ PreToolUse / PostToolUse 很适合做跨层的机械治理。
 
 ---
 
-## 八、三个对比案例：为什么“更集中”不一定等于“更正确”
+## 八、回看两次改变：不是“集中越多越好”
 
-### 案例一：AgentTurn → native tool loop
+| 当时的办法 | 后来发现的问题 | 更合适的责任 |
+| --- | --- | --- |
+| 让模型同时写下一步动作和执行状态 | 模型的“完成”与工具实际回执可能冲突 | 模型提议动作，程序记录事实 |
+| 多处各自维护同一工具说明 | 改一个名字还要改多处，容易遗漏 | 由一处工具能力定义派生展示与调用 |
+| 用宽泛的研究工具包装已有的业务能力 | 原始工具的具体用途被遮蔽 | 工具本身描述能力，运行系统保留安全治理 |
 
-旧做法：
-
-```text
-模型维护 actions / gaps / completionClaim / subGoals
-```
-
-后来的做法：
-
-```text
-模型提出 Tool call
-Runtime / Host 维护真实执行事实
-```
-
-这里的收益不是“JSON 字段更少”本身，而是状态 owner 回到了真正拥有事实的地方。
-
-### 案例二：三份 Tool mapping → 一份 Tool Contract
-
-旧做法：
-
-```text
-Tool Contract
-Skill Context
-Runtime Factory
-```
-
-分别维护同一个 Tool 的暴露关系。
-
-2026-09-27 收敛成一个 Tool Contract，是必要的一步，因为它减少了 drift。
-
-但这次重新 review 又发现：
-
-> **一个 owner 仍然可能是错误 owner。**
-
-如果 MCP 已经定义完整业务 capability，那么 Runtime Tool Contract 再拥有一遍业务 Tool Interface，仍然是 shadow owner。
-
-### 案例三：测试全绿，但 production 已经不经过这个 seam
-
-这次继续扫仓库时，我们还发现了另一类历史债务：部分 src/server Module 已经没有 production consumer，但测试仍然直接调用它们。
-
-典型结构是：
-
-```text
-Production:
-A → B → C
-
-Tests:
-T → LegacyModule
-```
-
-测试绿，只能证明 LegacyModule 自己的 Interface 仍然符合测试，并不能证明 production 还经过这里。
-
-因此我们另开了 `agent-retire-test-only-and-legacy-seams`：把仍有效的限制迁到生产调用边界，再删除没有生产消费者的旧模块。这里既有实际代码和断言迁移，也有尚未完全收口的旧结构；历史归档并不意味着所有遗留接缝已经消失。
-
-这个案例让我重新理解了一句话：
-
-> **The interface is the test surface。**
-
-如果 production seam 已经移动，测试也要跟着移动。否则测试会开始保护历史结构，而不是保护系统行为。
-
----
+三次观察并不能证明“所有包装都该删”。只有当包装不再独立承担必要职责时，删除才真正减少维护负担。
 
 ## 九、失败与降级边界：分工变清楚，不代表边界变软
 
@@ -620,16 +417,6 @@ Runtime → 过程复杂度
 - [别再让模型当状态机：一次 Agent 协议减负实践](./runtime-model-protocol-boundary-agent-article-v2.md)
 - [Agent 查了很多资料，为什么还是交不出答案？](./agent-runtime-constraint-governance-v2.md)
 
-## 证据来源
+## 阅读与实现口径（2026 年 10 月）
 
-- 2026-09-20 Native Tool Loop：语义决策可以交给模型，权威与恢复不能
-- 2026-09-26 Research tool capability 只由 canonical Host catalog 定义
-- 2026-09-27 Native 工具暴露收口到单一 Tool Contract
-- agent-remove-synthetic-mcp-tool-layer proposal
-- agent-remove-synthetic-mcp-tool-layer design
-- agent-retire-test-only-and-legacy-seams proposal
-- Native Tool lifecycle hooks 规范
-
-- synthetic-layer 局部验证与冻结退役边界
-- legacy-seams 验证与退役记录
-- 当前 Native 工具面实现
+本文以 ETF Agent 的设计演进解释职责边界，而非把所有历史尝试视为现行完整功能。想动手观察一条范围明确的公开路径，可以看 [Open ETF Agent v0.11 固定源码](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b)和[当前运行说明](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)：公开版的文档比较、结果传递与本地 PDF 演示主要使用合成资料和脚本动作，不能代表完整内部投研系统或真实模型效果。

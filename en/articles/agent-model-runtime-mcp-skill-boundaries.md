@@ -1,150 +1,52 @@
 # From Asking the Model to Do Less to Asking Runtime to Own Less: Model, Runtime, MCP, and Skill Responsibilities
 
-**An agent does not become safer simply because every uncertain decision moves into Runtime.** A model should not maintain authorization or execution receipts. Yet Runtime's ability to invoke a tool does not make it the right owner of what financial evidence to investigate next. **Semantics, methods, capabilities, and execution facts belong in different places.**
+**When adding AI to an application, the hard part is not only making it do things. It is deciding who is responsible for each thing.**
 
-ETF Agent made two related changes: away from a heavyweight AgentTurn state mirror toward native tool calls, and then away from Runtime-owned interpretations of financial tools. The first kept execution facts out of model output; the second returned knowledge to its real provider.
+Consider a teaching example. A teammate asks an assistant to compare two fund documents and save a report. The model can understand which terms changed. A reading tool retrieves the actual files. Storage confirms whether the report was written. A single “supervisor” might appear convenient, but it becomes harder to say whose decision is authoritative when something fails.
 
-This did not emerge from one architecture diagram. We retain the rationale and counterexamples, distinguishing actual execution changes from the incomplete synthetic Tool retirement work at the September 2026 evidence window. Before adding another validator, ask: **Who is qualified to decide what its rule means?**
+This article asks an ordinary system-design question: **Which decisions require understanding, and which should be made from facts by tools and programs?** We begin with four roles, then revisit two actual directions in ETF Agent: asking the model to maintain too much execution state and later allowing Runtime to duplicate business-tool definitions.
 
-## 1. Stop Making the Model Maintain Facts Runtime Already Knows
+Here **Model** interprets and selects; **Skill** provides a method; **MCP tools** expose available capabilities; and **Runtime** records permissions, calls, and outcomes. This is a responsibility map, not a demand to deploy four separate services. Historical claims reflect September 2026 records; a proposed replacement is not automatically a completed migration.
 
-An early Research protocol asked the model to output a structured **AgentTurn** containing actions, gaps, and a completion claim:
+## 1. “I saved the report” is not proof that a file exists
+
+An early design made the model return a structured `AgentTurn`, including the next action, evidence gaps, and a completion claim:
 
 ~~~json
 {
   "actions": ["search"],
-  "gaps": ["Additional evidence is still needed"],
+  "gaps": ["More source evidence needed"],
   "completionClaim": false
 }
 ~~~
 
-The motivation was understandable. Tool activity should be auditable. Research requires recovery. The system needs to understand why work continues or stops.
+That was reasonable at the time. Research unfolds in steps, and the system needed to explain continuation. But as permissions, budgets, receipts, and publication status accumulated, the model was repeating state that the host already knew. What happens when its completion claim conflicts with a missing save receipt?
 
-But the protocol expanded. Permissions, tool lists, evidence gaps, Publication status, subgoals, and completion conditions increasingly appeared in model output.
+Research therefore moved toward native tool calls: the model proposes what to read next, while the program records the actual call, its authorization, and its outcome. **The model may revise its judgment, but its narrative cannot rewrite an executed operation.**
 
-The model was now doing two jobs:
+## 2. Programs record execution facts; they do not choose the research thesis
 
-~~~text
-Understand the user and choose the next action
-+
-Maintain a shadow copy of Runtime state
-~~~
+“How many reads remain?”, “Was the file really saved?”, and “Is this private document in scope?” have verifiable answers. Runtime and the relevant effect owner should determine them from real records rather than model guesses.
 
-The second job was expensive and added no authority.
+But the opposite extreme is also wrong. “Check reporting dates before comparing two funds” is a research method, not process scheduling. “Which portfolio data can be read” belongs with the tool that provides those capabilities. **Knowing how to execute a call safely does not confer authority to redefine its business meaning.**
 
-Runtime already knows which capabilities were granted, which tool calls happened, whether results returned, which Publications committed, whether a Run was canceled, and how much budget remains.
+## 3. Why maintaining the same tool definition three times hurts
 
-A model-generated account of these facts is only **what the model believes**. When it conflicts with Host receipts, Host facts win.
+The September 2026 tool cleanup exposed a practical issue: names, parameters, and routing for a single tool had multiple maintainers. Updating “read fund holdings” in one place could leave another place using an outdated name or shape.
 
-We moved Research toward a **native tool loop**. The model proposes its next Tool call. Host persists **ModelTurn**, execution results, receipts, and Publications; Runtime uses these real facts to govern Recovery and terminal state.
+The first improvement was to derive these mappings from one contract. That reduced drift, but it left a deeper question: **Does the remaining definition belong to the party that actually provides the data capability?**
 
-An internal September 20 record captured the principle:
+The [tool-visibility article](/en/articles/agent-model-capability-presentation-tool-surface) examines what descriptions reach the model. Here we ask who owns those descriptions and their decisions.
 
-> **Semantic decisions can belong to the model. Authority and recovery cannot.**
+## 4. When a tool can “read a specific holding,” why wrap it as “read everything”?
 
-The goal was not to reduce the rigor of system state. It was to eliminate the model's duplicate ownership of it.
+A portfolio tool already exposes distinct capabilities, such as listing a portfolio, reading one position, or inspecting a group of holdings. Research once placed a broader `read_portfolio` wrapper above those capabilities. The result was a second place defining what a tool meant.
 
-## 2. Moving Deterministic Complexity into Runtime Is Right—Until It Goes Too Far
+Think of a library that already supports searches by title, author, and subject. A reception desk that only accepts “find me a book” can check membership and borrowing limits, but it should not invent its own conflicting catalog.
 
-After the native-tool-loop transition, it felt natural to say that the model should not infer anything Runtime can determine:
+The intended direction is to let a capability provider define its tool and let Runtime retain authorization, budgets, receipts, and output limits. The historical replacement **was not fully completed in one step**: consuming discovered tool descriptions is narrower than retiring every legacy wrapper.
 
-~~~text
-Authorization
-Budget
-Invocation status
-Cancellation
-Checkpoint
-Recovery
-Receipt
-Publication
-Terminal gate
-~~~
-
-These are objective facts. For example:
-
-~~~text
-remainingReadActions = 3
-~~~
-
-A model does not need to guess the budget or whether a receipt is durable.
-
-But **"Runtime should own deterministic process facts"** slowly became **"anything the model shouldn't own belongs in Runtime."**
-
-Those statements are not equivalent.
-
-The real trouble began when Runtime started redefining the **business capabilities** themselves.
-
-## 3. First Tool Consolidation: Multiple Definitions into One Contract
-
-In September 2026, two successive revisions exposed duplicated tool definitions. On the 26th, the Host catalog and a production Runtime capability table maintained the same relationships independently; targeted checks confirmed that removing the duplicate lookup preserved authorized tool routes. On the 27th, Native Tool, Skill Context and Runtime Factory still each mapped model-facing tools to Host capabilities. Web search and read shared a route, risking exposure of unintended sibling methods.
-
-The appropriate fix **derived Host, Skill and model-tool exposure from one Tool Contract** rather than three static interpretations. It reduced mapping drift; it did not prove the model's tool choices correct or change the original permission and dispatch facts.
-
-That decision revealed the next problem: **even one consolidated contract can belong to the wrong Owner**. The separate [A34 Tool Surface article](agent-model-capability-presentation-tool-surface.md) examines whether the final model request actually carries authorized descriptors. This article stays focused on the broader Model / Runtime / MCP / Skill division of responsibilities.
-
-## 4. The Deeper Question: Does the Remaining Owner Belong Here?
-
-Portfolio MCP already offered precise scoped methods:
-
-~~~text
-portfolio__get_portfolio_overview
-portfolio__get_fund_position
-portfolio__get_bucket_holdings
-portfolio__get_sector_exposure
-~~~
-
-These methods have meaningful names, argument schemas, and result semantics. Yet Native Research sometimes exposed another synthetic wrapper:
-
-~~~text
-read_portfolio({})
-~~~
-
-The call chain effectively became:
-
-~~~text
-MCP Tool
-  ↓
-Research Tool Contract
-  ↓
-Model Tool
-  ↓
-Host Action
-  ↓
-mapReadCall
-  ↓
-MCP Tool
-~~~
-
-Every layer had a plausible justification: permissions, Skill ceilings, budget enforcement, inputs, and output limits.
-
-But **the need to govern a tool does not imply Runtime should redefine that business tool**.
-
-Portfolio already exposed "bucket holdings"; the model saw the blunter "read_portfolio." Runtime acquired business semantics as a side effect of wanting to govern execution—and flattened the useful capability distinctions.
-
-We applied a **deletion test**: if the synthetic layer disappeared, would complexity spread across many callers or simply disappear?
-
-For MCP-backed business Tools, much of what vanished was duplicate names, schemas, mapping code, and Host Action identities.
-
-The genuinely necessary governance stayed:
-
-~~~text
-Authorization
-Budget
-Hooks
-Recovery
-Receipts
-Result-size bounds
-~~~
-
-Our progression therefore became:
-
-~~~text
-Three Owners → One Owner
-          ↓
-Wrongly placed Owner → No shadow Owner
-~~~
-
-The current **native-tool-surface.ts** accepted MCP discovery descriptors and narrowed the tools visible on each turn. The earlier whole-layer replacement was not fully implemented, so partial wiring work should not be described as deployment of the original proposal.
+A useful design test is to imagine deleting the intermediate wrapper. Would the required protections still hold, while duplicate names and mappings disappear? If so, the wrapper may have been moving complexity rather than hiding it.
 
 ## 5. Four Layers, Four Kinds of Complexity
 
@@ -336,43 +238,15 @@ If every tool result needs fresh classification, aggregation, pagination, or bus
 
 Return to MCP and define a scenario-appropriate view instead of growing a second business layer in Runtime/Hooks.
 
-## 8. Three Comparisons: "More Centralized" Can Still Be Wrong
+## 8. Two changes, one lesson: centralization alone is not the goal
 
-### Example 1: AgentTurn → native tool loop
+| Earlier choice | Why it became fragile | Better ownership |
+| --- | --- | --- |
+| Model reports both next action and execution status | “Done” could disagree with the actual tool receipt | Model proposes; the program records the effect |
+| Multiple copies of a tool definition | Renaming one field requires coordinated changes | Derive presentations and calls from one capability definition |
+| Broad research wrapper around existing business tools | Specific capabilities are hidden by a duplicate vocabulary | Tools describe capabilities; Runtime keeps execution protections |
 
-Before, the model maintained actions, gaps, completionClaim, and subgoals.
-
-Afterwards, it proposed Tool calls while Runtime/Host owned execution facts.
-
-The improvement was not merely fewer JSON fields; it was ownership of authoritative state returning to the layer that actually records it.
-
-### Example 2: three Tool mappings → one Tool Contract
-
-The September 27 consolidation reduced static mapping drift. Necessary—but the correct count of Owners does not answer whether the **remaining Owner** belongs at the right abstraction.
-
-A Runtime business Tool wrapping an already well-defined MCP capability is still a shadow Owner.
-
-### Example 3: green tests for a seam production no longer uses
-
-Repository inspection exposed test-only legacy modules with no production consumers:
-
-~~~text
-Production:
-A → B → C
-
-Tests:
-T → LegacyModule
-~~~
-
-Green tests for LegacyModule prove that its interface still matches those tests. They say nothing about whether the current production path invokes it.
-
-We introduced **agent-retire-test-only-and-legacy-seams** to move still-valid guards back to real production entry points and delete obsolete modules.
-
-That work removed obsolete code such as **build-context.ts** and migrated useful assertions to the production boundaries. Other historical seams remained, so archival alone never meant the legacy structure had been eliminated everywhere.
-
-This was not merely a proposal, but nor does archival prove live acceptance or that all historical seams disappeared. The **28 historical guard entries** retained at that time were not a whole-repository zero-debt certificate.
-
-As the design maxim goes: **the interface is the test surface**. When a production seam moves, tests must move to protect the current behavior rather than fossilizing obsolete architecture.
+This is not an argument for removing every wrapper. Keep one if it has a distinct, necessary responsibility; remove it when it merely repeats another owner's decisions.
 
 ## 9. Clearer Ownership Does Not Weaken Failure or Permission Boundaries
 
@@ -452,14 +326,6 @@ When reviewing a Validator, Tool, Hook, or Skill, ask: **Does this rule interpre
 - [Don't Turn the Model into a State Machine](./runtime-model-protocol-boundary-agent-article-v2.md)
 - [Run Budget and Constraint Governance](./agent-runtime-constraint-governance-v2.md)
 
-## Evidence Sources
+## Reading and implementation scope (October 2026)
 
-- September 20, 2026: Native Tool Loop, semantic decisions versus authority and Recovery.
-- September 26, 2026: canonical Host catalog ownership of Research tool capabilities.
-- September 27, 2026: Native Tool exposure consolidated into one Tool Contract.
-- agent-remove-synthetic-mcp-tool-layer proposal and design.
-- agent-retire-test-only-and-legacy-seams proposal.
-- Native Tool lifecycle-hooks specification.
-- Synthetic-layer partial verification and frozen retirement boundary.
-- Legacy-seams verification and retirement records.
-- Current Native Tool Surface implementation.
+This essay draws lessons from ETF Agent's design history; it does not claim that every proposed migration became fully active. To inspect a bounded public example, see [Open ETF Agent's fixed v0.11 source](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b) and [current instructions](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md). Its document comparison, result consumption, and local PDF demonstrations use synthetic inputs and scripted actions; they are not the full private investment-research system or evidence of real-model quality.

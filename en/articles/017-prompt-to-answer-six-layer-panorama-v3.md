@@ -13,6 +13,23 @@ Consider a teaching example: a user asks, “Analyze the industry concentration 
 
 Read this like the journey from entering a URL to seeing a rendered page: **follow the request first, then zoom into branches and loops.** A concept question may need a direct answer; missing information may require research; a new message during background work may merely add a constraint. These cases share capabilities without following one fixed route.
 
+### Six stages in sixty seconds—without memorizing 47 modules
+
+Imagine a teammate asking: “Compare these two fund reports, tell me what changed, and save the result.” From pressing Send to opening a report, remember six simple questions:
+
+| Everyday view | What the system needs to establish |
+| --- | --- |
+| **1. Receive a request** | Did this start in chat, on a schedule, or from another event? |
+| **2. Know whose work it is** | Which sources and tools may this task use, and which research run does it belong to? |
+| **3. Choose what to do next** | Is a direct explanation enough, or must the assistant read, calculate, or investigate? |
+| **4. Actually do the work** | Did a tool execute, and what original results did it return? |
+| **5. Commit something deliverable** | Which answer revision or attachment was accepted and can be read back? |
+| **6. Show it to the user** | Does the page display the right task and revision, including after reconnection? |
+
+If the second report cannot be read, the assistant may explain the verified part but must not present an incomplete comparison as complete. Saving a report, conversely, does not prove the UI displayed it.
+
+**The large diagram below is a reference, not an entrance exam.** You can skip its 47 module names at first and follow these six questions through the article. Open the detailed map only when you need to inspect a particular handoff. The six stages are not a mandatory approval pipeline for every question.
+
 <PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 47 clickable capability owners">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 47 clickable capability owners">

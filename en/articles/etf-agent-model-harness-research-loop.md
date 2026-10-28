@@ -1,11 +1,11 @@
 ---
 title: "A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together"
-description: "Lessons from ETF Agent's native loop, research needs, child agents, source lineage, recovery, and publication: how evidence changes a financial research judgment without rewriting execution facts."
+description: "A simple example involving fund holdings from different reporting dates explains how evidence should change an Agent’s judgment without changing execution history."
 ---
 
 # A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together
 
-> The [six-layer panorama](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) explains which parts of an Agent own which responsibilities. To understand why an Agent continues researching, changes direction, or revises its initial view, we need another lens: **how it works through one question over time**. This article draws on mechanisms already built into ETF Agent. The fund-investment scenario is a composite illustration, not a verbatim production trace.
+> **A good research assistant does not merely search more. It changes its conclusion when the evidence demands it.** Consider a teaching example: we want to compare two funds, but a newly published report quotes holdings from six months ago. Should the assistant search again, revise the claim, or say the evidence is insufficient? This article draws on ETF Agent design experience. The scenario is illustrative, not a verbatim production trace.
 
 ## 1. The investor wants a judgment, not ten searches
 
@@ -21,31 +21,27 @@ If an Agent merely receives an instruction to “research thoroughly” and loop
 
 An essential distinction follows: **more information is not automatically better research; longer execution is not automatically deeper reasoning**. Unless an observation changes the next action or the current conclusion, the loop is just repetition.
 
-## 2. Model exercises judgment; Harness connects it to actual execution
+## 2. Who decides what to investigate, and who confirms that a source was read?
 
-Open-ended investment research is hard to prescribe as a fixed workflow. A disclosure may introduce a different industry classification. Two apparently independent sources may turn out to cite the same outdated filing. Only after reading can Main decide whether to search further, switch methodology, delegate original-document review to a Child, or qualify the conclusion as historical.
+Continue with the fund example. The assistant sees that the new article cites old holdings and decides to find the original filing. Choosing *what matters* is a judgment call. Whether the file was authorized and actually fetched is an execution fact, not a matter of the model saying “I checked it.”
 
-That is the **Model's** job: understand the investor's concern, select methods, compare evidence, form hypotheses, and respond to counterevidence.
+Three responsibilities make the distinction concrete:
 
-The **Harness** is the environment in which these choices can actually execute. It prepares what the model may see and call, records whether a tool was really dispatched, binds receipts to a particular Run, controls resource limits, resumes safely after process loss, and hands content to publication. A harness can *contain* the agent loop; the two are not mutually exclusive architectural layers.
-
-Finance brings a third kind of authority: **source facts and calculations**. Disclosures, holdings, exchange-rate timestamps, and deterministic arithmetic have their own data and execution contracts. The model can interpret them, but a sentence saying “I verified it” cannot amend the original numbers. An analytical recommendation cannot approve a trade on the user's behalf.
-
-This led us away from the idea of an omniscient supervisory Agent. Instead, three kinds of work remain distinct:
-
-| What must be decided | Primary responsibility | Transferable lesson |
+| Question | Responsible party | In this example |
 | --- | --- | --- |
-| What to investigate next and how to respond to counterevidence | Main model | Leave open semantic questions to the component capable of interpreting them |
-| Tool permissions, settled receipts, budgets, and continuation | Existing Host, Runtime, and Recovery owners | Ground execution in verifiable events rather than model narration |
-| Data provenance, numeric definitions, and actual business effects | Source/Result, finance tools, and business owners | A generated number or recommendation carries no automatic factual or execution authority |
+| What should we read next, and how should contradictory evidence change the claim? | **Model** | Seek the original filing or qualify the conclusion |
+| Was a call permitted, did reading actually succeed, and may the task continue safely? | **Harness and execution owners** | Record tool requests, receipts, limits, and recoverable state |
+| Which date do the holdings describe, and how were totals computed? | **Original sources and calculation tools** | Preserve dates, denominators, and reproducible calculations |
 
-**A model should not act as a transaction manager, and the Harness should not pretend to be an investment analyst.** The gain is not necessarily fewer lines of code; it is fewer competing sources of truth.
+A *harness* is the environment that supplies tools to a model, governs execution, and retains what actually happened. It may contain the research loop, but **being able to run a search does not make it an investment judge**. Likewise, interpreting a number gives a model no authority to change an account or approve a trade.
+
+The takeaway matters more than the labels: **research direction can change; actual reads, permissions, calculations, and file saves must remain grounded in real records.**
 
 ## 3. The point of a loop is not repetition—it is a changed strategy
 
-ETF Agent's Native Research does not rely on an additional general-purpose graph workflow. Its execution rhythm is `AgentTurn → ActionRuntime → CompletionGate`.
+Think of research as repeating three ordinary steps: **decide what to check → actually check it → decide whether the new evidence requires another step**. If this quarter's holdings are missing, the assistant cannot simply continue with a claim about today's concentration.
 
-`AgentTurn` lets Main propose an action using currently authorized context. `ActionRuntime` executes admitted actions and makes settled results available. `CompletionGate` handles continuation, resource limits, and completion according to existing runtime facts. A subsequent model turn can consume the new observation—and change what it had intended to do.
+ETF Agent uses its existing native research loop for that rhythm: `AgentTurn` proposes the next action, `ActionRuntime` executes admitted work, and `CompletionGate` handles continuation or stopping from actual receipts and budgets. These are execution responsibilities, not a reason to invent another general-purpose workflow manager.
 
 ![Native research loop: Main judgment, Host execution, settled observations, and a choice to recheck, delegate, or publish](../../visuals/en/etf-agent-model-harness-research-loop/02-native-loop-en.svg)
 
@@ -55,7 +51,7 @@ Three time scales make this especially useful.
 
 **Second, research questions can reopen within the same Run.** ETF Agent's optional `researchNeeds` hold model-authored working questions. “Confirm changes in sector exposure” may once have been marked `resolved`, only for Main to discover that the reported holdings cover too little of the fund. The model can reopen the question. This permits genuine revision without turning working-note status into a completion gate. A `resolved` flag is not a certificate of financial correctness.
 
-**Third, continuation across time must not recreate the past.** Existing durable execution and recovery preserve the original Run identity, grant, budgets, and settled tool receipts. If a process disappears, the system continues from the durable position instead of rerunning actions that already took effect. User corrections to background work travel through the original control mechanism. An explicit Continue after a terminal Run starts a linked new investigation.
+**Third, continuation across time must not recreate the past.** Existing durable execution and recovery preserve the original Run identity, grant, budgets, and settled tool receipts. Continuation is bounded by supported safe checkpoints, and confirmed effects are not replayed. An external call whose outcome is still unknown cannot be retried blindly merely because a process restarted. User corrections to background work travel through the original control mechanism. An explicit Continue after a terminal Run starts a linked new investigation.
 
 These distinctions explain why ETF Agent has repeatedly concentrated Main, Child, Memory, Recovery, and Publication responsibilities in their original owners: **research strategy should be allowed to change, but recorded execution history should not change along with the model's opinion**.
 
@@ -105,11 +101,14 @@ If we distill these engineering lessons into a single investment-research story,
 
 **First, let the model change its mind.** Do not turn it into a natural-language wrapper around a rigid workflow. New disclosures, contradictory sources, and counterevidence should affect the next research action. But changing a strategy does not require rewriting execution history.
 
-**Second, give every deterministic fact one owner.** Authorization, source identity, arithmetic, tool receipts, recovery, and publication each have a real place where their effects are settled. Connecting them into an investigation does not justify adding a commander that can overrule every owner.
+**Second, make each verifiable fact someone's actual responsibility.** Who granted access, who supplied source data, who calculated the totals, and who confirmed the report was saved? Each answer needs a real record, not an all-knowing supervisor's assertion.
 
-**Third, work backward from the deliverable rather than treating architectural complexity as value.** Recoverable loops, collaborating Children, and traceable citations matter because they help an investor receive a study that explains its dates, denominators, evidence, and reasons *not* to act.
+**Third, work backward from a report the user can use.** Can it be opened? Which date is it about? How were the numbers calculated? What evidence might support a different conclusion? Those questions matter more than the number of modules.
 
 A good investment-research Agent need not know every answer. It should recognize when to continue investigating, when to revise a belief, and when only a qualified conclusion is justified. **The goal is not a loop that never stops; it is a system that can be corrected by evidence without losing the evidence.**
+
+
+**Public implementation scope:** As of October 28, 2026, [Open ETF Agent's fixed v0.11 source](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b) offers synthetic document comparison, result consumption, and bounded local text-layer PDF input. It does **not** represent the complete investment-research system discussed here or validate live-model research quality.
 
 ---
 
