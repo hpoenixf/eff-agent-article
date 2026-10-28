@@ -10,6 +10,8 @@ function fixture({ hostname = 'hpoenixf.com', existing = false, consent } = {}) 
     replaceChildren() { this.children = [] }
     addEventListener(k,v) { this.listeners[k] = v }
     remove() { this.removed = true }
+    focus(options) { doc.activeElement = this; this.focusOptions = options }
+    contains(el) { return this === el || this.children.some(child => child.contains(el)) }
   }
   const doc = { addEventListener:()=>{}, title:'Public article', referrer:'https://example.org/from?email=private#secret',
     querySelector:()=>existing ? {} : null, createElement:()=>new Element(), head:new Element(), body:new Element() }
@@ -91,4 +93,43 @@ test('duplicate view preserves global prior referrer',()=>{
  const f=fixture({consent:'granted'});const api=createAnalytics(f.win,f.doc)
  api.pageView();const sets=f.win.dataLayer.filter(x=>x[0]==='set')
  assert.equal(sets.at(-1)[1].page_referrer,'https://example.org')
+})
+
+test('saved choices collapse to document footer and keep keyboard reopen/close/withdraw reachable', () => {
+  for (const consent of ['granted', 'denied']) {
+    const f = fixture({ consent }); mountAnalyticsConsent(f.win, f.doc)
+    const host = f.doc.body.children[0]
+    assert.equal(host.children.length, 1)
+    assert.match(host.style.cssText, /position:static/)
+    assert.doesNotMatch(host.style.cssText, /position:fixed|box-shadow|z-index|border:/)
+    let entry = host.children[0]; entry.focus(); entry.listeners.click()
+    assert.match(host.style.cssText, /position:fixed/)
+    assert.equal(f.doc.activeElement, host.children[2])
+    assert.deepEqual(f.doc.activeElement.focusOptions, { preventScroll: true })
+    assert.equal(host.children[2].style.cssText, host.children[3].style.cssText)
+    const close = host.children[4]; close.focus(); close.listeners.click()
+    assert.match(host.style.cssText, /position:static/)
+    assert.equal(f.doc.activeElement, host.children[0])
+    entry = host.children[0]; entry.listeners.click()
+    let prevented = false
+    host.listeners.keydown({key:'Escape', preventDefault(){prevented=true}})
+    assert.equal(prevented,true); assert.equal(f.doc.activeElement,host.children[0])
+    host.children[0].listeners.click()
+    const decline = host.children[3]; decline.focus(); decline.listeners.click()
+    assert.equal(f.win[`ga-disable-${MEASUREMENT_ID}`],true)
+    assert.match(host.style.cssText,/position:static/)
+    assert.equal(host.children.length,1)
+    assert.equal(f.doc.activeElement,host.children[0])
+  }
+})
+test('first choice has equal actions then collapses without forcing scroll', () => {
+  const f=fixture(); mountAnalyticsConsent(f.win,f.doc)
+  const host=f.doc.body.children[0]
+  assert.match(host.style.cssText,/position:fixed/)
+  assert.equal(f.doc.activeElement,undefined)
+  assert.equal(host.children[2].style.cssText,host.children[3].style.cssText)
+  host.children[2].focus(); host.children[2].listeners.click()
+  assert.match(host.style.cssText,/position:static/)
+  assert.equal(f.doc.activeElement,host.children[0])
+  assert.deepEqual(host.children[0].focusOptions,{preventScroll:true})
 })

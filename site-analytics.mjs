@@ -145,7 +145,7 @@ export function mountAnalyticsConsent(win, doc) {
   if (!analytics) return () => {}
   const host = doc.createElement('section')
   host.setAttribute('aria-label', 'Analytics privacy / 访问统计隐私')
-  host.style.cssText = 'position:fixed;bottom:12px;left:12px;z-index:1000;max-width:min(440px,calc(100vw - 24px));padding:12px;border:1px solid #64748b;border-radius:8px;background:#fff;color:#172033;font:14px/1.5 system-ui;box-shadow:0 2px 12px #0002'
+  const panelStyle = 'position:fixed;bottom:12px;left:12px;z-index:1000;max-width:min(440px,calc(100vw - 24px));padding:12px;border:1px solid #64748b;border-radius:8px;background:#fff;color:#172033;font:14px/1.5 system-ui;box-shadow:0 2px 12px #0002'
   function button(text, action) {
     const el = doc.createElement('button')
     el.type = 'button'; el.textContent = text
@@ -154,13 +154,21 @@ export function mountAnalyticsConsent(win, doc) {
     return el
   }
   function render() {
+    const restoreFocus = host.contains(doc.activeElement)
     host.replaceChildren()
     const choice = analytics.getConsent()
     if (choice) {
-      host.appendChild(button('Privacy / 隐私设置', () => renderChoices()))
+      // Keep a discoverable, keyboard-accessible entry in document flow, not a floating card.
+      host.style.cssText = 'position:static;display:block;padding:12px 16px;text-align:center;background:transparent;color:inherit;font:12px/1.5 system-ui'
+      const entry = button('Privacy / 隐私设置', () => renderChoices(true))
+      entry.style.cssText = 'padding:4px 6px;border:0;background:transparent;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit'
+      entry.setAttribute('aria-expanded', 'false')
+      host.appendChild(entry)
+      if (restoreFocus) entry.focus({ preventScroll: true })
     } else renderChoices()
   }
-  function renderChoices() {
+  function renderChoices(moveFocus = false) {
+    host.style.cssText = panelStyle
     host.replaceChildren()
     const message = doc.createElement('p')
     message.textContent = 'Optional Google Analytics uses cookies to measure page visits only after you agree. Google receives your IP address and device information. No advertising features. Choice kept for 180 days; you can withdraw here. / 可选 Google Analytics 在同意后使用 Cookie 统计访问，Google 会接收 IP 和设备信息；不启用广告功能。选择保留180天，可随时在此撤回。'
@@ -172,10 +180,18 @@ export function mountAnalyticsConsent(win, doc) {
     privacy.target = '_blank'; privacy.rel = 'noopener noreferrer'
     privacy.style.cssText = 'display:block;text-decoration:underline;color:#172033;margin:4px 0'
     host.appendChild(privacy)
-    host.appendChild(button('Accept / 同意', () => analytics.setConsent('granted')))
+    const accept = button('Accept / 同意', () => analytics.setConsent('granted'))
+    host.appendChild(accept)
     host.appendChild(button(analytics.getConsent() === 'granted' ? 'Withdraw / 撤回' : 'Decline / 拒绝', () => analytics.setConsent('denied')))
     if (analytics.getConsent()) host.appendChild(button('Close / 关闭', render))
+    if (moveFocus) accept.focus({ preventScroll: true })
   }
+  host.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && analytics.getConsent()) {
+      event.preventDefault()
+      render()
+    }
+  })
   const unsubscribe = analytics.subscribe(render)
   render(); doc.body.appendChild(host)
   return () => { unsubscribe(); host.remove() }
