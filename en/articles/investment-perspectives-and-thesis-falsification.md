@@ -6,6 +6,8 @@
 
 Suppose an investor already holds several funds and wants to add a technology ETF because “more funds means better diversification.” The useful questions are whether underlying exposures overlap, whether liquidity constraints permit the change, and what evidence could overturn the diversification claim.
 
+We call the model responsible for the user’s question and final synthesis the **lead researcher (Main)**, and an independently executed, delegated task a **research assistant (Child)**. **Bull and Bear** support and challenge a particular hypothesis; they do not vote on the result.
+
 That is why ETF Agent uses optional investment methods such as Markowitz and Taleb alongside Bull/Bear challenge. A Child is worth the additional calls and delay only when a different method can test something material. Main remains responsible for a qualified, evidence-based synthesis. Peer-message and recovery mechanics belong to the [Bull/Bear Runtime article](bounded-bull-bear-peer-dialogue.md); here the focus is choosing and using different perspectives.
 
 ## 1. Investors Do Not Simply Need More Experts
@@ -117,7 +119,7 @@ If Main is preparing to claim that another technology ETF improves diversificati
 
 Reviewer reuses existing Child execution, budget, and recovery. Main can call `consult_research_reviewer` when manual review is enabled; Runtime may admit a bounded automatic review only under configured factual triggers and resource limits. **Reviewer cannot approve an answer, certify investment truth, or block a lawful Main publication**. Sufficiently supported research can be delivered without a review.
 
-The path has [scoped engineering acceptance](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md), but real financial-quality gains and incremental cost still need separate evaluation. There is also an **explicit post-publication financial-semantic review report**; this separate evaluation tool is not the in-Run Reviewer Child or a mandatory final approval step.
+The path has scoped engineering acceptance for review execution and advice handoff; real financial-quality gains and incremental cost still need separate evaluation. There is also an **explicit post-publication financial-semantic review report**; this separate evaluation tool is not the in-Run Reviewer Child or a mandatory final approval step.
 
 
 ## 7. Under the Hood: Several Methods, One Child Runtime
@@ -161,4 +163,8 @@ A full benefit claim still needs comparable single-Main and multi-expert researc
 
 ---
 
+### Further Reading
 
+[Subagent foundations](agent-subagent-context-specialization.md) explain context isolation and result handoff; [bounded Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) covers direct messages, waiting and recovery; [the multi-layer collaboration outlook](multi-layer-agent-collaboration-outlook.md) preserves the broader design hypothesis and how to compare outcomes. For the history of research reasons, see [Investment Thesis and continuing weekly research](agent-weekly-thesis-history-continuous-research.md).
+
+The examples are synthetic, not a real personal portfolio or investment advice. This essay explains the internal research system’s design; the public teaching implementation does not contain all of these capabilities. Its actual scope is described in the [public repository README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md). More essays are in the [article collection](https://github.com/hpoenixf/eff-agent-article); Stars and constructive counterexamples are welcome.

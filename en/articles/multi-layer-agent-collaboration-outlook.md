@@ -1,61 +1,59 @@
 ---
 title: From Multiple Experts to One Research Result - The Next Step for Multi-Layer Agents (2026 Outlook)
-description: Why ETF Agent is exploring coordinated research across specialized Children, investment methods, peer challenges and personal profiles - and what remains unverified.
+description: A fund-comparison example explains when another research assistant is useful, how evidence should be handed over, and how to judge the value of collaboration.
 date: 2026-10-24
 ---
 
 # From Multiple Experts to One Research Result: The Next Step for Multi-Layer Agents (2026 Outlook)
 
-> **An architecture outlook dated October 24, 2026—not evidence that multiple experts already outperform Main.** We preserve the original hypothesis and its date, and use later observations to test it rather than rewriting the outlook as a retrospective success story.
+**Another AI expert is worthwhile when it supplies missing evidence or corrects an important reason for a decision.** More reports, calls, and waiting time do not by themselves establish the value of collaboration.
 
-**Layered Agents are valuable only if, on the same investment question, they produce materially useful evidence or corrections beyond what “one capable Main plus tools” could achieve, and still deliver a coherent answer.** Six separate expert reports that merely increase requests and waiting time would not justify the complexity.
+Consider a teaching example. An investor already holds several funds and wants to add a semiconductor ETF because “one more fund means better diversification.” They also need cash in six months and do not know how many companies the old and new funds share. The task is not to poll experts about buying. It is to test the rationale, establish which money is available, and identify what remains unknown.
 
-Consider an investor who already owns several funds and wants to add a semiconductor ETF, while worrying about overlapping holdings and a cash need six months later. The important work is not polling experts for a yes/no vote. It is examining overlapping exposure, dates and liquidity constraints, and identifying which facts would overturn the purchase rationale.
+This remains an **architecture outlook dated October 24, 2026**, not a transcript of an investment investigation or evidence that multiple experts beat a single capable assistant. Observations from October 25 and later implementation changes appear separately below, rather than being written back into the original hypothesis.
 
-At the date of this outlook, ETF Agent had distinct foundations for Subagents, investment methods, bounded Bull/Bear dialogue and user-defined methods, but lacked a matched end-to-end comparison of quality, actual handoffs and cost. This article therefore sets out **criteria for when collaboration might be worthwhile**, not a proven benefit claim.
+We call the model responsible for the user question and final synthesis **Main**, and a delegated execution working independently on a narrower problem a **Child**. Those responsibilities are enough to follow the example; no prior knowledge of the full system is required.
 
-## 1. Why Might an Investor Need Layered Collaboration?
+## 1. Is the missing piece a source, a calculation, or a better question?
 
-Personal-investment questions rarely have only one dimension. A simple rebalance can involve three very different kinds of work.
+The fund example contains at least three kinds of work:
 
-**The first is establishing facts.** What does the investor actually hold? What benchmark does the ETF track? When was the holdings file disclosed? Does it cover the entire fund or only its ten largest positions? Sources, observation dates and coverage matter.
-
-**The second is computing changes.** Buying with cash is not the same as replacing an existing fund. The two choices affect cash balances, asset exposure and transaction costs differently. They need calculations, not a model asserting that diversification is “better.”
-
-**The third is judging the rationale.** Is the investor trying to increase growth exposure or reduce risk? If the two objectives conflict, which one has the user actually confirmed? What evidence would undermine the initial recommendation?
-
-A Main Agent with suitable tools may already be capable of all three. The proposed benefit of specialized collaboration is to isolate deep local work without carrying its entire debugging history back into Main; reuse the same verified facts across methods; and bring an important challenge into synthesis before the final answer.
-
-These are **expected benefits**, not measured improvements in speed, accuracy or returns.
-
-## 2. What Building Blocks Exist, and What Is Still Missing?
-
-Previous essays discuss custom agent profiles, direct Bull/Bear dialogue and investment perspectives. Seen together, they might look like four hierarchical levels: a Web Agent supervising Python, Python supervising an investing “expert,” and Bear judging everyone.
-
-That is not our architecture. Type describes execution specialty; Perspective describes an analytical method; Role is a trusted adversarial duty within an authorized peer pair; and a user Profile supplies saved personal methodology. They can be bound to a permitted Child execution without **building another runtime, database, budget or trading privilege for each new name**.
-
-The real gap is not a missing seventh expert. It is the usefulness of the combined workflow. The distinction matters:
-
-| Existing foundation | Local behavior it can support | What we cannot conclude from it |
+| Missing piece | What to do | Why it changes the answer |
 | --- | --- | --- |
-| Main/Child with Web, PDF and Python | Delegation, context isolation, handoff, existing resource and authorization controls | Every complicated end-to-end study will succeed |
-| Six trusted investment methods | Distinct financial analytical guidance on the same Child runtime | Six methods necessarily provide more accurate judgments |
-| Bounded Bull/Bear dialogue | Independent openings, real public messages, bounded exchange and scoped durable recovery | Models will consistently discover stronger financial disconfirmation |
-| Optional Research Reviewer Child | Rechecks original sources, calculations and research gaps, offering non-authoritative advice to continue, pivot or finalize | Scoped engineering acceptance does not prove financial review quality or mandatory final approval |
-| User-configured Profiles | Settings, versions, frozen Run selection and Child binding on main | Full account/PG/browser/peer integration has been qualified |
-| Investment Thesis and History | Original hypotheses, versions, falsification criteria and optional challenge association | Future models reliably understand and revise beliefs correctly |
+| Existing portfolio and candidate-fund material | Read authorized holdings and disclosures; check dates and coverage | Ten largest positions cannot establish exact overlap across all holdings |
+| The effect of a proposed change | Calculate cash and exposure on a consistent basis | Buying with cash and replacing an existing fund are different plans |
+| A defensible reason | Test a specific claim such as “more funds means more diversification” | Greater technology exposure alone does not imply that buying is appropriate |
 
-**Research Reviewer is not the same as post-publication financial review.** The former is an optional in-Run Child. The latter generates a separate financial-semantic report for a selected published answer only when explicitly invoked. Neither may authorize trades, rewrite the answer, or impose an approval gate.
+One Main with suitable tools may do all three. When arithmetic is well defined, use a calculation tool rather than asking several experts to recompute it. Delegate when a local investigation needs depth or a different method can test an overlooked condition.
 
-Several locally functioning components are **not the same as one reliable, usable investment study**. We want that limitation to remain visible when we return to this essay in the future.
+For example, one assistant might compare two original disclosures while another checks the cash constraint. Both should work on the same investor question, not each produce a generic fund introduction. **Before delegating, name the gap the assistant is supposed to close.**
 
-## 3. What Might One Useful Research Run Look Like?
+## 2. Different specialties are not a hierarchy of supervisors
 
-Consider another **entirely synthetic ETF question**. An investor wants more technology exposure but may already hold many of the same companies, and must preserve cash needed in six months.
+The original outlook discussed execution specialties, investment methods, adversarial roles, and personal guidance separately. Reading documents, applying an analytical method, and challenging a premise are different jobs. They do not imply a Web assistant supervising Python and an investing “master” approving the result.
 
-One plausible workflow starts with Main clarifying the actual goal and funding source. It then obtains qualified holdings and calculations; chooses a portfolio-risk, investment-discipline or implementation-cost method only if that perspective adds something; asks a Bull/Bear pair to test a decisive but fragile premise where worthwhile; and finally produces conditional findings with versioned reasons for later review.
+At the time, the system already had several local foundations:
 
-The word **might** is important. We do not want every question to trigger six perspectives, several debate rounds and a full report. This is an optional, demand-driven coordination sketch, not a fixed execution DAG.
+| Existing foundation | Use within the same task |
+| --- | --- |
+| Main/Child execution and Web, PDF, and Python tools | Isolate document work or calculation and return its result |
+| Six investment-research methods | Examine allocation, tail risk, long-term discipline, cost, and other aspects of a rationale |
+| Bounded Bull/Bear dialogue | Let supporting and challenging participants exchange questions about one premise without requiring a winner |
+| Optional Research Reviewer | Recheck acquired sources and calculations and suggest missing work |
+| User-saved expert guidance | Use an identifiable revision of a personal research method |
+| Investment Thesis and history | Preserve an original rationale, falsification condition, and later revisions |
+
+This describes the local foundations available then, not an acceptance checklist for a completed end-to-end study. The missing piece was not a seventh expert. It was whether these parts could hand off useful work on the same question.
+
+Reviewer is not a superior authority. It may point out an overlooked cash requirement, but cannot authorize a trade or veto lawful answer text. A separately requested review report about an already published answer is a different operation, not mandatory approval before every delivery.
+
+## 3. Add collaboration only as the question requires it
+
+Main first establishes whether the investor wants greater technology exposure or less concentration, and where the money would come from. It then reads authorized material, checks dates, and calculates the changes. When that is enough to answer, no additional expert is necessary.
+
+If “better diversification” remains an important but fragile premise, choose a method that can test it. A supporting participant can explain the case for the intended exposure, while a challenger examines overlap and cash needs. Both may revise their views or stop early when no new evidence appears.
+
+The original diagram is retained below. It shows **optional routes through the research, not a mandatory workflow or the current tool-argument schema**.
 
 ~~~mermaid
 flowchart TD
@@ -82,109 +80,78 @@ flowchart TD
     T --> R[Publish answer and accessible history]
 ~~~
 
-Reviewer in this diagram is **not mandatory final approval**. It provides bounded advice only when admitted and worth the extra cost; Main may adopt, investigate further, or deliver supported work with explicit limits. Automatic review is off by code default; an operator template selecting `advisory` does not prove live deployment or semantic quality.
+Review remains advisory. Its absence does not automatically invalidate an answer, and receiving advice does not require another investigation. Continuing depends on the significance of the gap, available material, authorization, and remaining resources.
 
-If this workflow eventually passes the necessary acceptance tests, the investor should receive something like the following. **This is a desired output example, not a record of a real executed Run:**
+If the path succeeds, the investor should receive something like the following. **This is a desired output example, not a recorded result:**
 
-> Verified: The ETF benchmark and holdings correspond to a stated disclosure date; part of the exposure change can be checked from current authorized portfolio material.
+> Established: the candidate fund and its holdings have an explicit disclosure date; some exposure changes can be compared using the authorized material.
 >
-> Unknown: If some existing funds disclose only their largest holdings, we cannot claim an exact total look-through overlap. Industry concentration alone is not total portfolio volatility.
+> Missing: some funds disclose only their largest positions, so exact full-portfolio overlap is unavailable. Sector weight is not a substitute for overall volatility.
 >
-> Revised reason: “Buying one more fund necessarily improves diversification” is unsupported and should be withdrawn or narrowed.
+> Revised reason: “one more fund means better diversification” lacks sufficient support. An intentional technology overweight should be evaluated as that different objective.
 >
-> Investor confirmation needed: How much cash must remain available in six months, and for what purpose? The system must not invent a risk-tolerance answer.
->
-> Decision support: Explain qualified changes, limits and review conditions. Do not automatically place an order.
+> Confirmation needed: the amount and purpose of the cash needed in six months. Do not invent the investor's risk tolerance or automatically place an order.
 
-The intended final result is straightforward to read. Making the system **actually and reliably produce it** is much harder than starting several Agents.
+## 4. Four places where collaboration can break
 
-## 4. Where Do the Difficult Handoffs Happen?
+### A calculation finished, but its original result never arrived
 
-### 4.1 A calculation finished—what did Main really receive?
+“Python computed it” does not justify a number in the report. The receiving model needs the original inputs, dates, units, result, and missing coverage—and must actually receive and read them. Storing a result, returning a reference, and using it are different facts.
 
-“Python Child computed it” cannot by itself justify a number in the public answer. Main needs the actual input basis, observation date, result identity and missing coverage. Saving the result does not prove Main read it.
+In the example, “overlap is high” is an inadequate handoff. Main cannot tell whether it covers every position or only the largest holdings. A readable original result with its coverage limitation is more useful. Experts should not reconstruct competing portfolio facts from paraphrases.
 
-Existing ResultRef, source lineage and calculation mechanisms own different facts. The integration challenge is to ensure that the downstream specialist receives the **authorized original result** rather than an unverifiable paraphrase. We must not let each expert reconstruct a private, competing version of portfolio truth.
+### The challenger spoke, but the important reason did not change
 
-### 4.2 Bear spoke—did the thesis actually change?
+A message from Bear does not itself falsify a claim. Check which reason it challenges, which evidence it uses, what Bull actually replies, and how Main explains the disagreement.
 
-A public peer message does not automatically mean Main adopted the challenge. The system should identify the original thesis and hypothesis, the source of the new evidence, the actual response, and Main's eventual synthesis.
+A thesis may be assessed as supported, challenged, invalidated, or inconclusive. **Not assessed is not the same as assessed and inconclusive.** A discussion message also cannot silently rewrite a previously recorded thesis version.
 
-A message saying “the thesis is wrong” is not itself a verified `Invalidated` assessment. We must distinguish an actual dated assessment of `Supported`, `Challenged`, `Invalidated` or `Inconclusive` from the **absence of any assessment**. An unperformed assessment must not silently become Inconclusive.
+### A profile edit silently changes an older task
 
-### 4.3 The user edited the profile—should an older Run change?
+Suppose the task began with a method emphasizing cash needs, and the user later edits the profile. The running task and its history still need to identify the method revision actually used. A newer definition with the same name must not silently replace it.
 
-A saved profile can change its description and research guidance. A running task still needs to know exactly which revision was used. We have a Run-frozen identity and versioning mechanism on the implementation path; it addresses stable binding and recovery, not guaranteed semantic obedience by the model.
+Guidance is not permission. “Read every account” or “always buy” adds no data access, tool authorization, or trading authority. A Child cannot make restricted material available to another Child merely by including it in a summary.
 
-User-authored guidance is also not a new system privilege. Even instructions that say “always buy” or “access all sources” cannot override the Host's original data, resource, peer or trading authorization. A message from one Child cannot promote inaccessible materials into trusted content for another.
+### One failed assistant erases the whole result
 
-### 4.4 One specialist failed—what happens to the whole study?
+A missing PDF or a timed-out Child should not revoke independent, lawful findings. Main can deliver a clearly scoped partial study, but cannot treat missing essential material as nonexistent or conceal incompletion with polished prose.
 
-A missing PDF, a Child timeout or incomplete opposing evidence should not erase independent, previously authorized findings. Main may deliver usable partial research and state its limitations. On the other hand, when a user's essential requirement is not met, a polished narrative cannot truthfully count as a complete answer.
+Reviewer follows the same rule: suggestions do not determine the entire task's outcome. Disabled review, execution recorded without automatic advice delivery, and advice delivered to a later Main request are distinct modes. Running without delivering automatic advice still consumes resources; it is not a free check.
 
-Our target is **local degradation for local failures, while overall completion remains tied to the actual user task**. Both the successful and failed paths still need validation in the same full real-world research scenario.
+## 5. How to decide whether another assistant is worth it
 
-### 4.5 Reviewer Finds a Gap—Who Decides What Happens Next?
+Use a capable Main with suitable tools as the baseline—not an artificially weakened comparison. Keep the original question, source availability, and calculation basis comparable, and retain failures, partial results, and cost.
 
-Bear tests a specific Thesis. Research Reviewer can independently inspect **the original materials and calculations of the broader study**, potentially finding important omissions shared by the specialists. It cannot force Main to investigate again; `finalize` is only advisory. Failure, stale advice or missing evidence must not erase independent lawful findings.
-
-The implemented `off`, `shadow`, and `advisory` modes are different: `shadow` can execute without delivering automatic advice to Main but still consumes Root resources; `advisory` may inject advice into a later lawful Main request. Real-model quality, false positives, false negatives, and cost-benefit have not received complete acceptance.
-
-
-## 5. Why We Did Not Add a Universal “Chief Expert”
-
-The more Agents appear, the more tempting it becomes to introduce an Orchestrator to select them, route messages, own calculations, declare a winner or even authorize investment actions.
-
-We favor a smaller evolution. Main already owns research reasoning and synthesis. The Child lifecycle owns delegation and actual peer-message facts. Existing resource governance owns budgets and termination. Result and provenance owners retain source identity; publication and history own their respective user-visible effects.
-
-**New collaboration should deepen the necessary handoffs among these owners rather than duplicate message ledgers, result authorities and finalization decisions.**
-
-This does not mean the composition is already simple enough. Main may still delegate redundantly, choose an unsuitable investment method or spend tokens without producing a new finding. Local runtime green tests do not establish that these semantic choices are better than Main calling tools directly.
-
-We prefer to make these costs observable and honestly evaluable rather than conceal them behind a newly invented global semantic “judge.”
-
-## 6. How Will We Know Whether Collaboration Is Worth It?
-
-The strongest competing hypothesis is: **a capable Main with tools and well-managed context may already be enough**.
-
-We want to compare three approaches on the same investor question, with a comparable original source window and measurement basis. Real failures, partial results, cost and unknown states must remain in the comparison rather than displaying only the most impressive attempt.
-
-| Research mode | What to evaluate | Added cost or risk |
+| Research path | Intended increment | Cost to observe alongside it |
 | --- | --- | --- |
-| **One Main plus tools** | Can it find essential facts, weak premises and a usable answer? | Long context, debugging noise and missed challenges |
-| **Main plus targeted Children** | Are retrieval and calculation easier to finish and actually consumed by Main? | Delegation, duplicated reads and lost handoff context |
-| **Main plus methods and optional Bull/Bear** | Does it add material counterevidence, correct weak reasons and preserve real disagreement? | Extra model requests, waiting and agents anchoring on each other's opinions |
+| One Main plus tools | Finds important facts, tests the rationale, and delivers | Long context and potentially missed questions |
+| Main with targeted Children | Deeper local retrieval or calculation that Main actually uses | Delegation, repeated reads, and lost handoff context |
+| Additional methods and optional Bull/Bear | New valid counterevidence that changes an important reason | More requests, waiting, and mutual anchoring |
 
-For these research modes, separately observe **Reviewer absent, Reviewer actually dispatched, and advice actually included and used by Main**. Only matched tasks can show whether the reviewer catches material omissions, introduces new errors, or just adds cost. Its potential effects must not be credited automatically to Bull/Bear.
+Observe Reviewer's contribution separately: did it run, did Main receive its advice, and did the advice change subsequent work? Do not attribute everything it discovers to Bull/Bear dialogue.
 
-First test **absolute usefulness**: did the answer satisfy the user's request; were dates and sources applicable; can calculations be reproduced; are central claims supported; and are missing information and user authorization handled correctly? Only then assess relative value: which new significant counterexample appeared, which new errors were introduced, and how much extra time, token use, money and human review were required?
+First establish whether the report is usable at all: does it answer the original question, preserve applicable dates and definitions, support reproducible numbers, and explain gaps? Then assess what the additional participant changed and whether that justified the time, money, and review effort.
 
-Until those measurements exist, “multi-Agent is smarter,” “our accuracy improved,” and “we saved X%” are unverified claims. An outcome showing that extra collaboration rarely pays off would also be useful: simpler requests should remain with Main, and only materially difficult cases should justify the additional cost.
+If an expert repeats existing facts, disabling it is a reasonable outcome. A universal “chief expert” is not needed to hide redundant delegation. Main can continue to synthesize while existing tools and lifecycle logic retain execution, resource, and recording responsibilities.
 
-## 7. What Evidence Would Support—or Refute—This Design?
+## October 25, 2026 Addendum: Arranged Collaboration Is Not a Completed Handoff
 
-This was a hypothesis as of October 24, 2026, not a claim that multi-Agent research is inherently superior. A later comparison should hold the user question, qualified sources and calculation methods steady while evaluating ordinary Main, optional Children, additional methods and bounded challenge.
+Separate real-model tasks the next day produced both useful local results consumed by Main and coordination failures: a request for two to three experts dispatched four; a Bull/Bear pair formed without an actual exchange; and review plus opening messages occurred before later wake and recovery gaps. These were not one matched set of completed studies and cannot be combined into a success rate.
 
-Three observations matter most: **Did the investor receive one usable research result? Did an added participant change a material reason for the conclusion? Was that improvement worth the extra time, model usage and recovery complexity?** If experts merely repeat facts Main already had, passing local execution checks is not sufficient reason to retain the extra layer.
+This sharpened three distinctions. “Please inspect the other expert's reason” is guidance. Receiving and reading the authorized original result is an actual evidence handoff. Pairing, messaging, waiting, and adopting replies are actual communication effects. Writing a relationship field does not perform the latter two.
 
-A negative finding can still improve the system. Turning off optional specialists should preserve ordinary research, original execution identities and valid historical outcomes.
+## Maintenance Note: Selection Is Simpler; Benefit Is Still a Separate Question
 
-**Successful collaboration is not more conversation between models. It is independent work that changes the research without losing the original question or evidence.** Once matched real-task results exist, they deserve a separate retrospective linked here, not a silent rewrite of this dated outlook.
+The later unified-expert implementation converged **fresh ordinary Child selection on one optional `agentId`**. Each Child chooses one complete expert definition rather than combining the old execution-type, perspective, and profile selectors. Ordinary research still works without choosing a specialist. Historical tasks retain their sealed original content and identities rather than being reinterpreted through the new entry point.
 
-## October 25, 2026 Addendum: A Suggested Relationship Is Not a Completed Handoff
+The six investment methods and user-saved experts use the unified catalog, while Bull/Bear communication and managed review retain their separate rules. A shared naming scheme adds no tool or account authority. Relationship guidance also does not fetch another Child's result, wait for it, or dispatch work.
 
-Real-model work the next day produced both useful local completions consumed by Main and missing coordination. In separate tasks, a request for two to three experts dispatched four; a Bull/Bear pair formed without actual challenge-and-reply; and Reviewer plus opening messages were recorded before later wake/recovery gaps appeared. These observations cannot be combined into one end-to-end success rate.
+Some ordering and recovery gaps described above subsequently received repairs and bounded engineering acceptance. The October 25 failures should neither remain descriptions of today's missing implementation forever nor be relabeled as historical successes. **Those improvements establish specific working handoffs, not that multiple experts make better investment judgments than one Main.** Internal capabilities discussed here are also not automatically capabilities of the public teaching implementation.
 
-The resulting distinction is practical: a **method relationship** describes a hoped-for complement or critique; a **result dependency** requires an actual authorized handoff and consumption of original material; and a **protocol dependency** requires real pairing, messages, waiting or adopted replies. A prompt field cannot create these effects or justify a second authority for budgets and communication.
+Return to the investor's original question: which part of the rationale holds, which part changed, and what source or user confirmation remains missing? An additional assistant is worth keeping only when its work meaningfully changes that answer.
 
-The next meaningful test is whether such guidance produces new evidence and fewer duplicate delegations on the same task, with justified cost. Without that comparison, the result remains open.
+### Further Reading
 
----
+[Subagents: from isolation to collaboration](agent-subagent-context-specialization.md) explains execution; [bounded direct Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) explains communication; [investment perspectives testing one thesis](investment-perspectives-and-thesis-falsification.md) compares methods with concrete numbers; and [custom experts](agent-custom-expert-from-prompt-to-recovery.md) explains saving and selecting personal guidance. The custom-expert article was still a draft when this outlook was written and entered the collection on October 25, 2026; that does not change the outlook's original date.
 
-### Related work and evidence limits
-
-For the local building blocks, read [Subagents: from isolation to collaboration](agent-subagent-context-specialization.md), [bounded direct Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md) and [investment perspectives testing one thesis](investment-perspectives-and-thesis-falsification.md). The user-defined expert essay was still a draft at the date of this outlook. On October 25, it was published as [A Custom Expert Should Be More Than a Prompt Field](agent-custom-expert-from-prompt-to-recovery.md), an implementation study distinct from this larger collaboration outlook.
-
-The supported engineering scope and still-open gates are recorded in ETF Agent's [investment-perspective specification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/specs/investment-perspective-subagents/spec.md), [peer-dialogue verification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-23-agent-add-bounded-adversarial-peer-dialogue/verify.md), [custom-profile verification](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-add-user-subagent-profiles/verification.md) and [financial research quality tasks](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/agent-qualify-financial-research-quality/tasks.md). These sources support individual facts, not completion of this entire workflow.
-
-More work is available in the [ETF Agent article collection](https://github.com/hpoenixf/eff-agent-article); Stars are welcome. This is an architecture outlook, not investment advice or a claim of validated production investment-research quality.
+More essays are available in the [ETF Agent collection](https://github.com/hpoenixf/eff-agent-article). Stars and reproducible counterexamples are welcome. This is an engineering discussion, not investment advice.

@@ -6,6 +6,8 @@
 
 例如，持有多只基金的用户准备再买一只科技 ETF，理由是“增加基金数量可以分散风险”。真正值得研究的不是有多少专家支持买入，而是新基金与旧仓位是否重叠、现金约束能否承受，以及哪些证据会推翻“更分散”的理由。
 
+下面把负责用户问题与最终综合的模型称为**主研究者（Main）**，把按需处理局部任务的执行实例称为**研究助手（Child）**。多空（Bull/Bear）分别承担支持与质疑某条假设的职责，不是给结果投票。
+
 这也是我们在 ETF Agent 中按需引入 Markowitz、Taleb 等投资方法与 Bull/Bear 反证的原因。只有不同方法能够提供新的检验角度时，额外 Child 才值得消耗模型调用与等待成本；最终仍由 Main 给出有依据、有条件的综合结果。具体的消息与恢复协议留给[多空 Runtime 专文](bounded-bull-bear-peer-dialogue.md)，本篇专注怎样选择和使用这些视角。
 
 ## 一、问题不是缺少专家，而是容易漏掉关键问题
@@ -117,7 +119,7 @@ Main 应综合三类东西：有来源的事实和已执行计算；各专家真
 
 它复用 Child 执行、预算与恢复路径。Main 可在手动咨询开启时调用 `consult_research_reviewer`；Runtime 也能在配置和事实候选满足条件时自动准入检查。**Reviewer 的建议不负责批准答案、决定投资真值或阻止 Main 合法发布**；没有审阅也可以交付已有充分依据的研究。
 
-这条路径已有[限定工程验收](https://github.com/hpoenixf/etf-agent/blob/main/openspec/changes/archive/2026-10-18-agent-add-research-convergence-reviewer/verify.md)，但真实模型自动审阅的金融质量收益与额外成本仍待独立验证。另有对已发布答案**显式触发的事后金融语义审查报告**，它是独立评审工具，不属于当前 Run 的 Reviewer Child，也不是强制终审。
+这条路径已有针对审阅执行与建议交接的限定工程验收；真实模型自动审阅的金融质量收益与额外成本仍待独立验证。另有对已发布答案**显式触发的事后金融语义审查报告**，它是独立评审工具，不属于当前 Run 的 Reviewer Child，也不是强制终审。
 
 
 ## 七、技术往深处看：一套 Child，怎样装配不同方法？
@@ -165,4 +167,4 @@ flowchart TD
 
 已有的[Subagent 基础机制](agent-subagent-context-specialization.md)讲上下文隔离与成果交接；[多空对话 Runtime](bounded-bull-bear-peer-dialogue.md)讲直接通信、等待与恢复；[多层 Agent 协作展望](multi-layer-agent-collaboration-outlook.md)记录尚待完成的跨能力整体验收与未来如何比较。研究理由的历史管理可继续阅读[Investment Thesis 与长期周报](agent-weekly-thesis-history-continuous-research.md)。
 
-以上例子均为教学构造，不涉及真实个人组合或交易建议。完整代码与演进资料参见 [ETF Agent](https://github.com/hpoenixf/etf-agent)，更多文章见[文集](https://github.com/hpoenixf/eff-agent-article)，欢迎 Star。
+以上例子均为教学构造，不涉及真实个人组合或交易建议。本文解释内部研究系统的设计；公开教学实现并不包含这些能力的完整形态，实际范围见[公开仓库说明](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)。更多文章见[文集](https://github.com/hpoenixf/eff-agent-article)，欢迎 Star。
