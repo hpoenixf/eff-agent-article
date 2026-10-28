@@ -4,6 +4,8 @@
 
 We encountered a failure that looked like `PROVIDER_UNAVAILABLE`. The provider request had in fact completed with HTTP 200 and a full stream; the refusal came later from Publication validation. Switching models and raising timeouts would have repaired the wrong part of the system.
 
+Think of parcel tracking: **“dispatched” is not “delivered.”** Likewise, a successful model API response does not prove that the report reached the user's screen.
+
 A research task also crosses parsing, tools, persistence, and actual user receipt. **“No answer” is a symptom, not a root-cause finding.** Our diagnostic work therefore starts with recorded execution facts and their relationships, not with a model-generated explanation of what supposedly happened.
 
 ## 1. We Had Enough Logs, but No Reliable Relationships Between Them
@@ -62,14 +64,13 @@ We can establish that **publication validation** was the last confirmed barrier 
 
 So the diagnostic field is **terminalBlocker**, not **rootCause**:
 
-~~~json
-{
-  "terminalBlocker": "publication_validation",
-  "delivery": "none"
-}
+~~~text
+terminalBlocker.stage = publication_validation
+terminalBlocker.entityRef = original publication identity
+delivery = none
 ~~~
 
-It makes a narrower, defensible claim: **given the verified facts, this is where the chain was definitively stopped**. That is already enough to prevent irrelevant model-provider troubleshooting.
+This is a conceptual excerpt, not a complete API response: the actual `terminalBlocker` contains a stage and object identity, rather than a bare string. It makes a narrower, defensible claim: **given the verified facts, this is where the chain was definitively stopped**. That is already enough to prevent irrelevant model-provider troubleshooting.
 
 ## 3. HTTP 200 Is Only One Successful Hop
 
@@ -118,7 +119,7 @@ The layer **actually initiating the abort** records this fact. It is not inferre
 
 Capturing every user question, model response, and raw tool result in the diagnosis store would create a larger privacy and operations problem.
 
-We deliberately separated **diagnostic facts** from **content**:
+We deliberately separated **diagnostic facts** from **content**. The JSON below illustrates a bounded diagnostic excerpt, not a complete API response or a real customer run:
 
 ~~~json
 {
@@ -139,7 +140,10 @@ We deliberately separated **diagnostic facts** from **content**:
     }
   ],
   "summary": {
-    "terminalBlocker": "publication_validation",
+    "terminalBlocker": {
+      "stage": "publication_validation",
+      "entityRef": { "type": "publication", "id": "example-block" }
+    },
     "delivery": "none"
   }
 }
@@ -247,37 +251,20 @@ The original attribution—"the model cannot write a complete final answer"—wa
 
 These historical incidents came from separate execution windows.
 
-## 9. A Failure Is a Bounded Investigation Chain
+## 9. A Bounded Investigation: Verify the Step and Its Identity
 
-We ultimately need answers to a limited sequence of questions:
+The earlier incidents reduce to four questions. Was the request actually dispatched? Did the response parse? Did permitted tool and publication effects happen? Which exact committed revisions entered the delivery chain? Connect each answer to the original Run, request, and artifact identity rather than inferring links from nearby events.
 
-1. Was the request actually dispatched?
-2. Did the provider respond?
-3. Did parsing succeed?
-4. Did Runtime orchestrate correctly?
-5. Did the tool complete its effect?
-6. Did Publication validation accept the candidate?
-7. Was the content committed?
-8. Did it enter the delivery chain?
-9. Which transitions have proven identities and receipts?
-10. Where must the answer remain **unknown**?
+A **conceptual excerpt**, not a complete JSON API response, can show the last confirmed blocker without claiming a root cause:
 
-A bounded summary can then say:
-
-~~~json
-{
-  "terminalBlocker": "publication_validation",
-  "contributingFailures": [
-    "provider_dispatch:http_permanent"
-  ],
-  "delivery": "none",
-  "classificationConfidence": "partial"
-}
+~~~text
+terminalBlocker.stage = publication_validation
+terminalBlocker.entityRef = original publication identity
+delivery = none
+classificationConfidence = partial
 ~~~
 
-The **partial** qualifier is load-bearing. Until delivery identity is connected to individual blocks and revisions, aggregate counts cannot establish **confirmed** correspondence.
-
-For example:
+`partial` does not mean “maybe successful.” It means required facts remain unavailable. Matching aggregate counts, for example, do not prove delivery of the right revisions:
 
 ~~~text
 Expected: A B C
@@ -285,9 +272,7 @@ Receipts: A B B
 Count:    3
 ~~~
 
-Equal totals do not make the identities equal.
-
-**Aggregate counts are useful. They cannot replace per-object identity.**
+**Totals cannot replace per-block and per-revision identity.** A later success also needs proof that it revised the rejected artifact, the feedback actually reached the next model request, and the corresponding delivery stage was observed. Otherwise the outcome remains `unknown`, not a convenient story about self-repair.
 
 ## 10. Diagnosis Must Not Break the Business Path
 
@@ -344,23 +329,9 @@ The job is to keep **known, unknown, and inferred** separate.
 
 If an apparently complete diagnostic system has almost no unknowns, it may be inventing more certainty than it measures.
 
-## 12. Three Particularly Dangerous Shortcuts
 
-### HTTP 200 ⇒ success?
 
-No. It proves the provider hop completed under its contract, not that parsing, tools, Publication, and delivery succeeded.
-
-### A later success ⇒ the earlier issue was fixed?
-
-No. Verify object identity, revision links, and actual feedback consumption. Chronology does not establish causality.
-
-### Commit ⇒ the user received it?
-
-No. Commit, server emission, client receipt, and render are distinct effects. Match the claim to its evidence.
-
-These rules are not exotic. Long Agent execution chains simply make it easy to narrate convenient transitions that were never verified.
-
-## 13. What Diagnosis Can Establish—and What It Cannot Replace
+## 12. What Diagnosis Can Establish—and What It Cannot Replace
 
 The engineering path now distinguishes failures by stage, traces whether tool results enter subsequent model requests, and separates committed answer text from actual delivery. A rejection no longer has to be attributed generically to the model or Provider, and diagnostic capture must not alter the business outcome.
 
@@ -382,4 +353,4 @@ This does not automatically establish root cause. It prevents a costly alternati
 
 ## Related Mechanism: A User Rating Is Not an Error Verdict
 
-Diagnostics asks which stage demonstrably failed. Feedback first records which completed answer a user rated. The dedicated [A40 feedback ownership article](/en/articles/agent-feedback-facts-not-automatic-learning) covers Scope, idempotent conflicts, reopening saved ratings, and the distinction between an unavailable read and no rating. Dislikes do not automatically become training examples, verified error labels, or trading permissions.
+Diagnostics establishes where failure was actually observed. A user's negative rating first says only how they evaluated one completed answer—not that a defect was verified, or that training or trading was authorized. See [User Feedback as a Recorded Fact](agent-feedback-facts-not-automatic-learning.md) for the separate identity and readback rules.

@@ -4,23 +4,13 @@
 
 我们曾见过一条看起来像 `PROVIDER_UNAVAILABLE` 的失败：模型请求已经得到 HTTP 200，响应流也完成了，真正拒绝的是后面的正文发布校验。继续换模型、调大超时，只是在修一段并没有坏的链路。
 
+这和查快递类似：“已出库”不等于“已签收”。模型接口成功返回，也不等于一份报告已经送到用户屏幕上。
+
 研究型 Agent 的一次任务还要跨越解析、工具执行、持久化和用户实际接收。**“没有答案”是用户看见的现象，不是自动得出的根因。** 这次工程改造因此不先让诊断器猜故事，而是保留各阶段真实动作与关联，找到证据足以指出的最后阻塞位置。
 
 ## 最开始的问题，不是日志太少，而是日志没有关系
 
-Agent 其实从来不缺日志。
-
-模型调用有日志。
-
-工具有日志。
-
-发布有日志。
-
-数据库有日志。
-
-前端流也有日志。
-
-问题是，这些日志经常是散的。
+模型、工具、发布、数据库和前端各有日志，难点是它们缺少可核对的关联：哪次模型调用提议了哪个内容块，哪个修订被真正提交，又由谁确认了发送。
 
 一次请求失败后，能看到很多事情发生过：
 
@@ -122,14 +112,13 @@ rootCause
 
 例如：
 
-```json
-{
-  "terminalBlocker": "publication_validation",
-  "delivery": "none"
-}
+```text
+terminalBlocker.stage = publication_validation
+terminalBlocker.entityRef = 原发布对象的身份
+delivery = none
 ```
 
-这个信息已经足够把排障范围缩小很多。
+这里仅示意关键字段；实际诊断的 `terminalBlocker` 是带 `stage` 与执行对象身份的结构，而不是一个独立字符串。这个信息已经足够把排障范围缩小很多。
 
 至少这一次，不应该第一反应去换模型 provider。
 
@@ -161,7 +150,7 @@ provider response
 → delivery
 ```
 
-解析也是独立边界。当前分类合同把 JSON 解析或截断失败归到 `response_parse`，并禁止记成 `PROVIDER_UNAVAILABLE`；一次受控 live audit 也记录过 `STRUCTURED_OUTPUT_INVALID_JSON`。该记录没有给出 HTTP 状态，因此这里只用它说明解析失败不等于传输失败，不把它写成“HTTP 200 后出错”的实测案例。分类合同 · 受控 audit 记录
+解析也是独立边界。当前分类合同把 JSON 解析或截断失败归到 `response_parse`，并禁止记成 `PROVIDER_UNAVAILABLE`；一次受控 live audit 也记录过 `STRUCTURED_OUTPUT_INVALID_JSON`。该记录没有给出 HTTP 状态，只能说明解析失败不等于传输失败，不能作为“HTTP 200 后出错”的实测案例。
 
 所以后来我们把失败按阶段记录。
 
@@ -215,7 +204,7 @@ timeoutOwner =
 
 如果为了排障，把用户问题、模型正文、工具结果全部复制进诊断系统，最后很可能得到另一个更麻烦的系统。
 
-所以我们后来刻意把诊断和内容分开。
+所以我们后来刻意把诊断和内容分开。下面的 JSON 只示意受限诊断字段，不是完整 API 响应，也不代表一次真实客户运行：
 
 诊断记录大概只需要这种东西：
 
@@ -238,7 +227,10 @@ timeoutOwner =
     }
   ],
   "summary": {
-    "terminalBlocker": "publication_validation",
+    "terminalBlocker": {
+      "stage": "publication_validation",
+      "entityRef": { "type": "publication", "id": "example-block" }
+    },
     "delivery": "none"
   }
 }
@@ -454,67 +446,28 @@ publication committed
 
 ---
 
-## 后来我们把一次失败看成一条“有界调查链”
+## 有界调查链：先判断哪一步已证实，再核对对象
 
-最后形成的东西，其实没有最开始想象得那么复杂。
+前面的例子都可以收束为四个问题：请求是否实际派发、响应是否成功解析、合法工具与发布效果是否发生、哪些提交版本真正进入交付链？每一步都要能回到原 Run、请求和对象身份，而不靠事件的先后顺序拼故事。
 
-对一次失败，我们希望能回答：
-
-```text
-1. 请求有没有真正派发？
-2. provider 有没有返回？
-3. 返回有没有通过解析？
-4. Runtime 有没有正确执行？
-5. 工具有没有实际完成？
-6. 发布有没有通过？
-7. 内容有没有提交？
-8. 内容有没有进入交付链？
-9. 哪些关系是明确证明的？
-10. 哪些地方只能写 unknown？
-```
-
-最终 summary 只需要保留少量信息：
-
-```json
-{
-  "terminalBlocker": "publication_validation",
-  "contributingFailures": [
-    "provider_dispatch:http_permanent"
-  ],
-  "delivery": "none",
-  "classificationConfidence": "partial"
-}
-```
-
-这里 `partial` 也很重要。
-
-如果逐块交付身份还没有接通，就不要因为总计数看起来一致，写成 `confirmed`。
-
-比如：
+一份诊断节选可以用下列**概念字段**解释“最后的确定阻塞发生在哪里”，但它并不是完整 JSON API 响应：
 
 ```text
-summary: delivered = 3
-receipt count = 3
+terminalBlocker.stage = publication_validation
+terminalBlocker.entityRef = original publication identity
+delivery = none
+classificationConfidence = partial
 ```
 
-数字一样，不代表三个 summary 对象和三个 receipt 是一一对应的。
-
-也可能：
+`partial` 不是“可能成功”的修辞，而是尚缺必要事实。例如仅知道总计数，就不能认定每一个版本都送达：
 
 ```text
-A B C expected
-A B B receipts
+应该交付：A B C
+观察回执：A B B
+总数相同，对象却不对应
 ```
 
-总数还是 3。
-
-所以真正要确认交付，最终还是得落到对象身份和修订身份。
-
-这和前一篇的数据完整性其实是同一个问题：
-
-> aggregate count 很有用，但它不能替代 identity。
-
----
+**聚合计数不能替代内容块和修订身份。** 即使后来有一个内容成功，也需要证明它属于原被拒对象的修订链、反馈确实进入后续模型请求，并由实际交付层证明到了哪一步。没有证据就保留 `unknown`，而不是补出一段顺滑的“自我修复”故事。
 
 ## 诊断不能为了诊断，把业务链路搞坏
 
@@ -629,41 +582,7 @@ failed
 
 ---
 
-## 三个我现在会特别警惕的“顺手推断”
 
-这次做完以后，我给自己留下了三个非常简单的检查。
-
-### 1. HTTP 200 → 成功？
-
-不一定。
-
-它最多证明 provider 那一跳按对应协议完成。
-
-后面仍然可能解析失败、工具失败、发布失败、交付失败。
-
-### 2. 后面成功了 → 前面的问题修好了？
-
-不一定。
-
-要看是不是同一个对象、同一个修订链，以及反馈是否真的进入下一轮。
-
-时间顺序不是因果关系。
-
-### 3. commit 了 → 用户收到了？
-
-不一定。
-
-commit、server emit、client receive、render，是不同事实。
-
-有什么证据，就说到哪一层。
-
-这三条其实没什么高深的。
-
-但 Agent 链路一长，人特别容易把它们连成一个顺滑故事。
-
-而诊断系统的工作，恰恰是阻止我们讲得太顺。
-
----
 
 ## 诊断可以确认哪一步，不能替代哪一步
 
@@ -687,4 +606,4 @@ commit、server emit、client receive、render，是不同事实。
 
 ## 关联机制：用户评分不等于错误判决
 
-排障系统要解释“哪里被证实失败”，而用户反馈首先只说明“哪个人评价了哪条已完成回答”。[A40 用户回答反馈事实](/articles/agent-feedback-facts-not-automatic-learning)专门解释 Scope、幂等冲突、历史重开和读回不可用与无记录的区别；它不把点踩变成训练、真实错误标签或投资操作授权。
+排障系统解释“哪一步已被证实失败”，用户点踩首先只是对某条已完成回答的评价，不等于错误已证实，更不构成训练或投资操作授权。两者的身份与读回规则见[用户回答反馈事实](agent-feedback-facts-not-automatic-learning.md)。
