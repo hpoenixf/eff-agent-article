@@ -39,10 +39,18 @@ test('both locales route under the actual deployment base without redirect depen
  assert.ok(component.includes('@media(max-width:760px)'))
 })
 test('fixed version identity is not promoted into a release registry',()=>{
- assert.equal(versions.length,11)
- assert.equal(versions.at(-1).version,'0.11')
- for(const v of versions) assert.match(v.href,/\/tree\/[0-9a-f]{40}$/)
- assert.equal(versions.some(v=>v.version==='0.12'),false)
+ const lineage=JSON.parse(readFileSync(root+'data/open-etf-agent/versions.json','utf8'))
+ assert.equal(lineage.kind,'public-code-lineage-not-release-registry')
+ const expected=Object.keys(lineage.versions).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))
+ assert.deepEqual(versions.map(v=>v.version),expected)
+ for(const v of versions) {
+  assert.equal(v.commit,lineage.versions[v.version].commit)
+  assert.equal(v.tree,lineage.versions[v.version].tree)
+  assert.match(v.href,/\/tree\/[0-9a-f]{40}$/)
+  assert.equal(v.href,`https://github.com/${lineage.repository}/tree/${lineage.versions[v.version].commit}`)
+ }
+ assert.equal(versions.find(v=>v.version==='0.12').href,'https://github.com/hpoenixf/open-etf-agent/tree/46c2822be9865b99696bb70fb9e0ff1b5257ff35')
+ assert.equal(versions.find(v=>v.version==='0.13').href,'https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278')
 })
 test('homepage discoverability is bilingual and English first',()=>{
  for(const file of ['index.md','en/index.md']) assert.ok(readFileSync(root+file,'utf8').includes('<OpenEtfTopicEntry />'))
