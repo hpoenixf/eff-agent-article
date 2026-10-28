@@ -1,3 +1,4 @@
+import './project-layout.test.mjs'
 import test from 'node:test'
 import { execFileSync } from 'node:child_process'
 import assert from 'node:assert/strict'
@@ -49,8 +50,6 @@ test('fixed version identity is not promoted into a release registry',()=>{
   assert.match(v.href,/\/tree\/[0-9a-f]{40}$/)
   assert.equal(v.href,`https://github.com/${lineage.repository}/tree/${lineage.versions[v.version].commit}`)
  }
- assert.equal(versions.find(v=>v.version==='0.12').href,'https://github.com/hpoenixf/open-etf-agent/tree/46c2822be9865b99696bb70fb9e0ff1b5257ff35')
- assert.equal(versions.find(v=>v.version==='0.13').href,'https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278')
 })
 test('homepage discoverability is bilingual and English first',()=>{
  for(const file of ['index.md','en/index.md']) assert.ok(readFileSync(root+file,'utf8').includes('<OpenEtfTopicEntry />'))

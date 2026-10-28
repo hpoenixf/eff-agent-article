@@ -47,3 +47,15 @@ const captions = {
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)
+
+// Editorial module progression, not publication dates. All article fields join the catalog.
+const recentModuleSlugs = [
+  'agent-durable-human-interaction-response-adoption',
+  'agent-temporal-semantics-market-calendar',
+  '024-agent-pdf-from-text-to-evidence'
+]
+export const recentVersions = versions.slice(-3).reverse()
+export function recentModuleArticles(language = 'en') {
+  const articles = new Map(topicGroups(language).flatMap(group => group.articles).map(article => [article.slug, article]))
+  return recentModuleSlugs.map(slug => articles.get(slug)).filter(Boolean)
+}
