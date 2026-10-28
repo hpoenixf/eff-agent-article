@@ -187,6 +187,10 @@ A failure follows **BoundedRepair** only when recovery is actually permitted and
 
 A Main summary is **not proof that Main read every underlying source**. Key evidence can be retrieved when necessary; independent useful partial findings need not wait for the Child's entire task to finish.
 
+**A historical-report handoff exposed the reverse problem.** In a scoped late-October 2026 run, Main's actual model request included the full explicitly selected Publication from an earlier Run, together with its source identity. But Child has a separate path for selecting and materializing inputs. Without actually selected, valid `inputRefs`, inherited provenance and grants do not copy the report into the Child request. “Main saw the full report,” “Child was authorized for a source category,” and “Child completed a local calculation” are not proof that **Child independently consumed the entire original report**.
+
+This observation is limited to the historical-report path under review; it does not imply that ordinary, valid result-reference handoffs all lose their inputs. The exact selection, actual Child consumption, and post-forget content eligibility still need a joined acceptance check. That broader path is not yet qualified by this observation.
+
 [LangChain Deep Agents](https://docs.langchain.com/oss/python/deepagents/subagents) also advocates returning condensed results rather than full raw tool output. In financial research, the other half is critical: **shorten the process history, not the definitions and caveats that determine whether a conclusion is valid**.
 
 ## 6. Five Engineering Cases That Changed the Design

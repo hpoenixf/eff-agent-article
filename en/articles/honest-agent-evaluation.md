@@ -86,6 +86,14 @@ A better approach preserves original results, appends corrections, and generates
 
 The purpose is not another audit ritual. It is to preserve a valid basis for comparison: **a changed execution result and a changed understanding of the same result are different kinds of progress.**
 
+### The Judge Returned Full Marks—Why Can the Result Still Be Inconclusive?
+
+A scoped multi-agent investment-research evaluation in late October 2026 preserved two distinct counterexamples. In one set, the Judge returned a complete assessment, but some cited passages could not be located in the material actually provided to the grader. This is not merely a lower score; **the grader's evidence could not yet be reconstructed**. In another set, a grader awarded full marks, but assessment and generation used the same model and did not meet that comparison's predefined independence requirement. Full marks describe the returned grading result, not independent verification of answer quality. Neither observation establishes that multiple agents outperform a single Main.
+
+A usable grading receipt needs three separate checks: **did the grading invocation settle, can its supporting references be found in the actual grading input, and do the grader and samples meet the independence and comparability conditions chosen before the run?** Passing the first does not establish the other two. When evidence cannot be located or a required control is missing, retain the original review and an inconclusive status, with a specific plan for additional observation. Do not mislabel an unqualified review as proof that the research itself never ran.
+
+These bounded records do not provide a publicly replayable, fully matched live-model comparison or a comparable improvement estimate. The lesson here is **qualification of grading evidence**, not a claim about multi-agent success rates or performance gains.
+
 ## 6. Building a Small Agent Evaluation Set You Can Actually Reuse
 
 The previous sections explained why green checks, answer candidates, and user outcomes must not be conflated. The practical follow-up is: **after the next code change, what evidence tells us the same class of failure has not returned?**
