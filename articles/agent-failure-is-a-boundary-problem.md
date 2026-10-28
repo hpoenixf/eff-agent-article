@@ -204,7 +204,7 @@ timeoutOwner =
 
 如果为了排障，把用户问题、模型正文、工具结果全部复制进诊断系统，最后很可能得到另一个更麻烦的系统。
 
-所以我们后来刻意把诊断和内容分开。
+所以我们后来刻意把诊断和内容分开。下面的 JSON 只示意受限诊断字段，不是完整 API 响应，也不代表一次真实客户运行：
 
 诊断记录大概只需要这种东西：
 
@@ -227,7 +227,10 @@ timeoutOwner =
     }
   ],
   "summary": {
-    "terminalBlocker": "publication_validation",
+    "terminalBlocker": {
+      "stage": "publication_validation",
+      "entityRef": { "type": "publication", "id": "example-block" }
+    },
     "delivery": "none"
   }
 }
