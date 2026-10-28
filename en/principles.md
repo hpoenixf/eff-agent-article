@@ -1,6 +1,6 @@
 ---
 title: Agent Architecture Principles and Engineering Methods
-description: A simple document-comparison and report-saving example explains nine Agent design principles and seven practical methods: judgment, execution, failure scope and real user results.
+description: "A simple document-comparison and report-saving example explains nine Agent design principles and seven practical methods: judgment, execution, failure scope and real user results."
 ---
 
 # Agent Architecture: Core Principles and On-Demand Methods
