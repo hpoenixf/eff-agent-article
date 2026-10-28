@@ -15,9 +15,11 @@ Open ETF Agent therefore starts with something smaller: **read two documents, co
 
 v0.1 makes that engineering path publicly available. Its default example uses a script to choose actions while executing real reads, calculations, and saves. This lets us inspect how the program works; it does not establish whether a real model understands the documents. This article explains the first path. Later increments will connect runnable source code to the module articles we already have.
 
-## Where to continue now — as of 2026-10-27
+## Where to continue now — as of 2026-10-28
 
 The latest reproducible numbered snapshot is **v0.10.0**. It keeps the same execution chain and completes the link between an original selection, a derived calculation and actual consumption. Use the [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) as the ongoing entry point and the [fixed v0.10 source](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7) to reproduce this version. The earlier [fixed v0.9 Worker snapshot](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d) remains available. The rest of this article preserves v0.1 and its original boundaries rather than attributing later capabilities to the first version.
+
+A [fixed public v0.11 PDF candidate](https://github.com/hpoenixf/open-etf-agent/tree/9a00106703233754553acc04e49ead79fbe92cf9) is also available for inspecting one local text-layer PDF, a selected physical page and original-file readback; see the [existing PDF article](./024-agent-pdf-from-text-to-evidence.md) for the runnable scope and exclusions. This is a qualified fixed sample, not a claim that main has already been promoted or that the full PDF Reader is public.
 
 The public implementation has progressed from file readback to immutable artifacts, SQLite checkpoint recovery and durable answer text. Publication retains the original answer block, delivery position and revision receipt; a later Run failure does not erase an already committed body. The existing [answer-publication article](https://hpoenixf.com/eff-agent-article/en/articles/019-agent-answer-publication) explains that mechanism. The **single-Run Worker** introduced in v0.9 lets the submitting process exit before another process drives the same Runtime under the original identity, limits and deadline. It adds neither a new queue nor the complete scheduled-research system.
 

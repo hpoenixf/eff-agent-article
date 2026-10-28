@@ -79,6 +79,11 @@
       "kind": "test",
       "file": "test/worker-cli.test.mjs",
       "name": "9.1 submit exits before a separate work process drives and reads the original Run"
+    },
+    "pdf-local": {
+      "kind": "test",
+      "file": "test/pdf-cli.test.mjs",
+      "name": "11.3 PDF CLI exits then a fresh process verifies page report and original binary"
     }
   },
   "articles": [
@@ -106,9 +111,9 @@
     {
       "slug": "024-agent-pdf-from-text-to-evidence",
       "title": "PDF：从文本到证据",
-      "status": "无公开对应",
-      "target": null,
-      "scope": "缺 PDF 文本/页图/版面定位/多模态读取"
+      "status": "verified",
+      "target": "pdf-local",
+      "scope": "仅本地文本层 PDF：物理页、原文件与报告独立进程回读；不含 OCR、页图、版面、多模态或活跃解析恢复"
     },
     {
       "slug": "agent-subagent-context-specialization",
@@ -301,5 +306,5 @@
     }
   ],
   "versions": "versions.json",
-  "verifiedAt": "ff5b9273ef0d239e804f61792702cd2e94174be7"
+  "verifiedAt": "e0a6a29b7474a19c18b169c0e4a7eb0eb614504d"
 }

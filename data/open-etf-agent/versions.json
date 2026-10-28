@@ -43,6 +43,10 @@
     "0.10": {
       "commit": "ff5b9273ef0d239e804f61792702cd2e94174be7",
       "tree": "0d8f3c27a08a1da9bce0fe562683d5721d0d7a61"
+    },
+    "0.11": {
+      "commit": "5f42c33892d57ed05e8cd09cad48573e6901995b",
+      "tree": "35d3ecef7d66527cad422a25da35766fd73d4463"
     }
   },
   "targets": {
@@ -135,6 +139,12 @@
       "evidencePath": "test/worker-cli.test.mjs",
       "evidenceGitBlob": "6fb768d061d3ae496895acd3b086d8682b15ab02",
       "selector": "9.1 submit exits before a separate work process drives and reads the original Run"
+    },
+    "pdf-local": {
+      "since": "0.11",
+      "evidencePath": "test/pdf-cli.test.mjs",
+      "evidenceGitBlob": "798dddb45495f251e672f5cf79782d4e2c4e8852",
+      "selector": "11.3 PDF CLI exits then a fresh process verifies page report and original binary"
     }
   },
   "notes": [

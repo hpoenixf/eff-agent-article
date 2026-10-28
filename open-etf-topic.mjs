@@ -40,7 +40,8 @@ const captions = {
  '0.7': ['Contribute and recover','可信扩展与恢复','Plugin · SQLite · lease / fence'],
  '0.8': ['Commit the answer body','独立提交回答正文','Publication · revision CAS'],
  '0.9': ['Continue the same Run','沿同一个 Run 继续','Submit · Worker · readback'],
- '0.10': ['One result, actual consumers','一个结果，真实消费','Result / Reference · report · CSV']
+ '0.10': ['One result, actual consumers','一个结果，真实消费','Result / Reference · report · CSV'],
+ '0.11': ['Read the original PDF','读取原始 PDF','Local text layer · physical page · original bytes']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

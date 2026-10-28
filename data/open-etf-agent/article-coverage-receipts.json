@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "kind": "actual-provider-free-runtime-execution",
-  "executedAt": "2026-10-28T02:55:58.759Z",
+  "executedAt": "2026-10-28T10:34:40.747Z",
   "node": "v26.11.1",
-  "sourceCommit": "ff5b9273ef0d239e804f61792702cd2e94174be7",
-  "inputSha256": "57508837e4095d1c20e803a598f7ef0920a6e8a7a8d22ec8dbd4787d94044942",
+  "sourceCommit": "e0a6a29b7474a19c18b169c0e4a7eb0eb614504d",
+  "inputSha256": "69e68113dd4ff0f59a056900fb3a79dbf8d08956761b6ca44c0d154736b2cc4a",
   "runnerSha256": "4831b75b97ddb484e2fbe2aeac15a6541388711fa8fd6c872f9741ebb0def791",
-  "targetsSha256": "01aff6496a7790607c08ab0118c44d4ed067a49c8cc0e4c6a357c337eb19601b",
+  "targetsSha256": "ac7017da9d2b6151cb8ac50410134f1211d5f077554021257b1bb7ee0bcf3505",
   "commitConfirmation": {
-    "commit": "ff5b9273ef0d239e804f61792702cd2e94174be7",
-    "tree": "0d8f3c27a08a1da9bce0fe562683d5721d0d7a61",
+    "commit": "e0a6a29b7474a19c18b169c0e4a7eb0eb614504d",
+    "tree": "85c37fa2922b94cac3a2741197e30dae8defd2d4",
     "method": "actual-local-git-objects"
   },
   "executionBounds": {
@@ -38,7 +38,7 @@
           }
         ]
       },
-      "stdoutSha256": "f3baa05aae1658c5f52efe2381254c1e2b9e2b14b3ce83aae18792b2c3ee1152",
+      "stdoutSha256": "51e07074593f8a0b96f73c91637d3689f1f367517853bc2dfef5ac52eccbe802",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "reread": {
@@ -58,7 +58,7 @@
           }
         ]
       },
-      "stdoutSha256": "d69b08b96b20ed8d721e9a04398775bc771a2e1deb88169285636a1c48f70e4c",
+      "stdoutSha256": "27d74c5e2781dbb7001aa4cfd758e787e1d93e1ccbab58c8026c89e2217a9fd5",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "compaction": {
@@ -78,7 +78,7 @@
           }
         ]
       },
-      "stdoutSha256": "e951c1e41a0fce8ee1f657ddf68c7aad74d110242862a05d70ec514842f5c7dd",
+      "stdoutSha256": "4cd7faf5ea67e43e094ea7c86cf6f860e3c13b53d99425d77769848dbb827b39",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "memory": {
@@ -98,7 +98,7 @@
           }
         ]
       },
-      "stdoutSha256": "f8886dc844a021fec830af128839308e90076a527c1ccd72b390bb30256a9dc5",
+      "stdoutSha256": "c1ba5329657f4d6927ba9543f1c8a422e0cb4603c13af84b20d851c1bbc8794b",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "mcp": {
@@ -118,7 +118,7 @@
           }
         ]
       },
-      "stdoutSha256": "cb4729a158b9bf40b0f7b1af39838f6699178cc12e2ffb823228ef6ee2c4fbe0",
+      "stdoutSha256": "273c0d3321bd8181a2ff64a5b1419f94806072b3964146c1de4f752bdbba9d67",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "batch": {
@@ -138,7 +138,7 @@
           }
         ]
       },
-      "stdoutSha256": "92cb6f8232eb6959a5f8948b8c016c994bd08f8c0ff89c58b2e8ce8440e5e24c",
+      "stdoutSha256": "ae2d0f3339c71ae75918b7aa7a1ac295ba99e5f49c48d5ddfd23fda5b4904288",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "provider": {
@@ -154,7 +154,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "031c8abf407fad38f8b742d09e7805fafee63f125c2aea0f6a0dab24542b1c97",
+      "stdoutSha256": "418cc1d4836284f08d158c01520b49265b538ebefe9c079d9c7076df23ea3f55",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "plugins": {
@@ -170,7 +170,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "3186336c6eab95b86091e4f4fa9c3d18844094a89ef9858074ac93f8d471f5dc",
+      "stdoutSha256": "b8c25f4471b2b6e02ee32927502c7f6256d9caa4aa5ec33fa6d26ad3ab6ea4d0",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "surface": {
@@ -186,7 +186,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "904952c3e528b292ec6b80db678a2d6422089386c3bcde04a725d1c689a3625c",
+      "stdoutSha256": "5feda9242c82a04f9c22f6ba72b44468b366fca5f10409396aa47cd1d593c78b",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "trust": {
@@ -202,7 +202,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "21fdcaaf75722e35b721ee4752f45be7dbd2e97532e6535341bb38e63d97a042",
+      "stdoutSha256": "216a03422d12e760bf52b0939e0a58dbd8a031ab845727af3e4ebb2ab6352aa3",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "hooks": {
@@ -218,7 +218,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "762d378394461679e044597283276a140a4c548e0d7c8d5e59a4a9bfc0579a70",
+      "stdoutSha256": "b40e06c68902eecd364ac64bcde948cbc0c47290881beeb884bf10630fa1649a",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "budget": {
@@ -234,7 +234,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "b3fe58348aa60cd6d09528caebf5faadcbb645739381c44f8e7ad01decb3689e",
+      "stdoutSha256": "87646a7e0d8a2644322361edfba4bf23afd31cc7a6785479fa8d837e6db530b8",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "control": {
@@ -250,7 +250,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "ed497e91b01a4decf710f43e4cf1a02aae13bd1af604bd1a4dd41829ab14fe48",
+      "stdoutSha256": "dfe8184619ec983e99d7dd05897e0e08a9746ee2637d234a3d98cff1a85ce93a",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "publication": {
@@ -266,7 +266,7 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "eb460d8837e4c24dc70a62e74f60590f7f6f00634c403f4fc9fd31b897331816",
+      "stdoutSha256": "838bf6aa991a2efb2ef3607b5cf32c6736f92c859993d8dfdb21521134843ba4",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "worker": {
@@ -282,7 +282,23 @@
         "failed": 0,
         "skipped": 0
       },
-      "stdoutSha256": "cb35900c0e65286b60aefdda3531457d2bf5a916861d01406762befee4b3f203",
+      "stdoutSha256": "e8f29649f620045a6a4828e5e21ec6c694a61df0949d71c35ba982e9e676239e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pdf-local": {
+      "target": {
+        "kind": "test",
+        "file": "test/pdf-cli.test.mjs",
+        "name": "11.3 PDF CLI exits then a fresh process verifies page report and original binary"
+      },
+      "exitCode": 0,
+      "observed": {
+        "name": "11.3 PDF CLI exits then a fresh process verifies page report and original binary",
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "stdoutSha256": "ec0765352f93f119df211d8e4100e763e65848140c42f4a2ebba5693291cbafa",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   }

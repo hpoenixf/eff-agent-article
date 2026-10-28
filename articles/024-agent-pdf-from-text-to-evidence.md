@@ -8,6 +8,28 @@
 
 我们的 PDF 能力就是沿着这条需求逐步长出来的：先接入原始文件，再提供可继续的长文档导航，随后补上表格结构与页面视觉，最后把每一步变成可以核对的研究证据。
 
+## 在公开工程中复现最小 PDF 路径
+
+Open ETF Agent 的 v0.11 固定公开候选将本文的一小段能力落到了[固定公开源码](https://github.com/hpoenixf/open-etf-agent/tree/9a00106703233754553acc04e49ead79fbe92cf9)：显式选取一个本地含文本层的 PDF，读取指定物理页，保留原始文件与页面文本的身份，再沿既有 Result、报告和 Artifact 路径交付。它复用 `pdf2json@4.1.0`，没有重新实现 PDF 解析器，也没有复制完整的研究阅读系统。
+
+在该版本安装并构建后，运行 `node dist/src/cli.mjs --case local-pdf --output runs/article-pdf` 可读取内置合成 PDF 的第一页；加上 `--pdf-page 3` 可明确选择第三页。也可通过 `--pdf /absolute/path/document.pdf` 由操作者选择本地文件，工具调用只接收页码，不让模型选择路径或 URL。每次实验使用新的输出目录。
+
+[独立安装与回读记录](https://github.com/hpoenixf/open-etf-agent/blob/9a00106703233754553acc04e49ead79fbe92cf9/docs/verification/integrated-install-pdf.safe.json)核对了合成文件第一页、第三页的报告、来源文本哈希与原始 PDF 字节；动作由脚本决定，解析、保存与独立进程回读真实发生。这不是模型理解或真实基金研究的验收，也不证明任意 PDF 都能正确提取。
+
+**公开版目前没有本文后续讨论的 OCR、页面图像、几何表格、搜索导航、远程文件取得或活动解析跨进程恢复。** 下文保留原系统的设计演进与当时观察；不能把这些更完整的能力算作 v0.11 已公开实现。
+
+<!-- open-etf-case:pdf-local@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+### 核对选定物理页与原始文件
+
+[固定的 provider-free CLI/回读用例](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/pdf-cli.test.mjs)通过 CLI 与新的只读进程核对本地合成文本层 PDF。在该固定执行快照按 README 安装依赖后运行：
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^11\.3 PDF CLI exits then a fresh process verifies page report and original binary$' test/pdf-cli.test.mjs
+```
+
+它只验证选定物理页文本、报告及原始 PDF 字节回读，不代表本文完整 Reader、OCR、页图、版面、表格、PDF 搜索、远程取得、多模态理解或活动解析恢复已经公开实现。
+<!-- /open-etf-case -->
+
 ## 一、先复用研究链路，不为 PDF 另造一套 Agent
 
 PDF 首先是一种资料载体。它可以来自公开网页、获准的研究文件，也可能是工具返回的附件。虽然入口不同，我们希望它们都沿用既有的资料身份、来源权限和研究结果交付方式，而不是每一种文件分别注册工具、分别维护引用、分别定义是否可信。

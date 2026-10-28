@@ -22,7 +22,7 @@
     },
     "024-agent-pdf-from-text-to-evidence": {
       "title": "PDF: From Text to Evidence",
-      "scope": "No PDF text, page-image, layout-location or multimodal reading.",
+      "scope": "Local text-layer PDF only: physical page, original file and report readback in a fresh process; no OCR, page images, layout, multimodal reading or active-parse recovery.",
       "englishAvailable": true,
       "articleBlob": "7e5bf9aeedd90823a2266d0975d9aaeebe618779"
     },

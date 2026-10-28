@@ -13,6 +13,28 @@ That can answer simple questions, but it struggles with real research. Compare m
 
 Our PDF capability evolved in stages: original-file acquisition, resumable long-document navigation, table structure, on-demand page vision, and an evidence trail for each step.
 
+## Reproduce the Minimal PDF Path in the Public Project
+
+The fixed public v0.11 candidate of Open ETF Agent implements a small slice of this article in [fixed public source](https://github.com/hpoenixf/open-etf-agent/tree/9a00106703233754553acc04e49ead79fbe92cf9): explicitly select one local text-layer PDF, read a selected physical page, preserve the original file and page-text identities, and deliver them through the existing Result, report and Artifact owners. It reuses `pdf2json@4.1.0` rather than writing a PDF parser or copying the full research-reader system.
+
+After installing and building that version, run `node dist/src/cli.mjs --case local-pdf --output runs/article-pdf` to read page one of the bundled synthetic PDF; add `--pdf-page 3` to select physical page three explicitly. An operator can instead choose a local file with `--pdf /absolute/path/document.pdf`. The tool accepts a page number, not a model-selected path or URL. Use a fresh output directory for each experiment.
+
+The [independent installation and readback record](https://github.com/hpoenixf/open-etf-agent/blob/9a00106703233754553acc04e49ead79fbe92cf9/docs/verification/integrated-install-pdf.safe.json) checks reports, source-text hashes and original PDF bytes for pages one and three of the synthetic file. A script chooses actions; parsing, saving and independent-process readback actually execute. This is not acceptance evidence for model understanding or real fund research, nor a guarantee for arbitrary PDFs.
+
+**The public slice does not include OCR, page images, geometric tables, search navigation, remote-file acquisition or cross-process recovery of an active parse.** The following sections preserve the original system's broader design evolution and observations; they are not a list of capabilities already shipped in public v0.11.
+
+<!-- open-etf-case:pdf-local@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
+### Check the selected page and original file
+
+The [exact provider-free CLI/readback case](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/pdf-cli.test.mjs) checks a local synthetic text-layer PDF through the CLI and a fresh read-only process. Install dependencies using the README at that fixed execution snapshot, then run:
+
+```bash
+node --test --test-concurrency=1 --test-name-pattern='^11\.3 PDF CLI exits then a fresh process verifies page report and original binary$' test/pdf-cli.test.mjs
+```
+
+This verifies only selected physical-page text, the saved report and original PDF byte readback. It does not qualify this article's full Reader, OCR, page images, layout, tables, PDF search, remote acquisition, multimodal interpretation or active-parse recovery.
+<!-- /open-etf-case -->
+
 ## 1. Reuse the Research Pipeline, Not a Separate Agent for PDFs
 
 PDF is a document container. A PDF can come from the public web, an authorized research file, or a tool attachment. Despite their different entry points, all should share the existing concepts of source identity, permission and research-result delivery.

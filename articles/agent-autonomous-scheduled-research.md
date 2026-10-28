@@ -144,10 +144,10 @@ node dist/src/session-cli.mjs publication --session runs/worker-example --run or
 
 这里最容易混淆的是停止原因：Worker 收到 SIGTERM，并不等于用户取消研究。已封存的动作可以留给下一进程；但模型请求已经发出、结果又没有可靠落盘时，恢复不会猜测“应该没成功”而再发一次。这个区别可以沿[薄 Worker 入口](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/src/worker.mjs)进入原 Runtime，并在[实际进程中断用例](https://github.com/hpoenixf/open-etf-agent/blob/dad9c6e64f32c3d7579aea96613776b40917ec6d/test/worker-process.test.mjs)中观察。它守住的是原身份与已发生效果，不是给不确定请求加一个自动重试按钮。
 
-<!-- open-etf-case:worker@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
+<!-- open-etf-case:worker@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
 ### 让提交进程退出后再执行原 Run
 
-固定公开快照的[Worker CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-cli.test.mjs)把“提交已落盘”和“实际开始执行”拆成两个进程，直接检查它们是否仍指向原来的工作。
+固定公开快照的[Worker CLI 用例](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/worker-cli.test.mjs)把“提交已落盘”和“实际开始执行”拆成两个进程，直接检查它们是否仍指向原来的工作。
 
 在所链固定快照按 README 安装依赖后，运行：
 

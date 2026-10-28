@@ -364,10 +364,10 @@ This pinned checkout is a maintenance version for a reason directly related to t
 
 The slice pins official SDK 1.32.2 and [MCP protocol 2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25/server/tools). It launches only the repository's allowlisted server, not the remote HTTP, OAuth or full Schema adaptation described earlier. The [first live-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not exercise MCP either. What can be reproduced now is discovery, admission, real transport, source checks and file persistence. Whether a real model selects and uses those tools correctly during research remains a separate question.
 
-<!-- open-etf-case:mcp@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
+<!-- open-etf-case:mcp@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
 ### Follow acquisition and saving through the real stdio path
 
-The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/src/cli.mjs) connects Skill reading, MCP discovery, and original-page acquisition in one runnable slice.
+The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/src/cli.mjs) connects Skill reading, MCP discovery, and original-page acquisition in one runnable slice.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

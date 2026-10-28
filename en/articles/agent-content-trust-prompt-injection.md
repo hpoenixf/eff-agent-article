@@ -131,10 +131,10 @@ Return to the opening regression. Before the fix, the old path promoted Web cont
 
 Most importantly, two claims must not be conflated. **Preventing Web content from being structurally promoted to `system` does not prove a model cannot be socially engineered by malicious prose inside an otherwise legitimate tool or user-role carrier.** The former has deterministic invariants that application tests can exercise. The latter still calls for independent adversarial evaluation of real models, real input paths, and actual effects.
 
-<!-- open-etf-case:trust@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
+<!-- open-etf-case:trust@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
 ### Test projection rejection with forged source identity
 
-The [Context counterexample at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/context.test.mjs) reduces “content cannot grant itself authority” to several inspectable input changes.
+The [Context counterexample at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/test/context.test.mjs) reduces “content cannot grant itself authority” to several inspectable input changes.
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 

@@ -330,10 +330,10 @@ A complete capability set does not mean every problem merits delegation. Straigh
 
 **Choose Subagents because a task benefits from autonomous local work and isolated context—not because the system happens to support many roles.**
 
-<!-- open-etf-case:child@ff5b9273ef0d239e804f61792702cd2e94174be7 -->
+<!-- open-etf-case:child@e0a6a29b7474a19c18b169c0e4a7eb0eb614504d -->
 ### Check the handoff with one read-only Child
 
-To inspect how local work returns to Main, run one scripted Child through the [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/src/cli.mjs).
+To inspect how local work returns to Main, run one scripted Child through the [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e0a6a29b7474a19c18b169c0e4a7eb0eb614504d/src/cli.mjs).
 
 After installing dependencies according to the README at the linked fixed snapshot, run:
 
