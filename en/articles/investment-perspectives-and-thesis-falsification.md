@@ -89,7 +89,7 @@ A simplified **synthetic teaching exchange**, not a transcript from a real model
 
 The useful change is not that Bear “won.” Bull actually revised a clearly identified reason.
 
-ETF Agent retains ordinary Main-to-Child delegation and Child-to-Main result handoff, while an admitted pair of Bull/Bear Children can **directly exchange public challenges and replies** within the original authorization. Main need not rephrase every exchange. They may stop early rather than exhaust a round quota. The actual transport, round bookkeeping, waiting and recovery mechanics are covered separately in [the Bull/Bear runtime article](bounded-bull-bear-peer-dialogue.md).
+ETF Agent retains ordinary Main-to-Child delegation and Child-to-Main result handoff. An admitted Bull/Bear pair may **directly exchange research challenges and replies within the same Run**, without Main relaying every message. The Host checks that shared prose and source references are permitted for the recipient; hidden reasoning and inaccessible source material cannot be passed through. The messages remain available through authorized History views, **not as public Internet posts**. Either peer may stop early rather than exhaust a round quota. The [Bull/Bear runtime article](bounded-bull-bear-peer-dialogue.md) covers message delivery, waiting and recovery.
 
 ## 6. Main Is Responsible for Synthesis, Not a Vote
 
