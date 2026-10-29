@@ -92,6 +92,10 @@
     "ordinary-response": {
       "kind": "scenario",
       "name": "ordinary-response"
+    },
+    "memory-consumer": {
+      "kind": "scenario",
+      "name": "memory-consumer"
     }
   },
   "articles": [
@@ -185,7 +189,15 @@
       "title": "Memory：从保存、召回到安全遗忘",
       "status": "verified",
       "target": "memory",
-      "scope": "显式合成意图的保存/修订/忘记；非认证用户 Memory 服务"
+      "scope": "显式合成意图的保存/修订/忘记；非认证用户 Memory 服务",
+      "additionalTargets": [
+        {
+          "target": "memory-consumer",
+          "status": "verified",
+          "scope": "仅显式既有非空库的只读查询与当前修订实际请求消费；临时模式在库 IO 前禁用；不含新写入生命周期、自动学习或真实模型质量",
+          "articleCommit": "d6a61550e1afc103a03c31a30c51f8be96eb8b8d"
+        }
+      ]
     },
     {
       "slug": "027-rag-revocation-publish-replay",
@@ -335,7 +347,8 @@
     "worker": "legacy-runtime",
     "pdf-local": "legacy-runtime",
     "temporal": "temporal",
-    "ordinary-response": "ordinary-response"
+    "ordinary-response": "ordinary-response",
+    "memory-consumer": "memory-consumer"
   },
   "qualifications": {
     "legacy-runtime": {
@@ -379,6 +392,18 @@
       "receipt": {
         "path": "docs/verification/v013-ordinary-response.safe.json",
         "gitBlob": "63f81c6bfa73f641f82308cf7ade6f3904299862"
+      }
+    },
+    "memory-consumer": {
+      "kind": "independent-scenario",
+      "scenario": "memory-consumer",
+      "commit": "a3e1059a78cf8a4f70fe89d61563980f3d24bc15",
+      "tree": "433d3dd224ca9ac4daa6e76044faef2aba1b57a2",
+      "evidenceCommit": "a3e1059a78cf8a4f70fe89d61563980f3d24bc15",
+      "evidenceTree": "433d3dd224ca9ac4daa6e76044faef2aba1b57a2",
+      "receipt": {
+        "path": "docs/verification/v014-memory-consumer.safe.json",
+        "gitBlob": "029987408d9ee899674c59ba40815f6bff33a686"
       }
     }
   }

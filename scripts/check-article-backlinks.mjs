@@ -18,20 +18,28 @@ export function commandFor(id, target) {
  const output = `runs/article-${id}`;
  return `node src/cli.mjs --case ${target.case} --output ${output}` + (target.case === 'explicit-memory' ? ` --memory-library ${output}/synthetic-memory` : '');
 }
+const slicesOf = row => [row,...(row.additionalTargets || []).map(slice=>({...slice,slug:row.slug,title:row.title}))];
 export function validateContract(m, receipt, source, scenarioReceipts = {}) {
  ensure(m?.repository === CODE && SHA.test(m.verifiedAt), 'Invalid code contract execution pin');
- ensure(Array.isArray(m.articles) && m.articles.length <= 256 && m.targets && Object.keys(m.targets).length <= (m.schemaVersion === 3 ? m.articles.length : 16), 'Invalid bounded code contract');
+ ensure(Array.isArray(m.articles) && m.articles.length <= 256 && m.targets && (m.schemaVersion === 3 ? Buffer.byteLength(JSON.stringify(m))<=1048576 : Object.keys(m.targets).length<=16), 'Invalid bounded code contract');
  ensure(receipt?.sourceCommit === m.verifiedAt && source?.commit === m.verifiedAt, 'Receipt/source execution pin mismatch');
+ if(m.schemaVersion===3) {
+  ensure(stable(Object.keys(m.targetEvidence || {}).sort())===stable(Object.keys(m.targets).sort()),'Each target needs one evidence binding');
+  const rows=m.articles.flatMap(slicesOf), ids=new Set(rows.filter(row=>row.target!==null).map(row=>row.target));
+  ensure(stable([...ids].sort())===stable(Object.keys(m.targets).sort()),'Orphan or missing target');
+  const identities=Object.entries(m.targets).map(([id,t])=>m.targetEvidence[id]+':'+stable(t));
+  ensure(new Set(identities).size===identities.length,'Duplicate executable target identity');
+ }
  const articles = [], targets = {}, pins = {}, slugs = new Set();
- for (const row of m.articles) {
-  ensure(SLUG.test(row.slug) && !slugs.has(row.slug), 'Duplicate/invalid article contract'); slugs.add(row.slug);
+ for(const article of m.articles) {ensure(SLUG.test(article.slug) && !slugs.has(article.slug),'Duplicate/invalid article contract');slugs.add(article.slug);ensure(new Set(slicesOf(article).map(r=>r.target)).size===slicesOf(article).length,'Duplicate target in one article');}
+ for (const row of m.articles.flatMap(slicesOf)) {
   if (row.status !== 'verified') continue;
   const t = m.targets[row.target]; ensure(/^[a-z][a-z0-9-]*$/.test(row.target) && t, 'Unknown verified target');
   if (m.schemaVersion === 3 && t.kind === 'scenario') {
    const q=m.qualifications?.[m.targetEvidence?.[row.target]], evidence=scenarioReceipts[row.target];
-   ensure(q?.kind==='independent-scenario' && q.scenario===t.name && ['temporal','ordinary-response'].includes(t.name) && SHA.test(q.commit) && SHA.test(row.articleCommit), 'Invalid independent scenario binding');
+   ensure(q?.kind==='independent-scenario' && q.scenario===t.name && ['temporal','ordinary-response','memory-consumer'].includes(t.name) && SHA.test(q.commit) && SHA.test(row.articleCommit), 'Invalid independent scenario binding');
    const observed=t.name==='temporal'?evidence?.independentInstall:evidence?.independent;
-   const stages=t.name==='temporal'?['independent-submit','independent-work','independent-read','independent-artifact-read']:['independent-start','independent-receive','independent-resume','independent-question-read','independent-artifact-read'];
+   const stages=t.name==='memory-consumer'?['independent-seed','independent-recall','independent-memory-read','independent-temporary','independent-artifact-read']:t.name==='temporal'?['independent-submit','independent-work','independent-read','independent-artifact-read']:['independent-start','independent-receive','independent-resume','independent-question-read','independent-artifact-read'];
    ensure(evidence?.modelCalls===0 && observed?.modelCalls===0 && stages.every(stage=>observed.observations?.some(o=>o.stage===stage && o.exitCode===0)) && /^[a-f0-9]{64}$/.test(observed.report?.sha256), 'Missing successful independent scenario receipt');
    pins[row.target]=q.commit; articles.push({slug:row.slug,target:row.target,articleCommit:row.articleCommit});targets[row.target]=t;continue;
   }
@@ -93,11 +101,17 @@ function validateScenarioArticle(text,target,pin,path) {
   else if(marker && marker[1][0]===fence[0] && marker[1].length>=fence.length && !marker[2].trim())fence=null;
   else commands.push(line.trim());
  }
- const file=target.name==='temporal'?'src/temporal.mjs':'src/session-cli.mjs';
+ const file=target.name==='temporal'?'src/temporal.mjs':target.name==='memory-consumer'?'src/memory-consumer.mjs':'src/session-cli.mjs';
  const url=`https://github.com/${CODE}/blob/${pin}/${file}`;
  const links=[...prose.join('\n').matchAll(/(?<![!\\])\[[^\[\]\n]+\]\((https:\/\/github\.com\/[^\s)]+)\)/g)];
  ensure(links.some(m=>m[1]===url),`Missing visible fixed scenario source: ${path}`);
- const required=target.name==='temporal' ? [
+ const required=target.name==='memory-consumer' ? [
+  "const library = await openMemoryLibrary({ directory: 'synthetic-library', writable: true });",
+  "const text = 'SYNTHETIC independent preference: use exact physical page identities.';",
+  'approvedTextHash: sha256(text)',
+  'node dist/src/cli.mjs --case memory-recall --memory-library synthetic-library --query physical --output runs',
+  'node dist/src/cli.mjs --case memory-recall --memory-library missing-library --query physical --temporary --output runs'
+ ] : target.name==='temporal' ? [
   'npm run temporal -- submit --session runs/article-time --run fixed \\',
   '--time-zone America/Los_Angeles --anchor 2026-10-28T00:30:00.000Z',
   'npm run temporal -- work --session runs/article-time --run fixed',
@@ -113,20 +127,22 @@ function validateScenarioArticle(text,target,pin,path) {
 }
 
 export async function verifyArticles({ contract, english, paths, read }) {
- const expected = new Map(), missingEnglish = [];
+ const expected = new Map(), missingEnglish = new Set(); let checkedSliceBodies=0;
+ const add=(path,row)=>{const rows=expected.get(path)||[];rows.push(row);expected.set(path,rows);};
  for (const row of contract.articles) {
-  expected.set(`articles/${row.slug}.md`, row);
-  if (english.has(row.slug)) expected.set(`en/articles/${row.slug}.md`, row); else missingEnglish.push(row.slug);
+  add(`articles/${row.slug}.md`,row);
+  if(english.has(row.slug))add(`en/articles/${row.slug}.md`,row);else missingEnglish.add(row.slug);
  }
- for (const [path, row] of expected) {
-  const target=contract.targets[row.target], pin=contract.pins?.[row.target] || contract.verifiedAt;
-  if(target.kind==='scenario') validateScenarioArticle(await read(path,row),target,pin,path);
+ for(const [path,rows] of expected) for(const row of rows) {
+  const target=contract.targets[row.target],pin=contract.pins?.[row.target]||contract.verifiedAt;
+  if(target.kind==='scenario')validateScenarioArticle(await read(path,row),target,pin,path);
   else validateBlock(await read(path,row),row.target,target,pin,path);
+  checkedSliceBodies++;
  }
- // Article CI inspects the current working tree, including claims outside the expected set.
- for (const path of paths) if (!expected.has(path)) ensure(!/<!--\s*open-etf-case:/.test(await read(path)), `Unexpected verified claim in unverified article: ${path}`);
- return { verifiedArticles: contract.articles.length, checkedBodies: expected.size, missingEnglish, verifiedAt: contract.verifiedAt, ...(contract.pins ? {targetExecutionPins:contract.pins} : {}) };
+ for(const path of paths)if(!expected.has(path))ensure(!/<!--\s*open-etf-case:/.test(await read(path)),`Unexpected verified claim in unverified article: ${path}`);
+ return {verifiedArticles:new Set(contract.articles.map(a=>a.slug)).size,verifiedSlices:contract.articles.length,checkedBodies:expected.size,checkedSliceBodies,missingEnglish:[...missingEnglish],verifiedAt:contract.verifiedAt,...(contract.pins?{targetExecutionPins:contract.pins}:{})};
 }
+
 async function localReader(root, path) {
  const full = join(root, path), s = await lstat(full);
  ensure(s.isFile() && !s.isSymbolicLink() && relative(root, await realpath(full)) === path, `Unsafe local file: ${path}`);

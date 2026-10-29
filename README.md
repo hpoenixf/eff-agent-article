@@ -10,9 +10,9 @@
 
 按公开项目的模块演进顺序选取，与[项目阅读入口](https://hpoenixf.com/eff-agent-article/open-etf-agent)一致，**不是文章发布日期排名**。文章的完整机制与可运行实现的有限范围分别说明；中英正文是同一篇文章的两个版本。
 
+- [Memory：从保存、召回到安全遗忘](articles/026-agent-memory-forget-durable-effects.md) · [Memory: From Saving and Recall to Safe Forgetting](en/articles/026-agent-memory-forget-durable-effects.md)
 - [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md) · [After an Agent Asks: Durable Human Response Adoption](en/articles/agent-durable-human-interaction-response-adoption.md)
 - [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md) · [When an Agent Says Today: User Time and Market Sessions](en/articles/agent-temporal-semantics-market-calendar.md)
-- [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md) · [PDF: From Text to Evidence](en/articles/024-agent-pdf-from-text-to-evidence.md)
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 

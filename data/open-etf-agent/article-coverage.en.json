@@ -78,7 +78,13 @@
       "title": "Memory: From Saving and Recall to Safe Forgetting",
       "scope": "Save/revise/forget using explicit synthetic intent; not an authenticated user Memory service.",
       "englishAvailable": true,
-      "articleBlob": "b8feeed2172389fd6d02a0566b4aa4492bbf2c52"
+      "articleBlob": "b8feeed2172389fd6d02a0566b4aa4492bbf2c52",
+      "additionalScopes": {
+        "memory-consumer": {
+          "scope": "Read-only query of an explicitly selected existing nonempty library, with current revisions consumed in actual requests; temporary mode disables library IO; no new write lifecycle, automatic learning or real-model quality claim",
+          "articleBlob": "61cd9be6c9156fc67d3bbd6dde2bc8e2acc09252"
+        }
+      }
     },
     "027-rag-revocation-publish-replay": {
       "title": "RAG: Revocation and Historical Replay",

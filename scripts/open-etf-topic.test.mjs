@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../',import.meta.url))
 test('one module catalog, independent coverage qualification',()=>{
  const rows=topicGroups().flatMap(g=>g.articles)
  assert.equal(new Set(rows.map(r=>r.slug)).size,catalogCount)
- assert.deepEqual(rows.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>a.status==='verified').map(a=>a.slug).sort())
+ assert.deepEqual(rows.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>[a,...(a.additionalTargets || [])].some(slice=>slice.status==='verified')).map(a=>a.slug).sort())
  const pdf=rows.find(r=>r.slug==='024-agent-pdf-from-text-to-evidence')
  assert.equal(pdf.status,'limited')
  assert.equal(pdf.since,'0.11')

@@ -8,7 +8,7 @@ const receipts = JSON.parse(readFileSync(new URL('../data/open-etf-agent/article
 const lineage = JSON.parse(readFileSync(new URL('../data/open-etf-agent/versions.json', import.meta.url),'utf8'))
 const component = readFileSync(new URL('../.vitepress/theme/OpenEtfTopic.vue', import.meta.url), 'utf8')
 test('recent modules join existing catalog fields in both languages, without new qualification', () => {
-  const expected = ['agent-durable-human-interaction-response-adoption', 'agent-temporal-semantics-market-calendar', '024-agent-pdf-from-text-to-evidence']
+  const expected = coverage.articles.map((row,index)=>({slug:row.slug,index,since:[row,...(row.additionalTargets || [])].filter(slice=>slice.status==='verified').map(slice=>lineage.targets[slice.target]?.since).filter(Boolean).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}))[0]})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.slug)
   for (const language of ['en', 'zh']) {
     const rows = recentModuleArticles(language)
     const all = topicGroups(language).flatMap(g => g.articles)
@@ -26,7 +26,7 @@ test('recent modules join existing catalog fields in both languages, without new
         assert.equal(row.evidence,`https://github.com/${coverage.repository}/blob/${q?.commit || receipts.sourceCommit}/${lineage.targets[record.target].evidencePath}`)
       } else assert.equal(row.evidence,null)
     }
-    assert.deepEqual(all.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>a.status==='verified').map(a=>a.slug).sort())
+    assert.deepEqual(all.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>[a,...(a.additionalTargets || [])].some(slice=>slice.status==='verified')).map(a=>a.slug).sort())
   }
   assert.equal(qualification.semanticStatus, 'unreviewed')
 })
@@ -61,4 +61,19 @@ test('legacy target identities and original receipt bytes are retained, not upgr
  }
  const legacyIds=Object.keys(coverage.targets).filter(id=>coverage.qualifications[coverage.targetEvidence[id]].kind==='legacy-runtime')
  assert.deepEqual(legacyIds.sort(),Object.keys(receipts.results).sort())
+})
+
+
+test('one Memory card retains its old slice and displays its independently qualified consumer',()=>{
+ for(const language of ['en','zh']) {
+  const row=topicGroups(language).flatMap(g=>g.articles).find(a=>a.slug==='026-agent-memory-forget-durable-effects')
+  const record=coverage.articles.find(a=>a.slug===row.slug), extra=record.additionalTargets.find(s=>s.target==='memory-consumer')
+  const view=row.additionalTargets.find(s=>s.target===extra.target)
+  assert.equal(row.since,lineage.targets[record.target].since)
+  assert.equal(view.since,lineage.targets[extra.target].since)
+  assert.equal(row.evidence,`https://github.com/${coverage.repository}/blob/${receipts.sourceCommit}/${lineage.targets[record.target].evidencePath}`)
+  assert.equal(view.evidence,`https://github.com/${coverage.repository}/blob/${coverage.qualifications[coverage.targetEvidence[extra.target]].commit}/${lineage.targets[extra.target].evidencePath}`)
+  assert.notEqual(row.evidence,view.evidence)
+ }
+ assert.ok(component.includes('v-for="slice in article.additionalTargets"'))
 })

@@ -55,6 +55,10 @@
     "0.13": {
       "commit": "300f78f7066ab76fcc4e9efb54137ff021ecc278",
       "tree": "a09e1c560efec54a0c8e28701f3a38afc3bd1a50"
+    },
+    "0.14": {
+      "commit": "a3e1059a78cf8a4f70fe89d61563980f3d24bc15",
+      "tree": "433d3dd224ca9ac4daa6e76044faef2aba1b57a2"
     }
   },
   "targets": {
@@ -165,6 +169,12 @@
       "evidencePath": "src/session-cli.mjs",
       "evidenceGitBlob": "8d748dc6c73a004aea232551fe832fef2639eb9a",
       "selector": "ordinary-response"
+    },
+    "memory-consumer": {
+      "since": "0.14",
+      "evidencePath": "src/memory-consumer.mjs",
+      "evidenceGitBlob": "eef897fb20eb5c34dda1b5809f4124799dfd0892",
+      "selector": "memory-consumer"
     }
   },
   "notes": [
