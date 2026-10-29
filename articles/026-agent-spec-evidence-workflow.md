@@ -266,4 +266,4 @@ node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --cha
 
 ---
 
-本文亦发布于 [个人博客](https://hpoenixf.com/blog/026-agent-spec-evidence-workflow)。更多工程实践见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
+本文曾同步发布于个人博客；当前可从[正式中文阅读页](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow)或[完整英文版](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow)继续阅读。源文和后续工程讨论见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
