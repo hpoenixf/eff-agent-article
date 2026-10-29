@@ -14,6 +14,8 @@ During the second and third phases of building weekly portfolio reviews in ETF A
 
 This does not mean adding a longer prompt-based Memory or copying every old conversation into a new one. We need to retain different historical facts: portfolio observations, the actual structured thesis produced by an investment method, later user corrections, and the provenance and access boundaries of each.
 
+> **Implementation and public-release scope (October 2026):** This is an account of phased work and controlled verification in the private ETF Agent application, under specified authorization, database, and fixed model-gateway conditions. It does **not** mean that the public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) release offers a runnable complete weekly-review, Investment Thesis, or user-correction workflow. Multi-period research quality and decision usefulness still require independent evaluation.
+
 ## 1. The real problem begins after delivering the first report
 
 The initial goal was straightforward: obtain authorized portfolio information, perform research, create an HTML report, and return a link to a file that can actually be downloaded.
@@ -189,6 +191,6 @@ In the next review, we want three things: retrieve the original conclusion and i
 
 ---
 
-Related reading: [Why the Weekly Review Spec Was Split into Three Phases](https://hpoenixf.com/eff-agent-article/en/articles/agent-weekly-review-staged-delivery) explains the engineering delivery sequence. [A Trustworthy Evidence Chain for Financial Agents](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) covers provenance and eligibility across research tools. This article addresses historical portfolio observations, original theses, and later corrections; it is not investment advice.
+Related reading: [Why the Weekly Review Spec Was Split into Three Phases](https://hpoenixf.com/eff-agent-article/en/articles/agent-weekly-review-staged-delivery) explains the engineering delivery sequence. [A Trustworthy Evidence Chain for Financial Agents](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) (Chinese original) covers provenance and eligibility across research tools. This article addresses historical portfolio observations, original theses, and later corrections; it is not investment advice.
 
 More engineering notes are available in the [ETF Agent collection](https://github.com/hpoenixf/eff-agent-article). If these case studies are useful, please consider giving the repository a **Star**.
