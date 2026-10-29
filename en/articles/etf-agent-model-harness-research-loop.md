@@ -41,7 +41,7 @@ The takeaway matters more than the labels: **research direction can change; actu
 
 Think of research as repeating three ordinary steps: **decide what to check → actually check it → decide whether the new evidence requires another step**. If this quarter's holdings are missing, the assistant cannot simply continue with a claim about today's concentration.
 
-ETF Agent uses its existing native research loop for that rhythm: `AgentTurn` proposes the next action, `ActionRuntime` executes admitted work, and `CompletionGate` handles continuation or stopping from actual receipts and budgets. These are execution responsibilities, not a reason to invent another general-purpose workflow manager.
+ETF Agent's native research loop follows this rhythm: the model proposes its next move through native tool calls, `ActionRuntime` executes admitted work, and `CompletionGate` evaluates receipts and budgets to continue or stop. The lifecycle still names the model-turn stage `AgentTurn`, but the durable record is a native `ModelTurn`—not the retired JSON `AgentTurn` protocol. No general-purpose workflow manager is needed.
 
 ![Native research loop: Main judgment, Host execution, settled observations, and a choice to recheck, delegate, or publish](../../visuals/en/etf-agent-model-harness-research-loop/02-native-loop-en.svg)
 
@@ -51,7 +51,7 @@ Three time scales make this especially useful.
 
 **Second, research questions can reopen within the same Run.** ETF Agent's optional `researchNeeds` hold model-authored working questions. “Confirm changes in sector exposure” may once have been marked `resolved`, only for Main to discover that the reported holdings cover too little of the fund. The model can reopen the question. This permits genuine revision without turning working-note status into a completion gate. A `resolved` flag is not a certificate of financial correctness.
 
-**Third, continuation across time must not recreate the past.** Existing durable execution and recovery preserve the original Run identity, grant, budgets, and settled tool receipts. Continuation is bounded by supported safe checkpoints, and confirmed effects are not replayed. An external call whose outcome is still unknown cannot be retried blindly merely because a process restarted. User corrections to background work travel through the original control mechanism. An explicit Continue after a terminal Run starts a linked new investigation.
+**Third, continuation across time is not reconstruction of an old execution graph.** Durable records preserve the original Run's identity, grant, budgets, and settled receipts, but a record or checkpoint is not permission to execute again. Only an accepted Human/Child control wake may continue at a supported checkpoint within the original Run. Ordinary re-entry after an interrupted execution without such a wake settles the interruption and reads saved results, without replaying previous model or tool calls. An explicit Continue starts a linked new Run with independent admission. Unknown external effects must be reconciled rather than blindly retried.
 
 These distinctions explain why ETF Agent has repeatedly concentrated Main, Child, Memory, Recovery, and Publication responsibilities in their original owners: **research strategy should be allowed to change, but recorded execution history should not change along with the model's opinion**.
 
@@ -108,7 +108,7 @@ If we distill these engineering lessons into a single investment-research story,
 A good investment-research Agent need not know every answer. It should recognize when to continue investigating, when to revise a belief, and when only a qualified conclusion is justified. **The goal is not a loop that never stops; it is a system that can be corrected by evidence without losing the evidence.**
 
 
-**Public implementation scope:** As of October 28, 2026, [Open ETF Agent's fixed v0.11 source](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b) offers synthetic document comparison, result consumption, and bounded local text-layer PDF input. It does **not** represent the complete investment-research system discussed here or validate live-model research quality.
+**Public implementation scope:** As of October 28, 2026, [Open ETF Agent's pinned v0.11 development commit](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b) contains synthetic document comparison, result consumption, and bounded local text-layer PDF work. That commit's README still designated v0.10 as the qualified stable development baseline; the v0.11 PDF path was work in progress, not a separately qualified full research release. Neither the code nor the private design establishes live-model research quality.
 
 ---
 
