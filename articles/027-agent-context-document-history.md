@@ -304,4 +304,4 @@ History 解释为什么这样设计、过去发生了什么；Handoff 则保存*
 
 *取材边界：文档行数来自 2026 年 8 月的治理窗口；退役案例来自后续工程记录。本文没有重跑这些历史实验，也不把原测试结果更新为本次通过。*
 
-本文亦发布于 [个人博客](https://hpoenixf.com/blog/027-agent-context-document-history)。更多工程实践见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
+本文曾同步发布于个人博客；当前可从[正式中文阅读页](https://hpoenixf.com/eff-agent-article/articles/027-agent-context-document-history)或[完整英文版](https://hpoenixf.com/eff-agent-article/en/articles/027-agent-context-document-history)继续阅读。源文和后续工程讨论见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
