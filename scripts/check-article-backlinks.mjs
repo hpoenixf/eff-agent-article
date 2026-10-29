@@ -1,5 +1,6 @@
 // Shared, read-only article/case contract. No downloaded code or Runtime case is executed.
 import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const CODE = 'hpoenixf/open-etf-agent', ARTICLES = 'hpoenixf/eff-agent-article';
@@ -17,22 +18,30 @@ export function commandFor(id, target) {
  const output = `runs/article-${id}`;
  return `node src/cli.mjs --case ${target.case} --output ${output}` + (target.case === 'explicit-memory' ? ` --memory-library ${output}/synthetic-memory` : '');
 }
-export function validateContract(m, receipt, source) {
+export function validateContract(m, receipt, source, scenarioReceipts = {}) {
  ensure(m?.repository === CODE && SHA.test(m.verifiedAt), 'Invalid code contract execution pin');
- ensure(Array.isArray(m.articles) && m.articles.length <= 256 && m.targets && Object.keys(m.targets).length <= 16, 'Invalid bounded code contract');
+ ensure(Array.isArray(m.articles) && m.articles.length <= 256 && m.targets && Object.keys(m.targets).length <= (m.schemaVersion === 3 ? m.articles.length : 16), 'Invalid bounded code contract');
  ensure(receipt?.sourceCommit === m.verifiedAt && source?.commit === m.verifiedAt, 'Receipt/source execution pin mismatch');
- const articles = [], targets = {}, slugs = new Set();
+ const articles = [], targets = {}, pins = {}, slugs = new Set();
  for (const row of m.articles) {
   ensure(SLUG.test(row.slug) && !slugs.has(row.slug), 'Duplicate/invalid article contract'); slugs.add(row.slug);
   if (row.status !== 'verified') continue;
   const t = m.targets[row.target]; ensure(/^[a-z][a-z0-9-]*$/.test(row.target) && t, 'Unknown verified target');
+  if (m.schemaVersion === 3 && t.kind === 'scenario') {
+   const q=m.qualifications?.[m.targetEvidence?.[row.target]], evidence=scenarioReceipts[row.target];
+   ensure(q?.kind==='independent-scenario' && q.scenario===t.name && ['temporal','ordinary-response'].includes(t.name) && SHA.test(q.commit) && SHA.test(row.articleCommit), 'Invalid independent scenario binding');
+   const observed=t.name==='temporal'?evidence?.independentInstall:evidence?.independent;
+   const stages=t.name==='temporal'?['independent-submit','independent-work','independent-read','independent-artifact-read']:['independent-start','independent-receive','independent-resume','independent-question-read','independent-artifact-read'];
+   ensure(evidence?.modelCalls===0 && observed?.modelCalls===0 && stages.every(stage=>observed.observations?.some(o=>o.stage===stage && o.exitCode===0)) && /^[a-f0-9]{64}$/.test(observed.report?.sha256), 'Missing successful independent scenario receipt');
+   pins[row.target]=q.commit; articles.push({slug:row.slug,target:row.target,articleCommit:row.articleCommit});targets[row.target]=t;continue;
+  }
   if (t.kind === 'test') ensure(/^test\/[a-z0-9-]+\.test\.mjs$/.test(t.file) && typeof t.name === 'string' && t.name.length > 0 && t.name.length <= 200 && !/[\r\n\0]/.test(t.name), 'Invalid test case');
   else ensure(t.kind === 'cli' && ['fixture-child','retrieve-reread','compact-and-reread','explicit-memory','skill-mcp','batch-read'].includes(t.case), 'Invalid CLI case');
   const r = receipt.results?.[row.target]; ensure(r?.exitCode === 0 && stable(r.target) === stable(t), 'Missing or mismatched successful case receipt');
-  articles.push({ slug: row.slug, target: row.target }); targets[row.target] = t;
+  articles.push({ slug: row.slug, target: row.target }); targets[row.target] = t; pins[row.target]=m.verifiedAt;
  }
  ensure(articles.length > 0, 'No verified contract');
- return { verifiedAt: m.verifiedAt, articles: articles.sort((a,b) => a.slug.localeCompare(b.slug)), targets };
+ return { verifiedAt: m.verifiedAt, articles: articles.sort((a,b) => a.slug.localeCompare(b.slug)), targets, ...(m.schemaVersion===3 ? {pins} : {}) };
 }
 export function sameContract(left, right) { ensure(stable(left) === stable(right), 'Article/code verified contract mismatch'); }
 export function parseEnglishCatalog(text) {
@@ -75,16 +84,48 @@ function validateBlock(text, id, target, pin, path) {
  ensure(links.some(match => match[1] === url), `Missing visible exact case link: ${path}`);
  ensure(commands.includes(commandFor(id, target)), `Missing selected runnable command: ${path}`);
 }
+
+function validateScenarioArticle(text,target,pin,path) {
+ const commands=[],prose=[];let fence=null;
+ for(const line of text.replace(/<!--[\s\S]*?-->/g,'').split('\n')) {
+  const marker=line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+  if(!fence){if(marker)fence=marker[1];else if(!/^( {4}|\t)/.test(line))prose.push(line);}
+  else if(marker && marker[1][0]===fence[0] && marker[1].length>=fence.length && !marker[2].trim())fence=null;
+  else commands.push(line.trim());
+ }
+ const file=target.name==='temporal'?'src/temporal.mjs':'src/session-cli.mjs';
+ const url=`https://github.com/${CODE}/blob/${pin}/${file}`;
+ const links=[...prose.join('\n').matchAll(/(?<![!\\])\[[^\[\]\n]+\]\((https:\/\/github\.com\/[^\s)]+)\)/g)];
+ ensure(links.some(m=>m[1]===url),`Missing visible fixed scenario source: ${path}`);
+ const required=target.name==='temporal' ? [
+  'npm run temporal -- submit --session runs/article-time --run fixed \\',
+  '--time-zone America/Los_Angeles --anchor 2026-10-28T00:30:00.000Z',
+  'npm run temporal -- work --session runs/article-time --run fixed',
+  'npm run temporal -- read --session runs/article-time --run fixed'
+ ] : [
+  'npm run session -- start --session runs/article-reply --case durable-response',
+  'npm run session -- question --session runs/article-reply --run RUN_ID --question QUESTION_ID',
+  "npm run session -- respond --session runs/article-reply --run RUN_ID --question QUESTION_ID --response reply-1 --text 'Synthetic label: blue'",
+  'npm run session -- resume --session runs/article-reply --run RUN_ID',
+  'npm run session -- response-status --session runs/article-reply --run RUN_ID'
+ ];
+ ensure(required.every(command=>commands.includes(command)),`Missing runnable original scenario sequence: ${path}`);
+}
+
 export async function verifyArticles({ contract, english, paths, read }) {
  const expected = new Map(), missingEnglish = [];
  for (const row of contract.articles) {
   expected.set(`articles/${row.slug}.md`, row);
   if (english.has(row.slug)) expected.set(`en/articles/${row.slug}.md`, row); else missingEnglish.push(row.slug);
  }
- for (const [path, row] of expected) validateBlock(await read(path), row.target, contract.targets[row.target], contract.verifiedAt, path);
+ for (const [path, row] of expected) {
+  const target=contract.targets[row.target], pin=contract.pins?.[row.target] || contract.verifiedAt;
+  if(target.kind==='scenario') validateScenarioArticle(await read(path,row),target,pin,path);
+  else validateBlock(await read(path,row),row.target,target,pin,path);
+ }
  // Article CI inspects the current working tree, including claims outside the expected set.
  for (const path of paths) if (!expected.has(path)) ensure(!/<!--\s*open-etf-case:/.test(await read(path)), `Unexpected verified claim in unverified article: ${path}`);
- return { verifiedArticles: contract.articles.length, checkedBodies: expected.size, missingEnglish, verifiedAt: contract.verifiedAt };
+ return { verifiedArticles: contract.articles.length, checkedBodies: expected.size, missingEnglish, verifiedAt: contract.verifiedAt, ...(contract.pins ? {targetExecutionPins:contract.pins} : {}) };
 }
 async function localReader(root, path) {
  const full = join(root, path), s = await lstat(full);
@@ -111,7 +152,18 @@ function publicReader() {
   return cache.get(url);
  };
 }
-async function readContract(read) { return validateContract(JSON.parse(await read(MANIFEST)), JSON.parse(await read(RECEIPT)), JSON.parse(await read(SOURCE))); }
+export async function readContract(read) {
+ const m=JSON.parse(await read(MANIFEST)), extras={};
+ if(m.schemaVersion===3) for(const [id,t] of Object.entries(m.targets)) if(t.kind==='scenario') {
+  const q=m.qualifications?.[m.targetEvidence?.[id]];ensure(q?.receipt && /^docs\/verification\/[a-z0-9.-]+\.json$/.test(q.receipt.path),'Invalid scenario evidence path');
+  const text=await read(q.receipt.path);extras[id]=verifyScenarioSnapshot(text,q);
+ }
+ return validateContract(m,JSON.parse(await read(RECEIPT)),JSON.parse(await read(SOURCE)),extras);
+}
+export function verifyScenarioSnapshot(text,q) {
+ const body=Buffer.from(text,'utf8'), blob=createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${body.length}\0`),body])).digest('hex');
+ ensure(blob===q.receipt.gitBlob,'Immutable scenario snapshot differs');return JSON.parse(text);
+}
 function codePin(value) { ensure(value?.schemaVersion === 1 && value.repository === CODE && SHA.test(value.commit) && Object.keys(value).sort().join(',') === 'commit,repository,schemaVersion', 'Invalid fixed code-claim pin'); return value.commit; }
 export async function checkArticles(root, remote = publicReader()) {
  const local = path => localReader(root, path), pin = codePin(JSON.parse(await local(PIN)));
@@ -122,9 +174,13 @@ export async function checkCode(root, remote = publicReader()) {
  const local = path => localReader(root, path), manifest = JSON.parse(await local(MANIFEST)), contract = await readContract(local);
  ensure(manifest.articleCatalog?.repository === ARTICLES && SHA.test(manifest.articleCatalog.commit), 'Missing fixed article source'); const articleCommit = manifest.articleCatalog.commit;
  const article = path => remote(ARTICLES, articleCommit, path), pin = codePin(JSON.parse(await article(PIN)));
- sameContract(contract, await readContract(path => remote(CODE, pin, path)));
+ const previous=await readContract(path => remote(CODE,pin,path));
+ if(manifest.schemaVersion===3) {
+  const legacy={verifiedAt:contract.verifiedAt,articles:contract.articles.filter(a=>contract.targets[a.target].kind!=='scenario'),targets:Object.fromEntries(Object.entries(contract.targets).filter(([,t])=>t.kind!=='scenario'))};
+  sameContract(legacy,previous);
+ } else sameContract(contract,previous);
  const english = parseEnglishCatalog(await article('book.en.mjs'));
- return { mode: 'fixed-article-snapshot', articleCommit, codeClaimCommit: pin, ...await verifyArticles({ contract, english, paths: [], read: article }), scope: 'Fixed published pair; later remote article edits are checked by that repository own working-tree CI.' };
+ return { mode: 'fixed-article-snapshot', articleCommit, codeClaimCommit: pin, ...await verifyArticles({ contract, english, paths: [], read: (path,row)=>row.articleCommit ? remote(ARTICLES,row.articleCommit,path) : article(path) }), scope: 'Fixed published pair; later remote article edits are checked by that repository own working-tree CI.' };
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
  try { ensure(process.argv.length === 3 && ['--article', '--code'].includes(process.argv[2]), 'Usage: node scripts/check-article-backlinks.mjs --article|--code'); const root = dirname(dirname(fileURLToPath(import.meta.url))); console.log(JSON.stringify(await (process.argv[2] === '--article' ? checkArticles(root) : checkCode(root)), null, 2)); }

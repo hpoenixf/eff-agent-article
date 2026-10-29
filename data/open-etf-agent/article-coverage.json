@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "repository": "hpoenixf/open-etf-agent",
   "articleCatalog": {
     "repository": "hpoenixf/eff-agent-article",
@@ -84,6 +84,14 @@
       "kind": "test",
       "file": "test/pdf-cli.test.mjs",
       "name": "11.3 PDF CLI exits then a fresh process verifies page report and original binary"
+    },
+    "temporal": {
+      "kind": "scenario",
+      "name": "temporal"
+    },
+    "ordinary-response": {
+      "kind": "scenario",
+      "name": "ordinary-response"
     }
   },
   "articles": [
@@ -104,9 +112,10 @@
     {
       "slug": "agent-temporal-semantics-market-calendar",
       "title": "Agent 说“今天”时，到底是哪一天",
-      "status": "无公开对应",
-      "target": null,
-      "scope": "缺可信时区、日历覆盖和行情 dataAsOf"
+      "status": "verified",
+      "target": "temporal",
+      "scope": "仅显式 IANA 时区和 UTC 任务锚；独立 submit/work/read 保留原任务日期与报告；不含市场日历、行情 dataAsOf 或调度",
+      "articleCommit": "4e837e0e3def286787c88117cc6a5a0e98ea3108"
     },
     {
       "slug": "024-agent-pdf-from-text-to-evidence",
@@ -300,11 +309,77 @@
     {
       "slug": "agent-durable-human-interaction-response-adoption",
       "title": "Agent 问完用户之后：持久人机交互",
-      "status": "无公开对应",
-      "target": null,
-      "scope": "缺 request/response/adoption/effect 身份、Human Park/Continue 与认证用户回复"
+      "status": "verified",
+      "target": "ordinary-response",
+      "scope": "仅单个普通问题的持久 receipt/adoption 与原 Run 显式恢复、原报告回读；不含 Human Park、认证用户回复、自动唤醒或授权审批",
+      "articleCommit": "4e837e0e3def286787c88117cc6a5a0e98ea3108"
     }
   ],
   "versions": "versions.json",
-  "verifiedAt": "e1b8e4edde724548fab16d8ca4b205379bfa7f30"
+  "verifiedAt": "e1b8e4edde724548fab16d8ca4b205379bfa7f30",
+  "targetEvidence": {
+    "child": "legacy-runtime",
+    "reread": "legacy-runtime",
+    "compaction": "legacy-runtime",
+    "memory": "legacy-runtime",
+    "mcp": "legacy-runtime",
+    "batch": "legacy-runtime",
+    "provider": "legacy-runtime",
+    "plugins": "legacy-runtime",
+    "surface": "legacy-runtime",
+    "trust": "legacy-runtime",
+    "hooks": "legacy-runtime",
+    "budget": "legacy-runtime",
+    "control": "legacy-runtime",
+    "publication": "legacy-runtime",
+    "worker": "legacy-runtime",
+    "pdf-local": "legacy-runtime",
+    "temporal": "temporal",
+    "ordinary-response": "ordinary-response"
+  },
+  "qualifications": {
+    "legacy-runtime": {
+      "kind": "legacy-runtime",
+      "commit": "e1b8e4edde724548fab16d8ca4b205379bfa7f30",
+      "tree": "d2cc34bdfc6fad0c918cade58ece0c817a384789",
+      "evidenceCommit": "e68c8a8ae93d0e72f088a29fa43fcef26d5df228",
+      "evidenceTree": "4f4183b7036a6311f7f8e506c40ebcb8e627a508",
+      "source": {
+        "path": "docs/verification/article-coverage-source.json",
+        "gitBlob": "ea04eb14617efc75818870658855dc932b233e4d"
+      },
+      "receipt": {
+        "path": "docs/verification/article-coverage-receipts.json",
+        "gitBlob": "b1e01448648c46def63880b263e2dac057bacc51"
+      },
+      "runner": {
+        "path": "scripts/check-article-coverage.mjs",
+        "gitBlob": "85cd608910222519ff371e1b1bdb8dfaaf1f4d00"
+      }
+    },
+    "temporal": {
+      "kind": "independent-scenario",
+      "scenario": "temporal",
+      "commit": "46c2822be9865b99696bb70fb9e0ff1b5257ff35",
+      "tree": "da7ca9a0ff215ecd2e0a0bb48bad4a1b9854d546",
+      "evidenceCommit": "46c2822be9865b99696bb70fb9e0ff1b5257ff35",
+      "evidenceTree": "da7ca9a0ff215ecd2e0a0bb48bad4a1b9854d546",
+      "receipt": {
+        "path": "docs/verification/v012-temporal.safe.json",
+        "gitBlob": "19ca937d1544608f5a0895511313123175ada30a"
+      }
+    },
+    "ordinary-response": {
+      "kind": "independent-scenario",
+      "scenario": "ordinary-response",
+      "commit": "300f78f7066ab76fcc4e9efb54137ff021ecc278",
+      "tree": "a09e1c560efec54a0c8e28701f3a38afc3bd1a50",
+      "evidenceCommit": "300f78f7066ab76fcc4e9efb54137ff021ecc278",
+      "evidenceTree": "a09e1c560efec54a0c8e28701f3a38afc3bd1a50",
+      "receipt": {
+        "path": "docs/verification/v013-ordinary-response.safe.json",
+        "gitBlob": "63f81c6bfa73f641f82308cf7ade6f3904299862"
+      }
+    }
+  }
 }

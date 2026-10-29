@@ -1,6 +1,63 @@
+# ETF Agent · Engineering Notes
+
+**从一次提问到一份可交付的报告，读懂 Agent 的运行机制、设计取舍与工程证据。**
+
+面向 Agent 应用开发者、系统架构师，以及使用 AI 辅助研发、希望看懂真实失败与修复边界的工程师。这里不仅讲“应该怎么设计”，也解释为什么这样分工、哪里踩过坑、什么证据还不足以证明完成。
+
+**[开始阅读 · 中文站](https://hpoenixf.com/eff-agent-article/) · [Read in English](https://hpoenixf.com/eff-agent-article/en/) · [完整文章目录](https://hpoenixf.com/eff-agent-article/catalog)**
+
+## 最近三个模块阅读
+
+按公开项目的模块演进顺序选取，与[项目阅读入口](https://hpoenixf.com/eff-agent-article/open-etf-agent)一致，**不是文章发布日期排名**。文章的完整机制与可运行实现的有限范围分别说明；中英正文是同一篇文章的两个版本。
+
+- [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md) · [After an Agent Asks: Durable Human Response Adoption](en/articles/agent-durable-human-interaction-response-adoption.md)
+- [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md) · [When an Agent Says Today: User Time and Market Sessions](en/articles/agent-temporal-semantics-market-calendar.md)
+- [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md) · [PDF: From Text to Evidence](en/articles/024-agent-pdf-from-text-to-evidence.md)
+
+[浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
+
+## 先找到你的问题
+
+| 想解决的问题 | 阅读入口 | 你会得到什么 |
+| --- | --- | --- |
+| 一次 Agent 请求怎样变成答案？ | [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [模块维度](modules.md) | 沿执行链理解会话、Main / Child、工具、发布与界面的职责 |
+| 为什么这样划分边界，怎样避免越改越复杂？ | [架构原则](principles.md) → [架构设计与系统思考](thinking.md) | 从真实取舍理解授权、恢复、事实归属与演进契约 |
+| 如何让文档、代码和验证一起向前？ | [AI Agent 研发工程实践](engineering.md) | Spec、证据、知识退役与真实任务收敛的工程方法 |
+
+[金融业务与可信工程专题](fintech.md) · [可交互架构图册](gallery.md)
+
+## 读完之后，运行一个实现
+
+本仓库是**文章、图册与阅读站源码**，不是完整 ETF Agent 产品源码。[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 是独立的 MIT 教学实现：从离线合成示例开始，生成实际报告，再回读来源与交付记录。
+
+[进入可运行项目与 Quickstart →](https://github.com/hpoenixf/open-etf-agent#quickstart) · [查看当前模块与完整版本历史 →](https://github.com/hpoenixf/open-etf-agent#versions) · [文章与代码的资格边界 →](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/articles-and-code.zh-CN.md)
+
+文章讨论、实现范围、固定执行证据和真实模型质量是不同事实。文章入库或 Runtime 测试通过，不等于生产就绪、投资服务或完整机制已经实现；本项目不构成投资建议。版本身份以代码仓库及其版本谱系为准，不在此复制另一套“当前版本”记录。
+
+## 本地开发与贡献
+
+阅读无需安装；修改站点时，在本仓库运行：
+
+```bash
+npm install
+npm run check:catalog
+npm run docs:build
+```
+
+文章分类与顺序以 [book.mjs](book.mjs) 为唯一来源，英文标题与语言入口由 [book.en.mjs](book.en.mjs) 管理。维护、检查与正式发布流程见 [MAINTENANCE.md](MAINTENANCE.md)；正式阅读地址是上方的中英站点，不把仓库构建成功当作线上已发布。
+
+[报告阅读问题或提出改进](https://github.com/hpoenixf/eff-agent-article/issues)：请附文章链接、具体段落、问题与建议；不要上传凭据、私人数据或原始日志。独立运行代码仓库的 MIT 许可不自动适用于本文集或其引用材料。
+
+## 历史导航与更新记录
+
+完整旧目录与更新说明保留在下方，旧章节入口仍可查找。**这是本次整理前的历史快照，内含篇数、版本与验证状态只描述当时记录，不作为当前目录或当前实现声明。** 当前文章请使用上方完整目录，当前实现请使用独立代码项目入口。
+
+<details>
+<summary>展开原有目录、阅读路径与更新记录</summary>
+
 <div align="center">
 
-# ETF Agent · Engineering Notes
+**ETF Agent · Engineering Notes（原首页快照）**
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
@@ -296,3 +353,5 @@ npm run docs:build
 当前目录仅收录[六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md)。[V2 全文（2026-10-23）](articles/017-prompt-to-answer-six-layer-panorama.md)与[V1 全文（2026-10-20）](articles/017-prompt-to-answer-six-layer-panorama-v1.md)保留独立网址、原始正文和版本演进说明，**不计为新增当前文章**；历史全文与合并到主稿的旧入口是两种不同处理方式。
 
 正式阅读入口为 [hpoenixf.com/eff-agent-article](https://hpoenixf.com/eff-agent-article/)（[English](https://hpoenixf.com/eff-agent-article/en/)）；仓库维护与发布约定见 [MAINTENANCE.md](MAINTENANCE.md)。
+
+</details>

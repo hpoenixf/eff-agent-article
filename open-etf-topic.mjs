@@ -5,9 +5,11 @@ import source from './.github/open-etf-code-source.json' with { type: 'json' }
 import coverage from './data/open-etf-agent/article-coverage.json' with { type: 'json' }
 import translations from './data/open-etf-agent/article-coverage.en.json' with { type: 'json' }
 import receipts from './data/open-etf-agent/article-coverage-receipts.json' with { type: 'json' }
+import temporalReceipt from './data/open-etf-agent/v012-temporal.safe.json' with { type: 'json' }
+import responseReceipt from './data/open-etf-agent/v013-ordinary-response.safe.json' with { type: 'json' }
 import lineage from './data/open-etf-agent/versions.json' with { type: 'json' }
 export const repo = 'https://github.com/hpoenixf/open-etf-agent'
-export const qualification = { sourceCommit: source.commit, commit: receipts.sourceCommit, date: receipts.executedAt.slice(0,10), semanticStatus: receipts.semanticStatus, count: coverage.articles.length, targets: Object.keys(receipts.results).length }
+export const qualification = { sourceCommit: source.commit, commit: receipts.sourceCommit, date: receipts.executedAt.slice(0,10), semanticStatus: receipts.semanticStatus, count: coverage.articles.length, targets: Object.keys(coverage.targets).length }
 export const topicPath = language => language === 'zh' ? '/open-etf-agent' : '/en/open-etf-agent'
 const records = new Map(coverage.articles.map(row => [row.slug, row]))
 export function topicGroups(language = 'en') {
@@ -17,7 +19,10 @@ export function topicGroups(language = 'en') {
     articles: chapter.items.map(([slug,title]) => {
       const record = records.get(slug)
       const receipt = record?.target && receipts.results[record.target]
-      const verified = record?.status === 'verified' && receipt?.exitCode === 0 && coverage.verifiedAt === receipts.sourceCommit
+      const qualificationRecord = coverage.schemaVersion === 3 && record?.target ? coverage.qualifications[coverage.targetEvidence[record.target]] : null
+      const scenario = qualificationRecord?.kind === 'independent-scenario' && (qualificationRecord.scenario === 'temporal' ? temporalReceipt.independentInstall : responseReceipt.independent)
+      const verified = record?.status === 'verified' && (scenario ? scenario.modelCalls === 0 && !!scenario.report?.sha256 : receipt?.exitCode === 0 && coverage.verifiedAt === receipts.sourceCommit)
+      const executionCommit = qualificationRecord?.commit || receipts.sourceCommit
       const target = verified && lineage.targets[record.target]
       return { slug, title: en ? englishTitles[slug] || translations.articles[slug]?.title || title : title,
         href: en ? englishArticlePath(slug) : '/articles/' + slug,
@@ -25,7 +30,7 @@ export function topicGroups(language = 'en') {
         status: verified ? 'limited' : record ? 'unmapped' : 'unassessed',
         scope: record ? (en ? translations.articles[slug]?.scope || record.scope : record.scope) : (en ? 'Not included in this coverage snapshot. No execution claim.' : '不在本次覆盖快照中；不借用执行结论。'),
         since: target?.since,
-        evidence: target ? repo + '/blob/' + receipts.sourceCommit + '/' + target.evidencePath : null }
+        evidence: target ? repo + '/blob/' + executionCommit + '/' + target.evidencePath : null }
     })
   }))
 }

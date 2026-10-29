@@ -6,11 +6,12 @@ import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { topicGroups, topicPath, versions, qualification, catalogCount } from '../open-etf-topic.mjs'
 import { localizedSitePath } from '../language-routing.mjs'
+const coverage=JSON.parse(readFileSync(new URL('../data/open-etf-agent/article-coverage.json',import.meta.url),'utf8'))
 const root = fileURLToPath(new URL('../',import.meta.url))
 test('one module catalog, independent coverage qualification',()=>{
  const rows=topicGroups().flatMap(g=>g.articles)
  assert.equal(new Set(rows.map(r=>r.slug)).size,catalogCount)
- assert.equal(rows.filter(r=>r.status==='limited').length,16)
+ assert.deepEqual(rows.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>a.status==='verified').map(a=>a.slug).sort())
  const pdf=rows.find(r=>r.slug==='024-agent-pdf-from-text-to-evidence')
  assert.equal(pdf.status,'limited')
  assert.equal(pdf.since,'0.11')
@@ -61,6 +62,7 @@ test('offline snapshot validation is explicitly not a publication readback',()=>
  const result=JSON.parse(execFileSync(process.execPath,[root+'scripts/sync-open-etf-topic.mjs','--check-local'],{encoding:'utf8'}))
  assert.equal(result.mode,'--check-local')
  assert.equal(result.publicationBytesVerified,false)
- assert.equal(result.snapshots,4)
+ assert.equal(result.snapshots,4 + Object.values(coverage.qualifications || {}).filter(q=>q.kind==='independent-scenario').length)
  assert.equal(result.qualificationCommit,qualification.commit)
 })
+

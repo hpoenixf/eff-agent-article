@@ -153,6 +153,18 @@
       "evidencePath": "test/pdf-cli.test.mjs",
       "evidenceGitBlob": "798dddb45495f251e672f5cf79782d4e2c4e8852",
       "selector": "11.3 PDF CLI exits then a fresh process verifies page report and original binary"
+    },
+    "temporal": {
+      "since": "0.12",
+      "evidencePath": "src/temporal-cli.mjs",
+      "evidenceGitBlob": "485a83724c98b5ac9fe1cd1f48e5c37b7e0db635",
+      "selector": "temporal"
+    },
+    "ordinary-response": {
+      "since": "0.13",
+      "evidencePath": "src/session-cli.mjs",
+      "evidenceGitBlob": "8d748dc6c73a004aea232551fe832fef2639eb9a",
+      "selector": "ordinary-response"
     }
   },
   "notes": [

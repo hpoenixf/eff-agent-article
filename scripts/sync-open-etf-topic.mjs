@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
+import { validateContract, verifyScenarioSnapshot } from './check-article-backlinks.mjs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // One published source owner shared with article backlinks. Fetch data, never execute remote code.
@@ -25,7 +26,23 @@ const [coverage, english, receipts, versions] = snapshots.map(s => s.value)
 if (coverage.repository !== pin.repository || versions.repository !== pin.repository) throw new Error('Unexpected source repository')
 if (coverage.verifiedAt !== receipts.sourceCommit) throw new Error('Receipt/source commit mismatch')
 if (coverage.articles.some(row => !english.articles[row.slug])) throw new Error('Missing coverage display translation')
-if (coverage.articles.some(row => row.status === 'verified' && (receipts.results[row.target]?.exitCode !== 0 || stable(receipts.results[row.target]?.target) !== stable(coverage.targets[row.target])))) throw new Error('Verified row without passing target')
+const extras = {}
+if (coverage.schemaVersion === 3) for (const [id, target] of Object.entries(coverage.targets)) if (target.kind === 'scenario') {
+ const q = coverage.qualifications?.[coverage.targetEvidence?.[id]]
+ if (!q?.receipt || !/^docs\/verification\/[a-z0-9.-]+\.json$/.test(q.receipt.path)) throw new Error('Invalid scenario snapshot path')
+ const name = q.receipt.path.split('/').at(-1)
+ let bytes
+ if (mode === '--check-local') bytes = await readFile(resolve(root,'data/open-etf-agent',name))
+ else {
+  const response = await fetch(`https://raw.githubusercontent.com/${pin.repository}/${pin.commit}/${q.receipt.path}`, {redirect:'error',signal:AbortSignal.timeout(15000)})
+  if (!response.ok) throw new Error(`Fixed scenario snapshot unavailable: HTTP ${response.status}`)
+  bytes = Buffer.from(await response.arrayBuffer())
+ }
+ if(bytes.length > 1048576) throw new Error('Scenario snapshot size bound')
+ extras[id] = verifyScenarioSnapshot(bytes.toString('utf8'),q)
+ snapshots.push({name,bytes,value:extras[id]})
+}
+validateContract(coverage, receipts, {commit:coverage.verifiedAt}, extras)
 const target = resolve(root,'data/open-etf-agent')
 if (mode === '--sync') {
  await mkdir(target,{recursive:true})
@@ -33,4 +50,4 @@ if (mode === '--sync') {
 } else if (mode === '--check') {
  for (const snapshot of snapshots) if (!(await readFile(resolve(target,snapshot.name))).equals(snapshot.bytes)) throw new Error(`Topic snapshot differs from published ${pin.commit}: ${snapshot.name}`)
 }
-console.log(JSON.stringify({mode,repository:pin.repository,codeClaimCommit:pin.commit,qualificationCommit:receipts.sourceCommit,snapshots:files.length,publicationBytesVerified:mode !== '--check-local'}))
+console.log(JSON.stringify({mode,repository:pin.repository,codeClaimCommit:pin.commit,qualificationCommit:receipts.sourceCommit,snapshots:snapshots.length,publicationBytesVerified:mode !== '--check-local'}))

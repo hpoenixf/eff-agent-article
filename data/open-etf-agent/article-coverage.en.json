@@ -16,9 +16,9 @@
     },
     "agent-temporal-semantics-market-calendar": {
       "title": "When an Agent Says Today: User Time and Market Sessions",
-      "scope": "No trusted timezone, calendar coverage or market-data dataAsOf.",
+      "scope": "Explicit IANA zone and UTC task anchor; separate submit/work/read preserve the original task date and report; no market calendar, market dataAsOf or scheduling",
       "englishAvailable": true,
-      "articleBlob": "e94cda6f5979f2ba94dc89ee42a39b47216c571b"
+      "articleBlob": "59912804b8130f6df47a7f9764785251b836f018"
     },
     "024-agent-pdf-from-text-to-evidence": {
       "title": "PDF: From Text to Evidence",
@@ -184,9 +184,9 @@
     },
     "agent-durable-human-interaction-response-adoption": {
       "title": "After an Agent Asks: Durable Human Response Adoption",
-      "scope": "No request/response/adoption/effect identity, Human Park/Continue or authenticated user reply.",
+      "scope": "One ordinary question with durable receipt/adoption, explicit same-Run resume and original report readback; no Human Park, authenticated-user reply, automatic wakeup or approval authority",
       "englishAvailable": true,
-      "articleBlob": "87bb673579ce9910e068abf460b89434ff6d26e3"
+      "articleBlob": "e1d07d6fd259901ec5530964bd583b9bffe8312d"
     }
   }
 }
