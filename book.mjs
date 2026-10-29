@@ -144,6 +144,7 @@ export const collections = [
         "desc": "从规范到真实执行证据，再到按需加载的长期工程历史。",
         "items": [
           ["docs-code-tests-evolve-together", "测试比实现还多之后：怎样让文档、代码和测试一起向前"],
+          ["agent-article-code-evidence-contract", "文章说能运行，代码真的支持吗？——技术文章与开源实现的证据契约"],
           ["026-agent-spec-evidence-workflow", "Spec、Evidence 与可验证研发关闭"],
           ["agent-weekly-review-staged-delivery", "周报做了整晚，为何首份交付还没完成？"],
           ["027-agent-context-document-history", "工程知识：按需加载、长期记忆与退役"]

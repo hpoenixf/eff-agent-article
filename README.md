@@ -16,6 +16,8 @@
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 
+**最新工程实践**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
+
 ## 先找到你的问题
 
 | 想解决的问题 | 阅读入口 | 你会得到什么 |
