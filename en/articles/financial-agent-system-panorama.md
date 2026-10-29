@@ -107,12 +107,11 @@ Trusted admission checks the principal, accessible source, and service scope bef
   "run_ref": "R1",
   "grant_ref": "G1",
   "subject_ref": "USER-DEMO",
-  "scope": ["portfolio:P1:read", "research-report:create"],
-  "valid_until": "2026-10-27T11:00:00+08:00"
+  "scope": ["portfolio:P1:read", "research-report:create"]
 }
 ```
 
-`grant_ref` **references a server-side admission record**; a user-supplied field or model assertion cannot mint authority. At each protected access, the executor checks the current principal, Run, action, resource, expiration, and revocation. Subagents receive only an approved subset. Subsequent business actions require independent business authorization.
+`grant_ref` **references the Run grant recorded by the Host on initial admission**; a user-supplied field or model assertion cannot mint authority. **The same logical Run, including suspension and recovery, continues under that recorded grant** without querying later ACL, role, or resource-permission changes or revoking the grant mid-Run. Each protected action still checks the recorded principal, Run, tool, resource, and operation scope, along with independent budget, cancellation, execution-identity, and source-content availability conditions. Forgotten or missing content may become unavailable without revoking the Run grant. Additional scope requires explicit admission, and a new Run needs its own grant; subagents inherit only admitted subsets. Later institutional business actions independently verify their business authorization and actual execution receipts.
 
 ### 2. Put professional methods in Skills and research choices with the model
 
