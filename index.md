@@ -30,6 +30,8 @@ features:
     linkText: 工程实践
 ---
 
+**作者 hpoenixf：10 年开发经验，5 年金融业务系统研发经验。** 全栈偏前端，关注 Agent 工程实践，把系统设计、可运行实现与验证证据连接起来。 [作者与个人博客](https://hpoenixf.com/about)
+
 <OpenEtfTopicEntry />
 
 <ContinueReading />

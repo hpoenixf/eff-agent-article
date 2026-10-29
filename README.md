@@ -6,6 +6,10 @@
 
 **[开始阅读 · 中文站](https://hpoenixf.com/eff-agent-article/) · [Read in English](https://hpoenixf.com/eff-agent-article/en/) · [完整文章目录](https://hpoenixf.com/eff-agent-article/catalog)**
 
+**作者 hpoenixf：10 年开发经验，5 年金融业务系统研发经验。** 全栈偏前端，关注 Agent 工程实践，把系统设计、可运行实现与验证证据连接起来。 [作者与个人博客](https://hpoenixf.com/about)
+
+**By hpoenixf: 10 years of software development experience, including 5 years building financial business systems.** A frontend-leaning full-stack developer focused on Agent engineering, connecting system design with runnable implementations and verification evidence.
+
 ## 最近三个模块阅读
 
 按公开项目的模块演进顺序选取，与[项目阅读入口](https://hpoenixf.com/eff-agent-article/open-etf-agent)一致，**不是文章发布日期排名**。文章的完整机制与可运行实现的有限范围分别说明；中英正文是同一篇文章的两个版本。

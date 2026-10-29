@@ -30,6 +30,8 @@ features:
     linkText: Explore engineering
 ---
 
+**By hpoenixf: 10 years of software development experience, including 5 years building financial business systems.** A frontend-leaning full-stack developer focused on Agent engineering, connecting system design with runnable implementations and verification evidence. [About the author (Chinese)](https://hpoenixf.com/about)
+
 <OpenEtfTopicEntry />
 
 <ContinueReading />
