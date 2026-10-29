@@ -268,7 +268,7 @@ A complete portfolio list must not silently become "Top N" merely because the fu
 
 ### Removing wrappers must not erase Web source state
 
-If a Web wrapper owns real invariants—Run-scoped source handles, read-before-find rules, revocation—those responsibilities must migrate back to the appropriate Web MCP/Gateway before deleting the wrapper.
+If a Web wrapper owns Run-scoped source-handle validation, read-before-find rules, and denial of invalidated or revoked Web source handles, those responsibilities must migrate to the appropriate Web MCP/Gateway before the wrapper is removed. Revoking a Web source handle is not revoking the Host-recorded Run grant: under the current authorization contract, that grant remains valid throughout the same Run and its recovery.
 
 Removing indirection should remove **duplicate Owners**, not important security checks.
 

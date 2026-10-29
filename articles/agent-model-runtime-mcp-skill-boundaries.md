@@ -325,7 +325,7 @@ complete-or-unavailable 比“看起来成功”更重要。
 
 ### Web source state 不能为了拆 wrapper 而丢失
 
-如果当前 Web wrapper 承担 run-scoped source handle、read-before-find、revocation 等真实 invariant，就必须先把这些责任迁回 Web MCP / Gateway，再删除 wrapper。
+如果当前 Web wrapper 承担同一 Run 内的来源句柄校验、先读取再查找，以及失效或撤销的 Web 来源句柄拒绝访问等约束，就必须先把这些责任迁回 Web MCP / Gateway，再删除 wrapper。这里撤销的是 Web 来源句柄，不是重新撤销 Host 已记录的 Run 授权；现行授权在同一 Run 及其恢复过程中保持有效。
 
 删除中转层的目标是消灭重复 owner，不是消灭安全边界。
 
