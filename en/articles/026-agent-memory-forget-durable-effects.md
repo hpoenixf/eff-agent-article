@@ -13,7 +13,7 @@ These apparently different problems point to the same engineering fact: **long-t
 
 We organize Memory into three cooperating paths: **writing, recall, and governance**. Writing decides what deserves to persist. Recall decides what is actually used in a later request. Governance decides who has authority when data expires, conflicts, or must be forgotten. These paths may join in a single research task, but they must not collapse into an ambiguous “memory succeeded” flag.
 
-The article below explains the original system’s full lifecycle. The final section uses the runnable public slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) to inspect explicit save, revision, forgetting and future-input eligibility. This single-writer file-library experiment is not the original PostgreSQL, automatic-learning or complete recall service.
+The article below explains the original system’s full lifecycle. The recall section first runs a read-only consumer against an existing library. The final section uses the runnable public slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) to inspect explicit save, revision, forgetting and future-input eligibility. This single-writer file-library experiment is not the original PostgreSQL, automatic-learning or complete recall service.
 
 ## 1. The Big Picture: Three Paths, Two Authorities
 
@@ -102,6 +102,54 @@ Our defaults bound Memory to a small preference and episodic set and roughly 4,0
 Structured/lexical retrieval, dense vectors, and hybrid retrieval can all help discover candidates. ETF Agent's knowledge RAG already has lexical and vector channels with reciprocal-rank fusion (RRF). **That does not mean Memory currently uses the same RRF pipeline.** Memory's immediate requirements are valid provenance and genuine consumption, not a uniform-looking retrieval stack. We do not add a new Memory vector database just for architectural symmetry.
 
 Performance follows the governing request deadline and cancellation rather than an unrelated fixed timer. If retrieval is unavailable, the safe path degrades conservatively and preserves the difference between “no records found” and “read failed.”
+
+### Public code: when has an existing memory actually been read?
+
+The [fixed v0.14 implementation](https://github.com/hpoenixf/open-etf-agent/tree/a3e1059a78cf8a4f70fe89d61563980f3d24bc15) adds a consumer entry point: explicitly select an **existing, nonempty local library**, query it read-only, and let eligible current revisions reach the actual encoded Gateway request. Save, revise, forget and projection checks already existed in v0.5. This is neither a second store nor a claim that a search hit alone counts as use.
+
+A synthetic preference makes the distinction visible. Run these steps only in a new demonstration directory, never against personal Memory. Seed it through the original authorized writer before opening the read-only consumer. The later `explicit-memory` lifecycle example forgets its entry at the end; its empty library cannot substitute for this preparation.
+
+Using Node.js 26.11.1, the environment used for this example, obtain and build the fixed source in a new directory:
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-memory-consumer
+cd open-etf-agent-memory-consumer
+git checkout --detach a3e1059a78cf8a4f70fe89d61563980f3d24bc15
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+```
+
+This preparation **intentionally writes one synthetic memory** under an explicit intent checked by the existing owner. It does not make the read-only consumer initialize a library:
+
+```bash
+node --input-type=module <<'JS'
+import { openMemoryLibrary } from './dist/src/memory.mjs';
+import { sha256 } from './dist/src/source.mjs';
+const library = await openMemoryLibrary({ directory: 'synthetic-library', writable: true });
+try {
+  const text = 'SYNTHETIC independent preference: use exact physical page identities.';
+  const receipt = await library.save({ text }, { intent: {
+    explicit: true, libraryId: library.libraryId, operation: 'save',
+    intentId: 'independent-memory-seed', origin: 'synthetic-independent-process',
+    approvedTextHash: sha256(text)
+  } });
+  console.log(JSON.stringify(receipt));
+} finally { await library.close(); }
+JS
+node dist/src/cli.mjs --case memory-recall --memory-library synthetic-library --query physical --output runs
+```
+
+Inspect `memory.consumed` in the terminal result: its library, entry, revision and hash should match the saved record. `memory.requests` records each actual encoded request's hash and consumed identities. A request before retrieval does not contain that consumption record; later requests containing current content do. The result's `directory` and report receipt locate the original `report.md`. That report shows Memory identities while its research comparison still cites original synthetic sources. The library bytes remain unchanged. Runtime and Gateway encoding are real, but a fixed synthetic transport produces the responses; this is not evidence that a real model understood the preference.
+
+Next select temporary mode and deliberately supply a library path that does not exist:
+
+```bash
+node dist/src/cli.mjs --case memory-recall --memory-library missing-library --query physical --temporary --output runs
+```
+
+The result has `memory.mode: temporary` and an empty consumption list, while the independent synthetic document task can still finish. Temporary mode takes effect before opening, scanning or reading the selected library, rather than touching it and discarding the result afterward. With Memory enabled, a missing, corrupt or symlinked library instead fails closed without creation or repair. The read-only entry exposes only search, read and list tools; it obtains neither a writer lock nor permission to save.
+
+Compare the [read-only mode selection](https://github.com/hpoenixf/open-etf-agent/blob/a3e1059a78cf8a4f70fe89d61563980f3d24bc15/src/memory-consumer.mjs) with the [actual request consumer](https://github.com/hpoenixf/open-etf-agent/blob/a3e1059a78cf8a4f70fe89d61563980f3d24bc15/src/memory-recall-demo.mjs). Existing projection checks still remove ineligible revisions from later requests, but file-library mutation and dispatch are not one atomic transaction, and already-sent bytes cannot be withdrawn. Showing identities rather than bodies in the report is this fixture's choice, not a prohibition on other authorized Memory consumers. Use the [current project README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) for the everyday entry point; these commands remain tied to the fixed version above.
 
 ## 4. Governance: Correction, Forgetting, and Expiry Are Not the Same Deletion
 

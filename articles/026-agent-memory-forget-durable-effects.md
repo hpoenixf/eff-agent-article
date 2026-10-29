@@ -8,7 +8,7 @@
 
 我们最终将 Memory 分为三条相互协作的路径：**写入、召回和治理**。写入解决“该留下什么”，召回解决“下一次真正用到什么”，治理解决“过期、冲突和遗忘时谁说了算”。它们最终汇入同一次研究，却不共享一个含糊的“记忆成功”状态。
 
-下文解释原系统的完整生命周期；末节再用 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 中已经能运行的公开切片，具体观察显式保存、更正、遗忘和未来输入资格。这个单写者文件库实验不等同于前文的 PostgreSQL、自动学习或完整召回服务。
+下文解释原系统的完整生命周期；召回章节先运行一次已有库的只读消费，末节再用 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 中已经能运行的公开切片，具体观察显式保存、更正、遗忘和未来输入资格。这个单写者文件库实验不等同于前文的 PostgreSQL、自动学习或完整召回服务。
 
 ## 一、先看全貌：三条路径，两种权威
 
@@ -97,6 +97,54 @@ Research 首先在本账户范围内调用 `search_memory`，查找是否已有�
 在检索技术选择上，关键词/结构化检索、向量召回、混合检索都可以作为候选发现手段；ETF Agent 的知识 RAG 已有向量与词法双路及 RRF，但**这不等于 Memory 当前也采用了同一套 RRF 管线**。Memory 的优先问题仍是有效来源和真实消费。我们不为了架构看起来统一，就默认引入新的 Memory 向量库。
 
 性能约束同样由真实请求的 deadline 和取消信号管理，而不是另造一个与 Run 生命周期脱节的固定计时器。检索不可用时需要保守降级，并保留“库为空”与“读取失败”的区别。
+
+### 公开版：已有记忆，怎样才算真的读过？
+
+[v0.14 的固定实现](https://github.com/hpoenixf/open-etf-agent/tree/a3e1059a78cf8a4f70fe89d61563980f3d24bc15)补的是一个消费入口：显式选中**已有、非空的本地库**，只读查询，让当前有效修订进入真正编码的 Gateway 请求。保存、修订、遗忘和投影检查早在 v0.5 就已存在；这里不另造一套记忆仓库，也不把搜索命中算成使用。
+
+可以用一条合成偏好观察这段差别。以下步骤只在新的演示目录运行，不要换成个人记忆库。先用原 Memory 写入入口准备数据，再交给新的只读消费者；后文的 `explicit-memory` 生命周期示例最终会遗忘记录，不能拿它的空库代替这一步。
+
+使用 Node.js 26.11.1（本例运行环境），在新的目录取得固定源码并构建：
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-memory-consumer
+cd open-etf-agent-memory-consumer
+git checkout --detach a3e1059a78cf8a4f70fe89d61563980f3d24bc15
+npm ci --ignore-scripts --no-audit --no-fund
+npm run build
+```
+
+下面这一步**有意写入一条合成记忆**，显式意图仍由原库校验；不是让只读消费者自动建库：
+
+```bash
+node --input-type=module <<'JS'
+import { openMemoryLibrary } from './dist/src/memory.mjs';
+import { sha256 } from './dist/src/source.mjs';
+const library = await openMemoryLibrary({ directory: 'synthetic-library', writable: true });
+try {
+  const text = 'SYNTHETIC independent preference: use exact physical page identities.';
+  const receipt = await library.save({ text }, { intent: {
+    explicit: true, libraryId: library.libraryId, operation: 'save',
+    intentId: 'independent-memory-seed', origin: 'synthetic-independent-process',
+    approvedTextHash: sha256(text)
+  } });
+  console.log(JSON.stringify(receipt));
+} finally { await library.close(); }
+JS
+node dist/src/cli.mjs --case memory-recall --memory-library synthetic-library --query physical --output runs
+```
+
+观察终端的 `memory.consumed`：其中的库、条目、修订与哈希应对应刚保存的记录；`memory.requests` 分别记录实际请求的编码哈希和消费身份。检索前的请求没有这条消费记录，取得当前内容后的请求才有。`directory` 和报告回执指向原 `report.md`；报告会显示记忆身份，研究比较仍引用原始合成资料。查询完成后库里的字节不变。这里经过真实 Runtime 和 Gateway 编码，但回复由固定合成传输驱动，不代表真实模型已经理解这条偏好。
+
+再把模式改为临时会话，并故意给一个不存在的库路径：
+
+```bash
+node dist/src/cli.mjs --case memory-recall --memory-library missing-library --query physical --temporary --output runs
+```
+
+这时 `memory.mode` 是 `temporary`，消费列表为空，独立的合成文档任务仍可完成。临时模式在打开、扫描或读取选中库之前生效，不先碰库再清空结果。反过来，启用记忆时，缺失、损坏或符号链接库会直接失败，不自动创建或修复。只读入口仅提供搜索、读取和列表工具，不取得写锁，也不授予保存权限。
+
+可对照[只读模式选择](https://github.com/hpoenixf/open-etf-agent/blob/a3e1059a78cf8a4f70fe89d61563980f3d24bc15/src/memory-consumer.mjs)与[实际请求消费入口](https://github.com/hpoenixf/open-etf-agent/blob/a3e1059a78cf8a4f70fe89d61563980f3d24bc15/src/memory-recall-demo.mjs)。原投影检查仍负责剔除后续请求中的失效修订，但文件库修改与请求发送之间没有原子事务，已经发送的字节也不能撤回。报告只展示身份是这个合成例子的选择，不是禁止其他合法消费者使用记忆正文。日常入口见[当前项目 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，本段命令则固定在上述版本。
 
 ## 四、治理路径：纠正、遗忘和过期为什么不是一种删除
 
