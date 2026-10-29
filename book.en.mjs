@@ -155,19 +155,57 @@ export const englishArticleSlugs = [
 export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama']
 
 const headings = {
-  "研究入口、阅读与计算": ["Research, Reading and Computing", "How Entry, Web, PDF, subagents and isolated computation cooperate."],
-  "上下文、研究资产与知识": ["Context, Results and Knowledge", "What the model sees and which evidence it may read."],
-  "运行时、扩展与观测": ["Runtime, Extensions and Observability", "How capabilities are discovered, authorized, executed and observed."],
-  "答案、发布与恢复": ["Answer Delivery and Recovery", "An answer candidate, durable effects and delivery are separate facts."],
-  "深度持续研究": ["Deep and Continuous Research", "Long-running background research, staged delivery, recovery and continuity of investment theses."],
-  "Subagent 与专家": ["Subagents and Experts", "Investment perspectives, bounded peer dialogues and collaboration across expert agents."],
-  "金融与工程": ["Finance and Engineering", "Financial evidence, reproducible results, system evolution and end-to-end engineering quality."],
-  "其他": ["Other Architecture Topics", "System overviews, model/runtime responsibilities, authorization and capability ownership."],
-  "Spec、证据与工程记忆": ["Specs, Evidence and Engineering Memory", "From specifications to execution evidence and durable project history."],
-  "真实验证与任务收敛": ["Real Validation and Task Convergence", "From misleading green tests to verifiable task completion."]
+  "深度持续研究": [
+    "Deep and Continuous Research",
+    "Long-running background research, staged delivery, recovery and continuity of investment theses."
+  ],
+  "Subagent 与专家": [
+    "Subagents and Experts",
+    "Investment perspectives, bounded peer dialogues and collaboration across expert agents."
+  ],
+  "Spec、证据与工程记忆": [
+    "Specs, Evidence and Engineering Memory",
+    "From specifications to execution evidence and durable project history."
+  ],
+  "真实验证与任务收敛": [
+    "Real Validation and Task Convergence",
+    "From misleading green tests to verifiable task completion."
+  ],
+  "L1 · 任务输入与触发": [
+    "L1 · Task Input and Triggers",
+    "Scheduled tasks and other authorized triggers start work; input does not replace research decisions."
+  ],
+  "L2 · 身份、会话与上下文": [
+    "L2 · Identity, Sessions and Context",
+    "Identity, capability admission, context and durable interactions follow their primary Owners across layers."
+  ],
+  "L3 · Agent 决策与运行": [
+    "L3 · Agent Decisions and Execution",
+    "Entry, Main, Child, Provider, tool presentation and budgets support bounded execution."
+  ],
+  "L4 · 工具与领域能力": [
+    "L4 · Tools and Domain Capabilities",
+    "Controlled reading, isolated computation, MCP, market time and investment facts; receipts are not conclusions."
+  ],
+  "L5 · 结果发布与交付": [
+    "L5 · Result Publication and Delivery",
+    "Separate accepted content, committed revisions, conversation delivery and feedback facts."
+  ],
+  "L6 · 用户界面": [
+    "L6 · User Interface",
+    "Visible answers, progress and correct Run attribution; reading placement does not imply exclusive frontend ownership."
+  ],
+  "金融研究与业务责任": [
+    "Financial Research and Business Accountability",
+    "Financial data and calculation semantics, research-service boundaries and investment-business responsibilities."
+  ],
+  "系统边界与演进": [
+    "System Boundaries and Evolution",
+    "System overviews, evidence relationships, cross-layer observability, failure attribution and architectural evolution."
+  ]
 }
 const labels = {
-  modules: ['Module Deep Dives','Concrete mechanisms from input through execution to delivery.'],
+  modules: ['Module Deep Dives','Mechanisms along the six-layer request lifecycle, with cross-layer responsibilities preserved.'],
   thinking: ['Architecture and Systems Thinking','System boundaries, responsibility, reliability and change.'],
   engineering: ['AI Agent Engineering Practice','How coding agents develop, validate, maintain and evolve software.']
 }

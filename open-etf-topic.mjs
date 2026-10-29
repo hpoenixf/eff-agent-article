@@ -1,6 +1,6 @@
 // Presentation joins only. Article identity/order: book.mjs; qualification: public repo snapshots.
 import { collections } from './book.mjs'
-import { englishTitles, englishArticlePath } from './book.en.mjs'
+import { englishTitles, englishArticlePath, englishCollections } from './book.en.mjs'
 import source from './.github/open-etf-code-source.json' with { type: 'json' }
 import coverage from './data/open-etf-agent/article-coverage.json' with { type: 'json' }
 import translations from './data/open-etf-agent/article-coverage.en.json' with { type: 'json' }
@@ -15,8 +15,8 @@ export const topicPath = language => language === 'zh' ? '/open-etf-agent' : '/e
 const records = new Map(coverage.articles.map(row => [row.slug, row]))
 export function topicGroups(language = 'en') {
   const en = language === 'en'
-  return collections.find(c => c.id === 'modules').chapters.map((chapter,index) => ({
-    title: en ? ['Research, reading & computation', 'Context, memory & knowledge', 'Runtime, extensions & observation', 'Control, publication & delivery'][index] || chapter.title : chapter.title,
+  return (en ? englishCollections : collections).find(c => c.id === 'modules').chapters.map((chapter) => ({
+    title: chapter.title,
     articles: chapter.items.map(([slug,title]) => {
       const record = records.get(slug)
       const view=(slice,scope)=>{

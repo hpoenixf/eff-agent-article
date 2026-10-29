@@ -1,11 +1,11 @@
 ---
 title: AI Agent 研发工程实践
-description: 9 篇关于 Coding Agent 规范、验证证据、按需加载知识与完整任务收敛的技术文章。
+description: 关于 Coding Agent 规范、验证证据、按需加载知识与完整任务收敛的技术文章。
 ---
 
 # AI Agent 研发工程实践
 
-<small>HOW WE BUILD · 9 篇 · 2 个主题</small>
+<small>HOW WE BUILD</small>
 
 这一条阅读主线讨论的是：**如何借助 Coding Agent 持续开发、验证和升级复杂工程系统？**
 

@@ -52,7 +52,7 @@ npm run docs:build
 
 ## 历史导航与更新记录
 
-完整旧目录与更新说明保留在下方，旧章节入口仍可查找。**这是本次整理前的历史快照，内含篇数、版本与验证状态只描述当时记录，不作为当前目录或当前实现声明。** 当前文章请使用上方完整目录，当前实现请使用独立代码项目入口。
+历史更新说明保留在下方，旧章节入口仍可查找。**历史更新条目的版本与验证状态只描述当时记录；其中「全部文章」目录跟随当前 book.mjs 更新，不是冻结的历史快照。** 当前实现请使用独立代码项目入口。
 
 <details>
 <summary>展开原有目录、阅读路径与更新记录</summary>
@@ -63,7 +63,7 @@ npm run docs:build
 
 **从真实开发与故障出发，读懂一套 Agent 系统如何运行、演化与交付。**
 
-模块机制 × 架构思考 × AI Agent 研发工程 · **73 篇正文，三条主线**
+模块机制 × 架构思考 × AI Agent 研发工程 · **三条阅读主线**
 
 [**首要必读 · 六层调用全景 V3**](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) · [**架构原则 · 九条核心判断**](https://hpoenixf.com/eff-agent-article/principles) · [**模块维度**](https://hpoenixf.com/eff-agent-article/modules) · [**架构设计与系统思考**](https://hpoenixf.com/eff-agent-article/thinking) · [**AI Agent 研发工程实践**](https://hpoenixf.com/eff-agent-article/engineering) · [**金融可信工程专题：合规·安全·韧性·留痕·审查**](https://hpoenixf.com/eff-agent-article/fintech) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [**开源运行代码（MIT）**](https://github.com/hpoenixf/open-etf-agent) · [个人博客](https://hpoenixf.com/)
 
@@ -161,9 +161,9 @@ npm run docs:build
 
 | 阅读入口 | 回答的问题 | 范围 |
 | --- | --- | --- |
-| [模块维度](modules.md) | Agent 如何运行？ | **33 篇 / 4 组**，Entry、Web、PDF、MCP、Portfolio、Provider、Python、Memory、Runtime 与交付 |
-| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | **31 篇 / 4 组**，Owner、授权、复杂度、恢复与演化 |
-| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | **9 篇 / 2 组**，Spec、分期交付、工程知识、History、假绿与任务收敛 |
+| [模块维度](modules.md) | Agent 如何运行？ | **六层请求链**，输入、身份与上下文、决策运行、工具领域能力、发布交付与界面 |
+| [架构设计与系统思考](thinking.md) | 为什么这样设计？ | Owner、授权、复杂度、恢复与演化 |
+| [AI Agent 研发工程实践](engineering.md) | 如何持续开发和验证？ | Spec、分期交付、工程知识、History、假绿与任务收敛 |
 | [金融科技 × Agent 专题](fintech.md) | 这些机制怎样进入金融业务？ | 跨分类风险与控制阅读地图；不作为第四个一级分类，不重复正文 |
 
 ![ETF Agent 47 个能力 Owner 与主要交接](visuals/owner-architecture/overview.svg)
@@ -172,7 +172,7 @@ npm run docs:build
 
 ### 推荐起点
 
-**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入 73 篇正文；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
+**原则与方法：** [核心判断与外围方法](https://hpoenixf.com/eff-agent-article/principles) · [现有文章深化与新题预告](https://hpoenixf.com/eff-agent-article/roadmap)。两者是阅读导航，不计入正文篇数；仍以 [book.mjs](book.mjs) 为唯一文章分类与顺序来源。
 
 **模块：** [A08 持久控制](articles/agent-control-events-durable-owner-adoption.md) · [A30 容量租约](articles/agent-provider-admission-capacity-lease.md) · [Provider 共享准入](articles/agent-provider-architecture-and-admission.md) · [定时研究](articles/agent-autonomous-scheduled-research.md) · [Main 压缩](articles/agent-main-run-context-compaction.md) · [跨 Run 历史压缩](articles/agent-conversation-history-compaction-source-boundaries.md) · [用户回答反馈事实](articles/agent-feedback-facts-not-automatic-learning.md) · [Python 计算工作台](articles/agent-python-compute-workbench-evolution.md) · [Memory 持久效果](articles/026-agent-memory-forget-durable-effects.md) · [Publication 独立发布](articles/019-agent-answer-publication.md)
 
@@ -191,57 +191,84 @@ npm run docs:build
 [进入在线目录 →](https://hpoenixf.com/eff-agent-article/modules)
 
 <details>
-<summary><b>01 · 研究入口、阅读与计算</b>（10 篇）</summary>
 
-- [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
-- [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
-- [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md)
-- [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md)
-- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
-- [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)
-- [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
-- [Python：从工具到计算工作台](articles/agent-python-compute-workbench-evolution.md)
-- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](articles/portfolio-mcp-readonly-investment-data.md)
-- [数据过期后的受控刷新](articles/unavailable-is-correct.md)
+<summary><b>01 · L1 · 任务输入与触发</b></summary>
+
+- [定时研究：会话结束后继续](articles/agent-autonomous-scheduled-research.md)
 
 </details>
 
 <details>
-<summary><b>02 · 上下文、研究资产与知识</b>（4 篇）</summary>
 
+<summary><b>02 · L2 · 身份、会话与上下文</b></summary>
+
+- [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
 - [结果外置与完整性：模型到底读到了多少](articles/tool-results-outside-model-context.md)
 - [Main 压缩：摘要不改写原始事实](articles/agent-main-run-context-compaction.md)
-- [Memory：遗忘已提交，回答却失败](articles/026-agent-memory-forget-durable-effects.md)
-- [RAG：文档撤权与历史回放](articles/027-rag-revocation-publish-replay.md)
+- [跨 Run 会话压缩：旧助手摘要不能替代用户原文](articles/agent-conversation-history-compaction-source-boundaries.md)
+- [Memory：从保存、召回到安全遗忘](articles/026-agent-memory-forget-durable-effects.md)
+- [A35 内容信任：Prompt Injection 不只是恶意文本](articles/agent-content-trust-prompt-injection.md)
+- [Agent 收到控制指令后，为什么不能立刻执行](articles/agent-control-events-durable-owner-adoption.md)
+- [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md)
+- [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)
+- [Agent 的请求数、Token 与 Credits 记账](articles/agent-personal-credits-shadow-accounting.md)
 
 </details>
 
 <details>
-<summary><b>03 · 运行时、扩展与观测</b>（13 篇）</summary>
 
+<summary><b>03 · L3 · Agent 决策与运行</b></summary>
+
+- [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
+- [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
+- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
 - [Provider：统一接口之后，为什么还需要共享准入](articles/agent-provider-architecture-and-admission.md)
 - [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md)
-- [Extension Host：从功能机到智能机](articles/020-agent-extension-host-smartphone.md)
-- [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](articles/mcp-host-from-discovery-to-consumption.md)
 - [Tool Surface：Agent 有工具，模型为什么看不到](articles/agent-model-capability-presentation-tool-surface.md)
-- [A35 内容信任：Prompt Injection 不只是恶意文本](articles/agent-content-trust-prompt-injection.md)
 - [多生态 Hook：Claude、Pi 与 Codex](articles/agent-multi-ecosystem-hook-execution.md)
-- [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
 - [Run 预算与约束治理](articles/agent-runtime-constraint-governance-v2.md)
-- [Agent 的请求数、Token 与 Credits 记账](articles/agent-personal-credits-shadow-accounting.md)
-- [Agent 收到控制指令后，为什么不能立刻执行](articles/agent-control-events-durable-owner-adoption.md)
-- [定时研究：会话结束后继续](articles/agent-autonomous-scheduled-research.md)
+
+**关联阅读（不重复计入本组）：**
+
 - [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
 </details>
 
 <details>
-<summary><b>04 · 答案、发布与恢复</b>（4 篇）</summary>
+
+<summary><b>04 · L4 · 工具与领域能力</b></summary>
+
+- [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
+- [PDF：从文本到证据](articles/024-agent-pdf-from-text-to-evidence.md)
+- [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md)
+- [Python：从工具到计算工作台](articles/agent-python-compute-workbench-evolution.md)
+- [把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP](articles/portfolio-mcp-readonly-investment-data.md)
+- [数据过期后的受控刷新](articles/unavailable-is-correct.md)
+- [RAG：文档撤权与历史回放](articles/027-rag-revocation-publish-replay.md)
+- [从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建](articles/mcp-host-from-discovery-to-consumption.md)
+- [工具调用到模型输入的观测链](articles/agent-tool-lifecycle-and-model-input.md)
+
+**关联阅读（不重复计入本组）：**
+
+- [结果外置与完整性：模型到底读到了多少](articles/tool-results-outside-model-context.md)
+
+</details>
+
+<details>
+
+<summary><b>05 · L5 · 结果发布与交付</b></summary>
 
 - [Publication：为什么需要独立发布系统](articles/019-agent-answer-publication.md)
-- [渐进式回答如何保持连贯](articles/agent-progressive-answer-coherence.md)
 - [异步研究：离开页面后怎样按时交付](articles/agent-asynchronous-research-time-bound-delivery.md)
-- [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md)
+- [用户点了踩，Agent 就该学习吗？](articles/agent-feedback-facts-not-automatic-learning.md)
+
+</details>
+
+<details>
+
+<summary><b>06 · L6 · 用户界面</b></summary>
+
+- [渐进式回答如何保持连贯](articles/agent-progressive-answer-coherence.md)
 
 </details>
 
@@ -249,27 +276,29 @@ npm run docs:build
 
 [进入在线目录 →](https://hpoenixf.com/eff-agent-article/thinking)
 
-按 Roadmap 的三项技术攻坚与金融业务价值验证方向组织成四组；每篇文章只收录一次，V1/V2 历史链接保持可访问。
-
 <details>
-<summary><b>01 · 深度持续研究</b>（5 篇）</summary>
+
+<summary><b>01 · 深度持续研究</b></summary>
 
 - [想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究](articles/agent-background-research-collaborative-experience.md)
 - [一份周报过去后，Agent 还记得为什么这样判断吗？](articles/agent-weekly-thesis-history-continuous-research.md)
 - [HTML 保存了，为什么还是交付失败](articles/agent-html-evolution-challenges.md)
 - [故障切换：换路线，不重置任务](articles/agent-provider-failover-without-resetting-the-run.md)
+- [断线不是崩溃：为什么 Agent 不必恢复原来的执行图？](articles/agent-disconnect-is-not-crash-recovery-contract.md)
 - [Run 终结权、阶段预算与安全恢复](articles/agent-veto-authority-and-run-termination.md)
+- [投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)
 
 </details>
 
 <details>
-<summary><b>02 · Subagent 与专家</b>（3 篇）</summary>
+
+<summary><b>02 · Subagent 与专家</b></summary>
 
 - [不止一个投资专家：多视角 Agent 如何共同检验投资假设](articles/investment-perspectives-and-thesis-falsification.md)
 - [当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计](articles/bounded-bull-bear-peer-dialogue.md)
 - [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](articles/multi-layer-agent-collaboration-outlook.md)
 
-**关联阅读（以下两篇主分类为「模块维度」，不计入本组篇数）：**
+**关联阅读（不重复计入本组）：**
 
 - [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
 - [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)
@@ -277,34 +306,35 @@ npm run docs:build
 </details>
 
 <details>
-<summary><b>03 · 金融与工程</b>（15 篇）</summary>
+
+<summary><b>03 · 金融研究与业务责任</b></summary>
 
 - [金融 Agent 全景：连接研究、业务与责任的系统架构](articles/financial-agent-system-panorama.md)
 - [金融数据 MCP 为什么变成决策系统](articles/mcp-market-responsibility-retrospective.md)
 - [从投资研究到投顾与交易的边界](articles/030-fintech-from-research-to-investment-advice.md)
 - [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 - [Python 算过了，投研报告为什么还会错](articles/financial-agent-python-result-consumption.md)
-- [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
-- [投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop](articles/etf-agent-model-harness-research-loop.md)
-- [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md)
-- [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
-- [一个 ETF 投资助手的工程起点](articles/etf-assistant-engineering-origins.md)
-- [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
-- [AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md)
-- [Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)
-- [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
-- [局部改善不等于整体进步：怎样判断 Agent 真的变好了？](articles/local-improvement-is-not-system-progress.md)
 
 </details>
 
 <details>
-<summary><b>04 · 其他</b></summary>
+
+<summary><b>04 · 系统边界与演进</b></summary>
 
 - [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)
-- [六层调用全景 V3：从提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
+- [从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段](articles/open-etf-agent-v010-system-design.md)
+- [六层调用全景：从提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
 - [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md)
 - [别让模型当状态机](articles/runtime-model-protocol-boundary-agent-article-v2.md)
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
+- [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
+- [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md)
+- [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
+- [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
+- [Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)
+- [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
+- [局部改善不等于整体进步：怎样判断 Agent 真的变好了？](articles/local-improvement-is-not-system-progress.md)
+- [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
 </details>
 
@@ -313,9 +343,12 @@ npm run docs:build
 [进入在线目录 →](https://hpoenixf.com/eff-agent-article/engineering)
 
 <details>
-<summary><b>01 · Spec、证据与工程记忆</b>（4 篇）</summary>
 
+<summary><b>01 · Spec、证据与工程记忆</b></summary>
+
+- [Agent Engineering Suite：让 Agent 从需求一路接到发布](articles/agent-engineering-suite.md)
 - [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md)
+- [文章说能运行，代码真的支持吗？——技术文章与开源实现的证据契约](articles/agent-article-code-evidence-contract.md)
 - [Spec、Evidence 与可验证研发关闭](articles/026-agent-spec-evidence-workflow.md)
 - [周报做了整晚，为何首份交付还没完成？](articles/agent-weekly-review-staged-delivery.md)
 - [工程知识：按需加载、长期记忆与退役](articles/027-agent-context-document-history.md)
@@ -323,20 +356,23 @@ npm run docs:build
 </details>
 
 <details>
-<summary><b>02 · 真实验证与任务收敛</b>（5 篇）</summary>
+
+<summary><b>02 · 真实验证与任务收敛</b></summary>
 
 - [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 - [测试与评测：绿灯究竟证明什么](articles/honest-agent-evaluation.md)
 - [测试也会过期：把重构、退役和删除前移到 Spec](articles/test-lifecycle-refactoring-retirement-and-spec.md)
 - [一个 Subagent 改动，为什么拖住了我们整整一天？](articles/agent-runtime-refactor-one-day-blocked.md)
 - [从 Bug 循环到完整任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
+- [一个 ETF 投资助手的工程起点](articles/etf-assistant-engineering-origins.md)
+- [AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md)
 
 </details>
 
 ## 延伸阅读与边界
 
 - [金融科技 × Agent 主题阅读](fintech.md)：跨分类精选，不另外生成文章副本。
-- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入 73 篇正文。
+- [Agent 架构原则速查](principles.md)：用于设计、重构与 Code Review 的判断清单，不计入正文篇数。
 - [架构图册](gallery.md) · [工程选题预告](roadmap.md) · [六层系统图文版](https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/index.html)
 - [个人博客](https://hpoenixf.com/)：按时间阅读的文章；此仓库用于主题与连续阅读。新收录的 Spec、History 文章保留博客原文链接。
 

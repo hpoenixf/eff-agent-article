@@ -28,8 +28,8 @@ AI 让更多人获得研究资料和分析工具，但**看见不等于判断，
 | 研究专题 | 要回答的金融问题 | 严格精选 |
 | --- | --- | --- |
 | **B1 · 金融数据质量、口径与可复算** | 时点、基金份额、净值、币种、费用、穿透覆盖与假设如何改变结论？ | [金融数字的时点、口径与可复算](/articles/031-fintech-data-time-and-reproducible-numbers) · [只读 Portfolio MCP 与持仓事实](/articles/portfolio-mcp-readonly-investment-data) |
-| **B2 · 研究方法与可信证据链** | 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？ | [金融研究的可信证据链](/articles/financial-agent-trustworthy-evidence-chain) · [Python 结果消费与研究方法](/articles/financial-agent-python-result-consumption) |
-| **B3 · 投资研究质量与反证方法** | 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？ | [多视角 Agent 与投资假设检验](/articles/investment-perspectives-and-thesis-falsification) · [Model / Harness / Loop：让投研随证据修正判断](/articles/etf-agent-model-harness-research-loop) · [金融比较前提、反例与验证投入](/articles/ai-coding-judgment-and-verification) · [F01 质量研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12) |
+| **B2 · 研究方法与可信证据链** | 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？ | [金融证据与计算可追溯](/articles/financial-agent-trustworthy-evidence-chain) · [Python 结果消费与研究方法](/articles/financial-agent-python-result-consumption) |
+| **B3 · 投资研究质量与反证方法** | 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？ | [多视角 Agent 与投资假设检验](/articles/investment-perspectives-and-thesis-falsification) · [F01 质量研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12) |
 | **B4 · 回测、策略有效性与市场适应** | 前视、幸存者、样本外验证、滑点与策略失效如何影响结论？ | 暂留空 |
 
 ## C · 业务责任与可信治理
@@ -40,7 +40,7 @@ AI 让更多人获得研究资料和分析工具，但**看见不等于判断，
 | --- | --- | --- |
 | **C1 · 投研、投顾、交易与适当性** | 事实解释、个性化建议与交易服务跨过了哪些不同的业务责任？ | [从投资研究到投顾与交易](/articles/030-fintech-from-research-to-investment-advice) |
 | **C2 · 用户授权与实际金融效果** | 模型提议、用户意愿、主机授权、订单提交与成交为什么要分别留存？ | [模型理解，代码授权](/articles/011-model-understands-code-authorizes) |
-| **C3 · 隐私、安全与不可信金融资料** | 网页、研报或工具结果能否冒充指令或授权？文档撤权后如何控制披露？ | [A35：不可信资料不能冒充指令](/articles/agent-content-trust-prompt-injection) · [RAG 撤权、披露与回放](/articles/027-rag-revocation-publish-replay) |
+| **C3 · 隐私、安全与不可信金融资料** | 网页、研报或工具结果能否冒充指令或授权？文档撤权后如何控制披露？ | 暂留空 |
 | **C4 · 人工实质复核与合规审查** | 谁有专业复核、退回和接管权？如何保存独立意见与可合法重建的审查依据？ | 暂留空 |
 
 ## D · 金融机构落地与经营

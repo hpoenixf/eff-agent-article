@@ -28,8 +28,8 @@ Provenance, methodology, conclusions and strategy validity are separate problems
 | Research topic | Core question | Curated essays |
 | --- | --- | --- |
 | **B1 · Financial data quality and reproducibility** | How do dates, share classes, NAVs, currencies, fees, look-through coverage and assumptions change the answer? | [Financial data: dates and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Read-only Portfolio MCP](/en/articles/portfolio-mcp-readonly-investment-data) |
-| **B2 · Research methods and trustworthy lineage** | Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable? | [Trustworthy financial evidence chain](/articles/financial-agent-trustworthy-evidence-chain) (**Chinese original**) · [Financial Python result consumption](/en/articles/financial-agent-python-result-consumption) |
-| **B3 · Research quality and counterevidence** | Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision? | [Multi-perspective investment research](/en/articles/investment-perspectives-and-thesis-falsification) · [Model / Harness / Loop: evidence-led research](/en/articles/etf-agent-model-harness-research-loop) · [Financial premises, counterexamples and verification effort](/en/articles/ai-coding-judgment-and-verification) · [F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12) |
+| **B2 · Research methods and trustworthy lineage** | Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable? | [Traceable financial evidence and calculations](/articles/financial-agent-trustworthy-evidence-chain) (**Chinese original**) · [Financial Python result consumption](/en/articles/financial-agent-python-result-consumption) |
+| **B3 · Research quality and counterevidence** | Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision? | [Multi-perspective investment research](/en/articles/investment-perspectives-and-thesis-falsification) · [F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12) |
 | **B4 · Backtests, strategy validity and regime change** | How do look-ahead and survivorship bias, out-of-sample validation, slippage and strategy decay affect claims? | Open |
 
 ## C · Business Accountability and Trustworthy Governance
@@ -40,7 +40,7 @@ User confirmation, professional judgment, application permission, executed effec
 | --- | --- | --- |
 | **C1 · Research, advice, trading and suitability** | What obligations differ between factual explanation, personalized advice and transaction services? | [Research, advice and trading](/en/articles/030-fintech-from-research-to-investment-advice) |
 | **C2 · User authorization and actual financial effects** | Why must model proposals, intent, permissions, order submissions and fills be recorded separately? | [Models understand; code authorizes](/en/articles/011-model-understands-code-authorizes) |
-| **C3 · Privacy, security and untrusted financial materials** | Can web pages, reports or tool outputs impersonate instructions or permission? How does revocation affect disclosure? | [A35: source content is not an instruction](/en/articles/agent-content-trust-prompt-injection) · [RAG revocation and replay](/en/articles/027-rag-revocation-publish-replay) |
+| **C3 · Privacy, security and untrusted financial materials** | Can web pages, reports or tool outputs impersonate instructions or permission? How does revocation affect disclosure? | Open |
 | **C4 · Substantive human review and compliance examination** | Who can professionally review, reject or take over? What independent assessment and evidence can a reviewer reconstruct? | Open |
 
 ## D · Institutional Adoption and Business Economics

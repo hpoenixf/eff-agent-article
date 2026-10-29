@@ -1,11 +1,11 @@
 ---
 title: 模块维度 · 机制精讲
-description: 33 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provider、工具、Main 压缩、定时任务、Memory、RAG、Runtime、Publication 与 Python。
+description: Agent 模块文章：沿六层请求链理解输入、上下文、运行、工具、交付与用户界面。
 ---
 
 # 模块维度
 
-<small>HOW IT WORKS · 33 篇 · 4 个主题</small>
+<small>HOW IT WORKS</small>
 
 从一条能力链的具体问题出发：**输入是谁、有哪些事实、做了哪些真实动作、什么时候交付、失败以后剩下什么。**
 
@@ -36,6 +36,8 @@ description: 33 篇 Agent 模块文章：研究入口、MCP、Portfolio、Provid
 **A35 专题：** [Prompt Injection 不只是恶意文本](/articles/agent-content-trust-prompt-injection)——从原生产者身份绑定、最终请求一致性和冷恢复证据，解释为什么数据不能成为指令，安全检查也不能夺取效果权。
 
 **入门路线：** [Entry](/articles/022-agent-entry-from-intent-to-direct-research) → [Web](/articles/021-agent-web-research-from-search-to-deep-reading) → [Subagent](/articles/agent-subagent-context-specialization) → [Python](/articles/agent-python-compute-workbench-evolution) → [Publication](/articles/019-agent-answer-publication)。
+
+**六层阅读键：** L1 任务输入与触发、L2 身份／会话／上下文、L3 Agent 决策与运行、L4 工具与领域能力、L5 结果发布与交付、L6 用户界面。依据[六层全景及 Owner 主层索引](/articles/017-prompt-to-answer-six-layer-panorama-v3#capability-owner-links)组织；这是阅读定位，不限制 Owner 跨层参与。跨层全景与观测仍在[系统思考](/thinking)，不另造第七层。
 
 <ChapterCatalog category="modules" />
 

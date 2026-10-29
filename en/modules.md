@@ -22,4 +22,6 @@ Follow the mechanisms that take an agent from an input through research, tool ex
 
 **New mechanism deep dives:** [Durable human response adoption](/en/articles/agent-durable-human-interaction-response-adoption) explains HIO request/response identity and the actual research consumer; [temporal semantics](/en/articles/agent-temporal-semantics-market-calendar) distinguishes user days, exchange sessions and data-as-of facts; [Shadow Credits](/en/articles/agent-personal-credits-shadow-accounting) tracks physical model attempts with explicit unknown usage. Their local implementation evidence is not production qualification.
 
+**Six stable reading keys:** L1 input and triggers; L2 identity, sessions and context; L3 Agent decisions and execution; L4 tools and domain capabilities; L5 publication and delivery; L6 user interface. The [six-layer panorama](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) supplies the responsibility map. Placement does not prohibit cross-layer participation; system overviews and cross-layer observation stay in [architecture](/en/thinking), not an invented seventh layer.
+
 <ChapterCatalog category="modules" />
