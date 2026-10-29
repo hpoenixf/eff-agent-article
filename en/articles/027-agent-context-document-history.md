@@ -304,4 +304,4 @@ From retired commands to on-demand current knowledge, we use [method 6, “Retir
 
 *Evidence boundary: The line counts belong to the August 2026 context-governance window; retirement examples come from subsequent engineering records. This consolidation did not rerun those historical experiments or turn their old receipts into new passing results.*
 
-Also published on the [personal blog](https://hpoenixf.com/blog/027-agent-context-document-history). More engineering practice is available in the [GitHub collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.
+This essay also appeared on the personal blog. For the current reading edition, use the [English article](https://hpoenixf.com/eff-agent-article/en/articles/027-agent-context-document-history) or the [Chinese original](https://hpoenixf.com/eff-agent-article/articles/027-agent-context-document-history). More engineering practice is in the [GitHub collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.

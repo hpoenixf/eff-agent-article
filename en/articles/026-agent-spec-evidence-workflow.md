@@ -287,4 +287,4 @@ We do not want a Coding Agent that perpetually says “not rigorous enough.” W
 
 ---
 
-Originally also published on the [personal blog](https://hpoenixf.com/blog/026-agent-spec-evidence-workflow). Further work is in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.
+This essay also appeared on the personal blog. For the current reading edition, use the [English article](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow) or the [Chinese original](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow). The source and further work are in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.

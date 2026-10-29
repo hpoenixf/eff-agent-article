@@ -47,15 +47,15 @@ A stronger approach is to run an explicit calculation on retrieved, authorized s
 
 For an annual minimum closing value, first restrict observations to the specified trading year; then take the minimum over non-missing closes while preserving its date. The adjustment policy for price and drawdown series must be stated separately; incompatible series cannot be silently mixed.
 
-~~~mermaid
-flowchart TD
-  Q["User's market question"] --> I["Identify instrument and data field"]
-  I --> W["Freeze time and sample window"]
-  W --> S["Authorized source"]
-  S --> C["Reproducible structured calculation"]
-  C --> R["Check numerical claim"]
-  R --> P["Publish numbers with their definitions"]
-~~~
+```mermaid
+graph TD
+UserQuestion --> DefineMarketObject
+DefineMarketObject --> FreezeDataWindow
+FreezeDataWindow --> AuthorizedSource
+AuthorizedSource --> StructuredCalculation
+StructuredCalculation --> ClaimReview
+ClaimReview --> PublishedNumbers
+```
 
 Computation must not also decide whether the user should buy the resulting portfolio. It produces checkable numbers under defined inputs. The model still explains meaning, comparison conditions and uncertainty. When prose differs from the computed number, locate the specific claim rather than asking a generic checker to judge whether the whole investment recommendation is correct.
 
@@ -166,7 +166,7 @@ That is why computation and research should have different responsibilities. One
 ## Further Reading
 
 - [Consuming Python results without losing financial semantics](financial-agent-python-result-consumption.md)
-- [A trustworthy financial evidence chain](/articles/financial-agent-trustworthy-evidence-chain)
-- [Python as a computational research workbench](/articles/agent-python-compute-workbench-evolution)
+- [A trustworthy financial evidence chain (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain)
+- [Python as a computational research workbench](/en/articles/agent-python-compute-workbench-evolution)
 
 Browse the [independent ETF Agent reading site](https://hpoenixf.com/eff-agent-article/) or [GitHub article repository](https://github.com/hpoenixf/eff-agent-article). Counterexamples about definitions and numbers are welcome.
