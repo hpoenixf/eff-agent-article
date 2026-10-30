@@ -5,7 +5,7 @@ description: Three reading paths, one canonical article registry, and transparen
 
 # Article Catalog
 
-Start with the [nine architecture principles and seven engineering methods](/en/principles) to orient your reading. Every article links back to that map, whether or not it belongs to a numbered principle.
+New to agents? Begin with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes), then explore the [six-layer architecture](/en/articles/017-prompt-to-answer-six-layer-panorama-v3) or the [architecture principles](/en/principles) for deeper context. Every article links back to that map, whether or not it belongs to a numbered principle.
 
 This library lists the original Chinese essays in three canonical categories. Completed English translations live under `/en/articles/<slug>` and share the same slug as the original.
 

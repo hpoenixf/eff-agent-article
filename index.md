@@ -7,8 +7,8 @@ hero:
   tagline: 记录系统如何运行、架构为何演化，以及 AI 辅助研发如何持续交付。
   actions:
     - theme: brand
-      text: 从六层全景开始 →
-      link: /articles/017-prompt-to-answer-six-layer-panorama-v3
+      text: 十五分钟入门 Agent →
+      link: /articles/agent-in-15-minutes
     - theme: alt
       text: 浏览全部文章
       link: /catalog
