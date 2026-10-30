@@ -29,6 +29,27 @@ description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、�
 
 先看一次“专家查来源并交回主任务”的概念时序。实线请求与虚线回执区分动作和结果；这是架构说明，不是按真实 Trace 逐事件导出的图。
 
+**不用缩放，按顺序读这次协作：**
+
+1. 用户请求 Main 比较 A/B 并保存报告；Main 向 Tool Host 发出 `source_check(局部问题)` 请求。
+2. Tool Host 先核对授权、工具范围和预算，再进入以下条件分支。
+
+**允许执行且能取得来源时：**
+
+1. Tool Host 启动受限只读 Child。
+2. Child 请求 Tool Host 执行 `read_page(A/B)`。
+3. Tool Host 把原文及来源保存到 Result Store，再向 Child 返回页面回执。
+4. Child 向 Main 返回派生判断与来源引用，而不是把判断当作原始资料。
+5. Main 请求 Tool Host 执行 `save_report(正文)`；Tool Host 向 Main 返回 Artifact 回执。
+6. Main 向用户返回答复与可回查入口。
+
+**越界或来源不足时：** Tool Host 向 Main 返回拒绝或缺口说明；Main 向用户说明限制，不虚构结论。这个分支不进入上述成功路径。
+
+下方原图保留各参与方及消息方向：实线表示请求或动作，虚线表示返回的回执、判断或答复。
+
+<details>
+<summary>查看完整协作时序图（可放大）</summary>
+
 ```mermaid
 sequenceDiagram
   participant U as 用户
@@ -53,6 +74,8 @@ sequenceDiagram
     M-->>U: 说明限制，不虚构结论
   end
 ```
+
+</details>
 
 每条回执都回答不同问题：读页回执说明资料来自何处；Child 的话只是基于资料形成的解释；写入回执说明产物实际存在。**这三种证据不能用同一句“Agent 成功”替代。**
 

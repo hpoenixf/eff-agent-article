@@ -29,6 +29,27 @@ The fourth kind, delivery continuity, is what makes the first three valuable to 
 
 First, consider a conceptual sequence where a specialist checks sources and hands them back to Main. Requests and receipts are distinct. This is an architecture explanation, not a sequence exported from a live trace.
 
+**Read the collaboration in order without zooming:**
+
+1. The user asks Main to compare A/B and save a report. Main requests `source_check(local question)` from Tool Host.
+2. Tool Host validates the grant, tool scope, and budget before taking one of the following branches.
+
+**When execution is allowed and sources are available:**
+
+1. Tool Host starts a scoped, read-only Child.
+2. Child asks Tool Host to perform `read_page(A/B)`.
+3. Tool Host retains originals and provenance in Result Store, then returns page receipts to Child.
+4. Child returns a derived observation and source references to Main, not a replacement for original evidence.
+5. Main requests `save_report(body)` from Tool Host; Tool Host returns an Artifact receipt to Main.
+6. Main answers the user with verifiable references.
+
+**When the request is out of scope or sources are insufficient:** Tool Host returns a rejection or coverage gap to Main. Main explains the limits to the user without inventing conclusions. This branch does not enter the success path above.
+
+The original diagram below retains every participant and message direction: solid arrows are requests or actions; dashed arrows return receipts, observations, or answers.
+
+<details>
+<summary>View the complete collaboration sequence (zoom available)</summary>
+
 ```mermaid
 sequenceDiagram
   participant U as User
@@ -53,6 +74,8 @@ sequenceDiagram
     M-->>U: Explain limits without invented conclusions
   end
 ```
+
+</details>
 
 Each receipt answers a different question. A page receipt identifies source material; a Child statement is interpretation based on that material; a storage receipt establishes a retained artifact. **They cannot be collapsed into one “agent succeeded” flag.**
 
