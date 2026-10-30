@@ -15,6 +15,20 @@ description: "写给有一点前后端基础的开发者。用一个可运行的
 
 ![一眼看懂 Agent：用户提问、选择下一步、使用工具、整理结果](../visuals/agent-in-15-minutes/01-agent-at-a-glance-zh.svg)
 
+## 六层能力图：先看最小可运行主链
+
+这张图沿用全景篇的六层横带和能力纵列，但**只放入入门案例实际涉及的模块**。彩色实线卡片可以点击查看固定 v0.15 源码。这里的 L5 是 `report.md` 保存，L6 是命令行查看；它们**不表示**教学示例已经具备完整线上 Publication、Web 界面或所有全景能力。
+
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg" label="入门六层能力图：最小 Agent Loop、工具与 CLI 报告">
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg" role="img" aria-label="入门六层能力图：最小 Agent Loop、工具与 CLI 报告">
+    <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg">打开 SVG 六层能力图</a>
+  </object>
+</div>
+</PanoramaViewer>
+
+**读图重点：** 用户发起 T1 → Context 准备材料 → Gateway/Runtime 循环 → Tool Host 读取 A/B → 保存并回读报告。默认模型动作由脚本模拟。
+
 ## 一个熟悉的任务：比较两份文档
 
 假设你收到一个需求：
