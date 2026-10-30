@@ -154,6 +154,8 @@ Private holdings should not be copied indiscriminately into logs, external model
 
 Safety and quality therefore call for different responses: deny unauthorized access, review disputed judgments, disclose incomplete coverage, and report tool failures accurately. Turning all four into “publication forbidden” solves none of them precisely and harms research usefulness.
 
+**A real trade-off, not just a slogan.** An earlier financial-data MCP included some schema mismatches in a failure-avoidance key scoped to “provider + operation.” A failed lookup for one product could therefore cause the same operation on another product to be skipped. The code supports that possible propagation, but does not explain every historical failure. We narrowed failure tracking to the concrete request and kept a native-material research path, rather than letting the unified entry point judge whether the material deserves further research. This requires separate verification of native reading and structured consumption, but prevents local failures from spreading as readily. See [the financial-data MCP retrospective](https://hpoenixf.com/eff-agent-article/articles/mcp-market-responsibility-retrospective) (Chinese).
+
 For local delivery, see [Why Generated Answers Need a Publication System](019-agent-answer-publication.md). For material versus instructions, see [Prompt Injection and Content Trust Boundaries](https://hpoenixf.com/eff-agent-article/articles/agent-content-trust-prompt-injection) (Chinese).
 
 ## 7. Beyond the report: evidence, history, and business operations
@@ -183,6 +185,14 @@ Continuing research should compare the original basis with subsequent changes. O
 Read-only research can end when the report is delivered. A specific new user action request starts a separately defined business process: identify the exact plan and account, apply the relevant permission, risk, and approval checks, then let the business system execute and update records from actual results.
 
 “I agree with the analysis,” “the order was submitted,” and “the order filled” are different states. When the result is unclear, querying and reconciling matter more than blind retries. Research software can explain progress; natural-language claims cannot create transaction facts.
+
+### How a regulatory requirement becomes an inspectable engineering control
+
+For institutions within the applicable mainland China securities and fund scope, Articles 43–44 of the [Measures for Information Technology Management of Securities and Fund Operators](https://www.csrc.gov.cn/csrc/c106256/c1653896/content.shtml) state that outsourcing technology services does not remove the institution's responsibility, and address control of important systems and arrangements for changing service providers. Articles 2–3 of the [Measures for Suitability Management of Securities and Futures Investors](https://www.shfe.cn/regulation/futureslaw/202501/t20250114_824326.html) define the scope of relevant sales or services and the suitability obligations of operators. Applicability depends on the provider, the actual activity, and jurisdiction.
+
+This informs a specific architecture decision: a research Agent may produce an analysis saying “adjust fund B,” but **neither its conclusion nor a chat confirmation constitutes business approval**. If an institution offers an authorized subscription or adjustment service, its business systems should independently verify the exact account, product, proposal version, suitability, permissions, and required approvals, and update records from actual execution receipts. Replacing an external model or tool provider should not sever those facts or their traceable links.
+
+**This is an engineering mapping of the cited rules, not a claim that the rules prescribe Agent, approval-module, or API names**, nor a claim that ETF Agent currently implements institutional trading flows.
 
 For evidence transfer, see [The Trustworthy Evidence Chain of a Financial Agent](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) (Chinese). For continued research, see [Investment Thesis and Research Across Time](https://hpoenixf.com/eff-agent-article/articles/agent-weekly-thesis-history-continuous-research) (Chinese).
 
