@@ -5,6 +5,8 @@ description: "写给有一点前后端基础的开发者。用一个可运行的
 
 # 十五分钟入门 Agent
 
+> **入门 · 第 1 站**　入门 → [进阶](./agent-ten-modules.md) → [深入](./agent-loop-to-application.md) → 全景
+
 如果你写过接口、调过 API，或者用 JavaScript 做过自动化脚本，就能很快理解 Agent。
 
 **你可以把 Agent 想成一个会推进任务的助手：它理解目标，选择下一步，使用工具，再根据得到的信息继续工作。**
@@ -88,12 +90,12 @@ Agent 则把一部分任务推进的选择交给 AI：**读哪份资料、调用
 
 ## 自己跑一次：五分钟体验
 
-上面的文档比较有可运行的开源示例。使用 [Open ETF Agent v0.6](https://github.com/hpoenixf/open-etf-agent/tree/7480b656b18192e6d6b44aab65255b970d58e6f8)，准备好 Node.js 26.11.1–26.x，然后在终端执行：
+上面的文档比较有可运行的开源示例。使用 [Open ETF Agent v0.15](https://github.com/hpoenixf/open-etf-agent/tree/74bd5aa455ccaeb2994eb22aa744affde660bfa2)，准备好 Node.js 26.8.1–26.x，然后在终端执行：
 
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
-git checkout v0.6.0-dev.0
+git checkout v0.15.0
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run demo -- --case T1
@@ -103,10 +105,12 @@ npm run demo -- --case T1
 
 这个版本的默认示例用**脚本模拟模型选择动作**，让你不用配置模型密钥也能体验完整的工具执行过程。以后接入真实模型时，仍然围绕同一套“选择下一步、使用工具、利用结果”的思路开发。
 
-## 接下来，读懂完整 Agent 系统
+## 下一站：进阶，认识代码里的十个模块
 
 到这里，你已经有了一张入门地图：**用户给目标，AI 根据每轮结果决定下一步，Runtime 运行循环，工具执行动作。**
 
-如果你想继续了解多轮对话、上下文管理、子代理和前端交互，可以再读进阶版：[**《从一次提问到答案可见：ETF Agent 六层调用全景》**](/articles/017-prompt-to-answer-six-layer-panorama-v3)。它会把这里的简单流程扩展成完整系统。
+继续读[**《Agent 进阶：读懂 Open ETF Agent 的十个核心模块》**](./agent-ten-modules.md)，在同一个 v0.15 版本里认识 Skill、MCP、上下文、记忆、会话与子代理。接着进入[深入篇](./agent-loop-to-application.md)，沿一次真实的专家协作看它们怎样配合。
+
+**阅读路线：入门 → 进阶 → 深入 → 全景。** 每一站沿用已经熟悉的任务，再多看一层。
 
 [Open ETF Agent 源码与示例](https://github.com/hpoenixf/open-etf-agent) · [English version](/en/articles/agent-in-15-minutes) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)
