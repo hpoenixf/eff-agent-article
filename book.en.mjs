@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-ten-modules": "Agent Intermediate: Ten Core Modules in Open ETF Agent",
+  "agent-loop-to-application": "Agent Deep Dive: Run a Specialist Collaboration in v0.15",
   "agent-in-15-minutes": "Agents in 15 Minutes",
   "docs-code-tests-evolve-together": "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together",
   "agent-article-code-evidence-contract": "Does the Code Really Support the Article? An Evidence Contract for Technical Writing",
@@ -78,6 +80,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-ten-modules",
+  "agent-loop-to-application",
   "agent-in-15-minutes",
   "docs-code-tests-evolve-together",
   "agent-article-code-evidence-contract",
@@ -225,5 +229,5 @@ export const englishCollections = collections.map(collection => ({
 }))
 export function englishArticlePath(slug) {
   const canonical = mergedArticles[slug] || slug
-  return (englishArticleSlugs.includes(canonical) || historicalEnglishArticleSlugs.includes(canonical) ? '/en' : '') + '/articles/' + canonical
+  return (englishArticleSlugs.includes(canonical) || historicalEnglishArticleSlugs.includes(canonical)) ? '/en/articles/' + canonical : '/articles/' + canonical
 }

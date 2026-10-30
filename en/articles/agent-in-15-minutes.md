@@ -5,6 +5,8 @@ description: "A friendly introduction for frontend and backend developers. Follo
 
 # Agents in 15 Minutes
 
+> **Introduction · Stop 1**　Introduction → [Intermediate](./agent-ten-modules.md) → [Deep dive](./agent-loop-to-application.md) → Panorama
+
 If you have built an API, called a backend service, or written a short JavaScript automation script, you already have a useful starting point for understanding agents.
 
 **Think of an agent as an assistant that keeps a task moving: it understands the goal, chooses a next step, uses tools, and continues with the information it receives.**
@@ -88,12 +90,12 @@ Ordinary code is straightforward when steps are clear and rules are stable. Agen
 
 ## Try the example in five minutes
 
-The document comparison can be run locally using [Open ETF Agent v0.6](https://github.com/hpoenixf/open-etf-agent/tree/7480b656b18192e6d6b44aab65255b970d58e6f8). With Node.js 26.11.1–26.x installed, run:
+The document comparison can be run locally using [Open ETF Agent v0.15](https://github.com/hpoenixf/open-etf-agent/tree/74bd5aa455ccaeb2994eb22aa744affde660bfa2). With Node.js 26.8.1–26.x installed, run:
 
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
-git checkout v0.6.0-dev.0
+git checkout v0.15.0
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run demo -- --case T1
@@ -103,10 +105,12 @@ The command reports the directory for the run. Open `report.md` inside that dire
 
 The default example uses a **scripted model-action sequence**, so no model API key is needed. You can explore the tool execution process locally. When you later connect a live model, the same idea of choosing steps, using tools, and consuming results remains central.
 
-## Your next stop: the full agent architecture
+## Next: Intermediate, with ten modules in the code
 
 You now have a useful mental model: **the user sets a goal, AI chooses the next step from each result, the runtime drives the loop, and tools perform the actions.**
 
-To go deeper into conversations, context management, subagents, and frontend interactions, read [**The Six-Layer ETF Agent Request Lifecycle**](/en/articles/017-prompt-to-answer-six-layer-panorama-v3). It expands this small example into a system-level view.
+Continue with [**Agent Intermediate: Ten Core Modules in Open ETF Agent**](./agent-ten-modules.md). In the same v0.15 checkout, meet Skills, MCP, context, memory, sessions, and subagents. Then the [Deep Dive](./agent-loop-to-application.md) follows an implemented specialist collaboration to show how those parts cooperate.
+
+**Reading path: Introduction → Intermediate → Deep dive → Panorama.** Each stop keeps the familiar task and adds another layer of understanding.
 
 [Open ETF Agent source and examples](https://github.com/hpoenixf/open-etf-agent) · [中文版](/articles/agent-in-15-minutes) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)
