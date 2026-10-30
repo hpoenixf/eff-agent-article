@@ -505,12 +505,24 @@
    A light canvas keeps labels readable in both VitePress color modes. */
 .diagram-static { text-align: center; }
 .diagram-static img {
-  display: block; height: auto; max-width: none; width: auto; min-width: min(100%, 440px);
-  max-height: 860px; margin: 0 auto; background: #fff; border-radius: 8px;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  max-height: none;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+}
+.diagram-original {
+  display: inline-block;
+  margin-left: 0.55em;
+  font-weight: 600;
+  text-underline-offset: 3px;
 }
 @media (max-width: 760px) {
   .diagram-static { padding: 10px; }
-  .diagram-static img { min-width: min(100%, 340px); }
 }
 @media print {
   .diagram-static { overflow: visible; }
