@@ -52,6 +52,23 @@ test('static Mermaid figures fit the reader column and retain a full-size link',
   const imageRule = /\.diagram-static img\s*\{([^}]*)\}/.exec(css)?.[1]
   assert.ok(imageRule, 'static diagram image rule must exist')
   assert.match(imageRule, /max-width:\s*100%/)
-  assert.match(imageRule, /max-height:\s*none/)
+  assert.match(imageRule, /max-height:\s*min\(70svh, 640px\)/)
+  assert.match(imageRule, /object-fit:\s*contain/)
+  assert.match(config, /class="diagram-preview"/)
+  assert.match(config, /放大查看完整图/)
+  assert.match(css, /\.diagram-preview:focus-visible/)
+  assert.doesNotMatch(imageRule, /overflow:\s*hidden/)
   assert.doesNotMatch(imageRule, /min-width:\s*min\(/)
+})
+
+
+// A content-addressed version bump prevents old, incorrectly measured CJK SVGs
+// from surviving in browser/CDN caches after the font contract changes.
+test('diagram builds require the CJK font used to measure labels', () => {
+  const build = readFileSync(new URL('./build-static-mermaid.mjs', import.meta.url), 'utf8')
+  const renderer = readFileSync(new URL('../static-mermaid.mjs', import.meta.url), 'utf8')
+  assert.match(build, /fc-match/)
+  assert.match(build, /cjkFont\.status !== 0/)
+  assert.match(build, /Noto Sans CJK SC/)
+  assert.match(renderer, /neutral-cjk-v2/)
 })

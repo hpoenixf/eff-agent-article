@@ -504,19 +504,27 @@
 /* Static Mermaid SVG is rendered during the build, not in the browser.
    A light canvas keeps labels readable in both VitePress color modes. */
 .diagram-static { text-align: center; }
+.diagram-preview { display: block; border-radius: 8px; }
+.diagram-preview:focus-visible, .diagram-original:focus-visible {
+  outline: 3px solid var(--vp-c-brand-1); outline-offset: 4px;
+}
 .diagram-static img {
   display: block;
   width: auto;
   max-width: 100%;
   min-width: 0;
   height: auto;
-  max-height: none;
+  max-height: min(70vh, 640px);
+  max-height: min(70svh, 640px);
+  object-fit: contain;
   margin: 0 auto;
   background: #fff;
   border-radius: 8px;
 }
 .diagram-original {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-left: 0.55em;
   font-weight: 600;
   text-underline-offset: 3px;
@@ -526,7 +534,7 @@
 }
 @media print {
   .diagram-static { overflow: visible; }
-  .diagram-static img { max-width: 100%; }
+  .diagram-static img { max-width: 100%; max-height: none; }
 }
 
 /* A distinct editorial cover gives the reading site its own visual identity. */

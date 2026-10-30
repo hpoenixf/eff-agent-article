@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 
 // Bump the renderer version when upgrading mermaid-cli: unchanged source
 // must never reuse a cached image from a different rendering contract.
-export const RENDERER_VERSION = 'mermaid-cli-11.17.0-neutral-v1'
+export const RENDERER_VERSION = 'mermaid-cli-11.17.0-neutral-cjk-v2'
 export const IMAGE_ROOT = '/eff-agent-article/generated/mermaid/'
 
 export function diagramId(source) {

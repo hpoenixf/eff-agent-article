@@ -183,10 +183,11 @@ export default defineConfig({
           // public/generated is created during prebuild. A literal Vue binding
           // emits a plain SSR src without bundling each output SVG as a module.
           return '<figure class="diagram-frame diagram-static">' +
+            '<a class="diagram-preview" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="放大查看完整图 / Open full-size diagram">' +
             '<img :src="\'' + imageUrl + '\'" alt="' + escapeAttribute(description) +
-            '" loading="lazy" decoding="async" />' +
+            '" loading="lazy" decoding="async" /></a>' +
             '<figcaption class="diagram-caption">' + caption +
-              ' <a class="diagram-original" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer">查看完整 SVG / Open full-size SVG</a>' +
+              ' <a class="diagram-original" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer">放大查看完整图 / Open full-size SVG</a>' +
               '</figcaption></figure>\n'
         }
         return fallback ? fallback(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)

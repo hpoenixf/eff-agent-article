@@ -36,6 +36,11 @@ jobs:
           PUPPETEER_SKIP_DOWNLOAD: '1' # GitHub runner already ships Chrome
       - name: Check articles and links
         run: npm run check:catalog
+      - name: Install measured CJK diagram fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk fontconfig
+          fc-match -f '%{family}\n' 'Noto Sans CJK SC:lang=zh-cn'
       - name: Build reading site
         run: npm run docs:build
       - name: Verify principles entry and static discovery

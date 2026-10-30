@@ -47,6 +47,12 @@ for (const path of files) {
 
 if (usages.size === 0) throw Error('No Mermaid blocks discovered; refusing an empty static diagram build')
 if (!existsSync(cli)) throw Error('Mermaid CLI dependency is missing; run npm install before building diagrams')
+// Mermaid measures labels at build time. Missing CJK glyphs otherwise measure
+// tofu fallback widths and permanently clip real Chinese text in foreignObject.
+const cjkFont = spawnSync('fc-match', ['-f', '%{family}', 'Noto Sans CJK SC:lang=zh-cn'], { encoding: 'utf8' })
+if (cjkFont.status !== 0 || !cjkFont.stdout?.includes('Noto Sans CJK SC')) {
+  throw Error('Static diagrams require Noto Sans CJK SC before rendering; install fonts-noto-cjk and fontconfig')
+}
 const chrome = findChrome()
 const temp = mkdtempSync(join(tmpdir(), 'etf-static-mermaid-'))
 let rendered = 0

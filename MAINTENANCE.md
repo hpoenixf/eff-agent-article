@@ -34,6 +34,16 @@ npm run docs:build
 ```
 时，站点在构建期使用固定的 Mermaid CLI 与本机 Chrome/Chromium，批量生成内容寻址 SVG。部署页面直接显示图片；**浏览器没有 JavaScript 仍能看到图**，旧客户端 Mermaid 渲染器已退出。图源码语法错误、预期文件缺失或 SVG 校验失败会阻断构建。
 
+构建前还需要 **Fontconfig（`fc-match`）与 Noto Sans CJK SC 字体**。Mermaid 在构建时测量文字；缺少中文字形时，回退字体的宽度会被写入 SVG，导致读者端的真实中文被截断。Linux / Ubuntu 可安装：
+
+```bash
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends fonts-noto-cjk fontconfig
+fc-match -f '%{family}\n' 'Noto Sans CJK SC:lang=zh-cn'
+```
+
+最后一条命令应返回 `Noto Sans CJK SC`，而不是其他回退字体。构建脚本在渲染前检查此条件；不会将缺字渲染当作成功。macOS / Windows 若本机没有可用的 Fontconfig 与同名字体，请使用现有 Linux CI 构建，或先在自己的构建环境安装两项依赖并确保 `fc-match` 位于 PATH；不要跳过检查。原图仍是可缩放的 SVG，读者端无需安装构建工具。普通阅读预览按屏幕高度等比缩放，点击图片或“放大查看完整图”可打开完整 SVG；打印不受屏幕高度限制。
+
 本机需要 Chrome/Chromium；命令找不到浏览器时设置 `MERMAID_CHROME_PATH=/path/to/chrome` 并重试。CI 使用 Runner 自带 Chrome 和 `PUPPETEER_SKIP_DOWNLOAD=1`
 避免再次下载浏览器。静态图片属于构建产物，保留文章里的 Mermaid 作为**唯一图源**，不在公开仓库另维护一份容易漂移的 SVG 正文。英文本地图不是简单复用带中文标签的图片：只有图源码与正文译文达到原有双语检查要求，才算该语言图文齐备。
 
