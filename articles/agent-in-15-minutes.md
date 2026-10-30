@@ -19,7 +19,7 @@ description: "写给有一点前后端基础的开发者。用一个可运行的
 
 这张图沿用全景篇的六层横带和能力纵列，但**只放入入门案例实际涉及的模块**。彩色实线卡片可以点击查看固定 v0.15 源码。这里的 L5 是 `report.md` 保存，L6 是命令行查看；它们**不表示**教学示例已经具备完整线上 Publication、Web 界面或所有全景能力。
 
-<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg" label="入门六层能力图：最小 Agent Loop、工具与 CLI 报告">
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg" label="入门六层能力图：最小 Agent Loop、工具与 CLI 报告" :source-links="true">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg" role="img" aria-label="入门六层能力图：最小 Agent Loop、工具与 CLI 报告">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intro-zh.svg">打开 SVG 六层能力图</a>
