@@ -20,7 +20,7 @@ Use the [fixed v0.15 version](https://github.com/hpoenixf/open-etf-agent/tree/74
 
 Compared with the beginner map, **colored chips emphasize new domains in this article**: Skill methods, MCP connectivity, Result provenance, Memory, Session/Worker, specialist Child, and Artifacts. Muted chips are the model, Runtime, Tool Host, and entry path already introduced. Every solid chip links to a pinned v0.15 source file.
 
-<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intermediate-en.svg" label="Intermediate six-layer map: ten core modules and newly introduced domains">
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intermediate-en.svg" label="Intermediate six-layer map: ten core modules and newly introduced domains" :source-links="true">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intermediate-en.svg" role="img" aria-label="Intermediate six-layer map: ten core modules and newly introduced domains">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intermediate-en.svg">Open the six-layer SVG map</a>
