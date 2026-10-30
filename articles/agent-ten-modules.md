@@ -20,7 +20,7 @@ description: "以 Open ETF Agent v0.15 的实际代码为底座，分组认识�
 
 相较入门图，**彩色卡片突出本篇新增的领域**：Skill 方法、MCP 工具连接、Result 来源、Memory、Session/Worker、专家 Child 与 Artifact。浅灰卡片是已经解释过的模型、Runtime、Tool Host 和入口。每个实线卡片都链接固定 v0.15 源文件。
 
-<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg" label="进阶六层能力图：十组核心模块及新增领域">
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg" label="进阶六层能力图：十组核心模块及新增领域" :source-links="true">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg" role="img" aria-label="进阶六层能力图：十组核心模块及新增领域">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg">打开 SVG 六层能力图</a>
