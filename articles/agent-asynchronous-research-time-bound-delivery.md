@@ -63,16 +63,16 @@
 
 ```mermaid
 graph TD
-AcceptedRequest --> OriginalRun
-AcceptedRequest --> DueTime
-OriginalRun --> ResearchProgress
-OriginalRun --> PublishedBody
-OriginalRun --> TerminalFact
-DueTime --> DueNotice
-PublishedBody --> HistoryProjection
+AcceptedRequest["已接纳的请求"] --> OriginalRun["原运行"]
+AcceptedRequest --> DueTime["到期时间"]
+OriginalRun --> ResearchProgress["研究进展"]
+OriginalRun --> PublishedBody["已发布正文"]
+OriginalRun --> TerminalFact["终态事实"]
+DueTime --> DueNotice["到期提醒"]
+PublishedBody --> HistoryProjection["历史投影"]
 TerminalFact --> HistoryProjection
 DueNotice --> HistoryProjection
-HistoryProjection --> BrowserReopen
+HistoryProjection --> BrowserReopen["浏览器重新打开"]
 ```
 
 这里有一处必须说明的区别：图里的 `ResearchProgress` 是可展示的模型进度提议；`PublishedBody` 是正式正文，`TerminalFact` 是执行终态，`DueNotice` 才是到期通知。图只是展示它们共用原 Run 关联和最终历史入口，不意味着它们共享一次状态写入。

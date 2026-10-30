@@ -32,13 +32,13 @@
 
 ```mermaid
 graph TD
-PluginPackage --> ParseCompatibility
-ParseCompatibility --> ApproveIdentity
-ApproveIdentity --> GenerationRegistry
-GenerationRegistry --> ExtensionHost
-ExtensionHost --> SkillsMcpTools
-ExtensionHost --> LifecycleHooks
-SkillsMcpTools --> NativeRuntime
+PluginPackage["插件包"] --> ParseCompatibility["解析兼容性"]
+ParseCompatibility --> ApproveIdentity["核准身份"]
+ApproveIdentity --> GenerationRegistry["代际注册表"]
+GenerationRegistry --> ExtensionHost["扩展宿主"]
+ExtensionHost --> SkillsMcpTools["技能与 MCP 工具"]
+ExtensionHost --> LifecycleHooks["生命周期钩子"]
+SkillsMcpTools --> NativeRuntime["原生运行时"]
 LifecycleHooks --> NativeRuntime
 ```
 

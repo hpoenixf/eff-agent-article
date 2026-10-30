@@ -44,18 +44,18 @@ ETF Agent 已经有 `run_skill_script`，可以执行可信 Skill 包里维护�
 
 ```mermaid
 graph TD
-ResearchQuestion --> AgentDecision
-AgentDecision --> AuthorizedDataTools
-AuthorizedDataTools --> HostInputValidation
-HostInputValidation --> IsolatedPython
-IsolatedPython --> BoundedFeedback
+ResearchQuestion["研究问题"] --> AgentDecision["代理决策"]
+AgentDecision --> AuthorizedDataTools["获准数据工具"]
+AuthorizedDataTools --> HostInputValidation["Host 校验输入"]
+HostInputValidation --> IsolatedPython["隔离 Python"]
+IsolatedPython --> BoundedFeedback["有界执行反馈"]
 BoundedFeedback --> AgentDecision
-IsolatedPython --> RunWorkspace
-RunWorkspace --> LaterPythonCall
+IsolatedPython --> RunWorkspace["运行工作区"]
+RunWorkspace --> LaterPythonCall["后续 Python 调用"]
 LaterPythonCall --> BoundedFeedback
-RunWorkspace --> ExplicitExport
-ExplicitExport --> DurableArtifact
-DurableArtifact --> AuthorizedDownload
+RunWorkspace --> ExplicitExport["显式导出"]
+ExplicitExport --> DurableArtifact["持久文件产物"]
+DurableArtifact --> AuthorizedDownload["授权下载"]
 ```
 
 这张图展示的是职责关系，不是一条强制执行的流水线。Agent 可以根据反馈继续查资料、再次计算或直接形成有边界的回答。下一次 Python 调用依然要重新经过宿主的准入和来源检查；保存在工作区的文件，也不会因为存在就自动成为可下载产物。
@@ -144,17 +144,17 @@ DurableArtifact --> AuthorizedDownload
 
 ```mermaid
 graph TD
-AnalysisRequest --> AdmissionCheck
-AdmissionCheck --> ProvenNoTouchRejection
-AdmissionCheck --> DispatchedExecution
-ProvenNoTouchRejection --> PreserveExistingWorkspace
-DispatchedExecution --> ConfirmedSettlement
-DispatchedExecution --> UnknownSettlement
-ConfirmedSettlement --> UsableInventory
-ConfirmedSettlement --> UnusableInventory
-UsableInventory --> ContinueWithFiles
-UnusableInventory --> InvalidateWorkspace
-UnknownSettlement --> QuarantineWorkspace
+AnalysisRequest["分析请求"] --> AdmissionCheck["准入检查"]
+AdmissionCheck --> ProvenNoTouchRejection["确认未触碰环境的拒绝"]
+AdmissionCheck --> DispatchedExecution["已派发执行"]
+ProvenNoTouchRejection --> PreserveExistingWorkspace["保留原工作区"]
+DispatchedExecution --> ConfirmedSettlement["结算已确认"]
+DispatchedExecution --> UnknownSettlement["结算未知"]
+ConfirmedSettlement --> UsableInventory["可用文件清单"]
+ConfirmedSettlement --> UnusableInventory["不可用文件清单"]
+UsableInventory --> ContinueWithFiles["继续使用文件"]
+UnusableInventory --> InvalidateWorkspace["使工作区失效"]
+UnknownSettlement --> QuarantineWorkspace["隔离工作区"]
 ```
 
 图中的分支是不同结果，不表示一项请求会依次经过所有节点。只有确切证明未派发、未触碰原工作区的拒绝，才允许保留既有成果；已派发的代码如果明确结束，还要检查是否所有写入都已停止、文件清单是否可信。确认可用时可以继续；状态不确定时则失效或隔离，不能盲目重跑代码来“恢复”文件。

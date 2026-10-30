@@ -39,16 +39,16 @@
 
 ```mermaid
 graph TD
-ResearchQuestion --> ModelChooseMethod
-ModelChooseMethod --> AuthorizedData
-AuthorizedData --> CheckMethodInputs
-CheckMethodInputs --> DomainCalculation
-CheckMethodInputs --> QualifiedPartialResult
-DomainCalculation --> QualifiedResult
-QualifiedPartialResult --> ResultProjection
+ResearchQuestion["研究问题"] --> ModelChooseMethod["模型选择方法"]
+ModelChooseMethod --> AuthorizedData["获准数据"]
+AuthorizedData --> CheckMethodInputs["检查方法输入"]
+CheckMethodInputs --> DomainCalculation["领域计算"]
+CheckMethodInputs --> QualifiedPartialResult["符合条件的部分结果"]
+DomainCalculation --> QualifiedResult["符合条件的结果"]
+QualifiedPartialResult --> ResultProjection["结果投影"]
 QualifiedResult --> ResultProjection
-ResultProjection --> ModelInterpretation
-ModelInterpretation --> Publication
+ResultProjection --> ModelInterpretation["模型解释"]
+ModelInterpretation --> Publication["发布"]
 ```
 
 图中的两条结果路径有不同前提：输入满足方法契约时，计算可以形成限定的正式结果；缺少关键数据时，只能返回受影响指标的代理结果、不足状态或原因，并保留其他仍有价值的研究。图没有暗示每个研究请求都必须走 Python，也没有暗示所有方法都已经在真实自然模型运行中稳定选中。

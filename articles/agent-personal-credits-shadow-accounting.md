@@ -24,15 +24,15 @@
 
 ```mermaid
 graph TD
-AuthenticatedAccount --> OriginalRun
-OriginalRun --> RequestAdmission
-RequestAdmission --> PhysicalDispatch
-PhysicalDispatch --> AttemptReceipt
-AttemptReceipt --> UsageObservation
-UsageObservation --> FrozenTariff
-FrozenTariff --> KnownCredits
-UsageObservation --> UnknownCoverage
-KnownCredits --> PersonalUsageView
+AuthenticatedAccount["已认证账户"] --> OriginalRun["原运行"]
+OriginalRun --> RequestAdmission["请求准入"]
+RequestAdmission --> PhysicalDispatch["实际派发"]
+PhysicalDispatch --> AttemptReceipt["尝试回执"]
+AttemptReceipt --> UsageObservation["用量观察"]
+UsageObservation --> FrozenTariff["固定计价规则"]
+FrozenTariff --> KnownCredits["已知额度"]
+UsageObservation --> UnknownCoverage["覆盖范围未知"]
+KnownCredits --> PersonalUsageView["个人用量视图"]
 UnknownCoverage --> PersonalUsageView
 ```
 

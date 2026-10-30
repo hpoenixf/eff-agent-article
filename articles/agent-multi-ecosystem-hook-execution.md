@@ -43,14 +43,14 @@ ETF Agent 当前的原生 Hook 执行层包含 13 个阶段，覆盖插件加载
 
 ```mermaid
 graph TD
-NativeEvent --> FrozenRegistry
-FrozenRegistry --> CompatibilityProfile
-CompatibilityProfile --> EffectAdmission
-EffectAdmission --> CommandHookProcess
-EffectAdmission --> PiExtensionProcess
-CommandHookProcess --> ValidateOutcome
+NativeEvent["原生事件"] --> FrozenRegistry["固定的注册表"]
+FrozenRegistry --> CompatibilityProfile["兼容配置"]
+CompatibilityProfile --> EffectAdmission["效果准入"]
+EffectAdmission --> CommandHookProcess["命令钩子进程"]
+EffectAdmission --> PiExtensionProcess["Pi 扩展进程"]
+CommandHookProcess --> ValidateOutcome["校验结果"]
 PiExtensionProcess --> ValidateOutcome
-ValidateOutcome --> OriginalRuntimeOwner
+ValidateOutcome --> OriginalRuntimeOwner["原运行时负责人"]
 ```
 
 这只是有副作用回调的主要路径示意。纯回调不必经过持久效果执行器，不同事件的输出也由不同原始组件消费。

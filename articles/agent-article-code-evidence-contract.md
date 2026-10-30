@@ -100,13 +100,13 @@ Open ETF Agent 维护了结构化的[覆盖清单](https://github.com/hpoenixf/o
 
 ```mermaid
 graph TD
-ArticleClaim --> MinimalSlice
-MinimalSlice --> PublicEntryCheck
-PublicEntryCheck --> NoPublicMatch
-PublicEntryCheck --> FreezeSource
-FreezeSource --> EvidenceCheck
-EvidenceCheck --> Requalify
-EvidenceCheck --> ScopedClaim
+ArticleClaim["文章主张"] --> MinimalSlice["最小证据片段"]
+MinimalSlice --> PublicEntryCheck["检查公开入口"]
+PublicEntryCheck --> NoPublicMatch["没有公开对应项"]
+PublicEntryCheck --> FreezeSource["固定来源版本"]
+FreezeSource --> EvidenceCheck["证据检查"]
+EvidenceCheck --> Requalify["重新检查资格"]
+EvidenceCheck --> ScopedClaim["限定范围的表述"]
 ```
 
 图中两次检查各有两种结果：没有公开入口，明确标记“无公开对应”；已有入口但源码或回执不匹配，不能借用旧证据，先重新验证或收窄声明；只有代码、入口与证据匹配，才展示相应的有限能力。

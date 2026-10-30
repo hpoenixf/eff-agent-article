@@ -305,17 +305,17 @@ Publication 是工程概念，表示一段经过校验、可以独立发布和�
 
 ```mermaid
 graph TD
-UserQuestion --> ResearchEvidence
-ResearchEvidence --> CheckAnswerReadiness
+UserQuestion["用户问题"] --> ResearchEvidence["研究证据"]
+ResearchEvidence --> CheckAnswerReadiness["判断回答是否就绪"]
 CheckAnswerReadiness --> ResearchEvidence
-CheckAnswerReadiness --> PublishUsefulAnswer
-PublishUsefulAnswer --> HostSavesVersion
-HostSavesVersion --> UserReads
-HostSavesVersion --> ReuseApprovedText
-ReuseApprovedText --> CheckNewEvidence
-CheckNewEvidence --> AppendInformation
-CheckNewEvidence --> ReviseById
-CheckNewEvidence --> FinishChecks
+CheckAnswerReadiness --> PublishUsefulAnswer["发布有用回答"]
+PublishUsefulAnswer --> HostSavesVersion["Host 保存版本"]
+HostSavesVersion --> UserReads["用户阅读"]
+HostSavesVersion --> ReuseApprovedText["复用获准正文"]
+ReuseApprovedText --> CheckNewEvidence["检查新证据"]
+CheckNewEvidence --> AppendInformation["追加信息"]
+CheckNewEvidence --> ReviseById["按身份修订"]
+CheckNewEvidence --> FinishChecks["完成检查"]
 AppendInformation --> HostSavesVersion
 ReviseById --> HostSavesVersion
 ```

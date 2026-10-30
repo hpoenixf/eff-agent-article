@@ -21,9 +21,9 @@
 
 ```mermaid
 graph TD
-SourceAuthenticity --> CitationAttribution
-CitationAttribution --> EvidenceSupportsClaim
-EvidenceSupportsClaim --> AnswerMeetsQuestion
+SourceAuthenticity["来源真实"] --> CitationAttribution["引用归属准确"]
+CitationAttribution --> EvidenceSupportsClaim["证据支持主张"]
+EvidenceSupportsClaim --> AnswerMeetsQuestion["回答契合问题"]
 ```
 
 前两步主要建立可追溯关系，后两步需要理解内容与用户目标。我们曾把前面的基础设施越做越完整，却误以为后面的判断也随之解决了。

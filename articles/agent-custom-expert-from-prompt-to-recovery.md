@@ -60,14 +60,14 @@ ETF Agent 原本就有 Web、PDF、Python 子代理和六种内置投资方法�
 
 ```mermaid
 graph TD
-AccountSettings --> SavedProfile
-SavedProfile --> RunSnapshot
-RunSnapshot --> MainCatalog
-MainCatalog --> SelectedExpert
-SelectedExpert --> GeneralChild
-GeneralChild --> ResultReceipt
-ResultReceipt --> MainAnswer
-ResultReceipt --> History
+AccountSettings["账户设置"] --> SavedProfile["已保存背景"]
+SavedProfile --> RunSnapshot["运行快照"]
+RunSnapshot --> MainCatalog["主代理目录"]
+MainCatalog --> SelectedExpert["选定专家"]
+SelectedExpert --> GeneralChild["通用子代理"]
+GeneralChild --> ResultReceipt["结果回执"]
+ResultReceipt --> MainAnswer["主代理回答"]
+ResultReceipt --> History["历史记录"]
 ```
 
 这张图是关键事实的交接关系，并不是一条必须按固定速度顺序执行的队列。

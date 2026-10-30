@@ -17,6 +17,8 @@ description: 用比较资料、保存报告的简单例子，理解 Agent 为什
 
 <FlagshipEntry compact />
 
+![一份报告的三个架构问题：谁理解、谁确认事实、失败影响哪里](visuals/reading-guides/principles-zh.svg)
+
 ## 第一层 · 九条核心判断
 
 **记住这一个目标：** 用户能得到一份可靠、可核对、能重新打开的成果。职责分清楚、故障影响有限、旧机制可退出，都是实现这个目标的手段。

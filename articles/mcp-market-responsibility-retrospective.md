@@ -84,12 +84,12 @@ AKShare 则提供了另一个有用的例子。它返回单位净值观测，同
 
 ```mermaid
 graph TD
-ResearchModel --> McpHost
-McpHost --> LocalMarket
-McpHost --> NativeSource
-LocalMarket --> StructuredProviders
-StructuredProviders --> BoundedEvidence
-NativeSource --> NativeEvidence
+ResearchModel["研究模型"] --> McpHost["MCP 宿主"]
+McpHost --> LocalMarket["本地市场服务"]
+McpHost --> NativeSource["原生来源"]
+LocalMarket --> StructuredProviders["结构化数据供应商"]
+StructuredProviders --> BoundedEvidence["范围受限的证据"]
+NativeSource --> NativeEvidence["原生证据"]
 BoundedEvidence --> ResearchModel
 NativeEvidence --> ResearchModel
 ```

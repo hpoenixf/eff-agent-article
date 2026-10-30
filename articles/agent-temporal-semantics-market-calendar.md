@@ -47,15 +47,15 @@
 
 ```mermaid
 graph TD
-OriginalQuestion --> SemanticSelection
-SemanticSelection --> TemporalResolver
-HostClock --> TemporalResolver
-TaskAnchor --> TemporalResolver
-UserZone --> TemporalResolver
-MarketCalendar --> TemporalResolver
-TemporalResolver --> TypedTimeContext
-QuoteProducer --> SeparateDataAsOf
-TypedTimeContext --> ResearchModel
+OriginalQuestion["原问题"] --> SemanticSelection["语义选择"]
+SemanticSelection --> TemporalResolver["时间解析器"]
+HostClock["Host 时钟"] --> TemporalResolver
+TaskAnchor["任务锚点"] --> TemporalResolver
+UserZone["用户时区"] --> TemporalResolver
+MarketCalendar["市场日历"] --> TemporalResolver
+TemporalResolver --> TypedTimeContext["类型化时间上下文"]
+QuoteProducer["行情生产者"] --> SeparateDataAsOf["区分数据所属时点"]
+TypedTimeContext --> ResearchModel["研究模型"]
 SeparateDataAsOf --> ResearchModel
 ```
 

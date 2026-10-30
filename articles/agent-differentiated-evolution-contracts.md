@@ -93,12 +93,12 @@ Google 的 Andrew Trenk 在[《Test Behavior, Not Implementation》](https://tes
 
 ```mermaid
 graph TD
-ConcreteChange --> OriginalOwner
-OriginalOwner --> AffectedContracts
-AffectedContracts --> EffectChecks
-AffectedContracts --> SavedResultChecks
-AffectedContracts --> ResearchEvaluation
-AffectedContracts --> AdapterChecks
+ConcreteChange["具体改动"] --> OriginalOwner["原负责人"]
+OriginalOwner --> AffectedContracts["受影响的契约"]
+AffectedContracts --> EffectChecks["效果检查"]
+AffectedContracts --> SavedResultChecks["已保存结果检查"]
+AffectedContracts --> ResearchEvaluation["研究评估"]
+AffectedContracts --> AdapterChecks["适配器检查"]
 ```
 
 这些关系放进原有任务和评审即可，不必创建新的分类台账或审批层。

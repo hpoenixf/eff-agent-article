@@ -16,11 +16,11 @@
 
 ```mermaid
 sequenceDiagram
-  participant M as Model
-  participant H as Host
-  participant T as Tool
-  participant P as Projector
-  participant G as ModelGateway
+  participant M as 模型
+  participant H as 执行宿主 Host
+  participant T as 工具
+  participant P as 上下文投影器
+  participant G as 模型网关
   M->>H: 提交工具调用
   H->>H: 校验并准入
   alt 调用不获准

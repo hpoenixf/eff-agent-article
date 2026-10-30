@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+<title id="title">The model proposes; the system checks</title>
+<desc id="desc">The recorded grant determines whether the action is denied or dispatched. The outcome is recorded and interpreted before publication prepares an answer.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5c8c7d"/></marker></defs>
+<rect width="720" height="720" rx="28" fill="#f3f7f3"/>
+<text x="45" y="64" fill="#173e34" font-size="29" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">The model proposes; the system checks</text>
+<g stroke="#5c8c7d" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M360 170 V200"/><path d="M360 260 V284 H174 V315"/><path d="M360 260 V284 H546 V315"/><path d="M546 375 V405"/><path d="M546 465 V495"/><path d="M546 555 V585"/></g>
+<rect x="150" y="110" width="420" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="360.0" y="149" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Model proposes an action</text>
+<rect x="150" y="200" width="420" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="360.0" y="239" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Check the recorded grant</text>
+<rect x="24" y="315" width="300" height="60" rx="15" fill="#f9ebe7" stroke="#d8a99e"/>
+<text x="174.0" y="354" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Outside scope: deny</text>
+<rect x="396" y="315" width="300" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="546.0" y="354" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Allowed: dispatch</text>
+<rect x="396" y="405" width="300" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="546.0" y="444" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Record the actual outcome</text>
+<rect x="396" y="495" width="300" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="546.0" y="534" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Model interprets the result</text>
+<rect x="396" y="585" width="300" height="60" rx="15" fill="#ffffff" stroke="#d5e4db"/>
+<text x="546.0" y="624" text-anchor="middle" fill="#173e34" font-size="21" font-weight="650" font-family="PingFang SC, Microsoft YaHei, sans-serif">Publication prepares answer</text>
+</svg>

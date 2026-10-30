@@ -112,15 +112,15 @@ Langfuse 官方说明的摄取链本就包含 SDK、API、对象存储、队列�
 
 ```mermaid
 graph TD
-AgentEvents --> CaptureAdapter
-CaptureAdapter --> BatchExporter
-BatchExporter --> IngestionApi
-IngestionApi --> EventStorage
-IngestionApi --> IngestionQueue
-EventStorage --> Worker
+AgentEvents["Agent 事件"] --> CaptureAdapter["采集适配器"]
+CaptureAdapter --> BatchExporter["批量导出器"]
+BatchExporter --> IngestionApi["接收接口"]
+IngestionApi --> EventStorage["事件存储"]
+IngestionApi --> IngestionQueue["接收队列"]
+EventStorage --> Worker["后台处理"]
 IngestionQueue --> Worker
-Worker --> ClickHouse
-ClickHouse --> TraceReadback
+Worker --> ClickHouse["ClickHouse"]
+ClickHouse --> TraceReadback["追踪记录回读"]
 ```
 
 这张图只简化表示观测数据的主要路径；Agent 自己的 Run、工具效果和发布回执仍由原应用持久化系统负责，不因遥测系统缺失而改变。

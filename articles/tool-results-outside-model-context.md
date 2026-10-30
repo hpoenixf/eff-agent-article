@@ -49,17 +49,17 @@
 
 ```mermaid
 graph TD
-ToolRead --> AuthorizedResultView
-AuthorizedResultView --> VersionedResultStore
-VersionedResultStore --> ScopedCatalog
-ScopedCatalog --> ModelRequest
-ModelRequest --> ExplicitSelection
-ExplicitSelection --> RecordedRunGrant
-RecordedRunGrant --> SelectedContent
-RecordedRunGrant --> ReadDenied
+ToolRead["工具读取"] --> AuthorizedResultView["获准结果视图"]
+AuthorizedResultView --> VersionedResultStore["版本化结果存储"]
+VersionedResultStore --> ScopedCatalog["范围受限的目录"]
+ScopedCatalog --> ModelRequest["模型请求"]
+ModelRequest --> ExplicitSelection["显式选择"]
+ExplicitSelection --> RecordedRunGrant["已记录的运行授权"]
+RecordedRunGrant --> SelectedContent["选定内容"]
+RecordedRunGrant --> ReadDenied["读取被拒绝"]
 VersionedResultStore --> SelectedContent
-SelectedContent --> CoverageFacts
-CoverageFacts --> NextModelRequest
+SelectedContent --> CoverageFacts["覆盖事实"]
+CoverageFacts --> NextModelRequest["下一次模型请求"]
 ```
 
 图中目录与正文是不同的消费路径。显式读取核对该 Run 已记录的 grant、账户/scope 与结果版本身份；同一 Run 及其恢复不重新查询当前 ACL。只有原授权范围内的选区内容及其覆盖事实进入后续请求。

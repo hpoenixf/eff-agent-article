@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 606" role="img" aria-labelledby="title desc">
+<title id="title">One report, three questions</title>
+<desc id="desc">Start with the decisions behind the nine principles；Who understands?：The model interprets requests and proposes actions.；Who confirms facts?：Verify permission and saved effects in records.；How far does failure reach?：Keep independent results and identify gaps.；Teaching example: compare two documents and save a report</desc>
+<rect width="720" height="606" rx="28" fill="#f3f7f3"/>
+<circle cx="656" cy="60" r="94" fill="#deede5"/>
+<path d="M 52 46 h 60" stroke="#2c8069" stroke-width="7" stroke-linecap="round"/>
+<text x="52" y="96" fill="#173e34" font-size="34" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">One report, three questions</text>
+<text x="52" y="129" fill="#526e63" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">Start with the decisions behind the nine principles</text>
+<rect x="38" y="148" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="163" width="72" height="72" rx="18" fill="#dcefe6"/>
+<text x="90" y="210" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">01</text>
+<text x="148" y="190" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">Who understands?</text>
+<text x="148" y="224" fill="#526a62" font-size="22" font-family="PingFang SC, Microsoft YaHei, sans-serif">The model interprets requests and proposes actions.</text>
+<rect x="38" y="268" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="283" width="72" height="72" rx="18" fill="#e5edf8"/>
+<text x="90" y="330" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">02</text>
+<text x="148" y="310" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">Who confirms facts?</text>
+<text x="148" y="344" fill="#526a62" font-size="22" font-family="PingFang SC, Microsoft YaHei, sans-serif">Verify permission and saved effects in records.</text>
+<rect x="38" y="388" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="403" width="72" height="72" rx="18" fill="#f9ecd7"/>
+<text x="90" y="450" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">03</text>
+<text x="148" y="430" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">How far does failure reach?</text>
+<text x="148" y="464" fill="#526a62" font-size="22" font-family="PingFang SC, Microsoft YaHei, sans-serif">Keep independent results and identify gaps.</text>
+<text x="52" y="561" fill="#3b6658" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">Teaching example: compare two documents and save a report</text>
+</svg>

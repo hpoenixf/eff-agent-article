@@ -18,15 +18,7 @@
 
 因此，系统检查的是**模型提出的具体动作**：它要读取哪份资源、调用哪个工具、操作哪个账户，是否处于已授予的范围。程序不需要先用关键词把用户的话划成“安全”“确认”或“投资建议”，再根据这个标签创建权限。
 
-```mermaid
-graph TD
-ModelProposesAction --> CheckRecordedGrant
-CheckRecordedGrant --> DenyProtectedAction
-CheckRecordedGrant --> DispatchAllowedAction
-DispatchAllowedAction --> RecordExecutionOutcome
-RecordExecutionOutcome --> ModelInterpretsResult
-ModelInterpretsResult --> PublicationPreparesAnswer
-```
+![模型提出动作后，按已记录授权分为拒绝与执行两条路径](../visuals/reading-guides/authority-zh.svg)
 
 超出已授予范围的动作在派发前被拒绝；通过范围检查的动作仍可能执行失败，回执须保留实际结果。模型可以解释成功或失败，正文交付也有自己的记录。任何一步都不能替后续步骤宣布成功。
 

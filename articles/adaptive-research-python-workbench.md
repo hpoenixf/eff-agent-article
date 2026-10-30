@@ -42,9 +42,9 @@
 
 ```mermaid
 graph TD
-CompareETFs --> DetectDifferentScopes
-DetectDifferentScopes --> FetchAndRecompute
-FetchAndRecompute --> DecideNextAction
+CompareETFs["比较基金"] --> DetectDifferentScopes["识别口径差异"]
+DetectDifferentScopes --> FetchAndRecompute["获取数据并重算"]
+FetchAndRecompute --> DecideNextAction["决定下一步"]
 ```
 
 新结果会影响下一步：继续补资料、调整计算，或者说明限制并结束。这是简化示例，不是固定流程。
@@ -156,10 +156,10 @@ Python 解决的则是：当下一步需要整理、比较或计算时，怎么�
 
 ```mermaid
 graph TD
-ToolAProvidesData --> PythonSavesResult
-PythonSavesResult --> ToolBAddsData
-ToolBAddsData --> PythonRecomputes
-PythonRecomputes --> ModelInterprets
+ToolAProvidesData["工具 A 提供数据"] --> PythonSavesResult["Python 保存结果"]
+PythonSavesResult --> ToolBAddsData["工具 B 补充数据"]
+ToolBAddsData --> PythonRecomputes["Python 重新计算"]
+PythonRecomputes --> ModelInterprets["模型解释结果"]
 ```
 
 第二次 Python 读取前一次保存的文件和新数据，变量不保留。各次工具调用由模型选择；图里仍是前面的简化 ETF 示例。

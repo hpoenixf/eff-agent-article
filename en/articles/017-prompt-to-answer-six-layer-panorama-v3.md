@@ -26,6 +26,8 @@ Imagine a teammate asking: “Compare these two fund reports, tell me what chang
 | **5. Commit something deliverable** | Which answer revision or attachment was accepted and can be read back? |
 | **6. Show it to the user** | Does the page display the right task and revision, including after reconnection? |
 
+![Six questions for one task: request, identity, decision, execution, delivery and display](../../visuals/reading-guides/six-questions-en.svg)
+
 If the second report cannot be read, the assistant may explain the verified part but must not present an incomplete comparison as complete. Saving a report, conversely, does not prove the UI displayed it.
 
 **The large diagram below is a reference, not an entrance exam.** You can skip its 47 module names at first and follow these six questions through the article. Open the detailed map only when you need to inspect a particular handoff. The six stages are not a mandatory approval pipeline for every question.

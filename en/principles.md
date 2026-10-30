@@ -17,6 +17,8 @@ These are design questions, **not nine mandatory approval gates**. A model may p
 
 <FlagshipEntry compact />
 
+![One report and three design questions: understanding, factual confirmation and failure scope](../visuals/reading-guides/principles-en.svg)
+
 ## Layer 1 · Nine core judgments
 
 **One aim to remember:** A user receives an accurate report they can inspect and reopen. Clear responsibility, limited failure scope, and retireable mechanisms are means to that end.

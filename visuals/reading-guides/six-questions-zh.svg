@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 966" role="img" aria-labelledby="title desc">
+<title id="title">六个问题，读懂一次任务</title>
+<desc id="desc">先看交接关系，再按需打开详细全景；收到什么委托？：聊天、定时任务或其他事件发起工作。；这是谁的任务？：确认身份、运行与获准使用的材料。；下一步做什么？：模型选择直接回答、研究或协调。；工作如何执行？：工具返回实际结果、回执和缺口。；什么可以交付？：确认正文或文件的版本与保存状态。；用户看到什么？：展示正确任务和版本，支持后续查看。；这是阅读地图，并非每次都经过的固定流程。</desc>
+<rect width="720" height="966" rx="28" fill="#f3f7f3"/>
+<circle cx="656" cy="60" r="94" fill="#deede5"/>
+<path d="M 52 46 h 60" stroke="#2c8069" stroke-width="7" stroke-linecap="round"/>
+<text x="52" y="96" fill="#173e34" font-size="34" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">六个问题，读懂一次任务</text>
+<text x="52" y="129" fill="#526e63" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">先看交接关系，再按需打开详细全景</text>
+<rect x="38" y="148" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="163" width="72" height="72" rx="18" fill="#dcefe6"/>
+<text x="90" y="210" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">01</text>
+<text x="148" y="190" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">收到什么委托？</text>
+<text x="148" y="224" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">聊天、定时任务或其他事件发起工作。</text>
+<rect x="38" y="268" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="283" width="72" height="72" rx="18" fill="#e5edf8"/>
+<text x="90" y="330" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">02</text>
+<text x="148" y="310" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">这是谁的任务？</text>
+<text x="148" y="344" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">确认身份、运行与获准使用的材料。</text>
+<rect x="38" y="388" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="403" width="72" height="72" rx="18" fill="#f9ecd7"/>
+<text x="90" y="450" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">03</text>
+<text x="148" y="430" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">下一步做什么？</text>
+<text x="148" y="464" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">模型选择直接回答、研究或协调。</text>
+<rect x="38" y="508" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="523" width="72" height="72" rx="18" fill="#e9e5f7"/>
+<text x="90" y="570" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">04</text>
+<text x="148" y="550" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">工作如何执行？</text>
+<text x="148" y="584" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">工具返回实际结果、回执和缺口。</text>
+<rect x="38" y="628" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="643" width="72" height="72" rx="18" fill="#dfeff1"/>
+<text x="90" y="690" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">05</text>
+<text x="148" y="670" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">什么可以交付？</text>
+<text x="148" y="704" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">确认正文或文件的版本与保存状态。</text>
+<rect x="38" y="748" width="644" height="102" rx="18" fill="#ffffff" stroke="#d9e5dc"/>
+<rect x="54" y="763" width="72" height="72" rx="18" fill="#f5e5e3"/>
+<text x="90" y="810" text-anchor="middle" fill="#256c59" font-size="29" font-weight="700" font-family="sans-serif">06</text>
+<text x="148" y="790" fill="#173e34" font-size="27" font-weight="700" font-family="PingFang SC, Microsoft YaHei, sans-serif">用户看到什么？</text>
+<text x="148" y="824" fill="#526a62" font-size="25" font-family="PingFang SC, Microsoft YaHei, sans-serif">展示正确任务和版本，支持后续查看。</text>
+<text x="52" y="921" fill="#3b6658" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">这是阅读地图，并非每次都经过的固定流程。</text>
+</svg>
