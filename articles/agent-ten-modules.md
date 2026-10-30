@@ -5,7 +5,7 @@ description: "以 Open ETF Agent v0.15 的实际代码为底座，分组认识�
 
 # Agent 进阶：读懂 Open ETF Agent 的十个核心模块
 
-> **进阶 · 第 2 站**　[入门](./agent-in-15-minutes.md) → 进阶 → [深入](./agent-loop-to-application.md) → 全景
+> **进阶 · 第 2 站**　[入门](./agent-in-15-minutes.md) → 进阶 → [深入](./open-etf-agent-v010-system-design.md) → 全景
 
 上一篇已经走过一个 Agent Loop：**AI 根据当前信息选择动作，工具返回结果，AI 再决定下一步。**
 
@@ -124,10 +124,10 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 
 这三条是**独立示例**，各自展示一组能力。更多入口见[当前项目指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md)。
 
-## 下一站：沿 v0.15 看一次协作
+## 下一站：把资料、执行与协作串起来
 
 现在，你既认识名字，也知道它们接到哪段代码。最有价值的下一步，是跟着一个具体任务看信息怎样穿过这些模块。
 
-**继续阅读：[Agent 深入：跟着 v0.15 跑一次专家协作](./agent-loop-to-application.md)。** 走完这条路径，再进入完整系统全景。
+**继续阅读：[Agent 深入：从一份报告到持续执行与专家协作](./open-etf-agent-v010-system-design.md)。** 走完这条路径，再进入完整系统全景。
 
 [返回入门](./agent-in-15-minutes.md) · [English](../en/articles/agent-ten-modules.md) · [Open ETF Agent（欢迎 Star）](https://github.com/hpoenixf/open-etf-agent)

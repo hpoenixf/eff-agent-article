@@ -2,13 +2,12 @@
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
   "agent-ten-modules": "Agent Intermediate: Ten Core Modules in Open ETF Agent",
-  "agent-loop-to-application": "Agent Deep Dive: Run a Specialist Collaboration in v0.15",
   "agent-in-15-minutes": "Agents in 15 Minutes",
   "docs-code-tests-evolve-together": "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together",
   "agent-article-code-evidence-contract": "Does the Code Really Support the Article? An Evidence Contract for Technical Writing",
   "agent-engineering-suite": "Agent Engineering Suite: Connecting Requirements to Release",
   "one-report-nine-architecture-judgments": "Nine Architecture Judgments Behind One Report",
-  "open-etf-agent-v010-system-design": "From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage",
+  "open-etf-agent-v010-system-design": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration",
   "agent-thinking-fast-slow-research-needs": "Why AI Agents Need Thinking, Fast and Slow",
   "financial-agent-system-panorama": "Financial Agents in Context: Systems, Lifecycles, and Accountability",
   "ai-coding-judgment-and-verification": "The Expensive Part of AI Coding Is Deciding What Deserves Verification",
@@ -81,7 +80,6 @@ export const englishTitles = {
 }
 export const englishArticleSlugs = [
   "agent-ten-modules",
-  "agent-loop-to-application",
   "agent-in-15-minutes",
   "docs-code-tests-evolve-together",
   "agent-article-code-evidence-contract",
@@ -229,5 +227,5 @@ export const englishCollections = collections.map(collection => ({
 }))
 export function englishArticlePath(slug) {
   const canonical = mergedArticles[slug] || slug
-  return (englishArticleSlugs.includes(canonical) || historicalEnglishArticleSlugs.includes(canonical)) ? '/en/articles/' + canonical : '/articles/' + canonical
+  return (englishArticleSlugs.includes(canonical) || historicalEnglishArticleSlugs.includes(canonical) ? '/en' : '') + '/articles/' + canonical
 }
