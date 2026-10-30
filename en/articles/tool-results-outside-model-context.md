@@ -151,6 +151,18 @@ The tool response therefore cannot be the last observation point. We distinguish
 
 “Data acquired,” “reference returned,” and “content included in the request” are separate facts. Coverage must follow the actual consumption path as well. Completeness at an earlier stage cannot prove that the final request still contains the complete selection.
 
+### A New Finding: Old Reads Kept Reappearing Before Context Was Full
+
+We later inspected the actual model inputs of a long-running research Run. Main issued 37 Native requests and made 20 explicit tool-result reads. Across subsequent requests, we observed **279 repeated appearances of identical read-result messages**. These are appearances in different request messages—not 279 additional tool executions, and not a directly measured token or billing total.
+
+The earlier strategy had a reasonable purpose: it converted older result bodies into exact-reread references only when the aggregate tool-result working set exceeded a roughly 192 KiB soft target. That avoids retiring useful evidence too early while there is ample space. But in this particular Run the aggregate threshold was never crossed, so older materialized reads continued to travel with later requests.
+
+The updated behavior does not reduce the global ceiling or ask the model to summarize the evidence. Instead, it applies a smaller working-set target **only to older explicit reads whose precise reread eligibility is established by a unique Host receipt**. When those older reads exceed that target, the request projection may replace their text with an original-result reference. The two newest read groups, current results, finalization, and the user's original text remain protected. Each reference preserves its selection and coverage facts and can only be reread under the same Run grant and source version. Unknown, ambiguous, failed, or unverifiable results are not silently discarded.
+
+In a controlled request fixture with five read groups, the new projection reduced the **serialized request by more than 30,000 bytes**. This is an application-level byte comparison, not an observed reduction in paid model tokens or answer errors. A model may also choose to reread the older material later, so the net request frequency and cost still require real-run observation.
+
+The investigation also exposed an observability problem: the original bounded efficiency stream retained request-footprint details for only 21 of 92 model requests. Later work prioritized request facts within the same bounded capture budget and explicitly reported missing observations rather than treating an absent record as an absent request. **Reducing repeated context and knowing what the model actually received require separate checks.**
+
 ## References, Authorization and Refresh Keep Different Meanings
 
 The result store should retain the authorized data view. If private fields are filtered out but the unfiltered capture enters a readable store, a later reference read may bring those fields back. Each read must still fit that Run's recorded grant and preserve account, scope and content-version identity. A new Run requires independent admission; an old reference cannot supply permission. A reference is an address, not an access grant.

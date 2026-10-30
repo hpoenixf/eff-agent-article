@@ -180,6 +180,7 @@ export const collections = [
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "测试与评测：绿灯究竟证明什么"],
+          ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],
           ["test-lifecycle-refactoring-retirement-and-spec", "测试也会过期：把重构、退役和删除前移到 Spec"],
           ["agent-runtime-refactor-one-day-blocked", "一个 Subagent 改动，为什么拖住了我们整整一天？"],
           ["032-ai-development-from-bug-loop-to-task-convergence", "从 Bug 循环到完整任务收敛"],
