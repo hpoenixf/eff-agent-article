@@ -6,9 +6,9 @@ import { execFileSync } from 'node:child_process'
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 const stages = {
-  intro: { slug: 'agent-in-15-minutes', count: 10, source: ['src/gateway.mjs', 'src/runtime.mjs', 'src/tools.mjs'] },
-  intermediate: { slug: 'agent-ten-modules', count: 16, source: ['src/skills.mjs', 'src/mcp.mjs', 'src/memory.mjs', 'src/child.mjs'] },
-  deep: { slug: 'open-etf-agent-v010-system-design', count: 17, source: ['src/specialist-demo.mjs', 'src/specialist-child.mjs', 'src/calculation.mjs'] }
+  intro: { slug: 'agent-in-15-minutes', width: 1720, height: 1110, count: 10, source: ['src/gateway.mjs', 'src/runtime.mjs', 'src/tools.mjs'] },
+  intermediate: { slug: 'agent-ten-modules', width: 2240, height: 1110, count: 16, source: ['src/skills.mjs', 'src/mcp.mjs', 'src/memory.mjs', 'src/child.mjs'] },
+  deep: { slug: 'open-etf-agent-v010-system-design', width: 2240, height: 1110, count: 17, source: ['src/specialist-demo.mjs', 'src/specialist-child.mjs', 'src/calculation.mjs'] }
 }
 const sourcePrefix = 'https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/'
 const map = (stage, lang) => 'visuals/learning-stage-maps/' + stage + '-' + lang + '.svg'
@@ -18,7 +18,7 @@ test('three six-layer maps have bilingual source parity and no unrelated Owner d
     const texts = ['zh', 'en'].map(lang => read(map(stage, lang)))
     const linkSets = texts.map(text => [...text.matchAll(/<a class="stage-link" href="([^"]+)"/g)].map(match => match[1]))
     for (const [index, content] of texts.entries()) {
-      assert.match(content, /^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" width="2960" height="1754"/)
+      assert.ok(content.startsWith('<svg xmlns="http://www.w3.org/2000/svg" width="' + spec.width + '" height="' + spec.height + '" viewBox="0 0 ' + spec.width + ' ' + spec.height + '"'), stage + ': incorrect compact dimensions')
       assert.ok(content.endsWith('</svg>'))
       assert.equal(linkSets[index].length, spec.count, stage)
       assert.ok(linkSets[index].every(href => href.startsWith(sourcePrefix)))
@@ -32,6 +32,7 @@ test('three six-layer maps have bilingual source parity and no unrelated Owner d
       const article = read(prefix + 'articles/' + spec.slug + '.md')
       const asset = '/eff-agent-article/' + map(stage, lang)
       assert.ok(article.includes('<PanoramaViewer src="' + asset + '"'))
+      assert.ok(article.includes(':canvas-width="' + spec.width + '" :canvas-height="' + spec.height + '"'), stage + ': viewer must fit SVG geometry')
       assert.ok(article.includes('<object class="v3-owner-map" type="image/svg+xml" data="' + asset + '"'))
       assert.ok(article.includes('https://hpoenixf.com' + asset))
     }
@@ -45,4 +46,16 @@ test('the committed SVGs match their single deterministic generator', () => {
     cwd: new URL('.', root), stdio: 'pipe'
   })
   assert.deepEqual(files.map(read), previous, 'regeneration must not modify committed diagrams')
+})
+
+test('compact viewer respects per-image dimensions without changing the full panorama defaults', () => {
+  const viewer = read('.vitepress/theme/PanoramaViewer.vue')
+  assert.ok(viewer.includes('props.canvasWidth ?? 2960'))
+  assert.ok(viewer.includes('props.canvasHeight ?? 1754'))
+  assert.ok(viewer.includes('stage.value.clientWidth / naturalWidth.value'))
+  assert.ok(viewer.includes('stage.value.clientHeight / naturalHeight.value'))
+  assert.ok(viewer.includes('compact-learning-map'))
+  const panorama = read('articles/017-prompt-to-answer-six-layer-panorama-v3.md')
+  assert.ok(panorama.includes('v3-owner-map-zh.svg'))
+  assert.ok(!panorama.includes(':canvas-width='))
 })

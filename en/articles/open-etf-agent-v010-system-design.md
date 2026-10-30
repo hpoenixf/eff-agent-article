@@ -18,7 +18,7 @@ We will examine three questions: how information becomes a report, how execution
 
 Building on the intermediate modules, this map **highlights** `source_check` Main/Child delegation, the Child's restricted tools, original evidence versus derived judgments, reproducible ResultRef calculations, and actual report readback. Muted chips are previously introduced building blocks; select a solid chip for pinned source code.
 
-<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-en.svg" label="Deep-dive six-layer map: source evidence, durable execution, Main/Child handoff, and report readback" :source-links="true">
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-en.svg" label="Deep-dive six-layer map: source evidence, durable execution, Main/Child handoff, and report readback" :source-links="true" :canvas-width="2240" :canvas-height="1110">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/deep-en.svg" role="img" aria-label="Deep-dive six-layer map: source evidence, durable execution, Main/Child handoff, and report readback">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/deep-en.svg">Open the six-layer SVG map</a>

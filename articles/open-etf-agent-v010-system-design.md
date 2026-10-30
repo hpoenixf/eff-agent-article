@@ -18,7 +18,7 @@ description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、�
 
 在进阶模块基础上，图中**重点突出** `source_check` 的 Main/Child 交接、Child 的受限工具、原文与派生判断的来源边界、ResultRef 的可复算链路，以及报告的实际回读。浅灰框是已经介绍过的基础模块；点击实线标签可查看固定源码。
 
-<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg" label="深入六层能力图：来源证据、持续执行、Main/Child 交接与报告回读" :source-links="true">
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg" label="深入六层能力图：来源证据、持续执行、Main/Child 交接与报告回读" :source-links="true" :canvas-width="2240" :canvas-height="1110">
 <div class="v3-owner-map-scroll">
   <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg" role="img" aria-label="深入六层能力图：来源证据、持续执行、Main/Child 交接与报告回读">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg">打开 SVG 六层能力图</a>

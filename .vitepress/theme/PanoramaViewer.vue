@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 
-const props = defineProps<{ src: string; label: string; sourceLinks?: boolean }>()
+const props = defineProps<{ src: string; label: string; sourceLinks?: boolean; canvasWidth?: number; canvasHeight?: number }>()
 const { lang } = useData()
 const english = computed(() => lang.value.startsWith('en'))
 const dialog = ref<HTMLDialogElement>()
@@ -12,7 +12,19 @@ const mounted = ref(false)
 const opened = ref(false)
 const scale = ref(1)
 const fitting = ref(true)
-const size = computed(() => ({ width: `${2960 * scale.value}px`, height: `${1754 * scale.value}px` }))
+const naturalWidth = computed(() => props.canvasWidth ?? 2960)
+const naturalHeight = computed(() => props.canvasHeight ?? 1754)
+const size = computed(() => ({
+  width: `${naturalWidth.value * scale.value}px`,
+  height: `${naturalHeight.value * scale.value}px`
+}))
+// The full 2960×1754 panorama keeps its established preview dimensions.
+// Compact stage maps use a more readable intrinsic preview aspect ratio.
+const compactPreviewStyle = computed(() => {
+  const width = Math.min(1320, Math.round(naturalWidth.value * 0.64))
+  const height = Math.round(width * naturalHeight.value / naturalWidth.value)
+  return { '--learning-preview-width': `${width}px`, '--learning-preview-height': `${height}px` }
+})
 let observer: ResizeObserver | undefined
 let ownsFullscreen = false
 let previousOverflow = ''
@@ -20,7 +32,7 @@ let previousOverflow = ''
 function fit() {
   if (!stage.value) return
   fitting.value = true
-  scale.value = Math.min(stage.value.clientWidth / 2960, stage.value.clientHeight / 1754, 1)
+  scale.value = Math.min(stage.value.clientWidth / naturalWidth.value, stage.value.clientHeight / naturalHeight.value, 1)
 }
 
 function zoom(value: number) {
@@ -78,7 +90,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <figure class="panorama-viewer">
+  <figure class="panorama-viewer" :class="{ 'compact-learning-map': props.sourceLinks }" :style="props.sourceLinks ? compactPreviewStyle : undefined">
     <div class="panorama-toolbar">
       <span>{{ props.sourceLinks ? (english ? 'Learning map · select a chip for pinned source code' : '分阶段能力图 · 点击卡片查看固定源码') : (english ? 'Panorama · select a module to read more' : '全景图 · 点击模块阅读专文') }}</span>
       <button ref="trigger" type="button" aria-haspopup="dialog" :disabled="!mounted" @click="open">
@@ -113,6 +125,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .panorama-viewer { margin: 24px 0; }
+.compact-learning-map :deep(.v3-owner-map) {
+  width: var(--learning-preview-width);
+  height: var(--learning-preview-height);
+}
 .panorama-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; color: var(--vp-c-text-2); font-size: 13px; padding-bottom: 12px; }
 .panorama-toolbar button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 12px; border: 1px solid var(--vp-c-divider); border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font: inherit; font-weight: 600; cursor: pointer; }
 .panorama-toolbar button:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
