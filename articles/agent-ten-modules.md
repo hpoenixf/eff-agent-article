@@ -16,6 +16,20 @@ description: "以 Open ETF Agent v0.15 的实际代码为底座，分组认识�
 **先看前三项怎样工作，再看后面的能力怎样逐步接进来。** 十组能力是阅读源码的分组，可以在同一个程序里协作。
 
 
+## 六层能力图：进阶新增了哪些模块？
+
+相较入门图，**彩色卡片突出本篇新增的领域**：Skill 方法、MCP 工具连接、Result 来源、Memory、Session/Worker、专家 Child 与 Artifact。浅灰卡片是已经解释过的模型、Runtime、Tool Host 和入口。每个实线卡片都链接固定 v0.15 源文件。
+
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg" label="进阶六层能力图：十组核心模块及新增领域" :source-links="true">
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg" role="img" aria-label="进阶六层能力图：十组核心模块及新增领域">
+    <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intermediate-zh.svg">打开 SVG 六层能力图</a>
+  </object>
+</div>
+</PanoramaViewer>
+
+**范围边界：** 这是一张十组模块的阅读地图，并非一条任务的实际 Trace。文中 T1、`skill-mcp`、检索与专家协作是分别运行的示例；没有实现证据的领域不画。
+
 ## 先想一个需求：为什么三行 Agent Loop 还不够？
 
 入门篇的 `while` 循环回答了“下一步谁来选”。真正写成应用，还会遇到另一类问题：**谁允许它读、读到的东西放在哪里、失败之后还能不能继续、用户最后拿到的是哪份结果？**

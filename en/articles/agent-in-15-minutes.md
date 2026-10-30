@@ -15,6 +15,20 @@ Follow one example, three diagrams, and a walkthrough of the Agent Loop to see h
 
 ![Agents at a glance: user request, next action, tools, useful result](../../visuals/en/agent-in-15-minutes/01-agent-at-a-glance-en.svg)
 
+## Six-layer capability map: the smallest runnable path
+
+This map uses the panorama's six horizontal stages and vertical capability groups, but **shows only modules used by the beginner example**. Select a colored solid chip to inspect the pinned v0.15 source. L5 means writing `report.md` and L6 means reopening it through the CLI; **neither implies** a complete online Publication system, a Web interface, or all panorama capabilities.
+
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/intro-en.svg" label="Beginner six-layer map: minimal agent loop, tools, and CLI report" :source-links="true">
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/intro-en.svg" role="img" aria-label="Beginner six-layer map: minimal agent loop, tools, and CLI report">
+    <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/intro-en.svg">Open the six-layer SVG map</a>
+  </object>
+</div>
+</PanoramaViewer>
+
+**Follow the path:** start T1 → project Context → Gateway/Runtime loop → Tool Host reads A/B → save and reopen the report. The default model actions are scripted.
+
 ## A familiar task: compare two documents
 
 Imagine receiving this request:
