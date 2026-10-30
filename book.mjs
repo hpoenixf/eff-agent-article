@@ -151,7 +151,8 @@ export const collections = [
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
           ["local-improvement-is-not-system-progress", "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"],
-          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Langfuse：从 Trace 到可信观测"]
+          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Langfuse：从 Trace 到可信观测"],
+          ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"]
         ]
       }
     ]
@@ -180,6 +181,9 @@ export const collections = [
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "测试与评测：绿灯究竟证明什么"],
+          ["agent-trace-complete-observation-gaps", "Trace 显示 Complete，为什么 Agent 还是无法完整复盘？"],
+          ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
+          ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
           ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],
           ["test-lifecycle-refactoring-retirement-and-spec", "测试也会过期：把重构、退役和删除前移到 Spec"],
           ["agent-runtime-refactor-one-day-blocked", "一个 Subagent 改动，为什么拖住了我们整整一天？"],
