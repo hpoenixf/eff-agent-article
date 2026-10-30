@@ -15,6 +15,7 @@ import PrinciplesLink from './PrinciplesLink.vue'
 import ReadingTracker from './ReadingTracker.vue'
 import StarLink from './StarLink.vue'
 import ArticleStar from './ArticleStar.vue'
+import WeChatFollow from './WeChatFollow.vue'
 import LanguagePreference from './LanguagePreference.vue'
 import './custom.css'
 
@@ -23,10 +24,11 @@ export default {
   Layout: () => h(DefaultTheme.Layout, null, {
     'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'doc-before': () => [h(EvidenceScope), h(OpenSourceBridge)],
-    'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar)],
+    'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics)]
   }),
   enhanceApp({ app }) {
+    app.component('WeChatFollow', WeChatFollow)
     app.component('OpenEtfTopic', OpenEtfTopic)
     app.component('OpenEtfTopicEntry', OpenEtfTopicEntry)
     app.component('ChapterCatalog', ChapterCatalog)

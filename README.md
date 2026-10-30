@@ -10,6 +10,12 @@
 
 **By hpoenixf: 10 years of software development experience, including 5 years building financial business systems.** A frontend-leaning full-stack developer focused on Agent engineering, connecting system design with runnable implementations and verification evidence.
 
+## 微信公众号 · 小飞的 AI 投研工坊
+
+扫码关注微信公众号，在微信里继续阅读 Agent 工程实践。手机端可保存二维码，再在微信中识别。
+
+<a href="public/images/wechat-public-account.jpg"><img src="public/images/wechat-public-account.jpg" alt="小飞的 AI 投研工坊微信公众号关注二维码，点击查看原图" width="180" height="180" /></a>
+
 ## 最近三个模块阅读
 
 按公开项目的模块演进顺序选取，与[项目阅读入口](https://hpoenixf.com/eff-agent-article/open-etf-agent)一致，**不是文章发布日期排名**。文章的完整机制与可运行实现的有限范围分别说明；中英正文是同一篇文章的两个版本。
