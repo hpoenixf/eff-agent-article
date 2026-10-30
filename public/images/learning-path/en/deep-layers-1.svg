@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="690" viewBox="0 0 560 690" role="img" aria-labelledby="title"><title id="title">Identify the task before acting</title><defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#59718e" stroke-width="1.5"/></marker></defs><rect width="560" height="690" rx="22" fill="#f7f9fc"/>
+<text x="30" y="37" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" fill="#087f82">SIX LAYERS / HANDOFFS</text>
+<text x="30" y="78" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="29" font-weight="700" fill="#172b46">Identify the task before acting</text>
+<rect x="30" y="128" width="500" height="148" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<circle cx="64" cy="160" r="22" fill="#345dc2"/>
+<text x="48" y="168" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="20" font-weight="700" fill="#fff">L1</text>
+<text x="100" y="167" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#345dc2">Task origin</text>
+<text x="50" y="205" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">Who requests A/B comparison, and when?</text>
+<text x="50" y="241" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="21" font-weight="400" fill="#536780">User request; periodic triggers come later</text>
+<path d="M280 279 V300" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="30" y="304" width="500" height="148" rx="15" fill="#e2f5f1" stroke="#64b5ac" stroke-width="1.5"/>
+<circle cx="64" cy="336" r="22" fill="#087f82"/>
+<text x="48" y="344" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="20" font-weight="700" fill="#fff">L2</text>
+<text x="100" y="343" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#087f82">Identity and permitted scope</text>
+<text x="50" y="381" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">Whose Run? Which sources are permitted?</text>
+<text x="50" y="417" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="21" font-weight="400" fill="#536780">Session · Context · original Grant</text>
+<path d="M280 455 V476" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="30" y="480" width="500" height="148" rx="15" fill="#fff0dc" stroke="#e6bc81" stroke-width="1.5"/>
+<circle cx="64" cy="512" r="22" fill="#ad6400"/>
+<text x="48" y="520" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="20" font-weight="700" fill="#fff">L3</text>
+<text x="100" y="519" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#ad6400">Decision and execution</text>
+<text x="50" y="557" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">What next? Is a Child needed?</text>
+<text x="50" y="593" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="21" font-weight="400" fill="#536780">Main / Child · Runtime; proposal ≠ permission</text>
+</svg>

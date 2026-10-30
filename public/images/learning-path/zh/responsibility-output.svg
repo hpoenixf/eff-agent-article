@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="614" viewBox="0 0 560 614" role="img" aria-labelledby="title"><title id="title">解释、委派与保存各有边界</title><defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#59718e" stroke-width="1.5"/></marker></defs><rect width="560" height="614" rx="22" fill="#f7f9fc"/>
+<text x="30" y="37" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" fill="#087f82">RESPONSIBILITY / 02</text>
+<text x="30" y="78" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="29" font-weight="700" fill="#172b46">解释、委派与保存各有边界</text>
+<text x="30" y="126" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#172b46">怎样表达变化？</text>
+<rect x="30" y="144" width="232" height="110" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<rect x="298" y="144" width="232" height="110" rx="15" fill="#e2f5f1" stroke="#64b5ac" stroke-width="1.5"/>
+<text x="45" y="172" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#345dc2">模型提议</text>
+<text x="313" y="172" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#087f82">代码约束</text>
+<text x="45" y="204" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">比较语义</text>
+<text x="45" y="234" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">写可读说明</text>
+<text x="313" y="204" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">计算与来源</text>
+<text x="313" y="234" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">不可编造</text>
+<path d="M265 204 H292" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<text x="30" y="284" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#172b46">何时委派专家？</text>
+<rect x="30" y="302" width="232" height="110" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<rect x="298" y="302" width="232" height="110" rx="15" fill="#e2f5f1" stroke="#64b5ac" stroke-width="1.5"/>
+<text x="45" y="330" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#345dc2">模型提议</text>
+<text x="313" y="330" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#087f82">代码约束</text>
+<text x="45" y="362" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">提出明确的</text>
+<text x="45" y="392" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">核对问题</text>
+<text x="313" y="362" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">Child 受原</text>
+<text x="313" y="392" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">范围与预算限制</text>
+<path d="M265 362 H292" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<text x="30" y="442" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700" fill="#172b46">是否保存报告？</text>
+<rect x="30" y="460" width="232" height="110" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<rect x="298" y="460" width="232" height="110" rx="15" fill="#e2f5f1" stroke="#64b5ac" stroke-width="1.5"/>
+<text x="45" y="488" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#345dc2">模型提议</text>
+<text x="313" y="488" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="19" font-weight="700" fill="#087f82">代码约束</text>
+<text x="45" y="520" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">组织期望</text>
+<text x="45" y="550" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">交付的正文</text>
+<text x="313" y="520" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">写入须有</text>
+<text x="313" y="550" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#172b46">真实回执</text>
+<path d="M265 520 H292" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+</svg>

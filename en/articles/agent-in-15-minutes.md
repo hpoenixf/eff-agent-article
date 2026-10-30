@@ -5,7 +5,7 @@ description: "A friendly introduction for frontend and backend developers. Follo
 
 # Agents in 15 Minutes
 
-> **Introduction · Stop 1**　Introduction → [Intermediate](./agent-ten-modules.md) → [Deep dive](./open-etf-agent-v010-system-design.md) → Panorama
+<LearningPathNav />
 
 If you have built an API, called a backend service, or written a short JavaScript automation script, you already have a useful starting point for understanding agents.
 

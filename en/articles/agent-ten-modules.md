@@ -5,7 +5,7 @@ description: "Use actual Open ETF Agent v0.15 code to understand the loop, tools
 
 # Agent Intermediate: Ten Core Modules in Open ETF Agent
 
-> **Intermediate · Stop 2**　[Introduction](./agent-in-15-minutes.md) → Intermediate → [Deep dive](./open-etf-agent-v010-system-design.md) → Panorama
+<LearningPathNav />
 
 The introduction followed an Agent Loop: **AI chooses an action from the current information, a tool returns a result, and AI decides what comes next.**
 
@@ -128,6 +128,17 @@ Code entry: [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/bl
 
 Here is the document comparison as a responsibility flow. **It is an explanatory diagram, not a literal trace from one execution.** The specialist branch is optional; the introductory T1 example does not activate every module.
 
+![Obtain evidence: Runtime, Tool Host, and Result](/images/learning-path/en/relay-read.svg)
+
+![Evidence enters the next turn; optional Child and direct Main bypass](/images/learning-path/en/relay-decide.svg)
+
+![Main composes, the tool saves, and the user receives an answer](/images/learning-path/en/relay-deliver.svg)
+
+These three frames are a reading overview, not one live trace. The dashed bypass in frame two skips Child when no specialist is needed. No read is required, or sources are insufficient: an answer may still be composed, but gaps must remain explicit. The original diagram retains every branch.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 ```mermaid
 flowchart TD
   A[User requests document comparison] --> B[Runtime asks Gateway for the next step]
@@ -146,6 +157,8 @@ flowchart TD
   L --> Z
   F --> Z
 ```
+
+</details>
 
 Three decisions matter. The model may choose an action, but Runtime and Host decide whether a call is permitted under the actual scope, schema, and budget. A successful read of A alone does not prove that the A/B comparison is complete. And delegation is a deliberate branch, not a subagent started for every question.
 
@@ -168,6 +181,15 @@ An `observation` is derived from material; a `source` points back to the origina
 
 ### The model proposes; code establishes facts
 
+![Action selection and evidence sufficiency: model proposals versus code constraints](/images/learning-path/en/responsibility-evidence.svg)
+
+![Responsibility boundaries for explanation, delegation, and storage](/images/learning-path/en/responsibility-output.svg)
+
+The model may propose actions and interpret evidence; code must enforce scope, actual source identity, and storage facts. All five responsibilities remain below.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Question | What the model can do | What code must enforce |
 | --- | --- | --- |
 | Read A or B next? | Choose from the task and current evidence | Restrict tools and documents to the permitted scope |
@@ -175,6 +197,8 @@ An `observation` is derived from material; a `source` points back to the origina
 | How should the changes be explained? | Compare meaning and write a clear account | Do not let model prose invent calculation or source identities |
 | When should a specialist help? | Propose a specific checking question | Limit the Child's inherited scope and budget |
 | Should the report be saved? | Compose the intended output | Confirm the write through an actual storage receipt |
+
+</details>
 
 A Skill may teach “compare equivalent dimensions first”; **it is not an access grant**. MCP makes tools discoverable; **it is not a permission slip**. Memory may carry “use a table first”; **it is not evidence for guide B**. Separating these concerns solves many problems that otherwise look like prompt tuning.
 
@@ -224,6 +248,15 @@ These are **independent examples**, each demonstrating a group of capabilities. 
 
 The ten capabilities are not synonyms for six layers. **Modules describe responsibilities; layers identify handoffs from task initiation to a user-visible result.** A module may participate in several stages.
 
+![L1 to L3: task, identity and context, and decisions](/images/learning-path/en/modules-layers-1.svg)
+
+![L4 to L6: tools, report delivery, and the user interface](/images/learning-path/en/modules-layers-2.svg)
+
+Read the six layers as handoff positions, not six services that must run in sequence. A module may participate in several layers. Broader publication governance and product UI remain outside the teaching scope described here.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Layer | In the Atlas Notes example | Capability introduced here |
 | --- | --- | --- |
 | **L1 Task input and trigger** | The user asks to compare A and B | Task input; scheduled triggers can be added later |
@@ -232,6 +265,8 @@ The ten capabilities are not synonyms for six layers. **Modules describe respons
 | **L4 Tools and domain capabilities** | Actually read pages and retain originals | Tool Host, MCP, Result |
 | **L5 Result publication and delivery** | Save a report that can be read back | Report and Artifact; broader publication governance comes later |
 | **L6 User interface** | The reader opens the right task's report | CLI establishes readback; a product UI handles presentation and reconnection |
+
+</details>
 
 **Deep Dive adds fewer new nouns and asks harder questions instead:** How can a number be traced to its source? How does a task cross a process boundary? How can a specialist's summary avoid replacing primary evidence?
 

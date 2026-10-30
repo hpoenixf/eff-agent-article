@@ -5,6 +5,8 @@ description: "Follow one user request through Main/subagents, model and tools, D
 
 # From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle
 
+<LearningPathNav />
+
 **The six stages are useful because they separate handoffs—not because they force the model through a fixed pipeline.** Who requested the work, who chooses the next step, who performs an effect, and which result can the user actually read? This article follows the current implementation. The stages are a reading map, not six processes, and participation across stages does not transfer authority over permissions, facts or effects.
 
 ## 1. One user question, six processing concerns

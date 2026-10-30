@@ -5,7 +5,7 @@ description: "以 Open ETF Agent v0.15 的实际代码为底座，分组认识�
 
 # Agent 进阶：读懂 Open ETF Agent 的十个核心模块
 
-> **进阶 · 第 2 站**　[入门](./agent-in-15-minutes.md) → 进阶 → [深入](./open-etf-agent-v010-system-design.md) → 全景
+<LearningPathNav />
 
 上一篇已经走过一个 Agent Loop：**AI 根据当前信息选择动作，工具返回结果，AI 再决定下一步。**
 
@@ -128,6 +128,17 @@ v0.15 的重点是串行来源核对专家。Main 把核对问题交给 Child；
 
 把刚才的例子画成一张执行图。**这是用于解释职责的示意图，不是某次运行的逐条 Trace**；其中“是否需要专家”是可选分支，入门 T1 不会自动跑出所有模块。
 
+![先取得资料：Runtime、Tool Host 与 Result 的交接](/images/learning-path/zh/relay-read.svg)
+
+![资料进入下一轮；Child 可选核对分支与直接 Main 旁路](/images/learning-path/zh/relay-decide.svg)
+
+![Main 整理报告、工具保存、用户获得答复](/images/learning-path/zh/relay-deliver.svg)
+
+三幅分镜是阅读概览，不是一次真实 Trace。第二幅的虚线旁路表示不需要 Child；不需要读取或来源不足时，也可直接组织答复，缺口仍须说明。完整原图保留全部条件分支。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 ```mermaid
 flowchart TD
   A[用户提出文档比较任务] --> B[Runtime 通过 Gateway 请求下一步]
@@ -146,6 +157,8 @@ flowchart TD
   L --> Z
   F --> Z
 ```
+
+</details>
 
 图中的三处判断值得细看。第一处由模型结合任务选择动作，但工具是否能调用，由 Runtime 和 Host 依据实际权限、参数及额度决定。第二处不是“工具返回 200 就算完成”：A 读到了、B 没读到，就不能声称完成了版本比较。第三处是按需委派，不是每次都开启子代理。
 
@@ -168,6 +181,15 @@ flowchart TD
 
 ### 模型建议动作，代码确认事实
 
+![选动作与资料充分性：模型提议和代码约束的边界](/images/learning-path/zh/responsibility-evidence.svg)
+
+![解释、委派和保存的职责边界](/images/learning-path/zh/responsibility-output.svg)
+
+模型可以提议动作、解释材料；代码必须确认允许范围、实际来源与写入事实。完整五项职责如下。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | 问题 | 交给模型做什么 | 必须由代码保证什么 |
 | --- | --- | --- |
 | 下一步读 A 还是 B | 根据问题和已知材料选动作 | 只能调用允许的工具及文档 |
@@ -175,6 +197,8 @@ flowchart TD
 | 怎样表达变化 | 比较语义，写可读说明 | 计算和来源身份不能靠模型自由编写 |
 | 何时委派专家 | 提议一个明确的核对问题 | Child 只能继承受限范围和预算 |
 | 是否保存报告 | 组织希望交付的正文 | 文件写入结果要有真实回执 |
+
+</details>
 
 比如 Skill 可以教模型“先比较相同维度”，**它不是授权书**；MCP 可以让工具被发现，**它不是执行通行证**；Memory 可以提醒“优先表格”，**它不是 B 版指南的权威来源**。把这三组区别想明白，很多看似是 Prompt 的问题就有了工程解法。
 
@@ -224,6 +248,15 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 
 十个模块不是六层的别名。**模块是能力，六层是一次任务从触发到可见的交接位置**；同一个模块可能参与多个阶段。先用一个简化映射收束这一篇：
 
+![L1 至 L3：任务、身份上下文与决策](/images/learning-path/zh/modules-layers-1.svg)
+
+![L4 至 L6：工具执行、报告交付与用户界面](/images/learning-path/zh/modules-layers-2.svg)
+
+两幅图按交接位置读六层，不表示六个服务必须顺序执行；同一模块可能出现在多层。发布治理和产品 UI 的扩展范围仍以正文为准。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | 六层 | 用 Atlas Notes 任务想象 | 这一篇认识的关键能力 |
 | --- | --- | --- |
 | **L1 任务输入与触发** | 用户要求比较 A/B | 任务输入；后续可扩展到定时触发 |
@@ -232,6 +265,8 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 | **L4 工具与领域能力** | 真正读取页面，保留源文 | Tool Host、MCP、Result |
 | **L5 结果发布与交付** | 保存可回读的报告 | 报告与 Artifact；更完整的发布治理留给全景 |
 | **L6 用户界面** | 用户打开正确任务的报告 | CLI 先验证读取体验，产品 UI 再承担展示与恢复 |
+
+</details>
 
 **从这里进入深入篇，下一步不再增加名词，而是追问三个交接的正确性：一个数字怎样回到来源、一项任务怎样跨进程继续、专家结论怎样不越过原始证据。**
 

@@ -18,6 +18,7 @@ import ArticleStar from './ArticleStar.vue'
 import WeChatFollow from './WeChatFollow.vue'
 import LanguagePreference from './LanguagePreference.vue'
 import DiagramZoom from './DiagramZoom.vue'
+import LearningPathNav from './LearningPathNav.vue'
 import './custom.css'
 
 export default {
@@ -29,6 +30,7 @@ export default {
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
+    app.component('LearningPathNav', LearningPathNav)
     app.component('WeChatFollow', WeChatFollow)
     app.component('OpenEtfTopic', OpenEtfTopic)
     app.component('OpenEtfTopicEntry', OpenEtfTopicEntry)
@@ -40,3 +42,4 @@ export default {
     app.component('PanoramaViewer', PanoramaViewer)
   }
 } satisfies Theme
+

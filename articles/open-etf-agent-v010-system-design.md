@@ -5,7 +5,7 @@ description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、�
 
 # Agent 深入：从一份报告到持续执行与专家协作
 
-> **深入 · 第 3 站**　[入门](./agent-in-15-minutes.md) → [进阶](./agent-ten-modules.md) → 深入 → [全景](./017-prompt-to-answer-six-layer-panorama-v3.md)
+<LearningPathNav />
 
 前两篇已经解释了 AI 怎样决定 Loop 的下一步，以及十个模块各自负责什么。这一篇往前走一步：**资料经过多个工具、任务交给另一个进程、部分工作交给另一个助手时，怎样继续完成同一件事？**
 
@@ -18,12 +18,23 @@ description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、�
 
 把一份报告写出来，和把一个可靠的 Agent 应用做出来，区别不在于多几个工具，而在于**跨越模块、进程、助手之后，有哪些事实不能丢**。
 
+![证据链与执行链各自不断线](/images/learning-path/zh/continuity-evidence-execution.svg)
+
+![责任链，以及让成果到达用户的交付条件](/images/learning-path/zh/continuity-responsibility-delivery.svg)
+
+四条链分别展示需要保留的事实，不是同一条教学命令已经跑通的流水线。交付连续性是前三条落到用户体验的条件；完整连续性与断点说明保留如下。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | 连续性 | 从哪里到哪里 | 如果中途断掉，会发生什么 |
 | --- | --- | --- |
 | **证据连续性** | 原文 → Result → 确定性计算 → 报告数字 | 数字看似正确，却解释不清由哪两行算出 |
 | **执行连续性** | 用户任务 → Session → Worker → Runtime | 进程结束后重复做事，或错误地继续旧任务 |
 | **责任连续性** | Main 授权的局部问题 → Child 工具调用 → Main 采纳 | 子代理把未经许可的阅读或未经核实的总结当成结论 |
 | **交付连续性** | 报告内容 → 保存回执/Publication → 用户能读到的版本 | 模型说完成了，但文件或前端仍是旧内容 |
+
+</details>
 
 这里的第四条“交付连续性”，是把前三条落实到用户体验的必要条件，不代表 v0.15 教学命令已经实现完整在线发布系统。下面的 v0.10 计算、Worker 和 v0.15 Child 是**分别可运行的机制例子**，我们用同一组系统问题去理解它们，而不是声称一次命令会完成全部流程。
 
@@ -144,11 +155,20 @@ report.claim
 
 这个场景里，三个熟悉的模块分工如下：
 
+![Session 留存任务；Worker 接手并继续 Runtime](/images/learning-path/zh/worker-handoff.svg)
+
+提交程序与执行进程可以分开，但仍是明确选定的原任务。这里只说明原有交接机制，不承诺任意旧检查点都能恢复。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | 组成部分 | 负责什么 |
 | --- | --- |
 | Session | 保存任务、已有进展和执行约定 |
 | Worker | 驱动一个明确选定的任务 |
 | Runtime | 继续原来的模型与工具循环 |
+
+</details>
 
 Worker 复用 Session 已有的执行记录，再调用同一套 Runtime。[单 Run 的原始提案](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md)把方案收窄到这一条清晰路径，避免另建一套重复的任务状态。
 
@@ -216,11 +236,20 @@ v0.15 增加了一个串行来源核对专家。继续用入门篇的 Atlas Note
 
 [child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/child.mjs)继续调用项目原有的 `run`。两个助手共用执行机制，各自拥有任务输入和上下文。
 
+![Main 委派局部问题；Child 返回原文和核对意见](/images/learning-path/zh/child-delegate.svg)
+
+这是 v0.15 的一个串行来源核对专家：Child 只能读取受限 A/B 页面，不负责保存或发布主报告。默认示例使用固定脚本动作，不是一次真实模型能力评测。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | Child 回合 | 动作 | 新得到的材料 |
 | --- | --- | --- |
 | 第一轮 | 读取 A 版第一页 | A 的导出格式、上限和条件 |
 | 第二轮 | 读取 B 版第一页 | B 的对应内容 |
 | 第三轮 | 返回核对说明 | 已查看的资料与核对意见 |
+
+</details>
 
 每次工具结果进入下一轮输入。接入真实模型时，模型结合当前材料选择后续动作；默认示例用固定动作，让这一连接过程容易观察。
 
@@ -230,11 +259,20 @@ Child 返回核对说明时，也把取得的原始页面交回来。可以把�
 
 这些内容作为 `source_check` 的结果进入 Main 上下文。默认示例随后选择 `save_report`，再返回最终答复：
 
+![Main 接回 source_check 材料、保存报告并最终答复](/images/learning-path/zh/main-resume.svg)
+
+回到 Main 后，本次 Child 工作已结束。原文与派生意见进入主任务上下文，Main 才整理并保存报告，再给出最终答复；没有新增并行专家调度。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | Main 的推进 | Child 在哪里参与 |
 | --- | --- |
 | 第一轮：调用 `source_check` | Child 读 A、读 B，返回说明与原文 |
 | 第二轮：整理交接内容，调用 `save_report` | 本次专家工作已经结束 |
 | 第三轮：给出最终答复 | — |
+
+</details>
 
 **AI 的任务选择、Runtime 的循环、工具的执行没有换一套；现在它们可以组织两个相互配合的任务。** Session 关联父任务与子任务，Result 保留原文，报告模块把输出留下来。进阶篇的模块在这里接成了一条可读的路径。
 
@@ -331,6 +369,15 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 
 现在把全部内容放进一张更大的地图。**这里的六层是请求交接视角，不是六个必须依次执行的服务，也不表示每个演示版本都具备全部能力。**
 
+![L1 至 L3 的任务身份、允许范围与动作决策](/images/learning-path/zh/deep-layers-1.svg)
+
+![L4 至 L6 区分取得证据、保存版本与用户实际看到](/images/learning-path/zh/deep-layers-2.svg)
+
+按“任务身份 → 动作与工具 → 可交付版本 → 实际可见”定位责任。六层是交接视角，不是每个历史演示版本都已具备的能力清单。
+
+<details>
+<summary>查看完整关系与文字对照</summary>
+
 | 六层 | 这一层要回答的问题 | 本文的例子与关键边界 |
 | --- | --- | --- |
 | **L1 任务输入与触发** | 谁提出“比较 A/B”，何时开始？ | 用户请求是任务起点；周期触发属于更完整的应用 |
@@ -339,6 +386,8 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 | **L4 工具与领域能力** | 谁取得原文、谁计算 150%？ | Tool Host、ResultRef、确定性计算和可复算来源 |
 | **L5 结果发布与交付** | 哪个报告版本已被确认保存并可交付？ | Artifact 与回读；Publication/History 是更完整的交付治理 |
 | **L6 用户界面** | 用户实际看到了哪个 Run 的哪个版本？ | CLI 先学会读回，Web UI 再处理刷新、进度和错版问题 |
+
+</details>
 
 回头看，进阶篇介绍的十个模块负责提供能力，深入篇问的是**能力之间交接什么、失败如何判定、恢复时相信什么**。六层全景再扩展到整个系统：不只是读文档和保存报告，还有 Direct/Research/Coord 分流、异步任务、跨层 Owner、观测与最终用户体验。
 

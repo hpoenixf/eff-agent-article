@@ -5,7 +5,7 @@ description: "Combine the original v0.10 system-design article with v0.15 specia
 
 # Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration
 
-> **Deep dive · Stop 3**　[Introduction](./agent-in-15-minutes.md) → [Intermediate](./agent-ten-modules.md) → Deep dive → [Panorama](./017-prompt-to-answer-six-layer-panorama-v3.md)
+<LearningPathNav />
 
 The first two articles explained how AI chooses the next step in a loop and what ten modules do. Now take another step: **How does the same work continue when information passes through several tools, another process takes over execution, or another assistant handles part of the task?**
 
@@ -18,12 +18,23 @@ We will examine three questions: how information becomes a report, how execution
 
 Writing a report is not the same as building a reliable agent application. The difference is not simply more tools. It is **which facts survive when work crosses modules, processes, and assistants**.
 
+![Keep the evidence chain and execution chain intact](/images/learning-path/en/continuity-evidence-execution.svg)
+
+![The responsibility chain and the conditions for user-visible delivery](/images/learning-path/en/continuity-responsibility-delivery.svg)
+
+The four chains show facts that must survive; they are not one pipeline already executed by a single teaching command. Delivery continuity makes the first three useful to the reader. Complete continuity and failure descriptions remain below.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Continuity | From and to | What breaks if the handoff fails |
 | --- | --- | --- |
 | **Evidence** | Original source → Result → deterministic calculation → reported number | A plausible number no longer traces to its operands |
 | **Execution** | User task → Session → Worker → Runtime | A restarted process repeats effects or resumes the wrong task |
 | **Responsibility** | Scoped question authorized by Main → Child tool calls → Main adoption | An assistant elevates an unauthorized read or unsupported summary into a conclusion |
 | **Delivery** | Report content → storage receipt/Publication → user-visible version | The model says “done” while the file or UI still shows old content |
+
+</details>
 
 The fourth kind, delivery continuity, is what makes the first three valuable to a user. It does **not** claim that the v0.15 teaching CLI contains a complete online publication system. The v0.10 calculation and Worker, and v0.15 Child, are **separate runnable mechanism examples**. We compare them through a common architectural lens; no single command executes all these stages.
 
@@ -144,11 +155,20 @@ A short task can finish within one command. Longer work can separate submission 
 
 Three familiar modules divide the work:
 
+![Session retains the task; Worker takes over and drives Runtime](/images/learning-path/en/worker-handoff.svg)
+
+Submission and execution can use separate processes while retaining the same explicitly selected task. This illustrates the existing handoff, not a promise that arbitrary historical checkpoints can resume.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Part | Responsibility |
 | --- | --- |
 | Session | Retain the task, its progress, and execution conditions |
 | Worker | Drive one explicitly selected task |
 | Runtime | Continue the existing model-and-tool loop |
+
+</details>
 
 Worker reuses Session's execution records and calls the same runtime. The [single-Run proposal](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md) narrowed the design to this clear path instead of adding another layer of task state.
 
@@ -216,11 +236,20 @@ From Main's loop, this resembles selecting a page-reading tool: propose an actio
 
 [child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/child.mjs) calls the project's existing `run`. Both assistants share the execution mechanism, with separate task input and context.
 
+![Main delegates a scoped question; Child returns originals and observations](/images/learning-path/en/child-delegate.svg)
+
+This is the single serial source-checking specialist in v0.15. Child reads only scoped A/B pages; it does not save or publish the main report. Default actions are scripted, not a real-model capability evaluation.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Child turn | Action | Newly acquired material |
 | --- | --- | --- |
 | First | Read A's first page | A's formats, limit, and condition |
 | Second | Read B's first page | B's corresponding content |
 | Third | Return a checking observation | Inspected material and observations |
+
+</details>
 
 Each tool result enters the next turn's input. With a live model, the model chooses subsequent actions from current material. The default example uses fixed actions to make the connections easy to inspect.
 
@@ -230,11 +259,20 @@ Child returns original pages alongside its observation. Think of a colleague han
 
 This enters Main's context as the result of `source_check`. The default sequence then selects `save_report` and returns its final answer:
 
+![Main receives source_check evidence, saves the report, and answers](/images/learning-path/en/main-resume.svg)
+
+Once evidence returns to Main, this Child task has ended. Originals and derived observations enter Main context; Main then composes and saves the report before its final answer. No parallel specialist scheduler is implied.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Main progression | Where Child participates |
 | --- | --- |
 | First turn: call `source_check` | Child reads A/B and returns observations with original pages |
 | Second turn: organize the handoff and call `save_report` | This specialist task has finished |
 | Third turn: give the final answer | — |
+
+</details>
 
 **AI still chooses task actions, the runtime still drives the loop, and tools still execute operations; together they now coordinate two cooperating tasks.** Session links parent and child, Result retains original material, and report storage preserves the output. The modules from the Intermediate article form a concrete path here.
 
@@ -331,6 +369,15 @@ This example's 30-second deadline begins at submission. It demonstrates submissi
 
 Place everything we have learned in the larger map. **Six layers describe request handoffs, not six services that must run sequentially, and not a claim that each demonstration release implements every layer.**
 
+![Task identity, permitted scope, and decisions across L1 to L3](/images/learning-path/en/deep-layers-1.svg)
+
+![L4 to L6 distinguish evidence acquisition, retained versions, and actual visibility](/images/learning-path/en/deep-layers-2.svg)
+
+Locate responsibility through task identity, actions and tools, the deliverable version, and actual visibility. These layers describe handoffs, not capabilities already implemented by every historical demo.
+
+<details>
+<summary>Read the complete relationships and text reference</summary>
+
 | Layer | Question it answers | Example and critical distinction |
 | --- | --- | --- |
 | **L1 Task input and trigger** | Who requested the A/B comparison, and when? | The user request starts the task; scheduled triggers belong to fuller applications |
@@ -339,6 +386,8 @@ Place everything we have learned in the larger map. **Six layers describe reques
 | **L4 Tools and domain capabilities** | Who reads originals and computes the 150% change? | Tool Host, ResultRef, deterministic calculation, reproducible sources |
 | **L5 Result publication and delivery** | Which report version was actually saved and accepted? | Artifact and readback; Publication/History govern broader delivery |
 | **L6 User interface** | Which version of which Run did the user actually see? | CLI introduces readback; a web UI must handle refresh, progress, and stale versions |
+
+</details>
 
 Intermediate introduced ten capabilities. Deep Dive has asked **what they hand to each other, how failures are classified, and what evidence continuation can trust**. The full panorama expands to the whole system: Direct/Research/Coord paths, background tasks, cross-layer Owners, observability, and user-visible delivery.
 

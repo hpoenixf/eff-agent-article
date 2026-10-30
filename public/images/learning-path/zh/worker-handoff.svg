@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="610" viewBox="0 0 560 610" role="img" aria-labelledby="title desc"><title id="title">程序退出，任务身份不断线</title><desc id="desc">Session保存任务、进展和约定；提交程序可退出；Worker接手明确选定的任务并调用Runtime，继续模型与工具循环。恢复能力仍受支持的检查点和原约束限制。</desc><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#59718e" stroke-width="1.5"/></marker></defs><rect width="560" height="610" rx="22" fill="#f7f9fc"/>
+<text x="30" y="43" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" text-anchor="start" fill="#087f82">执行连续性 / 02</text>
+<text x="30" y="87" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="30" font-weight="700" text-anchor="start" fill="#172b46">换一个进程，不换一份任务</text>
+<rect x="30" y="122" width="184" height="90" rx="16" fill="#edf0f5" stroke="#bdc8d8" stroke-width="1.5"/>
+<text x="122" y="159" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#172b46">提交程序</text>
+<text x="122" y="192" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="400" text-anchor="middle" fill="#536780">可退出</text>
+<rect x="284" y="122" width="246" height="122" rx="16" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="407" y="158" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="27" font-weight="700" text-anchor="middle" fill="#345dc2">Session</text>
+<text x="407" y="193" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#172b46">任务 · 进展 · 约定</text>
+<text x="407" y="226" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="21" font-weight="400" text-anchor="middle" fill="#345dc2">持久记录</text>
+<path d="M215 166 H273" fill="none" stroke="#59718e" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="226" y="145" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#51657d">保存</text>
+<path d="M405 246 V292" fill="none" stroke="#59718e" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="52" y="278" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#51657d">读取原任务事实</text>
+<rect x="30" y="304" width="500" height="96" rx="16" fill="#e2f5f1" stroke="#64b5ac" stroke-width="1.5"/>
+<text x="52" y="342" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#087f82">Worker · 明确接手哪个任务</text>
+<text x="52" y="378" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#172b46">复用已有记录，再驱动 Runtime</text>
+<path d="M280 402 V440" fill="none" stroke="#59718e" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="30" y="452" width="500" height="105" rx="16" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="52" y="490" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#345dc2">Runtime · 继续原来的循环</text>
+<text x="52" y="529" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#172b46">模型判断  →  工具执行  →  下一轮</text>
+<text x="30" y="590" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="400" text-anchor="start" fill="#536780">不是任意旧任务都能恢复：仍须符合支持条件。</text>
+</svg>

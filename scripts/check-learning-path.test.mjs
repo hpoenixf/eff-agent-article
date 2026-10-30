@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs'
 import { chapters, learningPathSlugs, mergedArticles } from '../book.mjs'
 import { englishArticleSlugs, englishTitles, englishArticlePath } from '../book.en.mjs'
 
+import { learningPathNavigation } from '../.vitepress/theme/learning-path-nav.mjs'
+
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 
@@ -30,8 +32,20 @@ test('each introductory stop links to its immediate next stop in both languages'
       const source = read(prefix + 'articles/' + learningPathSlugs[index] + '.md')
       assert.ok(source.includes(learningPathSlugs[index + 1]), prefix + learningPathSlugs[index])
     }
-    const first = read(prefix + 'articles/agent-in-15-minutes.md')
-    assert.ok(!first.includes('017-prompt-to-answer-six-layer-panorama-v3'), 'first step must not skip the bridges')
+    // Four-stop navigation is freely usable; the recommended next step still must not skip bridges.
+    for (const [index, slug] of learningPathSlugs.entries()) {
+      const source = read(prefix + 'articles/' + slug + '.md')
+      assert.equal((source.match(/<LearningPathNav \/>/g) ?? []).length, 1)
+      const nav = learningPathNavigation(prefix + 'articles/' + slug + '.md')
+      assert.equal(nav.steps.filter(step => step.current).length, 1)
+      assert.equal(nav.steps[index].current, true)
+      assert.deepEqual(nav.steps.map(step => step.slug), learningPathSlugs)
+      assert.equal(nav.next?.slug ?? null, learningPathSlugs[index + 1] ?? null)
+      assert.equal(nav.english, prefix === 'en/')
+      for (const step of nav.steps) {
+        assert.equal(step.href, '/' + prefix + 'articles/' + step.slug)
+      }
+    }
     // The alias may serve old bookmarks, but canonical reading pages must not send new readers there.
     for (const slug of learningPathSlugs) {
       assert.ok(!read(prefix + 'articles/' + slug + '.md').includes('agent-loop-to-application'),
@@ -69,4 +83,14 @@ test('shared homepage and catalog cards consume the canonical learning-path sele
   assert.ok(component.includes('learningPathSlugs.map'))
   assert.ok(component.includes("'/en'"))
   assert.ok(component.includes('withBase('))
+})
+
+
+test('reading-path navigation marks the current page and keeps real keyboard links', () => {
+  const component = read('.vitepress/theme/LearningPathNav.vue')
+  assert.match(component, /aria-current="page"/)
+  assert.match(component, /<a v-else/)
+  assert.match(component, /withBase\(step.href\)/)
+  assert.match(component, /focus-visible/)
+  assert.equal(learningPathNavigation('articles/not-a-learning-stop.md'), null)
 })

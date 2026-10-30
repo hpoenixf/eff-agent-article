@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="660" viewBox="0 0 560 660" role="img" aria-labelledby="title"><title id="title">Retain responsibility; verify delivery</title><defs><marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#59718e" stroke-width="1.5"/></marker></defs><rect width="560" height="660" rx="22" fill="#f7f9fc"/>
+<text x="30" y="37" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" fill="#087f82">CONTINUITY / KEEP THE CHAIN</text>
+<text x="30" y="78" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="29" font-weight="700" fill="#172b46">Retain responsibility; verify delivery</text>
+<text x="30" y="135" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="25" font-weight="700" fill="#087f82">Responsibility continuity</text>
+<rect x="30.0" y="159" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="40.0" y="194" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Main grant</text>
+<path d="M182.66666666666666 202 H193.66666666666666" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="196.66666666666666" y="159" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="206.66666666666666" y="194" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Child call</text>
+<path d="M349.3333333333333 202 H360.3333333333333" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="363.3333333333333" y="159" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="373.3333333333333" y="194" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Main</text>
+<text x="373.3333333333333" y="225" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">adopts</text>
+<text x="30" y="283" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#ad6400">A break: unauthorized reads or unverified</text>
+<text x="30" y="313" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#ad6400">summaries become conclusions</text>
+<text x="30" y="385" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="25" font-weight="700" fill="#087f82">Delivery · the user-facing condition</text>
+<rect x="30.0" y="409" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="40.0" y="444" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Report</text>
+<path d="M182.66666666666666 452 H193.66666666666666" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="196.66666666666666" y="409" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="206.66666666666666" y="444" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Receipt /</text>
+<text x="206.66666666666666" y="475" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">publication</text>
+<path d="M349.3333333333333 452 H360.3333333333333" fill="none" stroke="#59718e" stroke-width="2.6" marker-end="url(#arr)"/>
+<rect x="363.3333333333333" y="409" width="150.66666666666666" height="86" rx="15" fill="#eaf0ff" stroke="#a8bdec" stroke-width="1.5"/>
+<text x="373.3333333333333" y="444" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">Visible</text>
+<text x="373.3333333333333" y="475" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="23" font-weight="700" fill="#345dc2">version</text>
+<text x="30" y="533" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#ad6400">A break: “done” is claimed while the file or UI is</text>
+<text x="30" y="563" font-family="Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="400" fill="#ad6400">stale</text>
+</svg>

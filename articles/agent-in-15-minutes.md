@@ -5,7 +5,7 @@ description: "写给有一点前后端基础的开发者。用一个可运行的
 
 # 十五分钟入门 Agent
 
-> **入门 · 第 1 站**　入门 → [进阶](./agent-ten-modules.md) → [深入](./open-etf-agent-v010-system-design.md) → 全景
+<LearningPathNav />
 
 如果你写过接口、调过 API，或者用 JavaScript 做过自动化脚本，就能很快理解 Agent。
 
