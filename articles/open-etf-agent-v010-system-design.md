@@ -14,6 +14,20 @@ description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、�
 我们看三个具体问题：资料怎样变成报告，任务怎样持续执行，专家怎样参与主任务。它们对应独立示例，共享同一套执行基础。默认公开命令使用合成资料和脚本模拟的模型动作，实际执行工具、存储与进程交接。
 
 
+## 六层能力图：深入篇新增的是交接契约
+
+在进阶模块基础上，图中**重点突出** `source_check` 的 Main/Child 交接、Child 的受限工具、原文与派生判断的来源边界、ResultRef 的可复算链路，以及报告的实际回读。浅灰框是已经介绍过的基础模块；点击实线标签可查看固定源码。
+
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg" label="深入六层能力图：来源证据、持续执行、Main/Child 交接与报告回读">
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg" role="img" aria-label="深入六层能力图：来源证据、持续执行、Main/Child 交接与报告回读">
+    <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/deep-zh.svg">打开 SVG 六层能力图</a>
+  </object>
+</div>
+</PanoramaViewer>
+
+**不要把三种机制拼成同一次运行：** v0.15 `source_check` 专家、v0.10 ResultRef 计算、Worker 持久执行属于彼此独立的示例。L6 在这里仅表示 CLI 回读，不表示 Web UI 已交付。
+
 ## 先立三条“不断线”的主线
 
 把一份报告写出来，和把一个可靠的 Agent 应用做出来，区别不在于多几个工具，而在于**跨越模块、进程、助手之后，有哪些事实不能丢**。
