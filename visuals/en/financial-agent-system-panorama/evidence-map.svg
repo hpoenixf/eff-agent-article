@@ -9,7 +9,7 @@
 <rect x="32" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="49" y="193" class="tag" text-anchor="start" style="fill:#136F70">REQUEST</text>
 <text x="49" y="223" class="head" text-anchor="start" style="font-size:19px">Who / which Run?</text>
-<text x="49" y="252" class="body" text-anchor="start" style="font-size:15px">Subject · original text</text>
+<text x="49" y="252" class="body" text-anchor="start" style="font-size:15px">Subject · input text</text>
 <text x="49" y="275" class="body" text-anchor="start" style="font-size:15px">Run · grant reference</text>
 <rect x="277" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="294" y="193" class="tag" text-anchor="start" style="fill:#136F70">SOURCE</text>
@@ -19,9 +19,9 @@
 <text x="294" y="298" class="body" text-anchor="start" style="font-size:15px">Gaps / failures</text>
 <rect x="522" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="539" y="193" class="tag" text-anchor="start" style="fill:#136F70">METHOD</text>
-<text x="539" y="223" class="head" text-anchor="start" style="font-size:18px">Which calculation?</text>
+<text x="539" y="223" class="head" text-anchor="start" style="font-size:18px">Calculation?</text>
 <text x="539" y="252" class="body" text-anchor="start" style="font-size:15px">Method version</text>
-<text x="539" y="275" class="body" text-anchor="start" style="font-size:15px">Input version · result</text>
+<text x="539" y="275" class="body" text-anchor="start" style="font-size:15px">Inputs · result ID</text>
 <text x="539" y="298" class="body" text-anchor="start" style="font-size:15px">Units · assumptions</text>
 <rect x="767" y="166" width="196" height="161" rx="14" fill="#EAF7F3" stroke="#136F70" stroke-width="1.8"/>
 <text x="784" y="193" class="tag" text-anchor="start" style="fill:#136F70">PUBLICATION</text>
@@ -31,9 +31,10 @@
 <text x="784" y="298" class="body" text-anchor="start" style="font-size:15px">receipt</text>
 <rect x="1012" y="166" width="196" height="161" rx="14" fill="#FFF6E8" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
 <text x="1029" y="193" class="tag" text-anchor="start" style="fill:#9C6014">BUSINESS TARGET</text>
-<text x="1029" y="223" class="head" text-anchor="start" style="font-size:19px">Any actual effect?</text>
+<text x="1029" y="223" class="head" text-anchor="start" style="font-size:19px">Actual effect?</text>
 <text x="1029" y="252" class="body" text-anchor="start" style="font-size:15px">Review / mandate</text>
-<text x="1029" y="275" class="body" text-anchor="start" style="font-size:15px">Order / fill / settlement</text>
+<text x="1029" y="275" class="body" text-anchor="start" style="font-size:15px">Order / fills</text>
+<text x="1029" y="298" class="body" text-anchor="start" style="font-size:15px">Settlement</text>
 <path d="M 228 247 L 277 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
 <path d="M 473 247 L 522 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
 <path d="M 718 247 L 767 247" fill="none" stroke="#136F70" stroke-width="2.2" marker-end="url(#teal)"/>
