@@ -94,3 +94,29 @@ test('reading-path navigation marks the current page and keeps real keyboard lin
   assert.match(component, /focus-visible/)
   assert.equal(learningPathNavigation('articles/not-a-learning-stop.md'), null)
 })
+
+
+test('homepage keeps one intro CTA and a compact bilingual continuation disclosure', () => {
+  const component = read('.vitepress/theme/HomeReadingMenu.vue')
+  const theme = read('.vitepress/theme/index.ts')
+  assert.match(theme, /'home-hero-actions-after': \(\) => h\(HomeReadingMenu\)/)
+  assert.match(component, /learningPathNavigation/)
+  assert.match(component, /steps\.slice\(1\)/)
+  assert.match(component, /<details ref="disclosure"/)
+  assert.match(component, /<summary>/)
+  assert.match(component, /withBase\(step.href\)/)
+  assert.match(component, /进阶 · 深入 · 全景/)
+  assert.match(component, /Intermediate · Deep dive · Panorama/)
+  assert.match(component, /event.key === 'Escape'/)
+  assert.match(component, /removeEventListener\('pointerdown', outside\)/)
+  assert.match(component, /removeEventListener\('focusin', outside\)/)
+  assert.match(component, /removeEventListener\('keydown', escape\)/)
+  for (const path of ['index.md', 'en/index.md']) {
+    const home = read(path)
+    const actions = home.split('  actions:\n')[1].split('  secondaryActions:')[0]
+    assert.equal((actions.match(/theme:/g) ?? []).length, 1)
+    assert.ok(actions.includes('agent-in-15-minutes'))
+    assert.ok(home.includes('link: https://github.com/hpoenixf/open-etf-agent'))
+    assert.ok(home.includes(path.startsWith('en/') ? 'link: /en/catalog' : 'link: /catalog'))
+  }
+})

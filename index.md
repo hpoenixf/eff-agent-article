@@ -9,6 +9,7 @@ hero:
     - theme: brand
       text: 十五分钟入门 Agent →
       link: /articles/agent-in-15-minutes
+  secondaryActions:
     - theme: alt
       text: 浏览全部文章
       link: /catalog
@@ -51,3 +52,4 @@ features:
 <HomeOverview />
 
 <OpenSourceBridge />
+

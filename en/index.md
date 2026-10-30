@@ -9,6 +9,7 @@ hero:
     - theme: brand
       text: Agents in 15 minutes →
       link: /en/articles/agent-in-15-minutes
+  secondaryActions:
     - theme: alt
       text: Browse all articles
       link: /en/catalog
@@ -47,3 +48,4 @@ features:
 <HomeOverview />
 
 <OpenSourceBridge />
+

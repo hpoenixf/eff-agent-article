@@ -7,6 +7,7 @@ import type { Theme } from 'vitepress'
 import ChapterCatalog from './ChapterCatalog.vue'
 import FlagshipEntry from './FlagshipEntry.vue'
 import ContinueReading from './ContinueReading.vue'
+import HomeReadingMenu from './HomeReadingMenu.vue'
 import HomeOverview from './HomeOverview.vue'
 import PanoramaViewer from './PanoramaViewer.vue'
 import EvidenceScope from './EvidenceScope.vue'
@@ -24,6 +25,7 @@ import './custom.css'
 export default {
   extends: DefaultTheme,
   Layout: () => h(DefaultTheme.Layout, null, {
+    'home-hero-actions-after': () => h(HomeReadingMenu),
     'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'doc-before': () => [h(EvidenceScope), h(OpenSourceBridge)],
     'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
@@ -42,4 +44,5 @@ export default {
     app.component('PanoramaViewer', PanoramaViewer)
   }
 } satisfies Theme
+
 
