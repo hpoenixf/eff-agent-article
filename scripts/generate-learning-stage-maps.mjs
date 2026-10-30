@@ -873,7 +873,7 @@ const LAYERS=[
   {
     "id": "L1",
     "zh": "任务输入与触发",
-    "en": "Task Intake & Triggers",
+    "en": "Task Intake",
     "hz": "CLI 输入",
     "he": "CLI entry",
     "y": 307,
@@ -882,7 +882,7 @@ const LAYERS=[
   {
     "id": "L2",
     "zh": "身份、会话与上下文",
-    "en": "Identity, Session & Context",
+    "en": "Identity & Context",
     "hz": "范围 · 状态 · 资料",
     "he": "Scope · state · context",
     "y": 489,
@@ -891,7 +891,7 @@ const LAYERS=[
   {
     "id": "L3",
     "zh": "Agent 决策与运行",
-    "en": "Agent Decisions & Runtime",
+    "en": "Agent & Runtime",
     "hz": "Model · Main · Child",
     "he": "Model · Main · Child",
     "y": 710,
@@ -900,7 +900,7 @@ const LAYERS=[
   {
     "id": "L4",
     "zh": "工具与领域能力",
-    "en": "Tools & Domain Capabilities",
+    "en": "Tools & Domains",
     "hz": "Host · 读取 · 证据",
     "he": "Host · reads · evidence",
     "y": 979,
@@ -909,7 +909,7 @@ const LAYERS=[
   {
     "id": "L5",
     "zh": "结果发布与交付",
-    "en": "Result Publication & Delivery",
+    "en": "Result & Delivery",
     "hz": "本例：保存报告",
     "he": "Demo: persist report",
     "y": 1280,
