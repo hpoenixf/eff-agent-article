@@ -9,7 +9,7 @@ If you have built an API, called a backend service, or written a short JavaScrip
 
 **Think of an agent as an assistant that keeps a task moving: it understands the goal, chooses a next step, uses tools, and continues with the information it receives.**
 
-One example and three diagrams are enough to see how that works.
+Follow one example, three diagrams, and a walkthrough of the Agent Loop to see how that works.
 
 ![Agents at a glance: user request, next action, tools, useful result](../../visuals/en/agent-in-15-minutes/01-agent-at-a-glance-en.svg)
 
@@ -47,9 +47,44 @@ The **runtime** connects the steps. It gathers the question, available informati
 
 The **tools** perform concrete operations. File reading, database queries, API calls, and calculations can all be exposed as functions with inputs and outputs.
 
-Together they form a useful loop: **choose an action → run a tool → receive information → decide what comes next.**
+## Walk through the loop: AI chooses each next step
 
-Once you understand this loop, other agent frameworks become easier to approach.
+**After a tool runs, its result goes back to the AI. The AI uses that result to choose another tool action or answer the user.** Repeating this process gives us the **Agent Loop**.
+
+Here is one possible teaching walkthrough of the same comparison with a model choosing the actions:
+
+| Turn | What the AI chooses | Outcome of this turn |
+| --- | --- | --- |
+| 1 | Read guide A first | Tool result: A exports CSV and requires an internet connection |
+| 2 | Read B now that A is known, so the guides can be compared | Tool result: B exports CSV and Markdown and requires an internet connection |
+| 3 | Both guides are available; summarize the comparison and answer | AI answer: B adds Markdown; both versions require an internet connection |
+
+The first tool result enters the second turn's context, and the second result enters the third. **Each model call can make a fresh decision using what has already been learned.** These turns belong to one user request; the user does not need to prompt each step.
+
+Remember one cycle as **AI chooses an action → tool executes → result goes back to AI**. The AI then chooses what to do next or finishes with an answer. The runtime drives the loop and manages tool permissions and execution limits.
+
+A few lines of JavaScript-style teaching pseudocode show the division of work:
+
+```javascript
+while (withinLimits()) {
+  const step = await model.decide(context, tools);
+  if (step.type === "answer") return step.text;
+  const result = await runAllowedTool(step);
+  context.push(step, result);
+}
+```
+
+`model.decide` stands for asking the AI to choose its next step. `context.push` supplies the action and result to the next turn. Helper functions and message formats are simplified here.
+
+## How does this differ from a traditional program?
+
+For a traditional comparison script, you might arrange the steps as `read A → read B → compare → output`. Developers encode its loops, branches, and stopping rules. Even when the comparison step calls an AI model, the overall route can still be predefined.
+
+An agent delegates some task-level choices to the AI: **which document to read, which tool to call, whether to continue, and when to answer can depend on the latest result.** Developers supply the goal, available tools, and operating constraints. This is also the key distinction between workflows and agents in Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents).
+
+Imagine a small change: guide B says, "See the appendix for export formats." The AI can choose to read the appendix next, then return to the comparison. A traditional script can do this too, with a corresponding rule written by its developer.
+
+Ordinary code is straightforward when steps are clear and rules are stable. Agents are especially useful when reading new material helps determine what to do next.
 
 ## Try the example in five minutes
 
@@ -70,7 +105,7 @@ The default example uses a **scripted model-action sequence**, so no model API k
 
 ## Your next stop: the full agent architecture
 
-You now have a useful mental model: **the user sets a goal, the model chooses the next step, the runtime coordinates, and tools do the work.**
+You now have a useful mental model: **the user sets a goal, AI chooses the next step from each result, the runtime drives the loop, and tools perform the actions.**
 
 To go deeper into conversations, context management, subagents, and frontend interactions, read [**The Six-Layer ETF Agent Request Lifecycle**](/en/articles/017-prompt-to-answer-six-layer-panorama-v3). It expands this small example into a system-level view.
 
