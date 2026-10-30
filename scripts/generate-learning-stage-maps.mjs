@@ -876,8 +876,8 @@ const LAYERS=[
     "en": "Task Intake",
     "hz": "CLI 输入",
     "he": "CLI entry",
-    "y": 307,
-    "h": 176
+    "y": 233,
+    "h": 103
   },
   {
     "id": "L2",
@@ -885,8 +885,8 @@ const LAYERS=[
     "en": "Identity & Context",
     "hz": "范围 · 状态 · 资料",
     "he": "Scope · state · context",
-    "y": 489,
-    "h": 215
+    "y": 342,
+    "h": 127
   },
   {
     "id": "L3",
@@ -894,8 +894,8 @@ const LAYERS=[
     "en": "Agent & Runtime",
     "hz": "Model · Main · Child",
     "he": "Model · Main · Child",
-    "y": 710,
-    "h": 263
+    "y": 475,
+    "h": 156
   },
   {
     "id": "L4",
@@ -903,8 +903,8 @@ const LAYERS=[
     "en": "Tools & Domains",
     "hz": "Host · 读取 · 证据",
     "he": "Host · reads · evidence",
-    "y": 979,
-    "h": 295
+    "y": 637,
+    "h": 165
   },
   {
     "id": "L5",
@@ -912,8 +912,8 @@ const LAYERS=[
     "en": "Result & Delivery",
     "hz": "本例：保存报告",
     "he": "Demo: persist report",
-    "y": 1280,
-    "h": 175
+    "y": 808,
+    "h": 104
   },
   {
     "id": "L6",
@@ -921,74 +921,92 @@ const LAYERS=[
     "en": "User Interface",
     "hz": "本例：CLI 回读",
     "he": "Demo: CLI readback",
-    "y": 1461,
-    "h": 178
+    "y": 918,
+    "h": 101
   }
 ];
 function escSvg(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;")}
-function svgText(x,y,txt,size=19,weight=560,fill="#172D46",anchor="start"){return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${fill}" font-family="Noto Sans CJK SC,Noto Sans SC,Microsoft YaHei,Arial,sans-serif" font-size="${size}" font-weight="${weight}" text-anchor="${anchor}">${escSvg(txt)}</text>`}
-function renderSvg(stage,lang){
- const z=STAGES[stage],en=lang==="en",out=[],width=2960,height=1754;
- const W=width, margins=252, right=33, gap=12, count=z.columns.length, cw=(W-margins-right-(count-1)*gap)/count;
- const p=(s)=>out.push(s);
- p(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${height}" viewBox="0 0 ${W} ${height}" role="img" aria-labelledby="stage-title stage-desc">`);
- p(`<title id="stage-title">${escSvg(z.title[lang])}</title><desc id="stage-desc">${escSvg(z.subtitle[lang])}</desc>`);
- p('<style>.stage-link{cursor:pointer;text-decoration:none}.stage-link:hover rect:first-of-type,.stage-link:focus-visible rect:first-of-type{stroke-width:4;filter:brightness(.96)}.stage-link:focus-visible{outline:none}</style>');
- p(`<rect width="${W}" height="${height}" fill="#F6F8FC"/>`);
- p(`<rect width="${W}" height="128" fill="#0F203D"/>`);
- p(svgText(42,64,z.title[lang],35,790,"#FFFFFF"));
- p(svgText(43,105,z.subtitle[lang],19,460,"#BDCEE4"));
- p(`<rect x="34" y="141" width="2892" height="43" rx="9" fill="#E7EDF7"/>`);
- p(svgText(56,169,z.lane[lang],19,680,"#245A97"));
- p(svgText(2905,169,en?"Pinned Open ETF Agent v0.15.0":"Open ETF Agent v0.15.0 固定版本",16,540,"#465673","end"));
- for(const [i,layer] of LAYERS.entries()){
-  p(`<rect x="30" y="${layer.y}" width="2900" height="${layer.h}" rx="12" fill="${i%2?"#EFF3F9":"#FFFFFF"}"/>`);
-  p(`<rect x="39" y="${layer.y+12}" width="187" height="${layer.h-24}" rx="8" fill="#E8EFFA"/>`);
-  p(svgText(56,layer.y+45,layer.id,26,760,"#2563A9"));
-  p(svgText(56,layer.y+81,en?layer.en:layer.zh,en?15:17,730,"#172C46"));
-  p(svgText(56,layer.y+109,en?layer.he:layer.hz,13,490,"#64748B"));
-  if(i<5) p(svgText(126,layer.y+layer.h+8,"↓",21,540,"#AAB6C7","middle"));
+function svgText(x,y,txt,size=17,weight=560,fill="#172D46",anchor="start"){
+ return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${fill}" font-family="Noto Sans CJK SC,Noto Sans SC,Microsoft YaHei,Arial,sans-serif" font-size="${size}" font-weight="${weight}" text-anchor="${anchor}">${escSvg(txt)}</text>`;
+}
+function estimateWidth(text,size){
+ let units=0;
+ for(const char of String(text)){
+  const cp=char.codePointAt(0);
+  if(cp>0x2e80)units+=1.02;
+  else if(char===" ")units+=0.31;
+  else if(/[ilI.,':;!|]/.test(char))units+=0.30;
+  else if(/[WMW@%#]/.test(char))units+=0.77;
+  else if(/[0-9]/.test(char))units+=0.57;
+  else units+=0.55;
  }
- for(const [index,col] of z.columns.entries()){
-  const x=margins+index*(cw+gap);
-  const emphasized=col.items.some(item=>item.focus);
-  p(`<rect x="${x.toFixed(1)}" y="194" width="${cw.toFixed(1)}" height="98" rx="8" fill="#F6F9FC" stroke="#BBC8D6" stroke-width="1.4" stroke-dasharray="5 5"/>`);
-  p(`<rect x="${x.toFixed(1)}" y="194" width="${cw.toFixed(1)}" height="6" rx="3" fill="${col.color}"/>`);
-  p(svgText(x+18,229,col.title[lang],en?20:22,760,"#193149"));
-  p(svgText(x+18,262,col.hint[lang],en?15:16,500,"#64748B"));
+ return units*size;
+}
+function fitFont(text,limit,ideal,minimum){
+ let value=ideal;
+ while(value>minimum&&estimateWidth(text,value)>limit)value=Math.max(minimum,value-0.25);
+ return Math.round(value*100)/100;
+}
+function renderSvg(stage,lang){
+ const z=STAGES[stage],isEn=lang==="en",out=[],width=stage==="intro"?1720:2240,height=1110;
+ const margin=229,right=28,gap=11,colCount=z.columns.length,colWidth=(width-margin-right-(colCount-1)*gap)/colCount;
+ const push=s=>out.push(s);
+ push(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="stage-title stage-desc">`);
+ push(`<title id="stage-title">${escSvg(z.title[lang])}</title><desc id="stage-desc">${escSvg(z.subtitle[lang])}</desc>`);
+ push('<style>.stage-link{cursor:pointer;text-decoration:none}.stage-link:hover rect:first-of-type,.stage-link:focus-visible rect:first-of-type{stroke-width:3.5;filter:brightness(.96)}.stage-link:focus-visible{outline:none}</style>');
+ push(`<rect width="${width}" height="${height}" fill="#F6F8FC"/>`);
+ push(`<rect width="${width}" height="102" fill="#0F203D"/>`);
+ push(svgText(33,44,z.title[lang],29,790,"#FFFFFF"));
+ push(svgText(34,78,z.subtitle[lang],fitFont(z.subtitle[lang],width-68,16.3,14),460,"#BDCEE4"));
+ push(`<rect x="28" y="113" width="${width-56}" height="38" rx="8" fill="#E7EDF7"/>`);
+ push(svgText(43,139,z.lane[lang],fitFont(z.lane[lang],width-86,16,13.5),690,"#245A97"));
+ for(const [i,layer] of LAYERS.entries()){
+  push(`<rect x="25" y="${layer.y}" width="${width-50}" height="${layer.h}" rx="9" fill="${i%2?"#EFF3F9":"#FFFFFF"}"/>`);
+  push(`<rect x="32" y="${layer.y+8}" width="180" height="${layer.h-16}" rx="7" fill="#E8EFFA"/>`);
+  push(svgText(45,layer.y+31,layer.id,21,760,"#2563A9"));
+  const heading=isEn?layer.en:layer.zh;
+  push(svgText(45,layer.y+57,heading,fitFont(heading,160,isEn?14.5:16,12),730,"#172C46"));
+  const hint=isEn?layer.he:layer.hz;
+  push(svgText(45,layer.y+79,hint,fitFont(hint,163,12.2,11),490,"#64748B"));
+ }
+ for(const [i,col] of z.columns.entries()){
+  const x=margin+i*(colWidth+gap),emphasized=col.items.some(item=>item.focus);
+  push(`<rect x="${x.toFixed(1)}" y="160" width="${colWidth.toFixed(1)}" height="67" rx="7" fill="#F6F9FC" stroke="#BBC8D6" stroke-width="1.3" stroke-dasharray="4 4"/>`);
+  push(`<rect x="${x.toFixed(1)}" y="160" width="${colWidth.toFixed(1)}" height="5" rx="2.5" fill="${col.color}"/>`);
   if(emphasized){
-   p(`<rect x="${(x+cw-72).toFixed(1)}" y="207" width="57" height="24" rx="12" fill="#E8F5F0" stroke="#63AE9B" stroke-width=".8"/>`);
-   p(svgText(x+cw-43.5,224,en?"NEW":stage==="intro"?"核心":"新增",12,730,"#147B61","middle"));
+   push(`<rect x="${(x+colWidth-53).toFixed(1)}" y="167" width="43" height="17" rx="8.5" fill="#E8F5F0" stroke="#63AE9B" stroke-width=".8"/>`);
+   push(svgText(x+colWidth-31.5,180,isEn?"NEW":stage==="intro"?"核心":"新增",11,730,"#147B61","middle"));
   }
-  p(`<rect x="${(x+2).toFixed(1)}" y="297" width="${(cw-4).toFixed(1)}" height="1350" rx="8" fill="${col.color}" fill-opacity="${emphasized?".035":".015"}"/>`);
-  for(const layer of LAYERS){
-   const items=col.items.filter(it=>it.layer===LAYERS.indexOf(layer));
+  push(svgText(x+13,191,col.title[lang],fitFont(col.title[lang],colWidth-28,isEn?19:20,16),760,"#193149"));
+  push(svgText(x+13,216,col.hint[lang],fitFont(col.hint[lang],colWidth-28,isEn?13.5:14,12),500,"#64748B"));
+  push(`<rect x="${(x+1).toFixed(1)}" y="230" width="${(colWidth-2).toFixed(1)}" height="791" rx="7" fill="${col.color}" fill-opacity="${emphasized?".035":".012"}"/>`);
+  for(const [li,layer] of LAYERS.entries()){
+   const items=col.items.filter(it=>it.layer===li);
    if(!items.length)continue;
-   const innerTop=layer.y+18, innerH=layer.h-36, sep=12;
-   const cardH=Math.min(106,(innerH-sep*(items.length-1))/items.length);
-   for(let j=0;j<items.length;j++){
-    const it=items[j], xx=x+11, ww=cw-22, yy=innerTop+j*(cardH+sep);
-    const main=it.focus,fill=main?"#EAF5F3":"#F9FAFC",stroke=main?col.color:"#B6C2CE";
+   const n=items.length,spacing=9,cardHeight=Math.min(76,(layer.h-24-(n-1)*spacing)/n);
+   const total=n*cardHeight+(n-1)*spacing;
+   const top=layer.y+(layer.h-total)/2;
+   for(let j=0;j<n;j++){
+    const it=items[j],xx=x+7,ww=colWidth-14,yy=top+j*(cardHeight+spacing);
+    const focus=it.focus,fill=focus?"#EAF5F3":"#FAFBFD",stroke=focus?col.color:"#B5C3D1";
     const base="https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/";
-    const url=base+it.file, label=it.title[lang];
-    p(`<a class="stage-link" href="${escSvg(url)}" target="_blank" rel="noopener noreferrer" aria-label="${escSvg(label+" — "+it.file)}"><title>${escSvg(label+" — "+it.file)}</title>`);
-    p(`<rect x="${xx.toFixed(1)}" y="${yy.toFixed(1)}" width="${ww.toFixed(1)}" height="${cardH.toFixed(1)}" rx="8" fill="${fill}" stroke="${stroke}" stroke-width="${main?2.5:1.6}"/>`);
-    p(`<rect x="${(xx+1).toFixed(1)}" y="${(yy+2).toFixed(1)}" width="7" height="${(cardH-4).toFixed(1)}" rx="3" fill="${main?col.color:"#9DAFC0"}"/>`);
-    const tlen=label.length, titleSize=(en?(tlen>30?17:tlen>24?19:21):(tlen>15?18:21));
-    p(svgText(xx+20,yy+Math.min(36,cardH*.40),label,titleSize,730,"#17334B"));
-    const description=it.detail[lang];
-    const detailSize=en?(description.length>34?14:15):15;
-    p(svgText(xx+20,yy+Math.min(65,cardH-13),description,detailSize,480,"#5C6F84"));
-    p(`</a>`);
+    const href=base+it.file,label=it.title[lang],detail=it.detail[lang];
+    push(`<a class="stage-link" href="${escSvg(href)}" target="_blank" rel="noopener noreferrer" aria-label="${escSvg(label+" — "+it.file)}"><title>${escSvg(label+" — "+it.file)}</title>`);
+    push(`<rect x="${xx.toFixed(1)}" y="${yy.toFixed(1)}" width="${ww.toFixed(1)}" height="${cardHeight.toFixed(1)}" rx="7" fill="${fill}" stroke="${stroke}" stroke-width="${focus?2.1:1.35}"/>`);
+    push(`<rect x="${(xx+1).toFixed(1)}" y="${(yy+2).toFixed(1)}" width="5" height="${(cardHeight-4).toFixed(1)}" rx="2.5" fill="${focus?col.color:"#9DAFC0"}"/>`);
+    push(svgText(xx+14,yy+Math.min(27,cardHeight*0.40),label,fitFont(label,ww-26,isEn?18:19,isEn?13.5:15.5),730,"#17334B"));
+    push(svgText(xx+14,yy+Math.min(50,cardHeight-14),detail,fitFont(detail,ww-26,isEn?14:14.5,11.5),480,"#5C6F84"));
+    push('</a>');
    }
   }
  }
- p(`<rect x="30" y="1650" width="2900" height="90" rx="10" fill="#FFFFFF" stroke="#DCE5ED" stroke-width="1"/>`);
- p(`<rect x="50" y="1672" width="115" height="35" rx="8" fill="#E6F4F0" stroke="#80B7A9" stroke-width="1"/>`);
- p(svgText(108,1695,en?"SCOPE":"范围",17,740,"#246F5D","middle"));
- p(svgText(187,1686,z.footer[lang],en?15:16,480,"#465673"));
- p(svgText(187,1714,en?"Colored = emphasized here; muted = already introduced. Every linked chip points to pinned source code.":"彩色框 = 本篇重点；浅灰框 = 已介绍的基础。实线标签均链接固定源码，不把规划能力画成已支持模块。",15,500,"#637489"));
- p(`</svg>`);
+ push(`<rect x="25" y="1027" width="${width-50}" height="71" rx="8" fill="#FFFFFF" stroke="#DCE5ED" stroke-width="1"/>`);
+ push(`<rect x="39" y="1041" width="105" height="25" rx="7" fill="#E6F4F0" stroke="#80B7A9" stroke-width="1"/>`);
+ push(svgText(91.5,1059,isEn?"SCOPE":"范围",15,740,"#246F5D","middle"));
+ push(svgText(157,1051,z.footer[lang],fitFont(z.footer[lang],width-183,isEn?13.6:14,11),490,"#465673"));
+ const legend=isEn?"Colored = new or emphasized here; muted = previously introduced. Source links use the pinned version.":"彩色 = 本篇新增或重点；浅灰 = 前文基础。源码卡片均指向固定版本。";
+ push(svgText(157,1081,legend,13.2,520,"#637489"));
+ push('</svg>');
  return out.join("");
 }
 const directory = new URL('../visuals/learning-stage-maps/',import.meta.url);
@@ -996,4 +1014,4 @@ mkdirSync(directory,{recursive:true});
 for (const stage of Object.keys(STAGES)) for (const lang of ['zh','en']) {
   writeFileSync(new URL(stage+'-'+lang+'.svg',directory),renderSvg(stage,lang),'utf8');
 }
-console.log('Generated six bilingual learning-stage SVGs');
+console.log('Generated six bilingual compact learning-stage SVGs');
