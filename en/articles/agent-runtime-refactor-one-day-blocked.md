@@ -64,7 +64,7 @@ The lesson is not that collaboration always creates conflicts, or that only one 
 
 ## Leave each problem with the right owner
 
-Subsequent changes consolidated Child handoff rules, reduced shared Run state and the Factory's exposure to Memory internals, and retired some old readers. Targeted verification supports those specific changes. As of the records checked on October 27, full formal acceptance remained incomplete, so the local results cannot be described as overall acceptance; nor do we have data showing how much maintenance time was saved.
+Subsequent changes consolidated Child handoff rules, reduced shared Run state and the Factory's exposure to Memory internals, and retired some old readers. On October 27, the refactor **completed its formal engineering checks without a live model**, including the declared offline, PostgreSQL, and mock tests and type checks. **That does not establish production deployment, live-model research quality, or faster maintenance.** The deployment and historical-data inventory remains unverified, and no change in maintenance time was measured.
 
 For the next change, we want to notice a few observable signals earlier: an equivalent condition appears in a second adapter; a new module needs to change another's internal fields; an old protocol remains without an identifiable consumer; a test fails before reaching its business assertion; or parallel tasks keep expanding one another's write scope.
 
