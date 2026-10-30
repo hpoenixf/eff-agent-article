@@ -14,7 +14,7 @@
 
 扫码关注微信公众号，在微信里继续阅读 Agent 工程实践。手机端可保存二维码，再在微信中识别。
 
-<a href="public/images/wechat-public-account.jpg"><img src="public/images/wechat-public-account.jpg" alt="小飞的 AI 投研工坊微信公众号关注二维码，点击查看原图" width="180" height="180" /></a>
+<a href="https://raw.githubusercontent.com/hpoenixf/eff-agent-article/5130bcd5c7cfc646e7e33e12ffd11d0f8e8e1b77/public/images/wechat-public-account.jpg"><img src="https://raw.githubusercontent.com/hpoenixf/eff-agent-article/5130bcd5c7cfc646e7e33e12ffd11d0f8e8e1b77/public/images/wechat-public-account.jpg" alt="小飞的 AI 投研工坊微信公众号关注二维码，点击查看原图" width="180" height="180" /></a>
 
 ## 最近三个模块阅读
 
