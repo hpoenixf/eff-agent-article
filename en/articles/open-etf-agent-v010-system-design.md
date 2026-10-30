@@ -14,6 +14,20 @@ This is one reading path through Open ETF Agent from v0.10 to v0.15. The origina
 We will examine three questions: how information becomes a report, how execution continues, and how a specialist contributes. These are independent examples sharing the same execution foundation. Default public commands use synthetic material and scripted model actions while executing actual tools, storage, and process handoffs.
 
 
+## Six-layer capability map: deeper handoff contracts
+
+Building on the intermediate modules, this map **highlights** `source_check` Main/Child delegation, the Child's restricted tools, original evidence versus derived judgments, reproducible ResultRef calculations, and actual report readback. Muted chips are previously introduced building blocks; select a solid chip for pinned source code.
+
+<PanoramaViewer src="/eff-agent-article/visuals/learning-stage-maps/deep-en.svg" label="Deep-dive six-layer map: source evidence, durable execution, Main/Child handoff, and report readback">
+<div class="v3-owner-map-scroll">
+  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/learning-stage-maps/deep-en.svg" role="img" aria-label="Deep-dive six-layer map: source evidence, durable execution, Main/Child handoff, and report readback">
+    <a href="https://hpoenixf.com/eff-agent-article/visuals/learning-stage-maps/deep-en.svg">Open the six-layer SVG map</a>
+  </object>
+</div>
+</PanoramaViewer>
+
+**Do not combine the demos into a single Run:** the v0.15 `source_check` specialist, v0.10 ResultRef calculation, and durable Worker are separate examples. L6 here means CLI readback, not a delivered Web UI.
+
 ## Four kinds of continuity before we begin
 
 Writing a report is not the same as building a reliable agent application. The difference is not simply more tools. It is **which facts survive when work crosses modules, processes, and assistants**.
