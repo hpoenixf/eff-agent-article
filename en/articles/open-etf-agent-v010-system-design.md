@@ -13,6 +13,49 @@ This is one reading path through Open ETF Agent from v0.10 to v0.15. The origina
 
 We will examine three questions: how information becomes a report, how execution continues, and how a specialist contributes. These are independent examples sharing the same execution foundation. Default public commands use synthetic material and scripted model actions while executing actual tools, storage, and process handoffs.
 
+
+## Four kinds of continuity before we begin
+
+Writing a report is not the same as building a reliable agent application. The difference is not simply more tools. It is **which facts survive when work crosses modules, processes, and assistants**.
+
+| Continuity | From and to | What breaks if the handoff fails |
+| --- | --- | --- |
+| **Evidence** | Original source → Result → deterministic calculation → reported number | A plausible number no longer traces to its operands |
+| **Execution** | User task → Session → Worker → Runtime | A restarted process repeats effects or resumes the wrong task |
+| **Responsibility** | Scoped question authorized by Main → Child tool calls → Main adoption | An assistant elevates an unauthorized read or unsupported summary into a conclusion |
+| **Delivery** | Report content → storage receipt/Publication → user-visible version | The model says “done” while the file or UI still shows old content |
+
+The fourth kind, delivery continuity, is what makes the first three valuable to a user. It does **not** claim that the v0.15 teaching CLI contains a complete online publication system. The v0.10 calculation and Worker, and v0.15 Child, are **separate runnable mechanism examples**. We compare them through a common architectural lens; no single command executes all these stages.
+
+First, consider a conceptual sequence where a specialist checks sources and hands them back to Main. Requests and receipts are distinct. This is an architecture explanation, not a sequence exported from a live trace.
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant M as Main Runtime
+  participant H as Tool Host
+  participant C as Child Runtime
+  participant R as Result Store
+  U->>M: Compare A/B and save a report
+  M->>H: source_check(local question)
+  H->>H: Validate grant, scope, and budget
+  alt Allowed and sources available
+    H->>C: Start scoped read-only Child
+    C->>H: read_page(A/B)
+    H->>R: Retain originals and provenance
+    H-->>C: Return page receipts
+    C-->>M: Derived observation and source references
+    M->>H: save_report(body)
+    H-->>M: Return Artifact receipt
+    M-->>U: Answer with verifiable references
+  else Out of scope or sources insufficient
+    H-->>M: Reject or report a coverage gap
+    M-->>U: Explain limits without invented conclusions
+  end
+```
+
+Each receipt answers a different question. A page receipt identifies source material; a Child statement is interpretation based on that material; a storage receipt establishes a retained artifact. **They cannot be collapsed into one “agent succeeded” flag.**
+
 ## 1. How do source data and calculations reach a report?
 
 Start with the small v0.10 example. A synthetic table has three values: **100, 999, and 250**, all in USD with a data date of 2026-10-01. The task compares the first and last rows. The middle value, 999, is not an operand.
@@ -47,6 +90,31 @@ The [independent-readback record](https://github.com/hpoenixf/open-etf-agent/blo
 
 </details>
 
+
+### Trace one reported number backward to the source
+
+Start with the report's “150% increase” and walk backward. Does the report reference a calculation? Did that calculation use row one (100) and row three (250)? Was row three in the acquired selection, and were the dates and currency comparable?
+
+Here is a **conceptual contract** for review, not the exact v0.10 API:
+
+```text
+report.claim
+  -> calculation(resultRef, baselineRow=0, currentRow=2)
+  -> sourceSelection(offset=0, limit=3)
+  -> original rows [100, 999, 250], USD, 2026-10-01
+```
+
+Keeping 999 in the window is intentional. **“The tool read 999” is not the same as “the calculation used 999.”** Treating every selected row as an operand produces a wrong change; dropping row identities makes even a correct number difficult to reproduce.
+
+| Boundary case | Expected behavior | What must not happen |
+| --- | --- | --- |
+| Selection covers rows 0 and 1 only | Report currentRow=2 as unavailable | Ask the model to guess the third row |
+| Baseline is zero | Mark ratio/growth as undefined under the method | Divide by zero silently or produce infinity |
+| Currency, date, or measurement basis differs | State the mismatch and request normalized inputs if necessary | Subtract incomparable values |
+| Result reference is absent or source no longer authorized | Stop that computation and explain the gap | Allow the model to fabricate a reference |
+
+These are **application correctness requirements**, not claims that every guard exists in the fixed implementation. The v0.10 example and independent readback record demonstrate only the actual selection, computation, and report/CSV consistency checks they cover. The model interprets what a change might mean; it does not manufacture computational facts.
+
 ## 2. Who continues after the submitting process exits?
 
 A short task can finish within one command. Longer work can separate submission from execution: register a task first, then let a Worker take it over.
@@ -73,6 +141,37 @@ Continuation relies on existing execution facts and supported checkpoints. Dispa
 v0.10 uses `tool-host@2`. Persisted `tool-host@1` snapshots cannot be resumed or replayed by the newer runtime, including snapshots of already terminal Runs. Before an upgrade, let active tasks finish on their original version or isolate the old code and data. Independent reading of Results, Artifacts, and Publications is separate from execution recovery. The [upgrade checklist](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.md) preserves these conditions; its synthetic old-label tests do not constitute acceptance of a real old-snapshot migration.
 
 </details>
+
+
+### Why can “run it again” make correctness worse?
+
+Imagine Worker dispatches a report write and disconnects before receiving the receipt. Three realities are possible: nothing was written, the write succeeded without a retained receipt, or a confirmed failure was recorded. **The process exiting** does not distinguish them.
+
+A continuation must establish the original task identity, its constraints, and the last provable checkpoint. Starting a new process is not evidence that the previous effect may safely be replayed.
+
+```mermaid
+flowchart TD
+  A[Submit the same Run] --> B[Persist identity and constraints]
+  B --> C[Worker reads existing execution facts]
+  C --> D{Dispatched call with unknown outcome?}
+  D -- Yes --> E[Keep unknown state and block blind redispatch]
+  D -- No --> F[Continue only from supported checkpoints]
+  F --> G{Readable artifact already obtained?}
+  G -- No --> H[Report incompletion or explicit failure]
+  G -- Yes --> I[Verify saved version and receipt]
+  E --> H
+```
+
+This is a **safe-recovery decision sketch**, not the complete v0.10 Worker state machine. At minimum, distinguish:
+
+| Known fact | Does it imply retry is safe? | Why |
+| --- | --- | --- |
+| Result is saved and independently verifiable | No repeat effect is needed | A repeated write might overwrite content |
+| Explicit failure receipt and retryable operation | Recheck prerequisites first | Original authorization, budget, and deadline still apply |
+| Dispatched with unknown outcome | **Do not blindly redispatch** | The external effect may already have happened |
+| Old checkpoint incompatible after upgrade | Do not treat it as resumable by the new version | Persisted execution protocols are versioned |
+
+If tools write to external systems, production engineering must also consider business idempotency keys, effect queries, and compensation. “At least once” cannot imply “exactly once.” These are further design concerns, **not claims of already shipped behavior** in the demonstration release.
 
 ## 3. Add a specialist: how do two loops cooperate?
 
@@ -116,7 +215,52 @@ This enters Main's context as the result of `source_check`. The default sequence
 
 **AI still chooses task actions, the runtime still drives the loop, and tools still execute operations; together they now coordinate two cooperating tasks.** Session links parent and child, Result retains original material, and report storage preserves the output. The modules from the Intermediate article form a concrete path here.
 
-## 4. Explore the main path in one v0.15 checkout
+
+## 4. How do we prove a Child did not turn an observation into a source?
+
+Adding another assistant does not create another source of truth. Main owns the overall task; Child handles an explicitly delegated local question. Child does not receive “all the user's permissions.” It receives a limited set of tools, documents, and execution budgets under the original task.
+
+In the [fixed v0.15 implementation](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/child.mjs), the source-check method treats retrieved text as data, not instructions. `SOURCE_CHECK_LIMITS` sets `maxRounds: 4`, `maxTools: 2`, and `timeoutMs: 30000`. These bounds limit how long and how widely the check can run, but **budget is not permission to access more documents**. Scope and call identity are also bound and checked in [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-child.mjs).
+
+### Three different identities
+
+- **Original material:** A particular version and page of `atlas-a` or `atlas-b`. This is the primary source.
+- **Child output:** “I checked the free-export limits; both versions require internet access.” This is a derived observation and may omit important caveats, so it must retain source references.
+- **Main report:** A readable synthesis of Child's output and acquired pages. Main remains responsible for stating whether the evidence supports the final claim.
+
+Suppose Child reads A only and then states “B also needs an internet connection.” The statement happens to match the full synthetic documents, but **this run still lacks evidence from B**. Correct handling preserves partial coverage or limitations instead of promoting plausible prose into verified source material.
+
+### Isolation is useful; delegation is not automatic reliability
+
+Making `source_check` a tool binding has two benefits. Main interacts with a bounded Tool interface; Child runs its own Loop under specialized instructions. The cost is additional identity validation: parent/child Run linkage, delegation identity, original grant, call ID, child budget, and handoff contents must stay consistent.
+
+Without those checks, more subagents may produce **misattributed facts, duplicate reads, and lost provenance** rather than better answers. The public v0.15 example implements one serial source-checking specialist; it is not an unrestricted parallel specialist orchestration platform.
+
+## 5. Turn the three examples into an acceptance contract
+
+Return to the original question. Producing Markdown does not establish end-to-end correctness. Independently observe **whether operations executed, primary facts were retained, and the final artifact can be read back**.
+
+| Check surface | Deliberately injected fault | What to observe | What it does not prove |
+| --- | --- | --- | --- |
+| Arguments and permission | Child requests an ungranted third document | Tool Host rejects it; no unauthorized source enters Result | The model will never propose an out-of-scope call |
+| Data and computation | Exclude currentRow or supply an incomparable baseline | Controlled failure/gap; no fabricated precision | Every financial calculation is correct |
+| Durable continuation | An effect was dispatched but confirmation was lost | Preserve unknown status; no silent replay | Every historical Run is recoverable |
+| Subagent handoff | Child has only A, not B | Main separates summary, original source, and missing coverage | Child's prose reasoning is always correct |
+| Report and delivery | Saved output exists but UI displays an older version | Verify file, version, receipt, and displayed content separately | A storage receipt means the user has seen it |
+
+Some of these are **acceptance tests a full application still needs**, not claims that all are already automated in v0.10 or v0.15. Live model behavior must be tested separately: passing fixtures demonstrates these mechanisms under known synthetic conditions, not general semantic accuracy or production fitness.
+
+In production, do not use retry count alone as a reliability measure. Attribute a failure to the actual handoff: model call shape, Host authorization, Result provenance, Worker durable state, Child scope, Artifact receipt, or UI version selection. Fixing the responsible seam is generally more controllable than continuing to tune the prompt.
+
+## 6. Return from engineering mechanisms to the user experience
+
+From the frontend, the user only asks “Is my report ready?” Yet a trustworthy interface must distinguish **research still running**, **a readable version saved on the server**, and **that version displayed in this client**.
+
+After a refresh, the UI should retrieve the report using stable task identity rather than guessing the final state from an old SSE fragment. If background work is incomplete, an earlier report must not masquerade as this run's completion. These are delivery and presentation contracts from the full six-layer architecture; **the specialist CLI example does not claim to ship a web UI**.
+
+For a full-stack engineer, this explains why Publication, History, and UI require separate designs. The model produces candidate text, a durable system accepts a version, and delivery and presentation finally make it visible. Acceptance, storage, and display are separate, verifiable events.
+
+## 6. Explore the main path in one v0.15 checkout
 
 Use the [v0.15 environment installed in the introduction](./agent-in-15-minutes.md#try-the-example-in-five-minutes) and a new dedicated directory:
 
@@ -160,10 +304,21 @@ This example's 30-second deadline begins at submission. It demonstrates submissi
 
 </details>
 
-## Next: place the concrete path in the panorama
+## 7. From continuity contracts to the six-layer panorama
 
-You can now understand the system from three directions: **information continues through references, execution continues within the same task, and specialists contribute to clearly scoped questions.** The modules from the first two articles have concrete places in that flow.
+Place everything we have learned in the larger map. **Six layers describe request handoffs, not six services that must run sequentially, and not a claim that each demonstration release implements every layer.**
 
-Continue with [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Find the entry point, context, Main/Child, and tools first, then explore other areas as needed. The panorama covers a larger system; each article's fixed source identifies its public implementation scope.
+| Layer | Question it answers | Example and critical distinction |
+| --- | --- | --- |
+| **L1 Task input and trigger** | Who requested the A/B comparison, and when? | The user request starts the task; scheduled triggers belong to fuller applications |
+| **L2 Identity, session, and context** | Which Run is this, and which history and documents may it use? | Session identity, Context projection, original grant |
+| **L3 Agent decision and execution** | What happens next; does Main need Child? | Main/Child use the Runtime; a proposed action is not authorization |
+| **L4 Tools and domain capabilities** | Who reads originals and computes the 150% change? | Tool Host, ResultRef, deterministic calculation, reproducible sources |
+| **L5 Result publication and delivery** | Which report version was actually saved and accepted? | Artifact and readback; Publication/History govern broader delivery |
+| **L6 User interface** | Which version of which Run did the user actually see? | CLI introduces readback; a web UI must handle refresh, progress, and stale versions |
+
+Intermediate introduced ten capabilities. Deep Dive has asked **what they hand to each other, how failures are classified, and what evidence continuation can trust**. The full panorama expands to the whole system: Direct/Research/Coord paths, background tasks, cross-layer Owners, observability, and user-visible delivery.
+
+Next read [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Start by following L1 → L6; then zoom into Main/Child, tool results, and Publication as needed. **The goal is not to memorize the diagram, but to locate responsibility and verification evidence.**
 
 [Back to Intermediate](./agent-ten-modules.md) · [Current source project](https://github.com/hpoenixf/open-etf-agent) · [中文](../../articles/open-etf-agent-v010-system-design.md) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)

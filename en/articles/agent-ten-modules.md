@@ -15,6 +15,24 @@ Use the [fixed v0.15 version](https://github.com/hpoenixf/open-etf-agent/tree/74
 
 **Start with the first three parts, then see how the others join them.** These ten groups are a reading map; they can cooperate inside one program.
 
+
+## Start with the problem: why is a three-line Agent Loop not enough?
+
+The introduction's `while` loop explains **who chooses the next action**. An application still has to answer different questions: **Who authorizes access? Where do the acquired facts live? Can the work continue after a failure? Which result can the user actually read?**
+
+Expand the same synthetic Atlas Notes comparison. Guides A and B now come from a document service; the reader wants a saved report they can reopen later. A loop does not satisfy those requirements on its own.
+
+| Change in the task | What a bare loop does not provide | Capability that addresses it |
+| --- | --- | --- |
+| The model says “read page one of B” | Natural language is not permission to access a file | Tool Host validates inputs and scope; MCP connects a tool provider |
+| B has a version, original text, and row counts | A derived summary cannot replace the source | Result retains provenance; Context selects material for the next turn |
+| The user prefers a comparison table | Presentation preferences should not be hard-coded into every request | Skill carries a comparison method; Memory can supply an authorized preference |
+| The work waits for a user or continues in another process | Process-local variables are not durable task facts | Session retains the task; Worker drives the same Runtime |
+| One detail needs independent checking | Main need not carry every source-reading step in its own context | A scoped Child returns checked material to Main |
+| The report must be reopened | “I saved it” is not a storage receipt | Artifact and report tools retain a readable result |
+
+That is why ten capabilities appear: **not to wrap a simple loop in ten arbitrary layers, but to give each additional responsibility a clear owner**. When reading code, ask which confusion a module prevents before asking how it joins the loop.
+
 ## 1. Get the loop running
 
 ### 1. Model access: hand a decision to AI
@@ -105,6 +123,84 @@ The useful idea is **how two loops hand work back and forth**. The parent addres
 
 Code entry: [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-child.mjs). The next article follows this actual code path.
 
+
+## 4. Follow one task through the ten capabilities
+
+Here is the document comparison as a responsibility flow. **It is an explanatory diagram, not a literal trace from one execution.** The specialist branch is optional; the introductory T1 example does not activate every module.
+
+```mermaid
+flowchart TD
+  A[User requests document comparison] --> B[Runtime asks Gateway for the next step]
+  B --> C{Need to read a source?}
+  C -- No --> Z[Compose the answer]
+  C -- Yes --> D[Tool Host validates and runs page reading]
+  D --> E{Are source pages sufficient?}
+  E -- No --> F[Keep known facts and state the gap]
+  E -- Yes --> G[Result retains originals and provenance]
+  G --> H[Context selects the next input]
+  H --> I{Need a specialist check?}
+  I -- Yes --> J[Child reads within scope and returns]
+  I -- No --> K[Main synthesizes]
+  J --> K
+  K --> L[Report tool saves the artifact]
+  L --> Z
+  F --> Z
+```
+
+Three decisions matter. The model may choose an action, but Runtime and Host decide whether a call is permitted under the actual scope, schema, and budget. A successful read of A alone does not prove that the A/B comparison is complete. And delegation is a deliberate branch, not a subagent started for every question.
+
+### What actually crosses between modules?
+
+Frontend and backend developers often think in DTOs; an agent also benefits from explicit handoff contracts. This is a **conceptual illustration, not the real Open ETF Agent API schema**:
+
+```json
+{
+  "request": { "task": "compare_free_exports", "versions": ["A", "B"] },
+  "toolCall": { "name": "read_page", "documentId": "atlas-b", "page": 1 },
+  "source": { "documentId": "atlas-b", "version": "B-2026-02", "page": 1 },
+  "observation": { "formats": ["CSV", "Markdown"], "maxRows": 300 },
+  "coverage": { "aRead": true, "bRead": true },
+  "nextAction": "synthesize"
+}
+```
+
+An `observation` is derived from material; a `source` points back to the original. Even a correct observation does not make version identity, provenance, or authorization dispensable. The actual result and receipt schemas remain defined by the referenced fixed commit.
+
+### The model proposes; code establishes facts
+
+| Question | What the model can do | What code must enforce |
+| --- | --- | --- |
+| Read A or B next? | Choose from the task and current evidence | Restrict tools and documents to the permitted scope |
+| Is there enough information? | Decide whether to continue researching | Never turn an unread page into an acquired Result |
+| How should the changes be explained? | Compare meaning and write a clear account | Do not let model prose invent calculation or source identities |
+| When should a specialist help? | Propose a specific checking question | Limit the Child's inherited scope and budget |
+| Should the report be saved? | Compose the intended output | Confirm the write through an actual storage receipt |
+
+A Skill may teach “compare equivalent dimensions first”; **it is not an access grant**. MCP makes tools discoverable; **it is not a permission slip**. Memory may carry “use a table first”; **it is not evidence for guide B**. Separating these concerns solves many problems that otherwise look like prompt tuning.
+
+## 5. Three failures teach more than ten names
+
+**Case A: A was read, but B was not.** You can support “A exports CSV,” but not “B added Markdown.” Degrade to a report that states what is known and what is missing; never ask the model to invent B. The check is whether the saved Result contains the B source and page, and whether the report labels incomplete coverage.
+
+**Case B: Child asks for a document outside its scope.** Even a persuasive explanation must not widen access. The public v0.15 source-checking Child is limited to `read_page`, a fixed document set, and a bounded budget. The meaningful test is whether the Host rejects the out-of-scope call—not whether the prompt politely asks the Child to stay inside its instructions.
+
+**Case C: Worker disconnects after a tool was dispatched but its outcome is unknown.** “Call it again” cannot safely stand in for a known outcome, particularly for tools with persistent side effects. Distinguish confirmed completion from dispatched-but-unknown work; inspect durable state and existing artifacts before choosing a supported continuation. This is a design principle, not a claim that every historical checkpoint is restorable.
+
+These failures test **evidence integrity, authorization integrity, and execution integrity**. You do not need a full distributed system on day one, but your first prototype should make each failure observable.
+
+## 6. Grow from a small project into an application
+
+You need not implement ten capabilities at once. Add responsibility when a requirement actually calls for it, and attach an observable acceptance condition.
+
+| Iteration | Add | Minimum acceptance condition |
+| --- | --- | --- |
+| First: minimum loop | Gateway, Runtime, Tool Host | Real tools execute, results enter the next turn, and limits stop the loop |
+| Second: trustworthy sources | Skill, MCP, Result, Context | A/B comparison cites sources; missing pages do not produce invented differences |
+| Third: longer-term work | Memory, Artifact, Session, Worker | Preferences can be corrected, saved reports can be reread, and supported tasks continue |
+| Fourth: bounded delegation | Child collaborating with Main | Out-of-scope work is rejected; derived observations remain distinct from originals |
+
+This order is **teaching advice, not a claim that every historical release shipped exactly this way**. Runtime constraints and verification evidence still belong to each fixed source version.
+
 ## Explore three examples in the same v0.15 checkout
 
 Using the [v0.15 environment installed in the introduction](./agent-in-15-minutes.md#try-the-example-in-five-minutes), run these independently:
@@ -124,10 +220,21 @@ The first two commands print their own run directories and reports. Use a new de
 
 These are **independent examples**, each demonstrating a group of capabilities. Additional entry points are in the [current project guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
 
-## Next: connect information, execution, and collaboration
+## Next: where do ten capabilities sit in six layers?
 
-You now know the names and their source entry points. Follow a concrete task next to see information move between them.
+The ten capabilities are not synonyms for six layers. **Modules describe responsibilities; layers identify handoffs from task initiation to a user-visible result.** A module may participate in several stages.
 
-**Continue with [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](./open-etf-agent-v010-system-design.md).** After that path, expand to the full system panorama.
+| Layer | In the Atlas Notes example | Capability introduced here |
+| --- | --- | --- |
+| **L1 Task input and trigger** | The user asks to compare A and B | Task input; scheduled triggers can be added later |
+| **L2 Identity, session, and context** | Select permitted documents and retained material | Session, Context, Memory, and applicable Skills |
+| **L3 Agent decision and execution** | AI chooses to read, check, or synthesize | Gateway, Runtime, Main/Child |
+| **L4 Tools and domain capabilities** | Actually read pages and retain originals | Tool Host, MCP, Result |
+| **L5 Result publication and delivery** | Save a report that can be read back | Report and Artifact; broader publication governance comes later |
+| **L6 User interface** | The reader opens the right task's report | CLI establishes readback; a product UI handles presentation and reconnection |
+
+**Deep Dive adds fewer new nouns and asks harder questions instead:** How can a number be traced to its source? How does a task cross a process boundary? How can a specialist's summary avoid replacing primary evidence?
+
+Continue with [**Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration**](./open-etf-agent-v010-system-design.md). Then use the [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md) to place these concrete mechanisms in the larger system.
 
 [Back to Introduction](./agent-in-15-minutes.md) · [中文](../../articles/agent-ten-modules.md) · [Open ETF Agent (stars welcome)](https://github.com/hpoenixf/open-etf-agent)

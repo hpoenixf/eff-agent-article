@@ -5,7 +5,7 @@ description: "写给有一点前后端基础的开发者。用一个可运行的
 
 # 十五分钟入门 Agent
 
-> **入门 · 第 1 站**　入门 → [进阶](./agent-ten-modules.md) → [深入](./agent-loop-to-application.md) → 全景
+> **入门 · 第 1 站**　入门 → [进阶](./agent-ten-modules.md) → [深入](./open-etf-agent-v010-system-design.md) → 全景
 
 如果你写过接口、调过 API，或者用 JavaScript 做过自动化脚本，就能很快理解 Agent。
 
@@ -109,8 +109,10 @@ npm run demo -- --case T1
 
 到这里，你已经有了一张入门地图：**用户给目标，AI 根据每轮结果决定下一步，Runtime 运行循环，工具执行动作。**
 
-继续读[**《Agent 进阶：读懂 Open ETF Agent 的十个核心模块》**](./agent-ten-modules.md)，在同一个 v0.15 版本里认识 Skill、MCP、上下文、记忆、会话与子代理。接着进入[深入篇](./agent-loop-to-application.md)，沿一次真实的专家协作看它们怎样配合。
+继续读[**《Agent 进阶：读懂 Open ETF Agent 的十个核心模块》**](./agent-ten-modules.md)，在同一个 v0.15 版本里认识 Skill、MCP、上下文、记忆、会话与子代理。接着进入[深入篇](./open-etf-agent-v010-system-design.md)，沿一次真实的专家协作看它们怎样配合。
 
 **阅读路线：入门 → 进阶 → 深入 → 全景。** 每一站沿用已经熟悉的任务，再多看一层。
+
+现在你已经碰到了六层架构中的三个动作：**L1 收到任务、L3 决定下一步、L4 使用工具**。进阶篇会补上“任务属于谁、资料如何进入上下文（L2）”，深入篇再回答“答案怎样被保存和真正交给用户（L5/L6）”。此处不必背编号，先记住这条任务链即可。
 
 [Open ETF Agent 源码与示例](https://github.com/hpoenixf/open-etf-agent) · [English version](/en/articles/agent-in-15-minutes) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

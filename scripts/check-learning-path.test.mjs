@@ -32,6 +32,11 @@ test('each introductory stop links to its immediate next stop in both languages'
     }
     const first = read(prefix + 'articles/agent-in-15-minutes.md')
     assert.ok(!first.includes('017-prompt-to-answer-six-layer-panorama-v3'), 'first step must not skip the bridges')
+    // The alias may serve old bookmarks, but canonical reading pages must not send new readers there.
+    for (const slug of learningPathSlugs) {
+      assert.ok(!read(prefix + 'articles/' + slug + '.md').includes('agent-loop-to-application'),
+        prefix + slug + ' must link to the combined deep-dive canonical article')
+    }
     const modules = read(prefix + 'articles/agent-ten-modules.md')
     assert.equal([...modules.matchAll(/^### \d+\./gm)].length, 10)
   }

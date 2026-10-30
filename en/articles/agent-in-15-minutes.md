@@ -5,7 +5,7 @@ description: "A friendly introduction for frontend and backend developers. Follo
 
 # Agents in 15 Minutes
 
-> **Introduction · Stop 1**　Introduction → [Intermediate](./agent-ten-modules.md) → [Deep dive](./agent-loop-to-application.md) → Panorama
+> **Introduction · Stop 1**　Introduction → [Intermediate](./agent-ten-modules.md) → [Deep dive](./open-etf-agent-v010-system-design.md) → Panorama
 
 If you have built an API, called a backend service, or written a short JavaScript automation script, you already have a useful starting point for understanding agents.
 
@@ -109,8 +109,10 @@ The default example uses a **scripted model-action sequence**, so no model API k
 
 You now have a useful mental model: **the user sets a goal, AI chooses the next step from each result, the runtime drives the loop, and tools perform the actions.**
 
-Continue with [**Agent Intermediate: Ten Core Modules in Open ETF Agent**](./agent-ten-modules.md). In the same v0.15 checkout, meet Skills, MCP, context, memory, sessions, and subagents. Then the [Deep Dive](./agent-loop-to-application.md) follows an implemented specialist collaboration to show how those parts cooperate.
+Continue with [**Agent Intermediate: Ten Core Modules in Open ETF Agent**](./agent-ten-modules.md). In the same v0.15 checkout, meet Skills, MCP, context, memory, sessions, and subagents. Then the [Deep Dive](./open-etf-agent-v010-system-design.md) follows an implemented specialist collaboration to show how those parts cooperate.
 
 **Reading path: Introduction → Intermediate → Deep dive → Panorama.** Each stop keeps the familiar task and adds another layer of understanding.
+
+You have already met three movements of the six-layer architecture: **L1 accepts the task, L3 decides the next action, and L4 uses tools**. Intermediate adds ownership and context (L2); Deep Dive follows how results are saved and actually delivered (L5/L6). You do not need to memorize the numbers yet—just keep following the task.
 
 [Open ETF Agent source and examples](https://github.com/hpoenixf/open-etf-agent) · [中文版](/articles/agent-in-15-minutes) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)
