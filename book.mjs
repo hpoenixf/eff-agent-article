@@ -136,6 +136,7 @@ export const collections = [
         "title": "系统边界与演进",
         "desc": "系统全景、证据关系、跨层观测、故障归因与架构演化。",
         "items": [
+          ["agent-in-15-minutes", "十五分钟入门 Agent：从文档比较到报告回读"],
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["open-etf-agent-v010-system-design", "从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],

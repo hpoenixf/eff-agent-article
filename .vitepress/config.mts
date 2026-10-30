@@ -44,7 +44,7 @@ export default defineConfig({
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
         nav: [
-          { text: 'System Overview', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+          { text: 'Start Here', link: '/en/articles/agent-in-15-minutes' },
           { text: 'Principles', link: '/en/principles' },
           { text: 'Gallery', link: '/en/gallery' },
           { text: 'Open ETF Agent', link: '/en/open-etf-agent' },
@@ -59,7 +59,8 @@ export default defineConfig({
         sidebar: {
           '/en/articles/': englishSidebar,
           '/en/': [{ text: 'Start Reading', items: [
-            { text: 'Six-Layer Agent Architecture', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+            { text: 'Agents in 15 Minutes', link: '/en/articles/agent-in-15-minutes' },
+            { text: 'Six-Layer Architecture (Advanced)', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
             { text: 'Architecture Principles', link: '/en/principles' },
             { text: 'All Articles', link: '/en/catalog' },
             { text: 'Module Deep Dives', link: '/en/modules' },
@@ -194,7 +195,7 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [
-      { text: '系统全景', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+      { text: '入门 Agent', link: '/articles/agent-in-15-minutes' },
       { text: '架构原则', link: '/principles' },
       { text: '架构图册', link: '/gallery' },
       { text: '开源专题', link: '/en/open-etf-agent' },
@@ -211,7 +212,8 @@ export default defineConfig({
       '/articles/': readingSidebar,
       '/': [
         { text: '开始阅读', items: [
-          { text: '六层系统全景 · 必读', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+          { text: '十五分钟入门 Agent · 从这里开始', link: '/articles/agent-in-15-minutes' },
+          { text: '六层系统全景 · 进阶', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
           { text: '架构原则与方法', link: '/principles' },
           { text: '模块维度', link: '/modules' },
           { text: '架构与系统思考', link: '/thinking' },

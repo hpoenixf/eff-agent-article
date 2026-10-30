@@ -54,7 +54,8 @@ const zh = {
     {
       title: 'Agent 应用开发',
       links: [
-        { label: '六层全景', href: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+        { label: '十五分钟入门', href: '/articles/agent-in-15-minutes' },
+        { label: '六层全景（进阶）', href: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
         { label: 'Subagent 协作', href: '/articles/agent-subagent-context-specialization' },
         { label: 'Python 工作台', href: '/articles/agent-python-compute-workbench-evolution' }
       ]
@@ -141,7 +142,8 @@ const en = {
     {
       title: 'Agent application development',
       links: [
-        { label: 'Six-layer map', href: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
+        { label: 'Agents in 15 minutes', href: '/en/articles/agent-in-15-minutes' },
+        { label: 'Six-layer map (advanced)', href: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
         { label: 'Subagent collaboration', href: '/en/articles/agent-subagent-context-specialization' },
         { label: 'Python workbench', href: '/en/articles/agent-python-compute-workbench-evolution' }
       ]

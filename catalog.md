@@ -7,7 +7,7 @@ description: Agent 工程文章按模块机制、架构与系统思考、AI Agen
 
 **三条互补主线，当前正文以目录为准。** 模块机制回答“系统如何运行”，架构设计回答“为什么这样分工”，AI Agent 研发工程实践回答“如何持续开发、验证和升级”。
 
-建议先浏览[九条 Agent 架构原则与七组系统方法](/principles)，再按问题选择深入文章。每篇正文都提供返回原则地图的入口。
+第一次接触 Agent？先读[十五分钟入门 Agent](/articles/agent-in-15-minutes)，再看[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)或[九条 Agent 架构原则与七组系统方法](/principles)，按问题逐步深入。每篇正文都提供返回原则地图的入口。
 
 每篇正文只归入一个主类；[金融科技 × Agent](/fintech) 是跨分类主题精选，不复制正文。侧栏、篇章顺序与上一篇／下一篇由 `book.mjs` 统一维护。
 

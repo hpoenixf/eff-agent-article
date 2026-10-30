@@ -6,7 +6,7 @@ title: Architecture and Systems Thinking
 
 <FlagshipEntry compact />
 
-Read how decisions about ownership, authorization, evidence, failure attribution and deletion shape a long-lived agent. Some linked essays remain available only in Chinese.
+Start with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes), then read the [six-layer architecture](/en/articles/017-prompt-to-answer-six-layer-panorama-v3). Learn how decisions about ownership, authorization, evidence, failure attribution and deletion shape a long-lived agent. Some linked essays remain available only in Chinese.
 
 Explore the [nine core principles and six on-demand methods](/en/principles), including Context as a workbench, minimum sufficient mechanisms and replaceable capabilities. Existing essays are listed below; new and revised topics are clearly distinguished in the [writing roadmap](/en/roadmap).
 

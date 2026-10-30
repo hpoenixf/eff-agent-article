@@ -7,8 +7,8 @@ hero:
   tagline: How complex agents run, why their architecture evolves, and how AI-assisted engineering delivers working systems.
   actions:
     - theme: brand
-      text: Start with the six-layer map →
-      link: /en/articles/017-prompt-to-answer-six-layer-panorama-v3
+      text: Agents in 15 minutes →
+      link: /en/articles/agent-in-15-minutes
     - theme: alt
       text: Browse all articles
       link: /en/catalog

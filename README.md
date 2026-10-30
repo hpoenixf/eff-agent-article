@@ -32,7 +32,7 @@
 
 | 想解决的问题 | 阅读入口 | 你会得到什么 |
 | --- | --- | --- |
-| 一次 Agent 请求怎样变成答案？ | [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [模块维度](modules.md) | 沿执行链理解会话、Main / Child、工具、发布与界面的职责 |
+| 想用十五分钟搞懂 Agent 怎么跑？ | [十五分钟入门 Agent](articles/agent-in-15-minutes.md) → [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) | 先动手比较两份合成文档，再深入会话、Main/Child、工具与交付 |
 | 为什么这样划分边界，怎样避免越改越复杂？ | [架构原则](principles.md) → [架构设计与系统思考](thinking.md) | 从真实取舍理解授权、恢复、事实归属与演进契约 |
 | 如何让文档、代码和验证一起向前？ | [AI Agent 研发工程实践](engineering.md) | Spec、证据、知识退役与真实任务收敛的工程方法 |
 
@@ -152,14 +152,14 @@ npm run docs:build
 
 ## 初次访问：90 秒找到最相关的工程证据
 
-**两篇首要必读：** [六层调用全景 V3](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 是运行地图，沿一次请求讲清会话、Main/Subagent、可选工具、发布与界面；[Agent 架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
+**从易到难：** [十五分钟入门 Agent](https://hpoenixf.com/eff-agent-article/articles/agent-in-15-minutes) 先从可运行的文档比较理解循环与交付；[六层调用全景 V3](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 再放大完整请求系统；[Agent 架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
 
 本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
 
 | 关注方向 | 建议先读 | 可以观察到什么 |
 | --- | --- | --- |
 | **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [异步研究的前端交付](articles/agent-asynchronous-research-time-bound-delivery.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 分段正文、后台通知、重连重读、事件去重与 Host 交付边界；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue) |
-| **Agent 应用开发** | [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [Model / Harness / Loop 研究推进](articles/etf-agent-model-harness-research-loop.md) → [Subagent](articles/agent-subagent-context-specialization.md) → [自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
+| **Agent 应用开发** | [十五分钟入门 Agent](articles/agent-in-15-minutes.md) → [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [Model / Harness / Loop 研究推进](articles/etf-agent-model-harness-research-loop.md) → [Subagent](articles/agent-subagent-context-specialization.md) → [自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
