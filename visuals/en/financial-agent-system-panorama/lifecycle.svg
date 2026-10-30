@@ -98,8 +98,8 @@
 <text x="697" y="1126" class="body" text-anchor="start" style="font-size:17px">Freeze auto resubmission</text>
 <rect x="985" y="1040" width="205" height="120" rx="14" fill="#FFFFFF" stroke="#9C6014" stroke-width="1.8" stroke-dasharray="8 5"/>
 <text x="1002" y="1067" class="tag" text-anchor="start" style="fill:#9C6014">ACTUAL RECEIPTS</text>
-<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:20px">Partial / full / settle</text>
-<text x="1002" y="1126" class="body" text-anchor="start" style="font-size:15px">Distinct recorded effects</text>
+<text x="1002" y="1097" class="head" text-anchor="start" style="font-size:17px">Partial / full fills</text>
+<text x="1002" y="1126" class="body" text-anchor="start" style="font-size:15px">Settlement receipts</text>
 <path d="M 473 976 L 473 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <path d="M 1088 976 L 1088 1010 L 803 1010 L 803 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
 <path d="M 1088 976 L 1088 1040" fill="none" stroke="#9C6014" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#amber)"/>
