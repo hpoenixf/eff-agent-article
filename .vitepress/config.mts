@@ -185,7 +185,9 @@ export default defineConfig({
           return '<figure class="diagram-frame diagram-static">' +
             '<img :src="\'' + imageUrl + '\'" alt="' + escapeAttribute(description) +
             '" loading="lazy" decoding="async" />' +
-            '<figcaption class="diagram-caption">' + caption + '</figcaption></figure>\n'
+            '<figcaption class="diagram-caption">' + caption +
+              ' <a class="diagram-original" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer">查看完整 SVG / Open full-size SVG</a>' +
+              '</figcaption></figure>\n'
         }
         return fallback ? fallback(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
       }
