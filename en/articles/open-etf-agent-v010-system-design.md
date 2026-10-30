@@ -1,115 +1,154 @@
 ---
-title: From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage
-description: Follow a synthetic comparison task in v0.10 to see how source material, calculations, and reports stay connected, then explore a separate durable execution path that continues across processes.
+title: "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+description: "Combine the original v0.10 system-design article with v0.15 specialist collaboration, following data, execution, and delegation before the six-layer panorama."
 ---
 
-# From the First Report to a Resumable Research Program — Open ETF Agent’s Second Stage
+# Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration
 
-[When we introduced v0.1](/en/articles/open-etf-agent-v01-first-readable-report), Open ETF Agent did one small thing: read two sources, compare them, save a report, and let another process read back the original file. The central question was what had actually happened when the model said “done.”
+> **Deep dive · Stop 3**　[Introduction](./agent-in-15-minutes.md) → [Intermediate](./agent-ten-modules.md) → Deep dive → [Panorama](./017-prompt-to-answer-six-layer-panorama-v3.md)
 
-By v0.10, that question had moved forward: **When source material passes through selection, calculation, and delivery—and execution may span processes—how can later consumers keep using the original facts rather than independently reconstructing something that merely looks the same?**
+The first two articles explained how AI chooses the next step in a loop and what ten modules do. Now take another step: **How does the same work continue when information passes through several tools, another process takes over execution, or another assistant handles part of the task?**
 
-That is the thread running through this second stage. It is neither an attempt to fill out every module nor a declaration that the product can independently conduct real fund research. The public project still uses synthetic material and scripted actions to check its execution mechanisms. But two reproducible paths now make the system concrete: one runs from a source table to a report and CSV; the other lets an independent Worker continue the same Run after the submitting process exits, then reads back the committed answer body.
+This is one reading path through Open ETF Agent from v0.10 to v0.15. The original system-design article and the new specialist walkthrough are combined here at the original URL. The [original v0.10 edition](https://github.com/hpoenixf/eff-agent-article/blob/a377164e53e5f63b7a6114d54e2635c084dfbbcd/en/articles/open-etf-agent-v010-system-design.md) remains available as a fixed snapshot.
 
-These paths share an execution foundation, but they are separate examples. We will first follow the data through the comparison example, then use the second example to explain the program’s lifecycle—not combine them into a full-featured task that has supposedly already run.
+We will examine three questions: how information becomes a report, how execution continues, and how a specialist contributes. These are independent examples sharing the same execution foundation. Default public commands use synthetic material and scripted model actions while executing actual tools, storage, and process handoffs.
 
-## 1. Connecting Results, Not Just Adding Tools
+## 1. How do source data and calculations reach a report?
 
-The simple design in v0.1 had a reason. Reading sources, performing a calculation, and saving files all happened in one local flow. Separating three responsibilities was enough to start: the model gateway received and normalized model responses, the runtime owned the execution loop, and the tool host validated arguments and produced actual effects.
+Start with the small v0.10 example. A synthetic table has three values: **100, 999, and 250**, all in USD with a data date of 2026-10-01. The task compares the first and last rows. The middle value, 999, is not an operand.
 
-Later development did not overturn that structure. The new problem was that **success at one step cannot stand as evidence for the next.**
+Passing 100 and 250 to a calculator is straightforward. Once a model explanation, report, and CSV follow, the numbers also need to retain their origin.
 
-Reading a page does not mean a calculation used its numbers. Producing a number does not mean the next request received it. A report and CSV both containing numbers does not mean they came from the same calculation. Having each tool return “success” leaves these gaps intact.
+The capability connects the steps: **read the source table → select two rows → calculate once → use the same result in the next model input, report, and CSV.**
 
-The [original Result / Reference proposal](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/proposal.md) therefore did not call for another results database or calculation platform. Raw results could already be saved, the runtime already passed tool results back to the gateway, and reports and CSVs were already deliverable files. What was missing was a verifiable connection between these steps.
+`read_comparison` retrieves the source and Result retains the original content. A calculation request refers to that result and identifies the selection and row positions. The calculator reads the saved source values, producing a difference of 150, a current-to-baseline ratio of 2.5, and a relative increase of 150%, while retaining units, currency, and date.
 
-That connection is what v0.10 adds: select inputs from saved source content, calculate with the existing calculator, and have the next request, report, and CSV use the same derived result. This is a complete capability added to the existing flow, not a second execution flow.
+The report and CSV draw their values from that calculation. A reader can trace a reported number back to the computation and then to the original rows. The model still explains what the numbers mean.
 
-## 2. Following a Small Table into a Report and CSV
+The design choice is practical: existing tools already read, calculate, and save. Add the reference relationships that let one result continue through them. The [original proposal](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/proposal.md) records that reasoning.
 
-The example starts with a table explicitly marked as synthetic data. It deliberately contains three rows, with values of 100, 999, and 250. Their units match, their currency is USD, and their data date is 2026-10-01. The task compares the first and last rows; the middle row is not an operand.
+<details>
+<summary>Further detail: v0.10 selection and numerical definitions</summary>
 
-This demands more than passing `100` and `250` straight to a calculator: the program must be able to explain where those operands came from.
-
-### Retrieve the Source, Then Select the Operands
-
-`read_comparison` retrieves fixed source material through the existing tool host. Result retains the raw content and its identity. The calculation request then supplies the raw-result reference, a selection, and two row positions:
+The request has this shape; the read tool returns the actual `resultRef`:
 
 ```json
 {
-  "resultRef": "raw-result reference returned after retrieving the source",
+  "resultRef": "result reference returned by reading the source table",
   "selection": { "offset": 0, "limit": 3 },
   "baselineRow": 0,
   "currentRow": 2
 }
 ```
 
-This illustrates the request shape; the tool returns the actual reference at runtime. The calculator parses values from the saved original bytes rather than trusting numbers copied into the request by the caller. The reference, content hash, actual selection, and row positions remain attached to the derived result.
+The selection must cover both operands. Reading only the first two rows does not supply the third. Date, currency, and denominator requirements also remain attached to the computation. The numerical section comes from the calculation; free-form conclusions still require interpretation against the sources.
 
-This also explains the small but deliberate choice to use the final row. If the selection covers only the first two rows while the request still asks for the third, the program cannot supply 250 on the assumption that the table “might contain more data.” The selection does not cover the required operand, so the comparison is unavailable.
+The [independent-readback record](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/docs/verification/result-consumption-independent.safe.json) checks original report and CSV output. Gateway-encoding checks establish that material entered a request, not that a live model understood it correctly.
 
-Even a complete selection means only that the selected stored rows were retrieved in full. It does not establish that the upstream material covers every holding, much less that the model understood the entire source.
+</details>
 
-### Carry the Numerical Basis Along with the Result
+## 2. Who continues after the submitting process exits?
 
-For this table, the difference is 150, the current value is 2.5 times the baseline, and the increase relative to the baseline is 1.5, or 150%. These are not three interchangeable descriptions.
+A short task can finish within one command. Longer work can separate submission from execution: register a task first, then let a Worker take it over.
 
-The derived result also retains the operands, units, currency, and data date. If dates or currencies differ, or the denominator is unknown, the current “same-snapshot comparison” method cannot return an apparently normal bound result. The program returns a specific reason for unavailability. It neither treats an unknown value as zero nor invents a denominator.
+Three familiar modules divide the work:
 
-Limitations must travel with the result if they are not to disappear in later wording. The runtime adds tool results to subsequent input. Verification of the production gateway’s encoding checks whether the actual encoded request carries the same reference, values, and qualifications. An injected offline transport inspects these requests; the presence of those bytes in a request is not presented as evidence that a real model reasoned correctly from them.
+| Part | Responsibility |
+| --- | --- |
+| Session | Retain the task, its progress, and execution conditions |
+| Worker | Drive one explicitly selected task |
+| Runtime | Continue the existing model-and-tool loop |
 
-### The Report and Attachment No Longer Recalculate Separately
+Worker reuses Session's execution records and calls the same runtime. The [single-Run proposal](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md) narrowed the design to this clear path instead of adding another layer of task state.
 
-CSV generation receives a reference to the derived calculation, not another manually assembled set of numbers. When saving the report, the tool host also generates its numerical section from the original calculation result. Both deliverables can therefore be traced to the same calculation and then to the same source selection.
+The command window and research task can then have separate lifecycles. A later process takes over the same task with its allowed scope, consumed budget, and original deadline.
 
-Free-form report prose remains a separate matter. The program-generated numerical section can be checked, but that does not automatically support every written conclusion. This distinction lets the system guarantee the relationships it actually controls without taking over the model’s semantic judgment.
+The original article's `durable-publication` example demonstrates that handoff. It runs separately from the calculation example, giving a second view of the same foundation.
 
-Once the files are saved, Artifact and Revision identify each deliverable and its revision. An independent process reads the original report and CSV bytes and checks the receipts, rather than calling the model again to generate a similar answer. The [independent-readback record retained from before the v0.10 version designation](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/docs/verification/result-consumption-independent.safe.json) captures this path: numerical results and file identities can be checked together.
+<details>
+<summary>Further detail: boundaries of continued execution</summary>
 
-The change is concrete. We can now ask not only “Was it saved?” but also “Which rows produced the saved numbers, and do the report and attachment represent the same result?”
+Continuation relies on existing execution facts and supported checkpoints. Dispatched requests with unknown outcomes are not automatically replayed; stopping a Worker does not itself cancel the user's task. Committed answer bodies and saved files retain their own identities through later task changes.
 
-## 3. Processes Can Change; Execution Identity Must Not Reset
+v0.10 uses `tool-host@2`. Persisted `tool-host@1` snapshots cannot be resumed or replayed by the newer runtime, including snapshots of already terminal Runs. Before an upgrade, let active tasks finish on their original version or isolate the old code and data. Independent reading of Results, Artifacts, and Publications is separate from execution recovery. The [upgrade checklist](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.md) preserves these conditions; its synthetic old-label tests do not constitute acceptance of a real old-snapshot migration.
 
-Once files can be read back, another question remains: who continues the task when the submitting process exits? Does the next process continue the original task or perform it again?
+</details>
 
-This is not a hidden step in the comparison example above. The public project uses a separate `durable-publication` example to verify durable execution and answer-body delivery. Its material and actions are also synthetic, while SQLite commits and process handoff really occur.
+## 3. Add a specialist: how do two loops cooperate?
 
-There is another important tradeoff here. An earlier Worker direction considered a larger queue mechanism. The later [single-Run proposal](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md) narrowed the scope: if a Worker takes over just one explicitly identified Run, it can reuse Session’s existing execution lease rather than duplicate it with another layer of Task state.
+v0.15 adds one serial source-checking specialist. Return to the introduction's Atlas Notes task: Main compares the guides, while Child focuses on free-export limits and conditions.
 
-The responsibilities therefore remain separate:
+The original material remains small: A's free edition exports CSV with a 120-row limit; B supports CSV and Markdown with a 300-row limit; both require an internet connection. These facts come from the [fixed synthetic documents](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/fixtures/documents.json).
 
-- **Session** stores the original task definition, budget, deadline, and checkpoint, and determines who currently has authority to write execution state.
-- **Runtime** continues to own dispatch and recovery. Worker does not introduce a second execution loop.
-- **Worker** drives the selected Run, manages its own process lifecycle, and reads the existing execution facts.
-- **Publication and Artifact** retain committed answer bodies and file deliveries respectively, rather than making their existence depend on whether a process is still alive.
+Remember the route: **Main requests a check → Child reads A/B → original pages and observations return to Main → Main assembles a report.**
 
-The submit command can therefore exit before another process takes over. But that process cannot reset the consumed budget, replace the original authorization, or extend the deadline. An operation with a durable result is not repeated merely because the process changed.
+### Main starts with a tool call
 
-More importantly, **resumable does not mean safe to retry after every interruption.** If a request has been dispatched but no authoritative result exists, the system retains the fact that the outcome is unknown and refuses automatic replay. Starting a new Worker does not make a retry safe. Stopping a Worker does not automatically mean the user has canceled the task, either. These distinctions determine what can happen next; they cannot be collapsed into a generic “retry on failure.”
+[specialist-demo.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-demo.mjs) prepares Main's task and tools. The example chooses `source_check`, delegating the free-export limits and common online requirement.
 
-Committing an answer body has its own boundary. Once an answer block is written to Publication, a later Run failure does not erase it. Replacing the body requires an explicit commit through the original revision relationship, rather than treating the “latest output” as the original answer. An unavailable attachment should not revoke an independently valid answer body either.
+From Main's loop, this resembles selecting a page-reading tool: propose an action and receive its result. In this case, the tool runs a more narrowly focused assistant internally.
 
-The state of the whole Run, whether a particular answer body has been committed, and whether a particular file has been delivered are thus related but distinct facts. Keeping their identities separate makes it possible to tell what remains after an interruption.
+### Child runs with its own material
 
-## 4. Running Both Paths at a Fixed Version
+[specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-child.mjs) establishes the handoff. Child receives the overall question, the specific checking request, and the permitted A/B documents. Its only tool is `read_page`; Main organizes the final report.
 
-This article uses the [fixed v0.10 source snapshot](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7). For day-to-day use, start with the [current main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md). Do not assume commands or recovery capabilities from later versions apply to this snapshot.
+[child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/child.mjs) calls the project's existing `run`. Both assistants share the execution mechanism, with separate task input and context.
 
-Node.js 26.11.1 matches the existing verification environment. The default examples need no model key. Dependency installation may access npm; afterward, both examples run offline. The public implementation uses native JavaScript ESM. Its `build` checks and copies source code and resources; it is not a TypeScript type check.
+| Child turn | Action | Newly acquired material |
+| --- | --- | --- |
+| First | Read A's first page | A's formats, limit, and condition |
+| Second | Read B's first page | B's corresponding content |
+| Third | Return a checking observation | Inspected material and observations |
+
+Each tool result enters the next turn's input. With a live model, the model chooses subsequent actions from current material. The default example uses fixed actions to make the connections easy to inspect.
+
+### Main receives the material and continues its next turn
+
+Child returns original pages alongside its observation. Think of a colleague handing over an investigation note with the source documents attached. Main can use the highlighted points and the underlying material in its report.
+
+This enters Main's context as the result of `source_check`. The default sequence then selects `save_report` and returns its final answer:
+
+| Main progression | Where Child participates |
+| --- | --- |
+| First turn: call `source_check` | Child reads A/B and returns observations with original pages |
+| Second turn: organize the handoff and call `save_report` | This specialist task has finished |
+| Third turn: give the final answer | — |
+
+**AI still chooses task actions, the runtime still drives the loop, and tools still execute operations; together they now coordinate two cooperating tasks.** Session links parent and child, Result retains original material, and report storage preserves the output. The modules from the Intermediate article form a concrete path here.
+
+## 4. Explore the main path in one v0.15 checkout
+
+Use the [v0.15 environment installed in the introduction](./agent-in-15-minutes.md#try-the-example-in-five-minutes) and a new dedicated directory:
 
 ```bash
-git clone https://github.com/hpoenixf/open-etf-agent.git
-cd open-etf-agent
+node src/specialist-cli.mjs run --session runs/deep-specialist-v015
+```
+
+The terminal prints the actual `runId`. Substitute it in this command:
+
+```bash
+node src/specialist-cli.mjs read --session runs/deep-specialist-v015 --run RUN_ID
+```
+
+Begin with `child.summary`, `sources`, and `report.text`: the specialist observation, acquired pages, and report body. The default report lists the observation and original A/B pages, making the handoff inspectable. A session already created by the Intermediate example can be read using its directory and `runId`.
+
+Read four entry points in order: **[specialist-cli.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-cli.mjs) → specialist-demo.mjs → specialist-child.mjs → child.mjs**. Identify who passes what to whom before entering `runtime.mjs`.
+
+<details>
+<summary>Reproduce the original v0.10 calculation and independent Worker examples</summary>
+
+These commands preserve the original fixed version. Use a separate directory from the v0.15 checkout. Node.js 26.11.1 matches that historical verification environment.
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-v010
+cd open-etf-agent-v010
 git switch --detach ff5b9273ef0d239e804f61792702cd2e94174be7
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
-
 node dist/src/cli.mjs --case result-consumption --output runs/article-v010
 ```
 
-The CLI returns the actual Run directory and delivery receipts. Inspect `report.md` and `manifest.json` in that directory, then use the attachment identity in the manifest to inspect the CSV. The point is not merely to see that files exist, but to compare their original sources, calculation references, numerical basis, and attachment receipts.
-
-Stay in the repository root and use a separate session output directory. Run the following three commands consecutively to observe “submission exits → independent process executes → original answer body is read back”:
+Inspect the report, source manifest, and CSV in the actual output directory. The Worker example uses another new Session directory; run these commands consecutively:
 
 ```bash
 node dist/src/session-cli.mjs submit --session runs/article-worker --run original-example --case durable-publication
@@ -117,20 +156,14 @@ node dist/src/session-cli.mjs work --session runs/article-worker --run original-
 node dist/src/session-cli.mjs publication --session runs/article-worker --run original-example
 ```
 
-This example’s 30-second deadline starts at submission, not when `work` begins. The process has already exited when the first command returns; the second command launches another process. The third only reads the answer body and original receipts—it does not execute model actions again. Use a new session directory for another experiment rather than overwrite old results.
+This example's 30-second deadline begins at submission. It demonstrates submission-process exit, execution by a separate process, and reading the original answer. See the [Worker cases](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs) for the original recovery conditions. Default examples run offline after dependency installation, which may access npm.
 
-These commands demonstrate cross-process handoff, not transparent recovery after forcibly terminating any external call. Continuation at safe checkpoints, stopping, and unknown effects are separately constrained by the [Worker process cases](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs) and recovery paths. An easily missed upgrade constraint is the execution-protocol version. v0.10 uses `tool-host@2`; persisted `tool-host@1` snapshots cannot be resumed **or replayed** through the new Runtime, **even if the old Run was already terminal**. Let active Runs finish on their original version before replacement, or isolate the old code and data rather than sharing a live Session between old and new Workers. Retained Results, Artifacts and Publications have independent readers: **readable output does not make the old Host restorable**. The [upgrade checklist](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.md) also notes that current compatibility tests alter a synthetic snapshot version; they are not an acceptance run migrating a real snapshot produced by the old Runtime.
+</details>
 
-## 5. Which Complexity Is Worth Keeping?
+## Next: place the concrete path in the panorama
 
-Looking outward from these two examples makes the other mechanisms easier to place.
+You can now understand the system from three directions: **information continues through references, execution continues within the same task, and specialists contribute to clearly scoped questions.** The modules from the first two articles have concrete places in that flow.
 
-Skill and MCP connect methods and external tools to the same host. Bounded Child execution can separate contexts while remaining subject to the root budget. Result and Context distinguish original content from material sent in a request. Compaction notes cannot replace original sources, and explicit Memory cannot silently turn a temporary input into a lasting preference. Their value lies not in adding module names but in addressing specific problems already encountered along the main path.
+Continue with [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Find the entry point, context, Main/Child, and tools first, then explore other areas as needed. The panorama covers a larger system; each article's fixed source identifies its public implementation scope.
 
-For the same reason, the public version does not need every mechanism in its fullest form at once. The current Child example still uses scripted delegation, and Worker is not a scheduled-execution platform. PDF input is future work, not an entry point available in this article’s fixed version. To explore the fuller module designs, start from the [Open ETF Agent topic page](/en/open-etf-agent), then compare each article with the scope of its public implementation.
-
-What has emerged in this second stage is an engineering foundation that can support further research capabilities: **original facts can be retrieved, derived results can be traced, what later consumers used can be inspected, and changing processes does not automatically rewrite execution identity.** This lets us break “it runs” into concrete questions instead of compressing everything into “the Agent is done.”
-
-The same standard can guide the next addition: which missing connection does it establish? Another wrapper around an already readable interface may not be worth it. Enabling an input that previously stopped short to actually reach its consumer has a clear purpose.
-
-The [v0.1 article](/en/articles/open-etf-agent-v01-first-readable-report) preserves the minimal starting point, the module articles explain their individual design histories, and this article connects the current public project into a runnable map. Try an example from the [public repository](https://github.com/hpoenixf/open-etf-agent), then work outward through its source material, results, and deliverables. If this direction is useful to you, consider starring the repository or opening an issue with a reproducible example.
+[Back to Intermediate](./agent-ten-modules.md) · [Current source project](https://github.com/hpoenixf/open-etf-agent) · [中文](../../articles/open-etf-agent-v010-system-design.md) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)

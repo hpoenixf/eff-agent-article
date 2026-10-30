@@ -138,10 +138,9 @@ export const collections = [
         "items": [
           ["agent-in-15-minutes", "十五分钟入门 Agent"],
           ["agent-ten-modules", "Agent 进阶：读懂 Open ETF Agent 的十个核心模块"],
-          ["agent-loop-to-application", "Agent 深入：跟着 v0.15 跑一次专家协作"],
+          ["open-etf-agent-v010-system-design", "Agent 深入：从一份报告到持续执行与专家协作"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
-          ["open-etf-agent-v010-system-design", "从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
@@ -198,12 +197,13 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 export const learningPathSlugs = [
   'agent-in-15-minutes',
   'agent-ten-modules',
-  'agent-loop-to-application',
+  'open-etf-agent-v010-system-design',
   '017-prompt-to-answer-six-layer-panorama-v3'
 ];
 
 // Previously published URLs remain readable, without duplicating essays in search/navigation.
 export const mergedArticles = {
+  "agent-loop-to-application": "open-etf-agent-v010-system-design",
   "001-one-week-4-billion-tokens-etf-investment-agent": "etf-assistant-engineering-origins",
   "023-agent-publication-governance-retrospective": "019-agent-answer-publication",
   "runtime-natural-language-boundary-article-v2": "runtime-model-protocol-boundary-agent-article-v2",

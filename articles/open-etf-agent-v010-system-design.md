@@ -1,115 +1,154 @@
 ---
-title: 从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段
-description: 以 v0.10 的合成比较任务为主线，理解原始资料、计算结果与报告如何保持联系，以及另一条持久运行路径怎样跨进程继续执行。
+title: "Agent 深入：从一份报告到持续执行与专家协作"
+description: "合并原 v0.10 系统设计与 v0.15 专家协作，沿资料、执行和任务分工理解 Open ETF Agent，再进入六层全景。"
 ---
 
-# 从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段
+# Agent 深入：从一份报告到持续执行与专家协作
 
-[介绍 v0.1 时](./open-etf-agent-v01-first-readable-report.md)，Open ETF Agent 只做一件小事：读取两份资料，完成比较，保存报告，再让另一个进程读回原文件。那时最重要的问题是，模型说“完成了”，究竟对应什么真实发生的事情。
+> **深入 · 第 3 站**　[入门](./agent-in-15-minutes.md) → [进阶](./agent-ten-modules.md) → 深入 → [全景](./017-prompt-to-answer-six-layer-panorama-v3.md)
 
-到了 v0.10，问题往前走了一步：**当资料要经过选取、计算和交付，执行还可能跨越进程，怎样让后来的消费者继续使用原来的事实，而不是各自拼出一份看起来相同的结果？**
+前两篇已经解释了 AI 怎样决定 Loop 的下一步，以及十个模块各自负责什么。这一篇往前走一步：**资料经过多个工具、任务交给另一个进程、部分工作交给另一个助手时，怎样继续完成同一件事？**
 
-这就是第二个阶段的主线。它不是把所有模块装满，也不是宣布一个已经能独立完成真实基金研究的产品。公开工程仍用合成资料和脚本动作检查执行机制，但已经能沿两条可复现路径看清系统：一条从原始表走到报告与 CSV，另一条在提交进程退出后，由独立 Worker 继续同一个 Run，并读回已提交正文。
+这也是 Open ETF Agent 从 v0.10 演进到 v0.15 的一条阅读主线。原来的系统设计文章与新增专家协作内容在这里合为一篇，保留原链接；[v0.10 原稿](https://github.com/hpoenixf/eff-agent-article/blob/a377164e53e5f63b7a6114d54e2635c084dfbbcd/articles/open-etf-agent-v010-system-design.md)仍可按固定版本阅读。
 
-这两条路径共享执行基础，却是不同示例。下面先沿第一条看清数据怎样流动，再用第二条解释程序的生命周期；不把它们拼成一次已经运行过的全功能任务。
+我们看三个具体问题：资料怎样变成报告，任务怎样持续执行，专家怎样参与主任务。它们对应独立示例，共享同一套执行基础。默认公开命令使用合成资料和脚本模拟的模型动作，实际执行工具、存储与进程交接。
 
-## 一、不是多加几个工具，而是补上结果之间的联系
+## 一、资料怎样经过计算，进入一份报告？
 
-v0.1 的简单设计有它的理由。资料读取、一次计算、文件保存都在一个本地流程里完成，先分清三个职责已经足够：模型网关负责接收和整理模型响应，运行时负责执行循环，工具宿主负责校验参数并产生真实效果。
+先看 v0.10 的小例子。一张合成表里有三行数值：**100、999、250**，币种都是 USD，数据日期都是 2026-10-01。任务比较第一行与最后一行，中间的 999 不参与计算。
 
-后来的演进没有推翻这条主线。新增问题是，**一个环节成功，并不能替下一个环节作证。**
+最直观的做法是把 100 和 250 交给计算器。但当后面还有模型解释、报告和 CSV，这两个数字需要保留来路。
 
-读到一页，不等于计算使用了那页里的数；算出一个数，不等于下一次请求拿到了这个结果；报告和 CSV 都有数字，也不等于它们来自同一次计算。若只是让每个工具分别返回“成功”，这些缝隙仍然存在。
+这项能力把过程连起来：**读取原表 → 选定两行 → 计算一次 → 下一轮模型、报告与 CSV 使用同一个结果。**
 
-[Result / Reference 的原始提案](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/proposal.md)因此没有要求再建一个结果数据库或计算平台。原始结果已经能保存，运行时已经会把工具结果送回网关，报告和 CSV 也已经是可交付文件；缺的是这些环节之间可核对的对应关系。
+`read_comparison` 取得资料，Result 保存原始内容。计算请求引用这份结果，指出要使用的选区和行位置。计算器从已保存的原文中取数，得到差值 150、当前值为基准的 2.5 倍、相对增幅 150%，同时保留单位、币种和日期。
 
-v0.10 补的正是这条关系：从已保存的原始内容里选取输入，让现有计算器计算，再让下一请求、报告和 CSV 使用同一个派生结果。这里新增的是一项完整能力，而不是另一套执行流程。
+生成报告和 CSV 时，程序沿这份计算结果取值。于是，读者能从报告里的数字回到计算，再回到原来的两行资料。模型仍负责解释这些数值意味着什么。
 
-## 二、跟着一张小表，走到报告和 CSV
+这里的设计选择很实用：已有工具能读取、计算和保存，就补上它们之间的引用关系，让同一个结果继续往下走。[原始提案](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/proposal.md)保留了这个来路。
 
-示例的输入是一张明确标为合成数据的表。它刻意保留三行，数值分别是 100、999 和 250；单位一致，币种都是 USD，数据日期都是 2026-10-01。任务比较第一行与最后一行，中间那行不是计算对象。
+<details>
+<summary>进一步看：v0.10 的选区与计算口径</summary>
 
-这比直接把 `100` 和 `250` 交给计算器多了一层要求：程序必须能说明，这两个操作数究竟来自哪里。
-
-### 先取得原始内容，再选定操作数
-
-`read_comparison` 通过既有工具宿主取得固定资料。Result 保存原始内容和身份，计算请求随后提交原始结果引用、选区以及两个行位置：
+计算请求的形状如下，真实 `resultRef` 由读取工具返回：
 
 ```json
 {
-  "resultRef": "取得资料后返回的原始结果引用",
+  "resultRef": "读取原表后得到的结果引用",
   "selection": { "offset": 0, "limit": 3 },
   "baselineRow": 0,
   "currentRow": 2
 }
 ```
 
-这是请求形状示意，运行时的引用由工具返回。计算器从已保存的原始字节中解析数值，而不是相信调用方再抄一遍的数字。引用、内容哈希、实际选区和行位置随派生结果保留下来。
+选区需要覆盖两个操作数。只取得前两行时，第三行就不能作为已取得的输入；日期、币种或分母不符合该计算方法时，也应保持相应限制。数值部分来自原计算，自由叙述仍需结合资料判断。
 
-这也解释了为什么要保留尾行这个小设计：如果只选前两行，却仍要求使用第三行，程序不能因为表里“可能还有数据”就补一个 250。选择范围没覆盖所需操作数，这次比较就不可用。
+[独立回读记录](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/docs/verification/result-consumption-independent.safe.json)检查原报告与 CSV；网关编码检查只说明相应材料进入了请求，不替代真实模型的理解评估。
 
-即使选区完整，也只说明选定的已存储行被完整取得，不代表上游资料覆盖了全部持仓，更不代表模型理解了整份资料。
+</details>
 
-### 把数值口径与结果一起传下去
+## 二、提交任务的程序退出了，谁继续工作？
 
-对这张表，差值是 150，当前值是基准的 2.5 倍，增量相对于基准是 1.5，也就是 150%。这些不是可以互换的三种说法。
+一个短任务可以在一次命令中完成。工作变长后，提交与执行可以分开：先登记任务，再让一个 Worker 接手它。
 
-派生结果同时保留操作数、单位、币种和数据日期。如果日期或币种不一致，或者分母未知，当前这项“同一快照比较”方法就不能给出一个貌似正常的绑定结果。程序返回具体的不可用原因，不把未知当成零，也不猜一个分母。
+这个场景里，三个熟悉的模块分工如下：
 
-限制跟着结果一起走，才不会在后续表达里消失。运行时把工具结果加入后续输入；针对生产网关编码的验证，会检查实际编码出去的请求是否携带相同引用、数值和限定条件。这里使用注入的离线传输检查请求，不把“请求中存在这些字节”说成“真实模型已经据此正确推理”。
+| 组成部分 | 负责什么 |
+| --- | --- |
+| Session | 保存任务、已有进展和执行约定 |
+| Worker | 驱动一个明确选定的任务 |
+| Runtime | 继续原来的模型与工具循环 |
 
-### 报告和附件不再各算一遍
+Worker 复用 Session 已有的执行记录，再调用同一套 Runtime。[单 Run 的原始提案](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md)把方案收窄到这一条清晰路径，避免另建一套重复的任务状态。
 
-生成 CSV 时，传入的是派生计算的引用，而不是另一份手工整理的数字。保存报告时，工具宿主也从原计算结果生成数值部分。两份交付物因此可以回到同一计算，再回到同一原始选区。
+这样，命令窗口关掉与研究任务的生命周期就可以分别处理。后续进程接手的是同一个任务，原来的允许范围、已用预算和截止时间一起保留。
 
-报告里的自由叙述仍是另一回事：程序生成的数值部分可以核对，并不意味着任意文字结论都自动获得支持。这个区分让系统既能明确保证自己掌握的关系，又不越权替模型作语义判断。
+原文的 `durable-publication` 用例展示这段交接。它与上一节的计算示例各自运行，帮助我们从两个角度理解同一套程序。
 
-文件落地后，Artifact 与 Revision 标识具体交付物及其修订。独立进程读取原来的报告和 CSV 字节，核对回执，而不是再次调用模型生成一份相似答案。[编号前保留的独立回读记录](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/docs/verification/result-consumption-independent.safe.json)保留了这条路径；数值结果和文件身份可以一起检查。
+<details>
+<summary>进一步看：持续执行的边界</summary>
 
-这个例子带来的变化很具体：现在不仅能问“有没有保存”，还能继续问“保存的数字用了哪几行，报告与附件是不是同一个结果”。
+可恢复的依据是已有执行事实和受支持的检查点。已派发但结果未知的请求不会自动重放；停止 Worker 也不自动成为用户取消。已经提交的正文与已有文件分别保留，后续任务变化不会凭空抹掉它们。
 
-## 三、进程可以更换，执行身份不能重置
+v0.10 使用 `tool-host@2`，持久化的 `tool-host@1` 快照不能由新版 Runtime 续跑或重放，包括已终结的旧 Run。升级前应让活动任务在原版本完成，或隔离保留旧代码与数据。原 Result、Artifact、Publication 的独立读取与执行恢复分别处理。[升级清单](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.zh-CN.md)保留具体条件；其中合成旧标签测试不等于真实旧快照迁移验收。
 
-文件能读回之后，还有另一类问题：提交任务的进程退出了，谁继续执行？它接手时，是继续原任务，还是重新做了一遍？
+</details>
 
-这不是上面比较示例的隐藏步骤。公开工程用另一个 `durable-publication` 示例验证持久执行与正文交付，资料和动作同样是合成的，SQLite 提交和进程交接则真实发生。
+## 三、再加一位专家，两个 Loop 怎样协作？
 
-这里也有一次值得保留的取舍。早先的 Worker 方向曾考虑更大的队列机制，后来[单 Run 提案](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/v09-single-run-worker/proposal.md)收窄为：既然只接手一个明确指定的 Run，就复用 Session 已有的执行租约，不再复制一套 Task 状态。
+v0.15 增加了一个串行来源核对专家。继续用入门篇的 Atlas Notes：Main 负责比较两版指南，Child 专门查看免费导出的限制与条件。
 
-于是几个职责保持分离：
+原始资料仍然很简单：A 免费版支持 CSV、上限 120 行；B 支持 CSV 和 Markdown、上限 300 行；两版导出都需要联网。它们来自[固定的合成文档](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/fixtures/documents.json)。
 
-- **Session** 保存原任务定义、预算、截止时间和检查点，并决定当前谁有权写入执行状态。
-- **Runtime** 继续负责派发和恢复；Worker 没有自己的第二套执行循环。
-- **Worker** 驱动选定 Run，管理自身进程生命周期，并读取原有执行事实。
-- **Publication 与 Artifact** 分别保存已提交正文和文件交付，不把它们的存在寄托在进程是否还活着上。
+先记住这条路线：**Main 发出核对任务 → Child 读取 A/B → 原文和核对意见回到 Main → Main 整理报告。**
 
-这样，提交命令可以先退出，另一个进程再接手，但它不能重置已消费预算、换掉原授权或把截止时间向后推。已经有持久结果的操作，不因换进程就再做一次。
+### Main 先提出一个工具调用
 
-更重要的是，**可恢复不等于遇到任何中断都能放心重试。** 若请求已经派发，却没有权威结果，系统保留结果未知的事实，并拒绝自动重放；仅仅启动一个新 Worker，不会让重试变得安全。Worker 被停止也不自动等于用户取消任务。这些情况决定后续动作，不能压成一个笼统的“失败后重试”。
+[specialist-demo.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-demo.mjs)为 Main 准备任务和可用工具。本例选择 `source_check`，把“核对免费导出限制和共同联网要求”交出去。
 
-正文提交还有自己的边界。一个回答块写入 Publication 后，后续 Run 失败不会抹掉它；需要替换正文时，按原修订关系显式提交，而不是把“最新输出”当成原答案。附件不可用，也不应反过来撤销独立合法的正文。
+从 Main 的 Loop 看，这和选择读页工具很相似：提出动作，等执行结果返回。这里的工具内部会运行一个范围更明确的助手。
 
-因此，整个 Run 的状态、某段正文是否已提交、某个文件是否已交付，是相关但不同的事实。让它们各自保留身份，读者才有办法知道中断后还剩下什么。
+### Child 带着自己的材料运行
 
-## 四、在固定版本上运行这两条路径
+[specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-child.mjs)建立交接。Child 得到整体问题、本次核对要求，以及允许读取的 A/B 文档。它只有 `read_page` 工具，最终报告由 Main 组织。
 
-本文以 [v0.10 固定源码](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)为准。日常使用入口见[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，不要把后续版本的命令或恢复能力套回这个快照。
+[child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/child.mjs)继续调用项目原有的 `run`。两个助手共用执行机制，各自拥有任务输入和上下文。
 
-使用 Node.js 26.11.1 可对齐现有验证环境。默认示例不需要模型密钥；安装依赖可能访问 npm，安装后这两条示例离线运行。公开实现是原生 JavaScript ESM，`build` 检查并复制源码与资料，不是 TypeScript 类型检查。
+| Child 回合 | 动作 | 新得到的材料 |
+| --- | --- | --- |
+| 第一轮 | 读取 A 版第一页 | A 的导出格式、上限和条件 |
+| 第二轮 | 读取 B 版第一页 | B 的对应内容 |
+| 第三轮 | 返回核对说明 | 已查看的资料与核对意见 |
+
+每次工具结果进入下一轮输入。接入真实模型时，模型结合当前材料选择后续动作；默认示例用固定动作，让这一连接过程容易观察。
+
+### Main 接回材料，继续自己的下一轮
+
+Child 返回核对说明时，也把取得的原始页面交回来。可以把它想成同事递来一份调查便签，附上查过的原文。Main 既能看重点，也能结合材料形成整体报告。
+
+这些内容作为 `source_check` 的结果进入 Main 上下文。默认示例随后选择 `save_report`，再返回最终答复：
+
+| Main 的推进 | Child 在哪里参与 |
+| --- | --- |
+| 第一轮：调用 `source_check` | Child 读 A、读 B，返回说明与原文 |
+| 第二轮：整理交接内容，调用 `save_report` | 本次专家工作已经结束 |
+| 第三轮：给出最终答复 | — |
+
+**AI 的任务选择、Runtime 的循环、工具的执行没有换一套；现在它们可以组织两个相互配合的任务。** Session 关联父任务与子任务，Result 保留原文，报告模块把输出留下来。进阶篇的模块在这里接成了一条可读的路径。
+
+## 四、在同一份 v0.15 代码上体验主线
+
+沿用[入门篇安装好的 v0.15 环境](./agent-in-15-minutes.md#自己跑一次五分钟体验)，使用一个新的专属目录：
 
 ```bash
-git clone https://github.com/hpoenixf/open-etf-agent.git
-cd open-etf-agent
+node src/specialist-cli.mjs run --session runs/deep-specialist-v015
+```
+
+终端会给出实际的 `runId`。把它填入下面的命令：
+
+```bash
+node src/specialist-cli.mjs read --session runs/deep-specialist-v015 --run RUN_ID
+```
+
+先看 `child.summary`、`sources`、`report.text`：分别是专家说明、取得的页面和报告正文。默认报告会列出核对说明和两版原文，适合对照交接过程。已经跑过进阶篇的专家示例，也可以直接使用那个目录与 `runId`。
+
+读源码时按四个入口走：**[specialist-cli.mjs](https://github.com/hpoenixf/open-etf-agent/blob/74bd5aa455ccaeb2994eb22aa744affde660bfa2/src/specialist-cli.mjs) → specialist-demo.mjs → specialist-child.mjs → child.mjs**。先弄清谁把什么交给谁，再进入 `runtime.mjs`。
+
+<details>
+<summary>复现原 v0.10：计算结果与独立 Worker 两个示例</summary>
+
+以下保留原文的固定版本。另建目录，避免与上面的 v0.15 工作区混用；Node.js 26.11.1 可对齐该历史验证环境。
+
+```bash
+git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-v010
+cd open-etf-agent-v010
 git switch --detach ff5b9273ef0d239e804f61792702cd2e94174be7
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
-
 node dist/src/cli.mjs --case result-consumption --output runs/article-v010
 ```
 
-CLI 会返回实际 Run 目录和交付回执。沿这个目录查看 `report.md` 与 `manifest.json`，再按清单中的附件身份查看 CSV：重点不是只看到文件存在，而是对照原始来源、计算引用、数值口径和附件回执。
-
-保持在仓库根目录，另用一个独立的 session 输出目录，连续执行下面三条命令，观察“提交退出→独立进程执行→原正文回读”：
+沿实际输出目录查看报告、来源清单与 CSV。Worker 示例使用另一个新的 Session 目录，连续执行：
 
 ```bash
 node dist/src/session-cli.mjs submit --session runs/article-worker --run original-example --case durable-publication
@@ -117,20 +156,14 @@ node dist/src/session-cli.mjs work --session runs/article-worker --run original-
 node dist/src/session-cli.mjs publication --session runs/article-worker --run original-example
 ```
 
-这个示例的 30 秒截止时间从提交时开始计算，不是从 `work` 开始。第一次命令返回后进程已经退出，第二次调用的是另一个进程；第三次只读取正文与原回执，不再执行模型动作。再次实验时使用新的 session 目录，不覆盖旧结果。
+这个示例的 30 秒截止时间从提交开始计算。它展示提交进程退出、独立进程执行、原正文读取；原有恢复条件见[Worker 用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs)。默认示例离线运行，安装依赖可能访问 npm。
 
-这组命令展示跨进程接手，不等同于在任意外部调用中强杀后都能透明恢复。安全检查点上的续跑、停止与未知效果分别由[Worker 进程用例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/worker-process.test.mjs)和恢复路径约束。升级还有一项容易误解的执行协议限制：v0.10 使用 `tool-host@2`，持久化的 `tool-host@1` 快照不能被新版 Runtime 续跑或重放，**即使旧 Run 已终结也一样**。替换旧部署前，应先让活动 Run 在原版本完成；无法完成时隔离保留旧代码与数据，不要让新旧 Worker 共用活动 Session。原有 Result、Artifact 和 Publication 可以走独立接口回读，**产物可读不等于旧 Host 可恢复**。[升级操作清单](https://github.com/hpoenixf/open-etf-agent/blob/d943dd8452e4a97fbca5e5c74537a05655e73837/docs/upgrade-guide.zh-CN.md)还说明：当前兼容测试采用合成旧版本标签，不是一次真实旧 Runtime 快照的迁移验收。
+</details>
 
-## 五、这时再看系统，哪些复杂度值得留下
+## 下一站：把具体路径放回全景
 
-从这两个例子往外看，其他机制的位置就更容易理解了。
+现在可以从三个角度理解系统：**资料沿引用关系继续使用，执行沿同一个任务继续推进，专家围绕清楚的问题参与协作。** 前两篇认识的模块，因此有了具体位置。
 
-Skill 和 MCP 让方法与外部工具接入同一宿主；受限 Child 可以分开上下文，但仍受根预算约束；Result 与 Context 区分原始内容和送入请求的材料；压缩便笺不能替换原文，显式 Memory 也不能把一次临时输入悄悄变成长期偏好。它们的价值不是增加一个模块名，而是解决主链上已经出现的特定问题。
+继续阅读：[**从一次提问到答案可见：ETF Agent 六层调用全景**](./017-prompt-to-answer-six-layer-panorama-v3.md)。先找到入口、上下文、Main/Child 和工具，再按需要展开其他部分。全景覆盖更大的系统范围，公开实现以各篇的固定代码为准。
 
-也正因为如此，公开版没有必要把这些机制的完整形态一次装齐。当前 Child 示例还是脚本分工，Worker 不是定时调度平台；PDF 输入属于后续工作，不是本文固定版本已有的入口。要理解各模块更完整的设计，可以从[Open ETF Agent 专题](../open-etf-agent.md)进入原有文章，再对照各自公开实现的范围。
-
-第二个阶段真正形成的，是一套可以继续增加研究能力的工程骨架：**原始事实能被找回，派生结果能被追溯，后继消费者使用了什么能够检查，进程更换也不会自动改写执行身份。** 这让我们能把“能运行”拆成具体问题，而不是用一句“Agent 已完成”概括一切。
-
-接下来是否要增加新机制，可以继续用同一个标准判断：它补上了哪段尚未成立的关系？如果只是再包一层已经可读的接口，未必值得；如果能让原本断开的输入真正走到消费者，就有清楚的价值。
-
-[v0.1 文章](./open-etf-agent-v01-first-readable-report.md)保留最小起点，模块文章解释各自的设计来路，这篇负责把当前公开工程连成一张可运行的地图。欢迎从[公开仓库](https://github.com/hpoenixf/open-etf-agent)运行一个例子，再沿原始资料、结果和交付逐步改动它；如果这条演进路线对你有帮助，也欢迎 Star 或提交可复现的问题。
+[返回进阶](./agent-ten-modules.md) · [当前开源入口](https://github.com/hpoenixf/open-etf-agent) · [English](../en/articles/open-etf-agent-v010-system-design.md) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

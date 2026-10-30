@@ -5,7 +5,7 @@ description: "Use actual Open ETF Agent v0.15 code to understand the loop, tools
 
 # Agent Intermediate: Ten Core Modules in Open ETF Agent
 
-> **Intermediate · Stop 2**　[Introduction](./agent-in-15-minutes.md) → Intermediate → [Deep dive](./agent-loop-to-application.md) → Panorama
+> **Intermediate · Stop 2**　[Introduction](./agent-in-15-minutes.md) → Intermediate → [Deep dive](./open-etf-agent-v010-system-design.md) → Panorama
 
 The introduction followed an Agent Loop: **AI chooses an action from the current information, a tool returns a result, and AI decides what comes next.**
 
@@ -124,10 +124,10 @@ The first two commands print their own run directories and reports. Use a new de
 
 These are **independent examples**, each demonstrating a group of capabilities. Additional entry points are in the [current project guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
 
-## Next: follow one v0.15 collaboration
+## Next: connect information, execution, and collaboration
 
 You now know the names and their source entry points. Follow a concrete task next to see information move between them.
 
-**Continue with [Agent Deep Dive: Run a Specialist Collaboration in v0.15](./agent-loop-to-application.md).** After that path, expand to the full system panorama.
+**Continue with [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](./open-etf-agent-v010-system-design.md).** After that path, expand to the full system panorama.
 
 [Back to Introduction](./agent-in-15-minutes.md) · [中文](../../articles/agent-ten-modules.md) · [Open ETF Agent (stars welcome)](https://github.com/hpoenixf/open-etf-agent)
