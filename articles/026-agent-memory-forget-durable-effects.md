@@ -14,19 +14,19 @@
 
 ```mermaid
 graph TD
-UserMessage --> RunAdmission
-RunAdmission --> EntryPreferences
-EntryPreferences --> ResearchOrDirect
-ResearchOrDirect --> ExplicitSearch
-ExplicitSearch --> DurableCommit
-ResearchOrDirect --> FinalAnswer
-FinalAnswer --> OptionalLearningJob
-OptionalLearningJob --> MemoryRepository
+UserMessage["用户消息"] --> RunAdmission["运行准入"]
+RunAdmission --> EntryPreferences["入口偏好"]
+EntryPreferences --> ResearchOrDirect["研究或直接回答"]
+ResearchOrDirect --> ExplicitSearch["显式搜索"]
+ExplicitSearch --> DurableCommit["持久提交"]
+ResearchOrDirect --> FinalAnswer["最终回答"]
+FinalAnswer --> OptionalLearningJob["可选学习任务"]
+OptionalLearningJob --> MemoryRepository["记忆存储"]
 DurableCommit --> MemoryRepository
-MemoryRepository --> EligibleRecall
-EligibleRecall --> ContextProjection
-ContextProjection --> ModelDispatch
-MemoryRepository --> RevisionAndForget
+MemoryRepository --> EligibleRecall["符合条件的回忆"]
+EligibleRecall --> ContextProjection["上下文投影"]
+ContextProjection --> ModelDispatch["模型派发"]
+MemoryRepository --> RevisionAndForget["修订与遗忘"]
 RevisionAndForget --> EligibleRecall
 ```
 

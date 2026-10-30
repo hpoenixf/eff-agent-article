@@ -44,11 +44,11 @@ ETF Agent 早期的研究协议让模型交回一个结构化回合，称为 `Ag
 
 ```mermaid
 graph TD
-UserQuestion --> Model
-Model --> Runtime
-Runtime --> Tool
+UserQuestion["用户问题"] --> Model["模型"]
+Model --> Runtime["运行时"]
+Runtime --> Tool["工具"]
 Tool --> Model
-Runtime --> Answer
+Runtime --> Answer["回答"]
 ```
 
 图中，模型选择下一步，工具返回观察，程序保存执行事实。箭头不意味着模型能直接改写权限、调用结果或任务状态。

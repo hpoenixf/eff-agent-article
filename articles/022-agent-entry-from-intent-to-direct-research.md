@@ -120,10 +120,10 @@ evidence:
 
 ```mermaid
 graph TD
-FetchHistoricalReturns --> FetchBenchmarkReturns
-FetchBenchmarkReturns --> CalculateExcessReturns
-CalculateExcessReturns --> CompareStability
-CompareStability --> ProduceConclusion
+FetchHistoricalReturns["获取历史收益"] --> FetchBenchmarkReturns["获取基准收益"]
+FetchBenchmarkReturns --> CalculateExcessReturns["计算超额收益"]
+CalculateExcessReturns --> CompareStability["比较稳定性"]
+CompareStability --> ProduceConclusion["形成结论"]
 ```
 
 但进入研究后，我们可能发现其中一只基金成立不足三年，另一只基金中途更换过基准。
@@ -163,12 +163,12 @@ CompareStability --> ProduceConclusion
 
 ```mermaid
 graph TD
-UserRequest --> EntryInterpretation
-EntryInterpretation --> RouteSelection
-RouteSelection --> CapabilityCheck
-CapabilityCheck --> ResearchExecution
-ResearchExecution --> ModelAnalysis
-ModelAnalysis --> Publication
+UserRequest["用户请求"] --> EntryInterpretation["入口理解"]
+EntryInterpretation --> RouteSelection["选择路径"]
+RouteSelection --> CapabilityCheck["检查能力"]
+CapabilityCheck --> ResearchExecution["执行研究"]
+ResearchExecution --> ModelAnalysis["模型分析"]
+ModelAnalysis --> Publication["发布"]
 ```
 
 随着这个分工逐渐明确，我们发现 Entry 不再需要提前描述研究过程中的全部状态。这为后面的进一步简化提供了基础。
@@ -243,13 +243,13 @@ Agent 回答：
 
 ```mermaid
 graph TD
-UserRequest --> EntryDecision
-EntryDecision --> DirectPath
-EntryDecision --> ResearchPath
-DirectPath --> DirectReplyOrQuestion
-DirectReplyOrQuestion --> NextTurnHistory
-ResearchPath --> ResearchExecution
-ResearchExecution --> OptionalClarificationWait
+UserRequest["用户请求"] --> EntryDecision["入口决定"]
+EntryDecision --> DirectPath["直接处理"]
+EntryDecision --> ResearchPath["研究路径"]
+DirectPath --> DirectReplyOrQuestion["直接回答或提问"]
+DirectReplyOrQuestion --> NextTurnHistory["下一轮对话历史"]
+ResearchPath --> ResearchExecution["执行研究"]
+ResearchExecution --> OptionalClarificationWait["按需等待澄清"]
 ```
 
 这次调整没有引入新的运行状态、数据库列或兼容协议，反而删除了部分 Entry 专用逻辑。
@@ -377,12 +377,12 @@ Research：
 
 ```mermaid
 graph TD
-UserRequest --> EntryDecision
-AuthorizedHistory --> EntryDecision
-HostCapabilityMetadata --> EntryDecision
-EntryDecision --> DirectPath
-EntryDecision --> ResearchPath
-ResearchPath --> EvidenceRetrieval
+UserRequest["用户请求"] --> EntryDecision["入口决定"]
+AuthorizedHistory["获准的历史"] --> EntryDecision
+HostCapabilityMetadata["Host 能力信息"] --> EntryDecision
+EntryDecision --> DirectPath["直接处理"]
+EntryDecision --> ResearchPath["研究路径"]
+ResearchPath --> EvidenceRetrieval["获取证据"]
 ```
 
 这里有一条很重要的原则：
@@ -554,11 +554,11 @@ Entry 的 Direct 可以生成较长的 Markdown，但某个阶段的严格 JSON 
 
 ```mermaid
 graph TD
-KeywordRouting --> IntentFrame
-IntentFrame --> ModelPlanning
-ModelPlanning --> FlatDecision
-FlatDecision --> EntryActions
-EntryActions --> DirectResearchOutput
+KeywordRouting["关键词路由"] --> IntentFrame["意图框架"]
+IntentFrame --> ModelPlanning["模型规划"]
+ModelPlanning --> FlatDecision["简化决策"]
+FlatDecision --> EntryActions["入口行动"]
+EntryActions --> DirectResearchOutput["直接进入研究"]
 ```
 
 这不是简单地从复杂走向简单，而是逐渐厘清不同技术的适用范围。
@@ -575,14 +575,14 @@ EntryActions --> DirectResearchOutput
 
 ```mermaid
 graph TD
-UserQuestion --> EntryDecision
-EntryDecision --> DirectAnswer
-EntryDecision --> ResearchPath
-ResearchPath --> ResearchNextStep
-ResearchNextStep --> RuntimeAuthorization
-RuntimeAuthorization --> ToolResults
-ToolResults --> ResearchReasoning
-ResearchReasoning --> Publication
+UserQuestion["用户问题"] --> EntryDecision["入口决定"]
+EntryDecision --> DirectAnswer["直接回答"]
+EntryDecision --> ResearchPath["研究路径"]
+ResearchPath --> ResearchNextStep["选择研究下一步"]
+ResearchNextStep --> RuntimeAuthorization["运行时授权"]
+RuntimeAuthorization --> ToolResults["工具结果"]
+ToolResults --> ResearchReasoning["研究推理"]
+ResearchReasoning --> Publication["发布"]
 ```
 
 图中 Direct / Research 的选择由 Entry 作出；进入 Research 后，研究过程会根据工具结果继续选择下一步。实际运行还存在恢复、预算、取消、来源权限和多轮上下文等机制。但这些不应该要求模型在入口提前生成一份完整的执行计划。

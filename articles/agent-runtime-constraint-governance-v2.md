@@ -160,16 +160,16 @@ HTTP 状态码在这里不够用。同样是 429，上游真的限流，和本�
 
 ```mermaid
 graph TD
-AdmitRunAndBudget --> ResearchPhase
-ResearchPhase --> CheckResearchBudget
-CheckResearchBudget --> ContinueResearch
+AdmitRunAndBudget["运行与预算准入"] --> ResearchPhase["研究阶段"]
+ResearchPhase --> CheckResearchBudget["检查研究预算"]
+CheckResearchBudget --> ContinueResearch["继续研究"]
 ContinueResearch --> ResearchPhase
-CheckResearchBudget --> CheckFinalBudget
-CheckFinalBudget --> StopNewRequests
-CheckFinalBudget --> FinalizeOnly
-FinalizeOnly --> PublishOrRevise
-PublishOrRevise --> HostChecksFinish
-HostChecksFinish --> FinishRun
+CheckResearchBudget --> CheckFinalBudget["检查收尾预算"]
+CheckFinalBudget --> StopNewRequests["停止新请求"]
+CheckFinalBudget --> FinalizeOnly["仅进行收尾"]
+FinalizeOnly --> PublishOrRevise["发布或修订"]
+PublishOrRevise --> HostChecksFinish["Host 检查结束"]
+HostChecksFinish --> FinishRun["结束运行"]
 HostChecksFinish --> CheckFinalBudget
 ```
 

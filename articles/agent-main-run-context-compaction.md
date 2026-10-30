@@ -80,16 +80,16 @@
 
 ```mermaid
 graph TD
-PreparedMainRequest --> ReversibleFitting
-ReversibleFitting --> CapacityAssessment
-CapacityAssessment --> NoCompaction
-CapacityAssessment --> SettledGroupSelection
-SettledGroupSelection --> BoundedSummaryRequest
-BoundedSummaryRequest --> FailedOrUnhelpful
-BoundedSummaryRequest --> FinalFitting
+PreparedMainRequest["已准备的主代理请求"] --> ReversibleFitting["可逆容量拟合"]
+ReversibleFitting --> CapacityAssessment["容量评估"]
+CapacityAssessment --> NoCompaction["不压缩"]
+CapacityAssessment --> SettledGroupSelection["已结算的组选择"]
+SettledGroupSelection --> BoundedSummaryRequest["有界摘要请求"]
+BoundedSummaryRequest --> FailedOrUnhelpful["失败或没有帮助"]
+BoundedSummaryRequest --> FinalFitting["最终容量拟合"]
 FinalFitting --> NoCompaction
-FinalFitting --> CheckpointCommit
-CheckpointCommit --> NextMainRequest
+FinalFitting --> CheckpointCommit["提交检查点"]
+CheckpointCommit --> NextMainRequest["下一次主代理请求"]
 FailedOrUnhelpful --> NextMainRequest
 NoCompaction --> NextMainRequest
 ```

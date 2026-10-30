@@ -90,16 +90,16 @@ Google SRE 的[服务级目标章节](https://sre.google/sre-book/service-level-
 
 ```mermaid
 graph TD
-ToolResult --> AuthorizedProjection
-AuthorizedProjection --> SubmittedModelInput
-SubmittedModelInput --> GeneratedResult
-GeneratedResult --> DurablePublication
-DurablePublication --> UserDelivery
-ToolResult --> ExecutionReceipt
-AuthorizedProjection --> CoverageReceipt
-SubmittedModelInput --> InputReceipt
-DurablePublication --> PublicationReceipt
-ExecutionReceipt --> EvidenceReconciliation
+ToolResult["工具结果"] --> AuthorizedProjection["获准投影"]
+AuthorizedProjection --> SubmittedModelInput["实际送模输入"]
+SubmittedModelInput --> GeneratedResult["生成结果"]
+GeneratedResult --> DurablePublication["持久发布"]
+DurablePublication --> UserDelivery["交付用户"]
+ToolResult --> ExecutionReceipt["执行回执"]
+AuthorizedProjection --> CoverageReceipt["覆盖回执"]
+SubmittedModelInput --> InputReceipt["输入回执"]
+DurablePublication --> PublicationReceipt["发布回执"]
+ExecutionReceipt --> EvidenceReconciliation["证据核对"]
 CoverageReceipt --> EvidenceReconciliation
 InputReceipt --> EvidenceReconciliation
 PublicationReceipt --> EvidenceReconciliation

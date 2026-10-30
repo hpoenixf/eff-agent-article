@@ -41,14 +41,14 @@
 
 ```mermaid
 graph TD
-BrowserDisconnect --> ServerKeepsRunning
-ServerKeepsRunning --> ReadOriginalRun
-ServerInterruption --> OriginalRecoveryOwner
-OriginalRecoveryOwner --> FenceAndSettle
-FenceAndSettle --> PreserveCommittedFacts
-PreserveCommittedFacts --> ExplicitNewRun
-ExplicitNewRun --> ReadEligibleMaterials
-AcceptedControlWake --> ScopedCheckpointRecovery
+BrowserDisconnect["浏览器断开"] --> ServerKeepsRunning["服务端继续运行"]
+ServerKeepsRunning --> ReadOriginalRun["读取原运行"]
+ServerInterruption["服务端中断"] --> OriginalRecoveryOwner["原恢复负责人"]
+OriginalRecoveryOwner --> FenceAndSettle["封存并结算"]
+FenceAndSettle --> PreserveCommittedFacts["保留已提交事实"]
+PreserveCommittedFacts --> ExplicitNewRun["明确的新运行"]
+ExplicitNewRun --> ReadEligibleMaterials["读取符合条件的材料"]
+AcceptedControlWake["已接纳的控制唤醒"] --> ScopedCheckpointRecovery["范围内检查点恢复"]
 ```
 
 这张图表示三条不同入口，而不是自动串行流程。浏览器重连只读；普通中断要由原 Owner 安全结算；获准的控制唤醒继续走它已有的受限恢复通道。

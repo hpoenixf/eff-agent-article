@@ -41,19 +41,19 @@ A35 的落点不在搜索阶段，也不在模型输出之后的统一“安全�
 
 ```mermaid
 graph TD
-HostProducer --> CaptureIdentity
-SourceData --> ComposeContext
+HostProducer["Host 事实生产者"] --> CaptureIdentity["记录身份"]
+SourceData["来源数据"] --> ComposeContext["组装上下文"]
 CaptureIdentity --> ComposeContext
-ComposeContext --> MutableHooks
-MutableHooks --> SdkProjection
-SdkProjection --> TrustCheck
+ComposeContext --> MutableHooks["可变钩子"]
+MutableHooks --> SdkProjection["SDK 投影"]
+SdkProjection --> TrustCheck["可信性检查"]
 CaptureIdentity --> TrustCheck
-TrustCheck --> DispatchValid
-TrustCheck --> RejectInvalid
-DispatchValid --> ModelProposal
-ModelProposal --> OriginalEffectOwner
-OriginalEffectOwner --> CommitEligibleEffect
-OriginalEffectOwner --> RejectLocalEffect
+TrustCheck --> DispatchValid["派发有效"]
+TrustCheck --> RejectInvalid["拒绝无效请求"]
+DispatchValid --> ModelProposal["模型提议"]
+ModelProposal --> OriginalEffectOwner["原效果负责人"]
+OriginalEffectOwner --> CommitEligibleEffect["提交符合条件的效果"]
+OriginalEffectOwner --> RejectLocalEffect["拒绝局部效果"]
 ```
 
 图中的两条检查出口是**有条件的分支**：最终投影与原始身份一致，才由原 Gateway 发往模型；出现客观不一致，由 Gateway 使用自己既有的发送前失败回执拒绝这一个请求。检查器本身不派发、不结束研究，也不替工具和发布系统作业务决定。

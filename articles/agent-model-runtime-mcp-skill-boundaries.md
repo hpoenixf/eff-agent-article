@@ -54,14 +54,14 @@
 
 ```mermaid
 graph TD
-UserQuestion --> ModelSelectsAction
-SkillGuidance --> ModelSelectsAction
-ModelSelectsAction --> AvailableTools
-AvailableTools --> PreToolHook
-PreToolHook --> McpTool
-McpTool --> PostToolHook
-PostToolHook --> ModelContinues
-RuntimeLifecycle --> AvailableTools
+UserQuestion["用户问题"] --> ModelSelectsAction["模型选择行动"]
+SkillGuidance["技能方法指导"] --> ModelSelectsAction
+ModelSelectsAction --> AvailableTools["当前可用工具"]
+AvailableTools --> PreToolHook["执行前钩子"]
+PreToolHook --> McpTool["MCP 工具"]
+McpTool --> PostToolHook["执行后钩子"]
+PostToolHook --> ModelContinues["模型继续研究"]
+RuntimeLifecycle["运行时生命周期"] --> AvailableTools
 RuntimeLifecycle --> PreToolHook
 RuntimeLifecycle --> PostToolHook
 ```

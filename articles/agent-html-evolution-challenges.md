@@ -18,15 +18,15 @@
 
 ```mermaid
 graph TD
-ModelHtml --> Producer
-PythonFile --> Producer
-Producer --> ExportAction
-ExportAction --> ContentPreparation
-ContentPreparation --> ArtifactSave
-ArtifactSave --> AuthorizedDownload
-AuthorizedDownload --> BrowserOpen
-ExportAction --> MissingFileReceipt
-ArtifactSave --> DownloadRefused
+ModelHtml["模型生成的 HTML"] --> Producer["生产者"]
+PythonFile["Python 文件"] --> Producer
+Producer --> ExportAction["导出动作"]
+ExportAction --> ContentPreparation["内容准备"]
+ContentPreparation --> ArtifactSave["保存文件产物"]
+ArtifactSave --> AuthorizedDownload["授权下载"]
+AuthorizedDownload --> BrowserOpen["浏览器打开"]
+ExportAction --> MissingFileReceipt["缺少文件回执"]
+ArtifactSave --> DownloadRefused["下载被拒绝"]
 ```
 
 这条链上至少有六种不同的事实：内容已写出、工具调用已结束、导出已接受、文件已提交、当前用户获准读取、实际下载字节与原文件一致。少任意一环，都不能向用户宣布“报告交付成功”。
@@ -70,13 +70,13 @@ HTML 比纯文本麻烦：它既可以是一张静态研究报告，也可以携
 
 ```mermaid
 graph TD
-AuthorizedResearch --> ImmutableArtifact
-ImmutableArtifact --> LaterDownload
-LaterDownload --> CurrentUserIdentity
-CurrentUserIdentity --> StoredFileIntegrity
-StoredFileIntegrity --> OriginalBytes
-LaterDownload --> WrongFreshnessCheck
-WrongFreshnessCheck --> FalseNotFound
+AuthorizedResearch["获准研究"] --> ImmutableArtifact["不可变文件产物"]
+ImmutableArtifact --> LaterDownload["后续下载"]
+LaterDownload --> CurrentUserIdentity["当前用户身份"]
+CurrentUserIdentity --> StoredFileIntegrity["已存文件完整性"]
+StoredFileIntegrity --> OriginalBytes["原始字节"]
+LaterDownload --> WrongFreshnessCheck["错误的时效判断"]
+WrongFreshnessCheck --> FalseNotFound["错误地认定不存在"]
 ```
 
 修复并不是“删除来源检查”。原运行的授权仍须有效，独立的隐私删除或更正规则仍然生效；新下载请求还必须验证**当前账号是否有权读取这份 Artifact**。只是不能拿今天的组合快照重新裁决昨天已经合法生成的静态文件。
@@ -85,13 +85,13 @@ WrongFreshnessCheck --> FalseNotFound
 
 ```mermaid
 graph TD
-SavedArtifact --> OwnerDownload
-SavedArtifact --> ShareGrant
-ShareGrant --> RecipientSession
-RecipientSession --> FixedRevision
-FixedRevision --> RecipientDownload
-ShareGrant --> RevokedOrExpired
-RevokedOrExpired --> AccessDenied
+SavedArtifact["已保存文件产物"] --> OwnerDownload["所有者下载"]
+SavedArtifact --> ShareGrant["分享授权"]
+ShareGrant --> RecipientSession["接收者会话"]
+RecipientSession --> FixedRevision["固定版本"]
+FixedRevision --> RecipientDownload["接收者下载"]
+ShareGrant --> RevokedOrExpired["已撤销或过期"]
+RevokedOrExpired --> AccessDenied["访问被拒绝"]
 ```
 
 文件尚未生成时，可以先把 Grant 绑定到服务端确认的待交付身份，但 **Pending 不可下载**；提交后只读取绑定的版本与哈希。重新生成报告不会偷偷把旧授权切到新版。撤销、到期、账号停用或文件过期会拒绝后续读取，但不能追回已经下载的离线副本。来源材料的再分发限制也不会因为分享动作而失效。
@@ -102,9 +102,9 @@ RevokedOrExpired --> AccessDenied
 
 ```mermaid
 graph TD
-PythonSandbox --> DedicatedWeekly
-DedicatedWeekly --> ModelDirectHtml
-ModelDirectHtml --> SharedArtifactDelivery
+PythonSandbox["Python 沙箱"] --> DedicatedWeekly["专用周报"]
+DedicatedWeekly --> ModelDirectHtml["模型直接生成 HTML"]
+ModelDirectHtml --> SharedArtifactDelivery["共享文件交付"]
 ```
 
 专用生成器的初衷并没有错：固定版式、固定口径、容易验收。但随着能力增加，它开始要求模型搬运专用方法参数，重复接线来源、生成、保存、下载和回读。甚至出现过模型把**结果哈希当作工具调用 ID**、拿**不存在的工作区路径**尝试导出的真实情况。

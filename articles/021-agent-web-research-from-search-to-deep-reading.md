@@ -18,12 +18,12 @@
 
 ```mermaid
 graph TD
-Search --> OpenPage
-OpenPage --> FindText
-FindText --> FollowLinks
-FollowLinks --> RenderPage
-RenderPage --> CiteSources
-CiteSources --> DelegateResearch
+Search["搜索"] --> OpenPage["打开页面"]
+OpenPage --> FindText["定位文字"]
+FindText --> FollowLinks["跟进链接"]
+FollowLinks --> RenderPage["渲染页面"]
+RenderPage --> CiteSources["引用来源"]
+CiteSources --> DelegateResearch["委派研究"]
 ```
 
 这张图表示能力逐步增加，**不是每一次研究都必须依次经过全部步骤**。例如，普通静态页面不需要启动浏览器，简单问题也不需要子 Agent。
@@ -46,13 +46,13 @@ CiteSources --> DelegateResearch
 
 ```mermaid
 graph TD
-ResearchQuestion --> SearchResults
-SearchResults --> AssessSummary
-AssessSummary --> ApprovedEnough
-AssessSummary --> NeedOriginal
-ApprovedEnough --> CiteAsSummary
-CiteAsSummary --> ScopedAnswer
-NeedOriginal --> ReadOriginal
+ResearchQuestion["研究问题"] --> SearchResults["搜索结果"]
+SearchResults --> AssessSummary["判断摘要"]
+AssessSummary --> ApprovedEnough["摘要足以支持表述"]
+AssessSummary --> NeedOriginal["需要原文"]
+ApprovedEnough --> CiteAsSummary["按摘要引用"]
+CiteAsSummary --> ScopedAnswer["在已取得范围内回答"]
+NeedOriginal --> ReadOriginal["阅读原文"]
 ```
 
 是否需要继续读原文取决于具体问题；摘要是否具备引用资格，仍由实际交付和来源许可决定。
@@ -67,11 +67,11 @@ NeedOriginal --> ReadOriginal
 
 ```mermaid
 graph TD
-KnownSource --> ControlledOpen
-ControlledOpen --> ExtractText
-ExtractText --> ReadChunk
-ReadChunk --> ContinueReading
-ExtractText --> PreserveSourceScope
+KnownSource["已知来源"] --> ControlledOpen["受控打开"]
+ControlledOpen --> ExtractText["提取正文"]
+ExtractText --> ReadChunk["读取片段"]
+ReadChunk --> ContinueReading["继续阅读"]
+ExtractText --> PreserveSourceScope["保留来源范围"]
 ```
 
 对研究任务来说，保留“读到哪一段”和“这一段来自哪里”，与获取页面内容本身同样重要。
@@ -114,11 +114,11 @@ PDF 让这个问题变得特别明显。
 
 ```mermaid
 graph TD
-ReadPages1to16 --> FindTarget
-FindTarget --> LaterPagesUnchecked
-LaterPagesUnchecked --> ReadPages17to19
-ReadPages17to19 --> LocatePage18
-LocatePage18 --> ReadTextAndFootnote
+ReadPages1to16["读取第 1 至 16 页"] --> FindTarget["寻找目标"]
+FindTarget --> LaterPagesUnchecked["后续页尚未检查"]
+LaterPagesUnchecked --> ReadPages17to19["读取第 17 至 19 页"]
+ReadPages17to19 --> LocatePage18["定位第 18 页"]
+LocatePage18 --> ReadTextAndFootnote["读取正文与脚注"]
 ```
 
 **命中负责定位，阅读负责取得依据。** 当查找范围还不完整时，没有命中不等于整份文件没有对应信息。
@@ -145,11 +145,11 @@ LocatePage18 --> ReadTextAndFootnote
 
 ```mermaid
 graph TD
-ProductPage --> PageBody
-ProductPage --> FeeDocument
-ProductPage --> HoldingsReport
-ProductPage --> IndexMethodology
-FeeDocument --> ReadNextSource
+ProductPage["产品页面"] --> PageBody["页面正文"]
+ProductPage --> FeeDocument["费率文件"]
+ProductPage --> HoldingsReport["持仓报告"]
+ProductPage --> IndexMethodology["指数方法"]
+FeeDocument --> ReadNextSource["读取下一份资料"]
 HoldingsReport --> ReadNextSource
 IndexMethodology --> ReadNextSource
 ```
@@ -192,17 +192,17 @@ IndexMethodology --> ReadNextSource
 
 ```mermaid
 graph TD
-AllowedPage --> StaticExtraction
-StaticExtraction --> StaticContentReady
-StaticContentReady --> NormalReading
-StaticExtraction --> StaticContentMissing
-StaticContentMissing --> RendererUnavailable
-RendererUnavailable --> ReportUnreadable
-StaticContentMissing --> ApprovedRenderer
-ApprovedRenderer --> BrowserExecutesJS
-BrowserExecutesJS --> RenderSuccess
+AllowedPage["获准页面"] --> StaticExtraction["静态提取"]
+StaticExtraction --> StaticContentReady["静态内容可用"]
+StaticContentReady --> NormalReading["正常阅读"]
+StaticExtraction --> StaticContentMissing["静态内容缺失"]
+StaticContentMissing --> RendererUnavailable["渲染器不可用"]
+RendererUnavailable --> ReportUnreadable["说明无法读取"]
+StaticContentMissing --> ApprovedRenderer["获准渲染器"]
+ApprovedRenderer --> BrowserExecutesJS["浏览器执行脚本"]
+BrowserExecutesJS --> RenderSuccess["渲染成功"]
 RenderSuccess --> NormalReading
-BrowserExecutesJS --> RenderFailure
+BrowserExecutesJS --> RenderFailure["渲染失败"]
 RenderFailure --> ReportUnreadable
 ```
 
@@ -242,12 +242,12 @@ RenderFailure --> ReportUnreadable
 
 ```mermaid
 graph TD
-SearchResult --> NavigationLinks
-SearchResult --> ApprovedSummary
-NavigationLinks --> NavigationOnly
-NavigationOnly --> ReadOriginalPage
-ReadOriginalPage --> CitableOriginalText
-ApprovedSummary --> CiteAsSummary
+SearchResult["搜索结果"] --> NavigationLinks["导航链接"]
+SearchResult --> ApprovedSummary["实际取得的摘要"]
+NavigationLinks --> NavigationOnly["仅用于导航"]
+NavigationOnly --> ReadOriginalPage["阅读原始页面"]
+ReadOriginalPage --> CitableOriginalText["可引用的原文"]
+ApprovedSummary --> CiteAsSummary["按摘要引用"]
 ```
 
 这张图刻意把“导航线索”和“实际取得的文本”拆开；它们可以指向同一个网址，却不能互相替代。
@@ -276,16 +276,16 @@ ApprovedSummary --> CiteAsSummary
 
 ```mermaid
 graph TD
-ReadSource --> ModelReceivesCitation
-ModelReceivesCitation --> DraftAnswer
-DraftAnswer --> PublicationCheck
-PublicationCheck --> CitationValid
-PublicationCheck --> CitationMissing
-CitationValid --> BindSource
-BindSource --> UserPage
-CitationMissing --> ApprovedTextWithGap
+ReadSource["读取来源"] --> ModelReceivesCitation["模型取得引用"]
+ModelReceivesCitation --> DraftAnswer["起草回答"]
+DraftAnswer --> PublicationCheck["发布处理"]
+PublicationCheck --> CitationValid["引用有效"]
+PublicationCheck --> CitationMissing["引用缺失"]
+CitationValid --> BindSource["绑定来源"]
+BindSource --> UserPage["用户页面"]
+CitationMissing --> ApprovedTextWithGap["正文保留并提示缺口"]
 ApprovedTextWithGap --> UserPage
-UserPage --> ShowSourceDetails
+UserPage --> ShowSourceDetails["展示来源详情"]
 ```
 
 早期版本曾因错误引用拒绝发布；当前公开来源引用不足时，会尽可能保留已获准正文，并单独标明引用缺口。**引用校验不能替代用户最终能否检查来源的前端验收。**
@@ -324,16 +324,16 @@ UserPage --> ShowSourceDetails
 
 ```mermaid
 graph TD
-CurrentMaterial --> IdentifyNextGap
-IdentifyNextGap --> NeedNewSources
-IdentifyNextGap --> NeedOriginalText
-IdentifyNextGap --> NeedSpecificPassage
-IdentifyNextGap --> NeedLinkedDocument
-NeedNewSources --> SearchSources
-NeedOriginalText --> ReadBody
-NeedSpecificPassage --> FindAndContinue
-NeedLinkedDocument --> FollowLink
-SearchSources --> Reassess
+CurrentMaterial["当前材料"] --> IdentifyNextGap["识别下一个缺口"]
+IdentifyNextGap --> NeedNewSources["需要新来源"]
+IdentifyNextGap --> NeedOriginalText["需要原文"]
+IdentifyNextGap --> NeedSpecificPassage["需要特定段落"]
+IdentifyNextGap --> NeedLinkedDocument["需要关联文档"]
+NeedNewSources --> SearchSources["搜索来源"]
+NeedOriginalText --> ReadBody["读取正文"]
+NeedSpecificPassage --> FindAndContinue["定位并继续阅读"]
+NeedLinkedDocument --> FollowLink["跟进链接"]
+SearchSources --> Reassess["重新判断"]
 ReadBody --> Reassess
 FindAndContinue --> Reassess
 FollowLink --> Reassess
@@ -365,14 +365,14 @@ FollowLink --> Reassess
 
 ```mermaid
 graph TD
-MainAgent --> AssessTask
-AssessTask --> DirectTools
-DirectTools --> FinalAnswer
-AssessTask --> IndependentResearch
-IndependentResearch --> WebAgent
-IndependentResearch --> PDFAgent
-IndependentResearch --> PythonAgent
-WebAgent --> EvidenceAndGaps
+MainAgent["主代理"] --> AssessTask["判断任务"]
+AssessTask --> DirectTools["直接使用工具"]
+DirectTools --> FinalAnswer["最终回答"]
+AssessTask --> IndependentResearch["独立研究"]
+IndependentResearch --> WebAgent["网页子代理"]
+IndependentResearch --> PDFAgent["PDF 子代理"]
+IndependentResearch --> PythonAgent["Python 子代理"]
+WebAgent --> EvidenceAndGaps["证据与缺口"]
 PDFAgent --> EvidenceAndGaps
 PythonAgent --> EvidenceAndGaps
 EvidenceAndGaps --> FinalAnswer

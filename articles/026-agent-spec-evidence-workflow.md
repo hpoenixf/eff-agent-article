@@ -45,20 +45,20 @@ openspec/
 
 ```mermaid
 graph TD
-UserNeed --> Proposal
-Proposal --> Design
-Design --> SpecDelta
-SpecDelta --> EvidenceBaseline
-EvidenceBaseline --> TasksAndPlan
-TasksAndPlan --> ObserveRed
-ObserveRed --> ImplementGreen
-ImplementGreen --> EvidenceLedger
-EvidenceLedger --> Verify
-Verify --> FormalClose
-FormalClose --> AcceptedSpec
-FormalClose --> TargetedRepair
+UserNeed["用户需求"] --> Proposal["提案"]
+Proposal --> Design["设计"]
+Design --> SpecDelta["规范增量"]
+SpecDelta --> EvidenceBaseline["证据基线"]
+EvidenceBaseline --> TasksAndPlan["任务与计划"]
+TasksAndPlan --> ObserveRed["观察失败"]
+ObserveRed --> ImplementGreen["实现并通过验证"]
+ImplementGreen --> EvidenceLedger["证据记录"]
+EvidenceLedger --> Verify["验证"]
+Verify --> FormalClose["正式关闭"]
+FormalClose --> AcceptedSpec["已接受的规范"]
+FormalClose --> TargetedRepair["定向修复"]
 TargetedRepair --> EvidenceLedger
-AcceptedSpec --> HistoryHandoff
+AcceptedSpec --> HistoryHandoff["历史交接"]
 ```
 
 图中的两个关闭出口分别表示：声明范围内的正式验收成功，才进入规范同步和归档；没有达到验收条件，则保留失败或未验证状态，针对具体缺口继续处理。实际工作流还可以在明确需求前使用 brainstorm，在收尾时记录真正有价值的 retrospective，但没有必要为了齐全而机械地创建所有工件。

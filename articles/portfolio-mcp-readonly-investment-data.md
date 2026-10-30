@@ -18,15 +18,15 @@
 
 ```mermaid
 graph TD
-InvestmentLedger --> ReportProducer
-InvestmentMethods --> ReportProducer
-ReportProducer --> AtomicReport
-AtomicReport --> PortfolioReader
-PortfolioReader --> Overview
-PortfolioReader --> ScopedQueries
-PortfolioReader --> ScenarioMethods
-ExplicitHypothesis --> ScenarioMethods
-Overview --> AgentResearch
+InvestmentLedger["投资账本"] --> ReportProducer["报告生产者"]
+InvestmentMethods["投资方法"] --> ReportProducer
+ReportProducer --> AtomicReport["原子报告"]
+AtomicReport --> PortfolioReader["组合读取器"]
+PortfolioReader --> Overview["整体概览"]
+PortfolioReader --> ScopedQueries["限定范围的查询"]
+PortfolioReader --> ScenarioMethods["场景方法"]
+ExplicitHypothesis["明确假设"] --> ScenarioMethods
+Overview --> AgentResearch["Agent 研究"]
 ScopedQueries --> AgentResearch
 ScenarioMethods --> AgentResearch
 ```

@@ -74,15 +74,15 @@ ETF Agent 曾有一份可选的研究问题列表，名为 `Research Needs`。�
 
 ```mermaid
 graph TD
-LocalOperation --> LocalDecision
-LocalDecision --> ContinueWork
-LocalDecision --> EscalateFacts
-EscalateFacts --> RunLifecycle
-RunLifecycle --> BoundedRecovery
-RunLifecycle --> MainFinalization
-RunLifecycle --> DurableSettlement
+LocalOperation["局部操作"] --> LocalDecision["局部决定"]
+LocalDecision --> ContinueWork["继续工作"]
+LocalDecision --> EscalateFacts["上报事实"]
+EscalateFacts --> RunLifecycle["运行生命周期"]
+RunLifecycle --> BoundedRecovery["有限恢复"]
+RunLifecycle --> MainFinalization["主代理收尾"]
+RunLifecycle --> DurableSettlement["持久结算"]
 BoundedRecovery --> ContinueWork
-MainFinalization --> Publication
+MainFinalization --> Publication["发布"]
 Publication --> DurableSettlement
 ```
 
@@ -116,13 +116,13 @@ Publication --> DurableSettlement
 
 ```mermaid
 graph TD
-Running --> Detached
+Running["运行中"] --> Detached["连接已断开"]
 Detached --> Running
-Running --> Settled
+Running --> Settled["已结算"]
 Detached --> Settled
-Running --> CancelRequested
+Running --> CancelRequested["已请求取消"]
 CancelRequested --> Settled
-Settled --> ReplayOriginal
+Settled --> ReplayOriginal["回放原记录"]
 ```
 
 其中 `Detached` 表示连接离开，`Settled` 表示任务已经按实际结果结算。这个图说明连接与任务的关系，不承诺服务进程崩溃后仍能在任意位置继续。

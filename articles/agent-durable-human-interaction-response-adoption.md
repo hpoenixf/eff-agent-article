@@ -31,16 +31,16 @@
 
 ```mermaid
 graph TD
-AgentQuestion --> HumanInteraction
-HumanInteraction --> DurableRequest
-DurableRequest --> IndependentWork
-DurableRequest --> SafePark
-UserResponse --> ResponseAdmission
-ResponseAdmission --> Correction
-ResponseAdmission --> RecoveryWake
-Correction --> OriginalMain
+AgentQuestion["Agent 的问题"] --> HumanInteraction["人工交互"]
+HumanInteraction --> DurableRequest["持久请求"]
+DurableRequest --> IndependentWork["独立工作"]
+DurableRequest --> SafePark["安全暂停"]
+UserResponse["用户回复"] --> ResponseAdmission["响应准入"]
+ResponseAdmission --> Correction["纠正"]
+ResponseAdmission --> RecoveryWake["恢复唤醒"]
+Correction --> OriginalMain["原主代理"]
 RecoveryWake --> OriginalMain
-OriginalMain --> Publication
+OriginalMain --> Publication["发布"]
 ```
 
 两条路径不是每次同时发生。独立工作足够时继续研究；真正要等待时才 SafePark。单个 Root 最多一个实际人工停放点，超期、Stop 与原有预算约束仍有效。人工等待不会重置真实模型请求数、费用和用户硬截止时间；自动运行的 Scheduled Task 也不会进入这种人工等待。

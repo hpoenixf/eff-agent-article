@@ -23,15 +23,7 @@ The useful question it left behind was how to separate the model's interpretatio
 
 The system therefore checks **the concrete action proposed by the model**: which resource it would read, which tool it would call, which account it would affect, and whether it fits the granted scope. Code does not need to classify the user's prose as “safe,” “confirmed” or “investment advice” and then manufacture permission from that label.
 
-```mermaid
-graph TD
-ModelProposesAction --> CheckRecordedGrant
-CheckRecordedGrant --> DenyProtectedAction
-CheckRecordedGrant --> DispatchAllowedAction
-DispatchAllowedAction --> RecordExecutionOutcome
-RecordExecutionOutcome --> ModelInterpretsResult
-ModelInterpretsResult --> PublicationPreparesAnswer
-```
+![The proposed action is checked against the recorded grant, then denied or executed](../../visuals/reading-guides/authority-en.svg)
 
 Actions outside granted scope are denied before dispatch. An admitted action can still fail during execution, and its receipt must preserve the actual outcome. The model can interpret success or failure; answer delivery has its own records. No stage can announce that a later stage succeeded on its behalf.
 

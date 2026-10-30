@@ -38,12 +38,12 @@ ETF Agent 的一次真实研究里，2025 年某指数的已读取收盘序列�
 
 ```mermaid
 graph TD
-UserQuestion --> DefineMarketObject
-DefineMarketObject --> FreezeDataWindow
-FreezeDataWindow --> AuthorizedSource
-AuthorizedSource --> StructuredCalculation
-StructuredCalculation --> ClaimReview
-ClaimReview --> PublishedNumbers
+UserQuestion["用户问题"] --> DefineMarketObject["明确市场对象"]
+DefineMarketObject --> FreezeDataWindow["固定数据时间窗"]
+FreezeDataWindow --> AuthorizedSource["获准来源"]
+AuthorizedSource --> StructuredCalculation["结构化计算"]
+StructuredCalculation --> ClaimReview["检查数值表述"]
+ClaimReview --> PublishedNumbers["发布数值"]
 ```
 
 这里的运算工具不应顺便决定“这个组合值得买”，它只负责在限定输入上提供可复核数值。模型继续负责解释意义、比较条件和不确定性；输出出现与运算结果不同的数字时，应具体定位到哪项主张，而不是让程序尝试理解全文“投资建议是否正确”。

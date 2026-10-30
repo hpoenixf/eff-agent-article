@@ -48,30 +48,30 @@
 
 ```mermaid
 graph TD
-RootCandidate --> FixedOperations
-FixedOperations --> AtomicPublish
-AtomicPublish --> Deduplicate
-Deduplicate --> ExactlyOnce
+RootCandidate["根候选"] --> FixedOperations["固定操作"]
+FixedOperations --> AtomicPublish["原子发布"]
+AtomicPublish --> Deduplicate["去重"]
+Deduplicate --> ExactlyOnce["恰好一次"]
 ```
 
 主图中的受控刷新节点，即展开为上面这条子链。任何一环不满足，刷新即按失败处理，回到不可用并记审计。
 
 ```mermaid
 graph TD
-UserQuestion --> ParseEvidenceNeed
-ParseEvidenceNeed --> CheckSourceAllowlist
-CheckSourceAllowlist --> RejectUntrustedSource
-RejectUntrustedSource --> ReportUnavailable
-CheckSourceAllowlist --> CheckEvidenceFreshness
+UserQuestion["用户问题"] --> ParseEvidenceNeed["解析证据需求"]
+ParseEvidenceNeed --> CheckSourceAllowlist["检查来源允许范围"]
+CheckSourceAllowlist --> RejectUntrustedSource["拒绝不可信来源"]
+RejectUntrustedSource --> ReportUnavailable["说明不可用"]
+CheckSourceAllowlist --> CheckEvidenceFreshness["检查证据时效"]
 CheckEvidenceFreshness --> ReportUnavailable
-CheckEvidenceFreshness --> PublishCitedAnswer
-ReportUnavailable --> CheckRefreshAllowed
-CheckRefreshAllowed --> RemainUnavailable
-CheckRefreshAllowed --> ControlledRefresh
-ControlledRefresh --> CheckRefreshResult
+CheckEvidenceFreshness --> PublishCitedAnswer["发布带引用的回答"]
+ReportUnavailable --> CheckRefreshAllowed["检查是否允许刷新"]
+CheckRefreshAllowed --> RemainUnavailable["保持不可用"]
+CheckRefreshAllowed --> ControlledRefresh["受控刷新"]
+ControlledRefresh --> CheckRefreshResult["检查刷新结果"]
 CheckRefreshResult --> PublishCitedAnswer
 CheckRefreshResult --> RemainUnavailable
-ControlledRefresh --> MarkNotCollected
+ControlledRefresh --> MarkNotCollected["标记尚未采集"]
 MarkNotCollected --> RemainUnavailable
 ```
 

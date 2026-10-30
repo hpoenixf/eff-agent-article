@@ -88,19 +88,19 @@
 
 ```mermaid
 graph TD
-UserRequest --> ModelProposal
-ModelProposal --> AuthenticatedReview
-AuthenticatedReview --> ConfirmedSchedule
-ConfirmedSchedule --> TimeOrObservation
-TimeOrObservation --> TriggerDecision
-TriggerDecision --> SuppressedOrUnknown
-TriggerDecision --> TaskAdmission
-TaskAdmission --> FiniteResearchRun
-FiniteResearchRun --> CommittedPublication
-FiniteResearchRun --> FailedOrPartialTask
-FailedOrPartialTask --> TaskHistory
+UserRequest["用户请求"] --> ModelProposal["模型提议"]
+ModelProposal --> AuthenticatedReview["已认证评审"]
+AuthenticatedReview --> ConfirmedSchedule["已确认的计划"]
+ConfirmedSchedule --> TimeOrObservation["时间或观察记录"]
+TimeOrObservation --> TriggerDecision["触发判断"]
+TriggerDecision --> SuppressedOrUnknown["未展示或未知"]
+TriggerDecision --> TaskAdmission["任务准入"]
+TaskAdmission --> FiniteResearchRun["有限研究运行"]
+FiniteResearchRun --> CommittedPublication["已提交发布内容"]
+FiniteResearchRun --> FailedOrPartialTask["失败或部分完成的任务"]
+FailedOrPartialTask --> TaskHistory["任务历史"]
 CommittedPublication --> TaskHistory
-CommittedPublication --> AppNotice
+CommittedPublication --> AppNotice["应用提醒"]
 ```
 
 图中的 `TriggerDecision` 不意味着每个触发条件都能走向 `TaskAdmission`。只有版本、权限、资源、冷却和重叠限制全部满足，才走准入；其他状态记录拒绝、跳过或未知，不启动模型。研究中若失败，也保留已发生的 Task 与合法成果，而不是逆向删除触发事实。

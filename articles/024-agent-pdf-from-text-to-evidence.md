@@ -86,15 +86,15 @@ PDF 首先是一种资料载体。它可以来自公开网页、获准的研究�
 
 ```mermaid
 graph TD
-ApprovedDocument --> Reader
-Reader --> TextEvidence
-Reader --> TableEvidence
-Reader --> PageImage
-TextEvidence --> SourceProjection
+ApprovedDocument["获准文档"] --> Reader["文档读取器"]
+Reader --> TextEvidence["正文证据"]
+Reader --> TableEvidence["表格证据"]
+Reader --> PageImage["页面图像"]
+TextEvidence --> SourceProjection["来源投影"]
 TableEvidence --> SourceProjection
 PageImage --> SourceProjection
-SourceProjection --> ModelResearch
-ModelResearch --> PublishedAnswer
+SourceProjection --> ModelResearch["模型研究"]
+ModelResearch --> PublishedAnswer["已发布回答"]
 ```
 
 图中的三条证据路径是可选能力，并非每次研究都要依次执行。

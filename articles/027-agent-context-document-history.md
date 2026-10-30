@@ -45,15 +45,15 @@ description: '用 Hot/Warm/Cold、History 与 Handoff 治理工程知识，附�
 
 ```mermaid
 graph TD
-TaskRequest --> HotRules
-HotRules --> DomainRouter
-DomainRouter --> WarmPack
-WarmPack --> CurrentSpec
-CurrentSpec --> RelevantCode
-RelevantCode --> ScopedImplementation
-ScopedImplementation --> EscalationDecision
-EscalationDecision --> ColdHistory
-EscalationDecision --> FocusedVerification
+TaskRequest["任务请求"] --> HotRules["高频规则"]
+HotRules --> DomainRouter["领域路由"]
+DomainRouter --> WarmPack["按需上下文包"]
+WarmPack --> CurrentSpec["当前规范"]
+CurrentSpec --> RelevantCode["相关代码"]
+RelevantCode --> ScopedImplementation["限定范围的实现"]
+ScopedImplementation --> EscalationDecision["升级决定"]
+EscalationDecision --> ColdHistory["历史资料"]
+EscalationDecision --> FocusedVerification["针对性验证"]
 ColdHistory --> FocusedVerification
 ```
 
@@ -157,18 +157,18 @@ Daily 回答「这一天发生了什么」，Type 回答「这个主题跨时间
 
 ```mermaid
 graph TD
-EngineeringChange --> EvidenceLedger
-EvidenceLedger --> MaterialReview
-MaterialReview --> NoHistory
-MaterialReview --> Candidate
-MaterialReview --> CanonicalTime
-CanonicalTime --> DailyDigest
-DailyDigest --> TopicSummary
-DailyDigest --> WritingDiscovery
+EngineeringChange["工程改动"] --> EvidenceLedger["证据记录"]
+EvidenceLedger --> MaterialReview["材料评估"]
+MaterialReview --> NoHistory["不写历史"]
+MaterialReview --> Candidate["候选材料"]
+MaterialReview --> CanonicalTime["规范时间记录"]
+CanonicalTime --> DailyDigest["每日精选"]
+DailyDigest --> TopicSummary["主题汇总"]
+DailyDigest --> WritingDiscovery["写作发现"]
 TopicSummary --> WritingDiscovery
-WritingDiscovery --> ReadOriginalHistory
-ReadOriginalHistory --> VerifyCurrentFacts
-VerifyCurrentFacts --> TechnicalArticle
+WritingDiscovery --> ReadOriginalHistory["读取原历史"]
+ReadOriginalHistory --> VerifyCurrentFacts["核对当前事实"]
+VerifyCurrentFacts --> TechnicalArticle["技术文章"]
 ```
 
 图中的分叉代表：没有长期价值的材料可以不晋升；暂时有用但证据不足的材料进入 Candidate；真正形成可复用判断的材料才进入 Canonical Time。Daily/Type 是历史的压缩与导航层，不是另外两份权威事实副本。

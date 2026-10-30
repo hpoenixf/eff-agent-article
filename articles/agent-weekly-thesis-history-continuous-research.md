@@ -134,17 +134,17 @@
 
 ```mermaid
 graph TD
-CurrentQuestion --> CurrentFacts
-CurrentQuestion --> QualifiedHistory
-QualifiedHistory --> HistoricalObservation
-QualifiedHistory --> OriginalThesis
-CurrentFacts --> ComparableChanges
+CurrentQuestion["当前问题"] --> CurrentFacts["当前事实"]
+CurrentQuestion --> QualifiedHistory["符合条件的历史"]
+QualifiedHistory --> HistoricalObservation["历史观察"]
+QualifiedHistory --> OriginalThesis["原文章论点"]
+CurrentFacts --> ComparableChanges["可比较的改动"]
 HistoricalObservation --> ComparableChanges
-OriginalThesis --> ReviewHypotheses
+OriginalThesis --> ReviewHypotheses["检查假设"]
 ComparableChanges --> ReviewHypotheses
-ReviewHypotheses --> SelectResearchDepth
-SelectResearchDepth --> NewAssessment
-NewAssessment --> RetainSuccessor
+ReviewHypotheses --> SelectResearchDepth["选择研究深度"]
+SelectResearchDepth --> NewAssessment["新的判断"]
+NewAssessment --> RetainSuccessor["保留后继"]
 ```
 
 这张图只是帮助理解的路径，**不是系统要求每期周报依次运行的固定 DAG**。

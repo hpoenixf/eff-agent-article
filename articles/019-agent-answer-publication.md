@@ -71,18 +71,18 @@ Native 工具入口也必须让候选抵达发布处置方；它曾怎样绕过 
 
 ```mermaid
 graph TD
-ModelDraft --> HostNormalize
-HostNormalize --> PublicationProposal
-PublicationProposal --> CheckOriginalSourceProof
-CheckOriginalSourceProof --> RejectDependentEffect
-CheckOriginalSourceProof --> RetainPermittedBody
-RetainPermittedBody --> DegradeOptionalAttachments
-DegradeOptionalAttachments --> OptionalPreview
-DegradeOptionalAttachments --> CommitAttempt
+ModelDraft["模型草稿"] --> HostNormalize["Host 规范化"]
+HostNormalize --> PublicationProposal["发布候选"]
+PublicationProposal --> CheckOriginalSourceProof["检查原始来源依据"]
+CheckOriginalSourceProof --> RejectDependentEffect["拒绝相关受保护效果"]
+CheckOriginalSourceProof --> RetainPermittedBody["保留获准正文"]
+RetainPermittedBody --> DegradeOptionalAttachments["局部降级可选附件"]
+DegradeOptionalAttachments --> OptionalPreview["可选预览"]
+DegradeOptionalAttachments --> CommitAttempt["尝试提交"]
 OptionalPreview --> CommitAttempt
-CommitAttempt --> SaveUnknown
-CommitAttempt --> VersionedReceipt
-VersionedReceipt --> DeliverEvents
+CommitAttempt --> SaveUnknown["保存状态未知"]
+CommitAttempt --> VersionedReceipt["版本化回执"]
+VersionedReceipt --> DeliverEvents["交付事件"]
 ```
 
 **关系或判断条件：**

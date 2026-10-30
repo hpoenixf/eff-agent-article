@@ -34,18 +34,18 @@ ETF Agent 最初给 Child 独立上下文，是为了让 Main 不必背着每一
 
 ```mermaid
 graph TD
-UserGoal --> MainAgent
-MainAgent --> DirectTools
-MainAgent --> ChildExecution
-CommonRuntime --> ChildExecution
-SpecialtyProfile --> ChildExecution
-GrantedTools --> ChildExecution
-RootGovernance --> MainAgent
+UserGoal["用户目标"] --> MainAgent["主代理"]
+MainAgent --> DirectTools["直接使用工具"]
+MainAgent --> ChildExecution["子代理执行"]
+CommonRuntime["共同运行时"] --> ChildExecution
+SpecialtyProfile["专业方法"] --> ChildExecution
+GrantedTools["已授权工具"] --> ChildExecution
+RootGovernance["根运行治理"] --> MainAgent
 RootGovernance --> ChildExecution
-ChildExecution --> ResultHandoff
-DirectTools --> MainSynthesis
+ChildExecution --> ResultHandoff["成果交接"]
+DirectTools --> MainSynthesis["主代理综合"]
 ResultHandoff --> MainSynthesis
-MainSynthesis --> UserAnswer
+MainSynthesis --> UserAnswer["用户回答"]
 ```
 
 图中的 `ChildExecution` 代表每次创建的独立执行体，不是一份所有子代理共用的聊天记录。`CommonRuntime` 是复用的执行机制，`SpecialtyProfile` 是方法侧重点，`GrantedTools` 是本次实际可用的工具，`RootGovernance` 则是共享的预算、授权和生命周期约束。
@@ -117,21 +117,21 @@ Main 首先需要确认用户目标与材料范围。随后，它可以把“近
 
 ```mermaid
 graph TD
-UserQuestion --> MainPlan
-MainPlan --> CheckDisclosures
-MainPlan --> ReadFundDocuments
-MainPlan --> SelectPortfolioData
-ReadFundDocuments --> AlignDataBasis
+UserQuestion["用户问题"] --> MainPlan["主代理计划"]
+MainPlan --> CheckDisclosures["检查披露资料"]
+MainPlan --> ReadFundDocuments["阅读基金文件"]
+MainPlan --> SelectPortfolioData["选择组合数据"]
+ReadFundDocuments --> AlignDataBasis["对齐数据口径"]
 SelectPortfolioData --> AlignDataBasis
-AlignDataBasis --> ComputeComparison
-CheckDisclosures --> MainSynthesis
+AlignDataBasis --> ComputeComparison["计算比较结果"]
+CheckDisclosures --> MainSynthesis["主代理综合"]
 ReadFundDocuments --> MainSynthesis
 ComputeComparison --> MainSynthesis
-MainSynthesis --> PublishSupportedAnswer
-MainSynthesis --> OptionalReview
-OptionalReview --> MainReassessment
+MainSynthesis --> PublishSupportedAnswer["发布有依据的回答"]
+MainSynthesis --> OptionalReview["按需评审"]
+OptionalReview --> MainReassessment["主代理重新判断"]
 MainReassessment --> PublishSupportedAnswer
-MainReassessment --> TargetedFollowUp
+MainReassessment --> TargetedFollowUp["定向补充研究"]
 TargetedFollowUp --> MainSynthesis
 ```
 
@@ -162,17 +162,17 @@ TargetedFollowUp --> MainSynthesis
 
 ```mermaid
 graph TD
-ChildWork --> SupportedFindings
-ChildWork --> LocalFailure
-LocalFailure --> BoundedRepair
+ChildWork["子代理工作"] --> SupportedFindings["有依据的发现"]
+ChildWork --> LocalFailure["局部失败"]
+LocalFailure --> BoundedRepair["有限修复"]
 BoundedRepair --> ChildWork
-LocalFailure --> ExplicitGaps
-SupportedFindings --> Handoff
+LocalFailure --> ExplicitGaps["明确缺口"]
+SupportedFindings --> Handoff["交接"]
 ExplicitGaps --> Handoff
-Handoff --> MainSynthesis
-MainSynthesis --> ReadEvidence
+Handoff --> MainSynthesis["主代理综合"]
+MainSynthesis --> ReadEvidence["读取证据"]
 ReadEvidence --> MainSynthesis
-MainSynthesis --> PublishAnswer
+MainSynthesis --> PublishAnswer["发布回答"]
 ```
 
 可修复、且仍有预算与授权的错误，才进入 `BoundedRepair`。不能修复的部分进入明确缺口，已有合法发现仍可交回；已经取消或效果未知的操作，不能沿这条线被当作免费重试。

@@ -145,15 +145,15 @@
 
 ```mermaid
 graph TD
-ClaimScope --> IsolatedChecks
-ClaimScope --> RealBoundaryChecks
-IsolatedChecks --> ScopedEvidence
+ClaimScope["表述范围"] --> IsolatedChecks["隔离检查"]
+ClaimScope --> RealBoundaryChecks["真实边界检查"]
+IsolatedChecks --> ScopedEvidence["限定范围的证据"]
 RealBoundaryChecks --> ScopedEvidence
-ScopedEvidence --> KnownFailure
-ScopedEvidence --> MissingEvidence
-ScopedEvidence --> SupportedClaim
-KnownFailure --> TargetedRepair
-MissingEvidence --> TargetedObservation
+ScopedEvidence --> KnownFailure["已知失败"]
+ScopedEvidence --> MissingEvidence["缺失证据"]
+ScopedEvidence --> SupportedClaim["有依据的表述"]
+KnownFailure --> TargetedRepair["定向修复"]
+MissingEvidence --> TargetedObservation["定向观察"]
 ```
 
 图中的两种检查按声明需要选择，不要求所有改动同时执行。证据可能支持一个有限结论，也可能发现缺陷，或留下一个尚需观察的问题。已有证据足够、行为又没有变化时，不必为了整理报告重新验证一切。
