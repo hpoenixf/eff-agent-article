@@ -17,6 +17,7 @@ import StarLink from './StarLink.vue'
 import ArticleStar from './ArticleStar.vue'
 import WeChatFollow from './WeChatFollow.vue'
 import LanguagePreference from './LanguagePreference.vue'
+import DiagramZoom from './DiagramZoom.vue'
 import './custom.css'
 
 export default {
@@ -25,7 +26,7 @@ export default {
     'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'doc-before': () => [h(EvidenceScope), h(OpenSourceBridge)],
     'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
-    'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics)]
+    'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
     app.component('WeChatFollow', WeChatFollow)

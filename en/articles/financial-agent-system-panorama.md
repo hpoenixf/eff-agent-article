@@ -46,9 +46,23 @@ To assign ownership, ask three things: **who wrote the original record, who may 
 
 Identity and permissions are not a fifth ledger. A trusted admission process and institutional identity and access management (IAM) grant rights that are checked at access points. Visibility into an operation does not give a monitoring tool the right to modify holdings or approve trades.
 
+**Readable overview: four responsibilities, not four mandatory microservices.**
+
+- **Investment Core** owns shares, confirmed records, budgets, deterministic calculations and canonical report snapshots. Separate imports or personal confirmations are not broker fills.
+- **The data-source boundary** supplies governed read views with source identity, data-as-of time, coverage and availability. A projection refers to the original ledger; it does not acquire its write authority. Market data and public or licensed documents retain their own readers.
+- **Agent research and delivery** admit the question, scoped Run and grant, then coordinate the model, Skills, Main/Child, MCP, Web/PDF/Python, results, Publication, History and artifacts. Only permitted inputs go to the external model provider. Versioned research output is not an investment write.
+- **Operational monitoring** owns bounded diagnostic observations, not investment decisions or source-ledger correction. CRM/KYC, suitability, staff approvals, orders, settlement and independent audit remain institutional targets.
+
+Investors and researchers ask, read and correct. Applicable rules become institutional governance, service scope, admission, retention and audit controls, not a regulator API called on every request. The detailed diagram retains solid data handoffs, dashed bounded observation and orange institutional targets.
+
+<details>
+<summary>Open the detailed diagram (full-size link inside)</summary>
+
 ![Financial-agent system map: investment core, governed read-only views, research and delivery, and operational monitoring; institutional targets are separate](../../visuals/en/financial-agent-system-panorama/system-map.svg)
 
 [Open the full-size system map](../../visuals/en/financial-agent-system-panorama/system-map.svg)
+
+</details>
 
 **Read the four blocks first:** ledger, data access, research and reporting, and diagnostics. Solid blue/teal arrows are request and data handoffs; dashed gray arrows are bounded observations; dashed orange elements are **institutional targets, not current capabilities**. The governance band represents responsibility and rules, not a “regulator API.” External sources do not automatically become institution-owned material.
 
@@ -81,9 +95,30 @@ Once ownership is clear, follow the research itself. For “Do these two funds h
 
 This is not an entirely hard-coded workflow. The model may discover that the two disclosures cover different periods and decide to search for comparable data. **Only a new business request can initiate the separate authorization and execution lifecycle.**
 
+**Read two lifecycles separately before considering their handoff.**
+
+**Research: current mechanisms**
+
+1. Define the object, period and purpose. Admit the original Run with identity, grant, budget and task boundaries.
+2. The model uses methods and context to select the next action, obtain authorized evidence or calculations, and synthesize claims with their limitations. It may seek more evidence; local failure or unavailable data must preserve independently valid findings.
+3. Publish versioned body/artifact receipts for the user to read and review. A read-only service may end here. Retain the historical research; changed facts call for an independently admitted new Run.
+4. The same Run may wait, stop or recover, retaining its grants, budget and committed results. Local failure is not automatically whole-Run failure. Publication is not an execution checkpoint.
+
+**Business action: an institutional target**
+
+1. Only a separate explicit request with exact object, amount, scope and version enters the business-action lifecycle.
+2. Apply the required suitability, risk, access and authorization/review/mandate checks. Failure rejects this action without erasing an independently valid report.
+3. Following business-system submission, acceptance, partial/full fills and settlement have distinct receipts. A locally unknown outcome is reconciled using the original request ID; automatic resubmission is frozen.
+4. Only the owning business system updates orders, cash and holdings from actual receipts. A research report never writes that ledger. This is neither a mandatory workflow for every research task nor a claim of production trading readiness.
+
+<details>
+<summary>Open the detailed diagram (full-size link inside)</summary>
+
 ![Separate research and business lifecycles, including further investigation, local failure, publication, independent action requests, authorization, reconciliation, and actual business receipts](../../visuals/en/financial-agent-system-panorama/lifecycle.svg)
 
 [Open the full-size lifecycle diagram](../../visuals/en/financial-agent-system-panorama/lifecycle.svg)
+
+</details>
 
 **The upper half represents current research mechanisms; the lower half an institutional target.** Reading the report can complete a read-only service. Orange connections take effect only after a new concrete business request and separate admission. Applicable institutional rules determine the approval sequence.
 
@@ -327,9 +362,26 @@ This is a **read-only research** index, so business authorization and effect ref
 
 ### Reviewability comes from factual handoffs
 
+**An evidence index links facts without taking ownership of the originals.**
+
+- **Request and admission:** actor, original question, Run, grant reference and permitted scope explain who initiated which research.
+- **Source and actual reading:** source, version, data-as-of time, range, gaps and failures identify what was obtained.
+- **Method and computation:** method version, inputs, outputs, units and assumptions explain how the numbers arose.
+- **Publication and delivery:** body/file revisions plus commit and access receipts identify the delivered version.
+- **Institutional business targets:** exact review/mandate versions and order/fill/settlement receipts identify authorization and actual effect. No review record does not mean a verified review.
+
+The minimum index links **actor, object, method, source, effect and time**. Missing and unknown facts remain explicit; originals are resolved within permission. References neither certify semantic correctness nor grant access.
+
+Operational diagnosis asks what ran or failed and where delivery stopped. Research evaluation asks whether the question was answered and whether sources, methods and values are valid. Institutional review checks authorization against business effects. These are separate judgments. Minimize ordinary logs; govern protected content and its access, retention and deletion separately. Replaying evidence does not authorize re-execution, historical reports are not current holdings, and audit does not justify retaining all original content indefinitely.
+
+<details>
+<summary>Open the detailed diagram (full-size link inside)</summary>
+
 ![Traceable responsibility records: request, sources, computation, report, and business receipts remain distinct; diagnostics, research evaluation, and institutional audit consume them separately](../../visuals/en/financial-agent-system-panorama/evidence-map.svg)
 
 [Open the full-size evidence and accountability map](../../visuals/en/financial-agent-system-panorama/evidence-map.svg)
+
+</details>
 
 Horizontal connections denote identity-preserving relationships, not copying every record into an all-purpose log table. Downward connections denote authorized reads or projections, not one transaction that writes all records together. Orange elements remain institutional targets.
 

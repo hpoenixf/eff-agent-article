@@ -82,56 +82,19 @@
 
 ```mermaid
 flowchart TD
-    Question["用户问题：我买的这只基金最近怎么样？"] --> Main["主代理：明确基金、份额、期间与研究目标"]
-
-    subgraph Sources["取得不同性质的资料"]
-        direction LR
-        Public["公开资料研究"] --> Page["产品网页"]
-        Page --> Pdf["官方 PDF：表格、正文与脚注"]
-        Pdf --> Read["实际内容、单位、时点与限制"]
-        Portfolio["获准的持有基金与组合资料"]
-    end
-
-    Main --> Public
-    Main --> Portfolio
-    Read --> Results["带版本的结果与原始依赖"]
-    Portfolio --> Results
-
-    subgraph Research["按问题消费成果"]
-        direction LR
-        Selected["选择需要的输入"] --> Child["Python 子代理：局部计算"]
-        Child --> Derived["派生结果、方法与缺口"]
-        Synthesis["主代理：综合发现与适用条件"]
-    end
-
-    Results --> Selected
-    Results -->|按需读取| Synthesis
-    Derived --> Synthesis
-    Synthesis --> Projection["整理当前上下文"]
-    Projection -->|保留原身份，继续研究| Synthesis
-
-    subgraph Delivery["形成可以重读的成果"]
-        Publish["发布准备与版本化提交"] --> Body["已提交正文"]
-        Body --> History["历史阅读"]
-        Html["将结论、数据表、图表与引用编排成 HTML"] --> FilePrepare["复用发布准备，保留来源与内容身份"]
-        FilePrepare --> Artifact["保存最终字节与文件版本"]
-        Artifact --> Download["认证下载"]
-        Download --> Open["下载并打开报告"]
-        Open --> Reopen["以后按原版本重读"]
-        History --> Reopen
-    end
-
-    Synthesis --> Publish
-    Synthesis -->|需要报告时| Html
-    Derived -.->|计算结果与图表可供编排| Html
-
-    classDef fact fill:#e8f3ff,stroke:#4677a5,color:#17344d;
-    classDef work fill:#edf7ef,stroke:#54825b,color:#25452b;
-    classDef effect fill:#fff3df,stroke:#b18b45,color:#634b22;
-    class Results,Read,Portfolio,Derived fact;
-    class Main,Selected,Child,Synthesis,Projection work;
-    class Publish,Body,History,Html,FilePrepare,Artifact,Download,Open,Reopen effect;
+    Q["明确研究问题"] --> R["取得有身份的资料"]
+    R --> S["按问题研究与综合"]
+    S --> D["分别交付正文与文件"]
 ```
+
+这张概览只表达四个阶段，细节分开读：
+
+1. **明确问题。** 从用户的问题出发，由主代理确认基金、份额、期间与研究目标。
+2. **取得资料。** 公开研究沿产品网页进入官方 PDF，实际读取表格、正文和脚注，保留内容、单位、时点与限制；获准的持有基金和组合资料从各自入口进入。两路资料都形成带版本的结果与原始依赖。
+3. **研究与综合。** 原结果既可按需直接供主代理综合，也可先选取输入，交 Python 子代理局部计算，再带着方法与缺口交回派生结果。主代理综合发现与适用条件；整理当前上下文时保留原身份，再继续研究，而不是另起无来源的结论。
+4. **两路交付。** 正文经过发布准备和版本化提交，形成已提交正文，供历史阅读。需要报告时，结论、数据表、图表和引用另编排成 HTML；计算产物可供编排，但不强制经过 Python。文件复用发布准备并保留来源与内容身份，保存最终字节和版本后，经过认证下载、打开，之后按原版本重读。正文历史与文件重读最终都回到相应的原版本。
+
+下文分别展开资料读取（图二）、子代理交接（图三）和两路交付（图五），不要求读者在一张长图里追完所有连线。
 
 图中的公开研究可以由主代理直接执行，也可以委派。上下文投影表示研究继续时的材料整理，不要求每次都生成摘要。HTML 可以由模型直接编排，也可以使用获准 Python 的计算或批量处理成果；文件按交付需要产生，正文可以独立存在。保存、下载、打开和重读分别需要相应事实，图中的依赖不表示前一步已经证明后一步成功。
 
@@ -173,31 +136,17 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Search["搜索返回"] --> Link["导航线索：下一份资料在哪里"]
-    Search --> Summary["实际提供的摘要"]
-    Summary --> Assess{"模型判断：摘要能否回答当前问题？"}
-    Assess -->|能，保留摘要身份| Scoped["在已取得范围内作出表述"]
-    Assess -->|关键条件缺失| Reader["进入获准的原文读取器"]
-    Link --> Reader
-
-    subgraph Forms["按任务需要选择证据表示"]
-        Text["正文与脚注"]
-        Table["表格与单位"]
-        Image["页面图像"]
-    end
-
-    Reader --> Text
-    Reader --> Table
-    Reader --> Image
-    Text --> Delivered["记录实际内容、单位、日期、页码与限制"]
-    Table --> Delivered
-    Image --> Delivered
-    Delivered --> Review{"模型判断：关键条件是否齐备？"}
-    Review -->|足以支持相应表述| Scoped
-    Review -->|仍可补查| Continue["沿定位或游标继续读取"]
-    Continue --> Reader
-    Review -->|暂时无法补齐| Limited["说明缺口，缩小对应结论"]
+    S["搜索：链接与实际摘要"] --> A["判断当前依据是否足够"]
+    A -->|足够| C["在已取得范围内表述"]
+    A -->|关键条件缺失| R["获准读取原文"]
+    R --> A
 ```
+
+**读取与停止的判断分别是：**
+
+- 链接只是下一份资料的导航线索；实际取得的摘要有自己的身份。摘要足以回答当前问题时，可以明确在该范围内表述；缺关键条件时，沿链接进入获准的原文读取器。
+- 读取器按任务选择正文与脚注、表格与单位、页面图像，不要求三种形式全部执行。每次实际交付都记录内容、单位、日期、页码和限制。
+- 模型再次判断关键条件：足以支持相应表述，就形成有限结论；仍可补查，就沿定位或游标回到原读取器；暂时无法补齐，就说明缺口并缩小结论。补查路径和停止条件不能互相替代。
 
 三种证据表示可以单独使用，也可以互补；图中没有要求每份资料全部走一遍。取得更多内容，也仍需单独判断它是否支持结论。
 
@@ -286,35 +235,18 @@ flowchart TD
 **图三：一次主代理到 Python 子代理的成果交接。** 图中“结果管理”消费原生产者的读取事实；每次交接都沿原研究授权与选定输入进行。
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    participant Main as 主代理
-    participant Results as 结果管理
-    participant Child as Python 子代理
-    participant Executor as 计算执行器
-
-    Note over Main,Results: 原资料已由获准读取产生，内容与版本已有身份
-    Main->>Results: 读取与当前子问题有关的结果
-    Results-->>Main: 选定内容、原始引用、单位、日期与覆盖
-    Main->>Child: 委派局部问题，绑定获准输入
-    Child->>Results: 取得精确选定输入
-    Results-->>Child: 对应字节、脚注限制与真实依赖
-    Child->>Child: 检查口径、缺失与方法条件
-
-    alt 可以进行该项计算
-        Child->>Executor: 使用精确输入实际执行
-        Executor-->>Child: 原执行回执、输出或失败状态
-    else 必要输入或方法条件不成立
-        Child->>Child: 保留缺口，不编造该项结果
-    end
-
-    Child-->>Main: 交回发现、依据、计算产物、口径与限制
-    opt 主代理需要核对关键发现
-        Main->>Results: 沿原身份回读依据或派生结果
-        Results-->>Main: 原范围内可读内容或明确不可用
-    end
-    Main->>Main: 回到用户原问题综合判断
+flowchart TD
+    M["主代理：明确局部问题"] --> I["沿结果身份交付输入"]
+    I --> C["子代理：核对并计算"]
+    C --> M2["主代理：核对后综合"]
 ```
+
+一次交接按以下顺序保留事实：
+
+1. 原资料已经由获准读取产生，内容与版本已有身份。主代理先向结果管理读取与子问题有关的结果，取得选定内容、原始引用、单位、日期和覆盖，再委派局部问题并绑定获准输入。
+2. Python 子代理向结果管理取得精确选定输入，收到对应字节、脚注限制和真实依赖，随后检查口径、缺失与方法条件。
+3. **条件成立**时，子代理把精确输入交给计算执行器，接收原执行回执、输出或失败状态；**条件不成立**时，保留缺口，不编造该项结果。图中的“计算”不意味着每次都成功执行。
+4. 子代理交回发现、依据、计算产物、口径和限制。主代理需要核对关键发现时，再沿原身份回读依据或派生结果；结果管理返回原范围内可读内容或明确不可用。最后回到用户的原问题作综合判断。
 
 ### Python 子代理接手一段计算工作
 
@@ -354,6 +286,15 @@ Python Child 接手的是有范围的计算问题，而不是替 Main 调用一�
 
 **图四：把教学例子的分母放回全基金资产。** 已披露部分占 60%，其中 20% 对应全基金资产的 12%；其余已披露资产占 48%，未披露部分仍占 40%。
 
+| 教学示例中的资产范围 | 占基金 A 资产的比例 |
+| --- | ---: |
+| 已披露且识别到共同公司的部分 | 12% |
+| 已披露部分中的其余资产 | 48% |
+| 未披露部分 | 40% |
+
+<details>
+<summary>查看同一组示例数字的完整饼图</summary>
+
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"pie1":"#9cc7ed","pie2":"#c9dfd0","pie3":"#e6e9ed","pieStrokeColor":"#64748b","pieStrokeWidth":"1px"}}}%%
 pie showData
@@ -362,6 +303,8 @@ pie showData
     "已披露部分中的其余资产" : 48
     "未披露部分" : 40
 ```
+
+</details>
 
 图中的 48% 不能被标成“已确认不重叠”，40% 也没有因为已知部分可以计算就消失。这张图描述 A 的资产范围，没有给出双方完整的权重交集。
 
@@ -459,37 +402,23 @@ FinRobot V2 提供了一个具体参照。在其固定版本的[权益研究现�
 
 ```mermaid
 flowchart TD
-    BodyInput["模型候选正文"] --> BodyPrepare
-    HtmlInput["模型编排 HTML：结论、数据表、图表与引用"] --> FilePrepare
-    PythonInput["获准 Python 生成的报告内容或文件"] --> FilePrepare
-
-    subgraph Prepare["共享的发布准备能力：保留来源与内容身份"]
-        BodyPrepare["准备正文与引用"]
-        FilePrepare["准备 HTML，保留原结果与引用关联"]
-    end
-
-    BodyPrepare --> Commit["尝试版本化提交"]
-    BodyPrepare -.->|可选提前展示| Preview["预览：尚不能证明保存"]
-    BodyPrepare -->|无效引用局部处理| Degrade["省略坏附件，保留独立合法正文"]
-    Degrade --> Commit
-    Commit -->|已确认提交| BodySaved["正文版本与原提交回执"]
-    BodySaved --> History["交付与历史读回"]
-    Commit -->|未取得可确认回执| Unknown["保留未确认状态，沿原身份核对"]
-
-    FilePrepare --> FileSave["检查并保存最终字节"]
-    FileSave -->|提交成功| Artifact["固定版本的文件产物"]
-    FileSave -->|失败| NoFile["附件未交付：不冒充已保存"]
-    Artifact --> Access{"当前请求者有权读取且内容身份成立？"}
-    Access -->|是| Bytes["返回同一版本的报告字节"]
-    Access -->|否| Denied["拒绝本次文件读取"]
-    Bytes --> Open["用户下载并打开报告"]
-    Open --> Reopen["以后按固定版本重新查看"]
-
-    classDef saved fill:#edf7ef,stroke:#54825b,color:#25452b;
-    classDef pending fill:#fff3df,stroke:#b18b45,color:#634b22;
-    class BodySaved,Artifact,Bytes,Open,Reopen saved;
-    class Preview,Unknown,NoFile,Denied pending;
+    P["共享发布准备"] --> B["正文版本化提交"]
+    P --> F["文件字节持久保存"]
+    B --> H["正文历史读回"]
+    F --> A["认证后读取固定字节"]
 ```
+
+**正文路径**从模型候选正文进入“正文与引用准备”，再尝试版本化提交：
+
+- 可以提前展示预览，但预览不能证明保存。
+- 无效引用只作局部处理：省略坏附件，保留独立合法正文，再进入提交；不能靠降级制造私人资料的读取权。
+- 已确认提交时，保留正文版本和原提交回执，供交付与历史读回；回执不能确认时，保留未确认状态，沿原身份核对，不假设已保存。
+
+**文件路径**接受模型编排的 HTML（结论、数据表、图表、引用），也接受获准 Python 生成的报告内容或文件：
+
+- 共享准备能力保留来源、内容身份、原结果和引用关联；随后检查并保存最终字节。提交成功才形成固定版本文件；失败就说明附件未交付，不冒充保存成功。
+- 下载时另核当前请求者的读取权限与内容身份：成立才返回同一版本字节，否则拒绝本次读取。用户下载并打开后，以后仍按固定版本查看。
+- 正文和文件不是同一笔事务。文件失败不抹去另一条路径已提交的正文；两路都保留各自的成功、失败与未知事实。
 
 必要的来源、权限和内容身份保护仍由原负责者执行。图中局部降级只针对独立获准正文的辅助缺陷；文件路径失败，也不能反过来抹掉另一条路径已提交的正文。图表是否忠实表达原计算，仍需内容核对，文件保存与打开的回执不认证这一语义关系。
 
@@ -515,26 +444,19 @@ Main 上下文压缩已有压力触发、数值、PDF 引用和冷恢复的受�
 
 ```mermaid
 flowchart TD
-    Fit["准备请求：选取内容，拟合原结果与精确引用"] --> Pressure{"仍有明确的<br/>应用容量压力？"}
-    Pressure -->|否| Send["按原规则提交本次请求"]
-    Pressure -->|是| Range{"有满足原边界的<br/>可压缩历史？"}
-    Range -->|否| Retain["保留原材料，继续原容量处理"]
-    Range -->|是| Generate["沿原资源与授权约束请求摘要"]
-    Generate -->|产生派生工作候选| Adopt{"身份、任务版本与<br/>提交条件成立？"}
-    Generate -->|失败或无收益| Retain
-    Adopt -->|否| Retain
-    Adopt -->|是| Commit["提交摘要检查点与原结果引用"]
-    Commit -->|提交成功| Project["将摘要纳入后继候选请求"]
-    Project --> Send
-    Commit -->|提交失败| Retain
-    Retain --> Send
-    Project -.-> Reread["需要精确依据时，沿原结果回读"]
-
-    classDef original fill:#e8f3ff,stroke:#4677a5,color:#17344d;
-    classDef derived fill:#f2edfb,stroke:#8a70ad,color:#46345f;
-    class Fit,Retain,Reread original;
-    class Generate,Commit,Project derived;
+    F["拟合原内容与精确引用"] --> G["容量压力与历史边界检查"]
+    G -->|适合摘要| S["生成并核验候选摘要"]
+    S -->|提交成功| P["纳入后继候选请求"]
+    P --> R["按原规则提交请求"]
 ```
+
+各阶段的继续和回退条件如下：
+
+1. 先选取内容，拟合原结果与精确引用。**没有明确应用容量压力**时，直接按原规则提交本次请求。
+2. **仍有压力**时，检查有无满足原边界的可压缩历史。没有就保留原材料，继续原容量处理；有才沿原资源与授权约束请求摘要。
+3. 生成失败或无收益时，同样回到原容量处理。生成派生候选后，还须核验身份、任务版本与提交条件；条件不成立不采纳。
+4. 条件成立才提交摘要检查点和原结果引用。提交失败仍保留原材料；提交成功才把摘要纳入后继候选请求。**生成、采纳提交、实际送模是三个不同事件。**
+5. 后继仍按原容量、取消、预算和执行规则决定能否派发；“回到原容量处理”并不保证发送成功。需要精确依据时，从摘要关联的原结果回读，不从摘要重建原件。
 
 “按原规则提交”仍服从原有容量、取消、预算与执行边界，不保证每个请求都能派发。候选采纳检查也只保护其原机械条件，不认证摘要语义完整。
 
@@ -557,29 +479,17 @@ FinRobot 的[研究指令](https://github.com/AI4Finance-Foundation/FinRobot/blo
 **图七：时间延续中的三个入口。** 用户打开历史、恢复原工作与要求重新研究，分别消费不同的事实。
 
 ```mermaid
-sequenceDiagram
-    actor User as 用户
-    participant History as 历史与交付
-    participant Original as 原运行
-    participant New as 新研究运行
-
-    alt 阅读旧报告
-        User->>History: 打开当时的报告
-        History->>History: 核对原提交、版本及相应读取权限
-        History-->>User: 当时的正文、文件与原有限制
-        Note over User,History: 不静默替换为今天的数据或结论
-    else 接续同一次中断工作
-        User->>Original: 通过原恢复入口接续
-        Original->>Original: 恢复原授权、回执与检查点
-        Note over History,New: 原运行恢复时，分别处理：<br/>已提交效果：沿原身份读回<br/>安全下一步：在原边界内继续<br/>未知效果：交原负责者处置
-        Original-->>User: 保留原事实的恢复结果
-    else 按当前事实重新研究
-        User->>New: 按现在的资料再分析一次
-        New->>New: 独立准入，取得当前适用数据
-        New-->>User: 新的研究结果与报告版本
-        Note over History,New: 旧报告可以作为参考，不自动授予新运行权限
-    end
+flowchart TD
+    U["用户的时间意图"] --> H["阅读旧报告"]
+    U --> R["接续原运行"]
+    U --> N["发起新研究"]
 ```
+
+- **阅读旧报告：** 历史与交付入口核对原提交、版本和相应读取权限，返回当时的正文、文件及原有限制；不静默替换成今天的数据或结论。
+- **接续原运行：** 通过原恢复入口恢复授权、回执和检查点。已提交效果沿原身份读回；安全下一步在原边界内继续；未知效果交原负责者处置。返回的是保留原事实的恢复结果，不是模型重新猜一份执行历史。
+- **发起新研究：** 按当前事实重新分析，需要新运行独立准入并取得当前适用数据，产出新的研究结果和报告版本。旧报告可以参考，但不自动授予新运行权限。
+
+三条路径是不同意图，不是依次执行的流水线。
 
 图中的三个分支表示不同阅读或研究意图，不是一套新增恢复状态机。未知效果不会仅因用户希望继续而变成“已完成”或“可免费重试”。
 
@@ -621,36 +531,22 @@ PROV-O、OpenLineage 在这里仅作为设计参照；是否引入元数据系�
 **图八：共同解释收拢之后，各种决定权仍然分开。** 中间层统一解释已有事实；计算、发布、文件与恢复仍各自保护真实效果。
 
 ```mermaid
-flowchart LR
-    subgraph Producers["事实从原负责者产生"]
-        direction TB
-        Source["来源读取：原值、内容版本与实际范围"]
-        Execution["执行记录：派发、输出与结算回执"]
-        Grant["运行准入：原授权与使用范围"]
-    end
-
-    Source --> ResultOwner
-    Execution --> ResultOwner
-    Grant --> ResultOwner
-    ResultOwner["结果与引用解释<br/>身份、派生关系、投影与引用资格"]
-
-    subgraph Consumers["不同消费者保留不同责任"]
-        direction TB
-        Context["上下文：选择与实际送模"]
-        Compute["计算：输入、方法与执行效果"]
-        Publication["发布：正文处置与版本化提交"]
-        Artifact["文件：最终字节与资源访问"]
-        Recovery["恢复：原事实、检查点与未知效果"]
-    end
-
-    ResultOwner -->|复用原结果解释| Context
-    ResultOwner -->|提供精确输入与来路| Compute
-    ResultOwner -->|提供来源与引用事实| Publication
-    ResultOwner -->|保留产物的真实依赖| Artifact
-    ResultOwner -->|恢复原身份与依赖| Recovery
-    Model["模型：研究策略、语义解释与综合判断"] -.->|消费事实，提出行动或结论| Context
-    Model -.->|提出候选内容| Publication
+flowchart TD
+    F["原负责者提供事实"] --> R["统一解释结果与引用"]
+    R --> C["各消费者保留决定权"]
 ```
+
+进入共同解释的事实有三类：**来源读取**提供原值、内容版本和实际范围；**执行记录**提供派发、输出与结算回执；**运行准入**提供原授权和使用范围。结果与引用解释统一处理身份、派生关系、投影和引用资格，不替代这些生产者。
+
+随后按用途消费，而不是把决定权交给一个总开关：
+
+- **上下文**复用原结果解释，决定选择哪些内容并核实际送模。模型消费事实、提出行动或结论，但不凭提议生成执行事实。
+- **计算**取得精确输入与来路，保留方法和执行效果的责任。
+- **发布**取得来源与引用事实，处理模型候选正文及版本化提交。
+- **文件**保留产物的真实依赖，负责最终字节和资源访问。
+- **恢复**沿原身份与依赖，处理原事实、检查点和未知效果。
+
+模型仍负责研究策略、语义解释与综合判断；它向上下文提出行动、向发布提出候选内容，不是新的来源或授权负责者。
 
 这些连线表示事实消费关系，不授予新的访问、投资执行或全局否决权。共同解释减少重复决定，各领域的独立保护仍然存在。
 

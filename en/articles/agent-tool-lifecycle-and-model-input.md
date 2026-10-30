@@ -20,25 +20,19 @@ We route Native read calls through one execution coordinator. The caller submits
 This diagram summarizes a fresh read, omitting concurrency and recovery branches:
 
 ~~~mermaid
-sequenceDiagram
-  participant M as Model
-  participant H as Host
-  participant T as Tool
-  participant P as Projector
-  participant G as ModelGateway
-  M->>H: Propose tool call
-  H->>H: Validate and admit
-  alt Call not authorized
-    H-->>M: Denial receipt
-  else Call admitted
-    H->>T: Execute read
-    T-->>H: Raw result or failure
-    H->>P: Create eligible result view
-    P-->>H: Projection and status
-    H->>G: Assemble next model request
-    G-->>M: Effective input and tool result
-  end
+flowchart TD
+    A["Model proposes a call"] --> B["Host validates admission"]
+    B -->|Admitted| C["Tool read and projection"]
+    C --> D["Gateway delivers actual input"]
 ~~~
+
+The order and denial branch remain distinct:
+
+1. The model proposes a tool call to the Host, which validates and admits it. **If not authorized**, the Host returns a denial receipt to the model and does not execute the tool.
+2. **If admitted**, the Host executes the read and receives the raw result or failure from the tool. Passing through a common entry does not turn failure into success.
+3. The Host asks the context Projector for an eligible result view; the Projector returns the projection and its status.
+4. The Host assembles the next model request and submits it to the ModelGateway. Only the effective input and tool result delivered through that gateway are the model's actual input. Tool return, projection and model-input delivery are different events.
+
 
 One entry point does **not** mean all business logic belongs in one module. It centralizes execution rules common to reads, so each new tool does not have to recreate authorization, receipts and observability; the common layer does not start interpreting every business domain.
 

@@ -1,11 +1,12 @@
 import { defineConfig } from 'vitepress'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 import { seoDescription, socialHead, articleStructuredData, structuredDataHead } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
+import { readableRelations, diagramDimensions, needsReadableRelations, renderRelations } from '../diagram-reading.mjs'
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
@@ -182,13 +183,23 @@ export default defineConfig({
           // VitePress compiles static src attributes as build imports, while
           // public/generated is created during prebuild. A literal Vue binding
           // emits a plain SSR src without bundling each output SVG as a module.
-          return '<figure class="diagram-frame diagram-static">' +
+          let figure = '<figure class="diagram-frame diagram-static">' +
             '<a class="diagram-preview" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="放大查看完整图 / Open full-size diagram">' +
             '<img :src="\'' + imageUrl + '\'" alt="' + escapeAttribute(description) +
             '" loading="lazy" decoding="async" /></a>' +
             '<figcaption class="diagram-caption">' + caption +
               ' <a class="diagram-original" href="' + escapeAttribute(imageUrl) + '" target="_blank" rel="noopener noreferrer">放大查看完整图 / Open full-size SVG</a>' +
               '</figcaption></figure>\n'
+          const asset = fileURLToPath(new URL('../public/generated/mermaid/' + diagramId(token.content) + '.svg', import.meta.url))
+          const dimensions = existsSync(asset) ? diagramDimensions(readFileSync(asset, 'utf8')) : null
+          if (dimensions) figure = figure.replace('<img ', '<img width="' + dimensions.width + '" height="' + dimensions.height + '" ')
+          const projection = readableRelations(token.content)
+          if (!needsReadableRelations(dimensions) || !projection.supported) return figure
+          const english = /(^|\/)en\//.test(String(env.relativePath || env.path || ''))
+          return renderRelations(projection, english) + '<details class="diagram-full-details"><summary>' +
+            (english ? 'Complete relationship diagram · enlarge for detail' : '完整关系图 · 可放大查看细节') +
+            '</summary>' + figure + '</details>\n'
+
         }
         return fallback ? fallback(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options)
       }

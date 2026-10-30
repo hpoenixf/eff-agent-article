@@ -73,30 +73,19 @@ Pair formation also has two steps. The first Child proposes a peer offer and sto
 The message belongs to the existing Child lifecycle owner, not to a separate debate service. The simplified path is:
 
 ~~~mermaid
-sequenceDiagram
-    participant Bear as Bear Child
-    participant Host as Execution and authorization
-    participant Store as Durable records
-    participant Bull as Bull Child
-    Bear->>Host: Propose challenge and evidence references
-    Host->>Host: Validate pair, round and source access
-    alt Invalid
-        Host-->>Bear: Reject this send and report the gap
-    else Valid
-        Host->>Store: Store unique message and receipt
-        Store-->>Host: Return original message identity
-        Host-->>Bear: Accepted and safe to wait
-        Host-->>Bull: Send deduplicated wake hint
-        Bull->>Host: Request continuation
-        Host->>Store: Read original message and cursor
-        alt Root may continue
-            Host->>Bull: Include original message in next model request
-            Bull->>Host: Submit linked response
-        else Stopped or expired
-            Host-->>Bull: End peer work and retain existing results
-        end
-    end
+flowchart TD
+    A["Bear proposes a challenge"] --> B["Host validates and persists"]
+    B --> C["Bull requests continuation"]
+    C --> D["Host checks the Root state"]
 ~~~
+
+The overview preserves this order and its conditional branches:
+
+1. Bear submits a challenge and evidence references to the execution and authorization Host. The Host checks the pair, round and source access. **If invalid**, it rejects this send and reports the gap to Bear; storage and the wake hint do not follow.
+2. **If valid**, the Host stores the unique message and original receipt. Only after durable records return the original message identity does the Host tell Bear the send was accepted and it is safe to wait, then issue a deduplicated wake hint to Bull.
+3. Bull requests continuation. The Host reads the original message and consumption cursor from durable records; a wake hint is not itself the message body.
+4. **If the Root may continue**, the next actual model request to Bull includes that original message, and Bull submits the linked response. **If stopped or expired**, the Host ends the peer work and retains existing results.
+
 
 Main does not paraphrase every round. Neither Child gains new trading, source or budget authority simply by being part of a pair.
 

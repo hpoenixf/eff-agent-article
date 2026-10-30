@@ -581,3 +581,35 @@
 .VPHome .VPHero { padding-top: 80px; }
 .VPHome .VPHero .name, .VPHome .VPHero .name .clip { color: #b9dfcc; background: none; -webkit-text-fill-color: currentColor; }
 @media (max-width: 767px) { .VPHome .VPHero { padding-top: 76px; } }
+/* Shared detail view: previews stay bounded; the full canvas remains scrollable. */
+.vp-doc img[data-diagram-zoom] { cursor: zoom-in; min-width: 0 !important; max-width: 100% !important; max-height: min(70vh, 640px) !important; max-height: min(70svh, 640px) !important; object-fit: contain; }
+.diagram-zoom-trigger { display: inline-flex; align-items: center; min-height: 44px; margin: 4px 0 12px; padding: 8px 12px; border: 1px solid var(--vp-c-divider, #d1d5db); border-radius: 6px; color: var(--vp-c-brand-1, #176351); font-size: 14px; cursor: pointer; background: transparent; }
+.diagram-zoom-dialog { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; color: var(--vp-c-text-1, #17212a); background: var(--vp-c-bg, #fff); }
+.diagram-zoom-dialog[open] { display: flex; flex-direction: column; }
+.diagram-zoom-dialog::backdrop { background: #0009; }
+.diagram-zoom-toolbar { flex: none; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 16px; border-bottom: 1px solid var(--vp-c-divider, #d1d5db); }
+.diagram-zoom-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.diagram-zoom-controls button, .diagram-zoom-controls a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--vp-c-divider, #d1d5db); border-radius: 6px; background: var(--vp-c-bg, #fff); color: inherit; font: inherit; font-size: 14px; text-decoration: none; cursor: pointer; }
+.diagram-zoom-controls button:disabled { opacity: .4; cursor: default; }
+.diagram-zoom-controls output { min-width: 48px; text-align: center; font-variant-numeric: tabular-nums; }
+.diagram-zoom-stage { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 16px; background: var(--vp-c-bg-soft, #f3f4f6); }
+.diagram-zoom-stage img { display: block; max-width: none !important; max-height: none !important; height: auto; margin: 0 auto; background: white; }
+.diagram-zoom-hint { flex: none; padding: 8px 16px; margin: 0; border-top: 1px solid var(--vp-c-divider, #d1d5db); font-size: 12px; line-height: 1.5; }
+.diagram-zoom-trigger:focus-visible, .diagram-zoom-controls button:focus-visible, .diagram-zoom-controls a:focus-visible, .diagram-zoom-stage:focus-visible { outline: 3px solid var(--vp-c-brand-1, #176351); outline-offset: -3px; }
+@media (max-width: 640px) { .diagram-zoom-toolbar { padding: 8px; } .diagram-zoom-toolbar strong { width: 100%; } .diagram-zoom-controls { gap: 4px; } .diagram-zoom-controls button, .diagram-zoom-controls a { padding: 8px; } }
+@media print { .vp-doc img[data-diagram-zoom] { max-height: none !important; } .diagram-zoom-trigger, .diagram-zoom-dialog { display: none !important; } }
+
+/* A grouped, fully textual projection carries the primary information of dense diagrams. */
+.diagram-relations { margin: 24px 0 12px; }
+.diagram-relations-intro { font-size: 14px; color: var(--vp-c-text-2, #4b5563); }
+.diagram-relations-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.diagram-relation-card { min-width: 0; padding: 14px 16px; border: 1px solid var(--vp-c-divider, #d1d5db); border-radius: 9px; background: var(--vp-c-bg-soft, #f9fafb); color: var(--vp-c-text-1, #17212a); font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.diagram-relation-card > strong { display: block; font-size: 15px; white-space: pre-line; }
+.diagram-relation-card ul { margin: 8px 0 0 !important; padding-left: 18px !important; }
+.diagram-relation-card li { margin: 5px 0 !important; white-space: pre-line; }
+.diagram-relation-card small { font-size: 12px; color: var(--vp-c-text-2, #4b5563); }
+.diagram-relation-group { margin: 0 0 6px !important; color: var(--vp-c-brand-1, #176351); font-size: 12px; }
+.diagram-full-details { margin: 12px 0 24px; }
+.diagram-full-details > summary { padding: 12px 0; min-height: 44px; cursor: pointer; color: var(--vp-c-brand-1, #176351); font-size: 14px; }
+.diagram-full-details > summary:focus-visible { outline: 3px solid var(--vp-c-brand-1, #176351); outline-offset: 2px; }
+@media (max-width: 640px) { .diagram-relations-grid { grid-template-columns: 1fr; } }

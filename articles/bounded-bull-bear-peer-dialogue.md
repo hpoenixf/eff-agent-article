@@ -73,30 +73,19 @@ Bull 也不需要赢。面对合格的反例，它可以说：“这条理由不
 消息传递由原 Child 生命周期管理模块负责，而不是新增一个独立的“辩论平台”。简化后的真实处理路径是：
 
 ```mermaid
-sequenceDiagram
-    participant Bear as Bear 子代理
-    participant Host as 执行与授权模块
-    participant Store as 持久记录
-    participant Bull as Bull 子代理
-    Bear->>Host: 提交质询与证据引用
-    Host->>Host: 核对配对、轮次及来源权限
-    alt 不合法
-        Host-->>Bear: 拒绝本次发送，解释缺口
-    else 合法
-        Host->>Store: 保存唯一消息及原回执
-        Store-->>Host: 返回消息身份
-        Host-->>Bear: 发送已接纳，可安全等待
-        Host-->>Bull: 发出可去重的唤醒提示
-        Bull->>Host: 请求继续执行
-        Host->>Store: 读取真实消息和消费记录
-        alt 根任务仍可继续
-            Host->>Bull: 下一次模型请求携带原消息
-            Bull->>Host: 提交对应回复
-        else 已停止或到期
-            Host-->>Bull: 结束局部讨论，保留成果
-        end
-    end
+flowchart TD
+    A["Bear 提出质询"] --> B["Host 核验并持久保存"]
+    B --> C["Bull 获提示后请求继续"]
+    C --> D["Host 依根任务状态处理"]
 ```
+
+概览中的每一步有明确先后与分支，不能把“提出”直接当“送达”：
+
+1. Bear 向执行与授权模块提交质询和证据引用。Host 核对配对、轮次及来源权限；**不合法**就拒绝本次发送并向 Bear 解释缺口，后续保存与唤醒均不发生。
+2. **合法**才向持久记录保存唯一消息与原回执。存储返回原消息身份后，Host 才向 Bear 确认已接纳、可安全等待，再向 Bull 发出可去重的唤醒提示。
+3. Bull 收到提示后请求继续。Host 读取持久记录中的真实消息和消费记录，而不是把唤醒提示本身当消息内容。
+4. **根任务仍可继续**时，Host 在 Bull 的下一次实际模型请求中携带原消息，Bull 随后提交对应回复；**根任务已经停止或到期**时，结束局部讨论并保留已有成果。
+
 
 这个设计刻意没有让 Main 逐轮重新措辞，也没有把已有的交易、研究来源或预算权力交给 Bull/Bear。
 
