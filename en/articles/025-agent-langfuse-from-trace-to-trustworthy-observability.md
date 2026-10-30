@@ -51,6 +51,14 @@ We also distinguished a valid JSON **null** from an **unrecorded field**. The fo
 
 This change made gaps visible under the existing capture limit. We have **no long-term comparative capture-rate result**, so it cannot be reported as a measured percentage improvement. Old records without missing-body receipts retain **unknown** causes; the new mechanism cannot retroactively explain them.
 
+### A complete query is not complete capture
+
+Readback of long research runs recorded on October 30–31, 2026 sharpened this distinction. All queries for the first 59 ended runs were labeled `complete`, yet 17 model-turn outputs were missing and 41 runs contained tool-protocol gaps. Query pagination, model-content capture, and protocol-stage coverage need separate descriptions.
+
+One trace lacked an answer-publication event, while the original publication history returned saved text. This was an authorized readback using the original Run identity, not a reconstructed event. Missing telemetry cannot invalidate durable facts, nor justify replaying actions to improve a trace.
+
+New protocol-gap receipts distinguish omitted provider/SDK fragments from other events without increasing existing limits. “Other” is not equivalent to execution-only events, and legacy categories remain unknown rather than zero. The detailed event-budget case is covered in [The Trace Says Complete](agent-trace-complete-observation-gaps.md); the original article remains focused on the observability system as a whole.
+
 ### Model usage and cost: Trace rows are not physical calls
 
 Another problem arose when one physical Provider attempt appeared in Gateway SDK usage, a Run-level summary, and a Trace re-exported during recovery. Summing the display rows would count one charged request multiple times.

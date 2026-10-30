@@ -291,6 +291,14 @@ The integration encountered a real data-shape mismatch. Document reads can retur
 
 Package content identity, the prepared execution environment, and actual returned script effects must be checked separately. Existing Skill, sandboxed Python, and result owners remain responsible; no second PDF Runtime is needed. These managed packages mainly serve built-in experts. [User-defined experts](agent-custom-expert-from-prompt-to-recovery.md) remain text-based Profiles rather than arbitrary executable ZIP uploads.
 
+### Check the later Main input, not only the submission
+
+Research observations from October 30–31, 2026 distinguish specialist submission from material reaching the coordinating agent. Of the first 59 ended runs, 48 contained readable final submissions, totaling 75. Of those submissions, 70 had at least one candidate long fragment in a subsequently captured Main input, spanning 45 runs.
+
+The method sampled at most 20 fragments of at least 40 characters per summary. A match establishes the presence of corresponding text in captured input, not full-summary delivery, semantic adoption, reviewer independence, or improved answers. A missing match does not automatically establish a failed handoff.
+
+These observations add concrete runtime evidence to the isolation-and-handoff mechanism. They do not establish superiority over a single Main. [Evidence of Subagent Contribution](agent-subagent-contribution-evidence.md) separately explains how to follow execution identity, submissions, actual requests, and final claims.
+
 ## 7. Benefits and Why "More Agents = Faster" Is Not a Claim
 
 The clearest demonstrated capability is that complex local work can maintain its own context, multi-step tools, and usable outputs. Main need not import every debugging step while retaining a way to verify important evidence.

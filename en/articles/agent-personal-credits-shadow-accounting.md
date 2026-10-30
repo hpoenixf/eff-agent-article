@@ -71,11 +71,13 @@ If known usage exceeds the configured allowance, the system may compute a **woul
 
 Any future enforced Credit admission requires independently designed atomic reservation, unknown-attempt holds, recovery reconciliation, and supported-route coverage. Merely turning `wouldDeny` into an actual denial would not establish reliable billing.
 
-## 5. Cost Attribution for a Particular Report Is Another Problem
+## 5. Deliverables can now be associated with original requests; full attribution remains separate
 
-Users may eventually ask, “How much did this weekly report cost?” rather than “How much did I use this month?” Answering requires durable readback connections from physical requests to original Run/Action/Child, Publication revision, and Artifact identity. Shared costs need explicit attribution, retries need deduplication, and Web/API cost bases need their own evidence. **Main now contains optional E04 Run/call and delivery-cost evidence projection and readback seams, but complete source coverage, formal acceptance and provider invoicing remain unproven. This is not a completed property of P0 personal Credits.**
+Users may ask what one weekly report cost, not merely how much their account used this month. As of October 31, 2026, the cost reader can associate a currently settled publication revision with its original Main request and observed physical attempts after confirmation by the original publication module. Files use original artifact identity and export receipts rather than temporary display names or nearby timestamps.
 
-Existing Langfuse traces can help locate a model call, but the presence of a trace is neither complete usage accounting nor a provider invoice. Conversely, a Credits page that knows some usage cannot prove the final report was numerically correct or actually delivered. Resource cost and research value have different evidence requirements.
+This advances association, not exclusive allocation. A request may serve multiple outputs, views remain non-additive, and shared costs remain unallocated. Complete report cost and the provider invoice remain unknown. Nor does this establish actual adoption of Child findings in the final report.
+
+A controlled readback also confirmed that saved delivery remained independently readable when cost observation failed. These are delivery-cost changes, not an expansion of personal Shadow Credits qualification, payment, or hard quotas. [What Does an Agent-Generated Report Actually Cost?](agent-report-cost-attribution.md) separates association, allocation, and reconciliation.
 
 ## Implementation and Verification Limits
 

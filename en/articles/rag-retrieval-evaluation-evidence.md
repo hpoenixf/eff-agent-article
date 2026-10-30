@@ -71,11 +71,33 @@ In one normal HTTP study, the Host recorded Knowledge access for the Run, but th
 
 This is not evidence that "the model chose not to search." **A Host grant, a tool definition actually visible in a model request, and a tool call proposed by the model are three different facts.** Changing BM25 tokenization cannot fix a missing tool surface.
 
-A later, independent RQ-08 study did naturally invoke Knowledge. Durable records showed **15 executed knowledge-search calls**. Thirteen results could be associated with result-review messages in later model inputs. Two additional Child results also appeared in subsequent inputs, but the corresponding review messages were not observed; their absence remains unexplained.
+A later, independent RQ-08 study did naturally invoke Knowledge. Durable records showed **15 executed knowledge-search calls**. Thirteen results could be associated with result-review messages in later model inputs. Two additional Child results appeared in later inputs without the same review messages. Subsequent inspection established that they were initially projected as **external references rather than inline text**. The existing projection rules do not attach review messages to that reference form, so this difference should no longer be described as an unexplained missing cue.
 
 Interestingly, the initial SSE summary for that Run contained an empty tool-call array. Looking only at that summary would miss the actual calls. Following the durable action records and captured model inputs gave a more complete account.
 
 We can now say that retrieval happened in actual model-driven execution, and knowledge results reached later model requests—not just test doubles. But **a passage appearing in input does not prove that a particular conclusion was grounded in that passage**. Answer-level review is still required.
+
+### Finding 24 locations is not reading 24 passages of evidence
+
+We then inspected the recorded model inputs from that RQ-08 run without launching another model execution. Two Knowledge results initially delivered with `residency=external` were each queried once through `read_tool_result`. These were `kind=literal-search` responses, reporting **24/24** and **46/46** matches respectively, both with `complete=true` and `capacityLimited=false`.
+
+Reading `complete=true` alone might suggest that the source had been fully consumed. Both results also carried `sourceComplete=false`: what was complete was **the match list for that particular literal search**, not the underlying original document or the entire prior tool result. The entries supplied paths and offsets; the observed matches contained the same short term without surrounding paragraphs. These readbacks establish that the model searched for locations, not that it read the complete argument around each location.
+
+A separate observation in the same study went further: an inline Knowledge passage from the 2023 announcement entered a Child request, then a Main request, and the two field changes it described appeared in the final answer. That establishes a bounded correspondence from **a particular source passage → both levels of model input → corresponding statements in the answer**, beyond a successful tool call alone.
+
+It is still not an independent review of the complete answer. It does not verify every citation or financial conclusion, nor full consumption of the two external results. The number of matched locations must not be treated as a citation-quality score.
+
+### A connected reranker still needs evidence of use in real research
+
+By October 31, 2026, the local TEI reranker had processed permitted synthetic candidates through the existing Retriever, and a newly started API had loaded its `local-tei` settings. Five synthetic Chinese questions placed their corresponding candidates first without changing candidate membership. A controlled unavailable-endpoint case preserved the original RRF order.
+
+These observations cover reranking calls, source eligibility, and fallback behavior—not improved retrieval quality for real funds. The checks used synthetic repository and embedding ports. At that checkpoint, no real Research Run through the new API had been observed returning `rerankerStatus=applied`. Loaded configuration, a successful standalone Retriever call, and consumption in user research are distinct states.
+
+### Integrating Ragas does not automatically yield a quality score
+
+The optional Ragas entry can validate samples in an isolated process, and a real SDK metric has separately been exercised with synthetic source IDs. The operator path for recorded cases still provides no real Judge quality score: original recordings and retrieval identities are not yet sufficient for a matched evaluation, and the four semantic metrics remain unassessed.
+
+A constructed metric value must not be inserted into a real-research score. Nor does connecting Ragas alongside the existing DeepEval adapter establish a quality benefit. The new capability is a removable evaluation integration; claim support still requires original sources, actual model inputs, and final-answer review.
 
 ## 5. Five Questions to Ask Before Trusting a RAG Evaluation
 
@@ -84,7 +106,7 @@ We can now say that retrieval happened in actual model-driven execution, and kno
 | Source eligibility | Which source, version, research date, authorization scope, and available passages were used? |
 | Candidate comparability | Did both methods rank the same eligible candidate set, with the same chunk granularity? |
 | Relevance judgment | Which passages directly support the question, which are merely context, and which remain unjudged? |
-| Model consumption | Was the tool visible, actually invoked, and was its result included in a subsequent model input? |
+| Model consumption | Was the tool visible and invoked? Did the model receive match locations, selected text, or the complete source, and is that coverage inspectable? |
 | Final claim | Which evidence supports each answer claim, and how were missing or incorrect claims independently reviewed? |
 
 If the first two boundaries are not fixed, a BM25-versus-RRF experiment may simply compare different materials. Without the third, an attractive Recall figure may be a property of constructed labels. Without the last two, even an excellent retrieval evaluation remains confined to the retriever.
@@ -99,7 +121,7 @@ This is slower than adding a new index and publishing a score table. But it dist
 
 This work does not show that BM25 is useless, or that our existing fused retrieval is necessarily sufficient.
 
-The synthetic rankings differed sharply. In the reviewed real announcement, however, both methods surfaced the directly supportive page. Actual model-driven Knowledge calls have also occurred. What we have not yet independently established is whether those materials support the final financial answer, or whether changing the lexical method improves that outcome.
+The synthetic rankings differed sharply. In the reviewed real announcement, however, both methods surfaced the directly supportive page. Actual model-driven Knowledge calls have also occurred. We even observed one announcement passage reach Child and Main inputs, with its two field-change statements appearing in the answer. Complete citation support and financial-semantic quality still have not received independent evaluation.
 
 We therefore did not replace the entire RAG architecture on the strength of synthetic scores. The later BM25 implementation is a **conditional lexical channel**: it operates when the PostgreSQL extension and index are available, while vector retrieval and RRF remain unchanged. The primary local PostgreSQL instance inspected during that change did not have `pg_search` installed, so it still used the existing full-text search.
 
