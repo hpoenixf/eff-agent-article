@@ -49,4 +49,23 @@ async function copyQuickstart() {
 
 .oet-hero{display:block;padding:42px 0 28px;max-width:950px}.oet-hero h1{font-size:clamp(36px,4.5vw,60px);line-height:1.15}.oet-deck{max-width:730px;margin:20px 0;font-size:17px}.oet-hero-note{font-size:12px;color:var(--vp-c-text-2);margin:20px 0 0}.oet-reading{padding-top:28px}.oet-recent-articles,.oet-mechanisms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.oet-featured-article{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:24px;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-soft)}.oet-featured-article .oet-eyebrow{margin-bottom:14px}.oet-featured-article h3{font-size:20px;line-height:1.5;margin:0 0 18px}.oet-featured-article .oet-status{margin-top:auto}.oet-read-link{font-size:13px;color:var(--oet-accent);padding-top:10px}.oet-quickstart{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}.oet-command{min-width:0;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-soft);padding:18px}.oet-command-heading{display:flex;justify-content:space-between;gap:12px;font-size:12px}.oet-command button{color:var(--oet-accent);border:1px solid var(--vp-c-divider);padding:3px 10px;border-radius:4px;cursor:pointer}.oet-command pre{font-size:12px;line-height:1.8;overflow-x:auto;padding:15px 0;margin:0}.oet-copy-status{font-size:12px;min-height:1.5em;margin:0}.oet-mechanisms{margin-top:24px}.oet-mechanisms h3{font-size:17px}.oet-mechanisms p{font-size:14px;line-height:1.8;color:var(--vp-c-text-2)}.oet-details{border:1px solid var(--vp-c-divider);border-radius:6px;margin-top:24px;padding:16px 20px}.oet-details summary{cursor:pointer;font-weight:600;color:var(--oet-accent);font-size:14px}.oet-details[open] summary{margin-bottom:24px}.oet-details summary:focus-visible,.oet-command button:focus-visible,.oet-command pre:focus-visible{outline:3px solid var(--oet-accent);outline-offset:4px}.oet-recognition{grid-column:1/-1;margin:0}.oet-recognition img{display:inline-block;max-width:100%}.oet-versions{grid-template-columns:1fr}.oet-section{scroll-margin-top:85px}
 @media(max-width:760px){.oet-hero{padding:32px 0 24px}.oet-hero h1{font-size:38px}.oet-recent-articles,.oet-mechanisms,.oet-quickstart{grid-template-columns:1fr}.oet-reading{padding-top:24px}.oet-featured-article{padding:20px}.oet-quickstart{gap:18px}.oet-details{padding:16px}.oet-command pre{font-size:11px}.oet-topic{overflow-wrap:break-word}}
+
+/* Match the shared reading-site rhythm without changing qualification content. */
+.oet-topic { max-width: 1040px; }
+.oet-hero h1 { font-family: var(--vp-font-family-base); font-size: 44px; line-height: 1.2; }
+.oet-section h2, .oet-footer h2 { font-family: var(--vp-font-family-base); font-size: 28px; line-height: 1.35; }
+.oet-section { padding-top: 48px; }
+.oet-reading { padding-top: 24px; }
+.oet-actions a { min-height: 48px; display: inline-flex; align-items: center; border-radius: 8px; }
+.oet-command button, .oet-read-link, .oet-article-links a, .oet-footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.oet-details summary { min-height: 44px; padding: 10px 0; }
+.oet-featured-article { background: transparent; padding: 20px; }
+.oet-status, .oet-article-links { font-size: 12px; }
+.oet-topic a:focus-visible { outline: 2px solid var(--oet-accent); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .oet-hero h1 { font-size: 32px; }
+  .oet-section h2, .oet-footer h2 { font-size: 24px; }
+  .oet-section { padding-top: 32px; }
+  .oet-reading { padding-top: 20px; }
+}
 </style>
