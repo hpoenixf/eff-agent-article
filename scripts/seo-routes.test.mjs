@@ -29,7 +29,7 @@ test('merged and historical article URLs stay canonicalized but never enter site
 })
 
 test('current articles and regular site pages remain eligible for search', () => {
-  const pages = ['index.md', 'en/index.md', 'principles.md', 'en/catalog.md']
+  const pages = ['index.md', 'en/index.md', 'principles.md', 'en/catalog.md', 'panorama.md', 'en/panorama.md']
   for (const chapter of chapters) {
     for (const [slug] of chapter.items) {
       pages.push('articles/' + slug + '.md')
@@ -89,7 +89,7 @@ import { existsSync } from 'node:fs'
 const sourceExists = path => existsSync(new URL('../' + path, import.meta.url))
 
 test('accepted bilingual pages have identical reciprocal alternates, including home', () => {
-  for (const path of ['index.md', 'glossary.md', 'principles.md', 'open-etf-agent.md', ...englishArticleSlugs.map(slug => 'articles/' + slug + '.md')]) {
+  for (const path of ['index.md', 'glossary.md', 'principles.md', 'open-etf-agent.md', 'panorama.md', ...englishArticleSlugs.map(slug => 'articles/' + slug + '.md')]) {
     if (isLegacyArticleRoute(path)) continue
     const links = languageAlternates(path, sourceExists)
     assert.equal(links.length, 2, path)
