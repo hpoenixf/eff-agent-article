@@ -1,8 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { collections, mergedArticles, historicalEditions } from '../book.mjs'
-import { englishCollections } from '../book.en.mjs'
+import { collections, mergedArticles, historicalEditions, panoramaSeriesSlugs } from '../book.mjs'
+import { englishCollections, englishArticleSlugs } from '../book.en.mjs'
 
 const collection = id => collections.find(c => c.id === id)
 const slugs = c => c.chapters.flatMap(ch => ch.items.map(([slug]) => slug))
@@ -36,4 +36,40 @@ test('finance curation and topic headings stay bilingual without a second articl
   const topic = text('open-etf-topic.mjs')
   assert.ok(topic.includes('(en ? englishCollections : collections)'))
   assert.ok(!topic.includes("['Research, reading & computation'"))
+})
+
+
+test('panorama tag curates three full-scope essays without a fourth primary class', () => {
+  const selected = [
+    '017-prompt-to-answer-six-layer-panorama-v3',
+    'financial-agent-system-panorama',
+    'one-report-nine-architecture-judgments'
+  ]
+  assert.deepEqual([...panoramaSeriesSlugs], selected)
+  const all = collections.flatMap(slugs)
+  assert.equal(collections.length, 3)
+  assert.equal(new Set(all).size, all.length)
+  assert.equal(new Set(panoramaSeriesSlugs).size, panoramaSeriesSlugs.length)
+  for (const slug of selected) {
+    assert.equal(all.filter(value => value === slug).length, 1, 'No duplicate canonical classification: ' + slug)
+    assert.ok(englishArticleSlugs.includes(slug), 'Bilingual panorama essay missing: ' + slug)
+    assert.ok(text('articles/' + slug + '.md').length > 1000, slug)
+    assert.ok(text('en/articles/' + slug + '.md').length > 1000, slug)
+  }
+  for (const file of ['panorama.md', 'en/panorama.md']) {
+    const page = text(file)
+    assert.ok(page.includes('<PanoramaSeries />'), 'Tag cards must use the reviewed single tag registry: ' + file)
+    assert.ok(page.length > 350, 'Tag landing should be a useful standalone guide: ' + file)
+  }
+  const config = text('.vitepress/config.mts')
+  assert.ok(config.includes("{ text: '全景系列 · 标签', link: '/panorama' }"))
+  assert.ok(config.includes("{ text: 'Panorama Series', link: '/en/panorama' }"))
+  const home = text('.vitepress/theme/HomeOverview.vue')
+  assert.ok(home.includes("{ label: '全景系列', href: '/panorama' }"))
+  assert.ok(home.includes("{ label: 'Panorama series', href: '/en/panorama' }"))
+  const theme = text('.vitepress/theme/index.ts')
+  assert.ok(theme.includes("app.component('PanoramaSeries', PanoramaSeries)"))
+  assert.ok(theme.includes('h(ArticleTopicTags)'))
+  assert.ok(text('.vitepress/theme/ArticleTopicTags.vue').includes('panoramaSeriesSlugs'))
+  assert.ok(text('.vitepress/theme/PanoramaSeries.vue').includes('panoramaSeriesSlugs'))
 })
