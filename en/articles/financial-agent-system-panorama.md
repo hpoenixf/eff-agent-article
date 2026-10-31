@@ -108,6 +108,20 @@ Fee estimates, historical returns, look-through exposure, and risk scenarios ans
 
 Our calculation practice carries units, methods, inputs, and local limitations with results so that a correct number does not acquire a different meaning during explanation. One uncomputable metric should not erase other valid results. An approximation may be useful, but its assumptions must survive into the report.
 
+### Share classes and holding periods: fee rules can change the conclusion
+
+Suppose a user asks which of the A and C share classes of one fund will cost less over an intended eighteen-month holding period. The familiar shortcut that A suits long periods and C suits short ones is not a calculation. The agent needs the actual fund and share-class codes, purchase channel and discounts, principal, intended holding period, redemption charges and ongoing fees before running a deterministic comparison on consistent assumptions.
+
+The rules have also changed over time. On 31 December 2025, the CSRC issued the revised [Rules on Sales Fees for Publicly Offered Securities Investment Funds](https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml), effective 1 January 2026. The rules provide that sales-service fees no longer apply to non-money-market fund shares held for more than one year. Previously issued funds have transitional arrangements for adjusting fee structures and documents. The applicable fund contract, prospectus and distributor terms must still be checked for the relevant date; the general regulation is not a verified quote for a particular product.
+
+If the share-class identity, applicable schedule or confirmation date is missing, the agent should identify that gap and obtain the information rather than invent a rate. Deterministic code performs the calculation once the inputs are valid; the model explains the conditions under which the comparison holds. No real fund-specific fees are supplied here, so the example cannot establish whether A or C is always cheaper. Domain rules change the method and the eligibility of the conclusion, not just an extra date label.
+
+### Distributions and disclosure: correct arithmetic can answer the wrong question
+
+A fund distribution typically reduces unit NAV, but cash distributions and reinvestment affect the investor's cash and number of units differently. Comparing unit NAV directly before and after a distribution is not the investor's actual return. Use a suitable distribution-aware performance measure, or compute from the investor's units and cash flows. The [Asset Management Association of China's educational material](https://investor.amac.org.cn/community/tzzhdzthd/ylj/202307/t20230706_14858.html) explains this relationship.
+
+Likewise, if two fund reports provide only top-ten holdings, their overlap calculation measures **shared exposure among disclosed positions**, not full-portfolio overlap. Different reporting periods require comparable source documents or an explicitly limited conclusion. What a 5.6% figure actually covers is more important than the arithmetic alone.
+
 ### Use multiple sources to investigate differences, not to increase a count
 
 When two providers disagree on a return, first check share class, dates, currency, and return basis. After establishing that they answer the same question, investigate errors or revisions. Conversely, identical values may come from the same republished source; twice as many links do not automatically provide independent confirmation.
@@ -195,6 +209,8 @@ This informs a specific architecture decision: a research Agent may produce an a
 **This is an engineering mapping of the cited rules, not a claim that the rules prescribe Agent, approval-module, or API names**, nor a claim that ETF Agent currently implements institutional trading flows.
 
 For evidence transfer, see [The Trustworthy Evidence Chain of a Financial Agent](https://hpoenixf.com/eff-agent-article/articles/financial-agent-trustworthy-evidence-chain) (Chinese). For continued research, see [Investment Thesis and Research Across Time](https://hpoenixf.com/eff-agent-article/articles/agent-weekly-thesis-history-continuous-research) (Chinese).
+
+Fund subscriptions and redemptions involve distinct facts for submitting an application, confirming shares and receiving redemption proceeds. Confirmation is often T+1 but can take T+2 or longer for certain funds. Holding periods and short-term redemption fees depend on the applicable contract and actual confirmation records, not merely the application date. The [Shenzhen CSRC investor guidance](https://www.csrc.gov.cn/shenzhen/c105614/c7602071/content.shtml) offers an example. This discusses business modeling, not an assertion that live fund transactions or settlement are implemented in ETF Agent.
 
 ## 8. How to tell whether the system improved
 
