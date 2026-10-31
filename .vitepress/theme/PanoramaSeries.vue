@@ -24,6 +24,14 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
     zh: ['架构决策全景', '以一份可回读的文档报告贯穿九个架构判断：分工、权限、证据、恢复、交付和长期演进。'],
     en: ['ARCHITECTURE DECISIONS', 'Use one verifiable document report to explore nine design judgments about ownership, permissions, evidence, recovery, delivery and evolution.']
   },
+  'agent-context-governance-principles': {
+    zh: ['上下文治理·原则篇', '目标、依据、边界、记忆、探索与进展怎样形成同一份任务视图，让每一步判断围绕目标展开。'],
+    en: ['CONTEXT · PRINCIPLES', 'How goals, evidence, boundaries, memory, discovery and progress form one task view and keep decisions aligned with the goal.']
+  },
+  'agent-context-governance-actions': {
+    zh: ['上下文治理·行动篇', '从系统提示词和记忆召回，到结果回读、进展更新、纠正遗忘、压缩与接续，讲清具体交接。'],
+    en: ['CONTEXT · PRACTICE', 'Connect system prompts, memory recall and forgetting, exact readback, progress updates, compaction and continuation.']
+  },
   '025-agent-langfuse-from-trace-to-trustworthy-observability': {
     zh: ['可观测全景', '贯通模型请求、工具、实际输入、发布与历史回查，分清原始执行事实、遥测副本和观察缺口。'],
     en: ['OBSERVABILITY', 'Connect model requests, tools, actual inputs, publication and readback while preserving original facts and observation gaps.']

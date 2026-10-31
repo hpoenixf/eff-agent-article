@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-context-governance-principles": "Agent Context Governance Panorama · Principles: Keep Every Decision Aligned with the Goal",
+  "agent-context-governance-actions": "Agent Context Governance Panorama · Practice: From the First Request to Long-Term Memory",
   "agent-long-horizon-research-panorama": "Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time",
   "agent-trace-complete-observation-gaps": "The Trace Says Complete. Why Can’t We Reconstruct the Agent Run?",
   "agent-subagent-contribution-evidence": "How Do We Know the Main Agent Actually Used a Specialist’s Findings?",
@@ -85,6 +87,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-context-governance-principles",
+  "agent-context-governance-actions",
   "agent-long-horizon-research-panorama",
   "agent-trace-complete-observation-gaps",
   "agent-subagent-contribution-evidence",

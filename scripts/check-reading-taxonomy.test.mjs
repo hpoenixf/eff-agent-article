@@ -44,6 +44,8 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     '017-prompt-to-answer-six-layer-panorama-v3',
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
+    'agent-context-governance-principles',
+    'agent-context-governance-actions',
     '025-agent-langfuse-from-trace-to-trustworthy-observability',
     'honest-agent-evaluation',
     'ai-citations-do-not-prove-reliability',
@@ -77,4 +79,21 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
   assert.ok(theme.includes('h(ArticleTopicTags)'))
   assert.ok(text('.vitepress/theme/ArticleTopicTags.vue').includes('panoramaSeriesSlugs'))
   assert.ok(text('.vitepress/theme/PanoramaSeries.vue').includes('panoramaSeriesSlugs'))
+})
+
+test('context panorama pair retains bilingual illustrations and peer navigation', () => {
+  for (const [slug, count] of [['agent-context-governance-principles', 7], ['agent-context-governance-actions', 9]]) {
+    assert.ok(slugs(collection('thinking')).includes(slug))
+    for (const lang of ['', 'en/']) {
+      const source = text(lang + 'articles/' + slug + '.md')
+      const figures = [...source.matchAll(/!\[[^\]]+\]\(([^)]+\.svg)\)/g)]
+      assert.equal(figures.length, count, lang + slug)
+      const expected = lang ? '../../visuals/en/' + slug + '/' : '../visuals/' + slug + '/'
+      for (const [, path] of figures) assert.ok(path.startsWith(expected), path)
+      assert.ok(source.includes('/' + lang + 'panorama'))
+      for (const peer of ['agent-context-governance-principles', 'agent-context-governance-actions']) {
+        assert.ok(source.includes('/' + lang + 'articles/' + peer))
+      }
+    }
+  }
 })
