@@ -254,28 +254,9 @@ The public single-block implementation turns the same timing window into a [repr
 
 The neighboring failure branch matters too: after the body is committed, a later check may find that a required report is absent, and the Run can still fail. The earlier body remains readable, but its presence does not establish that the report was generated. [Runtime's commit positions](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/runtime.mjs) deliberately leave “body saved” and “entire task complete” at separate settlement points to preserve these simultaneously true facts.
 
-## 8. Why a Later Failure Cannot Erase an Earlier Commit
+When answer A has already committed, subsequent research B may fail while **A's original commit, the Run's partial/failed status, and whether the client received A** remain three separately true or unknown facts. If `send_answer_part` committed its publication effect but the tool receipt was lost, recovery must query the original identity rather than relabel uncertainty as rejection and retry blindly. Source revocation changes **current display eligibility**, not the historical transaction; a server event does not prove the browser rendered it.
 
-The opening question should now be clearer.
-
-Suppose A has been committed, and a provider fails while the model continues researching B. The system can record all of the following:
-
-```text
-A: committed at revision=1, readable under current authorization
-B: not committed; the reason still needs investigation
-Run: failed or partial, recorded according to its original execution terminal state
-Client: whether it actually received A, recorded according to the corresponding delivery evidence
-```
-
-These four lines are not contradictory “success” and “failure” claims. A's historical commit is real, and so is B's failure; whether the user received A still needs proof from the delivery chain. A later failure cannot undo A's transaction into “it never happened,” but A's existence equally cannot be packaged as “the entire user task is complete.”
-
-Specifically, the publication effect of `send_answer_part` and the model tool receipt are two independent settlement points. When publication has committed but writing the receipt fails, the system cannot simply relabel the round a “known publication rejection” and blindly retry the original side effect. Recovery should establish the settled effect through its original identity while retaining unknown status for execution that remains uncertain.
-
-Source revocation, conversely, is not “an ordinary later failure.” It changes **current display eligibility**: the original commit remains auditable, but bodies affected by revocation must not continue to be disclosed to new clients merely because they were once successfully published.
-
-One easily overlooked boundary must also remain: the server emitting `answer-publication` proves only its own delivery action. Browser reception, DOM commit, history snapshots, and actual user reading each have their own observation point. No single clock or receipt can sign for every stage.
-
-## 9. Why the Same Publication System Needed Two Rounds of Governance
+## 8. After Unifying Structure, Reclaim Peripheral Body-Disposition Authority
 
 After centralizing the mechanism, we still have to ask: can callers bypass it and independently decide that a body disappears? That is the additional lesson from the two earlier publication-governance reviews.
 
@@ -305,7 +286,7 @@ The final approach stores recoverable original JSON text in the existing fields,
 
 Modularity is valuable because it encapsulates decisions that callers no longer duplicate; compare [John Ousterhout's discussion of modular design](https://web.stanford.edu/~ouster/cgi-bin/cs190-winter18/lecture.php?topic=modularDesign). Degradation itself can introduce failures, so its layer and compositional behavior need checking; see [Google SRE: Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/). This article does not claim that these changes reduced the rate of empty bodies in production.
 
-## 10. Boundaries That Remain After Implementation
+## 9. Boundaries That Remain After Implementation
 
 The current implementation has centralized candidate-body normalization, source and version validation, local degradation, and publication receipts in Publication. Controlled production call paths and PostgreSQL recovery checks cover uninterrupted independent bodies, committed versions not being overwritten by old previews, rejection of invalid sources, and history readback of saved content.
 
