@@ -6,6 +6,8 @@ title: Architecture and Systems Thinking
 
 <FlagshipEntry compact />
 
+**Cross-category tag:** [#Panorama Series](/en/panorama) brings together the six-layer system, financial-agent and architecture-decision panoramas without changing their canonical categories.
+
 Follow the four-stage architecture learning path: [15-minute introduction](/en/articles/agent-in-15-minutes) → [ten-module intermediate guide](/en/articles/agent-ten-modules) → [runnable deep dive](/en/articles/open-etf-agent-v010-system-design) → [six-layer architecture](/en/articles/017-prompt-to-answer-six-layer-panorama-v3). Then explore ownership, authorization, evidence, failure attribution and architectural evolution. Some related essays remain available only in Chinese.
 
 Explore the [nine core principles and six on-demand methods](/en/principles), including Context as a workbench, minimum sufficient mechanisms and replaceable capabilities. Existing essays are listed below; new and revised topics are clearly distinguished in the [writing roadmap](/en/roadmap).

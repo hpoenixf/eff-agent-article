@@ -119,7 +119,7 @@ if (new Set(englishArticleSlugs).size !== englishArticleSlugs.length) throw Erro
 for (const slug of englishArticleSlugs) {
   if (!slugs.includes(slug) || !existsSync('en/articles/' + slug + '.md')) throw Error('Missing English translation: ' + slug)
 }
-for (const path of ['index','catalog','modules','thinking','engineering','fintech','gallery','architecture','principles','roadmap']) {
+for (const path of ['index','catalog','modules','thinking','engineering','fintech','panorama','gallery','architecture','principles','roadmap']) {
   if (!existsSync('en/' + path + '.md')) throw Error('Missing English landing page: ' + path)
 }
 const existingTranslations = (await import('node:fs')).readdirSync('en/articles').filter(path => path.endsWith('.md')).map(path => path.slice(0, -3))

@@ -205,6 +205,13 @@ export const collections = [
 export const chapters = collections.flatMap(collection => collection.chapters);
 export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.length, 0);
 
+// #全景系列 is a cross-category tag: curated existing essays, never a fourth canonical collection.
+export const panoramaSeriesSlugs = Object.freeze([
+  '017-prompt-to-answer-six-layer-panorama-v3',
+  'financial-agent-system-panorama',
+  'one-report-nine-architecture-judgments'
+]);
+
 // A curated subset of the canonical catalogue, not a second classification tree.
 export const learningPathSlugs = [
   'agent-in-15-minutes',

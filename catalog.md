@@ -9,7 +9,7 @@ description: Agent 工程文章按模块机制、架构与系统思考、AI Agen
 
 第一次接触 Agent？先读[十五分钟入门 Agent](/articles/agent-in-15-minutes)，再看[六层调用全景 V3](/articles/017-prompt-to-answer-six-layer-panorama-v3)或[九条 Agent 架构原则与七组系统方法](/principles)，按问题逐步深入。每篇正文都提供返回原则地图的入口。
 
-每篇正文只归入一个主类；[金融科技 × Agent](/fintech) 是跨分类主题精选，不复制正文。侧栏、篇章顺序与上一篇／下一篇由 `book.mjs` 统一维护。
+每篇正文只归入一个主类；[金融科技 × Agent](/fintech) 和 [#全景系列](/panorama) 是跨分类主题入口，不复制正文、不另建一级目录。侧栏、篇章顺序与上一篇／下一篇由 `book.mjs` 统一维护。
 
 **编号说明：** 文章编号是创作时的稳定标识，不是连续目录序号。002–009 等空缺来自旧稿合并、改题和历史治理；保留编号与旧链接，是为了避免让过往引用失效。
 
