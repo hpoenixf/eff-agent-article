@@ -43,6 +43,8 @@ features:
 
 > **认知与 Agent** · [为什么 AI Agent 也需要《思考，快与慢》？](/articles/agent-thinking-fast-slow-research-needs)：从直觉与审慎加工，读懂 Direct / Research、信息污染与会反悔的研究便签。[English](/en/articles/agent-thinking-fast-slow-research-needs)
 
+> **全景系列 Tag** · [单独浏览系统、金融与架构决策全景](/panorama)，从整体地图选择下一篇深读。
+
 > **金融主题全景** · [连接研究、业务与责任的系统架构](/articles/financial-agent-system-panorama)：从用户、机构与监管视角，借助系统关系、双生命周期和证据追溯三张图，理解金融 Agent 应该处在什么位置。[English](/en/articles/financial-agent-system-panorama)
 
 > **研发实践** · [测试比实现还多之后：怎样让文档、代码和测试一起向前](/articles/docs-code-tests-evolve-together)：用导出当前页到全部筛选结果的教学案例，讲清规范、代码与测试怎样一起演进。[English](/en/articles/docs-code-tests-evolve-together)
