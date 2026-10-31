@@ -26,9 +26,9 @@
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 
-**最新工程实践**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
+**工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
 
-**新增 RAG 检索评测**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。
+**RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。
 
 ## 先找到你的问题
 
