@@ -113,6 +113,21 @@ Then check three things: whether physical-attempt and pricing coverage are compa
 
 Incomplete coverage still allows useful reporting of known amounts and gaps. It does not justify a claim about total savings per report. Complete causal attribution and provider reconciliation remain further work along this chain.
 
+## 7. Why an E04 Evidence Copy Still Cannot Establish a Report's Total Cost
+
+In October 2026, the independent E04 Research Evidence Store was given responsibility for retaining logical input, observable output and source-dependency copies. That establishes **attempt identity, retention and readback**, not a reconciled model-provider bill.
+
+| Additional observable material | What it can establish | What is still missing |
+| --- | --- | --- |
+| Physical attempt under an exchange | Distinguish separate attempts | Coverage of all dispatched and unknown attempts |
+| Observed usage or balance-charge fields | What a particular provider response reported | Complete prices, subscription billing or final invoice |
+| Attempt-to-answer revision association | A relation between some work and a publication | Allocation of shared Child and retrieval effort |
+| Queued or missing E04 snapshot | Capture attempt and known gap | Durable readback and full HTTP wire |
+
+**Missing E04 content does not mean the request did not occur.** A vendor-reported zero balance charge also does not mean the full report was free. Original execution, passive evidence, physical usage, internal Credits and eventual billing have different Owners.
+
+This essay therefore retains the distinct questions of measurement, association, allocation and reconciliation. The [E04 evidence lifecycle deep dive](/en/articles/agent-research-evidence-store-lifecycle) explains why an input or output copy can be stored, missing, revoked or expired. Combining the readings clarifies what is known and unknown without manufacturing complete causal cost data.
+
 ## Conclusion: establish identity and basis before insisting on a total
 
 A cost system need not answer everything immediately. It must separate known from unknown and avoid charging an attempt twice because it appears in two views.

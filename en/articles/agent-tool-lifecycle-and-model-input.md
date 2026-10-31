@@ -153,6 +153,38 @@ Terminal `observations` records tool-result return and Run release. The returned
 These are fixed read workers and local Hook observations, not concurrent model experts, a complete model-input tracing platform, or a Langfuse exporter. An observation alone does not prove an external effect was durably committed.
 <!-- /open-etf-case -->
 
+## 6. October 2026 Follow-up: Execution Receipts and Evidence Storage Have Different Owners
+
+Earlier debugging often jumped between “the tool executed” and “the model input contained a reference.” The independently defined E04 Research Evidence Store makes a third question explicit: **was a copy of this model attempt captured, durably retained, and still readable?**
+
+**Figure: The original execution path and passive evidence path correlate by identity, but do not share a success state.**
+
+~~~mermaid
+flowchart LR
+    A[Original tool Host] --> B[Original Result and receipt]
+    B --> C[Context projection]
+    C --> D[Effective model request]
+    D --> E[Original Gateway dispatch and settlement]
+    D -. Passive capture attempt .-> F[E04 logical input copy]
+    E -. Passive capture attempt .-> G[E04 observable output copy]
+    F --> H[Bounded queue and persistent evidence]
+    G --> H
+    H --> I[Separately authorized readback]
+~~~
+
+There are four different facts to inspect:
+
+| Observation | Supported conclusion | Unsupported leap |
+| --- | --- | --- |
+| Original Host action settled successfully | The original Owner settled its tool action | The next model request contained the full body |
+| Model-input projection shows ResultRef | A reference was present in the projected request | The model read all source bytes |
+| E04 returned queued | A bounded snapshot entered a persistence job | The bytes are already durably stored and readable |
+| Historical selection returns unavailable | Current permission, source, retention, or integrity requirements failed | The original execution never happened |
+
+This distinction also explains why a complete trace query is not a complete historical execution. Preserve observation gaps; do not add a new policy that halts research when optional telemetry fails.
+
+The separate [E04 evidence retention and readback deep dive](/en/articles/agent-research-evidence-store-lifecycle) now covers admission, capacity, lifecycle, and source revalidation. This essay remains focused on **A11 tool-execution facts and their continuation into model input**.
+
 ## Conclusion
 
 For a multi-turn agent, tool lifecycle and model-input observability should be designed together. One explains how an action executed; the other explains how its result participated in subsequent inference.

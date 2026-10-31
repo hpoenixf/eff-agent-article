@@ -27,6 +27,8 @@
     "agent-runtime-constraint-governance-v2": "Run 预算与约束治理",
     "agent-subagent-context-specialization": "Subagent 全景：独立上下文、专业协作与真实成果交接",
     "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
+    "agent-research-evidence-store-lifecycle": "一次模型调用留下了什么：研究证据的采集、留存与回读",
+    "agent-numeric-kernel-exact-units-rounding": "精确数字并不等于正确投资：数值核的单位、舍入与残差",
     "agent-veto-authority-and-run-termination": "Run 终结权、阶段预算与安全恢复",
     "agent-weekly-thesis-history-continuous-research": "一份周报过去后，Agent 还记得为什么这样判断吗？",
     "ai-citations-do-not-prove-reliability": "Agent 引用全景：从原始资料到可核查的结论",
@@ -235,6 +237,7 @@
       "primary": "mcp-host-from-discovery-to-consumption"
     },
     "A33": {
+      "primary": "agent-numeric-kernel-exact-units-rounding",
       "related": [
         "031-fintech-data-time-and-reproducible-numbers"
       ]
@@ -275,6 +278,7 @@
       ]
     },
     "E04": {
+      "primary": "agent-research-evidence-store-lifecycle",
       "related": [
         "agent-tool-lifecycle-and-model-input",
         "agent-personal-credits-shadow-accounting",

@@ -153,7 +153,28 @@ In our controlled numerical chain, an amount that happens to match a public webp
 
 Financial reports mix several legitimate forms of “truth”: official disclosures, historical price observations, derived calculations, and actual personal profit/loss ledger entries. Packaging them in one professional-looking PDF does not cause them to validate one another.
 
-## 9. A Financial Number Matters Only When It Supports the Decision
+## 9. A33 Now Has Its Own Deep Dive, Not Financial Authority
+
+As of October 31, 2026, A33's exact-decimal contract deserves independent explanation: values arrive as explicit decimal strings and units, multiplication requires a dimensional binding, rounding returns exact, rounded, and residual values, and same-unit comparison retains differences as small as 0.001 even when display rounding hides them.
+
+**Figure: Identical arithmetic can produce different legitimate financial conclusions under different evidence and business conditions.**
+
+~~~mermaid
+flowchart TD
+    A[Source: instrument, date, currency and shares] --> B{Domain prerequisites valid?}
+    B -- No --> X[Locally unavailable: retain the missing condition]
+    B -- Yes --> C[A33 exact decimal operation]
+    C --> D[Domain checks denominator, fees and residual]
+    D --> E{Eligible as a current portfolio metric?}
+    E -- Yes --> F[Retain derived value and definition]
+    E -- No --> G[Keep hypothetical result and limitations]
+~~~
+
+Consider shares multiplied by per-share NAV. A quantity of 2.055 CNY, a displayed settlement of 2.06 CNY, and a +0.005 CNY rounding residual can all be computed deterministically under a stated policy. **If the shares and NAV refer to different dates, the arithmetic may still be ineligible as a current valuation.** The domain decides temporal alignment, coverage, permitted proxy inputs, and what-if assumptions.
+
+The new [Numeric kernel deep dive](/en/articles/agent-numeric-kernel-exact-units-rounding) explains exactly how a bounded computation is performed. This essay explains why financial amounts across time, conventions and source types do not automatically validate one another. B03 portfolio computation, cash constraints and the original ledger retain independent domain authority.
+
+## 10. A Financial Number Matters Only When It Supports the Decision
 
 As of October 21, 2026, exact arithmetic, bounded metric definitions, and the first HTML weekly-report delivery had their own scoped engineering evidence. Autonomous portfolio research still had historical gaps in full-task completion, numerical interpretation, and proper consumption of results.
 

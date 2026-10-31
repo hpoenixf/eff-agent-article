@@ -30,6 +30,8 @@
 
 **RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。
 
+**两篇 Owner 机制新文（2026-10-31）**：[E04 研究调用证据留存与回读](articles/agent-research-evidence-store-lifecycle.md) · [English](en/articles/agent-research-evidence-store-lifecycle.md)；[A33 精确数值核与领域边界](articles/agent-numeric-kernel-exact-units-rounding.md) · [English](en/articles/agent-numeric-kernel-exact-units-rounding.md)。同时刷新 A11 工具链、金融数字 031 和成本归因三篇双语旧文，不替旧稿更换原链接。
+
 ## 先找到你的问题
 
 | 想解决的问题 | 阅读入口 | 你会得到什么 |

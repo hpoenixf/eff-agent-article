@@ -5,9 +5,15 @@ description: Existing essays to deepen, genuinely independent questions to resea
 
 # What We Might Write Next
 
-<small>Updated October 27, 2026. These are editorial intentions, not new publications or claims of completed product capabilities.</small>
+<small>Updated October 31, 2026. This editorial plan is not a claim of completed product capabilities or public deployment.</small>
 
 We will **improve existing essays before adding new slugs**. The [nine core principles and seven on-demand engineering methods](/en/principles) are a reading map, not fourteen article commitments.
+
+## October 31, 2026: E04/A33 Deep Dives and Three Substantial Article Revisions
+
+The new [E04 research evidence retention article](/en/articles/agent-research-evidence-store-lifecycle) covers passive collection, privacy admission, bounded queues, source validation, readback and purge. The new [A33 exact Numeric kernel article](/en/articles/agent-numeric-kernel-exact-units-rounding) explains units, signed half ties, exact comparison and infeasible constraints. Both have complete Chinese/English editions and localized Mermaid diagrams.
+
+We also updated the established [tool-to-model input lifecycle](/en/articles/agent-tool-lifecycle-and-model-input), [financial data and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers), and [report cost attribution](/en/articles/agent-report-cost-attribution) without changing their permanent links. The proposed reader Owner map now has **35 primary essays, 11 related-only Owners, and A27 unwritten (47 total)**. These numbers classify writing coverage, not Runtime or financial-production acceptance; the original October 27 source ledger remains a dated historical snapshot until separately reconciled.
 
 ## October 27, 2026: Dedicated A40 and A41 Mechanism Essays
 

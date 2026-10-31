@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-research-evidence-store-lifecycle": "What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence",
+  "agent-numeric-kernel-exact-units-rounding": "Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, Rounding, and Residuals",
   "agent-context-governance-principles": "Agent Context Governance Panorama · Principles: Keep Every Decision Aligned with the Goal",
   "agent-context-governance-actions": "Agent Context Governance Panorama · Practice: From the First Request to Long-Term Memory",
   "agent-long-horizon-research-panorama": "Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time",
@@ -87,6 +89,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-research-evidence-store-lifecycle",
+  "agent-numeric-kernel-exact-units-rounding",
   "agent-context-governance-principles",
   "agent-context-governance-actions",
   "agent-long-horizon-research-panorama",
