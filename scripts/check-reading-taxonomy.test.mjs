@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { parse, compileStyle } from 'vue/compiler-sfc'
 import { collections, mergedArticles, historicalEditions, panoramaSeriesSlugs } from '../book.mjs'
 import { englishCollections, englishArticleSlugs } from '../book.en.mjs'
+import { groupTopCategories } from '../.vitepress/theme/reading-directory.mjs'
 
 const collection = id => collections.find(c => c.id === id)
 const slugs = c => c.chapters.flatMap(ch => ch.items.map(([slug]) => slug))
@@ -127,6 +128,20 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
     assert.equal(theme.nav.length, 0, 'No duplicate top navigation list')
     assert.equal(theme.sidebar[0].link, '/' + locale + 'catalog')
     assert.equal(theme.sidebar.at(-1).link, 'https://github.com/hpoenixf/open-etf-agent')
+    const beforeProjection = JSON.stringify(theme.sidebar)
+    const categories = locale ? englishCollections : collections
+    const label = locale ? 'Article categories' : '文章分类'
+    const top = groupTopCategories(theme.sidebar, categories.map(c => c.title), label)
+    assert.equal(JSON.stringify(theme.sidebar), beforeProjection, 'Sidebar projection must not mutate the three independent categories')
+    assert.equal(top[0].link, '/' + locale + 'catalog')
+    assert.equal(top[1].text, label)
+    assert.deepEqual(Array.from(top[1].items, item => item.text), categories.map(c => c.title))
+    assert.equal(top.filter(item => item.text === label).length, 1)
+    assert.equal(top.length, theme.sidebar.length - categories.length + 1)
+    assert.equal(top.at(-1).link, theme.sidebar.at(-1).link)
+    assert.deepEqual(flatten(top), flatten(theme.sidebar), 'All links and their order remain canonical')
+    assert.equal(top[2], theme.sidebar[4], 'Tag topics remain a separate top-level group')
+    assert.equal(top[3], theme.sidebar[5], 'Independent pages remain a separate top-level group')
     const groups = theme.sidebar.filter(item => item.items)
     const checkCollapsed = items => items.forEach(item => { if (item.items) { assert.equal(item.collapsed, true); checkCollapsed(item.items) } })
     checkCollapsed(groups)
