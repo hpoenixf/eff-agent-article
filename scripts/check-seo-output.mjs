@@ -147,7 +147,7 @@ for (const prefix of ['', 'en/']) {
   const html = readFileSync(htmlPath, 'utf8')
   assert.match(html, /panorama-series-card/, 'Panorama landing cards missing from SSR: ' + route)
   assert.match(html, /Panorama Series|全景系列/, 'Panorama heading missing: ' + route)
-  const canonical = html.match(/<link\\b[^>]*\\brel="canonical"[^>]*>/g) || []
+  const canonical = html.match(/<link\b[^>]*\brel="canonical"[^>]*>/g) || []
   assert.equal(canonical.length, 1, 'Panorama page requires one canonical: ' + route)
   assert.ok(canonical[0].includes('href="' + url + '"'), 'Panorama canonical mismatch: ' + route)
   assert.ok(html.includes('hreflang="en"') && html.includes('hreflang="zh-CN"'),
