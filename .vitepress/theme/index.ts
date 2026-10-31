@@ -25,6 +25,8 @@ import LanguagePreference from './LanguagePreference.vue'
 import DiagramZoom from './DiagramZoom.vue'
 import LearningPathNav from './LearningPathNav.vue'
 import './custom.css'
+import './home-layout.css'
+import './navigation-layout.css'
 
 export default {
   extends: DefaultTheme,
