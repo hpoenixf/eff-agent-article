@@ -40,6 +40,8 @@ These are not six mandatory new services or a form the model must complete every
 
 Some parts of that situation are stable; others change continually. The system prompt provides working principles across tasks. The current request defines the immediate goal. Memory supplies selected historical background. Observations and progress evolve as execution proceeds. Putting information with different purposes and update rhythms into one giant prompt makes understanding, maintenance and correction harder.
 
+**A conceptual distinction does not require a separate mechanism.** These six questions help inspect the current task view; they are not six states or modules to build. A goal already stated in the request does not require a duplicate goal store. A brief task with no cross-session need does not require durable memory. Versioned tool results that can be read back need not be injected in full on every turn. Authorization, provenance and actual execution receipts remain mandatory; ordinary questions should not pay for every feature of long-running research.
+
 ## 1. Direction: the system prompt defines how to work; the user defines this task
 
 ### A system prompt is neither a biography nor a complete workflow
@@ -132,6 +134,8 @@ Consider a teaching example. The user first saves “Keep answers brief,” late
 
 Memory's value depends on helping the current task, not the size of the library. Saving, retrieving a match, including it in the request and using it correctly are four different steps. A good memory system retains important information while keeping irrelevant, invalid or withdrawn information from distorting judgment.
 
+"Explain fees first this time" is usually an instruction for this request, not evidence of a lasting preference. Even when user preferences, task progress and reusable experience serve different purposes, first ask whether existing records can handle their scopes, provenance and revisions. Separate purposes do not automatically require separate databases. Necessary execution and audit records must not disappear in the name of a smaller context.
+
 ## 5. Discovery: classify the gap before choosing recall, search, computation or a question
 
 ![Match the gap to the route. Different gaps need different actions. More searching cannot replace a choice.](../../visuals/en/agent-context-governance-principles/06-information-paths.svg)
@@ -185,6 +189,8 @@ Delegation constructs a local task view. A fee-checking child needs product iden
 Resuming after interruption requires durable records of the effective task, original inputs and actual progress. An unknown operation cannot be treated as never executed merely because a summary lacks a success statement. A saved report need not be regenerated just because the process changed.
 
 Together these methods protect something more useful than preserving every character forever: **the next step can still proceed from an accurate understanding of the situation.** The relationships being preserved matter more than any single representation inside the window.
+
+In this teaching example, if Main can inspect the fee schedule directly and answer with verifiable evidence, default delegation is unnecessary. A short tool result need not be moved out and reread just to claim better context engineering. Consider more complex mechanisms only when independent exploration, context pressure or measurable parallel benefits justify their extra calls, handoffs and failure paths. Good distinctions also reveal **which ideas do not need separate implementations**.
 
 ## Conclusion: context as a sustainable understanding of the task
 
