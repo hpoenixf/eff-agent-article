@@ -1,11 +1,11 @@
 ---
 layout: home
-title: "AI Agent 开发教程：入门、架构与金融应用"
-description: "从十五分钟入门到模块进阶、系统深入与金融研究，结合可运行案例理解 AI Agent 的工具、持续执行、协作和证据边界。"
+title: "不依赖 Agent 框架，从零构建金融研究 Agent"
+description: "不依赖 Agent 框架，从零构建金融研究 Agent。 以基金研究为场景，掌握长任务、多 Agent 协作与可核验的研究交付。原理讲透，源码可运行。"
 hero:
   name: ETF Agent · Notes
-  text: 从真实工程，读懂 Agent。
-  tagline: 记录系统如何运行、架构为何演化，以及 AI 辅助研发如何持续交付。
+  text: 不依赖 Agent 框架，从零构建金融研究 Agent。
+  tagline: 以基金研究为场景，掌握长任务、多 Agent 协作与可核验的研究交付。原理讲透，源码可运行。
   actions:
     - theme: brand
       text: 十五分钟入门 Agent →
@@ -30,6 +30,14 @@ features:
     details: 从 Spec、Evidence 到真实任务的验证与收敛。
     link: /engineering
     linkText: 工程实践
+  - title: 全景专题
+    details: 从全局理解 Agent 架构与模块协作。
+    link: /panorama
+    linkText: 阅读全景
+  - title: 金融专题
+    details: 理解金融研究的方法、证据与责任边界。
+    link: /fintech
+    linkText: 阅读金融
 ---
 
 <ContinueReading />
