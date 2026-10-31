@@ -13,6 +13,8 @@ description: 关于 Agent 系统边界、职责 Owner、可靠性、反馈归因
 
 <FlagshipEntry compact />
 
+**跨分类专题标签：** [#全景系列](/panorama) 独立汇集六层系统全景、金融 Agent 全景与一份报告背后的架构判断，不改变文章原有主分类。
+
 **两层架构判断：** [九条核心原则与七组外围方法](/principles)用于快速找设计边界；核心原则谨慎增加，五不、四问、证据传递、分期交付和验证方法则按需取用。阅读现有[五不与系统演化](/articles/code-cheaper-systems-harder-to-evolve)、[Context 压缩](/articles/agent-main-run-context-compaction)和[否决权治理](/articles/agent-veto-authority-and-run-termination)，再看[尚待取材的文章预告](/roadmap)。
 
 **原则深读：** [局部改善不等于整体进步](/articles/local-improvement-is-not-system-progress)——从 50 条持仓只进了 20 条模型输入，到 Trace 缺失和 Judge 格式修复，讲清如何核实修复是否真正传导到完整研究，并考虑代价与反例。
