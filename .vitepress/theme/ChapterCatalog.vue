@@ -2,7 +2,8 @@
 import { computed, ref } from 'vue'
 import { data as tagData } from './article-tags.data'
 import { withBase } from 'vitepress'
-import { collections, articleCount } from '../../book.mjs'
+import { collections } from '../../book.mjs'
+import { catalogView } from './catalog-view.mjs'
 import { englishCollections, englishArticlePath } from '../../book.en.mjs'
 import { useData } from 'vitepress'
 
@@ -14,19 +15,16 @@ const categoryFor = (id: string) => (isEnglish.value ? '/en/' : '/') + id
 const props = defineProps<{ compact?: boolean; category?: string }>()
 const selectedTags = ref<string[]>([])
 const toggleTag = (id: string) => { selectedTags.value = selectedTags.value.includes(id) ? selectedTags.value.filter(tag => tag !== id) : [...selectedTags.value, id] }
-const matches = (slug: string) => selectedTags.value.every(id => (tagData.articles[slug] || []).some(tag => tag.id === id))
-const selectedCollections = computed(() =>
-  allCollections.value.filter(entry => !props.category || entry.id === props.category).map(collection => ({
-    ...collection,
-    chapters: collection.chapters.map(chapter => ({ ...chapter, items: chapter.items.filter(([slug]) => matches(slug)), related: chapter.related?.filter(([slug]) => matches(slug)) })).filter(chapter => chapter.items.length)
-  })).filter(collection => collection.chapters.length)
-)
+const view = computed(() => catalogView(allCollections.value, { category: props.category, selectedTags: selectedTags.value, articles: tagData.articles }))
+const selectedCollections = computed(() => view.value.collections)
+
 </script>
 
 <template>
+  <div class="reader-catalog">
   <div class="catalog-headline">
-    <span>CURATED READING PATHS</span>
-    <strong>{{ collections.length }} {{ isEnglish ? 'categories' : '大类' }} · {{ articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
+    <span>{{ category ? (isEnglish ? 'IN THIS CATEGORY' : '本类文章') : (isEnglish ? 'ARTICLE CATALOG' : '文章目录') }}</span>
+    <strong><template v-if="!category">{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · </template>{{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
   </div>
   <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags' : '按文章标签筛选'">
     <span>{{ isEnglish ? 'Tags · match all selected' : '标签 · 同时满足所选标签' }}</span>
@@ -35,7 +33,7 @@ const selectedCollections = computed(() =>
   </div>
   <p v-if="!selectedCollections.length" role="status">{{ isEnglish ? 'No articles match these tags. Clear a filter to see more.' : '暂无同时符合这些标签的文章，可取消部分筛选。' }}</p>
   <section v-for="(collection, collectionIndex) in selectedCollections" :key="collection.id" class="collection-block">
-    <div class="collection-header">
+    <div v-if="!category" class="collection-header">
       <div>
         <div class="collection-label">{{ collection.label }}</div>
         <h2>
@@ -54,7 +52,7 @@ const selectedCollections = computed(() =>
         <div class="chapter-index">
           {{ String(chapterIndex + 1).padStart(2, '0') }} / {{ String(collection.chapters.length).padStart(2, '0') }}
         </div>
-        <h3>{{ chapter.title }}</h3>
+        <component :is="category ? 'h2' : 'h3'" class="chapter-title">{{ chapter.title }}</component>
         <p>{{ chapter.desc }}</p>
         <ol>
           <li v-for="([slug, label]) in (compact ? chapter.items.slice(0, 3) : chapter.items)" :key="slug">
@@ -75,6 +73,7 @@ const selectedCollections = computed(() =>
       </section>
     </div>
   </section>
+  </div>
 </template>
 
 <style scoped>
@@ -83,4 +82,13 @@ const selectedCollections = computed(() =>
 .catalog-tag-filter button { min-height:44px; padding:8px 14px; border:1px solid var(--vp-c-divider); border-radius:22px; }
 .catalog-tag-filter button[aria-pressed="true"] { background:var(--vp-c-brand-soft); border-color:var(--vp-c-brand-1); color:var(--vp-c-brand-1); }
 .catalog-tag-filter button:focus-visible { outline:2px solid var(--vp-c-brand-1); outline-offset:3px; }
+.reader-catalog .catalog-headline { margin: 24px 0 12px; }
+.reader-catalog .chapter-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.reader-catalog .chapter-card { padding: 20px; border-radius: 8px; background: transparent; }
+.reader-catalog .chapter-card .chapter-title { border: 0; margin: 12px 0 8px; padding: 0; font-size: 1.22rem; line-height: 1.4; }
+.reader-catalog .chapter-card:hover { transform: none; }
+.reader-catalog .chapter-card li a { min-height: 44px; overflow-wrap: anywhere; }
+.reader-catalog a:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; }
+.reader-catalog .catalog-tag-filter button { border-radius: 8px; }
+@media (max-width: 767px) { .reader-catalog .chapter-card { padding: 16px; } }
 </style>
