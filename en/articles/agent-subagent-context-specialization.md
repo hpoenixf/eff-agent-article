@@ -147,119 +147,31 @@ This observation is limited to the historical-report path under review; it does 
 
 [LangChain Deep Agents](https://docs.langchain.com/oss/python/deepagents/subagents) also advocates returning condensed results rather than full raw tool output. In financial research, the other half is critical: **shorten the process history, not the definitions and caveats that determine whether a conclusion is valid**.
 
-## 6. Five Engineering Cases That Changed the Design
+## 6. Three Handoff Boundaries: Input Identity, Local Work, and Actual Consumption
 
-### Case 1: Web—an authentic reference can still be put in the wrong field
+### Input and identity: the same material does not prove the same consumption
 
-A Web Child once submitted a tool-result reference and an answer citation marker in the same evidence field. These serve different purposes; Host was right to reject the mixed submission.
+A Web Child once submitted tool-result references and answer citation markers in the same field. Rejecting the mixture was correct, but the old feedback suggested an empty array and led the model to remove legitimate references. We repaired **the feedback's explanation of the two reference types**, not the provenance validator. A later real-model sample returned valid citations, although the overall task still failed for unrelated reasons.
 
-But the old rejection feedback overemphasized submitting an empty array. The model responded by deleting even the legitimate references.
+Concurrency causes a second identity trap: in `Main turn 1 → Child turn 1 → Main turn 2`, the final event is globally third but remains Main's second turn. Confusing these coordinates once rejected a legitimate input binding; the correction reused per-executor progress. **Independent context also needs independent execution and turn identities.**
 
-We fixed the **feedback**, not the validator: explain the distinct reference types and how to keep valid evidence while repairing the handoff.
+A real PDF research run revealed a different failure: page images reached Main and Child, yet the model misread some colors and shapes, and cross-document analysis remained incomplete. That is **misinterpretation after delivery**, not proof of missing input. Successful image handoff cannot certify a financial conclusion.
 
-A later real-model sample did complete formal handoff with accepted citations. The overall task still failed for other reasons. This demonstrates a repaired local step, **not** universal Web-research success.
+### Local work: isolate a process without cloning the Runtime
 
-**Feedback should help an executor repair a handoff, not teach it to discard useful evidence.**
+A Python Child is valuable when input checking, local debugging, computation, and export form a work unit. Its workspace is bound to the executor; Main and sibling Children exchange authorized artifacts rather than guessing paths. In an October 16, 2026 real-model run on synthetic data, the Child fixed a field mismatch and an HTML template error, exported a report, and Main published its download entry. History read back the delivery. This supports **one complete local handoff path**, not faster-than-single-Agent performance or general financial correctness.
 
-### Case 2: PDF—the image arrived, but interpretation was still wrong
+A managed PDF expert likewise reuses Child, Skill, `run_skill_script`, and Analysis Sandbox. Its helper was adapted to actual input forms `data.pdfTables` and `data.items[].pdfTables`. Zero geometry-extracted tables means **no countable tables were delivered by that extraction**, not that the original PDF contains none or visual verification succeeded. Script discovery grants no new execution authority; [user-defined experts](agent-custom-expert-from-prompt-to-recovery.md) remain text Profiles, not arbitrary executable ZIP uploads.
 
-In one real PDF study, page images entered both Main and Child model requests and the task settled. Yet some interpretations of chart colors and shapes were wrong, and requested cross-document coverage was incomplete.
+Reviewer examines omissions and counterexamples; Remind surfaces existing resource facts. **A reminder is not review; review is not approval.** Deduplication, one active review per Run, cooldown, and shadow mode constrain repeated work. Shadow advice is not automatically delivered to Main, but still consumes the original budget. These are scoped implementation facts, not measured multi-Agent benefit.
 
-These are different failures:
+### Actual consumption: submission, model input, and adoption differ
 
-- If the image never arrived, the issue is evidence delivery/context.
-- If the image arrived but was misread, the issue is understanding and verification.
+A Child submitting a summary does not prove its crucial text reached Main's next model request. Readback of real research on October 30–31, 2026 used bounded fragment matching between specialist submissions and subsequent Main inputs. It established that **some text entered captured model input**, not full-summary delivery, semantic adoption, or better answers. [Evidence of Subagent Contribution](agent-subagent-contribution-evidence.md) contains the sample denominators, matching method, and caveats; they need not be duplicated in this panorama.
 
-A tool returning successfully cannot establish that every required risk statement was correctly interpreted.
+Recovery must preserve separate facts: a Child submitted, Main read, and a tool effect settled. Losing an in-memory parent-process marker does not justify a free retry of an unknown effect by another Child. Same-Run continuation uses the original grant, frozen method, and receipts; local failure does not erase independently publishable Main content.
 
-### Case 3: Python—isolate files as well as model context
-
-We bound Python workspaces to individual executor identities. A Child can debug and reuse its own files. Main and sibling Children exchange explicit approved results rather than guessing one another's paths.
-
-Engineering checks cover valid own-artifact access, cross-executor denial, and cleanup.
-
-On **October 16, 2026**, a real-model test with synthetic data completed a useful local sequence: a Child repaired a field-mismatch calculation error, corrected an HTML template error, and exported a report. Main consumed the handoff, published a download link, and History readback retained the delivery record.
-
-The value is not "the model fixed two bugs." It is that **local computation, debugging, and export became one work unit** without Main managing each step.
-
-This establishes that specific path, not faster-than-single-Agent performance or perfect financial metric definitions.
-
-### Case 4: concurrency—global turn three can be Main turn two
-
-With Child work interleaved, the order might be:
-
-~~~text
-Main turn 1
-Child turn 1
-Main turn 2
-~~~
-
-The last event is globally third, but still Main's **second** turn. We once confused those coordinates and rejected an otherwise legitimate Child-input binding.
-
-The repair used per-executor progress already present, retaining original identity checks. Interleaving regressions validated the fix.
-
-**Independent executors need independent progress coordinates. Separating message arrays while sharing an implicit "current turn" is not sufficient.**
-
-### Case 5: Reviewer and Remind—do not spend resources just to appear convergent
-
-This is mainly a design risk, **not** evidence Reviewer caused a specific failure.
-
-Independent review costs resources. It must not trigger another model merely because time passed or a warning appeared.
-
-Reviewer has deduplication, one active review per Run, cooldown, and off/shadow/advisory modes. **Shadow** does not deliver automatic advice to Main but still consumes the original budget; it is not free observation.
-
-Remind records distinct reminder facts and actual delivery. An undelivered reminder cannot count as already shown. Different resource facts can coexist, but identical warnings should not repeatedly interrupt work.
-
-These features have scoped implementation evidence; overall migration and net effects require independent validation.
-
-**A reminder is not review; review is not approval; neither replaces original budget or finalization governance.**
-
-### Investment perspectives: reuse Child, not three new expert Runtimes
-
-In October 2026 we added three fixed investing methods to Child Profiles: **Markowitz**, **Taleb**, and **Bernstein**.
-
-These refer to publicly known analytical schools, not consultations with the people themselves and not three digitally licensed advisers able to approve transactions.
-
-For the same authorized portfolio facts, allocation methodology might ask about correlation and weights; a tail-risk perspective about extreme scenarios; a diversification perspective about the loss tolerance of long-term holding.
-
-The architectural value is **three methods challenging the same factual input through one execution mechanism**, not building three independent tool/budget/memory/Recovery stacks.
-
-We did not introduce an expert-specific Runtime. The original Child admission freezes the trusted **method ID, version, and content hash** into execution identity. Redispatch and cold Recovery use that same binding; they do not silently swap methodologies within one Child.
-
-A method does not grant extra tools or sources. Missing evidence does not block valid additional research. The ordinary Child path remains available when no expert method is selected. Reviewer remains a separate scrutiny role, not a disguised investing perspective.
-
-Engineering evidence showed two differently bound Children sharing one original result reference without forcing Main to fetch duplicate datasets. The frozen method material remained consistent through actual Child requests after Recovery.
-
-In an **October 21** real-model run with a synthetic investment question, all three methods produced handoffs consumed by Main, and the final body was persisted.
-
-The model still made type-selection mistakes and repeated delegations. Local rejection and cancellation did not erase independent valid content.
-
-The supported conclusion is that **method binding and result handoff can reuse the original Subagent framework**. Perspective count is not a quality measure; assessing different methods requires comparing facts, counterexamples, and final answers for the same investment question.
-
-
-### When an expert method becomes an executable package
-
-After normal Child execution was unified, managed built-in experts also gained directory-based packages. The PDF expert describes its method in `subagent/pdf/SKILL.md`, can read `references/table-reading.md` when useful, and may call `scripts/inspect_tables.py` on actually authorized extracted table data. Its script runs through the existing `run_skill_script` and Analysis Sandbox; discovery of a directory or script name is not a new permission grant.
-
-The integration encountered a real data-shape mismatch. Document reads can return `data.pdfTables`, while browse observations may contain `data.items[].pdfTables`; the early helper understood only a simplified table object. After adapting to supported inputs, it could count delivered pages, rows, cells, and empty values. Zero geometry-extracted tables means **the extraction delivered no countable tables**, not that the original PDF contained none or that a visual check occurred.
-
-Package content identity, the prepared execution environment, and actual returned script effects must be checked separately. Existing Skill, sandboxed Python, and result owners remain responsible; no second PDF Runtime is needed. These managed packages mainly serve built-in experts. [User-defined experts](agent-custom-expert-from-prompt-to-recovery.md) remain text-based Profiles rather than arbitrary executable ZIP uploads.
-
-### Check the later Main input, not only the submission
-
-Research observations from October 30–31, 2026 distinguish specialist submission from material reaching the coordinating agent. The observations retained 75 readable final specialist submissions. Of those, 70 had at least one candidate long fragment in a subsequently captured Main input.
-
-The method sampled at most 20 fragments of at least 40 characters per summary. A match establishes the presence of corresponding text in captured input, not full-summary delivery, semantic adoption, reviewer independence, or improved answers. A missing match does not automatically establish a failed handoff.
-
-These observations add concrete runtime evidence to the isolation-and-handoff mechanism. They do not establish superiority over a single Main. [Evidence of Subagent Contribution](agent-subagent-contribution-evidence.md) separately explains how to follow execution identity, submissions, actual requests, and final claims.
-
-### Recovery Preserves Work Identity and Execution Facts
-
-Independent context needs independent execution identity. Main receiving a summary, Child committing a result and a tool effect completing are distinct durable facts. Recovery should reread their original receipts rather than repeat work because a parent process lost an in-memory flag.
-
-Distinguish a known failed operation from a dispatched request without reliable settlement. The former may be repairable under the original budget and idempotency rules. The latter remains unknown; delegating it to another Child does not make it a free retry.
-
-Same-Run Child recovery inherits its recorded grant subset. A method update adds no permission, and a late result does not undo cancellation. Independently authorized Main prose survives a Child’s local failure. These constraints keep complexity at execution and handoff instead of turning every failure into a global stop.
+**Subagents are justified when local work merits isolation and Main can actually consume the result under its original identity—not by the number of available roles.**
 
 ## 7. Methods Change; Execution Identity and Original Input Must Remain Readable
 
@@ -268,6 +180,10 @@ By October 24, 2026, ETF Agent main contained account settings, method revisions
 Subsequent scoped engineering acceptance covers preferences, exact selection, discovery, observable contributions, saved presets, and Child-authored task revisions, including isolated PostgreSQL and authenticated-browser paths driven by a scripted model. That establishes the request and presentation mechanics, **not** natural model expert-selection quality, real investment benefit, or production deployment. Customizable roles still do not grant extra tools, model routes, data sources, budgets, or investment execution rights.
 
 The adjacent [durable human-interaction mechanism](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
+
+### Investment perspectives are still methods on the same Child
+
+In October 2026, controlled implementation bound Markowitz, Taleb, and Bernstein as research-method configurations for the existing Child, not additional advisers with trading authority. Admission freezes method ID, version, and content hash; methods can share the same authorized material, while recovery cannot silently swap methods in an old execution. In an October 21 real-model run on a synthetic investment question, results from all three methods reached Main and a body was saved, but the model also made type-selection errors and repeated delegations. This supports method binding and handoff, **not greater accuracy than a single Main**.
 
 ### A Unified Role Entry Still Needs Evidence of Contribution
 
