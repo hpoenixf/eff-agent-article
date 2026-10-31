@@ -52,10 +52,26 @@ test('fixed version identity is not promoted into a release registry',()=>{
   assert.equal(v.href,`https://github.com/${lineage.repository}/tree/${lineage.versions[v.version].commit}`)
  }
 })
-test('homepage discoverability is bilingual and English first',()=>{
- for(const file of ['index.md','en/index.md']) assert.ok(readFileSync(root+file,'utf8').includes('<OpenEtfTopicEntry />'))
- const entry=readFileSync(root+'.vitepress/theme/OpenEtfTopicEntry.vue','utf8')
- assert.ok(entry.indexOf("withBase('/en/open-etf-agent')")<entry.indexOf("withBase('/open-etf-agent')"))
+test('Open ETF topic stays discoverable in the directory, without homepage promotional blocks',()=>{
+ const config=readFileSync(root+'.vitepress/config.mts','utf8')
+ for(const route of ['/open-etf-agent','/en/open-etf-agent']) assert.ok(config.includes("link: '"+route+"'"))
+ for(const file of ['index.md','en/index.md']) {
+  const home=readFileSync(root+file,'utf8')
+  for(const component of ['OpenEtfTopicEntry','FlagshipEntry','HomeOverview','WeChatFollow','OpenSourceBridge']) assert.ok(!home.includes('<'+component),component)
+  assert.ok(!/^> /m.test(home),'No stacked editorial callouts')
+  assert.ok(home.includes('<RecentArticles />'))
+  assert.ok(home.includes('<ContinueReading />'))
+  assert.ok(home.includes('agent-in-15-minutes'))
+  assert.ok(!home.includes('10 年开发经验') && !home.includes('10 years of software'))
+ }
+ const about=readFileSync(root+'about.md','utf8')
+ assert.ok(about.includes('10 年开发经验，5 年金融业务系统研发经验'))
+ assert.ok(about.includes('10 years of software development experience'))
+ assert.ok(about.includes('<WeChatFollow />'))
+ assert.ok(about.includes('https://hpoenixf.com/about'))
+ const qr=readFileSync(root+'.vitepress/theme/WeChatFollow.vue','utf8')
+ assert.ok(qr.includes("withBase('/images/wechat-public-account.jpg')"))
+ assert.ok(existsSync(root+'public/images/wechat-public-account.jpg'))
 })
 
 test('offline snapshot validation is explicitly not a publication readback',()=>{
