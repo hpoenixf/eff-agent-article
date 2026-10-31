@@ -1,11 +1,11 @@
 ---
 layout: home
-title: "AI Agent Development: Tutorials, Architecture and Finance"
-description: "Learn AI agents through a 15-minute introduction, module guides, system deep dives and financial research, with runnable examples and explicit evidence limits."
+title: "Build Financial Research Agents Without an Agent Framework"
+description: "Build financial research agents from scratch. No Agent framework required. Learn long-running tasks, multi-agent collaboration and verifiable research delivery through fund research. Clear principles. Runnable source code."
 hero:
   name: ETF Agent · Notes
-  text: Understanding agents through real engineering.
-  tagline: How complex agents run, why their architecture evolves, and how AI-assisted engineering delivers working systems.
+  text: Build financial research agents from scratch. No Agent framework required.
+  tagline: Learn long-running tasks, multi-agent collaboration and verifiable research delivery through fund research. Clear principles. Runnable source code.
   actions:
     - theme: brand
       text: Agents in 15 minutes →
