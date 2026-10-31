@@ -172,6 +172,8 @@ If another result reveals missing months, the model should retain or reopen `cov
 
 The implementation has several relevant properties. Working questions are bounded, can be replaced through `set_research_needs`, and can be reopened. The original request remains protected. A rejected update does not erase the previous accepted state, and deleting a working question does not remove the user's original requirement.
 
+In late October, we placed the opportunity to revisit a working note at a more useful moment: **when an authorized new Knowledge result reaches the next model request**, a short cue invites the model to review or revise Research Needs if warranted. The cue neither automatically marks an item `resolved` nor mandates another tool call or approval gate. A bounded real-model Run confirmed that the cue reached subsequent inputs, but no controlled comparison established better answer quality or lower cost. **The point is not another review step: it is giving new evidence a chance to change the next decision.**
+
 The limits on their authority matter just as much:
 
 - `resolved` does not establish that a source was checked correctly.

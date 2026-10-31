@@ -208,19 +208,15 @@ RenderFailure --> ReportUnreadable
 
 The aim is not “use a browser for every page,” but to provide an additional reading path for pages needing JavaScript when the conditions are satisfied.
 
-> **Mainline check, 2026-10-26:** “Optional rendering” here means content-dependent triggering within an already-authorized Source reading path, not manually registering a browser each time. The original webpage reading chain now integrates a governed **default rendering fallback**: when the static body is insufficient, source permissions, DNS/access restrictions, cancellation/timeouts, and resource constraints must still be satisfied before the renderer may run lazily. Intermediate rendered HTML is capped at **1 MiB**. If rendering fails but the original static body is legitimately usable, its limited evidence is retained with a warning. If there is no readable material at all, the system must not fabricate reading success. Existing engineering evidence is limited to the original Source scenarios. It does not establish that all dynamic sites work, that login/challenges can be bypassed, or that real investment research has been fully completed.
+The original Source reading path now uses rendering as a **governed default fallback**. It starts only when static content is insufficient and source permission, network/resource limits, cancellation and timeouts permit it. A failed render may leave legitimate static evidence available; when nothing is readable, the result remains unavailable. This is neither a browser for every search nor a way around access controls.
 
-### Pitfall Five: Switching to a Browser Is Not a One-Click Fix
+### Fifth Trade-off: A Failed Renderer Must Not Fail the Whole Research Task
 
-During integration, we encountered a typical frontend problem: a script file was obtained, but intermediate processing dropped upstream CORS response headers, preventing cross-origin modules from executing. Another problem involved nested stylesheet dependencies: successfully fetching the first layer did not mean subsequent dependencies would also be obtained correctly.
+One integration case retrieved a script but lost upstream CORS response headers in an intermediate bridge, leaving that script unable to run. An isolated browser may execute the page and return the DOM, but external resources must still follow the original controlled reading path. Producing a body must not require weakening a site's access conditions.
 
-These problems show that a browser's value is not merely “it can execute JavaScript,” but also its ability to preserve the page's original execution conditions as far as possible. We cannot turn off a page's own access restrictions just to make it display.
+Later bounded process checks reinforced the broader boundary: DOM parsers, renderers and helper processes should report their own failures rather than let asynchronous errors escape into the entire research task. Other legally acquired evidence must remain usable. **An optional reading capability should expand the chance of obtaining evidence, not the task's failure domain.** Those checks cover named process and error paths, not every possible native crash.
 
-Ultimately, we let an isolated browser run the page and generate the DOM, while external resources continued through the existing controlled reading channel. Once the body is generated, it returns to the original extraction, source, and subsequent-reading chain. We do not create another research workflow.
-
-On controlled real public webpages, the agent has followed redirects, read JavaScript-rendered bodies, and supplied the content to the next model request. That still does not mean every dynamic website can be read reliably.
-
-**The benefit is reconnecting some dynamic pages that were “found but unreadable” to the agent's existing research process.** This capability does not provide general screenshot understanding or bypass login, CAPTCHAs, or paywalls.
+On controlled public dynamic pages, the agent did retrieve JavaScript-generated text and deliver it to subsequent model input. That establishes a useful path, not universal website reliability.
 
 ## 6. The Last Mile: We Found the Material, so Why Can the User Still Not See the Right Citation?
 
