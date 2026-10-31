@@ -1,6 +1,10 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-trace-complete-observation-gaps": "The Trace Says Complete. Why Can’t We Reconstruct the Agent Run?",
+  "agent-subagent-contribution-evidence": "How Do We Know the Main Agent Actually Used a Specialist’s Findings?",
+  "agent-report-cost-attribution": "What Does an Agent-Generated Report Actually Cost?",
+  "agent-stream-tool-call-null-continuation": "How a null Broke an Agent Tool Call: A Streaming Compatibility Case",
   "agent-ten-modules": "Agent Intermediate: Ten Core Modules in Open ETF Agent",
   "agent-in-15-minutes": "Agents in 15 Minutes",
   "docs-code-tests-evolve-together": "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together",
@@ -80,6 +84,10 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-trace-complete-observation-gaps",
+  "agent-subagent-contribution-evidence",
+  "agent-report-cost-attribution",
+  "agent-stream-tool-call-null-continuation",
   "agent-ten-modules",
   "agent-in-15-minutes",
   "docs-code-tests-evolve-together",

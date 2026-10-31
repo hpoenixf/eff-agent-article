@@ -64,6 +64,14 @@ Freeze the question set, data snapshot, code revision, model version, configurat
 
 The practical rule is simple: **account for every planned task before discussing the quality of the completed subset.** Unfinished, failed, unknown, and usable-answer outcomes should retain their respective places rather than disappear from the statistics.
 
+### The same runs can have three different outcomes
+
+The specialist research evaluation recorded on October 30–31, 2026 illustrates the distinction. Of 120 planned runs, 59 had ended and 61 had not executed. Planned runs are not completed evidence; separate executions of repeated questions are not distinct questions.
+
+Original Runtime states were 42 completed and 17 failed. Separately, 48 runs had visible answers with confirmed persistence, including 6 failed Runtime runs. Automated evaluation recorded 40 inconclusive and 19 failed outcomes. These describe execution, delivery observations, and evaluation judgments—not interchangeable measures of financial correctness.
+
+Partial saved text after failure is not whole-task completion; normal termination is not independently verified answer quality. The complete quality comparison remains unfinished. Preserve failures and unexecuted cases under their original identities. The new [contribution-evidence article](agent-subagent-contribution-evidence.md) and [trace-completeness case](agent-trace-complete-observation-gaps.md) examine the respective handoffs.
+
 ## 4. The Judge Must Know Which Answer It Is Evaluating
 
 Automated evaluation commonly takes a server-side candidate and asks a model to assess facts, formatting, citations, and expression. That can evaluate candidate quality. A streaming product must additionally determine whether the user received that candidate.
