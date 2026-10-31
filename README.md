@@ -4,7 +4,7 @@
 
 面向 Agent 应用开发者、系统架构师，以及使用 AI 辅助研发、希望看懂真实失败与修复边界的工程师。这里不仅讲“应该怎么设计”，也解释为什么这样分工、哪里踩过坑、什么证据还不足以证明完成。
 
-**[开始阅读 · 中文站](https://hpoenixf.com/eff-agent-article/) · [Read in English](https://hpoenixf.com/eff-agent-article/en/) · [完整文章目录](https://hpoenixf.com/eff-agent-article/catalog)**
+**[开始阅读 · 中文站](https://hpoenixf.com/eff-agent-article/) · [Read in English](https://hpoenixf.com/eff-agent-article/en/) · [完整文章目录](https://hpoenixf.com/eff-agent-article/catalog) · [全景系列](https://hpoenixf.com/eff-agent-article/panorama) · [Panorama Series](https://hpoenixf.com/eff-agent-article/en/panorama)**
 
 **作者 hpoenixf：10 年开发经验，5 年金融业务系统研发经验。** 全栈偏前端，关注 Agent 工程实践，把系统设计、可运行实现与验证证据连接起来。 [作者与个人博客](https://hpoenixf.com/about)
 
@@ -38,7 +38,7 @@
 | 为什么这样划分边界，怎样避免越改越复杂？ | [架构原则](principles.md) → [架构设计与系统思考](thinking.md) | 从真实取舍理解授权、恢复、事实归属与演进契约 |
 | 如何让文档、代码和验证一起向前？ | [AI Agent 研发工程实践](engineering.md) | Spec、证据、知识退役与真实任务收敛的工程方法 |
 
-[金融业务与可信工程专题](fintech.md) · [可交互架构图册](gallery.md)
+[全景系列 · 系统、金融与架构总览](panorama.md) · [金融业务与可信工程专题](fintech.md) · [可交互架构图册](gallery.md)
 
 ## 读完之后，运行一个实现
 
