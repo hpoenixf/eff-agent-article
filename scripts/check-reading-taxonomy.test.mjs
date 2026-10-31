@@ -69,8 +69,8 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     assert.ok(page.length > 350, 'Tag landing should be a useful standalone guide: ' + file)
   }
   const config = text('.vitepress/config.mts')
-  assert.ok(config.includes("{ text: '全景系列 · 标签', link: '/panorama' }"))
-  assert.ok(config.includes("{ text: 'Panorama Series', link: '/en/panorama' }"))
+  assert.ok(config.includes("{ text: '全景', link: '/panorama' }"))
+  assert.ok(config.includes("{ text: 'Panorama', link: '/en/panorama' }"))
   const home = text('.vitepress/theme/HomeOverview.vue')
   assert.ok(home.includes("tagData.definitions"))
   assert.ok(text("article-tags.mjs").includes("path: 'panorama'"))
@@ -96,4 +96,41 @@ test('context panorama pair retains bilingual illustrations and peer navigation'
       }
     }
   }
+})
+
+test('one bilingual directory shares canonical order, collapsed groups and retired preview routes', async () => {
+  const { runInNewContext } = await import('node:vm')
+  const { englishArticlePath } = await import('../book.en.mjs')
+  const { canonicalUrl, filterSitemapItems } = await import('../seo-routes.mjs')
+  const source = text('.vitepress/config.mts').replace(/^import .*$/gm, '')
+    .replace('export default defineConfig(', 'globalThis.config = defineConfig(')
+    .replaceAll('import.meta.url', JSON.stringify(import.meta.url))
+  const context = { collections, englishCollections, englishArticlePath, defineConfig: value => value,
+    SITE_URL: '', filterSitemapItems, socialHead: () => [] }
+  runInNewContext(source, context)
+  const flatten = items => items.flatMap(item => item.items ? flatten(item.items) : [item.link])
+  for (const [locale, theme] of [['', context.config.themeConfig], ['en/', context.config.locales.en.themeConfig]]) {
+    assert.equal(theme.nav.length, 0, 'No duplicate top navigation list')
+    assert.equal(theme.sidebar[0].link, '/' + locale + 'catalog')
+    assert.equal(theme.sidebar.at(-1).link, 'https://github.com/hpoenixf/open-etf-agent')
+    const groups = theme.sidebar.filter(item => item.items)
+    const checkCollapsed = items => items.forEach(item => { if (item.items) { assert.equal(item.collapsed, true); checkCollapsed(item.items) } })
+    checkCollapsed(groups)
+    const articleLinks = flatten(theme.sidebar).filter(path => /\/articles\//.test(path))
+    assert.equal(articleLinks.length, collections.flatMap(slugs).length)
+    assert.equal(new Set(articleLinks).size, articleLinks.length)
+    for (const path of ['fintech', 'panorama', 'open-etf-agent', 'gallery']) assert.ok(flatten(theme.sidebar).includes('/' + locale + path))
+    assert.ok(!flatten(theme.sidebar).some(path => /\/(roadmap|principles)$/.test(path)))
+    const retired = text(locale + 'roadmap.md')
+    assert.ok(retired.includes('0;url=https://hpoenixf.com/eff-agent-article/' + locale + 'catalog'))
+    assert.ok(retired.includes('search: false'))
+    assert.equal(canonicalUrl(locale + 'roadmap.md'), 'https://hpoenixf.com/eff-agent-article/' + locale + 'catalog')
+  }
+  assert.equal(filterSitemapItems([{ url: 'roadmap' }, { url: 'en/roadmap' }, { url: 'catalog' }]).length, 1)
+  assert.ok(text('.vitepress/theme/ChapterCatalog.vue').includes('withBase(categoryFor(collection.id))'))
+  assert.ok(text('.vitepress/theme/index.ts').includes("'nav-screen-content-before': () => h(ReadingDirectory)"))
+  assert.ok(text('.vitepress/theme/ReadingDirectory.vue').includes('theme.value.sidebar'))
+  for (const file of ['catalog.md', 'en/catalog.md']) assert.ok(!/\]\([^)]*(?:\/principles|principles\.md)/.test(text(file)))
+  assert.ok(!text('.vitepress/theme/index.ts').includes('h(PrinciplesLink'))
+  assert.ok(!/href: ['"]\/(?:en\/)?roadmap['"]/.test(text('.vitepress/theme/HomeOverview.vue')))
 })

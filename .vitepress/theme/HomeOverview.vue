@@ -10,7 +10,6 @@ const zh = {
   topicLabel: '专题与工具',
   topics: [
     { label: '架构图册', href: '/gallery' },
-    { label: '写作路线图', href: '/roadmap' },
     { label: '术语速查', href: '/glossary' },
     { label: '订阅 RSS', href: '/feed.xml' }
   ],
@@ -56,10 +55,9 @@ const zh = {
   ],
   statusTitle: '研发动态与 Owner 状态',
   statusHint: '版本演进、验证范围与后续计划',
-  statusText: '详细 Owner 状态和验收边界统一放在架构图册，待写主题集中在路线图。首页不再逐日复制研发流水账。',
+  statusText: '通过架构图册查看能力分工及各自的验证边界。',
   statusLinks: [
     { label: '查看架构图册', href: '/gallery' },
-    { label: '查看后续选题', href: '/roadmap' }
   ],
   aboutTitle: '关于本站与联系作者',
   aboutHint: '公开内容范围、合作方式',
@@ -74,7 +72,6 @@ const en = {
   topicLabel: 'Explore topics',
   topics: [
     { label: 'Architecture gallery', href: '/en/gallery' },
-    { label: 'Writing roadmap', href: '/en/roadmap' },
     { label: 'Glossary', href: '/en/glossary' },
     { label: 'Subscribe via RSS', href: '/en/feed.xml' }
   ],
@@ -120,10 +117,9 @@ const en = {
   ],
   statusTitle: 'Development updates and Owner status',
   statusHint: 'Evolution, evidence scope, and future work',
-  statusText: 'The architecture gallery maintains the detailed Owner inventory and evidence scope. Planned writing lives in the roadmap instead of a daily changelog on this homepage.',
+  statusText: 'Explore capability ownership and its evidence boundaries in the architecture gallery.',
   statusLinks: [
     { label: 'Architecture gallery', href: '/en/gallery' },
-    { label: 'Writing roadmap', href: '/en/roadmap' }
   ],
   aboutTitle: 'About this site and the author',
   aboutHint: 'Scope, contact, and collaboration',

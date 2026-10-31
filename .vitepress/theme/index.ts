@@ -1,3 +1,5 @@
+import ReadingDirectory from './ReadingDirectory.vue'
+import DirectoryMenu from './DirectoryMenu.vue'
 import RecentArticles from './RecentArticles.vue'
 import SiteAnalytics from './SiteAnalytics.vue'
 import OpenEtfTopic from './OpenEtfTopic.vue'
@@ -15,7 +17,6 @@ import ArticleTopicTags from './ArticleTopicTags.vue'
 import PanoramaViewer from './PanoramaViewer.vue'
 import EvidenceScope from './EvidenceScope.vue'
 import OpenSourceBridge from './OpenSourceBridge.vue'
-import PrinciplesLink from './PrinciplesLink.vue'
 import ReadingTracker from './ReadingTracker.vue'
 import StarLink from './StarLink.vue'
 import ArticleStar from './ArticleStar.vue'
@@ -29,9 +30,10 @@ export default {
   extends: DefaultTheme,
   Layout: () => h(DefaultTheme.Layout, null, {
     'home-hero-actions-after': () => h(HomeReadingMenu),
-    'nav-bar-content-after': () => [h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
+    'nav-bar-content-after': () => [h(DirectoryMenu), h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
+    'nav-screen-content-before': () => h(ReadingDirectory),
     'doc-before': () => [h(EvidenceScope), h(ArticleTopicTags), h(OpenSourceBridge)],
-    'doc-footer-before': () => [h(PrinciplesLink, { placement: 'bottom' }), h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
+    'doc-footer-before': () => [h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
@@ -49,5 +51,6 @@ export default {
     app.component('PanoramaViewer', PanoramaViewer)
   }
 } satisfies Theme
+
 
 

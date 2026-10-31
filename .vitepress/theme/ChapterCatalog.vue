@@ -69,7 +69,7 @@ const selectedCollections = computed(() =>
             </li>
           </ol>
         </div>
-        <a v-if="compact && chapter.items.length > 3" class="chapter-more" :href="withBase('/' + collection.id)">
+        <a v-if="compact && chapter.items.length > 3" class="chapter-more" :href="withBase(categoryFor(collection.id))">
           {{ isEnglish ? 'More articles →' : '查看本类其余文章 →' }}
         </a>
       </section>

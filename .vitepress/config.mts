@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
-import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
+import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 import { seoDescription, socialHead, articleStructuredData, structuredDataHead } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
@@ -10,10 +10,10 @@ import { readableRelations, diagramDimensions, needsReadableRelations, renderRel
 
 const readingSidebar = collections.map((collection) => ({
   text: collection.title,
-  collapsed: false,
+  collapsed: true,
   items: collection.chapters.map((chapter) => ({
     text: chapter.title,
-    collapsed: false,
+    collapsed: true,
     items: chapter.items.map(([slug, text]) => ({
       text,
       link: '/articles/' + slug
@@ -23,10 +23,10 @@ const readingSidebar = collections.map((collection) => ({
 
 const englishSidebar = englishCollections.map(collection => ({
   text: collection.title,
-  collapsed: false,
+  collapsed: true,
   items: collection.chapters.map(chapter => ({
     text: chapter.title,
-    collapsed: false,
+    collapsed: true,
     items: chapter.items.map(([slug, title]) => ({
       text: title + (englishArticlePath(slug).startsWith('/en/') ? '' : ' · 中文'),
       link: englishArticlePath(slug)
@@ -44,42 +44,23 @@ export default defineConfig({
       title: 'ETF Agent · Engineering Notes',
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
-        nav: [
-          { text: 'Start Here', link: '/en/articles/agent-in-15-minutes' },
-          { text: 'Article tags', items: [
+        nav: [],
+        sidebar: [
+          { text: 'All articles', link: '/en/catalog' },
+          ...englishSidebar,
+          { text: 'Tag topics', collapsed: true, items: [
             { text: 'Finance', link: '/en/fintech' },
-            { text: 'Open source', link: '/en/open-etf-agent' },
+            { text: 'Open source · Open ETF Agent', link: '/en/open-etf-agent' },
             { text: 'Panorama', link: '/en/panorama' }
           ] },
-          { text: 'Panorama topics', link: '/en/panorama' },
-          { text: 'Open ETF Agent', link: '/en/open-etf-agent' },
-          { text: 'Runnable code', link: 'https://github.com/hpoenixf/open-etf-agent' },
-          { text: 'Topics', items: [
-            { text: 'Modules', link: '/en/modules' },
-            { text: 'Architecture', link: '/en/thinking' },
-            { text: 'Engineering', link: '/en/engineering' },
-            { text: 'Fintech', link: '/en/fintech' },
-            { text: 'Panorama Series', link: '/en/panorama' }
-          ] }
-        ],
-        sidebar: {
-          '/en/articles/': englishSidebar,
-          '/en/': [{ text: 'Start Reading', items: [
-            { text: 'Agents in 15 Minutes', link: '/en/articles/agent-in-15-minutes' },
-            { text: 'Six-Layer Architecture (Advanced)', link: '/en/articles/017-prompt-to-answer-six-layer-panorama-v3' },
-            { text: 'Architecture Principles', link: '/en/principles' },
-            { text: 'All Articles', link: '/en/catalog' },
-            { text: 'Module Deep Dives', link: '/en/modules' },
-            { text: 'Architecture', link: '/en/thinking' },
-            { text: 'Engineering Practice', link: '/en/engineering' },
-            { text: 'Fintech', link: '/en/fintech' },
-            { text: 'Panorama Series', link: '/en/panorama' },
-            { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
+          { text: 'More pages', collapsed: true, items: [
             { text: 'Architecture Gallery', link: '/en/gallery' },
-            { text: 'Writing Roadmap', link: '/en/roadmap' },
-            { text: 'Glossary', link: '/en/glossary' }
-          ] }]
-        },
+            { text: 'Architecture Guide', link: '/en/architecture' },
+            { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
+            { text: 'Blog', link: 'https://hpoenixf.com/' }
+          ] },
+          { text: 'Runnable code', link: 'https://github.com/hpoenixf/open-etf-agent' }
+        ],
         outline: { level: [2, 3], label: 'On This Page' },
         lastUpdated: { text: 'Last updated' },
         docFooter: { prev: 'Previous', next: 'Next' },
@@ -109,6 +90,7 @@ export default defineConfig({
     if (!relativePath.endsWith('.md') || relativePath === '404.md') return
     const canonical = canonicalUrl(relativePath)
     const legacy = isLegacyArticleRoute(relativePath)
+    const noindex = legacy || isNonReaderRoute(relativePath)
     const heads = (pageData.frontmatter.head ??= [])
     const english = relativePath.startsWith('en/')
     const description = seoDescription({
@@ -123,14 +105,14 @@ export default defineConfig({
     for (let index = heads.length - 1; index >= 0; index--) {
       const [tag, attrs] = heads[index]
       if ((tag === 'link' && attrs?.rel === 'canonical') ||
-          (legacy && tag === 'meta' && attrs?.name === 'robots') ||
+          (noindex && tag === 'meta' && attrs?.name === 'robots') ||
           (tag === 'meta' && (String(attrs?.property || '').startsWith('og:') ||
             String(attrs?.name || '').startsWith('twitter:')))) {
         heads.splice(index, 1)
       }
     }
     heads.push(['link', { rel: 'canonical', href: canonical }])
-    if (legacy) {
+    if (noindex) {
       heads.push(['meta', { name: 'robots', content: 'noindex,follow' }])
       return
     }
@@ -214,46 +196,23 @@ export default defineConfig({
   themeConfig: {
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
-    nav: [
-      { text: '入门 Agent', link: '/articles/agent-in-15-minutes' },
-      { text: '文章标签', items: [
+    nav: [],
+    sidebar: [
+      { text: '全部文章', link: '/catalog' },
+      ...readingSidebar,
+      { text: '标签专题', collapsed: true, items: [
         { text: '金融', link: '/fintech' },
-        { text: '开源', link: '/open-etf-agent' },
+        { text: '开源 · Open ETF Agent', link: '/open-etf-agent' },
         { text: '全景', link: '/panorama' }
       ] },
-      { text: '全景专题', link: '/panorama' },
-      { text: '开源专题', link: '/en/open-etf-agent' },
-      { text: '可运行源码', link: 'https://github.com/hpoenixf/open-etf-agent' },
-      { text: '文章分类', items: [
-        { text: '模块维度', link: '/modules' },
-        { text: '架构与系统思考', link: '/thinking' },
-        { text: '研发工程实践', link: '/engineering' },
-        { text: '金融专题', link: '/fintech' },
-        { text: '全景系列 · 标签', link: '/panorama' }
+      { text: '独立页面', collapsed: true, items: [
+        { text: '架构图册', link: '/gallery' },
+        { text: '架构导读', link: '/architecture' },
+        { text: '金融研究清单', link: '/financial-research-backlog' },
+        { text: '博客', link: 'https://hpoenixf.com/' }
       ] },
-      { text: '博客', link: 'https://hpoenixf.com/' }
+      { text: '可运行源码', link: 'https://github.com/hpoenixf/open-etf-agent' }
     ],
-    sidebar: {
-      '/articles/': readingSidebar,
-      '/': [
-        { text: '开始阅读', items: [
-          { text: '十五分钟入门 Agent · 从这里开始', link: '/articles/agent-in-15-minutes' },
-          { text: '六层系统全景 · 进阶', link: '/articles/017-prompt-to-answer-six-layer-panorama-v3' },
-          { text: '架构原则与方法', link: '/principles' },
-          { text: '模块维度', link: '/modules' },
-          { text: '架构与系统思考', link: '/thinking' },
-          { text: '研发工程实践', link: '/engineering' },
-          { text: '金融专题', link: '/fintech' },
-        { text: '全景系列 · 标签', link: '/panorama' },
-          { text: '金融研究清单', link: '/financial-research-backlog' },
-          { text: '完整目录', link: '/catalog' },
-          { text: '架构导读', link: '/architecture' },
-          { text: '架构图册', link: '/gallery' },
-          { text: '写作预告', link: '/roadmap' },
-          { text: '术语速查', link: '/glossary' }
-        ]}
-      ]
-    },
     outline: { level: [2, 3], label: '本页目录' },
     lastUpdated: { text: '最近修订' },
     docFooter: { prev: '上一篇', next: '下一篇' },
@@ -289,3 +248,4 @@ export default defineConfig({
     }
   }
 })
+

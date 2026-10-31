@@ -1,6 +1,7 @@
 ---
 layout: home
-title: ETF Agent · Engineering Notes
+title: "AI Agent Development: Tutorials, Architecture and Finance"
+description: "Learn AI agents through a 15-minute introduction, module guides, system deep dives and financial research, with runnable examples and explicit evidence limits."
 hero:
   name: ETF Agent · Notes
   text: Understanding agents through real engineering.
