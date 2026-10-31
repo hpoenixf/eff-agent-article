@@ -32,24 +32,6 @@ features:
     linkText: Explore engineering
 ---
 
-**By hpoenixf: 10 years of software development experience, including 5 years building financial business systems.** A frontend-leaning full-stack developer focused on Agent engineering, connecting system design with runnable implementations and verification evidence. [About the author (Chinese)](https://hpoenixf.com/about)
-
-<OpenEtfTopicEntry />
-
 <ContinueReading />
-
-<FlagshipEntry compact />
-
-> **Panorama Series Tag** · [Browse system, finance, architecture, observability, evaluation, citation, Subagent and long-research panoramas](/en/panorama) before choosing a deeper mechanism article.
-
-> **Financial systems overview** · [Financial Agents in Context: Systems, Lifecycles, and Accountability](/en/articles/financial-agent-system-panorama). Three diagrams connect user services, institutional systems, research and business lifecycles, and traceable responsibility.
-
-> **Engineering practice** · [When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together](/en/articles/docs-code-tests-evolve-together): an Excel-export teaching example connects requirement changes, retained protections, and the file users actually receive. [中文](/articles/docs-code-tests-evolve-together)
-
-> **Principles in everyday development** · Four revised essays use distinct teaching examples: [reports and complexity](/en/articles/code-cheaper-systems-harder-to-evolve), [image recognition and optimization gains](/en/articles/local-improvement-is-not-system-progress), [tickets and stable commitments](/en/articles/agent-differentiated-evolution-contracts), and [avatars and test evolution](/en/articles/test-lifecycle-refactoring-retirement-and-spec).
-
-<HomeOverview />
-
-<OpenSourceBridge />
 
 <RecentArticles />

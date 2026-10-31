@@ -125,7 +125,9 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
   runInNewContext(source, context)
   const flatten = items => items.flatMap(item => item.items ? flatten(item.items) : [item.link])
   for (const [locale, theme] of [['', context.config.themeConfig], ['en/', context.config.locales.en.themeConfig]]) {
-    assert.equal(theme.nav.length, 0, 'No duplicate top navigation list')
+    assert.equal(theme.nav.length, 1, 'Only the independent About tab is added; article directory stays singular')
+    assert.equal(theme.nav[0].text, 'About')
+    assert.equal(theme.nav[0].link, '/about')
     assert.equal(theme.sidebar[0].link, '/' + locale + 'catalog')
     assert.equal(theme.sidebar.at(-1).link, 'https://github.com/hpoenixf/open-etf-agent')
     const beforeProjection = JSON.stringify(theme.sidebar)

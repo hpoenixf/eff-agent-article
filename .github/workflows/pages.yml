@@ -75,10 +75,15 @@ jobs:
           }
           for (const route of ['index', 'en/index']) {
             const html = readFileSync(`.vitepress/dist/${route}.html`, 'utf8')
-            assert.ok(html.includes('oet-entry'))
-            assert.ok(html.includes('/eff-agent-article/en/open-etf-agent'))
-            assert.ok(html.includes('/eff-agent-article/open-etf-agent?lang=zh'))
+            assert.ok(!html.includes('class="oet-entry"'))
+            const prefix = route.startsWith('en/') ? '/en' : ''
+            assert.ok(html.includes('href="/eff-agent-article' + prefix + '/open-etf-agent"'))
+            assert.ok(html.includes('href="/eff-agent-article/about"'))
           }
+          const about = readFileSync('.vitepress/dist/about.html', 'utf8')
+          assert.ok(about.includes('10 年开发经验'))
+          assert.ok(about.includes('10 years of software development experience'))
+          assert.ok(about.includes('/eff-agent-article/images/wechat-public-account.jpg'))
           NODE
       - name: Include portable visual collection
         run: |
@@ -116,4 +121,5 @@ jobs:
       - name: Deploy legacy redirects (no article bodies)
         id: deployment
         uses: actions/deploy-pages@v4
+
 
