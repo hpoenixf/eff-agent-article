@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { useData, useRoute, withBase } from 'vitepress'
+import { collections } from '../../book.mjs'
+import { englishCollections } from '../../book.en.mjs'
+import { groupTopCategories } from './reading-directory.mjs'
 
 type Entry = { text: string; link?: string; items?: Entry[] }
 const props = defineProps<{ items?: Entry[]; nested?: boolean }>()
 const { theme, lang } = useData()
 const route = useRoute()
-const entries = computed(() => props.items ?? (Array.isArray(theme.value.sidebar) ? theme.value.sidebar : []))
+const entries = computed(() => {
+  if (props.items) return props.items
+  const sidebar = Array.isArray(theme.value.sidebar) ? theme.value.sidebar : []
+  const en = lang.value.startsWith('en')
+  return groupTopCategories(sidebar, (en ? englishCollections : collections).map(c => c.title), en ? 'Article categories' : '文章分类')
+})
 const closeScreen = inject<() => void>('close-screen', () => {})
 function choose(event: MouseEvent) {
   closeScreen()
