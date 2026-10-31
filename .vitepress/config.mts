@@ -47,7 +47,7 @@ export default defineConfig({
         nav: [
           { text: 'Start Here', link: '/en/articles/agent-in-15-minutes' },
           { text: 'Principles', link: '/en/principles' },
-          { text: 'Gallery', link: '/en/gallery' },
+          { text: 'Panorama topics', link: '/en/panorama' },
           { text: 'Open ETF Agent', link: '/en/open-etf-agent' },
           { text: 'Runnable code ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
           { text: 'Topics', items: [
@@ -213,7 +213,7 @@ export default defineConfig({
     nav: [
       { text: '入门 Agent', link: '/articles/agent-in-15-minutes' },
       { text: '架构原则', link: '/principles' },
-      { text: '架构图册', link: '/gallery' },
+      { text: '全景专题', link: '/panorama' },
       { text: '开源专题', link: '/en/open-etf-agent' },
       { text: '可运行源码 ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
       { text: '文章分类', items: [
