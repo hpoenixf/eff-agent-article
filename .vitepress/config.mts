@@ -46,10 +46,14 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Start Here', link: '/en/articles/agent-in-15-minutes' },
-          { text: 'Principles', link: '/en/principles' },
+          { text: 'Article tags', items: [
+            { text: 'Finance', link: '/en/fintech' },
+            { text: 'Open source', link: '/en/open-etf-agent' },
+            { text: 'Panorama', link: '/en/panorama' }
+          ] },
           { text: 'Panorama topics', link: '/en/panorama' },
           { text: 'Open ETF Agent', link: '/en/open-etf-agent' },
-          { text: 'Runnable code ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
+          { text: 'Runnable code', link: 'https://github.com/hpoenixf/open-etf-agent' },
           { text: 'Topics', items: [
             { text: 'Modules', link: '/en/modules' },
             { text: 'Architecture', link: '/en/thinking' },
@@ -212,10 +216,14 @@ export default defineConfig({
     siteTitle: 'ETF Agent / Notes',
     nav: [
       { text: '入门 Agent', link: '/articles/agent-in-15-minutes' },
-      { text: '架构原则', link: '/principles' },
+      { text: '文章标签', items: [
+        { text: '金融', link: '/fintech' },
+        { text: '开源', link: '/open-etf-agent' },
+        { text: '全景', link: '/panorama' }
+      ] },
       { text: '全景专题', link: '/panorama' },
       { text: '开源专题', link: '/en/open-etf-agent' },
-      { text: '可运行源码 ↗', link: 'https://github.com/hpoenixf/open-etf-agent' },
+      { text: '可运行源码', link: 'https://github.com/hpoenixf/open-etf-agent' },
       { text: '文章分类', items: [
         { text: '模块维度', link: '/modules' },
         { text: '架构与系统思考', link: '/thinking' },
@@ -223,7 +231,7 @@ export default defineConfig({
         { text: '金融专题', link: '/fintech' },
         { text: '全景系列 · 标签', link: '/panorama' }
       ] },
-      { text: '博客 ↗', link: 'https://hpoenixf.com/' }
+      { text: '博客', link: 'https://hpoenixf.com/' }
     ],
     sidebar: {
       '/articles/': readingSidebar,
