@@ -83,6 +83,10 @@ This does not supersede text reading. A no-tables result from the structure dete
 
 That distinction changes diagnosis. Structural extraction, data delivery, model interpretation and evidential support are different checkpoints. Not every numerical failure is a Parser defect.
 
+We later compared the existing Reader with Docling using **the same public PDFs, physical pages, and manually checked headers and footnotes**. The outcome challenged the assumption that a newer parser must be better: the existing Reader preserved the examined row relationships and notes, while Docling could extract tables and values yet missed important header classifications and note associations. **Table extraction matters when it preserves the relationships needed to support a claim—not when it merely returns more tables.**
+
+Docling was therefore connected only as a **disabled-by-default, optional table supplement**. An operator must explicitly enable it in a restricted offline environment; it reads only previously authorized pages, and failure does not displace the existing Reader's result. Scoped engineering and public-document checks show that the optional path can operate, not that it improves financial answers. Scanned/OCR documents were outside this comparison. The transferable choice is to **prove which critical evidence the default path lacks before adding another parser**.
+
 Tables also introduced resource coordination. Serial operations within one Reader protect its cache and cursors, but do not limit parsing Workers started simultaneously by public PDF reads, research files and other entry points.
 
 We connected text and table parsers to a shared, process-level bounded executor that controls active Workers and queue capacity. Waiting remains subject to caller cancellation and an absolute deadline. Individual Readers continue owning their queries, caches and sources.
