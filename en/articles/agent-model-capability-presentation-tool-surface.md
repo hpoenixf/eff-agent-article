@@ -41,123 +41,27 @@ Controlled reproductions exposed mismatches between model-visible tools and exec
 
 **What began as "show the model two more tools" revealed that Skill declarations, derived capabilities, Host admission, and model-visible tool interfaces are different facts.**
 
-## 2. The First Useful Refactor: Three Static Mappings into One Tool Contract
+## 2. Consolidating Tool Definitions Was Only Half the Ownership Decision
 
-At that point, Native tool relationships were duplicated across three production locations:
+Initially, Native Tool Contract, Skill Context, and Runtime Factory each maintained parts of the model-facing tool mapping. Web search and page reading even shared a `search_public_sources` Host route: **sharing an execution route does not mean the model may see the same tools**. An exact `modelToolCeiling` was a reasonable protection for those earlier synthetic Web tools.
 
-- **research-tool-contract.ts** described model-facing tools and Host routing;
-- **research-skill-context.ts** mapped Skills to research actions;
-- **research-runtime-factory.ts** inferred tool requirements from Host Actions.
+Later, MCP Host could own discovery, Schema validation, authorization, and receipts. Rewrapping business methods such as `read_portfolio` in Runtime then created a competing interface. We returned **business-tool contracts to MCP, authorization to Run Grant/Host, and per-turn presentation to Tool Surface**. Under that new ownership, a Skill's method list no longer has authority to hide another ordinary, legitimately admitted tool in the same native MCP domain.
 
-Adding one tool required developers to coordinate all three.
+The two decisions are not contradictory: the old ceiling prevented sibling exposure on a shared route; the new arrangement retires an obsolete shadow restriction. **Decide whether a tool may be presented by tracing the authority that admitted it, not by preserving a list from an earlier abstraction.**
 
-There was also a subtle exposure problem: Web search and page reading shared the **search_public_sources** Host Action. They reused an execution route at the Host layer but were distinct capabilities from the model's perspective.
+## 3. Availability Comes from Its Original Owner, Not a Plausible Diagnostic Field
 
-A ceiling derived solely from the Host route could expose reading to a search-only Skill, or expose search to a read-only one.
+Tool visibility also changes with search quotas, source permissions, and deadlines. An October 2026 controlled regression showed that an unrelated MCP result carrying fields resembling Web budget exhaustion could incorrectly hide `market__web_search` during recovery. This was not a typing failure: **diagnostic material had been promoted into availability authority**.
 
-We extended the unified Tool Contract with semantic capability and Skill bindings. **projectSkillExposure** then derived an exact **modelToolCeiling**, allowing us to delete the two duplicate mappings.
+The current path consumes status and receipts from the original Web Gateway/Host, bound to Run, Scope, Invocation, and Connection identities. Recovery does not reconstruct permission from arbitrary MCP results. Exhausting the search quota need not prohibit reading an already authorized `sourceRef`; expiry of the overall Web window may affect both.
 
-~~~text
-Before: Tool Contract + Skill Context + Runtime Factory
-                          ↓
-               Three maintenance points
+This was corrected at the original seam, not by appointing A34 as the Web authorization owner. It is why Tool Surface projects existing decisions instead of keeping another budget and availability cache.
 
-After: Unified Tool Contract
-                ↓
-       Exact Skill tool ceiling
-                ↓
-      Host / Capability narrow independently
-~~~
+## 4. Validate the Final Tool Surface Against an Independent Admission Baseline
 
-Focused tests grew from **101 to 108 passing tests**. An independent RED confirmed that the exact ceiling really enforced the intended restriction.
+Even when MCP Schemas, Run Grant, and Skill discovery are correct, a request still passes through Hooks, context fitting, evidence assembly, and asynchronous preparation. Controlled request-seam regressions in October 2026 generated **13 cases the old path failed to block**, including additions, removals, reordering, and Schema changes. Those were scoped tests, not 13 production incidents.
 
-This design was appropriate for the problems of its time: duplicate static mappings and unintended sibling exposure through a shared route.
-
-But another question remained: **after moving three definitions into one, did that remaining definition belong to the right Owner?**
-
-## 3. The Second Correction: Three Owners into One Was Not the Final Answer
-
-In late September, we started retiring synthetic MCP Tools defined inside the Runtime.
-
-Historically, to unify the Native Research protocol, Runtime rewrapped MCP business capabilities. Portfolio MCP might already expose a specific read-only holding lookup, yet Native Research would offer a generic **read_portfolio** method and map it back to MCP:
-
-~~~text
-MCP registers business tool
-          ↓
-Runtime redefines business Tool
-          ↓
-Model invokes Runtime Tool
-          ↓
-Runtime interprets and maps it
-          ↓
-Host calls original MCP Tool
-~~~
-
-The duplication had a legitimate history. Native Tool Loop and MCP transport evolved separately, and Runtime needed a common protocol for execution, permission, and recovery.
-
-But once MCP Host handled real discovery, schema validation, read-only admission, and receipts, a second business schema created maintenance risk: names, argument schemas, meaning, and mapping could drift apart.
-
-Our next contract became:
-
-**MCP owns business-tool interfaces. Tool Surface projects which tools the model may see in this turn. Runtime owns lifecycle, budget, execution, and recovery facts.**
-
-This changed how we interpreted the previous **modelToolCeiling**.
-
-For synthetic Web tools, an exact Skill ceiling had prevented unintended sibling exposure on a shared route. For a native MCP research domain, however, a Skill mentioning one approved market method should not necessarily hide another ordinary, legitimately admitted method in the same domain.
-
-The present contract therefore distinguishes authority from description:
-
-- Original **Run Grant**, Host, source, and stage-resource facts determine admission.
-- Skills describe methods, activation, and resources; their method lists do not independently revoke approved ordinary canonical MCP siblings.
-- Tool Surface **presents** decisions made by those original authorities.
-
-This is the more important correction. **An old constraint can lose its former authority when its abstraction layer and Owner change.**
-
-Architecture evolution cannot just preserve every historical limitation and then add compatibility layers. Rules tied to responsibilities that no longer exist must also retire.
-
-## 4. Another Trap: Why Did Typed Diagnostics Still Hide Web Tools?
-
-Tool visibility is affected by dynamic availability as well as static registration.
-
-Web search/read availability used to be reconstructed from **disabledTools** at several call sites. We later moved search quotas and expiration into typed Owner facts and projected them through the Effective Contract.
-
-That was better than scattered string checks but still left a risk. Further validation on **October 21, 2026** found Live and Recovery paths that reinterpreted diagnostic fields. A tool result **unrelated to Web** could contain fields resembling search-budget exhaustion, Web expiry, or provider attempts and thereby incorrectly hide **market__web_search** during Recovery.
-
-Controlled RED cases at three production assembly seams reproduced this. The model did not misunderstand a tool; the system incorrectly promoted diagnostic payloads into availability authority.
-
-The fix consumes negative facts from the original Web Gateway/Host, bound to the relevant **Run, Scope, Invocation, and Connection** identities. Recovery restores sealed trusted receipts rather than parsing arbitrary MCP results to rediscover Web state.
-
-The distinction between failure branches matters:
-
-- Exhausting the **search** budget need not prevent browsing a previously authorized **sourceRef**.
-- Expiration of the **runtime window** may constrain both search and browsing.
-- The Gateway still enforces invocation constraints independently.
-
-**A typed field is not automatically an authoritative field. Who produced it and under which identity it is consumed matter more than its type.**
-
-A34 did not personally fix this unrelated bug. The incident explains why we refused to introduce another cache of permissions, budgets, or availability facts in A34.
-
-## 5. If Admission Is Correct, Is the Final Model Request Correct?
-
-Suppose MCP owns schemas, Run Grant is correct, Skills no longer act as an extra whitelist, and Web availability is based on original Host facts.
-
-The Research request still passes through context fitting, Hooks, evidence assembly, current Publication context, asynchronous preparation, and request sealing before reaching the Provider.
-
-A legitimate early tool list can be silently changed along the way.
-
-During our October 21 review, **native-tool-surface.ts** already implemented a stably ordered projection and **assertNativeToolSurfaceParity**. But the actual request path depended on optional callbacks. In particular, the no-Hook path lacked an unconditional final parity guarantee.
-
-Two facts should not be conflated. **At review time we had not identified a real production incident where a model tool was unexpectedly removed.** This was first a contract and ownership gap. Rather than immediately invent another Manager, we built counterexamples against the real request adapter.
-
-The first controlled RED injected tool additions, deletions, renaming, reordering, description changes, and Schema changes immediately before dispatch. In **13 cases** that should have blocked mismatches, the old path still reached simulated Gateway dispatch.
-
-Those are **13 reproducible test failures**, not 13 production incidents.
-
-## 6. Why a Single Last-Minute Comparison Is Insufficient
-
-The intuitive solution is to compare the expected tool list with **request.tools** just before dispatch.
-
-The hard question is not *how* to compare; it is **where the expected list comes from**.
+Comparing the final **request.tools** with expected descriptors is necessary. The harder question is **where the expected baseline comes from**: it must be independent of the request being checked and grounded in the original admission facts.
 
 ### A request seal cannot authorize its own contents
 
@@ -196,7 +100,7 @@ The comparison operates on the logical tool surface **before Provider wire seria
 
 This resembles the engineering structure of a **time-of-check/time-of-use (TOCTOU)** problem, but our evidence concerns later projection and shared mutable objects. It should not be described as a proven production concurrency attack.
 
-## 7. If Rejection Succeeds, Why Can the Run Still Fail?
+## 5. Rejecting a Mismatch Must Also Settle the Request
 
 The first A34 implementation had another regression.
 
@@ -220,7 +124,7 @@ A34 also does not delete independently valid publishable text merely because one
 
 **A new safety guard that rejects correctly but fails to settle the lifecycle effects of its own rejection can still break the system.**
 
-## 8. Why We Chose a Logical Owner Instead of a Capability Manager
+## 6. Why We Need Only a Logical Tool Surface Owner
 
 It would have been tempting to create a unified Capability Manager responsible for registration, authorization, availability, Skills, budgets, and the final tool list.
 
@@ -254,27 +158,9 @@ Both scripted model calls see only `read_page`; the root counters end at two mod
 This covers restricted Child tool presentation and shared counters, not the complete A34 dynamic-capability design or a real model's ability to choose the right tool.
 <!-- /open-etf-case -->
 
-## 9. Handling Outdated Tests
+## 7. Conclusion: Preserve Final Visibility Without a Capability Manager
 
-The implementation did not end with one effortless green run.
-
-Broader regression testing exposed outdated assertions. They contradicted the accepted contract on historical Skill ceilings, current guidance, and legitimate Deep controls.
-
-We did not restore obsolete business rules just to make tests pass. We compared each failing assertion against the current accepted contract, preserved the underlying negative safeguards, and corrected outdated expectations.
-
-Targeted checks established consistency and local rejection behavior in the tested request paths—not the model's research quality.
-
-Even when the model sees exactly the correct tools, it can still choose the wrong method or fail the research task. That is a different layer of performance and must not borrow confidence from A34's GREEN tests.
-
-## 10. The Lesson Was Not "Add Another Validator"
-
-We started by assuming that a registered MCP tool mentioned by a Skill was usable. In reality, the Native/Host seam missed a capability.
-
-We unified definitions and introduced an exact Skill ceiling. Then we discovered that one remaining definition can still live with the wrong Owner.
-
-We removed shadow business Tools from Runtime and returned business capability interfaces to MCP. That required us to retire the former whitelist semantics where they no longer applied to native MCP domains.
-
-Dynamic availability taught us that typed diagnostics cannot appoint themselves as authority. Controlled pre-dispatch REDs then showed that neither early legality nor final request sealing alone proves final legality.
+The former Tool Contract, Skill ceiling, and Web diagnostics each addressed a real issue. But as ownership changed, outdated tests had to be checked against the accepted contract rather than reinstating obsolete whitelists. The essential invariant is that **later projections cannot rewrite the original admission baseline, and a final request cannot authorize itself**.
 
 A34's answer was **not** a larger Capability Manager. It was an independently preserved admission baseline, unconditional final tool-surface parity, and lifecycle-correct settlement of local rejection by the original execution Owner.
 
@@ -288,7 +174,7 @@ They can be correlated; none can impersonate the others.
 
 **Some architecture upgrades add a necessary constraint. Others refuse to add an unnecessary Owner. A34 illustrates both.**
 
-A34 applies [principle 3, “Complexity belongs with its rightful owner”](/en/principles#principle-3): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
+A34 applies [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
 
 ---
 
