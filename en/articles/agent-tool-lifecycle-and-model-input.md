@@ -38,6 +38,12 @@ One entry point does **not** mean all business logic belongs in one module. It c
 
 Tools also cannot be correlated by name alone: the same tool may run concurrently more than once. We need run and action identities, the model-call ID, and separate links to requests that later consume the result. **The producing turn and the consuming turn are different concepts.**
 
+### Identity assembly can fail before tool dispatch
+
+A streaming repair in the public teaching implementation occurs before this execution chain. A response index already had a nonempty tool ID, but a later `id: null` fragment was rejected as an invalid new identity. The repair preserves that established ID only for this continuation. Initial null, null on a new index, conflicting strings, and invalid types remain rejected; complete arguments still pass final validation and Host authorization.
+
+Provider fragments, SDK-aggregated proposals, actual Host dispatch, and results in the next model request are distinct stages. Without a dispatch receipt, assembly failure must not be described as tool-execution failure, and a replacement call ID must not be invented. This case concerns open-etf-agent and does not retrospectively explain other runtimes. See [How a null Broke an Agent Tool Call](agent-stream-tool-call-null-continuation.md).
+
 ## 2. Hooks Track Changes, Not Just Start and End
 
 ### Before a Call: Original Intent Versus Effective Arguments

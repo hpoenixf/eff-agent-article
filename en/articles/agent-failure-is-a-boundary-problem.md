@@ -47,6 +47,14 @@ flowchart LR
 
 This sketches possible stages. Only shared Run identities and actual receipts establish connections; neighboring timestamps alone do not.
 
+## Missing classification does not make a failure minor
+
+During the long-run investigation recorded on October 30–31, 2026, three runs contained internal request-stage failures and unconfirmed terminal settlement, but lacked identifiable failure codes and locations. Identical generic messages do not establish a shared root cause. Co-occurrence of settlement and request-stage errors does not establish their causal direction.
+
+The continuation supervisor had required `failureCode` before requesting a review of an internal failure, so it missed these unclassified cases. Its revised detection recognizes unclassified internal failure and terminal-settlement failure, reads back the current batch, then pauses the next batch for review. It does not clear the original failures, reset admission, or rewrite saved text.
+
+This repairs supervisory detection, not the underlying Runtime causes. The next investigation needs bounded exception-type and code-location evidence from the original path, not blanket retries. The independent protocol-observation issue is covered in [The Trace Says Complete](agent-trace-complete-observation-gaps.md).
+
 ## 2. First Improvement: Last Confirmed Blocker, Not Imagined Root Cause
 
 We considered fields like **rootCause** or **primaryFailure** and rejected them.
