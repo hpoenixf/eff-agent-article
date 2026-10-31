@@ -165,3 +165,55 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
   assert.ok(!text('.vitepress/theme/index.ts').includes('h(PrinciplesLink'))
   assert.ok(!/href: ['"]\/(?:en\/)?roadmap['"]/.test(text('.vitepress/theme/HomeOverview.vue')))
 })
+
+test('homepage visual layer is scoped, responsive and preserves accessible controls', () => {
+  const css = text('.vitepress/theme/home-layout.css')
+  const compiled = compileStyle({ source: css, filename: 'home-layout.css', id: 'home-layout', scoped: false })
+  assert.deepEqual(compiled.errors, [])
+  assert.ok(text('.vitepress/theme/index.ts').indexOf("import './home-layout.css'") > text('.vitepress/theme/index.ts').indexOf("import './custom.css'"))
+  for (const rule of compiled.code.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (rule[1].trim().startsWith('@')) continue
+    assert.ok(rule[1].trim().split(',').every(selector => selector.trim().startsWith('.VPHome')), rule[1])
+  }
+  assert.match(css, /max-width: 1040px/)
+  assert.match(css, /max-width: 760px/)
+  assert.match(css, /@media \(max-width: 767px\)/)
+  assert.match(css, /font-size: 32px/)
+  assert.match(css, /min-height: 48px/)
+  assert.match(css, /min-height: 44px/)
+  assert.match(css, /focus-visible/)
+  assert.match(css, /outline: 2px solid/)
+  assert.ok(!/display:\s*none|visibility:\s*hidden/.test(css), 'Styling must not hide navigation, content or controls')
+  assert.ok(!/position:\s*(fixed|absolute)/.test(css), 'No floating decorative overlays')
+})
+
+test('homepage menu colors and focus outrank the component scoped styles', () => {
+  const { descriptor } = parse(text('.vitepress/theme/HomeReadingMenu.vue'))
+  const old = compileStyle({ source: descriptor.styles[0].content, id: 'data-v-menu', scoped: true }).code
+  const css = text('.vitepress/theme/home-layout.css')
+  // Attribute selectors added by Vue must count: the old focus has three class-level selectors.
+  assert.match(old, /\.home-reading-actions a\[data-v-menu\]:focus-visible/)
+  for (const selector of [
+    '.VPHome .VPHero .home-reading-actions a:focus-visible',
+    '.VPHome .VPHero .home-reading-menu summary:focus-visible',
+    '.VPHome .VPHero .home-reading-menu small',
+    '.VPHome .VPHero .home-reading-menu__links a',
+    '.VPHome .vp-doc .recent-heading h2'
+  ]) assert.ok(css.includes(selector), selector)
+  assert.ok(!css.includes('#d9efbd') && !css.includes('#c8dbd0'), 'No light-on-light menu colors')
+})
+
+test('desktop About stays visible while compact navigation has only one menu trigger', () => {
+  const css = text('.vitepress/theme/navigation-layout.css')
+  const compiled = compileStyle({ source: css, filename: 'navigation-layout.css', id: 'navigation-layout', scoped: false })
+  assert.deepEqual(compiled.errors, [])
+  assert.ok(text('.vitepress/theme/index.ts').includes("import './navigation-layout.css'"))
+  const desktop = css.slice(css.indexOf('@media (min-width: 960px)'), css.indexOf('@media (max-width: 959px)'))
+  const compact = css.slice(css.indexOf('@media (max-width: 959px)'))
+  assert.match(desktop, /\.VPNavBar \.VPNavBarMenu \{ display: flex !important;/)
+  assert.match(desktop, /\.VPNavBar \.VPNavBarHamburger \{ display: none !important;/)
+  assert.match(compact, /\.VPNavBar \.VPNavBarHamburger \{ display: flex !important;/)
+  assert.match(compact, /\.VPNavBar \.directory-menu \{ display: none;/)
+  assert.ok(!/\.VPNavBar(?:\.has-sidebar)?\s*\{[^}]*display:\s*none/.test(css))
+  assert.match(css, /min-width: 44px; min-height: 44px;/)
+})
