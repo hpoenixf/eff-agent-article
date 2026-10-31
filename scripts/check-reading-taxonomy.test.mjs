@@ -1,12 +1,26 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { parse, compileStyle } from 'vue/compiler-sfc'
 import { collections, mergedArticles, historicalEditions, panoramaSeriesSlugs } from '../book.mjs'
 import { englishCollections, englishArticleSlugs } from '../book.en.mjs'
 
 const collection = id => collections.find(c => c.id === id)
 const slugs = c => c.chapters.flatMap(ch => ch.items.map(([slug]) => slug))
 const text = path => readFileSync(new URL('../' + path, import.meta.url), 'utf8')
+
+test('compiled directory CSS hides only the duplicate control, never its navigation bar', () => {
+  const { descriptor } = parse(text('.vitepress/theme/DirectoryMenu.vue'))
+  const css = descriptor.styles.map(style => {
+    const result = compileStyle({ source: style.content, id: 'data-v-directory-test', scoped: style.scoped })
+    assert.deepEqual(result.errors, [])
+    return result.code
+  }).join('\n')
+  assert.match(css, /\.VPNavBar\.has-sidebar\s+\.directory-menu\s*\{\s*display:\s*none/)
+  assert.doesNotMatch(css, /\.VPNavBar(?:\.has-sidebar)?\s*\{[^}]*display:\s*none/)
+  assert.match(css, /@media\s*\(min-width:\s*960px\)/)
+  assert.match(css, /@media\s*\(max-width:\s*767px\)/)
+})
 
 test('six module reading keys preserve the canonical identities and bilingual order', () => {
   const modules = collection('modules')

@@ -23,5 +23,5 @@ onBeforeUnmount(() => { document.removeEventListener('pointerdown', outside); do
 .directory-menu > summary { cursor: pointer; padding: 12px 4px; font-size: 14px; font-weight: 600; }
 .directory-menu-panel { position: absolute; top: 100%; right: 0; width: min(390px, 90vw); max-height: 75vh; overflow: auto; padding: 12px 20px; border: 1px solid var(--vp-c-divider); border-radius: 10px; background: var(--vp-c-bg); box-shadow: var(--vp-shadow-3); }
 @media (max-width: 767px) { .directory-menu { display: none; } }
-@media (min-width: 960px) { :global(.VPNavBar.has-sidebar) .directory-menu { display: none; } }
+@media (min-width: 960px) { :global(.VPNavBar.has-sidebar .directory-menu) { display: none; } }
 </style>
