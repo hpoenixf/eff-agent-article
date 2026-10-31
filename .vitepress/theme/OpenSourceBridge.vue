@@ -14,10 +14,9 @@ const examples: Record<string, string> = {
   'agent-model-runtime-mcp-skill-boundaries': 'src/runtime.mjs',
   'open-etf-agent-v01-first-readable-report': 'src/cli.mjs'
 }
-const landing = new Set(['index', 'modules', 'thinking', 'architecture', 'engineering', 'fintech', 'principles'])
 const current = computed(() => page.value.relativePath.replace(/\.md$/, '').replace(/^en\//, ''))
 const example = computed(() => examples[current.value.replace(/^articles\//, '')])
-const visible = computed(() => landing.has(current.value) || Boolean(example.value))
+const visible = computed(() => current.value.startsWith('articles/') && Boolean(example.value))
 const english = computed(() => lang.value.startsWith('en'))
 </script>
 
