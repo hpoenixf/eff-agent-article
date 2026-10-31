@@ -19,6 +19,8 @@ Implementation raises more specific questions. What belongs in the system prompt
 
 We use a teaching task: compare funds A and B on fees and holdings overlap, incorporate uploaded personal holdings, and produce a source-backed report without rebalancing. During research, the user uploads new holdings and explicitly asks that future fund-research reports not default to short answers. The scenario, input aliases and code examples are educational—not production API contracts or one actual execution trace. The engineering material comes from ETF Agent's implementations and articles; this essay is not a claim that its public teaching repository implements every capability discussed.
 
+This is not a checklist of mechanisms every request must activate. Defining a fund fee may need only a direct answer. Comparing particular funds calls for applicable fee terms, disclosures and correctly scoped calculations. Durable state, compaction and subagents become candidates only when multi-turn corrections, large inputs or actual recovery needs justify them. **Start with the smallest path that completes the task, then let observed failures justify extra mechanisms.**
+
 ## 1. Preserve the task before choosing the first input
 
 ![Assemble the first request. Logical sections, not one system message. Inspect the submitted request, too.](../../visuals/en/agent-context-governance-actions/01-first-request.svg)
@@ -351,6 +353,10 @@ Recovery is not merely a summary followed by “continue.” It reads the origin
 
 These methods change what the model carries now. They must not reinvent the user's goal, original evidence or actual operations.
 
+### Delegation, compaction and readback start as options
+
+For a two-fund fee and holdings comparison, the default is **Main plus essential tools**. If a short original passage already answers the question, moving it out and fetching it again adds little value. Consider subagents when independent material creates context interference or comparable parallel execution produces benefits. They add model calls, handoffs, result identities and failure paths. Compaction must account for summarization, later reads and recovery costs, not merely a lower token count in one invocation.
+
 ## 8. Check one task end to end, not just a checkbox for every module
 
 ![Keep the task intact across handoffs. Smaller views must retain key relationships. Check inputs, effects and delivered results.](../../visuals/en/agent-context-governance-actions/09-handoff-and-check.svg)
@@ -375,6 +381,12 @@ These checks have different natures. Input identity, scope, versions and operati
 Observation need not duplicate every private source. Ordinary records can keep request identity, composition, versions, capacity, representation and omission reasons. Read sensitive bodies through controlled routes when needed. Preserve observation gaps rather than inferring that missing logs prove something never happened.
 
 Final delivery must answer the initial task: which personal input was used, what fee definitions apply, what portion of holdings overlap is covered, which questions remain unresolved, and whether the report can actually be obtained. Memory helps expression and continuity; system instructions stabilize judgment. Neither replaces the delivered result.
+
+### Evaluate task quality alongside the cost of each mechanism
+
+Keep user questions, fund-data versions, model settings and review criteria comparable when testing Main-only against optional readback, compaction or delegation. Examine whether the final report answers the question, computes numbers correctly, uses sound evidence, states disclosure limits and reaches the user. Measure calls, tokens, latency and failures as well. Without valid paired real-world observations, this remains an evaluation design, not evidence that multiple experts are better or cheaper.
+
+Also measure the **normal-path tax**: when an advanced mechanism never activates, do routine requests still carry its tool descriptions, state and coordination logic? Persistent cost without observable task benefit argues for consolidation, conditional activation or retirement. Authorization, source authority and prevention of duplicate side effects are mandatory safeguards, not costs to waive in a simple optimization.
 
 ## Conclusion: connect the mechanisms through one task
 
