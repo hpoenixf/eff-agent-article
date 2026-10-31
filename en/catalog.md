@@ -9,6 +9,8 @@ New to agents? Begin with [Agents in 15 Minutes](/en/articles/agent-in-15-minute
 
 This library lists the original Chinese essays in three canonical categories. Completed English translations live under `/en/articles/<slug>` and share the same slug as the original.
 
+Explore cross-category selections via [Fintech × Agent](/en/fintech) and [#Panorama Series](/en/panorama). Neither duplicates an essay or adds a fourth primary classification.
+
 **Availability:** Fully translated articles link directly to their English Markdown and localized Mermaid/table content. “Chinese original” means a full English edition has not yet been published; those links still lead to the original Chinese text.
 
 **About numbering:** Identifiers such as 001, 010, 011 and 017 preserve original publication identities; gaps reflect merged, retired or renamed drafts. They are not missing pages in the current reading order.
