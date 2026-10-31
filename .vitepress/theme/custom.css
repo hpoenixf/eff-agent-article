@@ -613,3 +613,18 @@
 .diagram-full-details > summary { padding: 12px 0; min-height: 44px; cursor: pointer; color: var(--vp-c-brand-1, #176351); font-size: 14px; }
 .diagram-full-details > summary:focus-visible { outline: 3px solid var(--vp-c-brand-1, #176351); outline-offset: 2px; }
 @media (max-width: 640px) { .diagram-relations-grid { grid-template-columns: 1fr; } }
+
+/* Cross-category #Panorama Series: existing article IDs, new discovery only. */
+.panorama-series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 16px; margin: 24px 0 30px; }
+.panorama-series-card { min-width: 0; padding: 22px; border: 1px solid var(--vp-c-divider); border-radius: 15px; background: var(--vp-c-bg-soft); }
+.vp-doc .panorama-series-card h2 { margin: 8px 0 10px; padding: 0; border: 0; font-size: 1.16rem; line-height: 1.55; }
+.vp-doc .panorama-series-card h2 a { color: var(--vp-c-text-1); text-decoration: none; }
+.vp-doc .panorama-series-card h2 a:hover { color: var(--vp-c-brand-1); }
+.vp-doc .panorama-series-card p { margin: 0 0 16px; font-size: .9rem; line-height: 1.75; }
+.panorama-series-card__category { color: var(--vp-c-brand-1); font-size: .72rem !important; font-weight: 750; letter-spacing: .08em; }
+.panorama-series-card__read { display: inline-flex; min-height: 44px; align-items: center; font-size: .85rem; font-weight: 650; }
+.article-topic-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin: 4px 0 18px; font-size: .75rem; }
+.article-topic-tags > span { color: var(--vp-c-text-2); letter-spacing: .08em; font-weight: 650; }
+.article-topic-tags > a { display: inline-flex; min-height: 36px; align-items: center; padding: 5px 12px; border: 1px solid var(--vp-c-brand-2); border-radius: 18px; color: var(--vp-c-brand-1); background: var(--vp-c-bg-soft); font-weight: 700; text-decoration: none; }
+.article-topic-tags > a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-bg); }
+.article-topic-tags a:focus-visible, .panorama-series-card a:focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: 2px; }
