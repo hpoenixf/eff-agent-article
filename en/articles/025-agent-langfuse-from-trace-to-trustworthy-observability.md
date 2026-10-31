@@ -76,56 +76,23 @@ Matching by the string name of a tool or approximate timestamp is unsafe. The sa
 
 This narrows "the model found the data but gave no answer" into inspectable stages. Unfortunately, it introduces another practical issue: complex prompts and tool outputs may be enormous.
 
-## 5. Trustworthy Observation Must Record Absence, Too
+## 5. Missing Data Is an Observation Fact, Not Empty Space
 
-We impose byte limits on captured model bodies to control storage and sensitive-data exposure. Large Web/PDF/tool inputs make those limits necessary.
+Agent model inputs may contain long Web pages, PDFs, and tool results, so captured bodies need storage and privacy limits. An October 2026 controlled review found that the **256 KiB (262,144-byte)** boundary admitted exactly that size but rejected one additional byte. When both sides were oversized, the read projection could even omit an entire model turn.
 
-An October 2026 review identified an unexpected consequence at the application-side **256 KiB capture boundary**. A serialized body of exactly **262,144 bytes** could be retained; just one additional byte caused rejection. When a body was oversized, the read projection could contain only **null**. If both input and output were absent, a rendered model-turn list could omit the entire turn even though query pagination showed the correct count.
+Increasing the limit merely postpones the next overflow. We kept the limit and recorded bounded metadata: **the original invocation identity, the input or output side, and a known reason for omission**. Readback surfaces an explicit gap. A valid JSON `null` is observed data; a field never captured is unknown. Old records lacking omission receipts cannot be retroactively assigned a cause.
 
-Raising the limit would merely postpone the next threshold failure while retaining more content than our resource and privacy policy intended.
+### Complete query results do not prove complete capture
 
-Our solution was to **bound the body while preserving bounded metadata explaining its absence**. When the collector rejects one side for size, it still records the precise invocation identity, input/output side, known cause, and limited metadata. Readers project that into an explicit missing-body record instead of making the call disappear.
+Long-run readback on October 30–31, 2026 showed that completed query pagination can coexist with missing model bodies and tool-protocol events. One Trace lacked a publication event while the original Publication history returned committed text. Use the original Run identity to check the owner of that durable fact; do not rerun the model, fabricate telemetry, or infer non-publication from an empty Trace.
 
-We also distinguished a valid JSON **null** from an **unrecorded field**. The former is observed data; the latter is an observational gap. They must not share the same missing-value predicate.
+New protocol-gap receipts distinguish provider/SDK fragments from other events without increasing the event budget or turning legacy unknowns into zero. The sample denominators, event counts, and stage-specific investigation belong in [The Trace Says Complete](agent-trace-complete-observation-gaps.md). This panorama keeps the collection contract in view.
 
-This change made gaps visible under the existing capture limit. We have **no long-term comparative capture-rate result**, so it cannot be reported as a measured percentage improvement. Old records without missing-body receipts retain **unknown** causes; the new mechanism cannot retroactively explain them.
+### Usage and time also require original identities
 
-### A complete query is not complete capture
+One physical model Attempt can appear in SDK usage, a Run summary, and a Trace. Meter by the **original Gateway physical Attempt and request-debit receipt**: summaries and replay are not new Generations. An explicit zero is zero; missing usage is unknown, and conflicting cost reports for one attempt cannot be settled by keeping the last value. Configured pricing produces an **estimate**, not an invoice. [Langfuse Token and Cost Tracking](https://langfuse.com/docs/observability/features/token-and-cost-tracking) similarly distinguishes observed usage from pricing-derived values.
 
-Readback of long research runs recorded on October 30–31, 2026 sharpened this distinction. All queries for the first 59 ended runs were labeled `complete`, yet 17 model-turn outputs were missing and 41 runs contained tool-protocol gaps. Query pagination, model-content capture, and protocol-stage coverage need separate descriptions.
-
-One trace lacked an answer-publication event, while the original publication history returned saved text. This was an authorized readback using the original Run identity, not a reconstructed event. Missing telemetry cannot invalidate durable facts, nor justify replaying actions to improve a trace.
-
-New protocol-gap receipts distinguish omitted provider/SDK fragments from other events without increasing existing limits. “Other” is not equivalent to execution-only events, and legacy categories remain unknown rather than zero. The detailed event-budget case is covered in [The Trace Says Complete](agent-trace-complete-observation-gaps.md); the original article remains focused on the observability system as a whole.
-
-### Model usage and cost: Trace rows are not physical calls
-
-Another problem arose when one physical Provider attempt appeared in Gateway SDK usage, a Run-level summary, and a Trace re-exported during recovery. Summing the display rows would count one charged request multiple times.
-
-The October 21, 2026 resource-observability consolidation tied metering to the **original Gateway physical Attempt identity and original request-debit receipt**. Main, Child, and retry attempts each retain real physical identities. A Run summary reports the overall investigation; it is **not** another billable Generation. Replaying persisted facts reuses stable identities rather than minting more consumption.
-
-Missing values are again critical:
-
-- If the SDK explicitly returns **zero**, record zero.
-- If tokens were **not returned**, usage is unknown, not zero.
-- If duplicate records for one Attempt disagree on cost, withdraw certainty for that cost rather than accepting the latest number and adding it to totals.
-- Calculating known usage from configured unit prices yields an **estimate**, not the Provider's actual invoice.
-
-[Langfuse's Token and Cost Tracking documentation](https://langfuse.com/docs/observability/features/token-and-cost-tracking) distinguishes imported usage/cost from pricing-derived values. Our application adds a prerequisite: identify the Generations corresponding to real physical requests and establish coverage before making cross-Run totals.
-
-A controlled **Factory → Gateway → synthetic HTTP → OTEL Exporter → Langfuse readback** chain checked original Attempt identities and usage projection for successful and failed research. It also showed that turning sampling off or failing export did not change how many model requests were actually dispatched.
-
-That establishes scoped telemetry non-interference and metering consistency. It is not a reconciliation of real Provider invoices or long-term production cost.
-
-### Timing needs its own clock and provenance
-
-We also distinguished **observing a new commit in this process** from **when a body was originally persisted**.
-
-A **commit-observed** timestamp is recorded only when the original publication receipt confirms a new commit during the present observation. Recovery replay, absent fields, or sight of an old body must not reissue a first-commit timestamp.
-
-Durations from one monotonic clock domain are comparable. Monotonic timestamps spanning process restarts cannot simply be subtracted. A server-observed commit time also cannot be presented as browser first-paint latency.
-
-These distinctions deliberately remove some precise-looking but unsupported performance numbers.
+A controlled Factory → Gateway → synthetic HTTP → OTEL → Langfuse path checked selected attempt identities, usage projection, and that sampling or export failure did not change dispatch count; it was not Provider invoice reconciliation. Time has the same provenance requirement: only an original publication receipt confirming a new commit in this process can create `commit-observed`. Monotonic timestamps across processes cannot simply be subtracted, and server commit observation is not browser first paint. **A trustworthy Trace first tells us what was captured, what is missing, and what is only an observation.**
 
 ## 6. An Auxiliary UI Became a Data System That Needed Governance
 
