@@ -141,7 +141,9 @@ export const collections = [
           ["agent-in-15-minutes", "十五分钟入门 Agent"],
           ["agent-ten-modules", "Agent 进阶：读懂 Open ETF Agent 的十个核心模块"],
           ["open-etf-agent-v010-system-design", "Agent 深入：从一份报告到持续执行与专家协作"],
-          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"]
+          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
+          ["agent-context-governance-principles", "Agent 上下文治理全景·原则篇：让每一步判断围绕目标展开"],
+          ["agent-context-governance-actions", "Agent 上下文治理全景·行动篇：从首轮输入到长期记忆，怎样真正落地"]
         ]
       },
       {
@@ -211,6 +213,8 @@ export const panoramaSeriesSlugs = Object.freeze([
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
   'one-report-nine-architecture-judgments',
+  'agent-context-governance-principles',
+  'agent-context-governance-actions',
   '025-agent-langfuse-from-trace-to-trustworthy-observability',
   'honest-agent-evaluation',
   'ai-citations-do-not-prove-reliability',
