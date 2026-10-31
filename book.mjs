@@ -39,7 +39,7 @@ export const collections = [
         "items": [
           ["022-agent-entry-from-intent-to-direct-research", "Entry：为什么入口越来越简单"],
           ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
-          ["agent-subagent-context-specialization", "Subagent：从隔离到专业化协作"],
+          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-provider-architecture-and-admission", "Provider：统一接口之后，为什么还需要共享准入"],
           ["agent-provider-admission-capacity-lease", "模型返回 HTTP 200，为什么下一次还要排队"],
           ["agent-model-capability-presentation-tool-surface", "Tool Surface：Agent 有工具，模型为什么看不到"],
@@ -47,7 +47,7 @@ export const collections = [
           ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"]
         ],
         "related": [
-          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Langfuse：从 Trace 到可信观测"]
+          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"]
         ]
       },
       {
@@ -99,6 +99,7 @@ export const collections = [
         "title": "深度持续研究",
         "desc": "后台异步研究、阶段交付、持久恢复和历史论点连续性：让复杂研究跨时间真正完成。",
         "items": [
+          ["agent-long-horizon-research-panorama", "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"],
           ["agent-background-research-collaborative-experience", "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"],
           ["agent-weekly-thesis-history-continuous-research", "一份周报过去后，Agent 还记得为什么这样判断吗？"],
           ["agent-html-evolution-challenges", "HTML 保存了，为什么还是交付失败"],
@@ -117,7 +118,7 @@ export const collections = [
           ["multi-layer-agent-collaboration-outlook", "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"]
         ],
         "related": [
-          ["agent-subagent-context-specialization", "Subagent：从隔离到专业化协作"],
+          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"]
         ]
@@ -153,12 +154,12 @@ export const collections = [
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
           ["agent-thinking-fast-slow-research-needs", "为什么 AI Agent 也需要《思考，快与慢》？"],
-          ["ai-citations-do-not-prove-reliability", "很多引用为什么不等于可靠"],
+          ["ai-citations-do-not-prove-reliability", "Agent 引用全景：从原始资料到可核查的结论"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
           ["local-improvement-is-not-system-progress", "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"],
-          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Langfuse：从 Trace 到可信观测"],
+          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"],
           ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"]
         ]
       }
@@ -187,7 +188,7 @@ export const collections = [
         "desc": "核对 Runtime 协议、追踪、专家交接与研究质量，区分局部测试通过、运行完成和最终任务价值。",
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
-          ["honest-agent-evaluation", "测试与评测：绿灯究竟证明什么"],
+          ["honest-agent-evaluation", "Agent 测评全景：从测试绿灯到真实任务价值"],
           ["agent-trace-complete-observation-gaps", "Trace 显示 Complete，为什么 Agent 还是无法完整复盘？"],
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
@@ -209,7 +210,12 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 export const panoramaSeriesSlugs = Object.freeze([
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
-  'one-report-nine-architecture-judgments'
+  'one-report-nine-architecture-judgments',
+  '025-agent-langfuse-from-trace-to-trustworthy-observability',
+  'honest-agent-evaluation',
+  'ai-citations-do-not-prove-reliability',
+  'agent-subagent-context-specialization',
+  'agent-long-horizon-research-panorama'
 ]);
 
 // A curated subset of the canonical catalogue, not a second classification tree.

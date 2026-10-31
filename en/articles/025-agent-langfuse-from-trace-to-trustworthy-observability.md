@@ -5,7 +5,46 @@ evidence:
   live: "Long-term completeness and live research outcomes unverified"
 ---
 
-# From Traces to Trustworthy Observability: How Our Agent Telemetry Evolved
+# Agent Observability Panorama: From Model Requests to Verifiable Research Facts
+
+![Observability panorama: execution facts, model inputs and user delivery](../../visuals/en/panorama-observability/cover.svg)
+
+A user says, “The report cited that announcement, but the key number is still wrong.” Normal CPU usage, a successful HTTP response and a green trace do not explain what happened. A useful investigation connects the original material, actual model input, calculation result and outward answer from the same research task.
+
+**Agent observability follows stable identities back to concrete facts while marking what has not been observed.** Logs, metrics and traces provide different views. Run records, tool receipts and publication history preserve the facts their respective owners record. Correlation helps diagnosis; substitution creates a more attractive misunderstanding.
+
+We start with the map, then explain the design’s evolution. The connecting question is: **why did the model answer this way, which evidence did we retain, and where should we look next?**
+
+## 1. Give Each Observability Signal a Specific Job
+
+[OpenTelemetry’s observability primer](https://opentelemetry.io/docs/concepts/observability-primer/) distinguishes logs, metrics and traces. In an Agent, three questions make their roles easier to understand:
+
+| View | Question it helps answer | Conditions that accompany it |
+| --- | --- | --- |
+| Metrics | How have latency, errors and resource consumption changed? | Time window, denominator, dimensions and unknown values |
+| Logs | What event or error was observed at a particular point? | Original call identity, ordering and permitted disclosure |
+| Traces | How did one task move across models, tools and services? | Parent/child relations, asynchronous correlation and capture coverage |
+
+Metrics detect a class of tasks slowing down. Traces locate waits and branches in a task. Logs add detail at a failure point. None certifies the research conclusion. More detailed events do not necessarily mean more complete facts.
+
+A task has several identities: the user task, its Run, an independent Main or Child execution, a physical model request, and particular tool calls, results and answer versions. Parent links organize them; original IDs correlate them. Nearby timestamps and matching tool names help retrieval but cannot replace identity.
+
+![Two fact paths: telemetry diagnoses, original receipts record effects](../../visuals/en/panorama-observability/fact-paths.svg)
+
+*Figure 1. The paths correlate through original identities. Delayed or missing telemetry does not undo a committed tool effect or answer. Open the figure for the full vector version.*
+
+## 2. Follow the Handoffs Behind an Answer
+
+Consider a teaching scenario: a tool retrieves an announcement, Main delegates numerical verification to Child, then produces a report. Investigate these **independently fallible handoffs**:
+
+1. **Source to result.** Which version, page or passage was actually read? Did the delivered material include the necessary headers, units and notes?
+2. **Result to request.** Did that result reach the actual Main or Child request? A full document stored in a database does not mean the model saw it.
+3. **Request to candidate.** What did the model actually return? Where did an output limit, streaming protocol problem or adapter error occur? Provider-hidden internal reasoning is outside our observable content.
+4. **Candidate to delivery.** Which answer was saved, how much did the server emit, and did the client receive or display it? The most complete internal draft cannot substitute for what the user obtained.
+
+This narrows diagnosis to source production, input assembly, model interpretation or delivery. An image that reached the request but was misread raises an interpretation question. An image that never reached it raises a handoff question. Both may look like “the model misunderstood,” but the repairs belong in different places.
+
+Useful input/output capture does not justify recording all private material. Identity, stage and a bounded gap reason can support minimal diagnosis. Authorization, redaction, capacity and retention for raw content need separate decisions. With content capture disabled, say the body cannot be inspected; do not infer detailed input from event shells.
 
 When we integrated Langfuse, our requirement sounded simple. A financial-research Agent might make more than a dozen model requests and invoke several tools, yet finish with only "research interrupted" visible. We needed to see the chain of events rather than infer it from scattered logs.
 
@@ -15,7 +54,7 @@ Real investigation soon exposed a much harder question: **displaying a Trace is 
 
 Our observability goals shifted from "show calls" to **knowing what was retained, where evidence went missing, and whether original facts can be recovered after failure**.
 
-## 1. Reuse a Mature Platform, but Define What It Does Not Own
+## 3. Reuse a Mature Platform, but Define What It Does Not Own
 
 We did not build our own trace-search interface inside the chat app. We deployed Langfuse's separate Web, Worker, and storage stack. It had its own entry point and did not reuse the investment application's database.
 
@@ -27,7 +66,7 @@ We drew an ownership distinction early. The Agent's durable Run records remain t
 
 The two can be cross-checked, but **a missing Trace is not evidence that execution never happened; an existing Trace is not proof that an answer was delivered**.
 
-## 2. Longer Research Demands More Than Call Logging
+## 4. Longer Research Demands More Than Call Logging
 
 Early model/tool events were easy to interpret in simple tasks. Multi-step research raised different questions: did a tool result enter the next model request? Did generated text pass Publication checks? At which point did the output diverge from its input evidence?
 
@@ -37,7 +76,7 @@ Matching by the string name of a tool or approximate timestamp is unsafe. The sa
 
 This narrows "the model found the data but gave no answer" into inspectable stages. Unfortunately, it introduces another practical issue: complex prompts and tool outputs may be enormous.
 
-## 3. Trustworthy Observation Must Record Absence, Too
+## 5. Trustworthy Observation Must Record Absence, Too
 
 We impose byte limits on captured model bodies to control storage and sensitive-data exposure. Large Web/PDF/tool inputs make those limits necessary.
 
@@ -88,7 +127,7 @@ Durations from one monotonic clock domain are comparable. Monotonic timestamps s
 
 These distinctions deliberately remove some precise-looking but unsupported performance numbers.
 
-## 4. An Auxiliary UI Became a Data System That Needed Governance
+## 6. An Auxiliary UI Became a Data System That Needed Governance
 
 As Langfuse started carrying real diagnostic value, we had to treat it as an independently operated data system.
 
@@ -112,7 +151,7 @@ The operational work focused on preserving business records, controlling diagnos
 
 The lasting architectural lesson is that **an observability platform needs its own configuration boundaries, retention policy, and recovery verification**. It cannot be exempt from data-system governance just because it monitors another system.
 
-## 5. A Backup Is Not Useful Until History Can Be Read Back
+## 7. A Backup Is Not Useful Until History Can Be Read Back
 
 After the storage incident, we restored an offline snapshot into isolation. The archive listed files, but a fresh ClickHouse volume initially recognized **zero business tables**.
 
@@ -128,7 +167,7 @@ We separately verified new ingestion with a synthetic event sent through the act
 
 These checks demonstrate two distinct facts: a scoped sample of **previously saved history** was queryable again, and the **new ingestion path** worked in isolation. They cannot recover bodies that were never captured.
 
-## 6. The Telemetry Pipeline Can Break, So Give It Minimal Self-Diagnostics
+## 8. The Telemetry Pipeline Can Break, So Give It Minimal Self-Diagnostics
 
 Another incident showed real model execution but no corresponding Langfuse record. Telemetry was configured as enabled, and the UI was reachable. Neither fact proved that the SDK's asynchronous background exporter had delivered the event.
 
@@ -142,22 +181,12 @@ This verified delivery for the **new probe**, not reconstruction of the earlier 
 
 [Langfuse's architecture documentation](https://langfuse.com/handbook/product-engineering/architecture) describes the asynchronous SDK/API/object-store/queue/Worker/ClickHouse stages. A successful SDK call is not the same as a record already being queryable.
 
-~~~mermaid
-graph TD
-AgentEvents --> CaptureAdapter
-CaptureAdapter --> BatchExporter
-BatchExporter --> IngestionApi
-IngestionApi --> EventStorage
-IngestionApi --> IngestionQueue
-EventStorage --> Worker
-IngestionQueue --> Worker
-Worker --> ClickHouse
-ClickHouse --> TraceReadback
-~~~
+![Asynchronous capture: export, ingestion, storage, queue, processing and readback](../../visuals/en/panorama-observability/ingestion.svg)
 
+*Figure 2. Event storage and the queue both participate in worker processing. SDK return, accepted ingestion and query visibility are different stages.*
 This is a simplified telemetry flow, not the Agent's business state machine. Run records, tool effects, and Publication receipts remain with the original application persistence Owners.
 
-## 7. When Is a Trace Trustworthy Enough to Diagnose?
+## 9. When Is a Trace Trustworthy Enough to Diagnose?
 
 Langfuse did not become the one true source of all Run facts. Its responsibilities and limitations became sharper.
 
@@ -183,6 +212,8 @@ Observability is not just drawing tool calls. It should help distinguish **facts
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
+
+[Panorama Series](/en/panorama) · [Chinese edition](/articles/025-agent-langfuse-from-trace-to-trustworthy-observability).
 
 [Read the Chinese original on the author's blog](https://hpoenixf.com/blog/025-agent-langfuse-from-trace-to-trustworthy-observability) · [Public engineering-article collection](https://github.com/hpoenixf/eff-agent-article) (Stars welcome).
 <!-- agent-article-sync:guidance:end -->

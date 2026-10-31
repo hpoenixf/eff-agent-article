@@ -1,10 +1,12 @@
-# 我们为什么给投研 Agent 配上 Subagent：从上下文隔离到专业化协作
+# Subagent 全景：独立上下文、专业协作与真实成果交接
+
+![Subagent 全景：独立探索，共同完成一项研究](../visuals/panorama-subagents/cover.svg)
 
 **只有当一段局部研究值得独立深入、成果能够被 Main 真正消费时，Subagent 才可能比 Main 直接调用工具更有价值。** 它的首要作用不是多开几个模型，也不是按 Web、PDF、Python 格式排流水线，而是隔离搜索与调试过程，同时把影响最终判断的原始依据交回来。
 
 ETF Agent 最初给 Child 独立上下文，是为了让 Main 不必背着每一次 PDF 定位和 Python 修错。实际开发却发现另一个更难的问题：**过程隔开容易，成果、来源和责任不丢才难。** 一次 Child 有效交回引用但 Main 反复轮询、重新委派，最终仍未交付；另一次 Child 在独立工作区修正计算和 HTML 错误后交出可下载报告，Main 才真正接到了成果。
 
-这篇保留通用 Child 的交接、局部失败和恢复机制。若想了解不同投资方法怎样检验同一假设，可接着读[多视角投资研究](investment-perspectives-and-thesis-falsification.md)；这里先回答架构师更早要做的决定：**什么任务该委派，交付什么算完成，怎样知道额外的模型开销值得？**
+本文沿一次委派的完整生命周期展开：决定是否拆分，交出必要输入，让 Child 自主探索，接回成果与缺口，再由 Main 综合和交付。工具、方法、权限、预算与恢复分别回到原有责任方。先理解这一条链，再增加不同专家或有界对话，才能知道协作究竟在哪里产生价值。
 
 ## 一、先隔离过程，而不是把 Agent 的能力切碎
 
@@ -32,23 +34,9 @@ ETF Agent 最初给 Child 独立上下文，是为了让 Main 不必背着每一
 
 ### 图 1：共享执行机制，不共享一团上下文
 
-```mermaid
-graph TD
-UserGoal["用户目标"] --> MainAgent["主代理"]
-MainAgent --> DirectTools["直接使用工具"]
-MainAgent --> ChildExecution["子代理执行"]
-CommonRuntime["共同运行时"] --> ChildExecution
-SpecialtyProfile["专业方法"] --> ChildExecution
-GrantedTools["已授权工具"] --> ChildExecution
-RootGovernance["根运行治理"] --> MainAgent
-RootGovernance --> ChildExecution
-ChildExecution --> ResultHandoff["成果交接"]
-DirectTools --> MainSynthesis["主代理综合"]
-ResultHandoff --> MainSynthesis
-MainSynthesis --> UserAnswer["用户回答"]
-```
+![通用 Child 与 Main 的工具、方法、授权和成果关系](../visuals/panorama-subagents/architecture.svg)
 
-图中的 `ChildExecution` 代表每次创建的独立执行体，不是一份所有子代理共用的聊天记录。`CommonRuntime` 是复用的执行机制，`SpecialtyProfile` 是方法侧重点，`GrantedTools` 是本次实际可用的工具，`RootGovernance` 则是共享的预算、授权和生命周期约束。
+图中的 Child 是每次创建的独立执行体。它复用共同运行机制，采用本次专业方法，在实际获准的工具范围内工作；Main 与 Child 继续共享原任务的预算、授权和生命周期约束，各自保留工作上下文。
 
 Main 仍然保留直接调用工具的路径。它可以自己解决简单问题，也可以委派复杂局部工作；子代理交回成果，Main 再综合成用户需要的回答。
 
@@ -115,29 +103,11 @@ Main 首先需要确认用户目标与材料范围。随后，它可以把“近
 
 ### 图 2：按问题与依赖协作，不按角色排固定流水线
 
-```mermaid
-graph TD
-UserQuestion["用户问题"] --> MainPlan["主代理计划"]
-MainPlan --> CheckDisclosures["检查披露资料"]
-MainPlan --> ReadFundDocuments["阅读基金文件"]
-MainPlan --> SelectPortfolioData["选择组合数据"]
-ReadFundDocuments --> AlignDataBasis["对齐数据口径"]
-SelectPortfolioData --> AlignDataBasis
-AlignDataBasis --> ComputeComparison["计算比较结果"]
-CheckDisclosures --> MainSynthesis["主代理综合"]
-ReadFundDocuments --> MainSynthesis
-ComputeComparison --> MainSynthesis
-MainSynthesis --> PublishSupportedAnswer["发布有依据的回答"]
-MainSynthesis --> OptionalReview["按需评审"]
-OptionalReview --> MainReassessment["主代理重新判断"]
-MainReassessment --> PublishSupportedAnswer
-MainReassessment --> TargetedFollowUp["定向补充研究"]
-TargetedFollowUp --> MainSynthesis
-```
+![按问题依赖协作，保留直接交付与可选复核路径](../visuals/panorama-subagents/dependencies.svg)
 
 这里，公开披露核查和文档阅读可以独立推进；依赖日期、单位等口径的计算，要等必要输入明确。数据已经齐备时，也可以直接计算，不需要等其他子任务全部结束。
 
-`OptionalReview` 是可选复核，不是发布的必经审批。Main 可以直接交付已有充分支持的分析，也可以先处理关键疑点。材料缺失时，则缩小相应结论的范围，不把缺口补写成事实。
+图 2 中的复核是按需动作，不是发布的必经审批。Main 可以直接交付已有充分支持的分析，也可以先处理关键疑点。材料缺失时，则缩小相应结论的范围，不把缺口补写成事实。
 
 **Main 综合的不是几篇报告，而是对原问题有用的发现。** 费用、重叠与风险应当共同回答“是否增加了用户需要的暴露”，而不是让每个执行者分别写一段正确却互不关联的文字。
 
@@ -160,24 +130,11 @@ TargetedFollowUp --> MainSynthesis
 
 ### 图 3：局部失败不吞掉成果，也不自动变成成功
 
-```mermaid
-graph TD
-ChildWork["子代理工作"] --> SupportedFindings["有依据的发现"]
-ChildWork --> LocalFailure["局部失败"]
-LocalFailure --> BoundedRepair["有限修复"]
-BoundedRepair --> ChildWork
-LocalFailure --> ExplicitGaps["明确缺口"]
-SupportedFindings --> Handoff["交接"]
-ExplicitGaps --> Handoff
-Handoff --> MainSynthesis["主代理综合"]
-MainSynthesis --> ReadEvidence["读取证据"]
-ReadEvidence --> MainSynthesis
-MainSynthesis --> PublishAnswer["发布回答"]
-```
+![局部失败、有限修复、明确缺口与证据回读](../visuals/panorama-subagents/handoff.svg)
 
-可修复、且仍有预算与授权的错误，才进入 `BoundedRepair`。不能修复的部分进入明确缺口，已有合法发现仍可交回；已经取消或效果未知的操作，不能沿这条线被当作免费重试。
+可修复、且仍有预算与授权的错误，才进入有限修复分支。不能修复的部分进入明确缺口，已有合法发现仍可交回；已经取消或效果未知的操作，不能沿这条线被当作免费重试。
 
-Main 取得摘要不等于读过全部原文。需要核实关键结论时，再走 `ReadEvidence`；能够独立使用的阶段性成果，也不必等整个 Child 结束才出现。
+Main 取得摘要不等于读过全部原文。需要核实关键结论时，再走按需回读路径；能够独立使用的阶段性成果，也不必等整个 Child 结束才出现。
 
 **历史报告交接还有一个反方向案例。** 2026 年 10 月下旬的受控研究记录中，Main 的实际模型输入已经包含用户选定的旧 Publication 全文及来源身份，但 Child 有自己独立的输入选取与物化步骤。若没有被实际选中的合法 `inputRefs`，继承的来源信息和授权并不会自动把这份报告复制进 Child 的请求。于是“Main 看到了全文”“Child 获准使用某类来源”“Child 完成了局部计算”都不能代替**Child 实际读过完整原报告**的证据。
 
@@ -257,13 +214,33 @@ Remind 则处理不同类型的提醒与送达记录：没有进入实际请求�
 
 ### 真实交接还需要检查后续 Main 输入
 
-2026 年 10 月 30—31 日的一组真实研究观察进一步区分了“专家提交”和“主代理取得材料”。前 59 次已结束运行中，48 次留下可读最终提交，共 75 份；其中 70 份至少有一个候选长片段出现在后续捕获的 Main 输入中，涉及 45 次运行。
+2026 年 10 月 30—31 日的一组真实研究观察进一步区分了“专家提交”和“主代理取得材料”。这组观察留下 75 份可读的专家最终提交，其中 70 份至少有一个候选长片段出现在后续捕获的 Main 输入中。
 
 这项检查每份摘要最多抽取 20 个、每个至少 40 字符的片段。命中只说明对应文字进入被捕获的输入，不证明摘要全文到达、模型采纳、审查独立性或答案变好；未命中也不能自动断言没有交接。
 
 因此，本文关于隔离与成果回传的机制判断获得了更具体的运行材料，但“相对单 Main 更有效”的结论仍然没有得到对照证明。怎样沿执行身份、提交、实际输入和最终主张取证，单独见[多专家 Agent 的贡献证据](agent-subagent-contribution-evidence.md)。
 
-## 七、收益在哪里，又为什么不承诺“多 Agent 一定更快”？
+### 运行中断后，恢复的是工作身份与事实
+
+Child 的独立上下文还必须对应独立执行身份。Main 已经取得摘要、Child 已提交结果、工具效果已完成，是不同的持久事实；恢复时应沿原回执重读，不能因为父进程丢了一个内存标记就重新做一遍。
+
+尤其要区分两种失败：已经观察到明确失败的操作，可以在原预算和幂等规则下决定是否修复；实际请求已经送出却没有可靠结算的操作，效果仍是未知。后者不能被悄悄当成“什么都没发生”，再交给另一个 Child 免费重试。
+
+同一 Run 的 Child 恢复继承已经记录的授权子集；方法更新不会扩大权限，取消也不会因为旧结果迟到而失效。已经独立获准交付的 Main 正文，应与某个 Child 的局部失败分别保留。这些约束让协作的复杂度留在执行和交接处，而不是把所有失败变成全局停机。
+
+## 七、方法会变化，执行身份与原始输入要能重读
+
+2026-10-24 的主干新增了用户自定义 Subagent Profile 的账户配置、方法版本与 Run 快照接线。它提供的是角色描述和方法指引，不是另一种 Child Runtime。Main 可在允许的目录里选择 Profile，原 A07 Child 消费这次 Run 冻结的身份、revision 与内容指纹；用户后来编辑或停用 Profile，不能倒过来改写旧 Run 曾收到的指引。历史读取仍要遵守当前查看者的账户权限。
+
+此后，账户偏好、精确选择、目录与真实贡献展示、常用组合及 Child 自主描述修订都完成了有界工程验收，包含隔离 PostgreSQL 与脚本化模型的认证浏览器路径。这证明配置可以沿原 Child 身份被发现、选用和重读，不是自然模型的选角质量、实际投资研究效果或生产部署认证；个人角色仍不能扩大来源、预算、模型或交易权限。
+
+与此相邻的[持久 HIL 机制](https://hpoenixf.com/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)解决另一个实际交接：用户回复究竟有没有进入原 Child 的独立消息，而不只是进入 Main 的转述。Profile 约束“谁按哪一版方法工作”，HIL 验证“谁实际采用了哪条输入”，二者共同复用原 Child 身份和恢复。
+
+### 统一角色入口，仍然要检查真实贡献
+
+新建专家调用逐步统一到有版本身份的角色入口，历史执行保留原方法和原契约。这里复用的是准入、执行和成果交接机制，不能据此推出多专家研究一定更好。不同专家之间真正发生的依赖，仍要看原结果身份、获准输入，以及 Main 实际取得和使用的内容。
+
+## 八、把协作收益、关键路径和总开销放在一起看
 
 目前最明确的能力收益，是一段复杂局部工作可以拥有独立上下文、自己的工具过程和可消费的成果。主 Agent 不必默认接收整个调试现场，又保留了核对重要依据的路径。
 
@@ -290,7 +267,19 @@ Anthropic 在[《How we built our multi-agent research system》](https://www.an
 
 完整任务的评价维度包括：Main 上下文减少了多少、总开销增加了多少、结果是否真正被消费，以及用户的问题有没有得到回答。
 
-## 八、读者可以怎样借鉴这套设计？
+### 哪些任务值得并行，哪些会被交接成本吃掉？
+
+| 任务形态 | 更合适的起点 | 原因 |
+| --- | --- | --- |
+| 查一个明确字段、做一次稳定计算 | Main 直接使用工具 | 独立上下文的收益可能小于准备与交接开销 |
+| 大量检索、局部调试、长篇文件核查 | 一个自主 Child | 过程长，交回的结论与依据可以相对紧凑 |
+| 几个材料范围清楚、彼此独立的子问题 | 有限并行 Child | 可以重叠工作，但仍需共享资源与主问题 |
+| 必须持续共享大量背景、下一步强依赖上一步 | 先保留顺序，由 Main 组织 | 多份独立历史容易重复背景，不能消除依赖 |
+| 结论已有，缺少关键反例或第二种方法 | 按需 Reviewer 或另一个研究视角 | 价值来自问题与方法差异，不能由角色数量推断 |
+
+这张表提供起点，模型仍应根据实际材料修订拆分。一个“读 PDF”的局部任务可能需要网页核对；一个计算任务可能发现输入口径不成立，先交回限制比继续算出一个精确但无意义的数字更有用。
+
+## 九、从一个能完整交接的 Child 开始
 
 不必从四种角色一起开工。更合理的起点，是选一个局部过程较长、成果容易检查的任务，先跑通一条完整链路。
 
@@ -320,21 +309,7 @@ node src/cli.mjs --case fixture-child --output runs/article-child
 这个案例只有一层只读 Child，共享根预算；不调用独立真实模型，也不覆盖多层专家编排、PDF 或 Python 协作。
 <!-- /open-etf-case -->
 
-## 新的角色来源：个人 Profile 要冻结版本，不复制授权
-
-2026-10-24 的主干新增了用户自定义 Subagent Profile 的账户配置、方法版本与 Run 快照接线。它提供的是角色描述和方法指引，不是另一种 Child Runtime。Main 可在允许的目录里选择 Profile，原 A07 Child 消费这次 Run 冻结的身份、revision 与内容指纹；用户后来编辑或停用 Profile，不能倒过来改写旧 Run 曾收到的指引。历史读取仍要遵守当前查看者的账户权限。
-
-此后，账户偏好、精确选择、目录与真实贡献展示、常用组合及 Child 自主描述修订都完成了有界工程验收，包含隔离 PostgreSQL 与脚本化模型的认证浏览器路径。这证明配置可以沿原 Child 身份被发现、选用和重读，不是自然模型的选角质量、实际投资研究效果或生产部署认证；个人角色仍不能扩大来源、预算、模型或交易权限。
-
-与此相邻的[持久 HIL 机制](https://hpoenixf.com/eff-agent-article/articles/agent-durable-human-interaction-response-adoption)解决另一个实际交接：用户回复究竟有没有进入原 Child 的独立消息，而不只是进入 Main 的转述。Profile 约束“谁按哪一版方法工作”，HIL 验证“谁实际采用了哪条输入”，二者共同复用原 Child 身份和恢复。
-
-## 2026-10-26 · 统一专家的有界进展
-
-原任务记录中已有六份不同路径的真实模型 CLI 样本，涵盖通用/Python 子任务、投资方法及部分对话与交接；它们不是六次完整交付的基金研究。新建专家调用逐步统一到有身份的 `agentId`，历史执行仍保留原版本。统一专家的部分实际任务及真实跨进程、完整交接与金融质量评估当时仍未验收，不能把模型调用成功写成多专家投研收益。
-
-不同专家之间真正发生的依赖，要看原结果身份、获准输入和 Main 实际取得、使用的内容；提示词中写“已经协作”不能替代这些事实。
-
-## 结语：用三件事决定是否需要 Subagent
+## 十、让局部自主服务于整体交付
 
 **任务值得委派，不在于角色名称有多专业，而在于它能否独立完成一个有价值的工作单元，并把依据带回主问题。**
 
@@ -351,5 +326,5 @@ ETF Agent 的经验是：**分离局部过程，保留关键事实；专业分�
 <!-- agent-article-sync:guidance:start -->
 ## 延伸阅读与交流
 
-[在个人博客阅读本篇](https://hpoenixf.com/blog/agent-subagent-context-specialization) · [公开工程文章文集](https://github.com/hpoenixf/eff-agent-article)（欢迎 Star）。
+[全景系列](/panorama) · [完整英文版](/en/articles/agent-subagent-context-specialization) · [公开工程文章文集](https://github.com/hpoenixf/eff-agent-article)（欢迎 Star）。
 <!-- agent-article-sync:guidance:end -->

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="750" viewBox="0 0 640 750" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">四个对象，各自保留身份</title><desc id="description">四个对象，各自保留身份</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#f6e3da"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="750" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="748" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#a3523d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">四个对象，各自保留身份</text>
+<rect x="40" y="140" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="76" cy="177" r="19" fill="#f6e3da" stroke="#f6e3da" stroke-width="2"/>
+<text x="76" y="184" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="750" fill="#a3523d" text-anchor="middle" letter-spacing="0">1</text>
+<text x="110" y="185" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">用户任务</text>
+<text x="66" y="224" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">原文、限制、目标与调整</text>
+<rect x="40" y="274" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="76" cy="311" r="19" fill="#f6e3da" stroke="#f6e3da" stroke-width="2"/>
+<text x="76" y="318" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="750" fill="#a3523d" text-anchor="middle" letter-spacing="0">2</text>
+<text x="110" y="319" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">执行 Run</text>
+<text x="66" y="358" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">授权、资源、工具与终态</text>
+<rect x="40" y="408" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="76" cy="445" r="19" fill="#f6e3da" stroke="#f6e3da" stroke-width="2"/>
+<text x="76" y="452" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="750" fill="#a3523d" text-anchor="middle" letter-spacing="0">3</text>
+<text x="110" y="453" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">工作上下文</text>
+<text x="66" y="492" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">可压缩、外置和按需回读</text>
+<rect x="40" y="542" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="76" cy="579" r="19" fill="#f6e3da" stroke="#f6e3da" stroke-width="2"/>
+<text x="76" y="586" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="750" fill="#a3523d" text-anchor="middle" letter-spacing="0">4</text>
+<text x="110" y="587" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">正文与产物</text>
+<text x="66" y="626" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">保存、版本与实际取得</text>
+<text x="40" y="718" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="600" fill="#a3523d" text-anchor="start" letter-spacing="0">它们相关联，不是四个串行阶段</text>
+</svg>

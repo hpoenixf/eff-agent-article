@@ -1,24 +1,24 @@
 ---
-title: Panorama Series · Agent Systems at a Glance
-description: A curated collection of the six-layer Agent runtime panorama, the financial-agent system panorama, and nine architectural judgments behind one report.
+title: Panorama Series · Understand Agent Systems, Research and Engineering
+description: Whole-system, financial and architectural maps, followed by independent illustrated panoramas of observability, evaluation, citations, Subagents and long-horizon research.
 ---
 
 # Panorama Series
 
 <small>TAG · PANORAMA SERIES · CROSS-CATEGORY SELECTION</small>
 
-To understand an Agent system end to end, you need not read every implementation essay first. This tag brings together essays that explain **whole-system structure, end-to-end handoffs, and responsibilities across domains**. They answer three different questions: how the runtime works, how financial research and business responsibilities connect, and why the architecture makes certain trade-offs.
+How does an Agent system deliver a complex task to its user? Start with maps of the system, financial responsibilities and architectural judgment. Then explore five connected questions: **how to observe work, evaluate outcomes, inspect evidence, coordinate specialists and continue research across time.**
 
-**This is a thematic tag, not a fourth primary category.** Each essay retains its single canonical placement in the [article catalog](/en/catalog). Historical V1/V2 editions remain accessible from the current six-layer panorama rather than being counted again.
+Each essay stands alone, with concrete scenarios, end-to-end relationships, trade-offs and diagrams. Existing observability, evaluation, citation and Subagent essays have been rebuilt at their original URLs. The new long-horizon panorama connects compaction, recovery, continuation and delivery through one lifecycle.
 
 <PanoramaSeries />
 
-## Suggested reading paths
+## Start with Your Current Problem
 
-New to agents? Start with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes), then follow the [ten-module intermediate guide](/en/articles/agent-ten-modules) and the [runnable deep dive](/en/articles/open-etf-agent-v010-system-design) before the six-layer panorama.
+New to agents? Begin with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes), then use the six-layer panorama to examine a complete request. For financial products, start with the financial-agent map to distinguish research, data, business authorization and actual effects. For design choices, begin with the nine judgments behind one report.
 
-For financial research and product architecture, begin with the financial-agent panorama, then use the six-layer map to distinguish research judgment, business authorization, and actual effects.
+When building or improving a research system, follow one task through the five engineering panoramas: **long-horizon research** explains continuing work; **Subagents** examines delegation and handoff; **citations** connects conclusions to original evidence; **observability** reveals actual handoffs; **evaluation** judges whether a change delivers the value required. You can also read any one directly without finishing the others first.
 
-For architecture trade-offs, start with the nine judgments behind one report. The essays distinguish implemented mechanisms, bounded checks, and outcomes that have not yet been demonstrated.
+Every article retains its unique placement in the [modules, architecture or engineering catalog](/en/catalog). This is a cross-category tag. Existing article URLs, related reading and historical editions remain available.
 
 [Full catalog](/en/catalog) · [Architecture essays](/en/thinking) · [Fintech × Agent](/en/fintech) · [中文](/panorama)

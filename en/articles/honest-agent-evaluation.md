@@ -1,9 +1,11 @@
 ---
-title: "Do Green Tests and a Model Response Mean the Agent Succeeded?"
+title: "Agent Evaluation Panorama: From Green Tests to Real Task Value"
 description: "Match claims to observed boundaries, preserve the original denominator, and evaluate the actual delivered content before comparing models."
 ---
 
-# Do Green Tests and a Model Response Mean the Agent Succeeded?
+# Agent Evaluation Panorama: From Green Tests to Real Task Value
+
+![Evaluation panorama: execution, evidence, quality and delivery](../../visuals/en/panorama-evaluation/cover.svg)
 
 **Green means a particular check passed under particular conditions. It does not automatically establish that the user's task was completed.** Agent evaluation should first identify the boundary examined, the exact content judged, and the tasks included in the denominator—then compare quality and cost.
 
@@ -12,6 +14,18 @@ This does not mean rerunning an entire research workflow after every change. It 
 In our early evaluations, the server had an answer candidate, the automated judge returned a verdict, and the run was even marked `completed`. Following the frontend path showed that candidate existence, server transmission, browser receipt, and display were not the same fact.
 
 The historical cases below explain how to avoid that confusion. They are not a current model ranking or a complete production acceptance result.
+
+## The Map: Evaluate the Task Completed by Model and System Together
+
+Suppose one research configuration uses Main directly and another delegates to three specialists. Judging only final prose can miss a tool that never executed, a specialist that never received input or an answer that was never saved. Judging only execution can miss a neatly finished task that answered the wrong question.
+
+A useful evaluation retains four coordinates: **what executed, what evidence was obtained, how the content should be judged, and what the user received.** They explain one another without collapsing into a universal green badge.
+
+![Four independent evaluation coordinates, compared only on comparable tasks](../../visuals/en/panorama-evaluation/four-axes.svg)
+
+*Figure 1. A failed Run can leave useful prose; a completed Run can contain a wrong conclusion. These are evaluation perspectives, not four new runtime approval layers.*
+
+The article follows a claim through sample design, execution, answer identity and interpretation. Engineering tests examine deterministic contracts; live-model evaluation examines open-ended performance; user observation examines delivered value. These complement one another rather than requiring every change to climb a fixed ladder of expensive checks.
 
 ## 1. First Ask What the Green Check Actually Reached
 
@@ -71,6 +85,16 @@ The specialist research evaluation recorded on October 30–31, 2026 illustrates
 Original Runtime states were 42 completed and 17 failed. Separately, 48 runs had visible answers with confirmed persistence, including 6 failed Runtime runs. Automated evaluation recorded 40 inconclusive and 19 failed outcomes. These describe execution, delivery observations, and evaluation judgments—not interchangeable measures of financial correctness.
 
 Partial saved text after failure is not whole-task completion; normal termination is not independently verified answer quality. The complete quality comparison remains unfinished. Preserve failures and unexecuted cases under their original identities. The new [contribution-evidence article](agent-subagent-contribution-evidence.md) and [trace-completeness case](agent-trace-complete-observation-gaps.md) examine the respective handoffs.
+
+### Explain Repeated Trials, Success Rates and Uncertainty Together
+
+Repeating one task reveals variability but does not create task diversity. Ten tasks run three times should be described as ten distinct tasks and thirty trials. A rate across trials should retain the relationship among repeated attempts at one task.
+
+Sometimes we care whether several attempts yield at least one usable answer; sometimes we need one delivery to work reliably. The former is often expressed with `pass@k`; the latter is closer to single-attempt reliability or success across repeated attempts. Generating several candidates and selecting one has a different cost and user experience from waiting for one real outcome. They should not share an unqualified success-rate headline.
+
+In a **purely illustrative example**, A passes eight of ten shared tasks and B passes nine. That describes this batch. We still need to inspect which tasks differ, repeat stability, and matching inputs and budgets. It does not establish improvement across all research. Where appropriate, report paired differences and intervals, preserving task grouping when repeated trials are correlated.
+
+Keep cost next to quality. More budget producing better answers can be a useful configuration, but improvement cannot automatically be attributed to multi-agent architecture. Name a whole-configuration comparison honestly. To isolate a mechanism, hold other conditions as steady as possible and preserve failures and unknown charges. Estimate cost only for the portion with known usage and prices.
 
 ## 4. The Judge Must Know Which Answer It Is Evaluating
 
@@ -148,6 +172,16 @@ This is not an obligation to attach a new dashboard to every article or run an e
 
 The additional point drawn from our own delivery failures is **alignment between the declared outcome and the exact evaluated artifact**. When the claim is "the user received a reliable answer," the judged content must correspond to what was sent or displayed—not the most complete draft saved inside a trace. Traces help diagnose failed transitions; they cannot create missing client acknowledgment evidence. This is a difference in our evaluation scope, not a claim that those external tools are incapable of delivery verification.
 
+### The Evaluator Can Change a Long Task Before Measuring It
+
+The evaluation script is part of the system. If the product permits long research but the script silently adds a shorter deadline, lower request count or smaller tool budget, it measures those extra restrictions. That can be an intentional stress test, but it is not the default live environment.
+
+A historical investigation found this mismatch: Runtime still believed request capacity remained while an outer evaluator blocked the next physical transport. Research ended early. Convey the real limit through existing admission and budget interfaces instead of attributing hidden restrictions entirely to the model.
+
+Offline replay has a scope too. Frozen pages and fake tools make regression reproducible; live connections observe current services. Replay does not establish current retrieval, while live changes can make before/after samples incomparable. Choose by the question. Neither upgrade every offline task to a costly run nor substitute offline success for a live-capability claim.
+
+After a long evaluation, inspect late Child work, requests still held, committed answers not yet read back, and unknown settlement. They reveal resource and lifecycle behavior. Do not clear them merely to tidy the scorecard.
+
 ## 7. Decide Whether Comparison Is Valid Before Deciding Which Model Is Better
 
 Before publishing a model conclusion, I now ask three questions: Are the experimental conditions and original denominators comparable? Has a requirement explicitly necessary for this use failed? Which critical facts remain unknown?
@@ -156,19 +190,9 @@ When conditions differ, explain the difference. When a necessary requirement fai
 
 This need not become another universal runtime gate. It is first a sequence of engineering and evaluation judgments:
 
-```mermaid
-graph TD
-ClaimScope --> IsolatedChecks
-ClaimScope --> RealBoundaryChecks
-IsolatedChecks --> ScopedEvidence
-RealBoundaryChecks --> ScopedEvidence
-ScopedEvidence --> KnownFailure
-ScopedEvidence --> MissingEvidence
-ScopedEvidence --> SupportedClaim
-KnownFailure --> TargetedRepair
-MissingEvidence --> TargetedObservation
-```
+![Choose checks by claim scope, then distinguish support, known failure and missing evidence](../../visuals/en/panorama-evaluation/evidence-path.svg)
 
+*Figure 2. Missing evidence calls for observation; known failure calls for repair. Both retain the original sample identity.*
 Select the two kinds of checks according to the claim; not every change needs both. Evidence may support a bounded conclusion, reveal a defect, or leave an observation missing. Sufficient existing evidence need not be rerun merely to edit a report when behavior has not changed.
 
 ### A Recorded Research Answer Still May Not Support A/B
@@ -186,6 +210,8 @@ Engineers should state the behavior their change intends to establish. Evaluatio
 For every green result, ask which revision, input, boundary, and actual content it establishes something about. This is [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5). Keeping conclusions within their supporting evidence prevents local success from being prematurely declared product success.
 
 ## Further Reading
+
+[Panorama Series](/en/panorama) · [Chinese edition](/articles/honest-agent-evaluation).
 
 [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md) discusses retaining and correcting original observations. [The Expensive Part of AI Coding Is Deciding What Deserves Verification](ai-coding-judgment-and-verification.md) discusses allocating verification effort according to the consequences of error.
 

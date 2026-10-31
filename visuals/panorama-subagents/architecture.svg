@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="880" viewBox="0 0 640 880" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">一个主问题，独立工作单元</title><desc id="description">一个主问题，独立工作单元</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#eae3f5"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#7054a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="880" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="878" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#7054a0" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">一个主问题，独立工作单元</text>
+<rect x="40" y="140" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="185" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="32" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">用户目标 → Main</text>
+<text x="66" y="224" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">决定直接执行或委派</text>
+<path d="M320 252 V278 H173 V304" fill="none" stroke="#7054a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M320 278 H467 V304" fill="none" stroke="#7054a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="314" width="266" height="204" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<rect x="334" y="314" width="266" height="204" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="62" y="361" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">直接使用工具</text>
+<text x="62" y="447" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">简单问题</text>
+<text x="62" y="482.1" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">沿原工具回执</text>
+<text x="356" y="361" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">Child 独立执行</text>
+<text x="356" y="447" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">共同运行时</text>
+<text x="356" y="480.75" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">方法 + 获准工具</text>
+<path d="M467 518 V551" fill="none" stroke="#7054a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="334" y="561" width="266" height="85" rx="16" fill="#eae3f5" stroke="#eae3f5" stroke-width="1.5"/>
+<text x="467" y="611" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="650" fill="#16362f" text-anchor="middle" letter-spacing="0">成果与依据交接</text>
+<path d="M173 518 V675 H320 V696" fill="none" stroke="#7054a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M467 646 V675 H320" fill="none" stroke="#7054a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="704" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="749" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">Main 综合 → 用户回答</text>
+<text x="66" y="788" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">局部成果回到原主问题</text>
+<text x="40" y="856" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="600" fill="#7054a0" text-anchor="start" letter-spacing="0">共享原预算与授权，不复制资源</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">测评全景</title><desc id="description">让证据与声明相称</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#f5ead5"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a66b21" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="420" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="418" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#a66b21" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">测评全景</text>
+<text x="40" y="140" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">让证据与声明相称</text>
+<rect x="24" y="174" width="592" height="218" rx="22" fill="url(#wash)" stroke="#f5ead5" stroke-width="1.5"/>
+<text x="46" y="292" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="112" font-weight="750" fill="#a66b21" text-anchor="start" letter-spacing="0">02</text>
+<text x="48" y="354" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="650" fill="#a66b21" text-anchor="start" letter-spacing="0">整体地图 · 关键取舍</text>
+<rect x="346" y="255" width="57" height="82" rx="9" fill="white" stroke="#a66b21" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M358 278 l10 10 l20 -22" fill="none" stroke="#a66b21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="426" y="218" width="57" height="119" rx="9" fill="white" stroke="#a66b21" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M438 241 l10 10 l20 -22" fill="none" stroke="#a66b21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="506" y="268" width="57" height="69" rx="9" fill="white" stroke="#a66b21" stroke-width="1.5" filter="url(#shadow)"/>
+<path d="M518 291 l10 10 l20 -22" fill="none" stroke="#a66b21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M327 347 H586" fill="none" stroke="#a66b21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="375" cy="215" r="14" fill="#f5ead5" stroke="#a66b21" stroke-width="2"/>
+<circle cx="535" cy="225" r="14" fill="none" stroke="#a66b21" stroke-width="2"/>
+<path d="M535 218 V226 M535 232 V232" fill="none" stroke="#a66b21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

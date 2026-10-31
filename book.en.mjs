@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-long-horizon-research-panorama": "Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time",
   "agent-trace-complete-observation-gaps": "The Trace Says Complete. Why Can’t We Reconstruct the Agent Run?",
   "agent-subagent-contribution-evidence": "How Do We Know the Main Agent Actually Used a Specialist’s Findings?",
   "agent-report-cost-attribution": "What Does an Agent-Generated Report Actually Cost?",
@@ -22,7 +23,7 @@ export const englishTitles = {
   "022-agent-entry-from-intent-to-direct-research": "Entry: Why the Entry Point Became Simpler",
   "021-agent-web-research-from-search-to-deep-reading": "Web Research: From Search to Deep Reading",
   "024-agent-pdf-from-text-to-evidence": "PDF: From Text to Evidence",
-  "agent-subagent-context-specialization": "Subagents: Isolation and Specialized Collaboration",
+  "agent-subagent-context-specialization": "Subagent Panorama: Independent Context, Specialist Work and Real Handoffs",
   "agent-custom-expert-from-prompt-to-recovery": "A Custom Expert Should Be More Than a Prompt Field",
   "bounded-bull-bear-peer-dialogue": "When Two Agents Talk Directly: Bounded Bull–Bear Research",
   "investment-perspectives-and-thesis-falsification": "More Than One Investment Expert: How Multi-Perspective Agents Test an Investment Thesis",
@@ -47,7 +48,7 @@ export const englishTitles = {
   "agent-tool-lifecycle-and-model-input": "Observing the Tool-to-Model Input Lifecycle",
   "agent-runtime-constraint-governance-v2": "Run Budget and Constraint Governance",
   "agent-autonomous-scheduled-research": "Scheduled Research Beyond a Conversation",
-  "025-agent-langfuse-from-trace-to-trustworthy-observability": "Langfuse: From Traces to Trustworthy Observability",
+  "025-agent-langfuse-from-trace-to-trustworthy-observability": "Agent Observability Panorama: From Model Requests to Verifiable Research Facts",
   "019-agent-answer-publication": "Publication: Why Answers Need Their Own Delivery System",
   "agent-progressive-answer-coherence": "Keeping Progressive Answers Coherent",
   "agent-feedback-facts-not-automatic-learning": "When a User Dislikes an Answer: Feedback Is Not Automatic Learning",
@@ -60,7 +61,7 @@ export const englishTitles = {
   "agent-disconnect-is-not-crash-recovery-contract": "A Disconnected Browser Is Not a Crashed Agent",
   "agent-veto-authority-and-run-termination": "Run Termination, Stage Budgets and Safe Recovery",
   "mcp-market-responsibility-retrospective": "Why Financial Market MCP Became a Decision System",
-  "ai-citations-do-not-prove-reliability": "Why More Citations Do Not Prove Reliability",
+  "ai-citations-do-not-prove-reliability": "Agent Citation Panorama: From Original Material to Checkable Claims",
   "agent-failure-is-a-boundary-problem": "Stop Blaming Every Failure on the Model",
   "local-improvement-is-not-system-progress": "Local Improvements Are Not System Progress",
   "agent-provider-failover-without-resetting-the-run": "Failover: Change the Route Without Resetting the Task",
@@ -75,7 +76,7 @@ export const englishTitles = {
   "026-agent-spec-evidence-workflow": "Specs, Evidence and Verifiable Engineering Closure",
   "agent-weekly-review-staged-delivery": "Why We Split a Large Weekly Review Spec into Three Phases",
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
-  "honest-agent-evaluation": "Tests and Evaluations: What Does Green Prove?",
+  "honest-agent-evaluation": "Agent Evaluation Panorama: From Green Tests to Real Task Value",
   "rag-retrieval-evaluation-evidence": "RAG Recall Looks Great. Why Doesn’t That Prove the Agent Found the Right Financial Evidence?",
   "test-lifecycle-refactoring-retirement-and-spec": "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec",
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence",
@@ -84,6 +85,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-long-horizon-research-panorama",
   "agent-trace-complete-observation-gaps",
   "agent-subagent-contribution-evidence",
   "agent-report-cost-attribution",

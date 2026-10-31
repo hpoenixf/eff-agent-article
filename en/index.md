@@ -39,7 +39,7 @@ features:
 
 <FlagshipEntry compact />
 
-> **Panorama Series Tag** · [Browse the whole-system, financial and architectural decision maps](/en/panorama) before choosing a deeper mechanism article.
+> **Panorama Series Tag** · [Browse system, finance, architecture, observability, evaluation, citation, Subagent and long-research panoramas](/en/panorama) before choosing a deeper mechanism article.
 
 > **Financial systems overview** · [Financial Agents in Context: Systems, Lifecycles, and Accountability](/en/articles/financial-agent-system-panorama). Three diagrams connect user services, institutional systems, research and business lifecycles, and traceable responsibility.
 

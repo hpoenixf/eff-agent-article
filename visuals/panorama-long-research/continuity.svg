@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="790" viewBox="0 0 640 790" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">继续工作，先认清关系</title><desc id="description">继续工作，先认清关系</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#f6e3da"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="790" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="788" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#a3523d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">继续工作，先认清关系</text>
+<rect x="40" y="140" width="560" height="158" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="64" y="186" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">重新打开页面</text>
+<text x="64" y="233" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">读取原任务与已有成果</text>
+<text x="64" y="266.75" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">不产生一次新执行</text>
+<rect x="40" y="320" width="560" height="158" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="64" y="366" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">同一 Run 恢复</text>
+<text x="64" y="413" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">原授权、预算、回执与所有权</text>
+<text x="64" y="446.75" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">已提交效果不重复执行</text>
+<rect x="40" y="500" width="560" height="158" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="64" y="546" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">显式新 Run 接续</text>
+<text x="64" y="593" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">保留原问题与合法背景</text>
+<text x="64" y="626.75" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">新身份，不重放旧效果</text>
+<rect x="40" y="706" width="560" height="60" rx="14" fill="#f6e3da" stroke="#f6e3da" stroke-width="1.5"/>
+<text x="320" y="745" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="650" fill="#a3523d" text-anchor="middle" letter-spacing="0">普通新问题 → 独立准入</text>
+</svg>

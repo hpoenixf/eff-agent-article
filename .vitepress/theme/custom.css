@@ -111,7 +111,7 @@
   .nav-star-link .star-link-arrow, .nav-star-link .star-link-github { display: none; }
   .article-star { padding: 20px; }
 }
-@media (max-width: 374px) {
+@media (max-width: 389px) {
   .VPNavBarTitle .title { font-size: 12px; }
   .VPNavBar .wrapper { padding-left: 16px; }
   .VPNavBar .content-body { column-gap: 0; }

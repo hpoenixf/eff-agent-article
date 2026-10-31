@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-labelledby="title description" lang="en">
+<title id="title">Observability</title><desc id="description">Requests, gaps and facts</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#dcecf4"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#236e9d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="420" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="418" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#236e9d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">Observability</text>
+<text x="40" y="140" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Requests, gaps and facts</text>
+<rect x="24" y="174" width="592" height="218" rx="22" fill="url(#wash)" stroke="#dcecf4" stroke-width="1.5"/>
+<text x="46" y="292" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="112" font-weight="750" fill="#236e9d" text-anchor="start" letter-spacing="0">01</text>
+<text x="48" y="354" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="650" fill="#236e9d" text-anchor="start" letter-spacing="0">MAPS / TRADE-OFFS</text>
+<circle cx="448" cy="276" r="84" fill="none" stroke="#236e9d" stroke-width="1.5"/>
+<circle cx="448" cy="276" r="58" fill="none" stroke="#236e9d" stroke-width="1.5"/>
+<circle cx="448" cy="276" r="30" fill="none" stroke="#236e9d" stroke-width="1.5"/>
+<path d="M348 276 H553" fill="none" stroke="#236e9d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 7"/>
+<path d="M448 180 V370" fill="none" stroke="#236e9d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 7"/>
+<path d="M337 313 L373 282 L409 302 L448 235 L490 263 L552 219" fill="none" stroke="#236e9d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="337" cy="313" r="7" fill="white" stroke="#236e9d" stroke-width="3"/>
+<circle cx="409" cy="302" r="7" fill="white" stroke="#236e9d" stroke-width="3"/>
+<circle cx="448" cy="235" r="7" fill="white" stroke="#236e9d" stroke-width="3"/>
+<circle cx="552" cy="219" r="7" fill="white" stroke="#236e9d" stroke-width="3"/>
+<circle cx="490" cy="263" r="10" fill="#dcecf4" stroke="#236e9d" stroke-width="2"/>
+</svg>

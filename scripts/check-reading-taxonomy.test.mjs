@@ -39,11 +39,16 @@ test('finance curation and topic headings stay bilingual without a second articl
 })
 
 
-test('panorama tag curates three full-scope essays without a fourth primary class', () => {
+test('panorama tag curates full-scope essays without a fourth primary class', () => {
   const selected = [
     '017-prompt-to-answer-six-layer-panorama-v3',
     'financial-agent-system-panorama',
-    'one-report-nine-architecture-judgments'
+    'one-report-nine-architecture-judgments',
+    '025-agent-langfuse-from-trace-to-trustworthy-observability',
+    'honest-agent-evaluation',
+    'ai-citations-do-not-prove-reliability',
+    'agent-subagent-context-specialization',
+    'agent-long-horizon-research-panorama'
   ]
   assert.deepEqual([...panoramaSeriesSlugs], selected)
   const all = collections.flatMap(slugs)

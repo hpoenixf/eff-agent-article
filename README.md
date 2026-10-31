@@ -38,7 +38,7 @@
 | 为什么这样划分边界，怎样避免越改越复杂？ | [架构原则](principles.md) → [架构设计与系统思考](thinking.md) | 从真实取舍理解授权、恢复、事实归属与演进契约 |
 | 如何让文档、代码和验证一起向前？ | [AI Agent 研发工程实践](engineering.md) | Spec、证据、知识退役与真实任务收敛的工程方法 |
 
-[全景系列 · 系统、金融与架构总览](panorama.md) · [金融业务与可信工程专题](fintech.md) · [可交互架构图册](gallery.md)
+[全景系列 · 系统、业务与五个工程专题](panorama.md) · [金融业务与可信工程专题](fintech.md) · [可交互架构图册](gallery.md)
 
 ## 读完之后，运行一个实现
 
@@ -87,6 +87,8 @@ npm run docs:build
 
 ## 最近更新
 
+- [五个工程全景](panorama.md)：可观测、测评、引用、Subagent 四篇主稿原址重构，新增超长研究总论；提供完整中英文正文与对应 SVG 图解。
+
 - 四篇原则与方法文章原址精修：用[可选图表](articles/code-cheaper-systems-harder-to-evolve.md)、[图片识别](articles/local-improvement-is-not-system-progress.md)、[工单分派](articles/agent-differentiated-evolution-contracts.md)和[头像格式](articles/test-lifecycle-refactoring-retirement-and-spec.md)教学场景，分别讲清复杂度、整体收益、稳定承诺与旧测试处置；完整英文同步更新。
 
 - [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md) · [English](en/articles/docs-code-tests-evolve-together.md)：从真实规模统计出发，用订单导出教学案例说明旧要求、实现路径和测试怎样共同演进。
@@ -108,7 +110,7 @@ npm run docs:build
 
 ## 2026-10-27 · Agent 研究恢复与专家交接
 
-新增[《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md)与[完整英文版](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)，明确客户端重连、服务中断结算、受控 Human/Child 唤醒和新 Run 复用原材料之间的产品承诺。同期更新[自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md)、[Subagent](articles/agent-subagent-context-specialization.md)、[评测证据](articles/honest-agent-evaluation.md)和[终结权](articles/agent-veto-authority-and-run-termination.md)已有中英文主稿。工程验证不等于自然模型研究质量证明，旧文章保留原路径与图表。
+新增[《断线不是崩溃：为什么 Agent 不必恢复原来的执行图？》](articles/agent-disconnect-is-not-crash-recovery-contract.md)与[完整英文版](en/articles/agent-disconnect-is-not-crash-recovery-contract.md)，明确客户端重连、服务中断结算、受控 Human/Child 唤醒和新 Run 复用原材料之间的产品承诺。同期更新[自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md)、[Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)、[Agent 测评全景：从测试绿灯到真实任务价值](articles/honest-agent-evaluation.md)和[终结权](articles/agent-veto-authority-and-run-termination.md)已有中英文主稿。工程验证不等于自然模型研究质量证明，旧文章保留原路径与图表。
 
 ## 2026-10-27 · 金融 Agent 系统全景
 
@@ -116,7 +118,7 @@ npm run docs:build
 
 ## 2026-10-27 · AI Coding：把验证投入到真正重要的问题
 
-[AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md)从最近两个月 ETF Agent 的金融比较误判、Reviewer 材料缺口与精确计算反例出发，讨论正确性、反例与验证投入。提供[完整英文版](en/articles/ai-coding-judgment-and-verification.md)。同批深化[引用可信度](articles/ai-citations-do-not-prove-reliability.md)和[测试评测](articles/honest-agent-evaluation.md)原文，保留旧链接、事实与图示；不把它们改成重复的新文章。
+[AI Coding 最贵的不是写代码，而是决定什么值得验证](articles/ai-coding-judgment-and-verification.md)从最近两个月 ETF Agent 的金融比较误判、Reviewer 材料缺口与精确计算反例出发，讨论正确性、反例与验证投入。提供[完整英文版](en/articles/ai-coding-judgment-and-verification.md)。同批深化[Agent 引用全景：从原始资料到可核查的结论](articles/ai-citations-do-not-prove-reliability.md)和[Agent 测评全景：从测试绿灯到真实任务价值](articles/honest-agent-evaluation.md)原文，保留旧链接、事实与图示；不把它们改成重复的新文章。
 
 ## 2026-10-26 · 研究推进的第二种阅读视角
 
@@ -132,7 +134,7 @@ npm run docs:build
 
 ## 新增模块实践：让用户自定义专家真正可用
 
-- [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)：个人研究方法如何保存、冻结版本、正确送入 Child，并在 History 中保留真实归属；包含用户 Prompt 请求层级与设置页并发编辑的工程教训。原 [Subagent 专文](articles/agent-subagent-context-specialization.md) 继续解释通用执行底座。
+- [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)：个人研究方法如何保存、冻结版本、正确送入 Child，并在 History 中保留真实归属；包含用户 Prompt 请求层级与设置页并发编辑的工程教训。原 [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md) 继续解释通用执行底座。
 
 ## 最近的 Owner 专文：控制事件与 Provider 容量
 
@@ -161,7 +163,7 @@ npm run docs:build
 | 关注方向 | 建议先读 | 可以观察到什么 |
 | --- | --- | --- |
 | **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [异步研究的前端交付](articles/agent-asynchronous-research-time-bound-delivery.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 分段正文、后台通知、重连重读、事件去重与 Host 交付边界；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue) |
-| **Agent 应用开发** | [十五分钟入门 Agent](articles/agent-in-15-minutes.md) → [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [Model / Harness / Loop 研究推进](articles/etf-agent-model-harness-research-loop.md) → [Subagent](articles/agent-subagent-context-specialization.md) → [自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
+| **Agent 应用开发** | [十五分钟入门 Agent](articles/agent-in-15-minutes.md) → [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [Model / Harness / Loop 研究推进](articles/etf-agent-model-harness-research-loop.md) → [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md) → [自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
 | **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
@@ -233,7 +235,7 @@ npm run docs:build
 
 - [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
-- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
+- [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)
 - [Provider：统一接口之后，为什么还需要共享准入](articles/agent-provider-architecture-and-admission.md)
 - [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md)
 - [Tool Surface：Agent 有工具，模型为什么看不到](articles/agent-model-capability-presentation-tool-surface.md)
@@ -242,7 +244,7 @@ npm run docs:build
 
 **关联阅读（不重复计入本组）：**
 
-- [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
+- [Agent 可观测全景：从一次模型请求到可回查的研究事实](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
 </details>
 
@@ -292,6 +294,7 @@ npm run docs:build
 
 <summary><b>01 · 深度持续研究</b></summary>
 
+- [超长研究全景：让 Agent 跨越上下文、中断与时间继续交付](articles/agent-long-horizon-research-panorama.md)
 - [想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究](articles/agent-background-research-collaborative-experience.md)
 - [一份周报过去后，Agent 还记得为什么这样判断吗？](articles/agent-weekly-thesis-history-continuous-research.md)
 - [HTML 保存了，为什么还是交付失败](articles/agent-html-evolution-challenges.md)
@@ -312,7 +315,7 @@ npm run docs:build
 
 **关联阅读（不重复计入本组）：**
 
-- [Subagent：从隔离到专业化协作](articles/agent-subagent-context-specialization.md)
+- [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)
 - [自定义专家，不应该只是一个 Prompt 输入框](articles/agent-custom-expert-from-prompt-to-recovery.md)
 
 </details>
@@ -341,12 +344,12 @@ npm run docs:build
 - [Model / Runtime / MCP / Skill 的分工](articles/agent-model-runtime-mcp-skill-boundaries.md)
 - [金融 Agent 的可信证据链](articles/financial-agent-trustworthy-evidence-chain.md)
 - [为什么 AI Agent 也需要《思考，快与慢》？](articles/agent-thinking-fast-slow-research-needs.md)
-- [很多引用为什么不等于可靠](articles/ai-citations-do-not-prove-reliability.md)
+- [Agent 引用全景：从原始资料到可核查的结论](articles/ai-citations-do-not-prove-reliability.md)
 - [代码越来越便宜，为什么系统却越来越难升级？](articles/code-cheaper-systems-harder-to-evolve.md)
 - [Agent 架构如何做到该稳定的稳定，该变化的变化？](articles/agent-differentiated-evolution-contracts.md)
 - [别把每个失败都算给模型](articles/agent-failure-is-a-boundary-problem.md)
 - [局部改善不等于整体进步：怎样判断 Agent 真的变好了？](articles/local-improvement-is-not-system-progress.md)
-- [Langfuse：从 Trace 到可信观测](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
+- [Agent 可观测全景：从一次模型请求到可回查的研究事实](articles/025-agent-langfuse-from-trace-to-trustworthy-observability.md)
 
 </details>
 
@@ -372,7 +375,7 @@ npm run docs:build
 <summary><b>02 · 真实验证与任务收敛</b></summary>
 
 - [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
-- [测试与评测：绿灯究竟证明什么](articles/honest-agent-evaluation.md)
+- [Agent 测评全景：从测试绿灯到真实任务价值](articles/honest-agent-evaluation.md)
 - [测试也会过期：把重构、退役和删除前移到 Spec](articles/test-lifecycle-refactoring-retirement-and-spec.md)
 - [一个 Subagent 改动，为什么拖住了我们整整一天？](articles/agent-runtime-refactor-one-day-blocked.md)
 - [从 Bug 循环到完整任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)

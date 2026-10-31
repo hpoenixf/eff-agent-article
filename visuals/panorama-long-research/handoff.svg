@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="870" viewBox="0 0 640 870" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">一份可行动的工作交接</title><desc id="description">一份可行动的工作交接</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#f6e3da"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="870" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="868" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#a3523d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">一份可行动的工作交接</text>
+<rect x="40" y="148" width="560" height="674" rx="20" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<circle cx="70" cy="189" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="197" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">原始问题</text>
+<text x="64" y="240" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">保留用户原文与限制</text>
+<path d="M64 261 H576" fill="none" stroke="#cddbd1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="295" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="303" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">结论与条件</text>
+<text x="64" y="346" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">哪些成立，适用于什么范围</text>
+<path d="M64 367 H576" fill="none" stroke="#cddbd1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="401" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="409" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">已有结果</text>
+<text x="64" y="452" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">可回读的来源、回执与产物</text>
+<path d="M64 473 H576" fill="none" stroke="#cddbd1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="507" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="515" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">失败与未知</text>
+<text x="64" y="558" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">失败方法、未知效果与消耗</text>
+<path d="M64 579 H576" fill="none" stroke="#cddbd1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="613" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="621" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">尚未解决</text>
+<text x="64" y="664" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">会改变判断的关键缺口</text>
+<path d="M64 685 H576" fill="none" stroke="#cddbd1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70" cy="719" r="6" fill="#a3523d" stroke="#a3523d" stroke-width="2"/>
+<text x="92" y="727" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">下一步</text>
+<text x="64" y="770" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">可执行方向，不新增授权</text>
+</svg>

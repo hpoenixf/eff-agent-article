@@ -1,10 +1,12 @@
-# Why We Added Subagents to an Investment Research Agent: From Context Isolation to Specialized Collaboration
+# Subagent Panorama: Independent Context, Specialist Work and Real Handoffs
+
+![Subagent panorama: independent exploration, one shared research task](../../visuals/en/panorama-subagents/cover.svg)
 
 **A Subagent is useful when a local research task deserves independent work and Main can actually consume its results.** The goal is not to launch more models or route every Web, PDF and Python step through another specialist. It is to isolate lengthy exploration while returning the original evidence needed for a sound decision.
 
 ETF Agent first gave Child its own context so Main would not inherit every PDF lookup or Python debugging turn. Development exposed the harder problem: **separating the process is easy; preserving evidence, identity and responsibility at handoff is not.** One Child completed a valid citation handoff, yet Main repeatedly polled and delegated again without delivering. Another completed local computation and HTML repairs, exported a downloadable report, and gave Main an artifact it could genuinely use.
 
-This article focuses on shared Child execution, bounded failure and handoff. For how different investment methods challenge one thesis, see [investment perspectives and falsification](investment-perspectives-and-thesis-falsification.md). The prior architecture question is simpler: **Which work should be delegated, what is a real deliverable, and when are extra model calls justified?**
+This article follows a delegation end to end: decide whether to split the work, supply necessary inputs, let Child investigate, receive findings and gaps, then let Main synthesize and deliver. Tools, methods, permissions, budgets and recovery remain with their existing owners. Establish that chain before adding more specialists or bounded dialogue, so collaboration’s value has a concrete location.
 
 ## 1. Isolate Local Work, Not the Ability to Solve a Problem
 
@@ -34,23 +36,8 @@ Profiles supply methods and priorities. Host determines real tool and source acc
 
 ### Figure 1: shared mechanics, separate contexts
 
-~~~mermaid
-graph TD
-UserGoal --> MainAgent
-MainAgent --> DirectTools
-MainAgent --> ChildExecution
-CommonRuntime --> ChildExecution
-SpecialtyProfile --> ChildExecution
-GrantedTools --> ChildExecution
-RootGovernance --> MainAgent
-RootGovernance --> ChildExecution
-ChildExecution --> ResultHandoff
-DirectTools --> MainSynthesis
-ResultHandoff --> MainSynthesis
-MainSynthesis --> UserAnswer
-~~~
-
-**ChildExecution** is one independently created execution, not a common transcript for all Children. **CommonRuntime** is the reusable process mechanism; **SpecialtyProfile** is a method; **GrantedTools** is the actual approved capability set; **RootGovernance** supplies shared budget, authorization, and lifecycle constraints.
+![Main, shared Child execution, methods, granted tools and result handoff](../../visuals/en/panorama-subagents/architecture.svg)
+Each Child is an independent execution. It reuses common runtime mechanics, follows the selected method and works within the actually granted tools. Main and Child share the original task’s budget, authorization and lifecycle constraints while retaining their own working contexts.
 
 Main retains a direct-tool path for simple work. Complex local problems can be delegated, returned as evidence and results, then integrated in the user-facing answer.
 
@@ -121,29 +108,10 @@ A delegation should be more precise than "research this ETF." For example:
 
 ### Figure 2: coordinate by questions and dependencies, not a role pipeline
 
-~~~mermaid
-graph TD
-UserQuestion --> MainPlan
-MainPlan --> CheckDisclosures
-MainPlan --> ReadFundDocuments
-MainPlan --> SelectPortfolioData
-ReadFundDocuments --> AlignDataBasis
-SelectPortfolioData --> AlignDataBasis
-AlignDataBasis --> ComputeComparison
-CheckDisclosures --> MainSynthesis
-ReadFundDocuments --> MainSynthesis
-ComputeComparison --> MainSynthesis
-MainSynthesis --> PublishSupportedAnswer
-MainSynthesis --> OptionalReview
-OptionalReview --> MainReassessment
-MainReassessment --> PublishSupportedAnswer
-MainReassessment --> TargetedFollowUp
-TargetedFollowUp --> MainSynthesis
-~~~
-
+![Coordinate by dependencies, with direct delivery and optional review](../../visuals/en/panorama-subagents/dependencies.svg)
 Disclosure checks and document reading can run independently. A calculation that requires aligned dates, units, or holdings waits until its needed inputs are defined. If the data is already usable, calculate directly; do not wait for unrelated Children.
 
-**OptionalReview** is not a mandatory Publication approval stage. Main may deliver sufficiently supported findings, resolve essential objections, or narrow claims where evidence is missing.
+Review in Figure 2 is optional, rather than a mandatory publication approval stage. Main may deliver sufficiently supported findings, resolve essential objections, or narrow claims where evidence is missing.
 
 Main should integrate the findings around the user's **actual decision**, not concatenate three standalone reports about fees, overlap, and risk.
 
@@ -168,22 +136,8 @@ These describe responsibilities, not a mandatory form requiring fabricated file 
 
 ### Figure 3: local failure neither erases valid results nor becomes success
 
-~~~mermaid
-graph TD
-ChildWork --> SupportedFindings
-ChildWork --> LocalFailure
-LocalFailure --> BoundedRepair
-BoundedRepair --> ChildWork
-LocalFailure --> ExplicitGaps
-SupportedFindings --> Handoff
-ExplicitGaps --> Handoff
-Handoff --> MainSynthesis
-MainSynthesis --> ReadEvidence
-ReadEvidence --> MainSynthesis
-MainSynthesis --> PublishAnswer
-~~~
-
-A failure follows **BoundedRepair** only when recovery is actually permitted and resources remain. Unrecoverable gaps are reported explicitly. Previously valid findings can still be handed off. Canceled work or unknown external effects must not be treated as a free replay.
+![Local failure, bounded repair, explicit gaps and evidence readback](../../visuals/en/panorama-subagents/handoff.svg)
+A failure enters bounded repair only when recovery is actually permitted and resources remain. Unrecoverable gaps are reported explicitly. Previously valid findings can still be handed off. Canceled work or unknown external effects must not be treated as a free replay.
 
 A Main summary is **not proof that Main read every underlying source**. Key evidence can be retrieved when necessary; independent useful partial findings need not wait for the Child's entire task to finish.
 
@@ -293,13 +247,33 @@ Package content identity, the prepared execution environment, and actual returne
 
 ### Check the later Main input, not only the submission
 
-Research observations from October 30–31, 2026 distinguish specialist submission from material reaching the coordinating agent. Of the first 59 ended runs, 48 contained readable final submissions, totaling 75. Of those submissions, 70 had at least one candidate long fragment in a subsequently captured Main input, spanning 45 runs.
+Research observations from October 30–31, 2026 distinguish specialist submission from material reaching the coordinating agent. The observations retained 75 readable final specialist submissions. Of those, 70 had at least one candidate long fragment in a subsequently captured Main input.
 
 The method sampled at most 20 fragments of at least 40 characters per summary. A match establishes the presence of corresponding text in captured input, not full-summary delivery, semantic adoption, reviewer independence, or improved answers. A missing match does not automatically establish a failed handoff.
 
 These observations add concrete runtime evidence to the isolation-and-handoff mechanism. They do not establish superiority over a single Main. [Evidence of Subagent Contribution](agent-subagent-contribution-evidence.md) separately explains how to follow execution identity, submissions, actual requests, and final claims.
 
-## 7. Benefits and Why "More Agents = Faster" Is Not a Claim
+### Recovery Preserves Work Identity and Execution Facts
+
+Independent context needs independent execution identity. Main receiving a summary, Child committing a result and a tool effect completing are distinct durable facts. Recovery should reread their original receipts rather than repeat work because a parent process lost an in-memory flag.
+
+Distinguish a known failed operation from a dispatched request without reliable settlement. The former may be repairable under the original budget and idempotency rules. The latter remains unknown; delegating it to another Child does not make it a free retry.
+
+Same-Run Child recovery inherits its recorded grant subset. A method update adds no permission, and a late result does not undo cancellation. Independently authorized Main prose survives a Child’s local failure. These constraints keep complexity at execution and handoff instead of turning every failure into a global stop.
+
+## 7. Methods Change; Execution Identity and Original Input Must Remain Readable
+
+By October 24, 2026, ETF Agent main contained account settings, method revisions, and Run snapshot integration for user-defined Subagent Profiles. A Profile contributes role description and method guidance, not a new Child Runtime. Main may select an eligible Profile from the catalog; the original A07 Child consumes the identity, revision, and content hash frozen for that Run. Editing or disabling a Profile later must not retroactively rewrite instructions belonging to a previous Run. History access still obeys the current reader's account permissions.
+
+Subsequent scoped engineering acceptance covers preferences, exact selection, discovery, observable contributions, saved presets, and Child-authored task revisions, including isolated PostgreSQL and authenticated-browser paths driven by a scripted model. That establishes the request and presentation mechanics, **not** natural model expert-selection quality, real investment benefit, or production deployment. Customizable roles still do not grant extra tools, model routes, data sources, budgets, or investment execution rights.
+
+The adjacent [durable human-interaction mechanism](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
+
+### A Unified Role Entry Still Needs Evidence of Contribution
+
+Fresh expert selection is gradually unified around versioned role identities, while historical executions retain their original methods and contracts. Reusing admission, execution and handoff does not establish superior multi-agent research. Actual dependencies still require original result identities, authorized inputs, and evidence that Main obtained and used the findings.
+
+## 8. Consider Collaboration Value, Critical Path and Total Cost Together
 
 The clearest demonstrated capability is that complex local work can maintain its own context, multi-step tools, and usable outputs. Main need not import every debugging step while retaining a way to verify important evidence.
 
@@ -326,7 +300,19 @@ We also have a real counterexample: a Child completed valid citation handoff, bu
 
 Meaningful full-task measurements cover: Main-context reduction, total cost, whether returned results were consumed, and whether the user question was answered.
 
-## 8. How to Apply the Design
+### Which Tasks Benefit from Parallel Work?
+
+| Task shape | Useful starting point | Reason |
+| --- | --- | --- |
+| One known field or stable calculation | Main calls the tool directly | Preparation and handoff may outweigh context isolation |
+| Extensive retrieval, local debugging or document checks | One autonomous Child | Lengthy process can return compact findings and evidence |
+| Clearly scoped, independent subquestions | Bounded parallel Children | Work can overlap while sharing resources and one goal |
+| Dense shared context and sequential dependencies | Main coordinates sequentially first | Separate histories duplicate background without removing dependencies |
+| An existing conclusion lacks a counterexample or second method | Optional Reviewer or another perspective | Value comes from the question and method, not the role count |
+
+This is a starting point; the model can revise the split as evidence arrives. A PDF assignment may need Web verification. A calculation may discover an invalid basis. Returning that limitation can be more useful than calculating an exact but meaningless value.
+
+## 9. Start with One Child That Can Complete the Handoff
 
 A practical starting point is one long-running local task with verifiable deliverables, not four named specialist roles at once.
 
@@ -358,21 +344,7 @@ Inspect `rootUsage` in the terminal JSON, then open `report.md` and `manifest.js
 This is one read-only Child sharing the root budget. It makes no independent live-model call and does not cover multi-layer experts, PDF, or Python collaboration.
 <!-- /open-etf-case -->
 
-## New Role Sources: Freeze Personal Profiles, Not Permissions
-
-By October 24, 2026, ETF Agent main contained account settings, method revisions, and Run snapshot integration for user-defined Subagent Profiles. A Profile contributes role description and method guidance, not a new Child Runtime. Main may select an eligible Profile from the catalog; the original A07 Child consumes the identity, revision, and content hash frozen for that Run. Editing or disabling a Profile later must not retroactively rewrite instructions belonging to a previous Run. History access still obeys the current reader's account permissions.
-
-Subsequent scoped engineering acceptance covers preferences, exact selection, discovery, observable contributions, saved presets, and Child-authored task revisions, including isolated PostgreSQL and authenticated-browser paths driven by a scripted model. That establishes the request and presentation mechanics, **not** natural model expert-selection quality, real investment benefit, or production deployment. Customizable roles still do not grant extra tools, model routes, data sources, budgets, or investment execution rights.
-
-The adjacent [durable human-interaction mechanism](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
-
-## October 26, 2026: Scoped Progress on Unified Experts
-
-The owning records include six different real-model CLI samples across general and Python Children, investment methods, and selected dialogue/handoff paths. They are not six successfully completed fund-research tasks. Fresh expert selection was being unified around versioned `agentId` identities while sealed historical executions retained their original contracts. Certain owning tasks and cross-process, full-handoff, and financial-quality verification remained open at that point.
-
-Actual dependencies still require original result identities, authorized input references, and evidence that Main consumed the findings. A prompt claiming collaboration is not evidence that collaboration occurred.
-
-## Conclusion: Three Questions Before Adding a Subagent
+## 10. Local Autonomy Should Serve Overall Delivery
 
 **Delegation is worthwhile when an independently executable piece of work can return useful, inspectable results to the original user task.** A role label alone proves nothing.
 
@@ -388,6 +360,8 @@ ETF Agent's design lesson is: **separate local work without losing critical fact
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
+
+[Panorama Series](/en/panorama) · [Chinese edition](/articles/agent-subagent-context-specialization).
 
 [Read the Chinese original on the author's blog](https://hpoenixf.com/blog/agent-subagent-context-specialization) · [Public engineering-article collection](https://github.com/hpoenixf/eff-agent-article) (Stars welcome).
 <!-- agent-article-sync:guidance:end -->

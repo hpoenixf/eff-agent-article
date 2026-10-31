@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="890" viewBox="0 0 640 890" role="img" aria-labelledby="title description" lang="en">
+<title id="title">From source to reader</title><desc id="description">From source to reader</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#ddf0e7"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#1f806d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="890" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="888" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#1f806d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">From source to reader</text>
+<rect x="40" y="140" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="185" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="32" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">An identified source version</text>
+<text x="66" y="224" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Source, object and time</text>
+<path d="M320 252 V275" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="284" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="329" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="32" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">The passage actually exposed</text>
+<text x="66" y="368" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Headers, units, pages and notes</text>
+<path d="M320 396 V420 H170 V445" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M320 420 H470 V445" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="455" width="266" height="118" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5"/>
+<text x="173" y="501" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="650" fill="#16362f" text-anchor="middle" letter-spacing="0">Direct statement</text>
+<text x="173" y="548" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="middle" letter-spacing="0">Retain source scope</text>
+<rect x="334" y="455" width="266" height="118" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5"/>
+<text x="467" y="501" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="650" fill="#16362f" text-anchor="middle" letter-spacing="0">Calculation</text>
+<text x="467" y="548" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="500" fill="#4e665e" text-anchor="middle" letter-spacing="0">Retain input lineage</text>
+<path d="M173 573 V600 H320 V620" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M467 573 V600 H320" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="628" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="673" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">Claim in the final answer</text>
+<text x="66" y="712" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Ranges match the transformed text</text>
+<path d="M320 740 V763" fill="none" stroke="#1f806d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="772" width="560" height="112" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="817" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">Reader can inspect the basis</text>
+<text x="66" y="856" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Present sources; do not certify truth</text>
+</svg>

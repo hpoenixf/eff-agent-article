@@ -25,11 +25,11 @@
     "agent-provider-failover-without-resetting-the-run": "故障切换：换路线，不重置任务",
     "agent-python-compute-workbench-evolution": "Python：从工具到计算工作台",
     "agent-runtime-constraint-governance-v2": "Run 预算与约束治理",
-    "agent-subagent-context-specialization": "Subagent：从隔离到专业化协作",
+    "agent-subagent-context-specialization": "Subagent 全景：独立上下文、专业协作与真实成果交接",
     "agent-tool-lifecycle-and-model-input": "工具调用到模型输入的观测链",
     "agent-veto-authority-and-run-termination": "Run 终结权、阶段预算与安全恢复",
     "agent-weekly-thesis-history-continuous-research": "一份周报过去后，Agent 还记得为什么这样判断吗？",
-    "ai-citations-do-not-prove-reliability": "很多引用为什么不等于可靠",
+    "ai-citations-do-not-prove-reliability": "Agent 引用全景：从原始资料到可核查的结论",
     "financial-agent-python-result-consumption": "Python 算过了，投研报告为什么还会错",
     "financial-agent-trustworthy-evidence-chain": "金融 Agent 的可信证据链",
     "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
@@ -51,7 +51,8 @@
     "agent-trace-complete-observation-gaps": "Trace 显示 Complete，为什么 Agent 还是无法完整复盘？",
     "agent-subagent-contribution-evidence": "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？",
     "agent-report-cost-attribution": "Agent 生成一份报告，到底应该怎么算成本？",
-    "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"
+    "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战",
+    "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"
   },
   "owners": {
     "A01": {
@@ -64,7 +65,8 @@
         "agent-veto-authority-and-run-termination",
         "agent-progressive-answer-coherence",
         "agent-background-research-collaborative-experience",
-        "agent-durable-human-interaction-response-adoption"
+        "agent-durable-human-interaction-response-adoption",
+        "agent-long-horizon-research-panorama"
       ]
     },
     "A03": {
@@ -86,7 +88,8 @@
     "A06": {
       "primary": "agent-veto-authority-and-run-termination",
       "related": [
-        "agent-provider-failover-without-resetting-the-run"
+        "agent-provider-failover-without-resetting-the-run",
+        "agent-long-horizon-research-panorama"
       ]
     },
     "A07": {
@@ -194,7 +197,8 @@
       "related": [
         "agent-progressive-answer-coherence",
         "agent-background-research-collaborative-experience",
-        "agent-durable-human-interaction-response-adoption"
+        "agent-durable-human-interaction-response-adoption",
+        "agent-long-horizon-research-panorama"
       ],
       "primary": "agent-asynchronous-research-time-bound-delivery"
     },
@@ -212,7 +216,8 @@
     },
     "A28": {
       "related": [
-        "tool-results-outside-model-context"
+        "tool-results-outside-model-context",
+        "agent-long-horizon-research-panorama"
       ],
       "primary": "agent-main-run-context-compaction"
     },

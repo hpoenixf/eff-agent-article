@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="1000" viewBox="0 0 640 1000" role="img" aria-labelledby="title description" lang="zh">
+<title id="title">异步采集，不同阶段</title><desc id="description">异步采集，不同阶段</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#dcecf4"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#236e9d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="1000" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="998" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#236e9d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">异步采集，不同阶段</text>
+<rect x="40" y="140" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="185" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">Agent 事件</text>
+<path d="M320 210 V234" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="240" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="285" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">采集适配器</text>
+<path d="M320 310 V334" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="340" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="385" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">批量导出器</text>
+<path d="M320 410 V434" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="440" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="485" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">接收接口</text>
+<path d="M320 510 V534 H171 V560" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M320 534 H469 V560" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="566" width="266" height="74" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5"/>
+<text x="173" y="612" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="650" fill="#16362f" text-anchor="middle" letter-spacing="0">事件存储</text>
+<rect x="334" y="566" width="266" height="74" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5"/>
+<text x="467" y="612" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="29" font-weight="650" fill="#16362f" text-anchor="middle" letter-spacing="0">接收队列</text>
+<path d="M173 640 V667 H320 V686" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M467 640 V667 H320" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="694" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="739" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">后台处理</text>
+<path d="M320 764 V788" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="794" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="839" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">ClickHouse</text>
+<path d="M320 864 V888" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="894" width="560" height="70" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="66" y="939" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700" fill="#16362f" text-anchor="start" letter-spacing="0">追踪回读</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="650" viewBox="0 0 640 650" role="img" aria-labelledby="title description" lang="en">
+<title id="title">One task, two fact paths</title><desc id="description">One task, two fact paths</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cddbd1" opacity=".45"/></pattern><linearGradient id="wash" x2="1" y2="1"><stop stop-color="#f7f8f2"/><stop offset="1" stop-color="#dcecf4"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#16362f" flood-opacity=".09"/></filter><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#236e9d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="640" height="650" rx="24" fill="#f7f8f2"/><rect x="1" y="1" width="638" height="648" rx="23" fill="url(#grid)" stroke="#cddbd1"/>
+<text x="40" y="48" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#236e9d" text-anchor="start" letter-spacing="2">AGENT / PANORAMA</text>
+<text x="40" y="100" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="35" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">One task, two fact paths</text>
+<rect x="40" y="134" width="560" height="68" rx="14" fill="#dcecf4" stroke="#dcecf4" stroke-width="1.5"/>
+<text x="320" y="178" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="650" fill="#236e9d" text-anchor="middle" letter-spacing="0">Correlate original Run / call IDs</text>
+<path d="M170 202 V244" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M470 202 V244" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="252" width="266" height="225" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<rect x="334" y="252" width="266" height="225" rx="18" fill="white" stroke="#cddbd1" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="62" y="297" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">Execution</text>
+<text x="62" y="337.5" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">records</text>
+<text x="62" y="382" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Tool effects</text>
+<text x="62" y="418.45" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Answer versions</text>
+<text x="62" y="454.9" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Original receipts</text>
+<text x="356" y="297" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">Telemetry</text>
+<text x="356" y="337.5" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="750" fill="#16362f" text-anchor="start" letter-spacing="0">copies</text>
+<text x="356" y="382" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Model turns</text>
+<text x="356" y="418.45" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Actual input/output</text>
+<text x="356" y="454.9" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="27" font-weight="500" fill="#4e665e" text-anchor="start" letter-spacing="0">Gaps and export</text>
+<path d="M170 477 V516 H470 V477" fill="none" stroke="#236e9d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 7"/>
+<rect x="40" y="538" width="560" height="80" rx="16" fill="#dcecf4" stroke="#dcecf4" stroke-width="1.5"/>
+<text x="320" y="588" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="650" fill="#236e9d" text-anchor="middle" letter-spacing="0">An empty query undoes no effect</text>
+</svg>
