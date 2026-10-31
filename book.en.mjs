@@ -183,7 +183,7 @@ const headings = {
   ],
   "真实验证与任务收敛": [
     "Real Validation and Task Convergence",
-    "From misleading green tests to verifiable task completion."
+    "Testing runtime protocols, tracing, specialist handoffs and research quality beyond local green checks."
   ],
   "L1 · 任务输入与触发": [
     "L1 · Task Input and Triggers",
@@ -213,15 +213,19 @@ const headings = {
     "Financial Research and Business Accountability",
     "Financial data and calculation semantics, research-service boundaries and investment-business responsibilities."
   ],
+  "架构学习路线": [
+    "Architecture Learning Path",
+    "From a 15-minute introduction through ten modules and a runnable deep dive to the complete six-layer architecture."
+  ],
   "系统边界与演进": [
     "System Boundaries and Evolution",
-    "System overviews, evidence relationships, cross-layer observability, failure attribution and architectural evolution."
+    "Cross-module evidence, responsibility, failure attribution, reliability and long-term architecture evolution."
   ]
 }
 const labels = {
   modules: ['Module Deep Dives','Mechanisms along the six-layer request lifecycle, with cross-layer responsibilities preserved.'],
   thinking: ['Architecture and Systems Thinking','System boundaries, responsibility, reliability and change.'],
-  engineering: ['AI Agent Engineering Practice','How coding agents develop, validate, maintain and evolve software.']
+  engineering: ['AI Agent Engineering Practice','From coding-agent workflows to runtime validation, protocol compatibility, incident analysis and verifiable task outcomes.']
 }
 export const englishCollections = collections.map(collection => ({
   ...collection,

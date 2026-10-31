@@ -118,6 +118,7 @@ export const collections = [
         ],
         "related": [
           ["agent-subagent-context-specialization", "Subagent：从隔离到专业化协作"],
+          ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"]
         ]
       },
@@ -133,13 +134,19 @@ export const collections = [
         ]
       },
       {
-        "title": "系统边界与演进",
-        "desc": "系统全景、证据关系、跨层观测、故障归因与架构演化。",
+        "title": "架构学习路线",
+        "desc": "从十五分钟入门、十模块进阶，到可运行的深入实践和六层全景；按认知难度逐步阅读。",
         "items": [
           ["agent-in-15-minutes", "十五分钟入门 Agent"],
           ["agent-ten-modules", "Agent 进阶：读懂 Open ETF Agent 的十个核心模块"],
           ["open-etf-agent-v010-system-design", "Agent 深入：从一份报告到持续执行与专家协作"],
-          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
+          ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"]
+        ]
+      },
+      {
+        "title": "系统边界与演进",
+        "desc": "跨模块证据关系、职责边界、故障归因、可靠性与长期架构演化。",
+        "items": [
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
@@ -160,7 +167,7 @@ export const collections = [
   {
     "id": "engineering",
     "title": "AI Agent 研发工程实践",
-    "subtitle": "如何让 Coding Agent 在长期项目中持续开发、验证、维护和升级，而不把测试绿灯、文档完成与用户交付混为一谈。",
+    "subtitle": "从 Coding Agent 辅助开发到 Agent Runtime 的真实验证，围绕规范、测试、协议、故障复盘与任务收敛持续改进系统。",
     "label": "AI-ASSISTED ENGINEERING",
     "chapters": [
       {
@@ -177,7 +184,7 @@ export const collections = [
       },
       {
         "title": "真实验证与任务收敛",
-        "desc": "区分假绿、模型返回与最终任务完成，让研发从局部修补走向可验证收敛。",
+        "desc": "核对 Runtime 协议、追踪、专家交接与研究质量，区分局部测试通过、运行完成和最终任务价值。",
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "测试与评测：绿灯究竟证明什么"],
