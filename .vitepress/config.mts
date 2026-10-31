@@ -54,7 +54,8 @@ export default defineConfig({
             { text: 'Modules', link: '/en/modules' },
             { text: 'Architecture', link: '/en/thinking' },
             { text: 'Engineering', link: '/en/engineering' },
-            { text: 'Fintech', link: '/en/fintech' }
+            { text: 'Fintech', link: '/en/fintech' },
+            { text: 'Panorama Series', link: '/en/panorama' }
           ] }
         ],
         sidebar: {
@@ -68,6 +69,7 @@ export default defineConfig({
             { text: 'Architecture', link: '/en/thinking' },
             { text: 'Engineering Practice', link: '/en/engineering' },
             { text: 'Fintech', link: '/en/fintech' },
+            { text: 'Panorama Series', link: '/en/panorama' },
             { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
             { text: 'Architecture Gallery', link: '/en/gallery' },
             { text: 'Writing Roadmap', link: '/en/roadmap' },
@@ -147,7 +149,7 @@ export default defineConfig({
     }
 
     const pairedPage = relativePath.replace(/^en\//, '').replace(/\.md$/, '')
-    if (!['principles', 'open-etf-agent'].includes(pairedPage)) return
+    if (!['principles', 'open-etf-agent', 'panorama'].includes(pairedPage)) return
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
@@ -218,7 +220,8 @@ export default defineConfig({
         { text: '模块维度', link: '/modules' },
         { text: '架构与系统思考', link: '/thinking' },
         { text: '研发工程实践', link: '/engineering' },
-        { text: '金融专题', link: '/fintech' }
+        { text: '金融专题', link: '/fintech' },
+        { text: '全景系列 · 标签', link: '/panorama' }
       ] },
       { text: '博客 ↗', link: 'https://hpoenixf.com/' }
     ],
@@ -233,6 +236,7 @@ export default defineConfig({
           { text: '架构与系统思考', link: '/thinking' },
           { text: '研发工程实践', link: '/engineering' },
           { text: '金融专题', link: '/fintech' },
+        { text: '全景系列 · 标签', link: '/panorama' },
           { text: '金融研究清单', link: '/financial-research-backlog' },
           { text: '完整目录', link: '/catalog' },
           { text: '架构导读', link: '/architecture' },
