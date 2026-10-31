@@ -21,14 +21,22 @@ function routePath(value) {
 }
 
 export function isLegacyArticleRoute(value) {
+  if (['roadmap', 'en/roadmap'].includes(routePath(value))) return true
   const article = /^(?:en\/)?articles\/([a-z0-9-]+)$/.exec(routePath(value))
   return Boolean(article && legacySlugs.has(article[1]))
+}
+
+// Public contributor documentation remains accessible, but is not reader content.
+export function isNonReaderRoute(value) {
+  return /^(?:en\/)?(?:README|MAINTENANCE)$/.test(routePath(value))
 }
 
 export function canonicalUrl(relativePath) {
   let path = relativePath.replace(/\.md$/, '')
   if (path === 'index') path = ''
   if (path === 'en/index') path = 'en/'
+  if (path === 'roadmap') path = 'catalog'
+  if (path === 'en/roadmap') path = 'en/catalog'
 
   const article = /^(en\/)?articles\/([^/]+)$/.exec(path)
   if (article) {
@@ -39,12 +47,12 @@ export function canonicalUrl(relativePath) {
 }
 
 export function filterSitemapItems(items) {
-  return items.filter(({ url }) => !isLegacyArticleRoute(url))
+  return items.filter(({ url }) => !isLegacyArticleRoute(url) && !isNonReaderRoute(url))
 }
 
 // Use accepted translations, not speculative English URLs. Check both sources.
 export function languageAlternates(relativePath, sourceExists) {
-  if (isLegacyArticleRoute(relativePath)) return []
+  if (isLegacyArticleRoute(relativePath) || isNonReaderRoute(relativePath)) return []
   const path = relativePath.replace(/^en\//, '')
   const route = path.replace(/\.md$/, '')
   const article = /^articles\/([a-z0-9-]+)$/.exec(route)
@@ -57,3 +65,4 @@ export function languageAlternates(relativePath, sourceExists) {
     ['link', { rel: 'alternate', hreflang: 'en', href: canonicalUrl('en/' + path) }]
   ]
 }
+

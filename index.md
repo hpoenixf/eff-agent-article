@@ -1,6 +1,7 @@
 ---
 layout: home
-title: ETF Agent · 工程手记
+title: "AI Agent 开发教程：入门、架构与金融应用"
+description: "从十五分钟入门到模块进阶、系统深入与金融研究，结合可运行案例理解 AI Agent 的工具、持续执行、协作和证据边界。"
 hero:
   name: ETF Agent · Notes
   text: 从真实工程，读懂 Agent。

@@ -3,9 +3,20 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { englishArticleSlugs, englishTitles } from '../book.en.mjs'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
-import { SITE_URL, canonicalUrl, isLegacyArticleRoute, filterSitemapItems } from '../seo-routes.mjs'
+import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems } from '../seo-routes.mjs'
 
 const legacy = { ...mergedArticles, ...historicalEditions }
+
+test('contributor documentation is excluded without hiding reader pages', () => {
+  for (const route of ['README.md', 'MAINTENANCE', '/eff-agent-article/MAINTENANCE.html', SITE_URL + 'en/README']) {
+    assert.equal(isNonReaderRoute(route), true)
+    assert.deepEqual(filterSitemapItems([{ url: route }]), [])
+  }
+  for (const route of ['index.md', 'fintech', 'catalog', 'articles/agent-in-15-minutes']) {
+    assert.equal(isNonReaderRoute(route), false)
+    assert.deepEqual(filterSitemapItems([{ url: route }]), [{ url: route }])
+  }
+})
 
 test('merged and historical article URLs stay canonicalized but never enter sitemap', () => {
   for (const [slug, target] of Object.entries(legacy)) {

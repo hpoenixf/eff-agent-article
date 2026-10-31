@@ -10,6 +10,15 @@ const listed = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match)
 const legacy = [...Object.keys(mergedArticles), ...Object.keys(historicalEditions)]
 let preserved = 0
 
+for (const route of ['README', 'MAINTENANCE', 'en/README', 'en/MAINTENANCE']) {
+  if (!existsSync(route + '.md')) continue
+  assert.ok(!listed.has(SITE_URL + route) && !listed.has(SITE_URL + route + '.html'),
+    'Contributor documentation must not enter reader sitemap: ' + route)
+  const html = readFileSync(resolve(output, route + '.html'), 'utf8')
+  assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex,\s*follow"/,
+    'Contributor documentation must remain accessible but noindex: ' + route)
+}
+
 for (const slug of legacy) {
   for (const language of ['', 'en/']) {
     const route = language + 'articles/' + slug
