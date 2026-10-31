@@ -30,6 +30,14 @@ features:
     details: From specs and evidence to validated task outcomes.
     link: /en/engineering
     linkText: Explore engineering
+  - title: Panorama
+    details: See the whole Agent architecture and how its modules work together.
+    link: /en/panorama
+    linkText: Explore the panorama
+  - title: Finance
+    details: Understand research methods, evidence and accountability in finance.
+    link: /en/fintech
+    linkText: Explore finance
 ---
 
 <ContinueReading />

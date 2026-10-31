@@ -30,6 +30,14 @@ features:
     details: 从 Spec、Evidence 到真实任务的验证与收敛。
     link: /engineering
     linkText: 工程实践
+  - title: 全景专题
+    details: 从全局理解 Agent 架构与模块协作。
+    link: /panorama
+    linkText: 阅读全景
+  - title: 金融专题
+    details: 理解金融研究的方法、证据与责任边界。
+    link: /fintech
+    linkText: 阅读金融
 ---
 
 <ContinueReading />
