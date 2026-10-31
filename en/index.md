@@ -51,3 +51,4 @@ features:
 
 <OpenSourceBridge />
 
+<RecentArticles />

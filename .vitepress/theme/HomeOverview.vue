@@ -1,38 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData, withBase } from 'vitepress'
+import { data as tagData } from './article-tags.data'
 
 const { lang } = useData()
 
-// Editorial selections belong here; the complete article tree stays in book.mjs.
+// Category paths remain in book.mjs; topic tags share the generated article tag data.
 const zh = {
-  latestLabel: 'SELECTED ARTICLES · 近期精选',
-  latestTitle: '最近值得读',
-  catalogLabel: '查看全部文章',
-  latest: [
-    {
-      category: '工程复盘', date: '10.26',
-      title: '一个 Subagent 改动，为什么拖住了整整一天？',
-      description: '从职责耦合到修改扩散，重新审视 Runtime 的维护成本。',
-      href: '/articles/agent-runtime-refactor-one-day-blocked'
-    },
-    {
-      category: '架构思考', date: '10.26',
-      title: 'Agent 架构：哪些该稳定，哪些该变化？',
-      description: '通过 Child、Memory 与 Provider，理解差异化演进。',
-      href: '/articles/agent-differentiated-evolution-contracts'
-    },
-    {
-      category: '研究机制', date: '10.26',
-      title: '投研 Agent 的关键不是多调用工具',
-      description: '从 Model、Harness 到 Loop，看研究如何随证据推进。',
-      href: '/articles/etf-agent-model-harness-research-loop'
-    }
-  ],
   topicLabel: '专题与工具',
   topics: [
-    { label: '金融可信工程', href: '/fintech' },
-    { label: '全景系列', href: '/panorama' },
     { label: '架构图册', href: '/gallery' },
     { label: '写作路线图', href: '/roadmap' },
     { label: '术语速查', href: '/glossary' },
@@ -95,33 +71,8 @@ const zh = {
 }
 
 const en = {
-  latestLabel: 'SELECTED ARTICLES',
-  latestTitle: 'Fresh perspectives',
-  catalogLabel: 'Browse all articles',
-  latest: [
-    {
-      category: 'ENGINEERING', date: 'OCT 26',
-      title: 'Why did one Subagent change block a day of work?',
-      description: 'How scattered ownership and cross-cutting changes raise runtime maintenance costs.',
-      href: '/en/articles/agent-runtime-refactor-one-day-blocked'
-    },
-    {
-      category: 'ARCHITECTURE', date: 'OCT 26',
-      title: 'What should stay stable—and what should change?',
-      description: 'A different evolution strategy for Child, Memory, and Provider.',
-      href: '/en/articles/agent-differentiated-evolution-contracts'
-    },
-    {
-      category: 'RESEARCH LOOP', date: 'OCT 26',
-      title: 'A research agent needs more than tools',
-      description: 'How Model, Harness, and Loop advance a question as evidence changes.',
-      href: '/en/articles/etf-agent-model-harness-research-loop'
-    }
-  ],
   topicLabel: 'Explore topics',
   topics: [
-    { label: 'Trustworthy fintech', href: '/en/fintech' },
-    { label: 'Panorama series', href: '/en/panorama' },
     { label: 'Architecture gallery', href: '/en/gallery' },
     { label: 'Writing roadmap', href: '/en/roadmap' },
     { label: 'Glossary', href: '/en/glossary' },
@@ -187,28 +138,10 @@ const copy = computed(() => lang.value.startsWith('en') ? en : zh)
 </script>
 
 <template>
-  <section class="home-overview" :aria-label="copy.latestTitle">
-    <div class="home-overview__heading">
-      <div>
-        <p class="home-overview__eyebrow">{{ copy.latestLabel }}</p>
-        <h2>{{ copy.latestTitle }}</h2>
-      </div>
-      <a class="home-overview__all" :href="withBase(lang.startsWith('en') ? '/en/catalog' : '/catalog')">
-        {{ copy.catalogLabel }} <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-
-    <div class="home-overview__cards">
-      <a v-for="item in copy.latest" :key="item.href" class="home-overview__card" :href="withBase(item.href)">
-        <span class="home-overview__meta">{{ item.category }} <span aria-hidden="true">·</span> {{ item.date }}</span>
-        <strong>{{ item.title }}</strong>
-        <span class="home-overview__desc">{{ item.description }}</span>
-        <span class="home-overview__read">{{ lang.startsWith('en') ? 'Read article' : '阅读文章' }} <span aria-hidden="true">↗</span></span>
-      </a>
-    </div>
-
+  <section class="home-overview" :aria-label="copy.topicLabel">
     <nav class="home-overview__topics" :aria-label="copy.topicLabel">
       <span class="home-overview__topics-label">{{ copy.topicLabel }}</span>
+      <a v-for="tag in tagData.definitions" :key="tag.id" :href="withBase((lang.startsWith('en') ? '/en/' : '/') + tag.path)"># {{ lang.startsWith('en') ? tag.en : tag.zh }}</a>
       <a v-for="topic in copy.topics" :key="topic.href" :href="withBase(topic.href)">{{ topic.label }} <span aria-hidden="true">↗</span></a>
     </nav>
 

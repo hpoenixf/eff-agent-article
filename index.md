@@ -55,3 +55,4 @@ features:
 
 <OpenSourceBridge />
 
+<RecentArticles />

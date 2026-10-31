@@ -97,3 +97,20 @@ must agree on the canonical domain. Legacy GitHub Pages serves redirects only.
 - Review presentation-only version captions and current stable/WIP text separately: one version, one distinct delivery focus; do not promote WIP, historical test totals, or execution receipts into release/model/investment-quality claims. Preserve `semanticStatus: unreviewed` and per-article scope. Newly cataloged articles remain unassessed unless the authoritative coverage contract says otherwise.
 - Run `npm run check:topic`, `npm run check:catalog`, and `npm run docs:build`; inspect English/Chinese pages at desktop/mobile widths, keyboard focus, language switching with a saved opposite preference, and Back/Forward. Tests of this page do not replace complete deployment CI.
 - Publication remains article source → canonical blog lock/build at `hpoenixf/myblog-v2` → `https://hpoenixf.com/eff-agent-article/`. No parallel website. Verify exact source/lock/CI and public HTML body, routes, links and snapshot counts after deployment.
+
+
+## 自动最近更新 / Automatic recent updates
+
+首页末尾由 VitePress content loader 从 `book.mjs` 的唯一目录、对应正文和固定源码提交的 Git 历史自动选取最近五篇。无需手填日期或另维护五篇清单；新增文章沿原流程提交并加入目录后自动进入。英文只展示 `book.en.mjs` 已登记完整译文且实际存在的英文页面。草稿、历史副本、未提交文件不进入列表；完整目录不受五篇预览限制。
+
+`article-history.mjs` 沿用既有 RSS 的 Git 时间来源，但保留原 RSS 行为不变。首页进一步比较内容：沿固定 HEAD 的 first-parent 历史，比较文章正文与前一主线版本，保留最近内容变化的真实提交时间和新增/更新身份。合并提交只计主线可见事件。普通正文的空白/换行及明确的派生时间、布局字段（lastUpdated、updatedAt、createdAt、layout、outline、sidebar、pageClass）调整被忽略；title、description、evidence 及其他未知 frontmatter 字段保守计入内容变化。book-only 分类或目录展示调整不计为文章正文更新；围栏代码与 Mermaid 保留空白语义。此规则不是 AI 语义审核：标题措辞、链接或图源调整可能计入内容更新，也不证明功能实现或真实验收。显示日期统一为北京时间（UTC+8），HTML time 保留完整真实提交时间。日期是源码内容事件时间，不冒充线上首次部署时间。
+
+源仓库检查与博客固定来源 checkout 均需 `fetch-depth: 0`。缺 Git、浅克隆或读取失败时输出构建 warning，首页降级为“暂无法确认最近更新”和完整目录入口；不阻断正文站点构建，也不把浅克隆边界或构建时间当文章发布时间。没有额外网络请求、定时任务、写仓权限或新增凭据。列表随原 source → blog pin → CI 部署更新；新域读回才算上线。
+
+Recent homepage entries reuse the existing publication chain’s full Git history; existing RSS behavior is unchanged. Canonical catalogue membership, actual translated pages and draft flags filter the results. Prose whitespace-only changes and explicitly listed derived-time/layout fields do not refresh dates; reader-visible title/description, evidence and unknown metadata remain content. Catalogue-only reclassification does not refresh article history; fenced examples retain meaningful whitespace. This is a bounded content comparison, not a claim of semantic equivalence or deployment timing. Full Git history provides reliable recent entries; missing history produces a warning and catalogue fallback without preventing article builds.
+
+### 分类与多标签并行
+
+分类与学习路线仍由 `book.mjs` 唯一维护；标签不会移动文章或变更 URL。`article-tags.data.ts` 构建派生共享数据：金融取现有 `fintech.md` 的 canonical 本地文章链接（双语归一去重）；全景取既有 `panoramaSeriesSlugs`；开源取 `open-etf-topic.mjs` 的 coverage target 关联（含 additionalTargets）。首页入口、正文标签与目录多选筛选共用此数据。多选采用“同时满足”，可清除筛选。金融中英文专题须保持同一集合，原分类测试会核验。
+
+开源标签表示文章有关联 target，不等于功能完整实现或正式发布；只有原资格回执认可的 limited 状态显示“有限范围已验证”，其余显示“有关联 · 未验证”。没有证据不补造 WIP / Release 身份；细节链接至原开源专题。book-only 分类变动不是文章正文更新时间，最近更新仍按文章 Git 内容规则独立派生。

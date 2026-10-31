@@ -1,3 +1,4 @@
+import RecentArticles from './RecentArticles.vue'
 import SiteAnalytics from './SiteAnalytics.vue'
 import OpenEtfTopic from './OpenEtfTopic.vue'
 import OpenEtfTopicEntry from './OpenEtfTopicEntry.vue'
@@ -34,6 +35,7 @@ export default {
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
+    app.component('RecentArticles', RecentArticles)
     app.component('LearningPathNav', LearningPathNav)
     app.component('WeChatFollow', WeChatFollow)
     app.component('OpenEtfTopic', OpenEtfTopic)
