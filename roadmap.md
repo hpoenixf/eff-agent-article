@@ -5,11 +5,17 @@ description: 区分可立即深化的已发表文章、需要新工程证据的�
 
 # 接下来写什么
 
-<small>更新：2026-10-27 · 这是编辑选题；展望文章已发布不等于产品完成整体效果验收。</small>
+<small>更新：2026-10-31 · 这是编辑选题；文章入库不等于产品完成整体效果验收。</small>
 
 我们不再按每次故障或每条设计原则新增文章。优先让已有作品回答更完整的问题，只有**新的读者问题、不能被已有主稿吸收、并有足够独立证据**时才开新篇。
 
 先看[九条核心原则与七组外围系统方法](/principles)，再决定是深化原文、积累案例，还是形成新文章。
+
+## 2026-10-31 · E04/A33 专文和三篇旧文实质翻新
+
+[E04 研究调用证据留存与回读](/articles/agent-research-evidence-store-lifecycle)首次独立解释被动采集、隐私准入、有限队列、来源复核、历史回读与清除；[A33 精确数值核](/articles/agent-numeric-kernel-exact-units-rounding)独立讲单位、负向 tie、精确比较与不可行约束。两篇均有完整中英文正文和各两张语言对应的 Mermaid 机制图。
+
+[工具调用到模型输入](/articles/agent-tool-lifecycle-and-model-input)增补 E04/A11 区分，[金融数字 031](/articles/031-fintech-data-time-and-reproducible-numbers)补 A33 与领域资格的反例，[报告成本归因](/articles/agent-report-cost-attribution)补调用证据、计量、分摊和对账四者分离；三篇均保留原 slug 与完整英文正文。拟更新的公开 Owner 阅读映射为 **35 项 primary、11 项仅 related、1 项 A27 未写（47 项）**；这是文章覆盖，而非正式运行与金融质量验收。旧来源覆盖表仍保留其 10 月 27 日历史快照，待来源仓自身再对账。
 
 ## 2026-10-27 · A40/A41 独立机制稿已补齐
 

@@ -59,11 +59,13 @@ export const collections = [
           ["024-agent-pdf-from-text-to-evidence", "PDF：从文本到证据"],
           ["agent-temporal-semantics-market-calendar", "Agent 说“今天”时，到底是哪一天"],
           ["agent-python-compute-workbench-evolution", "Python：从工具到计算工作台"],
+          ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
           ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
           ["mcp-host-from-discovery-to-consumption", "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"],
-          ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"]
+          ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"],
+          ["agent-research-evidence-store-lifecycle", "一次模型调用留下了什么：研究证据的采集、留存与回读"]
         ],
         "related": [
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"]
