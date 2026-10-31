@@ -54,7 +54,7 @@ The server assigns a stable `profileId` and stores a `revision`, content hash, a
 
 Storage has bounded capacity, too. The current contract allows up to 20 saved Profiles and 8 enabled Profiles. These are limits on account configuration and catalog size, **not** individual inference budgets.
 
-If saving fails, a version conflicts, or capacity is exceeded, the UI must preserve unsaved edits. An error message must never be mistaken for a successful write.
+If saving fails, a version conflicts, or capacity is exceeded, the UI must preserve unsaved edits. An error message must never be mistaken for a successful write. In a controlled browser check, two pages edited the same Profile: the newer revision was saved, while the stale update was rejected without losing its draft. This used synthetic identity and in-memory persistence, not an authenticated production session.
 
 ## 3. The Path from Settings to a Research Result
 
@@ -84,6 +84,8 @@ An empty catalog differs from a failed catalog read. In the latter case the syst
 
 The Child reuses the established model, tools, source authorization, resource accounting, and result handoff. A personal expert's instructions are not new system instructions. They cannot grant trading, publication, recursive Child spawning, or broader data access.
 
+A prompt telling the model not to escalate privilege does not enforce that distinction. During a controlled request-assembly test of the unified `agentId` path, personal `instructions` had reached the Child's general system layer. We corrected their placement through the existing request assembly: Main receives catalog metadata, while only the selected Child receives the frozen user-originated method. **A prompt's trust level depends on its producer and message role, not merely its wording.** This was a scoped engineering finding, not evidence of an actual user-data leak.
+
 The chosen execution identity includes `agentId`, provenance, version, content hash, and personal Profile revision. An `agentId` is neither a filesystem path nor permission to run code.
 
 The current user-defined Profile is **text-based**. Separately, managed built-in experts such as PDF may contain a `SKILL.md`, references, and sandboxed Python helper scripts. But **users cannot infer from this that arbitrary ZIP uploads and executable custom scripts are available**. The selection interface is shared; package admission and installation are not.
@@ -91,6 +93,8 @@ The current user-defined Profile is **text-based**. Separately, managed built-in
 ### 3. Main delivers results that actually exist
 
 Once a Child completes, the original execution system records its outcome. Main can read the actual result and synthesize an answer. History associates the recorded execution and binding revision with the personal expert used at the time.
+
+During migration, the Child already used `agentId`, but an older History reader still expected legacy binding fields and could omit that attribution. The fix was not to guess from a display name or decorate history with the account's newest Profile; History reads the original Child admission, frozen method, and execution receipt. Later renaming, disabling, or soft-deletion cannot rewrite which revision was used.
 
 "Created," "selected," "admitted," and "delivered" are four different states. Displaying an expert's name in the UI is not evidence that it completed any research.
 
@@ -104,49 +108,7 @@ If recovery simply reloads the latest configuration by `profileId`, one Run may 
 
 This matters both for consistent execution and for explaining why an answer was produced.
 
-## 4. Pitfall One: User Instructions Reached the System Layer
-
-During migration from the old selection fields to unified `agentId`, a focused test of the real production request-assembly path revealed that private `instructions` had been duplicated into a Child's general system content.
-
-If you look only at the text, this may appear to be harmless duplication. But a model message has both **content** and **provenance**.
-
-The system layer carries host-owned execution constraints. A user's editable expert method must remain user-originated method data. Moving the latter into the former blurs a trust boundary, even before we ask whether a particular model would follow it.
-
-We did not add another natural-language safety classifier. We corrected the existing request assembly so built-in package guidance and personal methods occupy their intended positions, and checked content identity before dispatch. Main sees only catalog metadata; the selected Child receives the exact chosen instructions; independently published answers do not expose private Prompt text by default.
-
-This was a failure discovered in controlled engineering tests, not evidence of a real user-data leak. The transferable lesson is narrower and more useful:
-
-**A Prompt is not just bytes and wording. It must carry the correct producer identity.**
-
-## 5. Pitfall Two: The Child Used the Expert, but History Could Not Recognize It
-
-Another integration failure occurred on the reading side.
-
-New delegations already used `agentId`, while part of the old History reader still identified personal Profiles through the previous binding shape. The Child had actually received the user's method, but History could omit its attribution.
-
-This looks like a missing UI label. The underlying problem is that **creation, execution, and historical reading no longer agreed about expert identity**.
-
-We did not try to reconstruct identity from a mutable display name or query the account's newest configuration to decorate an old result. History instead checks the original Child admission, frozen Profile, and actual execution record.
-
-Later renaming, disabling, or soft-deleting a Profile must not alter which revision historical research used. This also keeps inspection, recovery, and the user's reading view consistent.
-
-Unifying a creation API is never just a change to a single `spawn_subagent` call. Any History, inspect, or recovery consumer still expecting the old shape can become the next migration seam.
-
-## 6. Pitfall Three: HTTP 200, but the Settings Page Was Blank
-
-The settings experience deserves the same care. In a synthetic browser environment using the real settings component and account HTTP route, we examined multiline instruction editing, reloads, enable/disable, conflicting changes, deletion cancellation, and draft preservation.
-
-The first attempt returned HTTP 200, but the page rendered blank. The console pointed to a failed React Hook call. The test fixture had resolved ReactDOM and the component's Hooks to two physically distinct React module instances. Matching package versions did not make their Hook dispatchers interchangeable.
-
-We fixed the fixture's module resolution so both used the same React instance. We did **not** change product persistence rules merely to make the test green.
-
-The corrected browser check demonstrated a particularly useful behavior. Page A saved a newer Profile revision; page B then tried to submit an edit based on an older revision. The system reported a conflict, preserved the stored data, and kept page B's unsaved draft intact.
-
-That browser run used synthetic identity and process-memory persistence, not a complete authenticated production session. Its evidence should be described at exactly that scope.
-
-To a user maintaining a research method over months, refusing a stale overwrite and preserving a failed draft can matter more than an impressive multi-Agent architecture diagram.
-
-## 7. Comparing Octop: Template, Instance, and Execution Need Not Be One Object
+## 4. Comparing Octop: Template, Instance, and Execution Need Not Be One Object
 
 Tencent Cloud's open-source [Octop](https://github.com/TencentCloud/Octop) illustrates another direction for expert products. Its templates may contain `manifest.json`, `SOUL.md`, `IDENTITY.md`, Skills, and other files. Instantiating a template copies its content into an independent Agent workspace. Users can continue using and customizing those instances, and publish or share templates through supported mechanisms. Its [Expert Catalog source](https://github.com/TencentCloud/Octop/blob/main/src/octop/infra/agents/experts/catalog.py) shows the distinction between template discovery and workspace seeding.
 
@@ -162,7 +124,7 @@ This comparison reinforced the value of separating three objects:
 
 We can learn from Octop's discoverable expert cards, example tasks, and template sharing without building a second Agent platform just to support a Prompt settings form. In finance, a shared template must not automatically carry personal holdings, private research history, or the user's source grants.
 
-## 8. From Preferences to Contributions That Actually Happened
+## 5. From Preferences to Contributions That Actually Happened
 
 Originally we asked whether a user could save an expert. The next question is harder: **after selecting an expert in chat, did that expert actually contribute?**
 
@@ -181,7 +143,7 @@ In a **synthetic** fund research example, the user explicitly selects a PDF spec
 
 A saved expert preset stores a `presetId`, revision, name, and expert IDs under the existing account owner. Applying it fills editable suggestions. It neither launches a permanent team nor starts Peer messages, Reviewer calls, or additional budgets. Refreshing History must read the original Run's frozen selection and actual execution receipts, not reinterpret past results with today's directory. If the contribution panel fails locally, already published text and permitted downloads stay available.
 
-## 9. Change the Research Description, Not the Execution History
+## 6. Change the Research Description, Not the Execution History
 
 Main's original instruction need not remain an unquestioned premise. Imagine asking a Child to calculate exact overlap between two funds' underlying holdings. After opening the reports, it discovers that one fund discloses only its top ten holdings. Repeating the original task would risk presenting partial overlap as full coverage.
 
@@ -206,7 +168,7 @@ Likewise, `relationHint` describes the intended relationship, not an executed de
 
 This is adjacent to [the agents-as-tools and handoff distinction in the OpenAI Agents SDK](https://openai.github.io/openai-agents-python/multi_agent/): Main retains the conversation and final answer, while the specialist performs bounded work. ETF Agent's frozen account methods, optional task revisions, and attribution are its own engineering choices rather than capabilities implied by that SDK.
 
-## 10. What Works Today, and What Still Needs Qualification?
+## 7. What Works Today, and What Still Needs Qualification?
 
 As of October 27, 2026, versioned Profiles, exact selection from normal messages, soft Tool/Skill preferences, optional Skill preloading, on-demand calling guides, expert directory and contribution projections, account presets, and Child-authored description updates have scoped engineering implementation and verification evidence.
 
