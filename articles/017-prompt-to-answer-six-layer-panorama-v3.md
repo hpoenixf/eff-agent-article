@@ -295,7 +295,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A30 | [Provider 容量准入](/articles/agent-provider-admission-capacity-lease) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A30) | L2 |
 | A32 | [模型目录与路由配置](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A32) · [相关文章](/articles/agent-provider-architecture-and-admission) | L1、L2 |
 | A34 | [模型能力呈现与工具表面](/articles/agent-model-capability-presentation-tool-surface) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A34) | L2、L4 |
-| E04 | [研究调用证据留存与回读](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=E04) · [相关文章](/articles/agent-tool-lifecycle-and-model-input) | L4、L5 |
+| E04 | [研究调用证据留存与回读](/articles/agent-research-evidence-store-lifecycle) · [相关文章](/articles/agent-tool-lifecycle-and-model-input) | L4、L5 |
 
 ### L4 · 工具与领域能力
 
@@ -309,7 +309,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A20 | [知识检索](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
 | A21 | [隔离分析](/articles/agent-python-compute-workbench-evolution) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3、L5 |
 | A31 | [MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2、L3 |
-| A33 | [精确数值运算](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A33) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| A33 | [精确数值运算](/articles/agent-numeric-kernel-exact-units-rounding) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | A36 | [时间语义与市场 Session 解释](/articles/agent-temporal-semantics-market-calendar) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2、L3 |
 | B01 | [市场证据采集](/articles/mcp-market-responsibility-retrospective) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
 | B02 | [投资事实读取](/articles/portfolio-mcp-readonly-investment-data) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
