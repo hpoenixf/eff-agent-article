@@ -32,6 +32,7 @@ const zh = {
   topicLabel: '专题与工具',
   topics: [
     { label: '金融可信工程', href: '/fintech' },
+    { label: '全景系列', href: '/panorama' },
     { label: '架构图册', href: '/gallery' },
     { label: '写作路线图', href: '/roadmap' },
     { label: '术语速查', href: '/glossary' },
@@ -120,6 +121,7 @@ const en = {
   topicLabel: 'Explore topics',
   topics: [
     { label: 'Trustworthy fintech', href: '/en/fintech' },
+    { label: 'Panorama series', href: '/en/panorama' },
     { label: 'Architecture gallery', href: '/en/gallery' },
     { label: 'Writing roadmap', href: '/en/roadmap' },
     { label: 'Glossary', href: '/en/glossary' },
