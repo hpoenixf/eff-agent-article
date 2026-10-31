@@ -39,6 +39,8 @@ features:
 
 <FlagshipEntry compact />
 
+> **Panorama Series Tag** · [Browse the whole-system, financial and architectural decision maps](/en/panorama) before choosing a deeper mechanism article.
+
 > **Financial systems overview** · [Financial Agents in Context: Systems, Lifecycles, and Accountability](/en/articles/financial-agent-system-panorama). Three diagrams connect user services, institutional systems, research and business lifecycles, and traceable responsibility.
 
 > **Engineering practice** · [When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together](/en/articles/docs-code-tests-evolve-together): an Excel-export teaching example connects requirement changes, retained protections, and the file users actually receive. [中文](/articles/docs-code-tests-evolve-together)
