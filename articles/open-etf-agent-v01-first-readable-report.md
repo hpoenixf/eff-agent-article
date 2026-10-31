@@ -15,6 +15,12 @@ description: 从固定源码运行离线示例，理解资料身份、工具执�
 
 v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选择动作，真实执行读取、计算与保存；它让我们检查程序怎样工作，还不能据此判断真实模型会不会读懂资料。这篇先把第一条路径讲清楚，后续再回到已有的模块文章，逐步补上对应源码。
 
+## 最新公开入口（截至 2026-10-31）
+
+当前稳定代码已到 [v0.15.2 固定快照](https://github.com/hpoenixf/open-etf-agent/tree/34124cefc6df289e08518173789210b45a716451)。沿原模块阅读，可以继续看[显式 Memory 消费](./026-agent-memory-forget-durable-effects.md)、[串行来源核对与 Main 交接](./agent-subagent-context-specialization.md)，以及[报告回执为何不能被摘要替代](./agent-main-run-context-compaction.md)。v0.15.1 修复这些路径的运行边界；v0.15.2 再处理[已建立工具 ID 后的 null 流式续片](./agent-stream-tool-call-null-continuation.md)，不改变工具授权。
+
+日常安装与用法仍以[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)为入口。默认演示采用合成资料和脚本动作；这两次修复另有独立真实模型任务记录，但不能拿它们重写旧版本的失败、证明摘要理解或投资研究质量。0.16/0.17 仍是未正式发布的工作，不属于这里的稳定能力。下面保留 10 月 28 日的进展快照及 v0.1 的原始案例；历史命令继续使用各自固定版本，不能混用工作目录。
+
 ## 当前可以从哪里继续（截至 2026-10-28）
 
 截至 **2026-10-28**，最新公开的编号版本是 **v0.13.0 普通持久回复**：一个问题先保存并让出执行租约，收到的原回复再由同一个 Run 显式恢复采用，沿原工具结果进入请求和报告。日常入口见[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)，本例对应[固定 v0.13 源码](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278)；具体命令和“收到不等于采用”的分界见[既有人机交互文章](./agent-durable-human-interaction-response-adoption.md)。这一最小路径不包含 Human Park、自动唤醒、审批或账号身份平台，等待也不刷新预算与截止时间。此前的[固定 v0.12 Temporal 源码](https://github.com/hpoenixf/open-etf-agent/tree/46c2822be9865b99696bb70fb9e0ff1b5257ff35)、[固定 v0.11 PDF 源码](https://github.com/hpoenixf/open-etf-agent/tree/b11f70e57121f5c80a15893d6ba5e10d447d4e6c)、[固定 v0.10 Result / Reference 快照](https://github.com/hpoenixf/open-etf-agent/tree/ff5b9273ef0d239e804f61792702cd2e94174be7)与[固定 v0.9 Worker 快照](https://github.com/hpoenixf/open-etf-agent/tree/dad9c6e64f32c3d7579aea96613776b40917ec6d)仍保留。时间冻结的例子仍见[时间语义文章](./agent-temporal-semantics-market-calendar.md)；下面保留 v0.1 的起点与当时边界，不把后来的能力写回第一版。

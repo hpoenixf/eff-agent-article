@@ -211,6 +211,15 @@ node --test --test-concurrency=1 --test-name-pattern='adopted note survives proc
 
 This combines scripted synthetic behavior with real process termination and checkpoint recovery. It **verifies consumption of the adopted input identity after recovery**, not real-model understanding of the summary, recovery after arbitrary interruptions, or success in a full financial research task.
 
+### Why a saved report must not become merely a sentence in a summary
+
+The fixed example above preserves v0.5's selection rules. In public **v0.15.1**, “this call group succeeded” is no longer sufficient. Reading a page and saving a report can both succeed, but the latter also leaves an effect receipt. Compressing that receipt into “report saved” removes the original basis for deciding whether another save is necessary.
+
+The repaired [Compaction](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/compaction.mjs) selects only older, complete, successful read-only groups verified by the original Host. Read-only eligibility comes from a trusted binding, not a model claim or a marker in the result. `save_report`, mixed-effect groups and unknown-effect groups remain exact. An extension's `historyCompaction: 'read-only@1'` declaration affects history selection only; it grants no execution or source access, and undeclared bindings are retained by default.
+
+That protection has a real capacity cost: mandatory receipts may still not fit. Runtime reports `CONTEXT_CAPACITY_EXCEEDED` rather than replaying a save, enlarging the window or inventing success. A notes-enabled Host binds the selection policy's identity into its checkpoint; incompatible older compaction checkpoints are rejected, not automatically migrated. See the [receipt-preservation regression](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs), [version explanation](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md), and [current main](https://github.com/hpoenixf/open-etf-agent). This protects execution facts, not summary quality, and does not change the qualification of the historical examples above.
+
+
 ---
 
 ## What Still Needs Observation

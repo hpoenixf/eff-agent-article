@@ -85,6 +85,14 @@ This applies to independently handleable actions. If a later action depends on a
 
 Recovery likewise uses original records. Confirmed results are read under their original identities; unknown external effects are reconciled rather than treated as non-events. Supported checkpoints and recoverable interruptions depend on actual implementation, not a promise of seamless continuation after any crash. See [Disconnects and Crash-Recovery Contracts](agent-disconnect-is-not-crash-recovery-contract.md).
 
+### One correction in the public version is not an automatic retry policy
+
+The room-booking example illustrates a design principle; public **v0.15.1** implements a much smaller calculation path. Previously, an argument error that had not dispatched could still terminate the turn. Now, if an unbound `calculate_change` call omits a required field, supplies a value of the wrong numeric type, or uses an invalid unit format, the original Host returns a rejection bound to that request. Runtime offers at most one correction, still within the original rounds and budget.
+
+This applies only to a single-call path without Hooks or prior partial or unknown effects. A zero denominator, mismatched units, a bound `ResultRef` failure, a permission rejection, or an effectful operation does not gain retry permission. Recovery also verifies the persisted correction count and rejection identity; restarting does not replenish the opportunity. Clearer types in the tool Schema do not replace actual Host validation.
+
+The program supplies the fact that “this input has not executed and may receive a bounded correction.” It does not guess the correct number for the model or treat an unknown booking as a non-event. See the [fixed Host](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/tools.mjs), [Runtime](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/runtime.mjs), [controlled regression](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/bounded-validation.test.mjs), and [current main](https://github.com/hpoenixf/open-etf-agent). This public calculation slice does not implement the room-booking scenario above.
+
 ## 6. Do not turn keyword matching into factual judgment
 
 The opposite boundary error appears when programs infer the real world from phrasing.

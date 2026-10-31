@@ -344,6 +344,21 @@ Inspect `rootUsage` in the terminal JSON, then open `report.md` and `manifest.js
 This is one read-only Child sharing the root budget. It makes no independent live-model call and does not cover multi-layer experts, PDF, or Python collaboration.
 <!-- /open-etf-case -->
 
+### A source-checking specialist does not inherit Main's publication authority
+
+The `fixture-child` example above remains a historical slice. Public v0.15 adds serial `source_check`: Child reads the restricted Atlas A/B pages in its own context and returns original material alongside derived observations; Main then composes the report. This is not a public implementation of every expert role or parallel orchestration described in this essay.
+
+The composition exposed a seam: when Main enabled Publication, copying its complete bindings into a read-only Child conflicted with Child's own publication configuration. **v0.15.1 narrows capability instead of removing identity checks.** [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/specialist-child.mjs) removes only the exact Main-only Publication binding and preserves every other binding. Handoff readback verifies that same restricted identity. Child still cannot publish; Main can publish its own prose through the original path. The [composition regression](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/specialist-publication.test.mjs) checks handoff, Main publication, and terminal readback without redispatch.
+
+To inspect source handoff, install the [current fixed public version](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/specialist-cli.mjs) according to its README, then use a fresh Session directory:
+
+```bash
+node src/specialist-cli.mjs run --session runs/article-source-check
+node src/specialist-cli.mjs read --session runs/article-source-check --run RUN_ID
+```
+
+Replace `RUN_ID` with the actual `runId` returned by the first command, then compare `child.summary`, `sources`, and `report.text`. This default example is an offline script that saves and reads a report; **it does not enable Main Publication**. For that composition, see the regression above and the [version's independent real-model verification](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md). Those model tasks still use synthetic material, not evidence of financial-expert effectiveness. The old `fixture-child` coverage marker retains its original qualification; a new source link is not a new coverage run. For ongoing use, start from [current main](https://github.com/hpoenixf/open-etf-agent).
+
 ## 10. Local Autonomy Should Serve Overall Delivery
 
 **Delegation is worthwhile when an independently executable piece of work can return useful, inspectable results to the original user task.** A role label alone proves nothing.

@@ -309,6 +309,21 @@ node src/cli.mjs --case fixture-child --output runs/article-child
 这个案例只有一层只读 Child，共享根预算；不调用独立真实模型，也不覆盖多层专家编排、PDF 或 Python 协作。
 <!-- /open-etf-case -->
 
+### 接上来源核对专家之后，发布权仍留在 Main
+
+上面的 `fixture-child` 是保留的历史小例子。公开 v0.15 增加了串行 `source_check`：Child 在自己的上下文中读取限定的 Atlas A/B 页面，把原文和派生核对意见交回 Main，再由 Main 整理报告。它不是本文全部专家角色或并行编排的公开实现。
+
+这个组合后来暴露了一个接缝：Main 启用 Publication 时，把父级绑定完整交给只读 Child，会与 Child 自己的发布配置冲突。**v0.15.1 修的是能力收窄，而不是取消身份检查。** [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/specialist-child.mjs) 只移除精确匹配的 Main-only Publication 绑定，其他绑定保持不变；交接回读也检查同一份受限身份。Child 仍不能发布，Main 则能沿原路径发布自己的正文。[组合回归](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/specialist-publication.test.mjs)同时检查了交接、Main 发布和终态再次读取不触发重派。
+
+想观察来源交接，可在[当前公开固定版](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/specialist-cli.mjs)按其 README 安装后，用新的 Session 目录运行：
+
+```bash
+node src/specialist-cli.mjs run --session runs/article-source-check
+node src/specialist-cli.mjs read --session runs/article-source-check --run RUN_ID
+```
+
+将首条命令返回的实际 `runId` 填入 `RUN_ID`，对照 `child.summary`、`sources` 与 `report.text`。这个默认示例是离线脚本，保存并回读报告，**没有启用 Main Publication**；发布组合另见上述回归及[该版独立真实模型验证说明](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md)。真实模型使用的仍是合成任务，不能由此推导金融专家效果。旧 `fixture-child` 覆盖标记保持原资格，新的源码关联不冒充一次覆盖重跑。后续使用入口见[当前 main](https://github.com/hpoenixf/open-etf-agent)。
+
 ## 十、让局部自主服务于整体交付
 
 **任务值得委派，不在于角色名称有多专业，而在于它能否独立完成一个有价值的工作单元，并把依据带回主问题。**

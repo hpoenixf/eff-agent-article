@@ -202,6 +202,15 @@ node --test --test-concurrency=1 --test-name-pattern='adopted note survives proc
 
 这是合成脚本与真实进程终止、检查点恢复的组合验证，**证明恢复消费了已采用的输入身份**；没有证明真实模型理解摘要、任意中断都可恢复或完整金融研究已经成功。
 
+### 保存过的报告，为什么不能只剩一句摘要？
+
+前面的固定案例保留了 v0.5 的选择规则；到了公开 **v0.15.1**，仅凭“这一组调用成功了”还不够。读取页面与保存报告都可能成功，但前者提供可重新读取的材料，后者还留下已经发生的效果。如果把保存回执压成“报告已保存”，后继请求就失去了判断是否还需要保存的原始依据。
+
+修复后的 [Compaction](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/compaction.mjs) 只选择较早、完整、成功且经原 Host 验证的只读调用组。是否只读来自可信绑定，而不是模型输出或结果中的自报标记；`save_report`、混合效果或未知效果组继续原样保留。扩展声明 `historyCompaction: 'read-only@1'` 只影响历史选择，不增加执行或资料权限，未声明的绑定默认保留。
+
+这也带来真实的容量代价：不可压缩的回执可能仍然装不下，Runtime 会明确报告 `CONTEXT_CAPACITY_EXCEEDED`，而不是重放保存、扩大窗口或伪造成功。启用便笺的 Host 把选择策略身份带入检查点；不匹配的旧压缩检查点拒绝恢复，不能把升级当成自动迁移。具体行为见[回执保留回归](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs)与[版本说明](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md)，当前入口仍是 [main](https://github.com/hpoenixf/open-etf-agent)。这补的是执行事实保护，不是摘要质量保证，也不改变上面历史案例的资格快照。
+
+
 ---
 
 <!-- agent-article-sync:guidance:start -->

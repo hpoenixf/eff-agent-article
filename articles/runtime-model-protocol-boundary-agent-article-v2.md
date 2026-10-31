@@ -85,6 +85,14 @@ Runtime --> Answer["回答"]
 
 同样，恢复也要使用原始记录。已确认的结果沿原身份读回；结果未知的外部操作先核对，不能把超时当成“没有发生”。支持哪些检查点、哪些中断可以继续，应由实际实现决定，而不是承诺任意崩溃后都能完美续跑。更完整的产品边界见[断线与崩溃恢复](agent-disconnect-is-not-crash-recovery-contract.md)。
 
+### 公开版的一次纠正，不等于自动重试所有失败
+
+会议室例子说明设计原则；公开 **v0.15.1** 实际开放的是更小的计算路径。过去，一个尚未派发的参数错误也会终止这一轮。现在，未绑定来源的 `calculate_change` 若缺必填字段、把数字写成错误类型，或单位格式不合法，原 Host 会返回带原请求身份的拒绝，Runtime 最多给模型一次纠正机会，仍消耗原来的回合与预算。
+
+这个机会只适用于单调用、未启用 Hooks、没有已有部分或未知效果的受限路径。零分母、单位不一致、绑定 `ResultRef` 的读取失败、权限拒绝以及已产生效果的调用，不会因此获得重试。恢复时还要核对已保存的纠正次数与拒绝身份，不能重启进程便重新领取机会。工具 Schema 把类型表达得更清楚，也没有代替 Host 的实际验证。
+
+因此，程序提供的是“这个输入尚未执行，可以有限修正”的事实，不是替模型猜正确数字，更不是把未知预约当作未发生。对应实现见[固定 Host](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/tools.mjs)、[Runtime](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/runtime.mjs)与[受控回归](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/bounded-validation.test.mjs)；[当前 main](https://github.com/hpoenixf/open-etf-agent)保留后续入口。这个公开计算切片不代表上述会议室功能已经实现。
+
 ## 六、别把关键词匹配升级成事实判断
 
 另一种越界方向，是程序开始根据措辞判断真实世界。
