@@ -130,3 +130,34 @@ for (const chapter of chapters) {
   }
 }
 console.log('Article discovery verified:', articleSchemas, 'canonical schemas and accepted translations')
+
+
+// Panorama tag pages and article badges must be real, crawlable built pages.
+const panoramaIds = [
+  '017-prompt-to-answer-six-layer-panorama-v3',
+  'financial-agent-system-panorama',
+  'one-report-nine-architecture-judgments'
+]
+for (const prefix of ['', 'en/']) {
+  const route = prefix + 'panorama'
+  const url = SITE_URL + route
+  assert.ok(listed.has(url), 'Panorama tag page must appear in sitemap: ' + url)
+  const htmlPath = resolve(output, route + '.html')
+  assert.ok(existsSync(htmlPath), 'Panorama page missing from build: ' + htmlPath)
+  const html = readFileSync(htmlPath, 'utf8')
+  assert.match(html, /panorama-series-card/, 'Panorama landing cards missing from SSR: ' + route)
+  assert.match(html, /Panorama Series|全景系列/, 'Panorama heading missing: ' + route)
+  const canonical = html.match(/<link\\b[^>]*\\brel="canonical"[^>]*>/g) || []
+  assert.equal(canonical.length, 1, 'Panorama page requires one canonical: ' + route)
+  assert.ok(canonical[0].includes('href="' + url + '"'), 'Panorama canonical mismatch: ' + route)
+  assert.ok(html.includes('hreflang="en"') && html.includes('hreflang="zh-CN"'),
+    'Panorama localization alternates missing: ' + route)
+  assert.ok(html.includes('CollectionPage'), 'Panorama page must declare collection semantics: ' + route)
+  for (const slug of panoramaIds) {
+    assert.ok(html.includes('articles/' + slug), 'Panorama card missing canonical essay: ' + route + ':' + slug)
+    const article = readFileSync(resolve(output, prefix + 'articles/' + slug + '.html'), 'utf8')
+    assert.ok(article.includes('article-topic-tags') && article.includes('panorama'),
+      'Tagged article should link back to its topic: ' + prefix + slug)
+  }
+}
+console.log('Panorama tag: bilingual pages, canonical/hreflang/SSR cards and article badges verified.')
