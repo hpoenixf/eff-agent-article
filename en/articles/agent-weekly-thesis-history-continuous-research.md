@@ -1,3 +1,11 @@
+---
+description: "How can a later review recover the original investment rationale instead of rewriting history? Trace portfolio snapshots, investment theses and user corrections while distinguishing engineering evidence from unverified financial outcomes."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+---
+
 # After the Weekly Report, Does the Agent Remember Why It Made That Call?
 
 *An engineering case study in historical observations, original investment theses, and versioned corrections for continuous investment research.*

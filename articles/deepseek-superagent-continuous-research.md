@@ -1,3 +1,12 @@
+---
+description: "用同一项基金比较任务，对照投研 Chat AI、异步研究 Agent 与 DeepSeek Super-agent 原型，拆解任务身份、输入更新和工作恢复机制，思考怎样让研究在等待与打断后继续。"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+  image: "https://hpoenixf.com/eff-agent-article/visuals/deepseek-superagent-continuous-research/lifetimes.png"
+---
+
 # 从投研聊天到持续研究：DeepSeek Super-agent 给我们的启示
 
 *把投研 Chat AI、我们的异步研究 Agent 与 Super-agent 放进同一项任务，比较三种协作方式。*
@@ -8,7 +17,7 @@
 
 **我想比较的不是谁更聪明，而是三者怎样组织一项会变化、会等待、会被打断的研究。** 底层机制的价值，要放在这条任务链上看。
 
-先说明比较范围：本文的投研 Chat AI，指一种典型的单对话、请求驱动设计，不概括所有商业产品；“我们”指此前[异步后台深度研究文章](https://github.com/hpoenixf/eff-agent-article/blob/cae66cfbee8cb5731027abc451620441afd29c77/articles/agent-background-research-collaborative-experience.md)介绍的实践，不是整个仓库的能力清单。DeepSeek Super-agent 则是面向代码协作的[官方公开研究原型](https://github.com/deepseek-ai/dsh-superagent-prototype/tree/6337fc823ce20251c8de8085948165c81aaa701e)，不是正式投研产品，也不等同于其内部版本或设计文章中的全部设想。
+先说明比较范围：本文的投研 Chat AI，指一种典型的单对话、请求驱动设计，不概括所有商业产品；“我们”指此前[异步后台深度研究文章](/articles/agent-background-research-collaborative-experience)（[本文比较时的固定版本](https://github.com/hpoenixf/eff-agent-article/blob/cae66cfbee8cb5731027abc451620441afd29c77/articles/agent-background-research-collaborative-experience.md)）介绍的实践，不是整个仓库的能力清单。DeepSeek Super-agent 则是面向代码协作的[官方公开研究原型](https://github.com/deepseek-ai/dsh-superagent-prototype/tree/6337fc823ce20251c8de8085948165c81aaa701e)，不是正式投研产品，也不等同于其内部版本或设计文章中的全部设想。
 
 下面用一个教学任务贯穿比较：研究两只同指数 ETF，核对费用、跟踪表现与披露时点；途中用户询问术语、调整口径、补充文件，最后等待资料并取得报告。Super-agent 在这个场景中的表现是机制迁移设想，不是已实现的金融能力。
 

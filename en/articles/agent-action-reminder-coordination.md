@@ -1,3 +1,11 @@
+---
+description: "How should an agent receive timely reminders about budget, context and review? Examine composition, deduplication and delivery checks without confusing advice with permission or user notifications."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+---
+
 # Action Reminders for Agents: From Candidate Advice to the Model Request
 
 Halfway through a research task, an agent is comparing the holdings and fees of several funds. It has read some material, attempted calculations, and begun to organize an answer.

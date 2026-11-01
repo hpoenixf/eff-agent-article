@@ -1,3 +1,11 @@
+---
+description: "How can an agent honor “tell me in ten minutes” after the user leaves? Separate research completion, publication and notification timing, including early results, partial delivery and reconnection."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+---
+
 # The User Has Left, but the Research Is Still Running: How an Agent Delivers on Time
 
 “Please analyze the risks in my portfolio and tell me the result in ten minutes.”

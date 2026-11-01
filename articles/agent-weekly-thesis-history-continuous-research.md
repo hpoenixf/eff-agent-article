@@ -1,3 +1,11 @@
+---
+description: "下一次复盘，怎样找回当初的投资理由，而不是重新编写历史？说明组合快照、投资假设与用户更正如何保留来源和版本，并区分持续研究的工程实现与尚待验证的金融效果。"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+---
+
 # 一份周报过去后，Agent 还记得当初为什么这样判断吗？
 
 *从跨期历史、原始投资论点到版本化修正：ETF Agent 的持续投研工程实践。*

@@ -1,3 +1,12 @@
+---
+description: "Compare research chat, an asynchronous research agent and the DeepSeek Super-agent prototype through one ETF task: task identity, new input and recovery when work waits or is interrupted."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+  image: "https://hpoenixf.com/eff-agent-article/visuals/en/deepseek-superagent-continuous-research/lifetimes.png"
+---
+
 # From Investment-Research Chat to Ongoing Research: Lessons from DeepSeek Super-agent
 
 *Putting investment-research Chat AI, our asynchronous research Agent, and Super-agent into the same task to compare three ways of working together.*
@@ -8,7 +17,7 @@ How does investment-research Chat AI respond? What has our asynchronous research
 
 **The comparison is not about which system is smarter. It is about how each organizes research that changes, waits, and gets interrupted.** The value of the underlying mechanisms becomes clear only along that task's path.
 
-First, the scope: “investment-research Chat AI” here means a typical single-conversation, request-driven design, not every commercial product. “Our system” refers to the practice described in our earlier [article on asynchronous background deep research](https://github.com/hpoenixf/eff-agent-article/blob/cae66cfbee8cb5731027abc451620441afd29c77/articles/agent-background-research-collaborative-experience.md), not a catalog of everything in our repository. DeepSeek Super-agent is an [official public research prototype](https://github.com/deepseek-ai/dsh-superagent-prototype/tree/6337fc823ce20251c8de8085948165c81aaa701e) for coding collaboration. It is neither a production investment-research product nor equivalent to its internal version or every proposal in its design articles.
+First, the scope: “investment-research Chat AI” here means a typical single-conversation, request-driven design, not every commercial product. “Our system” refers to the practice described in our earlier [article on asynchronous background deep research](/en/articles/agent-background-research-collaborative-experience) ([fixed version used for this comparison, in Chinese](https://github.com/hpoenixf/eff-agent-article/blob/cae66cfbee8cb5731027abc451620441afd29c77/articles/agent-background-research-collaborative-experience.md)), not a catalog of everything in our repository. DeepSeek Super-agent is an [official public research prototype](https://github.com/deepseek-ai/dsh-superagent-prototype/tree/6337fc823ce20251c8de8085948165c81aaa701e) for coding collaboration. It is neither a production investment-research product nor equivalent to its internal version or every proposal in its design articles.
 
 We will follow a teaching scenario: investigate two ETFs tracking the same index, checking fees, tracking performance, and disclosure dates. Along the way, the user asks about terminology, changes the comparison assumptions, and supplies a document; eventually, the research must wait for information and deliver a report. Applying Super-agent to this scenario is a proposed transfer of its mechanisms, not a claim that it already implements these financial capabilities.
 

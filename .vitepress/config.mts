@@ -130,7 +130,8 @@ export default defineConfig({
       existsSync(fileURLToPath(new URL('../' + path, import.meta.url)))))
     if (/^(?:en\/)?articles\//.test(relativePath)) {
       heads.push(structuredDataHead(articleStructuredData({
-        title: pageData.title, description, canonical, english
+        title: pageData.title, description, canonical, english,
+        metadata: pageData.frontmatter.articleMetadata
       })))
     }
 
@@ -248,4 +249,3 @@ export default defineConfig({
     }
   }
 })
-

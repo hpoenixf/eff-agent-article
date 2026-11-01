@@ -1,3 +1,11 @@
+---
+description: "用户离开聊天框后，Agent 怎样守住“十分钟后告诉我”的约定？区分研究结束、正文发布与通知时间，处理提前完成、到点仍未完成、断线重连和部分结果交付。"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+---
+
 # 研究还没结束，用户已经离开了：Agent 怎样按时交付真实成果？
 
 “帮我研究一下组合的风险，十分钟后告诉我结果。”

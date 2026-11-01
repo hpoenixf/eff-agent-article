@@ -44,9 +44,48 @@ export function socialHead({ title, description, canonical, image, article = fal
   ]
 }
 
-// Do not infer authorship or publication dates from repo ownership or build time.
-// The generic site social card is not evidence of an article illustration.
-export function articleStructuredData({ title, description, canonical, english = false }) {
+// Opt-in editorial provenance only: the caller must verify these facts against
+// the article. Never infer authorship from repo ownership, dates from build time,
+// or an article illustration from the generic site social card.
+function editorialMetadata(metadata) {
+  if (metadata == null) return {}
+  if (typeof metadata !== 'object' || Array.isArray(metadata)) {
+    throw new TypeError('articleMetadata must be an object')
+  }
+  const result = {}
+  const httpsUrl = (value, field) => {
+    let url
+    try { url = new URL(value) } catch { /* Report the field, not its value. */ }
+    if (typeof value !== 'string' || !url || url.protocol !== 'https:' || url.username || url.password) {
+      throw new TypeError(`articleMetadata.${field} must be an absolute HTTPS URL without credentials`)
+    }
+    return url.href
+  }
+  if (metadata.author != null) {
+    const author = metadata.author
+    if (typeof author !== 'object' || Array.isArray(author) || typeof author.name !== 'string' || !clean(author.name)) {
+      throw new TypeError('articleMetadata.author requires a verified name and profile URL')
+    }
+    result.author = { '@type': 'Person', name: clean(author.name), url: httpsUrl(author.url, 'author.url') }
+  }
+  // Full calendar dates deliberately avoid ambiguous locale/timezone parsing.
+  for (const key of ['datePublished', 'dateModified']) {
+    if (metadata[key] == null) continue
+    const value = metadata[key]
+    const parsed = typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) ? new Date(value + 'T00:00:00Z') : null
+    if (!parsed || !Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+      throw new TypeError(`articleMetadata.${key} must be a verified YYYY-MM-DD calendar date`)
+    }
+    result[key] = value
+  }
+  if (result.datePublished && result.dateModified && result.dateModified < result.datePublished) {
+    throw new TypeError('articleMetadata.dateModified precedes datePublished')
+  }
+  if (metadata.image != null) result.image = httpsUrl(metadata.image, 'image')
+  return result
+}
+
+export function articleStructuredData({ title, description, canonical, english = false, metadata }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -56,7 +95,8 @@ export function articleStructuredData({ title, description, canonical, english =
     url: canonical,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
     inLanguage: english ? 'en-US' : 'zh-CN',
-    isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: 'https://hpoenixf.com/eff-agent-article/' }
+    isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: 'https://hpoenixf.com/eff-agent-article/' },
+    ...editorialMetadata(metadata)
   }
 }
 

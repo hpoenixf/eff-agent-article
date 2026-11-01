@@ -1,8 +1,13 @@
 ---
+description: "报告引用正确，数字为何仍然出错？沿资料、工具结果、模型请求和用户正文四次交接，理解 Langfuse、OpenTelemetry 与日志怎样协助定位问题，以及记录缺失时如何避免误判。"
 evidence:
   implementation: "观测与缺失治理已实施（按本文记录）"
   scoped: "合成 Trace、定向探针与隔离恢复"
   live: "长期采集完整性与真实研究效果未核验"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
 ---
 
 # Agent 可观测全景：从一次模型请求到可回查的研究事实

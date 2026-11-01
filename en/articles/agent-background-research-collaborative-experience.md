@@ -1,3 +1,12 @@
+---
+description: "Let users ask new questions while a long study continues. Follow ETF Agent’s interaction design to separate independent questions from task updates and keep answers, progress and stop controls attached to the right study."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+  image: "https://hpoenixf.com/eff-agent-article/visuals/en/agent-background-research-collaborative-experience/interaction-flow.png"
+---
+
 # Keep Chatting: Taking the Stop Button Out of the Way—Adding Async Background Research to an Agent in a Day
 
 **A useful personal agent should not let a long-running research task monopolize the conversation.** Once users delegate a task, they should still be able to ask something else, check the research, and add new requirements without losing the original work—or sending a response or control action to the wrong task.

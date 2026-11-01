@@ -1,8 +1,13 @@
 ---
+description: "A report cites the right source but gets the number wrong. Follow four handoffs to see how Langfuse, OpenTelemetry and logs help locate failures—and what missing records cannot prove."
 evidence:
   implementation: "Observability and missing-data handling implemented (as reported)"
   scoped: "Synthetic traces, focused probes and isolated restore"
   live: "Long-term completeness and live research outcomes unverified"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
 ---
 
 # Agent Observability Panorama: From Model Requests to Verifiable Research Facts

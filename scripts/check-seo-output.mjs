@@ -3,6 +3,8 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
 import { SITE_URL, canonicalUrl } from '../seo-routes.mjs'
+import { createContentLoader, resolveConfig } from 'vitepress'
+import { articleStructuredData } from '../seo-content.mjs'
 
 const output = resolve('.vitepress/dist')
 const sitemap = readFileSync(resolve(output, 'sitemap.xml'), 'utf8')
@@ -117,6 +119,14 @@ console.log('Static Mermaid verified:', mermaidManifest.diagramCount,
 const { englishArticleSlugs } = await import('../book.en.mjs')
 const { languageAlternates } = await import('../seo-routes.mjs')
 let articleSchemas = 0
+let authoredSchemas = 0
+let illustratedSchemas = 0
+// Reuse VitePress's content loader and YAML parser, without rendering body code.
+globalThis.VITEPRESS_CONFIG = await resolveConfig(process.cwd())
+const editorialPages = await createContentLoader(['articles/*.md', 'en/articles/*.md']).load()
+const editorialFrontmatter = new Map(editorialPages.map(page => [
+  page.url.replace(/^\//, '').replace(/\.html$/, ''), page.frontmatter
+]))
 for (const chapter of chapters) {
   for (const [slug] of chapter.items) {
     for (const locale of ['', 'en/']) {
@@ -130,6 +140,19 @@ for (const chapter of chapters) {
       assert.equal(schemas[0].mainEntityOfPage['@id'], canonicalUrl(source))
       assert.equal(schemas[0].inLanguage, locale ? 'en-US' : 'zh-CN')
       assert.ok(schemas[0].headline && schemas[0].description)
+      const frontmatter = editorialFrontmatter.get(source.replace(/\.md$/, ''))
+      assert.ok(frontmatter, 'Content loader missed canonical source: ' + source)
+      const expectedMetadata = articleStructuredData({ metadata: frontmatter.articleMetadata })
+      for (const key of ['author', 'datePublished', 'dateModified', 'image']) {
+        assert.equal(Object.hasOwn(schemas[0], key), Object.hasOwn(expectedMetadata, key),
+          'Missing or invented Article ' + key + ': ' + source)
+        if (Object.hasOwn(expectedMetadata, key)) {
+          assert.deepEqual(schemas[0][key], expectedMetadata[key],
+            'Rendered Article ' + key + ' differs from editorial frontmatter: ' + source)
+        }
+      }
+      if (expectedMetadata.author) authoredSchemas++
+      if (expectedMetadata.image) illustratedSchemas++
       for (const [, attrs] of languageAlternates(source, existsSync)) {
         const alternates = html.match(/<link\b[^>]*rel="alternate"[^>]*>/g) ?? []
         assert.equal(alternates.filter(tag => tag.includes('hreflang="' + attrs.hreflang + '"') && tag.includes('href="' + attrs.href + '"')).length, 1, 'Reciprocal alternate: ' + source)
@@ -139,6 +162,8 @@ for (const chapter of chapters) {
   }
 }
 console.log('Article discovery verified:', articleSchemas, 'canonical schemas and accepted translations')
+console.log('Article provenance verified:', authoredSchemas, 'explicit authors,', illustratedSchemas,
+  'explicit article images; dates and absent fields match source frontmatter')
 
 
 // Panorama tag pages and article badges must be real, crawlable built pages.

@@ -1,3 +1,12 @@
+---
+description: "后台研究还没结束，用户也能继续提问或追加要求。结合 ETF Agent 的并发交互实践，说明如何区分独立问题与任务调整，保留回答、进度和停止操作与原研究的对应关系。"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
+  image: "https://hpoenixf.com/eff-agent-article/visuals/agent-background-research-collaborative-experience/interaction-flow.png"
+---
+
 # 想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究
 
 **真正的 Personal Agent，不应该让一项长研究占住整个聊天框。** 用户把任务交出去之后，应该还能随时问别的问题、查看原研究进度、追加新的要求；研究各自继续，回答和控制操作也不能串到别的任务上。
