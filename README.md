@@ -32,6 +32,8 @@
 
 **两篇 Owner 机制新文（2026-10-31）**：[E04 研究调用证据留存与回读](articles/agent-research-evidence-store-lifecycle.md) · [English](en/articles/agent-research-evidence-store-lifecycle.md)；[A33 精确数值核与领域边界](articles/agent-numeric-kernel-exact-units-rounding.md) · [English](en/articles/agent-numeric-kernel-exact-units-rounding.md)。同时刷新 A11 工具链、金融数字 031 和成本归因三篇双语旧文，不替旧稿更换原链接。
 
+**Research Workspace 专题**：[为什么 Agent 需要 Workspace？从一次性对话到长期研究](articles/agent-research-workspace-goal-continuity.md) · [Full English](en/articles/agent-research-workspace-goal-continuity.md)——长期目标关联多次独立 Run、按原始版本消费历史材料；私有 P0 已合入主干且默认关闭，开源教学仓库尚未提供这一模块。
+
 ## 先找到你的问题
 
 | 想解决的问题 | 阅读入口 | 你会得到什么 |

@@ -54,7 +54,8 @@
     "agent-subagent-contribution-evidence": "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？",
     "agent-report-cost-attribution": "Agent 生成一份报告，到底应该怎么算成本？",
     "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战",
-    "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"
+    "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付",
+    "agent-research-workspace-goal-continuity": "Workspace：从一次性对话到长期研究"
   },
   "owners": {
     "A01": {
@@ -68,7 +69,8 @@
         "agent-progressive-answer-coherence",
         "agent-background-research-collaborative-experience",
         "agent-durable-human-interaction-response-adoption",
-        "agent-long-horizon-research-panorama"
+        "agent-long-horizon-research-panorama",
+        "agent-research-workspace-goal-continuity"
       ]
     },
     "A03": {
