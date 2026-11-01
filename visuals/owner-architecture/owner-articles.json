@@ -31,7 +31,7 @@
     "agent-numeric-kernel-exact-units-rounding": "精确数字并不等于正确投资：数值核的单位、舍入与残差",
     "agent-veto-authority-and-run-termination": "Run 终结权、阶段预算与安全恢复",
     "agent-weekly-thesis-history-continuous-research": "一份周报过去后，Agent 还记得为什么这样判断吗？",
-    "ai-citations-do-not-prove-reliability": "Agent 引用全景：从原始资料到可核查的结论",
+    "ai-citations-do-not-prove-reliability": "Agent 引用系统设计：从来源签发、版本绑定到独立复核",
     "financial-agent-python-result-consumption": "Python 算过了，投研报告为什么还会错",
     "financial-agent-trustworthy-evidence-chain": "金融 Agent 的可信证据链",
     "mcp-host-from-discovery-to-consumption": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
