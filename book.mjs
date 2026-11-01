@@ -24,6 +24,7 @@ export const collections = [
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
           ["agent-main-run-context-compaction", "Main 压缩：摘要不改写原始事实"],
           ["agent-conversation-history-compaction-source-boundaries", "跨 Run 会话压缩：旧助手摘要不能替代用户原文"],
+          ["agent-research-workspace-goal-continuity", "Workspace：从一次性对话到长期研究"],
           ["026-agent-memory-forget-durable-effects", "Memory：从保存、召回到安全遗忘"],
           ["agent-content-trust-prompt-injection", "A35 内容信任：Prompt Injection 不只是恶意文本"],
           ["agent-control-events-durable-owner-adoption", "Agent 收到控制指令后，为什么不能立刻执行"],
