@@ -56,7 +56,8 @@
     "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战",
     "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付",
     "agent-research-workspace-goal-continuity": "Workspace：从一次性对话到长期研究",
-    "agent-action-reminder-coordination": "行动提醒：从生成建议到真正送达模型"
+    "agent-action-reminder-coordination": "行动提醒：从生成建议到真正送达模型",
+    "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？"
   },
   "owners": {
     "A01": {
@@ -162,7 +163,8 @@
     "A17": {
       "related": [
         "024-agent-pdf-from-text-to-evidence"
-      ]
+      ],
+      "primary": "agent-research-assets-identity-version-lifecycle"
     },
     "A18": {
       "primary": "021-agent-web-research-from-search-to-deep-reading",
