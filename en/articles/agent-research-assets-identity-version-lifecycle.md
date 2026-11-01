@@ -11,7 +11,7 @@ A financial-research agent receives a prospectus PDF, extracts some text, locate
 
 In ETF Agent, I assigned these concerns to **A17, Research Assets**. It owns the identities, versions, extraction states, and lifecycles of imported research files. It does not replace the PDF reader's page interpretation, the retriever's relevance judgments, or the financial reasoning needed to support an investment conclusion.
 
-![An illustrated provenance path connecting research documents, versions, and two kinds of workspaces](../visuals/research-asset-identity/cover.svg)
+![An illustrated provenance path connecting research documents, versions, and two kinds of workspaces](../../visuals/research-asset-identity/cover.svg)
 
 *Figure 1. One document may participate in several stages, but each read remains subject to the original source and Run authorization. This illustration is conceptual, not a runtime screenshot.*
 
