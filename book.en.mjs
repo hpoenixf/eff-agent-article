@@ -67,7 +67,7 @@ export const englishTitles = {
   "agent-disconnect-is-not-crash-recovery-contract": "A Disconnected Browser Is Not a Crashed Agent",
   "agent-veto-authority-and-run-termination": "Run Termination, Stage Budgets and Safe Recovery",
   "mcp-market-responsibility-retrospective": "Why Financial Market MCP Became a Decision System",
-  "ai-citations-do-not-prove-reliability": "Agent Citation Panorama: From Original Material to Checkable Claims",
+  "ai-citations-do-not-prove-reliability": "Designing Agent Citations: From Host-Issued References to Revision-Safe Independent Review",
   "agent-failure-is-a-boundary-problem": "Stop Blaming Every Failure on the Model",
   "local-improvement-is-not-system-progress": "Local Improvements Are Not System Progress",
   "agent-provider-failover-without-resetting-the-run": "Failover: Change the Route Without Resetting the Task",
