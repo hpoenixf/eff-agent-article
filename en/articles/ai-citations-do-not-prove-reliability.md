@@ -243,7 +243,7 @@ Returning to the SDK 2.4 question, the reader needs neither nine decorative foot
 
 ### Further Reading
 
-[The Trustworthy Evidence Chain for Financial Agents](financial-agent-trustworthy-evidence-chain.md) addresses a different layer: maintaining reproducible business reasoning across financial data conventions, calculations, delegated agents, and delivery. It does not replace this article's general citation issuance and inspection mechanism.
+[The Trustworthy Evidence Chain for Financial Agents (Chinese original)](../../articles/financial-agent-trustworthy-evidence-chain.md) addresses a different layer: maintaining reproducible business reasoning across financial data conventions, calculations, delegated agents, and delivery. It does not replace this article's general citation issuance and inspection mechanism.
 
 [Chinese original](/articles/ai-citations-do-not-prove-reliability) · [Panorama series](/en/panorama) · [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).
 
