@@ -92,6 +92,10 @@ We encountered a concrete handoff failure: the page created a temporary answer r
 
 Similar ordering problems occur when a terminal notification arrives before the database view catches up, or an old history request returns after a more recent snapshot. Bounded read-only follow-up reads and frontend read-order protections keep a temporary gap from becoming an apparent failed task—and stop an older snapshot from overwriting newer content. Reading does not restart model research.
 
+Another kind of content has not even become a server-side task: **an unsent draft in the input box**. In a controlled reproduction, a question rejected in conversation A surfaced in the input for conversation B. This was not an answer routed to the wrong place. Pending client text had lost its conversation ownership. Drafts now remain in memory under the validated Conversation and Scope, so switching A → B → A → B does not overwrite one conversation's edits with another's.
+
+A late response must not copy A's draft into B. An acceptance receipt for submitted text must not erase newer input typed afterward either. Synthetic browser checks covered conversation switching and reopening after rejection; the **accepted-receipt/newer-draft race** was covered in controller tests rather than the same browser run. Those are distinct observations.
+
 Admission itself exposed a different issue: an early concurrency observation rejected a short interaction despite available slots, because a brief database-lock contention was interpreted as unavailable admission. We allowed bounded serialization of the existing admission transaction, rather than covertly queuing a user task.
 
 These defects point to the same architectural shift: **once a conversation can host several executions, message identity, result ownership and resource occupancy must not be inferred from screen order.**
@@ -135,7 +139,7 @@ For a Chat product adding this experience, I would prioritize three decisions.
 
 **Route new messages according to their actual intent.** Independent questions stay independent; targeted corrections retain the original message and Run identity. Receipt, model adoption and final fulfillment are different facts. When capacity is exhausted, decline an ineligible new task instead of silently changing its target.
 
-**Organize out-of-order content by execution identity.** Later questions may finish first, history may replace temporary rows, and termination may precede an updated read view. None should mix answers, drop content or trigger duplicate work.
+**Organize out-of-order content by execution and conversation identity.** Later questions may finish first, history may replace temporary rows, and termination may precede an updated read view. None should mix answers, drop content or trigger duplicate work; unsent drafts must also remain with their own conversation.
 
 None of this requires inventing another permanent foreground “super-agent.” It requires the original research, control, publication and history owners to refer to the same real tasks.
 
