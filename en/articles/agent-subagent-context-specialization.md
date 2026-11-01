@@ -30,9 +30,11 @@ flowchart TD
     Builtin["Built-in working roles"]
     Methods["Fixed investment methods"]
     Custom["Account-defined Profiles"]
-    Roles["General / Web / PDF<br/>Python / Reviewer"]
+    Roles["General / Web / PDF / Python"]
     Invest["Markowitz / Taleb / Bernstein<br/>Bogle / Marks / Fama-French"]
     User["Personal research preferences<br/>version frozen for this Run"]
+    Managed["Managed Reviewer<br/>manual or factual trigger"]
+    Runtime --> Managed
     Runtime --> Builtin
     Runtime --> Methods
     Runtime --> Custom
@@ -76,7 +78,9 @@ If a portfolio lacks an adequate, comparable return series, a Markowitz perspect
 
 ### Reviewer: scrutinize research quality without taking over Main
 
-Research Reviewer is another type of Child. It can inspect authorized primary sources, seek contradictions or fragile assumptions, and suggest continuing, pivoting, finalizing, or suspending the research. It differs from “invite one more investment perspective”: its subject is **whether the existing research supports the conclusions already being considered**. Main need not obey every suggestion. Reviewer also does not become a new publication, trade, or user-approval authority.
+Research Reviewer is another type of Child, but it cannot bypass managed admission through an ordinary `spawn_subagent(agentId="builtin/reviewer")` call. Both explicit consultation by Main and automatic candidates derived from execution facts use the same managed Reviewer admission and result owner. Reviewer can inspect authorized primary materials, identify omissions, contradictions, and fragile assumptions, and recommend continuing, pivoting, finalizing, or suspending a study. It cannot approve the final answer.
+
+**An independent context does not guarantee independent access to the original material.** In an October 18 production-seam investigation, the original reader had successfully materialized evidence, but the Child-input assembler dropped those returned bytes and sent only a compact summary that omitted a comparison date. We repaired the actual input handoff rather than adding yet another search tool. Missing source material means insufficient context, not “the independent reviewer found no issue.”
 
 ## 3. How We Organize Them: Main Remains Accountable to the User
 
@@ -88,11 +92,15 @@ We do not duplicate the model loop, execution identity, budget, authorization, w
 
 At least four facts must remain distinct.
 
-**First: why was this expert selected?** Main may use General, a built-in specialist, or a personal Profile. New ordinary expert executions have been consolidated around an `agentId` selector: one complete expert definition per Child, rather than an arbitrary stack of legacy type fields. A directory description says what an expert is suited for; it does not prove natural model selection is always correct.
+**First: why was this expert selected?** Main may use General, a built-in specialist, or a personal Profile. New ordinary expert executions have been consolidated around an `agentId` selector: one complete expert definition per Child, rather than an arbitrary stack of legacy type fields. Reviewer has a separate managed consultation or factual-trigger path; an ordinary catalog identifier cannot bypass its cooldown, coalescing, or resource admission. A directory description says what an expert is suited for; it does not prove natural model selection is always correct.
 
 **Second: what input did it actually receive?** Main understanding the task does not mean Child received everything Main previously read. Inherited results depend on selected, authorized `inputRefs` with real source identity. Passing a URL, summary, or relationship description does not establish that the original evidence reached the model.
 
-**Third: what is it permitted to do?** A Profile is a working method, not a new grant of authority. Source access, sandbox use, script execution, trading, publication, and budgets remain under the original Host and owner checks. Each Child also has its own progress coordinates and workspace ownership rather than one implicit global “current step.”
+This principle came from debugging a real seam. A Child Python call had a legitimate result reference in Main's history, but the script-input path read Main's shared result messages instead of **the input actually fitted, sealed, and provided to that Child turn**. The result was a false reference denial. The repair used the invoking Child's actual turn view for input custody and kept foreign, omitted, or duplicate references unavailable. Main having seen a reference must never broaden Child's source permission.
+
+**Third: what is it permitted to do?** A Profile is a working method, not a new grant of authority. Source access, sandbox use, script execution, trading, and publication remain under the original Host and owner checks. Each Child has its own progress coordinates and workspace ownership rather than one implicit global “current step.”
+
+**Budget policy also has a version identity.** Earlier Main/Child executions shared a physical model-request and retry pool, so one executor could exhaust capacity needed by another even before its local turn limit. Later code introduced independently frozen model-request/retry allowances for each execution. Recovery must preserve the original Run's policy rather than retroactively granting the current default to older runs. This is not unlimited Child capacity: the original Root's time and tool limits, provider hard caps, Stop, and terminal facts still bound the whole execution tree. Parts of this budget evolution and its matched real-world quality comparison remain open; scoped integration validation cannot be promoted into a system-wide speed claim.
 
 **Fourth: who owns the result?** Child returns interim or final findings. Main reads the necessary evidence, resolves conflicts, and delivers user-visible content. Reviewer may raise an independent challenge but does not become a final approval body. Remind merely surfaces known resource facts; a reminder cannot automatically authorize another Reviewer run.
 
@@ -146,6 +154,8 @@ In the teaching scenario, Bear should not merely say “technology valuations ma
 
 In the execution mechanism, “model proposed a message,” “Host validated and durably accepted it,” and “the recipient's later model request actually contained it” are distinct facts. Pairing has bounded identities, rounds, budgets, and safe park/wake handling. Original receipts and source identity remain inspectable; the system cannot retrospectively invent a debate from chat summaries. **One participant's source permissions do not automatically pass to the other**, and agreement cannot authorize a transaction.
 
+These distinctions arose in actual work: in one PostgreSQL Recovery investigation, a notification and wake happened but the next worker did not continue successfully. In another, the message body reached the recipient while its source identity was incorrectly treated as unknown because the model projection did not match the original receipt. We corrected the existing checkpoint, identity comparison, and message projection instead of introducing a second Peer mailbox. **Notification, resumed execution, and actual model-input consumption each need separate evidence.**
+
 By comparison, Microsoft Agent Framework supports [Group Chat orchestration](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/group-chat) for a shared conversational process. Its documentation describes a coordinator broadcasting contributions so participants can operate with synchronized conversation histories. Our Bull/Bear path deliberately limits the discussion to **one material hypothesis and authorized source-bearing messages**, rather than maintaining an always-on discussion room. That is a decision about scope and cost, not a claim that general Group Chat cannot perform reviews or approvals.
 
 The pairing, messages, Recovery behavior, and failure cases are covered by [bounded Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md).
@@ -160,7 +170,9 @@ Another valuable distinction is **freeze the method, not an incorrect task descr
 
 Mid-research user corrections have a similar rule: sending a question does not establish that its answer entered the intended Child. Adoption requires the response to reach the correct executor's actual subsequent model input. See [how user replies re-enter the original research](agent-durable-human-interaction-response-adoption.md).
 
-At present personal Profiles are primarily **text-based methods**. Unlike expert products centered on independent persistent Workspaces, this approach intentionally avoids cloning a long-lived model instance, memory, and budget for every saved configuration. It reuses existing identity and Recovery, but a personal expert is not yet a permanent independent digital employee. The complete selection and version design is in the [custom expert article](agent-custom-expert-from-prompt-to-recovery.md).
+At present personal Profiles are primarily **text-based methods**. Managed built-in expert packages can also reference Skills, scripts, and dependencies prepared in advance; the original package and environment identity must be frozen. An incompatible environment limits the affected new execution: it must not install arbitrary dependencies at research time or revoke independently valid older results. This does not authorize uploading arbitrary executable packages as personal Profiles.
+
+Unlike expert products centered on independent persistent Workspaces, this approach deliberately avoids cloning a long-lived model instance, memory, and budget for every personal definition. It reuses existing identity and Recovery, but a personal expert is not yet a permanent independent digital employee. The complete selection and version design is in the [custom expert article](agent-custom-expert-from-prompt-to-recovery.md).
 
 ## 7. The Hard Part of Handoffs: Doing Work, Reaching Main, and Changing the Answer
 
@@ -176,9 +188,11 @@ Several concrete engineering observations explain why this matters.
 
 **In one PDF study**, page images genuinely entered the model requests, but the model still misread some colors or shapes and failed to complete all cross-document checks. “The evidence arrived” and “the evidence was understood correctly” are different facts.
 
-**In one Python run** using synthetic data, the Child encountered data-field and HTML-template errors, corrected them in its isolated workspace, recomputed, and exported a report. Main acquired the actual artifact and provided a download entry. This demonstrates a working local job and handoff—not that all real fund calculations are accurate or that the system is faster than one Main.
+**In one Python run** using synthetic data, the Child encountered data-field and HTML-template errors, corrected them in its isolated workspace, recomputed, and exported a report. Main acquired the actual artifact and provided a download entry. This demonstrates a working local job and handoff—not that all real fund calculations are accurate or that the system is faster than one Main. At a more granular level, Host placing a selected input in Sandbox proves **input delivery**, not that a particular output actually consumed those bytes. Without trusted input-read/output-write or producer-confirmed artifact receipts, workspace file changes cannot establish exact per-output data lineage.
 
 **In a historical-report continuation**, the reverse happened: Main's request contained a full prior report selected by the user, while Child did not actually select the relevant valid `inputRefs`. “Main read it” did not prove that Child read it. Across Recovery, unknown external effects, prior submissions, and confirmed results must also retain their original identities instead of being recreated from missing in-memory flags.
+
+**A terminal-state and Recovery lesson** is that Root forbidding new work does not permit dropping a Child response that was already physically dispatched; a Child's local failure does not automatically mean the entire task failed. Similarly, material that was previously independently authorized must not become unreadable solely because its current expert method is no longer available. Permission for new execution, readability of earlier valid output, and the Root's terminal state have different original owners.
 
 ### Figure 6: five different levels of evidence from expert presence to actual value
 
