@@ -2,297 +2,278 @@
 
 ![Subagent panorama: independent exploration, one shared research task](../../visuals/en/panorama-subagents/cover.svg)
 
-**A Subagent is useful when a local research task deserves independent work and Main can actually consume its results.** The goal is not to launch more models or route every Web, PDF and Python step through another specialist. It is to isolate lengthy exploration while returning the original evidence needed for a sound decision.
+**ETF Agent's Subagent system now goes well beyond Web, PDF, and Python “tool specialists.”** It includes a general Child, built-in specialists, six investment research methods, account-defined experts, an optional Research Reviewer, and bounded Bull/Bear challenges. They reuse one execution substrate but not one shared conversation history. Different working methods do not transfer tool permissions or responsibility for the final answer.
 
-ETF Agent first gave Child its own context so Main would not inherit every PDF lookup or Python debugging turn. Development exposed the harder problem: **separating the process is easy; preserving evidence, identity and responsibility at handoff is not.** One Child completed a valid citation handoff, yet Main repeatedly polled and delegated again without delivering. Another completed local computation and HTML repairs, exported a downloadable report, and gave Main an artifact it could genuinely use.
+We initially introduced this system to reduce pressure on Main's context. Reading a PDF might involve repeated page searches; a Python study might need several debugging rounds. After isolating those processes, harder questions emerged: **Did the expert actually receive the original material? Did Main actually receive and use the finding? Which research judgment changed because another perspective was added?**
 
-This article follows a delegation end to end: decide whether to split the work, supply necessary inputs, let Child investigate, receive findings and gaps, then let Main synthesize and deliver. Tools, methods, permissions, budgets and recovery remain with their existing owners. Establish that chain before adding more specialists or bounded dialogue, so collaboration’s value has a concrete location.
+This article answers three questions: what we currently support and how those Children contribute to one fund research task; how our choices compare with industry approaches; and which lessons are supported by engineering evidence rather than assumed benefits. Web, PDF, and Python implementation details stay in their own articles. The main subject here is the collaboration system.
 
-## 1. Isolate Local Work, Not the Ability to Solve a Problem
+## 1. Why Subagents: Isolate Working History Without Fragmenting Problem-Solving
 
-Consider a simplified investment question. A user wants to understand how a potential ETF relates to their portfolio, verify the product documents, and calculate holdings overlap or historical behavior.
+When a user asks whether adding a technology ETF will improve diversification, Main needs to retain the user's objective, original holdings, available cash, comparable data, and the ultimate decision criteria. It does not need to repeat every PDF page search, failed source lookup, or script rerun caused by a mismatched field in its later model requests.
 
-Main should retain the user goal, measurement conventions, established findings, and unresolved questions. A local calculation, however, may involve debugging fields, revising scripts, and rerunning several times. Reading a PDF may involve locating sections, examining tables, and checking footnotes.
+The first benefit of a subagent is therefore **context isolation**: Main delegates a bounded question, Child uses permitted tools in its own model context, and the result returns as inspectable findings. Anthropic's explanation of [subagent context engineering](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) addresses the same underlying problem.
 
-Those steps matter locally but do not need to occupy every subsequent Main request.
+Isolation should not mean carving every tool into an incompatible role. If a Web Child finds a critical PDF footnote, it should be able to read the document within its original permissions. If a PDF Child discovers a newer issuer disclosure, it should not mechanically return to Main only to request a second specialist. **We delegate a meaningful unit of work, not a rigid sequence of predefined function calls.**
 
-After calculation, Main needs the **inputs, method, outcome, and limitations**—not every unsuccessful script. After reviewing clauses, it needs exact evidence and applicability conditions—not every document search.
+There is also a cost: a fresh Child may need to reread information already acquired by Main. Delegating everything can replace context bloat with redundant preparation and handoff overhead. The task's length, the amount of shared input, and whether it has an inspectable result determine whether isolation is worthwhile.
 
-We call this **context pollution**: local experimentation and global reasoning are mixed, so operational history that has served its purpose continues consuming future reasoning capacity.
+## 2. Our Subagent Family: One Execution Substrate, Several Types of Expertise
 
-This motivation resembles the independent-context Subagent approach in [Anthropic's context engineering article](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents): local executors investigate deeply, return synthesized results, and Main coordinates the whole. We borrow the information architecture, **not another system's performance claims**.
+Three concepts must be distinguished. **A Child is an execution instance; a Profile defines a working method; Bull/Bear is a particular collaboration relationship between execution instances.** They do not form a mandatory pipeline in which everyone must participate.
 
-Separate context should not imply crippled tools. A Web Child that finds a PDF may read it under existing permission; a PDF Child may check a relevant Web source without automatically handing the task back to Main.
+### Figure 1: one Child execution substrate carries several expert methods
 
-**We separate working history, not the ability to do multi-step work.**
+```mermaid
+flowchart TD
+    Runtime["Common Child execution runtime"]
+    Builtin["Built-in working roles"]
+    Methods["Fixed investment methods"]
+    Custom["Account-defined Profiles"]
+    Roles["General / Web / PDF / Python"]
+    Invest["Markowitz / Taleb / Bernstein<br/>Bogle / Marks / Fama-French"]
+    User["Personal research preferences<br/>version frozen for this Run"]
+    Managed["Managed Reviewer<br/>manual or factual trigger"]
+    Runtime --> Managed
+    Runtime --> Builtin
+    Runtime --> Methods
+    Runtime --> Custom
+    Builtin --> Roles
+    Methods --> Invest
+    Custom --> User
+```
 
-## 2. One Common Execution Substrate, Several Specializations
+| Capability | Specific problem addressed | Important property |
+| --- | --- | --- |
+| **General Child** | Investigate a local question without domain-specific guidance | The ordinary baseline; no need to force specialist selection |
+| **Web Explorer / PDF Reader / Python Analyst** | Find reliable sources, interpret documents, perform calculations and export artifacts | Specialization does not restrict every next step to one file format |
+| **Research Reviewer** | Find missing counterexamples, sources, or material conditions | Advises on investigation or closure; does not approve the final answer |
+| **Six investment methods** | Test the same investment rationale with different analytical questions | Different methods, same legitimately available factual basis |
+| **Personal custom Profile** | Save a user's analytical order, domain habits, and constraints | Revision is frozen for the Run; later edits do not rewrite older work |
+| **Bull/Bear collaboration** | Ensure a falsifiable rationale receives a real challenge and response | A bounded messaging relationship, not another omnipotent expert |
+| **Remind (not a Child)** | Surface budget, time, and execution facts | Does not launch another model to re-derive existing counters |
 
-We did not implement separate Agent frameworks for Web, PDF, and Python.
+This classification matters. **A specialist is not a permission role, and an investment perspective is not an independent investment adviser.** Being good at PDFs does not restrict all future work to PDFs. Applying an investment thinker's method does not provide that person's real-time opinions, let alone trading authority.
 
-Instead: **one common Child Runtime plus different Specialty Profiles**, with each delegation creating an independent executor.
+### Web, PDF, and Python: complete a local unit of work
 
-Profiles supply methods and priorities. Host determines real tool and source access. Parent and Child share the root task's governance and resource constraints.
+Web emphasizes source discovery and cross-checking. PDF emphasizes sections, footnotes, charts, and actual reading coverage. Python emphasizes input alignment, code repair, computation, and output files. For managed PDF experts, we also use on-demand Skills, reference materials, and controlled scripts—without building another PDF Runtime or allowing arbitrary executable packages in personal Profiles.
 
-### Figure 1: shared mechanics, separate contexts
+For example, a fee investigation can begin on an issuer's website and continue into a prospectus footnote within the same Child. Python's value is not simply evaluating a formula: it is treating “inspect inputs → fix failures → recompute → export → state limitations” as one work unit. Details belong to [Web continuous reading](021-agent-web-research-from-search-to-deep-reading.md), [PDF evidence reading](024-agent-pdf-from-text-to-evidence.md), and the [Python workbench](agent-python-compute-workbench-evolution.md).
+
+### Six investment methods: one factual basis, six lines of inquiry
+
+We do not ask six experts to vote “buy” or “do not buy.” We want them to ask genuinely different questions about **the same authorized, comparable evidence**:
+
+| Method | First question to investigate |
+| --- | --- |
+| **Markowitz** | How do the new weights change correlations and marginal risk? |
+| **Taleb** | Are tail events, liquidity constraints, or fragility underestimated? |
+| **Bernstein** | Does the decision fit the investment horizon, cash needs, and holding discipline? |
+| **Bogle** | Are tracking, overlap, and total ownership costs sensible? |
+| **Marks** | Does the current price compensate for the risk taken? |
+| **Fama–French** | Could comparable return differences be explained by known risk factors? |
+
+If a portfolio lacks an adequate, comparable return series, a Markowitz perspective cannot derive precise optimal weights merely from “more diversified sectors.” Without real fee data, Bogle cannot pronounce one fund the lowest-cost implementation. **The value of a method is both what it asks and which conclusions it refuses to claim without evidence.** The [six-method and hypothesis-falsification article](investment-perspectives-and-thesis-falsification.md) develops these distinctions further.
+
+### Reviewer: scrutinize research quality without taking over Main
+
+Research Reviewer is another type of Child, but it cannot bypass managed admission through an ordinary `spawn_subagent(agentId="builtin/reviewer")` call. Both explicit consultation by Main and automatic candidates derived from execution facts use the same managed Reviewer admission and result owner. Reviewer can inspect authorized primary materials, identify omissions, contradictions, and fragile assumptions, and recommend continuing, pivoting, finalizing, or suspending a study. It cannot approve the final answer.
+
+**An independent context does not guarantee independent access to the original material.** In an October 18 production-seam investigation, the original reader had successfully materialized evidence, but the Child-input assembler dropped those returned bytes and sent only a compact summary that omitted a comparison date. We repaired the actual input handoff rather than adding yet another search tool. Missing source material means insufficient context, not “the independent reviewer found no issue.”
+
+## 3. How We Organize Them: Main Remains Accountable to the User
+
+We do not duplicate the model loop, execution identity, budget, authorization, workspace, and Recovery machinery for every expert. **Main decides whether to delegate and synthesizes the response; Child operates in an independent context; Host controls tools and sources; shared root-run governance bounds every execution.**
+
+### Figure 2: common Runtime, distinct methods, actual permissions
 
 ![Main, shared Child execution, methods, granted tools and result handoff](../../visuals/en/panorama-subagents/architecture.svg)
-Each Child is an independent execution. It reuses common runtime mechanics, follows the selected method and works within the actually granted tools. Main and Child share the original task’s budget, authorization and lifecycle constraints while retaining their own working contexts.
 
-Main retains a direct-tool path for simple work. Complex local problems can be delegated, returned as evidence and results, then integrated in the user-facing answer.
+At least four facts must remain distinct.
 
-This resembles the **manager / agents-as-tools** responsibility model in the [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/multi_agent/): a manager invokes specialists but owns the user conversation and final reply. It is **not** a transfer of conversational control to another Agent.
+**First: why was this expert selected?** Main may use General, a built-in specialist, or a personal Profile. New ordinary expert executions have been consolidated around an `agentId` selector: one complete expert definition per Child, rather than an arbitrary stack of legacy type fields. Reviewer has a separate managed consultation or factual-trigger path; an ordinary catalog identifier cannot bypass its cooldown, coalescing, or resource admission. A directory description says what an expert is suited for; it does not prove natural model selection is always correct.
 
-"Capable" also does not mean every Child gets every tool, all data, or all control permissions. It means the Child can autonomously perform multiple steps **within its granted scope**.
+**Second: what input did it actually receive?** Main understanding the task does not mean Child received everything Main previously read. Inherited results depend on selected, authorized `inputRefs` with real source identity. Passing a URL, summary, or relationship description does not establish that the original evidence reached the model.
 
-[Claude Code's Subagents documentation](https://code.claude.com/docs/en/sub-agents) similarly distinguishes independent contexts, specialized instructions, and permissions, including read-only configurations. These are separate axes of design.
+This principle came from debugging a real seam. A Child Python call had a legitimate result reference in Main's history, but the script-input path read Main's shared result messages instead of **the input actually fitted, sealed, and provided to that Child turn**. The result was a false reference denial. The repair used the invoking Child's actual turn view for input custody and kept foreign, omitted, or duplicate references unavailable. Main having seen a reference must never broaden Child's source permission.
 
-## 3. Web, PDF, Python, Reviewer—and Remind
+**Third: what is it permitted to do?** A Profile is a working method, not a new grant of authority. Source access, sandbox use, script execution, trading, and publication remain under the original Host and owner checks. Each Child has its own progress coordinates and workspace ownership rather than one implicit global “current step.”
 
-Our profiles differ primarily in **working methodology**, not hard file-format silos.
+**Budget policy also has a version identity.** Earlier Main/Child executions shared a physical model-request and retry pool, so one executor could exhaust capacity needed by another even before its local turn limit. Later code introduced versioned independent model-request/retry allowances that are **explicitly selected at a new Run's original admission**. Historical Runs without that new policy retain their original contract; Recovery must not retroactively grant a newer default. This is not unlimited Child capacity: the original Root's time and tool limits, provider hard caps, Stop, and terminal facts still bound the whole execution tree. Parts of this budget evolution and its matched real-world quality comparison remain open; scoped integration validation cannot be promoted into a system-wide speed claim.
 
-| Direction | Primary emphasis | Example financial task |
-| --- | --- | --- |
-| **Web Explorer** | Source selection, recent disclosures, cross-source verification | Issuer announcements, fund disclosures, new information |
-| **PDF Reader** | Sections, tables, footnotes, page numbers, coverage | Product terms, expense definitions, risk disclosures |
-| **Python Analyst** | Data basis, computation, error correction, artifacts | Return/drawdown, portfolio overlap, supplementary tables |
-| **Research Reviewer** | Gaps, contradictions, counterexamples, fragile assumptions | Check support for a conclusion and determine useful follow-ups |
-| **Investment perspectives** | Challenge one set of facts with distinct investment methods | Allocation, tail-risk, diversification viewpoints |
-| **Remind—not a Subagent** | Actual resource and execution facts | Budget, time, and review reminders |
+**Fourth: who owns the result?** Child returns interim or final findings. Main reads the necessary evidence, resolves conflicts, and delivers user-visible content. Reviewer may raise an independent challenge but does not become a final approval body. Remind merely surfaces known resource facts; a reminder cannot automatically authorize another Reviewer run.
 
-Web/PDF/Python/Reviewer and the investment perspectives reuse Child execution. **Remind** is a Runtime-side reminder feature, not another Child Agent.
+For interaction ownership this is closer to the [OpenAI Agents SDK agents-as-tools / manager model](https://developers.openai.com/api/docs/guides/agents/orchestration) than to a handoff that moves the active user conversation to another specialist. We borrow the **responsibility model**, not an assertion that the two systems share an identical protocol.
 
-Neither a role profile nor investment methodology independently grants access to tools or data.
+## 4. One Fund Research Question Across the Whole Collaboration
 
-### Web and PDF differ in emphasis, not an enforced handoff at every file change
+The following uses **synthetic teaching data**, not a real named fund or a qualified live financial research benchmark.
 
-Web is primarily about **where to search and how sources compare**. PDF is primarily about **what a particular document actually says and which portions were read**.
+The user asks: “I want to use 10% of my cash to buy a technology ETF. With more funds in my account, am I better diversified?”
 
-A fee investigation may begin with an issuer Web page and end at a PDF footnote. It can still be one Child task. We do not require a needless handoff to Main followed by a new specialist invocation. Controlled tests have exercised authorized cross-format reading in both directions.
+Assume the original portfolio contains 50% broad equity fund, 30% bonds, and 20% cash. Technology accounts for 30% of the broad fund and 80% of the candidate ETF. Under this teaching example's assumptions of equal dates, complete coverage, and comparable sector classification:
 
-Specialization should improve method, not manufacture transfers.
+| Scenario | Broad equity / tech ETF | Bonds / cash | Tech sector exposure |
+| --- | --- | --- | --- |
+| Existing A | 50% / 0% | 30% / 20% | 15% |
+| Buy using cash B | 50% / 10% | 30% / 10% | 23% |
+| Replace broad equity C | 40% / 10% | 30% / 20% | 20% |
 
-### Python takes a computation task, not just one function call
+The calculation multiplies portfolio weights by the technology-sector shares in each fund and sums the results. It measures **technology-sector exposure only**, not complete holdings overlap, covariance, or total portfolio volatility. A real study must also verify share classes, reporting dates, fee applicability, and input coverage.
 
-A Python Child should understand the calculation goal, inspect inputs, correct ordinary code errors, and explain outputs and limitations.
-
-Its instructions emphasize date alignment, units, missing values, and source provenance. **Code execution success is not the same as correct financial measurement**. If no real execution facility is available, it must disclose non-execution rather than fabricate a calculated result.
-
-Multi-turn local debugging is exactly the process worth isolating. Main can invoke a stable, trivial calculation directly.
-
-### Reviewer provides independent scrutiny, not final approval
-
-Reviewer can inspect original evidence, look for meaningful counterexamples, and use permitted tools for focused checking. It is not limited to scoring Main's summary.
-
-But its opinion cannot rewrite business facts, compel Main to accept the advice, or veto a correct final answer. Independent execution and advisory handoff have engineering evidence. Reviewer's role is to surface counterexamples and material for scrutiny while Main retains synthesis.
-
-### Not every reminder deserves another model
-
-Remaining budgets and time are already known through execution records. A separate model need not infer them.
-
-**Remind** projects objective facts and timely guidance into existing model requests. **Reviewer** consumes separate model work to examine an analysis. A delivered reminder does not grant automatic Reviewer admission or a new research task.
-
-In shorthand: **Remind draws Main's attention to execution facts; Reviewer checks judgments; Runtime determines which operations are lawful.**
-
-## 4. A Financial Research Example: Collaboration by Dependencies
-
-Consider a **teaching example**, not a completed live financial-research acceptance:
-
-> I am considering adding an ETF. Compare its overlap with my portfolio, verify fees and main risks, and explain when adding it would or would not be appropriate.
-
-Main identifies the original objective and evidence requirements. It can separate local questions: have the issuer's disclosures changed? What do the product documents say? How much overlap can be calculated from available portfolio data?
-
-A delegation should be more precise than "research this ETF." For example:
-
-> Verify recurring versus one-time fees for the specified share class, retaining effective dates and source evidence. Do not repeat the entire investment recommendation.
-
-### Figure 2: coordinate by questions and dependencies, not a role pipeline
+### Figure 3: organize by questions and dependencies, not a fixed role order
 
 ![Coordinate by dependencies, with direct delivery and optional review](../../visuals/en/panorama-subagents/dependencies.svg)
-Disclosure checks and document reading can run independently. A calculation that requires aligned dates, units, or holdings waits until its needed inputs are defined. If the data is already usable, calculate directly; do not wait for unrelated Children.
 
-Review in Figure 2 is optional, rather than a mandatory publication approval stage. Main may deliver sufficiently supported findings, resolve essential objections, or narrow claims where evidence is missing.
+Main can perform straightforward arithmetic itself, or delegate original-disclosure verification to one Child and long-document reading to another. Limited parallelism helps when the inputs are ready and the tasks really are independent; if a calculation requires a PDF to establish dates and share-class details, that dependency must be resolved first.
 
-Main should integrate the findings around the user's **actual decision**, not concatenate three standalone reports about fees, overlap, and risk.
+Different specialists can then contribute **different kinds of value**. Markowitz notices that the variance and covariance data are missing, so a change from 15% to 23% does not settle the overall risk question. Bernstein asks whether the 10% of cash is needed within six months. Bogle examines whether another fund implements the intended exposure at a better verified total cost. Reviewer asks whether “technology-sector weight” has been misrepresented as “complete diversification risk.”
 
-Final text should distinguish observed evidence, judgments dependent on goals/assumptions, and uncollected material. That is an output requirement for the teaching case, not a universal mandatory execution sequence.
+The most useful Main answer may be: “**Owning more fund tickers does not prove better diversification; under this teaching model, scenario B actually increases technology-sector exposure.** If the user's goal is intentionally to increase technology exposure, compare valuation, costs, and cash requirements under that objective.” No voting and no averaging three incomplete opinions into an arbitrary buy percentage.
 
-## 5. Handoff Should Compress Process, Not Evidence
+## 5. Bull/Bear: A Counterargument Must Actually Arrive and Receive a Response
 
-Returning a Child's entire tool and debugging history defeats isolation. Returning only "done" or a one-line conclusion removes the basis for Main to judge its use.
+Ordinary multi-perspective analysis may still produce three unrelated essays. Our bounded Bull/Bear pattern imposes a stronger relationship: **Bear challenges a testable claim; Bull has to receive the challenge during its actual subsequent execution and can revise or withdraw the reasoning.**
 
-We treat handoff as a **usable work product**, not a success flag.
+### Figure 4: bounded challenges and real replies
 
-Existing mechanics carry a bounded summary, evidence and artifact references, known gaps, and partial findings where appropriate. Main can read important sources on demand rather than importing the Child's full history.
+```mermaid
+flowchart TD
+    A["Bull presents a testable rationale"] --> B["Bear checks comparable evidence"]
+    B --> C{"Material counterexample?"}
+    C -- "No" --> D["Record coverage and unresolved questions"]
+    C -- "Yes" --> E["Host validates and persists challenge"]
+    E --> F["Bull receives the real message in a later request"]
+    F --> G["Bull responds or revises rationale"]
+    D --> H["Main integrates valid findings"]
+    G --> H
+```
 
-| Handoff field | Role in the financial example |
-| --- | --- |
-| **Findings summary** | Which subquestion was addressed and what was learned |
-| **Evidence and measurement basis** | Sources, dates, units, and scope for independent checking |
-| **Computed/report artifacts** | Actually produced results—not just "generated" claims |
-| **Gaps and execution state** | Completed, partially usable, not executed, or unknown effects |
+In the teaching scenario, Bear should not merely say “technology valuations may be high.” It should challenge H1: “Adding another technology ETF improves diversification,” and show the comparable sector-exposure change from 15% to 23%. Bull may retract H1 while leaving open whether *deliberately increasing technology exposure* is worth considering. **Withdrawing a failed rationale is more useful than manufacturing a compromise acceptable to both sides.**
 
-These describe responsibilities, not a mandatory form requiring fabricated file links when no file was generated.
+In the execution mechanism, “model proposed a message,” “Host validated and durably accepted it,” and “the recipient's later model request actually contained it” are distinct facts. Pairing has bounded identities, rounds, budgets, and safe park/wake handling. Original receipts and source identity remain inspectable; the system cannot retrospectively invent a debate from chat summaries. **One participant's source permissions do not automatically pass to the other**, and agreement cannot authorize a transaction.
 
-### Figure 3: local failure neither erases valid results nor becomes success
+These distinctions arose in actual work: in one PostgreSQL Recovery investigation, a notification and wake happened but the next worker did not continue successfully. In another, the message body reached the recipient while its source identity was incorrectly treated as unknown because the model projection did not match the original receipt. We corrected the existing checkpoint, identity comparison, and message projection instead of introducing a second Peer mailbox. **Notification, resumed execution, and actual model-input consumption each need separate evidence.**
+
+By comparison, Microsoft Agent Framework supports [Group Chat orchestration](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/group-chat) for a shared conversational process. Its documentation describes a coordinator broadcasting contributions so participants can operate with synchronized conversation histories. Our Bull/Bear path deliberately limits the discussion to **one material hypothesis and authorized source-bearing messages**, rather than maintaining an always-on discussion room. That is a decision about scope and cost, not a claim that general Group Chat cannot perform reviews or approvals.
+
+The pairing, messages, Recovery behavior, and failure cases are covered by [bounded Bull/Bear dialogue](bounded-bull-bear-peer-dialogue.md).
+
+## 6. Personal Experts: Methods May Evolve, but Old Executions Cannot Change Identity
+
+We also want users to preserve their own research habits. Some check fees first; others begin with underlying holdings overlap; still others demand an explicit falsification condition for every allocation rationale. Saving a Prompt is easy. The difficult part is **how it is selected, which revision actually executes, and how that fact is reconstructed later**.
+
+An ETF Agent personal expert is a Profile with account ownership, a revision, and a content fingerprint. Main receives a bounded catalog rather than everyone's full instructions. Once precisely selected, the method reaches the corresponding Child with its proper provenance. A Run freezes its snapshot. Later user edits apply to future Runs; Recovery reads the original revision. The expert catalog, favorites/presets, and explicit `@` selection are discovery or preference surfaces; they do not prove a Child was dispatched.
+
+Another valuable distinction is **freeze the method, not an incorrect task description**. Main may initially request “precise complete-holdings overlap.” If Child learns that only top-ten holdings are available, it can submit a bounded `update` so that later work becomes “compute overlap within disclosed coverage and preserve the unknown remainder.” That does not rewrite the original user text, dispatch receipt, or tool permissions. A soft `relationHint` can express that another expert ought to check a finding, but text cannot create an automatic dependency scheduler or actual result consumption.
+
+Mid-research user corrections have a similar rule: sending a question does not establish that its answer entered the intended Child. Adoption requires the response to reach the correct executor's actual subsequent model input. See [how user replies re-enter the original research](agent-durable-human-interaction-response-adoption.md).
+
+At present personal Profiles are primarily **text-based methods**. Managed built-in expert packages can also reference Skills, scripts, and dependencies prepared in advance; the original package and environment identity must be frozen. An incompatible environment limits the affected new execution: it must not install arbitrary dependencies at research time or revoke independently valid older results. This does not authorize uploading arbitrary executable packages as personal Profiles.
+
+Unlike expert products centered on independent persistent Workspaces, this approach deliberately avoids cloning a long-lived model instance, memory, and budget for every personal definition. It reuses existing identity and Recovery, but a personal expert is not yet a permanent independent digital employee. The complete selection and version design is in the [custom expert article](agent-custom-expert-from-prompt-to-recovery.md).
+
+## 7. The Hard Part of Handoffs: Doing Work, Reaching Main, and Changing the Answer
+
+We treat a Child handoff as **reusable research output**, not one success flag. Relevant information includes findings, original sources and measurement dates, actual calculations or files, and unresolved gaps. Full search histories and debugging logs should not automatically flood Main.
+
+### Figure 5: local failure preserves legitimate findings without hiding gaps
 
 ![Local failure, bounded repair, explicit gaps and evidence readback](../../visuals/en/panorama-subagents/handoff.svg)
-A failure enters bounded repair only when recovery is actually permitted and resources remain. Unrecoverable gaps are reported explicitly. Previously valid findings can still be handed off. Canceled work or unknown external effects must not be treated as a free replay.
 
-A Main summary is **not proof that Main read every underlying source**. Key evidence can be retrieved when necessary; independent useful partial findings need not wait for the Child's entire task to finish.
+Several concrete engineering observations explain why this matters.
 
-**A historical-report handoff exposed the reverse problem.** In a scoped late-October 2026 run, Main's actual model request included the full explicitly selected Publication from an earlier Run, together with its source identity. But Child has a separate path for selecting and materializing inputs. Without actually selected, valid `inputRefs`, inherited provenance and grants do not copy the report into the Child request. “Main saw the full report,” “Child was authorized for a source category,” and “Child completed a local calculation” are not proof that **Child independently consumed the entire original report**.
+**In one Web handoff**, the Child mixed two citation types. Refusal was legitimate, but feedback encouraged deleting otherwise valid citations. The repair clarified the distinct reference roles so the model could preserve and resubmit supported findings; it did not weaken source validation.
 
-This observation is limited to the historical-report path under review; it does not imply that ordinary, valid result-reference handoffs all lose their inputs. The exact selection, actual Child consumption, and post-forget content eligibility still need a joined acceptance check. That broader path is not yet qualified by this observation.
+**In one PDF study**, page images genuinely entered the model requests, but the model still misread some colors or shapes and failed to complete all cross-document checks. “The evidence arrived” and “the evidence was understood correctly” are different facts.
 
-[LangChain Deep Agents](https://docs.langchain.com/oss/python/deepagents/subagents) also advocates returning condensed results rather than full raw tool output. In financial research, the other half is critical: **shorten the process history, not the definitions and caveats that determine whether a conclusion is valid**.
+**In one Python run** using synthetic data, the Child encountered data-field and HTML-template errors, corrected them in its isolated workspace, recomputed, and exported a report. Main acquired the actual artifact and provided a download entry. This demonstrates a working local job and handoff—not that all real fund calculations are accurate or that the system is faster than one Main. At a more granular level, Host placing a selected input in Sandbox proves **input delivery**, not that a particular output actually consumed those bytes. Without trusted input-read/output-write or producer-confirmed artifact receipts, workspace file changes cannot establish exact per-output data lineage.
 
-## 6. Three Handoff Boundaries: Input Identity, Local Work, and Actual Consumption
+**In a historical-report continuation**, the reverse happened: Main's request contained a full prior report selected by the user, while Child did not actually select the relevant valid `inputRefs`. “Main read it” did not prove that Child read it. Across Recovery, unknown external effects, prior submissions, and confirmed results must also retain their original identities instead of being recreated from missing in-memory flags.
 
-### Input and identity: the same material does not prove the same consumption
+**A terminal-state and Recovery lesson** is that Root forbidding new work does not permit dropping a Child response that was already physically dispatched; a Child's local failure does not automatically mean the entire task failed. Similarly, material that was previously independently authorized must not become unreadable solely because its current expert method is no longer available. Permission for new execution, readability of earlier valid output, and the Root's terminal state have different original owners.
 
-A Web Child once submitted tool-result references and answer citation markers in the same field. Rejecting the mixture was correct, but the old feedback suggested an empty array and led the model to remove legitimate references. We repaired **the feedback's explanation of the two reference types**, not the provenance validator. A later real-model sample returned valid citations, although the overall task still failed for unrelated reasons.
+### Figure 6: five different levels of evidence from expert presence to actual value
 
-Concurrency causes a second identity trap: in `Main turn 1 → Child turn 1 → Main turn 2`, the final event is globally third but remains Main's second turn. Confusing these coordinates once rejected a legitimate input binding; the correction reused per-executor progress. **Independent context also needs independent execution and turn identities.**
+```mermaid
+flowchart TD
+    A["Child was admitted to execute"] --> B["Child actually submitted findings"]
+    B --> C["A later Main request received the result"]
+    C --> D["The answer retained evidence and limits"]
+    D --> E["Comparable evaluation measures added value"]
+```
 
-A real PDF research run revealed a different failure: page images reached Main and Child, yet the model misread some colors and shapes, and cross-document analysis remained incomplete. That is **misinterpretation after delivery**, not proof of missing input. Successful image handoff cannot certify a financial conclusion.
+In late October 2026, we performed a scoped comparison between actual Child submissions and excerpts in subsequent captured Main inputs. It demonstrates that **some expert text really reached Main**, not that the complete expert reports were adopted or that the user obtained better research than with a single agent. The denominator, sampling method, and limitations are in [evidence of specialist contributions](agent-subagent-contribution-evidence.md).
 
-### Local work: isolate a process without cloning the Runtime
+These levels direct debugging effort. If an artifact exists but does not reach Main, inspect projection and readback. If it arrives but vital limitations disappear, inspect synthesis and citation. If a specialist duplicates existing evidence, reconsider delegation rather than adding another “expert manager.”
 
-A Python Child is valuable when input checking, local debugging, computation, and export form a work unit. Its workspace is bound to the executor; Main and sibling Children exchange authorized artifacts rather than guessing paths. In an October 16, 2026 real-model run on synthetic data, the Child fixed a field mismatch and an HTML template error, exported a report, and Main published its download entry. History read back the delivery. This supports **one complete local handoff path**, not faster-than-single-Agent performance or general financial correctness.
+## 8. Industry Practice in 2026: Shared Problems, Different Choices
 
-A managed PDF expert likewise reuses Child, Skill, `run_skill_script`, and Analysis Sandbox. Its helper was adapted to actual input forms `data.pdfTables` and `data.items[].pdfTables`. Zero geometry-extracted tables means **no countable tables were delivered by that extraction**, not that the original PDF contains none or visual verification succeeded. Script discovery grants no new execution authority; [user-defined experts](agent-custom-expert-from-prompt-to-recovery.md) remain text Profiles, not arbitrary executable ZIP uploads.
+As of **November 2026**, “Subagent” no longer describes one universal orchestration pattern. Public industry documentation can be compared along at least four questions: **control ownership, context inheritance, collaboration structure, and cost**. This table summarizes representative, documented mechanisms and emphases. **It is not a benchmark, and the absence of a feature from a short documentation summary is not evidence that a framework lacks it.**
 
-Reviewer examines omissions and counterexamples; Remind surfaces existing resource facts. **A reminder is not review; review is not approval.** Deduplication, one active review per Run, cooldown, and shadow mode constrain repeated work. Shadow advice is not automatically delivered to Main, but still consumes the original budget. These are scoped implementation facts, not measured multi-Agent benefit.
-
-### Actual consumption: submission, model input, and adoption differ
-
-A Child submitting a summary does not prove its crucial text reached Main's next model request. Readback of real research on October 30–31, 2026 used bounded fragment matching between specialist submissions and subsequent Main inputs. It established that **some text entered captured model input**, not full-summary delivery, semantic adoption, or better answers. [Evidence of Subagent Contribution](agent-subagent-contribution-evidence.md) contains the sample denominators, matching method, and caveats; they need not be duplicated in this panorama.
-
-Recovery must preserve separate facts: a Child submitted, Main read, and a tool effect settled. Losing an in-memory parent-process marker does not justify a free retry of an unknown effect by another Child. Same-Run continuation uses the original grant, frozen method, and receipts; local failure does not erase independently publishable Main content.
-
-**Subagents are justified when local work merits isolation and Main can actually consume the result under its original identity—not by the number of available roles.**
-
-## 7. Methods Change; Execution Identity and Original Input Must Remain Readable
-
-By October 24, 2026, ETF Agent main contained account settings, method revisions, and Run snapshot integration for user-defined Subagent Profiles. A Profile contributes role description and method guidance, not a new Child Runtime. Main may select an eligible Profile from the catalog; the original A07 Child consumes the identity, revision, and content hash frozen for that Run. Editing or disabling a Profile later must not retroactively rewrite instructions belonging to a previous Run. History access still obeys the current reader's account permissions.
-
-Subsequent scoped engineering acceptance covers preferences, exact selection, discovery, observable contributions, saved presets, and Child-authored task revisions, including isolated PostgreSQL and authenticated-browser paths driven by a scripted model. That establishes the request and presentation mechanics, **not** natural model expert-selection quality, real investment benefit, or production deployment. Customizable roles still do not grant extra tools, model routes, data sources, budgets, or investment execution rights.
-
-The adjacent [durable human-interaction mechanism](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) addresses a different handoff: did the original Child receive the user's actual reply in its own message, or only Main's summary? A Profile establishes **which version of a method a Child uses**; HIL shows **which consumer actually adopted a response**. Both reuse the existing Child identity and recovery mechanisms.
-
-### Investment perspectives are still methods on the same Child
-
-In October 2026, controlled implementation bound Markowitz, Taleb, and Bernstein as research-method configurations for the existing Child, not additional advisers with trading authority. Admission freezes method ID, version, and content hash; methods can share the same authorized material, while recovery cannot silently swap methods in an old execution. In an October 21 real-model run on a synthetic investment question, results from all three methods reached Main and a body was saved, but the model also made type-selection errors and repeated delegations. This supports method binding and handoff, **not greater accuracy than a single Main**.
-
-### A Unified Role Entry Still Needs Evidence of Contribution
-
-Fresh expert selection is gradually unified around versioned role identities, while historical executions retain their original methods and contracts. Reusing admission, execution and handoff does not establish superior multi-agent research. Actual dependencies still require original result identities, authorized inputs, and evidence that Main obtained and used the findings.
-
-## 8. Consider Collaboration Value, Critical Path and Total Cost Together
-
-The clearest demonstrated capability is that complex local work can maintain its own context, multi-step tools, and usable outputs. Main need not import every debugging step while retaining a way to verify important evidence.
-
-Limited parallelism can help independent subquestions. It cannot remove real dependencies between document confirmation and subsequent calculation.
-
-A suggested collaboration relationship is different from a result dependency that actually occurred. “Have another expert review the first expert's fee conclusion” can be natural-language task guidance, but the downstream Child needs a real upstream receipt and lawful `taskRef`/`inputRefs` handed over after Main actually waits or reads. As of October 27, 2026, `relationHint` is sealed in the original request and delivered to the Child. It remains **soft relationship guidance**: it does not schedule, automatically wait, or retrieve sibling materials. Real dependencies require original `taskRef`, authorized `inputRefs`, and observed receipts—not a model-authored relationship string.
-
-Main's initial assignment may also turn out to be wrong. For example, it asks for exact portfolio overlap, but the PDF Child discovers that one fund disclosed only its top ten positions. The existing `submit_subagent_result` now accepts an optional Child-authored `update` for `task`, `hint`, `relationHint`, and authorized `inputRefs`. An accepted update changes subsequent Child requests, not the original user text, dispatched requests, Run grants, or already committed results. Source owners still authorize any newly selected material. This is **revisable research guidance with immutable execution history**, not proof that the model will reliably detect flawed assumptions. Account selection details are covered in [the custom expert article](agent-custom-expert-from-prompt-to-recovery.md).
-
-An idealized relation is:
-
-~~~text
-Sequential time ≈ Work A + Work B
-Parallel time   ≈ max(Work A, Work B) + delegation / waiting / synthesis overhead
-~~~
-
-This is a **trade-off model, not a measured ETF Agent speedup**.
-
-Physical model/tool concurrency, retries, and dependencies change the outcome. Smaller Main context is also not necessarily smaller **system-wide token usage**: Child inputs/outputs, repeated background, handoff, and essential evidence readback all count.
-
-[Anthropic's multi-agent research retrospective](https://www.anthropic.com/engineering/multi-agent-research-system) likewise notes the additional token costs and poor fit of some high-dependency/shared-context workloads. We borrow the applicability lesson, not their performance numbers.
-
-We also have a real counterexample: a Child completed valid citation handoff, but Main repeatedly checked status, canceled, and re-delegated until the turn limit, without publishing. Provider stream interruption occurred too, so blaming the entire failure on orchestration alone would be unjustified. The example still shows that **local success does not imply overall delivery**.
-
-Meaningful full-task measurements cover: Main-context reduction, total cost, whether returned results were consumed, and whether the user question was answered.
-
-### Which Tasks Benefit from Parallel Work?
-
-| Task shape | Useful starting point | Reason |
+| Representative approach | Officially documented emphasis | What it teaches us |
 | --- | --- | --- |
-| One known field or stable calculation | Main calls the tool directly | Preparation and handoff may outweigh context isolation |
-| Extensive retrieval, local debugging or document checks | One autonomous Child | Lengthy process can return compact findings and evidence |
-| Clearly scoped, independent subquestions | Bounded parallel Children | Work can overlap while sharing resources and one goal |
-| Dense shared context and sequential dependencies | Main coordinates sequentially first | Separate histories duplicate background without removing dependencies |
-| An existing conclusion lacks a counterexample or second method | Optional Reviewer or another perspective | Value comes from the question and method, not the role count |
+| **OpenAI Agents SDK** | [Agents as tools versus handoffs](https://developers.openai.com/api/docs/guides/agents/orchestration): a Manager owns the reply, or a specialist takes over conversational control | Keep Main accountable for financial synthesis; selecting a role must not silently transfer publication responsibility |
+| **Claude Code / Anthropic** | [Isolated contexts, custom permissions, and methods](https://code.claude.com/docs/en/sub-agents), distinct agent teams, and [research patterns](https://www.anthropic.com/research/multi-agent-research-system) emphasizing parallel discovery and distilled handoffs | Delegate well-defined investigations; multi-agent exploration earns its cost on suitably parallel, valuable tasks |
+| **LangChain Deep Agents** | [General and custom subagents](https://docs.langchain.com/oss/python/deepagents/subagents), [isolated versus forked context](https://www.langchain.com/blog/organizing-context-in-a-multi-agent-harness), and async execution options | Clean contexts can duplicate preparation; explicitly consider isolation against useful inherited context |
+| **Google ADK** | [Sequential/Parallel and custom workflows](https://adk.dev/agents/custom-agents/); [collaboration modes](https://adk.dev/workflows/collaboration/) distinguish Task, Chat, Single-turn, and return behavior | Fixed workflows suit known dependencies; dynamic research need not become a rigid specialist pipeline |
+| **Microsoft Agent Framework** | [Sequential, Concurrent, Handoff, Group Chat, Magentic](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/) and other patterns | General group discussions aid iterative work; a financial counterargument can first be scoped to a bounded, inspectable message |
+| **CrewAI** | [Sequential and Hierarchical processes](https://docs.crewai.com/en/concepts/processes), with a Manager distributing tasks and validating outputs | Explicit roles matter, but every research task does not require another dedicated Manager layer |
 
-This is a starting point; the model can revise the split as evidence arrives. A PDF assignment may need Web verification. A calculation may discover an invalid basis. Returning that limitation can be more useful than calculating an exact but meaningless value.
+Three comparisons are especially important.
 
-## 9. Start with One Child That Can Complete the Handoff
+**First, Manager and handoff determine who owns the user conversation.** We keep financial synthesis with Main. That is not because handoffs are inherently unsafe, but because one local interpretation can easily be mistaken for a complete investment recommendation. A product that intentionally transfers the user interaction to a specialist may reasonably choose handoff instead; our ordinary experts have a different responsibility.
 
-A practical starting point is one long-running local task with verifiable deliverables, not four named specialist roles at once.
+**Second, isolation versus inherited context is a real tradeoff.** Deep Agents' 2026 discussion of forked subagents is a useful counterpoint. A Child independently recollecting Main's existing information may waste work; inheriting the conversation can save repeated retrieval while also making the initial prompt larger and less isolated. ETF Agent currently favors explicitly selected, authorized result references with attention to *what actually reached the model*. That does not mean it has implemented Deep Agents' fork mode.
 
-**Start with one general Child.** Give it independent context, execution identity, a multi-step tool loop, handoff, cancellation, and Recovery where supported.
+**Third, concurrency, group chat, and bounded challenges solve different problems.** Concurrency overlaps independent work; Reviewer checks research omissions; Bull/Bear tests whether a particular reason was challenged and answered. Deterministic steps can benefit from fixed workflows; open-ended investigations need room to revise the next task after new evidence. Treating all of this as interchangeable “multi-agent collaboration” conceals why another model call was justified.
 
-**Then add method Profiles.** Separate *when delegation is useful*, *what method the Child should follow*, and *which tools are actually authorized*. These do not need to be encoded in one role name.
+Anthropic's multi-agent research article also warns that such systems can consume substantially more tokens than ordinary chat. Its internal results depend on specific models, tasks, and evaluation methods; they cannot be transplanted into ETF Agent performance or accuracy claims. **Industry practice now offers more collaboration patterns, not a proven formula for the optimal number of experts on every task.**
 
-**Make the handoff real.** Test more than "Child returned text." Can Main read the evidence, consume the calculation, and retrieve the actual artifact? Can legal partial findings and unknown effects be represented?
+### Our Practical Trade-off: When Does Another Child Earn Its Cost?
 
-**Reuse existing governance.** Parent and Children use original budgets, finalization, authorization, and Recovery—not newly minted resource pools for each role. Test contention for shared budgets, Child work still running when Main settles, and crashes between result commit and consumption.
+### Figure 7: return the “one more expert?” question to the actual task
 
-A complete capability set does not mean every problem merits delegation. Straightforward lookup, one stable tool call, and tasks highly dependent on the whole conversation can be better handled directly by Main.
+```mermaid
+flowchart TD
+    Q["User research question"] --> Long{"Is the local task substantial<br/>and independently verifiable?"}
+    Long -- "No" --> Direct["Main uses approved tools directly"]
+    Long -- "Yes" --> Child["Delegate one or a few Children"]
+    Child --> Need{"Is there a material hypothesis<br/>or independent challenge?"}
+    Need -- "Yes" --> Review["Optional Reviewer, investment<br/>method, or bounded Bull/Bear"]
+    Need -- "No" --> Integrate["Return evidence, artifacts and gaps"]
+    Review --> Integrate
+    Integrate --> Main["Main verifies and delivers one answer"]
+    Direct --> Main
+```
 
-**Choose Subagents because a task benefits from autonomous local work and isolated context—not because the system happens to support many roles.**
+Our baseline remains **one Main with permitted tools**. One fee lookup or stable computation rarely needs a new Child. Long document investigation, repeated local debugging, or independently verifiable subquestions make better candidates for isolation. New evidence may update the local task description but should not silently update the method identity or authorization.
+
+In practice, **not building something** is also a substantial design result: no separate Runtime per Web/PDF/Python role; no compulsory six-method fan-out; no Reviewer as an overriding final court; no extra model to compute Remind's known counters; no treatment of `relationHint` as a dependency scheduler; no long-lived digital employee Workspace automatically created for each personal Prompt.
+
+To measure the net benefit, compare one Main, one Child, and multiple specialists on the same user question, source set, and comparable total budget. Evaluate **whether the question was answered, numbers are reproducible, critical limitations survived, and counterevidence changed a material rationale**, then examine overall tokens, wait time, physical attempts, and failures. Until that comparison exists, independent workspaces, frozen method identities, and reliable handoff mechanisms are meaningful engineering capabilities. **“More experts understand investments better” remains an unverified business hypothesis.**
+
+## Conclusion: Specialist Work Still Ends in One Accountable Main Answer
+
+We initially wanted Main to carry less local history. We learned to care even more about a stronger principle: **methods may differ, but evidence and execution identity must remain clear, and the user question must not lose its owner just because more experts are present.**
+
+A general Child permits deep local autonomy. Investment methods and personal Profiles add replaceable research viewpoints. Reviewer and Bull/Bear create opportunities to check fragile assumptions. Original receipts and source identities make those paths inspectable and recoverable.
+
+If another expert only produces another polished paragraph, the extra complexity is not worthwhile. **An additional Subagent is useful when it fills an important evidence gap, corrects a material rationale, or completes a local job Main should not carry—and its result genuinely contributes to the user's answer.**
 
 <!-- open-etf-case:child@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
-### Check the handoff with one read-only Child
-
-To inspect how local work returns to Main, run one scripted Child through the [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs).
-
-After installing dependencies according to the README at the linked fixed snapshot, run:
+The public repository contains a minimal [read-only Child handoff fixture](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) to observe an isolated task and Main's readback. This is an offline scripted example, not the public full implementation of every expert described above.
 
 ```bash
 node src/cli.mjs --case fixture-child --output runs/article-child
 ```
-
-Inspect `rootUsage` in the terminal JSON, then open `report.md` and `manifest.json` in the returned `directory`. Main reads back and cites the original pages acquired by Child; the derived Child conclusion does not become a new source.
-
-This is one read-only Child sharing the root budget. It makes no independent live-model call and does not cover multi-layer experts, PDF, or Python collaboration.
 <!-- /open-etf-case -->
-
-### A source-checking specialist does not inherit Main's publication authority
-
-The `fixture-child` example above remains a historical slice. Public v0.15 adds serial `source_check`: Child reads the restricted Atlas A/B pages in its own context and returns original material alongside derived observations; Main then composes the report. This is not a public implementation of every expert role or parallel orchestration described in this essay.
-
-The composition exposed a seam: when Main enabled Publication, copying its complete bindings into a read-only Child conflicted with Child's own publication configuration. **v0.15.1 narrows capability instead of removing identity checks.** [specialist-child.mjs](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/specialist-child.mjs) removes only the exact Main-only Publication binding and preserves every other binding. Handoff readback verifies that same restricted identity. Child still cannot publish; Main can publish its own prose through the original path. The [composition regression](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/specialist-publication.test.mjs) checks handoff, Main publication, and terminal readback without redispatch.
-
-To inspect source handoff, install the [current fixed public version](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/specialist-cli.mjs) according to its README, then use a fresh Session directory:
-
-```bash
-node src/specialist-cli.mjs run --session runs/article-source-check
-node src/specialist-cli.mjs read --session runs/article-source-check --run RUN_ID
-```
-
-Replace `RUN_ID` with the actual `runId` returned by the first command, then compare `child.summary`, `sources`, and `report.text`. This default example is an offline script that saves and reads a report; **it does not enable Main Publication**. For that composition, see the regression above and the [version's independent real-model verification](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md). Those model tasks still use synthetic material, not evidence of financial-expert effectiveness. The old `fixture-child` coverage marker retains its original qualification; a new source link is not a new coverage run. For ongoing use, start from [current main](https://github.com/hpoenixf/open-etf-agent).
-
-## 10. Local Autonomy Should Serve Overall Delivery
-
-**Delegation is worthwhile when an independently executable piece of work can return useful, inspectable results to the original user task.** A role label alone proves nothing.
-
-Before creating another specialist, ask:
-
-1. **Does the task benefit from isolation?** A simple lookup, a single calculation or work tightly coupled to Main's complete context may be better handled directly.
-2. **What will it hand back?** Not merely “done,” but readable source evidence, measurement definitions, genuine calculation or file artifacts, and stated gaps. Main must actually consume them.
-3. **Is the extra cost justified?** Child model calls, waiting, repeated reading, and synthesis all count. Local execution success does not prove end-to-end completion or improved investment research.
-
-ETF Agent's design lesson is: **separate local work without losing critical facts; vary the method without diffusing responsibility for delivery.** That matters more than keeping additional Agents busy.
 
 ---
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
 
-[Panorama Series](/en/panorama) · [Chinese edition](/articles/agent-subagent-context-specialization).
-
-[Read the Chinese original on the author's blog](https://hpoenixf.com/blog/agent-subagent-context-specialization) · [Public engineering-article collection](https://github.com/hpoenixf/eff-agent-article) (Stars welcome).
+[Panorama series](/en/panorama) · [Chinese original](/articles/agent-subagent-context-specialization) · [Public article source](https://github.com/hpoenixf/eff-agent-article) (Stars welcome).
 <!-- agent-article-sync:guidance:end -->
