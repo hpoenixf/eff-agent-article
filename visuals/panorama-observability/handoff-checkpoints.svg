@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="930" viewBox="0 0 780 930" role="img"><title>答案错了，先查哪一层？</title><rect width="780" height="930" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="36" fill="#193b34">答案错了，先查哪一层？</text>
+<text x="34" y="83" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">教学示意 · 四个检查点，交接可独立失败</text>
+<rect x="34" y="153" width="712" height="142" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="54" y="171" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#236352">01</text>
+<text x="110" y="171" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">原资料</text>
+<text x="110" y="213" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">哪一版？</text>
+<text x="110" y="249" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">单位、表头、脚注齐吗？</text>
+<line x1="70" y1="296" x2="70" y2="314" stroke="#236352" stroke-width="3"/>
+<polygon points="70,314 64.45864989350221,303.3560609266486 75.54135010649779,303.3560609266486" fill="#236352"/>
+<rect x="34" y="319" width="712" height="142" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="54" y="337" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#236352">02</text>
+<text x="110" y="337" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">工具结果</text>
+<text x="110" y="379" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">返回了哪些内容？</text>
+<text x="110" y="415" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">是否裁剪或缺失？</text>
+<line x1="70" y1="462" x2="70" y2="480" stroke="#236352" stroke-width="3"/>
+<polygon points="70,480 64.45864989350221,469.3560609266486 75.54135010649779,469.3560609266486" fill="#236352"/>
+<rect x="34" y="485" width="712" height="142" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="54" y="503" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#236352">03</text>
+<text x="110" y="503" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">实际模型请求</text>
+<text x="110" y="545" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">这一次模型</text>
+<text x="110" y="581" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">真正看到了什么？</text>
+<line x1="70" y1="628" x2="70" y2="646" stroke="#236352" stroke-width="3"/>
+<polygon points="70,646 64.45864989350221,635.3560609266486 75.54135010649779,635.3560609266486" fill="#236352"/>
+<rect x="34" y="651" width="712" height="142" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="54" y="669" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#236352">04</text>
+<text x="110" y="669" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">用户正文</text>
+<text x="110" y="711" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">实际交付哪一版？</text>
+<text x="110" y="747" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">保存、发出、显示分别核对</text>
+<text x="34" y="843" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">箭头是待核对的交接，不是成功证明。</text>
+<text x="34" y="878" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">实际请求可查；未公开的内部推理不可查。</text>
+</svg>

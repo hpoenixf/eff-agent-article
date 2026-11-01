@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="960" viewBox="0 0 780 960" role="img"><title>三个视角，不是三次请求</title><rect width="780" height="960" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="35" fill="#193b34">三个视角，不是三次请求</text>
+<text x="34" y="82" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">教学示意 · 不含真实用量或费用</text>
+<rect x="165" y="140" width="450" height="93" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="172.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">同一次物理模型请求</text>
+<line x1="390" y1="233" x2="390" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="265" x2="145" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="145" y1="265" x2="145" y2="298" stroke="#236352" stroke-width="3"/>
+<polygon points="145,298 139.4586498935022,287.3560609266486 150.5413501064978,287.3560609266486" fill="#236352"/>
+<line x1="390" y1="233" x2="390" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="265" x2="390" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="265" x2="390" y2="298" stroke="#236352" stroke-width="3"/>
+<polygon points="390,298 384.4586498935022,287.3560609266486 395.5413501064978,287.3560609266486" fill="#236352"/>
+<line x1="390" y1="233" x2="390" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="265" x2="635" y2="265" stroke="#236352" stroke-width="3"/>
+<line x1="635" y1="265" x2="635" y2="298" stroke="#236352" stroke-width="3"/>
+<polygon points="635,298 629.4586498935022,287.3560609266486 640.5413501064978,287.3560609266486" fill="#236352"/>
+<rect x="34" y="308" width="222" height="77" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="145.0" y="333.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">SDK 用量</text>
+<rect x="279" y="308" width="222" height="77" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="333.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">Run 汇总</text>
+<rect x="524" y="308" width="222" height="77" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="635.0" y="333.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">Trace 视图</text>
+<text x="390" y="412" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">同一请求的观察副本，不能计费三次</text>
+<line x1="34" y1="467" x2="746" y2="467" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="493" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="31" fill="#193b34">费用：先认身份，再算金额</text>
+<rect x="34" y="550" width="712" height="78" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="576.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">原请求 + 扣减回执 → 去重核对</text>
+<text x="54" y="651" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#236352">未知 ≠ 0        价格估算 ≠ 供应商账单</text>
+<line x1="34" y1="710" x2="746" y2="710" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="735" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="31" fill="#193b34">时间：先确认可比，再相减</text>
+<text x="54" y="793" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#53645e">同一时钟域的时间，才可直接相减</text>
+<text x="54" y="830" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#53645e">服务端观察 ≠ 浏览器首屏</text>
+</svg>
