@@ -9,7 +9,7 @@
 <rect width="640" height="944" rx="24" fill="#f7f8f2"/>
 <rect x="1" y="1" width="638" height="942" rx="23" fill="url(#dots)" stroke="#cbd9d0"/>
 <text x="40" y="43" font-family="Inter, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="1.5" fill="#a66b21">EVALUATION / IMPLEMENTATION</text>
-<text x="40" y="92" font-family="Inter, Arial, Helvetica, sans-serif" font-size="28" font-weight="750" fill="#16362f">HOW OUR EVALUATION STACK FITS TOGETHER</text>
+<text x="40" y="92" font-family="Inter, Arial, Helvetica, sans-serif" font-size="28" font-weight="750" fill="#16362f">HOW AGENT EVALUATION WORKS</text>
 <g font-family="Inter, Arial, Helvetica, sans-serif"><g>
       <rect x="40" y="134" width="560" height="103" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
       <rect x="40" y="134" width="8" height="103" rx="4" fill="#2a6b55"/>
@@ -31,7 +31,7 @@
       <rect x="40" y="430" width="8" height="103" rx="4" fill="#2a6b55"/>
       <circle cx="87" cy="467" r="23" fill="#e6efe9"/>
       <text x="87" y="474" font-size="19" font-weight="750" fill="#25604d" text-anchor="middle">03</text>
-      <text x="125" y="476" font-size="25" font-weight="700" fill="#16362f">Keep Evidence and Delivery Receipts</text>
+      <text x="125" y="476" font-size="25" font-weight="700" fill="#16362f">Save Evidence and Receipts</text>
       <text x="73" y="514" font-size="21" fill="#4e665e">PostgreSQL · OpenTelemetry · Langfuse</text>
       
       </g><g>
