@@ -129,7 +129,7 @@ But the system already has execution and recovery under Run, committed content u
 
 We therefore extend the existing seams rather than creating a second execution or answer authority. The general idea is adjacent to [Temporal's Workflow Execution model](https://docs.temporal.io/workflow-execution), where durable history and recoverable work matter, but we neither integrated Temporal nor built an equivalent general-purpose workflow engine.
 
-A separate limit remains: **allowing research to continue after leaving the page does not mean the same chat can already answer several new questions in parallel.** Keeping a long study in the background while the foreground stays responsive, accepts targeted corrections, and presents out-of-order short replies belongs to a different concurrent-conversation design. Its implementation cannot inherit the success status of these timed-notification tests.
+**This acceptance boundary needs a date.** The original timed-delivery verification showed that a study already in progress could honor its `at/by` commitment, preserve partial results, and be reopened after the user left. It did not test concurrent short questions in the same conversation. Later, separate [foreground/background concurrency work](agent-background-research-collaborative-experience.md) implemented and checked independent short replies, targeted corrections to the original research, and out-of-order result ownership. That is separate engineering evidence, not a result retroactively established by this timed-notification test or a verdict on financial research quality.
 
 ## Conclusion: a delivery promise must survive the research
 
