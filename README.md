@@ -240,6 +240,7 @@ npm run docs:build
 - [Entry：为什么入口越来越简单](articles/022-agent-entry-from-intent-to-direct-research.md)
 - [Adaptive Research 与 Python](articles/adaptive-research-python-workbench.md)
 - [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)
+- [行动提醒：从生成建议到真正送达模型](articles/agent-action-reminder-coordination.md)
 - [Provider：统一接口之后，为什么还需要共享准入](articles/agent-provider-architecture-and-admission.md)
 - [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md)
 - [Tool Surface：Agent 有工具，模型为什么看不到](articles/agent-model-capability-presentation-tool-surface.md)

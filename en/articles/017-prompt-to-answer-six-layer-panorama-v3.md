@@ -266,7 +266,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A12 | [Skill Methods and Resources](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
 | A13 | [Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3, L4 |
 | A14 | [Context Projection and Fitting](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
-| A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Related reading](/en/articles/agent-subagent-context-specialization) | L3 |
+| A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Deep dive](/en/articles/agent-action-reminder-coordination) | L3 |
 | A26 | [Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3, L4 |
 | A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
 | A41 | [Cross-Run Conversation History Compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |

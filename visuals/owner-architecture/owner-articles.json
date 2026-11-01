@@ -55,7 +55,8 @@
     "agent-report-cost-attribution": "Agent 生成一份报告，到底应该怎么算成本？",
     "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战",
     "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付",
-    "agent-research-workspace-goal-continuity": "Workspace：从一次性对话到长期研究"
+    "agent-research-workspace-goal-continuity": "Workspace：从一次性对话到长期研究",
+    "agent-action-reminder-coordination": "行动提醒：从生成建议到真正送达模型"
   },
   "owners": {
     "A01": {
@@ -146,7 +147,8 @@
     "A15": {
       "related": [
         "agent-subagent-context-specialization"
-      ]
+      ],
+      "primary": "agent-action-reminder-coordination"
     },
     "A16": {
       "primary": "tool-results-outside-model-context",

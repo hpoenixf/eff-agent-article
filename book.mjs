@@ -45,7 +45,8 @@ export const collections = [
           ["agent-provider-admission-capacity-lease", "模型返回 HTTP 200，为什么下一次还要排队"],
           ["agent-model-capability-presentation-tool-surface", "Tool Surface：Agent 有工具，模型为什么看不到"],
           ["agent-multi-ecosystem-hook-execution", "多生态 Hook：Claude、Pi 与 Codex"],
-          ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"]
+          ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"],
+          ["agent-action-reminder-coordination", "行动提醒：从生成建议到真正送达模型"]
         ],
         "related": [
           ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"]
