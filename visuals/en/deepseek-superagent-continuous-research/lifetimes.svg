@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1040" viewBox="0 0 780 1040" role="img"><title>Three ways to organize work</title><rect width="780" height="1040" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="36" fill="#193b34">One task, different lifecycles</text>
+<text x="34" y="83" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Teaching comparison · not a ranking</text>
+<text x="34" y="149" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">01  Request-driven Chat</text>
+<rect x="40" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Question</text>
+<rect x="295" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">This request</text>
+<rect x="550" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="645.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Answer</text>
+<line x1="230" y1="250" x2="285" y2="250" stroke="#236352" stroke-width="3"/>
+<polygon points="285,250 274.3560609266486,255.5413501064978 274.3560609266486,244.4586498935022" fill="#236352"/>
+<line x1="485" y1="250" x2="540" y2="250" stroke="#236352" stroke-width="3"/>
+<polygon points="540,250 529.3560609266486,255.5413501064978 529.3560609266486,244.4586498935022" fill="#236352"/>
+<text x="40" y="315" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Execution is organized around this request.</text>
+<line x1="34" y1="371" x2="746" y2="371" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="396" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">02  Our asynchronous research</text>
+<rect x="40" y="453" width="190" height="92" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="466.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Frontend</text>
+<text x="135.0" y="504.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">connection</text>
+<rect x="300" y="453" width="440" height="92" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="520.0" y="485.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Independent research Run</text>
+<line x1="230" y1="500" x2="290" y2="500" stroke="#236352" stroke-width="3"/>
+<polygon points="290,500 279.3560609266486,505.5413501064978 279.3560609266486,494.4586498935022" fill="#236352"/>
+<rect x="300" y="579" width="440" height="75" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="520.0" y="603.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">Targeted follow-up to that Run</text>
+<line x1="520" y1="579" x2="520" y2="555" stroke="#236352" stroke-width="3"/>
+<polygon points="520,555 525.5413501064978,565.6439390733514 514.4586498935022,565.6439390733514" fill="#236352"/>
+<text x="40" y="681" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Disconnect ≠ stop; short questions run apart.</text>
+<line x1="34" y1="731" x2="746" y2="731" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="754" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">03  Super-agent</text>
+<rect x="40" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Ticket</text>
+<text x="135.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Long task</text>
+<rect x="295" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Assignment</text>
+<text x="390.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">One attempt</text>
+<rect x="550" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="645.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Session</text>
+<text x="645.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">&amp; workspace</text>
+<line x1="230" y1="860" x2="285" y2="860" stroke="#236352" stroke-width="3"/>
+<polygon points="285,860 274.3560609266486,865.5413501064978 274.3560609266486,854.4586498935022" fill="#236352"/>
+<line x1="485" y1="860" x2="540" y2="860" stroke="#236352" stroke-width="3"/>
+<polygon points="540,860 529.3560609266486,865.5413501064978 529.3560609266486,854.4586498935022" fill="#236352"/>
+<text x="40" y="937" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Attempts can change; the work can continue.</text>
+<text x="40" y="973" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Applying this to finance is a proposal.</text>
+</svg>
