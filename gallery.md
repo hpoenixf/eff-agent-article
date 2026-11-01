@@ -9,7 +9,7 @@ description: 浏览 ETF Agent 的能力 Owner、职责与交接关系。
 
 # 能力 Owner · 架构图册
 
-图册按能力及最终责任划分 47 个 Owner，展示各模块的职责与交接。分组仅用于阅读；列入图册不代表所有场景已通过真实模型或部署验收。
+图册展示已登记的 47 个能力 Owner 及其职责与交接。Research Workspace 已进入主干，本图尚未为其分配节点，见下方说明。分组仅用于阅读；列入图册不代表所有场景已通过真实模型或部署验收。
 
 ## 交互式能力总览
 
@@ -17,7 +17,19 @@ description: 浏览 ETF Agent 的能力 Owner、职责与交接关系。
 
 <iframe class="owner-map-frame" src="/eff-agent-article/visuals/owner-architecture/index.html" title="ETF Agent 47 个能力 Owner 交互架构图"></iframe>
 
-点击 Owner 查看职责、局部拒绝范围、交接关系和相关文章；也可按名称或 Owner ID 搜索。当前 **A40 用户回答反馈事实**的[独立专文](/articles/agent-feedback-facts-not-automatic-learning)与 **A41 跨 Run 会话压缩**的[独立专文](/articles/agent-conversation-history-compaction-source-boundaries)已纳入图册 primary 阅读入口。
+点击 Owner 查看职责、局部拒绝范围、交接关系和相关文章；也可按名称或 Owner ID 搜索。图册于 2026-11-01 对照现有能力盘点与限定验收记录更新模块说明，仍沿用 47 项能力清单。当前 **A40 用户回答反馈事实**的[独立专文](/articles/agent-feedback-facts-not-automatic-learning)与 **A41 跨 Run 会话压缩**的[独立专文](/articles/agent-conversation-history-compaction-source-boundaries)已纳入图册 primary 阅读入口。
+
+## 近期模块变化
+
+**Research Workspace 待纳入总览：** 已合入的工作空间组织长期目标、版本与原有研究成果的关联；执行、原始来源、正文和文件仍由各自原 Owner 负责。当前功能未宣称启用、正式关闭或真实用户验收。可先阅读[独立专题](/articles/agent-research-workspace-goal-continuity)；以下 47 项是原能力清单，不是对最新全部模块数量的断言。
+
+- **A28 Main 上下文压缩：** 已按缩小后的范围完成实际验收；真实研究中两次摘要被后续请求采用并持久回读。研究中断后的端到端续传不在该验收范围，摘要质量和部署另算。
+- **A36 时间语义：** 区分可信时区、任务时点、市场排期和行情时点；普通认证研究消费合格市场日历仍待验收。
+- **A19 PDF 与 A20 知识检索：** 可选结构化提取和检索通道保留各自条件与降级；真实样本表格缺口、本地重排的实际 Run 观察和质量资格仍需分别验证。
+- **A40 反馈与 A41 跨 Run 历史压缩：** 分别记录回答身份与反馈、已完成消息的摘要任务和来源；反馈第一期有本地受控浏览器与数据库验证，不代表模型已消费反馈。A41 不接管 A28 的同 Run 压缩。
+- **A38 Credits 与 E04 调用证据：** Credits 仍是 Shadow 观察；Runtime 成本证据有范围限定的关闭记录，完整账单与交付物费用归属仍可能未知。
+
+以上是既有 Owner 的职责或限定状态更新，本次未增加图中节点；列入图册不代表全图源码、真实模型效果或部署已经验收。
 
 ## 能力清单 {#owner-inventory}
 
