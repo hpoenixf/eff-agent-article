@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1030" viewBox="0 0 780 1030" role="img"><title>Old completion cannot clear new work</title><rect width="780" height="1030" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="34" fill="#193b34">Old completion ≠ new work done</text>
+<text x="34" y="82" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Same task · pending work has a generation</text>
+<text x="70" y="151" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">Executing action</text>
+<text x="446" y="151" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">Durable pending work</text>
+<line x1="219" y1="198" x2="219" y2="865" stroke="#b8cdc2" stroke-width="2"/>
+<line x1="586" y1="198" x2="586" y2="865" stroke="#b8cdc2" stroke-width="2"/>
+<rect x="40" y="211" width="330" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="205.0" y="228.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Claim generation 7</text>
+<text x="205.0" y="266.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">Start delivery</text>
+<rect x="430" y="211" width="310" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="247.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">generation 7</text>
+<line x1="430" y1="260" x2="380" y2="260" stroke="#236352" stroke-width="3"/>
+<polygon points="380,260 390.6439390733514,254.4586498935022 390.6439390733514,265.5413501064978" fill="#236352"/>
+<rect x="34" y="348" width="712" height="62" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="365.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">The user adds another requirement</text>
+<line x1="219" y1="410" x2="219" y2="493" stroke="#236352" stroke-width="3"/>
+<line x1="219" y1="493" x2="420" y2="493" stroke="#236352" stroke-width="3"/>
+<polygon points="420,493 409.3560609266486,498.5413501064978 409.3560609266486,487.4586498935022" fill="#236352"/>
+<rect x="430" y="443" width="310" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="461.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">generation 8</text>
+<text x="585.0" y="498.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">New input saved</text>
+<rect x="40" y="585" width="330" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="205.0" y="604.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">Delivery 7 finishes</text>
+<text x="205.0" y="640.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">With its own generation</text>
+<line x1="370" y1="636" x2="420" y2="636" stroke="#9e493b" stroke-width="3"/>
+<polygon points="420,636 409.3560609266486,641.5413501064978 409.3560609266486,630.4586498935022" fill="#9e493b"/>
+<rect x="430" y="585" width="310" height="100" rx="10" fill="#fbf0eb" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="605.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#9e493b">Delete only generation 7</text>
+<text x="585.0" y="640.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#9e493b">Current is 8: keep it</text>
+<line x1="586" y1="685" x2="586" y2="755" stroke="#236352" stroke-width="3"/>
+<polygon points="586,755 580.4586498935022,744.3560609266486 591.5413501064978,744.3560609266486" fill="#236352"/>
+<rect x="430" y="765" width="310" height="90" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="778.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">Generation 8</text>
+<text x="585.0" y="815.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">remains pending</text>
+<text x="40" y="892" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">Retry backoff also checks the generation.</text>
+<text x="40" y="928" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">This protects concurrent pending work,</text>
+<text x="40" y="964" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">not exactly-once external actions.</text>
+</svg>

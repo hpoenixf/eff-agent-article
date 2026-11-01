@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1030" viewBox="0 0 780 1030" role="img"><title>旧完成不能清掉新工作</title><rect width="780" height="1030" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="34" fill="#193b34">旧完成，不能清掉新要求</text>
+<text x="34" y="82" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">同一任务 · 待办按 generation 区分</text>
+<text x="70" y="151" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">正在执行的动作</text>
+<text x="446" y="151" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="29" fill="#193b34">持久待办</text>
+<line x1="219" y1="198" x2="219" y2="865" stroke="#b8cdc2" stroke-width="2"/>
+<line x1="586" y1="198" x2="586" y2="865" stroke="#b8cdc2" stroke-width="2"/>
+<rect x="40" y="211" width="330" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="205.0" y="228.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">领取第 7 代</text>
+<text x="205.0" y="266.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">开始投递</text>
+<rect x="430" y="211" width="310" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="247.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">generation 7</text>
+<line x1="430" y1="260" x2="380" y2="260" stroke="#236352" stroke-width="3"/>
+<polygon points="380,260 390.6439390733514,254.4586498935022 390.6439390733514,265.5413501064978" fill="#236352"/>
+<rect x="34" y="348" width="712" height="62" rx="10" fill="#fafbf8" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="365.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">用户又追加一项要求</text>
+<line x1="219" y1="410" x2="219" y2="493" stroke="#236352" stroke-width="3"/>
+<line x1="219" y1="493" x2="420" y2="493" stroke="#236352" stroke-width="3"/>
+<polygon points="420,493 409.3560609266486,498.5413501064978 409.3560609266486,487.4586498935022" fill="#236352"/>
+<rect x="430" y="443" width="310" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="461.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">generation 8</text>
+<text x="585.0" y="498.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">新要求已保存</text>
+<rect x="40" y="585" width="330" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="205.0" y="604.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">第 7 代投递完成</text>
+<text x="205.0" y="640.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">携带自己的代次</text>
+<line x1="370" y1="636" x2="420" y2="636" stroke="#9e493b" stroke-width="3"/>
+<polygon points="420,636 409.3560609266486,641.5413501064978 409.3560609266486,630.4586498935022" fill="#9e493b"/>
+<rect x="430" y="585" width="310" height="100" rx="10" fill="#fbf0eb" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="605.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#9e493b">仅可删除第 7 代</text>
+<text x="585.0" y="640.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#9e493b">当前是 8：不删除</text>
+<line x1="586" y1="685" x2="586" y2="755" stroke="#236352" stroke-width="3"/>
+<polygon points="586,755 580.4586498935022,744.3560609266486 591.5413501064978,744.3560609266486" fill="#236352"/>
+<rect x="430" y="765" width="310" height="90" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="585.0" y="796.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">第 8 代仍待执行</text>
+<text x="40" y="892" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">失败退避也必须校验代次</text>
+<text x="40" y="928" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">这是持久待办的并发保护，</text>
+<text x="40" y="964" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">不是外部动作“恰好一次”的保证。</text>
+</svg>

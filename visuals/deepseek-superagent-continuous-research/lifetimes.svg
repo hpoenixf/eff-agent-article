@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1040" viewBox="0 0 780 1040" role="img"><title>三种工作生命期</title><rect width="780" height="1040" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="36" fill="#193b34">同一任务，不同的生命期</text>
+<text x="34" y="83" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">教学对照 · 不是成熟度排名</text>
+<text x="34" y="149" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">01  请求驱动的 Chat</text>
+<rect x="40" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">用户问题</text>
+<rect x="295" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">本轮处理</text>
+<rect x="550" y="207" width="190" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="645.0" y="236.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">本轮回答</text>
+<line x1="230" y1="250" x2="285" y2="250" stroke="#236352" stroke-width="3"/>
+<polygon points="285,250 274.3560609266486,255.5413501064978 274.3560609266486,244.4586498935022" fill="#236352"/>
+<line x1="485" y1="250" x2="540" y2="250" stroke="#236352" stroke-width="3"/>
+<polygon points="540,250 529.3560609266486,255.5413501064978 529.3560609266486,244.4586498935022" fill="#236352"/>
+<text x="40" y="315" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">执行围绕这一轮请求展开</text>
+<line x1="34" y1="371" x2="746" y2="371" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="396" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">02  我们的异步研究</text>
+<rect x="40" y="453" width="190" height="92" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="466.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">前端入口</text>
+<text x="135.0" y="504.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">可断线</text>
+<rect x="300" y="453" width="440" height="92" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="520.0" y="485.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#193b34">独立 Run 继续研究</text>
+<line x1="230" y1="500" x2="290" y2="500" stroke="#236352" stroke-width="3"/>
+<polygon points="290,500 279.3560609266486,505.5413501064978 279.3560609266486,494.4586498935022" fill="#236352"/>
+<rect x="300" y="579" width="440" height="75" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="520.0" y="603.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">指向原 Run 的追加要求</text>
+<line x1="520" y1="579" x2="520" y2="555" stroke="#236352" stroke-width="3"/>
+<polygon points="520,555 525.5413501064978,565.6439390733514 514.4586498935022,565.6439390733514" fill="#236352"/>
+<text x="40" y="681" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">断线 ≠ 停止研究；短问可独立执行</text>
+<line x1="34" y1="731" x2="746" y2="731" stroke="#b8cdc2" stroke-width="2"/>
+<text x="34" y="754" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="32" fill="#193b34">03  Super-agent</text>
+<rect x="40" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="135.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Ticket</text>
+<text x="135.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">长期任务</text>
+<rect x="295" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">Assignment</text>
+<text x="390.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">本轮派工</text>
+<rect x="550" y="810" width="190" height="100" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="645.0" y="830.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">持久会话</text>
+<text x="645.0" y="865.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">与工作区</text>
+<line x1="230" y1="860" x2="285" y2="860" stroke="#236352" stroke-width="3"/>
+<polygon points="285,860 274.3560609266486,865.5413501064978 274.3560609266486,854.4586498935022" fill="#236352"/>
+<line x1="485" y1="860" x2="540" y2="860" stroke="#236352" stroke-width="3"/>
+<polygon points="540,860 529.3560609266486,865.5413501064978 529.3560609266486,854.4586498935022" fill="#236352"/>
+<text x="40" y="937" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">执行可以换代，工作仍可延续</text>
+<text x="40" y="973" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">金融场景为机制迁移设想</text>
+</svg>
