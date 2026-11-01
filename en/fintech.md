@@ -35,7 +35,7 @@ User confirmation, professional judgment, application permission, executed effec
   [Research, advice and trading](/en/articles/030-fintech-from-research-to-investment-advice)
 
 - **C2 · User authorization and actual financial effects** — Why must model proposals, intent, permissions, order submissions and fills be recorded separately?
-  [Models understand; code authorizes](/en/articles/011-model-understands-code-authorizes)
+  [Models understand; code authorizes](/en/articles/011-model-understands-code-authorizes) · [Trusted business-agent handoffs](/en/articles/financial-business-agent-trusted-handoff)
 
 ## D · Institutional Adoption and Business Economics
 

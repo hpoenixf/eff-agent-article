@@ -130,6 +130,7 @@ export const collections = [
         "desc": "金融数据与计算口径、投研服务边界，以及投资业务的真实责任。",
         "items": [
           ["financial-agent-system-panorama", "金融 Agent 全景：连接研究、业务与责任的系统架构"],
+          ["financial-business-agent-trusted-handoff", "金融多业务 Agent 的可信交接：为什么不只是一个 Router？"],
           ["mcp-market-responsibility-retrospective", "金融数据 MCP 为什么变成决策系统"],
           ["030-fintech-from-research-to-investment-advice", "从投资研究到投顾与交易的边界"],
           ["031-fintech-data-time-and-reproducible-numbers", "金融数字的时点、口径与复算"],
