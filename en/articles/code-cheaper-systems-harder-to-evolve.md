@@ -71,6 +71,10 @@ Record the conditions in the existing migration task: the new renderer covers ch
 
 The existing retention and deletion agreements still decide what happens to saved images. Deleting a renderer does not justify deleting files users remain entitled to read.
 
+A recent engineering retirement brought out a related, less obvious distinction. We removed an obsolete Agent business identity from admission and retired wrappers without live callers. **Rejecting new tasks for an old identity** does not permit silently renaming already admitted tasks, mapping them onto a different agent, or deleting their original authorization facts. New requests should use the active entry point; historical Runs still need read-only evidence of their original identity and exact version. Otherwise a new implementation can appear to have performed work it never actually did. The distinction has been exercised in bounded engineering checks, not certified as a complete real-model recovery of every historical task.
+
+A replacement therefore needs three separate checks: **Can new work still enter the retired path? Does any live caller still depend on the old code? Can prior tasks and files be read under their original contract?** The first two can justify removing current wiring, while the third may require preserving historical facts and a narrow reading path. Preserving history does not necessarily mean keeping the retired executor.
+
 Inspect current guides and tests too. If they still require the old library or its internal state names, the next developer or Coding Agent may recreate the retired mechanism. History can explain the original choice; current instructions should guide the current implementation.
 
 ## 5. Unloading, Replacing, and Deleting Solve Different Problems
