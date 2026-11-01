@@ -120,6 +120,11 @@ A single fee lookup or stable calculation often does not justify a Child. Long r
 
 <!-- open-etf-case:child@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 For one small public handoff example, see the [Open ETF Agent read-only Child fixture](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs). This is an **offline scripted example**, not a public implementation of every expert described above. Follow that snapshot's own documentation for commands and limitations.
+The fixed, read-only fixture can be launched with:
+
+```bash
+node src/cli.mjs --case fixture-child --output runs/article-child
+```
 <!-- /open-etf-case -->
 
 ---
