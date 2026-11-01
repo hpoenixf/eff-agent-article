@@ -126,9 +126,13 @@ These should not all collapse into one mutable Memory statement that overwrites 
 
 Storing history does not mean loading every previous report into the model.
 
-The existing History workspace provides a bounded set of eligible historical candidates. The next research Run can select relevant reports, snapshots, and method locators for exact reading. A missing item in a bounded listing is not proof that no historical report exists. A historical locator also does not automatically grant fresh access to the original external source.
+The existing History workspace provides a bounded catalog of eligible historical candidates. Here, “workspace” means a history-reading surface, not the newer module for managing long-term goals. A new Run can select relevant reports, snapshots, and method locators for exact reading. A missing item in a bounded listing is not proof that no historical report exists. A historical locator also does not automatically grant fresh access to the original external source.
 
 Valid comparisons return to current authorized Portfolio facts and historically qualified observations with compatible scope and measurement basis. Old judgments remain dated and attributed assessments, not current investment truth.
+
+That History read path answers “which qualified materials were retained?” The newer **Research Workspace** addresses a different question: what should persist when independent Runs continue to serve a user's goal for weeks? It associates a versioned, user-maintained goal with distinct Runs and exact versions of their original Publications, and it can retain an optional, source-attributed research Checkpoint. It does not copy authoritative report bodies or become a second research executor capable of bypassing existing authorization.
+
+In the opening technology-concentration example, at least three kinds of state must remain distinct. The **long-term goal** is the user's intention to track portfolio exposures. The **Investment Thesis** captures a falsifiable, source-bound hypothesis formed by a particular study. A **Checkpoint** is the model's suggestion about what to inspect next—for example, outstanding verification of the latest underlying holdings disclosure. A Checkpoint cannot overwrite a user goal, and a suggestion to investigate further does not silently revise an older Thesis. The next study must qualify its own source reads under a new Run and produce its own dated judgment.
 
 A possible research path looks like this:
 
@@ -147,7 +151,7 @@ SelectResearchDepth --> NewAssessment
 NewAssessment --> RetainSuccessor
 ```
 
-This is an illustration, **not a mandatory fixed DAG for every weekly review**.
+This is an illustration, **not a mandatory fixed DAG for every weekly review**. Workspace may organize goals and associations, but it cannot replace the History and Publication access checks shown by the qualified-material path.
 
 If eligible history is sufficient and little has changed, the model may write a concise review and reuse prior qualified results. A material change in portfolio risk, index construction, or evidence challenging an old hypothesis may justify deeper investigation. Missing evidence must remain missing, rather than being rendered as “no change.”
 
@@ -176,6 +180,8 @@ First, the original investment method result was absent from the historical read
 Second, some real-model weekly research attempts still failed to assemble or were cancelled without a complete report. Another actual HTML export encountered missing analysis-source identity. Those failures belong to their corresponding source and execution owners; they are not evidence that the thesis module solved every adjacent delivery problem.
 
 Phase three has an implemented and controlled runtime path across the specified protocol, application, and database conditions. Real-model understanding of investment theses, quality across multiple reporting periods, and actual decision support still require independent validation.
+
+**November 1, 2026 update:** Research Workspace P0 has been merged into the private main branch. Bounded engineering evidence covers goal revisions, associations across Runs, precise historical-material reading, and optional Checkpoints. It remains **disabled by default**. The complete application type-check entry timed out while enumerating compiler inputs, and formal full-scope acceptance, real-account paths, and long-term financial research quality have not been established. This does not upgrade the original weekly Investment Thesis work by implication, nor make Workspace a runnable capability in the public `open-etf-agent` repository.
 
 A crucial limitation remains: even when the entire original method document is retained, its numeric-observation status can be `partial` if no qualified Portfolio Observation was obtained. A successfully preserved analysis envelope does not magically certify the underlying financial numbers.
 
