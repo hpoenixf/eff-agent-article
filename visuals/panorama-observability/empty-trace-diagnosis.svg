@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1030" viewBox="0 0 780 1030" role="img"><title>Trace 为空，执行发生了吗？</title><rect width="780" height="1030" fill="#fafbf8"/>
+<text x="34" y="28" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="35" fill="#193b34">Trace 为空 ≠ 没有执行</text>
+<text x="34" y="82" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#53645e">教学诊断 · 先查事实，再查遥测</text>
+<rect x="34" y="139" width="712" height="97" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="155.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">先查原运行、工具和发布记录</text>
+<text x="390.0" y="192.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#193b34">能否确认原执行？</text>
+<line x1="390" y1="236" x2="390" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="260" x2="145" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="145" y1="260" x2="145" y2="290" stroke="#236352" stroke-width="3"/>
+<polygon points="145,290 139.4586498935022,279.3560609266486 150.5413501064978,279.3560609266486" fill="#236352"/>
+<line x1="390" y1="236" x2="390" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="260" x2="390" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="260" x2="390" y2="290" stroke="#236352" stroke-width="3"/>
+<polygon points="390,290 384.4586498935022,279.3560609266486 395.5413501064978,279.3560609266486" fill="#236352"/>
+<line x1="390" y1="236" x2="390" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="260" x2="635" y2="260" stroke="#236352" stroke-width="3"/>
+<line x1="635" y1="260" x2="635" y2="290" stroke="#236352" stroke-width="3"/>
+<polygon points="635,290 629.4586498935022,279.3560609266486 640.5413501064978,279.3560609266486" fill="#236352"/>
+<rect x="34" y="300" width="222" height="95" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="145.0" y="317.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">确认未执行</text>
+<text x="145.0" y="352.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">查执行入口</text>
+<rect x="279" y="300" width="222" height="95" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="317.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">确认已执行</text>
+<text x="390.0" y="352.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">继续查遥测</text>
+<rect x="524" y="300" width="222" height="95" rx="10" fill="#fbf0eb" stroke="#b8cdc2" stroke-width="2"/>
+<text x="635.0" y="317.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">证据不足</text>
+<text x="635.0" y="352.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">保持未知</text>
+<line x1="390" y1="395" x2="390" y2="438" stroke="#236352" stroke-width="3"/>
+<polygon points="390,438 384.4586498935022,427.3560609266486 395.5413501064978,427.3560609266486" fill="#236352"/>
+<rect x="125" y="448" width="530" height="93" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="481.5" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">采集是否开启？是否有容量缺口回执？</text>
+<line x1="390" y1="541" x2="390" y2="578" stroke="#236352" stroke-width="3"/>
+<polygon points="390,578 384.4586498935022,567.3560609266486 395.5413501064978,567.3560609266486" fill="#236352"/>
+<rect x="34" y="588" width="712" height="86" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="618.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="26" fill="#193b34">按原身份查哪一段有证据，哪一段未知</text>
+<line x1="390" y1="674" x2="390" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="695" x2="126" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="126" y1="695" x2="126" y2="719" stroke="#236352" stroke-width="3"/>
+<polygon points="126,719 120.45864989350221,708.3560609266486 131.5413501064978,708.3560609266486" fill="#236352"/>
+<line x1="390" y1="674" x2="390" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="695" x2="390" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="695" x2="390" y2="719" stroke="#236352" stroke-width="3"/>
+<polygon points="390,719 384.4586498935022,708.3560609266486 395.5413501064978,708.3560609266486" fill="#236352"/>
+<line x1="390" y1="674" x2="390" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="390" y1="695" x2="654" y2="695" stroke="#236352" stroke-width="3"/>
+<line x1="654" y1="695" x2="654" y2="719" stroke="#236352" stroke-width="3"/>
+<polygon points="654,719 648.4586498935022,708.3560609266486 659.5413501064978,708.3560609266486" fill="#236352"/>
+<rect x="34" y="729" width="184" height="94" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="126.0" y="746.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">异步导出</text>
+<text x="126.0" y="781.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">是否发出</text>
+<rect x="298" y="729" width="184" height="94" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="390.0" y="746.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">接收与处理</text>
+<text x="390.0" y="781.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">到了哪层</text>
+<rect x="562" y="729" width="184" height="94" rx="10" fill="#eef5ef" stroke="#b8cdc2" stroke-width="2"/>
+<text x="654.0" y="746.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">精确 ID</text>
+<text x="654.0" y="781.0" dominant-baseline="text-before-edge" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#193b34">能否读回</text>
+<text x="34" y="872" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">SDK 返回 ≠ 接收成功 ≠ 查询可见</text>
+<text x="34" y="907" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">无历史缺口回执：原因仍未知。</text>
+<text x="34" y="942" dominant-baseline="text-before-edge" text-anchor="start" font-family="Noto Sans CJK SC, sans-serif" font-size="25" fill="#53645e">不重跑模型来“补”原执行证据。</text>
+</svg>
