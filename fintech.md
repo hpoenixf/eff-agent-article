@@ -35,7 +35,7 @@ description: 围绕金融产品、投研方法、责任治理和机构落地，�
   [从投资研究到投顾与交易](/articles/030-fintech-from-research-to-investment-advice)
 
 - **C2 · 用户授权与实际金融效果** — 模型提议、用户意愿、主机授权、订单提交与成交为什么要分别留存？
-  [模型理解，代码授权](/articles/011-model-understands-code-authorizes)
+  [模型理解，代码授权](/articles/011-model-understands-code-authorizes) · [多业务 Agent：为什么不只是 Router？](/articles/financial-business-agent-trusted-handoff)
 
 ## D · 金融机构落地与经营
 
