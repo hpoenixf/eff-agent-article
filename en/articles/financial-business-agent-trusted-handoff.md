@@ -135,12 +135,10 @@ An unknown legacy Memory record cannot become global simply because its text or 
 
 A new Conversation appearing in a list does not complete the user's job. Four different facts must be visible or recoverable:
 
-| Fact | What establishes it | What it does not establish |
-| --- | --- | --- |
-| Target created | One destination Conversation with its bound original Run | Research has run |
-| Target executed | The permitted model and tool actions actually received effects | An answer was committed |
-| Answer published | The original Publication stored an accepted body and History can read it | Original source passages are all still readable |
-| Evidence identified | Citations retain the original result identity and available metadata | A full passage necessarily survives |
+- **Target created:** One destination Conversation and its bound original Run exist, but research has not necessarily executed.
+- **Target executed:** The permitted model and tool requests actually produced effects, but an answer has not necessarily been committed.
+- **Answer published:** The original Publication stored the accepted body, and History can read it back; the complete original source passages may still be unavailable.
+- **Evidence identified:** Citations retain original result identity and available source metadata, but they do not guarantee that a full underlying passage can be opened.
 
 In the lightweight HTTP demo, the browser subscribes to the original destination with `businessHandoffRunId`, the same `clientMessageId`, and the unchanged user content. It does not create a second ordinary message. Returning to the source, reopening the target, or refreshing the page should read the same committed Run, not trigger another research task.
 
