@@ -120,6 +120,11 @@ flowchart TD
 
 <!-- open-etf-case:child@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 想看一条最小的公开交接路径，可以参考 [Open ETF Agent 的只读 Child 示例](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs)；它是**离线脚本示例**，不是上述多专家能力的公开完整版。具体运行步骤与支持边界以链接版本为准。
+固定只读示例的最短运行命令为：
+
+```bash
+node src/cli.mjs --case fixture-child --output runs/article-child
+```
 <!-- /open-etf-case -->
 
 ---
