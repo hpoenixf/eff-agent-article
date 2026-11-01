@@ -46,7 +46,18 @@ Before comparing two records, establish that they describe the same action. The 
 
 We therefore correlate the user task, its execution (Run), individual model requests, tool calls, and answer versions. If the main agent delegates numerical checking to a child agent, we need to find both the research task it belongs to and that child’s own requests and results. Parent–child relationships explain ownership; original identifiers establish which occurrence corresponds to which.
 
-Correlation does not merge responsibilities. **To establish whether a tool actually executed or a report was saved, consult the original system’s execution and persistence records. To understand how calls progressed, where they waited, or what observations are missing, consult diagnostic telemetry.** These records can cross-check one another, but neither can stand in for the other.
+Correlation does not merge responsibilities. **To establish whether a tool actually executed or a report was saved, consult the original system’s execution and persistence records. To understand how calls progressed, where they waited, or what observations are missing, consult diagnostic telemetry: runtime data automatically collected and reported for diagnosis.** These records can cross-check one another, but neither can stand in for the other.
+
+### More Than Langfuse: Which Technologies Make Up This Pipeline?
+
+Think of it as four layers, each with a different job:
+
+- **Original system records: business PostgreSQL and local redacted traces.** Run, tool-execution and answer-persistence records establish what actually happened; local traces add diagnostic clues. Langfuse does not replace those original records.
+- **OpenTelemetry: capture and transport.** OpenTelemetry provides common conventions for describing and correlating runtime records, plus tools to collect and transport them. Our in-process adapter organizes calls into correlated spans, with OTLP export and Langfuse processing integration for delivery. This is instrumentation inside the application, not a separately deployed OpenTelemetry Collector service.
+- **Langfuse: querying and diagnosis.** Its Web application provides trace search and detail pages, while a background Worker processes asynchronous events. It helps us inspect the process; it does not decide whether a report is correct or its text has been saved.
+- **Langfuse storage and queues: separate responsibilities.** A separate PostgreSQL stores platform transactional data, ClickHouse stores traces and other observations, Redis handles queues and caching, and MinIO supplies object storage. This PostgreSQL is separate from the Agent's business database, rather than one database doing every job.
+
+See [Langfuse’s official architecture](https://langfuse.com/handbook/product-engineering/architecture) for these component roles. Readers need not deploy the whole stack first: identify the facts that need checking, then choose how to capture, query and retain them.
 
 We initially chose Langfuse to reuse mature trace-search and detail pages rather than build another diagnostic interface inside the business chat page. It has an entry point and storage separate from the Agent. This answered “where can we inspect the process?” without making the observability platform the authority on execution facts.
 
