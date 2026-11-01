@@ -15,6 +15,8 @@ In our early evaluations, the server had an answer candidate, the automated judg
 
 The historical cases below explain how to avoid that confusion. They are not a current model ranking or a complete production acceptance result.
 
+To make those decisions reusable, this panorama also brings together lessons from our RAG retrieval, specialist contribution, trace coverage, model grading and cost studies. The point is not to discard metrics: it is to know **what each one measures, which handoff is still unobserved, and when the evidence actually warrants a change of design**.
+
 ## The Map: Evaluate the Task Completed by Model and System Together
 
 Suppose one research configuration uses Main directly and another delegates to three specialists. Judging only final prose can miss a tool that never executed, a specialist that never received input or an answer that was never saved. Judging only execution can miss a neatly finished task that answered the wrong question.
@@ -66,6 +68,12 @@ That window located the issue and a repair direction, but did not collect a post
 
 **Verify the behavior a caller actually depends on, not merely the configuration or return value easiest to inspect.** A database-handoff claim needs evidence reaching the database. A change to a pure function does not require rerunning every external dependency to establish its local behavior.
 
+### First Prove That the Injected Fault Really Happened
+
+In another recovery test, the fixture claimed an old Worker (a background execution process) had stopped, but still let that Worker write checkpoints and run its finalization. The recovery code correctly rejected an unsealed request. That rejection was not proof of a bad recovery mechanism—the test had failed to create its claimed failure condition.
+
+The later controlled test kept a real, inspectable checkpoint and then blocked subsequent writes by the old Worker before observing the recovering owner. Capacity tests deserve the same discipline: rather than subtracting an arbitrary 4,000 bytes, first measure how much of the actual result is removable. **Validate a test's preconditions before interpreting either red or green.** This is a lesson from controlled fixtures, not a claim that the corresponding interruption occurred to production users.
+
 ## 2. Do Not Average Away Different Kinds of Failure
 
 An agent request may pass through task interpretation, material acquisition, candidate generation, publication, transmission, and display. A valid protocol does not establish understanding. A tool response does not establish applicable evidence. A good answer may still fail delivery.
@@ -84,6 +92,12 @@ Some requirements cannot be averaged away. Fluent language does not compensate f
 Failure and uncertainty also differ. `failed` means evidence establishes that a requirement was not met; `inconclusive` means the evidence is insufficient to decide. The former calls for repair, the latter for a relevant observation. Assigning both zero mixes infrastructure gaps into assessments of model capability.
 
 This does not prohibit comparison. It establishes whether candidates meet the requirements of the intended role before comparing quality, reliability, latency, and cost. A missing optional capability must not become a veto on every possible use.
+
+### A Valid Citation Is Not a Verified Claim
+
+Our [citation-reliability essay](ai-citations-do-not-prove-reliability.md) gives a useful example. If six names overlap in two funds' top-ten holdings, the evidence supports **overlap in the disclosed top ten**. Without complete holdings, individual weights and the investor's allocation to the two funds, it does not establish that the whole portfolio has “severe duplication.” A real citation, correct page and accurately copied number do not automatically support the inference or answer the user's actual question.
+
+Deterministic code should check source identity, money calculations, dates, permissions and ledger invariants. An LLM grader or human reviewer can then inspect whether a decisive conclusion follows from those facts, including the missing caveats. And when only a particular rejection stage is known, report **the last confirmed blocker**, not an invented root cause. Otherwise a publication-validation failure can be repeatedly misdiagnosed as a model-provider defect.
 
 ## 3. The Denominator Can Silently Change the Conclusion
 
@@ -105,6 +119,14 @@ Original Runtime states were 42 completed and 17 failed. Separately, 48 runs had
 
 Partial saved text after failure is not whole-task completion; normal termination is not independently verified answer quality. The complete quality comparison remains unfinished. Preserve failures and unexecuted cases under their original identities. The new [contribution-evidence article](agent-subagent-contribution-evidence.md) and [trace-completeness case](agent-trace-complete-observation-gaps.md) examine the respective handoffs.
 
+### Another Hidden Denominator: Which Events Were Never Collected?
+
+Queries for all 59 Runs in that campaign returned `complete`. Independent inspection nevertheless found **17 missing model-turn outputs** and tool-protocol observation gaps in 41 Runs; the observer reported 851,339 omitted events. These are **observer-reported protocol events**, not 851,339 failed tool calls. They cannot identify which particular tool effect did or did not happen.
+
+The [trace-completeness study](agent-trace-complete-observation-gaps.md) explains the mechanism: one streamed tool call can produce many fragments and exhaust a bounded event collector. Reading all stored pages does not restore events never collected. The follow-up distinguishes omitted fragments from other omitted protocol events under the same limits, rather than promising an unlimited trace. Missing classifications in historical recordings remain unknown, not zero.
+
+**Query pagination, model-content capture, tool-lifecycle observation and original execution/delivery must be reported separately.** When a trace has gaps, consult original action receipts, committed publication revisions and actual subsequent model inputs. Observability is a diagnostic view, not the sole authority on execution.
+
 ### Explain Repeated Trials, Success Rates and Uncertainty Together
 
 Repeating one task reveals variability but does not create task diversity. Ten tasks run three times should be described as ten distinct tasks and thirty trials. A rate across trials should retain the relationship among repeated attempts at one task.
@@ -114,6 +136,8 @@ Sometimes we care whether several attempts yield at least one usable answer; som
 In a **purely illustrative example**, A passes eight of ten shared tasks and B passes nine. That describes this batch. We still need to inspect which tasks differ, repeat stability, and matching inputs and budgets. It does not establish improvement across all research. Where appropriate, report paired differences and intervals, preserving task grouping when repeated trials are correlated.
 
 Keep cost next to quality. More budget producing better answers can be a useful configuration, but improvement cannot automatically be attributed to multi-agent architecture. Name a whole-configuration comparison honestly. To isolate a mechanism, hold other conditions as steady as possible and preserve failures and unknown charges. Estimate cost only for the portion with known usage and prices.
+
+Cost also has identity and denominator traps. One logical request may produce several physical dispatch attempts; the same attempt may appear in a trace, gateway receipt, report view and attachment view. **Duplicate observations must not be charged twice; missing usage is not zero; and cost views referencing shared work are not additive.** The [cost-attribution essay](agent-report-cost-attribution.md) separates execution budget, request estimates, allocation of shared work and an actual supplier invoice.
 
 ## 4. The Judge Must Know Which Answer It Is Evaluating
 
@@ -127,15 +151,33 @@ If a stream ended early, reconstruction must preserve that incompleteness. A ful
 
 **The identity and scope of the scored object matter more than a sophisticated scoring formula.** That is one difference between agent-product evaluation and a pure model benchmark: product results also pass through a real delivery system.
 
+### Sometimes the Collector, Not the Product, Broke the Stream
+
+One CLI evaluation encountered an SSE (server-sent event) stream where the `CR` and `LF` newline bytes landed in different network chunks. Normalizing each chunk independently broke event framing and falsely reported a missing terminal event. The correction accumulates bytes and parses complete events, then correlates observations by the original Run and publication revision. A broken stream parser does not establish that the model failed to finish.
+
+A separate failure occurred when client observation timed out before the authorized research runtime deadline. Extending the observation window can repair a “client gave up too early” symptom without improving research quality. Persistence can also still be settling immediately after streaming ends; take a separately timed readback under the original identity instead of overwriting the original collection failure with a later success.
+
 ## 5. When the Evaluator Is Wrong, Correct the Judgment Without Rewriting Events
 
-We also encountered mechanical misclassification caused by a **test fixture** (prepared input, simulated dependency outputs, and expected results) or a validation rule (what should pass or fail). Correcting the evaluator changed judgments for affected samples, while genuine failures remained.
+### Ten Models Failed Together Because Their Shared Rubric Was Wrong
+
+In September 2026, all ten Worker candidates failed one mechanical output-format case (0/10), even though they all passed a neighboring two-decimal-format case. Inspecting the raw answers showed that the models put opening and closing markers on their own lines—a reasonable readable format. The **test fixture** (prepared inputs and expected results) instead required markers to touch the first and last fields. A shared grading assumption was rejecting valid formatting.
+
+After correcting the format contract and ensuring the invocation received its intended timeout setting, the targeted ten-case diagnostic rerun achieved **9/10** strict passes. This did not make ten models suddenly smarter, nor did it retroactively validate the entire 700-observation matrix. Correlated failure on one case should trigger inspection of raw responses, examples and the grader before eliminating a full group of models.
 
 Overwriting the old scores would obscure why the original evaluation failed, why a later examination changed it, and whether apparent progress came from the model, runtime, or measurement instrument.
 
-A better approach preserves original results, appends corrections, and generates a revised view. Each correction identifies the original run, input revision, affected cases, old and new judgments, and the reason. Further errors can be corrected through another addition rather than rewriting history into its latest interpretation.
+The adopted correction **retained the original 700 observations and attached source-digest-bound replacements for exactly the ten affected cells**. The other 690 source observations stayed unchanged, and four prior infrastructure gaps remained visible. Each correction identifies the case, original judgment, revised judgment and reason. The result remained provisional and incomplete; a local repair did not license publication of a final model leaderboard.
 
 The purpose is not another audit ritual. It is to preserve a valid basis for comparison: **a changed execution result and a changed understanding of the same result are different kinds of progress.**
+
+### Calibrate the Judge Before Giving It Authority
+
+A related lesson from our [AI Coding and verification study](ai-coding-judgment-and-verification.md) is that an LLM grader should be tested against **human-locked good and bad examples** before being trusted to grade open-ended answers. One historical Reviewer study used 20 sanitized synthetic packets (ten acceptable, ten flawed), a frozen rubric, ten candidate profiles and five repetitions—1,000 completed grading cells.
+
+Completion did not produce an eligible evaluator. The prespecified requirements included zero unsafe acceptance of dangerous answers, a low rate of rejecting acceptable answers, valid structured output, issue recognition and overall discrimination. **No candidate met every required threshold**, so we did not relax the gates merely to install a Reviewer or publish a final recommendation. Blinded human review was still pending; changing the reference labels would require a new Gold version and a new comparable experiment.
+
+This Reviewer Gold is not the same artifact as the ETF provider-free regression set discussed later. The former **calibrates the grader**; the latter checks stable domain behavior. A model's skill at writing answers does not qualify it to review another answer independently, and a grader's verdict does not acquire authority over financial facts or tool permissions.
 
 ### The Judge Returned Full Marks—Why Can the Result Still Be Inconclusive?
 
@@ -182,6 +224,8 @@ The project already has the versioned **`etf-golden@v1` with 13 sanitized ETF ca
 
 A less obvious condition is **exposure**. Cases repeatedly used for prompt or runtime debugging can still test regressions, but cannot automatically support claims about unseen tasks. For that, a held-out set must be isolated before tuning, with evidence of which case, criterion and revision the tested system had access to. Unknown exposure means unknown generalization, not an implied clean holdout.
 
+Similarly, keep three claims separate: “the reference arithmetic has been independently checked,” “the model's actual answer has been verified,” and “the item was unseen during tuning.” A hypothetical fund-return reference can have an exact formula and reviewed result without proving any model answer correct or qualifying as a blind test.
+
 ### Can Ragas or DeepEval Grade Everything for Us?
 
 [Ragas](https://docs.ragas.io/en/latest/concepts/metrics/available_metrics/) provides evaluation metrics for **retrieval-augmented generation (RAG)**, in which the system retrieves source material before answering. In a fund-fee comparison, four familiar metrics ask:
@@ -197,7 +241,17 @@ These measures can help distinguish “retrieval missed the material” from “
 
 As of **October 30, 2026**, the optional **DeepEval** adapter had produced bounded real historical-case reviews under explicit data admission. The **Ragas 0.4.3** adapter had qualified an isolated Python environment, SDK and sample schema, plus some synthetic execution checks; its four actual RAG quality metrics remained **unassessed in the operator-facing evaluation path**. Real Ragas judge scoring, matched-case comparison with DeepEval and agreement with human reviewers are not completed findings.
 
+A third-party grader is itself an execution program. A single DeepEval metric may generate multiple underlying model requests, all of which must pass the original Host's authorization, budgets, physical-attempt recording and unknown-outcome handling. In one bounded historical first pass, **nine of twelve** approved cases returned scores; three remained indeterminate after a `borderline` value violated the expected enumeration. Later rechecks did not erase those first-pass failures. **An SDK that runs, a metric that returns a value, and a score qualified for model selection are three different accomplishments.**
+
 In short, the Golden Dataset defines **the questions and acceptable criteria**; Ragas and DeepEval supply **some diagnostic judgments**; a model-selection conclusion still depends on exact recorded evidence, independence, exposure and the complete denominator.
+
+### Why Can Research Fail After Retrieval Scores Look Excellent?
+
+A [separate RAG evaluation](rag-retrieval-evaluation-evidence.md) produced a striking figure: twelve fixed questions, each with the same pool of 48 synthetic passages. Two were labeled positive and two negative; **the remaining 44 passages were deliberately unjudged**. BM25 achieved a Recall@10 of 1 for the labeled positives. That demonstrates retrieval of those constructed positives within the top ten. It does not make the unjudged passages irrelevant or establish 100% recall of the actual corpus.
+
+With real ETF disclosures, new complications emerged: ranking whole PDF pages against smaller chunks is not a matched comparison; different document vintages can share words without supporting the same historical claim; and Host permission to use Knowledge does not establish that a tool definition reached the model request. Even when a `read_tool_result` search returns all literal match locations, the model may not have received the surrounding passages. If a response presents a dated document change as a current market conclusion, fixing source time and reasoning matters more than merely raising the retrieval threshold.
+
+In another live-model financial-knowledge RAG evaluation, after the offline retrieval and document-reader fixes, **only four of twelve research tasks met the predefined three-repeat automated acceptance condition**, with human review pending. This describes that cohort's specific acceptance gate, not a general accuracy rate for RAG. The distinct checkpoints are **retrieval metrics → actual tool consumption → evidence supporting answer claims → complete task value**. Ragas can diagnose parts of the earlier chain; it cannot certify the final one automatically.
 
 ### Minimal workflow: freeze, run, investigate, review
 
@@ -239,11 +293,19 @@ This need not become another universal runtime gate. It is first a sequence of e
 *Figure 3. Missing evidence calls for observation; known failure calls for repair. Both retain the original sample identity.*
 Select the two kinds of checks according to the claim; not every change needs both. Evidence may support a bounded conclusion, reveal a defect, or leave an observation missing. Sufficient existing evidence need not be rerun merely to edit a report when behavior has not changed.
 
+### A Specialist's Text Reaching Main Does Not Establish Added Value
+
+Our [specialist-contribution study](agent-subagent-contribution-evidence.md) checked the actual handoffs in 59 research Runs: **75 readable final specialist submissions**, of which **70** had at least one sampled text excerpt matching a later Main model input. This is evidence that some specialist content reached Main. Calling `70/75` a “specialist adoption rate” or multi-agent quality gain would be a category error.
+
+For an important claim, trace **original Child submission → later Main input → final assertion → original source**. Main may have seen a source earlier, or received a caveat without retaining it in the answer. Text exposure, semantic use and causal improvement require different evidence. To compare single-Main and multi-specialist setups, freeze task, source date, model and total resource budget; then review the final delivered answers blindly.
+
 ### A Recorded Research Answer Still May Not Support A/B
 
 The October 2026 financial research evaluation retained an actual C04 answer and reopenable original records. A separate scoped path used **public synthetic disclosures** through real Tool, containerized Python, result references, and an isolated PostgreSQL Human checkpoint reopened in a different process. It confirmed that stored source and computation results could be read without rerunning effects. That is evidence for **persistence and recovery**, not a qualified model comparison.
 
 The real C04 had only one candidate. Immutable model-version and configuration identities were incomplete, and no appropriately matched alternative existed: **0/1 real comparable pairs**. Synthetic A/B/C cases tested the comparator itself: a single controlled difference can qualify, but two simultaneous changes, missing repetitions, or unknown configuration must not. A correct synthetic comparator cannot create a missing real control group.
+
+The same caution applies to spending: a shared retrieval or physical model request can appear in several specialist and report views; missing usage or settlement permits only a **known subtotal**, not a complete report price. “Equal budget per specialist” and “equal total budget” are different experiments—the former can give a multi-agent configuration more resources by construction. Without matched answer quality and cost scope, an attractive spending curve cannot establish efficiency.
 
 The responsible report may therefore say: retain the original research and defer any claim of model improvement. Original answers, independent arithmetic references, source eligibility, human and automated judgments, and known or unknown costs have separate evidence requirements. A higher mean without the right identity and denominator is not a sound reason to switch models.
 
@@ -258,5 +320,7 @@ For every green result, ask which revision, input, boundary, and actual content 
 [Panorama Series](/en/panorama) · [Chinese edition](/articles/honest-agent-evaluation).
 
 [Spec and Evidence Workflows](026-agent-spec-evidence-workflow.md) discusses retaining and correcting original observations. [The Expensive Part of AI Coding Is Deciding What Deserves Verification](ai-coding-judgment-and-verification.md) discusses allocating verification effort according to the consequences of error.
+
+This panorama draws on the complete arguments in our [RAG retrieval evaluation](rag-retrieval-evaluation-evidence.md), [specialist-contribution evidence](agent-subagent-contribution-evidence.md), [trace completeness study](agent-trace-complete-observation-gaps.md), [citation support analysis](ai-citations-do-not-prove-reliability.md), [failure attribution](agent-failure-is-a-boundary-problem.md), [Langfuse observations](025-agent-langfuse-from-trace-to-trustworthy-observability.md) and [report cost attribution](agent-report-cost-attribution.md). Those essays retain their deeper mechanisms and cases.
 
 More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). Stars and discussion are welcome.
