@@ -1,190 +1,216 @@
 # Trusted Handoffs Between Financial Business Agents: Why a Router Is Not Enough
 
-*Public funds, private funds, and insurance: business identity, permissions, context, delivery, and recovery*
+*One financial group, one phone-number login, and three business lines: why must customer information not flow freely between agents?*
 
-> This article examines a bounded, synthetic multi-business prototype in ETF Agent, reviewed as of November 1, 2026. All accounts, operators, fund records, and eligibility evidence are fictional. The exercised engineering path uses application HTTP, the existing Agent Runtime and MCP Host, PostgreSQL, and recovery across separate operating-system processes. A deterministic scripted gateway substitutes for a live language model. These observations establish specific engineering behavior, not financial-institution compliance or investment-research quality.
+> **Scope**: This essay draws on ETF Agent's controlled synthetic prototype, reviewed as of November 1, 2026. The customers, group-internal business operators A/B, products, and eligibility records below are illustrative: A serves public and private funds, while B serves insurance. Tests established bounded business handoffs, limited data access, result readback, and cross-process recovery using a deterministic scripted gateway. They **did not** establish compliance for a live financial institution, investment quality using a live language model, an integrated public insurance demo, or production-grade dynamic revocation. Regulations are cited to explain design considerations, not as legal advice for a specific institution.
 
-Imagine a user comparing the profiles and historical net asset values of two public funds. Partway through the conversation, the user asks: “I also want to consider private-fund products, while keeping the public-fund information we just reviewed.”
+A customer signs into a financial group’s wealth platform with a phone number and compares two public funds. The customer then asks: "Can we include private-fund products in the comparison?" A little later: "What if I also need long-term insurance protection?" **The customer remains in the same group account throughout**, without registering separate accounts for each Agent.
 
-An Agent Router can identify the apparent next destination: a private-fund research agent. Yet that classification does not answer whether the user may enter the private business, which parts of the first conversation may cross the boundary, whether access to public-fund data also permits reverse access to private accounts, or how to avoid duplicating work if a confirmation response disappears or a process restarts.
+In an ordinary multi-agent product, these look like two intent switches: public-fund specialist → private-fund specialist → insurance specialist. Selecting the right expert may be enough to continue the dialogue. In this financial group, however, **authentication answers who the customer is, not which business services the customer may enter or which prior records may be reused for another purpose**. Silently passing holdings, private-fund eligibility, risk assessments, and the full chat to the insurance Agent would mistake one group login for blanket permission to share information.
 
-**Routing decides who should handle a request. A trusted handoff must also establish why that handler may act, what information may follow, what effect actually happened, and how the same work may continue later.** Instead of building a separate model loop for each business, our prototype extends the authority already held by Conversation, Run, Host, Memory, and Recovery.
+That is why we designed a **trusted handoff**: **the model interprets what the customer wants; trusted business systems establish who may take over, what may be transferred, and what has actually happened.**
 
-The following discussion follows one synthetic request from its initial business context to a committed result. It also explains when these additional contracts are warranted—and when an ordinary Router remains sufficient.
+## 1. Compare it with ordinary Agent handoffs first
 
-## 1. Business domains are not Agent instances
+An ordinary Router or Handoff is not an inferior pattern. A service assistant can hand a refund request to a refund expert; a research assistant can hand a PDF task to a document specialist. OpenAI's [Agents SDK Handoffs](https://openai.github.io/openai-agents-python/handoffs/) provide `input_filter`, `on_handoff`, and conditional handoff enablement. Developers can add authorization checks in callbacks. Standard handoffs take place **within one Run**, with the existing history forwarded by default unless it is explicitly filtered.
 
-The business story has **three domains: public funds, private funds, and insurance**. These are not interchangeable services, but neither does each domain imply precisely one process or Agent identity. Business domain and operating organization are separate dimensions. Two operators can both conduct public-fund research without gaining access to each other's conversations or business-specific knowledge.
+Our point is **not** that general frameworks lack all security mechanisms. Instead, a business handoff can carry independent responsibilities that cannot be derived solely from a model's tool choice.
 
-Three representative identities are sufficient to understand the exercise:
-
-| Business domain | Representative Agent | Contract exercised |
+| Question | Typical agent switch | Financial trusted handoff in this essay |
 | --- | --- | --- |
-| Public funds | `fund-cn` (operator A) | Default research entry; authorized public-fund profiles and NAV history |
-| Private funds | `private-cn` (operator A) | Fresh synthetic eligibility for each new Run; restricted private information and bounded public read-only tools |
-| Insurance | `insurance-cn` (operator C) | Explicit cross-operator confirmation, isolated prior business history, and limited sharing of communication preferences |
+| Why switch? | Route a task to a capable expert | Enter a business with distinct admission, data, or responsibility |
+| Who selects the destination? | Router/model interprets intent | Model proposes; trusted configuration verifies |
+| What may be shared? | History/tools configured by the developer | Source, purpose, operator, and Run grant determine each permitted item |
+| What happens to login identity? | The same task identity often continues | One phone-number account stays signed in, but each business evaluates its own admission, context, and grants |
+| Is a new conversation needed? | The same Run may continue | A separate Conversation and target Run when responsibility changes; **not a new customer account** |
+| When is consent needed? | Determined by the workflow | Separately assess switching, inter-controller data disclosure, sensitive information, and business actions |
+| What happens after a failure? | Conversation or graph recovery | Read back the committed handoff using the same source/target identity to prevent duplicate work |
 
-Insurance is exercised in separate synthetic PostgreSQL/HTTP scenarios; it is not presented as a fully integrated option in the lightweight demo UI. The lightweight demo centers on operator A's public-fund research and private-fund handoff. Separate controlled fixtures can establish cross-operator security properties without introducing another public-fund product category or user-facing entry merely for symmetry.
+**Figure 1 — The responsibilities of two handoff styles.** One is a typical task-routing pattern; the other adds financial business controls. They are not mutually exclusive frameworks.
 
-The runtime identity includes four distinct facts. `scopeId` identifies the verified user scope; `operatorId` identifies the business operator; `domain` expresses the business rules; and `agentId` identifies the particular configured top-level handler. Sharing a domain grants no cross-operator permission. Sharing a user scope grants no unrestricted business-data visibility. These facts come from trusted configuration and established identity owners, never from an Agent's self-description.
+```mermaid
+flowchart TB
+  subgraph Normal[Ordinary task routing]
+    N1[Interpret request] --> N2[Select specialist]
+    N2 --> N3[Continue response]
+  end
+  subgraph Finance[Financial business handoff]
+    F1[Identify business intent] --> F2[Check admission and operator]
+    F2 --> F3[Check data sharing]
+    F3 --> F4[Independent execution and readback]
+  end
+```
 
-A top-level **Business Agent** is also different from a **Child expert**. A Child can work on a bounded subtask under its parent Main Run. That is not the same as assuming an independent business conversation, admission policy, and resource scope. Changing the top-level handler means creating a distinct Conversation.
+If the task only moves from explaining NAVs to making a chart within the same trusted scope, an ordinary Router or Agent-with-Skills is usually enough. **One login does not mean every intent needs a new business conversation.** Extra handoff contracts become worthwhile when **admission, information-use purposes, permissions, confirmation responsibilities, or durable business effects** truly change.
 
-There were legitimate alternatives. A single model with switched prompts is simpler, but prompt text by itself cannot enforce independently reviewable data permissions. Recasting the destination as a Child would leave it under the original Root identity. Separate Runtimes and databases might be appropriate where deployment-level isolation is required, yet would duplicate execution and recovery machinery for this prototype. We reused the existing Runtime and placed business identity and handoff decisions at the components that already own their effects. Real institutional deployment may require a stronger physical separation.
+## 2. One group account, two business operators, three service lines
 
-## 2. A handoff has several completion points
+The synthetic setting is a **single financial group** with a common wealth entry point. A customer signs in once with a phone number. Central login authenticates the person; it does not merge public-fund, private-fund, and insurance records into a shared database any Agent may freely read.
 
-Continue the example. The source Conversation belongs to `fund-cn/entity-a/public-fund`, and the intended destination is `private-cn/entity-a/private`. The end-to-end path consists of distinct decisions:
+| Business within the group | Operator | Agent | Business-specific controls |
+| --- | --- | --- | --- |
+| Public-fund research | **A** | `fund-cn` | Authorized public-fund sources, not private account permissions |
+| Private-fund research | **A** | `private-cn` | Separate admission and eligibility for restricted business |
+| Insurance protection | **B** | `insurance-cn` | Insurance-specific purpose and grants; A's private history isolated by default |
 
-| Stage | Authoritative responsibility | Boundary that matters |
+Operators A and B **belong to the same group**, while retaining different business responsibilities. The prototype cannot establish whether they are separate legal persons or personal-information processors. That depends on the actual corporate and data-processing arrangement. `operatorId=A/B` is an engineering isolation attribute, not a legal conclusion. A stable group account scope can identify the same customer without sending the raw phone number to the model as a cross-business authorization token.
+
+**Figure 2 — One login, separate business access.** The arrows show potential service entry, not permission to access or disclose any existing business records.
+
+```mermaid
+flowchart TB
+  Login[Phone login to one group account] --> Identity[Central authentication: who is this?]
+  Identity --> Choice{Which business is requested?}
+  Choice --> Public[Operator A: public-fund research]
+  Choice --> Private[Operator A: private-fund admission check]
+  Choice --> Insurance[Operator B: insurance-specific grants]
+```
+
+### Act one: public to private funds within A — admission changes
+
+The customer wants to include private products alongside two public funds. A private-fund specialist is the appropriate destination, but wanting a private product does not automatically authorize access to restricted product information or targeted solicitation.
+
+Articles 18–20 of China's [Regulations on the Supervision and Administration of Private Investment Funds](https://www.mee.gov.cn/zcwj/gwywj/202307/t20230710_1035724.shtml) constrain private fundraising, transfers, qualified investors, and promotion. The [Measures for the Administration of Suitability of Securities and Futures Investors](https://www.csrc.gov.cn/csrc/c106256/c1653849/content.shtml) require regulated operators to understand investors and products, perform suitability matching, and restrict unsuitable marketing. Thus when a user enters a business workflow involving **restricted product materials, targeted promotion, or sales services**, admission must rely on trusted evidence rather than a model inferring "high-net-worth investor" from chat history.
+
+This is not a claim that every public question about private-fund regulations requires investor qualification. **The prototype conservatively gates the entire private target Run. That is its engineering policy, not a verbatim statutory requirement.**
+
+In this scenario A's private Run starts only after receiving matching, unexpired, synthetic `eligible` evidence. It may use designated read-only methods to consult public-fund facts, but it does not inherit every public-fund tool; conversely, the public-fund agent cannot automatically read private customer information.
+
+**Figure 3 — One account does not replace private-fund admission within A.** An unsuccessful check leaves the public-fund research accessible rather than forcing a private Run.
+
+```mermaid
+flowchart TB
+  A[Operator A: public-fund research] --> B[Request restricted private service]
+  B --> C{Current, matching eligibility?}
+  C -->|Yes| D[Create independent private Run]
+  C -->|No| E[Keep existing public research]
+```
+
+### Act two: insurance with B in the same group account — purpose and responsibility change
+
+The customer remains signed in and asks about insurance protection. The insurance Agent is provided by **operator B within the same financial group**. B may receive the authenticated account scope and current question, but it does not automatically gain A's assets, private holdings, suitability assessments, or Memory. **One group and one phone-number account do not imply one data-processing purpose or a blanket legal basis for sharing prior business records.**
+
+Article 6 of China's [Personal Information Protection Law](https://www.miit.gov.cn/jgsj/zfs/fl/art/2022/art_515a4b20c12f430eab54bb4f56d89f56.html) requires clear purposes and data minimization. Articles 13–14 concern lawful grounds and consent. Article 23 requires notice and separate consent **when personal information is provided to another personal information processor**. Articles 28–29 establish additional protections for sensitive information such as financial accounts. **Whether A and B are separate processors depends on their actual legal and processing relationship. Even if they are divisions of one processor, using information for a new business purpose is not automatically justified by a single phone-number login.**
+
+Accordingly, the prototype defaults to **explicit switching confirmation plus isolation of prior business history** for the **group-internal A → B handoff**. The customer stays in the same account, sees that B's insurance service is taking over, and does not automatically transmit A's records. Sharing any prior information requires an item-by-item assessment of necessity, lawful grounds, and applicable notice or consent requirements under the real processing arrangement. A few confirmed, purpose-compatible communication preferences may be shared if the trusted policy allows it; even "respond in Chinese" may constitute personal information when linked to an identifiable customer.
+
+For instance, asking "What does critical-illness insurance generally cover?" does not call for private-fund holdings. If the customer instead requests a protection budget informed by assets, the application should first decide **which limited asset data is necessary and whether a minimally sufficient summary can lawfully be shared**. It should not forward A's entire conversation. This is an illustrative business decision, not proof of a working insurance-advice capability.
+
+**Figure 4 — A to B within one group: switching and sharing records are different decisions.** B may take over using the same login while prior business data remains isolated by default.
+
+```mermaid
+flowchart TB
+  A[Same account: operator A research] --> B[Request group operator B insurance]
+  B --> C{Need A's prior business records?}
+  C -->|No| E[Current question and necessary identity scope only]
+  C -->|Yes| D{Lawful basis and applicable notice/consent satisfied?}
+  D -->|No| E
+  D -->|Yes| F[Project minimum approved records]
+  E --> G[Operator B follows insurance-specific rules]
+  F --> G
+```
+
+The prototype's lightweight HTTP demo mainly exercises **A's public-to-private handoff**. The **A → B insurance** path is verified only in separate synthetic PostgreSQL/HTTP scenarios. **It simulates one financial group and one account system, not a connection to an unrelated external insurer**, and is not a complete public-facing product.
+
+## 3. Connect regulation to business actions, not vague compliance labels
+
+Financial Agent design does not become compliant merely by inserting a generic "compliance check" node. The important question is **which organization must do what, when the check happens, and what evidence remains available afterward**.
+
+| Business question | Reference as of 2026-11-01 | Engineering response in this case |
 | --- | --- | --- |
-| Express the destination | Original user submission and Main's proposed target | Intent is not an access grant |
-| Admit and confirm | Trusted configuration, eligibility reader, and Human Interaction where required | The model cannot issue its own admission |
-| Commit the handoff | Original Conversation Store creates a new Conversation and bound Run | Source history and grants remain unchanged |
-| Consume the target Run | Target resumes using the original handoff identity | `target-created` does not mean execution completed |
-| Read and publish | Original MCP Host, source owners, and Publication | Tool visibility, dispatch, and evidence are different facts |
-| Read back and recover | Original History, Control, and Recovery | A lost acknowledgment is not proof that nothing executed |
+| May this customer enter restricted private-fund business? | Private-fund Regulations, Arts. 18–20; Securities/Futures Suitability Measures, Arts. 3 and 22 | New target Run obtains trusted eligibility; chat text cannot certify admission |
+| Is the product or service suitable for the customer? | Securities/Futures Suitability Measures, Arts. 6, 18, and 24–25 | Business rules own assessment, risk disclosures, applicable confirmation, and associated records |
+| May operator A records be used for group operator B insurance under one login? | Personal Information Protection Law, Arts. 6, 13–14, 21, 23, 28–29 | Establish the actual processing relationship and purpose; evaluate lawful grounds, required notice/consent, and minimum necessary fields; login alone is no permission |
+| Can a new insurance service proceed with the customer's needs? | [Measures for the Administration of Suitability of Financial Institution Products](https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=103294), effective February 1, 2026 | The insurance business separately owns customer assessment and product matching; private-fund eligibility cannot replace insurance suitability |
+| Can financial AI automatically take high-impact actions? | NFRA [Guiding Opinions on the Safe Development and Application of AI in Banking and Insurance](https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=106182), issued June 18, 2026 | For applicable banking/insurance scenarios, classify risk and design admission, human oversight/intervention, and exit or fallback |
 
-The synthetic HTTP demo supplies an exact destination intent in the current user message:
+The 2026 NFRA guidance specifically concerns institutions within the **banking and insurance** regulatory scope. It should not be misrepresented as one universal directive for all securities and fund agents. It is particularly relevant to group operator B's insurance scenario because it addresses high-risk AI admission, intervention, traceability, data protection, and business continuity. **For applicable scenarios it classifies as high risk, item (16) requires approval by the institution’s risk management committee before implementation, while item (17) requires human oversight and intervention at key stages.**
+
+Four types of permission must not be collapsed into a single "I agree" button: **confirmation of business switching, consent to disclose personal information, acknowledgement of product risk disclosures, and final authorization for a transaction or contract**. Each may have a distinct purpose, legal basis, and effect. The typed human handoff confirmation exercised by the prototype implements only one such control and does not substitute for the others. Nor do the regulations prescribe Manifest, Run, MCP, or three specific history-sharing modes.
+
+## 4. What should the destination be allowed to inherit?
+
+A general chat product might pass the whole transcript to the next agent to avoid asking the same questions again. In financial business we first classify the information's source and purpose, then ask what is necessary for the new operator.
+
+**Figure 5 — From inheriting the whole transcript to purpose-limited selection.** The categories illustrate this prototype's design; actual processing still requires source permissions and an appropriate lawful basis.
+
+```mermaid
+flowchart TB
+  S[One group account: A's conversation and Memory] --> T{What kind of material?}
+  T -->|Public-fund facts| P[Check source; read as needed]
+  T -->|Confirmed communication preference| Q[Check purpose and sharing permission]
+  T -->|Private account or business material| R[Do not automatically send to B]
+  P --> U[Build minimal target context]
+  Q --> U
+  R --> V[Retain within the original business scope]
+```
+
+Controlled scenarios implement `isolated`, `selective`, and `full` history projections. Importantly, `full` means the **complete permitted source set**, not every message regardless of identity and source access. Group-internal, cross-operator A → B handoffs default to `isolated`, even under the same login. The original user message retains provenance. Previously committed assistant content must come from an inspectable published result; summaries, tool caches, or unverified Memory entries cannot impersonate authorized primary information.
+
+Permissions are directional. When explicitly granted, a private Run can call a public supplier's two synthetic read-only methods, `public_fund__get_fund_profile` and `public_fund__get_nav_history`, using reviewed fund identifiers and bounded dates. That does not give the public-fund Run permission to read private holdings, nor should the public supplier receive the full private conversation. **Reusing public research facts does not mean sharing private account authority.**
+
+## 5. "Switched successfully" is not a single business event
+
+From the customer's perspective, four events are easy to confuse: **the destination exists, its Run has executed, an answer has been committed, and the evidence and result can be read back**. A single green "success" marker should not silently combine them.
+
+**Figure 6 — Submission, execution, and uncertain acknowledgements.** If a page closes after the destination was created, the application should recover the original task instead of blindly creating a duplicate.
+
+```mermaid
+flowchart TB
+  A[Original message and target intent] --> B{Admission and confirmation valid?}
+  B -->|No| C[Explain gap; retain source conversation]
+  B -->|Yes| D[Commit unique target conversation and Run]
+  D --> E[Target execution and evidence reading]
+  E --> G[Publish answer and read back History]
+  D -. Ack uncertain .-> F[Look up and reuse existing identity]
+  F --> E
+```
+
+Unlike a handoff contained within a single Run, the source conversation remains unchanged and the destination has its own Conversation and Run. The client must subscribe to the existing target Run when revisiting it rather than submitting a similar-looking new message. The source message, destination, and action identity form an inspectable idempotency relationship. An unknown acknowledgement requires a lookup, not an assumption that the operation failed.
+
+For cross-process recovery, the prototype persists admitted business identity, configuration, and permission versions in synthetic PostgreSQL state, then resumes the **same** Run after a separate process starts. An admitted older Run follows its frozen grant and stopping rules; a **new** private Run reads current eligibility again. This is neither instantaneous revocation during an ongoing Run nor exactly-once execution for irreversible actions such as trading.
+
+## 6. How to reproduce the idea without copying an entire Runtime
+
+You do not need every internal module to adapt the principle. Start with five pieces of trusted business information:
+
+1. **Identity:** the server authenticates one customer scope through the phone-number login, then binds each business request to an operator, domain, and Agent. Reuse account authentication, not business permissions inferred from a phone number.
+2. **Admission:** eligibility or suitability is checked from trusted sources before entering restricted services; a model prediction is not proof.
+3. **Handoff decision:** exact destination, data-sharing purpose and fields, required confirmations, and the source request they authorize.
+4. **Execution:** a separate target Run where tools, sources, and budgets are defined anew, with exact methods and parameters checked at the trusted Host. Manifest-like configuration limits maximum capability but does not replace a particular Run grant or data-source permission.
+5. **Result and recovery:** stable target identity, recorded side effects, publication and inspectable evidence; retries first read existing effects.
+
+The synthetic HTTP entry can express destination intent through the current user message’s `businessHandoffTarget.agentId`; it is not an authorization grant by itself. A tiny illustrative contract communicates the shape (it is not an entire security protocol or deployable implementation):
 
 ```json
 {
-  "clientMessageId": "synthetic-demo-handoff",
-  "content": "demo:public-comparison",
-  "interactionProfile": "concurrent-conversation@1",
-  "taskRestrictions": { "personalData": "deny" },
-  "businessHandoffTarget": { "agentId": "private-cn" }
+  "source": { "operator": "A", "domain": "public-fund" },
+  "target": { "operator": "A", "domain": "private-fund" },
+  "admission": "trusted-eligibility-required",
+  "history": "selective",
+  "execution": "new-conversation-and-run"
 }
 ```
 
-This fixed demo command tests an execution contract; it does **not** demonstrate a live model autonomously interpreting arbitrary investment requests. `businessHandoffTarget` constrains the destination of this specific submission. Main still has to use the trusted `request_business_handoff` control and satisfy the sealed model action, source Run, and Host checks. Merely writing “switch to private funds” in a message does not create a private business grant.
+Practical follow-up research remains necessary: mapping one phone-number account to a stable customer scope without exposing the raw number, granting permissions independently by business, time-bounding eligibility evidence, checking each data source, distinguishing intra-group disclosures from entrusted processing, and recovering effects without duplicates. Start with **A's public-to-private path**, then test **A → B insurance under the same group login**, without building a universal policy engine first.
 
-When the handoff is committed, the original Conversation Store creates a separate Conversation and its bound Run. The destination's first submission retains the exact original user text and provenance but is marked as application-derived, rather than pretending the user typed a new message in the destination. The original source Conversation, messages, and already committed answer are not rewritten.
+Three useful external starting points address different pieces of this problem:
 
-Deduplication must use trusted source and destination identities, not simply a model-generated call ID. A repeated request after an uncertain acknowledgment must find the existing target or return an honest pending state. Creating a target, executing its Run, and committing a published answer are separate events. The browser therefore subscribes using the original target Run selector instead of submitting a fresh ordinary user message.
+- [OpenAI Agents SDK — Handoffs](https://openai.github.io/openai-agents-python/handoffs/): expert transfer, callbacks, filtering, and the important **same-Run** semantics.
+- [LangGraph — Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph): explicit control flow, state, human interrupts, and checkpoints, to which your application adds business admission and data policy.
+- [NIST SP 800-162 — ABAC](https://csrc.nist.gov/pubs/sp/800/162/upd2/final): reasoning about subjects, resources, actions, and conditions, without assuming that an ABAC design automatically satisfies financial law.
+- [Open Policy Agent (OPA)](https://www.openpolicyagent.org/docs): an optional public implementation reference for evaluating structured subject/resource/action policies. **OPA was not adopted by this prototype.**
 
-**Target selection is a semantic judgment; committing the handoff is a durable business effect; delivery belongs to the next execution.** A Router alone generally owns only the first.
+These references cover **orchestration, durable execution, access control, and policy decisions**. None is an out-of-the-box compliant handoff for Chinese financial products. Our implementation's particular choice was to reuse the existing owners of Conversation, Run, MCP Host, Memory, and Recovery instead of inventing a second authorization center.
 
-## 3. The Manifest defines a ceiling, not a second authorization service
+Developers with authorized access to the private prototype can enable the local lightweight synthetic demo using `DEMO_BUSINESS_HANDOFF=true npm run demo:api` and follow the repository's internal runbook. The demo is not a customer-ready private eligibility service, complete group-internal A → B insurance integration, or production compliance workflow. The public `open-etf-agent` repository should not be described as already shipping an equivalent multi-business implementation.
 
-Each Business Agent is backed by a server-trusted Manifest: exact `agentId`, `operatorId` and `domain`, immutable prompt revision and content digest, approved Skill references, knowledge-source membership, requested MCP method names, and handoff and Memory policy.
+## 7. The goal is continuity of business responsibility
 
-A Manifest is important precisely because it is **not** an unrestricted grant. Three different decisions must still agree.
+This customer remains in **one financial group and one phone-number account** throughout. Public-fund research continues; restricted private services require their own admission; and moving to group operator B for insurance does not authorize copying A's private holdings or chat history just because "it is the same customer." Only a clearly defined purpose, legal grounds, and minimal sharing scope can justify sending specific records. Even after the destination exists, execution, evidence, and recovery remain separate facts.
 
-**Business declaration.** The chosen identity and its version must match trusted configuration. Its handoff policy constrains destinations and the maximum history-sharing mode.
+We were never trying to make a Router complicated. **An ordinary Handoff transfers the next task; a financial trusted Handoff may also transfer a conditional business responsibility.** Keep simple routing when all work stays within one permission scope. Introduce auditable, rejectable, recoverable business handoffs only when the rules, information, or accountable operator actually change.
 
-**Run admission.** The verified account scope, current target eligibility where required, and compatible Manifest/policy revision establish the admitted execution. The accepted Run freezes its identity and permission version rather than allowing recovery to reinterpret it with today's configuration.
+---
 
-**Resource authorization.** The MCP Host and original data-source owner independently check the current Run grant, exact tool identity, source access, personal-data restrictions, bounded arguments, and resource constraints before dispatch.
-
-These checks narrow capabilities at different stages. If a private-fund Skill says it can compare public funds, it can at most propose the two reviewed public-read methods. Without the Run's exact grant and the source owner's approval, the Host denies the call. A user-supplied `operatorId`, a model's claim of authority, or a remote tool description cannot mint an additional permission.
-
-This resembles the resource- and attribute-based decisions described by NIST in [SP 800-162, Attribute Based Access Control (ABAC)](https://csrc.nist.gov/pubs/sp/800/162/upd2/final). Our adaptation deliberately reuses the existing Host, Run, and source owners; it does not claim to implement a generic ABAC platform or introduce a second policy engine.
-
-## 4. Private eligibility and human consent answer different questions
-
-The private-fund path requires an admission decision that ordinary language cannot supply. “I qualify as an investor,” or a remembered risk preference, is not proof of eligibility.
-
-The prototype uses a trusted synthetic, read-only eligibility source. It produces `eligible`, `ineligible`, `pending`, `expired`, or `unavailable` with the relevant user scope, target operator, evidence revision, and effective window. Only a current, matching `eligible` result admits a **new** private Run. All other states prevent new private-model, private-knowledge, and private-MCP execution. They do not invalidate independently permitted public-fund research in the source Conversation. The entry gate cannot be replaced by a final model sentence apologizing for lack of permission.
-
-Eligibility is also distinct from **confirmation of a specific handoff**, which in turn is distinct from **permission to disclose the source conversation**.
-
-A same-operator handoff with no increased sharing can be automatic under trusted policy, but an automatic transition still passes private eligibility. Cross-operator transitions default to a typed human confirmation and isolated prior history. The interaction binds the exact source message, destination, operator, configuration revision, correction revision, and expiry. A confirmation is not a standing grant to all future data or a trading authorization.
-
-Ordinary free-text “I agree” cannot substitute for the bound `confirmed` response. An expired confirmation, a decision invalidated by a corrected user intent, or a response for another account cannot be replayed to create a destination. If the acknowledgment is uncertain, the system reads the original interaction receipt and retries only with the same decision identity.
-
-A real institution would need its own regulated suitability checks, legal definitions, disclosure rules, and potentially dynamic revocation. The prototype establishes the engineering relation **trusted synthetic eligibility → admission of a new Run**, not regulatory certification.
-
-## 5. Directed MCP access: reuse public facts without sharing private power
-
-Complete isolation is sometimes too restrictive. A qualified private-fund researcher may legitimately need the public profiles and historical NAVs of two funds. Sharing those bounded public observations is not the same as inheriting another operator's business authority.
-
-The synthetic public-fund provider exposes exactly two read-only methods: `public_fund__get_fund_profile` and `public_fund__get_nav_history`. Calls accept reviewed fictional fund identifiers (`SYN-FUND-ALPHA` and `SYN-FUND-BETA`) and bounded date ranges. They do not accept free-form prompts, private customer details, account holdings, or arbitrary source references. The fixed dataset makes the original tool inputs, provenance, and resulting publication inspectable without real investors or suppliers.
-
-The permission relationship is **directional**. A currently admitted private Run can call the specifically allowed public-fund methods through the Host. An ungranted public-fund identity cannot thereby call `private_fund__list_holdings` or read private knowledge, History, or Memory. The same rule applies when a prompt-injected page requests a forbidden method or someone crafts a direct Host call: tool descriptions cannot override the dispatch authority.
-
-Public-fund evidence does not require private-account access. Conversely, private context must not be smuggled into a public supplier query as an argument, URL, or result field. The supplier sees the reviewed structured identifiers and options, not the private research's entire conversation.
-
-If that optional public data source is unavailable, the honest output is a **local evidence gap** for that comparison—not a private-eligibility failure and not a reason to erase independently authorized content. Admission failure and supplier failure have different owners and different effects.
-
-## 6. Three context-sharing modes without copying the original Conversation
-
-The user wants to “continue where we left off.” Copying every message from the source Conversation into a new system prompt is tempting, but old history may contain original user text, committed assistant publications, transient tool payloads, expired source references, summaries, or operator-specific business data.
-
-The handoff policy supports three distinct projections:
-
-| Mode | What the target may receive | What it does not grant |
-| --- | --- | --- |
-| `isolated` | No previous business-conversation history by default | No implicit old prompts, tool outputs, or business Memory |
-| `selective` | Explicitly selected messages or committed content, each rechecked against source and purpose | No laundering of refused material through a fresh summary |
-| `full` | The complete **authorized set** from one specified source Conversation | Not access to all operators, attachments, tools, or private databases |
-
-`full` is not shorthand for “copy all chats.” It still requires the trusted user scope, a permitted operator and purpose, and independent source-read rights. The positive full-sharing path was exercised under a bounded same-operator PostgreSQL composition. Cross-operator sharing defaults to isolation; even same-operator sharing is not permission-free.
-
-Original user text remains byte-for-byte tied to its source message. Previous assistant content is re-read from the committed Publication, with its revision and digest checked. A tool cache, unverified memory-derived statement, or newly generated summary cannot impersonate an original publication. The target receives a scoped model-input projection; the source messages are not copied into the new Conversation's message table, and its old Run grant is not inherited.
-
-Capacity introduces a further distinction: an authorized source collection can be larger than the model input that fits this turn. The design preserves original reference identities and handles capacity omission as complete items, rather than truncating the middle of a source and calling it fully consumed. The final answer's omission of sensitive words is not enough to prove isolation; the actual fitted gateway input and provenance receipts must be checked.
-
-### Memory has its own lifecycle and ownership
-
-Business Memory is governed separately from historical message projection. The synthetic prototype permits only narrowly typed, explicitly confirmed **global communication preferences**, such as response language or verbosity, to be shared across appropriate Agents. Risk preferences, insurance needs, and private research facts retain business/operator ownership, source provenance, and independent write and read purposes.
-
-An unknown legacy Memory record cannot become global simply because its text or label says “shared.” Correction, forgetting, expiry, and temporary mode continue to apply. In bounded model-input observations, the insurance Agent received a confirmed communication preference while the source conversation text, operator A risk records, unconfirmed candidates, and unattributed legacy material remained excluded. That demonstrates scoped input behavior, not insurance-advice quality.
-
-## 7. The UI must distinguish creation, execution, publication, and evidence
-
-A new Conversation appearing in a list does not complete the user's job. Four different facts must be visible or recoverable:
-
-- **Target created:** One destination Conversation and its bound original Run exist, but research has not necessarily executed.
-- **Target executed:** The permitted model and tool requests actually produced effects, but an answer has not necessarily been committed.
-- **Answer published:** The original Publication stored the accepted body, and History can read it back; the complete original source passages may still be unavailable.
-- **Evidence identified:** Citations retain original result identity and available source metadata, but they do not guarantee that a full underlying passage can be opened.
-
-In the lightweight HTTP demo, the browser subscribes to the original destination with `businessHandoffRunId`, the same `clientMessageId`, and the unchanged user content. It does not create a second ordinary message. Returning to the source, reopening the target, or refreshing the page should read the same committed Run, not trigger another research task.
-
-View navigation is not an authorization event. A subscription can remain tied to its original Run while the user views another conversation; delayed delivery must not overwrite the currently displayed conversation. Once the original History owner confirms that Run's terminal result, an old “subscription unconfirmed” transport warning should not hide the committed outcome. Conversely, an unresolved transport failure must not be silently promoted to success.
-
-For financial evidence, a citation also needs an honest display boundary. A public-fund result can be attributed to a registered structured tool and a data date even if the original passage was not retained. Showing a source label is different from opening its full raw content. A model must not invent a passage just to make the citation clickable.
-
-Controlled browser and HTTP cases observed distinct source and target conversations, an independent target answer, two public-fund source identities, and consistent History on reopening. Confirmation, refusal, lost acknowledgments, and recovery were exercised in separate bounded scenarios. None of these alone constitutes a fully deployed, public three-business application.
-
-## 8. Recovery continues an admitted Run; a new Run needs new admission
-
-A handoff may pause for a human answer or survive an interrupted worker. Reconstructing “approximately the same request” from today's configuration is dangerous: the target identity, sources, or permission version may have changed, and repeating an uncertain effect may create duplicate work.
-
-The cold-recovery exercise used **two independent OS processes**. Process A stored the source Conversation, destination handoff, frozen business Run, original grants, and selected context in PostgreSQL, then parked at a blocking human question and exited. Process B subsequently accepted the answer through the original HTTP endpoint and resumed the same Run through Control, SQL discovery, and Recovery. No temporary in-memory grant was transmitted from A to B.
-
-Recovery checked the exact Run identity together with the source message, admitted business configuration, target handoff, and selected-context receipt. The resumed scripted gateway received the approved original user text and the human response; unselected assistant history did not enter the input. Within the business identities and revisions qualified by that exercise, the already accepted Run retained its frozen grant instead of being readmitted under current settings.
-
-A **new** independent private-fund request is different. It reads the current eligibility source again. When the synthetic qualification expired, a new Run was refused while the previously admitted Run kept its original identity and followed the existing cancellation, budget, and recovery contract.
-
-This does not imply universal exactly-once execution for every external side effect or real-time revocation during an existing Run. Irreversible actions and real institutional eligibility require stronger business-specific mechanisms. The generalizable distinction is narrower but crucial: **resume a proven old execution under its recorded authority; admit a new execution under current authority.**
-
-## 9. What the engineering evidence proves
-
-The original multi-business Handoff OpenSpec completed its bounded engineering close and was archived. Its recorded evidence includes focused offline execution, PostgreSQL/HTTP scenarios, a genuine process-A-exits/process-B-resumes window, and selected browser interactions. These observations support an end-to-end engineering claim under synthetic identities, fixed data, and scripted model behavior: the original Conversation/Run/Host path can commit, consume, publish, and recover a scoped business handoff.
-
-They do not establish a live model's investment reasoning, real qualified-investor checks, licensed product integrations, ongoing production recovery rates, or physical separation among regulated entities.
-
-For engineers authorized to use the private prototype, the lightweight local option is:
-
-```bash
-cd agent-app
-DEMO_BUSINESS_HANDOFF=true npm run demo:api
-```
-
-It uses fictional accounts, a deterministic gateway, in-process synthetic fund sources, and a loopback listener. It must not be reverse-proxied into a public service. The internal HTTP runbook creates a default Conversation, submits one source request with `businessHandoffTarget`, reads the resulting destination's Run selector, subscribes to that exact Run, and compares committed Publication and History. This lightweight option is not the full PostgreSQL cross-operator confirmation, insurance, Memory, and cold-recovery environment. The writing of this article did not independently rerun that command.
-
-The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) is a separate teaching implementation and does **not** currently provide an equivalent complete multi-business handoff. This article is a documented synthetic engineering case, not a claim that readers can already install the entire architecture from that public repository.
-
-## 10. When is a Router enough?
-
-If one authorized user is asking one research Agent to switch between “explain this NAV series” and “summarize this report,” a Router or a different Skill inside the same Agent may be the correct, simpler design. Separate Conversations, eligibility readers, Memory ownership, approval receipts, and recovery protocols are not justified merely because a diagram looks cleaner with several Agents.
-
-Additional contracts become necessary when the transition changes **business admission, operating authority, data ownership, disclosure purposes, or durable effects**. At that point the Router can remain a semantic entry point, but it must not become an implicit source of authority.
-
-This choice has real engineering costs: versioned identities, deduplicated handoff effects, source-by-source checks, old-versus-new Run lifecycle rules, and precise UI state. We kept those costs at the existing authority owners rather than introducing another model loop, another Memory engine, or a competing permission service.
-
-Return to the opening user request. Successfully moving from public-fund research to private-fund research is not merely selecting the correct Agent name. It means the destination is admitted, the appropriate original facts cross the boundary, bounded public evidence remains usable, user confirmation is attributed to the right request, and recovery preserves the identity of what already happened. **Once those facts have trusted owners, the Router itself can stay simple.**
-
-Further reading: [Models Understand; Code Authorizes](/en/articles/011-model-understands-code-authorizes) and [After an Agent Asks: Durable Human Response Adoption](/en/articles/agent-durable-human-interaction-response-adoption). Questions and Stars are welcome at the [ETF Agent Engineering Notes repository](https://github.com/hpoenixf/eff-agent-article).
+*Further reading: [Models understand; code authorizes](/articles/011-model-understands-code-authorizes) · [From investment research to advisory and trading](/articles/030-fintech-from-research-to-investment-advice) · [Durable human interaction](/articles/agent-durable-human-interaction-response-adoption). Regulatory references must be interpreted for the institution actually involved; operators A/B, the single group account, products, and test results here are synthetic.*
