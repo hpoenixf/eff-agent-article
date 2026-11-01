@@ -27,9 +27,28 @@ A useful evaluation retains four coordinates: **what executed, what evidence was
 
 The article follows a claim through sample design, execution, answer identity and interpretation. Engineering tests examine deterministic contracts; live-model evaluation examines open-ended performance; user observation examines delivered value. These complement one another rather than requiring every change to climb a fixed ladder of expensive checks.
 
+## What We Actually Used: Each Tool Has a Distinct Job
+
+These examples come from the ETF Agent engineering evaluation workflow, not scores produced by a single off-the-shelf benchmark. The main research execution is owned by a **Node.js / TypeScript Research Runtime**—the program that manages model requests, tool use, and task state. The evaluation runner selects cases and records results around that runtime instead of creating a second execution system.
+
+![Evaluation stack: from fixed tasks to qualified outcomes](../../visuals/en/panorama-evaluation/engineering-stack.svg)
+
+*Figure 2. This is a responsibility map, not five new approval gates. Neither models nor graders can replace original sources or delivery receipts.*
+
+| Technology or mechanism | Responsibility in evaluation |
+| --- | --- |
+| **Research Runtime, AI SDK, MCP** | Execute model, retrieval and calculation work through Main and Child agents and retain each Run (one identified task execution); MCP is a protocol for connecting tools. |
+| **Golden Dataset, curated research cases, custom evaluation runner** | Freeze questions, source revisions, expected behavior, repetitions and the complete planned denominator for bounded comparisons. |
+| **Vitest, Playwright, PostgreSQL** | Check deterministic behavior, actual browser delivery, database persistence and cross-process handoffs. |
+| **OpenTelemetry, Langfuse** | Use traces (records of model/tool steps in a request) to diagnose failures, timing and cost signals. A trace does not prove answer quality or client display. |
+| **Business-rule validation, LLM-as-Judge, human review, optional DeepEval** | Evaluate numeric and authorization constraints, grounding, answer quality and high-risk disagreements separately. Model grades cannot override a confirmed rule violation. |
+| **Ragas (optional; no qualified live quality scores yet)** | Provide specialized metrics for retrieval-augmented generation (RAG, answering after retrieving source material). Only limited SDK/isolation integration has been qualified so far, as explained below. |
+
+These are not a pipeline that automatically certifies success. For example, Langfuse may show that a model call finished and PostgreSQL that content was saved, but only actual outbound text and suitable client receipts justify stronger claims about what the user received. The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) demonstrates a smaller, separately runnable set of mechanisms; it is not a complete open-source reproduction of this private evaluation system.
+
 ## 1. First Ask What the Green Check Actually Reached
 
-Mocks control inputs, dependencies, and time, making them useful for examining local logic. Real-dependency checks start processes, connect to databases, or cross network boundaries. Both matter, but they answer different questions.
+A **mock** is a controllable fake dependency: for example, a fake market-data API that always returns a known price instead of calling a live service. Mock tests make local logic repeatable, but cannot prove the real API, network or database works. Real-dependency checks start processes, connect to databases, or cross network boundaries. Both matter, but they answer different questions.
 
 We observed a focused mock suite pass while broader acceptance work remained incomplete. The useful distinction was not which count looked better. The smaller check had never reached the unsettled handoffs.
 
@@ -90,7 +109,7 @@ Partial saved text after failure is not whole-task completion; normal terminatio
 
 Repeating one task reveals variability but does not create task diversity. Ten tasks run three times should be described as ten distinct tasks and thirty trials. A rate across trials should retain the relationship among repeated attempts at one task.
 
-Sometimes we care whether several attempts yield at least one usable answer; sometimes we need one delivery to work reliably. The former is often expressed with `pass@k`; the latter is closer to single-attempt reliability or success across repeated attempts. Generating several candidates and selecting one has a different cost and user experience from waiting for one real outcome. They should not share an unqualified success-rate headline.
+Sometimes we care whether several attempts yield at least one usable answer; sometimes we need one delivery to work reliably. The former is often expressed with `pass@k` (the fraction of tasks with at least one passing result among k generated candidates); the latter is closer to single-attempt reliability or success across repeated attempts. Generating several candidates and selecting one has a different cost and user experience from waiting for one real outcome. They should not share an unqualified success-rate headline.
 
 In a **purely illustrative example**, A passes eight of ten shared tasks and B passes nine. That describes this batch. We still need to inspect which tasks differ, repeat stability, and matching inputs and budgets. It does not establish improvement across all research. Where appropriate, report paired differences and intervals, preserving task grouping when repeated trials are correlated.
 
@@ -110,7 +129,7 @@ If a stream ended early, reconstruction must preserve that incompleteness. A ful
 
 ## 5. When the Evaluator Is Wrong, Correct the Judgment Without Rewriting Events
 
-We also encountered mechanical misclassification caused by a fixture or validation contract. Correcting the evaluator changed judgments for affected samples, while genuine failures remained.
+We also encountered mechanical misclassification caused by a **test fixture** (prepared input, simulated dependency outputs, and expected results) or a validation rule (what should pass or fail). Correcting the evaluator changed judgments for affected samples, while genuine failures remained.
 
 Overwriting the old scores would obscure why the original evaluation failed, why a later examination changed it, and whether apparent progress came from the model, runtime, or measurement instrument.
 
@@ -155,7 +174,32 @@ For illustration, a **synthetic fund-fee comparison case** could have this compa
 
 The **code-based checks** are that no order execution receipt exists without trading authorization, that each number carries an identifiable source and effective date, and that the judged answer matches the actual emitted content. An **LLM judge** can assess whether the explanation mixes time frames or fee conventions and whether the original question is answered, using concrete calibration examples. **Human reviewers** concentrate on grader disagreements, conflicting evidence, and high-impact errors that might influence real trading decisions. A judge's claim of "good citation coverage" does not substitute for source identity or recomputing the numbers.
 
-### Minimal workflow: freeze, run, attribute, review
+### Golden Dataset: Reference Criteria Are Not Proof of Model Competence
+
+A **Golden Dataset** is more than a JSON file of questions. Each case needs a reviewable expected behavior or reference: required sources, source-linked numbers, refusal conditions and a definition of completion. Open-ended research does not necessarily have one uniquely worded correct answer.
+
+The project already has the versioned **`etf-golden@v1` with 13 sanitized ETF cases**. Its provider-free checks cover task routing, entity recognition, evidence and citations, numeric consistency, freshness disclosure and the rule that evaluation must not silently mutate the investment ledger. These are stable engineering regression fixtures—not evidence that the live model answered 13 questions correctly. A separate curated research-question catalogue and reviewed task criteria support recorded research evaluation. They are not a single cohort of live-model scores.
+
+A less obvious condition is **exposure**. Cases repeatedly used for prompt or runtime debugging can still test regressions, but cannot automatically support claims about unseen tasks. For that, a held-out set must be isolated before tuning, with evidence of which case, criterion and revision the tested system had access to. Unknown exposure means unknown generalization, not an implied clean holdout.
+
+### Can Ragas or DeepEval Grade Everything for Us?
+
+[Ragas](https://docs.ragas.io/en/latest/concepts/metrics/available_metrics/) provides evaluation metrics for **retrieval-augmented generation (RAG)**, in which the system retrieves source material before answering. In a fund-fee comparison, four familiar metrics ask:
+
+| Metric | Question answered |
+| --- | --- |
+| Context Precision | Are genuinely useful retrieved passages ranked ahead of less useful ones? |
+| Context Recall | Did retrieval supply the key information needed by the reference answer? This typically needs reference evidence. |
+| Faithfulness | Can the response's factual claims be supported by the actual retrieved passages? |
+| Response Relevancy | Did the response directly answer the user's question? |
+
+These measures can help distinguish “retrieval missed the material” from “the model had the material but produced a poor answer.” They do not replace independent financial arithmetic, tool authorization or proof of actual delivery. In particular, **a passage discovered after the Run must not be substituted for what the Run actually retrieved** when grading its faithfulness.
+
+As of **October 30, 2026**, the optional **DeepEval** adapter had produced bounded real historical-case reviews under explicit data admission. The **Ragas 0.4.3** adapter had qualified an isolated Python environment, SDK and sample schema, plus some synthetic execution checks; its four actual RAG quality metrics remained **unassessed in the operator-facing evaluation path**. Real Ragas judge scoring, matched-case comparison with DeepEval and agreement with human reviewers are not completed findings.
+
+In short, the Golden Dataset defines **the questions and acceptable criteria**; Ragas and DeepEval supply **some diagnostic judgments**; a model-selection conclusion still depends on exact recorded evidence, independence, exposure and the complete denominator.
+
+### Minimal workflow: freeze, run, investigate, review
 
 1. **Freeze the task set and conditions.** Retain stable IDs and replayable snapshots. Compare candidate and baseline versions under the same authorized inputs; changed conditions need a separately labelled observation window.
 2. **Choose the necessary depth.** Check authorization, persistent receipts, and arithmetic invariants deterministically first. If a change affects model-visible inputs or research strategy, run targeted real-model tasks. A claim about user outcomes requires evidence reaching the relevant delivery surface.
@@ -180,7 +224,7 @@ A historical investigation found this mismatch: Runtime still believed request c
 
 Offline replay has a scope too. Frozen pages and fake tools make regression reproducible; live connections observe current services. Replay does not establish current retrieval, while live changes can make before/after samples incomparable. Choose by the question. Neither upgrade every offline task to a costly run nor substitute offline success for a live-capability claim.
 
-After a long evaluation, inspect late Child work, requests still held, committed answers not yet read back, and unknown settlement. They reveal resource and lifecycle behavior. Do not clear them merely to tidy the scorecard.
+After a long evaluation, inspect late Child-agent work, requests still held, committed answers not yet read back, and unknown settlement. They reveal resource and lifecycle behavior. Do not clear them merely to tidy the scorecard.
 
 ## 7. Decide Whether Comparison Is Valid Before Deciding Which Model Is Better
 
@@ -192,7 +236,7 @@ This need not become another universal runtime gate. It is first a sequence of e
 
 ![Choose checks by claim scope, then distinguish support, known failure and missing evidence](../../visuals/en/panorama-evaluation/evidence-path.svg)
 
-*Figure 2. Missing evidence calls for observation; known failure calls for repair. Both retain the original sample identity.*
+*Figure 3. Missing evidence calls for observation; known failure calls for repair. Both retain the original sample identity.*
 Select the two kinds of checks according to the claim; not every change needs both. Evidence may support a bounded conclusion, reveal a defect, or leave an observation missing. Sufficient existing evidence need not be rerun merely to edit a report when behavior has not changed.
 
 ### A Recorded Research Answer Still May Not Support A/B
