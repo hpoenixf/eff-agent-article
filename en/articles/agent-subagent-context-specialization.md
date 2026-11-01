@@ -217,7 +217,7 @@ Three comparisons are especially important.
 
 Anthropic's multi-agent research article also warns that such systems can consume substantially more tokens than ordinary chat. Its internal results depend on specific models, tasks, and evaluation methods; they cannot be transplanted into ETF Agent performance or accuracy claims. **Industry practice now offers more collaboration patterns, not a proven formula for the optimal number of experts on every task.**
 
-## 9. Our Engineering Judgment: When Does Another Child Earn Its Cost?
+### Our Practical Trade-off: When Does Another Child Earn Its Cost?
 
 ### Figure 7: return the “one more expert?” question to the actual task
 
