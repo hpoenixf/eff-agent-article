@@ -1,113 +1,110 @@
 ---
 title: "Building Agents with Agents: Why Fixing Bugs Doesn't Complete the Research"
-description: "A retrospective on source-proof loss, actual Python recovery, task-level convergence and evidence-backed engineering progress."
+description: "A grounded engineering retrospective on task-level acceptance, source-proof loss, Python file handoff, meaningful outcome measures, and proportionate validation."
 ---
 
 # When an Agent Builds Another Agent, Why Does Fixing Many Bugs Still Leave Real Research Unfinished?
 
-> **Two real evidence windows—not one success story.** An investment study still lacked a complete HTML deliverable, while a separate Python exercise corrected errors and proved an exported file could be reopened. The article shows how to report those outcomes without calling a local pass an end-to-end success.
+> **Fixing a defect, completing a handoff, and finishing the user's task are three different kinds of progress.** This article preserves two real validation windows, then examines how a coding agent can choose worthwhile checks—and why even a plausible success-rate figure may say little about product success.
 
-After some time building ETF Agent, we faced a frustrating reality: the architecture kept getting more complete, local tests kept turning green, yet a real investment research task entrusted to the agent still did not finish.
+What is the easiest result to produce when one coding agent helps build another agent? Usually a new implementation, a set of passing tests, or an error that finally stops appearing.
 
-An October 14, 2026 research run made repeated model requests and publication attempts, yet History ended in **partial / research_interrupted**, with no normal HTML report. Subagents repeatedly received unavailable inputs, while many script requests stopped at describing methods without actually computing or exporting.
+Those results matter. But on October 14, 2026, ETF Agent went through multiple real model requests, tool executions, and publication attempts, while the investment study ultimately ended in **`partial / research_interrupted`**, without a normal HTML report. Subagents repeatedly lacked inputs they needed; some script requests described a method without actually completing computation and export.
 
-Counting tool calls makes the system look busy. Counting passing local tests makes many capabilities look ready. Neither creates the result the user requested.
+Judged by tool calls, the system looked busy. Judged by repaired defects, the project appeared to be moving forward. The report the user wanted was still absent.
 
-We stopped treating “number of faults repaired” as the same measure as “distance remaining to a completed task.”
+Later validation work changed how we organize AI-assisted engineering: **do not add more checks to every change by default. First identify the effect missing from the user task, then run the smallest experiment capable of establishing that effect.**
 
-## 1. Why Fixing the Last Error Produces an Endless Loop
+## 1. Define What Task Completion Means Before the Bug Loop Takes Over
 
-An intuitive early-development cycle is to run a real question, find the last error code, add an adapter or prompt rule, run regression checks, then retry.
+An intuitive early development loop is to run a real question, inspect the last error, add a compatibility branch or prompt rule, and rerun a regression. That can fix isolated defects. A complex task, however, may end up perpetually fixing the “previous error.”
 
-This is useful for isolated defects, but it often misses **handoffs between stages** in complex research.
+A research report passes through source reading, calculation, writing, persistence, and delivery. Each stage has its own success signals, yet a downstream stage may not have consumed the result of the one before it.
 
-For example, a result may already be stored but remain invisible to the model in the next turn. We could blame the model for forgetting, or increase token capacity. Yet the missing piece might be the proof of source eligibility used when projecting the result into the next request.
+A tool may have saved data that the model is not eligible to read in its next request. The model may have proposed a complete revision that the persistence system never accepted. A report file may exist but remain inaccessible from the browser or History. More prompt tuning would not necessarily touch any of those failures.
 
-In another case, the model might submit a complete revision while History still shows the old one. Improving the final-answer prompt will not help if the failure is in the handoff from an accepted proposal to its persisted version.
+For similar work, we now start with a **minimal acceptance card**. The following is a teaching illustration, not a verbatim restatement of the October 14 task:
 
-We reframed the question from “What was the last error?” to **“Which real effects does the user goal require, which one is missing, and who owns that fact?”**
+| Question to answer | Evidence that can establish it | What does not establish it |
+| --- | --- | --- |
+| Did evidence reach the research? | Eligible material was actually read and entered the relevant model input | A download existed or a tool returned success |
+| Did calculation and file handoff work? | Code executed, the artifact was saved, and its download and reopening matched | The model said, “I generated the report” |
+| Did the user task finish? | The original task's required content, delivery, and independent quality conditions were satisfied | A local interface passed or the Run ended normally |
 
-That reframing makes each change narrower. It does not automatically add yet another defensive rule to Runtime.
+This card does not prescribe full end-to-end qualification for every feature. It keeps distinct evidence layers apart. Each change first states which row it intends to affect; only then can we choose an appropriate check. **Closing the task means returning to the original request, not to the latest bug.**
 
-## 2. How Reconciling 93 Against 21 Changed the Diagnosis
+## 2. Why Were Only 21 of 93 Stored Result Groups Visible?
 
-In the interrupted research run, tool results had been stored. A separate, read-only check of source projection showed that **93 groups of stored results yielded only 21 visible groups**. Nine subsequent numeric results and three available catalog results were excluded.
+The October 14 study left an especially useful counterexample. We independently reconciled stored tool results against their source projection into subsequent requests: **93 groups were stored, but only 21 entered the visible projection**. Nine later numeric result groups and three available catalog groups were excluded.
 
-We could no longer say simply that the model “failed to use the retrieved data.” For some results, the model never received the current proof required to use them at all.
+That changed the diagnosis. We could no longer simply blame the model for “not using retrieved information.” Some material never received the valid source proof required to enter a later request.
 
-We traced the problem to a specific producer defect: cumulative Run-level source proof incorrectly reused the narrower dependency merger intended for a single Publication. Publication's **eight-dependency** capacity had been applied to Run proof that should support **64 dependencies / 24 KiB**, losing the ninth valid relationship and those following it.
+The defect lay in the producer. Cumulative Run-level source proof had incorrectly reused the narrower dependency merger designed for a single Publication. The latter permitted eight dependencies, while Run proof should have supported **64 dependencies and 24 KiB**. Mixing these capacities could discard the ninth valid relationship and those that followed.
 
-We fixed the producer rather than weakening downstream rejection of unauthorized dependencies. Focused checks covered legitimate dependencies at the limit, overflow rejection, missing or tampered proofs, and cross-Run identity isolation.
+The right repair was to the proof producer, not to weaken the consumer's rejection of unknown sources or foreign Run identities. Focused regressions covered retention of eligible dependencies, rejection of overflow, tampered sources, and identity isolation.
 
-This established a narrow engineering result: **we identified why an eligible source lost its authority during subsequent requests and performed bounded regression verification.**
+We had established meaningful **attribution progress**: why some legitimate information could not enter the next research request, and what behavior the bounded fix restored.
 
-But the original natural-language research run did not magically deliver its missing HTML report. We did not use this fix to declare the user task closed.
+Yet that original natural research run did not automatically generate or deliver the missing HTML. **Repairing the evidence-producing stage did not amount to replaying and completing the original task.**
 
-That is why capability progress and task progress need separate accounting.
+## 3. What Does Evidence of a Working Handoff Look Like?
 
-## 3. A Positive Counterexample: Python Fixed the Error and Delivered the Report
+On October 16, a separate Python exercise provided a different, positive example.
 
-On October 16, a Python-focused exercise produced a stronger end-to-end example.
+A real subagent initially read the wrong field and raised `KeyError`. It switched to the actual `nav` field and completed the requested calculation. The first HTML-generation attempt then raised `NameError`; a later attempt corrected string concatenation and exported the file.
 
-A real subagent initially raised KeyError while reading a field. It switched to the actual input field, nav, and completed the required calculation. Its first attempt to generate HTML then raised NameError; a later revision fixed string concatenation.
+This time the evidence did not stop at a passing test or at the model claiming to have written a file. The HTML was exported through the original analysis workspace; the Host retained its file type and content identity; an authenticated HTTP download matched the stored record; Main actually used the download path returned by the child task; and reopening History resolved the same file identity.
 
-The result did not stop at “the script succeeded” or “the model says the report was written.”
+Independent arithmetic also checked returns and drawdown in a synthetic case. Together, these observations support a specific conclusion: **the focused path for Python correction, file creation, and cross-agent handoff actually worked.**
 
-The subagent exported HTML through the normal analysis workspace. The Host preserved its file type and content identity; an authenticated HTTP download returned bytes matching the saved record. Main actually consumed the download path returned by the child task, and a fresh History read still resolved the same file identity.
+But it was not a continuation of the October 14 natural-language task. Nor did it certify every index-allocation study, independent variation, PDF appearance, or investment conclusion. Later natural-question attempts still encountered Python proposals rejected before execution, failed HTML exports, and successful computations whose source relationships were subsequently lost.
 
-Independent calculations also checked returns and drawdown for a synthetic case, within the scope of this Python correction and file-handoff exercise.
+We do not have to turn these observations into a story of “failure, then success, then everything fixed.” They are positive and negative cases from different inputs and scopes. Describing that distinction accurately is more valuable than making the retrospective look neat.
 
-This is meaningful engineering progress. It is not evidence that ETF Agent can now autonomously finish every index-allocation research task. The exercise focused on Python error correction and formal handoff. It did not certify the original task, independent variants, PDF appearance, cancellation, or investment-analysis quality.
+## 4. If We Have Success-Rate Figures, Why Can't We Calculate Research Success?
 
-Later attempts with natural questions still showed cases in which a Python proposal was rejected before execution, an HTML export failed, or an otherwise successful Python computation subsequently lost its source relationship.
+By October 31, 2026, we had a larger—and still carefully scoped—baseline from real engineering evaluation. Of 120 planned specialist-research Runs, **59 had ended**: **42 with `completed` and 17 with `failed`**. Among those 59, **48 had visible answer bodies with confirmed persistence**. The other 61 Runs had not been executed.
 
-**A real positive case and a real negative case can both be true.** Engineering reports should say what each proves, rather than forcing all runs into one polished success narrative.
+With their actual denominators, the normal Runtime terminal rate was **42/59 = 71.2%**, and the confirmed visible-body persistence rate was **48/59 = 81.4%**. Both are meaningful engineering observations. Neither is a financial-research task success rate. Some failed Runs still retained legitimate answer text; a normally completed Run could omit a required analysis or make an unsupported claim.
 
-## 4. Using AI to Build AI Without Turning Validation into an Infinite Task
+The biggest trap here is not miscalculating a percentage. It is **renaming a conveniently collected metric as the outcome we actually care about**.
 
-Those experiences changed how we organize Coding Agent work.
+Task success requires returning to the fixed question, required deliverables, source versions, and independent quality criteria, then reviewing the actual result. Reviewed, unreviewed, and indeterminate samples all need to remain visible. The fact that 59 Runs have terminal states does not turn them into 59 semantic-quality verdicts. For this historical cohort, there was still no independently established financial task-success rate, key fact/citation accuracy, or comparable before-and-after improvement measurement.
 
-**First, freeze the actual user question.** For example, one original question assesses autonomous research, while a controlled variant changes a single assumption about new capital. Freezing the question does not demand identical prose from the model. It ensures the next fix still addresses the same business task.
+This also explains the limit of a recent synthetic reference-answer exercise. Independent arithmetic review of reference figures and a repaired report reader did not produce a quality verdict on a genuine model answer. **A correct reference, a working review mechanism, and good performance by the evaluated agent are three different claims.**
 
-**Second, state the smallest testable proposition for each change.** “The ninth valid source dependency is retained” can be checked deterministically. “The user received a decision-useful investment report” additionally requires real delivered content and independent content judgment.
+## 5. How Do We Spend Verification Effort on the Decisive Questions?
 
-**Third, do not rerun an expensive complete live task for every local fix.** If a change touches only a stable, isolated interface, verify that interface first. Schedule a comparable real-path exercise when the change affects a mandatory handoff and valid permissions and comparable inputs exist. Prior failures, unknown billing and unfinished tasks do not turn green just because this regression passed.
+We did not conclude that every change must trigger another complete, real-model research run. Live evaluation costs money, and model version, source date, and permission conditions may change. Uncontrolled reruns can be expensive without being comparable.
 
-**Fourth, preserve stopping conditions.** Not every failed idea needs to grow into a new Runtime layer, revision loop or Spec. Once a seam is ruled out, stop adding the same type of interceptor. A newly discovered risk should become its own bounded issue under the correct owner, not an excuse to keep one research run alive indefinitely.
+A more useful practice is to leave three questions with each coding-agent task.
 
-This is different from “keep tuning prompts until quality feels better.” The Coding Agent should identify when to change code, when to improve observability, and when to accept a partial outcome.
+**What exactly is this change meant to establish?** A repair to cumulative source dependencies can have a proposition as narrow as: “The ninth eligible dependency is preserved; unauthorized ones are still rejected.” Test that deterministically first. Do not label a whole financial report delivered merely because the local check passes.
 
-## 5. What Should Spec, Evidence, History and Skill Each Own?
+**Which real handoff could this change affect?** If it touches a mandatory path from script output to file, from historical material to a new model request, or from a saved report to the browser, add an appropriate integration check when permissions and budgets allow. Only after the actual material can be independently reopened is there a basis for discussing a higher-level outcome.
 
-We had accumulated many engineering documents. Then we noticed that writing a new history entry for every failure and recreating the entire artifact set for every minor fix also creates a maintenance burden.
+**When do we continue, and when do we stop?** Repair the behavior where responsibility actually resides, within a bounded scope. Once the evidence excludes a suspected stage, stop adding the same kind of patch. Declaring the original task complete requires comparable execution of the original question or a defined variant, actual delivery, and review against the original quality conditions. Otherwise record `partial`, failure, or `unassessed` instead of endlessly adding prompts and review loops.
 
-We increasingly apply distinct responsibilities:
+This is **layered verification without ceremony for its own sake**: local code changes get local proofs, mandatory handoffs get real readback checks, and product claims get actual tasks and content review. The layers inform one another, but none can issue the other's verdict.
 
-- **Spec** defines intended behavior and acceptance criteria. It must not claim implementation is complete merely because it describes the target.
-- **Evidence** records the version, actual execution outcome and failures without inventing missing facts during wrap-up.
-- **History** promotes only events that change engineering judgment—for example, retracting an earlier claim that a missing answer was the model's fault.
-- **Skill** preserves repeatable methods for future runs, rather than caching an already outdated snapshot of main.
+## 6. How Do Spec, Evidence, History, and Skill Reduce Repeated Work?
 
-These are not documents for documentation's sake. They keep the next Coding Agent from guessing what happened last time or repeating a path that has already been rejected.
+Coding agents make documentation cheap to produce, too. Creating a fresh bundle of Specs, History entries, and Skills for every failure can make the next agent spend more time figuring out which document still applies.
 
-The corresponding English articles on [Spec and Evidence](026-agent-spec-evidence-workflow.md) and [on-demand engineering knowledge](027-agent-context-document-history.md) explain those tools in detail. This retrospective instead focuses on whether a repair reached the original user task.
+We keep distinct purposes. **Spec** describes intended behavior and how it will be accepted. **Evidence** fixes the version, actual execution outcome, and failures. **History** preserves turning points that changed our engineering judgment. **Skill** records methods that remain useful in a later task, rather than a fragile assertion about what the current main branch must look like.
 
-## 6. Three Different Measures of Progress
+The long-lived lesson is not how many checks a particular patch passed. It is when to inspect the proof producer after source eligibility disappears, why a reported file must be downloaded and reopened, and why a reviewed reference does not certify the evaluated task.
 
-I now prefer to distinguish three outcomes.
+The existing articles on [Spec and Evidence](026-agent-spec-evidence-workflow.md) and [on-demand engineering knowledge](027-agent-context-document-history.md) explain those systems in full. This article does not need to become another documentation-framework tutorial.
 
-**Capability progress:** A concrete execution seam that previously failed now has an observed positive case and explicit negative cases, such as a downloadable file after Python correction.
+## 7. Before We Announce Engineering Progress Again
 
-**Attribution progress:** Even if the full task still fails, we can establish which owner caused the missing fact. The misuse of Publication capacity for Run source proof is an example.
+Looking back, I now record three different results.
 
-**Product progress:** The user's original natural task actually finishes; its research claims are checkable, key risks and alternatives add decision value, and the formal artifact can be delivered and reopened.
+**Attribution progress** identifies where a missing effect actually belongs and corrects an unsupported earlier explanation. **Capability progress** produces checkable positive and negative cases for a necessary behavior in a real or controlled setting. **Product progress** means the user's original task yielded an artifact that meets its delivery and quality requirements.
 
-These outcomes are not interchangeable. In particular, a report manually completed by a developer cannot count as an autonomous ETF Agent deliverable.
+All three matter, but none can stand in for the others. A report manually completed by a developer is not an autonomous Agent success; a historical failed Run is not retroactively successful because a later patch passed. Without matched pre/post samples and independent quality review, we cannot infer an overall success-rate improvement or a decrease in engineering cost.
 
-Within the evidence window ending October 17, 2026, complete autonomous research, independent variants and content quality still had outstanding work. We did not have comparable long-term engineering-cost or overall success-rate measurements and cannot claim quantified savings.
+This is [principle 8, “Internal success is not user-task success”](/en/principles#principle-8), together with [method 5, “Verification and failure attribution”](/en/principles#method-5), applied to everyday work. Their practical role is not to make engineers collect more logs. It is to help decide **what to fix next, how much to spend verifying it, and which evidence would justify changing the conclusion**.
 
-The evidence suggests a more testable working rule: prioritize the effect missing from the original user task instead of counting repairs as progress.
-
-This is [principle 8, “Internal success is not user-task success”](/en/principles#principle-8) applied to engineering: bug counts, local passes and actual delivery are different outcomes. [Method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) calls for evidence aimed at the missing condition in the original task, not an indiscriminate full evaluation after every small change.
-
-**When using AI to build an agent, track whether each change actually alters a condition required for the user's task—not how many bugs were fixed.** Tests that demonstrate such a change are valuable. Extra model calls that merely dress a partial result as progress are not.
+Coding agents reduce the cost of implementing an idea. A good engineering process uses that capacity for more valuable work: fewer fixes unrelated to the task, less false confidence from local passes, and the most meaningful verification where the user is waiting for an actual result.
