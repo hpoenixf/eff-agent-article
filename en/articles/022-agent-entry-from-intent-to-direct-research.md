@@ -520,21 +520,15 @@ The lesson was:
 
 ### A Structural Error Should Not Arbitrarily Become a Research Task
 
-Another design question still deserves attention.
+When an Entry response is malformed, the system may fail explicitly or follow an existing fallback. But **being able to recover does not grant the capacity needed for a different kind of work**.
 
-When the model emits an invalid structure, the system must decide how to recover.
+A later engineering case exposed the distinction: after an invalid Entry response fell back to Native Research, the original Run could retain its short-interaction Scope classification. The system was now attempting background research without necessarily going through that research capacity admission. Asking what the model “really intended” could not supply a trustworthy decision from malformed output.
 
-We want to avoid escalating a simple question into lengthy research because of an irrelevant formatting anomaly.
+The fix neither invented model intent nor introduced a privileged research shortcut. The original Scope owner atomically promotes **the same leased Run** to the appropriate research admission, and Host records an identity-bound fallback receipt. If capacity is denied, only the not-yet-admitted research is rejected; independent foreground interaction and explicit Stop remain with their original owners. Reopening History shows only the bounded public reason for that exact failed Run, rather than exposing arbitrary internal failures.
 
-At the same time, the system cannot fabricate a “reasonable-looking” decision merely because parsing failed.
+Controlled browser and isolated PostgreSQL checks exercised capacity denial, subsequent progress after release, and the corresponding failure readback. These checks establish a specific resource boundary, not that every malformed response warrants Research or that live-model routing quality has improved.
 
-The current implementation still retains some paths that fall back from Entry structural errors to generic Research. The corresponding recovery behavior and specifications remain worth reconciling.
-
-A smaller entry protocol makes the following question more important, not less:
-
-**Which errors can be repaired locally, which must fail explicitly, and which circumstances genuinely justify entering Research?**
-
-Research should not become the default exit for every Entry failure simply because it is a general-purpose downstream process.
+**When recovery changes the execution type, it must obtain permissions and capacity appropriate to the work actually started.**
 
 ### Looking Back, What Did We Actually Fix?
 
@@ -544,7 +538,7 @@ Research should not become the default exit for every Entry failure simply becau
 | Ordinary clarification lost history | Ordinary follow-ups should reuse normal conversation history |
 | Extra fields caused a valid Direct answer to be rejected | Consume only the fields Direct actually needs |
 | A parser rejected a long answer before publication | Align parsing and publication capacity layer by layer |
-| Structural errors could trigger unnecessary research | Design error recovery separately from entry semantics |
+| Malformed Entry fallback could bypass research capacity | Let the original Scope owner admit the actual workload without inventing a model decision |
 
 These problems share one characteristic:
 
@@ -595,7 +589,7 @@ For example, are simple questions incorrectly routed to Research? Are questions 
 
 Capability-discovery information also needs restraint. Too little, and the model may not know what the system can do. Too much, and Entry may gradually become another complex planner.
 
-Recovery rules should also prevent a formatting failure from being mistaken for a reason to launch lengthy research.
+Fallback capacity admission now has a scoped fix; whether a formatting failure actually warrants lengthy research still needs task-level evaluation.
 
 None of these issues requires designing a more elaborate Intent again.
 
