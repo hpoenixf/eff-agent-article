@@ -6,6 +6,9 @@
 
 旧版 023 发布治理、runtime-natural-language-boundary 和 028 反馈专题仍保留指向现有主稿的合稿引导，**不另算正文**。不为分类调整创建旧文章副本。
 
+2026-11-02 内容收敛候选：可靠性机制故障案例拆入证据留存与 Run 恢复主文；Trace Complete 缺口并入可观测全景；测试退役判断并入文档、代码与测试演进。三个旧 URL 经 `mergedArticles` 保留合稿说明和 canonical，不再计入当前目录。2026-10-24 的多层协作展望则作为完整历史文保留于 `historicalEditions`，不改写原始工程状态。现行主目录与历史页面分开维护；正式发布仍需要源 SHA 锁定、构建和公开读回。
+
+
 ## English editions / 双语发布
 
 The Chinese originals remain at `/articles/<slug>`. Reviewed complete English translations use

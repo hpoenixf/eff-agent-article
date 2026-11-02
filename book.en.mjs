@@ -1,7 +1,6 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
-  "agent-reliability-mechanisms-without-blocking-progress": "Why Can Adding Reliability Mechanisms Stop an Agent from Delivering?",
   "agent-client-interaction-and-reading": "An Agent Client Is More Than an SSE Renderer: Presenting a Research Task Correctly",
   "agent-client-interaction-panorama": "Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research",
   "vertical-financial-agent-principles-panorama": "After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?",
@@ -17,7 +16,6 @@ export const englishTitles = {
   "agent-long-horizon-research-panorama": "Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time",
   "agent-research-workspace-goal-continuity": "Why Agents Need a Workspace: From One-Off Conversations to Long-Term Research",
   "agent-research-assets-identity-version-lifecycle": "Why a Research Report Must Become an Asset Before an Agent Can Reuse It",
-  "agent-trace-complete-observation-gaps": "The Trace Says Complete. Why Can’t We Reconstruct the Agent Run?",
   "agent-subagent-contribution-evidence": "How Do We Know the Main Agent Actually Used a Specialist’s Findings?",
   "agent-report-cost-attribution": "What Does an Agent-Generated Report Actually Cost?",
   "agent-stream-tool-call-null-continuation": "How a null Broke an Agent Tool Call: A Streaming Compatibility Case",
@@ -43,7 +41,6 @@ export const englishTitles = {
   "agent-custom-expert-from-prompt-to-recovery": "A Custom Expert Should Be More Than a Prompt Field",
   "bounded-bull-bear-peer-dialogue": "When Two Agents Talk Directly: Bounded Bull–Bear Research",
   "investment-perspectives-and-thesis-falsification": "More Than One Investment Expert: How Multi-Perspective Agents Test an Investment Thesis",
-  "multi-layer-agent-collaboration-outlook": "From Multiple Experts to One Research Result: The Next Step for Multi-Layer Agents (2026 Outlook)",
   "adaptive-research-python-workbench": "Adaptive Research and Python",
   "agent-python-compute-workbench-evolution": "Python: From Tool to Computational Workbench",
   "portfolio-mcp-readonly-investment-data": "Connecting Portfolio Data Through a Read-Only MCP",
@@ -97,14 +94,12 @@ export const englishTitles = {
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
   "honest-agent-evaluation": "Agent Evaluation Panorama: From Green Tests to Real Task Value",
   "rag-retrieval-evaluation-evidence": "RAG Recall Looks Great. Why Doesn’t That Prove the Agent Found the Right Financial Evidence?",
-  "test-lifecycle-refactoring-retirement-and-spec": "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec",
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence",
   "agent-durable-human-interaction-response-adoption": "After an Agent Asks: Durable Human Response Adoption",
   "agent-temporal-semantics-market-calendar": "When an Agent Says Today: User Time and Market Sessions",
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
-  "agent-reliability-mechanisms-without-blocking-progress",
   "agent-client-interaction-and-reading",
   "agent-client-interaction-panorama",
   "rag-end-to-end-system-panorama",
@@ -121,7 +116,6 @@ export const englishArticleSlugs = [
   "agent-long-horizon-research-panorama",
   "agent-research-workspace-goal-continuity",
   "agent-research-assets-identity-version-lifecycle",
-  "agent-trace-complete-observation-gaps",
   "agent-subagent-contribution-evidence",
   "agent-report-cost-attribution",
   "agent-stream-tool-call-null-continuation",
@@ -156,7 +150,6 @@ export const englishArticleSlugs = [
   "agent-custom-expert-from-prompt-to-recovery",
   "bounded-bull-bear-peer-dialogue",
   "investment-perspectives-and-thesis-falsification",
-  "multi-layer-agent-collaboration-outlook",
   "agent-python-compute-workbench-evolution",
   "agent-runtime-constraint-governance-v2",
   "020-agent-extension-host-smartphone",
@@ -187,7 +180,6 @@ export const englishArticleSlugs = [
   "agent-autonomous-scheduled-research",
   "honest-agent-evaluation",
   "rag-retrieval-evaluation-evidence",
-  "test-lifecycle-refactoring-retirement-and-spec",
   "agent-main-run-context-compaction",
   "agent-conversation-admission-task-continuation",
   "agent-conversation-history-compaction-source-boundaries",
@@ -206,7 +198,7 @@ export const englishArticleSlugs = [
   "portfolio-mcp-readonly-investment-data"
 ] // Register only reviewed, full English editions; never summary placeholders.
 // Kept as an independently readable full-text historical edition; not counted as a new essay.
-export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama']
+export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama', 'multi-layer-agent-collaboration-outlook']
 
 const headings = {
   "深度持续研究": [

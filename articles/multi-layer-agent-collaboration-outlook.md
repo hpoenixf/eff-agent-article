@@ -2,6 +2,13 @@
 title: 从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）
 description: 用一次基金比较说明何时值得增加研究助手、怎样交接证据，以及如何判断额外协作是否真正改善了结果。
 date: 2026-10-24
+head:
+  - - meta
+    - name: robots
+      content: noindex, follow
+  - - link
+    - rel: canonical
+      href: https://hpoenixf.com/eff-agent-article/articles/agent-subagent-context-specialization
 readingBrief:
   takeaways:
     - "委派前先明确缺的是资料、计算还是检验角度；单个 Main 能答好时，不需要把多个专家排成固定审批流程。"
@@ -14,6 +21,8 @@ readingBrief:
 ---
 
 # 从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）
+
+> **历史展望（2026-10-24）**：本文完整保留当时的设计假设与后来注明日期的后记，已退出当前主目录；现行协作机制请从[Subagent 全景](agent-subagent-context-specialization.md)阅读。
 
 **多找几位 AI 专家，只有在它们补上了关键证据、纠正了一条重要理由时才值得。** 如果最后只是多了几份报告、几次模型调用和更长的等待，协作就没有证明自己的价值。
 
