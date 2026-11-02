@@ -24,13 +24,13 @@ readingBrief:
 
 
 <picture>
-  <source media="(max-width: 640px)" srcset="/eff-agent-article/visuals/agent-research-decisions-evidence-synthesis/overview-mobile.svg" />
-  <img src="/eff-agent-article/visuals/agent-research-decisions-evidence-synthesis/overview.svg" alt="从用户问题到有条件研究结论的决策链" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
+  <source media="(max-width: 640px)" srcset="../visuals/agent-research-decisions-evidence-synthesis/overview-mobile.svg" />
+  <img src="../visuals/agent-research-decisions-evidence-synthesis/overview.svg" alt="从用户问题到有条件研究结论的决策链" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
 </picture>
 
 *图：从用户问题到有条件研究结论的决策链。概览按职责组织，不是某次任务的真实调用记录。*
 
-[放大查看完整图](/eff-agent-article/visuals/agent-research-decisions-evidence-synthesis/overview.svg)
+[放大查看完整图](../visuals/agent-research-decisions-evidence-synthesis/overview.svg)
 
 ## 一、先确定要回答什么，再决定需要多少资料
 

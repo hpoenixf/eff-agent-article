@@ -24,13 +24,13 @@ readingBrief:
 
 
 <picture>
-  <source media="(max-width: 640px)" srcset="/eff-agent-article/visuals/agent-artifact-version-access-sharing/overview-mobile.svg" />
-  <img src="/eff-agent-article/visuals/agent-artifact-version-access-sharing/overview.svg" alt="版本、归属与定向分享的关系图" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
+  <source media="(max-width: 640px)" srcset="../visuals/agent-artifact-version-access-sharing/overview-mobile.svg" />
+  <img src="../visuals/agent-artifact-version-access-sharing/overview.svg" alt="版本、归属与定向分享的关系图" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
 </picture>
 
 *图：版本、归属与定向分享的关系图。概览按职责组织，不是某次任务的真实调用记录。*
 
-[放大查看完整图](/eff-agent-article/visuals/agent-artifact-version-access-sharing/overview.svg)
+[放大查看完整图](../visuals/agent-artifact-version-access-sharing/overview.svg)
 
 ## 一、先确定交付对象：文件名不是版本，链接不是权限
 

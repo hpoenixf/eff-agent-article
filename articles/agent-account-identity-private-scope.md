@@ -24,13 +24,13 @@ Agent 让这个普通 Web 安全问题变得更长了。研究会跨多次工具
 
 
 <picture>
-  <source media="(max-width: 640px)" srcset="/eff-agent-article/visuals/agent-account-identity-private-scope/overview-mobile.svg" />
-  <img src="/eff-agent-article/visuals/agent-account-identity-private-scope/overview.svg" alt="身份、资源授权和浏览器视图隔离" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
+  <source media="(max-width: 640px)" srcset="../visuals/agent-account-identity-private-scope/overview-mobile.svg" />
+  <img src="../visuals/agent-account-identity-private-scope/overview.svg" alt="身份、资源授权和浏览器视图隔离" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
 </picture>
 
 *图：身份、资源授权和浏览器视图隔离。概览按职责组织，不是某次任务的真实调用记录。*
 
-[放大查看完整图](/eff-agent-article/visuals/agent-account-identity-private-scope/overview.svg)
+[放大查看完整图](../visuals/agent-account-identity-private-scope/overview.svg)
 
 ## 一、身份可信，不等于资源可读
 

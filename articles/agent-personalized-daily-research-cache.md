@@ -24,13 +24,13 @@ readingBrief:
 
 
 <picture>
-  <source media="(max-width: 640px)" srcset="/eff-agent-article/visuals/agent-personalized-daily-research-cache/overview-mobile.svg" />
-  <img src="/eff-agent-article/visuals/agent-personalized-daily-research-cache/overview.svg" alt="每日研究的生成、去重和回读关系" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
+  <source media="(max-width: 640px)" srcset="../visuals/agent-personalized-daily-research-cache/overview-mobile.svg" />
+  <img src="../visuals/agent-personalized-daily-research-cache/overview.svg" alt="每日研究的生成、去重和回读关系" loading="lazy" style="display:block;width:100%;height:auto;border-radius:16px" />
 </picture>
 
 *图：每日研究的生成、去重和回读关系。概览按职责组织，不是某次任务的真实调用记录。*
 
-[放大查看完整图](/eff-agent-article/visuals/agent-personalized-daily-research-cache/overview.svg)
+[放大查看完整图](../visuals/agent-personalized-daily-research-cache/overview.svg)
 
 ## 一、关注什么，与允许系统做什么，是两种输入
 
