@@ -66,6 +66,7 @@ export const collections = [
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
+          ["agent-knowledge-retrieval-end-to-end", "知识检索：从资料入库到可信证据交付"],
           ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
           ["mcp-host-from-discovery-to-consumption", "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"],
           ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"],

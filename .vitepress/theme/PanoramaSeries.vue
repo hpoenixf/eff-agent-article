@@ -51,6 +51,14 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
   'agent-long-horizon-research-panorama': {
     zh: ['超长研究全景', '把研究循环、上下文减负、阶段交付、中断恢复、显式接续与用户调整串成一条持续工作的路径。'],
     en: ['LONG-HORIZON RESEARCH', 'Connect research loops, context reduction, staged delivery, recovery, explicit continuation and user adjustments across time.']
+  },
+  'vertical-financial-agent-principles-panorama': {
+    zh: ['金融垂类原则', '沿基金组合研究区分通用执行框架、金融领域能力和业务产品，说明何时值得自研运行时。'],
+    en: ['FINANCIAL DOMAIN PRINCIPLES', 'Distinguish general agent execution, financial domain capabilities and business products, including when a custom runtime is justified.']
+  },
+  'etf-agent-framework-comparison-panorama': {
+    zh: ['金融架构对照', '沿同一基金研究任务对照 Pi、Claude Agent SDK、LangGraph 与 ETF Agent，判断应复用什么、保留什么。'],
+    en: ['FRAMEWORK COMPARISON', 'Compare Pi, Claude Agent SDK, LangGraph and ETF Agent along one fund-research task to identify what to reuse and preserve.']
   }
 }
 const cards = computed(() => panoramaSeriesSlugs.map((slug: string, index: number) => {

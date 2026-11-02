@@ -10,6 +10,8 @@
     "024-agent-pdf-from-text-to-evidence": "PDF：从文本到证据",
     "026-agent-memory-forget-durable-effects": "Memory：从保存、召回到安全遗忘",
     "027-rag-revocation-publish-replay": "RAG：文档撤权与历史回放",
+    "agent-knowledge-retrieval-end-to-end": "知识检索：从资料入库到可信证据交付",
+    "rag-retrieval-evaluation-evidence": "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？",
     "030-fintech-from-research-to-investment-advice": "从投资研究到投顾与交易的边界",
     "031-fintech-data-time-and-reproducible-numbers": "金融数字的时点、口径与复算",
     "adaptive-research-python-workbench": "Adaptive Research 与 Python",
@@ -178,8 +180,10 @@
       "primary": "024-agent-pdf-from-text-to-evidence"
     },
     "A20": {
+      "primary": "agent-knowledge-retrieval-end-to-end",
       "related": [
-        "027-rag-revocation-publish-replay"
+        "027-rag-revocation-publish-replay",
+        "rag-retrieval-evaluation-evidence"
       ]
     },
     "A21": {
