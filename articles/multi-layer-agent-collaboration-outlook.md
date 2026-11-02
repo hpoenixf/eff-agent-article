@@ -2,6 +2,7 @@
 title: 从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）
 description: 用一次基金比较说明何时值得增加研究助手、怎样交接证据，以及如何判断额外协作是否真正改善了结果。
 date: 2026-10-24
+search: false
 head:
   - - meta
     - name: robots

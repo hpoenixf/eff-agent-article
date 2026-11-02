@@ -46,8 +46,13 @@ for (const [historical, current] of Object.entries(historicalEditions)) {
     const source = readFileSync(path, 'utf8')
     const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n/)?.[1] || ''
     const edition = historical.endsWith('-v1') ? 'V1' : historical === '017-prompt-to-answer-six-layer-panorama' ? 'V2' : null
+    // The two numbered six-layer editions preserve their version-evolution notes.
+    // Other dated historical full texts must carry explicit noindex + canonical metadata.
+    const historicalMarker = edition
+      ? source.includes('版本演进：从 ' + edition)
+      : /^date:\s*\d{4}-\d{2}-\d{2}\s*$/m.test(frontmatter) && frontmatter.includes('noindex, follow')
     if (!/^search:\s*false\s*$/m.test(frontmatter) ||
-        !edition || !source.includes('版本演进：从 ' + edition) ||
+        !historicalMarker ||
         !source.includes('/articles/' + current) ||
         source.length < 5000) broken.push(historical + ': incomplete historical full-text edition')
   }

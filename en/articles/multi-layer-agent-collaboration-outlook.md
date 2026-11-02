@@ -2,6 +2,7 @@
 title: From Multiple Experts to One Research Result - The Next Step for Multi-Layer Agents (2026 Outlook)
 description: A fund-comparison example explains when another research assistant is useful, how evidence should be handed over, and how to judge the value of collaboration.
 date: 2026-10-24
+search: false
 head:
   - - meta
     - name: robots
