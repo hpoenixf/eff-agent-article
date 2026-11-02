@@ -1,4 +1,5 @@
 ---
+description: "同名 Hook 在 Claude、Pi 与 Codex 中可能代表不同效果。对照命令协议、Pi Factory 与闭包生命周期，说明兼容层怎样排序、执行和停止选定扩展，并在恢复时保留真实回执，而非重新演一遍副作用。"
 readingBrief:
   takeaways:
     - "同名 Hook 不等于相同语义；兼容 Profile 解释方言，原 Runtime 决定效果准入，不支持的组合明确拒绝。"

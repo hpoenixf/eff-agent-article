@@ -1,4 +1,5 @@
 ---
+description: "A model has returned text, yet the next call still waits. Examine shared queues, leases, renewal and unknown occupancy to distinguish local cancellation, protocol termination and transaction acknowledgments—and determine when a capacity slot can safely be released."
 readingBrief:
   takeaways:
     - "Capacity is shared by normalized endpoint within the managed coordination domain; persistent queues and leases prevent process-local counters or control-store failures from resetting occupancy."

@@ -1,4 +1,5 @@
 ---
+description: "A stop command takes effect, but its delivery acknowledgment is lost. Follow command identity, expiring claims and original business receipts to see how durable control handles duplicates and unknown outcomes without mistaking successful delivery for task completion."
 readingBrief:
   takeaways:
     - "The control channel owns command identity, order and delivery; original business owners still decide whether stop, correction or recovery effects are admitted."

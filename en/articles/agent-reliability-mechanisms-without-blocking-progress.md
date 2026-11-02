@@ -111,7 +111,7 @@ Return to the report. A missing optional observation should not automatically er
 
 ## Further Reading
 
-- [Run termination, phase budgets, and safe recovery](/articles/agent-veto-authority-and-run-termination): who decides whether a local failure ends the task. Chinese original.
+- [Run termination, phase budgets, and safe recovery](agent-veto-authority-and-run-termination.md): who decides whether a local failure ends the task.
 - [Capturing, retaining, and reading research evidence](agent-research-evidence-store-lifecycle.md): optional observation copies and original execution facts.
 - [中文版](/articles/agent-reliability-mechanisms-without-blocking-progress)
 

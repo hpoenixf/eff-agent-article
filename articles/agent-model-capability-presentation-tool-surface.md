@@ -1,4 +1,5 @@
 ---
+description: "工具已注册，为什么模型看不到，或看到了却不能执行？沿 Skill、MCP、Host 到最终请求的演进，解释独立准入基准如何防止 Hook 和异步装配改变工具表面，并让拒绝回到原请求账本结算。"
 readingBrief:
   takeaways:
     - "工具登记、Skill 声明、Host 准入与模型实际可见不是同一事实；Tool Surface 只投影原 Owner 的合法决定。"

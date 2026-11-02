@@ -1,4 +1,5 @@
 ---
+description: "Specialists can submit useful work without improving the final answer. Trace their execution identities, submissions, later Main inputs and final claims to separate observable handoffs from semantic adoption—and from benefits requiring a matched quality-and-cost comparison."
 evidence:
   implementation: "Execution identities and handoffs can be inspected"
   scoped: "Recorded submissions matched to later Main-input excerpts"

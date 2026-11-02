@@ -1,4 +1,5 @@
 ---
+description: "More specialists do not automatically make investment research better. A synthetic technology-ETF example shows how allocation, tail-risk, cost and cash-discipline perspectives test a shared hypothesis, and how Main should synthesize evidence and disagreements rather than vote on positions."
 readingBrief:
   takeaways:
     - "Multiple perspectives should test one material hypothesis through different methods, not vote; a simple lookup need not incur extra delegation cost."

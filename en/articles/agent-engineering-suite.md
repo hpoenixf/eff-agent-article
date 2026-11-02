@@ -1,4 +1,5 @@
 ---
+description: "How can the next agent continue engineering work without reviving discarded decisions or overstating tests? A background-report example connects specifications, review, history, maturity and roadmaps, explaining optional adoption, shared packaging and the limits of automated checks."
 readingBrief:
   takeaways:
     - "Engineering continuity needs explicit handoffs between decisions, tasks, evidence, and next steps; the suite complements Git, CI, and project acceptance rather than replacing them."

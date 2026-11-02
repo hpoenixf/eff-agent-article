@@ -1,4 +1,5 @@
 ---
+description: "Why do incremental research answers read like miniature reports stitched together? Writing goals, an authorized view of the current text and identity-based revisions help new evidence advance one argument, while usefulness, readability, factual accuracy and completion remain separate evaluation goals."
 readingBrief:
   takeaways:
     - "Incremental delivery should develop one answer around the user’s questions, not package every tool-work phase as another self-contained miniature report."

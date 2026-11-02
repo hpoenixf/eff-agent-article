@@ -1,4 +1,5 @@
 ---
+description: "A backup model may share the same outage—or be ineligible to receive the request. This bounded, default-off failover design separates failure domains, retry authority, payload disclosure and attempt accounting while preserving the original task and previously committed results."
 readingBrief:
   takeaways:
     - "Select backups by actual failure domain: changing models behind one endpoint may not escape group limits, and one failed request does not establish a provider-wide outage."

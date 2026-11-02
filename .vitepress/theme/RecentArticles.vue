@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData, withBase } from 'vitepress'
+import { data as descriptionData } from './article-descriptions.data'
+import { descriptionForArticle } from '../../article-description.mjs'
 import { data } from './recent-articles.data'
 const { lang } = useData()
 const english = computed(() => lang.value.startsWith('en'))
@@ -17,7 +19,8 @@ const entries = computed(() => english.value ? data.en : data.zh)
     <p v-else class="recent-note">{{ english ? 'Recent updates cannot be confirmed here. All articles remain available in the catalogue.' : '暂无法确认最近更新，仍可从完整目录继续阅读。' }}</p>
     <ol v-if="entries.length">
       <li v-for="entry in entries" :key="entry.slug">
-        <a :href="withBase(entry.href)"><span class="recent-title">{{ entry.title }}</span><span aria-hidden="true">↗</span></a>
+        <a :href="withBase(entry.href)" :aria-describedby="'recent-description-' + entry.slug"><span class="recent-title">{{ entry.title }}</span><span aria-hidden="true">↗</span></a>
+        <p :id="'recent-description-' + entry.slug" class="article-list-description" :data-description-for="entry.href" :title="descriptionForArticle(descriptionData.articles, entry.href)">{{ descriptionForArticle(descriptionData.articles, entry.href) }}</p>
         <div class="recent-meta"><span class="recent-kind" :class="entry.kind">{{ entry.kind === 'new' ? (english ? 'New' : '新增') : (english ? 'Updated' : '更新') }}</span><time :datetime="entry.timestamp">{{ entry.date }}</time></div>
       </li>
     </ol>
@@ -32,10 +35,10 @@ const entries = computed(() => english.value ? data.en : data.zh)
 .recent-note { color: var(--vp-c-text-2); font-size: 14px; }
 ol { list-style: none; margin: 0; padding: 0; }
 li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--vp-c-divider); }
-li > a { display: flex; gap: 12px; justify-content: space-between; min-width: 0; padding: 6px 0; text-decoration: none; line-height: 1.6; }
+li > a { grid-column: 1 / -1; display: flex; gap: 12px; justify-content: space-between; min-width: 0; padding: 6px 0; text-decoration: none; line-height: 1.6; }
 .recent-title { overflow-wrap: anywhere; }
 li > a:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px; border-radius: 4px; }
-.recent-meta { display: flex; align-items: center; gap: 10px; color: var(--vp-c-text-2); font-size: 12px; white-space: nowrap; }
+.recent-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; color: var(--vp-c-text-2); font-size: 12px; white-space: nowrap; }
 .recent-kind { padding: 2px 8px; border-radius: 12px; background: var(--vp-c-default-soft); }
 .recent-kind.new { color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }
 @media (max-width: 640px) { li { grid-template-columns: minmax(0, 1fr); gap: 4px; } li > a { min-height: 44px; align-items: center; } .recent-heading { flex-wrap: wrap; gap: 8px; } }

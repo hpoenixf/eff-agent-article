@@ -1,4 +1,5 @@
 ---
+description: "When reports and charts share model calls, adding their cost views can double-count the same work. Physical-attempt identities and publication revisions clarify request association, unallocated shared costs and unknown usage without pretending to provide a reconciled total."
 evidence:
   implementation: "Original-request and publication-version association implemented"
   scoped: "Controlled persisted-delivery readback and observer-failure checks"

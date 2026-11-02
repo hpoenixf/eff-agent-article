@@ -1,4 +1,5 @@
 ---
+description: "When answers appear early and change later, sending text is not enough. Preview conflicts and commits missing from runtime logs explain why publication needs durable identities, scoped degradation and recovery—without confusing saved content with task completion or research correctness."
 evidence:
   implementation: "Publication mechanism implemented (as documented here)"
   scoped: "Controlled call paths and PostgreSQL recovery cases"

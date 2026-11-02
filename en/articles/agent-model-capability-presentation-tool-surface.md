@@ -1,4 +1,5 @@
 ---
+description: "Why can a registered tool remain invisible—or appear without being executable? Follow Skill, MCP and Host boundaries into final request assembly, where an independent admission baseline detects descriptor changes and rejected requests settle through the existing execution ledger."
 readingBrief:
   takeaways:
     - "Tool registration, Skill declarations, Host admission and actual model visibility are different facts; Tool Surface projects lawful decisions from their original Owners."

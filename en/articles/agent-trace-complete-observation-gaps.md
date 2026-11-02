@@ -1,4 +1,5 @@
 ---
+description: "A complete trace query can still omit events from a saved answer. A long-run investigation separates pagination from capture coverage, explains bounded omission counters and shows how original receipts clarify gaps without reconstructing missing history or replaying effects."
 evidence:
   implementation: "Protocol-omission classification implemented"
   scoped: "Recorded long-run audit and controlled gap checks"

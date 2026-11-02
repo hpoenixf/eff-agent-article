@@ -1,4 +1,5 @@
 ---
+description: "How can a long conversation shrink without rewriting what the user actually said? Follow source-bound message pairs, assistant-only summarization and immutable commits to understand cross-Run history reuse, failure fallback and the difference between stored history and material actually sent."
 readingBrief:
   takeaways:
     - "Cross-Run compaction handles completed question–answer pairs in one conversation; it is neither recovery of a research Run nor a substitute for long-term memory."

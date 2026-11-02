@@ -1,4 +1,5 @@
 ---
+description: "How does a unified market-data adapter quietly become a research decision-maker? This retrospective separates structured reads needed by deterministic calculations from native tools for open research, preserving the limits of provider fallback, cached dates, coverage and source agreement."
 readingBrief:
   takeaways:
     - "Integration should report sources and failures faithfully. A schema mismatch is not missing data, and adapters should not decide evidence sufficiency or follow-up research."

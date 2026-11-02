@@ -1,4 +1,5 @@
 ---
+description: "Why can one failed read stop an entire research task? Optional-note vetoes, nested retries and stage clocks expose the boundary between local refusal and Run termination: preserve independent results without resetting budgets, changing the question or replaying uncertain effects."
 readingBrief:
   takeaways:
     - "A local module should reject only effects it owns; the Run lifecycle, holding original execution facts, decides whether the overall task continues, finalizes, or stops."

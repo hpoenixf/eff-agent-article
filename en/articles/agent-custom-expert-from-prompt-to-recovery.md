@@ -1,4 +1,5 @@
 ---
+description: "Turning a personal prompt into a reusable research method requires more than storage. Follow versioned profiles, exact selection, Child task revisions and execution-backed contribution history to see how methods evolve without rewriting past research or granting new authority."
 readingBrief:
   takeaways:
     - "A personal expert is a versioned research method, not an independent authority platform; Main sees a catalog and only the selected Child receives full instructions."

@@ -1,4 +1,5 @@
 ---
+description: "The same Hook name can imply different effects across Claude, Pi and Codex. Compare command dialects with Pi Factories and closures to understand ordering, termination and recovery for selected extensions without replacing the existing Agent loop or replaying settled effects."
 readingBrief:
   takeaways:
     - "Identically named Hooks need not share semantics; compatibility Profiles interpret each dialect while the original Runtime authorizes effects and explicitly rejects unsupported combinations."

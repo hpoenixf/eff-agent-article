@@ -1,4 +1,5 @@
 ---
+description: "Opposing essays are not a real discussion. Following a challenge to an investment premise, this design explains peer pairing, durable messages, actual model-input delivery, bounded waiting and recovery—without fabricated exchanges, expanded permissions or a vote disguised as investment judgment."
 readingBrief:
   takeaways:
     - "A real Bull/Bear discussion challenges a specific premise and obtains its proponent’s response; parallel essays, simulated bubbles, and votes cannot replace an actual exchange."

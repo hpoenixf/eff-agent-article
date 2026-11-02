@@ -174,3 +174,16 @@ The shared JSON-LD owner describes the bilingual collection website and its actu
 The independent bilingual catalogue filters, sorts, then paginates 20 primary articles at a time. Its compact toolbar retains native select/details semantics. A server-rendered, user-expandable list of every matching article keeps later pages accessible without JavaScript; it is a projection of the existing registry, not a second index or duplicate full text. Category/home behavior and article/date ownership stay unchanged.
 
 独立目录采用宽版容器，标题与动态统计同排，宽屏双列／窄屏单列；每卡分类和真实创建／更新日期在同一底部信息区。桌面控件可见高度 36px，粗指针与手机保持 44px 触控目标；焦点样式和原生操作语义不变。
+
+
+## 列表简介 / Authored list descriptions
+
+正式目录中每个已存在语言版本的 Markdown frontmatter `description` 是列表简介的唯一编辑源。最近更新与全部文章通过 `article-descriptions.data.ts` 共用 `article-description.mjs` 的构建期投影；不另建摘要清单，不截取首段、拼接标题或顶部导读结论。英文采用自身完整译文的简介，缺英文全文的目录入口继续使用真实中文原文及其简介，不伪造英文版本。历史副本与兼容跳转不因列表覆盖而改写。
+
+简介需通读完整正文后概述文章的具体问题、主要机制与必要边界，不能把设计、有限示例或合成数据写成已验证效果。已有准确简介不为凑字数改写；文章实质变化时一并复核对应语言。顶部 `readingBrief` 负责结论与适用判断，不能由一句简介替代。
+
+界面用 CSS 显示约两行，保留完整 DOM 文本、标题链接的 `aria-describedby` 和原生完整提示；不在数据层截字。`npm run check:descriptions` 拒绝缺项、重复、标题或单条结论冒充简介，并测试共享来源；该门纳入 `check:catalog`。构建后 `node scripts/check-article-descriptions.mjs --output` 核对中英文首页和全部文章的实际完整文本及关联。结构检查不替代全文编辑审校或真实浏览器验收。
+
+简介是可见内容，仍按原 `article-history.mjs` 规则记录更新，不排除本次修改或回写历史日期。正文、目录顺序、分页、标签和日期 owner 均保持不变。
+
+Each canonical language edition owns its authored `description`. Recent updates and the independent catalogue consume the same build-time index; missing descriptions fail validation rather than becoming title, first-paragraph or reading-brief excerpts. Two-line CSS presentation retains full accessible text. Review the complete article and its qualifications before authoring a description; accurate existing text need not be padded. Visible description edits remain content updates under the existing history owner.

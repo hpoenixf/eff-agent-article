@@ -1,4 +1,5 @@
 ---
+description: "从关键词、复杂 Intent 和 Planner 到 Direct／Research 两分支，回看入口为何越做越简单。重复动作、澄清丢历史和错误回退等案例，说明怎样缩小决策协议，同时保留能力发现、解析边界与研究准入。"
 evidence:
   implementation: "Direct / Research 路线已采用（按本文记录）"
   scoped: "历史案例与入口行为观察"

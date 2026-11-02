@@ -1,4 +1,5 @@
 ---
+description: "Follow a document-comparison report through reading, saving, missing pages and recovery. Nine architectural judgments connect ownership, partial results and replaceable components to a checkable user outcome, while separating hypothetical design choices from implemented behavior."
 readingBrief:
   takeaways:
     - "Start with a small report users can open and verify; let factual owners govern reads, authorization, and saving while recording proposal, permission, dispatch, and effect separately."

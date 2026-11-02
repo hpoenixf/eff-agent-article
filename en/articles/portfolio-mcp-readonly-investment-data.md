@@ -1,4 +1,5 @@
 ---
+description: "Follow a portfolio query from a limited overview to a rebalancing scenario. Report identity, dates, denominators and explicit cash assumptions keep account facts separate from hypothetical calculations—and neither a feasible scenario nor a confirmed plan proves a trade occurred."
 readingBrief:
   takeaways:
     - "Read-only access can support scenario calculations, but account snapshots, hypotheses and executed trades remain distinct; feasibility neither records user approval nor changes an account."
