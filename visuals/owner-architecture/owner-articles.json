@@ -57,7 +57,8 @@
     "agent-long-horizon-research-panorama": "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付",
     "agent-research-workspace-goal-continuity": "Workspace：从一次性对话到长期研究",
     "agent-action-reminder-coordination": "行动提醒：从生成建议到真正送达模型",
-    "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？"
+    "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？",
+    "agent-skill-from-markdown-to-callable-research": "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力"
   },
   "owners": {
     "A01": {
@@ -127,6 +128,7 @@
       ]
     },
     "A12": {
+      "primary": "agent-skill-from-markdown-to-callable-research",
       "related": [
         "agent-model-runtime-mcp-skill-boundaries",
         "020-agent-extension-host-smartphone"
