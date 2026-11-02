@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { data as descriptionData } from './article-descriptions.data'
 import { descriptionForArticle } from '../../article-description.mjs'
 import { data as tagData } from './article-tags.data'
@@ -7,6 +7,7 @@ import { data as chronologyData } from './article-chronology.data'
 import { withBase } from 'vitepress'
 import { collections } from '../../book.mjs'
 import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries } from './catalog-view.mjs'
+import { DEFAULT_CATALOG_SORT, readCatalogLocation, writeCatalogLocation } from './catalog-location.mjs'
 import { englishCollections, englishArticlePath } from '../../book.en.mjs'
 import { useData } from 'vitepress'
 
@@ -17,15 +18,19 @@ const pathFor = (slug: string) => isEnglish.value ? englishArticlePath(slug) : '
 const categoryFor = (id: string) => (isEnglish.value ? '/en/' : '/') + id
 const props = defineProps<{ compact?: boolean; category?: string }>()
 const selectedTags = ref<string[]>([])
-const toggleTag = (id: string) => { selectedTags.value = selectedTags.value.includes(id) ? selectedTags.value.filter(tag => tag !== id) : [...selectedTags.value, id] }
+const toggleTag = (id: string) => {
+  selectedTags.value = selectedTags.value.includes(id) ? selectedTags.value.filter(tag => tag !== id) : [...selectedTags.value, id]
+  currentPage.value = 1
+  pushLocation()
+}
+const clearTags = () => { if (selectedTags.value.length) { selectedTags.value = []; currentPage.value = 1; pushLocation() } }
 const view = computed(() => catalogView(allCollections.value, { category: props.category, selectedTags: selectedTags.value, articles: tagData.articles }))
 const selectedCollections = computed(() => view.value.collections)
 const canSort = computed(() => !props.category && !props.compact && ['catalog.md', 'en/catalog.md'].includes(page.value.relativePath))
-const sortOrder = ref('category')
+const sortOrder = ref(DEFAULT_CATALOG_SORT)
 const currentPage = ref(1)
 const resultsRegion = ref<HTMLElement | null>(null)
 const focusResults = () => { resultsRegion.value?.focus({ preventScroll: true }) }
-watch([selectedTags, sortOrder], () => { currentPage.value = 1 }, { flush: 'sync' })
 const isChronological = computed(() => canSort.value && sortOrder.value !== 'category')
 const entryOptions = computed(() => ({ chronology: chronologyData.articles,
   sourcePath: (slug: string) => pathFor(slug).slice(1) + '.md'
@@ -34,9 +39,49 @@ const allEntries = computed(() => isChronological.value
   ? chronologicalCatalog(selectedCollections.value, { ...entryOptions.value, order: sortOrder.value })
   : primaryCatalogEntries(selectedCollections.value, entryOptions.value))
 const pagination = computed(() => paginateCatalogEntries(allEntries.value, { page: currentPage.value }))
-const goToPage = (page: number) => { currentPage.value = paginateCatalogEntries(allEntries.value, { page }).page }
+const goToPage = (page: number) => { currentPage.value = paginateCatalogEntries(allEntries.value, { page }).page; pushLocation() }
+const changeSort = (event: Event) => { sortOrder.value = (event.target as HTMLSelectElement).value; currentPage.value = 1; pushLocation() }
 const pageNumbers = computed(() => Array.from({ length: pagination.value.pageCount }, (_, index) => index + 1))
 
+// Hydrate the static default first, then restore the URL. A popstate never acts
+// like a new user edit, and an old catalogue instance cannot write another route.
+const tagIds = tagData.definitions.map(tag => tag.id)
+let mounted = false
+const activeLocation = () => mounted && canSort.value &&
+  window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '') === withBase('/' + page.value.relativePath.replace(/\.md$/, ''))
+const locationState = () => ({ sort: sortOrder.value, tags: selectedTags.value, page: pagination.value.page })
+const locationPath = () => window.location.pathname + window.location.search + window.location.hash
+function restoreLocation() {
+  if (!activeLocation()) return
+  const state = readCatalogLocation(window.location.href, tagIds)
+  sortOrder.value = state.sort
+  selectedTags.value = state.tags
+  currentPage.value = state.page
+  currentPage.value = pagination.value.page
+  const target = writeCatalogLocation(window.location.href, locationState(), tagIds)
+  if (target !== locationPath()) window.history.replaceState(window.history.state, '', target)
+}
+function pushLocation() {
+  if (!activeLocation()) return
+  const target = writeCatalogLocation(window.location.href, locationState(), tagIds)
+  if (target === locationPath()) return
+  // VitePress uses scrollPosition when traversing history; preserve its state.
+  const state = { ...window.history.state, scrollPosition: window.scrollY }
+  window.history.replaceState(state, '')
+  window.history.pushState(state, '', target)
+}
+onMounted(() => {
+  if (typeof window === 'undefined') return
+  mounted = true
+  restoreLocation()
+  window.addEventListener('popstate', restoreLocation)
+})
+watch(() => page.value.relativePath, () => {
+  if (!mounted) return
+  selectedTags.value = []; sortOrder.value = DEFAULT_CATALOG_SORT; currentPage.value = 1
+  restoreLocation()
+}, { flush: 'post' })
+onUnmounted(() => { if (mounted) window.removeEventListener('popstate', restoreLocation); mounted = false })
 </script>
 
 <template>
@@ -54,17 +99,17 @@ const pageNumbers = computed(() => Array.from({ length: pagination.value.pageCou
   <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags; match all selected' : '按文章标签筛选，同时满足所选标签'">
     <span>{{ canSort ? (isEnglish ? 'Tags' : '标签') : (isEnglish ? 'Tags · match all selected' : '标签 · 同时满足所选标签') }}</span>
     <button v-for="tag in tagData.definitions" :key="tag.id" type="button" :aria-pressed="selectedTags.includes(tag.id)" @click="toggleTag(tag.id)">{{ isEnglish ? tag.en : tag.zh }}</button>
-    <button v-if="canSort || selectedTags.length" class="catalog-clear" type="button" :aria-label="isEnglish ? 'Clear filters' : '清除筛选'" :aria-disabled="canSort && !selectedTags.length ? true : undefined" @click="selectedTags.length && (selectedTags = [])"><span v-if="canSort" aria-hidden="true">×</span><template v-else>{{ isEnglish ? 'Clear filters' : '清除筛选' }}</template></button>
+    <button v-if="canSort || selectedTags.length" class="catalog-clear" type="button" :aria-label="isEnglish ? 'Clear filters' : '清除筛选'" :aria-disabled="canSort && !selectedTags.length ? true : undefined" @click="clearTags"><span v-if="canSort" aria-hidden="true">×</span><template v-else>{{ isEnglish ? 'Clear filters' : '清除筛选' }}</template></button>
   </div>
   <div v-if="canSort" class="catalog-sort">
     <label for="catalog-sort-order">{{ isEnglish ? 'Sort' : '排序' }}</label>
     <div class="catalog-select-shell">
-    <select id="catalog-sort-order" v-model="sortOrder" aria-describedby="catalog-date-note">
-      <option value="category">{{ isEnglish ? 'Catalogue order' : '目录顺序' }}</option>
-      <option value="created-desc">{{ isEnglish ? 'Created: newest first' : '创建时间：从新到旧' }}</option>
-      <option value="created-asc">{{ isEnglish ? 'Created: oldest first' : '创建时间：从旧到新' }}</option>
-      <option value="updated-desc">{{ isEnglish ? 'Updated: newest first' : '更新时间：从新到旧' }}</option>
-      <option value="updated-asc">{{ isEnglish ? 'Updated: oldest first' : '更新时间：从旧到新' }}</option>
+    <select id="catalog-sort-order" :value="sortOrder" @change="changeSort" aria-describedby="catalog-date-note">
+      <option value="category" :selected="sortOrder === 'category'">{{ isEnglish ? 'Catalogue order' : '目录顺序' }}</option>
+      <option value="created-desc" :selected="sortOrder === 'created-desc'">{{ isEnglish ? 'Created: newest first' : '创建时间：从新到旧' }}</option>
+      <option value="created-asc" :selected="sortOrder === 'created-asc'">{{ isEnglish ? 'Created: oldest first' : '创建时间：从旧到新' }}</option>
+      <option value="updated-desc" :selected="sortOrder === 'updated-desc'">{{ isEnglish ? 'Updated: newest first' : '更新时间：从新到旧' }}</option>
+      <option value="updated-asc" :selected="sortOrder === 'updated-asc'">{{ isEnglish ? 'Updated: oldest first' : '更新时间：从旧到新' }}</option>
     </select>
     </div>
     <details class="catalog-help">

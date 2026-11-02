@@ -18,7 +18,13 @@ function relativePath() {
 }
 function urlFor(lang: Language): string | null {
   const path = localizedSitePath(relativePath(), lang, [...englishArticleSlugs, ...historicalEnglishArticleSlugs])
-  return path ? withBase(path) + window.location.hash : null
+  if (!path) return null
+  // The independent catalogue's shareable state must survive a language choice
+  // or an existing saved-language redirect. Other route behaviour is unchanged.
+  const params = new URLSearchParams(window.location.search)
+  params.delete('lang')
+  const search = /\/catalog$/.test(path) && params.size ? '?' + params.toString() : ''
+  return withBase(path) + search + window.location.hash
 }
 function save(value: Language) {
   selected.value = value
@@ -40,7 +46,7 @@ function sync() {
   save(language)
   const target = urlFor(language)
   unavailable.value = language === 'en' && !target
-  if (queryLanguage && target && window.location.pathname !== target.split('#')[0]) {
+  if (queryLanguage && target && window.location.pathname !== new URL(target, window.location.href).pathname) {
     window.location.replace(target)
     return
   }

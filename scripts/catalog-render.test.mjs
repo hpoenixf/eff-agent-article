@@ -5,20 +5,22 @@ import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parse, compileScript, compileStyle } from '@vue/compiler-sfc'
 import { build } from 'esbuild'
-import { createSSRApp, createRenderer, nextTick } from 'vue'
+import { createSSRApp, createRenderer, nextTick, ref } from 'vue'
 import { renderToString } from '@vue/server-renderer'
 import { createMarkdownRenderer } from 'vitepress'
 import { collections } from '../book.mjs'
-import { englishArticleSlugs } from '../book.en.mjs'
+import { chronologicalCatalog } from '../.vitepress/theme/catalog-view.mjs'
+import { DEFAULT_CATALOG_SORT } from '../.vitepress/theme/catalog-location.mjs'
+import { englishArticleSlugs, englishCollections, englishArticlePath } from '../book.en.mjs'
 
 const theme = resolve('.vitepress/theme')
 const { descriptor } = parse(readFileSync(resolve(theme, 'ChapterCatalog.vue'), 'utf8'))
 let compiled = compileScript(descriptor, { id: 'catalog-test', inlineTemplate: true }).content
 // Supply selected values as a test driver, without changing the template,
 // computed state, filtering, sorting, routing, or any event binding.
-assert.ok(compiled.includes("const sortOrder = ref('category')"))
+assert.ok(compiled.includes("const sortOrder = ref(DEFAULT_CATALOG_SORT)"))
 assert.ok(compiled.includes('const selectedTags = ref<string[]>([])'))
-compiled = compiled.replace("const sortOrder = ref('category')", 'const sortOrder = ref(globalThis.__catalogTestState.order)')
+compiled = compiled.replace("const sortOrder = ref(DEFAULT_CATALOG_SORT)", 'const sortOrder = ref(globalThis.__catalogTestState.order)')
 compiled = compiled.replace('const selectedTags = ref<string[]>([])', 'const selectedTags = ref<string[]>(globalThis.__catalogTestState.tags)')
 assert.ok(compiled.includes('const currentPage = ref(1)'))
 compiled = compiled.replace('const currentPage = ref(1)', 'const currentPage = ref(globalThis.__catalogTestState.currentPage)')
@@ -52,10 +54,19 @@ const bundled = await build({ stdin: { contents: compiled, loader: 'ts', resolve
 const cache = resolve('.vitepress/cache'); mkdirSync(cache, { recursive: true })
 const modulePath = resolve(cache, 'catalog-render-fixture.mjs'); writeFileSync(modulePath, bundled.outputFiles[0].text)
 const Component = (await import(pathToFileURL(modulePath))).default
-async function render({ order = 'category', tags = [], english = false, page = 'catalog.md', props = {}, currentPage = 1 } = {}) {
-  globalThis.__catalogTestState = { order, tags, currentPage, data: { lang: { value: english ? 'en-US' : 'zh-CN' }, page: { value: { relativePath: page } } } }
+const languageDescriptor = parse(readFileSync(resolve(theme, 'LanguagePreference.vue'), 'utf8')).descriptor
+const languageBundle = await build({ stdin: { contents: compileScript(languageDescriptor, { id: 'catalog-language-test', inlineTemplate: true }).content, loader: 'ts', resolveDir: theme },
+  bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'language-test-router', setup(builder) {
+    builder.onResolve({ filter: /^vitepress$/ }, () => ({ path: 'vitepress', namespace: 'language-test' }))
+    builder.onLoad({ filter: /.*/, namespace: 'language-test' }, () => ({ contents: 'export const useRoute = () => ({ path: "/catalog" }); export const withBase = p => "/eff-agent-article" + p;' }))
+  } }] })
+const languageModulePath = resolve(cache, 'catalog-language-fixture.mjs'); writeFileSync(languageModulePath, languageBundle.outputFiles[0].text)
+const LanguageComponent = (await import(pathToFileURL(languageModulePath))).default
+async function render({ order = DEFAULT_CATALOG_SORT, tags = [], english = false, page = 'catalog.md', props = {}, currentPage = 1 } = {}) {
+  globalThis.__catalogTestState = { order, tags, currentPage, data: { lang: ref(english ? 'en-US' : 'zh-CN'), page: ref({ relativePath: page }) } }
   return renderToString(createSSRApp(Component, props))
 }
+const expectedDefault = english => chronologicalCatalog(english ? englishCollections : collections, { order: DEFAULT_CATALOG_SORT, chronology: dates, sourcePath: slug => (english ? englishArticlePath(slug).slice(1) : 'articles/' + slug) + '.md' }).map(entry => entry.slug)
 const orderedSlugs = html => [...html.matchAll(/data-article="([^"]+)"/g)].map(match => match[1])
 
 test('actual catalogue SFC exposes a labelled native select only on independent Chinese and English catalogues', async () => {
@@ -69,7 +80,7 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
     assert.match(html, /class="catalog-article-list"/); assert.ok(!html.includes('class="collection-block"'), 'Independent catalogue uses dense cards in original catalogue order')
     assert.equal(orderedSlugs(html).length, 20)
     assert.equal((html.match(/class="article-list-description"/g) || []).length, 20)
-    for (const slug of canonical.slice(0, 20)) {
+    for (const slug of orderedSlugs(html)) {
       const path = (english && englishArticleSlugs.includes(slug) ? 'en/' : '') + 'articles/' + slug + '.md'
       assert.ok(html.includes(globalThis.__catalogDescriptions.articles[path]))
       assert.ok(html.includes('aria-describedby="catalog-description-' + slug + '"'))
@@ -79,7 +90,8 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
     assert.match(html, new RegExp(canonical.length + (english ? ' articles' : ' 篇文章')))
     assert.equal((html.match(/class="catalog-entry-meta"/g) || []).length, 20)
     assert.equal((html.match(/class="catalog-dates"/g) || []).length, 20)
-    assert.deepEqual(orderedSlugs(html), canonical.slice(0, 20))
+    assert.deepEqual(orderedSlugs(html), expectedDefault(english).slice(0, 20))
+    assert.match(html, /<option[^>]*value="created-desc"[^>]*selected/)
     assert.match(html, /class="catalog-toolbar"/)
     assert.match(html, /class="catalog-select-shell"/)
     assert.match(html, /<details class="catalog-help"/)
@@ -95,7 +107,7 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
 })
 
 test('SSR page two, out-of-range, empty and language fallback retain correct pagination and discoverable links', async () => {
-  const page2 = await render({ currentPage: 2 })
+  const page2 = await render({ currentPage: 2, order: 'category' })
   assert.deepEqual(orderedSlugs(page2), canonical.slice(20, 40))
   assert.match(page2, /aria-current="page"[^>]*aria-label="第 2 页"/)
   const last = await render({ currentPage: 999, order: 'created-asc' })
@@ -113,9 +125,7 @@ test('SSR page two, out-of-range, empty and language fallback retain correct pag
   assert.match(empty, /显示 0–0 篇，共 0 篇/)
 })
 
-// Vue's real reactive renderer and bound event handlers, with a lightweight host
-// tree rather than a browser or a replacement implementation of the component.
-test('actual filter, clear, sort and paging handlers update results and reset the page without focus side effects', async () => {
+function catalogHost() {
   let focused = null
   const node = (tag, text = '') => ({ tag, tagName: tag.toUpperCase(), text, props: {}, children: [], parent: null,
     listeners: {}, addEventListener(event, handler) { this.listeners[event] = handler }, removeEventListener(event) { delete this.listeners[event] },
@@ -131,11 +141,20 @@ test('actual filter, clear, sort and paging handlers update results and reset th
     remove: n => { if (n.parent) n.parent.children.splice(n.parent.children.indexOf(n), 1); n.parent = null },
     insertStaticContent: (content, parent, anchor) => { const n = node('#static', content); n.parent = parent; const i = parent.children.indexOf(anchor); parent.children.splice(i < 0 ? parent.children.length : i, 0, n); return [n, n] }
   })
-  await render()
-  const root = node('root'), app = renderer.createApp(Component); app.mount(root)
+  const root = node('root')
   const all = n => [n, ...n.children.flatMap(all)]
   const text = n => n.text + n.children.map(text).join('')
   const find = predicate => all(root).find(predicate)
+  return { root, renderer, all, text, find, focused: () => focused }
+}
+
+// Vue's real reactive renderer and bound event handlers, with a lightweight host
+// tree rather than a browser or a replacement implementation of the component.
+test('actual filter, clear, sort and paging handlers update results and reset the page without focus side effects', async () => {
+  await render()
+  const host = catalogHost()
+  const { root, renderer, all, text, find } = host
+  const app = renderer.createApp(Component); app.mount(root)
   const current = () => find(n => n.props['aria-current'] === 'page')
   const click = async n => { assert.ok(n); n.props.onClick(); await nextTick() }
   try {
@@ -150,15 +169,14 @@ test('actual filter, clear, sort and paging handlers update results and reset th
     assert.equal(text(current()), '1')
     await click(find(n => n.tag === 'button' && text(n) === '下一页'))
     const select = find(n => n.tag === 'select')
-    for (const option of select.options) option.selected = option.value === 'updated-desc'
-    select.listeners.change(); await nextTick()
+    select.props.onChange({ target: { value: 'updated-desc' } }); await nextTick()
     assert.equal(text(current()), '1')
     assert.equal(all(root).filter(n => n.props['data-article']).length, 20)
     assert.ok(find(n => n.props.id === 'catalog-results' && n.props.tabindex === -1))
-    assert.equal(focused, null, 'Changing pages, filters and order must not grab focus')
+    assert.equal(host.focused(), null, 'Changing pages, filters and order must not grab focus')
     await click(find(n => n.tag === 'a' && n.props.href === '#catalog-results'))
-    assert.equal(focused.target.props.id, 'catalog-results')
-    assert.deepEqual(focused.options, { preventScroll: true })
+    assert.equal(host.focused().target.props.id, 'catalog-results')
+    assert.deepEqual(host.focused().options, { preventScroll: true })
   } finally { app.unmount() }
 })
 
@@ -180,6 +198,119 @@ test('actual SFC renders all four global orders, matching tags, edition dates, a
   assert.ok(!fallback.includes(globalThis.__catalogDescriptions.articles['en/articles/' + untranslated + '.md']))
   const empty = await render({ order: 'updated-desc', tags: ['not-a-tag'] })
   assert.deepEqual(orderedSlugs(empty), []); assert.match(empty, /role="status"/)
+})
+
+// An in-memory History API fixture drives the actual mounted SFC. This is not
+// a browser claim; the live release also needs a real Back/Forward check.
+function historyWindow(initial) {
+  let location = new URL(initial, 'https://example.invalid'), index = 0
+  const entries = [{ href: location.href, state: { router: 'preserved', scrollPosition: 80 } }]
+  const listeners = new Set()
+  let pushes = 0, replaces = 0
+  const history = {
+    get state() { return entries[index].state },
+    pushState(state, title, href) { pushes++; location = new URL(href, location); entries.splice(++index); entries.push({ href: location.href, state }) },
+    replaceState(state, title, href) { replaces++; if (href !== undefined) location = new URL(href, location); entries[index] = { href: location.href, state } }
+  }
+  const pop = () => { for (const callback of listeners) callback({ state: history.state }) }
+  return { get location() { return location }, history, scrollY: 80,
+    addEventListener: (name, fn) => { assert.equal(name, 'popstate'); listeners.add(fn) },
+    removeEventListener: (name, fn) => { assert.equal(name, 'popstate'); listeners.delete(fn) },
+    back() { if (index) { location = new URL(entries[--index].href); pop() } },
+    forward() { if (index + 1 < entries.length) { location = new URL(entries[++index].href); pop() } },
+    visit(href) { location = new URL(href, location); entries[index] = { href: location.href, state: history.state }; pop() },
+    counts: () => ({ pushes, replaces, listeners: listeners.size })
+  }
+}
+
+test('mounted catalogue restores URL, history and language routes without writes on popstate or duplicate edits', async () => {
+  const originalWindow = globalThis.window
+  await render()
+  const browser = historyWindow('/eff-agent-article/catalog?keep=a%20b#catalog-results')
+  globalThis.window = browser
+  const host = catalogHost(), { root, renderer, find, text, all } = host
+  let app = renderer.createApp(Component); app.mount(root); await nextTick()
+  const select = () => find(n => n.tag === 'select')
+  const current = () => text(find(n => n.props['aria-current'] === 'page'))
+  const click = async label => { const button = find(n => n.tag === 'button' && (text(n) === label || n.props['aria-label'] === label)); assert.ok(button); button.props.onClick(); await nextTick() }
+  const location = () => browser.location.pathname + browser.location.search + browser.location.hash
+  try {
+    assert.equal(select().props.value, 'created-desc')
+    assert.equal(current(), '1')
+    assert.equal(browser.counts().pushes, 0)
+    await click('下一页')
+    assert.equal(current(), '2'); assert.equal(browser.location.searchParams.get('page'), '2')
+    assert.equal(browser.history.state.router, 'preserved'); assert.equal(browser.history.state.scrollPosition, 80)
+    const pushes = browser.counts().pushes
+    browser.back(); await nextTick(); assert.equal(current(), '1')
+    browser.forward(); await nextTick(); assert.equal(current(), '2')
+    assert.equal(browser.counts().pushes, pushes, 'Traversal never pushes another history entry')
+    const page2 = location()
+    await click('金融')
+    assert.equal(browser.location.searchParams.get('tags'), 'finance')
+    assert.equal(browser.location.searchParams.has('page'), false, 'A filter resets page 1')
+    await click('清除筛选'); assert.equal(current(), '1')
+    const afterClear = browser.counts().pushes
+    await click('清除筛选'); assert.equal(browser.counts().pushes, afterClear)
+    await click('下一页')
+    select().props.onChange({ target: { value: 'updated-desc' } }); await nextTick()
+    assert.equal(current(), '1'); assert.equal(browser.location.searchParams.get('sort'), 'updated-desc')
+    browser.back(); await nextTick(); assert.equal(current(), '2'); assert.equal(select().props.value, 'created-desc')
+    browser.forward(); await nextTick(); assert.equal(current(), '1'); assert.equal(select().props.value, 'updated-desc')
+    assert.equal(browser.location.searchParams.get('keep'), 'a b'); assert.equal(browser.location.hash, '#catalog-results')
+    browser.visit('/eff-agent-article/catalog?sort=category&page=999&tags=finance,unknown#keep')
+    await nextTick()
+    assert.equal(select().props.value, 'category')
+    assert.equal(all(root).filter(n => n.props['data-article']).length, 3)
+    assert.equal(location(), '/eff-agent-article/catalog?sort=category&tags=finance#keep')
+    const beforeLeaving = browser.counts()
+    browser.visit('/eff-agent-article/articles/example?sort=category&page=3')
+    await nextTick()
+    assert.equal(browser.counts().replaces, beforeLeaving.replaces, 'Old catalogue does not normalize an article URL')
+    app.unmount(); assert.equal(browser.counts().listeners, 0)
+    // Re-create the catalogue after returning from an article or a refresh.
+    browser.visit(page2)
+    await render()
+    app = renderer.createApp(Component); app.mount(root); await nextTick()
+    assert.equal(current(), '2'); assert.equal(select().props.value, 'created-desc')
+    // Reused component changes to the English route: URL, not old ref state, wins.
+    browser.visit('/eff-agent-article/en/catalog?sort=created-asc&tags=open&page=99')
+    globalThis.__catalogTestState.data.lang.value = 'en-US'
+    globalThis.__catalogTestState.data.page.value = { relativePath: 'en/catalog.md' }
+    await nextTick()
+    assert.equal(select().props.value, 'created-asc')
+    assert.deepEqual(all(root).filter(n => n.props['data-article']).map(n => n.props['data-article']), [b, a])
+    assert.equal(location(), '/eff-agent-article/en/catalog?sort=created-asc&tags=open')
+    assert.equal(host.focused(), null)
+  } finally { app.unmount(); assert.equal(browser.counts().listeners, 0); if (originalWindow === undefined) delete globalThis.window; else globalThis.window = originalWindow }
+})
+
+test('actual language switch and preference redirect preserve catalogue query/hash without a lang redirect loop', async () => {
+  const originalWindow = globalThis.window
+  const cases = [
+    { url: '/eff-agent-article/catalog?sort=updated-asc&page=2&tags=finance&campaign=x#catalog-results', saved: 'en', expected: '/eff-agent-article/en/catalog?sort=updated-asc&page=2&tags=finance&campaign=x#catalog-results', operation: 'replace' },
+    { url: '/eff-agent-article/catalog?lang=zh&sort=category&page=2&tags=panorama#keep', saved: 'en', expected: '/eff-agent-article/catalog?sort=category&page=2&tags=panorama#keep', operation: 'history' },
+    { url: '/eff-agent-article/en/catalog?lang=zh&sort=category&page=2&tags=panorama#keep', saved: 'en', expected: '/eff-agent-article/catalog?sort=category&page=2&tags=panorama#keep', operation: 'replace' },
+    { url: '/eff-agent-article/catalog?sort=category&page=2&tags=finance#keep', saved: 'zh', choose: 'EN', expected: '/eff-agent-article/en/catalog?sort=category&page=2&tags=finance#keep', operation: 'assign' }
+  ]
+  try {
+    for (const item of cases) {
+      const url = new URL(item.url, 'https://example.invalid'), calls = []
+      let saved = item.saved
+      globalThis.window = {
+        location: { href: url.href, pathname: url.pathname, search: url.search, hash: url.hash,
+          replace: href => calls.push(['replace', href]), assign: href => calls.push(['assign', href]) },
+        history: { state: { fixture: true }, replaceState: (state, title, href) => calls.push(['history', href]) },
+        localStorage: { getItem: () => saved, setItem: (key, value) => { saved = value } }
+      }
+      const { root, renderer, find, text } = catalogHost()
+      const app = renderer.createApp(LanguageComponent); app.mount(root); await nextTick()
+      try {
+        if (item.choose) { find(n => n.tag === 'button' && text(n) === item.choose).props.onClick(); await nextTick() }
+        assert.deepEqual(calls, [[item.operation, item.expected]])
+      } finally { app.unmount() }
+    }
+  } finally { if (originalWindow === undefined) delete globalThis.window; else globalThis.window = originalWindow }
 })
 
 test('missing history keeps all articles and stable order rather than fabricating dates', async () => {

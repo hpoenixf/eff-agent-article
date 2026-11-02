@@ -4,6 +4,31 @@ import { readFileSync } from 'node:fs'
 import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries } from '../.vitepress/theme/catalog-view.mjs'
 import { collections } from '../book.mjs'
 import { englishCollections } from '../book.en.mjs'
+import { DEFAULT_CATALOG_SORT, CATALOG_SORT_ORDERS, readCatalogLocation, writeCatalogLocation } from '../.vitepress/theme/catalog-location.mjs'
+
+test('catalogue URL codec defaults newest-created, validates fields and preserves unrelated query/hash', () => {
+  const tags = ['finance', 'panorama', 'open-source']
+  assert.equal(DEFAULT_CATALOG_SORT, 'created-desc')
+  assert.deepEqual(readCatalogLocation('/catalog', tags), { sort: 'created-desc', page: 1, tags: [] })
+  for (const sort of CATALOG_SORT_ORDERS) {
+    const state = { sort, page: 3, tags: ['finance', 'open-source'] }
+    const url = writeCatalogLocation('/en/catalog?campaign=a%20b&campaign=c#catalog-results', state, tags)
+    assert.deepEqual(readCatalogLocation(url, tags), state)
+    assert.equal(new URL(url, 'https://example.invalid').pathname, '/en/catalog')
+    assert.deepEqual(new URL(url, 'https://example.invalid').searchParams.getAll('campaign'), ['a b', 'c'])
+    assert.ok(url.endsWith('#catalog-results'))
+    assert.equal(writeCatalogLocation(url, state, tags), url, 'Canonical URL is idempotent')
+  }
+  for (const page of ['-1', '0', '1.5', '2e1', 'Infinity', '9007199254740992', 'abc', '']) {
+    assert.equal(readCatalogLocation('/catalog?page=' + page, tags).page, 1)
+  }
+  assert.deepEqual(readCatalogLocation('/catalog?sort=wrong&page=999&tags=panorama,unknown,finance&tags=finance', tags),
+    { sort: 'created-desc', page: 999, tags: ['finance', 'panorama'] })
+  assert.deepEqual(readCatalogLocation('/catalog?tags=%3Cscript%3E', tags).tags, [])
+  const clamped = paginateCatalogEntries(Array(21).fill({}), { page: 999 }).page
+  assert.equal(writeCatalogLocation('/catalog?sort=wrong&page=999&tags=bad#keep', { sort: DEFAULT_CATALOG_SORT, page: clamped, tags: [] }, tags), '/catalog?page=2#keep')
+  assert.equal(writeCatalogLocation('/catalog?sort=category&page=9&tags=finance&lang=zh#keep', { sort: DEFAULT_CATALOG_SORT, page: 1, tags: [] }, tags), '/catalog?lang=zh#keep')
+})
 
 test('category view counts only its canonical articles and preserves source ordering', () => {
   for (const source of [collections, englishCollections]) {

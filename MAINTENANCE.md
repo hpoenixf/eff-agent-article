@@ -145,13 +145,17 @@ Each existing full article edition owns its reviewed `readingBrief` in Markdown 
 
 ## 全部文章的日期排序 / Catalogue date order
 
-只有 `/catalog` 与 `/en/catalog` 提供创建／更新时间各自的升序、降序；默认仍按原目录顺序展示。日期模式对当前标签交集内的全部主类文章统一排序，不把关联阅读重复计入，也不改变分类页、主页或 `book.mjs` 顺序。缺失日期双向均置后；同一时刻按原目录顺序稳定排列。
+只有 `/catalog` 与 `/en/catalog` 提供创建／更新时间各自的升序、降序；默认按本站创建时间从新到旧展示，原目录顺序仍可选。日期模式对当前标签交集内的全部主类文章统一排序，不把关联阅读重复计入，也不改变分类页、主页或 `book.mjs` 顺序。缺失日期双向均置后；同一时刻按原目录顺序稳定排列。
 
 日期继续由 `article-history.mjs` 从固定源码 HEAD 的完整 Git 主线历史派生，不存手填日期或构建时刻。创建表示当前语言版本首次纳入本站主线的版本记录，不代表原稿创作或首次线上发布时间；沿 Git 识别的重命名追溯，删除后重新建立的文件不继承旧实例日期。合并按首次在主线可见的提交计时。更新保留既有可见内容比较：纯格式和明确派生字段不刷新，标题、说明、证据与导读卡等可见内容变化仍算更新。中英文各取实际目标正文的历史；“Chinese original” 回退使用中文原文的日期。时间显示为 UTC+8，`time` 元素保留完整提交时间。历史缺失或浅克隆时显示未知，不填今天。
 
 `article-chronology.data.ts` 只是上述 owner 的构建期投影，不是第二套文章目录或日期真值。原生带标签的 `select` 保留标准键盘语义；单测覆盖四种顺序、标签交集、未知末尾、同刻稳定、翻译回退、主线合并及改名历史。`node scripts/check-catalog-order-output.mjs` 检查真实构建产物中的中英入口与默认视图。VitePress 退出码为 0 不代表每页 SSR 无异常；检查构建日志异常与原 `postdocs:build` 全部产物门，不能只报进程完成。
 
-The independent bilingual catalogue adds four opt-in date orders while preserving canonical category order and all-selected tag filtering. Creation means the edition's first recorded main-branch version on this site—not its original writing or live-publication date. The existing Git history owner follows recognized renames, treats a deleted/re-created path as a new lineage, and retains visible-content update semantics, including reading briefs. Unknown dates always sort last; equal timestamps retain canonical catalogue order. No article body, historical timestamp, or RSS policy is rewritten.
+The independent bilingual catalogue defaults to newest site-created first, offers all four date orders and the original catalogue order, and preserves all-selected tag filtering. Creation means the edition's first recorded main-branch version on this site—not its original writing or live-publication date. The existing Git history owner follows recognized renames, treats a deleted/re-created path as a new lineage, and retains visible-content update semantics, including reading briefs. Unknown dates always sort last; equal timestamps retain canonical catalogue order. No article body, historical timestamp, or RSS policy is rewritten.
+
+`sort`、`page`、`tags` 是独立目录的 URL 状态（标签用逗号分隔的原登记 ID）。默认创建倒序、第 1 页和空标签可省略；用户更改使用新的历史项，前后退、刷新及文章返回从 URL 恢复。只接受五个已列排序值；未知标签忽略、重复标签去重，非法页码回到 1，超出当前交集的页码收敛到末页。更改标签或排序回到第 1 页。保留其他 query/hash，语言切换保留对应目录状态；不向分类页或正文写入目录参数。SSR 仍显示默认首 20 篇及全量可爬链接，客户端挂载后才恢复查询状态，避免 hydration 差异。
+
+Catalogue state lives in the URL, not browser storage. User edits push history; traversal restores without pushing. Defaults may be omitted, invalid fields are normalized, pages are clamped after filtering, and unrelated query/hash values survive. Language switching preserves the corresponding catalogue query; other routes keep their existing behaviour. Static HTML retains the default first page and all article links.
 
 首页第六个入口复用现有中英 Open ETF Agent 专题，与原五个入口同属 `features`，不新增分类或推广面板；沿用桌面三列与窄屏单列规则。链接只表达可运行开源教学实现入口，不提高文章关联、测试或真实金融效果的资格。
 
