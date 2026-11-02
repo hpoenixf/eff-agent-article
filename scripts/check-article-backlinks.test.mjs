@@ -76,10 +76,19 @@ test('backlinks: revocable RAG requires visible exact source and both original C
  const body=`[Original command owner](https://github.com/hpoenixf/open-etf-agent/blob/${other}/src/session-cli.mjs)\n\n\`\`\`bash\nnode src/session-cli.mjs init-documents --session ./test-output/revocable-demo --profile document-revocation@1\nnode src/session-cli.mjs start --session ./test-output/revocable-demo --profile document-revocation@1 --case revocable-rag\nnode src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID\nnode src/session-cli.mjs revoke-document --session ./test-output/revocable-demo --profile document-revocation@1 --document atlas-a --expected-revision 1\nnode src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID\n\`\`\``;
  const verify=text=>verifyArticles({contract:c,english:new Set(['rag-example']),paths:[],read:async()=>text});
  assert.equal((await verify(body)).checkedBodies,2);
+ assert.equal((await verify(body.replace('[Original command owner]', '[`session-cli.mjs`]'))).checkedBodies,2);
  await assert.rejects(verify(body.replace('--case revocable-rag','--case unrelated')),/sequence/);
  await assert.rejects(verify(body.replace(other,pin)),/source/);
  const publication='node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID';
  await assert.rejects(verify(body.replace(publication,'')),/sequence/);
  await assert.rejects(verify(body.replace('[Original command owner](', '`[Original command owner](').replace('/src/session-cli.mjs)', '/src/session-cli.mjs)`')),/source/);
  await assert.rejects(verify('<pre>'+body+'</pre>'),/non-prose/);
+});
+
+// Existing published scenario uses a code-formatted filename as a clickable link label.
+test('backlinks: existing temporal editions retain visible code-formatted source links', async () => {
+ const {readFile}=await import('node:fs/promises');
+ const pin='46c2822be9865b99696bb70fb9e0ff1b5257ff35',slug='agent-temporal-semantics-market-calendar';
+ const result=await verifyArticles({contract:{verifiedAt:pin,articles:[{slug,target:'temporal'}],targets:{temporal:{kind:'scenario',name:'temporal'}}},english:new Set([slug]),paths:[],read:path=>readFile(new URL('../'+path,import.meta.url),'utf8')});
+ assert.equal(result.checkedBodies,2);
 });

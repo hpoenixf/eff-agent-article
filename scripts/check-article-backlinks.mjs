@@ -109,7 +109,7 @@ function validateScenarioArticle(text,target,pin,path) {
  }
  const file=target.name==='temporal'?'src/temporal.mjs':target.name==='memory-consumer'?'src/memory-consumer.mjs':'src/session-cli.mjs';
  const url=`https://github.com/${CODE}/blob/${pin}/${file}`;
- const linkProse=prose.join('\n').replace(/(`+)[\s\S]*?\1/g,'');
+ const linkProse=prose.join('\n').replace(/\[(`+)([^`\n]+)\1\](?=\()/g,'[$2]').replace(/(`+)[\s\S]*?\1/g,'');
  ensure(!/<(?:pre|code|script|style|textarea)\b/i.test(linkProse),`Unsupported non-prose scenario link: ${path}`);
  const links=[...linkProse.matchAll(/(?<![!\\])\[[^\[\]\n]+\]\((https:\/\/github\.com\/[^\s)]+)\)/g)];
  ensure(links.some(m=>m[1]===url),`Missing visible fixed scenario source: ${path}`);
