@@ -276,7 +276,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
 | A01 | [账户身份](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [相关文章](/articles/011-model-understands-code-authorizes) | L1、L4 |
-| A02 | [对话接纳与任务接续](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [相关文章](/articles/agent-veto-authority-and-run-termination) | L1、L5、L6 |
+| A02 | [对话接纳与任务接续](/articles/agent-conversation-admission-task-continuation) · [相关文章](/articles/agent-veto-authority-and-run-termination) | L1、L5、L6 |
 | A04 | [Run 授权与能力准入](/articles/011-model-understands-code-authorizes) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1、L3、L4、L5 |
 | A08 | [持久控制事件](/articles/agent-control-events-durable-owner-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3、L5 |
 | A12 | [Skill 方法与资源](/articles/agent-skill-from-markdown-to-callable-research) · [相关文章](/articles/agent-model-runtime-mcp-skill-boundaries) | L3、L4 |
