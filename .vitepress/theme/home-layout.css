@@ -1,5 +1,7 @@
 /* Homepage-only reading layout: one type scale, one control scale, no promotional panels. */
-.VPHome .VPHero { padding: 48px 32px 32px; }
+/* VPContent already reserves the desktop sticky navigation height. The default
+   hero's negative nav margin only belongs with its original compensated padding. */
+.VPHome .VPHero { margin-top: 0; padding: 48px 32px 32px; }
 .VPHome .VPHero .container {
   max-width: 1040px; min-height: 0; padding: 0;
   overflow: visible; border-radius: 0; background: transparent; color: var(--vp-c-text-1);
@@ -37,6 +39,7 @@
 .VPHome .VPHero .home-reading-menu__links { border-color: var(--vp-c-divider); background: var(--vp-c-bg-soft); }
 .VPHome .VPHero .home-reading-menu__links a { min-height: 48px; color: var(--vp-c-text-1); }
 .VPHome .VPHero .home-reading-menu__links a:hover, .VPHome .VPHero .home-reading-menu summary:hover { background: var(--vp-c-bg-soft); }
+.VPHome .VPHero .home-reading-actions__secondary { display: flex; flex-wrap: wrap; gap: 8px 16px; }
 .VPHome .VPHero .home-reading-actions__link {
   min-height: 44px; padding: 6px 0; border: 0; border-radius: 0;
   color: var(--vp-c-brand-1); font-size: 14px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px;
@@ -65,6 +68,14 @@
 .VPHome .vp-doc .recent-kind, .VPHome .vp-doc .recent-kind.new { padding: 0; border-radius: 0; background: transparent; color: var(--vp-c-text-2); }
 .VPHome .vp-doc .resume-reading { max-width: 760px; margin: 0 0 24px; padding: 16px; border-radius: 8px; }
 .VPHome a:focus-visible, .VPHome summary:focus-visible, .VPHome .VPHero .home-reading-actions a:focus-visible, .VPHome .VPHero .home-reading-menu summary:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px; }
+@media (min-width: 768px) {
+  .VPHome .VPHero .main { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 16px; }
+  .VPHome .VPHero .heading, .VPHome .VPHero .tagline { grid-column: 1 / -1; }
+  .VPHome .VPHero .actions { grid-column: 1; grid-row: 3; align-self: start; }
+  .VPHome .VPHero .home-reading-actions { display: contents; }
+  .VPHome .VPHero .home-reading-menu { grid-column: 2; grid-row: 3; align-self: start; min-width: 0; max-width: 440px; margin-top: 24px; }
+  .VPHome .VPHero .home-reading-actions__secondary { grid-column: 1 / -1; margin-top: 12px; }
+}
 @media (max-width: 767px) {
   .VPHome .VPHero { padding: 28px 20px 24px; }
   .VPHome .VPHero .container { padding: 0; border-radius: 0; }

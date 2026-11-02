@@ -120,3 +120,49 @@ test('homepage keeps one intro CTA and a compact bilingual continuation disclosu
     assert.ok(home.includes(path.startsWith('en/') ? 'link: /en/catalog' : 'link: /catalog'))
   }
 })
+
+test('homepage CTA and disclosure share a wide-screen row without overlaying secondary links', async () => {
+  const { parse, compileScript, compileStyle } = await import('@vue/compiler-sfc')
+  const { build } = await import('esbuild')
+  const { createSSRApp } = await import('vue')
+  const { renderToString } = await import('@vue/server-renderer')
+  const { createMarkdownRenderer } = await import('vitepress')
+  const { mkdirSync, writeFileSync } = await import('node:fs')
+  const { resolve } = await import('node:path')
+  const { pathToFileURL } = await import('node:url')
+  const theme = resolve('.vitepress/theme')
+  const { descriptor } = parse(read('.vitepress/theme/HomeReadingMenu.vue'))
+  const compiled = compileScript(descriptor, { id: 'home-menu-test', inlineTemplate: true }).content
+  const bundle = await build({ stdin: { contents: compiled, loader: 'ts', resolveDir: theme }, bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'home-menu-test-data', setup(builder) {
+    builder.onResolve({ filter: /^vitepress$/ }, () => ({ path: 'vitepress', namespace: 'home-menu-test' }))
+    builder.onLoad({ filter: /.*/, namespace: 'home-menu-test' }, () => ({ contents: 'import { ref } from \"vue\"; export const useData = () => ({ lang: ref(globalThis.__homeMenuData.lang.value), frontmatter: ref(globalThis.__homeMenuData.frontmatter.value) }); export const useRoute = () => ({ path: "/" }); export const withBase = p => /^https?:/.test(p) ? p : "/eff-agent-article" + p;' }))
+  } }] })
+  mkdirSync(resolve('.vitepress/cache'), { recursive: true })
+  const fixture = resolve('.vitepress/cache/home-menu-render-fixture.mjs'); writeFileSync(fixture, bundle.outputFiles[0].text)
+  const Component = (await import(pathToFileURL(fixture))).default
+  const md = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
+  for (const prefix of ['', 'en/']) {
+    const env = {}; md.render(read(prefix + 'index.md'), env)
+    globalThis.__homeMenuData = { lang: { value: prefix ? 'en-US' : 'zh-CN' }, frontmatter: { value: env.frontmatter } }
+    const html = await renderToString(createSSRApp(Component))
+    assert.equal((html.match(/<details\b/g) || []).length, 1)
+    assert.equal((html.match(/<summary\b/g) || []).length, 1)
+    assert.match(html, /<svg class="home-reading-menu__chevron"[^>]*aria-hidden="true"[^>]*focusable="false"/)
+    assert.ok(!html.includes('⌄'))
+    assert.match(html, /class="home-reading-actions__secondary"/)
+    for (const slug of learningPathSlugs.slice(1)) assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'articles/' + slug + '"'))
+    assert.ok(!html.includes('/articles/' + learningPathSlugs[0]), 'The original hero remains the single primary CTA owner')
+    assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'catalog"'))
+    assert.ok(html.includes('href="https://github.com/hpoenixf/open-etf-agent" target="_blank" rel="noreferrer"'))
+  }
+  const css = read('.vitepress/theme/home-layout.css')
+  assert.match(css, /\.VPHome \.VPHero \{ margin-top: 0; padding: 48px 32px 32px;/)
+  assert.match(css, /@media \(min-width: 768px\)[\s\S]*grid-template-columns: max-content minmax\(0, 1fr\)/)
+  assert.match(css, /\.actions \{ grid-column: 1; grid-row: 3; align-self: start;/)
+  assert.match(css, /\.home-reading-menu \{ grid-column: 2; grid-row: 3; align-self: start;/)
+  assert.match(css, /\.home-reading-actions__secondary \{ grid-column: 1 \/ -1; margin-top: 12px;/)
+  assert.match(css, /@media \(max-width: 767px\)[\s\S]*padding: 28px 20px 24px/)
+  assert.ok(!/position:\s*(absolute|fixed)/.test(css), 'Expanded menu must remain in normal flow')
+  assert.deepEqual(compileStyle({ source: descriptor.styles[0].content, id: 'home-menu-test', scoped: true }).errors, [])
+  assert.match(descriptor.styles[0].content, /prefers-reduced-motion: reduce/)
+})
