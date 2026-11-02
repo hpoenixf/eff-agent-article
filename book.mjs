@@ -73,7 +73,8 @@ export const collections = [
           ["agent-research-evidence-store-lifecycle", "一次模型调用留下了什么：研究证据的采集、留存与回读"]
         ],
         "related": [
-          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"]
+          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
+          ["rag-end-to-end-system-panorama", "RAG 全链路全景：从知识入库到可信回答"]
         ]
       },
       {
@@ -166,6 +167,7 @@ export const collections = [
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
+          ["rag-end-to-end-system-panorama", "RAG 全链路全景：从知识入库到可信回答"],
           ["agent-thinking-fast-slow-research-needs", "为什么 AI Agent 也需要《思考，快与慢》？"],
           ["ai-citations-do-not-prove-reliability", "Agent 引用系统设计：从来源签发、版本绑定到独立复核"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
@@ -232,7 +234,8 @@ export const panoramaSeriesSlugs = Object.freeze([
   'agent-subagent-context-specialization',
   'agent-long-horizon-research-panorama',
   'vertical-financial-agent-principles-panorama',
-  'etf-agent-framework-comparison-panorama'
+  'etf-agent-framework-comparison-panorama',
+  'rag-end-to-end-system-panorama'
 ]);
 
 // A curated subset of the canonical catalogue, not a second classification tree.
