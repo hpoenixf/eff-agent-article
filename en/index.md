@@ -38,6 +38,10 @@ features:
     details: Understand research methods, evidence and accountability in finance.
     link: /en/fintech
     linkText: Explore finance
+  - title: Open source
+    details: Understand Agent design and evolution through runnable open-source implementations.
+    link: /en/open-etf-agent
+    linkText: Explore open source
 ---
 
 <ContinueReading />

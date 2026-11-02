@@ -38,6 +38,10 @@ features:
     details: 理解金融研究的方法、证据与责任边界。
     link: /fintech
     linkText: 阅读金融
+  - title: 开源专题
+    details: 从可运行的开源实现，理解 Agent 的设计与迭代。
+    link: /open-etf-agent
+    linkText: 探索开源
 ---
 
 <ContinueReading />
