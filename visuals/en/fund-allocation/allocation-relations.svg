@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="754" viewBox="0 0 640 754" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Three decisions, different inputs</title><desc id="desc">Identified holdings and usable current evidence support read-only calculations. Cash constraints determine a deployable budget, confirmed policy determines bucket budgets, and per-fund evidence plus restrictions determine eligible amounts. Each decision preserves the prior constraints.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#226e63" stroke-width="1.6"/></marker></defs>
+<rect x="1" y="1" width="638" height="752" rx="20" fill="#f8faf5" stroke="#a8bcb4"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="28" y="48" text-anchor="start" font-size="30" font-weight="700" fill="#183a36"><tspan x="28" dy="0">Three decisions, different inputs</tspan></text>
+<text x="28" y="87" text-anchor="start" font-size="27" font-weight="400" fill="#4c625d"><tspan x="28" dy="0">Facts and constraints stay distinct</tspan></text>
+<g id="identified-inputs"><rect x="24" y="111" width="592" height="100" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="42" y="148" text-anchor="start" font-size="28" font-weight="700" fill="#183a36"><tspan x="42" dy="0">Identified holdings +</tspan></text><text x="42" y="184" text-anchor="start" font-size="27" font-weight="400" fill="#183a36"><tspan x="42" dy="0">usable current amount evidence</tspan></text></g>
+<g id="cash"><rect x="24" y="246" width="258" height="118" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="285" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">Cash, reserves,</tspan><tspan x="42" dy="33">unsettled activity</tspan></text></g>
+<g id="budget"><rect x="354" y="246" width="262" height="118" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="289" text-anchor="start" font-size="25" font-weight="700" fill="#183a36"><tspan x="372" dy="0">Deployable budget</tspan><tspan x="372" dy="32">Protected cash</tspan><tspan x="372" dy="32">excluded</tspan></text></g>
+<path id="cash-constrains-budget" d="M286 305.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="policy"><rect x="24" y="400" width="258" height="118" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="439" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">Confirmed policy</tspan><tspan x="42" dy="33">and bucket ranges</tspan></text></g>
+<g id="bucket"><rect x="354" y="400" width="262" height="118" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="443" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="372" dy="0">Policy-bound</tspan><tspan x="372" dy="34">bucket budgets</tspan></text></g>
+<path id="policy-constrains-bucket" d="M286 459.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="fund-evidence"><rect x="24" y="554" width="258" height="140" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="593" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">Per-fund evidence,</tspan><tspan x="42" dy="33">fund/channel caps,</tspan><tspan x="42" dy="33">and amount steps</tspan></text></g>
+<g id="fund-amount"><rect x="354" y="554" width="262" height="140" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="597" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="372" dy="0">Eligible amount</tspan><tspan x="372" dy="34">for each fund</tspan></text></g>
+<path id="fund-evidence-constrains-fund-amount" d="M286 624.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="budget-constrains-bucket" d="M485 366 V392" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="bucket-constrains-fund" d="M485 520 V546" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="28" y="732" text-anchor="start" font-size="25" font-weight="400" fill="#4c625d"><tspan x="28" dy="0">Read-only relationships, not a runtime trace</tspan></text>
+</g></svg>

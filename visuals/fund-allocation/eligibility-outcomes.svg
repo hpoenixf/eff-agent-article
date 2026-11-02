@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="824" viewBox="0 0 640 824" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">资格变化，撤回金额而不是抹掉事实</title><desc id="desc">当期金额依据不可用时，保留历史事实并明确金额缺口。预算可确定时逐只判断基金：合格金额遵守上限与步长，不合格金额撤回并保留缺口。已分配加未分配等于可用预算。所有路径只读输出建议与限制，不写账本或下单。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#226e63" stroke-width="1.6"/></marker></defs>
+<rect x="1" y="1" width="638" height="822" rx="20" fill="#f8faf5" stroke="#a8bcb4"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="28" y="48" text-anchor="start" font-size="30" font-weight="700" fill="#183a36"><tspan x="28" dy="0">资格变化，不抹掉已有事实</tspan></text>
+<text x="28" y="86" text-anchor="start" font-size="27" font-weight="400" fill="#4c625d"><tspan x="28" dy="0">缺依据就留缺口，不让模型补齐</tspan></text>
+<g id="amount-evidence-unavailable"><rect x="24" y="113" width="260" height="142" rx="14" fill="#f6ead8" stroke="#a8bcb4"/><text x="42" y="153" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="42" dy="0">当期金额依据</tspan><tspan x="42" dy="34">不可用</tspan></text></g>
+<g id="preserve-history-gap"><rect x="350" y="113" width="242" height="142" rx="14" fill="#f6ead8" stroke="#a8bcb4"/><text x="367" y="153" text-anchor="start" font-size="26" font-weight="700" fill="#183a36"><tspan x="367" dy="0">保留历史事实</tspan><tspan x="367" dy="33">标明金额缺口</tspan></text></g>
+<path id="missing-evidence-keeps-history" d="M286 184 H342" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="24" y="291" width="568" height="360" rx="14" fill="white" stroke="#a8bcb4"/>
+<text x="42" y="329" text-anchor="start" font-size="26" font-weight="700" fill="#183a36"><tspan x="42" dy="0">预算可确定时：逐只判断基金资格</tspan></text>
+<g id="eligible-fund"><rect x="42" y="353" width="248" height="166" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="58" y="389" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="58" dy="0">基金合格</tspan></text><text x="58" y="429" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="58" dy="0">按上限与步长</tspan><tspan x="58" dy="33">计算分配金额</tspan></text></g>
+<g id="ineligible-fund"><rect x="316" y="353" width="258" height="166" rx="14" fill="#f6ead8" stroke="#a8bcb4"/><text x="332" y="389" text-anchor="start" font-size="26" font-weight="700" fill="#183a36"><tspan x="332" dy="0">证据或购买不合格</tspan></text><text x="332" y="429" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="332" dy="0">撤回该项金额</tspan><tspan x="332" dy="33">明确保留缺口</tspan></text></g>
+<path id="eligible-to-reconciliation" d="M166 521 V551" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="ineligible-to-reconciliation" d="M445 521 V551" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="reconciliation"><rect x="42" y="560" width="532" height="72" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="308" y="590" text-anchor="middle" font-size="26" font-weight="700" fill="#183a36"><tspan x="308" dy="0">已分配 + 未分配 = 可用预算</tspan></text></g>
+<path id="history-gap-to-readonly" d="M594 184 H612 V744 H596" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="reconciled-to-readonly" d="M308 654 V681" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="readonly-output"><rect x="24" y="690" width="568" height="108" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="42" y="729" text-anchor="start" font-size="26" font-weight="700" fill="#183a36"><tspan x="42" dy="0">只读建议：金额、余额与明确限制</tspan></text><text x="42" y="771" text-anchor="start" font-size="25" font-weight="400" fill="#4c625d"><tspan x="42" dy="0">不写账本，不替代确认，不下单</tspan></text></g>
+</g></svg>

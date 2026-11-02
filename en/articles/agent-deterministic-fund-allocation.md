@@ -42,20 +42,13 @@ An unsettled transaction may constrain available cash, but it does not increase 
 
 First decide **how much is deployable**. Then choose **which asset buckets receive that budget**. Only then decide **which funds within each bucket qualify for an amount**. These are three distinct decisions; none may override the others.
 
-~~~mermaid
-flowchart TD
-    A[Read identified holdings and policy] --> B{Current amount evidence usable?}
-    B -- No --> X[Keep historical facts Mark amount gaps]
-    B -- Yes --> C[Calculate deployable budget and protected cash]
-    C --> D[Allocate bucket budgets within policy ranges]
-    D --> E{Fund evidence and purchase limits satisfied?}
-    E -- No --> F[Withdraw this amount Retain gap]
-    E -- Yes --> G[Apply fund caps and amount steps]
-    F --> H[Reconcile allocated and unallocated cash]
-    G --> H
-    X --> I[Read-only output with explicit limitations]
-    H --> I
-~~~
+![Inputs constrain three distinct decisions: the deployable budget, policy-bound buckets, and eligible per-fund amounts.](../../visuals/en/fund-allocation/allocation-relations.svg)
+
+[Open the full relationship diagram](../../visuals/en/fund-allocation/allocation-relations.svg)
+
+![Evidence gaps preserve historical facts; fund-level failures withdraw the affected amount, with residual cash reconciled and outputs kept read-only.](../../visuals/en/fund-allocation/eligibility-outcomes.svg)
+
+[Open the full relationship diagram](../../visuals/en/fund-allocation/eligibility-outcomes.svg)
 
 This is a **conceptual diagram of decisions and responsibilities**, not an assertion that every production function executes in this exact order. Cash and policy determine whether a budget is deployable. Domain calculations determine bucket and fund allocations. Inadequate evidence removes the amount that depends on it, not every already-established historical fact.
 

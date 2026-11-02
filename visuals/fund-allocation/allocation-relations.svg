@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="754" viewBox="0 0 640 754" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">三次选择，不是一次平均分配</title><desc id="desc">有身份的持仓与可用当期依据支撑只读计算。现金约束决定可用预算，已确认策略决定类别预算，单只基金证据与限制决定合格金额；后一步不覆盖前一步的约束。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#226e63" stroke-width="1.6"/></marker></defs>
+<rect x="1" y="1" width="638" height="752" rx="20" fill="#f8faf5" stroke="#a8bcb4"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="28" y="48" text-anchor="start" font-size="30" font-weight="700" fill="#183a36"><tspan x="28" dy="0">三次选择，不是一次平均分配</tspan></text>
+<text x="28" y="87" text-anchor="start" font-size="27" font-weight="400" fill="#4c625d"><tspan x="28" dy="0">不同输入约束不同层次的金额</tspan></text>
+<g id="identified-inputs"><rect x="24" y="111" width="592" height="100" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="42" y="148" text-anchor="start" font-size="28" font-weight="700" fill="#183a36"><tspan x="42" dy="0">有身份的持仓与已确认策略</tspan></text><text x="42" y="184" text-anchor="start" font-size="27" font-weight="400" fill="#183a36"><tspan x="42" dy="0">当期金额依据可用，才讨论对应金额</tspan></text></g>
+<g id="cash"><rect x="24" y="246" width="258" height="118" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="285" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">现金、储备</tspan><tspan x="42" dy="33">与待结算项</tspan></text></g>
+<g id="budget"><rect x="354" y="246" width="262" height="118" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="289" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="372" dy="0">本轮可用预算</tspan><tspan x="372" dy="34">不动用保护现金</tspan></text></g>
+<path id="cash-constrains-budget" d="M286 305.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="policy"><rect x="24" y="400" width="258" height="118" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="439" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">已确认策略</tspan><tspan x="42" dy="33">与类别范围</tspan></text></g>
+<g id="bucket"><rect x="354" y="400" width="262" height="118" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="443" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="372" dy="0">类别预算</tspan><tspan x="372" dy="34">不越过策略范围</tspan></text></g>
+<path id="policy-constrains-bucket" d="M286 459.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<g id="fund-evidence"><rect x="24" y="554" width="258" height="140" rx="14" fill="white" stroke="#a8bcb4"/><text x="42" y="593" text-anchor="start" font-size="26" font-weight="400" fill="#183a36"><tspan x="42" dy="0">单只基金证据</tspan><tspan x="42" dy="33">基金／渠道限制</tspan><tspan x="42" dy="33">与金额步长</tspan></text></g>
+<g id="fund-amount"><rect x="354" y="554" width="262" height="140" rx="14" fill="#e5f0e9" stroke="#a8bcb4"/><text x="372" y="597" text-anchor="start" font-size="27" font-weight="700" fill="#183a36"><tspan x="372" dy="0">单只基金金额</tspan><tspan x="372" dy="34">只在合格范围分配</tspan></text></g>
+<path id="fund-evidence-constrains-fund-amount" d="M286 624.0 H346" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="budget-constrains-bucket" d="M485 366 V392" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path id="bucket-constrains-fund" d="M485 520 V546" fill="none" stroke="#226e63" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="28" y="732" text-anchor="start" font-size="25" font-weight="400" fill="#4c625d"><tspan x="28" dy="0">只读计算的职责关系，不是源码调用时序</tspan></text>
+</g></svg>
