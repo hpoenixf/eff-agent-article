@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { data as tagData } from './article-tags.data'
 import { data as chronologyData } from './article-chronology.data'
 import { withBase } from 'vitepress'
 import { collections } from '../../book.mjs'
-import { catalogView, chronologicalCatalog } from './catalog-view.mjs'
+import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries, catalogPageCollections } from './catalog-view.mjs'
 import { englishCollections, englishArticlePath } from '../../book.en.mjs'
 import { useData } from 'vitepress'
 
@@ -20,11 +20,25 @@ const view = computed(() => catalogView(allCollections.value, { category: props.
 const selectedCollections = computed(() => view.value.collections)
 const canSort = computed(() => !props.category && !props.compact && ['catalog.md', 'en/catalog.md'].includes(page.value.relativePath))
 const sortOrder = ref('category')
+const currentPage = ref(1)
+const resultsRegion = ref<HTMLElement | null>(null)
+const focusResults = () => { resultsRegion.value?.focus({ preventScroll: true }) }
+watch([selectedTags, sortOrder], () => { currentPage.value = 1 }, { flush: 'sync' })
 const isChronological = computed(() => canSort.value && sortOrder.value !== 'category')
-const chronologicalEntries = computed(() => isChronological.value ? chronologicalCatalog(selectedCollections.value, {
-  order: sortOrder.value, chronology: chronologyData.articles,
+const entryOptions = computed(() => ({ chronology: chronologyData.articles,
   sourcePath: (slug: string) => pathFor(slug).slice(1) + '.md'
-}) : [])
+}))
+const allEntries = computed(() => isChronological.value
+  ? chronologicalCatalog(selectedCollections.value, { ...entryOptions.value, order: sortOrder.value })
+  : primaryCatalogEntries(selectedCollections.value, entryOptions.value))
+const pagination = computed(() => paginateCatalogEntries(allEntries.value, { page: currentPage.value }))
+const visibleCollections = computed(() => canSort.value
+  ? catalogPageCollections(selectedCollections.value, pagination.value.items) : selectedCollections.value)
+const goToPage = (page: number) => { currentPage.value = paginateCatalogEntries(allEntries.value, { page }).page }
+const pageNumbers = computed(() => Array.from({ length: pagination.value.pageCount }, (_, index) => index + 1))
+const collectionPosition = (id: string) => allCollections.value.findIndex(collection => collection.id === id) + 1
+const chapterPosition = (id: string, title: string) => (allCollections.value.find(collection => collection.id === id)?.chapters.findIndex(chapter => chapter.title === title) ?? -1) + 1
+const chapterCount = (id: string) => allCollections.value.find(collection => collection.id === id)?.chapters.length ?? 0
 
 </script>
 
@@ -34,13 +48,15 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
     <span>{{ category ? (isEnglish ? 'IN THIS CATEGORY' : '本类文章') : (isEnglish ? 'ARTICLE CATALOG' : '文章目录') }}</span>
     <strong><template v-if="!category">{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · </template>{{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
   </div>
-  <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags' : '按文章标签筛选'">
-    <span>{{ isEnglish ? 'Tags · match all selected' : '标签 · 同时满足所选标签' }}</span>
+  <div :class="canSort ? 'catalog-toolbar' : 'catalog-filters'">
+  <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags; match all selected' : '按文章标签筛选，同时满足所选标签'">
+    <span>{{ canSort ? (isEnglish ? 'Tags' : '标签') : (isEnglish ? 'Tags · match all selected' : '标签 · 同时满足所选标签') }}</span>
     <button v-for="tag in tagData.definitions" :key="tag.id" type="button" :aria-pressed="selectedTags.includes(tag.id)" @click="toggleTag(tag.id)">{{ isEnglish ? tag.en : tag.zh }}</button>
-    <button v-if="selectedTags.length" type="button" @click="selectedTags = []">{{ isEnglish ? 'Clear filters' : '清除筛选' }}</button>
+    <button v-if="canSort || selectedTags.length" class="catalog-clear" type="button" :aria-label="isEnglish ? 'Clear filters' : '清除筛选'" :aria-disabled="canSort && !selectedTags.length ? true : undefined" @click="selectedTags.length && (selectedTags = [])"><span v-if="canSort" aria-hidden="true">×</span><template v-else>{{ isEnglish ? 'Clear filters' : '清除筛选' }}</template></button>
   </div>
   <div v-if="canSort" class="catalog-sort">
-    <label for="catalog-sort-order">{{ isEnglish ? 'Sort articles' : '文章排序' }}</label>
+    <label for="catalog-sort-order">{{ isEnglish ? 'Sort' : '排序' }}</label>
+    <div class="catalog-select-shell">
     <select id="catalog-sort-order" v-model="sortOrder" aria-describedby="catalog-date-note">
       <option value="category">{{ isEnglish ? 'Category order' : '按分类浏览' }}</option>
       <option value="created-desc">{{ isEnglish ? 'Created: newest first' : '创建时间：从新到旧' }}</option>
@@ -48,12 +64,25 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
       <option value="updated-desc">{{ isEnglish ? 'Updated: newest first' : '更新时间：从新到旧' }}</option>
       <option value="updated-asc">{{ isEnglish ? 'Updated: oldest first' : '更新时间：从旧到新' }}</option>
     </select>
-    <p id="catalog-date-note">{{ isEnglish ? 'Created means this language edition’s first recorded version on the site’s main branch, following Git-recognized renames—not the original writing date. Updated follows visible content changes. Dates: UTC+8; unknown dates sort last.' : '创建指本站当前语言版本首次进入主线的记录（追溯 Git 识别的重命名），不是原稿创作日期；更新按可见内容变化计算。日期为北京时间，缺失日期始终排在末尾。' }}</p>
-    <p v-if="!chronologyData.available" role="status">{{ isEnglish ? 'Reliable source history is unavailable; dates remain unknown and the original article order is preserved.' : '暂无法读取可靠的源码历史；日期保留未知，文章按原目录顺序展示。' }}</p>
+    </div>
+    <details class="catalog-help">
+      <summary :aria-label="isEnglish ? 'About filters and article dates' : '标签与文章日期说明'"><span aria-hidden="true">?</span></summary>
+      <div class="catalog-help-content">
+        <p>{{ isEnglish ? 'Articles must match all selected tags. Changing tags or order returns to page 1.' : '文章同时满足所有已选标签；更改标签或排序后回到第1页。' }}</p>
+        <p id="catalog-date-note">{{ isEnglish ? 'Created means this language edition’s first recorded version on the site’s main branch, following Git-recognized renames—not the original writing date. Updated follows visible content changes. Dates: UTC+8; unknown dates sort last.' : '创建指本站当前语言版本首次进入主线的记录（追溯 Git 识别的重命名），不是原稿创作日期；更新按可见内容变化计算。日期为北京时间，缺失日期始终排在末尾。' }}</p>
+      </div>
+    </details>
   </div>
+  </div>
+  <p v-if="canSort && !chronologyData.available" class="catalog-history-note" role="status">{{ isEnglish ? 'Reliable source history is unavailable; dates remain unknown and the original article order is preserved.' : '暂无法读取可靠的源码历史；日期保留未知，文章按原目录顺序展示。' }}</p>
+  <div v-if="canSort" class="catalog-page-summary">
+    <p role="status" aria-live="polite" aria-atomic="true">{{ isEnglish ? `Showing ${pagination.start}–${pagination.end} of ${pagination.total} articles` : `显示 ${pagination.start}–${pagination.end} 篇，共 ${pagination.total} 篇` }}<template v-if="pagination.pageCount"> · {{ isEnglish ? `Page ${pagination.page} of ${pagination.pageCount}` : `第 ${pagination.page} / ${pagination.pageCount} 页` }}</template></p>
+    <a href="#catalog-results" @click="focusResults">{{ isEnglish ? 'Go to results' : '查看文章' }} ↓</a>
+  </div>
+  <div ref="resultsRegion" :id="canSort ? 'catalog-results' : undefined" :role="canSort ? 'region' : undefined" :tabindex="canSort ? -1 : undefined" :aria-label="canSort ? (isEnglish ? 'Article results' : '文章结果') : undefined">
   <p v-if="!selectedCollections.length" role="status">{{ isEnglish ? 'No articles match these tags. Clear a filter to see more.' : '暂无同时符合这些标签的文章，可取消部分筛选。' }}</p>
-  <ol v-if="isChronological && chronologicalEntries.length" class="catalog-chronological-list" :aria-label="isEnglish ? 'Articles in date order' : '按日期排序的文章'">
-    <li v-for="entry in chronologicalEntries" :key="entry.slug" :data-article="entry.slug">
+  <ol v-if="isChronological && pagination.items.length" class="catalog-chronological-list" :aria-label="isEnglish ? 'Articles in date order' : '按日期排序的文章'">
+    <li v-for="entry in pagination.items" :key="entry.slug" :data-article="entry.slug">
       <a class="catalog-date-title" :href="withBase(pathFor(entry.slug))">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span><span aria-hidden="true">↗</span></a>
       <a class="catalog-date-category" :href="withBase(categoryFor(entry.categoryId))">{{ entry.categoryTitle }}</a>
       <dl class="catalog-dates">
@@ -63,30 +92,30 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
     </li>
   </ol>
   <template v-if="!isChronological">
-  <section v-for="(collection, collectionIndex) in selectedCollections" :key="collection.id" class="collection-block">
+  <section v-for="(collection, collectionIndex) in visibleCollections" :key="collection.id" class="collection-block">
     <div v-if="!category" class="collection-header">
       <div>
         <div class="collection-label">{{ collection.label }}</div>
         <h2>
           <a :href="withBase(categoryFor(collection.id))" :aria-label="(isEnglish ? 'Read ' : '阅读') + collection.title">
-            {{ String(collectionIndex + 1).padStart(2, '0') }} / {{ collection.title }}
+            {{ String(canSort ? collectionPosition(collection.id) : collectionIndex + 1).padStart(2, '0') }} / {{ collection.title }}
           </a>
         </h2>
         <p>{{ collection.subtitle }}</p>
       </div>
       <a class="collection-all" :href="withBase(categoryFor(collection.id))">
-        {{ collection.chapters.reduce((n, chapter) => n + chapter.items.length, 0) }} {{ isEnglish ? 'articles' : '篇全文' }} →
+        <template v-if="canSort">{{ isEnglish ? 'View category' : '查看分类' }}</template><template v-else>{{ collection.chapters.reduce((n, chapter) => n + chapter.items.length, 0) }} {{ isEnglish ? 'articles' : '篇全文' }}</template> →
       </a>
     </div>
     <div class="chapter-grid">
       <section v-for="(chapter, chapterIndex) in collection.chapters" :key="chapter.title" class="chapter-card">
         <div class="chapter-index">
-          {{ String(chapterIndex + 1).padStart(2, '0') }} / {{ String(collection.chapters.length).padStart(2, '0') }}
+          {{ String(canSort ? chapterPosition(collection.id, chapter.title) : chapterIndex + 1).padStart(2, '0') }} / {{ String(canSort ? chapterCount(collection.id) : collection.chapters.length).padStart(2, '0') }}
         </div>
         <component :is="category ? 'h2' : 'h3'" class="chapter-title">{{ chapter.title }}</component>
         <p>{{ chapter.desc }}</p>
         <ol>
-          <li v-for="([slug, label]) in (compact ? chapter.items.slice(0, 3) : chapter.items)" :key="slug">
+          <li v-for="([slug, label]) in (compact ? chapter.items.slice(0, 3) : chapter.items)" :key="slug" :data-article="canSort ? slug : undefined">
             <a :href="withBase(pathFor(slug))">{{ label }} <span v-if="isEnglish && !pathFor(slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span> <span aria-hidden="true">↗</span></a>
           </li>
         </ol>
@@ -106,6 +135,18 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
   </section>
   </template>
   </div>
+  <nav v-if="canSort && pagination.pageCount > 1" class="catalog-pagination" :aria-label="isEnglish ? 'Article catalogue pages' : '文章目录分页'">
+    <button type="button" :disabled="pagination.page === 1" aria-controls="catalog-results" @click="goToPage(pagination.page - 1)">{{ isEnglish ? 'Previous' : '上一页' }}</button>
+    <div class="catalog-page-numbers">
+      <button v-for="number in pageNumbers" :key="number" type="button" :aria-current="pagination.page === number ? 'page' : undefined" :aria-label="isEnglish ? `Page ${number}` : `第 ${number} 页`" aria-controls="catalog-results" @click="goToPage(number)">{{ number }}</button>
+    </div>
+    <button type="button" :disabled="pagination.page === pagination.pageCount" aria-controls="catalog-results" @click="goToPage(pagination.page + 1)">{{ isEnglish ? 'Next' : '下一页' }}</button>
+  </nav>
+  <details v-if="canSort && allEntries.length" class="catalog-all-links">
+    <summary>{{ isEnglish ? `All ${allEntries.length} matching article links` : `全部 ${allEntries.length} 篇匹配文章链接` }}</summary>
+    <ul><li v-for="entry in allEntries" :key="entry.slug"><a :href="withBase(pathFor(entry.slug))">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span></a></li></ul>
+  </details>
+  </div>
 </template>
 
 <style scoped>
@@ -114,11 +155,41 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
 .catalog-tag-filter button { min-height:44px; padding:8px 14px; border:1px solid var(--vp-c-divider); border-radius:22px; }
 .catalog-tag-filter button[aria-pressed="true"] { background:var(--vp-c-brand-soft); border-color:var(--vp-c-brand-1); color:var(--vp-c-brand-1); }
 .catalog-tag-filter button:focus-visible { outline:2px solid var(--vp-c-brand-1); outline-offset:3px; }
-.catalog-sort { margin: 16px 0 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
-.catalog-sort label { font-weight: 600; }
-.catalog-sort select { min-height: 44px; max-width: 100%; padding: 8px 32px 8px 12px; border: 1px solid var(--vp-c-divider); border-radius: 8px; background-color: var(--vp-c-bg); color: var(--vp-c-text-1); font: inherit; }
-.catalog-sort select:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; }
-.catalog-sort p { flex-basis: 100%; margin: 0; color: var(--vp-c-text-2); font-size: 13px; line-height: 1.7; }
+.catalog-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; margin: 16px 0 8px; padding: 10px 12px; border: 1px solid var(--vp-c-divider); border-radius: 14px; background: var(--vp-c-bg-soft); }
+.catalog-toolbar .catalog-tag-filter { margin: 0; gap: 6px; }
+.catalog-toolbar .catalog-tag-filter > span { margin-right: 4px; white-space: nowrap; }
+.reader-catalog .catalog-toolbar .catalog-tag-filter button { padding: 7px 12px; border-radius: 999px; background: var(--vp-c-bg); font-size: 13px; line-height: 1.3; }
+.reader-catalog .catalog-toolbar .catalog-tag-filter button[aria-pressed="true"] { background: var(--vp-c-brand-soft); }
+.reader-catalog .catalog-toolbar .catalog-clear { min-width: 44px; font-size: 20px; }
+.catalog-toolbar .catalog-clear[aria-disabled="true"] { opacity: .4; cursor: default; }
+.catalog-sort { display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-width: 0; }
+.catalog-sort label { color: var(--vp-c-text-2); font-size: 13px; white-space: nowrap; }
+.catalog-select-shell { position: relative; min-width: 0; }
+.catalog-select-shell::after { content: ''; position: absolute; right: 14px; top: 17px; width: 7px; height: 7px; border-right: 1.5px solid var(--vp-c-text-2); border-bottom: 1.5px solid var(--vp-c-text-2); transform: rotate(45deg); pointer-events: none; }
+.catalog-sort select { appearance: none; min-height: 44px; width: 210px; max-width: 100%; padding: 9px 34px 9px 12px; border: 1px solid var(--vp-c-divider); border-radius: 9px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font: inherit; font-size: 13px; cursor: pointer; }
+.catalog-sort select:hover { border-color: var(--vp-c-brand-1); }
+.catalog-sort select:focus-visible, .catalog-help summary:focus-visible, .catalog-pagination button:focus-visible, .catalog-all-links summary:focus-visible, #catalog-results:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; }
+.catalog-help { position: relative; }
+.catalog-help summary { display: flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; border-radius: 50%; color: var(--vp-c-text-2); cursor: pointer; list-style: none; font-weight: 600; }
+.catalog-help summary::marker { content: ''; }
+.catalog-help summary::-webkit-details-marker { display: none; }
+.catalog-help summary:hover, .catalog-help[open] summary { background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); }
+.catalog-help-content { position: absolute; z-index: 2; right: 0; top: calc(100% + 8px); width: min(360px, calc(100vw - 48px)); padding: 14px 16px; border: 1px solid var(--vp-c-divider); border-radius: 12px; background: var(--vp-c-bg); box-shadow: 0 8px 24px #00000012; }
+.catalog-help-content p, .catalog-history-note { margin: 0; color: var(--vp-c-text-2); font-size: 13px; line-height: 1.7; }
+.catalog-help-content p + p { margin-top: 8px; }
+.catalog-page-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; margin: 8px 0 20px; color: var(--vp-c-text-2); font-size: 13px; }
+.catalog-page-summary p { margin: 0; }
+.catalog-page-summary a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+.catalog-pagination, .catalog-page-numbers { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; }
+.catalog-pagination { margin: 28px 0 16px; }
+.catalog-pagination button { min-width: 44px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--vp-c-divider); border-radius: 8px; font-size: 13px; }
+.catalog-pagination button[aria-current="page"] { color: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); font-weight: 600; }
+.catalog-pagination button:disabled { opacity: .45; cursor: not-allowed; }
+.catalog-all-links { margin: 20px 0; border-top: 1px solid var(--vp-c-divider); padding-top: 12px; }
+.catalog-all-links summary { padding: 12px 0; min-height: 44px; color: var(--vp-c-text-2); cursor: pointer; font-size: 13px; }
+.catalog-all-links ul { columns: 2; column-gap: 32px; }
+.catalog-all-links li { break-inside: avoid; }
+.catalog-all-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; overflow-wrap: anywhere; }
 .reader-catalog .catalog-chronological-list { list-style: none; margin: 0; padding: 0; }
 .catalog-chronological-list > li { padding: 16px 0; border-bottom: 1px solid var(--vp-c-divider); }
 .catalog-date-title { display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; overflow-wrap: anywhere; }
@@ -135,5 +206,12 @@ const chronologicalEntries = computed(() => isChronological.value ? chronologica
 .reader-catalog .chapter-card li a { min-height: 44px; overflow-wrap: anywhere; }
 .reader-catalog a:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; }
 .reader-catalog .catalog-tag-filter button { border-radius: 8px; }
-@media (max-width: 767px) { .reader-catalog .chapter-card { padding: 16px; } }
+@media (max-width: 767px) {
+  .reader-catalog .chapter-card { padding: 16px; }
+  .catalog-toolbar { flex-wrap: wrap; gap: 8px; }
+  .catalog-sort { width: 100%; }
+  .catalog-select-shell { flex: 1; }
+  .catalog-sort select { width: 100%; }
+  .catalog-all-links ul { columns: 1; }
+}
 </style>

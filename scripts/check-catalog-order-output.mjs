@@ -2,6 +2,8 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { chapters } from '../book.mjs'
+import { englishArticlePath } from '../book.en.mjs'
 
 export function checkCatalogOrderHtml(html, { language, kind }) {
   const english = language === 'en'
@@ -17,7 +19,24 @@ export function checkCatalogOrderHtml(html, { language, kind }) {
     assert.ok(html.includes(english ? 'Created: newest first' : '创建时间：从新到旧'))
     assert.ok(html.includes('class="collection-block"'), 'Default grouped catalogue must remain SSR-visible')
     assert.ok(!html.includes('class="catalog-chronological-list"'), 'Date sorting is opt-in, not a changed default')
-  } else assert.ok(!html.includes('id="catalog-sort-order"'), 'Date control must not leak onto home or category pages')
+    assert.match(html, /class="catalog-toolbar"/)
+    assert.match(html, /class="catalog-select-shell"/)
+    assert.match(html, /<details class="catalog-help"/)
+    assert.match(html, /id="catalog-results"[^>]*role="region"[^>]*tabindex="-1"/)
+    const slugs = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
+    const displayed = [...html.matchAll(/data-article="([^"]+)"/g)].map(match => match[1])
+    assert.deepEqual(displayed, slugs.slice(0, 12), 'First SSR page contains exactly the first 12 primary articles')
+    const allLinks = /<details class="catalog-all-links"[^>]*>([\s\S]*?)<\/details>/.exec(html)?.[1]
+    assert.ok(allLinks, 'All matching links remain discoverable without JavaScript pagination')
+    const links = [...allLinks.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1])
+    assert.deepEqual(links, slugs.map(slug => '/eff-agent-article' + (english ? englishArticlePath(slug) : '/articles/' + slug)))
+    assert.match(html, /aria-current="page"/)
+    assert.ok(html.includes(english ? 'Page 1 of ' : '第 1 / '))
+  } else {
+    assert.ok(!html.includes('id="catalog-sort-order"'), 'Date control must not leak onto home or category pages')
+    assert.ok(!html.includes('class="catalog-pagination"'), 'Pagination must not affect home/category pages')
+    assert.ok(!html.includes('class="catalog-all-links"'), 'All-links index is specific to the independent catalogue')
+  }
   if (kind === 'home') {
     const links = [...html.matchAll(/<a\b([^>]*)>/g)].filter(match => /class="[^"]*\bVPFeature\b/.test(match[1]))
       .map(match => /href="([^"]+)"/.exec(match[1])?.[1])
@@ -33,5 +52,5 @@ if (import.meta.url === pathToFileURL(resolve(process.argv[1] || '')).href) {
       checkCatalogOrderHtml(readFileSync(resolve('.vitepress/dist', prefix + page + '.html'), 'utf8'), { language, kind })
     }
   }
-  console.log('Catalogue sorting controls and six homepage topic cards verified in both languages; category defaults preserved.')
+  console.log('Bilingual catalogue toolbar, first page and complete crawlable link index verified; six homepage cards and category defaults preserved.')
 }

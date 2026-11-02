@@ -162,3 +162,13 @@ The independent bilingual catalogue adds four opt-in date orders while preservin
 这是 [Schema.org WebSite](https://schema.org/WebSite) 与 [CollectionPage](https://schema.org/CollectionPage) 的页面语义补齐，不是搜索排名或富媒体结果承诺。[Google site-name 规则](https://developers.google.com/search/docs/appearance/site-names) 不支持子目录级独立站名，因此文集首页的 WebSite 不代替 `hpoenixf.com` 根站点的身份，也不为此迁移 URL。[Article 指南](https://developers.google.com/search/docs/appearance/structured-data/article) 要求按真实适用信息添加字段，不用虚构信息凑齐推荐项。
 
 The shared JSON-LD owner describes the bilingual collection website and its actual catalogue/topic pages without changing URLs, article provenance or date ownership. The rendered-output gate checks exact single schemas and route isolation. This subdirectory's semantic markup does not claim Google's domain-level site-name eligibility, rich-result visibility or a ranking improvement.
+
+### 目录工具栏与分页 / Catalogue toolbar and pagination
+
+只有中英文独立目录使用统一标签 chips、样式化原生 select 与原生 details 帮助；窄屏可换行，不实现第二套下拉键盘模型。帮助保留标签交集及创建／更新时间的真实语义。分类页、首页、正文不受分页影响。
+
+沿同一目录先执行标签交集，再完整排序，最后每页显示 12 篇主文章；默认分类顺序仍保留章节分组。`catalog-view.mjs` 的纯函数只投影现有目录，不修改目录顺序、日期或正文。筛选、清除及排序变化回到第 1 页；页号越界自动收敛，0 项显示空状态，未知日期与同刻稳定规则不变。分页有总数／范围／页数、禁用边界按钮、`aria-current` 和动态状态；不强制滚动或抢焦点，结果区有可聚焦的锚点入口。
+
+同一个筛选与排序后的完整列表也在原生 details 中输出全部正文链接。首屏 12 篇与完整链接都存在于 SSR HTML，关闭 JavaScript 仍能展开并访问后页文章；不靠只有点击后才生成的链接维持收录，不另造 URL、第二套目录或重复全文。中英链接及 Chinese original 回退保持原路由 owner。验证纯函数的 0／1／12／13／多页边界、实际 Vue 事件状态切换、SSR 首屏和完整链接；轻量渲染宿主不替代浏览器视觉、焦点与键盘实测。
+
+The independent bilingual catalogue filters, sorts, then paginates 12 primary articles at a time. Its compact toolbar retains native select/details semantics. A server-rendered, user-expandable list of every matching article keeps later pages accessible without JavaScript; it is a projection of the existing registry, not a second index or duplicate full text. Category/home behavior and article/date ownership stay unchanged.
