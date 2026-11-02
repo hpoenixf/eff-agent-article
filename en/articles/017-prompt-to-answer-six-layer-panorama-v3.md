@@ -296,7 +296,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | --- | --- | --- |
 | A11 | [Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
 | A16 | [Research Results and References](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3, L5 |
-| A17 | [Research Material Assets](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
+| A17 | [Research Material Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
 | A20 | [Knowledge Retrieval](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L3 |
