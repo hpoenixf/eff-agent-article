@@ -31,6 +31,19 @@ for (const route of ['README', 'MAINTENANCE', 'en/README', 'en/MAINTENANCE']) {
   assert.equal(structuredNodes(html).length, 0, 'No reader schema on contributor documentation: ' + route)
 }
 
+for (const language of ['', 'en/']) {
+  const route = language + 'architecture'
+  const html = readFileSync(resolve(output, route + '.html'), 'utf8')
+  const target = canonicalUrl(route + '.md')
+  assert.equal((html.match(/<link\b[^>]*rel="canonical"[^>]*>/g) ?? []).length, 1)
+  assert.ok(html.includes('href="' + target + '"'))
+  assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex,\s*follow"/)
+  assert.ok(html.includes('content="0;url=' + target + '"'))
+  assert.ok(!listed.has(SITE_URL + route) && !listed.has(SITE_URL + route + '.html'))
+  assert.equal(structuredNodes(html).length, 0)
+  assert.ok(!/<link\b[^>]*hreflang=/.test(html))
+}
+
 for (const slug of legacy) {
   for (const language of ['', 'en/']) {
     const route = language + 'articles/' + slug

@@ -1,82 +1,16 @@
 ---
-title: 架构导读 · 从模型语义到真实交付
-description: ETF Agent 的六层读法与 Model、Runtime、Host、MCP、Skill 的责任分界。
+layout: page
+sidebar: false
+outline: false
+editLink: false
+search: false
+head:
+  - - meta
+    - name: robots
+      content: noindex, follow
+  - - meta
+    - http-equiv: refresh
+      content: "0;url=https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3"
 ---
 
-# 从模型语义到真实交付
-
-本页是[架构设计与系统思考](/thinking)的总览入口；按能力看机制从[模块维度](/modules)开始，研发验证与工程记忆见[AI Agent 研发工程实践](/engineering)。金融业务相关的跨分类文章另见[金融专题](/fintech)。
-
-<small>架构导读更新：2026-10-25 · 基于已经公开的工程文章整理，**不是**私有代码的实时验收证明。</small>
-
-这一套 Agent 的关键变化不是接入了更多工具，而是逐渐弄清了：**谁提出研究判断，谁批准动作，谁保存事实，谁能够宣布交付。**
-
-<FlagshipEntry compact />
-
-## 一次问题的六层视角
-
-本次改用**“任务触发到前端可见”**的请求处理顺序，而不是把所有能力强行排成一条工具流水线。模型做 Direct/Research/Coord 语义决策在 L3；Direct 可跳过 L4 的研究工具，但始终调用模型 Gateway 并走统一 Publication。
-
-| 层 | 一句话 | 主要能力（按名称） |
-| --- | --- | --- |
-| **L1 任务输入与触发** | 从聊天、周报、定时或个性化主题怎样启动工作？ | 消息输入、Schedule、每日个性研究入口 |
-| **L2 身份、会话与上下文** | 属于谁、哪个 Run、哪些合法材料与方法？ | 账户身份、会话、Run 授权、Projector、Memory、Compaction、Skill |
-| **L3 Agent 决策与运行** | 模型选择 Direct/Research/Coord，Main/Child 如何行动？ | 研究决策、Subagent、模型目录与 Gateway、预算、终结 |
-| **L4 工具与领域能力** | 哪些真实工具与业务计算被调用？ | Host/MCP、Web、PDF、RAG、Python、金融工具、结果引用 |
-| **L5 发布与交付** | 哪版正文或附件被接纳、保存、发送？ | Publication、Artifact、History、SSE、通知 |
-| **L6 用户界面** | 哪个 Run 的哪版内容被呈现？ | 消息流、研究卡片、引用、交互 |
-
-![六层处理与跨层能力柱](./visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg)
-
-主图收敛成九组纵向能力柱：**每个实线标签对应独立 Owner，淡色虚线框只代表流程动作或分组**。身份与授权同列，研究与金融工具同列；纵向留白表示该层没有直接责任。**47 个 Owner 的最终事实归属**仍以[交互图册](/gallery)为准。
-
-关注主题当前是研究选择上下文，**不代表自动订阅监控已经上线**。
-
-[**阅读六层调用全景 V3（新版入口）**](/articles/017-prompt-to-answer-six-layer-panorama-v3) · [保留 V2 原文](/articles/017-prompt-to-answer-six-layer-panorama) · [V1 历史版](/articles/017-prompt-to-answer-six-layer-panorama-v1)
-
-## 架构判断分为核心与外围两层
-
-[九条核心原则](/principles)保留最有解释力的判断：**模型负责语义、系统负责事实；提议不等于效果；复杂度归属正确 Owner；局部失败不全局否决；Context 是工作台；最小充分；能力可撤退；用户任务成功才是终点；局部改善还要通过整体任务效果核验。**
-
-外围则是按问题取用的七组方法——[五不与正常路径税](/articles/code-cheaper-systems-harder-to-evolve)、事实/权力/故障/价值设计四问、证据传递、分期交付、验证选择和知识退役。它们用于指导取舍，**不构成新的 Runtime Gate 或必须执行的审批清单**；具体问题和后续写作见[预告页](/roadmap)。
-
-## 从这些专题继续深入
-
-- [Model / Runtime / MCP / Skill 分工](/articles/agent-model-runtime-mcp-skill-boundaries)：语义、准入、协议与方法的责任分割
-- [MCP 工具接入链路](/articles/mcp-host-from-discovery-to-consumption)：注册发现、Host 准入与工具执行消费的交接
-- [A34 Tool Surface 的形成](/articles/agent-model-capability-presentation-tool-surface)：旧方案为什么合理、后来哪里不够，以及最终模型请求的独立准入校验
-- [A35 内容信任：Prompt Injection 不只是恶意文本](/articles/agent-content-trust-prompt-injection)：保存原生产者的指令身份，最终请求只核对客观结构；效果决定留给原 Owner，不宣称真实模型已免疫
-- [只读投资事实](/articles/portfolio-mcp-readonly-investment-data)与[多供应商市场数据](/articles/mcp-market-responsibility-retrospective)：组合报告与外部行情分别承担什么数据责任
-- [否决权与 Run 终结权](/articles/agent-veto-authority-and-run-termination)：局部拒绝为什么不应随意终结全局任务
-- [独立发布系统](/articles/019-agent-answer-publication)：候选答案、可见预览与持久提交的差别
-- [Subagent 协作](/articles/agent-subagent-context-specialization)：专业化执行不能复制一套新的权威
-- [真实评测](/articles/honest-agent-evaluation)：模型输出、测试通过与完成用户目标的分母不是一回事
-
-## 进一步阅读
-
-[架构原则速查](/principles)单独维护稳定的判断标准；[系统可靠性与验证](/thinking)收入反馈归因、任务收敛与跨模块治理。完整正文和模块间交接仍以各文章的具体取材窗口为准。
-
-## 2026-10-20 的 Owner 深化
-
-收尾阶段、请求意图和结束投影已收拢到既有 **A06**，没有新增 Finalizer。**A23/A16/A22** 将模型直接 HTML 与 Python 工作区 HTML 接入共享内容准备、结果引用、Artifact 保存及认证下载，删除专用周报生成/renderer；直接 HTML 无 Python/Docker 或先发文字前置。
-
-**A07** 的 Child 技术终态与 **A24** 的历史/辅助恢复读取边界完成各自窄范围归档。**A18** 的 DeepSeek Search/Fetch 是既有能力的可选适配，不是新的模块。2026-10-20 时为 39 项，后续 A34 作为独立逻辑 Owner 加入后为 40 项，A35 作为独立内容信任逻辑 Owner 再增加为 41 项；**2026-10-24 将 A36 时间语义与 A37 HIO 独立编号纳入全量图册，现为 43 项**；A33 精确数值运算，只负责显式十进制与舍入残差，不继承金融公式、来源或正文发布权，具体关系与当前限制统一看[架构图册](/gallery)。
-
-连续 Child HTML 交接、同 Run 已保存结果回读、周报历史/比较资格和更广质量验收仍在推进；[写作预告](/roadmap)记录文章缺口，不能拿文章或未提交原型当作产品关闭证明。
-
-**历史文稿的判断需要保留时点。** 例如早期 RAG 撤权、授权与发布合同可能已经随架构调整，不应用旧文章给新合同背书。
-
-## 2026-10-24 的主干接线：保留原 Owner，不把代码出现写成验收通过
-
-近期后台研究与前台短答已经能够复用原 Conversation/Run 做有界并发，原复杂研究仍有 partial 结果。可选 Reviewable 审阅细节沿 **A16 结果身份 → A23 正文处置 → A24 History → A25 阅读** 读取；审阅附件和意见不改写正文权威，也不代替金融事实核验。
-
-个人 Subagent Profile 的账户设置、Run 版本冻结、Child 按方法选择及 History 接线已经进入主干；**A01/A07/A14/A25/A34** 各守原职责，真实账户、PostgreSQL、浏览器与完整研究质量仍须独立验收。A36 的时区、冻结任务锚点和选择性 Nasdaq 2026 排期日历也已接线，但来源默认关闭，预定交易时段不等于实际开市、成交或行情时点。**A36 是独立的确定性时间解释 Owner，A37 是独立双向交互准入 Owner**；这没有增加审批或市场来源的新权威。HIO Stage A–D 与整项 provider-free close 已完成，生产 Human Park 默认关闭；A36 的普通认证 Agent、真实日历消费及正式验收仍开放。两者都不保证真实模型或生产部署质量。
-
-评测问句已归到一份精选目录，默认只选有限核心题；目录覆盖、独立评分与真实业务有效性不是同一种证据。查看[最新的 43 项 Owner 图册及逐模块状态](/gallery)，可在弹窗中阅读上述交接与未验证范围。图册结构图保留其原审阅时点，新增的是现有 Owner 的状态补充。
-
-> 这是一份公开可读的架构理解索引。私有项目里的测试报告、状态台账、研发日志和未审定草稿没有被复制到这里。
-
-
-## 2026-10-26 · 工程增量与阅读提醒
-
-Runtime 的 Access/Exposure、Memory 及 Child/HIO 职责收拢已出现有界实现与证据，原变更仍未整体关闭；Web Source 增加有资源限制的条件式默认渲染兜底；前后台并发交互已取得限定真实链路资格化。三者都不证明完整金融研究的用户交付与生产质量。按 [架构图册](/gallery) 读取现状，再沿原 Owner 专文深入。
+[阅读系统全景](/articles/017-prompt-to-answer-six-layer-panorama-v3)

@@ -118,3 +118,23 @@ test('missing, unreviewed and legacy translations never acquire hreflang', () =>
   }
   assert.deepEqual(languageAlternates('README.md', () => true), [])
 })
+
+
+test('retired architecture guides preserve bilingual old links but are not reader destinations', () => {
+  for (const language of ['', 'en/']) {
+    const path = language + 'architecture'
+    const target = SITE_URL + language + 'articles/017-prompt-to-answer-six-layer-panorama-v3'
+    assert.equal(canonicalUrl(path + '.md'), target)
+    for (const route of [path, path + '.md', SITE_URL + path, SITE_URL + path + '.html']) {
+      assert.equal(isLegacyArticleRoute(route), true)
+      assert.deepEqual(filterSitemapItems([{ url: route }]), [])
+    }
+    assert.deepEqual(languageAlternates(path + '.md', () => true), [])
+    const stub = readFileSync(new URL('../' + path + '.md', import.meta.url), 'utf8')
+    assert.ok(stub.includes('search: false'))
+    assert.ok(stub.includes('0;url=' + target))
+    assert.ok(stub.includes('](/' + language + 'articles/017-prompt-to-answer-six-layer-panorama-v3)'))
+    assert.ok(stub.length < 700)
+    assert.ok(!readFileSync(new URL('../.vitepress/config.mts', import.meta.url), 'utf8').includes("link: '/" + path + "'"))
+  }
+})

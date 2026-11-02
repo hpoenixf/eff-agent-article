@@ -21,7 +21,7 @@ function routePath(value) {
 }
 
 export function isLegacyArticleRoute(value) {
-  if (['roadmap', 'en/roadmap'].includes(routePath(value))) return true
+  if (['roadmap', 'en/roadmap', 'architecture', 'en/architecture'].includes(routePath(value))) return true
   const article = /^(?:en\/)?articles\/([a-z0-9-]+)$/.exec(routePath(value))
   return Boolean(article && legacySlugs.has(article[1]))
 }
@@ -37,6 +37,8 @@ export function canonicalUrl(relativePath) {
   if (path === 'en/index') path = 'en/'
   if (path === 'roadmap') path = 'catalog'
   if (path === 'en/roadmap') path = 'en/catalog'
+  if (path === 'architecture') path = 'articles/017-prompt-to-answer-six-layer-panorama-v3'
+  if (path === 'en/architecture') path = 'en/articles/017-prompt-to-answer-six-layer-panorama-v3'
 
   const article = /^(en\/)?articles\/([^/]+)$/.exec(path)
   if (article) {

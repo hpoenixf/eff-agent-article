@@ -155,7 +155,7 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
     assert.equal(articleLinks.length, collections.flatMap(slugs).length)
     assert.equal(new Set(articleLinks).size, articleLinks.length)
     for (const path of ['fintech', 'panorama', 'open-etf-agent', 'gallery']) assert.ok(flatten(theme.sidebar).includes('/' + locale + path))
-    assert.ok(!flatten(theme.sidebar).some(path => /\/(roadmap|principles)$/.test(path)))
+    assert.ok(!flatten(theme.sidebar).some(path => /\/(roadmap|principles|architecture)$/.test(path)))
     const retired = text(locale + 'roadmap.md')
     assert.ok(retired.includes('0;url=https://hpoenixf.com/eff-agent-article/' + locale + 'catalog'))
     assert.ok(retired.includes('search: false'))

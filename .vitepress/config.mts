@@ -56,7 +56,6 @@ export default defineConfig({
           ] },
           { text: 'More pages', collapsed: true, items: [
             { text: 'Architecture Gallery', link: '/en/gallery' },
-            { text: 'Architecture Guide', link: '/en/architecture' },
             { text: 'Financial Research Backlog', link: '/en/financial-research-backlog' },
             { text: 'Blog', link: 'https://hpoenixf.com/' }
           ] },
@@ -203,7 +202,6 @@ export default defineConfig({
       ] },
       { text: '独立页面', collapsed: true, items: [
         { text: '架构图册', link: '/gallery' },
-        { text: '架构导读', link: '/architecture' },
         { text: '金融研究清单', link: '/financial-research-backlog' },
         { text: '博客', link: 'https://hpoenixf.com/' }
       ] },
