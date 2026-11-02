@@ -30,6 +30,8 @@
 
 **RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。
 
+**A04/B03 双语模块更新（2026-11-02）**：[011 模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md) · [English](en/articles/011-model-understands-code-authorizes.md) 在原链接上补齐 Run grant、Child 子集与恢复交接；[B03 确定性基金计算](articles/agent-deterministic-fund-allocation.md) · [English](en/articles/agent-deterministic-fund-allocation.md) 新增从账本、预算到基金上限及未分配余额的可复算案例，不把私有金额引擎冒充为开源交易能力。
+
 **两篇 Owner 机制新文（2026-10-31）**：[E04 研究调用证据留存与回读](articles/agent-research-evidence-store-lifecycle.md) · [English](en/articles/agent-research-evidence-store-lifecycle.md)；[A33 精确数值核与领域边界](articles/agent-numeric-kernel-exact-units-rounding.md) · [English](en/articles/agent-numeric-kernel-exact-units-rounding.md)。同时刷新 A11 工具链、金融数字 031 和成本归因三篇双语旧文，不替旧稿更换原链接。
 
 **Research Workspace 专题**：[为什么 Agent 需要 Workspace？从一次性对话到长期研究](articles/agent-research-workspace-goal-continuity.md) · [Full English](en/articles/agent-research-workspace-goal-continuity.md)——长期目标关联多次独立 Run、按原始版本消费历史材料；私有 P0 已合入主干且默认关闭，开源教学仓库尚未提供这一模块。
