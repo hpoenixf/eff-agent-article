@@ -62,9 +62,14 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
     assert.match(html, /aria-describedby="catalog-date-note"/)
     for (const order of ['category', 'created-asc', 'created-desc', 'updated-asc', 'updated-desc']) assert.ok(html.includes(`value="${order}"`))
     assert.match(html, english ? /Created: newest first/ : /创建时间：从新到旧/)
-    assert.ok(!html.includes('catalog-chronological-list'), 'Original grouped view remains the default')
-    assert.equal(orderedSlugs(html).length, 12)
-    assert.ok((html.match(/class="collection-block"/g) || []).length >= 1)
+    assert.match(html, /class="catalog-article-list"/); assert.ok(!html.includes('class="collection-block"'), 'Independent catalogue uses dense cards in original catalogue order')
+    assert.equal(orderedSlugs(html).length, 20)
+    assert.equal((html.match(/<h1\b/g) || []).length, 1)
+    assert.match(html, /<header class="catalog-page-heading"/)
+    assert.match(html, new RegExp(canonical.length + (english ? ' articles' : ' 篇文章')))
+    assert.equal((html.match(/class="catalog-entry-meta"/g) || []).length, 20)
+    assert.equal((html.match(/class="catalog-dates"/g) || []).length, 20)
+    assert.deepEqual(orderedSlugs(html), canonical.slice(0, 20))
     assert.match(html, /class="catalog-toolbar"/)
     assert.match(html, /class="catalog-select-shell"/)
     assert.match(html, /<details class="catalog-help"/)
@@ -81,10 +86,10 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
 
 test('SSR page two, out-of-range, empty and language fallback retain correct pagination and discoverable links', async () => {
   const page2 = await render({ currentPage: 2 })
-  assert.deepEqual(orderedSlugs(page2), canonical.slice(12, 24))
+  assert.deepEqual(orderedSlugs(page2), canonical.slice(20, 40))
   assert.match(page2, /aria-current="page"[^>]*aria-label="第 2 页"/)
   const last = await render({ currentPage: 999, order: 'created-asc' })
-  assert.equal(orderedSlugs(last).length, canonical.length % 12 || 12)
+  assert.equal(orderedSlugs(last).length, canonical.length % 20 || 20)
   assert.match(last, /<button[^>]*disabled[^>]*>下一页<\/button>/)
   const one = await render({ tags: ['fallback'], currentPage: 8, english: true, page: 'en/catalog.md' })
   assert.equal(orderedSlugs(one).length, 2)
@@ -138,7 +143,7 @@ test('actual filter, clear, sort and paging handlers update results and reset th
     for (const option of select.options) option.selected = option.value === 'updated-desc'
     select.listeners.change(); await nextTick()
     assert.equal(text(current()), '1')
-    assert.equal(all(root).filter(n => n.props['data-article']).length, 12)
+    assert.equal(all(root).filter(n => n.props['data-article']).length, 20)
     assert.ok(find(n => n.props.id === 'catalog-results' && n.props.tabindex === -1))
     assert.equal(focused, null, 'Changing pages, filters and order must not grab focus')
     await click(find(n => n.tag === 'a' && n.props.href === '#catalog-results'))
@@ -186,4 +191,22 @@ test('the sixth homepage feature reuses the existing bilingual open-source topic
   const css = readFileSync('.vitepress/theme/home-layout.css', 'utf8')
   assert.match(css, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/)
   assert.match(css, /@media \(max-width: 767px\)[\s\S]*\.VPHome \.VPFeatures \.items \{ grid-template-columns: minmax\(0, 1fr\)/)
+})
+
+test('dense independent page shell preserves original anchors, responsive grid and touch/focus affordances', async () => {
+  const css = descriptor.styles[0].content
+  assert.match(css, /@media \(min-width: 960px\)[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(css, /catalog-article-list[^}]*grid-template-columns: minmax\(0, 1fr\)/)
+  assert.match(css, /@media \(pointer: coarse\), \(max-width: 640px\)/)
+  assert.match(css, /catalog-dates dt, \.catalog-dates dd \{ display: inline; margin: 0; \}/)
+  for (const [prefix, anchor] of [['', '全部文章'], ['en/', 'article-catalog']]) {
+    const source = readFileSync(prefix + 'catalog.md', 'utf8')
+    assert.match(source, /layout: page/); assert.ok(!/^# /m.test(source), 'The shared component owns the only H1')
+    assert.match(source, /<ContinueReading \/>/)
+    const html = await render({ english: Boolean(prefix), page: prefix + 'catalog.md' })
+    assert.match(html, new RegExp('<h1 id="' + anchor + '"'))
+  }
+  const category = await render({ page: 'modules.md', props: { category: 'modules' } })
+  assert.ok(category.includes('class="chapter-card"')); assert.ok(!category.includes('catalog-article-list'))
+  assert.ok(!category.includes('<h1')); assert.ok(!category.includes('catalog-entry-meta'))
 })

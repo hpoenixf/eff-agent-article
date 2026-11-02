@@ -39,7 +39,7 @@ export function chronologicalCatalog(collections, { order, ...options } = {}) {
   })
 }
 
-export function paginateCatalogEntries(entries, { page = 1, pageSize = 12 } = {}) {
+export function paginateCatalogEntries(entries, { page = 1, pageSize = 20 } = {}) {
   if (!Number.isSafeInteger(pageSize) || pageSize < 1) throw new TypeError('Catalogue page size must be a positive integer')
   const total = entries.length
   const pageCount = Math.ceil(total / pageSize)
@@ -48,14 +48,4 @@ export function paginateCatalogEntries(entries, { page = 1, pageSize = 12 } = {}
   const offset = (current - 1) * pageSize
   return { items: entries.slice(offset, offset + pageSize), page: current, pageCount, total,
     start: total ? offset + 1 : 0, end: Math.min(offset + pageSize, total) }
-}
-
-// Keep the default chapter grouping, but only for this page's primary entries.
-export function catalogPageCollections(collections, entries) {
-  const visible = new Set(entries.map(entry => entry.slug))
-  return collections.map(collection => ({ ...collection,
-    chapters: collection.chapters.map(chapter => ({ ...chapter,
-      items: chapter.items.filter(([slug]) => visible.has(slug))
-    })).filter(chapter => chapter.items.length)
-  })).filter(collection => collection.chapters.length)
 }

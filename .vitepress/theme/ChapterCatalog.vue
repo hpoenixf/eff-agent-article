@@ -4,7 +4,7 @@ import { data as tagData } from './article-tags.data'
 import { data as chronologyData } from './article-chronology.data'
 import { withBase } from 'vitepress'
 import { collections } from '../../book.mjs'
-import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries, catalogPageCollections } from './catalog-view.mjs'
+import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries } from './catalog-view.mjs'
 import { englishCollections, englishArticlePath } from '../../book.en.mjs'
 import { useData } from 'vitepress'
 
@@ -32,22 +32,22 @@ const allEntries = computed(() => isChronological.value
   ? chronologicalCatalog(selectedCollections.value, { ...entryOptions.value, order: sortOrder.value })
   : primaryCatalogEntries(selectedCollections.value, entryOptions.value))
 const pagination = computed(() => paginateCatalogEntries(allEntries.value, { page: currentPage.value }))
-const visibleCollections = computed(() => canSort.value
-  ? catalogPageCollections(selectedCollections.value, pagination.value.items) : selectedCollections.value)
 const goToPage = (page: number) => { currentPage.value = paginateCatalogEntries(allEntries.value, { page }).page }
 const pageNumbers = computed(() => Array.from({ length: pagination.value.pageCount }, (_, index) => index + 1))
-const collectionPosition = (id: string) => allCollections.value.findIndex(collection => collection.id === id) + 1
-const chapterPosition = (id: string, title: string) => (allCollections.value.find(collection => collection.id === id)?.chapters.findIndex(chapter => chapter.title === title) ?? -1) + 1
-const chapterCount = (id: string) => allCollections.value.find(collection => collection.id === id)?.chapters.length ?? 0
 
 </script>
 
 <template>
-  <div class="reader-catalog">
-  <div class="catalog-headline">
+  <div class="reader-catalog" :class="{ 'reader-catalog--index': canSort }">
+  <header v-if="canSort" class="catalog-page-heading">
+    <h1 :id="isEnglish ? 'article-catalog' : '全部文章'">{{ isEnglish ? 'Article Catalog' : '全部文章' }}</h1>
+    <div class="catalog-heading-summary"><span>{{ isEnglish ? 'ARTICLE CATALOG' : '文章目录' }}</span><strong>{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · {{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong></div>
+  </header>
+  <div v-else class="catalog-headline">
     <span>{{ category ? (isEnglish ? 'IN THIS CATEGORY' : '本类文章') : (isEnglish ? 'ARTICLE CATALOG' : '文章目录') }}</span>
     <strong><template v-if="!category">{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · </template>{{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
   </div>
+  <div v-if="canSort" class="catalog-intro"><slot name="intro" /></div>
   <div :class="canSort ? 'catalog-toolbar' : 'catalog-filters'">
   <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags; match all selected' : '按文章标签筛选，同时满足所选标签'">
     <span>{{ canSort ? (isEnglish ? 'Tags' : '标签') : (isEnglish ? 'Tags · match all selected' : '标签 · 同时满足所选标签') }}</span>
@@ -58,7 +58,7 @@ const chapterCount = (id: string) => allCollections.value.find(collection => col
     <label for="catalog-sort-order">{{ isEnglish ? 'Sort' : '排序' }}</label>
     <div class="catalog-select-shell">
     <select id="catalog-sort-order" v-model="sortOrder" aria-describedby="catalog-date-note">
-      <option value="category">{{ isEnglish ? 'Category order' : '按分类浏览' }}</option>
+      <option value="category">{{ isEnglish ? 'Catalogue order' : '目录顺序' }}</option>
       <option value="created-desc">{{ isEnglish ? 'Created: newest first' : '创建时间：从新到旧' }}</option>
       <option value="created-asc">{{ isEnglish ? 'Created: oldest first' : '创建时间：从旧到新' }}</option>
       <option value="updated-desc">{{ isEnglish ? 'Updated: newest first' : '更新时间：从新到旧' }}</option>
@@ -81,36 +81,38 @@ const chapterCount = (id: string) => allCollections.value.find(collection => col
   </div>
   <div ref="resultsRegion" :id="canSort ? 'catalog-results' : undefined" :role="canSort ? 'region' : undefined" :tabindex="canSort ? -1 : undefined" :aria-label="canSort ? (isEnglish ? 'Article results' : '文章结果') : undefined">
   <p v-if="!selectedCollections.length" role="status">{{ isEnglish ? 'No articles match these tags. Clear a filter to see more.' : '暂无同时符合这些标签的文章，可取消部分筛选。' }}</p>
-  <ol v-if="isChronological && pagination.items.length" class="catalog-chronological-list" :aria-label="isEnglish ? 'Articles in date order' : '按日期排序的文章'">
+  <ol v-if="canSort && pagination.items.length" class="catalog-article-list" :aria-label="isChronological ? (isEnglish ? 'Articles in date order' : '按日期排序的文章') : (isEnglish ? 'Articles in catalogue order' : '按目录顺序排列的文章')">
     <li v-for="entry in pagination.items" :key="entry.slug" :data-article="entry.slug">
       <a class="catalog-date-title" :href="withBase(pathFor(entry.slug))">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span><span aria-hidden="true">↗</span></a>
+      <div class="catalog-entry-meta">
       <a class="catalog-date-category" :href="withBase(categoryFor(entry.categoryId))">{{ entry.categoryTitle }}</a>
       <dl class="catalog-dates">
-        <div><dt>{{ isEnglish ? 'Created on site' : '本站创建' }}</dt><dd><time v-if="entry.created" :datetime="entry.created.timestamp">{{ entry.created.date }}</time><span v-else>{{ isEnglish ? 'Unknown' : '未知' }}</span></dd></div>
+        <div><dt>{{ isEnglish ? 'Site created' : '本站创建' }}</dt><dd><time v-if="entry.created" :datetime="entry.created.timestamp">{{ entry.created.date }}</time><span v-else>{{ isEnglish ? 'Unknown' : '未知' }}</span></dd></div>
         <div><dt>{{ isEnglish ? 'Updated' : '更新' }}</dt><dd><time v-if="entry.updated" :datetime="entry.updated.timestamp">{{ entry.updated.date }}</time><span v-else>{{ isEnglish ? 'Unknown' : '未知' }}</span></dd></div>
       </dl>
+      </div>
     </li>
   </ol>
-  <template v-if="!isChronological">
-  <section v-for="(collection, collectionIndex) in visibleCollections" :key="collection.id" class="collection-block">
+  <template v-if="!canSort">
+  <section v-for="(collection, collectionIndex) in selectedCollections" :key="collection.id" class="collection-block">
     <div v-if="!category" class="collection-header">
       <div>
         <div class="collection-label">{{ collection.label }}</div>
         <h2>
           <a :href="withBase(categoryFor(collection.id))" :aria-label="(isEnglish ? 'Read ' : '阅读') + collection.title">
-            {{ String(canSort ? collectionPosition(collection.id) : collectionIndex + 1).padStart(2, '0') }} / {{ collection.title }}
+            {{ String(collectionIndex + 1).padStart(2, '0') }} / {{ collection.title }}
           </a>
         </h2>
         <p>{{ collection.subtitle }}</p>
       </div>
       <a class="collection-all" :href="withBase(categoryFor(collection.id))">
-        <template v-if="canSort">{{ isEnglish ? 'View category' : '查看分类' }}</template><template v-else>{{ collection.chapters.reduce((n, chapter) => n + chapter.items.length, 0) }} {{ isEnglish ? 'articles' : '篇全文' }}</template> →
+        {{ collection.chapters.reduce((n, chapter) => n + chapter.items.length, 0) }} {{ isEnglish ? 'articles' : '篇全文' }} →
       </a>
     </div>
     <div class="chapter-grid">
       <section v-for="(chapter, chapterIndex) in collection.chapters" :key="chapter.title" class="chapter-card">
         <div class="chapter-index">
-          {{ String(canSort ? chapterPosition(collection.id, chapter.title) : chapterIndex + 1).padStart(2, '0') }} / {{ String(canSort ? chapterCount(collection.id) : collection.chapters.length).padStart(2, '0') }}
+          {{ String(chapterIndex + 1).padStart(2, '0') }} / {{ String(collection.chapters.length).padStart(2, '0') }}
         </div>
         <component :is="category ? 'h2' : 'h3'" class="chapter-title">{{ chapter.title }}</component>
         <p>{{ chapter.desc }}</p>
@@ -146,6 +148,7 @@ const chapterCount = (id: string) => allCollections.value.find(collection => col
     <summary>{{ isEnglish ? `All ${allEntries.length} matching article links` : `全部 ${allEntries.length} 篇匹配文章链接` }}</summary>
     <ul><li v-for="entry in allEntries" :key="entry.slug"><a :href="withBase(pathFor(entry.slug))">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span></a></li></ul>
   </details>
+  <div v-if="canSort" class="catalog-footnote"><slot name="footer" /></div>
   </div>
 </template>
 
@@ -190,14 +193,47 @@ const chapterCount = (id: string) => allCollections.value.find(collection => col
 .catalog-all-links ul { columns: 2; column-gap: 32px; }
 .catalog-all-links li { break-inside: avoid; }
 .catalog-all-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; overflow-wrap: anywhere; }
-.reader-catalog .catalog-chronological-list { list-style: none; margin: 0; padding: 0; }
-.catalog-chronological-list > li { padding: 16px 0; border-bottom: 1px solid var(--vp-c-divider); }
-.catalog-date-title { display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; overflow-wrap: anywhere; }
-.catalog-date-title > span:last-child { margin-left: auto; flex-shrink: 0; }
-.catalog-date-category { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; }
-.catalog-dates { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 4px 0 0; font-size: 13px; color: var(--vp-c-text-2); }
-.catalog-dates > div { display: flex; gap: 8px; }
-.catalog-dates dd { margin: 0; }
+/* Independent catalogue only: full-width, compact cards; category views stay grouped. */
+.reader-catalog--index { width: 100%; max-width: 1240px; margin: 0 auto; padding: 32px 24px 48px; }
+.catalog-page-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; margin: 0 0 10px; }
+.catalog-page-heading h1 { margin: 0; font-size: clamp(28px, 3vw, 36px); line-height: 1.25; letter-spacing: -.02em; font-weight: 700; }
+.catalog-heading-summary { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-left: auto; color: var(--vp-c-text-2); font-size: 13px; }
+.catalog-heading-summary strong { color: var(--vp-c-text-1); font-weight: 600; }
+.catalog-intro :deep(p), .catalog-footnote :deep(p) { margin: 6px 0; color: var(--vp-c-text-2); font-size: 14px; line-height: 1.7; }
+.catalog-intro :deep(.resume-reading) { margin: 12px 0; }
+.catalog-footnote { margin-top: 24px; }
+.reader-catalog--index .catalog-toolbar { margin-top: 16px; padding: 6px 8px; border-radius: 10px; }
+.reader-catalog--index .catalog-toolbar .catalog-tag-filter button { min-height: 36px; padding: 5px 10px; }
+.reader-catalog--index .catalog-toolbar .catalog-clear { min-width: 36px; }
+.reader-catalog--index .catalog-sort select { min-height: 36px; padding: 6px 32px 6px 10px; }
+.reader-catalog--index .catalog-select-shell::after { top: 13px; }
+.reader-catalog--index .catalog-help summary { width: 36px; min-height: 36px; }
+.reader-catalog--index .catalog-page-summary { margin: 4px 0 12px; }
+.reader-catalog--index .catalog-page-summary a { min-height: 32px; }
+.reader-catalog .catalog-article-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; list-style: none; margin: 0; padding: 0; }
+.catalog-article-list > li { min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 14px 16px; border: 1px solid var(--vp-c-divider); border-radius: 10px; background: var(--vp-c-bg); }
+.catalog-date-title { display: flex; align-items: flex-start; gap: 8px; min-height: 44px; font-size: 16px; line-height: 1.5; font-weight: 600; color: var(--vp-c-text-1); overflow-wrap: anywhere; }
+.catalog-date-title:hover { color: var(--vp-c-brand-1); }
+.catalog-date-title > span:last-child { margin-left: auto; flex-shrink: 0; color: var(--vp-c-brand-1); }
+.catalog-entry-meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; margin-top: auto; }
+.catalog-date-category { display: inline-flex; align-items: center; min-height: 24px; font-size: 12px; color: var(--vp-c-brand-1); }
+.catalog-dates { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 6px; margin: 0 0 0 auto; font-size: 12px; line-height: 1.6; color: var(--vp-c-text-2); font-variant-numeric: tabular-nums; }
+.catalog-dates > div { display: inline-flex; gap: 4px; white-space: nowrap; }
+.catalog-dates > div + div::before { content: '·'; margin-right: 2px; }
+.catalog-dates dt, .catalog-dates dd { display: inline; margin: 0; }
+@media (min-width: 960px) { .reader-catalog .catalog-article-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (pointer: coarse), (max-width: 640px) {
+  .reader-catalog--index .catalog-toolbar .catalog-tag-filter button, .reader-catalog--index .catalog-sort select, .reader-catalog--index .catalog-help summary { min-height: 44px; }
+  .reader-catalog--index .catalog-toolbar .catalog-clear, .reader-catalog--index .catalog-help summary { min-width: 44px; }
+  .reader-catalog--index .catalog-select-shell::after { top: 17px; }
+  .reader-catalog--index .catalog-page-summary a, .catalog-date-category { min-height: 44px; }
+}
+@media (max-width: 640px) {
+  .reader-catalog--index { padding: 24px 16px 40px; }
+  .catalog-page-heading { gap: 8px 16px; }
+  .catalog-heading-summary { font-size: 12px; }
+  .catalog-article-list > li { padding: 12px; }
+}
 .reader-catalog .catalog-headline { margin: 24px 0 12px; }
 .reader-catalog .chapter-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 .reader-catalog .chapter-card { padding: 20px; border-radius: 8px; background: transparent; }

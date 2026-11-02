@@ -143,13 +143,13 @@ Each existing full article edition owns its reviewed `readingBrief` in Markdown 
 
 ## 全部文章的日期排序 / Catalogue date order
 
-只有 `/catalog` 与 `/en/catalog` 提供创建／更新时间各自的升序、降序；默认仍按原分类浏览。日期模式对当前标签交集内的全部主类文章统一排序，不把关联阅读重复计入，也不改变分类页、主页或 `book.mjs` 顺序。缺失日期双向均置后；同一时刻按原目录顺序稳定排列。
+只有 `/catalog` 与 `/en/catalog` 提供创建／更新时间各自的升序、降序；默认仍按原目录顺序展示。日期模式对当前标签交集内的全部主类文章统一排序，不把关联阅读重复计入，也不改变分类页、主页或 `book.mjs` 顺序。缺失日期双向均置后；同一时刻按原目录顺序稳定排列。
 
 日期继续由 `article-history.mjs` 从固定源码 HEAD 的完整 Git 主线历史派生，不存手填日期或构建时刻。创建表示当前语言版本首次纳入本站主线的版本记录，不代表原稿创作或首次线上发布时间；沿 Git 识别的重命名追溯，删除后重新建立的文件不继承旧实例日期。合并按首次在主线可见的提交计时。更新保留既有可见内容比较：纯格式和明确派生字段不刷新，标题、说明、证据与导读卡等可见内容变化仍算更新。中英文各取实际目标正文的历史；“Chinese original” 回退使用中文原文的日期。时间显示为 UTC+8，`time` 元素保留完整提交时间。历史缺失或浅克隆时显示未知，不填今天。
 
 `article-chronology.data.ts` 只是上述 owner 的构建期投影，不是第二套文章目录或日期真值。原生带标签的 `select` 保留标准键盘语义；单测覆盖四种顺序、标签交集、未知末尾、同刻稳定、翻译回退、主线合并及改名历史。`node scripts/check-catalog-order-output.mjs` 检查真实构建产物中的中英入口与默认视图。VitePress 退出码为 0 不代表每页 SSR 无异常；检查构建日志异常与原 `postdocs:build` 全部产物门，不能只报进程完成。
 
-The independent bilingual catalogue adds four opt-in date orders while preserving category browsing and all-selected tag filtering. Creation means the edition's first recorded main-branch version on this site—not its original writing or live-publication date. The existing Git history owner follows recognized renames, treats a deleted/re-created path as a new lineage, and retains visible-content update semantics, including reading briefs. Unknown dates always sort last; equal timestamps retain canonical catalogue order. No article body, historical timestamp, or RSS policy is rewritten.
+The independent bilingual catalogue adds four opt-in date orders while preserving canonical category order and all-selected tag filtering. Creation means the edition's first recorded main-branch version on this site—not its original writing or live-publication date. The existing Git history owner follows recognized renames, treats a deleted/re-created path as a new lineage, and retains visible-content update semantics, including reading briefs. Unknown dates always sort last; equal timestamps retain canonical catalogue order. No article body, historical timestamp, or RSS policy is rewritten.
 
 首页第六个入口复用现有中英 Open ETF Agent 专题，与原五个入口同属 `features`，不新增分类或推广面板；沿用桌面三列与窄屏单列规则。链接只表达可运行开源教学实现入口，不提高文章关联、测试或真实金融效果的资格。
 
@@ -167,8 +167,10 @@ The shared JSON-LD owner describes the bilingual collection website and its actu
 
 只有中英文独立目录使用统一标签 chips、样式化原生 select 与原生 details 帮助；窄屏可换行，不实现第二套下拉键盘模型。帮助保留标签交集及创建／更新时间的真实语义。分类页、首页、正文不受分页影响。
 
-沿同一目录先执行标签交集，再完整排序，最后每页显示 12 篇主文章；默认分类顺序仍保留章节分组。`catalog-view.mjs` 的纯函数只投影现有目录，不修改目录顺序、日期或正文。筛选、清除及排序变化回到第 1 页；页号越界自动收敛，0 项显示空状态，未知日期与同刻稳定规则不变。分页有总数／范围／页数、禁用边界按钮、`aria-current` 和动态状态；不强制滚动或抢焦点，结果区有可聚焦的锚点入口。
+沿同一目录先执行标签交集，再完整排序，最后每页显示 20 篇主文章；默认目录顺序保留原分类与篇目顺序，以逐篇卡片呈现，分类页仍保留章节分组。`catalog-view.mjs` 的纯函数只投影现有目录，不修改目录顺序、日期或正文。筛选、清除及排序变化回到第 1 页；页号越界自动收敛，0 项显示空状态，未知日期与同刻稳定规则不变。分页有总数／范围／页数、禁用边界按钮、`aria-current` 和动态状态；不强制滚动或抢焦点，结果区有可聚焦的锚点入口。
 
-同一个筛选与排序后的完整列表也在原生 details 中输出全部正文链接。首屏 12 篇与完整链接都存在于 SSR HTML，关闭 JavaScript 仍能展开并访问后页文章；不靠只有点击后才生成的链接维持收录，不另造 URL、第二套目录或重复全文。中英链接及 Chinese original 回退保持原路由 owner。验证纯函数的 0／1／12／13／多页边界、实际 Vue 事件状态切换、SSR 首屏和完整链接；轻量渲染宿主不替代浏览器视觉、焦点与键盘实测。
+同一个筛选与排序后的完整列表也在原生 details 中输出全部正文链接。首屏 20 篇与完整链接都存在于 SSR HTML，关闭 JavaScript 仍能展开并访问后页文章；不靠只有点击后才生成的链接维持收录，不另造 URL、第二套目录或重复全文。中英链接及 Chinese original 回退保持原路由 owner。验证纯函数的 0／1／20／21／多页边界、实际 Vue 事件状态切换、SSR 首屏和完整链接；轻量渲染宿主不替代浏览器视觉、焦点与键盘实测。
 
-The independent bilingual catalogue filters, sorts, then paginates 12 primary articles at a time. Its compact toolbar retains native select/details semantics. A server-rendered, user-expandable list of every matching article keeps later pages accessible without JavaScript; it is a projection of the existing registry, not a second index or duplicate full text. Category/home behavior and article/date ownership stay unchanged.
+The independent bilingual catalogue filters, sorts, then paginates 20 primary articles at a time. Its compact toolbar retains native select/details semantics. A server-rendered, user-expandable list of every matching article keeps later pages accessible without JavaScript; it is a projection of the existing registry, not a second index or duplicate full text. Category/home behavior and article/date ownership stay unchanged.
+
+独立目录采用宽版容器，标题与动态统计同排，宽屏双列／窄屏单列；每卡分类和真实创建／更新日期在同一底部信息区。桌面控件可见高度 36px，粗指针与手机保持 44px 触控目标；焦点样式和原生操作语义不变。

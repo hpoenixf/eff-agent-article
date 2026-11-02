@@ -99,7 +99,7 @@ const finance = readFileSync('fintech.md', 'utf8')
 const catalogue = readFileSync('catalog.md', 'utf8')
 const readme = readFileSync('README.md', 'utf8')
 if (!engineering.includes('<ChapterCatalog category="engineering" />')) throw Error('Engineering landing page missing')
-if (!catalogue.includes('<ChapterCatalog />') || !readme.includes('AI Agent 研发工程实践')) throw Error('Three-way catalogue entry missing')
+if (!/<ChapterCatalog(?:\s[^>]*)?>/.test(catalogue) || !readme.includes('AI Agent 研发工程实践')) throw Error('Three-way catalogue entry missing')
 const financeSlugs = [...finance.matchAll(/\/articles\/([a-z0-9-]+)/g)].map(match => match[1])
 // The cross-category finance page is a thematic map: an indexed essay may be
 // linked from both a concern matrix and a reading route. This does not create

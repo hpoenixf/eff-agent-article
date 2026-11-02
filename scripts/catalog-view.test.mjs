@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries, catalogPageCollections } from '../.vitepress/theme/catalog-view.mjs'
+import { catalogView, chronologicalCatalog, primaryCatalogEntries, paginateCatalogEntries } from '../.vitepress/theme/catalog-view.mjs'
 import { collections } from '../book.mjs'
 import { englishCollections } from '../book.en.mjs'
 
@@ -82,12 +82,12 @@ test('chronology consumes actual language targets after tag intersection, withou
 })
 
 test('pagination covers empty, single, exact-size, overflow and multi-page lists without mutation', () => {
-  for (const count of [0, 1, 12, 13, 49]) {
+  for (const count of [0, 1, 12, 13, 20, 21, 49]) {
     const entries = Array.from({ length: count }, (_, index) => ({ slug: String(index) }))
-    const before = JSON.stringify(entries), pages = Math.ceil(count / 12)
+    const before = JSON.stringify(entries), pages = Math.ceil(count / 20)
     const first = paginateCatalogEntries(entries)
     assert.equal(first.page, 1); assert.equal(first.pageCount, pages)
-    assert.equal(first.start, count ? 1 : 0); assert.equal(first.end, Math.min(12, count))
+    assert.equal(first.start, count ? 1 : 0); assert.equal(first.end, Math.min(20, count))
     const last = paginateCatalogEntries(entries, { page: 999 })
     assert.equal(last.page, Math.max(1, pages)); assert.equal(last.end, count)
     const traversed = Array.from({ length: pages }, (_, index) => paginateCatalogEntries(entries, { page: index + 1 }).items).flat()
@@ -99,20 +99,17 @@ test('pagination covers empty, single, exact-size, overflow and multi-page lists
 })
 
 test('filter then global sort then paginate keeps ties and language dates while clamping shrunken lists', () => {
-  const source = [{ id: 'one', title: 'One', chapters: [{ title: 'Chapter', items: Array.from({ length: 25 }, (_, i) => ['a' + i, 'Article ' + i]), related: [['other', 'Related']] }] }]
-  const tags = Object.fromEntries(source[0].chapters[0].items.map(([slug], i) => [slug, i < 13 ? [{ id: 'selected' }] : []]))
+  const source = [{ id: 'one', title: 'One', chapters: [{ title: 'Chapter', items: Array.from({ length: 45 }, (_, i) => ['a' + i, 'Article ' + i]), related: [['other', 'Related']] }] }]
+  const tags = Object.fromEntries(source[0].chapters[0].items.map(([slug], i) => [slug, i < 21 ? [{ id: 'selected' }] : []]))
   tags.other = [{ id: 'selected' }]
   const filtered = catalogView(source, { selectedTags: ['selected'], articles: tags })
   const chronology = Object.fromEntries(source[0].chapters[0].items.map(([slug], i) => ['en/articles/' + slug + '.md', { created: { timestamp: i === 0 ? '2026-03-01' : '2026-02-01' } }]))
   const sorted = chronologicalCatalog(filtered.collections, { order: 'created-desc', chronology, sourcePath: slug => 'en/articles/' + slug + '.md' })
-  assert.deepEqual(sorted.map(x => x.slug), Array.from({ length: 13 }, (_, i) => 'a' + i))
+  assert.deepEqual(sorted.map(x => x.slug), Array.from({ length: 21 }, (_, i) => 'a' + i))
   const page = paginateCatalogEntries(sorted, { page: 3 })
-  assert.equal(page.page, 2); assert.deepEqual(page.items.map(x => x.slug), ['a12'])
-  const grouped = catalogPageCollections(filtered.collections, page.items)
-  assert.deepEqual(grouped[0].chapters[0].items, [['a12', 'Article 12']])
-  assert.deepEqual(grouped[0].chapters[0].related, [['other', 'Related']])
-  assert.equal(primaryCatalogEntries(source).length, 25)
-  assert.deepEqual(catalogPageCollections(source, []), [])
+  assert.equal(page.page, 2); assert.deepEqual(page.items.map(x => x.slug), ['a20'])
+  assert.equal(primaryCatalogEntries(source).length, 45)
+  assert.ok(!primaryCatalogEntries(filtered.collections).some(entry => entry.slug === 'other'))
   assert.equal(paginateCatalogEntries(sorted.slice(0, 1), { page: 3 }).page, 1)
   assert.equal(paginateCatalogEntries([], { page: 3 }).pageCount, 0)
 })
