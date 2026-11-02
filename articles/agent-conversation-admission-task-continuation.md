@@ -48,19 +48,11 @@ readingBrief:
 
 这也是为什么仅用“最近一次 Run”决定关系不可靠。上一项研究可能还在后台运行，用户刚提出的却是一个完全独立的问题。
 
-下面把这三句话画成任务关系图。**实线表示消息属于哪次执行，虚线只表示显式核验后的任务接续**；图中不是实际数据库结构。
+下面把这三句话画成任务关系图。每条消息保留自己的执行身份；只有明确核验的父任务，才能为新 Run 建立接续关系。图中不是实际数据库结构。
 
-```mermaid
-flowchart TD
-    C["同一个 Conversation"]
-    C --> U1["消息 1：比较三年"]
-    C --> U2["消息 2：改为一年"]
-    C --> U3["消息 3：显式 Continue"]
-    U1 --> R1["Run A"]
-    U2 --> R2["Run B · 独立执行"]
-    U3 --> R3["Run C · 新的关联执行"]
-    R1 -. "核验父 Run 后接续" .-> R3
-```
+![会话中的三条消息分别关联独立执行或经核验的接续](../visuals/a02-conversation/relationships.svg)
+
+[放大查看完整矢量图](../visuals/a02-conversation/relationships.svg)
 
 *图 1：对话连续不等于运行连续。第二条消息使用历史线索，不自动继承第一项研究；第三条只有在可信父任务成立时才建立接续关系。*
 
@@ -81,19 +73,11 @@ flowchart TD
 
 最后一条尤其关键：数据库超时不能直接等同于“事务没提交”。有的失败明确表示未接纳，有的只能表示本次调用结果未知。后者需要先读取原持久事实，再决定是否继续。
 
-还有一个经常被前端忽视的分支：重试请求在网络层失败时，数据库提交是否成功可能尚不可知。判定应当围绕**原标识**收敛，而不是创建一个新的提交身份。
+反过来，已经明确拒绝或回滚、确认没有完成接纳的请求，不能返回一份不存在的持久身份。是否允许用原标识修正后重试，要按原接纳合同判断；它与结果未知时的对账是两条分支。
 
-```mermaid
-flowchart TD
-    A["收到标识与原始消息"] --> B{"消息标识已接纳？"}
-    B -->|是| C{"原文和接续关系一致？"}
-    C -->|是| D["回读已存在的消息与 Run"]
-    C -->|否| E["拒绝身份冲突"]
-    B -->|否| F["尝试持久接纳"]
-    F --> G{"提交结果确定？"}
-    G -->|是| H["返回持久身份"]
-    G -->|否| I["保持原标识，读取并对账"]
-```
+![同一提交的回读、明确失败和未知结果对账](../visuals/a02-conversation/admission.svg)
+
+[放大查看完整矢量图](../visuals/a02-conversation/admission.svg)
 
 *图 2：消息幂等门。网络失败和持久化失败不是同一事实；结果未知时不生成新的消息 ID 试运气。*
 
@@ -104,22 +88,12 @@ flowchart TD
 
 模型负责理解问题；Host 负责确认哪些请求关系成立。A02 不靠阅读一句话的语义，去推断用户是否获得了旧 Run 的执行权。
 
-下面是主流程的简化示意。图中的“创建 Run”表示持久接纳；后续是否实际派发模型或工具，还要经过原有授权、资源和运行治理。
+下面按已核验的关系区分三条路径。前置消息身份核验不等于最终持久接纳；图中的“创建 Run”发生在关系与资格检查之后，后续模型或工具派发还要经过原有授权、资源和运行治理。
 
 
-```mermaid
-flowchart TD
-    A["新消息身份已接纳"] --> B{"有有效的待澄清状态？"}
-    B -->|是| C["核验并绑定澄清来源"]
-    B -->|否| D{"显式指定 Continue？"}
-    D -->|否| E["创建普通新 Run"]
-    D -->|是| F{"父 Run 与授权可核验？"}
-    F -->|是| G["创建关联的新 Run"]
-    F -->|否| H["拒绝本次接续"]
-    C --> I["移交后续 Runtime"]
-    E --> I
-    G --> I
-```
+![身份核验后按澄清、显式接续或普通追问分流](../visuals/a02-conversation/routes.svg)
+
+[放大查看完整矢量图](../visuals/a02-conversation/routes.svg)
 
 *图 3：通过消息身份门之后，才选择任务关系。普通追问可引用旧历史，但不等于 Continue；后续模型和工具派发仍受独立授权及资源约束。*
 
@@ -192,24 +166,17 @@ Host 首先在真实会话范围里读取父 Run：`run-102` 必须是可接续�
 
 在 Agent 工程里，“恢复”至少有两种完全不同的动作：
 
-**同 Run 恢复（Recover / Resume）**：进程退出或持有者变化后，依据原 Run 的持久检查点、租约、已派发请求与已提交回执，继续结算**同一个 Run**。它不能把结果未知的外部副作用当作未发生而盲目重做。
+**同 Run 恢复与结算（Recover / Resume）**：依据原 Run 的持久身份、租约、已派发请求与已提交回执，按原恢复合同处理**同一个 Run**；这个名称本身不承诺重新启动旧模型循环。已发表的[中断处理边界](./agent-disconnect-is-not-crash-recovery-contract.md)区分两种情况：普通 Root 冷重入没有获准控制唤醒时，只做有限结算、保留已提交成果；原 Human/Child 控制负责人已经接受的合法唤醒，才可在受限检查点和原资源余量内继续。两者都不能把结果未知的外部副作用当作未发生而盲目重做。
 
 **跨 Run 接续（Continue）**：用户明确要求沿旧研究继续，系统核实父 Run 身份与资格，然后创建**一个新的关联 Run**。它可以获准读取旧任务的材料，但不会重启父 Run 的执行器，也不会重放父 Run 已经完成的工具动作。
 
 两个动作在网页上都可能叫“继续”，实现时却绝对不能共享一个含糊的 `resumePrevious()` 接口。前者依赖执行恢复合同，后者依赖消息身份、父子关系和新任务准入。
 
-```mermaid
-flowchart TD
-    A["既有 Run A"] --> B{"用户希望怎样继续？"}
-    B -->|Recover / Resume| C["仍是 Run A"]
-    B -->|Continue| D["创建新 Run B"]
-    C --> E["核对旧检查点与回执"]
-    D --> F["核对父 Run、原文、授权和资料"]
-    E --> G["仅推进尚可安全执行的工作"]
-    F --> H["处理新请求，不重放旧副作用"]
-```
+![同Run受限恢复与跨Run接续的不同准入顺序](../visuals/a02-conversation/recovery.svg)
 
-*图 4：同 Run 恢复改变的是执行持有者或阶段；跨 Run 接续改变的是任务关系和新的执行身份。两者都不能把未知副作用当作未发生。*
+[放大查看完整矢量图](../visuals/a02-conversation/recovery.svg)
+
+*图 4：同 Run 保留原身份，能否继续派发取决于原恢复与唤醒资格；Continue 先核验父任务，再创建新身份。不合格不会先创建任务，未知副作用也不会被改写为未发生。*
 
 
 ## 七、哪些实现已经能让读者自己观察？
@@ -219,6 +186,7 @@ flowchart TD
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
+git checkout --detach 34124cefc6df289e08518173789210b45a716451
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run session -- start --session runs/a02-boundary-demo --case durable-report
@@ -231,7 +199,7 @@ npm run session -- inspect --session runs/a02-boundary-demo --run RUN_ID
 npm run session -- resume --session runs/a02-boundary-demo --run RUN_ID
 ```
 
-这组命令展示的是**同一持久 Run 的状态与 Resume**，不是 A02 完整的 HTTP 多轮 Conversation/Continue 体验。公开仓库使用本地 SQLite 和离线脚本 Gateway，适合观察身份、终态与重复调用的基础合同；本文讨论的会话接纳、澄清绑定和跨 Run 接续来自更完整的系统实现，不能据此宣称已在这个公开 CLI 中交付。公开可变入口及最新说明见 [main](https://github.com/hpoenixf/open-etf-agent/tree/main) 和 [模块运行指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md)。
+`start` 正常完成后，这组 `resume` 命令验证的是**终态重复调用与原结果回读**：固定版本的 [Runtime 终态分支](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160)读取原结果，不重新执行。它不演示进程中断后的检查点恢复，也不是 A02 完整的 HTTP 多轮 Conversation/Continue 体验。本次仅核对固定源码与命令说明，没有重新运行示例或注入故障。公开仓库使用本地 SQLite 和离线脚本 Gateway，适合观察身份、终态与重复调用的基础合同；本文讨论的会话接纳、澄清绑定和跨 Run 接续来自更完整的系统实现，不能据此宣称已在这个公开 CLI 中交付。公开可变入口及最新说明见 [main](https://github.com/hpoenixf/open-etf-agent/tree/main) 和 [模块运行指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md)。
 
 ## 八、A02 的价值，不在于替模型决定下一步
 

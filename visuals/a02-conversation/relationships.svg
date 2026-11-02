@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="532" viewBox="0 0 640 532" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">会话连续，执行身份各自清楚</title><desc id="desc">三条消息分别属于Run A、B、C；Run B只引用获准历史，Run C只有核验Run A父任务资格后才建立接续。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="530" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / 对话接纳</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">会话连续，执行身份各自清楚</text>
+<text x="30" y="112" font-size="23" font-weight="500" fill="#4e665e">同一 Conversation，不用回答顺序猜父子关系</text>
+<rect x="28" y="135" width="584" height="94" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="168" font-size="26" font-weight="700" fill="#16362f">消息 1：比较三年</text>
+<text x="46" y="199" font-size="23" font-weight="500" fill="#4e665e">保存这次研究的原始问题</text>
+<text x="485" y="168" font-size="26" font-weight="700" fill="#16362f">Run A</text>
+<path d="M430 159 H470" stroke="#a3523d" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="245" width="584" height="94" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="278" font-size="26" font-weight="700" fill="#16362f">消息 2：改为一年</text>
+<text x="46" y="309" font-size="23" font-weight="500" fill="#4e665e">可读获准历史，不自动继承旧任务</text>
+<text x="485" y="278" font-size="26" font-weight="700" fill="#16362f">Run B</text>
+<path d="M430 269 H470" stroke="#a3523d" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="355" width="584" height="94" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="388" font-size="26" font-weight="700" fill="#16362f">消息 3：显式 Continue</text>
+<text x="46" y="419" font-size="23" font-weight="500" fill="#4e665e">先核验 Run A，再记录新的父子关系</text>
+<text x="485" y="388" font-size="26" font-weight="700" fill="#16362f">Run C</text>
+<path d="M430 379 H470" stroke="#a3523d" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="30" y="500" font-size="23" font-weight="500" fill="#4e665e">任务关系示意，不是数据库或执行轨迹。</text>
+</g></svg>

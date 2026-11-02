@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="660" viewBox="0 0 640 660" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">从阶段结果到可带走的版本</title><desc id="desc">用户先读已有费用比较，补充持有一年条件，确认真实修订，再取得指定版本。收到要求不等于报告已更新，文件不可读时不应提供下载。</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="658" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / 客户端交互全景</text>
+<text x="30" y="80" font-size="32" font-weight="700">从阶段结果到可带走的版本</text>
+<rect x="26" y="106" width="588" height="106" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<circle cx="55" cy="138" r="17" fill="#16362f"/>
+<text x="55" y="146" text-anchor="middle" font-size="23" font-weight="700" fill="white">1</text>
+<text x="84" y="144" font-size="27" font-weight="700">先读阶段结果</text>
+<text x="84" y="174" font-size="23" fill="#4e665e">费用比较已可读</text>
+<text x="84" y="201" font-size="23" fill="#a3523d">持仓部分仍缺资料</text>
+<path d="M320 215 V228" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="232" width="588" height="106" rx="16" fill="white" stroke="#cddbd1"/>
+<circle cx="55" cy="264" r="17" fill="#16362f"/>
+<text x="55" y="272" text-anchor="middle" font-size="23" font-weight="700" fill="white">2</text>
+<text x="84" y="270" font-size="27" font-weight="700">补充持有一年条件</text>
+<text x="84" y="300" font-size="23" fill="#4e665e">明确指向原比较</text>
+<text x="84" y="327" font-size="23" fill="#a3523d">已收到 ≠ 已用于报告</text>
+<path d="M320 341 V354" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="358" width="588" height="106" rx="16" fill="white" stroke="#cddbd1"/>
+<circle cx="55" cy="390" r="17" fill="#16362f"/>
+<text x="55" y="398" text-anchor="middle" font-size="23" font-weight="700" fill="white">3</text>
+<text x="84" y="396" font-size="27" font-weight="700">阅读真实修订</text>
+<text x="84" y="426" font-size="23" fill="#4e665e">说明新假设改变了什么</text>
+<text x="84" y="453" font-size="23" fill="#a3523d">保留原版本，不混用依据</text>
+<path d="M320 467 V480" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="484" width="588" height="106" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<circle cx="55" cy="516" r="17" fill="#16362f"/>
+<text x="55" y="524" text-anchor="middle" font-size="23" font-weight="700" fill="white">4</text>
+<text x="84" y="522" font-size="27" font-weight="700">取得指定版本</text>
+<text x="84" y="552" font-size="23" fill="#4e665e">标明版本与文件可用状态</text>
+<text x="84" y="579" font-size="23" fill="#a3523d">文件不可读，不假装已交付</text>
+<text x="30" y="632" font-size="23" fill="#4e665e">后来有更新，不悄悄改掉已取得的版本。</text>
+</g></svg>

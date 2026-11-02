@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="786" viewBox="0 0 640 786" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">保留同一 Run，或核验后新建</title><desc id="desc">同Run先核验原身份、回执和恢复资格；普通Root冷重入只有限结算，合法Human或Child唤醒才可受限继续。跨RunContinue先核验父Run、原文、授权和资料；不合格拒绝，合格才创建新关联Run。未知效果不能当作未执行。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="784" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / 对话接纳</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">保留同一 Run，或核验后新建</text>
+<rect x="28" y="106" width="584" height="256" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="139" font-size="26" font-weight="700" fill="#16362f">同 Run：原身份与恢复合同</text>
+<text x="46" y="170" font-size="23" font-weight="500" fill="#4e665e">先核验原身份、回执与恢复/唤醒资格</text>
+<text x="46" y="198" font-size="23" font-weight="500" fill="#4e665e">普通 Root 冷重入：有限结算，保留成果</text>
+<text x="46" y="226" font-size="23" font-weight="500" fill="#4e665e">不因旧检查点存在就重启模型循环</text>
+<text x="46" y="254" font-size="23" font-weight="500" fill="#4e665e">合法 Human/Child 唤醒：才可受限继续</text>
+<text x="46" y="282" font-size="23" font-weight="500" fill="#4e665e">仍遵守原租约、格式与资源余量</text>
+<rect x="28" y="388" width="584" height="248" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="421" font-size="26" font-weight="700" fill="#16362f">新 Run：显式 Continue</text>
+<text x="46" y="452" font-size="23" font-weight="500" fill="#4e665e">先核验父 Run、原文、授权与材料资格</text>
+<text x="46" y="480" font-size="23" font-weight="500" fill="#4e665e">不合格 → 拒绝，不创建新的执行</text>
+<text x="46" y="508" font-size="23" font-weight="500" fill="#4e665e">合格 → 持久接纳新的关联 Run</text>
+<text x="46" y="536" font-size="23" font-weight="500" fill="#4e665e">处理新请求，不重放父任务的旧效果</text>
+<text x="46" y="564" font-size="23" font-weight="500" fill="#4e665e">当前准入与资源约束仍然有效</text>
+<text x="30" y="686" font-size="23" font-weight="500" fill="#4e665e">用户重开页面只读历史，不等于这两种执行。</text>
+<text x="30" y="722" font-size="23" font-weight="500" fill="#a3523d">两条路都不能把未知副作用当作未发生。</text>
+</g></svg>

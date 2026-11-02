@@ -50,19 +50,11 @@ Two more concepts matter. A **history reference** lets a new question consume el
 
 This is why attaching every new message to the latest Run is unsafe: the last research may still be working in the background while the user asks an independent question.
 
-Here is a task relationship diagram. **Solid lines show message ownership; the dashed line shows explicit, verified continuation.** This is not a database schema.
+Here is a task relationship diagram. Each message retains its execution identity; only an explicitly verified parent establishes continuation for a new Run. This is not a database schema.
 
-```mermaid
-flowchart TD
-    C["One Conversation"]
-    C --> U1["Message 1: Compare three years"]
-    C --> U2["Message 2: Use one year"]
-    C --> U3["Message 3: Explicit Continue"]
-    U1 --> R1["Run A"]
-    U2 --> R2["Run B - independent execution"]
-    U3 --> R3["Run C - new linked execution"]
-    R1 -. "Continue after parent verification" .-> R3
-```
+![Three conversation messages retain separate or explicitly verified execution relationships](../../visuals/en/a02-conversation/relationships.svg)
+
+[Open the full-size vector figure](../../visuals/en/a02-conversation/relationships.svg)
 
 *Figure 1. A continuous conversation does not imply one continuous execution. Run B can use permitted history without inheriting Run A; Run C needs verified parentage.*
 
@@ -82,17 +74,11 @@ A safer design assigns a stable ID to the **submission intent**. Retrying keeps 
 
 The last row is important. A database timeout does not mean a transaction definitely failed. Some outcomes mean “not admitted”; others mean “the caller cannot tell.” Only durable reconciliation can resolve the latter.
 
-```mermaid
-flowchart TD
-    A["Receive ID and original message"] --> B{"Was this ID admitted?"}
-    B -->|Yes| C{"Same text and continuation link?"}
-    C -->|Yes| D["Read existing message and Run"]
-    C -->|No| E["Reject identity conflict"]
-    B -->|No| F["Attempt durable admission"]
-    F --> G{"Is the commit outcome known?"}
-    G -->|Yes| H["Return durable identity"]
-    G -->|No| I["Keep original ID; reconcile persisted facts"]
-```
+Conversely, a request known to have been rejected or rolled back without admission cannot return a nonexistent durable identity. Whether the original ID may be retried after correction follows the admission contract; that is a separate branch from reconciling an unknown outcome.
+
+![Readback, known rejection and unknown-outcome reconciliation for one submission](../../visuals/en/a02-conversation/admission.svg)
+
+[Open the full-size vector figure](../../visuals/en/a02-conversation/admission.svg)
 
 *Figure 2. The message idempotency gate. Losing a network response is not proof that the persistent write failed.*
 
@@ -102,21 +88,11 @@ This is closely related to idempotent APIs in distributed systems. Amazon's Buil
 
 The model interprets the user's intended question. The Host verifies whether a requested relationship to a previous execution actually exists. A02 does not infer permission to inherit a Run by reading the semantics of a chat message.
 
-This diagram begins **after message identity admission**. It shows task association, not final authorization for model or tool dispatch.
+This diagram separates three verified relationships. Preliminary message-identity checks are not final durable admission. A Run is created only after the relationship and eligibility checks; model and tool dispatch still obey the original authorization and resource rules.
 
-```mermaid
-flowchart TD
-    A["New message identity admitted"] --> B{"Valid pending clarification?"}
-    B -->|Yes| C["Verify and bind clarification source"]
-    B -->|No| D{"Explicit Continue selected?"}
-    D -->|No| E["Create ordinary new Run"]
-    D -->|Yes| F{"Verifiable parent Run and authorization?"}
-    F -->|Yes| G["Create linked new Run"]
-    F -->|No| H["Reject this continuation"]
-    C --> I["Hand off to Runtime"]
-    E --> I
-    G --> I
-```
+![Route verified messages to clarification, explicit continuation or an ordinary follow-up](../../visuals/en/a02-conversation/routes.svg)
+
+[Open the full-size vector figure](../../visuals/en/a02-conversation/routes.svg)
 
 *Figure 3. The Host chooses a verifiable task relationship; the Runtime still applies authorization, resource, and execution rules.*
 
@@ -189,22 +165,15 @@ Change one condition and the outcome changes:
 
 There are at least two meanings of “continuing” an Agent task.
 
-**Same-Run Recover / Resume:** Following a process exit or ownership change, the system uses the **same Run** and its original checkpoint, lease, dispatched calls, and persisted receipts. It settles only safely executable work; it never assumes that an external call with an unknown outcome did not occur.
+**Same-Run recovery and settlement (Recover / Resume):** The original recovery contract handles the **same Run**, using its durable identity, lease, dispatched calls and persisted receipts. The name does not promise to restart the old model loop. The published [interruption boundary](./agent-disconnect-is-not-crash-recovery-contract.md) distinguishes ordinary Root cold re-entry without an accepted control wake—which performs bounded settlement and retains committed results—from a lawful Human/Child wake already accepted by its responsible control component, which may continue within supported checkpoints and the original resource limits. Neither may assume that an external call with an unknown outcome did not occur.
 
 **Cross-Run Continue:** A user explicitly chooses to continue earlier research. The system verifies the parent identity and eligibility, then creates a **new linked Run**. It may use eligible historical materials, but does not restart the parent's executor or replay completed tools.
 
-```mermaid
-flowchart TD
-    A["Existing Run A"] --> B{"Which kind of continuation?"}
-    B -->|Recover / Resume| C["Still Run A"]
-    B -->|Continue| D["Create new Run B"]
-    C --> E["Check old checkpoint and receipts"]
-    D --> F["Verify parent, original text, grant, and sources"]
-    E --> G["Proceed only with safely executable remaining work"]
-    F --> H["Handle new request without replaying old effects"]
-```
+![Different admission order for same-Run recovery and cross-Run continuation](../../visuals/en/a02-conversation/recovery.svg)
 
-*Figure 4. Recover preserves one execution's identity. Continue establishes a new execution with an explicitly verified parent link. Neither may pretend an unknown external effect never happened.*
+[Open the full-size vector figure](../../visuals/en/a02-conversation/recovery.svg)
+
+*Figure 4. Same-Run handling preserves identity; further dispatch depends on the original recovery and wake conditions. Continue verifies the parent before creating a new identity. Ineligibility does not create a task first, and unknown effects remain unknown.*
 
 These paths cannot safely share an ambiguous `resumePrevious()` interface. One is governed by the execution-recovery contract, the other by message identity, task lineage, and new-Run admission.
 
@@ -215,6 +184,7 @@ The [Open ETF Agent public repository](https://github.com/hpoenixf/open-etf-agen
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
+git checkout --detach 34124cefc6df289e08518173789210b45a716451
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run session -- start --session runs/a02-boundary-demo --case durable-report
@@ -227,7 +197,7 @@ npm run session -- inspect --session runs/a02-boundary-demo --run RUN_ID
 npm run session -- resume --session runs/a02-boundary-demo --run RUN_ID
 ```
 
-This demonstrates **the persisted state and Resume of one Run**, not the full A02 multi-turn HTTP Conversation / Continue experience. The public educational project uses local SQLite and an offline scripted Gateway. It lets readers examine fundamental identity and execution contracts without claiming that the richer private system's Web-based admission and cross-Run continuation are shipped in that CLI. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md).
+After `start` completes normally, this `resume` sequence demonstrates **a repeated terminal call and readback of the original result**: the fixed [Runtime terminal branch](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160) reads the saved outcome rather than executing again. It does not demonstrate checkpoint recovery after a process interruption, or the full A02 multi-turn HTTP Conversation / Continue experience. These commands and the fixed source were reviewed, not re-executed; no fault injection was performed for this article. The public educational project uses local SQLite and an offline scripted Gateway. It lets readers examine fundamental identity and execution contracts without claiming that the richer private system's Web-based admission and cross-Run continuation are shipped in that CLI. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
 
 ## 8. A02 does not decide what the model should do
 

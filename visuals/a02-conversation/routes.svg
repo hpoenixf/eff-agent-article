@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="738" viewBox="0 0 640 738" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">先核验关系，再接纳任务</title><desc id="desc">核验本消息是否匹配待澄清关系；无该关系时才区分显式Continue与普通追问。不可读或冲突走原合同拒绝或既定处理，不静默降级为普通新Run。所有后续派发仍需原授权和资源检查。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="736" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / 对话接纳</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">先核验关系，再接纳任务</text>
+<text x="30" y="113" font-size="23" font-weight="500" fill="#a3523d">前置身份核验通过 ≠ Run 已持久创建</text>
+<rect x="28" y="140" width="584" height="98" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="173" font-size="26" font-weight="700" fill="#16362f">本消息匹配已登记的澄清</text>
+<text x="46" y="204" font-size="23" font-weight="500" fill="#4e665e">核验目标和来源，再移交对应后续处理</text>
+<rect x="28" y="259" width="584" height="98" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="292" font-size="26" font-weight="700" fill="#16362f">无澄清绑定 + 显式 Continue</text>
+<text x="46" y="323" font-size="23" font-weight="500" fill="#4e665e">核验父任务，合格才创建关联新 Run</text>
+<rect x="28" y="378" width="584" height="98" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="411" font-size="26" font-weight="700" fill="#16362f">无澄清绑定 + 普通追问</text>
+<text x="46" y="442" font-size="23" font-weight="500" fill="#4e665e">按当前入口接纳独立 Run</text>
+<rect x="28" y="508" width="584" height="122" rx="16" fill="#fff0e8" stroke="#cddbd1"/>
+<text x="46" y="541" font-size="26" font-weight="700" fill="#16362f">关联不可读或冲突</text>
+<text x="46" y="572" font-size="23" font-weight="500" fill="#4e665e">按原合同拒绝或进入既定处理</text>
+<text x="46" y="600" font-size="23" font-weight="500" fill="#4e665e">不得悄悄当作普通追问接纳</text>
+<text x="30" y="677" font-size="23" font-weight="500" fill="#4e665e">后续派发仍检查原授权和资源。</text>
+</g></svg>

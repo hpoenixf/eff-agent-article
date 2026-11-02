@@ -332,7 +332,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A25 | [Client Interaction and Reading](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [Related reading](/en/articles/agent-progressive-answer-coherence) | L1, L2, L5 |
+| A25 | [Client Interaction and Reading](/en/articles/agent-client-interaction-and-reading) · [Related reading](/en/articles/agent-progressive-answer-coherence) | L1, L2, L5 |
 
 Engineering navigation E01–E03 is not counted among these 47 production capability owners. Each owner's specification and verification evidence remain the source for implementation, scoped testing and production availability.
 

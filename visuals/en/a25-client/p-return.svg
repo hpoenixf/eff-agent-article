@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="476" viewBox="0 0 640 476" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Return to the original work</title><desc id="desc">Read existing results, explicitly request supported continuation, or start new research. Opening the page must not silently trigger either execution action.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="474" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">Return to the original work</text>
+<rect x="26" y="105" width="588" height="94" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="44" y="135" font-size="27" font-weight="700">Read again</text>
+<text x="44" y="165" font-size="24" fill="#4e665e">Retrieve the original saved result</text>
+<text x="44" y="191" font-size="22" fill="#a3523d">No research rerun</text>
+<rect x="26" y="209" width="588" height="94" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="239" font-size="27" font-weight="700">Request continuation</text>
+<text x="44" y="269" font-size="24" fill="#4e665e">Name the unfinished work</text>
+<text x="44" y="295" font-size="22" fill="#a3523d">Use the supported continuation contract</text>
+<rect x="26" y="313" width="588" height="94" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="343" font-size="27" font-weight="700">Start fresh research</text>
+<text x="44" y="373" font-size="24" fill="#4e665e">State the new date, material or scope</text>
+<text x="44" y="399" font-size="22" fill="#a3523d">A new request—not the old version</text>
+<text x="30" y="450" font-size="23" fill="#4e665e">Opening history must not silently start work.</text>
+</g></svg>
