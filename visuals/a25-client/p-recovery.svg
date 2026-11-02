@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="474" viewBox="0 0 640 474" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">失败提示，也是一条交互路径</title><desc id="desc">连接中断先确认最新状态；资料缺失解释受影响范围；任务停止仍可读取获准保存的成果。</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="472" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">失败提示，也是一条交互路径</text>
+<rect x="26" y="106" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="136" font-size="26" font-weight="700">连接暂时中断</text>
+<text x="44" y="164" font-size="23" fill="#4e665e">状态尚不能确认</text>
+<text x="44" y="189" font-size="23" font-weight="650" fill="#a3523d">重新读取进展</text>
+<rect x="26" y="209" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="239" font-size="26" font-weight="700">某份资料缺失</text>
+<text x="44" y="267" font-size="23" fill="#4e665e">说明哪项判断受影响</text>
+<text x="44" y="292" font-size="23" font-weight="650" fill="#a3523d">看已有结果或补资料</text>
+<rect x="26" y="312" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="342" font-size="26" font-weight="700">任务已经停止</text>
+<text x="44" y="370" font-size="23" fill="#4e665e">区分未完成部分与已保存成果</text>
+<text x="44" y="395" font-size="23" font-weight="650" fill="#a3523d">阅读保留结果</text>
+<text x="30" y="448" font-size="23" fill="#4e665e">按钮写清动作，不把所有操作都叫“重试”</text>
+</g></svg>

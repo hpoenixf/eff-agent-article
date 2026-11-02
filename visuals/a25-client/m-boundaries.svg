@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="468" viewBox="0 0 640 468" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">客户端有状态，但不独占事实</title><desc id="desc">本地草稿焦点与展开归客户端，任务接纳停止来自任务事实，保存修订访问来自原内容与权限事实。</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="466" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / A25 · CLIENT</text>
+<text x="30" y="80" font-size="32" font-weight="750">客户端有状态，但不独占事实</text>
+<rect x="26" y="104" width="588" height="91" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="44" y="134" font-size="27" font-weight="700">本地交互</text>
+<text x="44" y="163" font-size="23" fill="#4e665e">草稿 · 焦点 · 展开 · 阅读位置</text>
+<text x="44" y="188" font-size="23" fill="#a3523d">可即时响应用户</text>
+<rect x="26" y="205" width="588" height="91" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="235" font-size="27" font-weight="700">任务事实</text>
+<text x="44" y="264" font-size="23" fill="#4e665e">是否接纳 · 当前进展 · 停止回执</text>
+<text x="44" y="289" font-size="23" fill="#a3523d">不由连接是否关闭推断</text>
+<rect x="26" y="306" width="588" height="91" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="336" font-size="27" font-weight="700">内容事实</text>
+<text x="44" y="365" font-size="23" fill="#4e665e">正文身份 · 修订 · 保存 · 查看资格</text>
+<text x="44" y="390" font-size="23" fill="#a3523d">不由页面是否有字推断</text>
+<text x="30" y="442" font-size="23" fill="#4e665e">前端拥有交互质量，不再复制执行权威</text>
+</g></svg>

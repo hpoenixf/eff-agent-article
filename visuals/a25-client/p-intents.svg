@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="488" viewBox="0 0 640 488" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">一句新输入，不一定是同一任务</title><desc id="desc">独立问题独立回答，补充要求指向原研究，澄清回复指向原问题，停止指向具体任务。</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="486" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">一句新输入，不一定是同一任务</text>
+<rect x="26" y="105" width="588" height="70" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="42" y="134" font-size="25" font-weight="700">另问一个问题</text>
+<text x="42" y="162" font-size="23" fill="#4e665e">独立回答，不改原研究</text>
+<rect x="26" y="187" width="588" height="70" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="42" y="216" font-size="25" font-weight="700">补充研究要求</text>
+<text x="42" y="244" font-size="23" fill="#4e665e">指向选定研究，显示回执</text>
+<rect x="26" y="269" width="588" height="70" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="42" y="298" font-size="25" font-weight="700">回答澄清问题</text>
+<text x="42" y="326" font-size="23" fill="#4e665e">指向那条待回复的问题</text>
+<rect x="26" y="351" width="588" height="70" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="42" y="380" font-size="25" font-weight="700">停止这项研究</text>
+<text x="42" y="408" font-size="23" fill="#4e665e">等待回执，保留已交付部分</text>
+<text x="30" y="462" font-size="23" fill="#4e665e">已收到 ≠ 已采用 ≠ 报告已按要求更新</text>
+</g></svg>

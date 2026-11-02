@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "description": "Owner 专文只标记其确有独立主题的文章。无专文统一显示敬请期待；相关文章可选、不可冒充专文。文章阅读次序与名称仍以 book.mjs 为准。",
   "articles": {
+    "agent-client-interaction-and-reading": "A25 客户端：一次研究怎样被正确呈现",
+    "agent-client-interaction-panorama": "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究",
     "011-model-understands-code-authorizes": "模型会理解，代码才授权",
     "019-agent-answer-publication": "Publication：为什么需要独立发布系统",
     "020-agent-extension-host-smartphone": "Extension Host：从功能机到智能机",
@@ -219,7 +221,9 @@
       "primary": "agent-asynchronous-research-time-bound-delivery"
     },
     "A25": {
+      "primary": "agent-client-interaction-and-reading",
       "related": [
+        "agent-client-interaction-panorama",
         "agent-progressive-answer-coherence",
         "agent-asynchronous-research-time-bound-delivery",
         "agent-background-research-collaborative-experience",

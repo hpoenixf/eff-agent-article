@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="468" viewBox="0 0 640 468" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">UI state and authoritative facts</title><desc id="desc">Drafts, focus and disclosures are local UI state. Admission, stopping, saved revisions and access rely on the responsible authoritative facts.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="466" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / A25 · CLIENT</text>
+<text x="30" y="80" font-size="32" font-weight="750">UI state and authoritative facts</text>
+<rect x="26" y="104" width="588" height="91" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="44" y="134" font-size="27" font-weight="700">Local interaction</text>
+<text x="44" y="163" font-size="23" fill="#4e665e">Draft · focus · disclosure · reading position</text>
+<text x="44" y="188" font-size="23" fill="#a3523d">Respond immediately to the user</text>
+<rect x="26" y="205" width="588" height="91" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="235" font-size="27" font-weight="700">Task facts</text>
+<text x="44" y="264" font-size="23" fill="#4e665e">Admission · progress · stop receipt</text>
+<text x="44" y="289" font-size="23" fill="#a3523d">Not inferred from connection closure</text>
+<rect x="26" y="306" width="588" height="91" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="336" font-size="27" font-weight="700">Content facts</text>
+<text x="44" y="365" font-size="23" fill="#4e665e">Identity · revision · persistence · access</text>
+<text x="44" y="390" font-size="23" fill="#a3523d">Not inferred from visible text</text>
+<text x="30" y="442" font-size="23" fill="#4e665e">Own interaction quality; do not duplicate authority.</text>
+</g></svg>

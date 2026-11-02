@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="474" viewBox="0 0 640 474" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Failure messages are interaction paths</title><desc id="desc">A lost connection calls for a status read, a missing source needs a scoped gap, and a stopped task may retain readable saved results.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="472" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">Failure messages are interaction paths</text>
+<rect x="26" y="106" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="136" font-size="26" font-weight="700">Connection interrupted</text>
+<text x="44" y="164" font-size="23" fill="#4e665e">Latest state is not confirmed</text>
+<text x="44" y="189" font-size="23" font-weight="650" fill="#a3523d">Read the current status</text>
+<rect x="26" y="209" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="239" font-size="26" font-weight="700">A source is missing</text>
+<text x="44" y="267" font-size="23" fill="#4e665e">Identify the affected conclusion</text>
+<text x="44" y="292" font-size="23" font-weight="650" fill="#a3523d">Read partial results or add material</text>
+<rect x="26" y="312" width="588" height="92" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="342" font-size="26" font-weight="700">The task has stopped</text>
+<text x="44" y="370" font-size="23" fill="#4e665e">Separate unfinished work from saved results</text>
+<text x="44" y="395" font-size="23" font-weight="650" fill="#a3523d">Read the retained result</text>
+<text x="30" y="448" font-size="23" fill="#4e665e">Name the action; do not call everything “Retry”.</text>
+</g></svg>

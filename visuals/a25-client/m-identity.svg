@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="454" viewBox="0 0 640 454" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">按任务身份归位，不按完成先后</title><desc id="desc">先提出的长研究A后完成，后提出的短问B先完成，但回答与控制仍分别属于原任务。</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="452" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / A25 · CLIENT</text>
+<text x="30" y="80" font-size="32" font-weight="750">按任务身份归位，不按完成先后</text>
+<rect x="26" y="105" width="280" height="258" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<rect x="334" y="105" width="280" height="258" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="143" font-size="28" font-weight="700">长研究 A</text>
+<text x="352" y="143" font-size="28" font-weight="700">短问 B</text>
+<text x="44" y="185" font-size="24" fill="#4e665e">先提出</text>
+<path d="M150 201 V235" fill="none" stroke="#a3523d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr)"/>
+<text x="44" y="270" font-size="24" font-weight="650">稍后交付阶段回答</text>
+<text x="44" y="330" font-size="24" fill="#a3523d">控制指向 A</text>
+<text x="352" y="185" font-size="24" fill="#4e665e">后提出</text>
+<path d="M458 201 V235" fill="none" stroke="#a3523d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr)"/>
+<text x="352" y="270" font-size="24" font-weight="650">较早交付独立回答</text>
+<text x="352" y="330" font-size="24" fill="#a3523d">控制指向 B</text>
+<text x="30" y="402" font-size="23" font-weight="650">临时消息被替换，后续更新仍沿原任务定位</text>
+<text x="30" y="428" font-size="23" fill="#4e665e">最后一个气泡，不是任务的身份</text>
+</g></svg>

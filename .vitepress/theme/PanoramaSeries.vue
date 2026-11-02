@@ -63,6 +63,10 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
   'rag-end-to-end-system-panorama': {
     zh: ['RAG 全链路全景', '沿基金公告研究贯通资料入库、受控检索、模型真实消费、回答披露与质量评测，说明何时需要、何时应简化 RAG。'],
     en: ['END-TO-END RAG', 'Trace a fund notice through ingestion, authorized retrieval, real model consumption, disclosure and evaluation—and learn when simpler reading wins.']
+  },
+  'agent-client-interaction-panorama': {
+    zh: ['客户端交互全景', '沿提出需求、阶段阅读、补充与停止、来源核查和离页重开，组织一段可理解、可干预、可续接的研究体验。'],
+    en: ['CLIENT INTERACTION', 'Follow requests, early reading, amendments, stopping, evidence inspection and reopening to design understandable, controllable research.']
   }
 }
 const cards = computed(() => panoramaSeriesSlugs.map((slug: string, index: number) => {
