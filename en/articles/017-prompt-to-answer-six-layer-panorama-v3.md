@@ -88,7 +88,7 @@ All inputs converge on the original Task/Conversation, Run, grant, budget, Main/
 
 When the user explicitly references committed research, a new Run can also bind the exact published revision and its admitted sources instead of guessing which report the conversation meant. An unreadable or ineligible reference is omitted locally without blocking an independently authorized answer. Referencing old research does not restore its execution state.
 
-**[Skill Methods and Resources](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)** provide versioned techniques. **[Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone)** controls which reviewed extension generations can be loaded; **[Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution)** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
+**[Skill Methods and Resources](/en/articles/agent-skill-from-markdown-to-callable-research)** provide versioned techniques. **[Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone)** controls which reviewed extension generations can be loaded; **[Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution)** runs bounded callbacks at the appropriate seam. None of these may independently grant data access or alter business facts.
 
 **[Personal experts and presets](/en/articles/agent-custom-expert-from-prompt-to-recovery)** are prepared here too. Users can save methods and preferences for a personal expert. A new Run freezes the selected revision: Main initially sees a compact directory, and the selected Child receives its method content. Preferred tools and Skills are suggestions, not extra permissions; explicit preloading still obeys resource-read and context-capacity limits.
 
@@ -263,7 +263,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A02 | [Conversation Admission and Continuation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
 | A04 | [Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1, L3, L4, L5 |
 | A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3, L5 |
-| A12 | [Skill Methods and Resources](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
+| A12 | [Skill Methods and Resources](/en/articles/agent-skill-from-markdown-to-callable-research) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
 | A13 | [Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3, L4 |
 | A14 | [Context Projection and Fitting](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
 | A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Deep dive](/en/articles/agent-action-reminder-coordination) | L3 |
@@ -296,7 +296,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | --- | --- | --- |
 | A11 | [Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
 | A16 | [Research Results and References](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3, L5 |
-| A17 | [Research Material Assets](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
+| A17 | [Research Material Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
 | A20 | [Knowledge Retrieval](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L3 |

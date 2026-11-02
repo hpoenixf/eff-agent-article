@@ -90,7 +90,7 @@ description: "沿用户请求理解六层处理环节、Main/Subagent、多轮�
 
 用户明确引用一份已提交研究时，新 Run 还可以绑定那份正文的确切版本及获准来源，而不是从整段聊天猜“上一份报告”。引用不可读或不合格，只省略对应材料，不阻断独立合法回答；旧研究也不会因此重新变成当前任务的执行状态。
 
-方法也在这里装配：**[Skill 方法与资源](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12)**提供版本化研究方法，**[插件准入与生命周期](/articles/020-agent-extension-host-smartphone)**约束扩展包的激活和冻结版本，**[生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution)**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
+方法也在这里装配：**[Skill 方法与资源](/articles/agent-skill-from-markdown-to-callable-research)**提供版本化研究方法，**[插件准入与生命周期](/articles/020-agent-extension-host-smartphone)**约束扩展包的激活和冻结版本，**[生命周期事件与 Hook 执行](/articles/agent-multi-ecosystem-hook-execution)**随后在相应生命周期点执行局部回调。Skill/Plugin 不是模型凭名称获得访问权限的捷径。
 
 **[个人专家与组合](/articles/agent-custom-expert-from-prompt-to-recovery)**也在这里准备。用户可保存个人专家的方法与偏好；新 Run 固定当时采用的版本，Main 先看到简短目录，选中的 Child 再接收对应方法。偏好的工具和 Skill 只是建议，不增加权限；显式预加载仍受资源读取和上下文容量约束。
 
@@ -270,7 +270,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A02 | [对话接纳与任务接续](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [相关文章](/articles/agent-veto-authority-and-run-termination) | L1、L5、L6 |
 | A04 | [Run 授权与能力准入](/articles/011-model-understands-code-authorizes) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1、L3、L4、L5 |
 | A08 | [持久控制事件](/articles/agent-control-events-durable-owner-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3、L5 |
-| A12 | [Skill 方法与资源](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A12) · [相关文章](/articles/agent-model-runtime-mcp-skill-boundaries) | L3、L4 |
+| A12 | [Skill 方法与资源](/articles/agent-skill-from-markdown-to-callable-research) · [相关文章](/articles/agent-model-runtime-mcp-skill-boundaries) | L3、L4 |
 | A13 | [插件准入与生命周期](/articles/020-agent-extension-host-smartphone) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3、L4 |
 | A14 | [上下文投影与拟合](/articles/tool-results-outside-model-context) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
 | A15 | [行动提醒协调](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [专题文章](/articles/agent-action-reminder-coordination) | L3 |
@@ -303,7 +303,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | --- | --- | --- |
 | A11 | [受控工具调用](/articles/agent-tool-lifecycle-and-model-input) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2、L3 |
 | A16 | [研究结果与引用管理](/articles/tool-results-outside-model-context) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3、L5 |
-| A17 | [研究资料资产](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17) · [相关文章](/articles/024-agent-pdf-from-text-to-evidence) | L2 |
+| A17 | [研究资料资产](/articles/agent-research-assets-identity-version-lifecycle) · [相关文章](/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
 | A20 | [知识检索](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
