@@ -177,6 +177,7 @@ export const collections = [
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
+          ["agent-reliability-mechanisms-without-blocking-progress", "给 Agent 加上可靠性机制后，为什么反而交不出结果？"],
           ["local-improvement-is-not-system-progress", "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"],
           ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"],
           ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"]
