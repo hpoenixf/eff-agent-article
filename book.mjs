@@ -132,6 +132,8 @@ export const collections = [
         "title": "金融研究与业务责任",
         "desc": "金融数据与计算口径、投研服务边界，以及投资业务的真实责任。",
         "items": [
+          ["vertical-financial-agent-principles-panorama", "通用 Agent 框架之后，为什么还需要金融垂类能力？"],
+          ["etf-agent-framework-comparison-panorama", "从通用 Harness 到金融研究系统：ETF Agent 的四方架构对照"],
           ["financial-agent-system-panorama", "金融 Agent 全景：连接研究、业务与责任的系统架构"],
           ["financial-business-agent-trusted-handoff", "金融多业务 Agent 的可信交接：为什么不只是一个 Router？"],
           ["mcp-market-responsibility-retrospective", "金融数据 MCP 为什么变成决策系统"],
@@ -225,7 +227,9 @@ export const panoramaSeriesSlugs = Object.freeze([
   'honest-agent-evaluation',
   'ai-citations-do-not-prove-reliability',
   'agent-subagent-context-specialization',
-  'agent-long-horizon-research-panorama'
+  'agent-long-horizon-research-panorama',
+  'vertical-financial-agent-principles-panorama',
+  'etf-agent-framework-comparison-panorama'
 ]);
 
 // A curated subset of the canonical catalogue, not a second classification tree.

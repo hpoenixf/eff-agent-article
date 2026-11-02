@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "vertical-financial-agent-principles-panorama": "After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?",
+  "etf-agent-framework-comparison-panorama": "From a General Harness to Financial Research: A Four-Way Architecture Comparison of ETF Agent",
   "agent-action-reminder-coordination": "Action Reminders: From Candidate Advice to the Model Request",
   "deepseek-superagent-continuous-research": "From Investment-Research Chat to Ongoing Research: Lessons from DeepSeek Super-agent",
   "agent-research-evidence-store-lifecycle": "What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence",
@@ -93,6 +95,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "vertical-financial-agent-principles-panorama",
+  "etf-agent-framework-comparison-panorama",
   "agent-action-reminder-coordination",
   "deepseek-superagent-continuous-research",
   "agent-research-evidence-store-lifecycle",
