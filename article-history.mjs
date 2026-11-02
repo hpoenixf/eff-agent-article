@@ -32,7 +32,9 @@ export function comparableArticle(source) {
   return parts.filter(Boolean).join('\n')
 }
 
-export function articleHistory(root, paths) {
+const calendarDate = timestamp => new Date(Date.parse(timestamp) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10)
+
+export function articleHistory(root, paths, { includeCreated = false } = {}) {
   const raw = (...args) => execFileSync('git', ['-C', root, ...args], { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024, stdio: ['ignore','pipe','pipe'] })
   const git = (...args) => raw(...args).trimEnd()
   if (resolve(git('rev-parse', '--show-toplevel')) !== resolve(root)) throw new Error('Article source has no independent Git history')
@@ -53,14 +55,37 @@ export function articleHistory(root, paths) {
     const previous = existed ? raw('show', `${parent}:${row}`) : null
     if (previous !== null && comparableArticle(previous) === comparableArticle(current)) continue
     if (!Number.isFinite(Date.parse(timestamp))) throw new Error('Invalid Git article timestamp: ' + commit)
-    history.set(row, { date: new Date(Date.parse(timestamp) + 8 * 60 * 60 * 1000).toISOString().slice(0, 10), timestamp, kind: previous === null ? 'new' : 'updated', commit })
+    history.set(row, { date: calendarDate(timestamp), timestamp, kind: previous === null ? 'new' : 'updated', commit })
+  }
+  if (includeCreated) {
+    // First recorded version of this edition, not the author's original writing date.
+    // Walk the same first-parent history backwards, following Git-recognized renames.
+    // Stop at its addition: an unrelated deleted/re-created path is not the same lineage.
+    const currentPaths = new Set(git('ls-tree', '-r', '--name-only', 'HEAD', '--', 'articles', 'en/articles').split('\n'))
+    const lineages = new Map([...wanted].filter(path => currentPaths.has(path) && history.has(path)).map(path => [path, new Set([path])]))
+    const additions = git('log', '--first-parent', '--format=@@%H\t%cI', '--name-status', '--find-renames', '--diff-filter=AR', 'HEAD', '--', 'articles', 'en/articles').split('\n')
+    let event
+    for (const row of additions) {
+      if (row.startsWith('@@')) { const [commit, timestamp] = row.slice(2).split('\t'); event = { commit, timestamp }; continue }
+      if (!event) continue
+      const [status, from, to] = row.split('\t')
+      if (/^R\d+$/.test(status) && lineages.has(to)) {
+        const origins = lineages.get(from) || new Set()
+        for (const path of lineages.get(to)) origins.add(path)
+        lineages.set(from, origins); lineages.delete(to)
+      } else if (status === 'A' && lineages.has(from)) {
+        if (!Number.isFinite(Date.parse(event.timestamp))) throw new Error('Invalid Git article timestamp: ' + event.commit)
+        for (const path of lineages.get(from)) history.get(path).created = { ...event, date: calendarDate(event.timestamp), path: from }
+        lineages.delete(from)
+      }
+    }
   }
   return history
 }
 
 // Optional discovery must not make the article site unavailable.
-export function availableArticleHistory(root, paths, warn = console.warn) {
-  try { return { history: articleHistory(root, paths), available: true } }
+export function availableArticleHistory(root, paths, warn = console.warn, options = {}) {
+  try { return { history: articleHistory(root, paths, options), available: true } }
   catch {
     warn('Recent updates unavailable: reliable full Git history could not be read. Article content and catalogue remain available.')
     return { history: new Map(), available: false }

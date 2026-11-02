@@ -140,3 +140,15 @@ readingBrief:
 - `npm run check:briefs` 检查全站既有语言覆盖、字段、重复结论组和估时／渲染边界；`npm run check:catalog` 已包含它。构建后的 `node scripts/check-reading-briefs.mjs --output` 核对每篇静态 HTML 中的单一卡片、完整文案和本地化时长。结构测试不能替代逐篇内容审稿；另外检查桌面／窄屏、键盘展开估时说明和语言切换。
 
 Each existing full article edition owns its reviewed `readingBrief` in Markdown frontmatter. Read the complete body before writing 3–5 distinct conclusions and concise adoption boundaries; preserve historical scope and existing English meaning. The shared Markdown plugin inserts one server-rendered card after the title and derives an explicitly estimated reading time from that edition's full parsed body. Do not hand-enter minutes, duplicate the content registry, or promote a compatibility pointer into a new article. Source checks, local rendering, the canonical blog pin and actual public deployment remain separate verification stages.
+
+## 全部文章的日期排序 / Catalogue date order
+
+只有 `/catalog` 与 `/en/catalog` 提供创建／更新时间各自的升序、降序；默认仍按原分类浏览。日期模式对当前标签交集内的全部主类文章统一排序，不把关联阅读重复计入，也不改变分类页、主页或 `book.mjs` 顺序。缺失日期双向均置后；同一时刻按原目录顺序稳定排列。
+
+日期继续由 `article-history.mjs` 从固定源码 HEAD 的完整 Git 主线历史派生，不存手填日期或构建时刻。创建表示当前语言版本首次纳入本站主线的版本记录，不代表原稿创作或首次线上发布时间；沿 Git 识别的重命名追溯，删除后重新建立的文件不继承旧实例日期。合并按首次在主线可见的提交计时。更新保留既有可见内容比较：纯格式和明确派生字段不刷新，标题、说明、证据与导读卡等可见内容变化仍算更新。中英文各取实际目标正文的历史；“Chinese original” 回退使用中文原文的日期。时间显示为 UTC+8，`time` 元素保留完整提交时间。历史缺失或浅克隆时显示未知，不填今天。
+
+`article-chronology.data.ts` 只是上述 owner 的构建期投影，不是第二套文章目录或日期真值。原生带标签的 `select` 保留标准键盘语义；单测覆盖四种顺序、标签交集、未知末尾、同刻稳定、翻译回退、主线合并及改名历史。`node scripts/check-catalog-order-output.mjs` 检查真实构建产物中的中英入口与默认视图。VitePress 退出码为 0 不代表每页 SSR 无异常；检查构建日志异常与原 `postdocs:build` 全部产物门，不能只报进程完成。
+
+The independent bilingual catalogue adds four opt-in date orders while preserving category browsing and all-selected tag filtering. Creation means the edition's first recorded main-branch version on this site—not its original writing or live-publication date. The existing Git history owner follows recognized renames, treats a deleted/re-created path as a new lineage, and retains visible-content update semantics, including reading briefs. Unknown dates always sort last; equal timestamps retain canonical catalogue order. No article body, historical timestamp, or RSS policy is rewritten.
+
+首页第六个入口复用现有中英 Open ETF Agent 专题，与原五个入口同属 `features`，不新增分类或推广面板；沿用桌面三列与窄屏单列规则。链接只表达可运行开源教学实现入口，不提高文章关联、测试或真实金融效果的资格。

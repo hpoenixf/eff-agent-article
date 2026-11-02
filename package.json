@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev .",
-    "docs:build": "vitepress build .",
+    "docs:build": "node scripts/build-docs.mjs",
     "docs:preview": "vitepress preview .",
-    "check:catalog": "node scripts/check-catalog.mjs && node scripts/check-language.mjs && node scripts/check-bilingual-visuals.mjs && node scripts/check-panorama-owner-links.mjs && node --test scripts/recent-articles.test.mjs scripts/check-learning-path.test.mjs scripts/check-learning-stage-maps.test.mjs scripts/check-reading-taxonomy.test.mjs scripts/seo-routes.test.mjs scripts/seo-content.test.mjs scripts/static-mermaid.test.mjs scripts/check-bilingual-visuals.test.mjs && npm run check:topic && node --test scripts/article-tags.test.mjs && npm run check:briefs",
-    "postdocs:build": "node scripts/check-seo-output.mjs && node scripts/check-recent-output.mjs && node scripts/check-reading-briefs.mjs --output",
+    "check:catalog": "node scripts/check-catalog.mjs && node scripts/check-language.mjs && node scripts/check-bilingual-visuals.mjs && node scripts/check-panorama-owner-links.mjs && node --test scripts/recent-articles.test.mjs scripts/catalog-view.test.mjs scripts/catalog-chronology.test.mjs scripts/catalog-render.test.mjs scripts/build-docs.test.mjs scripts/check-learning-path.test.mjs scripts/check-learning-stage-maps.test.mjs scripts/check-reading-taxonomy.test.mjs scripts/seo-routes.test.mjs scripts/seo-content.test.mjs scripts/static-mermaid.test.mjs scripts/check-bilingual-visuals.test.mjs && npm run check:topic && node --test scripts/article-tags.test.mjs && npm run check:briefs",
+    "postdocs:build": "node scripts/check-seo-output.mjs && node scripts/check-recent-output.mjs && node scripts/check-reading-briefs.mjs --output && node scripts/check-catalog-order-output.mjs",
     "predocs:build": "node scripts/generate-rss.mjs && node scripts/build-static-mermaid.mjs",
     "predocs:dev": "node scripts/build-static-mermaid.mjs",
     "diagrams:build": "node scripts/build-static-mermaid.mjs",
