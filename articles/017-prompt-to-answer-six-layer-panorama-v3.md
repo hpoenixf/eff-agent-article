@@ -160,7 +160,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 模型提出一次工具动作，并不说明外部执行已经发生。**[模型能力呈现与工具表面](/articles/agent-model-capability-presentation-tool-surface)**确认模型真正看到的可用工具与 Host 当次获准执行面一致；**[受控工具调用](/articles/agent-tool-lifecycle-and-model-input)**核对参数、执行、结算并留存回执；**[MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption)**负责远端连接、目录与协议通信。它们的权限、发送与结果职责不能互相替代。
 
-读研究资料时，可复用 **[Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading)、[PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence)、[知识检索](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20)、[研究资料资产](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)、[隔离分析](/articles/agent-python-compute-workbench-evolution)**。基金相关的数据与计算则通过“金融工具”族提供：市场证据采集、投资事实读取、确定性投资计算、投资账本与确认、原子报告生产。财务或时间敏感任务还会使用时间语义与市场 Session 解释，必要时使用精确数值运算。
+读研究资料时，可复用 **[Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading)、[PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence)、[知识检索](/articles/agent-knowledge-retrieval-end-to-end)、[研究资料资产](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A17)、[隔离分析](/articles/agent-python-compute-workbench-evolution)**。基金相关的数据与计算则通过“金融工具”族提供：市场证据采集、投资事实读取、确定性投资计算、投资账本与确认、原子报告生产。财务或时间敏感任务还会使用时间语义与市场 Session 解释，必要时使用精确数值运算。
 
 因此，不应把“证据与计算”当作每次请求的必经关卡。它们是**L4 里可选、可组合的研究与领域工具能力**。普通 Direct 完全可以跳过；复杂投研可以反复取数、重读和计算。
 
@@ -306,7 +306,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A17 | [研究资料资产](/articles/agent-research-assets-identity-version-lifecycle) · [相关文章](/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
-| A20 | [知识检索](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A20) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
+| A20 | [知识检索](/articles/agent-knowledge-retrieval-end-to-end) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
 | A21 | [隔离分析](/articles/agent-python-compute-workbench-evolution) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3、L5 |
 | A31 | [MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2、L3 |
 | A33 | [精确数值运算](/articles/agent-numeric-kernel-exact-units-rounding) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
