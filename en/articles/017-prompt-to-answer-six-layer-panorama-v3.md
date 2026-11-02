@@ -315,7 +315,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A36 | [Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2, L3 |
 | B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
 | B02 | [Investment Fact Reading](/en/articles/portfolio-mcp-readonly-investment-data) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
-| B03 | [Deterministic Investment Calculations](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| B03 | [Deterministic Investment Calculations](/en/articles/agent-deterministic-fund-allocation) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [Investment Ledger and Confirmation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |
 | B05 | [Atomic Report Production](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [Related reading](/en/articles/portfolio-mcp-readonly-investment-data) | L3, L5 |
 

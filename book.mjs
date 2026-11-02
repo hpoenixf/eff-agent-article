@@ -21,6 +21,7 @@ export const collections = [
         "desc": "按原 Owner 主层阅读身份、能力准入、上下文和持久交互；跨层参与不改变事实归属。",
         "items": [
           ["agent-conversation-admission-task-continuation", "A02 对话接纳：接着聊不等于接着执行"],
+          ["011-model-understands-code-authorizes", "模型会理解，代码才授权：Run 授权的生命周期"],
           ["020-agent-extension-host-smartphone", "Extension Host：从功能机到智能机"],
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
           ["agent-main-run-context-compaction", "Main 压缩：摘要不改写原始事实"],
@@ -65,6 +66,7 @@ export const collections = [
           ["agent-python-compute-workbench-evolution", "Python：从工具到计算工作台"],
           ["agent-skill-from-markdown-to-callable-research", "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力"],
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
+          ["agent-deterministic-fund-allocation", "B03 确定性基金计算：从持仓事实到金额建议"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
           ["agent-knowledge-retrieval-end-to-end", "知识检索：从资料入库到可信证据交付"],
@@ -166,7 +168,6 @@ export const collections = [
         "desc": "跨模块证据关系、职责边界、故障归因、可靠性与长期架构演化。",
         "items": [
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
-          ["011-model-understands-code-authorizes", "模型会理解，代码才授权"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],

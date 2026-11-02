@@ -1,15 +1,17 @@
 ---
 title: "Models Understand; Code Authorizes"
-description: "How recorded Run grants, portfolio ledger facts and execution receipts keep interpretation, permission and actual effects separate."
+description: "A04 Run-scoped authorization: how Host grants constrain tools and sources through Child delegation, suspension, recovery, and new Run admission."
 readingBrief:
   takeaways:
-    - "Model interpretation proposes actions; under this contract, the Host records a Run grant that survives same-Run recovery, while every new Run requires independent admission."
-    - "Units held are ledger facts, while value is derived from units and applicable NAV; neither stale value nor fresh market prices may rewrite an account snapshot."
-    - "Plan confirmation, execution instructions, and receipts establish different facts; missing information restricts dependent actions, and complete citations still do not certify a correct conclusion."
+    - "The model proposes research and actions; the Host records source, tool, and capability grants for a particular Run. Tool visibility or prior exposure does not create permission."
+    - "A Child receives only an admitted subset of its parent grant; suspension and cold recovery retain the original grant, additions require explicit admission, and a new Run cannot inherit old receipts."
+    - "Permission, resource availability, budgets, cancellation, and execution receipts are separate facts; one unavailable source must not be mistaken for revoked authorization or erase independent published content."
+    - "Ledger holdings, plan confirmation, and actual execution remain independently authoritative; valid citations neither certify model conclusions nor authorize trades."
   appliesTo:
-    - "For engineers checking Run authorization, portfolio-ledger invariants, and confirmation boundaries in research assistants while separating semantic judgments from actual effects."
+    - "Engineers designing scoped authorization for long-running agents, specialist Children, or cross-process recovery."
+    - "Developers separating model interpretation, investment facts, confirmation, and execution effects in fund-research systems."
   notFor:
-    - "Not an immediate-revocation design, trading implementation, or investment recommendation; the consolidation adds no production retest or model-performance and investment-return evidence."
+    - "Not a live revocation mechanism, trading implementation, or comprehensive production security certification. The public teaching project does not reproduce the complete private Host authorization system."
 ---
 
 # 011 Models Understand; Code Authorizes
@@ -55,6 +57,49 @@ Execution checks still apply. Each action must match its account, scope, Run, to
 Tool registration, model visibility and permission to execute are also distinct. The tool surface can narrow because of phase, admitted capability or resource constraints. Seeing a tool proves neither execution nor success; having no tools available does not automatically prohibit a general explanation. Exposure records describe what the model actually received. They do not grant or shrink permission.
 
 This design makes an explicit tradeoff: stable authorization throughout one research execution and its recovery. New-Run admission remains independent, as do account and scope isolation for the original Run. It is not a mechanism for immediate revocation during an existing Run.
+
+### A Grant Is a Recoverable Run Fact, Not a Question Asked on Every Turn
+
+Consider a synthetic task: an agent reads two permitted fund reports and delegates one to a specialist Child. Admission is not the model claiming “I am authorized.” The Host records the admitted source, tool, and capability scope on the current Run. **Exposure evidence** describes what a particular model request actually received; it is not a second permission registry. Previously observed material cannot authorize a future Run.
+
+~~~mermaid
+flowchart TD
+    A[Host records a grant for this Run] --> B{Action within recorded grant?}
+    B -- No --> X[Deny this action only]
+    B -- Yes --> C[Execute admitted tool or read]
+    C --> D{Delegate to a Child?}
+    D -- Yes --> E[Seal a restricted parent-grant subset]
+    D -- No --> F[Preserve result and source identity]
+    E --> F
+    F --> G{Same Run suspended or recovered?}
+    G -- Yes --> H[Restore original grant and receipts]
+    G -- No --> I[Continue research and separate publication]
+    H --> I
+~~~
+
+This diagram isolates the authorization handoff; it is not a complete agent execution state machine. **The Child may not receive a wider grant than its parent Run.** Its admission, dispatch, handoff, and recovery reuse the sealed subset. A model proposal for a new source cannot enlarge it. Park/wake and waiting for a user reply do not become an implicit recheck of current ACLs.
+
+The following is a conceptual teaching record, not the database schema:
+
+~~~json
+{
+  "runId": "run-demo-17",
+  "scopeId": "demo",
+  "grantedSources": ["fund-report-A"],
+  "grantedTools": ["read-document"],
+  "childSources": ["fund-report-A"],
+  "requestedSource": "private-portfolio-B",
+  "decision": "deny-this-read"
+}
+~~~
+
+**Recovery and new admission differ by Run identity, not by whether the bytes are still cached.** Another worker may restore the same Run's persisted grant, checkpoint, and receipts. If the file has disappeared or its content identity is invalid, the Reader reports unavailability rather than inventing revocation. A different Run needs a fresh Host grant even if prior reports remain in history. The Host may explicitly append additional permitted scope; it does not replace or shrink the original grant.
+
+### Keep Authorization, Capacity, and Outcomes with Their Own Owners
+
+A tool may be registered, visible to a model, admitted for this Run, dispatched, or proven successful; these are five different facts. A04 owns **what this Run is permitted to do**. Resource budgets control **what more it may consume**; tool receipts record **what actually happened**; Publication decides **which answer content was committed**. Budget exhaustion, explicit cancellation, and missing file bytes retain their own local failure semantics instead of silently rewriting the grant.
+
+There is a deliberate trade-off: this contract does not support immediate dynamic revocation within a Run. It suits research work that needs repeatable recovery and auditable continuation. A product requiring administrator revocation to stop all in-flight effects would need an explicit termination and access policy; that behavior is not supplied by this contract.
 
 ## 3. Missing Information Restricts the Actions That Depend on It
 
