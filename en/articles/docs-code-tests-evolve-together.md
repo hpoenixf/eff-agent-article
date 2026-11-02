@@ -100,6 +100,18 @@ Replace the current-page assertion, preserve the filtering, access-scope, and fi
 
 Andrew Trenk's Google Testing Blog article [“Test Behavior, Not Implementation”](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html) discusses organizing tests around externally visible behavior. Here we must also ask whether the behavior a test enforces has been replaced by the approved requirement change.
 
+ETF Agent's recovery tests exposed the same distinction: a missing or expired execution claim could make a task **eligible for further inspection**, but that did not prove the original executor had stopped or authorize recovery or modification. Correcting the old assertion had to preserve both protection of active execution and the later admission checks. Widening discovery must not silently widen execution authority.
+
+**Existing tests have more than two destinations.** Choose according to the current promise; no new assertion-level register is needed:
+
+| Treatment | When it applies |
+| --- | --- |
+| Retain | It still uniquely guards a valid requirement or counterexample |
+| Refactor | The requirement stands, but the assertion depends on internal implementation |
+| Consolidate | Several cases repeat a behavior, and combined checks still catch their unique faults |
+| Retire | The old path still has real consumers; keep checks until explicit migration exit conditions hold |
+| Delete | The requirement has expired, the assertion is redundant, or migration exit has been independently confirmed |
+
 ### Give the Implementation a Real Chance to Fail the Test
 
 If the new test prepares only 10 orders, both the old and new implementations may export them successfully. It does not distinguish whether the feature has actually changed.
@@ -179,6 +191,8 @@ Historical material has a different role. Useful lessons include why the first v
 
 Old checks also need exit conditions. Suppose the project has a check created only to confirm that an old export library has been removed. After the migration, inspect whether old callers are gone and current behavior remains protected, then decide whether that check still belongs in routine regression runs. Slow or failing tests do not by themselves justify deletion; obsolete requirements should not permanently occupy the regression suite either.
 
+ETF Agent applied that exit test when retiring scans written solely for its migration away from a LangGraph runtime layer. The relevant evidence was production dependencies and wiring, current behavioral protection, and continued readability of historical data that still needed it. An obsolete package name in a comment was not a live runtime dependency, and deleting a test alone could not prove migration was complete. When speeding up expiry tests with a fake clock, the clock seen by the database that makes the decision must also be checked; changing application time alone may have no effect on it.
+
 ## 7. Where to Start When the Next Requirement Arrives
 
 A task to change “export the current page” into “export all filtered results” can begin with the description below. It remains a teaching example:
@@ -202,7 +216,6 @@ Returning to the Export button, a failing test should prompt us to ask whether t
 
 - [Specs, Evidence and Verifiable Engineering Closure](026-agent-spec-evidence-workflow.md): maintain behavioral agreements, observed execution, and completion judgments separately.
 - [Engineering Knowledge: Context, Memory and Retirement](027-agent-context-document-history.md): distinguish knowledge that should guide current work from material kept for reference.
-- [Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec](test-lifecycle-refactoring-retirement-and-spec.md): examine the basis for changing or retiring existing tests.
 - [Chinese edition](/articles/docs-code-tests-evolve-together) · [Architecture Principles and Engineering Methods](/en/principles)
 
 Join the discussion in the [GitHub collection](https://github.com/hpoenixf/eff-agent-article). If these engineering examples help your work, consider giving the repository a Star.
