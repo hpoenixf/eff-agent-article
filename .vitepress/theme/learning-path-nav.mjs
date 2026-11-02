@@ -31,7 +31,7 @@ const stageViews = [
   { key: 'deep', width: 2240, height: 1110,
     zh: '深入固定公开版本的系统设计，连接证据、产物与交付。',
     en: 'Explore a pinned public implementation, connecting evidence, artifacts and delivery.' },
-  { key: 'panorama', width: 2960, height: 1754,
+  { key: 'panorama', width: 2960, height: 1824,
     zh: '回到更广的六层系统设计，查看职责与交接；不等于公开实现的功能清单。',
     en: 'See responsibilities and handoffs across the broader six-layer design—not a public implementation feature checklist.' }
 ]

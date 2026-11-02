@@ -43,9 +43,9 @@ If the second report cannot be read, the assistant may explain the verified part
 
 **The large diagram below is a reference, not an entrance exam.** You can skip its 47 module names at first and follow these six questions through the article. Open the detailed map only when you need to inspect a particular handoff. The six stages are not a mandatory approval pipeline for every question.
 
-<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" label="ETF Agent six-layer map: 47 clickable capability owners">
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" :canvas-width="2960" :canvas-height="1824" label="ETF Agent six-layer map: 47 clickable capability owners">
 <div class="v3-owner-map-scroll">
-  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 47 clickable capability owners">
+  <object class="v3-owner-map" style="height: 924px" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg" role="img" aria-label="ETF Agent six-layer map: 47 clickable capability owners">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-en.svg">Open the interactive SVG owner map</a>
   </object>
 </div>
@@ -70,14 +70,19 @@ The input composer and model picker also belong to L6, but L1 accepts more than 
 
 ## 2. L1 Task Inputs and Triggers — research need not begin in chat
 
-L1 is **where a unit of Agent work originates**, not an authentication layer. Someone may send a message, explicitly request a weekly or daily report, or have a previously confirmed schedule reach an eligible occurrence. Each enters the same execution system rather than starting a separate scheduler-driven Agent implementation.
+L1 is **where a work request enters the system**, not an authentication layer. Input may propose new work or submit a reply, Stop or change to an existing task; receiving it proves neither an applied effect nor the need for a new Run. Someone may send a message, explicitly request a weekly or daily report, or have a previously confirmed schedule reach an eligible occurrence. Each enters the same execution system rather than starting a separate scheduler-driven Agent implementation.
 
 | Input or trigger | Supported capability | Hand-off from L1 |
 | --- | --- | --- |
 | **Chat or explicit Research/Deep request** | Client input and conversation submission | Original message and explicit work intent |
+| **Explicit question, permission or effect-approval response** | Durable human-interaction response entry | Original request/revision, authenticated subject and exact answer or choice |
+| **Stop, change or supplement an existing task** | Conversation admission and the original control channel | Explicit target and original input for the original consumer to validate and adopt |
+| **Expert configuration or selection** | Account expert settings and client selection | Configuration version or candidate preference; saving or choosing does not dispatch research |
 | **On-demand weekly or daily report** | User-triggered report and personalized research | Chosen method, original input, date/context candidates |
 | **Scheduled, recurring or qualified conditional task** | Original Schedule / Task owner | Task identity, occurrence and accepted trigger facts |
 | **Followed topics** | Saved Follow strings and daily research selection | Explicit topic preferences as eligible context |
+
+Question and approval responses retain their original request identity; an ordinary chat message saying “yes” cannot approve a bound operation. Response receipt, consumer adoption, permission and business execution each depend on their original receipts; a Stop request is not proof of a stopped task. The expert-configuration Owner remains in L2. L1 shows only its configuration or selection input, not a guarantee that the expert will be invoked.
 
 **Following a topic does not by itself start unattended monitoring.** Bounded saved-report discovery and home-page readback exist, but continuous subscription-driven generation, a complete digest and its notification experience are not a delivered product promise. Report generation likewise does not mean every report has an authorized timed trigger.
 
@@ -271,7 +276,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A01 | [Account Identity](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [Related reading](/en/articles/011-model-understands-code-authorizes) | L1, L4 |
 | A02 | [Conversation Admission and Continuation](/en/articles/agent-conversation-admission-task-continuation) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
 | A04 | [Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1, L3, L4, L5 |
-| A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3, L5 |
+| A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L1, L3, L5 |
 | A12 | [Skill Methods and Resources](/en/articles/agent-skill-from-markdown-to-callable-research) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
 | A13 | [Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3, L4 |
 | A14 | [Context Projection and Fitting](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
@@ -280,8 +285,8 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
 | A41 | [Cross-Run Conversation History Compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [Content Trust and Security Policy](/en/articles/agent-content-trust-prompt-injection) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3, L4 |
-| A37 | [Durable Human Interaction (HIO)](/en/articles/agent-durable-human-interaction-response-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3, L5, L6 |
-| A39 | [User Expert Profiles and Presets](/en/articles/agent-custom-expert-from-prompt-to-recovery) | L3, L4 |
+| A37 | [Durable Human Interaction (HIO)](/en/articles/agent-durable-human-interaction-response-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L1, L3, L5, L6 |
+| A39 | [User Expert Profiles and Presets](/en/articles/agent-custom-expert-from-prompt-to-recovery) | L1, L3, L4 |
 | A38 | [Personal Credits Account and Usage Attribution](/en/articles/agent-personal-credits-shadow-accounting) | L3, L6 |
 
 ### L3 · Agent Decision and Runtime
@@ -308,12 +313,12 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A17 | [Research Material Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF Reading](/en/articles/024-agent-pdf-from-text-to-evidence) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
-| A20 | [Knowledge Retrieval](/en/articles/agent-knowledge-retrieval-end-to-end) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L3 |
+| A20 | [Knowledge Retrieval](/en/articles/agent-knowledge-retrieval-end-to-end) · [Related reading](/en/articles/027-rag-revocation-publish-replay) | L2, L3 |
 | A21 | [Isolated Analysis](/en/articles/agent-python-compute-workbench-evolution) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3, L5 |
 | A31 | [MCP Service Connectivity](/en/articles/mcp-host-from-discovery-to-consumption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2, L3 |
 | A33 | [Exact Numeric Operations](/en/articles/agent-numeric-kernel-exact-units-rounding) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | A36 | [Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2, L3 |
-| B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
+| B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L2, L3 |
 | B02 | [Investment Fact Reading](/en/articles/portfolio-mcp-readonly-investment-data) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
 | B03 | [Deterministic Investment Calculations](/en/articles/agent-deterministic-fund-allocation) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [Investment Ledger and Confirmation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |

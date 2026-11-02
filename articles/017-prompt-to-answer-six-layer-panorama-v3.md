@@ -45,9 +45,9 @@ readingBrief:
 
 **下面的大图是技术索引，不是阅读前置考试。** 第一次阅读可以先跳过 47 个模块名，只顺着这六个问题往下看；需要排查某一步时再点开对应模块。六层也不是每次请求都必须走完的固定审批流程。
 
-<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
+<PanoramaViewer src="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" :canvas-width="2960" :canvas-height="1824" label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
 <div class="v3-owner-map-scroll">
-  <object class="v3-owner-map" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
+  <object class="v3-owner-map" style="height: 924px" type="image/svg+xml" data="/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg" role="img" aria-label="ETF Agent 六层全景：47 个可点击的 Owner 模块">
     <a href="https://hpoenixf.com/eff-agent-article/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-zh.svg">打开 SVG 模块导航图</a>
   </object>
 </div>
@@ -72,14 +72,19 @@ readingBrief:
 
 ## 二、L1 任务输入与触发：Agent 不一定从聊天框开始
 
-把 L1 理解为**任务起点**，而不是 HTTP 认证层。用户点击“发送”是最常见的入口；用户主动要求生成周报、点击“今日研究”，或者已经确认的定时任务到期，都可能让同一 Agent 执行体系开始工作。L1 只回答“是谁或什么约定提出了一项工作”，不替后续模型决定研究计划，也不创建额外执行引擎。
+把 L1 理解为**工作请求进入系统的起点**，而不是 HTTP 认证层。输入可以提出新工作，也可以向原任务提交答复、停止或修改；接到输入不等于效果已经生效，也不必新建 Run。用户点击“发送”是最常见的入口；用户主动要求生成周报、点击“今日研究”，或者已经确认的定时任务到期，都可能让同一 Agent 执行体系开始工作。L1 只回答“是谁或什么约定提出了一项工作”，不替后续模型决定研究计划，也不创建额外执行引擎。
 
 | 输入或触发 | 当前适用能力 | L1 向后传什么 |
 | --- | --- | --- |
 | **聊天、明确的 Research / Deep 选择** | 客户端输入、对话消息接纳 | 原始请求和显式工作意图 |
+| **明确的问题答复、权限或操作审批回复** | 持久人机交互的响应入口 | 原问题与修订、认证主体、原始回答或选择 |
+| **停止、修改或补充现有任务** | 对话接纳与原控制通道 | 明确目标和原始输入，交原消费者核验与采用 |
+| **专家配置或选择** | 账户专家配置、客户端选择 | 配置版本或候选偏好；保存和选择不自动派发研究 |
 | **主动生成周报或日报** | 用户触发的报告/每日个性研究入口 | 获选方法、用户请求、研究日期等候选上下文 |
 | **定时 / 周期 / 条件任务** | 已确认的 Schedule / Task 机制 | 原 Task、Occurrence 与触发事实 |
 | **关注主题（Follow）** | 已实现的关注字符串与每日研究选择器 | 用户明确选择的主题，供获准研究使用 |
+
+问答和审批回复沿原请求身份交接，普通聊天中的“同意”不能代替绑定操作的批准。收到回复、原消费者采用、权限获准和业务执行分别读取原回执；停止请求也不冒充任务已停止。专家配置的实线 Owner 主归 L2，L1 只画配置或选择的输入投影，不保证某位专家实际被调用。
 
 **保存关注主题并不自动触发无人值守监控。** 已保存报告的定位和首页回读已有局部能力，订阅后持续生成、完整摘要和通知体验尚不能作为已交付产品来承诺。周报能生成，也不代表每一份周报都已经获准定时运行。
 
@@ -278,7 +283,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A01 | [账户身份](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [相关文章](/articles/011-model-understands-code-authorizes) | L1、L4 |
 | A02 | [对话接纳与任务接续](/articles/agent-conversation-admission-task-continuation) · [相关文章](/articles/agent-veto-authority-and-run-termination) | L1、L5、L6 |
 | A04 | [Run 授权与能力准入](/articles/011-model-understands-code-authorizes) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1、L3、L4、L5 |
-| A08 | [持久控制事件](/articles/agent-control-events-durable-owner-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3、L5 |
+| A08 | [持久控制事件](/articles/agent-control-events-durable-owner-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L1、L3、L5 |
 | A12 | [Skill 方法与资源](/articles/agent-skill-from-markdown-to-callable-research) · [相关文章](/articles/agent-model-runtime-mcp-skill-boundaries) | L3、L4 |
 | A13 | [插件准入与生命周期](/articles/020-agent-extension-host-smartphone) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3、L4 |
 | A14 | [上下文投影与拟合](/articles/tool-results-outside-model-context) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
@@ -287,8 +292,8 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A28 | [Main 上下文压缩](/articles/agent-main-run-context-compaction) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
 | A41 | [跨 Run 会话历史压缩](/articles/agent-conversation-history-compaction-source-boundaries) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
 | A35 | [内容安全策略与信任](/articles/agent-content-trust-prompt-injection) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A35) | L3、L4 |
-| A37 | [持久人机交互（HIO）](/articles/agent-durable-human-interaction-response-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L3、L5、L6 |
-| A39 | [用户专家配置与组合](/articles/agent-custom-expert-from-prompt-to-recovery) | L3、L4 |
+| A37 | [持久人机交互（HIO）](/articles/agent-durable-human-interaction-response-adoption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A37) | L1、L3、L5、L6 |
+| A39 | [用户专家配置与组合](/articles/agent-custom-expert-from-prompt-to-recovery) | L1、L3、L4 |
 | A38 | [个人 Credits 账户与用量归属](/articles/agent-personal-credits-shadow-accounting) | L3、L6 |
 
 ### L3 · Agent 决策与运行
@@ -315,12 +320,12 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A17 | [研究资料资产](/articles/agent-research-assets-identity-version-lifecycle) · [相关文章](/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web 研究读取](/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
 | A19 | [PDF 文档读取](/articles/024-agent-pdf-from-text-to-evidence) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A19) | L3 |
-| A20 | [知识检索](/articles/agent-knowledge-retrieval-end-to-end) · [相关文章](/articles/027-rag-revocation-publish-replay) | L3 |
+| A20 | [知识检索](/articles/agent-knowledge-retrieval-end-to-end) · [相关文章](/articles/027-rag-revocation-publish-replay) | L2、L3 |
 | A21 | [隔离分析](/articles/agent-python-compute-workbench-evolution) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A21) | L3、L5 |
 | A31 | [MCP 服务接入](/articles/mcp-host-from-discovery-to-consumption) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2、L3 |
 | A33 | [精确数值运算](/articles/agent-numeric-kernel-exact-units-rounding) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | A36 | [时间语义与市场 Session 解释](/articles/agent-temporal-semantics-market-calendar) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2、L3 |
-| B01 | [市场证据采集](/articles/mcp-market-responsibility-retrospective) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
+| B01 | [市场证据采集](/articles/mcp-market-responsibility-retrospective) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L2、L3 |
 | B02 | [投资事实读取](/articles/portfolio-mcp-readonly-investment-data) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
 | B03 | [确定性投资计算](/articles/agent-deterministic-fund-allocation) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [投资账本与确认](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [相关文章](/articles/030-fintech-from-research-to-investment-advice) | L6 |
