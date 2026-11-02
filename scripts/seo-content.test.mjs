@@ -22,7 +22,58 @@ test('all social links use the public canonical host', () => {
   assert.ok(meta.some(([tag, props]) => props.name === 'twitter:card'))
 })
 
-import { articleStructuredData, structuredDataHead } from '../seo-content.mjs'
+import { articleStructuredData, structuredDataHead, landingStructuredData, setLandingStructuredData } from '../seo-content.mjs'
+import { SITE_URL, canonicalUrl } from '../seo-routes.mjs'
+
+test('both language homes describe one bilingual website, not invented provenance or search features', () => {
+  for (const relativePath of ['index.md', 'en/index.md']) {
+    const english = relativePath.startsWith('en/')
+    const data = landingStructuredData({ relativePath, title: 'Page headline', description: 'Visible introduction.', canonical: canonicalUrl(relativePath) })
+    assert.equal(data['@type'], 'WebSite')
+    assert.equal(data['@id'], SITE_URL + '#website')
+    assert.equal(data.url, SITE_URL)
+    assert.equal(data.name, english ? 'ETF Agent · Engineering Notes' : 'ETF Agent · 工程手记')
+    assert.equal(data.alternateName, english ? 'ETF Agent · 工程手记' : 'ETF Agent · Engineering Notes')
+    assert.deepEqual(data.inLanguage, ['zh-CN', 'en-US'])
+    assert.equal(data.description, 'Visible introduction.')
+    for (const key of ['author', 'publisher', 'datePublished', 'dateModified', 'image', 'aggregateRating', 'potentialAction']) assert.ok(!(key in data))
+  }
+})
+
+test('catalogue and existing curated topics share localized collection semantics', () => {
+  for (const page of ['catalog', 'principles', 'open-etf-agent', 'panorama']) for (const prefix of ['', 'en/']) {
+    const relativePath = prefix + page + '.md', canonical = canonicalUrl(relativePath)
+    const data = landingStructuredData({ relativePath, title: 'Visible title', description: 'Visible description.', canonical })
+    assert.deepEqual(data, {
+      '@context': 'https://schema.org', '@type': 'CollectionPage',
+      name: 'Visible title', description: 'Visible description.', url: canonical,
+      inLanguage: prefix ? 'en-US' : 'zh-CN',
+      isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
+    })
+  }
+})
+
+test('landing semantics never leak to articles, categories, compatibility or contributor routes', () => {
+  for (const page of ['articles/example.md', 'articles/017-prompt-to-answer-six-layer-panorama.md', 'modules.md', 'thinking.md', 'engineering.md', 'fintech.md', 'roadmap.md', 'README.md', 'MAINTENANCE.md', '404.md', 'nested/index.md', 'catalogue.md']) {
+    for (const prefix of ['', 'en/']) assert.equal(landingStructuredData({ relativePath: prefix + page }), null)
+  }
+})
+
+test('landing head generation is idempotent and preserves unrelated authored schemas', () => {
+  const custom = structuredDataHead({ '@type': 'Person', name: 'An explicitly authored identity' })
+  const heads = [custom, ['meta', { name: 'example', content: 'keep' }]]
+  const data = landingStructuredData({ relativePath: 'index.md', description: '</script><script>not executable</script>' })
+  setLandingStructuredData(heads, data)
+  setLandingStructuredData(heads, data)
+  assert.equal(heads.length, 3)
+  assert.equal(heads.filter(([tag, attrs]) => attrs.id === 'reader-landing-schema').length, 1)
+  assert.strictEqual(heads[0], custom)
+  assert.ok(!heads[2][2].includes('<'))
+  assert.deepEqual(JSON.parse(heads[2][2]), data)
+  setLandingStructuredData(heads, null)
+  assert.equal(heads.length, 2)
+  assert.strictEqual(heads[0], custom)
+})
 
 test('article schema describes the canonical page without invented provenance', () => {
   const canonical = 'https://hpoenixf.com/eff-agent-article/en/articles/example'

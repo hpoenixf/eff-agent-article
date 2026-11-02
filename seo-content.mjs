@@ -1,3 +1,5 @@
+import { SITE_URL } from './seo-routes.mjs'
+
 const fallback = {
   zh: '讨论实现机制、工程取舍与证据边界，记录 Agent 系统可复核的演进过程。',
   en: 'Engineering mechanisms, trade-offs, evidence limits, and reproducible Agent system evolution.'
@@ -102,4 +104,46 @@ export function articleStructuredData({ title, description, canonical, english =
 
 export function structuredDataHead(data) {
   return ['script', { type: 'application/ld+json' }, JSON.stringify(data).replace(/</g, '\\u003c')]
+}
+
+// These are page semantics, not a claim to Google's domain-level site-name
+// feature. Both language homes describe the same collection website.
+export function landingStructuredData({ relativePath, title, description, canonical }) {
+  const english = relativePath.startsWith('en/')
+  const page = relativePath.replace(/^en\//, '')
+  if (page === 'index.md') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': SITE_URL + '#website',
+      name: english ? 'ETF Agent · Engineering Notes' : 'ETF Agent · 工程手记',
+      alternateName: english ? 'ETF Agent · 工程手记' : 'ETF Agent · Engineering Notes',
+      description,
+      url: SITE_URL,
+      inLanguage: ['zh-CN', 'en-US']
+    }
+  }
+  if (!['catalog.md', 'principles.md', 'open-etf-agent.md', 'panorama.md'].includes(page)) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: clean(title),
+    description,
+    url: canonical,
+    inLanguage: english ? 'en-US' : 'zh-CN',
+    isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
+  }
+}
+
+// Replace only this generator's own tag. Preserve unrelated authored schemas;
+// the rendered-output gate rejects conflicting duplicate page semantics.
+export function setLandingStructuredData(heads, data) {
+  const id = 'reader-landing-schema'
+  for (let index = heads.length - 1; index >= 0; index--) {
+    if (heads[index][0] === 'script' && heads[index][1]?.id === id) heads.splice(index, 1)
+  }
+  if (!data) return
+  const head = structuredDataHead(data)
+  head[1].id = id
+  heads.push(head)
 }
