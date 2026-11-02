@@ -122,7 +122,7 @@ That gives a developer somewhere to begin and a reviewer a way to assess whether
 
 - [Publication: Why Answers Need an Independent Publishing System](019-agent-answer-publication.md): the mechanisms behind bodies, attachments, and publication facts.
 - [Local Improvements Are Not System Progress](local-improvement-is-not-system-progress.md): check benefits and additional costs.
-- [Tests Expire Too](test-lifecycle-refactoring-retirement-and-spec.md): remove obsolete requirements from routine regression runs.
+- [Docs, code, and tests evolving together](docs-code-tests-evolve-together.md#do-not-discard-the-old-tests-as-a-group): remove obsolete requirements from routine regression runs.
 - [Architecture Principles](/en/principles): see [capability introduction and exit](/en/principles#principle-7), [feature choices](/en/principles#method-1), and [knowledge retirement](/en/principles#method-6).
 
 More articles are available in the [reading catalog](/en/catalog) and [public GitHub collection](https://github.com/hpoenixf/eff-agent-article). Consider a Star or share a counterexample if these ideas help your work.

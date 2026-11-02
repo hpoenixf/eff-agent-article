@@ -142,4 +142,4 @@ The Store's **depth** lies in one limited interface covering admission, bounded 
 
 A trustworthy system should not promise perfect reconstruction of every agent call. It should distinguish original execution, attempted capture, durable storage, current read permission, and lost or expired parts. That separation turns a debugging artifact into an honest, inspectable piece of evidence.
 
-Further reading: [Tool-to-model input lifecycle](/en/articles/agent-tool-lifecycle-and-model-input) · [The Trace Says Complete](/en/articles/agent-trace-complete-observation-gaps) · [Cost attribution](/en/articles/agent-report-cost-attribution) · [Observability panorama](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability).
+Further reading: [Tool-to-model input lifecycle](/en/articles/agent-tool-lifecycle-and-model-input) · [trace-completeness case in the observability panorama](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability#complete-query-results-do-not-prove-complete-capture) · [Cost attribution](/en/articles/agent-report-cost-attribution).

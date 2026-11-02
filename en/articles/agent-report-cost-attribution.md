@@ -148,6 +148,6 @@ For agent reports, a readable request-association view is more useful than an un
 
 **Association asks where the work occurred. Allocation asks who should bear it. Reconciliation asks what was ultimately paid.** Keeping those questions separate gives cost optimization a trustworthy starting point.
 
-Further reading: [Requests, Tokens, and Credits](agent-personal-credits-shadow-accounting.md) · [Evidence of Specialist Contribution](agent-subagent-contribution-evidence.md) · [Trace Completeness Gaps](agent-trace-complete-observation-gaps.md)
+Further reading: [Requests, Tokens, and Credits](agent-personal-credits-shadow-accounting.md) · [Evidence of Specialist Contribution](agent-subagent-contribution-evidence.md) · [trace-completeness case in the observability panorama](025-agent-langfuse-from-trace-to-trustworthy-observability.md#complete-query-results-do-not-prove-complete-capture)
 
 More cases are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). Star the collection to support this work.

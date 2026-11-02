@@ -122,7 +122,7 @@ ETF Agent 的发布治理提供过相近的真实教训：发布模块能够保�
 
 - [Publication：为什么回答需要独立发布系统](019-agent-answer-publication.md)：独立正文、附件和发布事实的具体机制。
 - [局部改善不等于整体进步](local-improvement-is-not-system-progress.md)：怎样核对优化收益及额外代价。
-- [测试也会过期](test-lifecycle-refactoring-retirement-and-spec.md)：旧要求怎样从日常回归中退出。
+- [文档、代码和测试一起向前](docs-code-tests-evolve-together.md)：旧要求怎样从日常回归中退出。
 - [Agent 架构原则速查](/principles)：本文对应[能力引入与退出](/principles#principle-7)、[新功能取舍](/principles#method-1)和[工程知识退役](/principles#method-6)。
 
 更多文章见 [ETF Agent 技术阅读站](/catalog) 和 [GitHub 公开文集](https://github.com/hpoenixf/eff-agent-article)。如果内容有所帮助，欢迎 Star 或提供反例交流。

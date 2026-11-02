@@ -142,4 +142,4 @@ flowchart TD
 
 好的证据系统不应承诺“每次请求都能百分之百复原”。它应当让读者区分：请求确实发生了、观察尝试了、正文保存了、历史仍有权读，以及哪些片段已缺失或过期。只有这些坐标分别成立，回查才有边界，研究才能可靠地被解释。
 
-延伸阅读：[从工具调用到模型输入](/articles/agent-tool-lifecycle-and-model-input) · [Trace 显示 Complete](/articles/agent-trace-complete-observation-gaps) · [报告成本如何归因](/articles/agent-report-cost-attribution) · [可观测全景](/articles/025-agent-langfuse-from-trace-to-trustworthy-observability)。
+延伸阅读：[从工具调用到模型输入](/articles/agent-tool-lifecycle-and-model-input) · [可观测全景中的 Trace 完整性](/articles/025-agent-langfuse-from-trace-to-trustworthy-observability#查询-complete-不代表采集-complete) · [报告成本如何归因](/articles/agent-report-cost-attribution)。

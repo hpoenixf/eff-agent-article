@@ -134,6 +134,6 @@ For the next protocol difference, ask: Is this a complete-object field or an inc
 
 The public repository includes the [stream assembler](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/stream.mjs), [null-continuation regressions](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/test/stream-null-continuation.test.mjs), and [version verification note](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/docs/verification/v0152-stream-null-continuation.md).
 
-Further reading: [From Tool Execution to Model Input](agent-tool-lifecycle-and-model-input.md) · [Trace Completeness Gaps](agent-trace-complete-observation-gaps.md)
+Further reading: [From Tool Execution to Model Input](agent-tool-lifecycle-and-model-input.md) · [trace-completeness case in the observability panorama](025-agent-langfuse-from-trace-to-trustworthy-observability.md#complete-query-results-do-not-prove-complete-capture)
 
 Star [open-etf-agent](https://github.com/hpoenixf/open-etf-agent) to follow these boundaries in the implementation.

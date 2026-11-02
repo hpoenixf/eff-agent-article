@@ -167,3 +167,30 @@ test('retired architecture guides preserve bilingual old links but are not reade
     assert.ok(!readFileSync(new URL('../.vitepress/config.mts', import.meta.url), 'utf8').includes("link: '/" + path + "'"))
   }
 })
+
+test('retired editions are excluded from local search and ordinary current recommendations', () => {
+  for (const slug of Object.keys(legacy)) {
+    for (const prefix of ['', 'en/']) {
+      const sourceUrl = new URL('../' + prefix + 'articles/' + slug + '.md', import.meta.url)
+      if (prefix && !existsSync(sourceUrl)) continue // Never invent an English edition for a Chinese-only retired page.
+      const source = readFileSync(sourceUrl, 'utf8')
+      const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)?.[1] ?? ''
+      assert.match(frontmatter, /^search:\s*false\s*$/m, prefix + slug + ': VitePress local search must skip retired editions')
+    }
+  }
+  const canonical = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
+  const sources = ['README.md', ...canonical.map(slug => 'articles/' + slug + '.md'),
+    ...canonical.filter(slug => englishArticleSlugs.includes(slug)).map(slug => 'en/articles/' + slug + '.md')]
+  for (const path of sources) {
+    const source = readFileSync(new URL('../' + path, import.meta.url), 'utf8')
+    for (const line of source.split(/\r?\n/)) {
+      for (const match of line.matchAll(/\[([^\]]*)\]\(([^)]+)\)/g)) {
+        const href = match[2]
+        if (/^https?:/.test(href) && !href.startsWith(SITE_URL)) continue // Fixed original GitHub editions are historical evidence, not reader routes.
+        const slug = href.split(/[?#]/)[0].split('/').at(-1).replace(/\.(?:md|html)$/, '')
+        assert.ok(!mergedArticles[slug], path + ': recommend the canonical receiving article, not ' + slug)
+        if (historicalEditions[slug]) assert.match(line, /历史|historical/i, path + ': a historical link needs an explicit historical identity')
+      }
+    }
+  }
+})

@@ -172,7 +172,7 @@ npm run docs:build
 | **AI-native 前端与交互** | [渐进式回答](articles/agent-progressive-answer-coherence.md) → [异步研究的前端交付](articles/agent-asynchronous-research-time-bound-delivery.md) → [答案发布与版本](articles/019-agent-answer-publication.md) → [HTML/文件交付](articles/agent-html-evolution-challenges.md) | 分段正文、后台通知、重连重读、事件去重与 Host 交付边界；可另读[Relay 数据建模案例](https://hpoenixf.com/blog/relay-id-issue) |
 | **Agent 应用开发** | [十五分钟入门 Agent](articles/agent-in-15-minutes.md) → [六层调用全景 V3](articles/017-prompt-to-answer-six-layer-panorama-v3.md) → [Model / Harness / Loop 研究推进](articles/etf-agent-model-harness-research-loop.md) → [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md) → [自定义专家](articles/agent-custom-expert-from-prompt-to-recovery.md) → [Python 工作台](articles/agent-python-compute-workbench-evolution.md) | 工具调用、任务协作、资料处理、计算、错误恢复与产物交接 |
 | **Agent 系统架构** | [模型/Runtime/MCP/Skill 分工](articles/agent-model-runtime-mcp-skill-boundaries.md) → [工具可见性与 A34](articles/agent-model-capability-presentation-tool-surface.md) → [A35 内容信任](articles/agent-content-trust-prompt-injection.md) → [授权与事实归属](articles/011-model-understands-code-authorizes.md) → [否决权治理](articles/agent-veto-authority-and-run-termination.md) → [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md) | 为什么划分职责、如何控制局部失败影响、怎样降低长期复杂度 |
-| **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
+| **AI 辅助工程研发** | [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) → [分期交付](articles/agent-weekly-review-staged-delivery.md) → [知识退役](articles/027-agent-context-document-history.md) → [文档、代码与测试共演进](articles/docs-code-tests-evolve-together.md) → [真实任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md) | 如何让 Coding Agent 从完整设计走向首份交付，同时不被旧规范与测试束缚 |
 
 **两种公开资产，两个仓库：** 本仓库 [eff-agent-article](https://github.com/hpoenixf/eff-agent-article) 是工程文章、图册与阅读站源码；[open-etf-agent](https://github.com/hpoenixf/open-etf-agent) 是独立 MIT 开源、可运行的分阶段教学实现（截至 2026-10-28，公开开发快照已到 v0.11.0），提供合成离线 Demo、测试及交付回读；[v0.11 固定源码](https://github.com/hpoenixf/open-etf-agent/tree/5f42c33892d57ed05e8cd09cad48573e6901995b)新增有界本地文本层 PDF 阅读，不提供 OCR、远程 PDF 获取或真实基金研究闭环。后者**不是内部完整 ETF Agent 产品的开源替代品**，其通过的 Runtime 测试不代表真实模型语义质量、投资服务或生产就绪；内部产品源码、凭据和完整生产运行证据仍不公开。两套资产均不能单独证明第三方复核过长期成功率或用户收益。
 
@@ -199,7 +199,7 @@ npm run docs:build
 
 **架构：** [想聊就聊：异步后台研究](articles/agent-background-research-collaborative-experience.md) · [故障域感知切换](articles/agent-provider-failover-without-resetting-the-run.md) · [模型会理解，代码才授权](articles/011-model-understands-code-authorizes.md) · [否决权与 Run 终结权](articles/agent-veto-authority-and-run-termination.md) · [架构演化与五不原则](articles/code-cheaper-systems-harder-to-evolve.md)
 
-**研发：** [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) · [周报分期交付](articles/agent-weekly-review-staged-delivery.md) · [文档、History 与知识退役](articles/027-agent-context-document-history.md) · [测试生命周期](articles/test-lifecycle-refactoring-retirement-and-spec.md) · [任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
+**研发：** [Spec 与 Evidence](articles/026-agent-spec-evidence-workflow.md) · [周报分期交付](articles/agent-weekly-review-staged-delivery.md) · [文档、History 与知识退役](articles/027-agent-context-document-history.md) · [文档、代码与测试共演进](articles/docs-code-tests-evolve-together.md) · [任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 
 **金融：** [金融 Agent 系统全景](articles/financial-agent-system-panorama.md) · [投顾与交易边界](articles/030-fintech-from-research-to-investment-advice.md) · [金融数字复算](articles/031-fintech-data-time-and-reproducible-numbers.md) · [Python 结果消费](articles/financial-agent-python-result-consumption.md) · [可信证据链](articles/financial-agent-trustworthy-evidence-chain.md) · [持续投资研究的历史与论点](articles/agent-weekly-thesis-history-continuous-research.md)
 
@@ -319,7 +319,6 @@ npm run docs:build
 
 - [不止一个投资专家：多视角 Agent 如何共同检验投资假设](articles/investment-perspectives-and-thesis-falsification.md)
 - [当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计](articles/bounded-bull-bear-peer-dialogue.md)
-- [从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）](articles/multi-layer-agent-collaboration-outlook.md)
 
 **关联阅读（不重复计入本组）：**
 
@@ -384,7 +383,6 @@ npm run docs:build
 
 - [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 - [Agent 测评全景：从测试绿灯到真实任务价值](articles/honest-agent-evaluation.md)
-- [测试也会过期：把重构、退役和删除前移到 Spec](articles/test-lifecycle-refactoring-retirement-and-spec.md)
 - [一个 Subagent 改动，为什么拖住了我们整整一天？](articles/agent-runtime-refactor-one-day-blocked.md)
 - [从 Bug 循环到完整任务收敛](articles/032-ai-development-from-bug-loop-to-task-convergence.md)
 - [一个 ETF 投资助手的工程起点](articles/etf-assistant-engineering-origins.md)
