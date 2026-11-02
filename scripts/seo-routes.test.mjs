@@ -4,8 +4,37 @@ import { readFileSync } from 'node:fs'
 import { englishArticleSlugs, englishTitles } from '../book.en.mjs'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems } from '../seo-routes.mjs'
+import { createMarkdownRenderer } from 'vitepress'
 
 const legacy = { ...mergedArticles, ...historicalEditions }
+
+test('consolidated notices preserve old section fragments and link to actual receiving sections', async () => {
+  const fixture = JSON.parse(readFileSync(new URL('./fixtures/retired-heading-links.json', import.meta.url), 'utf8'))
+  const md = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
+  const rendered = new Map()
+  const htmlFor = url => {
+    if (!rendered.has(url.href)) rendered.set(url.href, md.render(readFileSync(url, 'utf8')))
+    return rendered.get(url.href)
+  }
+  for (const item of fixture.cases) {
+    const sourceUrl = new URL('../' + item.path, import.meta.url)
+    const source = readFileSync(sourceUrl, 'utf8'), html = htmlFor(sourceUrl)
+    const slug = item.path.split('/').at(-1).replace(/\.md$/, '')
+    assert.ok(mergedArticles[slug], 'Compatibility links do not create another canonical essay')
+    assert.equal(html.split('id="' + item.titleId + '"').length - 1, 1, item.path + ': original title anchor')
+    assert.ok(source.includes('https://github.com/hpoenixf/eff-agent-article/blob/' + fixture.sourceCommit + '/' + item.path))
+    const links = [...html.matchAll(/href="([^"]+)"/g)].map(match => decodeURIComponent(match[1]).replace(/^\.\//, '').replace(/\.html(?=#|$)/, '.md'))
+    for (const section of item.sections) {
+      for (const id of section.ids) assert.equal(html.split('id="' + id + '"').length - 1, 1, item.path + '#' + id)
+      assert.ok(links.includes(section.target), item.path + ': receiving link ' + section.target)
+      const [path, fragment] = section.target.split('#')
+      assert.ok(!path.includes('/'), 'Receiving links retain the same language directory')
+      assert.ok(!legacy[path.replace(/\.md$/, '')], 'Receiving essay is current, not another merge notice')
+      const target = htmlFor(new URL(path, sourceUrl))
+      assert.equal(target.split('id="' + fragment + '"').length - 1, 1, section.target)
+    }
+  }
+})
 
 test('contributor documentation is excluded without hiding reader pages', () => {
   for (const route of ['README.md', 'MAINTENANCE', '/eff-agent-article/MAINTENANCE.html', SITE_URL + 'en/README']) {

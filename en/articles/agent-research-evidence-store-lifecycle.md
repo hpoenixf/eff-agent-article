@@ -18,7 +18,7 @@ After an agent fails, two records can disagree. The gateway shows a completed mo
 
 This article focuses on a specific module: **Research Evidence Retention and Readback**. It owns bounded observation copies of model exchanges and physical attempts. It does **not** own sending model requests, business execution, publication, semantic scoring, or executable recovery.
 
-Examples and identities here are synthetic. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
+The illustrative examples and identities are synthetic; the separately identified lock-contention case comes from historical investigation and controlled reproduction. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
 
 ## 1. First, separate three kinds of evidence
 
