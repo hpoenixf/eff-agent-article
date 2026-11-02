@@ -1,6 +1,10 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-artifact-version-access-sharing": "The Report Is Generated. Why Can't We Just Share It?",
+  "agent-research-decisions-evidence-synthesis": "When Should an Agent Keep Researching—and When Should It Answer?",
+  "agent-account-identity-private-scope": "One Agent, Multiple Users: Keeping Each Research Private",
+  "agent-personalized-daily-research-cache": "Daily Personalized Research Is More Than Repeating a Prompt",
   "agent-client-interaction-and-reading": "An Agent Client Is More Than an SSE Renderer: Presenting a Research Task Correctly",
   "agent-client-interaction-panorama": "Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research",
   "vertical-financial-agent-principles-panorama": "After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?",
@@ -100,6 +104,10 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-artifact-version-access-sharing",
+  "agent-research-decisions-evidence-synthesis",
+  "agent-account-identity-private-scope",
+  "agent-personalized-daily-research-cache",
   "agent-client-interaction-and-reading",
   "agent-client-interaction-panorama",
   "rag-end-to-end-system-panorama",

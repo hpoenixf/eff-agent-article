@@ -12,7 +12,8 @@ export const collections = [
         "title": "L1 · 任务输入与触发",
         "desc": "工作从定时任务或其他获准触发开始；输入不代替后续研究决策。",
         "items": [
-          ["agent-autonomous-scheduled-research", "定时研究：会话结束后继续"]
+          ["agent-autonomous-scheduled-research", "定时研究：会话结束后继续"],
+          ["agent-personalized-daily-research-cache", "每天一份个性化研究，为什么不是重复执行一个 Prompt？"]
         ]
       },
       {
@@ -20,6 +21,7 @@ export const collections = [
         "title": "L2 · 身份、会话与上下文",
         "desc": "按原 Owner 主层阅读身份、能力准入、上下文和持久交互；跨层参与不改变事实归属。",
         "items": [
+          ["agent-account-identity-private-scope", "同一个 Agent，怎样确保每个人只看到自己的研究？"],
           ["agent-conversation-admission-task-continuation", "对话接纳：接着聊不等于接着执行"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权：Run 授权的生命周期"],
           ["020-agent-extension-host-smartphone", "Extension Host：从功能机到智能机"],
@@ -42,6 +44,7 @@ export const collections = [
         "desc": "Entry 与 Main 选择研究动作，Child、Provider、工具表面和预算支撑有边界的执行。",
         "items": [
           ["022-agent-entry-from-intent-to-direct-research", "Entry：为什么入口越来越简单"],
+          ["agent-research-decisions-evidence-synthesis", "Agent 什么时候该继续查，什么时候该开始回答？"],
           ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
           ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-provider-architecture-and-admission", "Provider：统一接口之后，为什么还需要共享准入"],
@@ -86,6 +89,7 @@ export const collections = [
         "desc": "区分正文接纳、版本提交、会话交付与用户反馈事实。",
         "items": [
           ["019-agent-answer-publication", "Publication：为什么需要独立发布系统"],
+          ["agent-artifact-version-access-sharing", "报告已经生成，为什么还不能直接分享？"],
           ["agent-asynchronous-research-time-bound-delivery", "异步研究：离开页面后怎样按时交付"],
           ["agent-feedback-facts-not-automatic-learning", "用户点了踩，Agent 就该学习吗？"]
         ]

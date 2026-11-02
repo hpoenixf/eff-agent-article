@@ -2,6 +2,10 @@
   "schemaVersion": 1,
   "description": "Owner 专文只标记其确有独立主题的文章。无专文统一显示敬请期待；相关文章可选、不可冒充专文。文章阅读次序与名称仍以 book.mjs 为准。",
   "articles": {
+    "agent-artifact-version-access-sharing": "报告已经生成，为什么还不能直接分享？",
+    "agent-research-decisions-evidence-synthesis": "Agent 什么时候该继续查，什么时候该开始回答？",
+    "agent-account-identity-private-scope": "同一个 Agent，怎样确保每个人只看到自己的研究？",
+    "agent-personalized-daily-research-cache": "每天一份个性化研究，为什么不是重复执行一个 Prompt？",
     "agent-client-interaction-and-reading": "客户端：一次研究怎样被正确呈现",
     "agent-client-interaction-panorama": "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究",
     "011-model-understands-code-authorizes": "模型会理解，代码才授权：Run 授权的生命周期",
@@ -69,6 +73,7 @@
   },
   "owners": {
     "A01": {
+      "primary": "agent-account-identity-private-scope",
       "related": [
         "011-model-understands-code-authorizes"
       ]
@@ -85,8 +90,9 @@
       ]
     },
     "A03": {
-      "primary": "adaptive-research-python-workbench",
+      "primary": "agent-research-decisions-evidence-synthesis",
       "related": [
+        "adaptive-research-python-workbench",
         "022-agent-entry-from-intent-to-direct-research",
         "financial-agent-python-result-consumption"
       ]
@@ -201,8 +207,9 @@
       ]
     },
     "A22": {
-      "primary": "agent-html-evolution-challenges",
+      "primary": "agent-artifact-version-access-sharing",
       "related": [
+        "agent-html-evolution-challenges",
         "agent-python-compute-workbench-evolution",
         "agent-weekly-thesis-history-continuous-research"
       ]
@@ -236,6 +243,12 @@
     },
     "A26": {
       "primary": "026-agent-memory-forget-durable-effects"
+    },
+    "A27": {
+      "primary": "agent-personalized-daily-research-cache",
+      "related": [
+        "agent-autonomous-scheduled-research"
+      ]
     },
     "A28": {
       "related": [
