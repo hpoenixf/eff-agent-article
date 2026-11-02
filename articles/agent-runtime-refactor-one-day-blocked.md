@@ -84,7 +84,7 @@ readingBrief:
 
 ## 延伸阅读
 
-[《Agent 架构如何做到该稳定的稳定，该变化的变化？》](agent-differentiated-evolution-contracts.md)讨论不同模块应承担怎样的演进契约；[《测试也会过期》](test-lifecycle-refactoring-retirement-and-spec.md)进一步讨论旧测试怎样保留有效保护、退出过期断言。
+[《Agent 架构如何做到该稳定的稳定，该变化的变化？》](agent-differentiated-evolution-contracts.md)讨论不同模块应承担怎样的演进契约；[文档、代码和测试一起向前](docs-code-tests-evolve-together.md)进一步讨论旧测试怎样保留有效保护、退出过期断言。
 
 本文收录于 [ETF Agent 工程手记](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-refactor-one-day-blocked)。如果这些工程经历对你有帮助，也欢迎在[公开文集仓库](https://github.com/hpoenixf/eff-agent-article)点一个 Star。
 

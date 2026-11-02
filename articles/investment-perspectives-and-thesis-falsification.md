@@ -177,6 +177,6 @@ flowchart TD
 
 ### 延伸阅读
 
-已有的[Subagent 基础机制](agent-subagent-context-specialization.md)讲上下文隔离与成果交接；[多空对话 Runtime](bounded-bull-bear-peer-dialogue.md)讲直接通信、等待与恢复；[多层 Agent 协作展望](multi-layer-agent-collaboration-outlook.md)记录尚待完成的跨能力整体验收与未来如何比较。研究理由的历史管理可继续阅读[Investment Thesis 与长期周报](agent-weekly-thesis-history-continuous-research.md)。
+已有的[Subagent 基础机制](agent-subagent-context-specialization.md)讲上下文隔离与成果交接；[多空对话 Runtime](bounded-bull-bear-peer-dialogue.md)讲直接通信、等待与恢复；[2026-10-24 多层协作历史展望](multi-layer-agent-collaboration-outlook.md)保留当时的设计假设与比较问题，不作为现行实现指南。研究理由的历史管理可继续阅读[Investment Thesis 与长期周报](agent-weekly-thesis-history-continuous-research.md)。
 
 以上例子均为教学构造，不涉及真实个人组合或交易建议。本文解释内部研究系统的设计；公开教学实现并不包含这些能力的完整形态，实际范围见[公开仓库说明](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)。更多文章见[文集](https://github.com/hpoenixf/eff-agent-article)，欢迎 Star。

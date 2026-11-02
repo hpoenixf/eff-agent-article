@@ -134,6 +134,6 @@ ReviewAnswerClaims --> RecordDisagreement["记录不一致"]
 
 **输入覆盖是工程事实，语义采用是内容判断，增量价值是比较问题。** 把三者分开，才可能判断哪些协作值得保留，哪些只是增加了成本和篇幅。
 
-延伸阅读：[Subagent 的上下文隔离与专业化](agent-subagent-context-specialization.md) · [Trace 的完整性缺口](agent-trace-complete-observation-gaps.md) · [一份报告的成本归属](agent-report-cost-attribution.md)
+延伸阅读：[Subagent 的上下文隔离与专业化](agent-subagent-context-specialization.md) · [可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete) · [一份报告的成本归属](agent-report-cost-attribution.md)
 
 更多案例见 [ETF Agent 技术文集](https://github.com/hpoenixf/eff-agent-article)。欢迎为文集点一个 Star。

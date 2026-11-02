@@ -54,7 +54,7 @@
     "agent-failure-is-a-boundary-problem": "别把每个失败都算给模型",
     "agent-conversation-history-compaction-source-boundaries": "跨 Run 会话压缩：旧助手摘要不能替代用户原文",
     "agent-feedback-facts-not-automatic-learning": "用户点了踩，Agent 就该学习吗？",
-    "agent-trace-complete-observation-gaps": "Trace 显示 Complete，为什么 Agent 还是无法完整复盘？",
+    "025-agent-langfuse-from-trace-to-trustworthy-observability": "Agent 可观测全景：从一次模型请求到可回查的研究事实",
     "agent-subagent-contribution-evidence": "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？",
     "agent-report-cost-attribution": "Agent 生成一份报告，到底应该怎么算成本？",
     "agent-stream-tool-call-null-continuation": "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战",
@@ -304,7 +304,7 @@
       "related": [
         "agent-tool-lifecycle-and-model-input",
         "agent-personal-credits-shadow-accounting",
-        "agent-trace-complete-observation-gaps",
+        "025-agent-langfuse-from-trace-to-trustworthy-observability",
         "agent-report-cost-attribution"
       ]
     },

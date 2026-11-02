@@ -124,13 +124,13 @@ readingBrief:
 
 按研究运行时（Runtime）的最终执行状态，59 次中 42 次 completed、17 次 failed；按正文观察，48 次有可见且确认保存的正文，其中 6 次来自 Runtime 失败的运行。自动测评另记录 40 次 inconclusive、19 次 failed。这三套状态描述执行、交付观察和评测判定，不能互换成金融语义正确率。
 
-失败后已有部分正文，不等于整项任务完成；程序正常结束，也不等于回答已经独立核验。完整质量对照尚未完成，失败和未执行样本都应保留原身份。协作贡献的具体取证方法见[多专家 Agent 的贡献证据](agent-subagent-contribution-evidence.md)，观测查询与实际覆盖的差别见[Trace 完整性案例](agent-trace-complete-observation-gaps.md)。
+失败后已有部分正文，不等于整项任务完成；程序正常结束，也不等于回答已经独立核验。完整质量对照尚未完成，失败和未执行样本都应保留原身份。协作贡献的具体取证方法见[多专家 Agent 的贡献证据](agent-subagent-contribution-evidence.md)，观测查询与实际覆盖的差别见[可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete)。
 
 ### 另一个容易被隐藏的分母：哪些事件根本没有被采集？
 
 同一批 59 次运行的 Trace 查询都返回了 `complete`，但独立回查发现 **17 条模型轮次输出缺失**，41 次运行存在工具协议观测缺口，观测器累计报告遗漏 851,339 个事件。这个计数是**采集器报告的协议事件**，不是 851,339 次工具执行失败，更不能据此推断具体哪条工具调用没有发生。
 
-[Trace 完整性专题](agent-trace-complete-observation-gaps.md)解释了关键机制：一次流式工具调用可能拆成许多小碎片，很快耗尽观测容量；即使查询读完所有已保存的页，采集器也可能早已丢掉一些事件。后续改进选择在原容量内区分被遗漏的碎片与其他协议事件，而非无限扩容；历史缺失事件仍然未知，不反向补成零。
+[可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete)解释了关键机制：一次流式工具调用可能拆成许多小碎片，很快耗尽观测容量；即使查询读完所有已保存的页，采集器也可能早已丢掉一些事件。后续改进选择在原容量内区分被遗漏的碎片与其他协议事件，而非无限扩容；历史缺失事件仍然未知，不反向补成零。
 
 所以“查询完整”“请求输入输出完整”“工具生命周期完整”“原执行和交付完整”需要分别表示。Trace 有缺口时，去原工具动作、发布版本和实际模型请求中找可核对的回执；**观测平台是排查入口，不应被升级为唯一事实来源**。
 
@@ -333,6 +333,6 @@ readingBrief:
 
 [Spec 与 Evidence 工作流](026-agent-spec-evidence-workflow.md)讨论原始观察如何保留和更正；[AI Coding 最贵的不是写代码，而是决定什么值得验证](ai-coding-judgment-and-verification.md)讨论怎样按错误代价分配验证资源。
 
-本篇重用了这些专题中能够独立讲清的关键机制：[RAG 检索评测](rag-retrieval-evaluation-evidence.md)、[子代理贡献](agent-subagent-contribution-evidence.md)、[Trace 完整性](agent-trace-complete-observation-gaps.md)、[引用支持](ai-citations-do-not-prove-reliability.md)、[失败归因](agent-failure-is-a-boundary-problem.md)、[Langfuse 观测](025-agent-langfuse-from-trace-to-trustworthy-observability.md)与[成本归因](agent-report-cost-attribution.md)。它们各自还保留更深入的工程细节。
+本篇重用了这些专题中能够独立讲清的关键机制：[RAG 检索评测](rag-retrieval-evaluation-evidence.md)、[子代理贡献](agent-subagent-contribution-evidence.md)、[可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete)、[引用支持](ai-citations-do-not-prove-reliability.md)、[失败归因](agent-failure-is-a-boundary-problem.md)与[成本归因](agent-report-cost-attribution.md)。它们各自还保留更深入的工程细节。
 
 更多文章见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎 Star 与交流。

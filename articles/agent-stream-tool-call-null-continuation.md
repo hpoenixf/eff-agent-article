@@ -134,6 +134,6 @@ ValidateCompleteProposal --> OriginalHostAuthorization["进入原主机授权"]
 
 实现与回归可阅读公开仓库中的[流组装代码](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/stream.mjs)、[null 续片回归](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/test/stream-null-continuation.test.mjs)及[版本验证说明](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/docs/verification/v0152-stream-null-continuation.md)。
 
-延伸阅读：[从工具调用到模型输入](agent-tool-lifecycle-and-model-input.md) · [Trace 的完整性缺口](agent-trace-complete-observation-gaps.md)
+延伸阅读：[从工具调用到模型输入](agent-tool-lifecycle-and-model-input.md) · [可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete)
 
 欢迎为 [open-etf-agent](https://github.com/hpoenixf/open-etf-agent) 点一个 Star，结合源码阅读这些边界。

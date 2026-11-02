@@ -1,0 +1,341 @@
+{
+  "sourceCommit": "32c3a4a1b9ab3e02452af3cc2f8875953796d670",
+  "cases": [
+    {
+      "path": "articles/agent-reliability-mechanisms-without-blocking-progress.md",
+      "titleId": "给-agent-加上可靠性机制后-为什么反而交不出结果",
+      "sections": [
+        {
+          "text": "一、先问清楚，用户究竟在等什么",
+          "ids": [
+            "一、先问清楚-用户究竟在等什么",
+            "一先问清楚用户究竟在等什么"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#一、先分清-这一步失败-和-整个任务结束"
+        },
+        {
+          "text": "二、已经异步保存，为什么还会卡住正文？",
+          "ids": [
+            "二、已经异步保存-为什么还会卡住正文",
+            "二已经异步保存为什么还会卡住正文"
+          ],
+          "target": "agent-research-evidence-store-lifecycle.md#四、队列是有限的-且不能向模型请求施加背压"
+        },
+        {
+          "text": "三、动作已经完成，为什么恢复记录还能让它失败？",
+          "ids": [
+            "三、动作已经完成-为什么恢复记录还能让它失败",
+            "三动作已经完成为什么恢复记录还能让它失败"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#七、恢复的第一步不是重做-而是确认已经发生了什么"
+        },
+        {
+          "text": "四、可靠性能力，也要接受反向验证",
+          "ids": [
+            "四、可靠性能力-也要接受反向验证",
+            "四可靠性能力也要接受反向验证"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#九、把原则落到下一次评审"
+        },
+        {
+          "text": "五、下一次增加可靠性机制，先写下它失败后的样子",
+          "ids": [
+            "五、下一次增加可靠性机制-先写下它失败后的样子",
+            "五下一次增加可靠性机制先写下它失败后的样子"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#九、把原则落到下一次评审"
+        },
+        {
+          "text": "延伸阅读",
+          "ids": [
+            "延伸阅读"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#九、把原则落到下一次评审"
+        }
+      ]
+    },
+    {
+      "path": "articles/agent-trace-complete-observation-gaps.md",
+      "titleId": "trace-显示-complete-为什么-agent-还是无法完整复盘",
+      "sections": [
+        {
+          "text": "一、先给 complete 补上宾语",
+          "ids": [
+            "一、先给-complete-补上宾语",
+            "一先给-complete-补上宾语"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#三、记录可以不完整-缺口不能伪装成结论"
+        },
+        {
+          "text": "二、为什么流式工具调用特别容易耗尽观测容量",
+          "ids": [
+            "二、为什么流式工具调用特别容易耗尽观测容量",
+            "二为什么流式工具调用特别容易耗尽观测容量"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#三、记录可以不完整-缺口不能伪装成结论"
+        },
+        {
+          "text": "三、这次修复的重点：让遗漏可以解释，而不是假装没有遗漏",
+          "ids": [
+            "三、这次修复的重点-让遗漏可以解释-而不是假装没有遗漏",
+            "三这次修复的重点让遗漏可以解释而不是假装没有遗漏"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#三、记录可以不完整-缺口不能伪装成结论"
+        },
+        {
+          "text": "四、追踪缺失时，应当去哪里找事实",
+          "ids": [
+            "四、追踪缺失时-应当去哪里找事实",
+            "四追踪缺失时应当去哪里找事实"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#三、记录可以不完整-缺口不能伪装成结论"
+        },
+        {
+          "text": "五、下一步不是一个更大的布尔值",
+          "ids": [
+            "五、下一步不是一个更大的布尔值",
+            "五下一步不是一个更大的布尔值"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#七、回到那份报告-先补哪一个缺口"
+        }
+      ]
+    },
+    {
+      "path": "articles/test-lifecycle-refactoring-retirement-and-spec.md",
+      "titleId": "测试也会过期-把重构、退役和删除前移到-spec",
+      "sections": [
+        {
+          "text": "一、失败之后，先找行为依据",
+          "ids": [
+            "一、失败之后-先找行为依据",
+            "一失败之后先找行为依据"
+          ],
+          "target": "docs-code-tests-evolve-together.md#旧测试不能整组推倒-先分清它保护什么"
+        },
+        {
+          "text": "二、不要整组删除，逐项看它还保护什么",
+          "ids": [
+            "二、不要整组删除-逐项看它还保护什么",
+            "二不要整组删除逐项看它还保护什么"
+          ],
+          "target": "docs-code-tests-evolve-together.md#旧测试不能整组推倒-先分清它保护什么"
+        },
+        {
+          "text": "三、已有测试，不只有保留和删除两种选择",
+          "ids": [
+            "三、已有测试-不只有保留和删除两种选择",
+            "三已有测试不只有保留和删除两种选择"
+          ],
+          "target": "docs-code-tests-evolve-together.md#旧测试不能整组推倒-先分清它保护什么"
+        },
+        {
+          "text": "四、旧库已经迁走，迁移检查还要跑多久",
+          "ids": [
+            "四、旧库已经迁走-迁移检查还要跑多久",
+            "四旧库已经迁走迁移检查还要跑多久"
+          ],
+          "target": "docs-code-tests-evolve-together.md#六、同步工作为什么也会拖后腿"
+        },
+        {
+          "text": "五、把处置提前到设计里，实际写到文件上",
+          "ids": [
+            "五、把处置提前到设计里-实际写到文件上",
+            "五把处置提前到设计里实际写到文件上"
+          ],
+          "target": "docs-code-tests-evolve-together.md#七、明天接到需求-可以怎样开始"
+        },
+        {
+          "text": "六、测试慢，先找能消掉的重复工作",
+          "ids": [
+            "六、测试慢-先找能消掉的重复工作",
+            "六测试慢先找能消掉的重复工作"
+          ],
+          "target": "docs-code-tests-evolve-together.md#六、同步工作为什么也会拖后腿"
+        },
+        {
+          "text": "七、下一次遇到旧测试失败，先问它还在守什么",
+          "ids": [
+            "七、下一次遇到旧测试失败-先问它还在守什么",
+            "七下一次遇到旧测试失败先问它还在守什么"
+          ],
+          "target": "docs-code-tests-evolve-together.md#七、明天接到需求-可以怎样开始"
+        },
+        {
+          "text": "延伸阅读与交流",
+          "ids": [
+            "延伸阅读与交流"
+          ],
+          "target": "docs-code-tests-evolve-together.md#延伸阅读与交流"
+        }
+      ]
+    },
+    {
+      "path": "en/articles/agent-reliability-mechanisms-without-blocking-progress.md",
+      "titleId": "why-can-adding-reliability-mechanisms-stop-an-agent-from-delivering",
+      "sections": [
+        {
+          "text": "1. Start with What the User Is Waiting For",
+          "ids": [
+            "_1-start-with-what-the-user-is-waiting-for",
+            "1-start-with-what-the-user-is-waiting-for"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#_1-separate-a-failed-step-from-an-ended-task"
+        },
+        {
+          "text": "2. How Can an Asynchronous Write Block Publication?",
+          "ids": [
+            "_2-how-can-an-asynchronous-write-block-publication",
+            "2-how-can-an-asynchronous-write-block-publication"
+          ],
+          "target": "agent-research-evidence-store-lifecycle.md#_4-a-finite-queue-must-never-become-execution-backpressure"
+        },
+        {
+          "text": "3. How Can a Recovery Record Restrict a Completed Action?",
+          "ids": [
+            "_3-how-can-a-recovery-record-restrict-a-completed-action",
+            "3-how-can-a-recovery-record-restrict-a-completed-action"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#_7-recovery-begins-by-checking-what-happened-not-by-doing-it-again"
+        },
+        {
+          "text": "4. Test Reliability Mechanisms in Reverse",
+          "ids": [
+            "_4-test-reliability-mechanisms-in-reverse",
+            "4-test-reliability-mechanisms-in-reverse"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#_9-bring-the-principle-into-the-next-review"
+        },
+        {
+          "text": "5. Design the Failure of the Reliability Mechanism",
+          "ids": [
+            "_5-design-the-failure-of-the-reliability-mechanism",
+            "5-design-the-failure-of-the-reliability-mechanism"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#_9-bring-the-principle-into-the-next-review"
+        },
+        {
+          "text": "Further Reading",
+          "ids": [
+            "further-reading"
+          ],
+          "target": "agent-veto-authority-and-run-termination.md#_9-bring-the-principle-into-the-next-review"
+        }
+      ]
+    },
+    {
+      "path": "en/articles/agent-trace-complete-observation-gaps.md",
+      "titleId": "the-trace-says-complete-why-can-t-we-reconstruct-the-agent-run",
+      "sections": [
+        {
+          "text": "1. Complete needs an object",
+          "ids": [
+            "_1-complete-needs-an-object",
+            "1-complete-needs-an-object"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"
+        },
+        {
+          "text": "2. Why streamed tool calls exhaust observation budgets",
+          "ids": [
+            "_2-why-streamed-tool-calls-exhaust-observation-budgets",
+            "2-why-streamed-tool-calls-exhaust-observation-budgets"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"
+        },
+        {
+          "text": "3. The repair explains omissions rather than pretending they vanished",
+          "ids": [
+            "_3-the-repair-explains-omissions-rather-than-pretending-they-vanished",
+            "3-the-repair-explains-omissions-rather-than-pretending-they-vanished"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"
+        },
+        {
+          "text": "4. Where to look when the trace is missing",
+          "ids": [
+            "_4-where-to-look-when-the-trace-is-missing",
+            "4-where-to-look-when-the-trace-is-missing"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"
+        },
+        {
+          "text": "5. The next step is not a bigger Boolean",
+          "ids": [
+            "_5-the-next-step-is-not-a-bigger-boolean",
+            "5-the-next-step-is-not-a-bigger-boolean"
+          ],
+          "target": "025-agent-langfuse-from-trace-to-trustworthy-observability.md#_7-return-to-the-report-which-gap-should-we-address-first"
+        }
+      ]
+    },
+    {
+      "path": "en/articles/test-lifecycle-refactoring-retirement-and-spec.md",
+      "titleId": "tests-expire-too-move-refactoring-retirement-and-deletion-into-the-spec",
+      "sections": [
+        {
+          "text": "1. Find the Behavioral Basis Before Changing the Test",
+          "ids": [
+            "_1-find-the-behavioral-basis-before-changing-the-test",
+            "1-find-the-behavioral-basis-before-changing-the-test"
+          ],
+          "target": "docs-code-tests-evolve-together.md#do-not-discard-the-old-tests-as-a-group"
+        },
+        {
+          "text": "2. Inspect the Protections Instead of Deleting the Group",
+          "ids": [
+            "_2-inspect-the-protections-instead-of-deleting-the-group",
+            "2-inspect-the-protections-instead-of-deleting-the-group"
+          ],
+          "target": "docs-code-tests-evolve-together.md#do-not-discard-the-old-tests-as-a-group"
+        },
+        {
+          "text": "3. Existing Tests Have More Than Two Possible Destinations",
+          "ids": [
+            "_3-existing-tests-have-more-than-two-possible-destinations",
+            "3-existing-tests-have-more-than-two-possible-destinations"
+          ],
+          "target": "docs-code-tests-evolve-together.md#do-not-discard-the-old-tests-as-a-group"
+        },
+        {
+          "text": "4. How Long Should Migration Checks Survive the Old Library?",
+          "ids": [
+            "_4-how-long-should-migration-checks-survive-the-old-library",
+            "4-how-long-should-migration-checks-survive-the-old-library"
+          ],
+          "target": "docs-code-tests-evolve-together.md#_6-why-synchronization-itself-can-slow-development"
+        },
+        {
+          "text": "5. Make the Decision During Design and Apply It to Files",
+          "ids": [
+            "_5-make-the-decision-during-design-and-apply-it-to-files",
+            "5-make-the-decision-during-design-and-apply-it-to-files"
+          ],
+          "target": "docs-code-tests-evolve-together.md#_7-where-to-start-when-the-next-requirement-arrives"
+        },
+        {
+          "text": "6. Before Deleting a Slow Test, Look for Repeated Work",
+          "ids": [
+            "_6-before-deleting-a-slow-test-look-for-repeated-work",
+            "6-before-deleting-a-slow-test-look-for-repeated-work"
+          ],
+          "target": "docs-code-tests-evolve-together.md#_6-why-synchronization-itself-can-slow-development"
+        },
+        {
+          "text": "7. Ask What the Failing Test Still Guards",
+          "ids": [
+            "_7-ask-what-the-failing-test-still-guards",
+            "7-ask-what-the-failing-test-still-guards"
+          ],
+          "target": "docs-code-tests-evolve-together.md#_7-where-to-start-when-the-next-requirement-arrives"
+        },
+        {
+          "text": "Further Reading and Discussion",
+          "ids": [
+            "further-reading-and-discussion"
+          ],
+          "target": "docs-code-tests-evolve-together.md#further-reading-and-discussion"
+        }
+      ]
+    }
+  ]
+}

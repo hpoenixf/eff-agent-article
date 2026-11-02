@@ -148,6 +148,6 @@ NonAdditiveCostView --> PreserveDelivery
 
 **关联回答“这笔工作在哪里”，分摊回答“这笔工作归谁”，对账回答“最终实际付了多少”。** 三个问题分开之后，成本优化才有一个可以信任的起点。
 
-延伸阅读：[请求、Token 与 Credits](agent-personal-credits-shadow-accounting.md) · [多专家贡献如何取证](agent-subagent-contribution-evidence.md) · [Trace 的完整性缺口](agent-trace-complete-observation-gaps.md)
+延伸阅读：[请求、Token 与 Credits](agent-personal-credits-shadow-accounting.md) · [多专家贡献如何取证](agent-subagent-contribution-evidence.md) · [可观测全景中的 Trace 完整性](025-agent-langfuse-from-trace-to-trustworthy-observability.md#查询-complete-不代表采集-complete)
 
 更多工程案例见 [ETF Agent 技术文集](https://github.com/hpoenixf/eff-agent-article)。欢迎为文集点一个 Star。

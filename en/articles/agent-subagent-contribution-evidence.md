@@ -134,6 +134,6 @@ At the next multi-agent review, choose one important conclusion rather than coun
 
 **Input coverage is an engineering fact; semantic adoption is a content judgment; incremental value is a comparison.** Separating them helps identify collaboration worth keeping and collaboration that merely adds cost and length.
 
-Further reading: [Subagents: Context Isolation and Specialization](agent-subagent-context-specialization.md) · [Trace Completeness Gaps](agent-trace-complete-observation-gaps.md) · [Attributing Report Costs](agent-report-cost-attribution.md)
+Further reading: [Subagents: Context Isolation and Specialization](agent-subagent-context-specialization.md) · [trace-completeness case in the observability panorama](025-agent-langfuse-from-trace-to-trustworthy-observability.md#complete-query-results-do-not-prove-complete-capture) · [Attributing Report Costs](agent-report-cost-attribution.md)
 
 More cases are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). Star the collection to support this work.

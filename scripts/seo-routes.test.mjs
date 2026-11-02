@@ -4,8 +4,37 @@ import { readFileSync } from 'node:fs'
 import { englishArticleSlugs, englishTitles } from '../book.en.mjs'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems } from '../seo-routes.mjs'
+import { createMarkdownRenderer } from 'vitepress'
 
 const legacy = { ...mergedArticles, ...historicalEditions }
+
+test('consolidated notices preserve old section fragments and link to actual receiving sections', async () => {
+  const fixture = JSON.parse(readFileSync(new URL('./fixtures/retired-heading-links.json', import.meta.url), 'utf8'))
+  const md = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
+  const rendered = new Map()
+  const htmlFor = url => {
+    if (!rendered.has(url.href)) rendered.set(url.href, md.render(readFileSync(url, 'utf8')))
+    return rendered.get(url.href)
+  }
+  for (const item of fixture.cases) {
+    const sourceUrl = new URL('../' + item.path, import.meta.url)
+    const source = readFileSync(sourceUrl, 'utf8'), html = htmlFor(sourceUrl)
+    const slug = item.path.split('/').at(-1).replace(/\.md$/, '')
+    assert.ok(mergedArticles[slug], 'Compatibility links do not create another canonical essay')
+    assert.equal(html.split('id="' + item.titleId + '"').length - 1, 1, item.path + ': original title anchor')
+    assert.ok(source.includes('https://github.com/hpoenixf/eff-agent-article/blob/' + fixture.sourceCommit + '/' + item.path))
+    const links = [...html.matchAll(/href="([^"]+)"/g)].map(match => decodeURIComponent(match[1]).replace(/^\.\//, '').replace(/\.html(?=#|$)/, '.md'))
+    for (const section of item.sections) {
+      for (const id of section.ids) assert.equal(html.split('id="' + id + '"').length - 1, 1, item.path + '#' + id)
+      assert.ok(links.includes(section.target), item.path + ': receiving link ' + section.target)
+      const [path, fragment] = section.target.split('#')
+      assert.ok(!path.includes('/'), 'Receiving links retain the same language directory')
+      assert.ok(!legacy[path.replace(/\.md$/, '')], 'Receiving essay is current, not another merge notice')
+      const target = htmlFor(new URL(path, sourceUrl))
+      assert.equal(target.split('id="' + fragment + '"').length - 1, 1, section.target)
+    }
+  }
+})
 
 test('contributor documentation is excluded without hiding reader pages', () => {
   for (const route of ['README.md', 'MAINTENANCE', '/eff-agent-article/MAINTENANCE.html', SITE_URL + 'en/README']) {
@@ -136,5 +165,32 @@ test('retired architecture guides preserve bilingual old links but are not reade
     assert.ok(stub.includes('](/' + language + 'articles/017-prompt-to-answer-six-layer-panorama-v3)'))
     assert.ok(stub.length < 700)
     assert.ok(!readFileSync(new URL('../.vitepress/config.mts', import.meta.url), 'utf8').includes("link: '/" + path + "'"))
+  }
+})
+
+test('retired editions are excluded from local search and ordinary current recommendations', () => {
+  for (const slug of Object.keys(legacy)) {
+    for (const prefix of ['', 'en/']) {
+      const sourceUrl = new URL('../' + prefix + 'articles/' + slug + '.md', import.meta.url)
+      if (prefix && !existsSync(sourceUrl)) continue // Never invent an English edition for a Chinese-only retired page.
+      const source = readFileSync(sourceUrl, 'utf8')
+      const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)?.[1] ?? ''
+      assert.match(frontmatter, /^search:\s*false\s*$/m, prefix + slug + ': VitePress local search must skip retired editions')
+    }
+  }
+  const canonical = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
+  const sources = ['README.md', ...canonical.map(slug => 'articles/' + slug + '.md'),
+    ...canonical.filter(slug => englishArticleSlugs.includes(slug)).map(slug => 'en/articles/' + slug + '.md')]
+  for (const path of sources) {
+    const source = readFileSync(new URL('../' + path, import.meta.url), 'utf8')
+    for (const line of source.split(/\r?\n/)) {
+      for (const match of line.matchAll(/\[([^\]]*)\]\(([^)]+)\)/g)) {
+        const href = match[2]
+        if (/^https?:/.test(href) && !href.startsWith(SITE_URL)) continue // Fixed original GitHub editions are historical evidence, not reader routes.
+        const slug = href.split(/[?#]/)[0].split('/').at(-1).replace(/\.(?:md|html)$/, '')
+        assert.ok(!mergedArticles[slug], path + ': recommend the canonical receiving article, not ' + slug)
+        if (historicalEditions[slug]) assert.match(line, /历史|historical/i, path + ': a historical link needs an explicit historical identity')
+      }
+    }
   }
 })

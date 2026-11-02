@@ -129,7 +129,7 @@ export const collections = [
         "items": [
           ["investment-perspectives-and-thesis-falsification", "不止一个投资专家：多视角 Agent 如何共同检验投资假设"],
           ["bounded-bull-bear-peer-dialogue", "当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计"],
-          ["multi-layer-agent-collaboration-outlook", "从多个专家到一份研究：多层 Agent 协作的下一站（2026 展望）"]
+
         ],
         "related": [
           ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
@@ -177,7 +177,7 @@ export const collections = [
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
-          ["agent-reliability-mechanisms-without-blocking-progress", "给 Agent 加上可靠性机制后，为什么反而交不出结果？"],
+
           ["local-improvement-is-not-system-progress", "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"],
           ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"],
           ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"]
@@ -209,11 +209,11 @@ export const collections = [
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "Agent 测评全景：从测试绿灯到真实任务价值"],
-          ["agent-trace-complete-observation-gaps", "Trace 显示 Complete，为什么 Agent 还是无法完整复盘？"],
+
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
           ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],
-          ["test-lifecycle-refactoring-retirement-and-spec", "测试也会过期：把重构、退役和删除前移到 Spec"],
+
           ["agent-runtime-refactor-one-day-blocked", "一个 Subagent 改动，为什么拖住了我们整整一天？"],
           ["032-ai-development-from-bug-loop-to-task-convergence", "从 Bug 循环到完整任务收敛"],
           ["etf-assistant-engineering-origins", "一个 ETF 投资助手的工程起点"],
@@ -263,11 +263,15 @@ export const mergedArticles = {
   "partial-is-not-complete": "tool-results-outside-model-context",
   "green-tests-can-lie": "honest-agent-evaluation",
   "agent-engineering-knowledge-lifecycle": "027-agent-context-document-history",
-  "honest-agent-failure-semantics": "agent-veto-authority-and-run-termination"
+  "honest-agent-failure-semantics": "agent-veto-authority-and-run-termination",
+  "agent-reliability-mechanisms-without-blocking-progress": "agent-veto-authority-and-run-termination",
+  "agent-trace-complete-observation-gaps": "025-agent-langfuse-from-trace-to-trustworthy-observability",
+  "test-lifecycle-refactoring-retirement-and-spec": "docs-code-tests-evolve-together"
 };
 
 // Historical full-text editions remain readable at independent URLs but are not counted as new canonical essays.
 export const historicalEditions = {
   "017-prompt-to-answer-six-layer-panorama-v1": "017-prompt-to-answer-six-layer-panorama-v3",
-  "017-prompt-to-answer-six-layer-panorama": "017-prompt-to-answer-six-layer-panorama-v3"
+  "017-prompt-to-answer-six-layer-panorama": "017-prompt-to-answer-six-layer-panorama-v3",
+  "multi-layer-agent-collaboration-outlook": "agent-subagent-context-specialization"
 };

@@ -18,7 +18,7 @@ After an agent fails, two records can disagree. The gateway shows a completed mo
 
 This article focuses on a specific module: **Research Evidence Retention and Readback**. It owns bounded observation copies of model exchanges and physical attempts. It does **not** own sending model requests, business execution, publication, semantic scoring, or executable recovery.
 
-Examples and identities here are synthetic. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
+The illustrative examples and identities are synthetic; the separately identified lock-contention case comes from historical investigation and controlled reproduction. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
 
 ## 1. First, separate three kinds of evidence
 
@@ -78,6 +78,8 @@ When limits are reached, capture returns an explicit gap. The same applies to in
 - failure of optional evidence persistence does not rewrite dispatch, budget, Run termination, or existing publications.
 
 A call may leave only its request, only its output, or neither. The data model must be honest about each possibility.
+
+**A real lock-contention case shows the limits of asynchronous capture.** Optional research evidence was already queued for background persistence, yet the writer still competed with answer publication for locks in a shared database. The investigation found a cycle across three transactions: the evidence write held a source-related lock while waiting for a model-record lock, with publication also caught in the dependency chain. Moving the call to a queue did not isolate the underlying resource. The narrow repair rolled back the optional evidence transaction when it could not immediately acquire the required model-record lock, releasing held resources and recording a capture failure instead of claiming success. Controlled contention and readback supported removal of this particular dependency, not reconstruction of every detail of the historical failure or permission to discard required execution receipts.
 
 ## 5. Readback is not permission to resurrect old context
 
@@ -140,4 +142,4 @@ The Store's **depth** lies in one limited interface covering admission, bounded 
 
 A trustworthy system should not promise perfect reconstruction of every agent call. It should distinguish original execution, attempted capture, durable storage, current read permission, and lost or expired parts. That separation turns a debugging artifact into an honest, inspectable piece of evidence.
 
-Further reading: [Tool-to-model input lifecycle](/en/articles/agent-tool-lifecycle-and-model-input) · [The Trace Says Complete](/en/articles/agent-trace-complete-observation-gaps) · [Cost attribution](/en/articles/agent-report-cost-attribution) · [Observability panorama](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability).
+Further reading: [Tool-to-model input lifecycle](/en/articles/agent-tool-lifecycle-and-model-input) · [trace-completeness case in the observability panorama](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability#complete-query-results-do-not-prove-complete-capture) · [Cost attribution](/en/articles/agent-report-cost-attribution).

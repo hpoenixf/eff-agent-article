@@ -2,6 +2,14 @@
 title: From Multiple Experts to One Research Result - The Next Step for Multi-Layer Agents (2026 Outlook)
 description: A fund-comparison example explains when another research assistant is useful, how evidence should be handed over, and how to judge the value of collaboration.
 date: 2026-10-24
+search: false
+head:
+  - - meta
+    - name: robots
+      content: noindex, follow
+  - - link
+    - rel: canonical
+      href: https://hpoenixf.com/eff-agent-article/en/articles/agent-subagent-context-specialization
 readingBrief:
   takeaways:
     - "Before delegating, identify the missing source, calculation, or analytical test; when Main can already answer well, multiple experts need not become a fixed approval pipeline."
@@ -14,6 +22,8 @@ readingBrief:
 ---
 
 # From Multiple Experts to One Research Result: The Next Step for Multi-Layer Agents (2026 Outlook)
+
+> **Historical outlook (2026-10-24):** This complete essay retains its original design assumptions and later dated notes. It is no longer a current catalog entry. For the present cross-agent collaboration model, read the [Subagent panorama](agent-subagent-context-specialization.md).
 
 **Another AI expert is worthwhile when it supplies missing evidence or corrects an important reason for a decision.** More reports, calls, and waiting time do not by themselves establish the value of collaboration.
 
