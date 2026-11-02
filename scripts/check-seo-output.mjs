@@ -170,7 +170,8 @@ console.log('Article provenance verified:', authoredSchemas, 'explicit authors,'
 const panoramaIds = [
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
-  'one-report-nine-architecture-judgments'
+  'one-report-nine-architecture-judgments',
+  'rag-end-to-end-system-panorama'
 ]
 for (const prefix of ['', 'en/']) {
   const route = prefix + 'panorama'
