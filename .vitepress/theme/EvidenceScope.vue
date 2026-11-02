@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData } from 'vitepress'
+import { articleEvidence } from './article-context.mjs'
 
 type Evidence = { implementation?: string; scoped?: string; live?: string }
 const { frontmatter, lang } = useData()
-const evidence = computed(() => frontmatter.value.evidence as Evidence | undefined)
+const evidence = computed(() => articleEvidence(frontmatter.value) as Evidence | undefined)
 const english = computed(() => lang.value.startsWith('en'))
 </script>
 
 <template>
-  <aside v-if="evidence && (evidence.implementation || evidence.scoped || evidence.live)"
+  <aside v-if="evidence"
         class="article-evidence" :aria-label="english ? 'Evidence scope reported in this article' : '本文披露的证据范围'">
     <strong class="article-evidence-label">{{ english ? 'Evidence in this article' : '本文证据范围' }}</strong>
     <span v-if="evidence.implementation" class="article-evidence-item">

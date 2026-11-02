@@ -42,9 +42,10 @@ test('category component suppresses redundant self-link header without changing 
 
 test('companion source promotion remains on mapped articles, not directory pages', () => {
   const component = readFileSync(new URL('../.vitepress/theme/OpenSourceBridge.vue', import.meta.url), 'utf8')
-  assert.ok(component.includes("current.value.startsWith('articles/') && Boolean(example.value)"))
+  assert.ok(component.includes('openSourceExample(page.value.relativePath)'))
+  const projection = readFileSync(new URL('../.vitepress/theme/article-context.mjs', import.meta.url), 'utf8')
   assert.ok(!component.includes('landing.has'))
-  for (const slug of ['019-agent-answer-publication','020-agent-extension-host-smartphone','026-agent-memory-forget-durable-effects','mcp-host-from-discovery-to-consumption','agent-subagent-context-specialization','agent-main-run-context-compaction','agent-model-runtime-mcp-skill-boundaries','open-etf-agent-v01-first-readable-report']) assert.ok(component.includes(slug))
+  for (const slug of ['019-agent-answer-publication','020-agent-extension-host-smartphone','026-agent-memory-forget-durable-effects','mcp-host-from-discovery-to-consumption','agent-subagent-context-specialization','agent-main-run-context-compaction','agent-model-runtime-mcp-skill-boundaries','open-etf-agent-v01-first-readable-report']) assert.ok(projection.includes(slug))
 })
 
 test('all four date orders sort globally, preserve stable ties, and keep unknown dates last', () => {

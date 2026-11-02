@@ -12,7 +12,7 @@
     "predocs:dev": "node scripts/build-static-mermaid.mjs",
     "diagrams:build": "node scripts/build-static-mermaid.mjs",
     "check:topic": "node --test scripts/open-etf-topic.test.mjs scripts/topic-readability.test.mjs",
-    "check:briefs": "node --test scripts/article-reading-brief.test.mjs && node scripts/check-reading-briefs.mjs",
+    "check:briefs": "node --test scripts/article-reading-brief.test.mjs scripts/article-disclosures.test.mjs && node scripts/check-reading-briefs.mjs",
     "check:descriptions": "node --test scripts/article-description.test.mjs && node scripts/check-article-descriptions.mjs"
   },
   "devDependencies": {

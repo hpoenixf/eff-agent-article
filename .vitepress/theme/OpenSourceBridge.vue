@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData } from 'vitepress'
+import { openSourceExample } from './article-context.mjs'
 
 const { page, lang } = useData()
 const repo = 'https://github.com/hpoenixf/open-etf-agent'
-const examples: Record<string, string> = {
-  '019-agent-answer-publication': 'src/publication.mjs',
-  '020-agent-extension-host-smartphone': 'src/extensions.mjs',
-  '026-agent-memory-forget-durable-effects': 'src/memory-effects.mjs',
-  'mcp-host-from-discovery-to-consumption': 'src/mcp.mjs',
-  'agent-subagent-context-specialization': 'src/child.mjs',
-  'agent-main-run-context-compaction': 'src/compaction.mjs',
-  'agent-model-runtime-mcp-skill-boundaries': 'src/runtime.mjs',
-  'open-etf-agent-v01-first-readable-report': 'src/cli.mjs'
-}
-const current = computed(() => page.value.relativePath.replace(/\.md$/, '').replace(/^en\//, ''))
-const example = computed(() => examples[current.value.replace(/^articles\//, '')])
-const visible = computed(() => current.value.startsWith('articles/') && Boolean(example.value))
+const example = computed(() => openSourceExample(page.value.relativePath))
+const visible = computed(() => Boolean(example.value))
 const english = computed(() => lang.value.startsWith('en'))
 </script>
 

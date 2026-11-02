@@ -187,3 +187,7 @@ The independent bilingual catalogue filters, sorts, then paginates 20 primary ar
 简介是可见内容，仍按原 `article-history.mjs` 规则记录更新，不排除本次修改或回写历史日期。正文、目录顺序、分页、标签和日期 owner 均保持不变。
 
 Each canonical language edition owns its authored `description`. Recent updates and the independent catalogue consume the same build-time index; missing descriptions fail validation rather than becoming title, first-paragraph or reading-brief excerpts. Two-line CSS presentation retains full accessible text. Review the complete article and its qualifications before authoring a description; accurate existing text need not be padded. Visible description edits remain content updates under the existing history owner.
+
+### Article context disclosure / 正文辅助信息
+
+正文前的证据范围、标签与配套源码由一个默认关闭的原生 `details` 承载；原始文字、资格说明和链接仍在 SSR 中，展开后可读，不改变其事实来源。`article-context.mjs` 仅统一既有可见条件与配套示例映射；不建立第二套证据或标签登记。切换文章或语言版时按 `page.relativePath` 重建披露容器，避免把上一页的展开状态带入下一篇；无辅助信息时不显示空入口。结论导读不是该容器的一部分。

@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { data } from './article-tags.data'
+import { articleTopicTags } from './article-context.mjs'
 const { page, lang } = useData()
 const english = computed(() => lang.value.startsWith('en'))
-const slug = computed(() => /^(?:en\/)?articles\/([a-z0-9-]+)\.md$/.exec(page.value.relativePath)?.[1])
-const tags = computed(() => (data.articles[slug.value || ''] || []).map(tag => ({ ...data.definitions.find(def => def.id === tag.id), ...tag })))
+const tags = computed(() => articleTopicTags(page.value.relativePath, data))
 </script>
 <template>
   <nav v-if="tags.length" class="article-topic-tags" :aria-label="english ? 'Article tags' : '文章标签'">

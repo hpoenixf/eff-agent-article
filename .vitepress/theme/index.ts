@@ -15,9 +15,8 @@ import ContinueReading from './ContinueReading.vue'
 import HomeReadingMenu from './HomeReadingMenu.vue'
 import HomeOverview from './HomeOverview.vue'
 import PanoramaSeries from './PanoramaSeries.vue'
-import ArticleTopicTags from './ArticleTopicTags.vue'
+import ArticleContext from './ArticleContext.vue'
 import PanoramaViewer from './PanoramaViewer.vue'
-import EvidenceScope from './EvidenceScope.vue'
 import OpenSourceBridge from './OpenSourceBridge.vue'
 import ReadingTracker from './ReadingTracker.vue'
 import StarLink from './StarLink.vue'
@@ -36,7 +35,7 @@ export default {
     'home-hero-actions-after': () => h(HomeReadingMenu),
     'nav-bar-content-after': () => [h(DirectoryMenu), h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'nav-screen-content-before': () => h(ReadingDirectory),
-    'doc-before': () => [h(EvidenceScope), h(ArticleTopicTags), h(OpenSourceBridge)],
+    'doc-before': () => h(ArticleContext),
     'doc-footer-before': () => [h(ArticleStar), h(WeChatFollow, { articleOnly: true })],
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
