@@ -59,6 +59,10 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
   'etf-agent-framework-comparison-panorama': {
     zh: ['金融架构对照', '沿同一基金研究任务对照 Pi、Claude Agent SDK、LangGraph 与 ETF Agent，判断应复用什么、保留什么。'],
     en: ['FRAMEWORK COMPARISON', 'Compare Pi, Claude Agent SDK, LangGraph and ETF Agent along one fund-research task to identify what to reuse and preserve.']
+  },
+  'rag-end-to-end-system-panorama': {
+    zh: ['RAG 全链路全景', '沿基金公告研究贯通资料入库、受控检索、模型真实消费、回答披露与质量评测，说明何时需要、何时应简化 RAG。'],
+    en: ['END-TO-END RAG', 'Trace a fund notice through ingestion, authorized retrieval, real model consumption, disclosure and evaluation—and learn when simpler reading wins.']
   }
 }
 const cards = computed(() => panoramaSeriesSlugs.map((slug: string, index: number) => {
