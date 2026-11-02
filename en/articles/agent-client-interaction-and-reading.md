@@ -188,6 +188,8 @@ npm run serve -- --run runs/run-YOUR_ID
 
 According to the public guide, the example produces a report and records in a separate Run directory. The local reader prints its address and exposes registered reports, source windows and associated attachments. These are documented instructions; the example was not re-executed while preparing this article.[7]
 
+The reader listens only on the local loopback address and has no public-facing authentication. It is a local reading example, not a website ready to deploy publicly.
+
 This public implementation is not the complete A25 client. A local read service does not establish that multi-account chat, foreground concurrency, SSE recovery or every product interaction has been publicly delivered. It offers a starting point for understanding result identity and reading boundaries before applying those constraints to a client of your own.
 
 Return to the opening sequence: the user asks, keeps talking, refreshes, inspects a source and stops the original research. A reliable A25 makes those actions connect naturally without requiring the user to understand execution internals. Its engineering value lies in those ordinary-looking handoffs where identity and intent can most easily become misaligned.

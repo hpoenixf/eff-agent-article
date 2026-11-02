@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="660" viewBox="0 0 640 660" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">From a result to a saved version</title><desc id="desc">Read an available fee comparison, add a one-year holding assumption, inspect an actual revision, then obtain a specific version. An acknowledgment is not an updated report; a download needs a readable file.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="658" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="700">From a result to a saved version</text>
+<rect x="26" y="106" width="588" height="106" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<circle cx="55" cy="138" r="17" fill="#16362f"/>
+<text x="55" y="146" text-anchor="middle" font-size="23" font-weight="700" fill="white">1</text>
+<text x="84" y="144" font-size="27" font-weight="700">Read the partial result</text>
+<text x="84" y="174" font-size="23" fill="#4e665e">The fee comparison is available</text>
+<text x="84" y="201" font-size="23" fill="#a3523d">Holdings material is still missing</text>
+<path d="M320 215 V228" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="232" width="588" height="106" rx="16" fill="white" stroke="#cddbd1"/>
+<circle cx="55" cy="264" r="17" fill="#16362f"/>
+<text x="55" y="272" text-anchor="middle" font-size="23" font-weight="700" fill="white">2</text>
+<text x="84" y="270" font-size="27" font-weight="700">Add a one-year assumption</text>
+<text x="84" y="300" font-size="23" fill="#4e665e">Target the original comparison</text>
+<text x="84" y="327" font-size="23" fill="#a3523d">Received ≠ used in the report</text>
+<path d="M320 341 V354" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="358" width="588" height="106" rx="16" fill="white" stroke="#cddbd1"/>
+<circle cx="55" cy="390" r="17" fill="#16362f"/>
+<text x="55" y="398" text-anchor="middle" font-size="23" font-weight="700" fill="white">3</text>
+<text x="84" y="396" font-size="27" font-weight="700">Read the actual revision</text>
+<text x="84" y="426" font-size="23" fill="#4e665e">Explain the changed assumption</text>
+<text x="84" y="453" font-size="23" fill="#a3523d">Keep versions and evidence distinct</text>
+<path d="M320 467 V480" fill="none" stroke="#a3523d" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="26" y="484" width="588" height="106" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<circle cx="55" cy="516" r="17" fill="#16362f"/>
+<text x="55" y="524" text-anchor="middle" font-size="23" font-weight="700" fill="white">4</text>
+<text x="84" y="522" font-size="27" font-weight="700">Obtain a specific version</text>
+<text x="84" y="552" font-size="23" fill="#4e665e">Name its version and file availability</text>
+<text x="84" y="579" font-size="23" fill="#a3523d">No readable file? No download claim</text>
+<text x="30" y="632" font-size="23" fill="#4e665e">Later updates do not replace your saved version.</text>
+</g></svg>

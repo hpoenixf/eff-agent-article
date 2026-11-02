@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
 import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
-import { seoDescription, socialHead, articleStructuredData, structuredDataHead } from '../seo-content.mjs'
+import { seoDescription, socialHead, articleStructuredData, structuredDataHead, landingStructuredData, setLandingStructuredData } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
 import { readableRelations, diagramDimensions, needsReadableRelations, renderRelations } from '../diagram-reading.mjs'
 
@@ -113,6 +113,11 @@ export default defineConfig({
       }
     }
     heads.push(['link', { rel: 'canonical', href: canonical }])
+    // One owner for home/catalog/topic semantics; no schema on compatibility
+    // or contributor pages, even if this transform is invoked again.
+    setLandingStructuredData(heads, noindex ? null : landingStructuredData({
+      relativePath, title: pageData.title, description, canonical
+    }))
     if (noindex) {
       heads.push(['meta', { name: 'robots', content: 'noindex,follow' }])
       return
@@ -136,18 +141,6 @@ export default defineConfig({
       })))
     }
 
-    const pairedPage = relativePath.replace(/^en\//, '').replace(/\.md$/, '')
-    if (!['principles', 'open-etf-agent', 'panorama'].includes(pairedPage)) return
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: pageData.title,
-      description,
-      url: canonical,
-      inLanguage: english ? 'en-US' : 'zh-CN',
-      isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
-    }
-    heads.push(['script', { type: 'application/ld+json' }, JSON.stringify(structuredData).replace(/</g, '\\u003c')])
   },
   head: [
     ['meta', { name: 'theme-color', content: '#f8f8f4' }],

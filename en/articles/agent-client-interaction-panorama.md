@@ -179,6 +179,12 @@ Where attachments are supported, show their names, formats and availability near
 
 Not every client needs these features on day one. For chat-only reading, a reliable history entry may be enough. Add version-aware downloads, bookmarks or sharing when actual delivery and circulation needs justify them. Sharing also needs its own access boundary: “I can see it” does not mean “anyone with the link can see it.”
 
+![The handoff from a partial result through a changed holding period to a specific saved version](../../visuals/en/a25-client/p-handoff.svg)
+
+*One handoff, not a shipped-screen claim: receiving an amendment does not mean the report changed. Announce only actual revisions and offer downloads only for readable files. Later updates must not silently replace the version the user already obtained.*
+
+[Open the full-size vector figure](../../visuals/en/a25-client/p-handoff.svg)
+
 ## 8. Returning should reconnect the user to the original work
 
 Users may close the page before the holdings comparison finishes. A product that promises background research should explain whether the task will continue, where the result will be found and how a required reply will be surfaced.
@@ -231,7 +237,7 @@ After returning and reading the report, the user may ask, “How would that conc
 
 The question has a specific subject: the previous comparison and its conditions. The client can support a follow-up on a passage, table or whole result and show which content is referenced. Sending an isolated “Why?” forces the system to guess again.
 
-The next distinction is whether the user wants an explanation of the earlier conclusion or new research using newer material. The former should preserve the original report's time frame and evidence. The latter changes the comparison conditions. Make that choice explicit when it matters to the result; do not force every follow-up through a version-selection form.
+Distinguish three kinds of follow-up: explaining the earlier conclusion, recalculating under a changed assumption using the same material, and researching with newer material. An explanation preserves the original report's time frame and evidence. Changing the holding period to one year needs an explicit new assumption and calculation; the new answer must not masquerade as the original conclusion. Obtaining newer material requires the new source dates and comparison conditions to be clear. Make these distinctions explicit when they matter to the result; do not force every follow-up through a version-selection form.
 
 Feedback should also target something specific. A suspected numerical error is different from a complaint that the report is too long. A revised answer should not silently inherit an evaluation that referred to an older version.
 

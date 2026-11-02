@@ -4,13 +4,22 @@ import { resolve } from 'node:path'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
 import { SITE_URL, canonicalUrl } from '../seo-routes.mjs'
 import { createContentLoader, resolveConfig } from 'vitepress'
-import { articleStructuredData } from '../seo-content.mjs'
+import { articleStructuredData, landingStructuredData, seoDescription } from '../seo-content.mjs'
 
 const output = resolve('.vitepress/dist')
 const sitemap = readFileSync(resolve(output, 'sitemap.xml'), 'utf8')
 const listed = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]))
 const legacy = [...Object.keys(mergedArticles), ...Object.keys(historicalEditions)]
 let preserved = 0
+const structuredNodes = html => {
+  const flatten = data => Array.isArray(data) ? data.flatMap(flatten)
+    : data && typeof data === 'object' ? [data, ...(data['@graph'] ? flatten(data['@graph']) : [])] : []
+  return [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+    .flatMap(match => flatten(JSON.parse(match[1])))
+}
+const isType = (data, type) => [data['@type']].flat().includes(type)
+const pageSchemas = html => structuredNodes(html).filter(data =>
+  ['Article', 'NewsArticle', 'BlogPosting', 'WebPage', 'WebSite', 'CollectionPage'].some(type => isType(data, type)))
 
 for (const route of ['README', 'MAINTENANCE', 'en/README', 'en/MAINTENANCE']) {
   if (!existsSync(route + '.md')) continue
@@ -19,6 +28,7 @@ for (const route of ['README', 'MAINTENANCE', 'en/README', 'en/MAINTENANCE']) {
   const html = readFileSync(resolve(output, route + '.html'), 'utf8')
   assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex,\s*follow"/,
     'Contributor documentation must remain accessible but noindex: ' + route)
+  assert.equal(structuredNodes(html).length, 0, 'No reader schema on contributor documentation: ' + route)
 }
 
 for (const slug of legacy) {
@@ -41,6 +51,7 @@ for (const slug of legacy) {
     const robots = html.match(/<meta\b[^>]*\bname="robots"[^>]*>/g) ?? []
     assert.equal(robots.length, 1, 'Expected one robots meta tag: ' + route)
     assert.match(robots[0], /content="noindex,\s*follow"/, 'Legacy page should be noindex: ' + route)
+    assert.equal(structuredNodes(html).length, 0, 'No reader schema on historical/compatibility pages: ' + route)
     preserved++
   }
 }
@@ -123,6 +134,29 @@ let authoredSchemas = 0
 let illustratedSchemas = 0
 // Reuse VitePress's content loader and YAML parser, without rendering body code.
 globalThis.VITEPRESS_CONFIG = await resolveConfig(process.cwd())
+const landingPaths = ['index', 'catalog', 'principles', 'open-etf-agent', 'panorama']
+  .flatMap(page => [page + '.md', 'en/' + page + '.md'])
+const landingPages = await createContentLoader(landingPaths).load()
+assert.equal(landingPages.length, landingPaths.length)
+for (const source of landingPaths) {
+  const html = readFileSync(resolve(output, source.replace(/\.md$/, '.html')), 'utf8')
+  const english = source.startsWith('en/'), home = /^(?:en\/)?index.md$/.test(source)
+  const pageUrl = home ? (english ? '/en/' : '/') : '/' + source.replace(/\.md$/, '')
+  const page = landingPages.find(item => item.url === pageUrl)
+  assert.ok(page, 'Landing source missing: ' + source)
+  const title = page.frontmatter.title
+  const description = seoDescription({ title, frontmatter: page.frontmatter, english })
+  const data = pageSchemas(html)
+  assert.equal(data.length, 1, 'Exactly one landing schema, including graphs/arrays: ' + source)
+  assert.deepEqual(data[0], landingStructuredData({ relativePath: source, title, description, canonical: canonicalUrl(source) }))
+  assert.equal(data[0]['@type'], home ? 'WebSite' : 'CollectionPage')
+  assert.equal(data[0].url, home ? SITE_URL : canonicalUrl(source))
+}
+for (const route of ['roadmap', 'en/roadmap', 'modules', 'en/modules', 'thinking', 'en/thinking', 'engineering', 'en/engineering']) {
+  const html = readFileSync(resolve(output, route + '.html'), 'utf8')
+  assert.equal(structuredNodes(html).length, 0, 'Landing schema must not leak to other routes: ' + route)
+}
+console.log('Landing semantics verified: 2 bilingual website homes, 8 collection pages; no duplicate or leaked schemas')
 const editorialPages = await createContentLoader(['articles/*.md', 'en/articles/*.md']).load()
 const editorialFrontmatter = new Map(editorialPages.map(page => [
   page.url.replace(/^\//, '').replace(/\.html$/, ''), page.frontmatter
@@ -133,9 +167,10 @@ for (const chapter of chapters) {
       if (locale && !englishArticleSlugs.includes(slug)) continue
       const source = locale + 'articles/' + slug + '.md'
       const html = readFileSync(resolve(output, source.replace(/\.md$/, '.html')), 'utf8')
-      const schemas = [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
-        .map(match => JSON.parse(match[1])).filter(data => data['@type'] === 'Article')
+      const allSchemas = pageSchemas(html)
+      const schemas = allSchemas.filter(data => isType(data, 'Article'))
       assert.equal(schemas.length, 1, 'Exactly one Article schema: ' + source)
+      assert.equal(allSchemas.length, 1, 'No landing or duplicate schema on an article: ' + source)
       assert.equal(schemas[0].url, canonicalUrl(source))
       assert.equal(schemas[0].mainEntityOfPage['@id'], canonicalUrl(source))
       assert.equal(schemas[0].inLanguage, locale ? 'en-US' : 'zh-CN')
