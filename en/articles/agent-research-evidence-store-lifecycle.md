@@ -1,6 +1,15 @@
 ---
 title: "What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence"
 description: "A mechanism-level account of E04's passive, bounded capture of logical requests, observable outputs, and source dependencies—without turning telemetry into execution authority."
+readingBrief:
+  takeaways:
+    - "Research evidence stores bounded observation copies, not execution receipts; dispatch, queue acceptance, and durable persistence remain separate facts."
+    - "Capture permission precedes sensitive-content traversal; bounded queues and writes keep optional retention failures from rewriting dispatch, budgets, or Run termination."
+    - "Historical reads recheck current access, source revocation, dependency versions, and integrity; retained copies authorize neither executable recovery nor billing claims."
+  appliesTo:
+    - "Designing auditable agent input/output retention, bounded asynchronous storage, and historical readback with revocation and expiry checks."
+  notFor:
+    - "Guaranteeing complete reconstruction of every call, replaying tasks from telemetry, or certifying production capture rates and financial research quality."
 ---
 
 # What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence

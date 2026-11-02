@@ -3,6 +3,15 @@ evidence:
   implementation: "Protocol-omission classification implemented"
   scoped: "Recorded long-run audit and controlled gap checks"
   live: "Historical omissions remain missing; long-run coverage impact unmeasured"
+readingBrief:
+  takeaways:
+    - "A complete trace query only exhausts available records; pagination, model capture, tool stages, durable delivery, and research correctness need separate conclusions."
+    - "The repair classifies omitted fragments and other protocol events within existing limits. Historical categories remain unknown, and improved long-run coverage has not been established."
+    - "When traces are missing, inspect original action receipts, publication revisions, and actual requests. Missing observation is not nonexecution, and filling a chart does not justify replaying effects."
+  appliesTo:
+    - "Engineers diagnosing long-running trace gaps, streaming event budgets, or disagreements between observability and original execution receipts."
+  notFor:
+    - "Not a recovery of missing history, a tool-success metric, or an already delivered complete per-call coverage system."
 ---
 
 # The Trace Says Complete. Why Can’t We Reconstruct the Agent Run?

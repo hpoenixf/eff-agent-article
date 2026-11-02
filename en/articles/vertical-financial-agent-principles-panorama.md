@@ -6,6 +6,15 @@ tags:
   - Panorama Series
   - Fintech
   - Agent Architecture
+readingBrief:
+  takeaways:
+    - "Financial complexity justifies domain modeling, not automatically a framework or runtime; begin with one main agent and domain tools, extracting shared abstractions when real reuse emerges."
+    - "Financial facts need objects, denominators, dates, and method assumptions; sample weights are not total-asset exposure, unknowns are not zero, and contributions change the cash denominator."
+    - "Traceability, execution completion, downloadable reports, and correct research need separate evidence; use specialists and memory selectively, evaluating their task benefits against a simple baseline."
+  appliesTo:
+    - "For designers deciding whether financial rules belong in skills, tools, shared domain modules, or a custom runtime, while reviewing portfolio methods and evidence boundaries."
+  notFor:
+    - "Not allocation or trading advice, legal guidance, or a framework leaderboard; teaching calculations and public demos prove neither investment returns nor every private-system capability."
 ---
 
 # After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?

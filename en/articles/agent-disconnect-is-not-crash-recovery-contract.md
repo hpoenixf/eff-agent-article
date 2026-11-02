@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Browser disconnection changes observation, not execution; an ordinary server crash may settle interruption and preserve results without reconstructing the old model, tool, and Child graph."
+    - "Uncommitted execution position may be abandoned, but committed results and uncertain effects must remain; leases, fences, and original receipts govern remaining write and settlement authority."
+    - "Explicit continuation admits a new Run that reuses qualified material; legitimate Human/Child wakes retain constrained recovery, not permission to replay arbitrary historical graphs."
+  appliesTo:
+    - "Exploratory research that tolerates bounded lost progress and needs simpler recovery while retaining results, unknown usage, and legitimate safe points."
+  notFor:
+    - "Business operations requiring lossless continuation after every restart or strict once-only effects; those promises need appropriate durable execution and external-effect protocols."
+---
 # A Disconnected Browser Is Not a Crashed Agent: Why Recovery Need Not Rebuild the Execution Graph
 
 **The essential promise of long-running research is not that every failure resumes at the same model step. It is that closing a browser does not mistakenly stop an active task, effects that already happened are not repeated, and saved facts remain safely reusable.** When a product permits some uncommitted progress to be lost, permanently reconstructing the original execution graph may be a much stronger—and more expensive—promise than users need.

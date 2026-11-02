@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Source reliability, instruction identity, SDK carrier roles and effect authorization are distinct; quoting or summarizing a page cannot grant it authority."
+    - "Bind original producer identity before mutable processing, then check the actual final SDK projection to prevent source material from entering privileged instruction slots."
+    - "The original Gateway rejects inconsistent requests and effect owners reject unauthorized actions; a local failure must not erase independently valid outcomes."
+  appliesTo:
+    - "Auditing model requests after retrieval, hooks, compaction and protocol mapping, and governing the boundary from external content to real actions."
+  notFor:
+    - "Treating structural checks or the public identity regression as a malicious-text classifier, complete A35 implementation or real-model injection-resistance guarantee."
+---
 # Prompt Injection Is More Than Malicious Text: How We Built a Content Trust Boundary for an Agent
 
 Imagine a research agent reading an investment fund report. The user only wants to understand the report's arguments and supporting evidence. Yet after a late transformation of a model request, text from a web page ends up in the `system` instruction slot. The fund report is an illustrative scenario; the actual regression used a synthetic question and a Web tool result.

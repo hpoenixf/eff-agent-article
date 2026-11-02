@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Cross-Run compaction handles completed question–answer pairs in one conversation; it is neither recovery of a research Run nor a substitute for long-term memory."
+    - "Source identity binds both sides of each exchange, but the summarizer receives only older assistant replies; original user messages remain separate and cannot be rewritten."
+    - "Exact ranges use atomic claims, bounded retries and immutable completion; reads revalidate their sources, and durable storage does not prove inclusion in the current request."
+  appliesTo:
+    - "Designing source-bound history summaries and capacity fallback for conversations spanning multiple independent requests."
+  notFor:
+    - "Seeking lossless recall of every exchange, optimal compression ratios, or treating test code as long-term production fidelity and financial-quality evidence."
+---
 # Why an Agent Cannot Simply Summarize Its Conversation History: Cross-Run Compaction, Source Binding, and Immutable Summaries
 
 A user has talked with a research agent for dozens of turns. They first asked about fund fees, later corrected their investment horizon, and eventually compared NAV figures from different dates. Before their next question, the conversation history is already long. The obvious shortcut is to ask a model: “Summarize everything so far.”

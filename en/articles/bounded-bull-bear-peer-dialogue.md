@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "A real Bull/Bear discussion challenges a specific premise and obtains its proponent’s response; parallel essays, simulated bubbles, and votes cannot replace an actual exchange."
+    - "Message proposal, durable acceptance, and inclusion in the recipient’s actual request need separate evidence; frozen pair, round, and provenance identities prevent invented dialogue during recovery."
+    - "Waiting yields execution slots, while rounds add no budget; peer messages grant no data or trading authority, and bounded communication checks do not prove investment-quality gains."
+  appliesTo:
+    - "Multi-agent research with a material falsifiable premise and a need for direct messaging, bounded waiting, source permissions, and process recovery."
+  notFor:
+    - "Simple fee lookups, forcing agreement, or counting repeated sources as independent evidence and averaging opinions into trades."
+---
 # When Two Agents Talk Directly: Designing Bounded Bull–Bear Research
 
 > Multi-Agent Investment Research · Part Two | Genuine challenges, actual replies, and recoverable evidence

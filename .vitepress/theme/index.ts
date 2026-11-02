@@ -1,3 +1,4 @@
+import ArticleReadingBrief from './ArticleReadingBrief.vue'
 import ReadingDirectory from './ReadingDirectory.vue'
 import DirectoryMenu from './DirectoryMenu.vue'
 import RecentArticles from './RecentArticles.vue'
@@ -39,6 +40,7 @@ export default {
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
+    app.component('ArticleReadingBrief', ArticleReadingBrief)
     app.component('RecentArticles', RecentArticles)
     app.component('LearningPathNav', LearningPathNav)
     app.component('WeChatFollow', WeChatFollow)

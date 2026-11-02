@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Start with a small report users can open and verify; let factual owners govern reads, authorization, and saving while recording proposal, permission, dispatch, and effect separately."
+    - "Missing pages should constrain dependent claims without erasing independent lawful work; summaries cannot rewrite conditions, and unknown save outcomes do not justify blind repetition."
+    - "Before adding reviewers or replacing readers, locate the failure, measure normal-path costs, and preserve old report access; local improvements still need whole-task validation."
+  appliesTo:
+    - "For engineering teams using a concrete reporting task to review ownership, partial delivery, durable effects, and the introduction or retirement of modules."
+  notFor:
+    - "Not nine mandatory components or gates; hypothetical failures and limited live runs establish neither every discussed mechanism nor general model reliability."
+---
 # Nine Architecture Judgments Behind One Report
 
 ![Two sources converge into a report whose origins can still be traced](../../visuals/one-report-nine-architecture-judgments/cover.png)

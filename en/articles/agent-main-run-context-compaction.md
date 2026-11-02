@@ -1,6 +1,15 @@
 ---
 title: "Why Not Just Ask a Model to Summarize the Conversation When Context Is Full?"
 description: "Main Run context compaction with bounded pressure, settled turns, non-authoritative summaries, immutable checkpoints and honest live evidence."
+readingBrief:
+  takeaways:
+    - "Use semantic compaction after externalization and reversible fitting; adopt a candidate only when the complete request still faces pressure and shows actual net savings."
+    - "Compact eligible older work while preserving original user text, complete call relationships and effect receipts; summaries acquire neither source authority nor execution authority."
+    - "Bind compaction records to the original Run, range and request identity; recovery reads the checkpoint rather than repeating summarization or tool effects after a lost acknowledgment."
+  appliesTo:
+    - "Reducing context pressure within a long research Run while preserving original-source access, execution facts and process recovery."
+  notFor:
+    - "Treating committed summaries or scripted note adoption as proof of real-model understanding, repeated-compaction quality or successful end-to-end research."
 ---
 
 # When Context Is Nearly Full, Why Can't We Simply Ask a Model to Summarize History?

@@ -1,6 +1,15 @@
 ---
 title: Financial Agents in Context — Systems, Lifecycles, and Accountability
 description: Follow a portfolio question through system responsibilities, research loops, data and calculations, collaboration, trustworthy delivery, ongoing review, and business operations. Give research room to explore while controlling real effects.
+readingBrief:
+  takeaways:
+    - "Research may explore freely, but account facts, calculations, access, and real operations keep distinct owners; research permission never silently becomes trading authority."
+    - "Financial numbers need their objects, dates, denominators, and coverage. Missing material should narrow dependent claims, not erase independently supported research."
+    - "Evaluate whether the original question was answered and results actually reached the user; establish read-only research before adding collaboration or controlled operations."
+  appliesTo:
+    - "Designing responsibility boundaries across financial research, data, calculations, delivery, and business systems, or planning phased adoption."
+  notFor:
+    - "Not an interface-by-interface implementation guide or evidence that ETF Agent already provides trading, institutional approval, or validated investment gains."
 ---
 
 # Financial Agents in Context: Systems, Lifecycles, and Accountability

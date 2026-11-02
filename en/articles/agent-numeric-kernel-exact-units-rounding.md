@@ -1,6 +1,15 @@
 ---
 title: "Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, Rounding, and Residuals"
 description: "A33 Numeric: exact decimal strings, explicit dimensions, signed rounding, comparisons, residuals, and separation from financial-method authority."
+readingBrief:
+  takeaways:
+    - "Decimal strings preserve source precision, with explicit units and ratio scales; amounts, shares and percentage points cannot derive their meaning from magnitude or display formatting."
+    - "Rounding policy determines negative ties, and residuals record rounded minus exact; identical displays need not mean equal values, while conflicting strict constraints remain infeasible."
+    - "Numeric owns reproducible operations and local rejection; domains own formulas, denominators, dates and applicability, so exact arithmetic does not establish correct investment conclusions."
+  appliesTo:
+    - "Designing deterministic amount, share and weight calculations that need explicit unit checks, signed rounding, residuals and domain-constraint ownership."
+  notFor:
+    - "Seeking a universal investment-truth authority, or using synthetic arithmetic tests to certify fresh data, correct return conventions or executed trades."
 ---
 
 # Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, Rounding, and Residuals

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Budgets, source-handle lifetimes and registry capacity must compose into a viable research path; local quota refusal must not masquerade as provider failure and invite retries."
+    - "Budget for delivery, publication correction and explicit completion; finalization reserves come from the original allowance, cannot fund new search, and do not guarantee completion."
+    - "Recovery preserves original admission contracts and consumed usage; retries cannot replenish allowance, and narrowing tools for known constraints does not decide whether evidence is sufficient."
+  appliesTo:
+    - "Diagnosing agents that search and read extensively but fail to deliver, especially mismatched quotas, source handles, finalization capacity and error ownership."
+  notFor:
+    - "Looking for universally optimal budget numbers, or treating regression fixes as proof of better task success, cost, latency or answer quality."
+---
 # The Agent Found Plenty of Sources—Why Couldn't It Deliver an Answer?
 
 One of the most frustrating things about building an investment-research Agent is not that the model refuses to use tools. It searches, reads pages, and records numerous actions—yet the user still receives no finished answer.

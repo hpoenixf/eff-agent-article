@@ -5,6 +5,15 @@ article_type: panorama
 tags: ["Panorama series"]
 series: "Agent Context Governance Panorama"
 part: "Principles"
+readingBrief:
+  takeaways:
+    - "Context should support the current decision: system instructions provide stable principles, the user defines the goal, and methods, memory, and observations retain distinct origins and purposes."
+    - "Stored material, previously read material, and currently visible input are different scopes; retain provenance, versions, coverage, and kinds of unknowns without mistaking relevance for permission."
+    - "Measure progress against unresolved goals, make memory correctable, and preserve key relationships through compaction and handoffs; these distinctions do not each require a separate mechanism."
+  appliesTo:
+    - "For engineers designing system instructions, memory, and sustained research inputs who need a coherent way to inspect goals, evidence, authority, and progress."
+  notFor:
+    - "Not a mandatory build list for memory stores, compaction, or subagents, nor investment advice or proof of complete public-repository capabilities."
 ---
 
 # Agent Context Governance Panorama · Principles: Keep Every Decision Aligned with the Goal

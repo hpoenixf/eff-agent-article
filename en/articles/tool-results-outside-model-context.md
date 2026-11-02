@@ -1,6 +1,15 @@
 ---
 title: Why Tool Results Should Not All Enter Model Context
 description: Keeping large tool results outside model context while preserving selective reads, coverage, authorization and exact versions.
+readingBrief:
+  takeaways:
+    - "Keep large results in a controlled store and read exact versions or selections; catalog presence, successful reading and inclusion in model input are distinct facts."
+    - "Check scope, record identity and byte coverage before claiming completeness; a deliberate partial read can support a scoped answer, not a whole-dataset claim."
+    - "Replace older bodies with references only when original receipts establish exact rereadability; references grant no access, and refreshing must not silently replace the original snapshot."
+  appliesTo:
+    - "Handling large holdings tables, documents or paginated APIs, especially repeated context payloads and silent truncation."
+  notFor:
+    - "Using finite-set coverage to claim exhaustive web search, or inferring answer correctness and cost savings from complete input alone."
 ---
 
 # Why Tool Results Should Not All Enter Model Context

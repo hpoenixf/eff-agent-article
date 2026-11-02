@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "A personal expert is a versioned research method, not an independent authority platform; Main sees a catalog and only the selected Child receives full instructions."
+    - "Each Run freezes its method identity; edits affect future Runs, and historical contributions come from original execution receipts rather than the latest profile."
+    - "A Child may revise its current task description as evidence changes, but cannot rewrite prior requests, change expert identity, expand access or claim unperformed collaboration."
+  appliesTo:
+    - "Adding user-defined methods to existing Subagents with concurrent edits, recovery, exact selection and execution-backed contribution displays."
+  notFor:
+    - "Seeking arbitrary executable expert packages or independent long-lived assistant workspaces, or equating selection with improved investment-research quality."
+---
 # A Custom Expert Should Be More Than a Prompt Field
 
 *An ETF Agent engineering case study: from reusable personal research methods to recoverable Subagents*

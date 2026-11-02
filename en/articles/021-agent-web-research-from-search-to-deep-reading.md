@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Search, reading, in-page find and link following address different gaps; reuse existing leads instead of restarting search or launching a subagent for every operation."
+    - "Track navigation links, authorized snippets and actually read text separately; no match is not document-wide absence, and snippet citations must not imply original-source verification."
+    - "Prefer static reading with governed rendering fallback and preserve independent evidence on failure; citations must reach the current answer’s interface, but valid attribution does not prove correct interpretation."
+  appliesTo:
+    - "Agents stuck at snippets, repeating searches, missing attachments or showing uninspectable citations, where discovery, continued reading, handoff and display need connecting."
+  notFor:
+    - "Seeking general browser automation such as login or purchasing, or assuming deeper reading and multiple agents already prove accuracy, latency or token savings."
+---
 # From Finding Pages to Reading Further: How We Taught an Agent to Browse the Web
 
 When we first connected ETF Agent to the web, the first problem we solved was search: find materials relevant to the user's question, then let the model organize the results. Later, we added page access, in-page search, link following, and dynamic rendering. We also began addressing an equally important question: how to cite the material we found correctly for the user.

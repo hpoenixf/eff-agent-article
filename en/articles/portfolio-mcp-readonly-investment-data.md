@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Read-only access can support scenario calculations, but account snapshots, hypotheses and executed trades remain distinct; feasibility neither records user approval nor changes an account."
+    - "Start with a restricted overview and retain report identity, dates and denominators in detail; separate reads need not share a snapshot, and minimization must reach actual input."
+    - "Bind rebalancing to report and strategy versions plus explicit assumptions; displayable data may be ineligible for calculation, and unknown relationships or unavailable funds must not become zero."
+  appliesTo:
+    - "Connecting personal holdings to a research Agent for overviews and “what if” analysis while preserving read-only accounts and field-level eligibility."
+  notFor:
+    - "Seeking automatic orders, allocation approval or optimal weights, or treating readOnlyHint, plan status and feasible scenarios as proof of safe or completed trades."
+---
 # Bringing Personal Holdings into an Agent: Designing a Read-Only Financial MCP
 
 **A read-only financial MCP does not have to stop at converting holdings into JSON. It can help an investor calculate “what if I change this?” But it must always distinguish current account facts, hypothetical proposals, and actual executed trades.**

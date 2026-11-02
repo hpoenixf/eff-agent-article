@@ -4,6 +4,15 @@ articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
+readingBrief:
+  takeaways:
+    - "“Notify at” and “deliver by” are different commitments: at may expose saved content early while holding the notice; by permits early final delivery."
+    - "At the deadline, report committed partial results and running or missed status honestly; later completion neither erases lateness nor creates a fresh budget."
+    - "Reopening reads the original Run’s durable body and notices; progress, execution termination, and delivery timing stay distinct without rerunning research to notify."
+  appliesTo:
+    - "Background research with explicit delivery commitments, absent users, and partial and final results that must retain one stable Run identity."
+  notFor:
+    - "Inferring production delivery SLAs or research quality from controlled browser checks, or treating recurring schedules as the same problem as timed delivery."
 ---
 
 # The User Has Left, but the Research Is Still Running: How an Agent Delivers on Time

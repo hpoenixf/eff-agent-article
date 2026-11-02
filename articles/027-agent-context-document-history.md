@@ -1,6 +1,15 @@
 ---
 title: '文档不是给 Agent 全部读完的：按需加载、长期记忆与旧知识退出'
 description: '用 Hot/Warm/Cold、History 与 Handoff 治理工程知识，附开源 Engineering History Skill 的真实工具机制。'
+readingBrief:
+  takeaways:
+    - "全局规则保留不变量与导航，领域知识按任务加载；Hot、Warm、Cold 改变阅读时机，不把全部资料常驻上下文。"
+    - "当前规范、代码、证据、History 与 Handoff 各答不同问题；历史解释过去，不能仅因被搜索到就恢复现行权威。"
+    - "机制退役要同步撤下旧命令、指令与兼容依赖；长期经验择优保存，工具保护身份和手写内容，不自动判定历史价值。"
+  appliesTo:
+    - "长期多 Agent 项目需要降低无关上下文、维护工程记忆并阻止旧设计被重新实施。"
+  notFor:
+    - "不适合据文档瘦身推算 Token 或效率收益，也不把语义检索或历史 CLI 当作现行事实裁判。"
 ---
 
 # 文档不是给 Agent 全部读完的：按需加载、长期记忆与旧知识退出

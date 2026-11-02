@@ -1,6 +1,15 @@
 ---
 title: "Models Understand; Code Authorizes"
 description: "How recorded Run grants, portfolio ledger facts and execution receipts keep interpretation, permission and actual effects separate."
+readingBrief:
+  takeaways:
+    - "Model interpretation proposes actions; under this contract, the Host records a Run grant that survives same-Run recovery, while every new Run requires independent admission."
+    - "Units held are ledger facts, while value is derived from units and applicable NAV; neither stale value nor fresh market prices may rewrite an account snapshot."
+    - "Plan confirmation, execution instructions, and receipts establish different facts; missing information restricts dependent actions, and complete citations still do not certify a correct conclusion."
+  appliesTo:
+    - "For engineers checking Run authorization, portfolio-ledger invariants, and confirmation boundaries in research assistants while separating semantic judgments from actual effects."
+  notFor:
+    - "Not an immediate-revocation design, trading implementation, or investment recommendation; the consolidation adds no production retest or model-performance and investment-return evidence."
 ---
 
 # 011 Models Understand; Code Authorizes

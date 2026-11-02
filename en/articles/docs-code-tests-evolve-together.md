@@ -2,6 +2,15 @@
 title: "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together"
 description: "A teaching example about exporting orders shows how requirements, implementation, and tests can evolve together while preserving valid protections and checking the result users receive."
 date: 2026-10-28
+readingBrief:
+  takeaways:
+    - "When requirements change, separate replaced behavior from protections that still apply; do not revert a correct implementation merely to satisfy obsolete tests."
+    - "Tests must distinguish old behavior from the new promise and inspect the actual delivery boundary; file existence, row counts, or backend success alone are insufficient."
+    - "Production definitions may be shared, but test expectations need independence. Retire checks when their responsibility ends or protection moves, not merely because they fail or run slowly."
+  appliesTo:
+    - "Teams aligning specifications, implementation, tests, and decision history as existing behavior evolves."
+  notFor:
+    - "Not a rationale for deleting failing tests wholesale or treating documentation and test line counts as quality measures."
 ---
 
 # When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together

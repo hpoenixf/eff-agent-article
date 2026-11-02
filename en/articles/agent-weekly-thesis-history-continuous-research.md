@@ -4,6 +4,15 @@ articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
+readingBrief:
+  takeaways:
+    - "Retain original investment hypotheses, evidence dates, and falsification conditions—not only report summaries; asset changes without cash-flow context are not investment returns."
+    - "Qualified method documents, model inferences, and authenticated corrections retain separate provenance and successor versions, without overwriting reports or granting fresh access to historical sources."
+    - "Long-term goals, Theses, and research Checkpoints have different owners; controlled storage and scheduling checks do not establish that models consistently reassess investment rationales correctly."
+  appliesTo:
+    - "Designing recurring portfolio reviews, comparable historical observations, and user corrections so later research can test earlier judgments against their original evidence."
+  notFor:
+    - "Assuming the public project provides complete weekly-review or Workspace workflows, or treating retained hypotheses and notifications as proof of multi-period research quality or cost savings."
 ---
 
 # After the Weekly Report, Does the Agent Remember Why It Made That Call?

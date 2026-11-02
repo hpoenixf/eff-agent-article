@@ -5,6 +5,15 @@ articleMetadata:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
   image: "https://hpoenixf.com/eff-agent-article/visuals/deepseek-superagent-continuous-research/lifetimes.png"
+readingBrief:
+  takeaways:
+    - "持续协作先分清长期任务、一次派工与工作会话的生命期；值得迁移的是职责边界，不是照搬 Ticket 等对象名称。"
+    - "新输入要有唯一处理归属，待办用代次防旧投递吞掉新要求；保存、投递、进入会话历史和模型理解不能混为一谈。"
+    - "等待需要真实事件与唤醒条件，交付需要渠道身份与回执；原型的金融用途是机制迁移设想，不是成熟度或研究质量排名。"
+  appliesTo:
+    - "比较轻量问答、已有异步研究与长期事件驱动协作，检查纠偏、等待、恢复和外部通知接缝。"
+  notFor:
+    - "把代码协作原型当成已验证投研产品，或从本地事务与渠道去重推导端到端恰好一次。"
 ---
 
 # 从投研聊天到持续研究：DeepSeek Super-agent 给我们的启示

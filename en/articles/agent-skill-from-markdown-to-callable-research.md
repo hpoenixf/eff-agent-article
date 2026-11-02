@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Skills supply reusable methods while models synthesize, Hosts authorize and code computes; method declarations neither expand source permissions nor require one Agent per method."
+    - "Entry, Main and Child progressively receive methods according to their actual tool surfaces; catalog visibility, preferences, preloading, instruction reads and execution require separate evidence."
+    - "Bind calculations to method versions, parameters, sources and periods; recovery cannot substitute newer instructions, and local method failures should preserve gaps without erasing independent findings."
+  appliesTo:
+    - "Variable tasks with reusable domain procedures, where method packages, specialist discovery and traceable calculation handoffs are more useful than fixed formulas alone."
+  notFor:
+    - "Fixed-formula tasks better served by ordinary functions, or assuming the public compare-guides example includes the private fund Bundle, portfolio grants and Child preloading."
+---
 # A Skill Is More Than SKILL.md: Turning Research Methods into Callable Agent Capabilities
 
 An Agent can search the web, read PDFs, invoke MCP tools, and run Python. Why would it need Skills?

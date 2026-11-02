@@ -1,6 +1,15 @@
 ---
 title: "Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec"
 description: A teaching example adding PNG avatars shows how to distinguish obsolete requirements from valid protections and decide what happens to existing tests during design.
+readingBrief:
+  takeaways:
+    - "Check approved behavior before changing a failed test: accepting PNG replaces an obsolete format ban, not content, size, isolation, or saved-result protections."
+    - "Decide during design whether affected tests remain, change, consolidate, retire, or disappear. Replacement coverage must detect the original unique fault, regardless of test level."
+    - "Retire migration scans by actual consumers and exit conditions; reduce repeated setup and waiting before deleting slow tests, then update the real execution selection."
+  appliesTo:
+    - "Maintainers revising old assertions, migration checks, or slow tests while requirements and architecture change."
+  notFor:
+    - "Not permission to delete failing groups for a green run, retire every static check, or mechanically add one test for each deletion."
 ---
 
 # Tests Expire Too: Move Refactoring, Retirement, and Deletion into the Spec

@@ -3,6 +3,15 @@ evidence:
   implementation: "Original-request and publication-version association implemented"
   scoped: "Controlled persisted-delivery readback and observer-failure checks"
   live: "Shared allocation, complete causal costs and invoice reconciliation remain open"
+readingBrief:
+  takeaways:
+    - "Meter actual physical attempts. Gateway, trace and summary observations must not charge one dispatch repeatedly, while failed attempts must not disappear through deduplication."
+    - "The current report view associates publication revisions with requests, not the full causal workload. Shared views are non-additive, and costs stay unallocated until a policy is chosen."
+    - "Distinguish known estimates, unknown costs and final invoices. A failed cost observer must not break report readback or trigger fresh model work merely to repair accounting."
+  appliesTo:
+    - "Designing report-cost displays and checking request association, shared work, missing usage and the failure boundary of optional cost reads."
+  notFor:
+    - "Presenting publication-request subtotals as total report cost or zero reported balance charges as free work; complete allocation, causal costing and invoice reconciliation remain open."
 ---
 
 # What Does an Agent-Generated Report Actually Cost?

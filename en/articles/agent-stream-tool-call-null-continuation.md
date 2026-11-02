@@ -3,6 +3,15 @@ evidence:
   implementation: "Narrow established-ID compatibility in public v0.15.2"
   scoped: "Synthetic streaming regressions through the original runtime"
   live: "Independent live tasks check integration, not occurrence of a nullable continuation"
+readingBrief:
+  takeaways:
+    - "A later null preserves identity only when the same response-local index already has a nonempty ID; initial nulls, conflicts, and unsupported types remain rejected."
+    - "Keep compatibility inside stream assembly without borrowing or inventing IDs. Complete-response validation, argument checks, and original Host authorization remain separate requirements."
+    - "Controlled positive and negative transitions establish the null fix; live tasks check integration. Bounded state diagnostics cannot retrospectively explain every older identity failure."
+  appliesTo:
+    - "Developers maintaining streaming tool gateways who need incremental-field compatibility without weakening call identity or execution boundaries."
+  notFor:
+    - "Not general null cleanup or universal provider acceptance; successful live integration does not establish that those streams contained null continuations."
 ---
 
 # How a null Broke an Agent Tool Call: A Streaming Compatibility Case

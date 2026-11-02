@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "One login establishes identity, not business admission or data reuse; switching, information sharing, and transaction authorization remain separate decisions when responsibilities change."
+    - "The destination receives only purpose-appropriate, permitted sources—not all prior history or permissions. Simple routing remains appropriate within an unchanged trusted scope."
+    - "Creation, execution, publication, and readback are distinct facts. Synthetic tests recover the same Run, but do not establish dynamic revocation, exactly-once trading, or institutional compliance."
+  appliesTo:
+    - "Designing admission, history isolation, independent execution, and recovery for business-agent handoffs within a financial group."
+  notFor:
+    - "Not a deployable compliance solution, a public insurance integration, or evidence of investment quality from a live language model."
+---
 # Trusted Handoffs Between Financial Business Agents: Why a Router Is Not Enough
 
 *One financial group, one phone-number login, and three business lines: why must customer information not flow freely between agents?*

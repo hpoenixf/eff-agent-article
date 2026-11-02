@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Run budgets, physical model attempts and personal Credits are separate ledgers; logical requests, retries and token usage cannot substitute for one another."
+    - "Account only for identified attempts and reported usage; missing observations, ambiguous aggregates or unavailable storage cannot be presented as zero cost."
+    - "Shadow observes without denying research: wouldDeny changes no original admission decision, and deliverable association is not exclusive allocation or provider-invoice reconciliation."
+  appliesTo:
+    - "Building user-level agent usage observations with SDK retries, incomplete coverage and cost views that must not interfere with delivery."
+  notFor:
+    - "Implementing payments, enforced credit debits, complete per-report costing or production billing reconciled against actual supplier invoices."
+---
 # How Much Did an Agent Really Consume? Requests, Tokens, and Credits Are Different Facts
 
 The user sees a completed research report. Behind it, the agent may have made several model calls, dispatched tools, retried a request, and encountered a stream that ended without complete usage data. After the page says “Success,” can the system reliably answer how much the report consumed?

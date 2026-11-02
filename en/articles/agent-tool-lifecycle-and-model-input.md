@@ -1,6 +1,15 @@
 ---
 title: "From Tool Invocation to Model Input: A Traceable Agent Execution Chain"
 description: "Lifecycle hooks, authorized projections, result-to-request provenance, failure phases and bounded model-input capture."
+readingBrief:
+  takeaways:
+    - "Tool execution, result projection, and actual model submission are separate events; connect their identities and versions before diagnosing unused data."
+    - "Hooks may normalize declared arguments or narrow disclosure, but must not rewrite source facts or merge execution, projection, and retention into one success flag."
+    - "Recovery should replay legitimate receipts, not execute again to improve a trace; observation gaps must neither veto research nor imply absent model input."
+  appliesTo:
+    - "Debugging a multi-turn agent whose tools succeed but whose later answers omit data, across dispatch, projection, and effective model requests."
+  notFor:
+    - "Proving model understanding, research correctness, or exactly-once execution by an external service."
 ---
 
 # From Tool Invocation to Model Input: Connecting an Agent's Observability Chain

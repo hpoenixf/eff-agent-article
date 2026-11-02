@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Source identity, citation correspondence, material support and task relevance are separate questions. A valid reference establishes an inspection relationship, not the truth of a conclusion."
+    - "The Host issues references from actual reads, submitted ranges and use eligibility. Excerpts remain excerpts; revisions and historical inspection bind original versions, not today’s webpage."
+    - "Broken public attachments affect their citations while private dependencies stay protected. Independent reviewers assess support and correspondence without controlling the original publication or terminal state."
+  appliesTo:
+    - "Building citation issuance, revision binding, original-passage inspection and optional review, or diagnosing attribution and identity drift across the delivery path."
+  notFor:
+    - "Certifying answer truth through citation counts, coverage or reviewer output; live-model review accuracy and production enablement are not established here."
+---
 # Designing Agent Citations: From Host-Issued References to Revision-Safe Independent Review
 
 ![Citation panorama: from retained material to inspectable conclusions](../../visuals/en/panorama-citations/cover.svg)

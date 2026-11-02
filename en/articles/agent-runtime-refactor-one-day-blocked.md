@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Local changes spread when recovery and storage repeatedly interpret the same business rule; consolidate interpretation without removing transactions, concurrency controls, or idempotency protections."
+    - "Shared mutable context and escaping references defeat file boundaries. Let invariant owners hold state and expose necessary operations rather than require callers to understand internal state machines."
+    - "Bound compatibility retirement, test migration, and parallel writes by real consumers and shared rules. Offline engineering acceptance does not establish deployment, model quality, or faster maintenance."
+  appliesTo:
+    - "Teams whose Runtime or subagent changes repeatedly spread across recovery, stores, shared state, and concurrent work."
+  notFor:
+    - "Not a production-outage report or justification for deleting historical readers without checking durable data, or locking the entire system to one writer indefinitely."
+---
 # Why Did One Subagent Change Hold Up Our Work for an Entire Day?
 
 *A retrospective on an agent-runtime refactor: why a local change spread, and how to keep the next one within reasonable boundaries.*

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "研发连续性依赖决策、任务、证据与下一步的明确交接；这套工具补足现有工作流，不替代 Git、CI 或项目验收。"
+    - "Spec 约定行为，History 保存决策原因，Maturity 评估现状，Roadmap 安排下一步；结构检查不能代替语义判断。"
+    - "九个模块可按需选择，单模块和整套安装共用核心；已记录的安装检查不证明模型效果，也不授予发布权限。"
+  appliesTo:
+    - "需要让多轮或多 Agent 研发保留决策依据、版本证据与交接边界的项目。"
+  notFor:
+    - "不适合将插件视为自动调度、自动验收或自动发布平台；简单改动无需铺开全部模块。"
+---
 # Agent Engineering Suite：让 Agent 从需求一路接到发布
 
 > 本文基于 [Agent Engineering Suite 的固定公开版本](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0)。后台报告功能是合成教学案例，用于说明工作方式；下文的安装结论来自实际受控验证。

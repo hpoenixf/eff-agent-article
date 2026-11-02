@@ -2,6 +2,16 @@
 search: false
 title: "Six-Layer Agent Architecture V2 · The Native Research Loop"
 description: "The essential ETF Agent architecture guide: six layers, more than forty capability owners, twenty-six handoffs, Native Agent Loop, tools, financial evidence, Publication, HIL and Recovery."
+readingBrief:
+  takeaways:
+    - "V2 organizes six handoff perspectives around one native research loop. Foreground replies and background research remain Run-isolated while sharing execution and publication infrastructure."
+    - "Model-visible tools do not grant Host permission, external content cannot authorize instructions, and exact arithmetic cannot choose the right formula; each capability retains its factual boundary."
+    - "Durable HIL separates asking, receiving, and Main adoption. Nonblocking correction and safe parking reuse existing recovery, while continuation after termination requires explicit confirmation."
+    - "Publication, persistence, client display, and answer quality require distinct evidence. HIO had bounded engineering acceptance, with production Human Park disabled and real-user quality unestablished."
+  appliesTo:
+    - "Readers tracing V2’s October 2026 design of concurrent research, final tool presentation, evidence-based calculation, and durable human interaction."
+  notFor:
+    - "Not a current system-status or full production-acceptance report; use V3 for the current request-lifecycle reading perspective."
 ---
 
 # From a Portfolio Question to Continuous Collaboration: ETF Agent’s Six-Layer Architecture · V2

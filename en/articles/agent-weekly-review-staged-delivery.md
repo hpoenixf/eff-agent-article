@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "A complete design is not a commitment to implement everything immediately; define the first usable result and update its tasks, dependencies, and acceptance conditions accordingly."
+    - "Weekly reviews own a research method, not separate file infrastructure. Reuse HTML storage and download capabilities while preserving authorization, provenance, and genuine delivery."
+    - "Stage the first report, continuing history, and ongoing assistance around independent outcomes; a working download proves the delivery path, not investment-research quality."
+  appliesTo:
+    - "Projects where peripheral capabilities in a large specification delay the first usable deliverable."
+  notFor:
+    - "Not a mandatory three-phase template, an excuse to remove safety protections, or evidence that one phase completes the whole product."
+---
 # We Spent an Entire Evening on a Weekly Report—Why Was the First Deliverable Still Missing?
 
 *An AI-agent engineering retrospective: designing the whole solution is not the same as implementing the whole solution at once.*

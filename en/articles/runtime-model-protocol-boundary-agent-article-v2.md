@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "The model interprets intent and chooses actions; effect owners retain permissions, calls and receipts instead of asking the model to maintain a conflicting state mirror."
+    - "Stopping research, committing prose and saving a file are separate facts. Citation defects need not erase independently authorized prose, and completion flags cannot certify meaning."
+    - "Recover confirmed results under their original identity and reconcile unknown effects first. The public one-correction path covers narrowly bounded, undispatched calculation inputs—not general retries."
+  appliesTo:
+    - "Simplifying Agent turn protocols or reviewing the boundary between model judgment, execution state, correction and recovery."
+  notFor:
+    - "Treating the room-booking example as an implemented feature, or inferring better model quality, lower cost or universal crash recovery from fewer fields."
+---
 # Stop Making the Model a State Machine: Simplifying an Agent Protocol
 
 **Let the model choose what to do next. Let the program that performs the operation record what actually happened.** Separating these jobs keeps the model from researching while also maintaining a second, potentially inaccurate system ledger.

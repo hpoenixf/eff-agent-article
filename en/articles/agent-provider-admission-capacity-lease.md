@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Capacity is shared by normalized endpoint within the managed coordination domain; persistent queues and leases prevent process-local counters or control-store failures from resetting occupancy."
+    - "Queueing, model execution and Run allowances are separate accounts; recheck authorization and deadlines after acquiring a lease, without duplicating allowance through waiting or renewal."
+    - "HTTP 200, cancellation and lost heartbeats do not prove remote completion; quarantine unknown occupancy and reconcile ambiguous release acknowledgments against the original ticket."
+  appliesTo:
+    - "Diagnosing cross-process model queues and capacity retained after cancellation, or designing shared admission for disconnected workers and ambiguous transaction acknowledgments."
+  notFor:
+    - "Inferring provider SLAs, production throughput or definitive failure causes from lease settings, or letting the capacity layer independently rerun research."
+---
 # Why the Next Model Request Still Queues After HTTP 200: A30 Provider Admission, Leases and Unknown Occupancy
 
 The main research loop is invoking a model while two Child agents analyze evidence and a separate process is about to review a report. Each process believes it is "below its concurrency limit." Yet all of them may use the same external endpoint and compete for the same capacity.

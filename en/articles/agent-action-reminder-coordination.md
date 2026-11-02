@@ -4,6 +4,15 @@ articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
+readingBrief:
+  takeaways:
+    - "Reminders translate original Owners’ runtime facts into advice without creating another budget; multiple types can coexist, with distinct deduplication for current state and action suggestions."
+    - "Record submission only for reminders included in the final request; omitted candidates remain eligible for later consideration, and submission does not prove model adoption."
+    - "Measure context after compaction adoption or fallback; reminders, Reviewer candidates, actual review dispatch and user notifications remain separate operations with their own admission boundaries."
+  appliesTo:
+    - "Long research tasks where request capacity, context pressure and revision limits change, requiring timely guidance without implied execution permission."
+  notFor:
+    - "Simple one- or two-turn questions, or replacing enforced budgets and permissions with advice and assuming improved real-world research quality."
 ---
 
 # Action Reminders for Agents: From Candidate Advice to the Model Request

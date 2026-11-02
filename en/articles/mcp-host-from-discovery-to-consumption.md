@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Separate connection, discovery, admission and per-turn visibility; preserve upstream Schema semantics and validate model-route compatibility rather than integrating tools by silently dropping constraints."
+    - "Bind the interface the model sees to the actual source and dispatch contract; reject within-turn drift and consider another provider only after presenting its real definition."
+    - "Inspect the next actual model request, preserving empty, failed, invalid and oversized outcomes; optional-source failure stays local, and readable results do not automatically qualify as citations."
+  appliesTo:
+    - "Integrating local stdio and remote HTTP MCP into multi-turn research, including connected-but-unused tools, stale descriptors and lost result handoffs."
+  notFor:
+    - "Seeking only a minimal SDK demo, or treating the public scripted stdio case as acceptance of remote OAuth, universal Schema compatibility or real-model research quality."
+---
 # From Connecting MCP to Actually Using Its Tools: Building an End-to-End Agent Integration Path
 
 In September 2026 we saw an unusual failure: Market MCP was registered, discovery worked, and the model had not yet generated business arguments—yet its request immediately failed with **HTTP 400**.

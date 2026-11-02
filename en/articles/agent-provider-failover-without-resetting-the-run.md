@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Select backups by actual failure domain: changing models behind one endpoint may not escape group limits, and one failed request does not establish a provider-wide outage."
+    - "New attempts retain the original Run’s retry and budget authority while recording actual routes and charges; cross-provider dispatch rechecks capability and disclosure coverage for the whole payload."
+    - "Effective output or uncertain effects prevent restarting an attempt; preserve committed results and original grants. The bounded default-off implementation is not production high availability."
+  appliesTo:
+    - "Designing controlled model failover with shared-capacity groups, cross-provider disclosure restrictions, and separately accountable physical attempts."
+  notFor:
+    - "Repairing answer quality, bypassing permissions or local budgets, or silently switching models in fixed-model evaluations and replaying uncertain effects."
+---
 # How Does an Agent Continue After a Model Failure? Designing Failure-Domain-Aware Failover
 
 > October 23, 2026 · An architectural account with scoped engineering evidence, not a claim of seamless production high availability.

@@ -1,6 +1,15 @@
 ---
 title: "A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together"
 description: "A simple example involving fund holdings from different reporting dates explains how evidence should change an Agent’s judgment without changing execution history."
+readingBrief:
+  takeaways:
+    - "A research loop matters when evidence changes strategy or conclusions, not when search counts rise; models judge meaning while execution owners preserve permissions, calculations, and commits."
+    - "Financial claims must retain numbers, denominators, and valid dates; fresh articles citing old holdings or precise calculations on mismatched bases do not establish current findings."
+    - "Children and Reviewers add evidence and counterexamples when useful, not votes; Run termination, publication, and an accessible report remain separate outcomes."
+  appliesTo:
+    - "Understanding how a financial-research model, harness, and loop cooperate, and checking whether new observations genuinely change subsequent actions."
+  notFor:
+    - "Using tool counts, expert counts, resolved flags, or orderly termination as proof of investment correctness, or assuming the public project implements the full design."
 ---
 
 # A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together

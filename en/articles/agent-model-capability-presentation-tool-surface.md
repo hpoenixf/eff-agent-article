@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Tool registration, Skill declarations, Host admission and actual model visibility are different facts; Tool Surface projects lawful decisions from their original Owners."
+    - "Copy complete tool descriptors independently before mutable Hooks, then check early and final parity; request seals and shared mutable objects cannot authorize themselves."
+    - "Reject only the malformed request assembly and settle its undispatched reservation through the original ledger; do not create another permission registry or erase legitimate published text."
+  appliesTo:
+    - "Investigating tools that exist in a registry but remain invisible, or Hooks, context fitting and asynchronous preparation that alter the final model-facing tool set."
+  notFor:
+    - "Seeking an all-purpose capability manager, or treating logical tool parity as proof of good model choices, Provider wire compatibility or newly granted permissions."
+---
 # The Agent Has the Tool—So Why Can't the Model See It? Our Path to A34 Tool Surface
 
 Integrating an MCP tool into an Agent sounds straightforward: register it, define its schema, configure permissions, and let the model invoke it.

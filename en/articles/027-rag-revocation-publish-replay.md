@@ -1,6 +1,15 @@
 ---
 title: "Revoking a Document: Why an Agent's Old Answer Can Still Reveal It"
 description: "Rechecking authorization at disclosure, preventing first-stream leaks and separating historical hiding from retention deletion."
+readingBrief:
+  takeaways:
+    - "This historical case shows that permission to retrieve does not authorize later streaming or redisplay; replay filtering cannot retract bytes already delivered to a browser."
+    - "Current eligibility checks and disclosure commits need one explainable ordering; the historical design used a committed approval index instead of competing sidecar and database authorities."
+    - "Temporary invisibility and cleanup under explicit retention revocation are different effects; unknown eligibility must not permanently erase history or invalidate independent public explanations."
+  appliesTo:
+    - "RAG over revocable, revisable or account-scoped material, especially races before first delivery and authorization during historical redisplay."
+  notFor:
+    - "Question answering over permanently public immutable documents, or treating the historical fix as current architecture, better retrieval quality or recall of already delivered content."
 ---
 
 # A Document Was Revoked. Why Can an Agent's Old Answer Still Bring It Back?

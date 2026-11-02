@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "The control channel owns command identity, order and delivery; original business owners still decide whether stop, correction or recovery effects are admitted."
+    - "Claims expire: the original owner rechecks the claim, fence and target revision when admitting an effect; dequeueing work does not confer permanent execution authority."
+    - "After a lost acknowledgment, reconcile the original business receipt: settle delivery for an admitted effect, and preserve unknown outcomes instead of retrying under a new identity."
+  appliesTo:
+    - "Designing cross-process stop, wake or correction handoffs under lease contention, lost receipts and uncertain effects."
+  notFor:
+    - "Equating queue acknowledgments with task completion, or treating the public local-Session cancellation example as the complete multi-owner control bus."
+---
 # Why an Agent Cannot Execute a Stop Command Immediately: A08 Durable Control-Event Handoffs
 
 A background research task is still running when the user selects Stop. Another worker later takes over and discovers a command waiting in the database. Can it simply execute the stop again? What if the previous worker had already stopped the original task, but disconnected just before recording its delivery acknowledgment?

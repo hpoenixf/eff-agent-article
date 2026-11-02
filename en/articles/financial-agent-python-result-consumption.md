@@ -1,6 +1,15 @@
 ---
 title: "Why an Agent Can Call Python and Still Miscalculate an Investment Report"
 description: "Financial method choice, eligible input, Python result projection, qualified metrics and faithful narrative interpretation."
+readingBrief:
+  takeaways:
+    - "Python success establishes only local execution. Trace method selection, input eligibility, result handoff, and interpretation rather than treating more script calls as whole-task acceptance."
+    - "Results must retain instruments, windows, denominators, units, and proxy limits. Contributions can exceed 100% under a net-gain denominator; percentage-point differences are not relative returns."
+    - "Repair original domain methods and actual model inputs without blocking unrelated valid prose. Synthetic handoff tests do not establish reliable research completion by a natural model."
+  appliesTo:
+    - "Diagnosing reports that omit, misread, or lose qualifications despite successful calculations, and separating handoff tests from interpretation-quality evaluation."
+  notFor:
+    - "Not a Python-workbench deployment guide or proof of stable research completion, improved returns, or full private computation capabilities in the public edition."
 ---
 
 # The Agent Ran Python. Why Was the Investment Research Report Still Wrong?

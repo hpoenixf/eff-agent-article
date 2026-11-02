@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "A rating must target a readable completed answer within a trusted account Scope; “not grounded” records the user’s opinion, not an established quality verdict."
+    - "Database uniqueness and intent identity govern persistence; exact-target readback governs reopening. Unavailable reads are not absent ratings, and stale responses must not update another answer."
+    - "Feedback is a candidate for separately authorized investigation, not automatic changes to answers, Memory, or execution permissions; focused readback tests do not establish an end-to-end learning loop."
+  appliesTo:
+    - "Building or debugging answer ratings affected by duplicate submissions, lost state after reload, cross-account reads, or stale responses during target changes."
+  notFor:
+    - "Automatically training models or changing investment policy from a dislike, or claiming arbitrary historical-answer targeting and full browser reopening are already qualified."
+---
 # A User Dislikes an Agent Answer. Should the Agent Automatically Learn? Feedback Identity, Idempotency, and Reliable Improvement Signals
 
 A research agent delivers a fund comparison. The user chooses “not grounded,” and the interface says their feedback has been recorded. But on reopening the conversation, the button appears unselected. Switch to a different answer, and an old asynchronous response might even restore the state belonging to the previous one.

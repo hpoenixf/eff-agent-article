@@ -1,6 +1,15 @@
 ---
 title: "Building Agents with Agents: Why Fixing Bugs Doesn't Complete the Research"
 description: "A grounded engineering retrospective on task-level acceptance, source-proof loss, Python file handoff, meaningful outcome measures, and proportionate validation."
+readingBrief:
+  takeaways:
+    - "Define the missing task effect before choosing the smallest useful experiment. Attribution, bounded capability, and product completion are different kinds of progress, not interchangeable bug counts."
+    - "Only 21 of 93 stored result groups reached visible projection; repair the source-proof producer rather than weaken consumers. That local fix does not deliver the original missing report."
+    - "A Python exercise proved its download and History-readback path, not all research. Runtime completion and saved-answer rates still require task-specific delivery and independent quality review."
+  appliesTo:
+    - "Teams using coding agents to build research agents who keep fixing defects without completing the original user task."
+  notFor:
+    - "Not evidence of overall success-rate or engineering-cost improvement, nor a demand for full live research after every local change."
 ---
 
 # When an Agent Builds Another Agent, Why Does Fixing Many Bugs Still Leave Real Research Unfinished?

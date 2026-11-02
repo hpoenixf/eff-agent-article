@@ -6,6 +6,15 @@ tags:
   - Panorama Series
   - Fintech
   - Agent Architecture
+readingBrief:
+  takeaways:
+    - "Preserve financial methods, ledger authority, provenance, and delivery contracts; use existing positive and negative cases to test whether general frameworks can replace custom execution infrastructure."
+    - "Acquisition does not prove model consumption, and correct arithmetic does not prove report adoption; verify denominators, coverage, revisions, and actual readback across each handoff."
+    - "This comparison uses documented mechanisms and bounded project verification, not paired benchmarks; controlled paths establish neither financial quality nor parity between private and public implementations."
+  appliesTo:
+    - "For engineering teams choosing between Pi, Claude Agent SDK, LangGraph, and a custom runtime, or planning migration tests around existing domain contracts."
+  notFor:
+    - "Not a performance, accuracy, or cost ranking, nor evidence of qualified real-account research, investment returns, or public availability of every private capability."
 ---
 
 # From a General Harness to Financial Research: A Four-Way Architecture Comparison of ETF Agent

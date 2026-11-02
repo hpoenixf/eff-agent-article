@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Incremental delivery should develop one answer around the user’s questions, not package every tool-work phase as another self-contained miniature report."
+    - "The model needs authorized current text, revision identities, and omission notices to choose between adding, correcting, or finishing; historical IDs alone are insufficient."
+    - "Measure the first useful answer, then assess readability, facts, citations, and completion separately; limited real-model observations do not establish a stable quality gain."
+  appliesTo:
+    - "Agents with progressive publication that repeatedly summarize, append contradictory findings, or leave readers to assemble multiple research reports."
+  notFor:
+    - "Unrestricted document merging and reordering, or replacing factual checks and completion assessment with writing prompts and valid citation IDs."
+---
 # Progressive Agent Answers: How to Keep One Research Narrative Coherent
 
 After adding web search, PDF reading, and data analysis to a financial research Agent, we could deliver useful material before the full investigation finished. This revealed a new problem: how can later research extend the text the user has already seen, instead of turning every successive output into another entry in a running log?

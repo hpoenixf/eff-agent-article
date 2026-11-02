@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "同名 Hook 不等于相同语义；兼容 Profile 解释方言，原 Runtime 决定效果准入，不支持的组合明确拒绝。"
+    - "受审 Pi 模块与闭包放入可终止进程，比停止等待更接近停止执行；但不是不可信代码沙箱，也不能回滚外部效果。"
+    - "有副作用 Hook 绑定原调用与插件代际，恢复复用已结算回执、保留未知；终态重读不应再触发初始化。"
+  appliesTo:
+    - "希望在自有 Agent Loop 内运行选定 Claude/Pi 等插件能力，并核对回调顺序、停止与恢复的实际语义。"
+  notFor:
+    - "要求全部生态插件即插即用、所有 JS Hook 强制隔离，或把限定组合验证当全生态生产验收。"
+---
 # 从 Claude、Pi 到 Codex：我们如何在自己的 Agent Runtime 中实现多生态 Hook？
 
 在上一篇文章[《Agent 持续进化的秘诀：让你的 Agent 从大哥大进化成智能手机！》](020-agent-extension-host-smartphone.md)中，我们介绍了 ETF Agent 的 Extension Host：如何识别、审核、加载外部插件，让 Claude、Pi、Codex 等生态中的部分能力在自己的 Agent 中运行。

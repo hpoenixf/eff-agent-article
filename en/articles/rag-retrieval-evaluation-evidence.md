@@ -1,6 +1,15 @@
 ---
 title: "RAG Recall Looks Great. Why Doesn't That Prove an Agent Found the Right Financial Evidence?"
 description: "A real ETF disclosure investigation shows why synthetic retrieval scores, authorized candidates, model consumption, and supported financial claims need separate evidence."
+readingBrief:
+  takeaways:
+    - "Compare retrieval on matching eligible sources, candidate pools, and chunk granularity. Perfect recall of synthetic positives neither labels unjudged passages nor establishes real-corpus recall."
+    - "Authorization, request visibility, invocation, and source-text consumption need separate evidence. A complete literal-match list locates terms without proving the surrounding passages were read."
+    - "Connecting BM25 or a reranker does not establish better financial research. Check source dates, claim support, and matched task quality and cost before asserting benefit."
+  appliesTo:
+    - "Teams evaluating financial RAG changes or diagnosing the gap between retrieval ranking, tool consumption, and supported final claims."
+  notFor:
+    - "Not evidence of established BM25, TEI, or Ragas quality gains, or a comprehensively labeled real-corpus benchmark."
 ---
 
 # RAG Recall Looks Great. Why Doesn't That Prove an Agent Found the Right Financial Evidence?

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Check premises before arithmetic: similar wording does not make metrics, periods, or denominators comparable. Even a completed report may require a separately preserved retraction."
+    - "Reviewer independence depends on the original material actually received; successful invocation or agreement among agents cannot reveal conditions omitted from their shared summary."
+    - "Use deterministic checks for explicit precision rules and risk-matched review for complex interpretation. Define the claim and decisive counterexample before counting code or tests."
+  appliesTo:
+    - "Engineering teams allocating verification effort in AI coding, architecture review, or research assessment where hidden assumptions determine risk."
+  notFor:
+    - "Not a mandate for universal reviewers or manual checking, and not proof of cost savings or comprehensive financial-semantic correctness."
+---
 # The Expensive Part of AI Coding Is Deciding What Deserves Verification
 
 *From OpenAI's mathematical results to engineering misjudgments in ETF Agent*

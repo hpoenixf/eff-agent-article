@@ -1,6 +1,15 @@
 ---
 title: "Agent Evaluation Panorama: From Green Tests to Real Task Value"
 description: "Match claims to observed boundaries, preserve the original denominator, and evaluate the actual delivered content before comparing models."
+readingBrief:
+  takeaways:
+    - "Assess execution, evidence, content quality, and delivery separately. Judges must evaluate the actual artifact claimed; a complete draft or terminated Run is not task completion."
+    - "Freeze inputs, revisions, budgets, and the planned denominator, retaining failures and unknowns. Compare qualified windows; retrieval scores and text matches alone do not demonstrate benefit."
+    - "Calibrate graders and inspect their supporting evidence; preserve original observations when correcting evaluators. Choose verification depth by changed behavior and risk, not dashboard color."
+  appliesTo:
+    - "Teams designing agent regression suites, live research evaluations, or model comparisons with explicit scoring objects, denominators, and evidence eligibility."
+  notFor:
+    - "Not a current model leaderboard or complete production acceptance report, and not a requirement to rerun every live task for every small edit."
 ---
 
 # Agent Evaluation Panorama: From Green Tests to Real Task Value

@@ -1,6 +1,15 @@
 ---
 title: "The Most Dangerous Financial AI Illusion: Real Data, Wrong Numbers"
 description: "Reproducible time-bound market data, exact decimals, cash conservation, fee semantics and federated financial metrics."
+readingBrief:
+  takeaways:
+    - "Real sources can still support wrong conclusions. Fix instruments, windows, units, and denominators before recomputing; a wrong answer alone does not prove Runtime lost data."
+    - "A33 provides exact arithmetic under explicit units and rounding policies. Compare cash constraints before formatting: two-decimal displays can conceal a CNY 0.001 shortfall."
+    - "Fee estimates are not actual charges, and simulated annualization is not account performance. Share genuinely equivalent methods while preserving distinct semantics, versions, and historical reports."
+  appliesTo:
+    - "Reviewing research numbers, cash constraints, or fee calculations, and dividing responsibility between numeric infrastructure and financial methods."
+  notFor:
+    - "Not current market data or a record of investor losses; scoped numerical fixes do not certify all transactions or autonomous research quality."
 ---
 
 # Financial AI's Most Dangerous Appearance of Expertise: The Data Is Real, but the Numbers Are Wrong

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Let evidence change the research question and next action; researchNeeds records working judgments, not completion, authorization or a mandatory sequence of tools."
+    - "Python connects stages through explicit inputs and persisted files; currently visible results differ from authorized resultRefs, and capacity limits must not silently truncate datasets."
+    - "Preserve provenance, measurement conventions and task-time anchors through computation; check workspace state after failure, and assess execution success, resolved notes and answer correctness separately."
+  appliesTo:
+    - "Connecting search, reading and repeated Python analysis into research that changes course with findings instead of following a fixed tool pipeline."
+  notFor:
+    - "Treating working-note changes, Python proposal counts or exit codes as proof of convergence, correct financial calculations or better answers."
+---
 # From Tool Calls to Adaptive Research: Let the Agent Search, Compute, and Change Course
 
 If we give an Agent search, market data, documents, and Python, can it do research?

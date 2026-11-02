@@ -3,6 +3,15 @@ evidence:
   implementation: "Execution identities and handoffs can be inspected"
   scoped: "Recorded submissions matched to later Main-input excerpts"
   live: "Semantic adoption and incremental multi-agent quality not independently compared"
+readingBrief:
+  takeaways:
+    - "Admission, submission, Main-input exposure, semantic adoption, and answer improvement are separate facts with distinct identities and denominators; participation counts cannot measure contribution."
+    - "Matching sampled excerpts in later Main requests establishes exposure of those excerpts, not complete handoff, preserved caveats, or an independent causal contribution from specialists."
+    - "Trace original submissions through Main requests, final claims, and sources to locate failures. Demonstrating benefit requires matched tasks, explicit total budgets, and quality-and-cost comparisons."
+  appliesTo:
+    - "Multi-agent teams inspecting whether specialist findings reached Main and separating handoff defects from synthesis or attribution problems."
+  notFor:
+    - "Not a specialist-adoption rate or proof of architectural benefit; an independent incremental quality-and-cost comparison remains incomplete."
 ---
 
 # How Do We Know the Main Agent Actually Used a Specialist’s Findings?

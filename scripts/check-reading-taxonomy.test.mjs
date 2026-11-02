@@ -65,7 +65,9 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     'honest-agent-evaluation',
     'ai-citations-do-not-prove-reliability',
     'agent-subagent-context-specialization',
-    'agent-long-horizon-research-panorama'
+    'agent-long-horizon-research-panorama',
+    'vertical-financial-agent-principles-panorama',
+    'etf-agent-framework-comparison-panorama'
   ]
   assert.deepEqual([...panoramaSeriesSlugs], selected)
   const all = collections.flatMap(slugs)

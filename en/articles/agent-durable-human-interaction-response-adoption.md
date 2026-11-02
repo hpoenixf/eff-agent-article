@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Request admission, reply receipt, adoption by the original consumer and effect commit are separate moments; one resolved flag cannot represent them all."
+    - "Continue independent work where possible; park the original Run only when necessary and safe, without resetting its identity, resource budget or hard deadline."
+    - "Bind replies to their exact question and revision; ordinary answers are not approvals, and late replies cannot revive terminal Runs without the explicit continuation path."
+  appliesTo:
+    - "Designing human questions that survive closed pages and process restarts, with proof that Main or the intended Child adopted the original reply."
+  notFor:
+    - "Equating a saved reply with completed research, or treating the public single-question example as a complete approval platform or proof of real-model questioning quality."
+---
 # After an Agent Asks the User: Returning a Durable Human Response to the Original Research
 
 A research agent is writing a fund-risk report. It has already read a portfolio summary and relevant fund disclosures, but one analytical choice is missing: “Which benchmark should I use?” The agent can continue preparing the material it already has while asking the user. The user may be in a meeting and respond hours later. By then, the browser may have closed and the service may have restarted.

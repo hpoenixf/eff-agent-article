@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "This is a retrospective on a retired automatic-refresh path; stale snapshots describe the past, and repeatedly calling a rejected source cannot create current evidence."
+    - "Refresh through a separately authorized read-only candidate path, publishing atomically only after validation; an ineligible source or failed refresh leaves the result unavailable."
+    - "Source, time and measurement definition jointly determine numeric eligibility; internal notes and plausible guesses cannot fill gaps, and scoped tests do not prove global exactly-once behavior or long-term reliability."
+  appliesTo:
+    - "Reviewing stale-data degradation, explicit refresh and candidate-report publication without disguising old numbers, annotations or guesses as fresh evidence."
+  notFor:
+    - "Looking for current Agent auto-refresh controls, or treating historical hourly windows and in-session deduplication as today’s runtime contract and a global execution guarantee."
+---
 # When Data Goes Stale: How Should an Agent Refresh Evidence Instead of Retrying Blindly?
 
 **When financial data becomes stale, the priority is not to keep calling tools. It is to avoid relabeling old facts as a current investment conclusion.** Retrying the same rejected source creates no new evidence. A refresh helps only when the source, reading permission and candidate-publication path are explicitly qualified.

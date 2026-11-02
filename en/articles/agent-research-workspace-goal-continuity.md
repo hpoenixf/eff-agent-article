@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Workspace organizes enduring goals, relationships and progress without taking over Run execution or duplicating report and permission authorities."
+    - "A history catalog supplies candidates, not consumption proof; each new study validates exact historical versions and must actually receive their content in its model request."
+    - "Goals and advisory progress have distinct revisions; archiving does not cancel admitted Runs, and removing organizational relationships does not cascade-delete original research results."
+  appliesTo:
+    - "Research goals spanning independent Runs, with exact historical report reuse, open questions and result lifecycle management."
+  notFor:
+    - "Simple follow-ups within one conversation, or seeking a publicly installable, default-enabled Workspace with completed formal qualification."
+---
 # Why Agents Need a Workspace: From One-Off Conversations to Long-Term Research
 
 Many agents already support long conversations, memory, tool calls, task recovery, and saved reports. But when a user investigates the same goal over several weeks or months, combining those features can still leave a crucial gap.

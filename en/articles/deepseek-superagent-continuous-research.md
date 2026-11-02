@@ -5,6 +5,15 @@ articleMetadata:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
   image: "https://hpoenixf.com/eff-agent-article/visuals/en/deepseek-superagent-continuous-research/lifetimes.png"
+readingBrief:
+  takeaways:
+    - "Ongoing collaboration starts by separating a durable task, one assignment, and a worker session; transfer lifecycle boundaries rather than copying object names."
+    - "New input needs one handling owner, while pending-action generations prevent old deliveries from deleting newer requirements; persistence, delivery, history entry, and understanding remain distinct."
+    - "Waiting requires real events and wake conditions; delivery requires channel identities and receipts. Financial uses of the coding prototype are proposed adaptations, not a maturity ranking."
+  appliesTo:
+    - "Comparing lightweight chat, existing async research, and longer-lived collaboration while examining correction, waiting, recovery, and external-delivery seams."
+  notFor:
+    - "Treating the coding prototype as a qualified investment-research product, or inferring end-to-end exactly-once effects from local transactions and channel deduplication."
 ---
 
 # From Investment-Research Chat to Ongoing Research: Lessons from DeepSeek Super-agent

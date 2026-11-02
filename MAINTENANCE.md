@@ -114,3 +114,29 @@ Recent homepage entries reuse the existing publication chain’s full Git histor
 分类与学习路线仍由 `book.mjs` 唯一维护；标签不会移动文章或变更 URL。`article-tags.data.ts` 构建派生共享数据：金融取现有 `fintech.md` 的 canonical 本地文章链接（双语归一去重）；全景取既有 `panoramaSeriesSlugs`；开源取 `open-etf-topic.mjs` 的 coverage target 关联（含 additionalTargets）。首页入口、正文标签与目录多选筛选共用此数据。多选采用“同时满足”，可清除筛选。金融中英文专题须保持同一集合，原分类测试会核验。
 
 开源标签表示文章有关联 target，不等于功能完整实现或正式发布；只有原资格回执认可的 limited 状态显示“有限范围已验证”，其余显示“有关联 · 未验证”。没有证据不补造 WIP / Release 身份；细节链接至原开源专题。book-only 分类变动不是文章正文更新时间，最近更新仍按文章 Git 内容规则独立派生。
+
+
+## 顶部导读卡 / Article reading briefs
+
+正式目录及保留的历史全文，每个已存在的语言版本都在自身 Markdown 的 frontmatter 维护一份 `readingBrief`：
+
+```yaml
+readingBrief:
+  takeaways:
+    - "逐篇通读正文后写出的第一个具体判断。"
+    - "第二个独立结论，保留原文的条件和关键取舍。"
+    - "第三个可帮助读者行动的结论，不虚构效果。"
+  appliesTo:
+    - "这篇文章能够帮助判断的具体读者任务或场景。"
+  notFor:
+    - "本文不回答的问题，或不能直接套用结论的条件。"
+```
+
+- 结论为 **3–5 条**，适用及不适用各 **1–2 条**；默认三条短结论和各一条边界，避免窄屏首屏再次变成长文。示例仅展示字段，不是可批量套用的成稿。
+- 必须通读完整文章后提炼，尤其核对结尾、反例和实际范围；不能截取开头、复制 SEO description，或只按标题生成通用话术。结论强度不超过正文，保留设计／实现／有限验证／真实效果的区别，不借导读新增性能或投资主张。
+- 现有完整英文正文在自己的 `en/articles/<slug>.md` 本地化同一语义，不共享中文文案，也不把缺失的英文全文补成摘要占位。历史全文按其自身版本提炼；旧合稿跳转页没有卡片，不改变其导航身份。
+- `article-reading-brief.mjs` 是唯一校验与估时实现。它复用 VitePress 对完整正文解析后的 tokens，按每分钟 300 个汉字及 200 个其他语言词混合累加、向上取整，最低一分钟。包含段落、表格与代码示例；不含 frontmatter、注释、链接地址／HTML 属性、自动导航组件及 Mermaid 图源。图解精读、思考和运行示例另留时间，所以页面明确写“预计／Estimated”，不是实测阅读速度。
+- 不在源文件手填分钟数，也不另维护摘要 JSON、第二文章目录或每文组件标记。Markdown 插件统一在原 H1 后插入 `ArticleReadingBrief`，无 H1 时置顶；原正文、章节锚点、证据字段、历史及代码资格不改。导读属于真实可见编辑内容，沿既有文章历史规则记录，不冒称算法生成的新正文或新验收。
+- `npm run check:briefs` 检查全站既有语言覆盖、字段、重复结论组和估时／渲染边界；`npm run check:catalog` 已包含它。构建后的 `node scripts/check-reading-briefs.mjs --output` 核对每篇静态 HTML 中的单一卡片、完整文案和本地化时长。结构测试不能替代逐篇内容审稿；另外检查桌面／窄屏、键盘展开估时说明和语言切换。
+
+Each existing full article edition owns its reviewed `readingBrief` in Markdown frontmatter. Read the complete body before writing 3–5 distinct conclusions and concise adoption boundaries; preserve historical scope and existing English meaning. The shared Markdown plugin inserts one server-rendered card after the title and derives an explicitly estimated reading time from that edition's full parsed body. Do not hand-enter minutes, duplicate the content registry, or promote a compatibility pointer into a new article. Source checks, local rendering, the canonical blog pin and actual public deployment remain separate verification stages.

@@ -3,6 +3,15 @@ evidence:
   implementation: "Publication mechanism implemented (as documented here)"
   scoped: "Controlled call paths and PostgreSQL recovery cases"
   live: "User-facing rendering and research semantic quality require separate validation"
+readingBrief:
+  takeaways:
+    - "Candidate text, temporary preview, durable commit, and actual user display are distinct facts; later research failure must not erase an earlier legitimate publication."
+    - "Publication owns body and revision decisions: degrade optional defects locally, reject unauthorized effects specifically, and remove competing whole-answer vetoes from callers."
+    - "Recovery reads protected receipts by original block and revision while rechecking display eligibility; a historical commit proves neither current access nor whole-task completion."
+  appliesTo:
+    - "Research applications with early display, later revisions, cross-process recovery, and content depending on revocable sources."
+  notFor:
+    - "Certifying investment-analysis correctness through publication checks, or imposing a heavyweight publication service on every one-shot chat."
 ---
 
 # The Agent Has Generated an Answer. Why Does It Still Need a Separate Publication System?

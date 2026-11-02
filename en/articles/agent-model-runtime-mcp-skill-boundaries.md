@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Models interpret, Skills supply methods, capability owners define tools, and Runtime governs process facts. One owner is not enough if that owner is misplaced."
+    - "Hooks suit deterministic field normalization and bounded projection, not business-model reconstruction. Repeated result reshaping usually calls for a better capability interface."
+    - "Migrate necessary protections before deleting wrappers. Visible tools still require invocation authorization, and oversized complete results must not silently become partial successes."
+  appliesTo:
+    - "Deciding whether an Agent tool, Skill, Hook or wrapper should be retained, deepened, relocated or removed."
+  notFor:
+    - "Seeking a universal four-service deployment template, framework benchmark, or proof that historical partial migrations completed the investment-research system."
+---
 # From Asking the Model to Do Less to Asking Runtime to Own Less: Model, Runtime, MCP, and Skill Responsibilities
 
 **When adding AI to an application, the hard part is not only making it do things. It is deciding who is responsible for each thing.**

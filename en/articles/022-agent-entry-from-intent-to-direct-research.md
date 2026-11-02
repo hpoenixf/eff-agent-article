@@ -3,6 +3,15 @@ evidence:
   implementation: "Direct / Research routing adopted (as recorded in this article)"
   scoped: "Historical cases and observations of entry behavior"
   live: "Routing decision quality still requires validation"
+readingBrief:
+  takeaways:
+    - "Entry chooses between answering directly and starting research; subsequent evidence should reshape research steps rather than a complete plan being fixed up front."
+    - "A smaller output protocol still needs adequate input: supply bounded capability and document discovery information without prereading all business data just to route."
+    - "Validate structure and actual admission without inventing a second semantic arbiter; irrelevant fields should not veto valid Direct answers, and research fallback still requires appropriate capacity."
+  appliesTo:
+    - "Simplifying an overloaded intent, planner or clarification entry while retaining ordinary follow-ups and correct research admission."
+  notFor:
+    - "Expecting one routing decision to guarantee research success, or assuming a small protocol removes capacity, authorization and routing-quality evaluation."
 ---
 
 # Why Did We Keep Making the Agent's Entry Simpler?

@@ -1,6 +1,15 @@
 ---
 title: "Scheduled Agent Research Without an Always-Running Conversation"
 description: "Confirmed schedules, durable occurrences, conditional triggers, three-valued observations, Task recovery and notification boundaries."
+readingBrief:
+  takeaways:
+    - "Persist the user-confirmed task definition, not an endless model loop; each due time remains subject to authorization, overlap and resource admission."
+    - "Condition checks distinguish true, false and unknown; first-match triggers latch on actual Task creation, and unknown observations cannot re-arm an edge."
+    - "Keep triggering, research, publication and notification separate; recover uncertain commits by their original identity, and retry notices without rerunning research."
+  appliesTo:
+    - "Services adding scheduled or conditional research outside a conversation, with restarts, duplicate triggers and notification retries."
+  notFor:
+    - "Treating the public Worker example as a complete scheduler, or synthetic checks as proof of live-market integration or long-term review quality."
 ---
 
 # Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends

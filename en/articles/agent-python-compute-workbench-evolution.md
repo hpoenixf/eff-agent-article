@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Authorize transient code separately from trusted Skill scripts while sharing maintained research methods; Python expands computational freedom without creating another business-data access path."
+    - "Continue through each executor’s own files rather than hidden interpreter state; a rejected request proven not to touch the workspace must not destroy earlier valid outputs."
+    - "Previews are not complete datasets, and static diagnostics do not all justify blocking; verify numerical correctness, interpretation and actual artifact delivery as separate outcomes."
+  appliesTo:
+    - "Building repeated Python analysis and subtask collaboration with explicit file continuity, capacity refusals, source propagation and downloadable artifacts."
+  notFor:
+    - "Requiring persistent Notebooks or unrestricted network execution, or equating sandbox success and passing preflight with reliably correct complex investment research."
+---
 # Teaching an Agent to Compute: The Architectural Evolution from Python Tool to Computational Workbench
 
 Imagine asking an AI:

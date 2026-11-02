@@ -1,6 +1,15 @@
 ---
 title: "The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting"
 description: "A source-governed design for explicit memory writes, asynchronous learning, bounded recall, revisions, forgetting, and truthful effect receipts."
+readingBrief:
+  takeaways:
+    - "Separate writing, recall and governance: models interpret meaning, while the original repository owns provenance, revisions and durable operation receipts."
+    - "A retrieval hit is not model use; an eligible revision still needs authorization, capacity and actual inclusion in the subsequent dispatched request."
+    - "Corrections target the current revision and forgetting changes future disclosure eligibility; settle writes separately from answers so response failure cannot replay an already committed effect."
+  appliesTo:
+    - "Building cross-session preferences users can save, correct and forget, while verifying whether recalled content actually reaches the model."
+  notFor:
+    - "Promising physical erasure of all history or default automatic learning; disclosure rules combining same-Run wake and forgetting still need reconciliation."
 ---
 
 # The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting

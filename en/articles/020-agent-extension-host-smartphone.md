@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Compatibility profiles interpret external ecosystems while the Host connects them to the existing Runtime; plugins cannot redefine authorization, budgets or recovery."
+    - "Trustworthy loading binds the actual executable bytes and authorized generation; a complete capability set becomes visible only after the batch initializes successfully."
+    - "A successful callback does not prove its effect was consumed; serialize state settlement where needed, and never repeat initialization while replaying terminal history."
+  appliesTo:
+    - "Integrating third-party methods, tools and hooks into an existing agent while governing loading, state and cleanup."
+  notFor:
+    - "Using the trusted-local-package example as a sandbox guarantee, full ecosystem compatibility claim or promise of cost-free hot unloading."
+---
 # How Agent Extensions Enter the Host: Plugin Lifecycle and Runtime Boundaries
 
 ETF Agent already had MCP for data access, Skills for research methods, a native tool loop, lifecycle Hooks, execution receipts, and Recovery. We could perform substantial investment research without a plugin system.

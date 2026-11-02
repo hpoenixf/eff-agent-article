@@ -1,6 +1,15 @@
 ---
 title: "Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time"
 description: Follow a research task through iterative reasoning, externalized results, compaction, staged delivery, durable recovery, explicit continuation, user adjustments and resource limits.
+readingBrief:
+  takeaways:
+    - "Long research needs distinct identities for the user task, execution Run, working context, and deliverables; larger windows and timeouts cannot replace those facts."
+    - "Externalize original results, compact working process, and deliver in stages while retaining original instructions, uncertain effects, and responsibility for a complete updated report."
+    - "Reconnection observes, same-Run recovery follows original receipts, and explicit continuation creates a linked Run; elapsed runtime proves neither adopted adjustments nor meaningful research progress."
+  appliesTo:
+    - "Designing research that spans context limits, interruptions, and user absence while continuing the original question and preserving readable intermediate reports."
+  notFor:
+    - "Treating separately bounded module checks as joint reliability guarantees, or assuming the public teaching project implements every private-system capability in the panorama."
 ---
 
 # Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time

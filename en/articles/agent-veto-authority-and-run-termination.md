@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "A local module should reject only effects it owns; the Run lifecycle, holding original execution facts, decides whether the overall task continues, finalizes, or stops."
+    - "Retries and stage changes do not create budgets; distinguish queue, execution, no-progress, and overall clocks, and never disguise a substituted user goal as degradation."
+    - "Recovery first reconciles effects and preserves independent results and uncertainty; cancellation and hard limits still stop work. Removing redundant vetoes does not remove necessary denials."
+  appliesTo:
+    - "Reviewing exceptions, early returns, optional research notes, and repeated checks that may turn one local failure into whole-task termination."
+  notFor:
+    - "Using partial delivery to justify unlimited retries, disregarding cancellation, or rerunning uncertain external effects and reporting success."
+---
 # When Every Module Can Say No: Agent Run Termination, Stage Budgets, and Safe Recovery
 
 **A failed read should stop that read, not automatically erase everything the system has already accomplished.** Continuing is not permission to retry forever: authorization, cancellation, total budgets, and unknown effects may still require a stop.

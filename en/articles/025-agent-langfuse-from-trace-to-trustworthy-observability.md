@@ -8,6 +8,15 @@ articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
+readingBrief:
+  takeaways:
+    - "Locate discrepancies across four handoffs: source to tool, tool to model, input to generation, and generation to user. A complete call tree cannot replace content and revision checks."
+    - "Original systems establish execution and persistence; telemetry describes process and gaps. Capture, receipt, processing and query readback are separate, and complete pagination does not establish complete capture."
+    - "Deduplicate costs by physical request, retain unknowns and test actual historical reads. Synthetic probes verify a current path, not missing history or long-term completeness."
+  appliesTo:
+    - "Designing identity-linked diagnosis, capture-gap handling, telemetry self-checks and historical recovery for a research Agent."
+  notFor:
+    - "Using a green trace to certify answers, or treating a probe and scoped restore as long-term capture assurance or provider billing reconciliation."
 ---
 
 # Agent Observability Panorama: From Model Requests to Verifiable Research Facts

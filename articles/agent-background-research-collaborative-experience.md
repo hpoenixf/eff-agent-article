@@ -5,6 +5,15 @@ articleMetadata:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
   image: "https://hpoenixf.com/eff-agent-article/visuals/agent-background-research-collaborative-experience/interaction-flow.png"
+readingBrief:
+  takeaways:
+    - "长研究应有独立生命期，短问独立执行、调整定向交接、停止指向具体任务，而不是由全局忙碌状态占住聊天框。"
+    - "乱序回答、历史替换和未发送草稿都要沿 Run、会话与账户身份定位；保存调整、进入模型输入与满足要求分别留证。"
+    - "为采纳调整而中断一次请求，不等于停止整项研究；交互并发验收也不能替报告中的金融推断正确性盖章。"
+  appliesTo:
+    - "已经具备研究循环、持久历史和发布基础，准备让用户在后台研究期间继续聊天或定向纠偏的产品。"
+  notFor:
+    - "从零一天搭出完整研究 Agent，取消所有停止能力，或用并发运行成功宣称金融研究质量已经可靠。"
 ---
 
 # 想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究

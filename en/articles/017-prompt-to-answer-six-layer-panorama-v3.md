@@ -1,6 +1,15 @@
 ---
 title: "ETF Agent Six-Layer Request Lifecycle · From Prompt to Visible Answer"
 description: "Follow one user request through Main/subagents, model and tools, Direct/Research/Coord, asynchronous delivery and cross-layer capability owners."
+readingBrief:
+  takeaways:
+    - "The six layers locate handoffs from trigger to visible answer; each Owner retains authority over its facts and effects, without imposing a fixed pipeline."
+    - "Direct skips research tools but still uses models and publication; Research iterates on receipts, while Coord proposes bounded controls to an identified existing Run."
+    - "Run termination, committed text, notification, and browser rendering require separate evidence; lawful wakes, execution-owner loss, and explicit continuation are also distinct contracts."
+  appliesTo:
+    - "For full-stack engineers and architecture reviewers tracing model inputs, tool effects, ownership boundaries, and failures between saved answers and user readback."
+  notFor:
+    - "Not a precise execution trace, deployment topology, or acceptance record; the teaching panorama and scoped verification do not establish production readiness or financial-analysis quality."
 ---
 
 # From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle

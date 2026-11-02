@@ -1,6 +1,15 @@
 ---
 title: "When an AI Says What to Buy: The Boundary Between Research, Investment Advice and Trading"
 description: "Data authorization, financial calculation and externally effective actions require distinct business and technical controls."
+readingBrief:
+  takeaways:
+    - "Public explanations, private-portfolio analysis, and order execution are different services. Define permitted business scope first; disclaimers or buying intent do not create authorization."
+    - "Data access, calculation, and external action need separate decisions. Deterministic arithmetic neither chooses an allocation nor transfers research permissions into trading authority."
+    - "Apply restrictions to actual dependencies and actions. A denied private-data read need not erase public explanations, and read-only research does not establish advisory licensing or trading capability."
+  appliesTo:
+    - "Planning personalized analysis, advisory, or trading entry points while separating product commitments from technical permissions."
+  notFor:
+    - "Not a determination of an institution’s legal eligibility, securities advice, universal compliance certification, or documentation of implemented trading."
 ---
 
 # When AI Starts Saying “What to Buy,” How Far Is a Research Assistant from Investment Advice and Trading?

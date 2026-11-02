@@ -1,6 +1,15 @@
 ---
 title: "From Reading Text to Research Evidence: How We Evolved an Agent's PDF Reader"
 description: "Navigable long documents, table structure, on-demand page vision, source identity and bounded acceptance evidence."
+readingBrief:
+  takeaways:
+    - "Parsing, search coverage, page reading and model receipt are distinct facts; navigation and citations must follow delivered content rather than treating search hits as full-document review."
+    - "Use text as the baseline and add tables or page images when needed, recording each scope; prove the existing Reader’s evidence gap before adding another parser."
+    - "Rendering does not establish image delivery; recheck source permission at actual dispatch, and validate tool delivery, model interpretation and completed research separately."
+  appliesTo:
+    - "Comparing distant pages, checking table footnotes or reading scans while tracing numerical errors across acquisition, delivery, interpretation and citation."
+  notFor:
+    - "Treating the public selected-page text slice as a complete OCR/multimodal Reader, or extrapolating arbitrary-PDF accuracy and production cost benefits from limited samples."
 ---
 
 # From Being Able to Read to Being Able to Research: Evolving PDF into Traceable Multimodal Evidence

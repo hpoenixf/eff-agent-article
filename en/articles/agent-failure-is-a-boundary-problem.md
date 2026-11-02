@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "No answer is a user-visible symptom, not a model-failure verdict. Trace dispatch, parsing, tools, publication and delivery to locate the last confirmed blocker before investigating causes."
+    - "Later success proves repair only with original-object, revision and feedback-consumption links. Commit, server transmission and actual user receipt need separate evidence."
+    - "Bounded diagnostic identities and statuses preserve gaps without turning unknown cost or delivery into zero or failure. Slow or failed observation must not change business outcomes."
+  appliesTo:
+    - "Investigating missing Agent deliveries, misleading failure labels, self-repair statistics or telemetry problems to identify the next justified repair or observation."
+  notFor:
+    - "Inferring causes from nearby timestamps, coarse errors or matching totals; improved detection of unclassified failures does not repair their underlying Runtime causes."
+---
 # Stop Blaming Every Agent Failure on the Model: From Coarse Error Codes to a Verifiable Failure Chain
 
 **When an agent fails to deliver, first locate the stage that demonstrably failed rather than automatically blaming the model.** Only then can we decide whether to retry, repair a protocol, inspect a tool, or fix delivery.

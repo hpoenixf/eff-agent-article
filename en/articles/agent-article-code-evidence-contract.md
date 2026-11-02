@@ -2,6 +2,15 @@
 title: "Does the Code Really Support the Article? An Evidence Contract for Technical Writing"
 description: "Using a small Open ETF Agent Memory example to connect claims in technical articles to pinned code, executable examples, validation evidence, and the published page."
 date: 2026-10-29
+readingBrief:
+  takeaways:
+    - "Tie capability claims to a fixed revision, real execution entry, observable result, and explicit scope; a repository link cannot substantiate an entire article."
+    - "Introduction and verification revisions describe different facts, and metadata checks do not rerun behavior; changed inputs or implementation require reconsidering old evidence."
+    - "Validate code, bilingual article sources, and deployed reading pages independently. A public example demonstrates its bounded behavior, not every capability discussed in the article."
+  appliesTo:
+    - "Authors and open-source maintainers connecting technical claims to reproducible examples, revision identities, and bilingual publication evidence."
+  notFor:
+    - "Not a certificate that one passing example verifies an entire article, a private system, or the live website."
 ---
 
 # Does the Code Really Support the Article? An Evidence Contract for Technical Writing

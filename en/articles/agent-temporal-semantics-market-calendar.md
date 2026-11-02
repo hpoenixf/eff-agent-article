@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Current instant, task anchor, user date, market session and quote timestamp have separate sources; timezone conversion or scheduled closing cannot establish refreshed market data."
+    - "The model selects temporal meaning and code resolves trusted IANA zones; same-Run recovery retains the original anchor instead of silently replacing the question’s “today.”"
+    - "Market calendars require venue, version and coverage evidence; missing evidence stays unknown, while the public slice freezes task dates without completing full calendar acceptance."
+  appliesTo:
+    - "Cross-timezone questions, recovery after midnight or “latest trading day” queries that require separating intent, task time, session schedules and data freshness."
+  notFor:
+    - "Seeking a qualified worldwide live market calendar, or treating synthetic date examples and disabled-by-default schedules as proof of fresh quotes and reliable natural-language research."
+---
 # When an Agent Says “Today,” Which Day Does It Mean? Task Time, User Time, and Market Sessions
 
 On Saturday morning, an investor in Guangzhou opens a research agent and asks, “How did U.S. technology stocks do today?” The question appears to need only one date. But Guangzhou has entered Saturday while the U.S. Eastern time zone may still be on Friday. A finished Friday market session and newly retrieved quote data are two more distinct facts.

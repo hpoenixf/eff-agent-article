@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Multiple perspectives should test one material hypothesis through different methods, not vote; a simple lookup need not incur extra delegation cost."
+    - "Specialists share comparable authorized facts and calculations while separating facts, hypotheses, and opinions; Main’s provisional view must not masquerade as common source evidence."
+    - "A useful Bull/Bear exchange revises a specific reason; Main synthesizes disagreement and gaps. Reviewer offers advice, and working integration does not prove better investment decisions."
+  appliesTo:
+    - "Research with a decision-relevant falsifiable hypothesis that benefits from distinct allocation, tail-risk, implementation-cost, or cash-discipline tests."
+  notFor:
+    - "Averaging expert votes into trades, giving review advice approval authority, or treating synthetic portfolios and scoped engineering checks as evidence of investment gains."
+---
 # More Than One Investment Expert: How Multi-Perspective Agents Test an Investment Thesis
 
 > Multi-Agent Investment Research · Part Three | Shared facts, different methods, and disagreements worth resolving

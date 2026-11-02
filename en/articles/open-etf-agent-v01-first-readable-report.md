@@ -1,6 +1,15 @@
 ---
 title: "Start with a Report You Can Read Back: Open ETF Agent v0.1"
 description: Run the fixed offline example to inspect source identity, tool execution, partial writes, and independent file readback, then separate known facts from gaps in a real-model rejection.
+readingBrief:
+  takeaways:
+    - "v0.1 connects reading, calculation, and saving through Gateway, Runtime, and Tool Host; scripted action selection with real tool effects does not establish model comprehension."
+    - "Preserve source identity, partial writes, and file receipts separately. Checking original bytes after process exit proves neither browser delivery nor resumable execution."
+    - "A real-model run stopped at pre-dispatch calculation rejection without a report. Missing arguments leave the reason unresolved; later successes cannot rewrite that observation."
+  appliesTo:
+    - "Readers starting from the fixed v0.1 offline example to understand source identity, tool effects, and independent report readback."
+  notFor:
+    - "Not a current full-capability manual or evidence of investment quality, browser delivery, or later persistence features in v0.1."
 ---
 
 # Start with a Report You Can Read Back: Open ETF Agent v0.1

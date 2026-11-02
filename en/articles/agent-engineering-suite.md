@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Engineering continuity needs explicit handoffs between decisions, tasks, evidence, and next steps; the suite complements Git, CI, and project acceptance rather than replacing them."
+    - "Spec, History, Maturity, and Roadmap own different questions: promised behavior, decision rationale, current assessment, and next work. Structural checks cannot substitute for semantic judgment."
+    - "The nine modules are optional and share one implementation across packaging forms; bounded installation checks establish neither model quality nor permission to publish."
+  appliesTo:
+    - "Projects coordinating multi-agent or multi-session engineering with durable decisions, revision-specific evidence, and explicit handoffs."
+  notFor:
+    - "Not an autonomous scheduler, acceptance authority, or release platform; small edits do not need the entire suite."
+---
 # Agent Engineering Suite: Connecting Requirements to Release
 
 > This article describes a [fixed public revision of Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0). Background report generation is a synthetic teaching example of the workflow; the installation statements below describe actual controlled verification.

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Child agents isolate local execution, Profiles supply specialist methods, and Main remains accountable for the final answer; adding experts does not automatically expand permissions."
+    - "Delegate when isolation is worthwhile and outputs can be independently checked; separate contexts also incur repeated preparation and handoff costs, so delegation is not always cheaper."
+    - "Distinguish expert execution, Main receiving the output, answer adoption and demonstrated value; challenges must actually reach recipients rather than merely producing several opinions."
+  appliesTo:
+    - "Isolating long reading, local debugging or parallel verifiable subproblems while checking whether specialist handoffs actually reach the main research."
+  notFor:
+    - "Requiring expert fan-out for every task, or inferring better research and investment judgments from Child counts and submitted opinions alone."
+---
 # Subagent Panorama: Independent Context, Specialist Work and Real Handoffs
 
 ![Subagent panorama: independent exploration, one shared research task](../../visuals/en/panorama-subagents/cover.svg)

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Integration should report sources and failures faithfully. A schema mismatch is not missing data, and adapters should not decide evidence sufficiency or follow-up research."
+    - "Deterministic consumers retain structured Market contracts; open research uses approved native tools. Switching providers requires newly constructed arguments, not silent reuse across incompatible schemas."
+    - "Multi-source fallback stays within one bounded request. Preserve cache dates, partial coverage, and conflicts; agreement between terminal values does not validate an entire series or investor returns."
+  appliesTo:
+    - "Integrating market-data MCPs, HTTP endpoints, and Python sources while deciding which adaptations belong in access infrastructure versus research."
+  notFor:
+    - "Not a live vendor-availability report or quality ranking, nor proof that every adapter is enabled or every price series fully verified."
+---
 # Why a Financial Market Data MCP Started Turning into a Research Decision System
 
 **A financial-data MCP should faithfully deliver available material. It should not silently decide what evidence is sufficient or what the research should do next.** Once an adapter starts interpreting financial fields, scheduling follow-up research and certifying completeness, a unified tool interface risks becoming a second research decision system.

@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Identically named Hooks need not share semantics; compatibility Profiles interpret each dialect while the original Runtime authorizes effects and explicitly rejects unsupported combinations."
+    - "Putting reviewed Pi modules and closures in terminable processes goes beyond ending a wait, but does not sandbox untrusted code or undo external effects."
+    - "Bind side-effecting Hooks to original invocation and plugin-generation identities; recovery reuses settled receipts, preserves unknown outcomes, and avoids rerunning initialization on terminal replay."
+  appliesTo:
+    - "Running selected Claude/Pi extension capabilities inside an existing Agent loop while checking callback ordering, termination and recovery semantics."
+  notFor:
+    - "Expecting universal plug-and-play compatibility, forced isolation of every JavaScript Hook, or full ecosystem production acceptance from scoped combination tests."
+---
 # From Claude and Pi to Codex: Running Multi-Ecosystem Hooks Inside Our Agent Runtime
 
 The companion [Extension Host article](020-agent-extension-host-smartphone.md) explains how ETF Agent discovers, reviews, and loads external plugins so selected Claude, Pi, and Codex extensions can run inside our own Agent.

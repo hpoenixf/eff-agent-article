@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { articleReadingBriefPlugin } from '../article-reading-brief.mjs'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
@@ -157,6 +158,7 @@ export default defineConfig({
   markdown: {
     lineNumbers: true,
     config(md) {
+      md.use(articleReadingBriefPlugin)
       const fallback = md.renderer.rules.fence
       md.renderer.rules.fence = (tokens, idx, options, env, self) => {
         const token = tokens[idx]

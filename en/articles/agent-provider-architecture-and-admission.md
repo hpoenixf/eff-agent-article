@@ -1,3 +1,14 @@
+---
+readingBrief:
+  takeaways:
+    - "Model, Provider Profile, actual route and capacity group are separate identities; changing a model name or configuration alias must not manufacture additional shared capacity."
+    - "The Gateway unifies invocation and events, not model capabilities; changes to protocol or significant configuration require qualification of the actual route for its research role."
+    - "Shared admission owns capacity and termination facts only; control-store failure blocks new dispatch, unconfirmed remote endings remain unknown, and retries or model changes need separate authority."
+  appliesTo:
+    - "Coordinating research, Child and review processes sharing model endpoints while separating route configuration, protocol adaptation, capacity and Run ownership."
+  notFor:
+    - "Looking only for an SDK integration, building a dynamic model marketplace, or treating local coordination limits as worldwide provider quotas or availability guarantees."
+---
 # Inside an Agent’s Provider Layer: Why a Unified API Still Needs Shared Admission
 
 > October 23, 2026

@@ -1,6 +1,15 @@
 ---
 title: "Why a Research Report Must Become an Asset Before an Agent Can Reuse It"
 description: "The A17 research-asset boundary: authorized acquisition, source identity, version fallback, partial extraction, run-scoped evidence and long-term research workspaces."
+readingBrief:
+  takeaways:
+    - "File bytes, asset registration and consumed evidence are separate facts; preserve source, scope, version and actual coverage rather than treating registration as reading."
+    - "Extract and persist usable evidence before activating a replacement; a failed import preserves the prior valid asset, and partial extraction remains explicitly partial."
+    - "Long-term Workspace links historical outputs; a readable old report neither guarantees access to its original files nor grants a new Run permission to retrieve them."
+  appliesTo:
+    - "Ingesting research attachments across formats and designing source identity, version changes, partial extraction and cross-Run reuse boundaries."
+  notFor:
+    - "Certifying investment conclusions from hashes, or treating Workspace as permanent storage for arbitrary files or a complete open-source tutorial."
 ---
 
 # Why a Research Report Must Become an Asset Before an Agent Can Reuse It

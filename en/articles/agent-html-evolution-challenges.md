@@ -1,6 +1,15 @@
 ---
 title: "HTML Was Saved—Why Did Delivery Still Fail? An Agent Report Architecture Reversal"
 description: "From isolated Python and a dedicated weekly generator to shared Publication, Artifacts, authorization and verifiable downloads."
+readingBrief:
+  takeaways:
+    - "HTML generation, Artifact commit, current-account download permission, and retrieval of identical bytes are separate facts; no local success alone proves report delivery."
+    - "Source eligibility must follow original Host receipts; current-data freshness must not invalidate historical files, and sharing binds an account to a fixed file revision."
+    - "Weekly reports specialize research methods, not file infrastructure; direct HTML and Python files share publication and artifact delivery, with safety checks targeting dangerous effects rather than aesthetics."
+  appliesTo:
+    - "Agent report systems that compute or save files but fail during export, provenance handoff, authenticated download, or later reopening."
+  notFor:
+    - "Treating sandboxing as data authorization, downloads as proof of correct analysis, or flexible styling as permission to remove script, resource-loading, and parser limits."
 ---
 
 # The HTML Was Saved. Why Did Delivery Still Fail?
