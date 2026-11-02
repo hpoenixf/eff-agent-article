@@ -137,7 +137,9 @@ readingBrief:
 - 现有完整英文正文在自己的 `en/articles/<slug>.md` 本地化同一语义，不共享中文文案，也不把缺失的英文全文补成摘要占位。历史全文按其自身版本提炼；旧合稿跳转页没有卡片，不改变其导航身份。
 - `article-reading-brief.mjs` 是唯一校验与估时实现。它复用 VitePress 对完整正文解析后的 tokens，按每分钟 300 个汉字及 200 个其他语言词混合累加、向上取整，最低一分钟。包含段落、表格与代码示例；不含 frontmatter、注释、链接地址／HTML 属性、自动导航组件及 Mermaid 图源。图解精读、思考和运行示例另留时间，所以页面明确写“预计／Estimated”，不是实测阅读速度。
 - 不在源文件手填分钟数，也不另维护摘要 JSON、第二文章目录或每文组件标记。Markdown 插件统一在原 H1 后插入 `ArticleReadingBrief`，无 H1 时置顶；原正文、章节锚点、证据字段、历史及代码资格不改。导读属于真实可见编辑内容，沿既有文章历史规则记录，不冒称算法生成的新正文或新验收。
-- `npm run check:briefs` 检查全站既有语言覆盖、字段、重复结论组和估时／渲染边界；`npm run check:catalog` 已包含它。构建后的 `node scripts/check-reading-briefs.mjs --output` 核对每篇静态 HTML 中的单一卡片、完整文案和本地化时长。结构测试不能替代逐篇内容审稿；另外检查桌面／窄屏、键盘展开估时说明和语言切换。
+- `npm run check:briefs` 检查全站既有语言覆盖、字段、重复结论组和估时／渲染边界；`npm run check:catalog` 已包含它。构建后的 `node scripts/check-reading-briefs.mjs --output` 核对每篇静态 HTML 中的单一卡片、完整文案和本地化时长。结构测试不能替代逐篇内容审稿；另外检查桌面／窄屏、键盘展开适用边界和语言切换。
+
+结论与“预计／Estimated”时长始终默认可见；适用／不适用放在默认关闭的原生 `details` 内，换文章或语言版时收起。估时方法仅在本维护页定义，不再为正文增加说明展开项；算法与字段校验不变。
 
 Each existing full article edition owns its reviewed `readingBrief` in Markdown frontmatter. Read the complete body before writing 3–5 distinct conclusions and concise adoption boundaries; preserve historical scope and existing English meaning. The shared Markdown plugin inserts one server-rendered card after the title and derives an explicitly estimated reading time from that edition's full parsed body. Do not hand-enter minutes, duplicate the content registry, or promote a compatibility pointer into a new article. Source checks, local rendering, the canonical blog pin and actual public deployment remain separate verification stages.
 

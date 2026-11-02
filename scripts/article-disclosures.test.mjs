@@ -98,3 +98,34 @@ test('route and language edition changes replace opened native details rather th
     assert.notStrictEqual(host.find(n => n.tag === 'details'), translated); assert.equal(host.find(n => n.tag === 'details').open, false)
   } finally { host.app.unmount() }
 })
+
+const ArticleReadingBrief = await component('ArticleReadingBrief')
+const brief = { takeaways: ['First scoped conclusion.', 'Second distinct conclusion.', 'Third conclusion.'], appliesTo: ['A supported use.'], notFor: ['An unsupported use.'] }
+test('brief conclusions and estimated time stay visible while full adoption boundaries are default-closed', async () => {
+  data.frontmatter.value = { readingBrief: brief, readingEstimate: { minutes: 7 } }
+  for (const [lang, prefix, label, summary] of [['zh-CN', '', '预计阅读 7 分钟', '适用与不适用'], ['en-US', 'en/', 'Estimated 7 min read', 'Who this is for — and who it is not for']]) {
+    data.lang.value = lang; data.page.value = { relativePath: prefix + 'articles/019-agent-answer-publication.md' }
+    const html = await renderToString(createSSRApp(ArticleReadingBrief))
+    assert.equal((html.match(/<details\b/g) || []).length, 1)
+    assert.match(html, new RegExp('<summary>' + summary + '</summary>'))
+    assert.doesNotMatch(html, /<details[^>]*\sopen(?:=|\s|>)/)
+    assert.ok(html.indexOf(label) < html.indexOf('<details'))
+    for (const item of brief.takeaways) assert.ok(html.indexOf(item) < html.indexOf('<details'))
+    for (const item of [...brief.appliesTo, ...brief.notFor]) assert.ok(html.indexOf(item) > html.indexOf('<details'))
+    assert.doesNotMatch(html, /reading-brief-method|阅读时长如何估算|How reading time is estimated/)
+  }
+})
+test('brief boundaries reset on article and language navigation without removing content', async () => {
+  data.frontmatter.value = { readingBrief: brief, readingEstimate: { minutes: 7 } }
+  data.page.value = { relativePath: 'articles/019-agent-answer-publication.md' }
+  const host = mount(ArticleReadingBrief)
+  try {
+    const old = host.find(n => n.tag === 'details'); old.open = true
+    data.page.value = { relativePath: 'en/articles/019-agent-answer-publication.md' }; await nextTick()
+    const translated = host.find(n => n.tag === 'details'); assert.notStrictEqual(translated, old); assert.equal(translated.open, false)
+    translated.open = true; data.page.value = { relativePath: 'articles/another.md' }; await nextTick()
+    assert.notStrictEqual(host.find(n => n.tag === 'details'), translated); assert.equal(host.find(n => n.tag === 'details').open, false)
+  } finally { host.app.unmount() }
+  data.frontmatter.value = {}
+  assert.doesNotMatch(await renderToString(createSSRApp(ArticleReadingBrief)), /<aside|<details/)
+})
