@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+<title id="title">A17 research asset identity and lifecycle</title>
+<desc id="desc">Visual illustration of versioned source documents entering a controlled research asset registry, with links to a run evidence area and a distinct long-term research space.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf5f1"/><stop offset=".55" stop-color="#f3f1fb"/><stop offset="1" stop-color="#e9effc"/></linearGradient>
+<linearGradient id="doc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#e8f6f3"/></linearGradient>
+<filter id="shadow"><feDropShadow dx="0" dy="9" stdDeviation="12" flood-color="#193d42" flood-opacity=".1"/></filter>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#93b8bd" opacity=".3"/></pattern>
+</defs>
+<rect width="1000" height="430" rx="25" fill="url(#bg)"/>
+<rect width="1000" height="430" rx="25" fill="url(#dots)"/>
+<circle cx="902" cy="43" r="136" fill="#d8edec" opacity=".65"/><circle cx="80" cy="382" r="113" fill="#e3e0f5" opacity=".63"/>
+<path d="M268 201 C329 201 314 157 392 157" fill="none" stroke="#4d8a8f" stroke-width="5" stroke-linecap="round"/>
+<path d="M267 225 C330 225 314 277 392 277" fill="none" stroke="#bcb0dc" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 10"/>
+<g filter="url(#shadow)"><rect x="70" y="93" width="204" height="256" rx="22" fill="#fff" stroke="#c8d9d4" stroke-width="2"/></g>
+<g transform="translate(101 124)"><path d="M0 0h88l35 36v145H0z" fill="url(#doc)" stroke="#5a99a3" stroke-width="4" stroke-linejoin="round"/><path d="M88 0v36h35" fill="none" stroke="#5a99a3" stroke-width="4"/><path d="M22 75h76 M22 97h73 M22 119h56" stroke="#93b6b3" stroke-width="7" stroke-linecap="round"/><rect x="18" y="139" width="81" height="25" rx="12" fill="#ddede9"/><circle cx="118" cy="176" r="22" fill="#fff" stroke="#7fa1a0" stroke-width="4"/><path d="M110 176l7 7 13 -16" stroke="#2d8a7b" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g filter="url(#shadow)"><rect x="377" y="82" width="235" height="267" rx="24" fill="#fff" stroke="#a9c5c7" stroke-width="2"/></g>
+<g><rect x="407" y="117" width="174" height="61" rx="13" fill="#e6f4ef"/><circle cx="435" cy="149" r="14" fill="#8bc6b1"/><path d="M464 139h94 M464 152h70" stroke="#6c9e93" stroke-width="7" stroke-linecap="round"/>
+<rect x="407" y="191" width="174" height="61" rx="13" fill="#eeeafb"/><circle cx="435" cy="222" r="14" fill="#b3a4d5"/><path d="M464 211h94 M464 226h56" stroke="#9582be" stroke-width="7" stroke-linecap="round"/>
+<rect x="407" y="266" width="174" height="48" rx="12" fill="#eaf2fb"/><path d="M426 291h133" stroke="#7ea9cd" stroke-width="7" stroke-linecap="round"/><path d="M426 278h92" stroke="#bdd5e4" stroke-width="7" stroke-linecap="round"/></g>
+<path d="M614 159h62l25 -22h32 M614 279h65l25 37h29" fill="none" stroke="#6a9ca3" stroke-width="4" stroke-linecap="round"/>
+<circle cx="677" cy="159" r="9" fill="#fff" stroke="#6a9ca3" stroke-width="4"/><circle cx="679" cy="279" r="9" fill="#fff" stroke="#6a9ca3" stroke-width="4"/>
+<g filter="url(#shadow)"><rect x="736" y="75" width="195" height="125" rx="20" fill="#fff" stroke="#b9c2ee" stroke-width="2"/><rect x="736" y="228" width="195" height="125" rx="20" fill="#fff" stroke="#b6d5c8" stroke-width="2"/></g>
+<g><rect x="757" y="99" width="151" height="20" rx="10" fill="#dedcf7"/><rect x="757" y="133" width="72" height="43" rx="10" fill="#a9a0d5"/><rect x="841" y="133" width="67" height="43" rx="10" fill="#e8e6f7"/>
+<rect x="757" y="251" width="151" height="20" rx="10" fill="#e1f1e9"/><rect x="757" y="286" width="40" height="40" rx="9" fill="#aed3c4"/><rect x="814" y="286" width="40" height="40" rx="9" fill="#c8e5d7"/><rect x="870" y="286" width="38" height="40" rx="9" fill="#e2f2e9"/>
+<path d="M797 306h17 M854 306h16" stroke="#49947e" stroke-width="3" stroke-linecap="round"/></g>
+<circle cx="349" cy="157" r="8" fill="#55a49a"/><circle cx="349" cy="277" r="8" fill="#a495c8"/><circle cx="698" cy="137" r="7" fill="#7b83bb"/><circle cx="704" cy="316" r="7" fill="#4d9f86"/>
+</svg>

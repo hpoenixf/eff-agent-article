@@ -25,6 +25,7 @@ export const collections = [
           ["agent-main-run-context-compaction", "Main 压缩：摘要不改写原始事实"],
           ["agent-conversation-history-compaction-source-boundaries", "跨 Run 会话压缩：旧助手摘要不能替代用户原文"],
           ["agent-research-workspace-goal-continuity", "Workspace：从一次性对话到长期研究"],
+          ["agent-research-assets-identity-version-lifecycle", "一份研究报告，为什么需要先变成「资产」？"],
           ["026-agent-memory-forget-durable-effects", "Memory：从保存、召回到安全遗忘"],
           ["agent-content-trust-prompt-injection", "A35 内容信任：Prompt Injection 不只是恶意文本"],
           ["agent-control-events-durable-owner-adoption", "Agent 收到控制指令后，为什么不能立刻执行"],
