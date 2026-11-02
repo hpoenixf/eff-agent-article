@@ -65,12 +65,16 @@
     "agent-skill-from-markdown-to-callable-research": "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力",
     "rag-end-to-end-system-panorama": "RAG 全链路全景：从知识入库到可信回答",
     "agent-conversation-admission-task-continuation": "对话接纳：接着聊不等于接着执行",
-    "agent-deterministic-fund-allocation": "确定性基金计算：从持仓事实到金额建议"
+    "agent-deterministic-fund-allocation": "确定性基金计算：从持仓事实到金额建议",
+    "agent-account-identity-private-scope": "账户身份：如何隔离每个人的研究",
+    "agent-research-decisions-evidence-synthesis": "研究决策：什么时候停止搜索并回答",
+    "agent-artifact-version-access-sharing": "研究产物：从固定版本到定向分享"
   },
   "owners": {
     "A01": {
       "related": [
-        "011-model-understands-code-authorizes"
+        "011-model-understands-code-authorizes",
+        "agent-account-identity-private-scope"
       ]
     },
     "A02": {
@@ -88,7 +92,8 @@
       "primary": "adaptive-research-python-workbench",
       "related": [
         "022-agent-entry-from-intent-to-direct-research",
-        "financial-agent-python-result-consumption"
+        "financial-agent-python-result-consumption",
+        "agent-research-decisions-evidence-synthesis"
       ]
     },
     "A04": {
@@ -204,7 +209,8 @@
       "primary": "agent-html-evolution-challenges",
       "related": [
         "agent-python-compute-workbench-evolution",
-        "agent-weekly-thesis-history-continuous-research"
+        "agent-weekly-thesis-history-continuous-research",
+        "agent-artifact-version-access-sharing"
       ]
     },
     "A23": {
