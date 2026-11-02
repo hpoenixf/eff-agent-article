@@ -121,3 +121,23 @@ test('real Vue gallery events support keyboard selection, modifier links, hash r
   } finally { app.unmount(); delete globalThis.window }
   assert.equal(listeners.size, 0)
 })
+
+
+test('the installed VitePress capture router leaves enhanced stage links to the gallery', () => {
+  const router = read('node_modules/vitepress/dist/client/app/router.js')
+  const handler = /window\.addEventListener\('click', (\(e\) => \{[\s\S]*?)\}, \{ capture: true \}\);/.exec(router)
+  assert.ok(handler, 'Recheck the integration if VitePress changes its capture listener')
+  let navigations = 0
+  class Element {}
+  const target = new Element()
+  let raw = true
+  const link = { closest: selector => selector === '.vp-raw' && raw ? {} : null,
+    hasAttribute: () => false, getAttribute: () => '/eff-agent-article/articles/agent-in-15-minutes', baseURI: 'https://example.test/eff-agent-article/gallery' }
+  target.closest = selector => selector === 'a' ? link : null
+  const listen = new Function('Element', 'location', 'treatAsHtml', 'go', 'return (' + handler[1] + '})')(
+    Element, { href: link.baseURI }, () => true, () => { navigations++ })
+  const event = { target, button: 0, preventDefault() {} }
+  listen(event); assert.equal(navigations, 0)
+  raw = false; listen(event); assert.equal(navigations, 1, 'The fixture must reproduce the original routing conflict')
+  assert.match(descriptor.template.content, /<nav[^>]*class="gallery-stages vp-raw"/)
+})

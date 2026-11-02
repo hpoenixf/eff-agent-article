@@ -71,10 +71,15 @@ for (const [id, expectedPrimary] of Object.entries({A36:'agent-temporal-semantic
   }
 }
 // The prose inventory is a distinct navigation surface from the interactive graph.
-const galleryInventory = readFileSync('gallery.md', 'utf8')
-  .split('## 能力清单 {#owner-inventory}')[1]?.split('## 六层文章')[0] ?? ''
-for (const id of primaryOwnerIds) {
-  if (!galleryInventory.includes('#owner=' + id + ')')) throw Error('Gallery prose inventory missing Owner ' + id)
+for (const language of ['', 'en/']) {
+  const galleryInventory = /<ArchitectureGallery>([\s\S]*?)<\/ArchitectureGallery>/.exec(readFileSync(language + 'gallery.md', 'utf8'))?.[1] ?? ''
+  const linkedOwners = [...galleryInventory.matchAll(/#owner=([ABE]\d\d)\)/g)].map(match => match[1])
+  if (linkedOwners.length !== primaryOwnerIds.size || new Set(linkedOwners).size !== primaryOwnerIds.size) {
+    throw Error('Gallery requires one entry per registered Owner: ' + language)
+  }
+  for (const id of primaryOwnerIds) {
+    if (!linkedOwners.includes(id)) throw Error('Gallery prose inventory missing Owner ' + id + ': ' + language)
+  }
 }
 const knownArticles = new Map(chapters.flatMap(chapter => chapter.items))
 const referenced = new Set()

@@ -53,7 +53,8 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', restoreHash))
 
 <template>
   <div class="architecture-gallery">
-    <nav ref="navigation" class="gallery-stages" :role="ready ? 'tablist' : undefined" :aria-label="english ? 'Reading stages' : '阅读阶段'">
+    <!-- VitePress intercepts clicks in window capture: vp-raw leaves these real links to our enhancement. -->
+    <nav ref="navigation" class="gallery-stages vp-raw" :role="ready ? 'tablist' : undefined" :aria-label="english ? 'Reading stages' : '阅读阶段'">
       <a v-for="stage in stages" :id="'gallery-tab-' + stage.key" :key="stage.key"
         :href="withBase(stage.href)" :class="{ selected: selected.key === stage.key }"
         :role="ready ? 'tab' : undefined" :aria-selected="ready ? selected.key === stage.key : undefined"
