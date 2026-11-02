@@ -635,6 +635,14 @@
 .owner-gallery > p { color: var(--vp-c-text-2); }
 @media (max-width: 640px) { .owner-gallery { padding: 28px 16px 48px; } }
 
+/* List summaries retain their complete authored text in the DOM and title. */
+.recent-articles .article-list-description, .catalog-article-list .article-list-description {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2;
+  overflow: hidden; overflow-wrap: anywhere; margin: 0; min-height: 3.3em;
+  color: var(--vp-c-text-2); font-size: 14px; line-height: 1.65; font-weight: 400;
+}
+.recent-articles .article-list-description { grid-column: 1 / -1; max-width: 72ch; }
+
 /* The editorial backlog remains plain, complete Markdown, not a task board. */
 .financial-backlog > h1 { margin-bottom: 12px; }
 .financial-backlog > p > small { display: block; color: var(--vp-c-text-2); font-size: 12px; letter-spacing: .035em; }

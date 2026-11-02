@@ -33,6 +33,10 @@ const dates = {
   [`en/articles/${b}.md`]: { created: date('2026-01-01T00:00:00Z'), updated: date('2026-02-02T00:00:00Z') },
   [`articles/${untranslated}.md`]: { created: date('2025-01-01T00:00:00Z'), updated: date('2025-02-01T00:00:00Z') }
 }
+globalThis.__catalogDescriptions = { articles: Object.fromEntries(canonical.flatMap(slug => [
+  ['articles/' + slug + '.md', '测试简介：机制、取舍与适用边界。' + slug],
+  ['en/articles/' + slug + '.md', 'Fixture description of the mechanism, trade-offs and scope. ' + slug]
+])) }
 globalThis.__catalogChronology = { available: true, articles: dates }
 globalThis.__catalogTags = { definitions: [{ id: 'finance', zh: '金融', en: 'Finance' }, { id: 'open', zh: '开源', en: 'Open source' }], articles: {
   [a]: [{ id: 'finance' }, { id: 'open' }, { id: 'fallback' }],
@@ -40,10 +44,10 @@ globalThis.__catalogTags = { definitions: [{ id: 'finance', zh: '金融', en: 'F
   [untranslated]: [{ id: 'finance' }, { id: 'fallback' }]
 } }
 const bundled = await build({ stdin: { contents: compiled, loader: 'ts', resolveDir: theme }, bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'local-catalog-test-providers', setup(builder) {
-  builder.onResolve({ filter: /^(vitepress|\.\/article-tags\.data|\.\/article-chronology\.data)$/ }, args => ({ path: args.path, namespace: 'catalog-test' }))
+  builder.onResolve({ filter: /^(vitepress|\.\/article-tags\.data|\.\/article-chronology\.data|\.\/article-descriptions\.data)$/ }, args => ({ path: args.path, namespace: 'catalog-test' }))
   builder.onLoad({ filter: /.*/, namespace: 'catalog-test' }, args => ({ contents: args.path === 'vitepress'
     ? 'export const useData = () => globalThis.__catalogTestState.data; export const withBase = p => "/eff-agent-article" + p;'
-    : 'export const data = globalThis.' + (args.path.includes('chronology') ? '__catalogChronology' : '__catalogTags') + ';' }))
+    : 'export const data = globalThis.' + (args.path.includes('chronology') ? '__catalogChronology' : args.path.includes('descriptions') ? '__catalogDescriptions' : '__catalogTags') + ';' }))
 } }] })
 const cache = resolve('.vitepress/cache'); mkdirSync(cache, { recursive: true })
 const modulePath = resolve(cache, 'catalog-render-fixture.mjs'); writeFileSync(modulePath, bundled.outputFiles[0].text)
@@ -64,6 +68,12 @@ test('actual catalogue SFC exposes a labelled native select only on independent 
     assert.match(html, english ? /Created: newest first/ : /创建时间：从新到旧/)
     assert.match(html, /class="catalog-article-list"/); assert.ok(!html.includes('class="collection-block"'), 'Independent catalogue uses dense cards in original catalogue order')
     assert.equal(orderedSlugs(html).length, 20)
+    assert.equal((html.match(/class="article-list-description"/g) || []).length, 20)
+    for (const slug of canonical.slice(0, 20)) {
+      const path = (english && englishArticleSlugs.includes(slug) ? 'en/' : '') + 'articles/' + slug + '.md'
+      assert.ok(html.includes(globalThis.__catalogDescriptions.articles[path]))
+      assert.ok(html.includes('aria-describedby="catalog-description-' + slug + '"'))
+    }
     assert.equal((html.match(/<h1\b/g) || []).length, 1)
     assert.match(html, /<header class="catalog-page-heading"/)
     assert.match(html, new RegExp(canonical.length + (english ? ' articles' : ' 篇文章')))
@@ -166,6 +176,8 @@ test('actual SFC renders all four global orders, matching tags, edition dates, a
   const fallback = await render({ english: true, page: 'en/catalog.md', order: 'created-asc', tags: ['fallback'] })
   assert.deepEqual(orderedSlugs(fallback), [untranslated, a])
   assert.ok(fallback.includes('(Chinese original)')); assert.ok(fallback.includes('2025-01-01'))
+  assert.ok(fallback.includes(globalThis.__catalogDescriptions.articles['articles/' + untranslated + '.md']))
+  assert.ok(!fallback.includes(globalThis.__catalogDescriptions.articles['en/articles/' + untranslated + '.md']))
   const empty = await render({ order: 'updated-desc', tags: ['not-a-tag'] })
   assert.deepEqual(orderedSlugs(empty), []); assert.match(empty, /role="status"/)
 })
@@ -208,5 +220,5 @@ test('dense independent page shell preserves original anchors, responsive grid a
   }
   const category = await render({ page: 'modules.md', props: { category: 'modules' } })
   assert.ok(category.includes('class="chapter-card"')); assert.ok(!category.includes('catalog-article-list'))
-  assert.ok(!category.includes('<h1')); assert.ok(!category.includes('catalog-entry-meta'))
+  assert.ok(!category.includes('article-list-description')); assert.ok(!category.includes('<h1')); assert.ok(!category.includes('catalog-entry-meta'))
 })

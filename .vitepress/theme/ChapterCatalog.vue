@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { data as descriptionData } from './article-descriptions.data'
+import { descriptionForArticle } from '../../article-description.mjs'
 import { data as tagData } from './article-tags.data'
 import { data as chronologyData } from './article-chronology.data'
 import { withBase } from 'vitepress'
@@ -83,7 +85,8 @@ const pageNumbers = computed(() => Array.from({ length: pagination.value.pageCou
   <p v-if="!selectedCollections.length" role="status">{{ isEnglish ? 'No articles match these tags. Clear a filter to see more.' : '暂无同时符合这些标签的文章，可取消部分筛选。' }}</p>
   <ol v-if="canSort && pagination.items.length" class="catalog-article-list" :aria-label="isChronological ? (isEnglish ? 'Articles in date order' : '按日期排序的文章') : (isEnglish ? 'Articles in catalogue order' : '按目录顺序排列的文章')">
     <li v-for="entry in pagination.items" :key="entry.slug" :data-article="entry.slug">
-      <a class="catalog-date-title" :href="withBase(pathFor(entry.slug))">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span><span aria-hidden="true">↗</span></a>
+      <a class="catalog-date-title" :href="withBase(pathFor(entry.slug))" :aria-describedby="'catalog-description-' + entry.slug">{{ entry.title }} <span v-if="isEnglish && !pathFor(entry.slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span><span aria-hidden="true">↗</span></a>
+      <p :id="'catalog-description-' + entry.slug" class="article-list-description" :data-description-for="pathFor(entry.slug)" :title="descriptionForArticle(descriptionData.articles, pathFor(entry.slug))">{{ descriptionForArticle(descriptionData.articles, pathFor(entry.slug)) }}</p>
       <div class="catalog-entry-meta">
       <a class="catalog-date-category" :href="withBase(categoryFor(entry.categoryId))">{{ entry.categoryTitle }}</a>
       <dl class="catalog-dates">
