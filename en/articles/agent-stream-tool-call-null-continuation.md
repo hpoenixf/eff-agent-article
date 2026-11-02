@@ -1,4 +1,5 @@
 ---
+description: "When does a null tool-call ID mean “no update” rather than invalid identity? A narrow streaming repair uses response-local state and positive and negative transitions to preserve established IDs without weakening complete-call validation or Host authorization."
 evidence:
   implementation: "Narrow established-ID compatibility in public v0.15.2"
   scoped: "Synthetic streaming regressions through the original runtime"

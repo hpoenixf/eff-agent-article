@@ -1,4 +1,5 @@
 ---
+description: "A subagent change spread through recovery and both stores because rules and mutable state lacked clear ownership. The retrospective connects encapsulation, compatibility retirement, test migration and parallel-work boundaries, without treating offline acceptance as deployment or measured maintenance gains."
 readingBrief:
   takeaways:
     - "Local changes spread when recovery and storage repeatedly interpret the same business rule; consolidate interpretation without removing transactions, concurrency controls, or idempotency protections."

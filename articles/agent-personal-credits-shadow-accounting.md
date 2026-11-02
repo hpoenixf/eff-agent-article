@@ -1,4 +1,5 @@
 ---
+description: "一份报告背后的请求数、Token 与积分为什么对不上？沿真实发送、SDK 重试和缺失用量，解释只观察不拦截的 Shadow Credits 怎样保留已知与未知，并区分交付物关联、成本分摊和供应商账单。"
 readingBrief:
   takeaways:
     - "Run 预算、实际模型发送和个人 Credits 分属三本账；逻辑请求、重试次数与 Token 不能互相替代。"

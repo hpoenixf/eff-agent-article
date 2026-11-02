@@ -1,4 +1,5 @@
 ---
+description: "A research goal can outlive any single Run. Follow a multiweek fund study to see how Workspace organizes goals, exact historical reports and advisory progress without taking over execution, permissions or result lifecycles; this is architecture, not a public installation guide."
 readingBrief:
   takeaways:
     - "Workspace organizes enduring goals, relationships and progress without taking over Run execution or duplicating report and permission authorities."

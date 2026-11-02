@@ -1,4 +1,5 @@
 ---
+description: "答案能提前展示、随后修订，为什么还要单独管理发布？以预览遮住回执和数据库已提交却日志缺失的案例，说明正文身份、局部降级与恢复如何协作，避免后续失败抹掉已合法保存的内容。"
 evidence:
   implementation: "Publication 机制已实施（按本文记录）"
   scoped: "受控调用链与 PostgreSQL 恢复案例"

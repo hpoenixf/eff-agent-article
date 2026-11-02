@@ -1,4 +1,5 @@
 ---
+description: "A valid link can still identify the wrong version or fail to support a claim. Follow Host-issued citations through publication, revisions and historical inspection, with separate checks for material support and the limits of independent review."
 readingBrief:
   takeaways:
     - "Source identity, citation correspondence, material support and task relevance are separate questions. A valid reference establishes an inspection relationship, not the truth of a conclusion."

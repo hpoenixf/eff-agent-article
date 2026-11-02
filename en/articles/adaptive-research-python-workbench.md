@@ -1,4 +1,5 @@
 ---
+description: "New evidence can invalidate a planned ETF comparison. Follow working questions, explicit data inputs and file-based Python handoffs to see how research changes course while preserving measurement conventions, provenance, time anchors and unresolved gaps instead of equating successful code with a sound answer."
 readingBrief:
   takeaways:
     - "Let evidence change the research question and next action; researchNeeds records working judgments, not completion, authorization or a mandatory sequence of tools."

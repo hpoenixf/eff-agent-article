@@ -1,4 +1,5 @@
 ---
+description: "How can web research move from snippets to original passages, attachments and long documents without repeatedly starting over? Follow in-page find, link navigation, governed rendering and citation display to see how reading scope and source identity reach an inspectable answer."
 readingBrief:
   takeaways:
     - "Search, reading, in-page find and link following address different gaps; reuse existing leads instead of restarting search or launching a subagent for every operation."

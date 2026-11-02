@@ -1,4 +1,5 @@
 ---
+description: "When a user replies hours later, how does the answer reach the research that asked for it? Follow non-blocking questions, safe waiting and adoption by Main or Child, keeping ordinary replies distinct from permission requests and operation approvals."
 readingBrief:
   takeaways:
     - "Request admission, reply receipt, adoption by the original consumer and effect commit are separate moments; one resolved flag cannot represent them all."

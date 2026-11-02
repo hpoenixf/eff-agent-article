@@ -1,4 +1,5 @@
 ---
+description: "A protocol simplification separates model-chosen actions from program-owned permissions, receipts and outcomes. Booking examples and a bounded public calculation path explain why stopping research, publishing text and safely retrying an operation need distinct evidence."
 readingBrief:
   takeaways:
     - "The model interprets intent and chooses actions; effect owners retain permissions, calls and receipts instead of asking the model to maintain a conflicting state mirror."

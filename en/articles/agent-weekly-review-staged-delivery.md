@@ -1,4 +1,5 @@
 ---
+description: "An evening of weekly-report development produced working components but no first report. This retrospective explains redefining the initial downloadable result, extracting shared HTML delivery and aligning phased tasks with acceptance—without mistaking file delivery for research quality."
 readingBrief:
   takeaways:
     - "A complete design is not a commitment to implement everything immediately; define the first usable result and update its tasks, dependencies, and acceptance conditions accordingly."

@@ -1,4 +1,5 @@
 ---
+description: "Why should one financial-group login not give every business Agent the same history? Synthetic public-fund, private-fund and insurance handoffs illustrate separate admission, purpose-limited sharing and result readback, without claiming institutional compliance or an equivalent public implementation."
 readingBrief:
   takeaways:
     - "One login establishes identity, not business admission or data reuse; switching, information sharing, and transaction authorization remain separate decisions when responsibilities change."

@@ -1,4 +1,5 @@
 ---
+description: "Why do stale snapshots and internal notes remain unusable despite repeated calls? This historical refresh retrospective follows source rejection, qualified candidates and atomic publication, separating transferable evidence boundaries from the retired Agent auto-refresh design."
 readingBrief:
   takeaways:
     - "This is a retrospective on a retired automatic-refresh path; stale snapshots describe the past, and repeatedly calling a rejected source cannot create current evidence."

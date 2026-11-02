@@ -1,4 +1,5 @@
 ---
+description: "A unified model API does not prevent several processes from consuming the same external capacity. Separate model catalogs, concrete routes, protocol adapters and shared admission to understand queueing, circuit breakers and why local cancellation cannot prove remote execution has ended."
 readingBrief:
   takeaways:
     - "Model, Provider Profile, actual route and capacity group are separate identities; changing a model name or configuration alias must not manufacture additional shared capacity."

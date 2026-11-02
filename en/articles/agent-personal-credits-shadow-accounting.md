@@ -1,4 +1,5 @@
 ---
+description: "Why do request counts, tokens and Credits disagree behind one report? Trace actual dispatches, SDK retries and missing usage through a non-enforcing Shadow ledger, separating known consumption from unknown coverage, deliverable associations, cost allocation and provider invoices."
 readingBrief:
   takeaways:
     - "Run budgets, physical model attempts and personal Credits are separate ledgers; logical requests, retries and token usage cannot substitute for one another."

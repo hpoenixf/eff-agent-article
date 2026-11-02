@@ -1,4 +1,5 @@
 ---
+description: "Centralizing a tool definition does not guarantee correct ownership. Two design evolutions clarify the roles of models, skills, capability interfaces and Runtime, including when hooks or wrappers help and which protections must survive their removal."
 readingBrief:
   takeaways:
     - "Models interpret, Skills supply methods, capability owners define tools, and Runtime governs process facts. One owner is not enough if that owner is misplaced."

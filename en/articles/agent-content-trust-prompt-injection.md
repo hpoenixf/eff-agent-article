@@ -1,4 +1,5 @@
 ---
+description: "How can source material end up in a privileged instruction slot during request assembly? A controlled regression connects producer-bound identity, final SDK projection checks and existing action authorization, while separating structural protection from real-model resistance to malicious instructions."
 readingBrief:
   takeaways:
     - "Source reliability, instruction identity, SDK carrier roles and effect authorization are distinct; quoting or summarizing a page cannot grant it authority."

@@ -1,4 +1,5 @@
 ---
+description: "An agent can keep searching and reading yet fail to deliver. Local-budget misclassification, expired source handles and exhausted publication-repair capacity show why constraints must compose, finalization needs its own reserve, and retries or recovery must retain the original allowance."
 readingBrief:
   takeaways:
     - "Budgets, source-handle lifetimes and registry capacity must compose into a viable research path; local quota refusal must not masquerade as provider failure and invite retries."

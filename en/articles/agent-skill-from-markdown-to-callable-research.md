@@ -1,4 +1,5 @@
 ---
+description: "Follow fund tracking and portfolio-overlap research from Skill discovery through instruction reading, controlled calculation and specialist handoff. Catalog visibility, preloading, authorization and actual adoption remain distinct, so reusable methods do not become a second execution system."
 readingBrief:
   takeaways:
     - "Skills supply reusable methods while models synthesize, Hosts authorize and code computes; method declarations neither expand source permissions nor require one Agent per method."

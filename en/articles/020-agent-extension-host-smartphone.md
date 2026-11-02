@@ -1,4 +1,5 @@
 ---
+description: "Third-party plugins bring loading, callbacks, state and file semantics—not just tools. Follow Hookify, Pi todo and research-plugin handoffs to see how an extension host adapts them without creating a second authority for execution, authorization or recovery."
 readingBrief:
   takeaways:
     - "Compatibility profiles interpret external ecosystems while the Host connects them to the existing Runtime; plugins cannot redefine authorization, budgets or recovery."

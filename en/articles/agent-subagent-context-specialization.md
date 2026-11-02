@@ -1,4 +1,5 @@
 ---
+description: "When does another expert earn its cost? Follow one fund-research question through general Children, specialist methods, Reviewer and Bull/Bear exchanges, tracing evidence into independent contexts and results back to Main while weighing repeated preparation against verifiable contributions."
 readingBrief:
   takeaways:
     - "Child agents isolate local execution, Profiles supply specialist methods, and Main remains accountable for the final answer; adding experts does not automatically expand permissions."

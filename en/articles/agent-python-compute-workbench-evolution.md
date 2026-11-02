@@ -1,4 +1,5 @@
 ---
+description: "Why can a failed follow-up calculation destroy earlier valid work? The evolution of a Python workbench connects code isolation, shared research methods and executor-owned files, while separating computation, interpretation and downloadable delivery."
 readingBrief:
   takeaways:
     - "Authorize transient code separately from trusted Skill scripts while sharing maintained research methods; Python expands computational freedom without creating another business-data access path."

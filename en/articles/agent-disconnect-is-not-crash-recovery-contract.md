@@ -1,4 +1,5 @@
 ---
+description: "Closing a browser, restarting a crashed service and explicitly continuing research require different contracts. Background execution, bounded settlement and a newly admitted Run can preserve committed material and uncertain effects without promising reconstruction of every old execution graph."
 readingBrief:
   takeaways:
     - "Browser disconnection changes observation, not execution; an ordinary server crash may settle interruption and preserve results without reconstructing the old model, tool, and Child graph."

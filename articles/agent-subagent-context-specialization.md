@@ -1,4 +1,5 @@
 ---
+description: "什么时候值得把研究交给另一位专家？通过同一基金问题，比较通用 Child、专业方法、Reviewer 与 Bull/Bear 的分工，追踪资料如何进入独立上下文、成果怎样回到 Main，并权衡重复准备成本与可验证贡献。"
 readingBrief:
   takeaways:
     - "Child 隔离局部过程，Profile 提供专业方法，Main 仍对最终答案负责；增加专家不自动扩大权限。"

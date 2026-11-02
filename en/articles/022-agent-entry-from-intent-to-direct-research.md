@@ -1,4 +1,5 @@
 ---
+description: "Follow the move from keywords, elaborate intent objects and planners to a Direct/Research decision. Duplicate actions, lost clarification history and malformed-response fallback show how a smaller entry protocol still needs useful capability discovery, suitable parsing limits and legitimate research admission."
 evidence:
   implementation: "Direct / Research routing adopted (as recorded in this article)"
   scoped: "Historical cases and observations of entry behavior"

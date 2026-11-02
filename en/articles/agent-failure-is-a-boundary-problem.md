@@ -1,4 +1,5 @@
 ---
+description: "A successful model response can still end in missing delivery. Publication failures, lost revisions and telemetry gaps show how to trace requests, objects and receipts to the last confirmed blocker without inventing root causes or self-repair success."
 readingBrief:
   takeaways:
     - "No answer is a user-visible symptom, not a model-failure verdict. Trace dispatch, parsing, tools, publication and delivery to locate the last confirmed blocker before investigating causes."

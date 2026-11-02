@@ -1,4 +1,5 @@
 ---
+description: "After a rating is submitted, how does the interface recover the right record on reload or answer changes? Answer identity, account scope, idempotency and stale-response handling make feedback an investigable signal—not automatic training or an established quality verdict."
 readingBrief:
   takeaways:
     - "A rating must target a readable completed answer within a trusted account Scope; “not grounded” records the user’s opinion, not an established quality verdict."

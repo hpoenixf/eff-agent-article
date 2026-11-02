@@ -1,4 +1,5 @@
 ---
+description: "How should a research Agent interpret “today” across time zones and resumed tasks? Frozen task anchors, sourced market calendars and separate quote timestamps show why resolving a date is not evidence of fresh market data."
 readingBrief:
   takeaways:
     - "Current instant, task anchor, user date, market session and quote timestamp have separate sources; timezone conversion or scheduled closing cannot establish refreshed market data."

@@ -1,4 +1,5 @@
 ---
+description: "As code and answers become cheaper, deciding what deserves verification becomes harder. Retracted financial comparisons, incomplete reviewer inputs and a rounding defect illustrate how to test premises, choose decisive counterexamples and match verification methods to the consequences of error."
 readingBrief:
   takeaways:
     - "Check premises before arithmetic: similar wording does not make metrics, periods, or denominators comparable. Even a completed report may require a separately preserved retraction."

@@ -1,4 +1,5 @@
 ---
+description: "A connected MCP can still break a model request or leave the next turn using an outdated interface. Schema failures, binding drift and rejected valid results reveal the checks needed between discovery, admission, dispatch and actual model consumption."
 readingBrief:
   takeaways:
     - "Separate connection, discovery, admission and per-turn visibility; preserve upstream Schema semantics and validate model-route compatibility rather than integrating tools by silently dropping constraints."
