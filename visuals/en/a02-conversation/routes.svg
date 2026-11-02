@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="738" viewBox="0 0 640 738" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Verify the link before admission</title><desc id="desc">Match this message to a verified pending clarification. Without that link, distinguish explicit Continue from ordinary chat. Unreadable or conflicting relationships follow refusal or the defined contract, not silent downgrade to a new ordinary Run. All dispatch still checks authorization and resources.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="736" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / CONVERSATION ADMISSION</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">Verify the link before admission</text>
+<text x="30" y="113" font-size="23" font-weight="500" fill="#a3523d">Identity checks passed ≠ a Run was created</text>
+<rect x="28" y="140" width="584" height="98" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="173" font-size="26" font-weight="700" fill="#16362f">Matches a pending clarification</text>
+<text x="46" y="204" font-size="23" font-weight="500" fill="#4e665e">Verify target and source before handoff</text>
+<rect x="28" y="259" width="584" height="98" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="292" font-size="26" font-weight="700" fill="#16362f">No clarification link + Continue</text>
+<text x="46" y="323" font-size="23" font-weight="500" fill="#4e665e">Verify parent; only then create a linked Run</text>
+<rect x="28" y="378" width="584" height="98" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="411" font-size="26" font-weight="700" fill="#16362f">No clarification link + ordinary chat</text>
+<text x="46" y="442" font-size="23" font-weight="500" fill="#4e665e">Admit an independent Run through this entry</text>
+<rect x="28" y="508" width="584" height="122" rx="16" fill="#fff0e8" stroke="#cddbd1"/>
+<text x="46" y="541" font-size="26" font-weight="700" fill="#16362f">Unreadable or conflicting relationship</text>
+<text x="46" y="572" font-size="23" font-weight="500" fill="#4e665e">Refuse or follow the defined admission contract</text>
+<text x="46" y="600" font-size="23" font-weight="500" fill="#4e665e">Do not silently admit it as ordinary chat</text>
+<text x="30" y="677" font-size="23" font-weight="500" fill="#4e665e">Dispatch still checks grants and resources.</text>
+</g></svg>
