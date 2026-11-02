@@ -1,3 +1,4 @@
+import ArchitectureGallery from './ArchitectureGallery.vue'
 import ArticleReadingBrief from './ArticleReadingBrief.vue'
 import ReadingDirectory from './ReadingDirectory.vue'
 import DirectoryMenu from './DirectoryMenu.vue'
@@ -40,6 +41,7 @@ export default {
     'layout-bottom': () => [h(ReadingTracker), h(SiteAnalytics), h(DiagramZoom)]
   }),
   enhanceApp({ app }) {
+    app.component('ArchitectureGallery', ArchitectureGallery)
     app.component('ArticleReadingBrief', ArticleReadingBrief)
     app.component('RecentArticles', RecentArticles)
     app.component('LearningPathNav', LearningPathNav)

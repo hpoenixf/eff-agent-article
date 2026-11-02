@@ -628,3 +628,9 @@
 .article-topic-tags > a { display: inline-flex; min-height: 36px; align-items: center; padding: 5px 12px; border: 1px solid var(--vp-c-brand-2); border-radius: 18px; color: var(--vp-c-brand-1); background: var(--vp-c-bg-soft); font-weight: 700; text-decoration: none; }
 .article-topic-tags > a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-bg); }
 .article-topic-tags a:focus-visible, .panorama-series-card a:focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: 2px; }
+
+/* Standalone gallery shell; article diagram previews retain their own sizing. */
+.owner-gallery { max-width: 1280px; margin: 0 auto; padding: 36px 24px 64px; }
+.owner-gallery > h1 { margin-bottom: 14px; }
+.owner-gallery > p { color: var(--vp-c-text-2); }
+@media (max-width: 640px) { .owner-gallery { padding: 28px 16px 48px; } }
