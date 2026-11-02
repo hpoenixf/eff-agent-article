@@ -1,5 +1,5 @@
 ---
-description: "以每周回顾和条件触发为例，拆开用户确认、日历机会、任务准入、研究与通知，说明后台任务怎样在重启和重试中保留原身份；公开 Worker 示例只演示跨进程执行，不等同完整日程产品。"
+description: "以每周回顾和条件触发为例，拆开用户确认、日历机会、任务准入、研究与通知，说明后台任务怎样在重启和重试中保留原身份；公开示例分别展示独立 Worker 和一次确认的到期机会，不等同完整日程产品。"
 readingBrief:
   takeaways:
     - "持久的是用户确认的任务版本；日历只给执行机会，研究仍须通过原有授权、重叠与额度限制。"
@@ -8,7 +8,7 @@ readingBrief:
   appliesTo:
     - "设计会话外定时或条件研究，并需处理重启、重复触发和通知重试的服务。"
   notFor:
-    - "把公开 Worker 示例当完整日程产品，或据合成验证判断真实行情接入与长期周报效果。"
+    - "把公开 Worker 或单次机会示例当完整日程产品，或据合成验证判断真实行情接入与长期周报效果。"
 ---
 # Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？
 
@@ -171,6 +171,24 @@ node --test --test-concurrency=1 --test-name-pattern='^9\.1 submit exits before 
 
 这条测试不设置日历触发、不创建 Task 队列，也不验证通知或多 Worker 并发；它只检查独立执行、原身份和终态回读。
 <!-- /open-etf-case -->
+
+### 再向前一步：一次确认，只关联一个原 Run
+
+Worker 解决了“谁继续执行”，还没有解决“这次时间机会到底获准创建哪一个 Run”。[v0.18 的公开候选快照](https://github.com/hpoenixf/open-etf-agent/tree/2b9fa955c96c7aaf202bad11131ef4680f0f97f3)补的是这一小步，不是整套日历产品：可信调用者确认一个 UTC 时刻、IANA 时区和允许迟到的窗口，再显式调用 `schedule-wake`。
+
+确认记录保留原问题、资料、工具权限和预算。时间到了，原 Session 在同一个短事务里插入原 Run 和本次机会的关联；两个进程重复唤醒，仍得到同一个身份。关联完成只表示任务已落盘，不表示研究成功。真正执行继续交给原 Worker，完成后的正文与附件仍从原 Publication 和 Reader 读取。
+
+这也让失败有了具体含义：早到不创建 Run；超过迟到窗口记为错过，不补发新任务；确认回执丢失后按原确认身份查询，不续期、不刷新预算。取消先发生就不创建 Run；如果已创建，则沿原取消入口处理，保留已发生的用量和已经提交的报告。
+
+在该固定提交的新目录中按 README 安装依赖，可以运行[跨进程交付场景](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/test/schedule.test.mjs)：
+
+```sh
+node --test --test-concurrency=1 --test-name-pattern='^18 different-PID Worker completion, readonly Publication and original Reader exact bytes$' test/schedule.test.mjs
+```
+
+这条合成场景让另一个进程执行原 Worker，再只读正文和报告字节，不需要模型账户。手动接口可从[CLI](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/src/session-cli.mjs)中的 `schedule-confirm`、`schedule-wake`、`schedule-inspect` 和 `schedule-publication` 进入；完整范围见[同版设计](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/openspec/changes/v18-schedule-occurrence/design.md)。
+
+这个切片使用显式选择的 schema5 新库，不迁移旧库，也不装后台服务。机器重启后仍需要调用者再次执行 wake；周期计划、行情条件、通知和上文完整 Task History 不在其中。当前候选的合成闭环不能替代完整发版验证，也不意味着电脑会自行在约定时间醒来。
 
 ## 七、我们究竟验证到了哪里
 

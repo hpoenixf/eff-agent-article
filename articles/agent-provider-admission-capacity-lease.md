@@ -101,9 +101,25 @@ Provider Admission 的 `release` 还需要区分传输完成、暂态失败与�
 
 这也保护了上游预算。原 `requestDebitId` 不因 Provider Queue 排队、租约更新或历史回读发生第二次扣账；新的合法物理重试仍需由原请求/恢复 Owner 决定。Provider 容量准入可以拒绝新的容量申请，却不拥有“本次研究没有完成、请无限重跑”的权限。
 
+## 从两个进程、一个位置开始理解共享准入
+
+完整服务需要处理的协调范围很大，但最小问题可以更小：两个进程使用同一条模型路由，为什么不能各自认为那个空位属于自己？[Open ETF Agent 的 v0.17 候选快照](https://github.com/hpoenixf/open-etf-agent/tree/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3)把这个问题收敛为一个本地 SQLite 容量组、一个位置，以及原 Runtime 的一次模型请求。
+
+原 Runtime 仍负责扣除请求额度，准入层只接收这次预留的 Run、序号、fence 和输入身份。排到位置之后才调用原 Gateway；如果数据库不可用，不改走一个没有协调的备用入口。这样既避免两个进程各数各的，也避免为了排队再扣一次预算。
+
+读者可以在该固定提交的新目录中按 README 安装依赖，运行已有的[双进程场景](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/test/admission.test.mjs)：
+
+```sh
+node --test --test-concurrency=1 --test-name-pattern='^two original Gateway workers share one slot; settled original ticket survives acknowledgement loss$' test/admission.test.mjs
+```
+
+它使用本地合成传输，不调用付费模型。观察重点不是“两个请求都完成”这个总结果，而是第二个进程在什么事实成立后才能派发，以及完成确认丢失后能否沿原票据读回、而不新建一次请求。
+
+这个候选刻意没有照搬前文完整服务的全部政策。它不实现 PostgreSQL、多容量组公平调度、冷却或故障切换；未知占用也不会因为 TTL 到期就自动释放。预算库和容量库不是一个跨库事务，可能保留已扣预算但没有票据的事实，不能靠退款或自动重试抹平不确定性。源码入口是[准入模块](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/src/admission.mjs)与[原范围说明](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/openspec/changes/v017-shared-admission/proposal.md)；当前仍是公开候选，不代表 v0.17 已稳定发布。
+
 ## 七、当前实现到了哪里，下一步应该验证什么
 
-截至 2026 年 10 月 24 日，主干包含基于 PostgreSQL 的共享 Provider Admission、按端点分组、有界队列和租约、冷却/半开、最终派发前的原权限 guard、流式协议结束观察和 unknown 隔离。受管 API、后台研究、自检/评审等在**同一配置的协调域**共享这条准入边界；人工伪造的本地测试协调器不作为生产回退。
+截至 2026 年 10 月 24 日，完整 ETF Agent 系统的主干（并非 `open-etf-agent` 公开仓库）包含基于 PostgreSQL 的共享 Provider Admission、按端点分组、有界队列和租约、冷却/半开、最终派发前的原权限 guard、流式协议结束观察和 unknown 隔离。受管 API、后台研究、自检/评审等在**同一配置的协调域**共享这条准入边界；人工伪造的本地测试协调器不作为生产回退。
 
 相关受控验证证明若干精确事务、控制库连接故障与恢复处理行为，但不能把一个测试环境里的参数升级为供应商承诺，也没有给出真实生产长期吞吐量或延迟 SLA。新的模型目录能力、用户额度产品、实际投资研究价值同样需要独立证据。
 

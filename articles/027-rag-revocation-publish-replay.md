@@ -92,6 +92,31 @@ readingBrief:
 
 这一点很重要，因为同一套系统完全可能做到“绝不越权显示旧内容”，却仍然检索不出足够好的资料。两个目标应该分别验证。
 
+## 用一个本地实验看清“保存过”与“还能读”
+
+上面的历史案例涉及完整系统。若想亲手观察同一个原则，可以从 [Open ETF Agent 的 v0.16 固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)开始：只使用两份公开合成资料，不接私人文件或模型服务。它把原 Session、资料身份、结果、报告和 Reader 串起来，没有再建一个授权管理平台。
+
+实验先检索资料，再读取原页、生成 CSV 和报告。随后显式撤权一份资料，重新读取同一份 Publication 或附件。**报告曾经保存成功，是过去发生过的事实；此刻能否把内容再交给读者，要重新看它依赖的资料。** 连检索提示中已经披露的文档信息，也属于需要保留的依赖，不能因为没有继续读正文就忽略。
+
+在新目录检出这个固定提交，按该快照 README 安装依赖，再运行：
+
+```sh
+node src/session-cli.mjs init-documents --session ./test-output/revocable-demo --profile document-revocation@1
+node src/session-cli.mjs start --session ./test-output/revocable-demo --profile document-revocation@1 --case revocable-rag
+```
+
+保存返回的 `runId`，按[同版操作说明](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/docs/revocable-documents.md)先读取 Publication、报告及 CSV，暂不执行撤权。下面的对照再执行撤权并观察当前资格拒绝；原始资料与报告字节不会因此被改写，重新初始化也不能偷偷重新授权。控制元数据仍可用于定位原 Run，不能代替内容读取许可。
+
+最短的对照从[原命令入口](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/src/session-cli.mjs)读取同一 Publication 开始。将 `RUN_ID` 替换为刚才返回的身份；第一次读取应成功，撤权后第二次应拒绝，而不是生成替代回答：
+
+```sh
+node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID
+node src/session-cli.mjs revoke-document --session ./test-output/revocable-demo --profile document-revocation@1 --document atlas-a --expected-revision 1
+node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID
+```
+
+这份固定源码已保留[独立安装、构建与撤权回读回执](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/docs/verification/v016-revocable-rag.safe.json)：安装使用既有官方缓存，不代表刚从网络下载；脚本动作与合成资料没有调用外部模型。源码资格与 main、标签或正式 Release 的发布状态仍是不同事实。它只保护经过这些入口的后续披露，不阻止同一操作系统用户直接读取文件，也不能收回先前已经发出的内容。它展示的是撤权如何贯穿消费链路，不是检索质量或完整企业权限体系。
+
 ## 六、这件事为什么值得单独写？
 
 我们已经写过资料引用、Publication 和运行时授权。但这里有一个不属于它们任何一篇的独立问题：

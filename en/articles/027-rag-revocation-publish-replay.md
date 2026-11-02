@@ -94,6 +94,31 @@ Controlled revocation and publication checks did not establish the quality of th
 
 The distinction matters because one system may effectively prevent revoked text from leaking while still failing to retrieve enough good evidence. Those goals need independent verification.
 
+## A Local Experiment: Saved Before Does Not Mean Readable Now
+
+The historical case above concerns the full system. To observe the same principle on a smaller surface, use the [Open ETF Agent v0.16 fixed qualified source](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842). It operates on two public synthetic documents, without private files or a model service. The original Session, source identity, results, report and Reader form the chain; it does not introduce another authorization platform.
+
+The experiment searches, reads original pages and produces a CSV and report. Explicitly revoke one document, then read the same Publication or attachment again. **A successful save records a past effect; a later disclosure must respect the current eligibility of its dependencies.** Document information already disclosed by a search hint remains a dependency even if the page body was never subsequently acquired.
+
+Check out that fixed commit in a new directory, install dependencies using its README, then run:
+
+```sh
+node src/session-cli.mjs init-documents --session ./test-output/revocable-demo --profile document-revocation@1
+node src/session-cli.mjs start --session ./test-output/revocable-demo --profile document-revocation@1 --case revocable-rag
+```
+
+Keep the returned `runId`. Follow the [instructions at the same snapshot](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/docs/revocable-documents.md) to read the Publication, report and CSV without revoking yet. The comparison below then revokes the document and checks current eligibility through the same mediated content path. Original source and report bytes remain intact, and initialization cannot silently regrant access. Control metadata can locate the original Run; it is not permission to disclose its content.
+
+The shortest comparison uses the [original CLI owner](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/src/session-cli.mjs) to read the same Publication twice. Replace `RUN_ID` with the returned identity: the first read should succeed and the post-revocation read should be refused, not replaced by a new answer.
+
+```sh
+node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID
+node src/session-cli.mjs revoke-document --session ./test-output/revocable-demo --profile document-revocation@1 --document atlas-a --expected-revision 1
+node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID
+```
+
+This fixed source retains an [independent install, build and revocation-readback receipt](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/docs/verification/v016-revocable-rag.safe.json). Installation used an existing official cache, not a fresh network download; synthetic documents and scripted actions made no external model calls. Source qualification remains distinct from publication to main, a tag or a formal Release. It governs later disclosure through these paths, not direct filesystem access by the same operating-system user, and cannot recall content already delivered. It demonstrates revocation across a consumption chain, not retrieval quality or a complete enterprise permission system.
+
 ## 6. Why This Deserves Its Own Design Discussion
 
 We had already discussed citations, Publication and runtime authorization. This example isolates a different question:

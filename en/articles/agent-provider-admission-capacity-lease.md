@@ -99,9 +99,25 @@ A Provider Admission `release` decision distinguishes transport completion, tran
 
 This also preserves the upstream Run ledger. The original `requestDebitId` does not get charged a second time merely because a request queued, its lease renewed or History was read again. Any legitimate new physical retry still requires the original request/Recovery Owner to admit it. Provider Admission can refuse capacity for a new invocation; it cannot declare the research failed and grant itself permission to rerun it indefinitely.
 
+## Start with Two Processes and One Slot
+
+The full service coordinates many callers, but the smallest question is simpler: when two processes use one model route, why can they not each claim the same free slot? The [Open ETF Agent v0.17 candidate snapshot](https://github.com/hpoenixf/open-etf-agent/tree/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3) reduces this to one local SQLite capacity group, one slot and an original Runtime model request.
+
+The original Runtime still debits the request allowance. Admission receives that reservation's Run, ordinal, fence and input identity. It invokes the original Gateway only after gaining capacity; a database failure cannot select an uncoordinated fallback. This avoids both process-local counters and a second budget debit for queueing.
+
+In a new checkout of the fixed commit, install dependencies as described in its README and run the existing [two-process scenario](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/test/admission.test.mjs):
+
+```sh
+node --test --test-concurrency=1 --test-name-pattern='^two original Gateway workers share one slot; settled original ticket survives acknowledgement loss$' test/admission.test.mjs
+```
+
+It uses local synthetic transport, not a paid model. The useful observation is not merely that both requests complete. Look for the fact that permits the second process to dispatch, and how a lost completion acknowledgment is reconciled through the original ticket without creating a replacement request.
+
+The candidate deliberately does not copy every policy of the full service above. It adds no PostgreSQL service, multi-group fairness, cooldown or failover; a TTL does not automatically release unknown occupancy. The budget and capacity databases are not one cross-database transaction: a debited budget may survive without an admission ticket, and refunds or automatic retries must not erase that uncertainty. Read the [admission module](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/src/admission.mjs) alongside its [scope proposal](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/openspec/changes/v017-shared-admission/proposal.md). This remains a published candidate, not a v0.17 stable-release claim.
+
 ## 7. Current implementation and remaining evidence
 
-As of October 24, 2026, main contains shared PostgreSQL Provider Admission, endpoint-based groups, bounded queues and leases, cooldown/half-open recovery, a final original-authorization guard before dispatch, streaming protocol-terminal observation and unknown-occupancy quarantine. Managed API, research, self-test and review callers configured into **the same coordination domain** share this boundary. A synthetic memory coordinator used in narrowly scoped tests is not the production fallback.
+As of October 24, 2026, the full ETF Agent system’s main branch—not the `open-etf-agent` public repository—contains shared PostgreSQL Provider Admission, endpoint-based groups, bounded queues and leases, cooldown/half-open recovery, a final original-authorization guard before dispatch, streaming protocol-terminal observation and unknown-occupancy quarantine. Managed API, research, self-test and review callers configured into **the same coordination domain** share this boundary. A synthetic memory coordinator used in narrowly scoped tests is not the production fallback.
 
 Controlled engineering work has verified selected transaction semantics, control-database connection failures and recovery behavior. It has not transformed a test environment's policy parameters into a vendor guarantee, nor established a production-long-term throughput or latency SLA. Model-catalog eligibility, account usage limits and actual investment-research quality require separate evidence as well.
 

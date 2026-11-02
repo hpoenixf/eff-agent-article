@@ -37,10 +37,16 @@ export function validateContract(m, receipt, source, scenarioReceipts = {}) {
   const t = m.targets[row.target]; ensure(/^[a-z][a-z0-9-]*$/.test(row.target) && t, 'Unknown verified target');
   if (m.schemaVersion === 3 && t.kind === 'scenario') {
    const q=m.qualifications?.[m.targetEvidence?.[row.target]], evidence=scenarioReceipts[row.target];
-   ensure(q?.kind==='independent-scenario' && q.scenario===t.name && ['temporal','ordinary-response','memory-consumer'].includes(t.name) && SHA.test(q.commit) && SHA.test(row.articleCommit), 'Invalid independent scenario binding');
+   ensure(q?.kind==='independent-scenario' && q.scenario===t.name && ['temporal','ordinary-response','memory-consumer','revocable-rag'].includes(t.name) && SHA.test(q.commit) && SHA.test(row.articleCommit), 'Invalid independent scenario binding');
    const observed=t.name==='temporal'?evidence?.independentInstall:evidence?.independent;
-   const stages=t.name==='memory-consumer'?['independent-seed','independent-recall','independent-memory-read','independent-temporary','independent-artifact-read']:t.name==='temporal'?['independent-submit','independent-work','independent-read','independent-artifact-read']:['independent-start','independent-receive','independent-resume','independent-question-read','independent-artifact-read'];
+   const stages=t.name==='revocable-rag'?['independent-install','independent-build','independent-init','independent-start','independent-publication','independent-artifact-read','independent-revoke']:t.name==='memory-consumer'?['independent-seed','independent-recall','independent-memory-read','independent-temporary','independent-artifact-read']:t.name==='temporal'?['independent-submit','independent-work','independent-read','independent-artifact-read']:['independent-start','independent-receive','independent-resume','independent-question-read','independent-artifact-read'];
    ensure(evidence?.modelCalls===0 && observed?.modelCalls===0 && stages.every(stage=>observed.observations?.some(o=>o.stage===stage && o.exitCode===0)) && /^[a-f0-9]{64}$/.test(observed.report?.sha256), 'Missing successful independent scenario receipt');
+   if(t.name==='revocable-rag') {
+    const read=observed.observations.find(o=>o.stage==='independent-artifact-read'), refused=observed.observations.find(o=>o.stage==='independent-revoked-read');
+    ensure(evidence.kind==='revocable-rag-provider-free-code-qualification' && evidence.version==='0.16.0' && observed.report.protection?.profile==='document-revocation@1' && typeof observed.runId==='string' && observed.runId.length>0 && observed.report.protection.runId===observed.runId && observed.documentId==='atlas-a', 'Revocation identity/profile mismatch');
+    ensure(read.httpStatus===200 && read.stdoutSha256===observed.report.sha256 && refused?.exitCode===2 && refused.expectedRefusal===true && refused.readerHttpStatus===404, 'Missing expected revoked-read refusal');
+    ensure(observed.originalReportBytesRetained===true && observed.beforeSha256===observed.report.sha256 && observed.afterSha256===observed.report.sha256, 'Revocation must preserve original report bytes');
+   }
    pins[row.target]=q.commit; articles.push({slug:row.slug,target:row.target,articleCommit:row.articleCommit});targets[row.target]=t;continue;
   }
   if (t.kind === 'test') ensure(/^test\/[a-z0-9-]+\.test\.mjs$/.test(t.file) && typeof t.name === 'string' && t.name.length > 0 && t.name.length <= 200 && !/[\r\n\0]/.test(t.name), 'Invalid test case');
@@ -103,9 +109,17 @@ function validateScenarioArticle(text,target,pin,path) {
  }
  const file=target.name==='temporal'?'src/temporal.mjs':target.name==='memory-consumer'?'src/memory-consumer.mjs':'src/session-cli.mjs';
  const url=`https://github.com/${CODE}/blob/${pin}/${file}`;
- const links=[...prose.join('\n').matchAll(/(?<![!\\])\[[^\[\]\n]+\]\((https:\/\/github\.com\/[^\s)]+)\)/g)];
+ const linkProse=prose.join('\n').replace(/(`+)[\s\S]*?\1/g,'');
+ ensure(!/<(?:pre|code|script|style|textarea)\b/i.test(linkProse),`Unsupported non-prose scenario link: ${path}`);
+ const links=[...linkProse.matchAll(/(?<![!\\])\[[^\[\]\n]+\]\((https:\/\/github\.com\/[^\s)]+)\)/g)];
  ensure(links.some(m=>m[1]===url),`Missing visible fixed scenario source: ${path}`);
- const required=target.name==='memory-consumer' ? [
+ const required=target.name==='revocable-rag' ? [
+  'node src/session-cli.mjs init-documents --session ./test-output/revocable-demo --profile document-revocation@1',
+  'node src/session-cli.mjs start --session ./test-output/revocable-demo --profile document-revocation@1 --case revocable-rag',
+  'node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID',
+  'node src/session-cli.mjs revoke-document --session ./test-output/revocable-demo --profile document-revocation@1 --document atlas-a --expected-revision 1',
+  'node src/session-cli.mjs publication --session ./test-output/revocable-demo --profile document-revocation@1 --run RUN_ID'
+ ] : target.name==='memory-consumer' ? [
   "const library = await openMemoryLibrary({ directory: 'synthetic-library', writable: true });",
   "const text = 'SYNTHETIC independent preference: use exact physical page identities.';",
   'approvedTextHash: sha256(text)',
@@ -123,7 +137,9 @@ function validateScenarioArticle(text,target,pin,path) {
   'npm run session -- resume --session runs/article-reply --run RUN_ID',
   'npm run session -- response-status --session runs/article-reply --run RUN_ID'
  ];
- ensure(required.every(command=>commands.includes(command)),`Missing runnable original scenario sequence: ${path}`);
+ let cursor=0;
+ const complete=target.name==='revocable-rag'?required.every(command=>{const index=commands.indexOf(command,cursor);if(index<0)return false;cursor=index+1;return true;}):required.every(command=>commands.includes(command));
+ ensure(complete,`Missing runnable original scenario sequence: ${path}`);
 }
 
 export async function verifyArticles({ contract, english, paths, read }) {

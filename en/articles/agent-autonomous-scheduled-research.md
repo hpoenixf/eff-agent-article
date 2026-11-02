@@ -1,6 +1,6 @@
 ---
 title: "Scheduled Agent Research Without an Always-Running Conversation"
-description: "Confirmed schedules, durable occurrences, conditional triggers, three-valued observations, Task recovery and notification boundaries."
+description: "Separate confirmation, due opportunities, research and notification to preserve identity across restarts; public Worker and single-occurrence examples remain smaller than the complete scheduling system."
 readingBrief:
   takeaways:
     - "Persist the user-confirmed task definition, not an endless model loop; each due time remains subject to authorization, overlap and resource admission."
@@ -9,7 +9,7 @@ readingBrief:
   appliesTo:
     - "Services adding scheduled or conditional research outside a conversation, with restarts, duplicate triggers and notification retries."
   notFor:
-    - "Treating the public Worker example as a complete scheduler, or synthetic checks as proof of live-market integration or long-term review quality."
+    - "Treating the public Worker or single-occurrence example as a complete scheduler, or synthetic checks as proof of live-market integration or long-term review quality."
 ---
 
 # Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends
@@ -182,6 +182,24 @@ After `submit`, the Run is `ready`, has no owner, and has consumed no model or t
 
 This test sets no calendar trigger, creates no Task queue, and does not validate notifications or concurrent Workers. Its scope is independent execution, original identity, and terminal readback.
 <!-- /open-etf-case -->
+
+### One Step Further: One Confirmation Links to One Original Run
+
+The Worker answers who continues execution, but not which Run a particular time opportunity is allowed to create. The [published v0.18 candidate snapshot](https://github.com/hpoenixf/open-etf-agent/tree/2b9fa955c96c7aaf202bad11131ef4680f0f97f3) adds that smaller step, not a full calendar product: a trusted caller confirms a UTC instant, IANA time zone and lateness window, then explicitly invokes `schedule-wake`.
+
+Confirmation retains the original question, documents, tool authority and budget. When due, the original Session inserts the original Run and its occurrence link in one short transaction. Repeated wakes from two processes still resolve to the same identity. A materialized link proves durable admission, not successful research. The original Worker executes; Publication and Reader deliver the committed body and report.
+
+Failures remain specific: an early wake creates no Run; an expired window records a missed opportunity rather than a replacement task. A lost confirmation acknowledgment is reconciled by its original identity, without renewing the deadline or budget. Cancellation before materialization prevents a Run; after materialization it uses the original cancellation path, preserving spent resources and committed reports.
+
+In a new checkout of that fixed commit, install dependencies from its README and run the [cross-process delivery scenario](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/test/schedule.test.mjs):
+
+```sh
+node --test --test-concurrency=1 --test-name-pattern='^18 different-PID Worker completion, readonly Publication and original Reader exact bytes$' test/schedule.test.mjs
+```
+
+This synthetic scenario runs the original Worker in another process, then reads back the original body and report bytes without a model account. The manual surface is `schedule-confirm`, `schedule-wake`, `schedule-inspect` and `schedule-publication` in the [CLI](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/src/session-cli.mjs); the [design at the same snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/openspec/changes/v18-schedule-occurrence/design.md) explains its full scope.
+
+The slice explicitly selects a new schema5 database; it neither migrates an old database nor installs a background service. After a machine restart, a caller must invoke wake again. Recurrence, market conditions, notifications and the complete Task History described above remain outside this slice. Its synthetic loop does not substitute for full release qualification, nor promise that a sleeping machine will wake itself.
 
 ## 7. What Was Actually Validated?
 
