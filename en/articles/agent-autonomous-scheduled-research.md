@@ -195,7 +195,7 @@ Controlled PostgreSQL runs exercised concurrency, confirm/cancel fences, recover
 
 The evidence supports this statement: **under the tested application assembly and synthetic inputs, Schedule can start a finite Task outside a conversation, preserve its result, and respect its original identity across retries.**
 
-This engineering evidence covers A09 scheduling foundations. User-facing deployment, live market-provider integration, and paid-model long-running reliability require their own validation. Important-change notifications, multi-period thesis revisions, and user corrections remain Weekly Review product work.
+This engineering evidence covers scheduling foundations. User-facing deployment, live market-provider integration, and paid-model long-running reliability require their own validation. Important-change notifications, multi-period thesis revisions, and user corrections remain Weekly Review product work.
 
 ## Conclusion: The Durable Thing Is an Agreement, Not a Reasoning Loop
 

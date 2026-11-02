@@ -16,7 +16,7 @@ On Saturday morning, an investor in Guangzhou opens a research agent and asks, �
 
 If Web search defaults to Beijing time, the model prompt uses a UTC date, and the market adapter treats “recently retrieved” as “latest trading session,” every module can be internally consistent while the final answer is wrong. **Time is not a string to format casually. It is a set of facts with different sources and purposes.**
 
-This article explains how we designed and partly implemented A36 temporal semantics in ETF Agent. The model interprets which time the user is asking about; deterministic code resolves that selected meaning; qualified market sources provide sessions; quote data retains its own as-of timestamp.
+This article explains how we designed and partly implemented temporal semantics in ETF Agent. The model interprets which time the user is asking about; deterministic code resolves that selected meaning; qualified market sources provide sessions; quote data retains its own as-of timestamp.
 
 ## 1. “Today” Depends on at Least Five Facts
 
@@ -75,9 +75,9 @@ The final two paths must remain parallel: calendar evidence establishes schedule
 
 ## 3. The Model Selects Meaning; Deterministic Code Resolves It
 
-“How did U.S. stocks do today?” may ask about the latest trading performance or today’s financial news. “Last trading day” asks for a particular venue session. The A03 research model interprets this language and clarifies material ambiguity when necessary. We rejected Host keyword rules such as “U.S. stocks always means last close” or “today always means Beijing time.”
+“How did U.S. stocks do today?” may ask about the latest trading performance or today’s financial news. “Last trading day” asks for a particular venue session. The research model interprets this language and clarifies material ambiguity when necessary. We rejected Host keyword rules such as “U.S. stocks always means last close” or “today always means Beijing time.”
 
-A36 consumes an **already selected** temporal meaning, reference instant, zone, and available calendar facts. It resolves them reproducibly. It neither chooses the research strategy nor grants access to sources. Web/Search receives explicit typed time windows rather than introducing a second, hidden text rule that rewrites “this year” or “today.”
+Temporal resolution consumes an **already selected** temporal meaning, reference instant, zone, and available calendar facts. It resolves them reproducibly. It neither chooses the research strategy nor grants access to sources. Web/Search receives explicit typed time windows rather than introducing a second, hidden text rule that rewrites “this year” or “today.”
 
 Timezone provenance needs an order of precedence: **explicit selection for this request > saved account preference > validated device-reported IANA zone > unknown**. Unknown is a valid result. The system must not infer a user's zone from IP address, interface language, or a financial market default. “Use New York time” changes interpretation of this query, not the account’s saved preference.
 
@@ -115,7 +115,7 @@ See [`temporal.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/46c2822be98
 
 Markets observe holidays, exceptional closures, early closes, and venue-specific rules. Knowing that it is Friday in New York does not establish that XNAS is open. Knowing the conventional 16:00 close does not prove that no exceptional suspension occurred.
 
-Our first market-calendar scope is therefore bounded to regular U.S. cash-equity sessions with an identified **source, version, venue, time zone, and coverage interval**, supplied through the original B01/Market data path. A36 consumes eligible sessions and distinguishes the current market-local date, target session, and latest calendar-confirmed completed session. When the evidence is absent, it returns `partial` or `unavailable` rather than guessing from weekdays. Pre/post-market periods, individual halts, additional venues, and fund reporting calendars remain separate future work.
+Our first market-calendar scope is therefore bounded to regular U.S. cash-equity sessions with an identified **source, version, venue, time zone, and coverage interval**, supplied through the original market-evidence (Market) data path. Temporal resolution consumes eligible sessions and distinguishes the current market-local date, target session, and latest calendar-confirmed completed session. When the evidence is absent, it returns `partial` or `unavailable` rather than guessing from weekdays. Pre/post-market periods, individual halts, additional venues, and fund reporting calendars remain separate future work.
 
 A qualified schedule still says only what was scheduled within its coverage. It does not certify executions, quote freshness, or that a company actually published a particular report. **Session confirmation and market-data confirmation are separate evidence chains.**
 
@@ -123,17 +123,17 @@ A qualified schedule still says only what was scheduled within its coverage. It 
 
 | Scenario | What can be established | Correct response |
 | --- | --- | --- |
-| User zone known; qualified market calendar unavailable | Host resolves the user date; B01 lacks market evidence | Give the user-local date, but leave session completion unknown |
-| Qualified source confirms an early close; quote still lags | B01 calendar and quote producer return separate facts | Distinguish calendar-completed session from earlier `dataAsOf` |
+| User zone known; qualified market calendar unavailable | Host resolves the user date; the market-data path lacks evidence | Give the user-local date, but leave session completion unknown |
+| Qualified source confirms an early close; quote still lags | The market-calendar and quote producers return separate facts | Distinguish calendar-completed session from earlier `dataAsOf` |
 | The original Run resumes after midnight | Recovery retains the task anchor; Host now has moved | Resolve relative language using original task time; do not rewrite the question |
 
-None of these branches should automatically erase independent, authorized research prose. A23 Publication still handles local degradation of evidence attachments. A36 does not become a global answer gate or force repeated retries to hide source unavailability.
+None of these branches should automatically erase independent, authorized research prose. Publication still handles local degradation of evidence attachments. Temporal resolution does not become a global answer gate or force repeated retries to hide source unavailability.
 
 ## What Exists and What Remains Unverified
 
 As of **October 24, 2026**, ETF Agent main contains the timezone binding, UTC current time and frozen task time projection, consolidation of Web temporal rules, and a bounded Nasdaq 2026 schedule source with structured Market consumption. That optional calendar source requires explicit enablement and is **disabled by default**. These implementation seams and scoped local observations can support a precise description of the design.
 
-A36’s original P0 acceptance is still open. The implementation merge does not establish that a normal authenticated research request consumes a qualified real calendar end to end, nor does it substitute for PostgreSQL/browser qualification or formal close. This article does not claim consistent live answers to “latest trading day,” and it never treats the synthetic example as live market evidence. A-share, Hong Kong, fiscal-year, and fund-reporting periods require their own qualified sources and scoped acceptance instead of an empty generic calendar framework today.
+The original temporal-semantics P0 acceptance is still open. The implementation merge does not establish that a normal authenticated research request consumes a qualified real calendar end to end, nor does it substitute for PostgreSQL/browser qualification or formal close. This article does not claim consistent live answers to “latest trading day,” and it never treats the synthetic example as live market evidence. A-share, Hong Kong, fiscal-year, and fund-reporting periods require their own qualified sources and scoped acceptance instead of an empty generic calendar framework today.
 
 The lasting engineering distinction is: **the model can interpret the user's temporal intent, code can resolve the chosen time precisely, and calendar and quote producers must independently establish what they know**. Only then can a research answer responsibly use the word “latest.”
 

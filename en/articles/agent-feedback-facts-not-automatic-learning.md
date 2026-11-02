@@ -109,7 +109,7 @@ An `up/down` value is a useful product signal. It identifies cases worth reviewi
 
 Suppose a fund comparison receives `incorrect`. The user might disagree with the conclusion, have noticed a stale NAV timestamp, or be reacting to an ambiguous question. That single event cannot distinguish a model reasoning failure from a source-data or time-semantics problem.
 
-A defensible later process treats feedback as a **candidate observation**. A separately authorized investigation can connect the original answer to verifiable evidence, classify the failure, create an evaluation case, and compare outcomes after a change. That downstream review is not a power automatically held by the A40 feedback-record Owner.
+A defensible later process treats feedback as a **candidate observation**. A separately authorized investigation can connect the original answer to verifiable evidence, classify the failure, create an evaluation case, and compare outcomes after a change. That downstream review is not a power automatically held by the user-feedback record owner.
 
 Current feedback persistence **does not** modify the published answer, automatically save a long-term Memory, or authorize an investment action. Observability can record bounded telemetry, but failed telemetry delivery must not change the underlying record. The causal chain “user clicked dislike → the next model consumed it → answer quality improved” is not established by merely recording the first step.
 
@@ -129,6 +129,6 @@ Only after those facts are stable can feedback become a reliable starting point 
 
 ## Further Reading and Discussion
 
-[Failure diagnostics and attribution](../../en/articles/agent-failure-is-a-boundary-problem.md) examines how to identify the last confirmed blocker; [honest evaluation](../../en/articles/honest-agent-evaluation.md) distinguishes test strength and user outcomes. This article addresses the narrower, independently owned A40 problem: accurately persisting and rereading a user's evaluation of a particular answer.
+[Failure diagnostics and attribution](../../en/articles/agent-failure-is-a-boundary-problem.md) examines how to identify the last confirmed blocker; [honest evaluation](../../en/articles/honest-agent-evaluation.md) distinguishes test strength and user outcomes. This article addresses the narrower, independently owned feedback-record problem: accurately persisting and rereading a user's evaluation of a particular answer.
 
 The [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article) repository collects further implementation stories and architectural trade-offs. Stars are welcome if this work is useful.

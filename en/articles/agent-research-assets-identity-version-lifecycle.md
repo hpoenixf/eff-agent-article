@@ -1,6 +1,6 @@
 ---
 title: "Why a Research Report Must Become an Asset Before an Agent Can Reuse It"
-description: "The A17 research-asset boundary: authorized acquisition, source identity, version fallback, partial extraction, run-scoped evidence and long-term research workspaces."
+description: "The research-asset boundary: authorized acquisition, source identity, version fallback, partial extraction, run-scoped evidence and long-term research workspaces."
 readingBrief:
   takeaways:
     - "File bytes, asset registration and consumed evidence are separate facts; preserve source, scope, version and actual coverage rather than treating registration as reading."
@@ -18,7 +18,7 @@ A financial-research agent receives a prospectus PDF, extracts some text, locate
 
 “Being able to read a PDF” is no longer enough. The system must also establish **which source and version it read, which passages were actually extracted and consumed, and whether the material remains eligible for use today**.
 
-In ETF Agent, I assigned these concerns to **A17, Research Assets**. It owns the identities, versions, extraction states, and lifecycles of imported research files. It does not replace the PDF reader's page interpretation, the retriever's relevance judgments, or the financial reasoning needed to support an investment conclusion.
+In ETF Agent, I assigned these concerns to **Research Assets**. It owns the identities, versions, extraction states, and lifecycles of imported research files. It does not replace the PDF reader's page interpretation, the retriever's relevance judgments, or the financial reasoning needed to support an investment conclusion.
 
 ![An illustrated provenance path connecting research documents, versions, and two kinds of workspaces](../../visuals/research-asset-identity/cover.svg)
 
@@ -48,7 +48,7 @@ The first research-asset importer centered on approved local directories. That w
 
 Two plausible alternatives were to let every MCP or Skill handle its own downloads and parsers, or to expose separate PDF, Word, and spreadsheet tools to the model. The former duplicates authorization, parsing, and citation logic; the latter makes file-format mechanics part of the model's operational vocabulary.
 
-The chosen architecture uses a **Host-owned generic file-evidence ingestion seam**. Business tools retain their original identities and business results. The Host recognizes attachments from actually validated results, A17 registers the acquired assets, and the existing Evidence Workspace provides generic search and read operations.
+The chosen architecture uses a **Host-owned generic file-evidence ingestion seam**. Business tools retain their original identities and business results. The Host recognizes attachments from actually validated results, Research Assets registers the acquired assets, and the existing Evidence Workspace provides generic search and read operations.
 
 **Figure 2. Acquisition authority originates in validated Host results, not text authored by a model.**
 
@@ -72,7 +72,7 @@ Acquisition also has size, count, cancellation, and deadline bounds. One failed 
 
 A dangerous update sequence is to invalidate V1 first and only then attempt to parse V2. If V2 is damaged or persistence fails, the system loses its last usable material.
 
-A17 takes the more conservative route: register the new version, extract and persist evidence, and only then activate the replacement. Identical valid content under the same logical source can reuse its existing registration. A failed new version remains observable without deactivating the previously valid one.
+Research Assets takes the more conservative route: register the new version, extract and persist evidence, and only then activate the replacement. Identical valid content under the same logical source can reuse its existing registration. A failed new version remains observable without deactivating the previously valid one.
 
 **Figure 3. Switching versions depends on a usable, persisted extraction result.**
 
@@ -128,7 +128,7 @@ When a Run reads a passage, the original material-history mechanism can record t
 
 The newer **Research Workspace** addresses a different problem: a research goal can outlive any single Run.
 
-It stores the user goal and its revisions, associations to original Conversations and committed Publications, supported Artifact links, and optional source-attributed advisory checkpoints. It **does not become a second document repository or take over A17's source identities and permissions**.
+It stores the user goal and its revisions, associations to original Conversations and committed Publications, supported Artifact links, and optional source-attributed advisory checkpoints. It **does not become a second document repository or take over Research Assets' source identities and permissions**.
 
 **Figure 4. A long-running research goal can reuse committed historical results without inheriting access to original files.**
 
@@ -152,7 +152,7 @@ Yet **reading a historical Publication is not the same as regaining the raw PDF 
 
 File retention is another separate concern. The current Workspace Artifact Pin uses the original Artifact retention capability, with a supported path for eligible HTML reports. It is not a permanent collection for arbitrary PDFs and spreadsheets. Archiving or removing a Workspace likewise does not authorize deletion of its original Conversations, Publications, or independently retained Artifacts.
 
-The handoff between A17 and long-term Research Workspace is therefore **persistent research relationships plus freshly qualified original materials**, not a wholesale copy of every file into a project directory.
+The handoff between Research Assets and long-term Research Workspace is therefore **persistent research relationships plus freshly qualified original materials**, not a wholesale copy of every file into a project directory.
 
 ## 7. Why this still cannot certify an investment conclusion
 
@@ -168,7 +168,7 @@ The private ETF Agent code and controlled tests show approved-root acquisition, 
 
 The long-term Research Workspace P0 implementation has entered the main branch. Scripted-model and synthetic-source tests exercise exact historical Publication consumption across independent Runs. However, the feature remains disabled by default; the full application type-check and formal end-to-end closure still have outstanding gates. Those observations do not certify long-term real-model financial reasoning quality.
 
-The separate public teaching repository, [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent), does not expose the complete A17-plus-long-term-Workspace system described here. This is an implementation-informed architecture discussion, not a public installation tutorial.
+The separate public teaching repository, [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent), does not expose the complete Research Assets and long-term Workspace system described here. This is an implementation-informed architecture discussion, not a public installation tutorial.
 
 A future ability to **explicitly retain and re-acquire source ResearchAsset versions from a long-term Workspace** would need its own retention, authorization, and version-selection design. It must not be inferred from the existing Publication association feature.
 

@@ -79,7 +79,7 @@ Three branches are especially easy to miscount: the network send occurs but comp
 
 At this stage, an authorized local operator can set a monthly allowance revision for an existing verified account. Repeating the exact same operation identity returns the original revision; conflicting parameters are rejected. The user can see their own period, known Credits, tokens, and coverage gaps in the original account settings. There is no public top-up API, subscription, payment flow, or general admin console.
 
-If known usage exceeds the configured allowance, the system may compute a **wouldDeny** simulation. It does not change A05 Run budget, A30 Provider capacity, A10 model sending, A09 Task budget, or A23 Publication. A broken observation store likewise cannot become a new research gate. Noninterference is the entire point of the Shadow stage: inspect the actual production seam before assuming a hard quota is complete enough to enforce.
+If known usage exceeds the configured allowance, the system may compute a **wouldDeny** simulation. It does not change Run resource budgets, Provider capacity admission, model sending, scheduled-Task budgets, or Publication. A broken observation store likewise cannot become a new research gate. Noninterference is the entire point of the Shadow stage: inspect the actual production seam before assuming a hard quota is complete enough to enforce.
 
 Any future enforced Credit admission requires independently designed atomic reservation, unknown-attempt holds, recovery reconciliation, and supported-route coverage. Merely turning `wouldDeny` into an actual denial would not establish reliable billing.
 

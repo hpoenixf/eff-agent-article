@@ -5,7 +5,7 @@ articleMetadata:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
   image: "https://hpoenixf.com/eff-agent-article/visuals/en/a25-client/m-boundaries.svg"
-description: "From message ownership and stream/history reconciliation to task controls and source inspection, A25 keeps user actions and visible results attached to the same research task without recreating execution or publication authority in the browser."
+description: "From message ownership and stream/history reconciliation to task controls and source inspection, the client keeps user actions and visible results attached to the same research task without recreating execution or publication authority in the browser."
 readingBrief:
   takeaways:
     - "The client can own drafts, focus and disclosure state, but admission, cancellation, publication and access must be established by the responsible server-side facts."
@@ -16,7 +16,7 @@ readingBrief:
     - "Agent applications with streaming answers, persisted history or background research that need stronger client interaction and state management."
     - "Frontend and full-stack developers investigating crossed answers, disappearing content, misleading control receipts or incorrectly bound citations."
   notFor:
-    - "Building a complete Agent backend from scratch, or treating the public teaching repository as an installable implementation of the full A25 chat product."
+    - "Building a complete Agent backend from scratch, or treating the public teaching repository as an installable implementation of the full chat product."
 ---
 
 # An Agent Client Is More Than an SSE Renderer: Presenting a Research Task Correctly
@@ -27,7 +27,7 @@ Each action is ordinary on its own. The difficulties appear when they form one i
 
 **The central job of an Agent client is to keep user actions, task progress and research results correctly associated.** Server-sent events, or SSE, provide one way to transport updates. Receiving strings in the browser does not by itself mean a research task has been presented correctly.
 
-In ETF Agent's responsibility map, A25 covers client interaction and reading. This article uses existing client mechanisms and published engineering records to explain that responsibility. Its acceptance scenarios are design checks, not tests newly executed for this article. The full product client and the independent Open ETF Agent teaching implementation also have different scopes.
+In ETF Agent's responsibility map, the client owns interaction and reading. This article uses existing client mechanisms and published engineering records to explain that responsibility. Its acceptance scenarios are design checks, not tests newly executed for this article. The full product client and the independent Open ETF Agent teaching implementation also have different scopes.
 
 ![Local interaction, task facts and content facts have different owners](../../visuals/en/a25-client/m-boundaries.svg)
 
@@ -45,7 +45,7 @@ Clicking Send can immediately show that a message is being submitted. Whether a 
 
 These responsibilities may share a page, but they should not share one undifferentiated decision:
 
-| Visible interaction | What A25 owns | What the interaction cannot establish |
+| Visible interaction | What the client owns | What the interaction cannot establish |
 | --- | --- | --- |
 | Compose and send | Preserve the draft; present submission and failure states | The message was admitted or a task was created |
 | Control a task | Target the specific task; send the action; display its receipt | Sending the request means the action has finished |
@@ -53,7 +53,7 @@ These responsibilities may share a page, but they should not share one undiffere
 | Reopen history | Read the original result under current access rights | Cached content still carries permission to read it |
 | Inspect a citation | Present authorized material, its version and its limitations | A citation certifies the conclusion |
 
-In the existing architecture, A23 owns answer publication and A24 owns conversation events and historical delivery. Source access and citation eligibility also have their own responsible components. A25 consumes those facts and organizes an operable reading interface; it does not reassess publication eligibility or certify research conclusions.[1][2]
+In the existing architecture, answer publication, conversation events and historical delivery, source access, and citation eligibility each have their own responsible components. The client consumes those facts and organizes an operable reading interface; it does not reassess publication eligibility or certify research conclusions.[1][2]
 
 This boundary does not diminish frontend engineering. It gives the frontend clear ownership of **interaction quality**, rather than another execution record that can drift from the server.
 
@@ -190,9 +190,9 @@ According to the public guide, the example produces a report and records in a se
 
 The reader listens only on the local loopback address and has no public-facing authentication. It is a local reading example, not a website ready to deploy publicly.
 
-This public implementation is not the complete A25 client. A local read service does not establish that multi-account chat, foreground concurrency, SSE recovery or every product interaction has been publicly delivered. It offers a starting point for understanding result identity and reading boundaries before applying those constraints to a client of your own.
+This public implementation is not the complete product client. A local read service does not establish that multi-account chat, foreground concurrency, SSE recovery or every product interaction has been publicly delivered. It offers a starting point for understanding result identity and reading boundaries before applying those constraints to a client of your own.
 
-Return to the opening sequence: the user asks, keeps talking, refreshes, inspects a source and stops the original research. A reliable A25 makes those actions connect naturally without requiring the user to understand execution internals. Its engineering value lies in those ordinary-looking handoffs where identity and intent can most easily become misaligned.
+Return to the opening sequence: the user asks, keeps talking, refreshes, inspects a source and stops the original research. A reliable client makes those actions connect naturally without requiring the user to understand execution internals. Its engineering value lies in those ordinary-looking handoffs where identity and intent can most easily become misaligned.
 
 For the end-to-end user journey, see the companion article, [Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research](./agent-client-interaction-panorama.md).
 

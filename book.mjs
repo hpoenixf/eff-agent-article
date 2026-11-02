@@ -20,7 +20,7 @@ export const collections = [
         "title": "L2 · 身份、会话与上下文",
         "desc": "按原 Owner 主层阅读身份、能力准入、上下文和持久交互；跨层参与不改变事实归属。",
         "items": [
-          ["agent-conversation-admission-task-continuation", "A02 对话接纳：接着聊不等于接着执行"],
+          ["agent-conversation-admission-task-continuation", "对话接纳：接着聊不等于接着执行"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权：Run 授权的生命周期"],
           ["020-agent-extension-host-smartphone", "Extension Host：从功能机到智能机"],
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
@@ -29,7 +29,7 @@ export const collections = [
           ["agent-research-workspace-goal-continuity", "Workspace：从一次性对话到长期研究"],
           ["agent-research-assets-identity-version-lifecycle", "一份研究报告，为什么需要先变成「资产」？"],
           ["026-agent-memory-forget-durable-effects", "Memory：从保存、召回到安全遗忘"],
-          ["agent-content-trust-prompt-injection", "A35 内容信任：Prompt Injection 不只是恶意文本"],
+          ["agent-content-trust-prompt-injection", "内容信任：Prompt Injection 不只是恶意文本"],
           ["agent-control-events-durable-owner-adoption", "Agent 收到控制指令后，为什么不能立刻执行"],
           ["agent-durable-human-interaction-response-adoption", "Agent 问完用户之后：持久人机交互"],
           ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"],
@@ -66,7 +66,7 @@ export const collections = [
           ["agent-python-compute-workbench-evolution", "Python：从工具到计算工作台"],
           ["agent-skill-from-markdown-to-callable-research", "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力"],
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
-          ["agent-deterministic-fund-allocation", "B03 确定性基金计算：从持仓事实到金额建议"],
+          ["agent-deterministic-fund-allocation", "确定性基金计算：从持仓事实到金额建议"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
           ["agent-knowledge-retrieval-end-to-end", "知识检索：从资料入库到可信证据交付"],
@@ -95,7 +95,7 @@ export const collections = [
         "title": "L6 · 用户界面",
         "desc": "围绕客户端实际可见的回答、进度与正确 Run 归属阅读；不等同于独占前端 Owner。",
         "items": [
-          ["agent-client-interaction-and-reading", "A25 客户端：一次研究怎样被正确呈现"],
+          ["agent-client-interaction-and-reading", "客户端：一次研究怎样被正确呈现"],
           ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"]
         ]
       }

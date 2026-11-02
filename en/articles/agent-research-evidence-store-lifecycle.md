@@ -1,6 +1,6 @@
 ---
 title: "What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence"
-description: "A mechanism-level account of E04's passive, bounded capture of logical requests, observable outputs, and source dependencies—without turning telemetry into execution authority."
+description: "A mechanism-level account of the Research Evidence Store's passive, bounded capture of logical requests, observable outputs, and source dependencies—without turning telemetry into execution authority."
 readingBrief:
   takeaways:
     - "Research evidence stores bounded observation copies, not execution receipts; dispatch, queue acceptance, and durable persistence remain separate facts."
@@ -16,7 +16,7 @@ readingBrief:
 
 After an agent fails, two records can disagree. The gateway shows a completed model call, but the tracing system cannot reconstruct its input. Or the report was saved, yet nobody can establish which material the model was actually allowed to consume. “Log everything” sounds attractive, but creates new problems: sensitive content gets retained without consent, persistence slows execution, and revoked sources may leak during historical inspection.
 
-This article focuses on a specific module: **Research Evidence Retention and Readback (E04)**. It owns bounded observation copies of model exchanges and physical attempts. It does **not** own sending model requests, business execution, publication, semantic scoring, or executable recovery.
+This article focuses on a specific module: **Research Evidence Retention and Readback**. It owns bounded observation copies of model exchanges and physical attempts. It does **not** own sending model requests, business execution, publication, semantic scoring, or executable recovery.
 
 Examples and identities here are synthetic. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
 
@@ -25,7 +25,7 @@ Examples and identities here are synthetic. The mechanisms reflect the engineeri
 | Record | Owner of the original fact | What it answers | What it cannot establish |
 | --- | --- | --- | --- |
 | Execution/tool receipts | Original Gateway, Host, Run and domain Owners | Whether dispatch, execution, or publication committed | Whether the model understood the task correctly |
-| E04 research evidence copies | Research Evidence Store | How much of a specific exchange/attempt's logical input and observable output was retained | Complete HTTP wire, exact charges, or a runnable checkpoint |
+| Research evidence copies | Research Evidence Store | How much of a specific exchange/attempt's logical input and observable output was retained | Complete HTTP wire, exact charges, or a runnable checkpoint |
 | Traces and diagnostics | Respective telemetry Owners | Which stages were observed, timing, and gaps | That every original event is represented |
 
 These records should share stable identities, not a single “success” flag. **A request can be dispatched without being captured; being queued for capture does not prove durable persistence.**
@@ -50,7 +50,7 @@ flowchart TD
     G -. Does not veto .-> J
 ~~~
 
-The observer is intentionally not a mandatory gateway. The original request Owner governs authorization, budgets, dispatch, retry, and settlement. E04 may reject capture or later reading, but it cannot convert “cannot record this call” into “the research must stop.”
+The observer is intentionally not a mandatory gateway. The original request Owner governs authorization, budgets, dispatch, retry, and settlement. The evidence store may reject capture or later reading, but it cannot convert “cannot record this call” into “the research must stop.”
 
 A captured attempt has two independently observable parts:
 
@@ -100,7 +100,7 @@ A metadata page can expose a part reference, format, size, capture time, dispatc
 
 Selecting content triggers fresh permission, digest, revocation and dependency checks. Permission granted to the original caller does not transfer to another viewer, a new Run, or a user whose document access has since been revoked.
 
-Expiry and purge must remain explicit. A deleted snapshot must not reappear through an old reference or stale index. Yet purging E04 evidence does not automatically erase business records, trades, or independently published answers.
+Expiry and purge must remain explicit. A deleted snapshot must not reappear through an old reference or stale index. Yet purging research evidence copies does not automatically erase business records, trades, or independently published answers.
 
 ## 6. Three failure branches worth testing
 
@@ -128,9 +128,11 @@ An illustrative structured receipt:
 
 This is a teaching projection, **not** the production public response schema. Unknown must never silently become not-dispatched.
 
-## 7. Where E04 stops
+<div><a id="_7-where-e04-stops"></a><a id="7-where-e04-stops"></a></div>
 
-**Tracing (E01)** provides a timeline and diagnostic lens. A complete trace query does not certify exhaustive input capture. **Cost observation** can correlate original physical attempts and partial vendor usage, but list price, subscription credits, actual charges, and allocation to a particular deliverable remain distinct. An input snapshot is not a bill. **Recovery** requires executable state, original grants, and a valid checkpoint; E04's read-only copies grant no permission to execute again.
+## 7. Where evidence retention stops
+
+**Tracing** provides a timeline and diagnostic lens. A complete trace query does not certify exhaustive input capture. **Cost observation** can correlate original physical attempts and partial vendor usage, but list price, subscription credits, actual charges, and allocation to a particular deliverable remain distinct. An input snapshot is not a bill. **Recovery** requires executable state, original grants, and a valid checkpoint; the evidence store's read-only copies grant no permission to execute again.
 
 The Store's **depth** lies in one limited interface covering admission, bounded encoding, asynchronous persistence, lifecycle rules, readback, and purge. Its own failures remain local rather than turning telemetry into a global veto.
 

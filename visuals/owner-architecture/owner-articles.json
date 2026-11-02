@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "description": "Owner 专文只标记其确有独立主题的文章。无专文统一显示敬请期待；相关文章可选、不可冒充专文。文章阅读次序与名称仍以 book.mjs 为准。",
   "articles": {
-    "agent-client-interaction-and-reading": "A25 客户端：一次研究怎样被正确呈现",
+    "agent-client-interaction-and-reading": "客户端：一次研究怎样被正确呈现",
     "agent-client-interaction-panorama": "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究",
     "011-model-understands-code-authorizes": "模型会理解，代码才授权：Run 授权的生命周期",
     "019-agent-answer-publication": "Publication：为什么需要独立发布系统",
@@ -43,7 +43,7 @@
     "portfolio-mcp-readonly-investment-data": "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP",
     "tool-results-outside-model-context": "结果外置与完整性：模型到底读到了多少",
     "unavailable-is-correct": "数据过期后的受控刷新",
-    "agent-content-trust-prompt-injection": "A35 内容信任：Prompt Injection 不只是恶意文本",
+    "agent-content-trust-prompt-injection": "内容信任：Prompt Injection 不只是恶意文本",
     "agent-background-research-collaborative-experience": "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究",
     "agent-durable-human-interaction-response-adoption": "Agent 问完用户之后：持久人机交互",
     "agent-temporal-semantics-market-calendar": "Agent 说“今天”时，到底是哪一天",
@@ -64,8 +64,8 @@
     "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？",
     "agent-skill-from-markdown-to-callable-research": "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力",
     "rag-end-to-end-system-panorama": "RAG 全链路全景：从知识入库到可信回答",
-    "agent-conversation-admission-task-continuation": "A02 对话接纳：接着聊不等于接着执行",
-    "agent-deterministic-fund-allocation": "B03 确定性基金计算：从持仓事实到金额建议"
+    "agent-conversation-admission-task-continuation": "对话接纳：接着聊不等于接着执行",
+    "agent-deterministic-fund-allocation": "确定性基金计算：从持仓事实到金额建议"
   },
   "owners": {
     "A01": {

@@ -1,12 +1,12 @@
 ---
 title: "Deterministic Fund Allocation: From Holdings to Reproducible Amount Advice"
-description: "B03 module deep dive: a synthetic fund-allocation example traces ledger holdings, deployable budgets, asset buckets, fund caps, stale evidence, and explicitly unallocated cash."
+description: "A synthetic fund-allocation example traces ledger holdings, deployable budgets, asset buckets, fund caps, stale evidence, and explicitly unallocated cash."
 readingBrief:
   takeaways:
     - "Amount advice must separate recorded shares, settled changes, valuations, and scenarios. Stale values cannot determine new shares, and simulated purchases never change ledger holdings."
     - "Budgets, asset buckets, and fund-level allocations each impose constraints; when caps, no-buy rules, or unsuitable evidence apply, residual cash must be explicitly unallocated."
     - "Portfolio-wide evidence coverage cannot certify every fund. Withdrawing an amount from one fund does not erase historical facts or stop independent general research."
-    - "B03 owns domain calculations and advice eligibility, not ledger writes, user confirmation, live trades, or report publication; model prose cannot substitute for those facts."
+    - "The deterministic investment calculation module owns domain calculations and advice eligibility, not ledger writes, user confirmation, live trades, or report publication; model prose cannot substitute for those facts."
   appliesTo:
     - "Engineers building fund contribution or rebalancing scenarios that require auditable per-fund constraints, cash reconciliation, and source identity."
     - "Agent developers designing deterministic financial tools with explicit partial availability rather than fabricated amounts."
@@ -20,7 +20,7 @@ Imagine a fund contribution plan that says, “Invest CNY 300 today.” Before p
 
 **The hard part of amount advice is not only accurate arithmetic. It is accounting for every unit of money using eligible facts and constraints that still hold.** Sometimes the correct answer is to leave money unallocated rather than artificially complete a total.
 
-This is the problem addressed by B03, the **deterministic investment calculation** responsibility in ETF Agent. It consumes ledger and source facts, applies defined budgets and risk rules, and returns read-only allocations, eligibility, and gaps. All funds, amounts, and policies below are **synthetic teaching examples**; they are neither actual holdings, executed trades, nor current investment recommendations.
+This is the problem addressed by the **deterministic investment calculation** responsibility in ETF Agent. It consumes ledger and source facts, applies defined budgets and risk rules, and returns read-only allocations, eligibility, and gaps. All funds, amounts, and policies below are **synthetic teaching examples**; they are neither actual holdings, executed trades, nor current investment recommendations.
 
 ## 1. Which Money Are We Calculating?
 
@@ -36,7 +36,7 @@ A deterministic calculation entry point should keep at least these inputs separa
 | Cash, reserves, and unsettled activity | What part of the budget may enter this scenario | That all cash is immediately available for buying |
 | Fund and channel restrictions | No-buy status, order/day caps, and amount steps | That a shortfall can be silently filled |
 
-An unsettled transaction may constrain available cash, but it does not increase confirmed shares until settlement is recorded. Simulated purchases cannot be presented as completed trades. Investment fact readers and the ledger own the identity of these inputs; B03 consumes them without changing the underlying ledger.
+An unsettled transaction may constrain available cash, but it does not increase confirmed shares until settlement is recorded. Simulated purchases cannot be presented as completed trades. Investment fact readers and the ledger own the identity of these inputs; the investment calculation module consumes them without changing the underlying ledger.
 
 ## 2. Budget, Bucket, and Fund Are Three Separate Decisions
 
@@ -113,11 +113,11 @@ Exact decimal addition, comparison, and rounding are reusable numeric operations
 
 The division of responsibilities matters more than a universal calculator:
 
-- **B02 investment fact reads** expose confirmed holdings and reports without creating new positions.
-- **B03 deterministic investment calculations** use facts, policy, and restrictions to produce scenario amounts, feasibility, and unallocated cash.
-- **A33 Numeric** performs precise operations with units, scales, and rounding policies supplied by its caller; it does not select financial formulas.
-- **B04 ledger and confirmation** own durable investment facts after proper confirmation; B03 results do not write them.
-- **B05 atomic report production** assembles verifiable snapshots of inputs, calculations, and coverage; model explanations and file rendering cannot change that authority.
+- **Investment fact reads** expose confirmed holdings and reports without creating new positions.
+- **Deterministic investment calculations** use facts, policy, and restrictions to produce scenario amounts, feasibility, and unallocated cash.
+- **The Numeric kernel** performs precise operations with units, scales, and rounding policies supplied by its caller; it does not select financial formulas.
+- **Investment ledger and confirmation** own durable investment facts after proper confirmation; investment calculation results do not write them.
+- **Atomic report production** assembles verifiable snapshots of inputs, calculations, and coverage; model explanations and file rendering cannot change that authority.
 
 A report can contain both recorded holdings and hypothetical advice. Their appearance on the same page does not make them the same kind of fact. Agreement with a direction, confirmation of a plan, an explicit execution request, and a real execution receipt are separate events. **Read-only calculation is not automatic order placement.**
 
@@ -127,12 +127,12 @@ With a fixed synthetic snapshot, policy, and fund restrictions, a minimum check 
 
 ETF Agent's historical engineering work recorded corrections to account-baseline reconstruction, read-only daily contributions, removal of amounts lacking per-fund evidence, and explicit return of residual cash. But that engineering evidence **does not certify that a model will faithfully cite and explain the result throughout a real research task**; independent historical research-quality samples still included failures.
 
-This essay explains the domain mechanism. The separate public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) repository provides offline teaching exercises for synthetic documents, research, and delivery. It **does not ship the complete private B03 fund allocation system** described here. Readers can independently check this CNY 300 example with arithmetic and stated constraints; they should not mistake the public demo for investment calculations or a trading route.
+This essay explains the domain mechanism. The separate public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) repository provides offline teaching exercises for synthetic documents, research, and delivery. It **does not ship the complete private fund allocation system** described here. Readers can independently check this CNY 300 example with arithmetic and stated constraints; they should not mistake the public demo for investment calculations or a trading route.
 
 ## Conclusion: A Sound Allocation Can Leave Money Unspent
 
 If policy makes only CNY 230 eligible, the remaining CNY 70 must remain visible as cash. When designing a financial amount tool, ask: when were the shares recorded, which part of the budget is protected, which funds qualify, why does each restriction hold, and where did the remainder go? Answer those questions before asking a model to explain the numbers.
 
-Continue with [Read-only Portfolio MCP](./portfolio-mcp-readonly-investment-data.md), [Financial Data, Time and Reproducibility](./031-fintech-data-time-and-reproducible-numbers.md), [A33 Numeric Kernel](./agent-numeric-kernel-exact-units-rounding.md), and [Research, Advice, and Trading Boundaries](./030-fintech-from-research-to-investment-advice.md).
+Continue with [Read-only Portfolio MCP](./portfolio-mcp-readonly-investment-data.md), [Financial Data, Time and Reproducibility](./031-fintech-data-time-and-reproducible-numbers.md), [Numeric Kernel](./agent-numeric-kernel-exact-units-rounding.md), and [Research, Advice, and Trading Boundaries](./030-fintech-from-research-to-investment-advice.md).
 
 For related offline research-and-delivery mechanisms, try the synthetic examples in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent). Stars and issues are welcome for discussion of reproducible financial tooling.

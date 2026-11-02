@@ -1,6 +1,6 @@
 ---
 title: "Models Understand; Code Authorizes"
-description: "A04 Run-scoped authorization: how Host grants constrain tools and sources through Child delegation, suspension, recovery, and new Run admission."
+description: "Run-scoped authorization: how Host grants constrain tools and sources through Child delegation, suspension, recovery, and new Run admission."
 readingBrief:
   takeaways:
     - "The model proposes research and actions; the Host records source, tool, and capability grants for a particular Run. Tool visibility or prior exposure does not create permission."
@@ -97,7 +97,7 @@ The following is a conceptual teaching record, not the database schema:
 
 ### Keep Authorization, Capacity, and Outcomes with Their Own Owners
 
-A tool may be registered, visible to a model, admitted for this Run, dispatched, or proven successful; these are five different facts. A04 owns **what this Run is permitted to do**. Resource budgets control **what more it may consume**; tool receipts record **what actually happened**; Publication decides **which answer content was committed**. Budget exhaustion, explicit cancellation, and missing file bytes retain their own local failure semantics instead of silently rewriting the grant.
+A tool may be registered, visible to a model, admitted for this Run, dispatched, or proven successful; these are five different facts. Run authorization owns **what this Run is permitted to do**. Resource budgets control **what more it may consume**; tool receipts record **what actually happened**; Publication decides **which answer content was committed**. Budget exhaustion, explicit cancellation, and missing file bytes retain their own local failure semantics instead of silently rewriting the grant.
 
 There is a deliberate trade-off: this contract does not support immediate dynamic revocation within a Run. It suits research work that needs repeatable recovery and auditable continuation. A product requiring administrator revocation to stop all in-flight effects would need an explicit termination and access policy; that behavior is not supplied by this contract.
 

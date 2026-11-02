@@ -1,0 +1,153 @@
+[
+  {
+    "path": "articles/agent-conversation-admission-task-continuation.md",
+    "ids": [
+      "八、a02-的价值-不在于替模型决定下一步",
+      "八a02-的价值不在于替模型决定下一步"
+    ]
+  },
+  {
+    "path": "en/articles/agent-conversation-admission-task-continuation.md",
+    "ids": [
+      "_8-a02-does-not-decide-what-the-model-should-do",
+      "8-a02-does-not-decide-what-the-model-should-do"
+    ]
+  },
+  {
+    "path": "articles/agent-control-events-durable-owner-adoption.md",
+    "ids": [
+      "agent-收到控制指令后-为什么不能立刻执行-a08-持久控制事件的交接边界",
+      "agent-收到控制指令后为什么不能立刻执行a08-持久控制事件的交接边界"
+    ]
+  },
+  {
+    "path": "articles/agent-control-events-durable-owner-adoption.md",
+    "ids": [
+      "六、a08-与-hio、task、recovery-怎样协作",
+      "六a08-与-hiotaskrecovery-怎样协作"
+    ]
+  },
+  {
+    "path": "en/articles/agent-control-events-durable-owner-adoption.md",
+    "ids": [
+      "why-an-agent-cannot-execute-a-stop-command-immediately-a08-durable-control-event-handoffs"
+    ]
+  },
+  {
+    "path": "en/articles/agent-control-events-durable-owner-adoption.md",
+    "ids": [
+      "_6-how-a08-cooperates-with-hio-tasks-and-recovery",
+      "6-how-a08-cooperates-with-hio-tasks-and-recovery"
+    ]
+  },
+  {
+    "path": "articles/agent-provider-architecture-and-admission.md",
+    "ids": [
+      "a32-模型目录-注册、路由与使用资格不是同一个动作",
+      "a32-模型目录注册路由与使用资格不是同一个动作"
+    ]
+  },
+  {
+    "path": "en/articles/agent-provider-architecture-and-admission.md",
+    "ids": [
+      "a32-model-catalog-registration-routing-and-eligibility-are-different-actions"
+    ]
+  },
+  {
+    "path": "articles/agent-provider-admission-capacity-lease.md",
+    "ids": [
+      "模型返回了-http-200-为什么下一次请求还得排队-a30-provider-容量准入的租约与未知占用",
+      "模型返回了-http-200为什么下一次请求还得排队a30-provider-容量准入的租约与未知占用"
+    ]
+  },
+  {
+    "path": "en/articles/agent-provider-admission-capacity-lease.md",
+    "ids": [
+      "why-the-next-model-request-still-queues-after-http-200-a30-provider-admission-leases-and-unknown-occupancy"
+    ]
+  },
+  {
+    "path": "articles/agent-model-capability-presentation-tool-surface.md",
+    "ids": [
+      "agent-有这个工具-模型为什么还是看不到-——我们怎样一步步走到-a34-tool-surface",
+      "agent-有这个工具模型为什么还是看不到我们怎样一步步走到-a34-tool-surface"
+    ]
+  },
+  {
+    "path": "en/articles/agent-model-capability-presentation-tool-surface.md",
+    "ids": [
+      "the-agent-has-the-tool—so-why-can-t-the-model-see-it-our-path-to-a34-tool-surface",
+      "the-agent-has-the-toolso-why-cant-the-model-see-it-our-path-to-a34-tool-surface"
+    ]
+  },
+  {
+    "path": "articles/agent-research-evidence-store-lifecycle.md",
+    "ids": [
+      "七、e04-与可观测、成本、recovery-各自负责什么",
+      "七e04-与可观测成本recovery-各自负责什么"
+    ]
+  },
+  {
+    "path": "en/articles/agent-research-evidence-store-lifecycle.md",
+    "ids": [
+      "_7-where-e04-stops",
+      "7-where-e04-stops"
+    ]
+  },
+  {
+    "path": "articles/031-fintech-data-time-and-reproducible-numbers.md",
+    "ids": [
+      "四、a33-解决的是精确运算-不是投资判断",
+      "四a33-解决的是精确运算不是投资判断"
+    ]
+  },
+  {
+    "path": "articles/031-fintech-data-time-and-reproducible-numbers.md",
+    "ids": [
+      "九、a33-有了独立主文-但不替金融领域-认证数字",
+      "九a33-有了独立主文但不替金融领域认证数字"
+    ]
+  },
+  {
+    "path": "en/articles/031-fintech-data-time-and-reproducible-numbers.md",
+    "ids": [
+      "_4-a33-solves-precise-arithmetic-not-investment-judgment",
+      "4-a33-solves-precise-arithmetic-not-investment-judgment"
+    ]
+  },
+  {
+    "path": "en/articles/031-fintech-data-time-and-reproducible-numbers.md",
+    "ids": [
+      "_9-a33-now-has-its-own-deep-dive-not-financial-authority",
+      "9-a33-now-has-its-own-deep-dive-not-financial-authority"
+    ]
+  },
+  {
+    "path": "articles/financial-agent-python-result-consumption.md",
+    "ids": [
+      "六、a33-精确数值运算在这里处于什么位置",
+      "六a33-精确数值运算在这里处于什么位置"
+    ]
+  },
+  {
+    "path": "en/articles/financial-agent-python-result-consumption.md",
+    "ids": [
+      "_6-where-does-a33-numeric-fit",
+      "6-where-does-a33-numeric-fit"
+    ]
+  },
+  {
+    "path": "articles/agent-report-cost-attribution.md",
+    "ids": [
+      "七、e04-留下了调用证据-为什么还是不能直接算出报告总成本",
+      "七e04-留下了调用证据为什么还是不能直接算出报告总成本"
+    ]
+  },
+  {
+    "path": "en/articles/agent-report-cost-attribution.md",
+    "ids": [
+      "_7-why-an-e04-evidence-copy-still-cannot-establish-a-report-s-total-cost",
+      "7-why-an-e04-evidence-copy-still-cannot-establish-a-reports-total-cost"
+    ]
+  }
+]

@@ -19,7 +19,7 @@ description: 围绕金融产品、投研方法、责任治理和机构落地，�
 来源、金融方法、结论质量和策略有效性是四个不同问题；算对数字不是研究完成。
 
 - **B1 · 金融数据质量、口径与可复算** — 时点、基金份额、净值、币种、费用、穿透覆盖与假设如何改变结论？
-  [金融数字的时点、口径与可复算](/articles/031-fintech-data-time-and-reproducible-numbers) · [精确数值核：单位、舍入与残差](/articles/agent-numeric-kernel-exact-units-rounding) · [只读 Portfolio MCP 与持仓事实](/articles/portfolio-mcp-readonly-investment-data) · [B03 确定性基金金额分配](/articles/agent-deterministic-fund-allocation)
+  [金融数字的时点、口径与可复算](/articles/031-fintech-data-time-and-reproducible-numbers) · [精确数值核：单位、舍入与残差](/articles/agent-numeric-kernel-exact-units-rounding) · [只读 Portfolio MCP 与持仓事实](/articles/portfolio-mcp-readonly-investment-data) · [确定性基金金额分配](/articles/agent-deterministic-fund-allocation)
 
 - **B2 · 研究方法与可信证据链** — 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？
   [金融证据与计算可追溯](/articles/financial-agent-trustworthy-evidence-chain) · [Python 结果消费与研究方法](/articles/financial-agent-python-result-consumption) · [RAG 检索指标与金融证据评测](/articles/rag-retrieval-evaluation-evidence)

@@ -10,7 +10,9 @@ readingBrief:
   notFor:
     - "Seeking an all-purpose capability manager, or treating logical tool parity as proof of good model choices, Provider wire compatibility or newly granted permissions."
 ---
-# The Agent Has the Tool—So Why Can't the Model See It? Our Path to A34 Tool Surface
+<div><a id="the-agent-has-the-tool—so-why-can-t-the-model-see-it-our-path-to-a34-tool-surface"></a><a id="the-agent-has-the-toolso-why-cant-the-model-see-it-our-path-to-a34-tool-surface"></a></div>
+
+# The Agent Has the Tool—So Why Can't the Model See It? Our Path to Tool Surface
 
 Integrating an MCP tool into an Agent sounds straightforward: register it, define its schema, configure permissions, and let the model invoke it.
 
@@ -20,7 +22,7 @@ We first consolidated definitions, then exposure rules, and eventually removed d
 
 Each refactor solved a real problem. But in October 2026, we recognized a remaining gap: even correct authorization, registration, and projection cannot prove that the list ultimately sent to the model remains correct after Hooks, context fitting, and asynchronous preparation.
 
-That gap led to **A34: Model Capability Presentation & Tool Surface**. This was not a greenfield architecture; it was the responsibility missing after several rounds of simplification.
+That gap led to **Model Capability Presentation & Tool Surface**. This was not a greenfield architecture; it was the responsibility missing after several rounds of simplification.
 
 ## 1. The First Failure: The Skill Mentions a Tool, but the Model Cannot Use It
 
@@ -67,7 +69,7 @@ Tool visibility also changes with search quotas, source permissions, and deadlin
 
 The current path consumes status and receipts from the original Web Gateway/Host, bound to Run, Scope, Invocation, and Connection identities. Recovery does not reconstruct permission from arbitrary MCP results. Exhausting the search quota need not prohibit reading an already authorized `sourceRef`; expiry of the overall Web window may affect both.
 
-This was corrected at the original seam, not by appointing A34 as the Web authorization owner. It is why Tool Surface projects existing decisions instead of keeping another budget and availability cache.
+This was corrected at the original seam, not by appointing Tool Surface as the Web authorization owner. It is why Tool Surface projects existing decisions instead of keeping another budget and availability cache.
 
 ## 4. Validate the Final Tool Surface Against an Independent Admission Baseline
 
@@ -106,7 +108,7 @@ This is intentional duplication at different lifecycle points, not a case of mec
 - **Early parity** runs after extension projection and before legitimate Owner revalidation. It prevents an unauthorized Hook mutation from being "laundered" by later assembly.
 - **Final parity** runs after later context, evidence, and asynchronous preparation. It checks that the actual logical model request still matches the legally narrowed admission result. It runs **even with no optional Hook**.
 
-Checks cover tool **count, order, names, complete descriptions, and input Schema**. A34 reuses the existing **ChatToolDefinition[]** and request adapter rather than introducing another tool-schema registry.
+Checks cover tool **count, order, names, complete descriptions, and input Schema**. Tool Surface reuses the existing **ChatToolDefinition[]** and request adapter rather than introducing another tool-schema registry.
 
 The comparison operates on the logical tool surface **before Provider wire serialization**. Valid Provider-specific wire encodings remain the model invocation Owner's responsibility. Logical parity must not prohibit legitimate encoding differences.
 
@@ -114,13 +116,13 @@ This resembles the engineering structure of a **time-of-check/time-of-use (TOCTO
 
 ## 5. Rejecting a Mismatch Must Also Settle the Request
 
-The first A34 implementation had another regression.
+The first Tool Surface implementation had another regression.
 
 After detecting a mismatch, the adapter threw a protocol error and correctly stopped dispatch. Tool parity was protected. But an asynchronous-preparation regression test found that one path failed to report definitive non-dispatch through the existing **onProviderRequestFailure** lifecycle.
 
 By that point, Runtime might already have created a reservation and request identity. Throwing an exception does not guarantee that those existing accounting effects close correctly.
 
-We reused the original **pre_dispatch_rejected** callback to close the reservation for a request known never to have been sent. The original Main/Child request ledger owns that closure; A34 does not issue a competing receipt or acquire resource-accounting authority.
+We reused the original **pre_dispatch_rejected** callback to close the reservation for a request known never to have been sent. The original Main/Child request ledger owns that closure; Tool Surface does not issue a competing receipt or acquire resource-accounting authority.
 
 ~~~text
 Tool surface mismatch
@@ -132,7 +134,7 @@ Original request Owner records definitive non-dispatch
 Original Runtime decides whether to continue, recover, or terminate
 ~~~
 
-A34 also does not delete independently valid publishable text merely because one attempted model request was malformed.
+Tool Surface also does not delete independently valid publishable text merely because one attempted model request was malformed.
 
 **A new safety guard that rejects correctly but fails to settle the lifecycle effects of its own rejection can still break the system.**
 
@@ -140,9 +142,9 @@ A34 also does not delete independently valid publishable text merely because one
 
 It would have been tempting to create a unified Capability Manager responsible for registration, authorization, availability, Skills, budgets, and the final tool list.
 
-But the previous refactors had specifically removed Runtime's shadow business-tool registry. Recreating authorization and budget state in A34 would add another competing fact source, not genuine unification.
+But the previous refactors had specifically removed Runtime's shadow business-tool registry. Recreating authorization and budget state in Tool Surface would add another competing fact source, not genuine unification.
 
-A34 has a narrow responsibility:
+Tool Surface has a narrow responsibility:
 
 > Consume capabilities already admitted by their original Owners; determine what the model should see in this turn; ensure the final logical request does not deviate.
 
@@ -152,7 +154,7 @@ For **Entry**, it retains a current, restricted summary of Host capabilities. Pe
 
 For **Research**, it retains the complete legitimate list, rejecting unauthorized descriptor changes without treating valid context compression as corruption. If capacity is too small for required tools, it reports the capacity failure explicitly instead of silently dropping Top-N tools.
 
-A34 is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
+Tool Surface is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
 
 <!-- open-etf-case:surface@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Inspect the tools Child actually receives each round
@@ -167,14 +169,14 @@ node --test --test-concurrency=1 --test-name-pattern='^3\.4 fixture child shares
 
 Both scripted model calls see only `read_page`; the root counters end at two model calls and one tool call. Child returns a derived result without its own report-save receipt. The exact test result reflects those assertions.
 
-This covers restricted Child tool presentation and shared counters, not the complete A34 dynamic-capability design or a real model's ability to choose the right tool.
+This covers restricted Child tool presentation and shared counters, not the complete Model Capability Presentation and Tool Surface design or a real model's ability to choose the right tool.
 <!-- /open-etf-case -->
 
 ## 7. Conclusion: Preserve Final Visibility Without a Capability Manager
 
 The former Tool Contract, Skill ceiling, and Web diagnostics each addressed a real issue. But as ownership changed, outdated tests had to be checked against the accepted contract rather than reinstating obsolete whitelists. The essential invariant is that **later projections cannot rewrite the original admission baseline, and a final request cannot authorize itself**.
 
-A34's answer was **not** a larger Capability Manager. It was an independently preserved admission baseline, unconditional final tool-surface parity, and lifecycle-correct settlement of local rejection by the original execution Owner.
+Tool Surface's answer was **not** a larger Capability Manager. It was an independently preserved admission baseline, unconditional final tool-surface parity, and lifecycle-correct settlement of local rejection by the original execution Owner.
 
 The resulting model separates three objects:
 
@@ -184,9 +186,9 @@ The resulting model separates three objects:
 
 They can be correlated; none can impersonate the others.
 
-**Some architecture upgrades add a necessary constraint. Others refuse to add an unnecessary Owner. A34 illustrates both.**
+**Some architecture upgrades add a necessary constraint. Others refuse to add an unnecessary Owner. Tool Surface illustrates both.**
 
-A34 applies [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
+Tool Surface applies [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
 
 ---
 

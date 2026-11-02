@@ -51,13 +51,15 @@ This keeps a running task from silently changing its model identity because an a
 
 Dynamic configuration is not inherently wrong. **Flexibility that the product does not yet need is not worth trading away the explainability it needs now.**
 
-### A32 model catalog: registration, routing and eligibility are different actions
+<div><a id="a32-model-catalog-registration-routing-and-eligibility-are-different-actions"></a></div>
 
-The architecture assigns these facts to **A32, the Model Catalog and Route Configuration Owner**. The catalog holds server-allowed model IDs and defaults, the deterministic mapping from profiles to providers/protocols, declared capabilities and route eligibility. It does not own the runtime's provider-capacity ledger. A25's UI submits an authorized model selection; A10 binds its route and protocol for the particular invocation; A30 subsequently decides when that capacity group may admit a physical request.
+### Model catalog: registration, routing and eligibility are different actions
+
+The architecture assigns these facts to **the Model Catalog and Route Configuration Owner**. The catalog holds server-allowed model IDs and defaults, the deterministic mapping from profiles to providers/protocols, declared capabilities and route eligibility. It does not own the runtime's provider-capacity ledger. The client UI submits an authorized model selection; Model Invocation binds its route and protocol for the particular invocation; Provider Admission subsequently decides when that capacity group may admit a physical request.
 
 When a model ID exists but the mapping is duplicate, incomplete or bound to the wrong provider, catalog validation must refuse the configuration or unsupported selection. The Gateway must not guess another vendor after a failed call. Likewise, inclusion in a model list is not evidence that real tool invocation, long research or semantic output quality has passed acceptance. The current implementation uses server-side configuration, startup assembly and qualification records; **it is not a live editable model-administration platform that silently migrates old Runs**.
 
-This article retains the "catalog identity to protocol request" storyline. The dedicated [A30 capacity-lease article](agent-provider-admission-capacity-lease.md) explains cross-Run queueing, leases, unknown occupancy and safe release. A32's registration facts, A10's dispatch facts and A30's shared capacity admission are three distinct effects.
+This article retains the "catalog identity to protocol request" storyline. The dedicated [Provider capacity-lease article](agent-provider-admission-capacity-lease.md) explains cross-Run queueing, leases, unknown occupancy and safe release. Model Catalog registration facts, Model Invocation dispatch facts and Provider Admission's shared capacity admission are three distinct effects.
 
 ## 2. A gateway unifies invocation, not model capabilities
 
@@ -180,7 +182,7 @@ A single total-duration number cannot distinguish slow model execution, unavaila
 
 A capacity slot uses leases, heartbeats and execution deadlines, but two questions remain distinct: **may the local holder still act, and has the remote model request actually ended?** Cancellation, disconnect, process loss or lease expiry may establish only local facts. They do not prove that the remote request stopped or incurred no cost.
 
-Confirmed termination can release capacity; uncertain remote activity receives bounded conservative quarantine, even if that temporarily underuses capacity. A missing acknowledgement after a control transaction likewise cannot fabricate successful admission. The detailed Claim, Lease, generation and renewal rules belong in the [A30 shared-capacity article](agent-provider-admission-capacity-lease.md); here they explain why a unified Gateway does not eliminate a separate Provider Admission Owner.
+Confirmed termination can release capacity; uncertain remote activity receives bounded conservative quarantine, even if that temporarily underuses capacity. A missing acknowledgement after a control transaction likewise cannot fabricate successful admission. The detailed Claim, Lease, generation and renewal rules belong in the [shared-capacity article](agent-provider-admission-capacity-lease.md); here they explain why a unified Gateway does not eliminate a separate Provider Admission Owner.
 
 ## 7. A circuit breaker coordinates the next attempt; it does not permanently label a provider
 

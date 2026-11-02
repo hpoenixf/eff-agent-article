@@ -25,7 +25,7 @@ This scenario comes from a bounded ETF Agent investigation using real research m
 
 This panorama looks at retrieval-augmented generation (RAG) as a system rather than a vector-search component. It connects a corpus-building lifecycle, an online retrieval lifecycle, an evidence-consumption and answer-delivery lifecycle, and evaluation and governance that cross the other three. They interact, but a single “RAG Manager” should not take ownership of all their decisions.
 
-This is neither a vector-database tutorial nor a code walkthrough of A20, the Knowledge Retrieval module. The questions here are **how the complete system collaborates, where responsibilities must remain separate, and when not to add complexity**. The historical fund-notice setting follows previously reviewed public materials; illustrative records, design choices and unexecuted branches are teaching explanations, not new live-model results.
+This is neither a vector-database tutorial nor a code walkthrough of the Knowledge Retrieval module. The questions here are **how the complete system collaborates, where responsibilities must remain separate, and when not to add complexity**. The historical fund-notice setting follows previously reviewed public materials; illustrative records, design choices and unexecuted branches are teaching explanations, not new live-model results.
 
 ## 1. The big picture: one user question, four kinds of work
 
@@ -99,7 +99,7 @@ Imagine an index with public fund notices and private research notes available t
 
 Hard constraints therefore belong before ranking: account scope, `reference` versus `personal` collection, source purpose, effective version, document status and explicit source restrictions. The user or model may narrow those constraints but cannot enlarge the Host's permissions through search arguments.
 
-The inspected A20 contract permits **one bounded widening attempt** when a domain preference yields too few eligible candidates, but only within the same authorized collection and original hard restrictions. Explicit `only` mode cannot be relaxed. A sufficient candidate *count* is not a claim that the research has enough semantic evidence.
+The inspected knowledge-retrieval contract permits **one bounded widening attempt** when a domain preference yields too few eligible candidates, but only within the same authorized collection and original hard restrictions. Explicit `only` mode cannot be relaxed. A sufficient candidate *count* is not a claim that the research has enough semantic evidence.
 
 ### Lexical search, vectors, fusion and reranking solve different problems
 
@@ -161,14 +161,14 @@ At the system level, RAG is a collaboration among existing capabilities, not ano
 
 | Responsibility | Facts it owns | Decisions it must not inherit |
 | --- | --- | --- |
-| A17 research assets and A18/A19 reading | File identity, versions, acquisition and actual page/extraction coverage | Whether a model's conclusion is sound |
-| Source permissions and A04 Run authorization | Source/collection rights and the admitted capabilities for this Run | Which research strategy a model needs |
-| **A20 Knowledge Retrieval** | Eligible candidates, ordering, retrieval status and original anchors | Whether research is complete or trading is permitted |
-| A16 result and citation management | Actually delivered result identities, original/derived relationships and readback references | Arbitrary upgrades to source authority |
-| A03 Main research decisions | Whether to investigate further, which versions to compare and what claims require support | New permissions or invented facts |
-| A23 Publication and A24 History | Committed content, delivery and controlled later views | Modification of originals or a new investigation during replay |
+| Research assets, Web research reading and PDF reading | File identity, versions, acquisition and actual page/extraction coverage | Whether a model's conclusion is sound |
+| Source permissions and Run authorization | Source/collection rights and the admitted capabilities for this Run | Which research strategy a model needs |
+| **Knowledge Retrieval** | Eligible candidates, ordering, retrieval status and original anchors | Whether research is complete or trading is permitted |
+| Research results and citation management | Actually delivered result identities, original/derived relationships and readback references | Arbitrary upgrades to source authority |
+| Main research decisions and synthesis | Whether to investigate further, which versions to compare and what claims require support | New permissions or invented facts |
+| Answer publication and conversation history delivery | Committed content, delivery and controlled later views | Modification of originals or a new investigation during replay |
 
-This is a **responsibility map, not a requirement to deploy a new service for every code**. Several concerns may live in one process, and a single authorized tool call can cross several interfaces.
+This is a **responsibility map, not a requirement to deploy a new service for every responsibility**. Several concerns may live in one process, and a single authorized tool call can cross several interfaces.
 
 Similarly, MCP is a tool connectivity and invocation mechanism. Wrapping a Retriever in an MCP server does not populate an empty index or ensure its result enters the actual model input. The decisive facts are acquisition, authorization, invocation, delivery and source identity, not the transport's name.
 
@@ -236,4 +236,4 @@ The separate public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent)
 
 ---
 
-Further reading: [A20 Knowledge Retrieval: From Corpus Admission to Citable Evidence](/en/articles/agent-knowledge-retrieval-end-to-end) · [RAG Recall, BM25 and Financial-Evidence Evaluation](/en/articles/rag-retrieval-evaluation-evidence) · [Document Revocation and Historical Replay](/en/articles/027-rag-revocation-publish-replay) · [A17 Research Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Agent Citation Design](/en/articles/ai-citations-do-not-prove-reliability). Each explores retrieval, evaluation, revocation, file identity or citation internals; this article explains how they work together to complete one research task.
+Further reading: [Knowledge Retrieval: From Corpus Admission to Citable Evidence](/en/articles/agent-knowledge-retrieval-end-to-end) · [RAG Recall, BM25 and Financial-Evidence Evaluation](/en/articles/rag-retrieval-evaluation-evidence) · [Document Revocation and Historical Replay](/en/articles/027-rag-revocation-publish-replay) · [Research Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Agent Citation Design](/en/articles/ai-citations-do-not-prove-reliability). Each explores retrieval, evaluation, revocation, file identity or citation internals; this article explains how they work together to complete one research task.

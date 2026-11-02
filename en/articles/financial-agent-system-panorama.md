@@ -152,7 +152,7 @@ Amounts and fees need explicit precision, rounding, and accounting treatment. Pe
 
 Returning a bare number is still insufficient. Method, units, input coverage, and limitations need to reach the subsequent research. A calculation from top-ten holdings must remain a calculation on the disclosed sample. A loss under an assumed shock must remain a scenario, not become a forecast in the report.
 
-Use deterministic methods for important calculations. The [A33 exact Numeric kernel](agent-numeric-kernel-exact-units-rounding.md) handles explicit units, rounding and residuals; it does not select financial formulas or require number-by-number certification of ordinary prose. A failed calculation affects judgments that depend on it; it should not disqualify the entire report from delivery.
+Use deterministic methods for important calculations. The [exact Numeric kernel](agent-numeric-kernel-exact-units-rounding.md) handles explicit units, rounding and residuals; it does not select financial formulas or require number-by-number certification of ordinary prose. A failed calculation affects judgments that depend on it; it should not disqualify the entire report from delivery.
 
 ### Multiple sources help resolve differences; they are not a quota
 
@@ -230,7 +230,7 @@ For the 5.6% exposure, the inspection path should identify both disclosures, the
 
 This is why a citation should offer more than an external link. Pages change, documents can be long, and table footnotes may determine what a number means. Returning to the actual passage, page, and version used is a more useful basis for inspectable research.
 
-A citation is not a certificate of correctness, however. “The top ten holdings overlap” does not directly establish that “the entire portfolio should be changed.” After locating the evidence, the reader still has to examine whether the interpretation exceeds what it supports. Engineering connects the inspection path; research explains the reasoning. [E04 evidence retention](agent-research-evidence-store-lifecycle.md) provides permissioned request copies and readback; it does not replace original result identity, source eligibility or business facts.
+A citation is not a certificate of correctness, however. “The top ten holdings overlap” does not directly establish that “the entire portfolio should be changed.” After locating the evidence, the reader still has to examine whether the interpretation exceeds what it supports. Engineering connects the inspection path; research explains the reasoning. [evidence retention](agent-research-evidence-store-lifecycle.md) provides permissioned request copies and readback; it does not replace original result identity, source eligibility or business facts.
 
 ### Generated, saved, and received are different facts
 

@@ -184,7 +184,7 @@ Together, these boundaries let the model return to original material without gai
 
 ## A New Consumption Form: Reviewable Is Not a Second Answer
 
-After a research result is saved, readers may want to inspect supporting detail, input and coverage. By October 24, 2026, ETF Agent main included an **optional Reviewable research attachment**. Original A16 still owns result identity, versions and source lineage. After the final text transformation, A23 binds eligible review details to the corresponding Publication revision; A24/A25 expose already-saved details through existing History and client reading surfaces.
+After a research result is saved, readers may want to inspect supporting detail, input and coverage. By October 24, 2026, ETF Agent main included an **optional Reviewable research attachment**. The original result-and-citation management component still owns result identity, versions and source lineage. After the final text transformation, Publication binds eligible review details to the corresponding Publication revision; history delivery and client reading expose already-saved details through existing History and client reading surfaces.
 
 This is not a new “the review must pass before publication” gate. When an attachment fails to load, exceeds its limits, or is no longer eligible for the current reader, the attachment degrades locally. Independently authorized answer text remains under the original Publication owner and is not erased by review-attachment errors. Reviewable can show **how materials were associated with a result**, but cannot certify the semantic truth of a conclusion or replace human financial review.
 

@@ -1,6 +1,6 @@
 ---
 title: "Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, Rounding, and Residuals"
-description: "A33 Numeric: exact decimal strings, explicit dimensions, signed rounding, comparisons, residuals, and separation from financial-method authority."
+description: "The Numeric kernel: exact decimal strings, explicit dimensions, signed rounding, comparisons, residuals, and separation from financial-method authority."
 readingBrief:
   takeaways:
     - "Decimal strings preserve source precision, with explicit units and ratio scales; amounts, shares and percentage points cannot derive their meaning from magnitude or display formatting."
@@ -16,7 +16,7 @@ readingBrief:
 
 A financial research agent returns **CNY 2.06**. Its arithmetic may be reproducible even when the investment meaning is wrong: shares and net asset value might refer to different dates, different currencies might have been combined, or a fee already reflected in NAV might be deducted again.
 
-Two responsibilities must remain separate. **A33 Numeric** guarantees a deterministic operation for specified decimal inputs, units, and rounding policies. **B03 and other domain Owners** select formulas, determine input eligibility and denominators, and decide what the financial result actually means.
+Two responsibilities must remain separate. **The Numeric kernel** guarantees a deterministic operation for specified decimal inputs, units, and rounding policies. **The deterministic investment calculation module and other domain modules** select formulas, determine input eligibility and denominators, and decide what the financial result actually means.
 
 This is a mechanism-level account of the Numeric module and its interface. All values are synthetic. Focused arithmetic tests do not certify the correctness of real fund-research methods.
 
@@ -118,11 +118,11 @@ Some financial operations require exact money amounts. Statistical methods such 
 
 | Module | Owns | Does not own |
 | --- | --- | --- |
-| A33 Numeric | Exact arithmetic, units, rounding and residuals | Formula selection or source authentication |
-| A21 Analysis | Sandbox, bound inputs and actual script execution | Declaring investment correctness from execution |
-| B03 Investment computation | Amounts, allocations and domain constraints | Global Run or Publication veto |
-| A16 Result | Result identities, dependencies and reread references | Recomputing financial authority |
-| A23 Publication | Answer revisions and delivery | A universal semantic finance judge |
+| Exact numeric operations | Exact arithmetic, units, rounding and residuals | Formula selection or source authentication |
+| Isolated analysis | Sandbox, bound inputs and actual script execution | Declaring investment correctness from execution |
+| Deterministic investment calculations | Amounts, allocations and domain constraints | Global Run or Publication veto |
+| Research results and references | Result identities, dependencies and reread references | Recomputing financial authority |
+| Answer publication and preparation | Answer revisions and delivery | A universal semantic finance judge |
 
 A deep Numeric module hides reusable exactness behind a narrow interface, improving leverage for callers. Domain rules stay local. An extra wrapper that merely forwards these operations does not add comparable depth.
 

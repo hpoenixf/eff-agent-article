@@ -110,7 +110,7 @@ These three kinds of information may share a chat screen, but they should not be
 
 In the client, these objects also need stable event identities, deduplication, and history replay. SSE carries events but does not replace durable state or viewer authorization. [MDN's guide to server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) explains the basic transport; our additional responsibility is replaying the correct account, Run, and notification identities.
 
-This is why the article maps principally to **A24, Conversation Events and Historical Delivery**, and relates to **A25, Client Interaction and Reading**. A24 owns delivery and replay facts; A25 presents them in a comprehensible interface. Neither requires inventing an “Async Frontend Manager,” and this is not the same responsibility as A09's recurring task scheduling.
+This is why the article focuses on **Conversation Events and Historical Delivery**, with a related role for **Client Interaction and Reading**. The former owns delivery and replay facts; the latter presents them in a comprehensible interface. Neither requires inventing an “Async Frontend Manager,” and this is not the same responsibility as recurring task scheduling.
 
 ## 6. The real browser test changed what we could claim
 
@@ -134,7 +134,7 @@ The delivery path has been verified under controlled engineering conditions. Tha
 
 A new Background Manager that stores its own task, answer, retry, and notification states might look cleaner initially.
 
-But the system already has execution and recovery under Run, committed content under Publication, control events under Control, and delivery/history under A24. Duplicating these facts raises new questions: which owner wins after a conflict, whether retrying a failed notice reruns the model, and what exactly Stop is allowed to terminate.
+But the system already has execution and recovery under Run, committed content under Publication, control events under Control, and delivery/history under Conversation Events and Historical Delivery. Duplicating these facts raises new questions: which owner wins after a conflict, whether retrying a failed notice reruns the model, and what exactly Stop is allowed to terminate.
 
 We therefore extend the existing seams rather than creating a second execution or answer authority. The general idea is adjacent to [Temporal's Workflow Execution model](https://docs.temporal.io/workflow-execution), where durable history and recoverable work matter, but we neither integrated Temporal nor built an equivalent general-purpose workflow engine.
 

@@ -164,7 +164,7 @@ These are fixed read workers and local Hook observations, not concurrent model e
 
 ## 6. October 2026 Follow-up: Execution Receipts and Evidence Storage Have Different Owners
 
-Earlier debugging often jumped between “the tool executed” and “the model input contained a reference.” The independently defined E04 Research Evidence Store makes a third question explicit: **was a copy of this model attempt captured, durably retained, and still readable?**
+Earlier debugging often jumped between “the tool executed” and “the model input contained a reference.” The independently defined Research Evidence Store makes a third question explicit: **was a copy of this model attempt captured, durably retained, and still readable?**
 
 **Figure: The original execution path and passive evidence path correlate by identity, but do not share a success state.**
 
@@ -187,12 +187,12 @@ There are four different facts to inspect:
 | --- | --- | --- |
 | Original Host action settled successfully | The original Owner settled its tool action | The next model request contained the full body |
 | Model-input projection shows ResultRef | A reference was present in the projected request | The model read all source bytes |
-| E04 returned queued | A bounded snapshot entered a persistence job | The bytes are already durably stored and readable |
+| Research Evidence Store returned queued | A bounded snapshot entered a persistence job | The bytes are already durably stored and readable |
 | Historical selection returns unavailable | Current permission, source, retention, or integrity requirements failed | The original execution never happened |
 
 This distinction also explains why a complete trace query is not a complete historical execution. Preserve observation gaps; do not add a new policy that halts research when optional telemetry fails.
 
-The separate [E04 evidence retention and readback deep dive](/en/articles/agent-research-evidence-store-lifecycle) now covers admission, capacity, lifecycle, and source revalidation. This essay remains focused on **A11 tool-execution facts and their continuation into model input**.
+The separate [evidence retention and readback deep dive](/en/articles/agent-research-evidence-store-lifecycle) now covers admission, capacity, lifecycle, and source revalidation. This essay remains focused on **controlled tool-execution facts and their continuation into model input**.
 
 ## Conclusion
 

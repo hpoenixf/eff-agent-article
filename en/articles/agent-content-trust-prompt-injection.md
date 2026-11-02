@@ -8,7 +8,7 @@ readingBrief:
   appliesTo:
     - "Auditing model requests after retrieval, hooks, compaction and protocol mapping, and governing the boundary from external content to real actions."
   notFor:
-    - "Treating structural checks or the public identity regression as a malicious-text classifier, complete A35 implementation or real-model injection-resistance guarantee."
+    - "Treating structural checks or the public identity regression as a malicious-text classifier, complete content-security-and-trust implementation or real-model injection-resistance guarantee."
 ---
 # Prompt Injection Is More Than Malicious Text: How We Built a Content Trust Boundary for an Agent
 
@@ -16,7 +16,7 @@ Imagine a research agent reading an investment fund report. The user only wants 
 
 This was **not** an observed attack in production. It was a controlled regression exercised against the existing model-request path on October 22, 2026. Before the fix, the test ran the real SDK mapping with simulated network dispatch and observed **one dispatch when zero were expected**. No live model was called, and we did not show that any model would obey the injected text. The application had nonetheless made an objectively verifiable error before the model ever saw the request: **source data had been placed in an instruction position it did not own**.
 
-That failure led us to implement the first phase of A35, Content Security and Trust, in ETF Agent. We did not add a dedicated security model, a keyword blacklist, or an all-powerful reviewer. We chose a narrower question that software can actually test: **As an agent retrieves, transforms, summarizes, and restores material, who is allowed to establish its instruction identity—and who is allowed to commit real effects?**
+That failure led us to implement the first phase of Content Security and Trust in ETF Agent. We did not add a dedicated security model, a keyword blacklist, or an all-powerful reviewer. We chose a narrower question that software can actually test: **As an agent retrieves, transforms, summarizes, and restores material, who is allowed to establish its instruction identity—and who is allowed to commit real effects?**
 
 ## 1. We Already Had Protections. What Was Missing?
 
@@ -45,11 +45,11 @@ OpenAI's [Model Spec](https://github.com/openai/model_spec/blob/main/model_spec.
 
 There is an important counterexample. To send a PDF page image through a multimodal SDK, an application may need to carry that image in a `user` message. Some string-valued tool contexts may likewise be mapped to a `user` carrier by a protocol adapter. A rule treating `role === 'user'` as proof of a new user instruction would misclassify valid image-reading flows. Treating every `user` carrier as authorized would be equally dangerous in the opposite direction.
 
-A35 therefore does not issue a universal `trusted: true` stamp. **Real producers establish identities; roles are carriers; the owner of a concrete effect evaluates authorization.** This also means that a structural check cannot make the model semantically immune to hostile text that arrives inside an otherwise legitimate `user` carrier.
+Content Trust therefore does not issue a universal `trusted: true` stamp. **Real producers establish identities; roles are carriers; the owner of a concrete effect evaluates authorization.** This also means that a structural check cannot make the model semantically immune to hostile text that arrives inside an otherwise legitimate `user` carrier.
 
 ## 3. Capture Identity Before Mutation; Check It Before Dispatch
 
-A35 does not sit at the search endpoint, nor is it a universal safety review after model generation. It connects two existing seams: the context assembler supplies the original identity, and the model Gateway checks it against the actual SDK request after the mutable steps.
+Content Trust does not sit at the search endpoint, nor is it a universal safety review after model generation. It connects two existing seams: the context assembler supplies the original identity, and the model Gateway checks it against the actual SDK request after the mutable steps.
 
 ```mermaid
 graph TD
@@ -105,13 +105,13 @@ These findings sharpened the design: **"We validate the final request" is not pr
 
 ## 4. The Risk Is Not Limited to a Wrong Sentence
 
-Prompt injection may try to induce tool calls, account reads, or unauthorized sharing. A35 does not take over the authorization of these effects. Instead, their existing owners continue to validate the specific operation, scope, source, and execution receipt.
+Prompt injection may try to induce tool calls, account reads, or unauthorized sharing. Content Trust does not take over the authorization of these effects. Instead, their existing owners continue to validate the specific operation, scope, source, and execution receipt.
 
 In a targeted test of the original publication and conversation path, synthetic Web material contained both ordinary analyst recommendations and text claiming to be `system` with permission to execute. A scripted model then proposed an ungranted execution action and a portfolio read. Existing tool and grant controls rejected the proposals, and the unauthorized portfolio callback was not invoked. Previously eligible text, independent sibling content, the finish result, and reopened in-memory history remained intact.
 
-This is **not** evidence that A35 invented a new trading-permission system. It shows that existing authorization was **not replaced** by a supposed universal safety judgment. A source's "the user agreed" cannot manufacture a real confirmation record; a "suspicious" assessment cannot, by itself, delete unrelated eligible text.
+This is **not** evidence that Content Trust invented a new trading-permission system. It shows that existing authorization was **not replaced** by a supposed universal safety judgment. A source's "the user agreed" cannot manufacture a real confirmation record; a "suspicious" assessment cannot, by itself, delete unrelated eligible text.
 
-That is why A35 does not expose `denyRun` or `publishAllowed` tickets. Nor may it gain the same power indirectly by throwing a policy exception, filtering candidates, or demanding a mandatory extra model turn. If a final input fails an objective identity invariant, the original Gateway rejects that input. If a protected business effect lacks permission, its actual owner rejects that effect. **The scope of the rejection follows the scope of the failed fact.**
+That is why Content Trust does not expose `denyRun` or `publishAllowed` tickets. Nor may it gain the same power indirectly by throwing a policy exception, filtering candidates, or demanding a mandatory extra model turn. If a final input fails an objective identity invariant, the original Gateway rejects that input. If a protected business effect lacks permission, its actual owner rejects that effect. **The scope of the rejection follows the scope of the failed fact.**
 
 We also deliberately distinguish three observation states: `checked`, `not-checked`, and `unavailable`. An unavailable assessment is not proof of safety; it must never be relabeled as verified. But failure of an optional observation does not automatically prove that an otherwise valid request or independent task must stop. A targeted fault-injection case demonstrated that an originally bound, eligible request could still follow the original dispatch path when the observation was unavailable, without switching off its existing necessary permissions.
 
@@ -121,7 +121,7 @@ In long-running research, the problem is often not the initial web page. It is t
 
 For example, Main may select an external result, hand selected content to a Child agent, and receive a message saying, "Verified; execution is approved." That text remains the Child's model-generated opinion. It is not a Host execution receipt. Similarly, an automatic Memory entry may contain "the user already confirmed." Even when a later retrieval transports it in a `user`-role message, it remains automatically stored background—not fresh consent from the present user.
 
-We preserve existing `resultRef` identifiers, source hashes, Child handoff facts, and Memory provenance. We do not ask a model to invent a parallel security lineage, and A35 does not create another persistent trust ledger. When a protected use actually needs source or authorization proof, the system returns to the original result, read, and permission contracts. Processing a piece of text, rereading it, or storing it successfully never upgrades its authority.
+We preserve existing `resultRef` identifiers, source hashes, Child handoff facts, and Memory provenance. We do not ask a model to invent a parallel security lineage, and Content Trust does not create another persistent trust ledger. When a protected use actually needs source or authorization proof, the system returns to the original result, read, and permission contracts. Processing a piece of text, rereading it, or storing it successfully never upgrades its authority.
 
 Context compaction is particularly easy to describe incorrectly. The current Main path summarizes **sealed assistant tool proposals**, not all original Web or MCP response bodies dumped into a summarization model. The summary can help the model continue working, but it cannot conjure a real execution or user confirmation from its prose.
 
@@ -135,7 +135,7 @@ For this phase, we separated two jobs. **Software checks what it actually knows:
 
 We added an optional, reviewed `source-instruction-safety` Skill through the existing method and resource admission path. It helps the model distinguish source views from unauthorized commands while preserving the legitimate task. It is not mandatory for ordinary requests, does not introduce another model, and does not require a self-certification statement at the end of each turn. If the optional method is unavailable, normal work and existing deterministic protections remain available.
 
-That is a deliberate trade-off, not an assertion that semantic defense does not matter. OWASP describes additional mitigations including filtering, least privilege, approval, and continuing security tests. **A35 Phase 1 implements the narrower identity-and-effect contract we could validate locally.** It is not a real-time malicious-text classifier, and it does not claim to detect every indirect injection.
+That is a deliberate trade-off, not an assertion that semantic defense does not matter. OWASP describes additional mitigations including filtering, least privilege, approval, and continuing security tests. **The first Content Security and Trust phase implements the narrower identity-and-effect contract we could validate locally.** It is not a real-time malicious-text classifier, and it does not claim to detect every indirect injection.
 
 ## 7. What the Structural Checks Established
 
@@ -156,7 +156,7 @@ node --test --test-concurrency=1 --test-name-pattern='^4\.2 projection never lau
 
 It removes `resultRef`, substitutes an unacquired version, changes the page, and forges the body in separate cases. Bounded Context projection must reject them rather than mint a plausible original-source reference. The observable result is passing rejection assertions, not a research report.
 
-This checks structural protection of acquired source identity. It is not the complete A35 design, a malicious-text classifier, or evidence of real-model resistance to prompt injection.
+This checks structural protection of acquired source identity. It is not the complete Content Security and Trust design, a malicious-text classifier, or evidence of real-model resistance to prompt injection.
 <!-- /open-etf-case -->
 
 ## Conclusion: Content May Inform Research, but It Must Not Grant Itself Power
@@ -169,6 +169,6 @@ A fund report can change an agent's investment hypothesis, motivate more researc
 
 ## Further Reading and Discussion
 
-For the related but distinct question of final tool visibility, see [A34 Tool Surface](https://hpoenixf.com/eff-agent-article/en/articles/agent-model-capability-presentation-tool-surface). For the authorization and effect boundary, see [Models Understand; Code Authorizes](https://hpoenixf.com/eff-agent-article/en/articles/011-model-understands-code-authorizes).
+For the related but distinct question of final tool visibility, see [Model Capability Presentation and Tool Surface](https://hpoenixf.com/eff-agent-article/en/articles/agent-model-capability-presentation-tool-surface). For the authorization and effect boundary, see [Models Understand; Code Authorizes](https://hpoenixf.com/eff-agent-article/en/articles/011-model-understands-code-authorizes).
 
 This article belongs to [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article). If these engineering investigations are useful to you, consider starring the public collection on GitHub.

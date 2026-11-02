@@ -119,11 +119,13 @@ ModelInterpretation --> Publication["发布"]
 node src/cli.mjs --case result-consumption --output runs/result-consumption
 ```
 
-CLI 会给出本次运行目录，其中报告、CSV 附件与 manifest 可以相互核对。[来源与消费反例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/result-consumption-delivery.test.mjs)进一步检查：所需尾行不在选区、币种或日期不一致、分母未知时，只让对应数值或附件不可用，不吞掉独立合法正文。示例动作是合成脚本；下一请求的检查使用生产 Gateway 编码和离线注入的传输，不是自然模型投研。它提炼的是结果交接合同，既不公开 Python 工作台或 A33，也不把这组数解释为投资收益。日常入口仍见[当前 main](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；这个已完成的模块现编号为 v0.10，承载原计划 1.1 的最小结果消费增量，不再重复安排；升级恢复协议的限制见[兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/design.md)。
+CLI 会给出本次运行目录，其中报告、CSV 附件与 manifest 可以相互核对。[来源与消费反例](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/result-consumption-delivery.test.mjs)进一步检查：所需尾行不在选区、币种或日期不一致、分母未知时，只让对应数值或附件不可用，不吞掉独立合法正文。示例动作是合成脚本；下一请求的检查使用生产 Gateway 编码和离线注入的传输，不是自然模型投研。它提炼的是结果交接合同，既不公开 Python 工作台或精确数值核，也不把这组数解释为投资收益。日常入口仍见[当前 main](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)；这个已完成的模块现编号为 v0.10，承载原计划 1.1 的最小结果消费增量，不再重复安排；升级恢复协议的限制见[兼容说明](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/openspec/changes/result-reference-consumption/design.md)。
 
-## 六、A33 精确数值运算在这里处于什么位置？
+<div><a id="六、a33-精确数值运算在这里处于什么位置"></a><a id="六a33-精确数值运算在这里处于什么位置"></a></div>
 
-最新架构增加了 **A33 Numeric**，负责显式十进制加减/比较、受单位绑定的乘法、比例缩放、指定舍入和残差。这是很必要但范围刻意有限的能力。
+## 六、精确数值运算在这里处于什么位置？
+
+最新架构增加了 **精确数值运算（Numeric）**，负责显式十进制加减/比较、受单位绑定的乘法、比例缩放、指定舍入和残差。这是很必要但范围刻意有限的能力。
 
 它能解决“确定算 2.055 时，在明确舍入政策下是否应显示为 2.06”这样的算术问题；它**不决定**某项费用适用于哪个渠道、不决定是否有足够历史数据计算协方差，也不决定组合收益贡献应该采用哪个分母。后者分别是费用、投资研究和归因方法自己的业务契约。
 
@@ -143,7 +145,7 @@ CLI 会给出本次运行目录，其中报告、CSV 附件与 manifest 可以�
 
 ## 延伸阅读与交流
 
-- [金融数字的时点、精度与可复算](031-fintech-data-time-and-reproducible-numbers.md)：数据及算术为什么会出错，A33 与领域规则如何分工。
+- [金融数字的时点、精度与可复算](031-fintech-data-time-and-reproducible-numbers.md)：数据及算术为什么会出错，数值核与领域规则如何分工。
 - [金融 Agent 的可信证据链](financial-agent-trustworthy-evidence-chain.md)：来源、计算与报告之间的完整证据关系。
 - [Python：从工具到计算工作台](agent-python-compute-workbench-evolution.md)：隔离执行与工作区本身怎样建设。
 

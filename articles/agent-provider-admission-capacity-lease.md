@@ -10,13 +10,15 @@ readingBrief:
   notFor:
     - "用租约参数推断供应商 SLA、生产吞吐或故障根因，或让容量层自行重跑研究。"
 ---
-# 模型返回了 HTTP 200，为什么下一次请求还得排队？A30 Provider 容量准入的租约与未知占用
+<div><a id="模型返回了-http-200-为什么下一次请求还得排队-a30-provider-容量准入的租约与未知占用"></a><a id="模型返回了-http-200为什么下一次请求还得排队a30-provider-容量准入的租约与未知占用"></a></div>
+
+# 模型返回了 HTTP 200，为什么下一次请求还得排队？Provider 容量准入的租约与未知占用
 
 同一时间，主研究正在请求模型，两个 Child 在并行分析，另一进程准备给报告做质量复核。每个进程都认为自己的模型调用“没有超过并发上限”，但它们可能通过同一个外部端点争用同一份容量。
 
 更令人困惑的情况发生在请求结束时：服务端已经收到 HTTP 200 和若干流片段，页面也可能开始渲染文字，下一次请求却仍在排队。是限流器没有释放许可，还是**我们根本无法证明上一次远端调用已经结束**？
 
-ETF Agent 的 A30 Provider Admission 负责的正是这个窄问题：**在同一受管协调域内，一次真实供应商调用能否取得当前容量，以及何时有依据释放或隔离这份占用。** 它不负责模型选型、研究结论、Run 总预算，也不负责重试整个任务。
+ETF Agent 的 Provider 容量准入负责的正是这个窄问题：**在同一受管协调域内，一次真实供应商调用能否取得当前容量，以及何时有依据释放或隔离这份占用。** 它不负责模型选型、研究结论、Run 总预算，也不负责重试整个任务。
 
 ## 一、先把“用了哪个模型”和“占了哪个资源组”分开
 
@@ -26,12 +28,12 @@ ETF Agent 的 A30 Provider Admission 负责的正是这个窄问题：**在同�
 
 | Owner | 负责的事实 | 不负责的事 |
 | --- | --- | --- |
-| A32 模型目录与路由配置 | 模型 ID、Provider Profile、协议及确定的路由身份 | 不因为登记模型就签发调用许可 |
-| A10 模型调用与请求配置 | 本次请求绑定、最终协议表达、物理派发与响应 | 不为每个模型私建一份跨进程容量 |
-| **A30 Provider Admission** | 同一容量组的排队、Lease、冷却及释放/隔离 | 不扣 Run 总预算，不决定研究完成 |
-| A05 Run 资源管理 | 原 Run 的请求与动作额度、耗用及 unknown | 不把自己的一次准入当成供应商已释放连接 |
+| 模型目录与路由配置 | 模型 ID、Provider Profile、协议及确定的路由身份 | 不因为登记模型就签发调用许可 |
+| 模型调用与请求配置 | 本次请求绑定、最终协议表达、物理派发与响应 | 不为每个模型私建一份跨进程容量 |
+| **Provider 容量准入** | 同一容量组的排队、Lease、冷却及释放/隔离 | 不扣 Run 总预算，不决定研究完成 |
+| Run 资源管理 | 原 Run 的请求与动作额度、耗用及 unknown | 不把自己的一次准入当成供应商已释放连接 |
 
-A30 从**服务端配置的规范化端点**划分容量组。它提供的是协调域内部的共享上限，不声称发现供应商账号的真实全球额度。不同部署环境如果实际共享外部账号，还可能在厂商侧相互竞争；必须明确配置协调范围，不能把本地 K 冒充供应商 SLA。
+Provider 容量准入从**服务端配置的规范化端点**划分容量组。它提供的是协调域内部的共享上限，不声称发现供应商账号的真实全球额度。不同部署环境如果实际共享外部账号，还可能在厂商侧相互竞争；必须明确配置协调范围，不能把本地 K 冒充供应商 SLA。
 
 ## 二、为什么协调状态要跨进程持久保存
 
@@ -43,7 +45,7 @@ A30 从**服务端配置的规范化端点**划分容量组。它提供的是协
 
 ## 三、排队等待与模型执行是两块不同的时钟
 
-一次请求会先经过 Queue，再取得 Lease。原请求仍需携带可信 `scopeId`、`runId`、`requestDebitId` 和必要的原 owner fence，A30 用它们防止同一个原 debit 再占一份并行许可，但不能替原 Run 生成一笔新预算。
+一次请求会先经过 Queue，再取得 Lease。原请求仍需携带可信 `scopeId`、`runId`、`requestDebitId` 和必要的原 owner fence，Provider 容量准入用它们防止同一个原 debit 再占一份并行许可，但不能替原 Run 生成一笔新预算。
 
 等候可能是因为组已满，也可能是因为故障冷却。排队占用真实墙钟时间，但**不把等待供应商许可的时间误算成模型已经执行了多久**。取得许可之后，Host 在最终网络派发前仍要重新检查当前授权、原执行生命期、取消与 Deadline：排队前有权限，不代表发送当刻仍合法。
 
@@ -74,7 +76,7 @@ HTTP 200 表示本次 HTTP 响应开始正常。它不能证明模型的完整�
 
 以流式模型请求为例，至少有四个独立事实：
 
-| 观察 | A30 能如何使用 | 不能据此推断 |
+| 观察 | 容量准入能如何使用 | 不能据此推断 |
 | --- | --- | --- |
 | HTTP 200 和若干 token 片段 | 已派发并收到部分传输信息 | 供应商执行已完成 |
 | 协议可确认的完成终止事件 | 按原结束合同释放租约 | 用户满意或正文已经发布 |
@@ -97,7 +99,7 @@ HTTP 200 表示本次 HTTP 响应开始正常。它不能证明模型的完整�
 
 Provider Admission 的 `release` 还需要区分传输完成、暂态失败与不能证明的外部执行。释放事务的 ACK 如果丢了，重试沿**同一个原 Ticket、同一份 Outcome** 进行有界补偿，不能借失败又申请一次新的容量并假造完整释放。
 
-这也保护了上游预算。原 `requestDebitId` 不因 Provider Queue 排队、租约更新或历史回读发生第二次扣账；新的合法物理重试仍需由原请求/恢复 Owner 决定。A30 可以拒绝新的容量申请，却不拥有“本次研究没有完成、请无限重跑”的权限。
+这也保护了上游预算。原 `requestDebitId` 不因 Provider Queue 排队、租约更新或历史回读发生第二次扣账；新的合法物理重试仍需由原请求/恢复 Owner 决定。Provider 容量准入可以拒绝新的容量申请，却不拥有“本次研究没有完成、请无限重跑”的权限。
 
 ## 七、当前实现到了哪里，下一步应该验证什么
 
@@ -111,6 +113,6 @@ Provider Admission 的 `release` 还需要区分传输完成、暂态失败与�
 
 ## 延伸阅读
 
-[Provider 统一接口与路由身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-architecture-and-admission)讲 A32/A10 和总体架构，[Run 预算与约束治理](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-constraint-governance-v2)区分 A05 的任务额度；[故障切换与原任务身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-failover-without-resetting-the-run)讨论重试为什么仍需原 Run 批准。
+[Provider 统一接口与路由身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-architecture-and-admission)讲模型目录、模型调用和总体架构，[Run 预算与约束治理](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-constraint-governance-v2)区分 Run 资源管理的任务额度；[故障切换与原任务身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-failover-without-resetting-the-run)讨论重试为什么仍需原 Run 批准。
 
 更多模块机制见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎 Star。

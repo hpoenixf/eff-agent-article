@@ -1,6 +1,6 @@
 ---
 title: "Knowledge Retrieval: How Does a Document Become Citable, Revocable Research Evidence?"
-description: "An end-to-end A20 Knowledge Retrieval deep dive: source rights, parsing, chunking, index health, lexical and vector retrieval, RRF and optional reranking, Host-issued evidence, revocation and diagnostic failure states."
+description: "An end-to-end Knowledge Retrieval deep dive: source rights, parsing, chunking, index health, lexical and vector retrieval, RRF and optional reranking, Host-issued evidence, revocation and diagnostic failure states."
 readingBrief:
   takeaways:
     - "RAG starts with material that may lawfully be retained, identified and represented; an indexed vector does not prove that the original is complete or currently disclosable."
@@ -23,7 +23,7 @@ It may retrieve three sources: an older prospectus, the notice from the relevant
 
 That is why engineering knowledge retrieval is much more than calling a vector-search API. **A document must first be eligible for inclusion, then be represented, indexed, retrieved and delivered without losing its original identity. The resulting answer still needs citation and disclosure checks.** A failure at any stage can produce a plausible-looking answer that cannot be audited.
 
-This article follows **A20, Knowledge Retrieval**, in ETF Agent. Its principal responsibility is to find candidate passages from an *already admitted* collection for an authorized query, while preserving real source identities and retrieval outcomes. Source admission, PDF interpretation, model reasoning, and publication or historical replay each have their own responsible owners. We follow the handoffs end to end without turning A20 into a universal RAG manager.
+This article follows **Knowledge Retrieval** in ETF Agent. Its principal responsibility is to find candidate passages from an *already admitted* collection for an authorized query, while preserving real source identities and retrieval outcomes. Source admission, PDF interpretation, model reasoning, and publication or historical replay each have their own responsible owners. We follow the handoffs end to end without turning it into a universal RAG manager.
 
 ## 1. Four entities that must not be collapsed
 
@@ -34,7 +34,7 @@ This article follows **A20, Knowledge Retrieval**, in ETF Agent. Its principal r
 | **Indexed Chunk** | A bounded, retrievable portion of a particular document | A complete document or all applicable conditions |
 | **Knowledge Evidence** | Material actually delivered for this query, retaining provenance | That high rank establishes support for a final claim |
 
-These objects cannot silently confer one another's authority. PDF reading can provide page text and locations without choosing the most relevant argument. A20 can find candidates without deciding which claims are warranted. A Host can bind a delivered passage to its source without making that passage an instruction to trade.
+These objects cannot silently confer one another's authority. PDF reading can provide page text and locations without choosing the most relevant argument. Knowledge Retrieval can find candidates without deciding which claims are warranted. A Host can bind a delivered passage to its source without making that passage an instruction to trade.
 
 A better engineering model is **a data lifecycle intersecting an evidence-delivery lifecycle**. They meet, but they are not the same pipeline.
 
@@ -81,7 +81,7 @@ This gives us our first diagnostic rule: a reachable database, a working embeddi
 
 ## 3. Online: who chooses what between a question and its candidates?
 
-A20 does not receive merely an arbitrary search string. It operates under a Host-bound user scope and collection, source constraints, and optional domain, time or document-version restrictions.
+The retrieval module does not receive merely an arbitrary search string. It operates under a Host-bound user scope and collection, source constraints, and optional domain, time or document-version restrictions.
 
 The following **illustrates semantics only; it is not a ready-to-call public API**:
 
@@ -154,7 +154,7 @@ flowchart TD
 
 *Figure 2. Ranking cannot bypass authorization, and reading cannot bypass publication. Every decision has an explicit unsuccessful path.*
 
-A20's returned passages preserve the logical source, document and chunk IDs, version/hash, representation type, relevant dates and diagnostic retrieval status. The Host maps **actually delivered, authorized passages** into the current Run's citation registry. A model cannot create trusted evidence merely by inventing a citation identifier.
+The retriever's returned passages preserve the logical source, document and chunk IDs, version/hash, representation type, relevant dates and diagnostic retrieval status. The Host maps **actually delivered, authorized passages** into the current Run's citation registry. A model cannot create trusted evidence merely by inventing a citation identifier.
 
 The chain requires four distinct observations:
 
@@ -169,7 +169,7 @@ The chain requires four distinct observations:
 
 The real engineering lesson from RAG revocation lies in the final checkpoint: **permission at retrieval time does not prove permission when an initial SSE chunk is sent, a response is committed or history is reopened**. An old grant or snapshot cannot replace the currently approved source record. Revocation may prohibit future disclosure; an explicit retention revocation may also require cleaning stored copies, whereas a temporary denial or unknown status must not be misinterpreted as permanent deletion.
 
-Those are responsibilities of the existing authorization, Publication and history mechanisms. A20 must not introduce a second publishing system. For the concrete concurrent-revocation and commit-order problem, see [RAG: Revocation and Historical Replay](027-rag-revocation-publish-replay.md).
+Those are responsibilities of the existing authorization, Publication and history mechanisms. The retrieval module must not introduce a second publishing system. For the concrete concurrent-revocation and commit-order problem, see [RAG: Revocation and Historical Replay](027-rag-revocation-publish-replay.md).
 
 ## 5. No answer? Find the earliest point where usable evidence disappeared
 
@@ -192,7 +192,7 @@ In one inspected 510500 fund-notice evaluation, 306 chunks from the same authori
 
 ## 6. From this architecture to one runnable minimum
 
-The public learning repository [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) is **not** a complete public reproduction of the private A20 system. It offers a much narrower but inspectable slice: **scoped lexical search over synthetic document pages, rereading original pages, and source-linked report output**. It does not provide the complete PostgreSQL/pgvector, BM25, RRF, TEI, personal-knowledge permission or revocation/publication integration discussed above.
+The public learning repository [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) is **not** a complete public reproduction of the private knowledge-retrieval system. It offers a much narrower but inspectable slice: **scoped lexical search over synthetic document pages, rereading original pages, and source-linked report output**. It does not provide the complete PostgreSQL/pgvector, BM25, RRF, TEI, personal-knowledge permission or revocation/publication integration discussed above.
 
 Start with the [fixed v0.15.0 minimal lexical search implementation](https://github.com/hpoenixf/open-etf-agent/blob/v0.15.0/src/retrieval.mjs), then use the [public module guide](https://github.com/hpoenixf/open-etf-agent/blob/v0.15.0/docs/module-guide.md) for the original-page retrieval example. After installing and building with the Node.js version stated in the README, run this in a fresh output directory:
 
@@ -200,14 +200,14 @@ Start with the [fixed v0.15.0 minimal lexical search implementation](https://git
 npm run demo -- --case retrieve-reread --query "offline editing"
 ~~~
 
-This CLI uses scripted synthetic materials to exercise actual retrieval and readback. It is not a Knowledge service ready for live financial materials, and it does not prove a model used every candidate correctly. Qualification of the full private A20 chain requires separate permitted evidence of source/index status, Host execution, actual model-input projection, and citation/publication behavior. The smaller public example cannot be used as a substitute for those missing observations.
+This CLI uses scripted synthetic materials to exercise actual retrieval and readback. It is not a Knowledge service ready for live financial materials, and it does not prove a model used every candidate correctly. Qualification of the full private knowledge-retrieval chain requires separate permitted evidence of source/index status, Host execution, actual model-input projection, and citation/publication behavior. The smaller public example cannot be used as a substitute for those missing observations.
 
 ## 7. The architectural trap: inventing a RAG manager that owns everything
 
 RAG can easily become a giant module responsible for every search, tool choice, knowledge state, quality verdict and publishing approval. That looks convenient but merges incompatible sources of authority:
 
 - **Source and version owners** keep control of original content, document lifecycle and permission facts.
-- **A20 Retriever** owns eligible candidates, ranking, retrieval outcomes and accurate source identities.
+- **The Knowledge Retriever** owns eligible candidates, ranking, retrieval outcomes and accurate source identities.
 - **Model/Main** decides what to investigate next, whether material supports a claim and whether another authorized read is useful. Candidate count cannot declare the research complete.
 - **Host citation and Publication/History** own actual evidence delivery, lawful disclosure and inspectable replay. They do not inherit old permission forever.
 
@@ -217,6 +217,6 @@ Reliable retrieval is not about searching more every time. It is about being abl
 
 ---
 
-Related reading: [A17 Research Assets: Source and Version](agent-research-assets-identity-version-lifecycle.md) · [PDF: From Text to Evidence](024-agent-pdf-from-text-to-evidence.md) · [Independent Citation and Claim Review](ai-citations-do-not-prove-reliability.md) · [RAG Revocation and Historical Replay](027-rag-revocation-publish-replay.md) · [RAG Retrieval Evaluation](rag-retrieval-evaluation-evidence.md)
+Related reading: [Research Assets: Source and Version](agent-research-assets-identity-version-lifecycle.md) · [PDF: From Text to Evidence](024-agent-pdf-from-text-to-evidence.md) · [Independent Citation and Claim Review](ai-citations-do-not-prove-reliability.md) · [RAG Revocation and Historical Replay](027-rag-revocation-publish-replay.md) · [RAG Retrieval Evaluation](rag-retrieval-evaluation-evidence.md)
 
 *Evidence boundary: This end-to-end account joins verified ETF Agent mechanisms and bounded historical observations. Optional BM25 and local reranking behavior varies by environment; production model consumption and semantic investment-answer quality cannot be inferred from code presence or controlled ranking tests. The scope of the public teaching implementation is separately identified above.*

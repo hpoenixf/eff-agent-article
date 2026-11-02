@@ -193,3 +193,9 @@ Each canonical language edition owns its authored `description`. Recent updates 
 ### Article context disclosure / 正文辅助信息
 
 正文前的证据范围、标签与配套源码由一个默认关闭的原生 `details` 承载；原始文字、资格说明和链接仍在 SSR 中，展开后可读，不改变其事实来源。`article-context.mjs` 仅统一既有可见条件与配套示例映射；不建立第二套证据或标签登记。切换文章或语言版时按 `page.relativePath` 重建披露容器，避免把上一页的展开状态带入下一篇；无辅助信息时不显示空入口。结论导读不是该容器的一部分。
+
+### Reader-facing names / 面向读者的职责名
+
+文章 H1、既有 `title` / `description` / `readingBrief` 与 `book.mjs` / `book.en.mjs` 显示标题使用自然职责名，不让读者先记内部 Owner 编号。`node scripts/check-reader-labels.mjs`（已纳入 `check:catalog`）从原 `owner-data` 读取真实编号，只检查这些读者入口；正文逐句审校，不用零匹配替代语义判断。必要代码、真实源码定位、原 Owner 检索表与图内定位编号保留，机器键、primary/related、URL 与历史版本不为文案清理重写。
+
+改标题前核原生成 fragment；本次标题前的空兼容锚点块保留旧站点与 GitHub 风格 ID，同时让新标题自然生成新 fragment。`scripts/fixtures/reader-heading-aliases.json` 只登记需长期保留的旧链接回归例，不是第二套文章或标题数据源。不要删除这些锚点，也不要把它们的编号重新显示到标题；SSR 回归与真实页面验证分开。

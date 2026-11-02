@@ -19,7 +19,7 @@ What do financial AI products actually offer investors, and where can convenienc
 Provenance, methodology, conclusions and strategy validity are separate problems; correct arithmetic alone does not complete research.
 
 - **B1 · Financial data quality and reproducibility** — How do dates, share classes, NAVs, currencies, fees, look-through coverage and assumptions change the answer?
-  [Financial data: dates and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Exact numeric kernel: units and rounding](/en/articles/agent-numeric-kernel-exact-units-rounding) · [Read-only Portfolio MCP](/en/articles/portfolio-mcp-readonly-investment-data) · [B03: Deterministic fund allocations](/en/articles/agent-deterministic-fund-allocation)
+  [Financial data: dates and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Exact numeric kernel: units and rounding](/en/articles/agent-numeric-kernel-exact-units-rounding) · [Read-only Portfolio MCP](/en/articles/portfolio-mcp-readonly-investment-data) · [Deterministic fund allocations](/en/articles/agent-deterministic-fund-allocation)
 
 - **B2 · Research methods and trustworthy lineage** — Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable?
   [Traceable financial evidence and calculations](/articles/financial-agent-trustworthy-evidence-chain) (**Chinese original**) · [Financial Python result consumption](/en/articles/financial-agent-python-result-consumption) · [RAG evaluation: ranking versus supported financial evidence](/en/articles/rag-retrieval-evaluation-evidence)

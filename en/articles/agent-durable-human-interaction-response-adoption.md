@@ -154,7 +154,7 @@ The main lesson is simple: **receiving a reply begins a handoff; adoption by the
 
 A scoped Runtime refactor now consolidates **how an admitted human reply affects a Child's phase** under the original Child/HIO Owner. Memory and PostgreSQL adapters must consume the same transition plan inside their original transaction safeguards. This grants HIO no new Publication, Authorization or whole-Run termination power. The first slice has bounded evidence; broader duplicate, cancel, stale-fence and cross-process recovery coverage and removal of repeated decisions remain open.
 
-A37's earlier local close does not enable production Human Park or certify live-model questioning quality. An accepted reply must still reach the original consumer; a merely received answer cannot be labeled adopted without that fact.
+HIO's earlier local close does not enable production Human Park or certify live-model questioning quality. An accepted reply must still reach the original consumer; a merely received answer cannot be labeled adopted without that fact.
 
 ## Further Reading
 

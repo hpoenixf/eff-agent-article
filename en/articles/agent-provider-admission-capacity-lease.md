@@ -10,13 +10,15 @@ readingBrief:
   notFor:
     - "Inferring provider SLAs, production throughput or definitive failure causes from lease settings, or letting the capacity layer independently rerun research."
 ---
-# Why the Next Model Request Still Queues After HTTP 200: A30 Provider Admission, Leases and Unknown Occupancy
+<div><a id="why-the-next-model-request-still-queues-after-http-200-a30-provider-admission-leases-and-unknown-occupancy"></a></div>
+
+# Why the Next Model Request Still Queues After HTTP 200: Provider Admission, Leases and Unknown Occupancy
 
 The main research loop is invoking a model while two Child agents analyze evidence and a separate process is about to review a report. Each process believes it is "below its concurrency limit." Yet all of them may use the same external endpoint and compete for the same capacity.
 
 The less obvious problem appears at completion: the server has received HTTP 200 and several streaming fragments, and the UI may already show words, while the next request remains queued. Did the limiter forget to release its permit, or **is there insufficient proof that the previous remote invocation has actually ended**?
 
-ETF Agent's A30 Provider Admission owns a narrow answer: **within one managed coordination domain, may a particular physical provider call occupy capacity now, and when is there adequate evidence to release or quarantine that occupancy?** A30 does not select the model, own the Run budget, evaluate the research or retry the task.
+ETF Agent's Provider Admission owns a narrow answer: **within one managed coordination domain, may a particular physical provider call occupy capacity now, and when is there adequate evidence to release or quarantine that occupancy?** Provider Admission does not select the model, own the Run budget, evaluate the research or retry the task.
 
 ## 1. Separate model selection from the capacity group
 
@@ -26,12 +28,12 @@ The responsibilities are divided as follows.
 
 | Owner | Fact it owns | What it does not own |
 | --- | --- | --- |
-| A32 Model Catalog and Route Configuration | Model ID, provider profile, protocol and stable route identity | Registration does not issue invocation permission |
-| A10 Model Invocation and Request Configuration | Bound request, final protocol representation, dispatch and response | It does not create an independent cross-process capacity counter for each model |
-| **A30 Provider Admission** | Queue, lease, cooldown, release and quarantine for the shared group | It does not debit total Run budget or mark research complete |
-| A05 Run Resource Ownership | The original Run's request/action allowance, consumption and unknown outcomes | Its admission does not certify a provider connection has been released |
+| Model Catalog and Route Configuration | Model ID, provider profile, protocol and stable route identity | Registration does not issue invocation permission |
+| Model Invocation and Request Configuration | Bound request, final protocol representation, dispatch and response | It does not create an independent cross-process capacity counter for each model |
+| **Provider Admission** | Queue, lease, cooldown, release and quarantine for the shared group | It does not debit total Run budget or mark research complete |
+| Run Resource Ownership | The original Run's request/action allowance, consumption and unknown outcomes | Its admission does not certify a provider connection has been released |
 
-A30 groups capacity by the **normalized endpoint from server-controlled configuration**. This is a shared upper bound inside the selected coordination domain, not a discovery mechanism for the provider's worldwide account quota. Independent deployments using the same provider account may still compete for vendor-side capacity; an application-side K is not a provider SLA.
+Provider Admission groups capacity by the **normalized endpoint from server-controlled configuration**. This is a shared upper bound inside the selected coordination domain, not a discovery mechanism for the provider's worldwide account quota. Independent deployments using the same provider account may still compete for vendor-side capacity; an application-side K is not a provider SLA.
 
 ## 2. Why coordination state must survive processes
 
@@ -43,7 +45,7 @@ Database transactions only serialize **short admission state transitions**. The 
 
 ## 3. Queue time and model execution follow different clocks
 
-A request joins the queue before acquiring a lease. It remains associated with trusted original `scopeId`, `runId`, `requestDebitId` and relevant Owner fence. A30 uses that binding to prevent one original debit from simultaneously acquiring a duplicate slot, but does not create a fresh Run allowance.
+A request joins the queue before acquiring a lease. It remains associated with trusted original `scopeId`, `runId`, `requestDebitId` and relevant Owner fence. Provider Admission uses that binding to prevent one original debit from simultaneously acquiring a duplicate slot, but does not create a fresh Run allowance.
 
 Waiting can reflect a full group or an active failure cooldown. It consumes real wall-clock time, but **is not counted as time in which the model has already been executing**. After admission and before actual dispatch, the Host still checks current authorization, original execution lifetime, cancellation and deadline. Permission before waiting does not imply permission at send time.
 
@@ -72,7 +74,7 @@ HTTP 200 establishes that an HTTP response began normally. It does not certify t
 
 At least four facts must be kept separate for a streaming model call.
 
-| Observation | How A30 can interpret it | What it cannot prove |
+| Observation | How Provider Admission can interpret it | What it cannot prove |
 | --- | --- | --- |
 | HTTP 200 and some output fragments | Dispatch and partial transport occurred | Remote execution is complete |
 | A valid protocol terminal | The lease may be released under the original completion contract | User satisfaction or published content |
@@ -95,7 +97,7 @@ Suppose a user closes a tab while the model stream has no recognized terminal. T
 
 A Provider Admission `release` decision distinguishes transport completion, transient failures and execution whose final state is not established. If the release transaction ACK is lost, bounded compensation retries use **the same ticket and the same first outcome**. They do not allocate a second ticket in an attempt to manufacture a successful release.
 
-This also preserves the upstream Run ledger. The original `requestDebitId` does not get charged a second time merely because a request queued, its lease renewed or History was read again. Any legitimate new physical retry still requires the original request/Recovery Owner to admit it. A30 can refuse capacity for a new invocation; it cannot declare the research failed and grant itself permission to rerun it indefinitely.
+This also preserves the upstream Run ledger. The original `requestDebitId` does not get charged a second time merely because a request queued, its lease renewed or History was read again. Any legitimate new physical retry still requires the original request/Recovery Owner to admit it. Provider Admission can refuse capacity for a new invocation; it cannot declare the research failed and grant itself permission to rerun it indefinitely.
 
 ## 7. Current implementation and remaining evidence
 
@@ -109,6 +111,6 @@ The goal is not a system where no model call ever waits. It is to make the waiti
 
 ## Further reading
 
-[Provider configuration and route identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-architecture-and-admission) explains the broader A32/A10 layer. [Run budget and constraint governance](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) covers A05's separate per-task allowance. [Failover and original Run identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-failover-without-resetting-the-run) shows why retry still belongs to the original Run.
+[Provider configuration and route identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-architecture-and-admission) explains the broader model-catalog and invocation layer. [Run budget and constraint governance](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) covers the separate per-task resource allowance. [Failover and original Run identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-failover-without-resetting-the-run) shows why retry still belongs to the original Run.
 
 Find more case studies at [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article); Star the repository to follow the series.

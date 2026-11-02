@@ -24,7 +24,7 @@ A user says, “What if we look at just the past year?” That sounds like a str
 
 Mixing these up can seem harmless until a client retries after a timeout, a long research task is interrupted, or the user switches topics. Then the system may repeat work, inherit the wrong permissions, or hand the model a continuation that has lost the original research question.
 
-This article draws on ETF Agent's A02 conversation admission and task continuation. The principle is **conversation continuity helps people keep talking; execution identity tells the system precisely which task is running. Only explicit, verified lineage can justify inheriting what is needed to continue an earlier Run.**
+This article draws on ETF Agent's conversation admission and task continuation. The principle is **conversation continuity helps people keep talking; execution identity tells the system precisely which task is running. Only explicit, verified lineage can justify inheriting what is needed to continue an earlier Run.**
 
 ## 1. First, separate three easily confused objects
 
@@ -86,7 +86,7 @@ This is closely related to idempotent APIs in distributed systems. Amazon's Buil
 
 ## 3. An ordinary follow-up, a clarification, and explicit Continue take different routes
 
-The model interprets the user's intended question. The Host verifies whether a requested relationship to a previous execution actually exists. A02 does not infer permission to inherit a Run by reading the semantics of a chat message.
+The model interprets the user's intended question. The Host verifies whether a requested relationship to a previous execution actually exists. Conversation admission does not infer permission to inherit a Run by reading the semantics of a chat message.
 
 This diagram separates three verified relationships. Preliminary message-identity checks are not final durable admission. A Run is created only after the relationship and eligibility checks; model and tool dispatch still obey the original authorization and resource rules.
 
@@ -131,7 +131,7 @@ Once the relationship is valid, the model needs useful context. That does not ju
 | Historical summaries and open questions | Use as provenance-bound working hints, not verified current facts |
 | Saved calculations and source material | Read via result and source validation, with bounded scope and historical labeling |
 
-History compaction may omit earlier replies; a working summary may lose essential detail. A02 should not repair those gaps by making up a coherent narrative. It maintains the task relationship, while context projection decides what evidence may enter the next request. The research model then adapts its answer to what it has.
+History compaction may omit earlier replies; a working summary may lose essential detail. The conversation admission component should not repair those gaps by making up a coherent narrative. It maintains the task relationship, while context projection decides what evidence may enter the next request. The research model then adapts its answer to what it has.
 
 The engineering history supplies a concrete counterexample. After eligibility for a narrowly interrupted Run was expanded, a focused test found that the new Run reached Main **without receiving the original question**. More prompt instructions would not restore missing task identity. The later correction checked the parent's original text hash, authorization, and context binding before allowing the original request into the new execution. These were controlled code and scripted-Gateway observations, not a production incident rate.
 
@@ -197,13 +197,15 @@ npm run session -- inspect --session runs/a02-boundary-demo --run RUN_ID
 npm run session -- resume --session runs/a02-boundary-demo --run RUN_ID
 ```
 
-After `start` completes normally, this `resume` sequence demonstrates **a repeated terminal call and readback of the original result**: the fixed [Runtime terminal branch](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160) reads the saved outcome rather than executing again. It does not demonstrate checkpoint recovery after a process interruption, or the full A02 multi-turn HTTP Conversation / Continue experience. These commands and the fixed source were reviewed, not re-executed; no fault injection was performed for this article. The public educational project uses local SQLite and an offline scripted Gateway. It lets readers examine fundamental identity and execution contracts without claiming that the richer private system's Web-based admission and cross-Run continuation are shipped in that CLI. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
+After `start` completes normally, this `resume` sequence demonstrates **a repeated terminal call and readback of the original result**: the fixed [Runtime terminal branch](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160) reads the saved outcome rather than executing again. It does not demonstrate checkpoint recovery after a process interruption, or the full multi-turn HTTP Conversation / Continue experience. These commands and the fixed source were reviewed, not re-executed; no fault injection was performed for this article. The public educational project uses local SQLite and an offline scripted Gateway. It lets readers examine fundamental identity and execution contracts without claiming that the richer private system's Web-based admission and cross-Run continuation are shipped in that CLI. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
 
-## 8. A02 does not decide what the model should do
+<div><a id="_8-a02-does-not-decide-what-the-model-should-do"></a><a id="8-a02-does-not-decide-what-the-model-should-do"></a></div>
+
+## 8. Conversation admission does not decide what the model should do
 
 It is tempting to blend chat history, task identity, recovery, and permission inheritance in the name of a smooth experience. But a complex Agent needs **natural-language continuity and execution-fact continuity to cooperate without impersonating one another**.
 
-A02 should answer narrow, verifiable questions: Has this original message already been admitted? Which trusted conversation owns it? What task relationship can be established? Which conflict must be refused?
+Conversation admission should answer narrow, verifiable questions: Has this original message already been admitted? Which trusted conversation owns it? What task relationship can be established? Which conflict must be refused?
 
 It does not decide whether research is semantically sufficient, issue tool grants, replay earlier side effects, or erase a legitimate published answer when historical material becomes unavailable. Research judgment belongs to the model; permissions and budgets to their original Host owners; execution termination, context fitting, and publication to their respective owners.
 

@@ -4,7 +4,7 @@ description: "Reproducible time-bound market data, exact decimals, cash conserva
 readingBrief:
   takeaways:
     - "Real sources can still support wrong conclusions. Fix instruments, windows, units, and denominators before recomputing; a wrong answer alone does not prove Runtime lost data."
-    - "A33 provides exact arithmetic under explicit units and rounding policies. Compare cash constraints before formatting: two-decimal displays can conceal a CNY 0.001 shortfall."
+    - "The Numeric kernel provides exact arithmetic under explicit units and rounding policies. Compare cash constraints before formatting: two-decimal displays can conceal a CNY 0.001 shortfall."
     - "Fee estimates are not actual charges, and simulated annualization is not account performance. Share genuinely equivalent methods while preserving distinct semantics, versions, and historical reports."
   appliesTo:
     - "Reviewing research numbers, cash constraints, or fee calculations, and dividing responsibility between numeric infrastructure and financial methods."
@@ -68,11 +68,13 @@ ClaimReview --> PublishedNumbers
 
 Computation must not also decide whether the user should buy the resulting portfolio. It produces checkable numbers under defined inputs. The model still explains meaning, comparison conditions and uncertainty. When prose differs from the computed number, locate the specific claim rather than asking a generic checker to judge whether the whole investment recommendation is correct.
 
-## 4. A33 Solves Precise Arithmetic, Not Investment Judgment
+<div><a id="_4-a33-solves-precise-arithmetic-not-investment-judgment"></a><a id="4-a33-solves-precise-arithmetic-not-investment-judgment"></a></div>
+
+## 4. The Numeric Kernel Solves Precise Arithmetic, Not Investment Judgment
 
 JavaScript number uses binary floating point. The problem goes beyond the familiar 0.1 + 0.2 illustration. An amount multiplied by a fee rate may lie exactly near a half-cent, and floating-point error can change displayed rounding. Rounding **before** an adequacy check can also hide a real cash shortfall.
 
-We introduced a small **A33 Numeric** capability in the original portfolio-calculation producer. Inputs retain explicit units and decimal strings. Operations use exact decimal coefficients, followed by the caller's declared rounding policy and residual reporting.
+We introduced a small **exact numeric operations** capability in the original portfolio-calculation producer. Inputs retain explicit units and decimal strings. Operations use exact decimal coefficients, followed by the caller's declared rounding policy and residual reporting.
 
 Representative safe fixed cases from the code:
 
@@ -83,9 +85,9 @@ Representative safe fixed cases from the code:
 | CNY −10.085 rounded to two decimals | CNY −10.085 | CNY −10.08 |
 | Compare CNY 1.000 and CNY 0.999 | Difference CNY 0.001 | **Strictly unequal** |
 
-The third row uses the **domain's explicitly selected tie-toward-positive-infinity policy**, **not** a universal default for finance. Settlement precision, internal computation precision and report display precision may differ. A33 does not decide a broker's settlement policy.
+The third row uses the **domain's explicitly selected tie-toward-positive-infinity policy**, **not** a universal default for finance. Settlement precision, internal computation precision and report display precision may differ. The Numeric kernel does not decide a broker's settlement policy.
 
-A33 provides same-unit addition, subtraction and comparison, explicitly unit-bound multiplication, proportional scaling, and rounding residuals.
+The Numeric kernel provides same-unit addition, subtraction and comparison, explicitly unit-bound multiplication, proportional scaling, and rounding residuals.
 
 It does not infer yuan versus cents from magnitude, add CNY to USD, or determine which fund is represented by “units × NAV” merely from the formula. Product identity and NAV date remain the original investment-data producer's responsibility.
 
@@ -146,7 +148,7 @@ We chose federated consolidation:
 - **Portfolio:** cash roles, constraints and rebalancing.
 - **Fee domain:** applicable fee terms and estimation.
 - **Python research methods:** returns, attribution and look-through.
-- **A33:** exact arithmetic only.
+- **Numeric kernel:** exact arithmetic only.
 
 Reuse methods whose semantics truly match; preserve independent versions when they do not. Stored historical reports keep their original numbers and are not retroactively recalculated using today's revised formula when reopened.
 
@@ -162,9 +164,11 @@ In our controlled numerical chain, an amount that happens to match a public webp
 
 Financial reports mix several legitimate forms of “truth”: official disclosures, historical price observations, derived calculations, and actual personal profit/loss ledger entries. Packaging them in one professional-looking PDF does not cause them to validate one another.
 
-## 9. A33 Now Has Its Own Deep Dive, Not Financial Authority
+<div><a id="_9-a33-now-has-its-own-deep-dive-not-financial-authority"></a><a id="9-a33-now-has-its-own-deep-dive-not-financial-authority"></a></div>
 
-As of October 31, 2026, A33's exact-decimal contract deserves independent explanation: values arrive as explicit decimal strings and units, multiplication requires a dimensional binding, rounding returns exact, rounded, and residual values, and same-unit comparison retains differences as small as 0.001 even when display rounding hides them.
+## 9. The Numeric Kernel Has Its Own Deep Dive, Not Financial Authority
+
+As of October 31, 2026, the Numeric kernel's exact-decimal contract deserves independent explanation: values arrive as explicit decimal strings and units, multiplication requires a dimensional binding, rounding returns exact, rounded, and residual values, and same-unit comparison retains differences as small as 0.001 even when display rounding hides them.
 
 **Figure: Identical arithmetic can produce different legitimate financial conclusions under different evidence and business conditions.**
 
@@ -181,7 +185,7 @@ flowchart TD
 
 Consider shares multiplied by per-share NAV. A quantity of 2.055 CNY, a displayed settlement of 2.06 CNY, and a +0.005 CNY rounding residual can all be computed deterministically under a stated policy. **If the shares and NAV refer to different dates, the arithmetic may still be ineligible as a current valuation.** The domain decides temporal alignment, coverage, permitted proxy inputs, and what-if assumptions.
 
-The new [Numeric kernel deep dive](/en/articles/agent-numeric-kernel-exact-units-rounding) explains exactly how a bounded computation is performed. This essay explains why financial amounts across time, conventions and source types do not automatically validate one another. B03 portfolio computation, cash constraints and the original ledger retain independent domain authority.
+The new [Numeric kernel deep dive](/en/articles/agent-numeric-kernel-exact-units-rounding) explains exactly how a bounded computation is performed. This essay explains why financial amounts across time, conventions and source types do not automatically validate one another. Portfolio computation, cash constraints and the original ledger retain independent domain authority.
 
 ## 10. A Financial Number Matters Only When It Supports the Decision
 
