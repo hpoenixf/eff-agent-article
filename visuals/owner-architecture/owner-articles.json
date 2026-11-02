@@ -72,9 +72,9 @@
   },
   "owners": {
     "A01": {
-      "primary": "agent-account-identity-private-scope",
       "related": [
-        "011-model-understands-code-authorizes"
+        "011-model-understands-code-authorizes",
+        "agent-account-identity-private-scope"
       ]
     },
     "A02": {
@@ -89,11 +89,11 @@
       ]
     },
     "A03": {
-      "primary": "agent-research-decisions-evidence-synthesis",
+      "primary": "adaptive-research-python-workbench",
       "related": [
-        "adaptive-research-python-workbench",
         "022-agent-entry-from-intent-to-direct-research",
-        "financial-agent-python-result-consumption"
+        "financial-agent-python-result-consumption",
+        "agent-research-decisions-evidence-synthesis"
       ]
     },
     "A04": {
@@ -206,11 +206,11 @@
       ]
     },
     "A22": {
-      "primary": "agent-artifact-version-access-sharing",
+      "primary": "agent-html-evolution-challenges",
       "related": [
-        "agent-html-evolution-challenges",
         "agent-python-compute-workbench-evolution",
-        "agent-weekly-thesis-history-continuous-research"
+        "agent-weekly-thesis-history-continuous-research",
+        "agent-artifact-version-access-sharing"
       ]
     },
     "A23": {
