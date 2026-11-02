@@ -269,7 +269,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
 | A01 | [Account Identity](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [Related reading](/en/articles/011-model-understands-code-authorizes) | L1, L4 |
-| A02 | [Conversation Admission and Continuation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A02) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
+| A02 | [Conversation Admission and Continuation](/en/articles/agent-conversation-admission-task-continuation) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
 | A04 | [Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1, L3, L4, L5 |
 | A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L3, L5 |
 | A12 | [Skill Methods and Resources](/en/articles/agent-skill-from-markdown-to-callable-research) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
