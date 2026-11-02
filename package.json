@@ -11,7 +11,7 @@
     "predocs:build": "node scripts/generate-rss.mjs && node scripts/build-static-mermaid.mjs",
     "predocs:dev": "node scripts/build-static-mermaid.mjs",
     "diagrams:build": "node scripts/build-static-mermaid.mjs",
-    "check:topic": "node --test scripts/open-etf-topic.test.mjs",
+    "check:topic": "node --test scripts/open-etf-topic.test.mjs scripts/topic-readability.test.mjs",
     "check:briefs": "node --test scripts/article-reading-brief.test.mjs && node scripts/check-reading-briefs.mjs"
   },
   "devDependencies": {

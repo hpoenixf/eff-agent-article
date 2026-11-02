@@ -634,3 +634,25 @@
 .owner-gallery > h1 { margin-bottom: 14px; }
 .owner-gallery > p { color: var(--vp-c-text-2); }
 @media (max-width: 640px) { .owner-gallery { padding: 28px 16px 48px; } }
+
+/* The editorial backlog remains plain, complete Markdown, not a task board. */
+.financial-backlog > h1 { margin-bottom: 12px; }
+.financial-backlog > p > small { display: block; color: var(--vp-c-text-2); font-size: 12px; letter-spacing: .035em; }
+.financial-backlog .research-queue { margin: 28px 0 36px; padding: 4px 0 4px 18px; border-left: 3px solid var(--vp-c-brand-1); }
+.financial-backlog .research-queue h2 { margin: 0 0 12px; padding: 0; border: 0; font-size: 18px; }
+.financial-backlog .research-queue p { margin: 10px 0; font-size: 14px; }
+.financial-backlog .financial-research-item { padding: 22px 0; border-bottom: 1px solid var(--vp-c-divider); }
+.financial-backlog .research-item-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; }
+.financial-backlog .research-item-heading h3 { flex: 1 1 240px; margin: 0; font-size: 17px; line-height: 1.55; }
+.financial-backlog .research-item-state { flex: 0 0 auto; color: var(--vp-c-text-2); font-size: 12px; line-height: 1.6; }
+.financial-backlog .research-item-code { margin: 4px 0 12px; color: var(--vp-c-text-2); font-size: 12px; }
+.financial-backlog .financial-research-item > p:not(.research-item-code) { margin: 10px 0; }
+.financial-backlog .research-materials { color: var(--vp-c-text-2); font-size: 13px; line-height: 1.8; }
+.financial-backlog .research-materials p { margin: 12px 0 0; }
+.financial-backlog .research-materials strong { font-weight: 500; }
+@media (max-width: 640px) {
+  .financial-backlog .research-queue { padding-left: 14px; }
+  .financial-backlog .financial-research-item { padding: 18px 0; }
+  .financial-backlog .research-item-heading { gap: 4px 12px; }
+  .financial-backlog .research-item-heading h3 { flex-basis: 100%; }
+}
