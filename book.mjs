@@ -62,6 +62,7 @@ export const collections = [
           ["024-agent-pdf-from-text-to-evidence", "PDF：从文本到证据"],
           ["agent-temporal-semantics-market-calendar", "Agent 说“今天”时，到底是哪一天"],
           ["agent-python-compute-workbench-evolution", "Python：从工具到计算工作台"],
+          ["agent-skill-from-markdown-to-callable-research", "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力"],
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
