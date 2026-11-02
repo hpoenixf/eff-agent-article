@@ -79,6 +79,8 @@ When limits are reached, capture returns an explicit gap. The same applies to in
 
 A call may leave only its request, only its output, or neither. The data model must be honest about each possibility.
 
+**A real lock-contention case shows the limits of asynchronous capture.** Optional research evidence was already queued for background persistence, yet the writer still competed with answer publication for locks in a shared database. The investigation found a cycle across three transactions: the evidence write held a source-related lock while waiting for a model-record lock, with publication also caught in the dependency chain. Moving the call to a queue did not isolate the underlying resource. The narrow repair rolled back the optional evidence transaction when it could not immediately acquire the required model-record lock, releasing held resources and recording a capture failure instead of claiming success. Controlled contention and readback supported removal of this particular dependency, not reconstruction of every detail of the historical failure or permission to discard required execution receipts.
+
 ## 5. Readback is not permission to resurrect old context
 
 **Figure 2: Read authorization, index discovery, and content selection are distinct checks.**
