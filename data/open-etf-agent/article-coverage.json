@@ -96,6 +96,10 @@
     "memory-consumer": {
       "kind": "scenario",
       "name": "memory-consumer"
+    },
+    "revocable-rag": {
+      "kind": "scenario",
+      "name": "revocable-rag"
     }
   },
   "articles": [
@@ -202,9 +206,10 @@
     {
       "slug": "027-rag-revocation-publish-replay",
       "title": "RAG：文档撤权与历史回放",
-      "status": "无公开对应",
-      "target": null,
-      "scope": "缺动态 ACL/撤权传播、发布资格与历史回放再授权"
+      "status": "verified",
+      "target": "revocable-rag",
+      "scope": "仅fixture文档撤销：原Runtime、Publication与Reader重新检查currentness；历史原字节保留，不声称动态ACL或任意live导入",
+      "articleCommit": "9bb28b52d7907dee1e34097bbd7bc2beaaacc676"
     },
     {
       "slug": "agent-provider-architecture-and-admission",
@@ -348,7 +353,8 @@
     "pdf-local": "legacy-runtime",
     "temporal": "temporal",
     "ordinary-response": "ordinary-response",
-    "memory-consumer": "memory-consumer"
+    "memory-consumer": "memory-consumer",
+    "revocable-rag": "revocable-rag"
   },
   "qualifications": {
     "legacy-runtime": {
@@ -404,6 +410,18 @@
       "receipt": {
         "path": "docs/verification/v014-memory-consumer.safe.json",
         "gitBlob": "029987408d9ee899674c59ba40815f6bff33a686"
+      }
+    },
+    "revocable-rag": {
+      "kind": "independent-scenario",
+      "scenario": "revocable-rag",
+      "commit": "35f244f2e06da447c110325d2ac5a5c39f36e842",
+      "tree": "bc127865a46b172ef0884257e4ad9d5a32a5d862",
+      "evidenceCommit": "35f244f2e06da447c110325d2ac5a5c39f36e842",
+      "evidenceTree": "bc127865a46b172ef0884257e4ad9d5a32a5d862",
+      "receipt": {
+        "path": "docs/verification/v016-revocable-rag.safe.json",
+        "gitBlob": "99b6dc614dc42528fd617b04029306dfdea430b6"
       }
     }
   }

@@ -24,6 +24,14 @@ readingBrief:
 
 v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选择动作，真实执行读取、计算与保存；它让我们检查程序怎样工作，还不能据此判断真实模型会不会读懂资料。这篇先把第一条路径讲清楚，后续再回到已有的模块文章，逐步补上对应源码。
 
+## 本轮可以复现什么
+
+最新三条推进线可以沿既有模块阅读：[v0.16 撤权后的受控回读](./027-rag-revocation-publish-replay.md)、[v0.17 共享容量准入](./agent-provider-admission-capacity-lease.md)和[v0.18 单次确认的定时 occurrence](./agent-autonomous-scheduled-research.md)。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口，不必从本文的历史快照猜测当前能力。
+
+其中 v0.16 已有[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及独立安装、构建、Publication 和 Reader 撤权回读证据；安装使用既有官方缓存，资料与动作是合成输入，没有外部模型调用。v0.17 与 v0.18 的文章仍明确标记候选范围，不把发布到工作分支等同正式版本或真实模型验收。正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装仍从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。
+
+下面保留旧版本的时间截面与最初 v0.1 案例。旧证据只解释自己的固定源码，不因新版本出现而改写。
+
 ## 最新公开入口（截至 2026-10-31）
 
 当前稳定代码已到 [v0.15.2 固定快照](https://github.com/hpoenixf/open-etf-agent/tree/34124cefc6df289e08518173789210b45a716451)。沿原模块阅读，可以继续看[显式 Memory 消费](./026-agent-memory-forget-durable-effects.md)、[串行来源核对与 Main 交接](./agent-subagent-context-specialization.md)，以及[报告回执为何不能被摘要替代](./agent-main-run-context-compaction.md)。v0.15.1 修复这些路径的运行边界；v0.15.2 再处理[已建立工具 ID 后的 null 流式续片](./agent-stream-tool-call-null-continuation.md)，不改变工具授权。

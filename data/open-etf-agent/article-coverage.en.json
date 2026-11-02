@@ -88,9 +88,9 @@
     },
     "027-rag-revocation-publish-replay": {
       "title": "RAG: Revocation and Historical Replay",
-      "scope": "No dynamic ACL/revocation propagation, publication eligibility or replay reauthorization.",
+      "scope": "Fixture-only currentness checks in original Runtime, Publication and Reader; retained original bytes, not dynamic ACLs or arbitrary live ingestion.",
       "englishAvailable": true,
-      "articleBlob": "d921fa6d878e1bd8b5fc1b2c6b3b19bd08077d3e"
+      "articleBlob": "6b103a523117cbc453ed07b3bacd86e6ded6a788"
     },
     "agent-provider-architecture-and-admission": {
       "title": "Provider: Why a Unified API Still Needs Shared Admission",

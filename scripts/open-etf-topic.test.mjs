@@ -82,3 +82,18 @@ test('offline snapshot validation is explicitly not a publication readback',()=>
  assert.equal(result.qualificationCommit,qualification.commit)
 })
 
+
+test('revocable source uses its own fixed evidence without promoting candidate admission or schedule',()=>{
+ for(const language of ['zh','en']) {
+  const rows=topicGroups(language).flatMap(g=>g.articles)
+  const rag=rows.find(r=>r.slug==='027-rag-revocation-publish-replay')
+  assert.equal(rag.status,'limited')
+  assert.equal(rag.since,'0.16')
+  assert.equal(rag.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/src/session-cli.mjs')
+  assert.equal(rows.find(r=>r.slug==='agent-provider-admission-capacity-lease').status,'unmapped')
+  const schedule=rows.find(r=>r.slug==='agent-autonomous-scheduled-research')
+  assert.equal(schedule.since,'0.9')
+  assert.ok(!schedule.additionalTargets.some(slice=>slice.since==='0.18'))
+ }
+ assert.deepEqual(versions.slice(-3).map(v=>v.version),['0.14','0.15','0.16'])
+})

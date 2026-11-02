@@ -8,6 +8,7 @@ import receipts from './data/open-etf-agent/article-coverage-receipts.json' with
 import temporalReceipt from './data/open-etf-agent/v012-temporal.safe.json' with { type: 'json' }
 import responseReceipt from './data/open-etf-agent/v013-ordinary-response.safe.json' with { type: 'json' }
 import memoryReceipt from './data/open-etf-agent/v014-memory-consumer.safe.json' with { type: 'json' }
+import revocableReceipt from './data/open-etf-agent/v016-revocable-rag.safe.json' with { type: 'json' }
 import lineage from './data/open-etf-agent/versions.json' with { type: 'json' }
 export const repo = 'https://github.com/hpoenixf/open-etf-agent'
 export const qualification = { sourceCommit: source.commit, commit: receipts.sourceCommit, date: receipts.executedAt.slice(0,10), semanticStatus: receipts.semanticStatus, count: coverage.articles.length, targets: Object.keys(coverage.targets).length }
@@ -22,7 +23,7 @@ export function topicGroups(language = 'en') {
       const view=(slice,scope)=>{
         const receipt=slice?.target && receipts.results[slice.target]
         const q=coverage.schemaVersion===3 && slice?.target?coverage.qualifications[coverage.targetEvidence[slice.target]]:null
-        const scenarios={temporal:temporalReceipt.independentInstall,'ordinary-response':responseReceipt.independent,'memory-consumer':memoryReceipt.independent}
+        const scenarios={temporal:temporalReceipt.independentInstall,'ordinary-response':responseReceipt.independent,'memory-consumer':memoryReceipt.independent,'revocable-rag':revocableReceipt.independent}
         const scenario=q?.kind==='independent-scenario' && scenarios[q.scenario]
         const verified=slice?.status==='verified' && (scenario?scenario.modelCalls===0 && !!scenario.report?.sha256:receipt?.exitCode===0 && coverage.verifiedAt===receipts.sourceCommit)
         const target=verified && lineage.targets[slice.target]
@@ -53,7 +54,9 @@ const captions = {
  '0.11': ['Read the original PDF','读取原始 PDF','Local text layer · physical page · original bytes'],
  '0.12': ['Keep task time fixed','固定任务时间','Temporal · IANA zone · original task date'],
  '0.13': ['Adopt the original reply','采用原普通回复','Ordinary response · receipt · same-Run adoption'],
- '0.14': ['Read existing Memory','只读既有记忆','Memory · current revision · actual request']
+ '0.14': ['Read existing Memory','只读既有记忆','Memory · current revision · actual request'],
+ '0.15': ['Check sources before handoff','核对来源再交接','Specialist Child · exact evidence · Main'],
+ '0.16': ['Recheck eligibility on read','读取时重核资格','Revocable source · Publication · Reader']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

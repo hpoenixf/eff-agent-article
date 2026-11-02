@@ -59,6 +59,14 @@
     "0.14": {
       "commit": "a3e1059a78cf8a4f70fe89d61563980f3d24bc15",
       "tree": "433d3dd224ca9ac4daa6e76044faef2aba1b57a2"
+    },
+    "0.15": {
+      "commit": "74bd5aa455ccaeb2994eb22aa744affde660bfa2",
+      "tree": "b971586f04864809c6544edefd05b3a4719509d5"
+    },
+    "0.16": {
+      "commit": "35f244f2e06da447c110325d2ac5a5c39f36e842",
+      "tree": "bc127865a46b172ef0884257e4ad9d5a32a5d862"
     }
   },
   "targets": {
@@ -175,6 +183,12 @@
       "evidencePath": "src/memory-consumer.mjs",
       "evidenceGitBlob": "eef897fb20eb5c34dda1b5809f4124799dfd0892",
       "selector": "memory-consumer"
+    },
+    "revocable-rag": {
+      "since": "0.16",
+      "evidencePath": "src/session-cli.mjs",
+      "evidenceGitBlob": "089de8f1244be3b7ea6df395b1b91e6102d56b22",
+      "selector": "revocable-rag"
     }
   },
   "notes": [

@@ -24,6 +24,14 @@ Open ETF Agent therefore starts with something smaller: **read two documents, co
 
 v0.1 makes that engineering path publicly available. Its default example uses a script to choose actions while executing real reads, calculations, and saves. This lets us inspect how the program works; it does not establish whether a real model understands the documents. This article explains the first path. Later increments will connect runnable source code to the module articles we already have.
 
+## What you can reproduce in this round
+
+Follow the three latest lines of work through the existing module essays: [v0.16 mediated reads after revocation](./027-rag-revocation-publish-replay.md), [v0.17 shared capacity admission](./agent-provider-admission-capacity-lease.md), and [v0.18 a single confirmed schedule occurrence](./agent-autonomous-scheduled-research.md). The [Open topic](../open-etf-agent.md) retains the full module and fixed-version entry points; this starter’s historical snapshots are not a substitute for that current index.
+
+v0.16 has [fixed qualified source](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842) with independent installation, build, Publication and Reader revocation-readback evidence. Installation used an existing official cache; documents and actions were synthetic, with no external model calls. The v0.17 and v0.18 essays still identify their candidate scope: publishing a work branch is neither a formal release nor real-model acceptance. Check [repository Releases](https://github.com/hpoenixf/open-etf-agent/releases) for formal publication status and the [current README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) for ongoing installation.
+
+The older time slices and original v0.1 case remain below. Each item of historical evidence belongs to its own fixed source; newer versions do not rewrite it.
+
 ## Latest public entry point — as of 2026-10-31
 
 The current stable code is the [fixed v0.15.2 snapshot](https://github.com/hpoenixf/open-etf-agent/tree/34124cefc6df289e08518173789210b45a716451). Continue through the existing module essays on [explicit Memory consumption](./026-agent-memory-forget-durable-effects.md), [serial source checking and Main handoff](./agent-subagent-context-specialization.md), and [why summaries must not replace report receipts](./agent-main-run-context-compaction.md). v0.15.1 repairs these execution boundaries; v0.15.2 then handles [null stream continuations after a tool ID is established](./agent-stream-tool-call-null-continuation.md), without changing tool authorization.
