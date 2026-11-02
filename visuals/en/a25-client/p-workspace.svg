@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="514" viewBox="0 0 640 514" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">One task, three reading spaces</title><desc id="desc">A task card holds status and actions, the answer holds results, and conversation holds intent. Illustrative layout, not a product screenshot.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="512" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">One task, three reading spaces</text>
+<rect x="26" y="104" width="588" height="98" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="44" y="139" font-size="27" font-weight="700">Task card · Fund A vs. Fund B</text>
+<text x="44" y="176" font-size="24" fill="#4e665e">Holdings pending  ·  Amend  ·  Stop</text>
+<rect x="26" y="218" width="588" height="132" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="254" font-size="26" font-weight="700">Answer · Supported differences first</text>
+<text x="44" y="292" font-size="24" fill="#4e665e">Read the fee comparison; keep gaps nearby.</text>
+<text x="44" y="327" font-size="24" fill="#a3523d">Inspect evidence  ·  Get available files</text>
+<rect x="26" y="366" width="588" height="84" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="401" font-size="26" font-weight="700">Conversation · Ask another question…</text>
+<text x="44" y="434" font-size="23" fill="#4e665e">Amendment mode names its target and has an exit.</text>
+<text x="30" y="488" font-size="23" fill="#4e665e">Illustration: three surfaces, not three result stores.</text>
+</g></svg>

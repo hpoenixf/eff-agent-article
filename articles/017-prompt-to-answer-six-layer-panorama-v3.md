@@ -339,7 +339,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 | 编号 | 模块名称 | 跨层参与 |
 | --- | --- | --- |
-| A25 | [客户端交互与阅读](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A25) · [相关文章](/articles/agent-progressive-answer-coherence) | L1、L2、L5 |
+| A25 | [客户端交互与阅读](/articles/agent-client-interaction-and-reading) · [相关文章](/articles/agent-progressive-answer-coherence) | L1、L2、L5 |
 
 工程导航 E01–E03 不计入上述 47 个生产能力 Owner。各模块是否已实施、限定验证、生产启用，仍以自身 Spec 与验收记录为准。
 

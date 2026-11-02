@@ -1,6 +1,8 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-client-interaction-and-reading": "An Agent Client Is More Than an SSE Renderer: Presenting a Research Task Correctly",
+  "agent-client-interaction-panorama": "Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research",
   "vertical-financial-agent-principles-panorama": "After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?",
   "etf-agent-framework-comparison-panorama": "From a General Harness to Financial Research: A Four-Way Architecture Comparison of ETF Agent",
   "rag-end-to-end-system-panorama": "The Full RAG Lifecycle: From Knowledge Ingestion to a Trustworthy Agent Answer",
@@ -99,6 +101,8 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-client-interaction-and-reading",
+  "agent-client-interaction-panorama",
   "rag-end-to-end-system-panorama",
   "vertical-financial-agent-principles-panorama",
   "etf-agent-framework-comparison-panorama",

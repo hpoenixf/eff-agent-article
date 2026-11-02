@@ -92,6 +92,7 @@ export const collections = [
         "title": "L6 · 用户界面",
         "desc": "围绕客户端实际可见的回答、进度与正确 Run 归属阅读；不等同于独占前端 Owner。",
         "items": [
+          ["agent-client-interaction-and-reading", "A25 客户端：一次研究怎样被正确呈现"],
           ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"]
         ]
       }
@@ -107,6 +108,7 @@ export const collections = [
         "title": "深度持续研究",
         "desc": "后台异步研究、阶段交付、持久恢复和历史论点连续性：让复杂研究跨时间真正完成。",
         "items": [
+          ["agent-client-interaction-panorama", "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究"],
           ["agent-long-horizon-research-panorama", "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"],
           ["agent-background-research-collaborative-experience", "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"],
           ["deepseek-superagent-continuous-research", "从投研聊天到持续研究：DeepSeek Super-agent 给我们的启示"],
@@ -235,7 +237,8 @@ export const panoramaSeriesSlugs = Object.freeze([
   'agent-long-horizon-research-panorama',
   'vertical-financial-agent-principles-panorama',
   'etf-agent-framework-comparison-panorama',
-  'rag-end-to-end-system-panorama'
+  'rag-end-to-end-system-panorama',
+  'agent-client-interaction-panorama'
 ]);
 
 // A curated subset of the canonical catalogue, not a second classification tree.

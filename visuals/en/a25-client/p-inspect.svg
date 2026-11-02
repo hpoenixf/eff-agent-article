@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="470" viewBox="0 0 640 470" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">What should a claim let you inspect?</title><desc id="desc">Facts need retained material, calculations need inputs and units, and judgments need reasons and limits. Opening the source is a separate action.</desc>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="468" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g fill="#16362f" font-weight="500" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<text x="30" y="36" font-size="16" font-weight="700" fill="#a3523d">AGENT / CLIENT PANORAMA</text>
+<text x="30" y="80" font-size="32" font-weight="750">What should a claim let you inspect?</text>
+<rect x="26" y="108" width="588" height="78" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="44" y="139" font-size="27" font-weight="700">Fact</text>
+<text x="44" y="171" font-size="24" fill="#4e665e">Passage · date / version · context</text>
+<rect x="26" y="200" width="588" height="78" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="231" font-size="27" font-weight="700">Calculation</text>
+<text x="44" y="263" font-size="24" fill="#4e665e">Inputs · units / basis · relationship</text>
+<rect x="26" y="292" width="588" height="78" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="44" y="323" font-size="27" font-weight="700">Judgment</text>
+<text x="44" y="355" font-size="24" fill="#4e665e">Reasons · assumptions · uncertainty</text>
+<text x="30" y="414" font-size="25" font-weight="650" fill="#a3523d">Inspect in place; open the source separately.</text>
+<text x="30" y="444" font-size="23" fill="#4e665e">Inspectability is not a correctness certificate.</text>
+</g></svg>
