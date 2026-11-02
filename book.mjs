@@ -12,7 +12,7 @@ export const collections = [
         "title": "L1 · 任务输入与触发",
         "desc": "工作从定时任务或其他获准触发开始；输入不代替后续研究决策。",
         "items": [
-          ["agent-autonomous-scheduled-research", "定时研究：会话结束后继续"]
+          ["agent-autonomous-scheduled-research", "定时研究：会话结束后继续"],
           ["agent-personalized-daily-research-cache", "每天一份个性化研究：生成、去重与回读"]
         ]
       },
