@@ -322,7 +322,7 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 | A36 | [时间语义与市场 Session 解释](/articles/agent-temporal-semantics-market-calendar) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2、L3 |
 | B01 | [市场证据采集](/articles/mcp-market-responsibility-retrospective) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L3 |
 | B02 | [投资事实读取](/articles/portfolio-mcp-readonly-investment-data) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
-| B03 | [确定性投资计算](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
+| B03 | [确定性投资计算](/articles/agent-deterministic-fund-allocation) · [Owner 详情](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [相关文章](/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [投资账本与确认](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [相关文章](/articles/030-fintech-from-research-to-investment-advice) | L6 |
 | B05 | [原子报告生产](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [相关文章](/articles/portfolio-mcp-readonly-investment-data) | L3、L5 |
 
