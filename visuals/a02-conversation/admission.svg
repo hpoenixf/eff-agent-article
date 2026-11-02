@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="742" viewBox="0 0 640 742" role="img" aria-labelledby="title desc" lang="zh">
+<title id="title">重试先对账，不重复造任务</title><desc id="desc">已存在标识先核对原文和关系，相同回读、冲突拒绝。新标识的提交结果分已接纳、明确未接纳和未知；未知保持原标识对账。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="740" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / 对话接纳</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">重试先对账，不重复造任务</text>
+<rect x="28" y="105" width="584" height="94" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="138" font-size="26" font-weight="700" fill="#16362f">先核对原 ID、原文、会话与目标</text>
+<text x="46" y="169" font-size="23" font-weight="500" fill="#4e665e">已存在：一致则回读，冲突则拒绝</text>
+<text x="30" y="238" font-size="23" font-weight="700" fill="#16362f">新标识：尝试持久接纳后，区分三种结果</text>
+<rect x="28" y="262" width="584" height="94" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="295" font-size="26" font-weight="700" fill="#16362f">已接纳</text>
+<text x="46" y="326" font-size="23" font-weight="500" fill="#4e665e">返回已保存的消息与 Run</text>
+<rect x="28" y="380" width="584" height="94" rx="16" fill="#fff0e8" stroke="#cddbd1"/>
+<text x="46" y="413" font-size="26" font-weight="700" fill="#16362f">明确未接纳</text>
+<text x="46" y="444" font-size="23" font-weight="500" fill="#4e665e">返回拒绝或失败，不伪造持久身份</text>
+<rect x="28" y="498" width="584" height="94" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="531" font-size="26" font-weight="700" fill="#16362f">结果未知</text>
+<text x="46" y="562" font-size="23" font-weight="500" fill="#4e665e">保留原 ID，读取持久事实并对账</text>
+<text x="30" y="651" font-size="23" font-weight="500" fill="#4e665e">明确失败后的重试仍须遵循原接纳合同。</text>
+<text x="30" y="684" font-size="23" font-weight="500" fill="#a3523d">超时不是成功，也不证明未提交。</text>
+</g></svg>

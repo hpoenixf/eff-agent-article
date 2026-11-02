@@ -20,6 +20,7 @@ export const collections = [
         "title": "L2 · 身份、会话与上下文",
         "desc": "按原 Owner 主层阅读身份、能力准入、上下文和持久交互；跨层参与不改变事实归属。",
         "items": [
+          ["agent-conversation-admission-task-continuation", "A02 对话接纳：接着聊不等于接着执行"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权：Run 授权的生命周期"],
           ["020-agent-extension-host-smartphone", "Extension Host：从功能机到智能机"],
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],

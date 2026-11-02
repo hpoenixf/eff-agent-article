@@ -64,6 +64,7 @@
     "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？",
     "agent-skill-from-markdown-to-callable-research": "Skill 不只是一个 SKILL.md：把研究方法变成可调用能力",
     "rag-end-to-end-system-panorama": "RAG 全链路全景：从知识入库到可信回答",
+    "agent-conversation-admission-task-continuation": "A02 对话接纳：接着聊不等于接着执行",
     "agent-deterministic-fund-allocation": "B03 确定性基金计算：从持仓事实到金额建议"
   },
   "owners": {
@@ -73,6 +74,7 @@
       ]
     },
     "A02": {
+      "primary": "agent-conversation-admission-task-continuation",
       "related": [
         "agent-veto-authority-and-run-termination",
         "agent-progressive-answer-coherence",

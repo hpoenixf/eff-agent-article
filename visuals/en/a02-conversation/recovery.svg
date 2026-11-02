@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="786" viewBox="0 0 640 786" role="img" aria-labelledby="title desc" lang="en">
+<title id="title">Keep the Run—or verify a new one</title><desc id="desc">Same-Run handling checks original identity, receipts and recovery eligibility. Ordinary Root cold re-entry settles; only an accepted Human or Child wake may continue within bounds. Continue verifies parent, original request, grants and source eligibility before creating a new Run; ineligible requests are refused. Unknown effects are not treated as unexecuted.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a3523d" stroke-width="1.8"/></marker></defs>
+<rect x="1" y="1" width="638" height="784" rx="24" fill="#f7f8f2" stroke="#cddbd1"/>
+<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" fill="#16362f">
+<text x="30" y="35" font-size="16" font-weight="700" fill="#a3523d">A02 / CONVERSATION ADMISSION</text>
+<text x="30" y="79" font-size="31" font-weight="700" fill="#16362f">Keep the Run—or verify a new one</text>
+<rect x="28" y="106" width="584" height="256" rx="16" fill="#e8efe7" stroke="#cddbd1"/>
+<text x="46" y="139" font-size="26" font-weight="700" fill="#16362f">Same Run: the original recovery contract</text>
+<text x="46" y="170" font-size="23" font-weight="500" fill="#4e665e">Check identity, receipts and wake eligibility</text>
+<text x="46" y="198" font-size="23" font-weight="500" fill="#4e665e">Ordinary Root cold re-entry: settle, retain results</text>
+<text x="46" y="226" font-size="23" font-weight="500" fill="#4e665e">A checkpoint alone cannot restart the model</text>
+<text x="46" y="254" font-size="23" font-weight="500" fill="#4e665e">Accepted Human/Child wake: bounded continuation</text>
+<text x="46" y="282" font-size="23" font-weight="500" fill="#4e665e">Keep lease, format and resource constraints</text>
+<rect x="28" y="388" width="584" height="248" rx="16" fill="white" stroke="#cddbd1"/>
+<text x="46" y="421" font-size="26" font-weight="700" fill="#16362f">New Run: explicit Continue</text>
+<text x="46" y="452" font-size="23" font-weight="500" fill="#4e665e">First verify parent, request, grants and sources</text>
+<text x="46" y="480" font-size="23" font-weight="500" fill="#4e665e">Ineligible → refuse; do not create an execution</text>
+<text x="46" y="508" font-size="23" font-weight="500" fill="#4e665e">Eligible → durably admit a new linked Run</text>
+<text x="46" y="536" font-size="23" font-weight="500" fill="#4e665e">Handle the new request, not the old effects</text>
+<text x="46" y="564" font-size="23" font-weight="500" fill="#4e665e">Current admission and resource limits still apply</text>
+<text x="30" y="686" font-size="23" font-weight="500" fill="#4e665e">Reopening history is neither execution action.</text>
+<text x="30" y="722" font-size="23" font-weight="500" fill="#a3523d">Neither path treats unknown effects as absent.</text>
+</g></svg>
