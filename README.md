@@ -96,7 +96,7 @@ npm run docs:build
 
 - [五个工程全景](panorama.md)：可观测、测评、引用、Subagent 四篇主稿原址重构，新增超长研究总论；提供完整中英文正文与对应 SVG 图解。
 
-- 四篇原则与方法文章原址精修：用[可选图表](articles/code-cheaper-systems-harder-to-evolve.md)、[图片识别](articles/local-improvement-is-not-system-progress.md)、[工单分派](articles/agent-differentiated-evolution-contracts.md)和[头像格式](articles/test-lifecycle-refactoring-retirement-and-spec.md)教学场景，分别讲清复杂度、整体收益、稳定承诺与旧测试处置；完整英文同步更新。
+- 架构原则精修：通过[可选图表](articles/code-cheaper-systems-harder-to-evolve.md)、[图片识别](articles/local-improvement-is-not-system-progress.md)与[工单分派](articles/agent-differentiated-evolution-contracts.md)讲清复杂度、整体收益和稳定承诺；旧测试的五种处置方式已并入[文档、代码和测试共同演进](articles/docs-code-tests-evolve-together.md)，不另收一篇同义案例。
 
 - [测试比实现还多之后：怎样让文档、代码和测试一起向前](articles/docs-code-tests-evolve-together.md) · [English](en/articles/docs-code-tests-evolve-together.md)：从真实规模统计出发，用订单导出教学案例说明旧要求、实现路径和测试怎样共同演进。
 
@@ -151,13 +151,13 @@ npm run docs:build
 
 - [持久 HIL：回答怎样接回原研究](articles/agent-durable-human-interaction-response-adoption.md) · [Temporal semantics：用户的今天与美股交易日](articles/agent-temporal-semantics-market-calendar.md) · [Shadow Credits：用量事实与未知](articles/agent-personal-credits-shadow-accounting.md)。三篇均已准备完整中英正文；主分类归模块维度，真实模型质量和生产资格不由文章入库证明。
 
-## 多 Agent 投研系列：机制、视角与展望
+## 多 Agent 投研系列：机制、视角与交接
 
 - [当两个 Agent 开始直接对话](articles/bounded-bull-bear-peer-dialogue.md)：从反方价值读到真实消息、预算和恢复。
 - [多视角 Agent 如何共同检验投资假设](articles/investment-perspectives-and-thesis-falsification.md)：六种投资方法怎样选择、共享事实、挑战关键前提并由 Main 综合。
-- [从多个专家到一份研究：2026 架构展望](articles/multi-layer-agent-collaboration-outlook.md)：跨能力协作的目标、缺口和未来与单 Main 对照的验收标准。
+- [Subagent 全景：从上下文隔离到专家交接](articles/agent-subagent-context-specialization.md)：不同专家如何在共享运行规则下分工，如何确认 Main 真正消费成果。
 
-自定义 Agent 仍是独立草稿，暂不纳入正式目录；展望文章不代表完整协作效果已验收。
+[2026-10-24 多层 Agent 协作展望](articles/multi-layer-agent-collaboration-outlook.md)作为历史全文保留，不再充当现行协作指南。当前[自定义专家机制](articles/agent-custom-expert-from-prompt-to-recovery.md)已有独立专文；专家数量和工程交接通过不代表投资质量收益已获证明。
 
 </details>
 
