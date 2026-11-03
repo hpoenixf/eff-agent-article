@@ -66,7 +66,8 @@ const captions = {
  '0.16': ['Recheck eligibility on read','读取时重核资格','Revocable source · Publication · Reader'],
  '0.17': ['Share admission capacity','共享准入容量','Shared Admission · original request'],
  '0.18': ['Wake one confirmed occurrence','唤醒一次已确认的时间机会','Schedule · explicit wake · same Run'],
- '0.19': ['Compose existing contracts','组合既有契约','Original owners · explicit inputs · bounded summary']
+ '0.19': ['Compose existing contracts','组合既有契约','Original owners · explicit inputs · bounded summary'],
+ '0.20': ['Run your own research project','运行自己的研究项目','Local sources · same-Run recovery · layered evidence']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

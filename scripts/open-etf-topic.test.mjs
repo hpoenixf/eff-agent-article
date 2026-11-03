@@ -128,6 +128,9 @@ test('README recent modules are generated from the same bilingual topic source',
 
 test('v0.20 project source preserves historical qualification without inventing a verified slice',()=>{
  const project=versions.find(v=>v.version==='0.20')
+ assert.equal(project.title,'Run your own research project')
+ assert.equal(project.zh,'运行自己的研究项目')
+ assert.equal(project.module,'Local sources · same-Run recovery · layered evidence')
  assert.equal(project.commit,'a5cef6d5cf1a4597f0f1271025cd6cc16be151e5')
  assert.equal(project.tree,'2754193800cea4ed5865d34e986e582444a2528e')
  for(const language of ['zh','en']) {
