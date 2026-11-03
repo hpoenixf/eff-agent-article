@@ -28,6 +28,8 @@
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 
+**Agent 开发全景**：[Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md) · [Full English](en/articles/agent-vs-backend-development-panorama.md)——以 Open ETF Agent v0.19 和主流 Agent 机制为例，连接动态决策、可靠恢复、个性化与长期委托，配有五组中英响应式图解。
+
 **工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
 
 **RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。
@@ -345,6 +347,7 @@ npm run docs:build
 
 <summary><b>04 · 系统边界与演进</b></summary>
 
+- [Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md)
 - [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)
 - [从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段](articles/open-etf-agent-v010-system-design.md)
 - [六层调用全景：从提问到答案可见](articles/017-prompt-to-answer-six-layer-panorama-v3.md)

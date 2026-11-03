@@ -172,6 +172,7 @@ export const collections = [
         "title": "系统边界与演进",
         "desc": "跨模块证据关系、职责边界、故障归因、可靠性与长期架构演化。",
         "items": [
+          ["agent-vs-backend-development-panorama", "Agent 开发与后台开发有什么不同：从一次请求到长期个人助手"],
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
@@ -233,6 +234,7 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 
 // #全景系列 is a cross-category tag: curated existing essays, never a fourth canonical collection.
 export const panoramaSeriesSlugs = Object.freeze([
+  'agent-vs-backend-development-panorama',
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
   'one-report-nine-architecture-judgments',

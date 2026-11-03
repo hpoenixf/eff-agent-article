@@ -56,6 +56,7 @@ test('finance curation and topic headings stay bilingual without a second articl
 
 test('panorama tag curates full-scope essays without a fourth primary class', () => {
   const selected = [
+    'agent-vs-backend-development-panorama',
     '017-prompt-to-answer-six-layer-panorama-v3',
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',

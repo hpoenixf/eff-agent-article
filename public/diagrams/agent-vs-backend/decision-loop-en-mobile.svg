@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 806" width="400" height="806" role="img" aria-labelledby="title desc">
+<title id="title">Who chooses the next step?</title><desc id="desc">Model proposals meet host-enforced limits.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="398" height="804" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="24" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="39.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">01</text>
+<text x="67" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">DECISION &amp; EXECUTION</text>
+<text x="24" y="77" font-size="25" fill="#173348" font-weight="700" text-anchor="start">Who chooses the next step?</text>
+<text x="24" y="111" font-size="16" fill="#526779" font-weight="400" text-anchor="start">Model proposals meet host-enforced limits.</text>
+<rect x="24" y="150" width="352" height="94" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="42" y="182" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Rule-driven path</text>
+<text x="42" y="216" font-size="18" fill="#526779" font-weight="400" text-anchor="start">Code defines branches, async work</text>
+<text x="42" y="241" font-size="18" fill="#526779" font-weight="400" text-anchor="start">and recovery.</text>
+<text x="48" y="280" font-size="18" fill="#11766F" font-weight="650" text-anchor="start">Observation-driven agent loop</text>
+<rect x="48" y="298" width="304" height="84" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="66" y="330" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Model proposes a step</text>
+<text x="66" y="364" font-size="18" fill="#526779" font-weight="400" text-anchor="start">Uses the task and observations</text>
+<path d="M 200 382 L 200 404" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="48" y="408" width="304" height="102" rx="13" fill="#EDF0FB" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="66" y="440" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Host validates the action</text>
+<text x="66" y="474" font-size="18" fill="#526779" font-weight="400" text-anchor="start">Check permission and budget.</text>
+<text x="66" y="499" font-size="18" fill="#526779" font-weight="400" text-anchor="start">If denied: reject or stop.</text>
+<path d="M 200 510 L 200 532" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="48" y="536" width="304" height="78" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="66" y="568" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Tool executes</text>
+<text x="66" y="602" font-size="18" fill="#526779" font-weight="400" text-anchor="start">Save the real result and receipt</text>
+<path d="M 48 583 L 24 583 L 24 340 L 43 340" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="48" y="650" font-size="18" fill="#11766F" font-weight="600" text-anchor="start">The result becomes the next</text>
+<text x="48" y="675" font-size="18" fill="#11766F" font-weight="600" text-anchor="start">observation.</text>
+<rect x="24" y="696" width="352" height="87" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="40" y="725" font-size="18" fill="#173348" font-weight="650" text-anchor="start">Once a final candidate is ready</text>
+<text x="40" y="755" font-size="18" fill="#526779" font-weight="400" text-anchor="start">Delivery checks → user gets the result</text>
+</g>
+</svg>
