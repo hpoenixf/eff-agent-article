@@ -185,21 +185,43 @@ This test sets no calendar trigger, creates no Task queue, and does not validate
 
 ### One Step Further: One Confirmation Links to One Original Run
 
-The Worker answers who continues execution, but not which Run a particular time opportunity is allowed to create. The [published v0.18 candidate snapshot](https://github.com/hpoenixf/open-etf-agent/tree/2b9fa955c96c7aaf202bad11131ef4680f0f97f3) adds that smaller step, not a full calendar product: a trusted caller confirms a UTC instant, IANA time zone and lateness window, then explicitly invokes `schedule-wake`.
+The Worker answers who continues execution, but not which Run a particular time opportunity is allowed to create. The [fixed v0.18 source used for provider-free validation](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2) adds that smaller step, not a full calendar product: a trusted caller confirms a UTC instant, IANA time zone and lateness window, then explicitly invokes `schedule-wake`.
 
 Confirmation retains the original question, documents, tool authority and budget. When due, the original Session inserts the original Run and its occurrence link in one short transaction. Repeated wakes from two processes still resolve to the same identity. A materialized link proves durable admission, not successful research. The original Worker executes; Publication and Reader deliver the committed body and report.
 
 Failures remain specific: an early wake creates no Run; an expired window records a missed opportunity rather than a replacement task. A lost confirmation acknowledgment is reconciled by its original identity, without renewing the deadline or budget. Cancellation before materialization prevents a Run; after materialization it uses the original cancellation path, preserving spent resources and committed reports.
 
-In a new checkout of that fixed commit, install dependencies from its README and run the [cross-process delivery scenario](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/test/schedule.test.mjs):
+In a new checkout of that fixed commit, install dependencies from its README and run the [cross-process delivery scenario](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/test/schedule.test.mjs):
 
 ```sh
 node --test --test-concurrency=1 --test-name-pattern='^18 different-PID Worker completion, readonly Publication and original Reader exact bytes$' test/schedule.test.mjs
 ```
 
-This synthetic scenario runs the original Worker in another process, then reads back the original body and report bytes without a model account. The manual surface is `schedule-confirm`, `schedule-wake`, `schedule-inspect` and `schedule-publication` in the [CLI](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/src/session-cli.mjs); the [design at the same snapshot](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/openspec/changes/v18-schedule-occurrence/design.md) explains its full scope.
+This synthetic scenario runs the original Worker in another process, then reads back the original body and report bytes without a model account. The manual surface is `schedule-confirm`, `schedule-wake`, `schedule-inspect` and `schedule-publication` in the [CLI](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/src/session-cli.mjs); the [design at the same snapshot](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/openspec/changes/v18-schedule-occurrence/design.md) explains its full scope.
 
 The slice explicitly selects a new schema5 database; it neither migrates an old database nor installs a background service. After a machine restart, a caller must invoke wake again. Recurrence, market conditions, notifications and the complete Task History described above remain outside this slice. Its synthetic loop does not substitute for full release qualification, nor promise that a sleeping machine will wake itself.
+
+
+For a direct walkthrough, follow the [same-version guide](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/schedule-occurrence.md). In a separate directory, select and confirm a future instant:
+
+```sh
+INSTANT="$(node -e 'console.log(new Date(Date.now()+60000).toISOString())')"
+node src/session-cli.mjs schedule-confirm --session runs/schedule-demo --schedule one-shot --revision 1 --instant "$INSTANT" --zone Asia/Shanghai --lateness 60000
+```
+
+Keep the returned `reference.confirmationHash`. Confirmation stores identity, not a background waiter. At the selected instant, within the lateness window, replace `CONFIRMATION_HASH` with that value and invoke:
+
+```sh
+node src/session-cli.mjs schedule-wake --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+node src/session-cli.mjs schedule-inspect --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+node src/session-cli.mjs schedule-publication --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+```
+
+An early call does not wait for you; a missed first-materialization window is not silently moved to another occurrence. Repeating `schedule-wake` after commitment follows the original occurrence and Run without starting another research task or refreshing its budget. Original report/Reader byte checks and same-Run terminal replay are retained in the [provider-free CLI qualification receipt](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-schedule.safe.json).
+
+The real-model path enters through the [original Schedule API](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/src/schedule.mjs). The [current frozen real-task record](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-real-ten.safe.json) first confirms the instant, with no dispatch during confirmation or pre-due inspection. After the actual due time, one explicit wake lets the original Worker and Admission continue the same Run, publish through Publication and cold-read the original report through a read-only Session Reader. This answers whether an authorized time opportunity connects to the original task, not whether a background service will start it on time.
+
+The [earlier real-request record](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-release.safe.json) remains separate. The CLI demonstration above has provider-free evidence; real API requests do not qualify it as a live-model CLI. Nor do zero-call cold reads make the whole task zero-call. These paths do not certify autonomous background wake, recurrence, financial quality or universal power-loss recovery.
 
 ## 7. What Was Actually Validated?
 
@@ -228,3 +250,4 @@ This also explains why infrastructure scheduling can mature before the complete 
 ## Further Reading and Discussion
 
 [Read the original on the author's blog](https://hpoenixf.com/blog/agent-autonomous-scheduled-research) · [ETF Agent Engineering Library](https://github.com/hpoenixf/eff-agent-article) (stars welcome).
+

@@ -101,11 +101,11 @@ This also preserves the upstream Run ledger. The original `requestDebitId` does 
 
 ## Start with Two Processes and One Slot
 
-The full service coordinates many callers, but the smallest question is simpler: when two processes use one model route, why can they not each claim the same free slot? The [Open ETF Agent v0.17 candidate snapshot](https://github.com/hpoenixf/open-etf-agent/tree/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3) reduces this to one local SQLite capacity group, one slot and an original Runtime model request.
+The full service coordinates many callers, but the smallest question is simpler: when two processes use one model route, why can they not each claim the same free slot? The [Open ETF Agent v0.17 fixed source snapshot](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce) reduces this to one local SQLite capacity group, one slot and an original Runtime model request.
 
 The original Runtime still debits the request allowance. Admission receives that reservation's Run, ordinal, fence and input identity. It invokes the original Gateway only after gaining capacity; a database failure cannot select an uncoordinated fallback. This avoids both process-local counters and a second budget debit for queueing.
 
-In a new checkout of the fixed commit, install dependencies as described in its README and run the existing [two-process scenario](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/test/admission.test.mjs):
+In a new checkout of the fixed commit, install dependencies as described in its README and run the existing [two-process scenario](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/test/admission.test.mjs):
 
 ```sh
 node --test --test-concurrency=1 --test-name-pattern='^two original Gateway workers share one slot; settled original ticket survives acknowledgement loss$' test/admission.test.mjs
@@ -113,7 +113,21 @@ node --test --test-concurrency=1 --test-name-pattern='^two original Gateway work
 
 It uses local synthetic transport, not a paid model. The useful observation is not merely that both requests complete. Look for the fact that permits the second process to dispatch, and how a lost completion acknowledgment is reconciled through the original ticket without creating a replacement request.
 
-The candidate deliberately does not copy every policy of the full service above. It adds no PostgreSQL service, multi-group fairness, cooldown or failover; a TTL does not automatically release unknown occupancy. The budget and capacity databases are not one cross-database transaction: a debited budget may survive without an admission ticket, and refunds or automatic retries must not erase that uncertainty. Read the [admission module](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/src/admission.mjs) alongside its [scope proposal](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/openspec/changes/v017-shared-admission/proposal.md). This remains a published candidate, not a v0.17 stable-release claim.
+This version deliberately does not copy every policy of the full service above. It adds no PostgreSQL service, multi-group fairness, cooldown or failover; a TTL does not automatically release unknown occupancy. The budget and capacity databases are not one cross-database transaction: a debited budget may survive without an admission ticket, and refunds or automatic retries must not erase that uncertainty. Read the [admission module](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/src/admission.mjs) alongside its [scope proposal](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/openspec/changes/v017-shared-admission/proposal.md). Local safety validation is not successful real-evaluation qualification, nor publication to main, a tag or a formal Release.
+
+
+Run the two provider-free examples from the [same-version guide](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/shared-admission.md) to distinguish normal handoff from unknown occupancy:
+
+```sh
+node src/admission-demo.mjs normal output/admission-demo
+node src/admission-demo.mjs unknown output/admission-demo
+```
+
+Each invocation creates an isolated synthetic directory. The first keeps the second process waiting until the original slot is released; the second retains unknown occupancy and cancels the queued caller. Do not delete an unknown ticket to manufacture spare capacity. These remain local two-process safety experiments. Their scenarios and original-ticket readback are recorded in the [independent provider-free receipt](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-admission-offline.safe.json).
+
+A separate question is whether real model requests still connect original admission, tool results, Publication and report reads. The [current frozen real-task record](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-real-ten.safe.json) covers that normal path; a cold Reader then checks original report bytes without calling the model. An environment-interrupted task retains its unknown outcome and occupied original capacity. Later tasks completed in an isolated new capacity group, which does not establish recovery of the original group, global capacity coordination across groups or live contention. The important distinction is that **later completion is not evidence that an earlier unknown occupancy can be released.**
+
+The [earlier real-request record](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-release.safe.json) remains a separate historical cohort. Provider-free two-process experiments explain queue, unknown and cancellation safety; sequential real requests explain the normal delivery chain. Neither establishes financial-research quality.
 
 ## 7. Current implementation and remaining evidence
 
@@ -130,3 +144,4 @@ The goal is not a system where no model call ever waits. It is to make the waiti
 [Provider configuration and route identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-architecture-and-admission) explains the broader model-catalog and invocation layer. [Run budget and constraint governance](https://hpoenixf.com/eff-agent-article/en/articles/agent-runtime-constraint-governance-v2) covers the separate per-task resource allowance. [Failover and original Run identity](https://hpoenixf.com/eff-agent-article/en/articles/agent-provider-failover-without-resetting-the-run) shows why retry still belongs to the original Run.
 
 Find more case studies at [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article); Star the repository to follow the series.
+

@@ -103,11 +103,11 @@ Provider Admission 的 `release` 还需要区分传输完成、暂态失败与�
 
 ## 从两个进程、一个位置开始理解共享准入
 
-完整服务需要处理的协调范围很大，但最小问题可以更小：两个进程使用同一条模型路由，为什么不能各自认为那个空位属于自己？[Open ETF Agent 的 v0.17 候选快照](https://github.com/hpoenixf/open-etf-agent/tree/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3)把这个问题收敛为一个本地 SQLite 容量组、一个位置，以及原 Runtime 的一次模型请求。
+完整服务需要处理的协调范围很大，但最小问题可以更小：两个进程使用同一条模型路由，为什么不能各自认为那个空位属于自己？[Open ETF Agent 的 v0.17 固定源码快照](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce)把这个问题收敛为一个本地 SQLite 容量组、一个位置，以及原 Runtime 的一次模型请求。
 
 原 Runtime 仍负责扣除请求额度，准入层只接收这次预留的 Run、序号、fence 和输入身份。排到位置之后才调用原 Gateway；如果数据库不可用，不改走一个没有协调的备用入口。这样既避免两个进程各数各的，也避免为了排队再扣一次预算。
 
-读者可以在该固定提交的新目录中按 README 安装依赖，运行已有的[双进程场景](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/test/admission.test.mjs)：
+读者可以在该固定提交的新目录中按 README 安装依赖，运行已有的[双进程场景](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/test/admission.test.mjs)：
 
 ```sh
 node --test --test-concurrency=1 --test-name-pattern='^two original Gateway workers share one slot; settled original ticket survives acknowledgement loss$' test/admission.test.mjs
@@ -115,7 +115,21 @@ node --test --test-concurrency=1 --test-name-pattern='^two original Gateway work
 
 它使用本地合成传输，不调用付费模型。观察重点不是“两个请求都完成”这个总结果，而是第二个进程在什么事实成立后才能派发，以及完成确认丢失后能否沿原票据读回、而不新建一次请求。
 
-这个候选刻意没有照搬前文完整服务的全部政策。它不实现 PostgreSQL、多容量组公平调度、冷却或故障切换；未知占用也不会因为 TTL 到期就自动释放。预算库和容量库不是一个跨库事务，可能保留已扣预算但没有票据的事实，不能靠退款或自动重试抹平不确定性。源码入口是[准入模块](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/src/admission.mjs)与[原范围说明](https://github.com/hpoenixf/open-etf-agent/blob/0cbd487f2ad5cefc668ff72afbff65d46bb2afa3/openspec/changes/v017-shared-admission/proposal.md)；当前仍是公开候选，不代表 v0.17 已稳定发布。
+这个版本刻意没有照搬前文完整服务的全部政策。它不实现 PostgreSQL、多容量组公平调度、冷却或故障切换；未知占用也不会因为 TTL 到期就自动释放。预算库和容量库不是一个跨库事务，可能保留已扣预算但没有票据的事实，不能靠退款或自动重试抹平不确定性。源码入口是[准入模块](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/src/admission.mjs)与[原范围说明](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/openspec/changes/v017-shared-admission/proposal.md)；本地安全验证不等于真实测评达标，也不等于 main、标签或正式 Release 已发布。
+
+
+普通交接与未知占位可以分别运行[同版说明](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/shared-admission.md)中的两个无模型示例：
+
+```sh
+node src/admission-demo.mjs normal output/admission-demo
+node src/admission-demo.mjs unknown output/admission-demo
+```
+
+每次运行会建立隔离的合成目录。前者让第二个进程等待原槽位释放，后者保留未知占位并取消排队者；不要删除未知票据来制造空闲容量。它们仍是本地双进程安全实验。 场景与原票据读回见[独立无模型回执](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-admission-offline.safe.json)。
+
+另一个独立问题是：接入真实模型后，原准入、工具结果、Publication 与报告读取还能否接成一条链？[本轮固定真实任务记录](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-real-ten.safe.json)覆盖这条正常路径，报告再由不调用模型的冷 Reader 校对原字节。环境中断的任务仍保留未知结果和原容量占位；后续任务在隔离的新容量组完成，并不证明旧组已经恢复，也不能据此声称跨组全局容量协调或真实并发竞争已经验证。这里最重要的区别是：**后续任务完成，不等于先前未知占用可以释放。**
+
+[较早的真实调用记录](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-release.safe.json)仍按原批次保留，不并入本轮结果。无模型双进程实验解释排队、unknown 与取消的安全边界；顺序真实调用解释正常交付链，两者都不证明金融研究质量。
 
 ## 七、当前实现到了哪里，下一步应该验证什么
 
@@ -132,3 +146,4 @@ node --test --test-concurrency=1 --test-name-pattern='^two original Gateway work
 [Provider 统一接口与路由身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-architecture-and-admission)讲模型目录、模型调用和总体架构，[Run 预算与约束治理](https://hpoenixf.com/eff-agent-article/articles/agent-runtime-constraint-governance-v2)区分 Run 资源管理的任务额度；[故障切换与原任务身份](https://hpoenixf.com/eff-agent-article/articles/agent-provider-failover-without-resetting-the-run)讨论重试为什么仍需原 Run 批准。
 
 更多模块机制见 [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article)。欢迎 Star。
+

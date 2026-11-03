@@ -56,7 +56,9 @@ const captions = {
  '0.13': ['Adopt the original reply','采用原普通回复','Ordinary response · receipt · same-Run adoption'],
  '0.14': ['Read existing Memory','只读既有记忆','Memory · current revision · actual request'],
  '0.15': ['Check sources before handoff','核对来源再交接','Specialist Child · exact evidence · Main'],
- '0.16': ['Recheck eligibility on read','读取时重核资格','Revocable source · Publication · Reader']
+ '0.16': ['Recheck eligibility on read','读取时重核资格','Revocable source · Publication · Reader'],
+ '0.17': ['Share admission capacity','共享准入容量','Shared Admission · original request'],
+ '0.18': ['Wake one confirmed occurrence','唤醒一次已确认的时间机会','Schedule · explicit wake · same Run']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)
@@ -67,3 +69,4 @@ export function recentModuleArticles(language = 'en') {
   const latest = article => [article,...article.additionalTargets].filter(slice=>slice.evidence && slice.since).map(slice=>slice.since).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}))[0]
   return topicGroups(language).flatMap(group=>group.articles).map((article,index)=>({article,index,since:latest(article)})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.article)
 }
+

@@ -174,21 +174,43 @@ node --test --test-concurrency=1 --test-name-pattern='^9\.1 submit exits before 
 
 ### 再向前一步：一次确认，只关联一个原 Run
 
-Worker 解决了“谁继续执行”，还没有解决“这次时间机会到底获准创建哪一个 Run”。[v0.18 的公开候选快照](https://github.com/hpoenixf/open-etf-agent/tree/2b9fa955c96c7aaf202bad11131ef4680f0f97f3)补的是这一小步，不是整套日历产品：可信调用者确认一个 UTC 时刻、IANA 时区和允许迟到的窗口，再显式调用 `schedule-wake`。
+Worker 解决了“谁继续执行”，还没有解决“这次时间机会到底获准创建哪一个 Run”。[v0.18 无模型验证使用的固定源码](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2)补的是这一小步，不是整套日历产品：可信调用者确认一个 UTC 时刻、IANA 时区和允许迟到的窗口，再显式调用 `schedule-wake`。
 
 确认记录保留原问题、资料、工具权限和预算。时间到了，原 Session 在同一个短事务里插入原 Run 和本次机会的关联；两个进程重复唤醒，仍得到同一个身份。关联完成只表示任务已落盘，不表示研究成功。真正执行继续交给原 Worker，完成后的正文与附件仍从原 Publication 和 Reader 读取。
 
 这也让失败有了具体含义：早到不创建 Run；超过迟到窗口记为错过，不补发新任务；确认回执丢失后按原确认身份查询，不续期、不刷新预算。取消先发生就不创建 Run；如果已创建，则沿原取消入口处理，保留已发生的用量和已经提交的报告。
 
-在该固定提交的新目录中按 README 安装依赖，可以运行[跨进程交付场景](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/test/schedule.test.mjs)：
+在该固定提交的新目录中按 README 安装依赖，可以运行[跨进程交付场景](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/test/schedule.test.mjs)：
 
 ```sh
 node --test --test-concurrency=1 --test-name-pattern='^18 different-PID Worker completion, readonly Publication and original Reader exact bytes$' test/schedule.test.mjs
 ```
 
-这条合成场景让另一个进程执行原 Worker，再只读正文和报告字节，不需要模型账户。手动接口可从[CLI](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/src/session-cli.mjs)中的 `schedule-confirm`、`schedule-wake`、`schedule-inspect` 和 `schedule-publication` 进入；完整范围见[同版设计](https://github.com/hpoenixf/open-etf-agent/blob/2b9fa955c96c7aaf202bad11131ef4680f0f97f3/openspec/changes/v18-schedule-occurrence/design.md)。
+这条合成场景让另一个进程执行原 Worker，再只读正文和报告字节，不需要模型账户。手动接口可从[CLI](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/src/session-cli.mjs)中的 `schedule-confirm`、`schedule-wake`、`schedule-inspect` 和 `schedule-publication` 进入；完整范围见[同版设计](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/openspec/changes/v18-schedule-occurrence/design.md)。
 
-这个切片使用显式选择的 schema5 新库，不迁移旧库，也不装后台服务。机器重启后仍需要调用者再次执行 wake；周期计划、行情条件、通知和上文完整 Task History 不在其中。当前候选的合成闭环不能替代完整发版验证，也不意味着电脑会自行在约定时间醒来。
+这个切片使用显式选择的 schema5 新库，不迁移旧库，也不装后台服务。机器重启后仍需要调用者再次执行 wake；周期计划、行情条件、通知和上文完整 Task History 不在其中。单个合成闭环不能替代独立真实调用与发布核验，也不意味着电脑会自行在约定时间醒来。
+
+
+更直接的操作方式见[同版手册](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/schedule-occurrence.md)。在独立目录选择一个未来时刻并确认：
+
+```sh
+INSTANT="$(node -e 'console.log(new Date(Date.now()+60000).toISOString())')"
+node src/session-cli.mjs schedule-confirm --session runs/schedule-demo --schedule one-shot --revision 1 --instant "$INSTANT" --zone Asia/Shanghai --lateness 60000
+```
+
+保存返回的 `reference.confirmationHash`。确认只保存身份，不会启动后台等待；到选定时刻，在允许迟到窗口内将下面的 `CONFIRMATION_HASH` 替换为该值再执行：
+
+```sh
+node src/session-cli.mjs schedule-wake --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+node src/session-cli.mjs schedule-inspect --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+node src/session-cli.mjs schedule-publication --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH
+```
+
+过早调用不会替你等待，错过首次物化窗口也不会自动挪到下一次。已提交后重复 `schedule-wake` 仍沿原 occurrence 和原 Run 读取，不另开研究、不刷新预算。报告与 Reader 的原字节回读、同 Run 终态重放保留在[无模型 CLI 资格回执](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-schedule.safe.json)中。
+
+真实模型路径则从[原 Schedule API](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/src/schedule.mjs)进入：[本轮固定真实任务记录](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-real-ten.safe.json)先确认时间，确认与到期前检查都不派发；实际到期后显式唤醒一次，由原 Worker 和 Admission 继续同一个 Run，再沿 Publication 交付并由只读 Session Reader 冷读原报告。这回答的是“获准的时间机会能否接上原任务”，不是“后台是否会替用户准时启动”。
+
+[较早的真实调用记录](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-release.safe.json)仍独立保留。上面的 CLI 演示是无模型验证，不能把 API 的真实调用记录移作 CLI 真实模型验收，也不能把冷读的零调用扩大为整个任务零调用。这些路径不证明后台自动唤醒、周期调度、金融质量或通用断电恢复。
 
 ## 七、我们究竟验证到了哪里
 
@@ -217,3 +239,4 @@ node --test --test-concurrency=1 --test-name-pattern='^18 different-PID Worker c
 
 [在个人博客阅读本篇](https://hpoenixf.com/blog/agent-autonomous-scheduled-research) · [公开工程文章文集](https://github.com/hpoenixf/eff-agent-article)（欢迎 Star）。
 <!-- agent-article-sync:guidance:end -->
+

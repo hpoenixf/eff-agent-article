@@ -28,7 +28,7 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 最新三条推进线可以沿既有模块阅读：[v0.16 撤权后的受控回读](./027-rag-revocation-publish-replay.md)、[v0.17 共享容量准入](./agent-provider-admission-capacity-lease.md)和[v0.18 单次确认的定时 occurrence](./agent-autonomous-scheduled-research.md)。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口，不必从本文的历史快照猜测当前能力。
 
-其中 v0.16 已有[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及独立安装、构建、Publication 和 Reader 撤权回读证据；安装使用既有官方缓存，资料与动作是合成输入，没有外部模型调用。v0.17 与 v0.18 的文章仍明确标记候选范围，不把发布到工作分支等同正式版本或真实模型验收。正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装仍从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。
+截至 2026-11-03，最新正式发布版本为 [v0.18.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.18.0)。v0.17 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce)把共享准入接到原请求与报告回读；环境中断留下的未知占位仍保留，新隔离组的后续成功不代表旧组恢复。v0.18 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2)进一步连接原 Schedule API 的确认、实际到期、显式单次唤醒和同 Run 交付。CLI 合成演示与 API 真实任务分开说明，不宣称后台自动调度。具体边界和回执见上面的既有模块文章；正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。此前 v0.16 的[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及其无模型撤权回读证据保持原样。
 
 下面保留旧版本的时间截面与最初 v0.1 案例。旧证据只解释自己的固定源码，不因新版本出现而改写。
 
@@ -190,3 +190,4 @@ v0.1 单独成篇，是为了给整个系列一个能开始动手的入口。它
 <!-- agent-article-sync:guidance:start -->
 完整英文版：[Start with a Report You Can Read Back](../en/articles/open-etf-agent-v01-first-readable-report.md?lang=en)。更多文章见[阅读目录](../catalog.md)与[公开文集](https://github.com/hpoenixf/eff-agent-article)，欢迎 Star 关注后续模块与代码的对照。
 <!-- agent-article-sync:guidance:end -->
+
