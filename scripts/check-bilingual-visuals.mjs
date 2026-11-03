@@ -35,10 +35,27 @@ function markdownStructure(source) {
   }
   if (activeTable) tables.push(activeTable)
   if (fence) errors.push('Unclosed code fence')
-  const images = [...source.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(x => x[1])
-    .concat([...source.matchAll(/<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/g)].map(x => x[1]))
+  const images = imageLinks(source)
   return { diagrams, tables, images }
 }
+// Resolve only literal withBase calls used by authored VitePress images.
+// Never execute article expressions or silently skip an unsupported bound src.
+export function imageLinks(source) {
+  const links = [...source.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(match => match[1])
+  for (const [tag] of source.matchAll(/<img\b[^>]*>/g)) {
+    for (const [, attribute, , value] of tag.matchAll(/\s(src|:src|v-bind:src)\s*=\s*(["'])([\s\S]*?)\2/g)) {
+      if (attribute === 'src') {
+        links.push(value)
+        continue
+      }
+      const literal = /^withBase\(\s*(['"])([^'"\\\r\n]+)\1\s*\)$/.exec(value)
+      if (!literal) throw new Error('Unsupported bound image src; use withBase with a literal path')
+      links.push(literal[2])
+    }
+  }
+  return links
+}
+
 export function localAsset(articlePath, link, root = '.') {
   const url = link.split(/[?#]/)[0].trim()
   if (!url || /^(?:https?:|data:|#)/i.test(url)) return null

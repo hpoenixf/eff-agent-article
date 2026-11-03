@@ -1,207 +1,112 @@
 ---
-description: "Follow fund tracking and portfolio-overlap research from Skill discovery through instruction reading, controlled calculation and specialist handoff. Catalog visibility, preloading, authorization and actual adoption remain distinct, so reusable methods do not become a second execution system."
+description: "What separates an Agent Skill from an ordinary prompt? Follow a fund-research example through on-demand loading, Host tools, reviewed Python scripts, and their actual security boundary."
 readingBrief:
   takeaways:
-    - "Skills supply reusable methods while models synthesize, Hosts authorize and code computes; method declarations neither expand source permissions nor require one Agent per method."
-    - "Entry, Main and Child progressively receive methods according to their actual tool surfaces; catalog visibility, preferences, preloading, instruction reads and execution require separate evidence."
-    - "Bind calculations to method versions, parameters, sources and periods; recovery cannot substitute newer instructions, and local method failures should preserve gaps without erasing independent findings."
+    - "A Skill's instructions are still text; registration, discovery, progressive loading, execution, and receipts are capabilities implemented by the Host."
+    - "A Skill cannot grant tools or data access; an authorized script also needs a separate review of its actual operating-system privileges."
+    - "ETF Agent constrains reviewed package scripts by identity, path, timeout, and output, but that runner is not an OS sandbox; its Docker Analysis Sandbox is separate."
+    - "Context projection separates visible catalog entries, loaded instructions, and usable tools; ecosystem compatibility gaps must not be relabeled as deliberate choices."
   appliesTo:
-    - "Variable tasks with reusable domain procedures, where method packages, specialist discovery and traceable calculation handoffs are more useful than fixed formulas alone."
+    - "Engineers designing Agent Skill loading, reuse, script execution, and authorization who need to separate file-format conventions from Host behavior."
   notFor:
-    - "Fixed-formula tasks better served by ordinary functions, or assuming the public compare-guides example includes the private fund Bundle, portfolio grants and Child preloading."
+    - "A one-off style instruction often needs only a prompt; fixed deterministic calculations generally need a function rather than a Skill system."
 ---
-# A Skill Is More Than SKILL.md: Turning Research Methods into Callable Agent Capabilities
+<script setup>
+import { withBase } from 'vitepress'
+</script>
 
-An Agent can search the web, read PDFs, invoke MCP tools, and run Python. Why would it need Skills?
+# How Is a Skill Different from a Prompt? From Loading to Script Execution
 
-Because **having tools does not mean knowing how to conduct a particular kind of research**.
+Suppose a user asks: “Compare the tracking quality of two index funds, then tell me whether they duplicate exposure in my portfolio.”
 
-Suppose a user asks: “Compare how well these two index funds track their benchmarks, then check whether they create duplicate exposure in my portfolio.”
+You could write a prompt asking an Agent to check share classes and benchmarks, calculate tracking error, and inspect holdings. That may work. But why inject the entire set of instructions on every request? How does the model discover which instructions to use? How can a calculation be reproduced—and who allowed its script to run?
 
-Search tools may retrieve fund NAV series, benchmarks, and disclosed holdings. Python may calculate active-return volatility or overlap. None of those capabilities decides whether to validate the share class, currency, dividend treatment, and common observation window first. Nor do tools decide whether a personal-overlap calculation should stop when private portfolio access was not granted.
+**A Skill starts as reusable task instructions. ETF Agent adds registration, on-demand reading, controlled tool calls, and execution receipts around those instructions.** The important distinction is not “a prompt written in Markdown”; it is what the Host implements to make instructions discoverable, usable, and auditable.
 
-In ETF Agent, we organize reusable research methods as Skills while maintaining a clear division: **Skills define methods; the model selects and synthesizes them; the Host governs actual tools and source authorization; deterministic programs perform calculations; and the existing Runtime owns budgets, execution, and recovery.**
+## First: what actually differs from a plain prompt?
 
-This is not just an article about the files inside a Skill. We will follow one research task through Entry, Main, and Child (Subagent), explaining why each sees a different method surface, how catalog entries become real reads and computations, and which claims require execution evidence rather than descriptions.
+A minimal Skill may contain only a `SKILL.md`. Once the model reads it, those instructions influence its reasoning just as an ordinary prompt would. **A Skill cannot automatically execute code or bypass permission checks.** It would be equally wrong to claim that ordinary prompts cannot use tools: they can guide tool use when an Agent already has those tools.
 
-## 1. What belongs inside a Skill?
+The difference appears when a Host provides additional lifecycle mechanisms:
 
-The [Agent Skills specification](https://agentskills.io/specification) uses `SKILL.md` to describe a method, with optional resources such as `scripts/`, `references/`, and `assets/`. Its important design choice is **progressive disclosure**: expose a short name and description first, then read full instructions and support files only when useful.
+| Dimension | Ordinary prompt | Host-managed Skill in ETF Agent |
+| --- | --- | --- |
+| Discovery | Application or user inserts the text | Registered ID and brief description allow discovery |
+| Context | Often injects the whole instruction | Short catalog first; full text and resources on demand |
+| Reuse | Copy or concatenate text | Same Skill can be used by different requests or agents |
+| Scripts | Uses tools the Agent already has | Can organize reviewed scripts and input contracts, using the same Host tools |
+| Authorization and trace | Still belongs to the Host | Still belongs to the Host, linked to Skill identity, version, and actual receipts |
 
-But `SKILL.md` is the entry point, not a complete execution architecture. A financial research application may also need calculations, consistent semantics, and several independently selectable methods. ETF Agent's internal fund-research Bundle uses this layout, with some directories omitted for readability:
+<a :href="withBase('/diagrams/agent-skill/prompt-en.svg')" aria-label="Comparison of one-off prompts and Host-managed Skills"><picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/agent-skill/prompt-en-mobile.svg')" /><img :src="withBase('/diagrams/agent-skill/prompt-en.svg')" alt="Comparison of one-off prompts and Host-managed Skills" loading="lazy" /></picture></a>
+
+*Figure 1: the extra capability comes from loading and execution governance, not magical Markdown.*
+
+In our fund example, the Skill can require matching share class, currency, distribution treatment, benchmark total-return series, and observation window before calculating tracking error. The model decides whether to use it; authorized tools obtain data; reviewed code computes deterministic quantities; and the Host controls access. A Skill does not replace Tools, MCP, or the Runtime.
+
+## The smallest useful Skill
+
+The [Agent Skills specification](https://agentskills.io/specification) requires `SKILL.md` and permits optional `scripts/`, `references/`, and `assets/`. Start with one independent Skill:
 
 ~~~text
-fund-research/
-├── bundle.json
-├── SKILL.md
-├── skills/
-│   ├── fund-research-planner/
-│   ├── index-fund-profile/
-│   ├── index-fund-tracking-quality/
-│   └── portfolio-overlap/
-├── scripts/
-├── references/
-├── schemas/
-└── templates/
+index-fund-tracking-quality/
+├── SKILL.md                  # When to use, prerequisites, limits
+├── references/               # Optional benchmark conventions
+└── scripts/                  # Optional reviewed calculation
+    └── calculate.py
 ~~~
 
-At the internally reviewed version, the Bundle is 1.3.0 and includes one planning entry and fourteen independently selectable research methods.
+The instruction file describes eligibility, input requirements, steps, and what to do with missing evidence. Scripts are optional. Merely creating these files does not cause the Host to expose `read_skill_resource` or `run_skill_script`. **The file format is a convention; the capability is an implementation.** More elaborate directory organization is covered only in the appendix.
 
-| Element | What it owns | What it does not own |
-| --- | --- | --- |
-| `SKILL.md` | Steps, prerequisites, evidence requirements, and limitations | Data access grants or a model execution loop |
-| `bundle.json` | Package identity, version, modules, and shared resource locations | Extra scheduling or an execution ledger |
-| Submethods | Specific tasks such as tracking quality and portfolio overlap | A mandatory Agent per method |
-| `references/`, `schemas/` | Supporting knowledge and input/output contracts | Automatic source certification |
-| `scripts/` | Deterministic processing of supplied structured inputs | Private-data acquisition or Host replacement |
-| `templates/` | Reusable presentation formats | Declaring the research delivered |
+## How does a request actually use a Skill?
 
-A user asking only about tracking quality can select that method without a full planner. A broader fund report can combine several methods. **A sub-Skill is not a Subagent, and a Bundle is not another task scheduler.**
+ETF Agent supports two entry routes. A user may explicitly select a registered Skill ID, such as `/index-fund-tracking-quality`. Otherwise, an ordinary natural-language request may enter Research, after which Main sees a short catalog and decides whether to read the Skill. Entry need not preload the full catalog; a simple Direct answer need not start research.
 
-## 2. How does a method enter a real research run?
+<a :href="withBase('/diagrams/agent-skill/path-en.svg')" aria-label="Skill discovery, reading, tool authorization, and actual execution"><picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/agent-skill/path-en-mobile.svg')" /><img :src="withBase('/diagrams/agent-skill/path-en.svg')" alt="Skill discovery, reading, tool authorization, and actual execution" loading="lazy" /></picture></a>
 
-There are two entry paths, but not two authorization systems.
+*Figure 2: seeing a catalog, reading instructions, receiving a grant, and running code are separate events.*
 
-For **explicit selection**, the user supplies a registered Skill ID, for example:
+At the code boundary, the useful mental model is:
 
 ~~~text
-/index-fund-tracking-quality
+register Skill(ID, version, contentHash)
+    → project short catalog for this request
+    → model calls read_skill_resource (if permitted)
+    → model chooses permitted tools / run_skill_script
+    → Host validates grants and the concrete invocation
+    → check tool result and synthesize the answer
 ~~~
 
-The original ingress parses the actual API field or slash command, validates registration identity, version, and content, and binds the chosen method to this Research run. An Entry model need not guess again whether the user intended to invoke the method. An explicitly validated startup instruction can enter the trusted startup context, still subject to higher-level safety requirements and the original Run authorization.
+This is explanatory pseudocode, not a public API. A tool execution needs a real receipt. A model merely saying it “used a Skill” does not prove it read the instructions or ran the script.
 
-For **ordinary natural language**, the user may simply ask, “How well do these funds track?” Entry primarily decides between Direct and Research. It does not preload the entire Skill catalog or force a method based on a keyword heuristic. Once in Research, Main receives a short catalog and may choose to read a method or continue ordinary research. The instruction body read on demand appears as an ordinary controlled tool result in the next context, not as newly elevated system authority.
+## Context projection: what does this model request actually see?
 
-~~~mermaid
-flowchart TD
-    A["User question"] --> B{"Explicit Skill selection?"}
-    B -->|"Yes"| C["Validate identity and bind method"]
-    B -->|"No"| D["Entry chooses Direct / Research"]
-    D -->|"Research"| E["Main receives short catalog"]
-    D -->|"Direct"| F["Ordinary direct answer"]
-    E --> G["Read a method if useful, or research"]
-    C --> H["Original Run and Host Tool Surface"]
-    G --> H
-    H --> I{"Tools and sources authorized?"}
-    I -->|"Yes"| J["Read evidence and compute as needed"]
-    I -->|"No"| K["Preserve missing or unauthorized parts"]
-    J --> L["Synthesize appropriately scoped findings"]
-    K --> L
-    L --> M["Original publication and delivery"]
-~~~
+Projection means the Host turns registered information into **content visible to a particular model request**. What exists in the registry, what is shown now, and what the model has actually read are different facts. Projection neither copies every Skill body into the prompt nor grants authority merely because an item appears there.
 
-Four distinct events matter: **method discovery, instruction injection or reading, tool authorization, and actual method consumption**. The first two help the model know what it could do. The third decides what it may do. The fourth requires real tool calls, observed results, and synthesis. None proves that the next event occurred.
-
-## 3. Why does the same Skill look different to Entry, Main, and a Subagent?
-
-Return to the index-fund task. Main needs public data to compare two funds and may delegate a tracking-quality check to a Child. “The Skill is registered” cannot be shortened to “Main and Child can both read and run it.”
-
-### 3.1 Entry, Main, and Child do not share one complete prompt
-
-| Execution position | What it actually sees or receives | What that does not establish |
+| Layer | What the model receives | What it does not establish |
 | --- | --- | --- |
-| Entry | Ordinary Direct/Research routing, or an explicitly validated selected method | The full catalog was not preloaded for ordinary entry |
-| Main | A Host-projected short catalog with IDs, names, and descriptions; on-demand reading | A visible entry is not a grant, adoption, or execution |
-| Child | Its own bound expert entry and task, plus a catalog filtered by **that Child's effective tool surface** | It does not inherit every Skill Main could see |
-| Custom expert | Profile options `preferredSkills` and `preloadedSkills` | Neither expands tools, sources, or budget |
-| Resumed request | Previously bound instructions, content identity, and real receipts, subject to context fitting | A new Skill release cannot silently replace old bound content |
+| Short catalog | Skill ID, name, and description for selection | Instructions loaded or scripts executed |
+| Instructions and resources | Content obtained through a reader, or an eligible expert preload | Permission to use every tool or data source mentioned |
+| Tool results | The result projection actually visible to this request | Access to all private fields or raw Host receipts |
 
-The important point is that Child discovery depends on **the Child's own effective Tool Surface**. The current mechanism projects a summary catalog according to these rules:
+For a Child, the current implementation checks its effective tools. With `read_skill_resource`, it can see brief entries from its bound catalog. With only `run_skill_script`, entries are restricted to locally packaged Skills. With neither, the catalog is empty. This is a tool-availability filter, **not semantic retrieval that selects the most relevant Skill**, and it does not authorize every entry's data dependencies. The model still chooses; the Host still checks actual calls.
 
-- If the Child has `read_skill_resource`, it can discover summaries of the registered methods in its bound catalog that it can attempt to read.
-- If it lacks that reader but has `run_skill_script`, it sees only methods backed by a local package root; a remote-only method is not presented as readable.
-- If neither tool is present, no Skill catalog is projected. The Child may still carry out other authorized work.
+Suppose Main delegates tracking-quality checks to a read-only Child. It may discover and read instructions without gaining a script runner or private holdings. A script-capable Child without a reader cannot claim to have read remote-only instructions. `preferredSkills` suggests candidates; `preloadedSkills` requests loading. Preloading checks reader authorization, registered identity, and complete content only after the actual Child grant is derived. A requested preload must not be reported as successful when authorization, completeness, or context capacity prevents it.
 
-These rules filter **discoverability**, not execution permission. A catalog entry does not bypass resource identity, version, scope, or permission checks during an actual read. Likewise, running a script still passes through the original script tool's controls.
+Tool results follow the same distinction. `stdinFromToolCallId` passes the result version exposed to the model, not a private raw capture held by the Host. After successful processing, optional `replaceReferencedResult` can reduce an earlier result in later model requests. It neither rewrites the original receipt nor proves the script's summary preserved every important detail. The catalog supports selection, reading establishes content, receipts establish execution, and original records remain available for verification.
 
-There is a related but distinct notion: a managed Child expert may have a frozen package entry of its own. Its `agentId` identifies an expert, not a Skill file path and certainly not a new tool grant.
+## A Skill may declare data needs but cannot grant access
 
-### 3.2 Request projection decides what the model actually received
+Tracking quality requires comparable fund NAV and benchmark total-return series; actual portfolio overlap also requires authorized portfolio weights and look-through holdings. A Skill may declare `research-scopes: [fund]` or `research-scopes: [portfolio_details]`, but these are dependencies, not consent.
 
-Main and eligible Children receive their short catalog as a model message marked `host-skill-catalog`. The envelope provides `skillId`, name, and description, plus `omittedCount` when the request cannot fit every entry. It is a per-request catalog view, not a system prompt containing every method instruction.
+Some reviewed packages use `allowed-mcp-servers` as a ceiling on declared service dependencies. That does not install a server or expand the current Run grant. Tool availability still depends on the user's permissions, Host policy, server setup, read-only rules, and the current budget.
 
-Here is a simplified **teaching example**, not a captured production payload:
+If the user restricts the task to uploaded files, instructions cannot silently expand it into network access. Without private portfolio authorization, the proper result is “personal overlap unavailable,” not an inferred holding from chat history, nor zero.
 
-~~~json
-{
-  "kind": "host-skill-catalog",
-  "skills": [
-    { "skillId": "index-fund-tracking-quality", "name": "Tracking Quality", "description": "Check comparable tracking data" }
-  ],
-  "omittedCount": 2
-}
-~~~
+## From instructions to an actual calculation
 
-The two omitted entries above are illustrative, not an actual observed count. Request projection tests each catalog item against the input capacity. Omitted entries must remain explicitly represented as omissions; if even the required catalog envelope will not fit, the existing request-capacity error applies. The model must not be told it saw the full catalog when it did not.
+Tracking difference is the fund-minus-benchmark return over a comparable interval. Tracking error is the dispersion of periodic active returns, commonly annualized using their actual frequency. They must not be confused.
 
-The model can subsequently call `read_skill_resource` for valid method instructions. That produces a traceable tool result; it does not run the calculation. A later reference to a Skill by name is also not evidence that the read succeeded.
-
-### 3.3 Custom expert preference, preload, and authorization differ
-
-A custom fund expert can declare:
-
-~~~json
-{
-  "preferredSkills": ["index-fund-tracking-quality"],
-  "preloadedSkills": ["index-fund-tracking-quality"]
-}
-~~~
-
-`preferredSkills` is advisory model guidance. **It does not load the instruction body, hide other authorized methods, or create an allowlist.** `preloadedSkills` explicitly asks for an instruction body at Child startup, but only through the original registered resource, actual Child grant, content binding, and request-capacity checks.
-
-If a preload is unavailable, the specific limitation is reported locally rather than fetching an arbitrary path or claiming the instructions were loaded. If full instructions will not fit, the current projector omits the **complete item** instead of silently truncating it to a misleading fragment.
-
-Importantly, context fitting happens while constructing the actual Child model request. Main cannot truthfully announce at `spawn_subagent` admission time that a future Child preload has already fitted and appeared.
-
-A Profile can guide a specialist's method choice; it cannot grant portfolio holdings, additional external services, or extra execution budget.
-
-### 3.4 What the Child did must still be handed back as an actual result
-
-This flow is a **mechanism illustration**, not a recorded live fund-research session or trade:
-
-~~~mermaid
-flowchart TD
-    U["User: tracking and overlap"] --> E["Entry: Research"]
-    E --> M["Main: method catalog and public evidence"]
-    M --> S["Delegate Child: scoped task and original grants"]
-    S --> C{"Does Child have the reader?"}
-    C -->|"Yes"| R["Read permitted Skill instructions"]
-    C -->|"No"| N["Do not claim a read; work with available tools"]
-    R --> T{"Required data and script available?"}
-    T -->|"Yes"| X["Call actual tools and inspect results"]
-    T -->|"No"| G["State gaps; retain valid findings"]
-    N --> H["Return summary, refs, and unresolved gaps"]
-    X --> H
-    G --> H
-    H --> M2["Main decides adoption and synthesis"]
-    M2 --> P["Original publication mechanism"]
-~~~
-
-A Child can return a summary, evidence references, artifact references, and unresolved gaps through `submit_subagent_result`. But **a Child submission does not prove Main used its findings in the final answer**. That needs a separate look at what Main actually received, referenced, and incorporated. Expert names, relationship hints, and self-reported Skill use are not substitutes.
-
-This is the useful composition: Skills provide reusable methods; a Child provides a separate model context and execution segment; Main integrates real contributions. One Child may use multiple permitted Skills; Main can also use a Skill directly. There is no requirement to construct one Agent per method. The general Child lifecycle and multi-expert orchestration are separate topics; this section concerns method transfer.
-
-## 4. A Skill may request data but may not grant access to it
-
-Tracking quality commonly needs a fund NAV series and a comparable benchmark total-return series. Portfolio overlap additionally needs actual portfolio weights and underlying holdings observed at appropriate dates.
-
-A method may declare `research-scopes: [fund]` or `research-scopes: [portfolio_details]`. These express domain dependencies, **not user consent or authorization**. Some reviewed packages also declare `allowed-mcp-servers`, an upper bound on dedicated MCP services associated with that method. Actual tool calls still depend on the Run grant, Host policy, available server configuration, read-only constraints, current phase, and resource budget.
-
-If the user authorized public fund research but not private portfolio details, the Agent may review product identity, public fees, benchmarks, and permissible return series. It cannot calculate how much these funds overlap in **the user's actual holdings**. It must not reconstruct private positions from old chat, stale RAG summaries, or assumed weights, nor report unknown overlap as zero.
-
-Similarly, a user request to use only uploaded files cannot be expanded into outside network access just because a method declared an MCP server. **Method declarations do not expand grants, and grants do not oblige the model to use a method.**
-
-## 5. From instructions to calculation: how does a Skill produce results?
-
-Some financial decisions require model judgment; some calculations should be repeatable programs. For index funds, consider:
-
-- **Tracking Difference:** the difference between fund and benchmark returns over a comparable interval.
-- **Tracking Error:** the volatility of periodic active returns, usually annualized according to the actual observation frequency.
-- **Relative wealth evolution:** the relative progression of fund and benchmark cumulative wealth paths.
-
-These are different metrics. In particular, tracking error is not the fund's return minus its benchmark return on one day.
-
-A reviewed packaged script can first describe the method's expected inputs:
+ETF Agent's internal reviewed fund Skill package can first ask the original `run_skill_script` tool for a Skill's input contract:
 
 ~~~json
 {
@@ -210,7 +115,7 @@ A reviewed packaged script can first describe the method's expected inputs:
 }
 ~~~
 
-This inspects an input contract; **it does not download market data, access private holdings, or compute actual tracking quality**. Once permitted structured data has been acquired, the script may perform deterministic processing. Large data can be passed using `stdinFromToolCallId`, which points to an actual **completed and model-readable tool result in the same Run**:
+This describes expected fields; it does not fetch prices, access a portfolio, or compute a result. After authorized, comparable structured inputs are available, the reviewed entrypoint can compute on them:
 
 ~~~json
 {
@@ -220,73 +125,75 @@ This inspects an input contract; **it does not download market data, access priv
 }
 ~~~
 
-`call_example` is an illustrative placeholder, not a valid call ID. The Host resolves the real receipt and sends the serialization **actually projected to the model** to the script's standard input. It rejects cross-Run, incomplete, ambiguous, or omitted references. Host-private raw captures do not thereby become accessible.
+`call_example` is illustrative, not a usable call ID. The Host resolves a completed, model-visible tool result from the same Run. Cross-Run, unfinished, ambiguous, or omitted results are rejected. A script cannot promote a made-up citation into a real source.
 
-Script paths must remain relative to the approved package and pass path checks. Calls remain subject to original time limits, cancellation, resources, and execution receipts. **A trusted-package script runner is not a general sandbox for arbitrary untrusted Python.** A managed Child expert package may use the isolated Analysis Sandbox; that does not imply every Skill script uses the same isolation mechanism.
+## Crucial question: what permissions does the script actually have?
 
-## 6. Why must a calculation retain method, parameters, and source identity?
+**Admission and process isolation are different checks.** The `run_skill_script` path is intended for trusted, Host-managed package scripts, not arbitrary Python downloaded from the web. The system checks the registered package's lifecycle and content identity, the original tool grant, and a package-relative path. Canonical-path checks reject absolute paths, traversal, escaping symlinks, and non-Python targets. Execution has timeout, cancellation, bounded output, and redaction.
 
-Imagine an output containing only `{"trackingError": 0.012}`. The next research step cannot know which fund or share class it describes, the observation window, the benchmark version, or whether daily or monthly returns and which annualization parameters were used.
+But the actual `runSkillPython` executor starts a **Host-side Python subprocess**. It does **not** establish an independent network, filesystem, environment-variable, or subprocess sandbox. Path validation restricts *which script is selected*, not *everything that script could access after starting*. The reviewed built-in scripts are intended to process supplied JSON without networking, package installation, or unrelated file reads; these are properties of reviewed trusted code, not OS isolation guarantees.
 
-Method results should therefore carry the object and share-class identity, periods (requested, used, and as-of), input references, sources, parameter identity, and actual calculation status. The Bundle uses such context to connect computations; the outer Host independently enforces real source authorization and identity. Internal declarations cannot invent valid external citations.
+<a :href="withBase('/diagrams/agent-skill/security-en.svg')" aria-label="Trust and sandbox boundary for ETF Agent Skill scripts versus Docker Analysis Sandbox"><picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/agent-skill/security-en-mobile.svg')" /><img :src="withBase('/diagrams/agent-skill/security-en.svg')" alt="Trust and sandbox boundary for ETF Agent Skill scripts versus Docker Analysis Sandbox" loading="lazy" /></picture></a>
 
-A changed share class or benchmark version requires fresh analysis. Changing the annualization assumption from 252 periods a year to 12 cannot be done by relabeling the result. Likewise, a method with the same name may have changed its instructions: registration version, content hash, and the actually used instruction body matter.
+*Figure 3: package path checks are not a sandbox; Docker Analysis Sandbox is a distinct execution route.*
 
-On recovery, the method bound to an older Run must not silently be replaced with the newest release. At the same time, **method-content identity and Run-authorization identity are independent**. Reading a new method version cannot renew permission; disabling a Skill does not automatically erase already lawfully published research.
+| Question | Reviewed Skill script route |
+| --- | --- |
+| Can a caller select an arbitrary absolute path? | No: only validated, in-package `.py` paths |
+| Can a Skill declaration grant private data or new MCP tools? | No: the original Host and Run grant still control those |
+| What happens on timeout or oversized output? | The call fails or its output is refused |
+| Is it an independently restricted OS/network/filesystem sandbox? | **No such guarantee** from this runner |
+| Does the separate Docker sandbox protect every Skill script? | No: inspect which execution route was actually used |
 
-## 7. Should one failed method invalidate the whole research task?
+The actionable rule is: **review trusted packages, validate identity and grants per call, and treat untrusted/user-supplied code as a different class of workload requiring an explicit isolation contract.** The Agent Skills specification's `allowed-tools` field is experimental and Host-dependent; it is not itself a universal permission grant.
 
-The fund comparison may encounter three different limitations.
+## Why attach Skill version, inputs, and sources to results?
 
-Fund identity and fees have been verified, but no comparable benchmark total-return series is available. The Agent can publish product facts but cannot substitute a price-only index and announce formal tracking error.
+A bare output like `{"trackingError":0.012}` does not identify the fund, share class, period, benchmark, frequency, or source. It cannot safely support a research conclusion on its own.
 
-Portfolio details were not authorized. Personal overlap is unavailable, not zero. A script may also fail on malformed input; empty output must not be rewritten as zero returns or a successful computation.
+ETF Agent relates actual outputs to the fund identity, requested and used periods, source/tool receipts, calculation parameters, registered Skill version, and content hash. Changing annualization from 252 to 12 periods cannot be done by relabeling a result; changing Skill instructions cannot silently rewrite an already-bound Run during recovery.
 
-This is a **teaching schema, not a production API**:
+**Instruction identity and Run authorization are independent.** Loading a newer Skill does not renew access to private holdings; disabling a Skill does not erase a previously lawful historical result.
+
+## Why do Main and Subagents not share every Skill?
+
+Main may see a short Skill catalog. A Child sees only the catalog projected through its own effective Tool Surface. Without `read_skill_resource` it cannot pretend to read remote-only instructions; without a reader or script runner it receives no Skill catalog.
+
+A custom expert's `preferredSkills` is advisory; `preloadedSkills` requests an attempted preload. **Neither adds tools, data access, or budget.** A successful preload must satisfy registered identity, content binding, the actual Child grant, and available context capacity. Main cannot declare success before the Child's request is assembled.
+
+For our two funds, a Child can check tracking quality within its existing grant and return evidence and gaps. Main must actually inspect and adopt that contribution before making the final claim. **One Skill is not one Agent, and one Child can use multiple Skills.** This is about Skill consumption, not a replacement for general Subagent lifecycle management.
+
+## Does one failed Skill invalidate the whole research?
+
+No. Verified fund facts can still be reported when the comparable benchmark series is missing; tracking error cannot be invented. Private portfolio overlap is unavailable without authorization, not zero. Malformed script input must stay a failure, not an apparently successful empty result.
 
 ~~~json
 {
-  "research": "Comparison of two specified index funds",
-  "findings": {
-    "fundProfile": { "status": "available" },
-    "trackingQuality": {
-      "status": "insufficient",
-      "missing": ["Comparable benchmark total-return series"]
-    },
-    "portfolioOverlap": {
-      "status": "unavailable",
-      "reason": "Private portfolio details were not authorized"
-    }
+  "fundProfile": { "status": "available" },
+  "trackingQuality": {
+    "status": "insufficient",
+    "missing": ["Comparable benchmark total-return series"]
+  },
+  "portfolioOverlap": {
+    "status": "unavailable",
+    "reason": "No private portfolio authorization"
   }
 }
 ~~~
 
-A failure in one method should not erase adjacent valid findings. A Child may hand back verified facts alongside unresolved gaps, and Main decides what is useful in the final report. Method reading, successful execution, evidenced conclusions, actual Main adoption, and successful artifact delivery are **different events**. They use the original receipts rather than a new rule requiring every sub-Skill to succeed before publishing an answer.
+This is a teaching schema, not a production API. Instruction read, successful computation, evidence quality, Main adoption, and user delivery are distinct states. Skill composition should reuse the existing Runtime rather than introduce another job scheduler.
 
-## 8. Skill lifecycle governance is not Markdown file management
+## What does Skill lifecycle governance solve?
 
-Editing one Markdown file may be sufficient for a personal script. It is less sufficient in a system with package installation, recoverable work, and private data sources: changes to a method's premises, helper script, dependency ceiling, or output interpretation affect later execution.
+In a recoverable research system, changed prerequisites, scripts, and output interpretations affect future execution. ETF Agent distinguishes registration, reviewed activation, disablement, and replacement. Even when name and version are unchanged, content hashes matter: changed bytes must not inherit an older approval.
 
-ETF Agent distinguishes lifecycle states such as `draft`, `active`, `disabled`, and `superseded`. Registration, reviewed activation, and real execution remain separate. Even when a name and version string have not changed, changed content hashes must not inherit prior approval.
+Registration does not establish current authorization; activation does not grant private data; catalog projection does not prove instructions were read; a completed script does not prove its finding was used in the final answer. The point is traceability, not a second Runtime.
 
-| Event | What it confirms | What it cannot prove |
-| --- | --- | --- |
-| Registration | A method exists at a particular identity and version | It is active or authorized |
-| Activation | A candidate may be legally selected under existing review | The user's data is readable |
-| Projection or reading | A request actually received a catalog or method body | The model executed it |
-| Execution and handoff | Actual tool results and Child receipts can be located | Main adopted them or the user received them |
+## What can readers verify in public code?
 
-Disabling a method generally prevents new ineligible use. Historical readback and recovery of unexecuted actions remain governed separately by the original version, grants, receipts, and publication rules. The objective is recognizable method evolution, not a second Runtime.
+The internal fund research package, private-portfolio admission, and reviewed Python calculation path above are not automatically features of public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent).
 
-## 9. What can be reproduced from the open-source implementation?
-
-The fund Bundle, private-portfolio admission, and reviewed Python calculation path discussed above are internal. They are **not all features of the public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent)**.
-
-A fixed public v0.2 source revision does contain a smaller example. The `compare-guides` Skill guides an Agent comparing two synthetic software-guide versions: read the real source snapshots, keep free and enterprise conditions distinct, verify units and numeric differences, then save a report whose sources can be read back.
-
-Its [fixed SKILL.md](https://github.com/hpoenixf/open-etf-agent/blob/a79e89bf709d4a2245b5a8652882a591ba467519/fixtures/skills/compare/SKILL.md) and [Skill catalog implementation](https://github.com/hpoenixf/open-etf-agent/blob/a79e89bf709d4a2245b5a8652882a591ba467519/src/skills.mjs) are directly inspectable.
-
-Using Node.js 26.11.1 (or a compatible later 26.x release) according to that revision's engine requirement:
+A fixed public source revision includes a smaller `compare-guides` Skill for comparing synthetic software guide versions, checking source snapshots and numeric units, and producing a readable report. Inspect its [SKILL.md](https://github.com/hpoenixf/open-etf-agent/blob/a79e89bf709d4a2245b5a8652882a591ba467519/fixtures/skills/compare/SKILL.md) and [catalog implementation](https://github.com/hpoenixf/open-etf-agent/blob/a79e89bf709d4a2245b5a8652882a591ba467519/src/skills.mjs).
 
 ~~~bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
@@ -296,38 +203,43 @@ npm ci --ignore-scripts --no-audit --no-fund
 npm run demo -- --case skill-mcp
 ~~~
 
-This is an offline synthetic demonstration and needs neither live fund data nor model credentials. It illustrates “catalog discovery → method reading → Host source retrieval → report → execution records.” It does not establish that the private Bundle, Child preloading, or fund computations have been published in the open-source edition.
+This offline synthetic demo uses the pinned revision's Node 26.x environment requirement and no live fund or model credentials. It demonstrates catalog discovery, Skill reading, Host source tools, and report records. It **does not** prove that private fund packages, Child preloading, or their Python security arrangements are included in the public edition.
 
-## 10. When is a Skill worthwhile, and when is ordinary code enough?
+## What do comparable systems offer that we have not adopted?
 
-For fixed inputs, a deterministic formula, and a stable output, an ordinary function is often simpler. Skills become useful when the wording and shape of tasks vary, domain judgment matters, and reusable steps and evidence prerequisites still exist.
+Progressive loading is not an ETF Agent invention. The [Agent Skills specification](https://agentskills.io/specification) already separates discovery metadata, activated instructions, and on-demand resources. ETF Agent connects that pattern to its own Run, data grants, and receipts; the shared pattern is not a unique advantage.
 
-In fund research that includes confirming share class, benchmark, and periods before comparison; distinguishing tracking difference from tracking error; accounting for unknown look-through exposure; and limiting claims when evidence is insufficient. In specialist collaboration it also means **the Child is not the owner of the method, and the method is not an execution permission**. The Child can have an independent context, discover and combine methods under its own tool surface, and return work for Main to actually consume.
+An implementation gap must also be separated from an explicit boundary. This compares specific entry routes, not whole products:
 
-The practical design decisions are:
+| Capability | Comparable implementation | ETF Agent boundary and reason |
+| --- | --- | --- |
+| Skill-declared tool pre-approval | [Claude Code](https://code.claude.com/docs/en/skills#pre-approve-tools-for-a-skill) supports `allowed-tools`, subject to its permission rules | The current package route rejects retired `allowed-tools` declarations for new execution. Original Host/Run admission owns tools and data. This explicit boundary prevents reusable instructions from changing user authority; it does not mean scripts are unavailable. |
+| Skill-configured subagent execution | [Claude Code](https://code.claude.com/docs/en/skills#run-skills-in-a-subagent) supports `context: fork` and `agent` | The verified route here is an existing Child consuming Skills, not demonstrated compatibility with those fields. Reusing delegation preserves budgets and receipts, but does not establish a historical decision to reject an equivalent entrypoint. Support remains unverified, not deliberately ruled out. |
+| Complete upstream plugin experience | The same official documentation describes extensions such as dynamic context injection | Current compatibility records cover selected packages and bounded paths. Some interactive presentation and unselected profiles remain unsupported or deferred. Reading `SKILL.md` does not close that compatibility gap, and there is no basis here for a delivery date. |
 
-- Keep methods that require model understanding, selection, and synthesis in Skills.
-- Keep deterministic calculations in controlled code; use the original tools for public data, private sources, and external actions.
-- Leave tool authorization, content binding, budgets, recovery, and publication with the existing Host and Runtime.
-- Observe catalog exposure, instruction reads, tool execution, Child handoff, and final adoption separately.
+A separate gap is **independent OS isolation for reviewed Skill scripts**. The trusted-code scope explains current admission; it does not show isolation is unnecessary. Accepting untrusted packages would require an explicit isolation contract and verification. A separate Docker analysis tool does not automatically provide that contract for this runner. The explicit refusal is to let Skill text expand authority, not a claim that isolation, interaction, or a richer ecosystem is unnecessary.
 
-A method contract may be verifiable without the model always selecting the right method. A calculation may be reproducible without its financial inputs being correct. Those qualities require separate evaluation.
+## When should you use a Skill, a prompt, or a function?
 
-## Conclusion
+For a one-off tone or style instruction, use a prompt. For stable deterministic input-output logic, use a function. Use a Skill when varying requests repeatedly need domain prerequisites, on-demand guidance, tool selection, and traceable results.
 
-If an Agent already has tools, why does it still need Skills?
+Ask three questions before building one: **Which recurring task does it solve? What loading and tool capabilities does the Host actually implement? What OS privileges would an executed script have?** Without answers to the last two, an elegant `SKILL.md` remains text.
 
-Tools answer “what can I call?” Skills help the model answer “how should I organize this kind of research?” To become more than elaborate prompt packaging, a Skill system must also distinguish **who saw a method, who was permitted to execute it, who actually read its instructions, who produced results, and who used those results in the final research**.
+## Advanced appendix: packaging multiple Skills as a Bundle
 
-ETF Agent's goal is not a Skill system with ever-growing implicit powers. It is an extensible library of research methods without duplicate execution authorities. A new method describes its premises, steps, inputs, and results; the existing owners continue to provide permissions, computations, receipts, and delivery.
+Only now does ETF Agent's internal Bundle matter. It groups independent Skills with shared assets and a `bundle.json` describing identity and version. **This is an ETF Agent packaging extension, not a prerequisite of the Agent Skills specification.**
 
----
+~~~text
+fund-research/
+├── bundle.json               # Additional packaging metadata
+├── SKILL.md
+├── skills/
+│   ├── index-fund-tracking-quality/
+│   └── portfolio-overlap/
+├── scripts/
+├── references/
+└── schemas/
+~~~
 
-**Further reading**
+A Bundle may share reviewed calculation entrypoints and input contracts. It does not create another Agent, take over the existing Run, or grant access to additional user data. The arguments in this article also apply to a Skill consisting of just one `SKILL.md`.
 
-- [Agent Skills Specification](https://agentskills.io/specification): File structure and progressive disclosure.
-- [Model / Runtime / MCP / Skill Responsibilities](./agent-model-runtime-mcp-skill-boundaries.md): The four-role mental model.
-- [Subagent Panorama](./agent-subagent-context-specialization.md): Independent Child context, lifecycle, and actual handoffs.
-- [A Custom Expert Should Be More Than a Prompt Field](./agent-custom-expert-from-prompt-to-recovery.md): Profiles, frozen bindings, and recovery.
-- [Extension Host](./020-agent-extension-host-smartphone.md): Registration and package lifecycle.
-- [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent): Public minimal implementation and source. If useful, explore the repository and give it a GitHub Star.
