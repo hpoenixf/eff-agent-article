@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { openEtfSidebar } from '../open-etf-sidebar.mjs'
 import { articleReadingBriefPlugin } from '../article-reading-brief.mjs'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -46,7 +47,9 @@ export default defineConfig({
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
         nav: [{ text: 'About', link: '/about' }],
-        sidebar: [
+        sidebar: {
+          '/en/open-etf-agent': openEtfSidebar('en'),
+          '/en/': [
           { text: 'All articles', link: '/en/catalog' },
           ...englishSidebar,
           { text: 'Tag topics', collapsed: true, items: [
@@ -60,7 +63,8 @@ export default defineConfig({
             { text: 'Blog', link: 'https://hpoenixf.com/' }
           ] },
           { text: 'Runnable code', link: 'https://github.com/hpoenixf/open-etf-agent' }
-        ],
+          ]
+        },
         outline: { level: [2, 3], label: 'On This Page' },
         lastUpdated: { text: 'Last updated' },
         docFooter: { prev: 'Previous', next: 'Next' },
@@ -192,7 +196,9 @@ export default defineConfig({
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
     nav: [{ text: 'About', link: '/about' }],
-    sidebar: [
+    sidebar: {
+      '/open-etf-agent': openEtfSidebar('zh'),
+      '/': [
       { text: '全部文章', link: '/catalog' },
       ...readingSidebar,
       { text: '标签专题', collapsed: true, items: [
@@ -206,7 +212,8 @@ export default defineConfig({
         { text: '博客', link: 'https://hpoenixf.com/' }
       ] },
       { text: '可运行源码', link: 'https://github.com/hpoenixf/open-etf-agent' }
-    ],
+      ]
+    },
     outline: { level: [2, 3], label: '本页目录' },
     lastUpdated: { text: '最近修订' },
     docFooter: { prev: '上一篇', next: '下一篇' },

@@ -14,11 +14,11 @@ export function canonicalArticleLinks(markdown, canonical) {
   return [...slugs]
 }
 
-export function buildArticleTags({ slugs, financeMarkdown, panoramaSlugs, openGroups }) {
+export function buildArticleTags({ slugs, financeSlugs, panoramaSlugs, openGroups }) {
   const canonical = new Set(slugs)
   const articles = Object.fromEntries(slugs.map(slug => [slug, []]))
   const add = (slug, tag) => { if (canonical.has(slug) && !articles[slug].some(item => item.id === tag.id)) articles[slug].push(tag) }
-  for (const slug of canonicalArticleLinks(financeMarkdown, canonical)) add(slug, { id: 'finance' })
+  for (const slug of financeSlugs) add(slug, { id: 'finance' })
   for (const slug of panoramaSlugs) add(slug, { id: 'panorama' })
   for (const row of openGroups.flatMap(group => group.articles)) {
     const targets = [row, ...(row.additionalTargets || [])].filter(slice => slice.target)

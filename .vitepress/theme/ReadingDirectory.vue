@@ -11,8 +11,9 @@ const { theme, lang } = useData()
 const route = useRoute()
 const entries = computed(() => {
   if (props.items) return props.items
-  const sidebar = Array.isArray(theme.value.sidebar) ? theme.value.sidebar : []
   const en = lang.value.startsWith('en')
+  const configured = theme.value.sidebar
+  const sidebar = Array.isArray(configured) ? configured : (configured?.[en ? '/en/' : '/'] ?? [])
   return groupTopCategories(sidebar, (en ? englishCollections : collections).map(c => c.title), en ? 'Article categories' : '文章分类')
 })
 const closeScreen = inject<() => void>('close-screen', () => {})

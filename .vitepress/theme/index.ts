@@ -15,6 +15,7 @@ import ContinueReading from './ContinueReading.vue'
 import HomeReadingMenu from './HomeReadingMenu.vue'
 import HomeOverview from './HomeOverview.vue'
 import PanoramaSeries from './PanoramaSeries.vue'
+import FinanceTopic from './FinanceTopic.vue'
 import ArticleContext from './ArticleContext.vue'
 import PanoramaViewer from './PanoramaViewer.vue'
 import OpenSourceBridge from './OpenSourceBridge.vue'
@@ -52,6 +53,7 @@ export default {
     app.component('ContinueReading', ContinueReading)
     app.component('HomeOverview', HomeOverview)
     app.component('PanoramaSeries', PanoramaSeries)
+    app.component('FinanceTopic', FinanceTopic)
     app.component('OpenSourceBridge', OpenSourceBridge)
     app.component('PanoramaViewer', PanoramaViewer)
   }

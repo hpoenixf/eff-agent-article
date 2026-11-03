@@ -1,11 +1,20 @@
 ---
-title: "Fintech × Agent · Securities and Wealth Management"
-description: "Curated financial AI essays on products, investment research, accountability and institutional adoption."
+title: "Fintech × Agent · All Finance-Tagged Articles"
+description: "All finance-tagged essays on products, investment research, accountability and institutional adoption, retaining their original primary categories."
 ---
 
 # Fintech × Agent: From Information Access to Informed Investment Decisions
 
 Explore financial research methods, evidence and accountability through the published essays below. Access to information is not judgment; correct calculations do not establish research validity, and model proposals are not authorization to execute.
+
+## All finance-tagged articles
+
+This list uses the same membership as the finance tag on each article, with no additional curated filter. Primary categories stay unchanged. Articles without a complete English edition link to the clearly marked Chinese original.
+
+<FinanceTopic />
+
+<details>
+<summary>Read by research question (existing guide)</summary>
 
 ## A · Financial AI Products and Investors
 
@@ -69,3 +78,5 @@ Implementation, bounded tests, business outcomes and regulatory compliance are d
 [Research questions F01–F15](/en/financial-research-backlog) · [Full catalog](/en/catalog)
 
 <small>This page is not investment advice, a suitability determination, legal advice or regulatory certification.</small>
+
+</details>
