@@ -5,7 +5,7 @@ readingBrief:
     - "Skill 的正文仍是指引；相较单纯 Prompt，工程价值来自 Host 的注册发现、渐进加载、资源组织、执行与回执。"
     - "Skill 不能自己授予工具或数据权限；脚本若获准执行，还必须单独审查它实际拥有的操作系统权限。"
     - "ETF Agent 的受审包脚本具有路径、期限与输出约束，但不是独立沙箱；Docker Analysis Sandbox 是另一条隔离执行路径。"
-    - "一次基金研究可以组合多个 Skill，按证据缺口交付部分结果；Bundle 只是组织扩展，不是理解 Skill 的前提。"
+    - "一个 Skill 可由不同任务或专家复用，证据不完整时也应保留可确认的部分结果。"
   appliesTo:
     - "正在设计 Agent Skill 加载、复用、受审脚本及权限治理，希望知道哪些能力来自 Skill、哪些来自 Host 的工程师。"
   notFor:
