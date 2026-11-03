@@ -100,6 +100,27 @@ test('new real-task slices retain independent evidence and old worker/revocation
   assert.equal(occurrence.status,'limited')
   assert.equal(occurrence.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-real-ten.safe.json')
  }
- assert.deepEqual(versions.slice(-3).map(v=>v.version),['0.16','0.17','0.18'])
+ assert.deepEqual(versions.filter(v=>['0.16','0.17','0.18'].includes(v.version)).map(v=>v.version),['0.16','0.17','0.18'])
 })
 
+test('v0.19 composition source does not invent another verified article slice',()=>{
+ const lineage=JSON.parse(readFileSync(new URL('../data/open-etf-agent/versions.json',import.meta.url),'utf8'))
+ const latest=Object.keys(lineage.versions).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).slice(-3)
+ assert.deepEqual(versions.slice(-3).map(v=>v.version),latest)
+ const composition=versions.find(v=>v.version==='0.19')
+ assert.equal(composition.commit,'9b6ae0adf1df7efd4fd138b8d2957103b8fd9132')
+ assert.equal(composition.tree,'13739de4e3062df5674710e5a1709dbf28a07f9f')
+ for(const language of ['zh','en']) {
+  const slices=topicGroups(language).flatMap(g=>g.articles).flatMap(row=>[row,...row.additionalTargets])
+  assert.equal(slices.some(slice=>slice.since==='0.19'),false)
+ }
+})
+test('README recent modules are generated from the same bilingual topic source',async()=>{
+ const {updateRecentModules,renderRecentModuleLinks}=await import('./sync-readme-modules.mjs')
+ const text=readFileSync(new URL('../README.md',import.meta.url),'utf8')
+ assert.equal(updateRecentModules(text),text)
+ assert.equal(renderRecentModuleLinks([],[]),'')
+ assert.equal(renderRecentModuleLinks([{slug:'x',title:'中',href:'/articles/x'}],[{slug:'x',title:'English',href:'/en/articles/x'}]),'- [中](articles/x.md) · [English](en/articles/x.md)')
+ assert.throws(()=>renderRecentModuleLinks([{slug:'x'}],[]),/Missing English/)
+ assert.throws(()=>updateRecentModules('no markers'),/Expected one/)
+})

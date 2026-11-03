@@ -20,9 +20,11 @@
 
 按公开项目的模块演进顺序选取，与[项目阅读入口](https://hpoenixf.com/eff-agent-article/open-etf-agent)一致，**不是文章发布日期排名**。文章的完整机制与可运行实现的有限范围分别说明；中英正文是同一篇文章的两个版本。
 
-- [Memory：从保存、召回到安全遗忘](articles/026-agent-memory-forget-durable-effects.md) · [Memory: From Saving and Recall to Safe Forgetting](en/articles/026-agent-memory-forget-durable-effects.md)
-- [Agent 问完用户之后：持久人机交互](articles/agent-durable-human-interaction-response-adoption.md) · [After an Agent Asks: Durable Human Response Adoption](en/articles/agent-durable-human-interaction-response-adoption.md)
-- [Agent 说“今天”时，到底是哪一天](articles/agent-temporal-semantics-market-calendar.md) · [When an Agent Says Today: User Time and Market Sessions](en/articles/agent-temporal-semantics-market-calendar.md)
+<!-- open-etf-recent-modules:start -->
+- [定时研究：会话结束后继续](articles/agent-autonomous-scheduled-research.md) · [Scheduled Research Beyond a Conversation](en/articles/agent-autonomous-scheduled-research.md)
+- [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md) · [Why the Next Model Request Still Queues After HTTP 200](en/articles/agent-provider-admission-capacity-lease.md)
+- [RAG：文档撤权与历史回放](articles/027-rag-revocation-publish-replay.md) · [RAG: Revocation and Historical Replay](en/articles/027-rag-revocation-publish-replay.md)
+<!-- open-etf-recent-modules:end -->
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 

@@ -223,6 +223,16 @@ node --test --test-concurrency=1 --test-name-pattern='adopted note survives proc
 这也带来真实的容量代价：不可压缩的回执可能仍然装不下，Runtime 会明确报告 `CONTEXT_CAPACITY_EXCEEDED`，而不是重放保存、扩大窗口或伪造成功。启用便笺的 Host 把选择策略身份带入检查点；不匹配的旧压缩检查点拒绝恢复，不能把升级当成自动迁移。具体行为见[回执保留回归](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs)与[版本说明](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md)，当前入口仍是 [main](https://github.com/hpoenixf/open-etf-agent)。这补的是执行事实保护，不是摘要质量保证，也不改变上面历史案例的资格快照。
 
 
+### 同一份证据，为什么会被反复摘要？
+
+接入真实摘要调用后，还有一种容易漏掉的循环：报告已经保存，Main 却还没有给出最终回答；下一轮再次看到同一批历史，又花一次请求把它们压缩。v0.19 的原始组合任务实际遇到了这种情况。后来的摘要碰到本地角色限制时，原 Admission 已经预留额度。系统保留未知占位，而不是把普通异常当作“肯定没有发送”的凭证。修复应发生在重复工作产生之前，而不是清掉占位或提高外部调用上限。
+
+这次实现把已摘要的范围保存为 `compaction-frontier@1`：它指向不可变派生笔记和原消息前缀。复用前，要核对内容地址、覆盖的完整调用组、资料身份以及当前 Memory 依赖；相同证据不必再付一次摘要请求。新的调用、带效果的组和最近一组仍保留原文，摘要也不会变成新的授权或报告回执。依赖变化时，旧投影不能继续冒充当前事实。
+
+另一个约束是 Run 绑定的摘要次数上限。`gateway-history-compaction@2` 将每次摘要尝试与原根预算预留一同记账；达到上限后，在下一次预留之前选择有效旧投影或原有的有界上下文退路。未知、取消和失败不退还已经占用的额度，也不允许 Main 绕过预算继续执行。复用笔记只是减少重复压缩，最终回答仍要由 Main 完成。
+
+恢复也不能悄悄迁移协议。旧只读 Reader 对新的压缩定义会明确拒绝，新 Reader 才能按新契约回读原字节；旧 Run 应保留对应源码与恢复材料。[固定实现与组合说明](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.zh-CN.md)和[frontier 回归用例](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/test/managed-compaction-frontier.test.mjs)可交叉阅读。后者使用合成网关与真实持久状态，检查复用、终态不重放及篡改拒绝，不是新的真实模型质量测评。[交付记录](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/verification/v019-release.zh-CN.md)还保留修复前失败、不同执行源码与当时完整离线套件未全绿的事实。这里证明的是摘要身份和额度边界更清楚，不是摘要已经不会丢失语义。
+
 ---
 
 <!-- agent-article-sync:guidance:start -->
