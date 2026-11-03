@@ -1,6 +1,8 @@
 ---
 title: "Why Can't a Portfolio Report Be Written While It Is Still Being Calculated?"
 description: "Trace a fund portfolio report through deterministic assembly, atomic replacement, and read-only Agent access—and learn why a valid file can still point to the wrong run."
+tags:
+  - "Finance"
 readingBrief:
   takeaways:
     - "A portfolio report should bind actual holdings, market evidence, advice eligibility, and read-only projections to one identified snapshot rather than mix results from separate runs."
