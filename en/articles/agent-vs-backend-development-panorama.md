@@ -90,14 +90,31 @@ Backend engineers are used to treating the database as the source of truth. An A
 
 A document being in the database does not mean the model has seen it. A passage appearing in one request does not mean it remains visible in every later request. A summary saying “already verified” cannot substitute for the original verification result.
 
-To understand the distinction, separate four kinds of information without immediately creating four separate services:
+### After One Run Ends, What Actually Changes in the Next?
 
-| Information | Its role in the task | What it cannot replace |
+Conventional backends also update databases, save reports, and accumulate feedback. They do not necessarily start from zero each time, and not every change in an Agent is memory. Section 1 compared how one task runs. Here we compare **what a run leaves behind and how the next run uses it**. Persistence is not learning, and sharing a database does not give every record the same lifecycle.
+
+| What changes | What backends and Agents share, and what differs | Lifecycle and conditions for later use |
 | --- | --- | --- |
-| Original evidence | The documents, pages, versions, and calculation inputs read at the time | A model-generated synthesis cannot become the original source |
-| Execution facts | Proposals, dispatches, receipts, remaining allowances, and terminal status | A conversation summary cannot determine whether an operation actually occurred |
-| Current context | The goal, material, progress, and unresolved questions needed for this model request | Its capacity is limited; it cannot be the only copy of the full history |
-| Cross-task memory | Preferences, facts, and experience that may remain useful later | It cannot replace current instructions or authorization for an operation |
+| **Business data and external actions** | Both update business records, generate files, and call external services. Agent tool calls also need actual receipts; a model saying “done” does not establish an effect. | Persist under business rules and inform later queries. Authorization, transactions, idempotency, and receipts are shared foundations. |
+| **Task progress and unknown outcomes** | Backends have workflow steps and retry state. Agents may additionally retain original tool proposals, actual results, call allowances, and unanswered questions. | Primarily belongs to the original task and may survive process restarts. A new Run does not automatically inherit execution authority or permission to replay unknown actions. |
+| **Current context and working notes** | Programs have request variables and intermediate results. A model chooses its next step from the goals, material, tool results, and notes actually supplied to it. | Usually serves the current task. Persistence alone does not carry it into another task; explicit conversation continuation or context assembly is needed. |
+| **Historical reports, sources, and logs** | Both retain history. Agents may also interpret retrieved history as material for a new task, but an old conclusion cannot replace its original evidence. | Can persist across Runs. Saving, retrieving, and using are separate steps; a saved report has not necessarily entered a new model request. |
+| **Preferences and long-term memory** | Backends already use settings, customer profiles, and recommendation features. Agents can bring recalled preferences, facts, and experience into judgment and expression. | Cross-task use needs writing, retrieval, scope, correction, and invalidation mechanisms. Mentioning something does not guarantee permanent storage or use in this task. |
+| **Tools, Skills, and permissions** | Both can gain capabilities through deployment or configuration. Tool descriptions and method instructions also affect how a model chooses actions. | Require explicit configuration and activation rules. Successful use does not automatically install tools, edit Skills, or expand permissions. Version contracts govern whether an existing Run adopts a change. |
+| **Model and runtime configuration** | Backends also update model services, rules, and dependencies. An Agent's model version, prompt, tool schema, and context strategy can change too. | Explicit updates change the relevant configuration. An ordinary inference call does not itself update model weights; a different second answer does not establish learning. |
+| **Human feedback and experience** | Both collect ratings, corrections, and business metrics. Feedback can inform rules, candidate memories, evaluation, or training; these are distinct mechanisms. | Feedback events may persist, but adoption needs its own implementation. One correction does not automatically change every future answer or constitute online training. |
+
+Use the same two documents as a teaching example: the first comparison missed the basis of a fee figure, and a week later the user returns with revised documents. Both systems can produce different results because they read updated database records. Whether the Agent improves in another way depends on what actually happens next:
+
+- **Only save the old report:** the new Run does not necessarily know about the omission.
+- **Explicitly include the report and the user's correction in this input:** current context changes, giving the model an opportunity to check the fee basis. This is not new knowledge learned into the weights.
+- **Save “state the fee basis separately” as an authorized preference and retrieve it correctly:** this creates cross-task continuity. Verify the actual model input, not just the stored record.
+- **Explicitly revise the comparison Skill to require this check:** the reusable method changes. A backend can likewise add the check to its rules or workflow.
+
+This example explains possible mechanisms; it is not a real quality evaluation. The actual Memory case in section 9 establishes bounded saving and later input consumption, without extrapolating sustained quality gains.
+
+Thus, **backends change and Agents change. One additional distinction is that Agents hand selected history and derived material to a model for fresh interpretation as conditions for its next judgment.** This adaptability does not replace backend foundations. It increases the need to separate business facts, execution facts, and decision material. Verify not only what was saved, but what the next request actually read, why it was eligible for use, and how it affected action.
 
 Context engineering becomes concrete once these are separated. Select information that is useful for the current decision, still valid, and traceable to a source. Preserve the ability to reread the original when needed, while omitting material that is not currently useful.
 
