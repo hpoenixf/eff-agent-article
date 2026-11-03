@@ -30,6 +30,8 @@
 
 **Agent 开发全景**：[Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md) · [Full English](en/articles/agent-vs-backend-development-panorama.md)——比较成熟 Agent 框架与传统后台的职责，再用异步交付、人工回复、记忆消费和每日复读的实际案例，讨论从一次请求走向长期个人助手的价值与边界。
 
+**可信工程全景**：[Agent 的可信与不可信：从局部事实到系统承诺](articles/agent-trust-from-claims-to-commitments.md) · [Full English](en/articles/agent-trust-from-claims-to-commitments.md)——用同一基金比较任务连接开发、研究、复核与交付，解释何时补证、何时复用，以及前提变化后怎样收窄重查范围。
+
 **工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
 
 **RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。

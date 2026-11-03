@@ -60,6 +60,7 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     '017-prompt-to-answer-six-layer-panorama-v3',
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
+    'agent-trust-from-claims-to-commitments',
     'agent-context-governance-principles',
     'agent-context-governance-actions',
     '025-agent-langfuse-from-trace-to-trustworthy-observability',

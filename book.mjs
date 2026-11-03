@@ -174,6 +174,7 @@ export const collections = [
         "items": [
           ["agent-vs-backend-development-panorama", "Agent 开发与后台开发有什么不同：从一次请求到长期个人助手"],
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
+          ["agent-trust-from-claims-to-commitments", "Agent 的可信与不可信：从局部事实到系统承诺"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
@@ -238,6 +239,7 @@ export const panoramaSeriesSlugs = Object.freeze([
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
   'one-report-nine-architecture-judgments',
+  'agent-trust-from-claims-to-commitments',
   'agent-context-governance-principles',
   'agent-context-governance-actions',
   '025-agent-langfuse-from-trace-to-trustworthy-observability',

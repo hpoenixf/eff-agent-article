@@ -12,6 +12,7 @@ description: 从系统、金融与架构判断出发，理解上下文治理的�
 - 初次接触 Agent：先读[十五分钟入门](/articles/agent-in-15-minutes)。
 - 设计上下文：先读[原则篇](/articles/agent-context-governance-principles)，再读[行动篇](/articles/agent-context-governance-actions)。
 - 建设知识检索：从[RAG 全链路全景](/articles/rag-end-to-end-system-panorama)理解资料、检索、模型消费与交付如何协作。
+- 判断系统是否值得托付：从[可信工程全景](/articles/agent-trust-from-claims-to-commitments)分清局部事实能支持什么承诺、何时补证与何时复用。
 - 了解系统全貌或金融责任：按下面的主题选读；各篇分别说明设计取舍、实际证据与能力边界。
 
 <PanoramaSeries />

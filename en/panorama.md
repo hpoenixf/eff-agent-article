@@ -12,6 +12,7 @@ Understand the whole system, financial responsibilities and key design decisions
 - New to agents? Start with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes).
 - Designing context? Read [Principles](/en/articles/agent-context-governance-principles), then [Practice](/en/articles/agent-context-governance-actions).
 - Designing knowledge retrieval? Start with the [end-to-end RAG panorama](/en/articles/rag-end-to-end-system-panorama) to connect sources, retrieval, model consumption and delivery.
+- Deciding what to entrust to an agent? Read the [trust panorama](/en/articles/agent-trust-from-claims-to-commitments) to connect local facts to specific commitments and decide when to verify or reuse evidence.
 - Exploring the system or financial responsibilities? Choose a panorama below. The articles distinguish design choices, evidence and actual capabilities.
 
 <PanoramaSeries />
