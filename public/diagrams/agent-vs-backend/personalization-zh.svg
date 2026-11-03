@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 670" width="900" height="670" role="img" aria-labelledby="title desc">
+<title id="title">懂你的偏好，也守住边界</title><desc id="desc">记忆进入后续输入，动作仍由明确授权约束。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="898" height="668" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="36" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="51.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">04</text>
+<text x="79" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">个性化与事实更新</text>
+<text x="36" y="87" font-size="32" fill="#173348" font-weight="700" text-anchor="start">懂你的偏好，也守住边界</text>
+<text x="36" y="129" font-size="19" fill="#526779" font-weight="400" text-anchor="start">记忆进入后续输入，动作仍由明确授权约束。</text>
+<rect x="36" y="166" width="232" height="154" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="54" y="198" font-size="23" fill="#173348" font-weight="650" text-anchor="start">偏好与有来源观察</text>
+<text x="54" y="232" font-size="20" fill="#526779" font-weight="400" text-anchor="start">保留出处与确认状态</text>
+<path d="M 269 242 L 326 242" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="334" y="166" width="232" height="154" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="352" y="198" font-size="23" fill="#173348" font-weight="650" text-anchor="start">有版本的记忆</text>
+<text x="352" y="232" font-size="20" fill="#526779" font-weight="400" text-anchor="start">作用域 + 当前有效性</text>
+<path d="M 567 242 L 624 242" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="632" y="166" width="232" height="154" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="650" y="198" font-size="23" fill="#173348" font-weight="650" text-anchor="start">当前上下文</text>
+<text x="650" y="232" font-size="20" fill="#526779" font-weight="400" text-anchor="start">只选本轮相关事实</text>
+<text x="450" y="356" font-size="20" fill="#11766F" font-weight="600" text-anchor="middle">记忆影响建议与表达；不会自行成为新的授权。</text>
+<rect x="36" y="385" width="828" height="101" rx="16" fill="#EDF0FB" stroke="#4655A1" stroke-width="1.3"/>
+<text x="60" y="419" font-size="23" fill="#4655A1" font-weight="700" text-anchor="start">独立的授权通道</text>
+<text x="60" y="458" font-size="22" fill="#173348" font-weight="550" text-anchor="start">明确授权 → 执行门 → 动作</text>
+<rect x="36" y="517" width="828" height="102" rx="14" fill="#FFF1E5" stroke="#A65A2B" stroke-width="1.3"/>
+<text x="56" y="548" font-size="22" fill="#A65A2B" font-weight="650" text-anchor="start">更正 / 删除之后</text>
+<text x="56" y="579" font-size="19" fill="#526779" font-weight="400" text-anchor="start">后续输入排除旧事实，并使记录了旧版本依赖的摘要失效。</text>
+<text x="450" y="642" font-size="18" fill="#526779" font-weight="400" text-anchor="middle">已发出的内容与历史报告不能因此撤回。</text>
+</g>
+</svg>

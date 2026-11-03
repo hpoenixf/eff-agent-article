@@ -12,6 +12,10 @@ const chineseTitles = new Map<string, string>(
 
 // Descriptions are editorial labels, not another index of article IDs or ownership.
 const descriptions: Record<string, { zh: [string, string]; en: [string, string] }> = {
+  'agent-vs-backend-development-panorama': {
+    zh: ['Agent 开发全景', '从后台应用中的模型决策出发，串起工具、状态、恢复与交付，再推演持久运行、个性化和长期个人助手。'],
+    en: ['AGENT DEVELOPMENT', 'Connect model-driven decisions with tools, state, recovery and delivery, then explore durable work, personalization and long-term personal assistants.']
+  },
   '017-prompt-to-answer-six-layer-panorama-v3': {
     zh: ['系统运行全景', '沿 L1–L6 梳理输入、身份、Main/Child、工具、发布和界面，读懂一次任务如何在真实交接中推进。'],
     en: ['SYSTEM RUNTIME', 'Follow L1–L6 from input and identity through Main/Child, tools, publication and UI to understand the full execution lifecycle.']

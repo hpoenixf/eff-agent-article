@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 785" width="400" height="785" role="img" aria-labelledby="title desc">
+<title id="title">一项任务，三种时间尺度</title><desc id="desc">目标可以持续；每次执行都有边界。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="398" height="783" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="24" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="39.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">03</text>
+<text x="67" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">持续性的层次 · 设计视角</text>
+<text x="24" y="77" font-size="25" fill="#173348" font-weight="700" text-anchor="start">一项任务，三种时间尺度</text>
+<text x="24" y="111" font-size="16" fill="#526779" font-weight="400" text-anchor="start">目标可以持续；每次执行都有边界。</text>
+<rect x="24" y="148" width="352" height="394" rx="18" fill="#E8F4F0" stroke="#11766F" stroke-width="1.3"/>
+<text x="42" y="181" font-size="22" fill="#11766F" font-weight="700" text-anchor="start">长期目标</text>
+<text x="42" y="210" font-size="18" fill="#526779" font-weight="400" text-anchor="start">保留方向与限制；可以跨多次 Run。</text>
+<rect x="44" y="265" width="312" height="251" rx="15" fill="#EDF0FB" stroke="#4655A1" stroke-width="1.3"/>
+<text x="62" y="300" font-size="22" fill="#4655A1" font-weight="700" text-anchor="start">一次 Run</text>
+<text x="62" y="330" font-size="18" fill="#526779" font-weight="400" text-anchor="start">原授权、剩余预算、执行事实</text>
+<text x="62" y="355" font-size="18" fill="#526779" font-weight="400" text-anchor="start">停放后可沿原身份恢复</text>
+<rect x="64" y="408" width="272" height="86" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="82" y="441" font-size="20" fill="#173348" font-weight="650" text-anchor="start">单次模型请求</text>
+<text x="82" y="470" font-size="18" fill="#526779" font-weight="400" text-anchor="start">只携带本轮需要的上下文</text>
+<rect x="24" y="566" width="352" height="81" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="42" y="598" font-size="21" fill="#173348" font-weight="650" text-anchor="start">成果独立保存</text>
+<text x="42" y="632" font-size="18" fill="#526779" font-weight="400" text-anchor="start">暂停后，仍可回读已交付版本。</text>
+<rect x="24" y="668" width="352" height="93" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="42" y="700" font-size="21" fill="#173348" font-weight="650" text-anchor="start">获准触发，才开始执行</text>
+<text x="42" y="734" font-size="18" fill="#526779" font-weight="400" text-anchor="start">等待期间无需持续请求模型。</text>
+</g>
+</svg>

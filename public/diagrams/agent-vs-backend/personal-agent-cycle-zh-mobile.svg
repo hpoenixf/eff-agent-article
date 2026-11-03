@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 820" width="400" height="820" role="img" aria-labelledby="title desc">
+<title id="title">长期目标，按需执行</title><desc id="desc">通用设计展望：触发、工作、交付，再等待。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="398" height="818" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="24" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="39.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">05</text>
+<text x="67" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">长期个人助手 · 设计展望</text>
+<text x="24" y="77" font-size="25" fill="#173348" font-weight="700" text-anchor="start">长期目标，按需执行</text>
+<text x="24" y="111" font-size="16" fill="#526779" font-weight="400" text-anchor="start">通用设计展望：触发、工作、交付，再等待。</text>
+<rect x="46" y="174" width="330" height="71" rx="12" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="198" r="14" fill="#11766F"/>
+<text x="67" y="204" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">1</text>
+<text x="89" y="203" font-size="20" fill="#173348" font-weight="650" text-anchor="start">获准触发</text>
+<text x="62" y="230" font-size="17" fill="#526779" font-weight="400" text-anchor="start">事件、时间或用户指令</text>
+<path d="M 211 245 L 211 257" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="46" y="260" width="330" height="71" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="284" r="14" fill="#4655A1"/>
+<text x="67" y="290" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">2</text>
+<text x="89" y="289" font-size="20" fill="#173348" font-weight="650" text-anchor="start">重建上下文</text>
+<text x="62" y="316" font-size="17" fill="#526779" font-weight="400" text-anchor="start">目标、偏好、依据与权限</text>
+<path d="M 211 331 L 211 343" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="46" y="346" width="330" height="71" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="370" r="14" fill="#4655A1"/>
+<text x="67" y="376" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">3</text>
+<text x="89" y="375" font-size="20" fill="#173348" font-weight="650" text-anchor="start">有界执行</text>
+<text x="62" y="402" font-size="17" fill="#526779" font-weight="400" text-anchor="start">模型与工具受预算约束</text>
+<path d="M 211 417 L 211 429" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="46" y="432" width="330" height="71" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="456" r="14" fill="#4655A1"/>
+<text x="67" y="462" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">4</text>
+<text x="89" y="461" font-size="20" fill="#173348" font-weight="650" text-anchor="start">校验交付</text>
+<text x="62" y="488" font-size="17" fill="#526779" font-weight="400" text-anchor="start">检查结果及可取得的成果</text>
+<path d="M 211 503 L 211 515" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="46" y="518" width="330" height="71" rx="12" fill="#FFFFFF" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="542" r="14" fill="#4655A1"/>
+<text x="67" y="548" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">5</text>
+<text x="89" y="547" font-size="20" fill="#173348" font-weight="650" text-anchor="start">选择通知方式</text>
+<text x="62" y="574" font-size="17" fill="#526779" font-weight="400" text-anchor="start">现在提醒，或安静记录</text>
+<path d="M 211 589 L 211 601" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="46" y="604" width="330" height="71" rx="12" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="67" cy="628" r="14" fill="#11766F"/>
+<text x="67" y="634" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">6</text>
+<text x="89" y="633" font-size="20" fill="#173348" font-weight="650" text-anchor="start">持久等待</text>
+<text x="62" y="660" font-size="17" fill="#526779" font-weight="400" text-anchor="start">等待下一次获准触发</text>
+<path d="M 46 640 L 24 640 L 24 207 L 40 207" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="24" y="710" width="352" height="88" rx="12" fill="#EDF0FB" stroke="#4655A1" stroke-width="1.3"/>
+<text x="40" y="738" font-size="17" fill="#173348" font-weight="500" text-anchor="start">改目标 / 撤授权：约束后续动作。</text>
+<text x="40" y="761" font-size="17" fill="#173348" font-weight="500" text-anchor="start">未派发动作要重查权限。</text>
+<text x="40" y="784" font-size="17" fill="#173348" font-weight="500" text-anchor="start">已派发未知，仍核对原结果。</text>
+</g>
+</svg>

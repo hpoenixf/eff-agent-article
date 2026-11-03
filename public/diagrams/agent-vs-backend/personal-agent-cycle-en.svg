@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 690" width="900" height="690" role="img" aria-labelledby="title desc">
+<title id="title">Long-lived goals.
+Bounded execution.</title><desc id="desc">Design outlook: trigger, act, deliver, then wait.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="898" height="688" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="36" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="51.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">05</text>
+<text x="79" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">PERSONAL AGENT · OUTLOOK</text>
+<text x="36" y="87" font-size="32" fill="#173348" font-weight="700" text-anchor="start">Long-lived goals.</text>
+<text x="36" y="127" font-size="32" fill="#173348" font-weight="700" text-anchor="start">Bounded execution.</text>
+<text x="36" y="169" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Design outlook: trigger, act, deliver, then wait.</text>
+<rect x="36" y="198" width="232" height="128" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="64" cy="226" r="14" fill="#11766F"/>
+<text x="64" y="232" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">1</text>
+<text x="88" y="230" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Allowed trigger</text>
+<text x="54" y="264" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Event, time or user</text>
+<text x="54" y="292" font-size="20" fill="#526779" font-weight="400" text-anchor="start">instruction</text>
+<rect x="334" y="198" width="232" height="128" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="362" cy="226" r="14" fill="#11766F"/>
+<text x="362" y="232" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">2</text>
+<text x="386" y="230" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Rebuild context</text>
+<text x="352" y="264" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Goal, preferences,</text>
+<text x="352" y="292" font-size="20" fill="#526779" font-weight="400" text-anchor="start">evidence, grants</text>
+<rect x="632" y="198" width="232" height="128" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="660" cy="226" r="14" fill="#11766F"/>
+<text x="660" y="232" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">3</text>
+<text x="684" y="230" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Bounded work</text>
+<text x="650" y="264" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Model and tools stay</text>
+<text x="650" y="292" font-size="20" fill="#526779" font-weight="400" text-anchor="start">within budget</text>
+<rect x="632" y="385" width="232" height="128" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="660" cy="413" r="14" fill="#11766F"/>
+<text x="660" y="419" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">4</text>
+<text x="684" y="417" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Check delivery</text>
+<text x="650" y="451" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Check result and</text>
+<text x="650" y="479" font-size="20" fill="#526779" font-weight="400" text-anchor="start">retrievable outputs</text>
+<rect x="334" y="385" width="232" height="128" rx="13" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="362" cy="413" r="14" fill="#11766F"/>
+<text x="362" y="419" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">5</text>
+<text x="386" y="417" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Notify or record</text>
+<text x="352" y="451" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Notify now or record</text>
+<text x="352" y="479" font-size="20" fill="#526779" font-weight="400" text-anchor="start">quietly</text>
+<rect x="36" y="385" width="232" height="128" rx="13" fill="#E8F4F0" stroke="#C6D3DA" stroke-width="1.3"/>
+<circle cx="64" cy="413" r="14" fill="#11766F"/>
+<text x="64" y="419" font-size="17" fill="#FFFFFF" font-weight="650" text-anchor="middle">6</text>
+<text x="88" y="417" font-size="21" fill="#173348" font-weight="650" text-anchor="start">Wait durably</text>
+<text x="54" y="451" font-size="20" fill="#526779" font-weight="400" text-anchor="start">Wait for the next</text>
+<text x="54" y="479" font-size="20" fill="#526779" font-weight="400" text-anchor="start">allowed trigger</text>
+<path d="M 269 260 L 327 260" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 567 260 L 625 260" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 748 327 L 748 378" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 631 449 L 573 449" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 333 449 L 275 449" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 36 449 L 17 449 L 17 260 L 30 260" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="36" y="359" font-size="18" fill="#11766F" font-weight="600" text-anchor="start">Persist facts and outputs, then return to waiting.</text>
+<rect x="36" y="553" width="828" height="102" rx="14" fill="#EDF0FB" stroke="#4655A1" stroke-width="1.3"/>
+<text x="56" y="589" font-size="23" fill="#4655A1" font-weight="650" text-anchor="start">The user can still change the goal or revoke a grant</text>
+<text x="56" y="615" font-size="19" fill="#526779" font-weight="400" text-anchor="start">This constrains future and undispatched actions. Already dispatched, unknown work still</text>
+<text x="56" y="641" font-size="19" fill="#526779" font-weight="400" text-anchor="start">requires checking the original result.</text>
+</g>
+</svg>

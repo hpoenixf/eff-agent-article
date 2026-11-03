@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 570" width="900" height="570" role="img" aria-labelledby="title desc">
+<title id="title">Timeout is an observation</title><desc id="desc">Recovery depends on what actually happened.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<g font-family="Noto Sans SC, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="898" height="568" rx="22" fill="#FAF9F6" stroke="#C6D3DA" stroke-width="1.3"/>
+<rect x="36" y="22" width="31" height="28" rx="7" fill="#173348"/>
+<text x="51.5" y="42" font-size="15" fill="#FFFFFF" font-weight="700" text-anchor="middle">02</text>
+<text x="79" y="42" font-size="15" fill="#526779" font-weight="600" text-anchor="start">DISPATCH &amp; SETTLEMENT</text>
+<text x="36" y="87" font-size="32" fill="#173348" font-weight="700" text-anchor="start">Timeout is an observation</text>
+<text x="36" y="129" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Recovery depends on what actually happened.</text>
+<rect x="36" y="160" width="264" height="288" rx="16" fill="#EEF2F4" stroke="#C6D3DA" stroke-width="1.3"/>
+<text x="56" y="199" font-size="21" fill="#526779" font-weight="600" text-anchor="start">Confirmed: not</text>
+<text x="56" y="228" font-size="21" fill="#526779" font-weight="600" text-anchor="start">dispatched</text>
+<path d="M 168 245 L 168 271" fill="none" stroke="#526779" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="56" y="310" font-size="24" fill="#173348" font-weight="700" text-anchor="start">Retry under policy</text>
+<text x="56" y="365" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Recheck the original</text>
+<text x="56" y="392" font-size="19" fill="#526779" font-weight="400" text-anchor="start">grant and budget.</text>
+<rect x="318" y="160" width="264" height="288" rx="16" fill="#E8F4F0" stroke="#11766F" stroke-width="1.3"/>
+<text x="338" y="199" font-size="21" fill="#526779" font-weight="600" text-anchor="start">Dispatched, complete</text>
+<text x="338" y="228" font-size="21" fill="#526779" font-weight="600" text-anchor="start">receipt</text>
+<path d="M 450 245 L 450 271" fill="none" stroke="#11766F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="338" y="310" font-size="24" fill="#173348" font-weight="700" text-anchor="start">Settle the original</text>
+<text x="338" y="342" font-size="24" fill="#173348" font-weight="700" text-anchor="start">result</text>
+<text x="338" y="365" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Use the actual success or</text>
+<text x="338" y="392" font-size="19" fill="#526779" font-weight="400" text-anchor="start">failure receipt.</text>
+<rect x="600" y="160" width="264" height="288" rx="16" fill="#FFF1E5" stroke="#A65A2B" stroke-width="1.3"/>
+<text x="620" y="199" font-size="21" fill="#526779" font-weight="600" text-anchor="start">Dispatched, receipt</text>
+<text x="620" y="228" font-size="21" fill="#526779" font-weight="600" text-anchor="start">missing</text>
+<path d="M 732 245 L 732 271" fill="none" stroke="#A65A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="620" y="310" font-size="24" fill="#173348" font-weight="700" text-anchor="start">Keep the outcome</text>
+<text x="620" y="342" font-size="24" fill="#173348" font-weight="700" text-anchor="start">unknown</text>
+<text x="620" y="365" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Query / verify the original</text>
+<text x="620" y="392" font-size="19" fill="#526779" font-weight="400" text-anchor="start">operation.</text>
+<text x="620" y="419" font-size="19" fill="#526779" font-weight="400" text-anchor="start">Decide after confirmation.</text>
+<rect x="36" y="478" width="828" height="64" rx="12" fill="#FFFFFF" stroke="#A65A2B" stroke-width="1.3"/>
+<text x="56" y="505" font-size="20" fill="#A65A2B" font-weight="550" text-anchor="start">Unknown: do not resend automatically or treat local timeout as proof that remote</text>
+<text x="56" y="532" font-size="20" fill="#A65A2B" font-weight="550" text-anchor="start">capacity is released.</text>
+</g>
+</svg>
