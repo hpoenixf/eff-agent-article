@@ -1,5 +1,5 @@
 ---
-description: "What separates an Agent Skill from an ordinary prompt? Follow a fund-research example through on-demand loading, Host tools, reviewed Python scripts, and their actual security boundary. Bundle packaging is optional advanced material."
+description: "What separates an Agent Skill from an ordinary prompt? Follow a fund-research example through on-demand loading, Host tools, reviewed Python scripts, and their actual security boundary."
 readingBrief:
   takeaways:
     - "A Skill's instructions are still text; registration, discovery, progressive loading, execution, and receipts are capabilities implemented by the Host."
@@ -41,7 +41,7 @@ In our fund example, the Skill can require matching share class, currency, distr
 
 ## The smallest useful Skill
 
-The [Agent Skills specification](https://agentskills.io/specification) requires `SKILL.md` and permits optional `scripts/`, `references/`, and `assets/`. Start with one independent Skill rather than a Bundle:
+The [Agent Skills specification](https://agentskills.io/specification) requires `SKILL.md` and permits optional `scripts/`, `references/`, and `assets/`. Start with one independent Skill:
 
 ~~~text
 index-fund-tracking-quality/
@@ -51,7 +51,7 @@ index-fund-tracking-quality/
     └── calculate.py
 ~~~
 
-The instruction file describes eligibility, input requirements, steps, and what to do with missing evidence. Scripts are optional. Merely creating these files does not cause the Host to expose `read_skill_resource` or `run_skill_script`. **The file format is a convention; the capability is an implementation.** ETF Agent's larger internal fund package combines multiple Skills, described only in the appendix.
+The instruction file describes eligibility, input requirements, steps, and what to do with missing evidence. Scripts are optional. Merely creating these files does not cause the Host to expose `read_skill_resource` or `run_skill_script`. **The file format is a convention; the capability is an implementation.** More elaborate directory organization is covered only in the appendix.
 
 ## How does a request actually use a Skill?
 
