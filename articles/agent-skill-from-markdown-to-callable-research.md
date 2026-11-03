@@ -141,7 +141,7 @@ Main 的模型请求可以看到短 Skill 目录；Child 则只看到按自己�
 
 自定义专家的 `preferredSkills` 是偏好，`preloadedSkills` 是尝试按需预读；**两者都不增加工具、来源或预算权限**。预读还受注册身份、版本、Child 的真实授权和上下文容量约束，不能由 Main 在委派那一刻提前声称成功。
 
-回到两只基金：Child 可以在已有授权下检查跟踪质量，把发现、引用和缺口交给 Main；Main 必须实际阅读和采纳后才能形成最终结论。**一个 Skill 不要求一个 Agent，一个 Child 也可以使用多个 Skill。** 复杂专家生命周期另见 [Subagent 全景](/articles/agent-subagent-panorama)，这里只保留与 Skill 消费有关的边界。
+回到两只基金：Child 可以在已有授权下检查跟踪质量，把发现、引用和缺口交给 Main；Main 必须实际阅读和采纳后才能形成最终结论。**一个 Skill 不要求一个 Agent，一个 Child 也可以使用多个 Skill。** 复杂专家生命周期另见 [Subagent 全景](/articles/agent-subagent-context-specialization)，这里只保留与 Skill 消费有关的边界。
 
 ## 一个 Skill 算不出来，研究就要全部失败吗？
 
