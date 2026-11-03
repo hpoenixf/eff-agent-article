@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="552" viewBox="0 0 520 552" role="img" aria-labelledby="title desc" lang="en"><title id="title">Distinct citation responsibilities</title><desc id="desc">Responsibilities and handoffs—not automatic proof</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="552" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="550" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">CITATIONS / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Distinct citation responsibilities</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Responsibilities and handoffs—not automatic proof</text>
+<path d="M260.0 210 V232.0 H260.0 V254" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 336 V358.0 H260.0 V380" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="128" width="440" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="162.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Source / tool owner</text>
+<text x="260.0" y="188.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Actual reads and receipts</text>
+<rect x="40" y="254" width="440" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="288.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Result / reference owner</text>
+<text x="260.0" y="314.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Identity, lineage, citation eligibility</text>
+<rect x="40" y="380" width="440" height="108" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="414.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Model input</text>
+<text x="260.0" y="440.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Actually submitted representation and</text>
+<text x="260.0" y="466.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">range</text></svg>

@@ -57,17 +57,13 @@ The following diagram describes responsibilities, not a proposal for additional 
 
 ### Figure 1. Current responsibilities, not four frameworks stacked together
 
-```mermaid
-flowchart TD
-    U[User fund-research task] --> A[Conversational research application]
-    A --> R[Custom model execution loop]
-    R --> H[Controlled tool host]
-    H --> D[Read-only investment facts and methods]
-    H --> S[Original sources and result identity]
-    R --> P[Answer and report delivery]
-    D --> L[Original ledger owns investment truth]
-    S --> P
-```
+![Application and domain responsibilities · 1/2](../../visuals/en/panorama-framework/application-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/application-1.svg)
+
+![Application and domain responsibilities · 2/2](../../visuals/en/panorama-framework/application-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/application-2.svg)
 
 ## 2. Define acceptance through a complete task
 
@@ -127,17 +123,9 @@ That is neither inherently superior nor inherently wrong. The questions are whet
 
 ### Figure 2. Domain contracts are the shared asset
 
-```mermaid
-flowchart TD
-    F[Same fund methods and result contracts] --> P[Pi extensions and tools]
-    F --> C[Claude SDK custom tools]
-    F --> G[LangGraph nodes and tools]
-    F --> E[ETF Agent tool host]
-    P --> O[Evaluate the same business task]
-    C --> O
-    G --> O
-    E --> O
-```
+![One contract, multiple runtimes](../../visuals/en/panorama-framework/portable-contract.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/portable-contract.svg)
 
 ## 4. Do not duplicate investment truth in the conversation layer
 
@@ -183,15 +171,17 @@ Original content, working notes and long-term memory also need separate identiti
 
 ### Figure 3. Follow stored results through actual consumption
 
-```mermaid
-flowchart TD
-    S[Original source] --> R[Store an identifiable result revision]
-    R --> V[Expose task-relevant catalog and selections]
-    V --> M[Actual input to this model request]
-    M --> C[Model claims and citations]
-    C --> B[Read back the cited original revision]
-    R --> B
-```
+![Read the cited original revision · 1/3](../../visuals/en/panorama-framework/source-version-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/source-version-1.svg)
+
+![Read the cited original revision · 2/3](../../visuals/en/panorama-framework/source-version-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/source-version-2.svg)
+
+![Read the cited original revision · 3/3](../../visuals/en/panorama-framework/source-version-3.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/source-version-3.svg)
 
 ### What should survive a runtime migration?
 
@@ -225,15 +215,13 @@ The method should deliver coverage with the calculation. A renderer receiving on
 
 ### Figure 4. Correct arithmetic is an intermediate stage
 
-```mermaid
-flowchart TD
-    I[Authorized and versioned input] --> U[Explicit units and scales]
-    U --> F[Select an applicable domain method]
-    F --> N[Execute reproducible calculations]
-    N --> R[Retain denominators and coverage]
-    R --> H[Report consumes the same result]
-    H --> V[Independently check claims and delivered file]
-```
+![Preserve units through delivery · 1/2](../../visuals/en/panorama-framework/calculation-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/calculation-1.svg)
+
+![Preserve units through delivery · 2/2](../../visuals/en/panorama-framework/calculation-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/calculation-2.svg)
 
 ### A concrete engineering advance: the original result reaches delivery
 
@@ -261,15 +249,9 @@ Claude SDK's context isolation prevents the main agent from absorbing every inte
 
 ### Figure 5. Specialization needs an inspectable handoff
 
-```mermaid
-flowchart TD
-    M[Main defines a bounded subquestion] --> C[Child researches within approved scope]
-    C --> S[Original sources and calculation results]
-    C --> A[Expert interpretation and advice]
-    S --> R[Main reads back identified evidence]
-    A --> R
-    R --> F[Synthesize while preserving disagreement]
-```
+![Separate evidence from opinion](../../visuals/en/panorama-framework/delegation.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/delegation.svg)
 
 ### A Reviewer is not a new global veto authority
 
@@ -305,16 +287,13 @@ Closing a foreground connection, explicitly canceling research and crashing a pr
 
 ### Figure 6. Establish the effect before choosing a retry
 
-```mermaid
-flowchart TD
-    F[Exception after an operation] --> K{Is the effect known}
-    K -- Committed --> R[Read back by original identity]
-    K -- Not committed --> T[Retry only under the applicable policy]
-    K -- Unknown --> Q[Consult the original effect owner]
-    Q --> C{Can the outcome be established}
-    C -- Yes --> D[Continue from the established fact]
-    C -- No --> S[Keep unknown and avoid duplicate effects]
-```
+![Establish effects after an exception · 1/2](../../visuals/en/panorama-framework/unknown-effect-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/unknown-effect-1.svg)
+
+![Establish effects after an exception · 2/2](../../visuals/en/panorama-framework/unknown-effect-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/unknown-effect-2.svg)
 
 ### Reconstructing the entire old execution graph may be unnecessary
 
@@ -348,15 +327,13 @@ Necessary protections still apply: do not expose unauthorized private sources or
 
 ### Figure 7. From generated content to an obtainable revision
 
-```mermaid
-flowchart TD
-    M[Model proposes content] --> P[Existing publication mechanism accepts it]
-    P --> A[Persist artifact and revision]
-    A --> H[Expose an authorized read path]
-    H --> U[User obtains that same revision]
-    A --> F[Write or acknowledgment exception]
-    F --> R[Reconcile commit facts and retain partial results]
-```
+![Persistence and receipt are distinct · 1/2](../../visuals/en/panorama-framework/delivery-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/delivery-1.svg)
+
+![Persistence and receipt are distinct · 2/2](../../visuals/en/panorama-framework/delivery-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/delivery-2.svg)
 
 ## 10. Long-research context is not one giant summary
 
@@ -477,15 +454,13 @@ Do not maintain three complete execution adapters merely to claim future portabi
 
 ### Figure 8. Migrate contracts, not identical wording
 
-```mermaid
-flowchart TD
-    A[Freeze task and evidence fixtures] --> B[Record domain contracts and counterexamples]
-    B --> C[Integrate one candidate runtime]
-    C --> D[Compare numbers authority and delivery]
-    D --> E{Critical contracts preserved}
-    E -- Yes --> F[Delete replaced execution logic]
-    E -- No --> G[Locate the gap and retain the original path]
-```
+![Preserve contracts before replacement · 1/2](../../visuals/en/panorama-framework/replacement-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/replacement-1.svg)
+
+![Preserve contracts before replacement · 2/2](../../visuals/en/panorama-framework/replacement-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-framework/replacement-2.svg)
 
 ## 15. A practical migration and verification sequence
 

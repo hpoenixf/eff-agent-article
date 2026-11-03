@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="728" viewBox="0 0 520 728" role="img" aria-labelledby="title desc" lang="en"><title id="title">Domain goals guide execution</title><desc id="desc">Sources and calculation can revise conditions</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="728" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="726" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Domain goals guide execution</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Sources and calculation can revise conditions</text>
+<circle cx="48" cy="165" r="18" fill="#7756a0"/>
+<text x="48" y="171" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<rect x="80" y="128" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="171.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">User fund-research question</text>
+<circle cx="48" cy="263" r="18" fill="#7756a0"/>
+<text x="48" y="269" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<rect x="80" y="226" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="256.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Domain goal and business</text>
+<text x="282.0" y="283.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">conditions</text>
+<path d="M282 202 V226" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="361" r="18" fill="#7756a0"/>
+<text x="48" y="367" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<rect x="80" y="324" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="367.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">General execution capabilities</text>
+<path d="M282 300 V324" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="459" r="18" fill="#7756a0"/>
+<text x="48" y="465" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<rect x="80" y="422" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="465.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Read sources and calculate</text>
+<path d="M282 398 V422" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="557" r="18" fill="#7756a0"/>
+<text x="48" y="563" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<rect x="80" y="520" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="563.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Form evidence-bounded conclusions</text>
+<path d="M282 496 V520" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="655" r="18" fill="#7756a0"/>
+<text x="48" y="661" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+<rect x="80" y="618" width="404" height="74" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="282.0" y="661.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Deliver a checkable result</text>
+<path d="M282 594 V618" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M484 459 H506 V263 H484" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/></svg>

@@ -1,17 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="title">
-<title id="title">局部失败与独立结果</title>
-<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f3f8f5"/><stop offset="1" stop-color="#e8f1f0"/></linearGradient><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#43877e"/></marker><filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#20544f" flood-opacity=".10"/></filter></defs>
-<rect width="1000" height="480" rx="24" fill="url(#bg)"/><path d="M30 30h32" stroke="#c68d4d" stroke-width="4" stroke-linecap="round"/><text x="76" y="36" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="18" font-weight="600" fill="#58726d">局部失败与独立结果</text>
-<path d="M500 107 L280 155" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M500 107 L720 155" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M280 217 L280 265" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M720 217 L720 265" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M280 327 L500 375" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M720 327 L500 375" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<g filter="url(#shadow)"><rect x="410" y="45" width="180" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="500" y="77" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">比较任务</text></g>
-<g filter="url(#shadow)"><rect x="190" y="155" width="180" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="280" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">导出格式比较</text></g>
-<g filter="url(#shadow)"><rect x="630" y="155" width="180" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="720" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">离线条件比较</text></g>
-<g filter="url(#shadow)"><rect x="190" y="265" width="180" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="280" y="297" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">已有依据</text></g>
-<g filter="url(#shadow)"><rect x="630" y="265" width="180" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="720" y="297" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">缺少页面</text></g>
-<g filter="url(#shadow)"><rect x="410" y="375" width="180" height="62" rx="14" fill="#164f48" stroke="#b8d6ce"/><text x="500" y="407" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#ffffff">部分报告</text></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="672" viewBox="0 0 520 672" role="img" aria-labelledby="title desc" lang="zh"><title id="title">局部缺口，不抹掉已有依据</title><desc id="desc">把已证实与尚未知并列交付</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="672" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="670" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">局部缺口，不抹掉已有依据</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">把已证实与尚未知并列交付</text>
+<rect x="90" y="128" width="340" height="72" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="170.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">比较任务</text>
+<rect x="28" y="244" width="220" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="300.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">导出格式比较</text>
+<rect x="272" y="244" width="220" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="382.0" y="300.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">离线条件比较</text>
+<path d="M190 200 V222 H138 V244" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M330 200 V222 H382 V244" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="382" width="220" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="438.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">已有依据</text>
+<rect x="272" y="382" width="220" height="100" rx="12" fill="#fff5dd" stroke="#d5be83" stroke-width="1.5"/>
+<text x="382.0" y="438.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">缺少页面</text>
+<path d="M138 344 V382" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M382 344 V382" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="552" width="340" height="82" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="599.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">部分报告</text>
+<path d="M138 482 V520 H200 V552" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M382 482 V520 H320 V552" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/></svg>

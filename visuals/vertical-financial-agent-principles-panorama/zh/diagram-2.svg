@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="796" viewBox="0 0 520 796" role="img" aria-labelledby="title desc" lang="zh"><title id="title">三个时间，两种研究问题</title><desc id="desc">教学日期；同一资料不等于同一适用范围</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="796" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="794" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">三个时间，两种研究问题</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">教学日期；同一资料不等于同一适用范围</text>
+<circle cx="48" cy="158" r="18" fill="#7756a0"/>
+<text x="48" y="164" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<rect x="80" y="130" width="412" height="60" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="286.0" y="166.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">数据截至九月三十日</text>
+<circle cx="48" cy="248" r="18" fill="#7756a0"/>
+<text x="48" y="254" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<rect x="80" y="220" width="412" height="60" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="286.0" y="256.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">十月二十五日披露</text>
+<path d="M48 186 V202" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="338" r="18" fill="#7756a0"/>
+<text x="48" y="344" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<rect x="80" y="310" width="412" height="60" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="286.0" y="346.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">十一月二日获取</text>
+<path d="M48 276 V292" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="412" width="340" height="72" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="454.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">研究的问题是什么</text>
+<path d="M286 370 V390 H260 V412" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="530" width="220" height="94" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="583.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">解释历史持仓</text>
+<rect x="272" y="530" width="220" height="94" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="382.0" y="583.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">判断当前配置</text>
+<path d="M180 484 V506 H138 V530" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M340 484 V506 H382 V530" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="668" width="220" height="102" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="138.0" y="725.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">可按原时点使用</text>
+<rect x="272" y="668" width="220" height="102" rx="12" fill="#fff5dd" stroke="#d5be83" stroke-width="1.5"/>
+<text x="382.0" y="725.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">保留时滞与未知变化</text>
+<path d="M138 624 V668" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M382 624 V668" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/></svg>

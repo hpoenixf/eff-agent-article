@@ -49,15 +49,17 @@ readingBrief:
 
 我们最终采取的是**统一结果与引用的机械解释，保留各环节的实际决定权**。
 
-```mermaid
-flowchart TD
-    A["来源／工具 Owner<br/>产生真实读取与回执"] --> B["结果与引用 Owner<br/>解释身份、谱系、引用资格"]
-    B --> C["模型输入<br/>记录实际送达的表示与范围"]
-    B --> D["Publication<br/>绑定正文、修订和合法附件"]
-    C --> D
-    D --> E["History／UI<br/>按原身份展示与回查"]
-    E --> F["显式按需 Reviewer<br/>另行提出非权威意见"]
-```
+![引用链上的不同责任 · 1/3](../visuals/panorama-citations/responsibility-1.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/responsibility-1.svg)
+
+![引用链上的不同责任 · 2/3](../visuals/panorama-citations/responsibility-2.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/responsibility-2.svg)
+
+![引用链上的不同责任 · 3/3](../visuals/panorama-citations/responsibility-3.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/responsibility-3.svg)
 
 *图 2 · 关系是事实消费，不是把授权、发布和语义评判交给新中心。*
 
@@ -82,16 +84,13 @@ flowchart TD
 | `resultRef` | 具有精确版本、选择范围和回执的某个结果 | 不等于读取权限，也不等于原始出处 |
 | `citationRef` | Host 根据现有证据资格签发的引用身份 | 不证明材料支持正文语义，不跨 Run 自动复用 |
 
-```mermaid
-flowchart TD
-    A["搜索结果／页面可见链接"] --> B["sourceRef<br/>导航能力"]
-    B --> C["受控读取与真实回执"]
-    C --> D["resultRef<br/>精确结果和版本"]
-    C --> E{"内容满足引用资格？"}
-    E -- "是" --> F["Host 签发 citationRef"]
-    E -- "否" --> G["仅保留线索或受限结果"]
-    F --> H["Publication 解析原身份"]
-```
+![从导航线索到引用资格 · 1/2](../visuals/panorama-citations/identity-1.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/identity-1.svg)
+
+![从导航线索到引用资格 · 2/2](../visuals/panorama-citations/identity-2.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/identity-2.svg)
 
 *图 3 · 读取结果可以用于分析或继续导航；是否能挂在公开结论上，是另一项资格。*
 
@@ -113,20 +112,17 @@ flowchart TD
 
 新的做法是保留来源类型的差异：获准且实际送模的搜索摘要可取得**受限的摘要引用**，其 `representation` 明确是 `search-excerpt`；它支持“某搜索结果摘要报告了什么”，不冒充模型读过网页全文。
 
-```mermaid
-flowchart TD
-    A["取得工具回执与候选内容"] --> B{"内容是否实际送达模型？"}
-    B -- "否" --> X["不签发公开引用"]
-    B -- "是" --> C{"是哪一种获准表示？"}
-    C -- "原文读取窗口" --> D["绑定精确 read／版本／范围"]
-    C -- "合格搜索摘要" --> E["绑定实际摘要<br/>标明 search-excerpt"]
-    C -- "仅导航或无资格" --> X
-    D --> F["核对 Run／scope 与原使用许可"]
-    E --> F
-    F --> G{"资格仍成立？"}
-    G -- "是" --> H["签发或解析 citationRef"]
-    G -- "否" --> I["该引用不可用；保留合法正文"]
-```
+![引用资格：先送达，再核对 · 1/3](../visuals/panorama-citations/eligibility-1.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/eligibility-1.svg)
+
+![引用资格：先送达，再核对 · 2/3](../visuals/panorama-citations/eligibility-2.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/eligibility-2.svg)
+
+![引用资格：先送达，再核对 · 3/3](../visuals/panorama-citations/eligibility-3.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/eligibility-3.svg)
 
 *图 4 · 资格由真实回执、实际暴露和原使用规则决定，而不是模型的 URL、标签或“我读过”。*
 
@@ -156,22 +152,13 @@ flowchart TD
 
 研究答案不是只有“生成一次、结束”两步。它可能分段送达、替换原段、经过持久化，再由另一个进程的 History 读取。引用若只记录字符串偏移或 URL，就很容易在这些步骤中换了对象。
 
-```mermaid
-sequenceDiagram
-    participant S as 来源读取
-    participant R as 结果／引用
-    participant P as Publication
-    participant D as 持久化
-    participant U as History／UI
-    S->>R: 实际窗口、内容版本、位置
-    R->>P: 精确引用身份及原来源关系
-    P->>D: publicationId + revision 1 + 锚点
-    D-->>U: 已提交 revision 1
-    P->>D: 合法 replace 生成 revision 2
-    D-->>U: 展示有效 revision 2
-    U->>D: 请求 revision 2 的原引用详情
-    D-->>U: 原留存片段，或明确缺口
-```
+![修订改变正文，不改写原证据 · 1/2](../visuals/panorama-citations/revision-1.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/revision-1.svg)
+
+![修订改变正文，不改写原证据 · 2/2](../visuals/panorama-citations/revision-2.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/revision-2.svg)
 
 *图 5 · 新修订重新绑定自己的正文范围；旧修订保留原有历史，不把旧偏移平移到新正文。*
 
@@ -205,19 +192,13 @@ sequenceDiagram
 
 仍用 SDK 的教学例子：回答声称“2.4 已移除 `legacyLogin()`”，这句话有 2.4 原文支持，却错误引用了 2.3 的材料。若 Reviewer 手里还收到 2.4 的额外文档，它应当报告：**材料集合支持结论，但实际挂载的引用不对应**，不能因为“别处有证据”就帮原引用洗白。
 
-```mermaid
-flowchart TD
-    A["显式选择某个答案修订"] --> B["固定正文、实际引用与获准材料"]
-    B --> C{"材料是否足够且可读取？"}
-    C -- "否" --> D["保留缺口／未检查范围"]
-    C -- "是" --> E["独立 Reviewer Run"]
-    E --> F["检查材料支持性"]
-    E --> G["检查实际引用对应性"]
-    F --> H["逐项理由与不确定性报告"]
-    G --> H
-    D --> H
-    H -.-> I["不回写原 Publication／Run 终态"]
-```
+![Reviewer 检查，不代替原事实 · 1/2](../visuals/panorama-citations/review-1.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/review-1.svg)
+
+![Reviewer 检查，不代替原事实 · 2/2](../visuals/panorama-citations/review-2.svg)
+
+[打开完整矢量图](../visuals/panorama-citations/review-2.svg)
 
 *图 6 · Reviewer 是另一次有界工作，不是原研究的默认“最后一道发布门”。*
 

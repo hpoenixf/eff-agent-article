@@ -36,24 +36,9 @@ Three concepts must be distinguished. **A Child is an execution instance; a Prof
 
 ### Figure 1: one Child execution substrate carries several expert methods
 
-```mermaid
-flowchart TD
-    Runtime["Common Child execution runtime"]
-    Builtin["Built-in working roles"]
-    Methods["Fixed investment methods"]
-    Custom["Account-defined Profiles"]
-    Roles["General / Web / PDF / Python"]
-    Invest["Markowitz / Taleb / Bernstein<br/>Bogle / Marks / Fama-French"]
-    User["Personal research preferences<br/>version frozen for this Run"]
-    Managed["Managed Reviewer<br/>manual or factual trigger"]
-    Runtime --> Managed
-    Runtime --> Builtin
-    Runtime --> Methods
-    Runtime --> Custom
-    Builtin --> Roles
-    Methods --> Invest
-    Custom --> User
-```
+![One runtime, different methods：Four options—not a mandatory pipeline](../../visuals/en/panorama-subagents/family.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/family.svg)
 
 | Capability | Specific problem addressed | Important property |
 | --- | --- | --- |
@@ -150,17 +135,13 @@ Ordinary multi-perspective analysis may still produce three unrelated essays. Ou
 
 ### Figure 4: bounded challenges and real replies
 
-```mermaid
-flowchart TD
-    A["Bull presents a testable rationale"] --> B["Bear checks comparable evidence"]
-    B --> C{"Material counterexample?"}
-    C -- "No" --> D["Record coverage and unresolved questions"]
-    C -- "Yes" --> E["Host validates and persists challenge"]
-    E --> F["Bull receives the real message in a later request"]
-    F --> G["Bull responds or revises rationale"]
-    D --> H["Main integrates valid findings"]
-    G --> H
-```
+![A challenge must arrive：Recording a message is not receiving it](../../visuals/en/panorama-subagents/challenge.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/challenge.svg)
+
+![Recording a message is not receiving it](../../visuals/en/panorama-subagents/challenge-response.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/challenge-response.svg)
 
 In the teaching scenario, Bear should not merely say “technology valuations may be high.” It should challenge H1: “Adding another technology ETF improves diversification,” and show the comparable sector-exposure change from 15% to 23%. Bull may retract H1 while leaving open whether *deliberately increasing technology exposure* is worth considering. **Withdrawing a failed rationale is more useful than manufacturing a compromise acceptable to both sides.**
 
@@ -208,13 +189,9 @@ Several concrete engineering observations explain why this matters.
 
 ### Figure 6: five different levels of evidence from expert presence to actual value
 
-```mermaid
-flowchart TD
-    A["Child was admitted to execute"] --> B["Child actually submitted findings"]
-    B --> C["A later Main request received the result"]
-    C --> D["The answer retained evidence and limits"]
-    D --> E["Comparable evaluation measures added value"]
-```
+![Five distinct evidence layers：Execution ≠ adoption ≠ added value](../../visuals/en/panorama-subagents/contribution.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/contribution.svg)
 
 In late October 2026, we performed a scoped comparison between actual Child submissions and excerpts in subsequent captured Main inputs. It demonstrates that **some expert text really reached Main**, not that the complete expert reports were adopted or that the user obtained better research than with a single agent. The denominator, sampling method, and limitations are in [evidence of specialist contributions](agent-subagent-contribution-evidence.md).
 
@@ -247,18 +224,13 @@ Anthropic's multi-agent research article also warns that such systems can consum
 
 ### Figure 7: return the “one more expert?” question to the actual task
 
-```mermaid
-flowchart TD
-    Q["User research question"] --> Long{"Is the local task substantial<br/>and independently verifiable?"}
-    Long -- "No" --> Direct["Main uses approved tools directly"]
-    Long -- "Yes" --> Child["Delegate one or a few Children"]
-    Child --> Need{"Is there a material hypothesis<br/>or independent challenge?"}
-    Need -- "Yes" --> Review["Optional Reviewer, investment<br/>method, or bounded Bull/Bear"]
-    Need -- "No" --> Integrate["Return evidence, artifacts and gaps"]
-    Review --> Integrate
-    Integrate --> Main["Main verifies and delivers one answer"]
-    Direct --> Main
-```
+![Decide whether to delegate：Start with Main; add specialists only as needed](../../visuals/en/panorama-subagents/delegation.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/delegation.svg)
+
+![Start with Main; add specialists only as needed](../../visuals/en/panorama-subagents/delegation-challenge.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-subagents/delegation-challenge.svg)
 
 Our baseline remains **one Main with permitted tools**. One fee lookup or stable computation rarely needs a new Child. Long document investigation, repeated local debugging, or independently verifiable subquestions make better candidates for isolation. New evidence may update the local task description but should not silently update the method identity or authorization.
 

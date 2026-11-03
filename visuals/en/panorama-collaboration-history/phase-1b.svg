@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="600" viewBox="0 0 520 600" role="img" aria-labelledby="title desc" lang="en"><title id="title">01B · Qualify sources and basis</title><desc id="desc">Continue the delegation branch from 01</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="600" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="598" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">COLLABORATION / HISTORICAL DESIGN</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">01B · Qualify sources and basis</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Continue the delegation branch from 01</text>
+<rect x="48" y="130" width="424" height="100" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="173.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Sources and calculation basis</text>
+<text x="260.0" y="200.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">qualified?</text>
+<path d="M152 230 V274" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="130" y="242" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="152" y="260" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<path d="M376 230 V274" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="354" y="242" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="376" y="260" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text>
+<rect x="28" y="274" width="220" height="120" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="314.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Keep unknowns</text>
+<text x="138.0" y="340.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">and narrow</text>
+<text x="138.0" y="366.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">affected claims</text>
+<rect x="272" y="274" width="220" height="120" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="382.0" y="314.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Go to 02: is an</text>
+<text x="382.0" y="340.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">independent</text>
+<text x="382.0" y="366.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">method useful?</text>
+<path d="M138 394 V434" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="434" width="220" height="138" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="138.0" y="470.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Go to 03: Main</text>
+<text x="138.0" y="496.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">assembles</text>
+<text x="138.0" y="522.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">supported</text>
+<text x="138.0" y="548.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">judgment</text></svg>

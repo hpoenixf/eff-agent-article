@@ -1,16 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" role="img" aria-labelledby="title">
-<title id="title">保存：从提议到回执</title>
-<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f3f8f5"/><stop offset="1" stop-color="#e8f1f0"/></linearGradient><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#43877e"/></marker><filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#20544f" flood-opacity=".10"/></filter></defs>
-<rect width="1000" height="330" rx="24" fill="url(#bg)"/><path d="M30 30h32" stroke="#c68d4d" stroke-width="4" stroke-linecap="round"/><text x="76" y="36" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="18" font-weight="600" fill="#58726d">保存：从提议到回执</text>
-<path d="M165 186 L195 186" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M325 186 L355 186" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M485 186 L515 186" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M645 186 L675 186" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<path d="M805 186 L835 186" fill="none" stroke="#43877e" stroke-width="2.5" marker-end="url(#arrow)"/>
-<g filter="url(#shadow)"><rect x="35" y="155" width="130" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="100" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">提出保存</text></g>
-<g filter="url(#shadow)"><rect x="195" y="155" width="130" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="260" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">确认授权</text></g>
-<g filter="url(#shadow)"><rect x="355" y="155" width="130" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="420" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">发出请求</text></g>
-<g filter="url(#shadow)"><rect x="515" y="155" width="130" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="580" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">文件写入</text></g>
-<g filter="url(#shadow)"><rect x="675" y="155" width="130" height="62" rx="14" fill="#ffffff" stroke="#b8d6ce"/><text x="740" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#173d39">返回回执</text></g>
-<g filter="url(#shadow)"><rect x="835" y="155" width="130" height="62" rx="14" fill="#164f48" stroke="#b8d6ce"/><text x="900" y="187" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system,BlinkMacSystemFont,Noto Sans CJK SC,Arial,sans-serif" font-size="21" font-weight="600" fill="#ffffff">显示已保存</text></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="728" viewBox="0 0 520 728" role="img" aria-labelledby="title desc" lang="zh"><title id="title">保存是一条事实链</title><desc id="desc">提出请求，不等于效果已经发生</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="728" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="726" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">保存是一条事实链</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">提出请求，不等于效果已经发生</text>
+<circle cx="48" cy="165" r="18" fill="#7756a0"/>
+<text x="48" y="171" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<rect x="80" y="128" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="171.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">提出保存</text>
+<circle cx="48" cy="263" r="18" fill="#7756a0"/>
+<text x="48" y="269" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<rect x="80" y="226" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="269.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">确认授权</text>
+<path d="M282 202 V226" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="361" r="18" fill="#7756a0"/>
+<text x="48" y="367" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<rect x="80" y="324" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="367.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">发出请求</text>
+<path d="M282 300 V324" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="459" r="18" fill="#7756a0"/>
+<text x="48" y="465" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<rect x="80" y="422" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="465.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">文件写入</text>
+<path d="M282 398 V422" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="557" r="18" fill="#7756a0"/>
+<text x="48" y="563" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<rect x="80" y="520" width="404" height="74" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="282.0" y="563.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">返回回执</text>
+<path d="M282 496 V520" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="48" cy="655" r="18" fill="#7756a0"/>
+<text x="48" y="661" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+<rect x="80" y="618" width="404" height="74" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="282.0" y="661.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">显示已保存</text>
+<path d="M282 594 V618" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/></svg>

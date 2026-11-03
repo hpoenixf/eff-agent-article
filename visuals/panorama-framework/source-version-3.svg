@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="388" viewBox="0 0 520 388" role="img" aria-labelledby="title desc" lang="zh"><title id="title">回读绑定保存的版本</title><desc id="desc">保存结果也直接约束回读身份</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="388" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="386" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">FRAMEWORK / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">回读绑定保存的版本</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">保存结果也直接约束回读身份</text>
+<path d="M260.0 204 V226.0 H260.0 V248" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="128" width="440" height="76" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="172.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">保存不可混淆的结果版本</text>
+<rect x="40" y="248" width="440" height="76" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="292.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">按引用回读原版本</text></svg>

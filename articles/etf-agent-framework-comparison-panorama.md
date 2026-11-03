@@ -57,17 +57,13 @@ Pi 是轻量、可编程的 Agent Harness；Claude Agent SDK 提供成熟的 Age
 
 ### 图 1：当前系统的关键责任，而非四方叠装
 
-```mermaid
-flowchart TD
-    U[用户的基金研究任务] --> A[对话研究应用]
-    A --> R[自有模型执行循环]
-    R --> H[受控工具宿主]
-    H --> D[只读投资事实与领域方法]
-    H --> S[原始资料与结果身份]
-    R --> P[回答与报告交付]
-    D --> L[原投资账本拥有投资真值]
-    S --> P
-```
+![研究应用与领域事实分工 · 1/2](../visuals/panorama-framework/application-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/application-1.svg)
+
+![研究应用与领域事实分工 · 2/2](../visuals/panorama-framework/application-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/application-2.svg)
 
 ## 二、沿一条完整任务定义验收，而不是先画模块图
 
@@ -127,17 +123,9 @@ ETF Agent 已有自己的读取、结果身份、领域计算、回答发布和�
 
 ### 图 2：四条路径共享的，应当是领域合同
 
-```mermaid
-flowchart TD
-    F[同一基金方法与结果合同] --> P[Pi扩展与工具]
-    F --> C[Claude SDK自定义工具]
-    F --> G[LangGraph节点与工具]
-    F --> E[ETF Agent工具宿主]
-    P --> O[按同一业务问题验收]
-    C --> O
-    G --> O
-    E --> O
-```
+![同一业务合同，不同执行方式](../visuals/panorama-framework/portable-contract.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/portable-contract.svg)
 
 ## 四、最先需要守住的，是投资真值不被对话层复制
 
@@ -183,15 +171,17 @@ ETF Agent 的结果身份与读取关系，值得被理解为连接原材料、�
 
 ### 图 3：结果外置之后，仍要追到实际消费
 
-```mermaid
-flowchart TD
-    S[原始来源] --> R[保存不可混淆的结果版本]
-    R --> V[为当前任务提供目录与选区]
-    V --> M[本轮实际模型输入]
-    M --> C[模型主张与引用]
-    C --> B[按引用回读原版本]
-    R --> B
-```
+![按原版本回读，而非找近似文本 · 1/3](../visuals/panorama-framework/source-version-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/source-version-1.svg)
+
+![按原版本回读，而非找近似文本 · 2/3](../visuals/panorama-framework/source-version-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/source-version-2.svg)
+
+![按原版本回读，而非找近似文本 · 3/3](../visuals/panorama-framework/source-version-3.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/source-version-3.svg)
 
 ### 3. 迁移时应保留什么
 
@@ -225,15 +215,13 @@ ETF Agent 已核对的计算设计采用明确分工：数值核处理单位、�
 
 ### 图 4：算式正确只是中间一环
 
-```mermaid
-flowchart TD
-    I[获准且有版本的输入] --> U[单位与尺度明确]
-    U --> F[选择适用的领域方法]
-    F --> N[执行可复算计算]
-    N --> R[结果保留分母与覆盖]
-    R --> H[报告消费同一结果]
-    H --> V[独立核对主张与实际文件]
-```
+![计算链保留口径与交付 · 1/2](../visuals/panorama-framework/calculation-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/calculation-1.svg)
+
+![计算链保留口径与交付 · 2/2](../visuals/panorama-framework/calculation-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/calculation-2.svg)
 
 ### 4. 一个真实工程增量：让原结果真正进入交付
 
@@ -263,15 +251,9 @@ Claude SDK 默认的上下文隔离使主代理不必承受全部中间材料，
 
 ### 图 5：专业分工必须回到可检查的交接
 
-```mermaid
-flowchart TD
-    M[主代理提出有限子问题] --> C[子代理在获准范围研究]
-    C --> S[原始来源与计算结果]
-    C --> A[专家解释与建议]
-    S --> R[主代理按身份回读]
-    A --> R
-    R --> F[综合结论并保留分歧]
-```
+![依据与意见分开交接](../visuals/panorama-framework/delegation.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/delegation.svg)
 
 ### 3. Reviewer 不是新的全局否决者
 
@@ -307,16 +289,13 @@ LangGraph 的 Checkpoint 保存图状态，并支持人工中断等行为；中�
 
 ### 图 6：失败之后，先确定效果，再决定动作
 
-```mermaid
-flowchart TD
-    F[操作后出现异常] --> K{效果是否已知}
-    K -- 已提交 --> R[按原身份回读]
-    K -- 未提交 --> T[按策略允许重新尝试]
-    K -- 未知 --> Q[核对原维护方事实]
-    Q --> C{能够确认吗}
-    C -- 是 --> D[按确认结果继续]
-    C -- 否 --> S[保留未知并停止重复副作用]
-```
+![异常后，先判定效果 · 1/2](../visuals/panorama-framework/unknown-effect-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/unknown-effect-1.svg)
+
+![异常后，先判定效果 · 2/2](../visuals/panorama-framework/unknown-effect-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/unknown-effect-2.svg)
 
 ### 3. 没有必要恢复整个旧执行图
 
@@ -350,15 +329,13 @@ ETF Agent 对 Artifact 与 Revision 的关注，正是为了让用户得到可�
 
 ### 图 7：交付从“生成了”走向“用户拿到了”
 
-```mermaid
-flowchart TD
-    M[模型生成候选内容] --> P[原发布机制接受内容]
-    P --> A[保存产物与版本]
-    A --> H[按权限提供读取入口]
-    H --> U[用户实际取得同一版本]
-    A --> F[保存或回执异常]
-    F --> R[核对提交事实并保留局部结果]
-```
+![保存与取得是不同交接 · 1/2](../visuals/panorama-framework/delivery-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/delivery-1.svg)
+
+![保存与取得是不同交接 · 2/2](../visuals/panorama-framework/delivery-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/delivery-2.svg)
 
 ## 十、长研究的上下文管理，不是把所有东西压成摘要
 
@@ -479,15 +456,13 @@ ETF Agent 的现有对标方法包含基金研究、Claude SDK 能力包络、Pi
 
 ### 图 8：迁移关注合同，不追求逐字相同
 
-```mermaid
-flowchart TD
-    A[固定原任务与证据样例] --> B[记录领域合同与关键反例]
-    B --> C[接入一个候选运行时]
-    C --> D[对比数值权限与交付行为]
-    D --> E{满足原有关键合同吗}
-    E -- 是 --> F[删除被替代的执行逻辑]
-    E -- 否 --> G[定位缺口并保留原路径]
-```
+![替换运行时，先守住合同 · 1/2](../visuals/panorama-framework/replacement-1.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/replacement-1.svg)
+
+![替换运行时，先守住合同 · 2/2](../visuals/panorama-framework/replacement-2.svg)
+
+[打开完整矢量图](../visuals/panorama-framework/replacement-2.svg)
 
 ## 十五、一个可执行的迁移与验证顺序
 

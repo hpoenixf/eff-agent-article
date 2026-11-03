@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="800" viewBox="0 0 520 800" role="img" aria-labelledby="title desc" lang="zh"><title id="title">03 · 复核后由 Main 交付</title><desc id="desc">历史协作设计 · 四幅图是一条研究链</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="800" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="798" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">COLLABORATION / HISTORICAL DESIGN</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">03 · 复核后由 Main 交付</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">历史协作设计 · 四幅图是一条研究链</text>
+<rect x="48" y="120" width="424" height="70" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="161.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Main 整理有依据的判断</text>
+<path d="M260 190 V220" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="48" y="220" width="424" height="80" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="266.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">值得启动独立 Reviewer 吗?</text>
+<path d="M152 300 V350" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="130" y="314" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="152" y="332" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">否</text>
+<path d="M376 300 V350" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="354" y="314" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="376" y="332" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">是</text>
+<rect x="28" y="350" width="220" height="120" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="138.0" y="416.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">关联论点证据与版本</text>
+<rect x="272" y="350" width="220" height="120" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="382.0" y="403.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">可选 Reviewer 复查</text>
+<text x="382.0" y="429.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">原证据与缺口</text>
+<path d="M382 470 V510" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="272" y="510" width="220" height="104" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="382.0" y="568.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Main 决定再补查吗?</text>
+<path d="M382 614 V658" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="360" y="626" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="382" y="644" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">是</text>
+<rect x="272" y="658" width="220" height="124" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="382.0" y="713.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">回图 01：按需委派取</text>
+<text x="382.0" y="739.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">证与金融计算</text>
+<path d="M272 562 H252 V326 H138 V350" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="208" y="527" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="230" y="545" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">否</text>
+<path d="M138 470 V658" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="658" width="220" height="124" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="713.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">向用户发布并保留可</text>
+<text x="138.0" y="739.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">读历史</text></svg>

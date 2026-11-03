@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="670" viewBox="0 0 520 670" role="img" aria-labelledby="title desc" lang="zh"><title id="title">索引与研究在检索处汇合</title><desc id="desc">索引成功不延续披露资格</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="670" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="668" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RAG / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">索引与研究在检索处汇合</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">索引成功不延续披露资格</text>
+<rect x="28" y="130" width="216" height="104" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="136.0" y="188.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">已准入的资料与版本</text>
+<path d="M136 234 V266" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="266" width="216" height="130" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="136.0" y="324.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">提取可定位片段并建</text>
+<text x="136.0" y="350.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">立索引</text>
+<rect x="276" y="266" width="216" height="130" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="384.0" y="324.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">用户问题与本次允许</text>
+<text x="384.0" y="350.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">的来源</text>
+<path d="M136 396 V418 H260 V440" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M384 396 V418 H260 V440" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="58" y="440" width="404" height="80" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="486.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">受限候选检索</text>
+<path d="M260 520 V548" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="58" y="548" width="404" height="80" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="594.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">真实送达的片段与来源绑定</text></svg>

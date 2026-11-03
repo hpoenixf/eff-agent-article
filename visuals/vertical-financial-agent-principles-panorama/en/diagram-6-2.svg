@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="554" viewBox="0 0 520 554" role="img" aria-labelledby="title desc" lang="en"><title id="title">Domain reuse ≠ new runtime</title><desc id="desc">Continued: evaluate after extracting the core</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="554" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="552" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Domain reuse ≠ new runtime</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Continued: evaluate after extracting the core</text>
+<rect x="60" y="138" width="400" height="116" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="189.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Execution contracts are</text>
+<text x="260.0" y="216.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">insufficient</text>
+<rect x="28" y="334" width="220" height="180" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="417.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Keep the</text>
+<text x="138.0" y="443.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">existing runtime</text>
+<rect x="272" y="334" width="220" height="180" rx="12" fill="#fff5dd" stroke="#d5be83" stroke-width="1.5"/>
+<text x="382.0" y="391.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Compare</text>
+<text x="382.0" y="417.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">extensions and</text>
+<text x="382.0" y="443.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">bounded custom</text>
+<text x="382.0" y="469.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">work</text>
+<path d="M160 254 V294 H138 V334" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="138" y="268" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="160" y="286" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<path d="M360 254 V294 H382 V334" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="338" y="268" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="360" y="286" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text></svg>

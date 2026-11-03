@@ -74,30 +74,21 @@ readingBrief:
 
 下面保留原展望的协作图。它是一张**可选择的路径图，不是要求每项任务走完的流程，也不是当前工具参数说明**。
 
-~~~mermaid
-flowchart TD
-    U[投资者提出问题] --> M[Main 确认目标与已获准资料]
-    M --> A{材料足以回答当前问题?}
-    A -- 是 --> H[Main 整理有依据的判断]
-    A -- 否 --> B[按需委派取证与金融计算]
-    B --> C{来源与计算口径可核实?}
-    C -- 否 --> G[保留未知并缩小结论]
-    C -- 是 --> D{需要独立金融研究方法?}
-    D -- 否 --> H
-    D -- 是 --> E[按需绑定合适的投资视角]
-    E --> F{核心假设值得反证?}
-    F -- 否 --> H
-    F -- 是 --> P[可选 Bull Bear 交叉质疑]
-    P --> H
-    G --> H
-    H --> Q{值得启动独立 Reviewer 吗?}
-    Q -- 否 --> T[关联论点证据与版本]
-    Q -- 是 --> V[可选 Reviewer 复查原证据与缺口]
-    V --> W{Main 决定再补查吗?}
-    W -- 是 --> B
-    W -- 否 --> T
-    T --> R[向用户发布并保留可读历史]
-~~~
+![01 · 先确认能否回答](../visuals/panorama-collaboration-history/phase-1.svg)
+
+[打开完整矢量图](../visuals/panorama-collaboration-history/phase-1.svg)
+
+![来源与计算口径资格](../visuals/panorama-collaboration-history/phase-1b.svg)
+
+[打开完整矢量图](../visuals/panorama-collaboration-history/phase-1b.svg)
+
+![02 · 观点与反证按需加入](../visuals/panorama-collaboration-history/phase-2.svg)
+
+[打开完整矢量图](../visuals/panorama-collaboration-history/phase-2.svg)
+
+![03 · 复核后由 Main 交付](../visuals/panorama-collaboration-history/phase-3.svg)
+
+[打开完整矢量图](../visuals/panorama-collaboration-history/phase-3.svg)
 
 图中的审阅仍是可选建议。没有审阅不自动代表答案无效，收到建议也不意味着必须再开一轮研究。是否继续，应结合遗漏的重要性、已有资料、授权和剩余资源决定。
 

@@ -51,15 +51,9 @@ LangGraph 是面向有状态、长时任务的底层编排框架与运行时。�
 
 ### 图 1：领域系统与通用执行能力的关系
 
-```mermaid
-flowchart TD
-    Q[用户的基金研究问题] --> D[领域目标与业务条件]
-    D --> R[通用执行能力]
-    R --> T[读取资料与执行计算]
-    T --> C[按证据形成有限结论]
-    C --> O[用户取得可核对的结果]
-    T --> D
-```
+![领域目标驱动执行 — 读取和计算也会反过来更新业务条件](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-1.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-1.svg)
 
 图中回到领域目标的箭头很重要：研究不是把预先排好的工具执行一遍。新资料可能证明最初问题需要改写，或者只能回答其中一部分。执行框架使这种循环能够发生，领域能力帮助解释每一次观察意味着什么。
 
@@ -125,16 +119,9 @@ flowchart TD
 
 ### 图 2：同一份资料的三个时间
 
-```mermaid
-flowchart TD
-    A[数据截至九月三十日] --> B[十月二十五日披露]
-    B --> C[十一月二日获取]
-    C --> D{研究的问题是什么}
-    D --> E[解释历史持仓]
-    D --> F[判断当前配置]
-    E --> G[可按原时点使用]
-    F --> H[保留时滞与未知变化]
-```
+![三个时间，两种研究问题 — 教学日期；同一资料不等于同一适用范围](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-2.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-2.svg)
 
 ### 2. 新资料出现时，不要悄悄改写旧结论
 
@@ -170,15 +157,9 @@ flowchart TD
 
 ### 图 3：同一数值，三个不同分母
 
-```mermaid
-flowchart TD
-    X[公司X已知金额九千元] --> A[除以总资产十二万元]
-    X --> B[除以基金资产十万八千元]
-    X --> C[除以披露样本六万四千八百元]
-    A --> D[总资产暴露百分之七点五]
-    B --> E[基金内部约百分之八点三三]
-    C --> F[披露样本约百分之十三点八九]
-```
+![同一金额，三个分母 — 教学例：公司 X 已知金额 9,000 元](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-3.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-3.svg)
 
 ### 3. 现金目标为什么必须使用调整后的分母
 
@@ -226,16 +207,9 @@ flowchart TD
 
 ### 图 4：证据支持主张，不自动认证主张
 
-```mermaid
-flowchart TD
-    S[原始资料及版本] --> F[提取的领域事实]
-    F --> M[有适用条件的计算]
-    M --> R[可复算结果]
-    F --> C[模型形成研究主张]
-    R --> C
-    C --> V[独立核对支持关系]
-    V --> O[保留结论或缩小声明]
-```
+![证据支持，不自动认证 — 来源、计算和研究主张保留不同身份](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-4.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-4.svg)
 
 ### 2. 有链接、哈希和血缘，仍可能答错
 
@@ -273,17 +247,13 @@ flowchart TD
 
 ### 图 5：探索可以开放，实际效果需要明确授权
 
-```mermaid
-flowchart TD
-    Q[用户提出研究问题] --> R[在获准资料内自主研究]
-    R --> A[交付解释与条件方案]
-    R --> W{请求外部写入吗}
-    W -- 否 --> A
-    W -- 是 --> P[检查具体对象与动作授权]
-    P --> C{授权仍适用吗}
-    C -- 是 --> E[进入原有业务执行流程]
-    C -- 否 --> N[不执行并保留可用分析]
-```
+![开放探索，明确执行授权 — 研究自主性不等于外部写入权限](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-5-1.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-5-1.svg)
+
+![开放探索，明确执行授权 — 研究自主性不等于外部写入权限](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-5-2.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-5-2.svg)
 
 ### 3. Prompt 是方法说明，不是安全边界
 
@@ -361,16 +331,13 @@ LangGraph 的中断文档明确提醒，恢复时中断之前的节点代码可�
 
 ### 图 6：从最小方案出发，而不是从平台出发
 
-```mermaid
-flowchart TD
-    A[单一明确任务] --> B[现有SDK与领域工具]
-    B --> C{多个任务重复同一规则吗}
-    C -- 否 --> D[保持局部实现]
-    C -- 是 --> E[抽取共享领域核心]
-    E --> F{现有执行合同确实不够吗}
-    F -- 否 --> G[继续复用现有运行时]
-    F -- 是 --> H[用反例比较扩展与局部自研]
-```
+![先复用，再证明增量必要 — 领域核心与执行运行时是两种判断](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-6-1.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-6-1.svg)
+
+![先复用，再证明增量必要 — 领域核心与执行运行时是两种判断](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-6-2.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-6-2.svg)
 
 ### 3. 一个反向的成功标准
 
@@ -410,17 +377,9 @@ flowchart TD
 
 ### 图 7：四种完成，不是一条自动升级链
 
-```mermaid
-flowchart TD
-    T[同一项研究任务] --> E[执行是否结束]
-    T --> Q[研究主张是否成立]
-    T --> D[结果是否实际可取得]
-    T --> U[用户是否真正使用]
-    E --> R[分别记录证据与缺口]
-    Q --> R
-    D --> R
-    U --> R
-```
+![四种完成，分别核对 — 观察面彼此相关，但不能自动升级](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-7.svg)
+
+[打开完整矢量图](../visuals/vertical-financial-agent-principles-panorama/zh/diagram-7.svg)
 
 ### 2. 评测应当包含能够改变结论的反例
 

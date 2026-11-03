@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="778" viewBox="0 0 520 778" role="img" aria-labelledby="title desc" lang="zh"><title id="title">四种完成，分别核对</title><desc id="desc">观察面彼此相关，但不能自动升级</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="778" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="776" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">四种完成，分别核对</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">观察面彼此相关，但不能自动升级</text>
+<rect x="70" y="128" width="380" height="72" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="170.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">同一项研究任务</text>
+<rect x="90" y="248" width="356" height="68" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="268.0" y="288.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">执行是否结束</text>
+<path d="M70 164 H40 V282 H90" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M446 282 H480 V700 H420" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="344" width="356" height="68" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="268.0" y="384.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">研究主张是否成立</text>
+<path d="M70 164 H40 V378 H90" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M446 378 H480 V700 H420" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="440" width="356" height="68" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="268.0" y="480.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">结果是否实际可取得</text>
+<path d="M70 164 H40 V474 H90" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M446 474 H480 V700 H420" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="536" width="356" height="68" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="268.0" y="576.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">用户是否真正使用</text>
+<path d="M70 164 H40 V570 H90" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M446 570 H480 V700 H420" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="70" y="700" width="350" height="58" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="245.0" y="735.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">分别记录证据与缺口</text></svg>

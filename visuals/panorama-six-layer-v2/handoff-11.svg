@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="780" viewBox="0 0 520 780" role="img" aria-labelledby="title desc" lang="zh"><title id="title">重发、续接、追问要区分</title><desc id="desc">历史 V2 职责截面 · 保留原有路径</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="780" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="778" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">SIX LAYERS / 11</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">重发、续接、追问要区分</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">历史 V2 职责截面 · 保留原有路径</text>
+<path d="M260.0 208 V222.0 H260.0 V236" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 314 V342.0 H136.0 V370" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 314 V342.0 H384.0 V370" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M384.0 480 V550.0 H136.0 V620" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M384.0 480 V550.0 H384.0 V620" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="58" y="130" width="404" height="78" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="175.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">接收消息</text>
+<rect x="58" y="236" width="404" height="78" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="281.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">同消息重发？</text>
+<rect x="28" y="370" width="216" height="110" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="136.0" y="431.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">回放原运行</text>
+<rect x="276" y="370" width="216" height="110" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="384.0" y="431.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">显式续接？</text>
+<rect x="28" y="620" width="216" height="110" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="136.0" y="681.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">关联父任务新运行</text>
+<rect x="276" y="620" width="216" height="110" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="384.0" y="681.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">普通追问新运行</text></svg>

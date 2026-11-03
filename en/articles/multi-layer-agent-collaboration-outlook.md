@@ -74,30 +74,21 @@ If “better diversification” remains an important but fragile premise, choose
 
 The original diagram is retained below. It shows **optional routes through the research, not a mandatory workflow or the current tool-argument schema**.
 
-~~~mermaid
-flowchart TD
-    U[Investor asks a research question] --> M[Main confirms goal and admitted inputs]
-    M --> A{Enough material to answer now?}
-    A -- Yes --> H[Main assembles supported judgment]
-    A -- No --> B[Delegate targeted retrieval and calculation]
-    B --> C{Sources and calculation basis qualified?}
-    C -- No --> G[Keep unknowns and narrow affected claims]
-    C -- Yes --> D{Independent financial method useful?}
-    D -- No --> H
-    D -- Yes --> E[Bind a suitable investment perspective]
-    E --> F{Core premise worth falsifying?}
-    F -- No --> H
-    F -- Yes --> P[Optional Bull Bear direct challenge]
-    P --> H
-    G --> H
-    H --> Q{Is independent Reviewer worthwhile?}
-    Q -- No --> T[Link findings to thesis evidence and versions]
-    Q -- Yes --> V[Optional Reviewer rechecks evidence and gaps]
-    V --> W{Does Main choose further investigation?}
-    W -- Yes --> B
-    W -- No --> T
-    T --> R[Publish answer and accessible history]
-~~~
+![01 · Establish the evidence](../../visuals/en/panorama-collaboration-history/phase-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-collaboration-history/phase-1.svg)
+
+![Source and calculation eligibility](../../visuals/en/panorama-collaboration-history/phase-1b.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-collaboration-history/phase-1b.svg)
+
+![02 · Add perspectives if useful](../../visuals/en/panorama-collaboration-history/phase-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-collaboration-history/phase-2.svg)
+
+![03 · Review, then deliver](../../visuals/en/panorama-collaboration-history/phase-3.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-collaboration-history/phase-3.svg)
 
 Review remains advisory. Its absence does not automatically invalidate an answer, and receiving advice does not require another investigation. Continuing depends on the significance of the gap, available material, authorization, and remaining resources.
 

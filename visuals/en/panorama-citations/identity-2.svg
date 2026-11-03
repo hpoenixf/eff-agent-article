@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="660" viewBox="0 0 520 660" role="img" aria-labelledby="title desc" lang="en"><title id="title">Continue from the actual read</title><desc id="desc">Responsibilities and handoffs—not automatic proof</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="660" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="658" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">CITATIONS / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Continue from the actual read</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Responsibilities and handoffs—not automatic proof</text>
+<path d="M260.0 204 V226.0 H260.0 V248" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 324 V346.0 H133.0 V368" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="174.5" y="322.0" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="196.5" y="340.0" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text>
+<path d="M260.0 324 V346.0 H387.0 V368" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="301.5" y="322.0" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="323.5" y="340.0" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<path d="M133.0 476 V498.0 H260.0 V520" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="128" width="440" height="76" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="172.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Controlled read and actual receipt</text>
+<rect x="40" y="248" width="440" height="76" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="292.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Is this content eligible to cite?</text>
+<rect x="28" y="368" width="210" height="108" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="133.0" y="415.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Host issues</text>
+<text x="133.0" y="441.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">citationRef</text>
+<rect x="282" y="368" width="210" height="108" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="387.0" y="402.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Navigation or</text>
+<text x="387.0" y="428.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">limited result</text>
+<text x="387.0" y="454.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">only</text>
+<rect x="40" y="520" width="440" height="76" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="564.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Publication resolves original identity</text></svg>

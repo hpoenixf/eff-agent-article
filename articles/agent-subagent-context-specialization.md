@@ -36,24 +36,9 @@ readingBrief:
 
 ### 图 1：同一个 Child 底座承载不同的研究方法
 
-```mermaid
-flowchart TD
-    Runtime["通用 Child 执行机制"]
-    Builtin["内置工作角色"]
-    Methods["固定投资方法"]
-    Custom["账户自定义 Profile"]
-    Roles["General / Web / PDF / Python"]
-    Invest["Markowitz / Taleb / Bernstein<br/>Bogle / Marks / Fama-French"]
-    User["个人研究偏好<br/>本次 Run 冻结版本"]
-    Managed["受管 Reviewer<br/>手动或事实候选"]
-    Runtime --> Managed
-    Runtime --> Builtin
-    Runtime --> Methods
-    Runtime --> Custom
-    Builtin --> Roles
-    Methods --> Invest
-    Custom --> User
-```
+![方法不同，执行底座相同：四类入口不是必须经过的流水线](../visuals/panorama-subagents/family.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/family.svg)
 
 | 能力 | 它解决的具体问题 | 重要特点 |
 | --- | --- | --- |
@@ -150,17 +135,13 @@ Main 可以先自己完成确定性计算，或者让一个 Child 核对原披�
 
 ### 图 4：有界质询与真实回应
 
-```mermaid
-flowchart TD
-    A["Bull 给出可检验的理由"] --> B["Bear 核对同口径依据"]
-    B --> C{"发现重要反证?"}
-    C -- "否" --> D["记录检查范围与未证实点"]
-    C -- "是" --> E["Host 核验并持久记录质询"]
-    E --> F["Bull 后续请求收到真实消息"]
-    F --> G["Bull 回应或修订理由"]
-    D --> H["Main 汇总有效发现"]
-    G --> H
-```
+![质询必须真正送达：先核对反证，再区分记录与实际收到](../visuals/panorama-subagents/challenge.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/challenge.svg)
+
+![先核对反证，再区分记录与实际收到](../visuals/panorama-subagents/challenge-response.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/challenge-response.svg)
 
 在上面的教学题里，Bear 不应泛泛地说“科技估值可能高”；它应该指向 H1：“多买一只科技 ETF 就能改善分散”，并展示同口径下科技暴露由 15% 提至 23% 的反例。Bull 可以承认 H1 不成立，同时保留“主动增加科技敞口是否值得”的开放问题。**撤回一条错误理由，比制造一个双方都满意的折中结论更有价值。**
 
@@ -208,13 +189,9 @@ ETF Agent 的个人专家是有账户归属、修订号和内容指纹的 Profil
 
 ### 图 6：从专家出现到真实贡献，有五道不同的证据
 
-```mermaid
-flowchart TD
-    A["Child 获准执行"] --> B["Child 实际提交成果"]
-    B --> C["后续 Main 请求收到结果"]
-    C --> D["最终答案保留关键依据与限制"]
-    D --> E["同题对照判断增量价值"]
-```
+![五层证据，不能相互代替：执行成功 ≠ 答案采纳 ≠ 增量价值](../visuals/panorama-subagents/contribution.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/contribution.svg)
 
 2026 年 10 月末我们做过有限的实际提交与后续 Main 输入片段对应检查。这能说明**部分专家文字确实送达**，但没有自动证明 Main 采纳了整篇结论，或用户得到的研究比单 Agent 更好。具体分母、抽样方法与边界见[多专家贡献证据](agent-subagent-contribution-evidence.md)。
 
@@ -247,18 +224,13 @@ Anthropic 的多 Agent 研究文章也指出，相较普通对话，多代理研
 
 ### 图 7：把“要不要多一位专家”放回真实任务
 
-```mermaid
-flowchart TD
-    Q["用户的研究问题"] --> Long{"局部工作是否较长<br/>且有可检查的交付?"}
-    Long -- "否" --> Direct["Main 直接使用工具"]
-    Long -- "是" --> Child["按需委派一个或少量 Child"]
-    Child --> Need{"是否还有重要假设<br/>或独立反证价值?"}
-    Need -- "是" --> Review["可选 Reviewer、投资视角<br/>或有界 Bull/Bear"]
-    Need -- "否" --> Integrate["交回依据、产物与缺口"]
-    Review --> Integrate
-    Integrate --> Main["Main 核对并统一交付"]
-    Direct --> Main
-```
+![先判断是否值得分工：默认单 Main；专家与质询均按需](../visuals/panorama-subagents/delegation.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/delegation.svg)
+
+![默认单 Main；专家与质询均按需](../visuals/panorama-subagents/delegation-challenge.svg)
+
+[打开完整矢量图](../visuals/panorama-subagents/delegation-challenge.svg)
 
 我们的起点仍然是**单 Main + 获准工具**。一个明确费率查询、一项稳定计算，通常不需要新 Child；长篇资料核查、反复局部调试、彼此独立且可验证的子问题，才更值得隔离。新信息可能改变研究描述，但不应自动改变方法身份和授权。
 

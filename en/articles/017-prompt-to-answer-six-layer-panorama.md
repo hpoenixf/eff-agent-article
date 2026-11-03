@@ -174,48 +174,15 @@ Users can retry a send, ask a small question, correct a long analysis or stop a 
 
 **Figure 2 · Message identity: replay, new Run or conflict**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["User submission"]
-    B{"Known message ID?"}
-    C{"Same message body?"}
-    D["Replay original Run"]
-    E["Reject identity conflict"]
-    F["Create new Run"]
-    A --> B
-    B --> C
-    B --> F
-    C --> D
-    C --> E
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Identify the message first](../../visuals/en/panorama-six-layer-v2/handoff-01.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-01.svg)
 
 **Figure 3 · Entry and native research loop**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Interpret request"]
-    B{"Need external evidence?"}
-    C["Direct answer"]
-    D["Start Research"]
-    E["Model proposes action"]
-    F["Runtime executes"]
-    G["Receipt enters next turn"]
-    H["Publish answer"]
-    A --> B
-    B --> C
-    B --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> E
-    G --> H
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Research can loop](../../visuals/en/panorama-six-layer-v2/handoff-02.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-02.svg)
 
 | Mechanism | Input and output | Value of the separate responsibility |
 | --- | --- | --- |
@@ -298,28 +265,9 @@ They return identified sources, read ranges, artifacts, partial answers and gaps
 
 **Figure 4 · Delegation: Main owns final delivery**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Main chooses"]
-    B["Direct read"]
-    C["Web subagent"]
-    D["Document subagent"]
-    E["Compute subagent"]
-    F["Result handoff"]
-    G["Main synthesis"]
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    B --> G
-    C --> F
-    D --> F
-    E --> F
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Main integrates delegated work](../../visuals/en/panorama-six-layer-v2/handoff-03.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-03.svg)
 
 **Synthetic walkthrough:** A PDF Child finds a table, a Python Child computes a scenario, and Main checks both.
 
@@ -346,46 +294,15 @@ Information saved somewhere in the application is not automatically information 
 
 **Figure 6 · Projector: actual model input**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["User question and history"]
-    B["Skills and preferences"]
-    C["Tool receipts"]
-    D["Unified projection"]
-    E["Fitting and compaction"]
-    F["Dispatched model request"]
-    G["Retained omitted materials"]
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-    E --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Assemble before dispatch](../../visuals/en/panorama-six-layer-v2/handoff-04.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-04.svg)
 
 **Figure 7 · Memory versus current portfolio facts**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["User request"]
-    B["Stable preferences"]
-    C["Versioned memory"]
-    D["Current authorized read"]
-    E["Authoritative holdings"]
-    F["Explain current versus historical"]
-    A --> B
-    B --> C
-    A --> D
-    D --> E
-    C --> F
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Preference is not current state](../../visuals/en/panorama-six-layer-v2/handoff-05.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-05.svg)
 
 | Context material | Owner | Purpose |
 | --- | --- | --- |
@@ -440,45 +357,15 @@ The tool may be installed, registered with MCP, described to a model, admitted f
 
 **Figure 8 · From proposed tool to actual invocation**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Visible tool"]
-    B["Validate arguments"]
-    C["Pre-call hook"]
-    D["Host admission"]
-    E["Dispatch and receipt"]
-    F["Post-call projection"]
-    G["Next model turn"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![The execution handoff](../../visuals/en/panorama-six-layer-v2/handoff-06.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-06.svg)
 
 **Figure 9 · Post-call hooks narrow, never replace facts**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Original receipt"]
-    B["Preserve source facts"]
-    C["Hook model projection"]
-    D{"Removal only?"}
-    E["Accept narrowed projection"]
-    F["Reject fact rewriting"]
-    A --> B
-    A --> C
-    C --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Narrow without rewriting](../../visuals/en/panorama-six-layer-v2/handoff-07.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-07.svg)
 
 | Execution seam | What changes there | What it must preserve |
 | --- | --- | --- |
@@ -534,47 +421,15 @@ Retrieval, document reading, financial definitions, exact arithmetic and sandbox
 
 **Figure 10 · From retrieval hit to consumed evidence**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Retrieve candidates"]
-    B["Verify version"]
-    C["Read passage and context"]
-    D["Check coverage and time"]
-    E{"Evidence sufficient?"}
-    F["Record gap"]
-    G["Source-backed conclusion"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    E --> G
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![A hit is only the beginning](../../visuals/en/panorama-six-layer-v2/handoff-08.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-08.svg)
 
 **Figure 11 · Separate source, formula and computation**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Sourced data"]
-    B["Choose financial definition"]
-    C["Exact deterministic arithmetic"]
-    D["Isolated Python analysis"]
-    E["Preserve assumptions and lineage"]
-    F["Model explains risk"]
-    A --> B
-    B --> C
-    A --> D
-    C --> E
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Calculation meets exploration](../../visuals/en/panorama-six-layer-v2/handoff-09.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-09.svg)
 
 | Activity | Output | Supported inference |
 | --- | --- | --- |
@@ -643,44 +498,15 @@ The time when an answer is drafted, rendered, published, saved or read from Hist
 
 **Figure 12 · Visible preview versus durable publication**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Candidate body"]
-    B["Publication disposition"]
-    C["Authorized preview"]
-    D["Durable commit"]
-    E["History revision"]
-    F["Client reconciliation"]
-    A --> B
-    B --> C
-    B --> D
-    C --> F
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Preview is not durable storage](../../visuals/en/panorama-six-layer-v2/handoff-10.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-10.svg)
 
 **Figure 13 · Three kinds of continuation**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Receive message"]
-    B{"Identical retry?"}
-    C["Replay original Run"]
-    D{"Explicit continuation?"}
-    E["Parent-linked new Run"]
-    F["Ordinary follow-up Run"]
-    A --> B
-    B --> C
-    B --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Retry is not continuation](../../visuals/en/panorama-six-layer-v2/handoff-11.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-11.svg)
 
 | User action | How it is handled | Why it matters |
 | --- | --- | --- |
@@ -764,22 +590,9 @@ Both reuse the existing Control system, but a wake is not a new task and a sched
 
 **Figure 14 · Durable control: wake versus new scheduled Run**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Original Run parked"]
-    B["Original Control event"]
-    C["Wake same Run"]
-    D["Confirmed schedule"]
-    E["New occurrence"]
-    F["New scheduled Run"]
-    A --> B
-    B --> C
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Two kinds of durable work](../../visuals/en/panorama-six-layer-v2/handoff-12.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-12.svg)
 
 **Synthetic walkthrough:** A parked Run wakes on a Child result; a confirmed weekly schedule creates a new occurrence.
 
@@ -840,47 +653,15 @@ Observability spans all preceding layers; quality review asks whether the user a
 
 **Figure 16 · Observable handoffs, not one success flag**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Run identity"]
-    B["Model input and output"]
-    C["Tool receipts"]
-    D["Publication storage"]
-    E["Client rendering"]
-    F["Diagnostic view"]
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    B --> F
-    C --> F
-    D --> F
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Connect facts by Run identity](../../visuals/en/panorama-six-layer-v2/handoff-13.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-13.svg)
 
 **Figure 17 · Evaluation of actual delivery**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Original user goal"]
-    B["Delivered answer"]
-    C["Source and numeric check"]
-    D["Semantic review"]
-    E["Pass, fail or unknown"]
-    F["Identify owner"]
-    A --> D
-    B --> C
-    B --> D
-    C --> E
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![Evaluate the actual delivery](../../visuals/en/panorama-six-layer-v2/handoff-14.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-six-layer-v2/handoff-14.svg)
 
 | Observation | What it captures | What it does not prove |
 | --- | --- | --- |

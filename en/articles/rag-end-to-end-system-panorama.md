@@ -40,18 +40,13 @@ The user sees a question and an answer. Underneath are at least four distinct ki
 
 These are not necessarily four sequential backend services. Corpus building generally predates the question. Evaluation can happen offline. Permissions can change after the model has read a passage. Some questions do not need retrieval at all.
 
-~~~mermaid
-flowchart TD
-    A[Admitted source material and version] --> B[Extract locatable passages and build an index]
-    C[User question and permitted sources for this Run] --> D[Constrained candidate retrieval]
-    B --> D
-    D --> E[Actually delivered passages and source bindings]
-    E --> F[Model checks the question and forms claims]
-    F --> G{Disclosure still allowed at commit time?}
-    G -- Yes --> H[Save an inspectable answer]
-    G -- No --> I[Withhold protected content and describe the gap]
-    H --> J[Recheck eligibility when history is viewed again]
-~~~
+![Indexing meets research](../../visuals/en/panorama-rag/system.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-rag/system.svg)
+
+![Claims and disclosure](../../visuals/en/panorama-rag/disclosure.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-rag/disclosure.svg)
 
 *Figure 1. The corpus and the user task meet at retrieval. Authorization to disclose is not an automatic continuation of a previously successful search.*
 
@@ -176,18 +171,13 @@ Similarly, MCP is a tool connectivity and invocation mechanism. Wrapping a Retri
 
 When the user does not receive a verifiable answer, a single aggregate score rarely identifies the repair. Find **the first observable stage where the required evidence disappeared**.
 
-~~~mermaid
-flowchart TD
-    A[Answer lacks supporting evidence] --> B{Does the index contain eligible original passages?}
-    B -- No --> C[Inspect admission, parsing and index health]
-    B -- Yes --> D{Does the candidate set contain the key passage?}
-    D -- No --> E[Inspect filters, lexical and vector recall]
-    D -- Yes --> F{Did the model actually read the required text?}
-    F -- No --> G[Inspect fusion, truncation and result rereading]
-    F -- Yes --> H{Does the original directly support this claim?}
-    H -- No --> I[Read further, narrow the claim or mark unknown]
-    H -- Yes --> J[Verify citation identity and current disclosure rights]
-~~~
+![2A · Sources and candidates](../../visuals/en/panorama-rag/diagnose-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-rag/diagnose-1.svg)
+
+![2B · Reading and claims](../../visuals/en/panorama-rag/diagnose-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-rag/diagnose-2.svg)
 
 *Figure 2. Source absence, candidate omissions, missing model delivery and semantic mistakes need different repairs.*
 

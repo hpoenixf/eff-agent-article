@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="610" viewBox="0 0 520 610" role="img" aria-labelledby="title desc" lang="zh"><title id="title">表示决定绑定内容</title><desc id="desc">从“是哪一种获准表示”继续</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="610" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="608" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">CITATIONS / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">表示决定绑定内容</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">从“是哪一种获准表示”继续</text>
+<text x="28" y="150" font-family="Noto Sans CJK SC, sans-serif" font-size="17" font-weight="700" fill="#7756a0" text-anchor="start">原文读取窗口</text>
+<rect x="28" y="168" width="464" height="105" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="226.5" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">绑定精确 read／版本／范围</text>
+<text x="28" y="295" font-family="Noto Sans CJK SC, sans-serif" font-size="17" font-weight="700" fill="#7756a0" text-anchor="start">合格搜索摘要</text>
+<rect x="28" y="313" width="464" height="105" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="358.5" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">绑定实际摘要</text>
+<text x="260.0" y="384.5" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">标明 search-excerpt</text>
+<text x="28" y="440" font-family="Noto Sans CJK SC, sans-serif" font-size="17" font-weight="700" fill="#7756a0" text-anchor="start">仅导航或无资格</text>
+<rect x="28" y="458" width="464" height="105" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="516.5" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">不签发公开引用</text></svg>

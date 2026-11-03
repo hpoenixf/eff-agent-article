@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="720" viewBox="0 0 520 720" role="img" aria-labelledby="title desc" lang="zh"><title id="title">异常后，先判定效果</title><desc id="desc">效果未知不是“没有发生”</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="720" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="718" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">FRAMEWORK / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">异常后，先判定效果</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">效果未知不是“没有发生”</text>
+<rect x="28" y="128" width="464" height="80" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="174.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">操作后出现异常</text>
+<text x="28" y="244" font-family="Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" fill="#183e35" text-anchor="start">效果是否已知</text>
+<text x="28" y="280" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#7756a0" text-anchor="start">已提交</text>
+<rect x="28" y="296" width="464" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="352.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">按原身份回读</text>
+<text x="28" y="420" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#7756a0" text-anchor="start">未提交</text>
+<rect x="28" y="436" width="464" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="492.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">按策略允许重新尝试</text>
+<text x="28" y="560" font-family="Noto Sans CJK SC, sans-serif" font-size="18" font-weight="700" fill="#7756a0" text-anchor="start">未知</text>
+<rect x="28" y="576" width="464" height="100" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="632.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">核对原维护方事实</text></svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="728" viewBox="0 0 520 728" role="img" aria-labelledby="title desc" lang="en"><title id="title">Reuse before rebuilding</title><desc id="desc">Domain core and runtime are separate choices</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="728" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="726" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Reuse before rebuilding</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Domain core and runtime are separate choices</text>
+<rect x="60" y="126" width="400" height="68" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="166.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">One explicit task</text>
+<rect x="60" y="230" width="400" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="277.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Existing SDK and domain tools</text>
+<path d="M260 194 V230" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="60" y="352" width="400" height="104" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="410.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Rules recur across tasks</text>
+<path d="M260 312 V352" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="518" width="220" height="136" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="138.0" y="566.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Keep the</text>
+<text x="138.0" y="592.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">implementation</text>
+<text x="138.0" y="618.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">local</text>
+<rect x="272" y="518" width="220" height="136" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="382.0" y="579.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Extract a shared</text>
+<text x="382.0" y="605.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">domain core</text>
+<path d="M160 456 V488 H138 V518" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="138" y="467" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="160" y="485" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<path d="M360 456 V488 H382 V518" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="338" y="467" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="360" y="485" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text>
+<text x="272" y="694" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#7756a0" text-anchor="start">Next: runtime sufficient?</text></svg>

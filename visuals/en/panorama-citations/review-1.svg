@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="760" viewBox="0 0 520 760" role="img" aria-labelledby="title desc" lang="en"><title id="title">Review does not rewrite facts</title><desc id="desc">Responsibilities and handoffs—not automatic proof</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="760" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="758" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">CITATIONS / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Review does not rewrite facts</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Responsibilities and handoffs—not automatic proof</text>
+<path d="M260.0 204 V226.0 H260.0 V248" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 330 V352.0 H260.0 V374" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260.0 450 V472.0 H133.0 V494" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="174.5" y="448.0" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="196.5" y="466.0" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<path d="M260.0 450 V472.0 H387.0 V494" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="301.5" y="448.0" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="323.5" y="466.0" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text>
+<path d="M133.0 576 V598.0 H260.0 V620" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="128" width="440" height="76" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="172.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Explicitly select an answer revision</text>
+<rect x="40" y="248" width="440" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="282.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Freeze body, actual citations,</text>
+<text x="260.0" y="308.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">eligible materials</text>
+<rect x="40" y="374" width="440" height="76" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="418.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Enough readable evidence?</text>
+<rect x="28" y="494" width="210" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="133.0" y="528.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Record gaps and</text>
+<text x="133.0" y="554.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">unchecked scope</text>
+<rect x="282" y="494" width="210" height="82" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="387.0" y="528.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Independent</text>
+<text x="387.0" y="554.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">reviewer run</text>
+<rect x="40" y="620" width="440" height="76" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="664.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Per-claim reasons and uncertainty</text></svg>

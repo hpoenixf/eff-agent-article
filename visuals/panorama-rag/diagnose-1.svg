@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="730" viewBox="0 0 520 730" role="img" aria-labelledby="title desc" lang="zh"><title id="title">2A · 先查资料与候选</title><desc id="desc">沿首个缺口定位；不是固定服务串行</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="730" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="728" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RAG / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">2A · 先查资料与候选</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">沿首个缺口定位；不是固定服务串行</text>
+<rect x="48" y="130" width="424" height="80" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="176.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">回答缺少可支持的依据</text>
+<path d="M260 210 V228 H136 V246" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="28" y="246" width="216" height="132" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="136.0" y="305.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">索引有合格的原始片</text>
+<text x="136.0" y="331.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">段?</text>
+<path d="M244 312 H276" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="238" y="277" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="260" y="295" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">没有</text>
+<rect x="276" y="246" width="216" height="132" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="384.0" y="305.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">核对来源准入、解析</text>
+<text x="384.0" y="331.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">与索引健康</text>
+<path d="M136 378 V426" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="114" y="392" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="136" y="410" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">有</text>
+<rect x="28" y="426" width="216" height="132" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="136.0" y="498.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">候选里有关键片段?</text>
+<path d="M244 492 H276" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="238" y="457" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="260" y="475" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">没有</text>
+<rect x="276" y="426" width="216" height="132" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="384.0" y="485.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">核对过滤、词法与向</text>
+<text x="384.0" y="511.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">量召回</text>
+<path d="M136 558 V606" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="114" y="573" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="136" y="591" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">有</text>
+<rect x="28" y="606" width="464" height="100" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="260.0" y="662.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">转到图 2B：核对模型实际阅读</text></svg>

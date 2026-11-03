@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="754" viewBox="0 0 520 754" role="img" aria-labelledby="title desc" lang="en"><title id="title">Explore; authorize effects</title><desc id="desc">Research autonomy is not permission to write</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="754" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="752" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">RESEARCH / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Explore; authorize effects</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Research autonomy is not permission to write</text>
+<rect x="60" y="126" width="400" height="72" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="168.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">User research question</text>
+<rect x="60" y="236" width="400" height="84" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="284.5" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">Explore within approved sources</text>
+<path d="M260 198 V236" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="260" y="378" width="232" height="94" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="376.0" y="418.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">External write</text>
+<text x="376.0" y="445.0" font-family="Noto Sans CJK SC, sans-serif" font-size="20" font-weight="500" fill="#183e35" text-anchor="middle">requested</text>
+<rect x="28" y="522" width="220" height="164" rx="12" fill="#f0eaf8" stroke="#c4b2da" stroke-width="1.5"/>
+<text x="138.0" y="571.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Deliver</text>
+<text x="138.0" y="597.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">explanation and</text>
+<text x="138.0" y="623.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">conditional</text>
+<text x="138.0" y="649.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">options</text>
+<path d="M150 320 H138 V522" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M360 320 H376 V378" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M260 425 H138 V522" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="194" y="392" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="216" y="410" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">No</text>
+<rect x="272" y="522" width="220" height="164" rx="12" fill="#fff5dd" stroke="#d5be83" stroke-width="1.5"/>
+<text x="382.0" y="584.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Check object and</text>
+<text x="382.0" y="610.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">action</text>
+<text x="382.0" y="636.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">authorization</text>
+<path d="M376 472 V522" fill="none" stroke="#49796e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="387" y="486" width="44" height="25" rx="8" fill="#f7f8f2"/>
+<text x="409" y="504" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#315c50" text-anchor="middle">Yes</text>
+<text x="272" y="720" font-family="Noto Sans CJK SC, sans-serif" font-size="17" font-weight="700" fill="#7756a0" text-anchor="start">Next: still authorized?</text></svg>

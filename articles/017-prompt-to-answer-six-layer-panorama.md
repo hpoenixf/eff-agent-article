@@ -188,50 +188,17 @@ Deep 和思考强度各是所属模块里的子能力，不因独立开关或工
 
 **图 2 · 请求身份分流：重发、创建与冲突**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["用户发送"]
-    B{"消息身份已存在？"}
-    C{"正文是否一致？"}
-    D["回放原运行"]
-    E["拒绝身份冲突"]
-    F["创建新运行"]
-    A --> B
-    B --> C
-    B --> F
-    C --> D
-    C --> E
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![先确认是哪条消息](../visuals/panorama-six-layer-v2/handoff-01.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-01.svg)
 
 消息身份把一次发送与实际运行关联起来。同一身份的重发查找原运行；正文冲突则拒绝，不覆盖已发生的执行。
 
 **图 3 · 入口与研究循环**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["理解请求"]
-    B{"需要外部证据？"}
-    C["直接回答"]
-    D["启动研究"]
-    E["模型提出动作"]
-    F["运行时执行"]
-    G["回执进入下一轮"]
-    H["提交答案"]
-    A --> B
-    B --> C
-    B --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> E
-    G --> H
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![研究是一条可回环的路径](../visuals/panorama-six-layer-v2/handoff-02.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-02.svg)
 
 图中展开一轮研究。需要更多材料时进入下一轮；图中重复的模型节点用于表达前后两次推理，不是两个独立 Agent。
 
@@ -368,28 +335,9 @@ Deep 是这个模块中的资源模式子能力。用户显式选择、注册 Sk
 
 **图 4 · 委派有界：主研究统一交付**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["主研究判断"]
-    B["直接读取"]
-    C["网页子任务"]
-    D["文档子任务"]
-    E["计算子任务"]
-    F["结果交接"]
-    G["主研究综合发布"]
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    B --> G
-    C --> F
-    D --> F
-    E --> F
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![分工之后仍由 Main 综合](../visuals/panorama-six-layer-v2/handoff-03.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-03.svg)
 
 图中两条路径是可选分支，不代表每次都同时启动。Child 用 `submit_subagent_result` 提交部分或最终交接，保留真实引用、产物、已读范围和未解决缺口。**Child 自己读过原文与 Main 只收到它的摘要，是两种不同消费事实**；摘要不自动升级为已核验数值，Child 也不能直接向用户发布最终答案。
 
@@ -426,48 +374,17 @@ Root 与三个工具型 worker 已经过受控执行验证；是否委派仍由�
 
 **图 6 · Projector：实际送模内容**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["用户原话历史"]
-    B["技能与偏好"]
-    C["工具回执"]
-    D["统一装配"]
-    E["容量拟合与压缩"]
-    F["真实模型请求"]
-    G["保留未送入材料"]
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-    E --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![进入模型前先统一装配](../visuals/panorama-six-layer-v2/handoff-04.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-04.svg)
 
 事实由原模块提供，投影器集中组织本轮模型视图。省略与容量处理需要留下记录；投影器不承担取数和授权。
 
 **图 7 · 长期偏好与当前持仓分开**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["用户提问"]
-    B["稳定偏好"]
-    C["版本化记忆"]
-    D["本次授权读取"]
-    E["当前权威持仓"]
-    F["解释中区分现状"]
-    A --> B
-    B --> C
-    A --> D
-    D --> E
-    C --> F
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![偏好与现状分别读取](../visuals/panorama-six-layer-v2/handoff-05.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-05.svg)
 
 有限背景影响表达，当前组合沿权威读取取得。长期记忆请求必须形成持久化回执，召回复核范围与版本；关系表不表示自动学习默认开启或已生产部署。
 
@@ -568,47 +485,17 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 **图 8 · 从工具提议到真实执行**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["模型可见工具"]
-    B["参数校验"]
-    C["调用前钩子"]
-    D["Host准入"]
-    E["实际派发回执"]
-    F["调用后投影"]
-    G["下一轮模型"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![每次调用都有执行交接](../visuals/panorama-six-layer-v2/handoff-06.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-06.svg)
 
 MCP 适配器接入能力，Host 管理实际执行。调用前检查不替代 Host 准入；返回后收窄的模型投影与原始回执各有归属。
 
 **图 9 · 钩子只能收窄不能改写事实**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["原始回执"]
-    B["保留源数据"]
-    C["调用后候选投影"]
-    D{"只做删减？"}
-    E["接受收窄投影"]
-    F["拒绝事实改写"]
-    A --> B
-    A --> C
-    C --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![收窄表示，不改写事实](../visuals/panorama-six-layer-v2/handoff-07.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-07.svg)
 
 这是调用后钩子的简化关系。原始回执独立保存；投影可以删除，留下的值与路径必须继承原事实。等形替换来源或数字属于禁止分支。
 
@@ -718,49 +605,17 @@ MCP 服务接入本身是独立能力模块，负责连接与握手、工具目�
 
 **图 10 · 从检索候选到证据消费**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["检索候选"]
-    B["核对版本"]
-    C["读页段与前后文"]
-    D["检查覆盖与时点"]
-    E{"证据足够？"}
-    F["记录缺口"]
-    G["形成带来源解释"]
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    E --> G
-    F --> G
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![命中之后，继续核对](../visuals/panorama-six-layer-v2/handoff-08.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-08.svg)
 
 资料路径展示候选、读取与覆盖的区别；组合结果在后续推理中汇合。缺少材料可以形成明确缺口，不能被当作完整证据。
 
 **图 11 · 计算：来源、公式与实验不同权**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["有来源数据"]
-    B["确定领域口径"]
-    C["确定性数值计算"]
-    D["隔离Python分析"]
-    E["保留假设与谱系"]
-    F["模型解释风险"]
-    A --> B
-    B --> C
-    A --> D
-    C --> E
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![计算与探索汇合于依据](../visuals/panorama-six-layer-v2/handoff-09.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-09.svg)
 
 两条计算路径使用各自适用的输入。确定性领域结果可复算，Python 分析保留假设与执行记录；模型最后解释用途和限制。
 
@@ -889,46 +744,17 @@ A33 **精确数值**把计算拆成“来源和时点 → 领域口径与公式 
 
 **图 12 · 已显示与已保存是两件事**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["候选正文"]
-    B["Publication处置"]
-    C["允许展示的预览"]
-    D["耐久提交正文"]
-    E["历史版本"]
-    F["前端身份对齐"]
-    A --> B
-    B --> C
-    B --> D
-    C --> F
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![预览与保存是两条路径](../visuals/panorama-six-layer-v2/handoff-10.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-10.svg)
 
 这是正文已允许展示后的关系。浏览器收到内容与后台保存可以在不同时间结算，需要按同一正文身份核对，不能相互冒充成功。
 
 **图 13 · 重发、追问、续接三分支**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["接收消息"]
-    B{"同消息重发？"}
-    C["回放原运行"]
-    D{"显式续接？"}
-    E["关联父任务新运行"]
-    F["普通追问新运行"]
-    A --> B
-    B --> C
-    B --> D
-    D --> E
-    D --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![重发、续接、追问要区分](../visuals/panorama-six-layer-v2/handoff-11.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-11.svg)
 
 这张图按请求关系分流，省略每条路径上的权限与来源检查。普通追问和显式任务续接都可以建立新运行，重发则查找原消息。
 
@@ -1062,22 +888,9 @@ Recovery 依靠已经封存的模型回合、工具效果回执和发布状态�
 
 **图 14 · 控制事件：原运行醒来与新定时运行**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["原运行安全停放"]
-    B["原控制事件回执"]
-    C["原运行唤醒"]
-    D["用户已确认日程"]
-    E["新任务实例"]
-    F["新定时运行"]
-    A --> B
-    B --> C
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![唤醒原运行，或创建新任务](../visuals/panorama-six-layer-v2/handoff-12.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-12.svg)
 
 图中左上的 Schedule 路径是用户**确认后**才生效的一次定时任务；`TaskRun` 是该 occurrence 的 Root Run。右侧的 parked/wake 则延续**原来那一个**非终态 Run。两者共用受控事件入口和真实生命周期 owner，却不能因收到通知就相互转换，更不能把 `finish_research({isSuspend:true})` 这种终态暂停解释为同 Run 睡眠。
 
@@ -1174,49 +987,17 @@ linkStyle default stroke:#517A8D,stroke-width:1.8px;
 
 **图 16 · 观测拼回真实交接**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["Run身份"]
-    B["模型输入输出"]
-    C["工具回执"]
-    D["发布保存"]
-    E["客户端显示"]
-    F["综合诊断"]
-    A --> B
-    A --> C
-    A --> D
-    A --> E
-    B --> F
-    C --> F
-    D --> F
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![按身份连接不同执行事实](../visuals/panorama-six-layer-v2/handoff-13.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-13.svg)
 
 Langfuse 关联可取得的观察。界面绘制需要独立观测；未取得时保持未知。观测异常不会改变真实执行与正文保存。
 
 **图 17 · 评估实际交付而非草稿**
 
-```mermaid
-%%{init: {"flowchart": {"curve": "step"}}}%%
-flowchart TD
-    A["用户目标"]
-    B["实际交付"]
-    C["来源数字复核"]
-    D["语义评审"]
-    E["通过失败或未知"]
-    F["定位责任Owner"]
-    A --> D
-    B --> C
-    B --> D
-    C --> E
-    D --> E
-    E --> F
-classDef default fill:#FFFFFF,stroke:#A3B9C7,stroke-width:1.5px,color:#193649;
-linkStyle default stroke:#517A8D,stroke-width:1.8px;
-```
+![回到原问题评价交付](../visuals/panorama-six-layer-v2/handoff-14.svg)
+
+[打开完整矢量图](../visuals/panorama-six-layer-v2/handoff-14.svg)
 
 评估使用固定任务和明确评审对象。通过、失败和未知都保留；修复先回到失真模块，避免把所有问题都变成新增提示。
 

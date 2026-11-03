@@ -49,15 +49,17 @@ Citations cross source acquisition, tool receipts, retained results, model input
 
 Our eventual choice was to **unify mechanical interpretation of results and references while keeping each owner responsible for its own effects**.
 
-```mermaid
-flowchart TD
-    A["Source / tool owner<br/>Actual reads and receipts"] --> B["Result / reference owner<br/>Identity, lineage, citation eligibility"]
-    B --> C["Model input<br/>Actually submitted representation and range"]
-    B --> D["Publication<br/>Body, revisions, eligible attachments"]
-    C --> D
-    D --> E["History / UI<br/>Read-only inspection by original identity"]
-    E --> F["Explicit reviewer<br/>Independent non-authoritative opinion"]
-```
+![Distinct citation responsibilities · 1/3](../../visuals/en/panorama-citations/responsibility-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-1.svg)
+
+![Distinct citation responsibilities · 2/3](../../visuals/en/panorama-citations/responsibility-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-2.svg)
+
+![Distinct citation responsibilities · 3/3](../../visuals/en/panorama-citations/responsibility-3.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-3.svg)
 
 *Figure 2. The arrows show consumption of facts, not a new authority over access, publication, or semantic truth.*
 
@@ -82,16 +84,13 @@ Seeing three types of references in a system may suggest that they should be col
 | `resultRef` | An exact retained result, version, selection, and receipt | Read authorization or original-source authority |
 | `citationRef` | A reference issued by the Host under existing evidence-eligibility rules | Proof of semantic entailment, or automatic cross-run reuse |
 
-```mermaid
-flowchart TD
-    A["Search hit / link in visible page text"] --> B["sourceRef<br/>Navigation capability"]
-    B --> C["Controlled read and actual receipt"]
-    C --> D["resultRef<br/>Exact result and version"]
-    C --> E{"Is this content eligible to cite?"}
-    E -- "Yes" --> F["Host issues citationRef"]
-    E -- "No" --> G["Navigation or limited result only"]
-    F --> H["Publication resolves original identity"]
-```
+![Navigation is not citation eligibility · 1/2](../../visuals/en/panorama-citations/identity-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/identity-1.svg)
+
+![Navigation is not citation eligibility · 2/2](../../visuals/en/panorama-citations/identity-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/identity-2.svg)
 
 *Figure 3. A result can be used for analysis or navigation while still lacking authority to appear as an external citation.*
 
@@ -113,20 +112,17 @@ But the September rule was not the end of the design. **On October 6, we recogni
 
 The revised design preserves the distinction between representations. A permitted search excerpt that actually entered the model request can receive an **excerpt-scoped citation**, explicitly marked `representation=search-excerpt`. This can support a statement about what the returned excerpt reported. It does not pretend the agent read the full original page.
 
-```mermaid
-flowchart TD
-    A["Tool receipt and candidate content"] --> B{"Was it actually delivered to the model?"}
-    B -- "No" --> X["Do not issue a public citation"]
-    B -- "Yes" --> C{"Which eligible representation?"}
-    C -- "Original read window" --> D["Bind exact read, version, and range"]
-    C -- "Eligible search excerpt" --> E["Bind submitted excerpt<br/>Mark search-excerpt"]
-    C -- "Navigation only / ineligible" --> X
-    D --> F["Check run, scope, and original use permission"]
-    E --> F
-    F --> G{"Still eligible?"}
-    G -- "Yes" --> H["Issue or resolve citationRef"]
-    G -- "No" --> I["That citation is unavailable;<br/>keep independent legal prose"]
-```
+![Delivery before citation eligibility · 1/3](../../visuals/en/panorama-citations/eligibility-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-1.svg)
+
+![Delivery before citation eligibility · 2/3](../../visuals/en/panorama-citations/eligibility-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-2.svg)
+
+![Delivery before citation eligibility · 3/3](../../visuals/en/panorama-citations/eligibility-3.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-3.svg)
 
 *Figure 4. Eligibility follows actual receipts, model exposure, and use permissions—not the model's URL, label, or assertion that it has read something.*
 
@@ -156,22 +152,13 @@ A portable principle follows: **a broken citation does not prove the answer fals
 
 A research answer is not necessarily generated once and then frozen. Parts may be streamed, replaced in place, committed durably, and later opened through History in another process. A reference recorded only as a URL or an old string offset can quietly change meaning along this route.
 
-```mermaid
-sequenceDiagram
-    participant S as Source read
-    participant R as Result / reference
-    participant P as Publication
-    participant D as Durable store
-    participant U as History / UI
-    S->>R: Actual window, content version, location
-    R->>P: Exact citation and original-source relationship
-    P->>D: publicationId + revision 1 + anchors
-    D-->>U: Committed revision 1
-    P->>D: Valid replace creates revision 2
-    D-->>U: Show effective revision 2
-    U->>D: Inspect citation from revision 2
-    D-->>U: Retained original passage or explicit gap
-```
+![Revisions retain original evidence · 1/2](../../visuals/en/panorama-citations/revision-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/revision-1.svg)
+
+![Revisions retain original evidence · 2/2](../../visuals/en/panorama-citations/revision-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/revision-2.svg)
 
 *Figure 5. A replacement has its own anchors in the final body. Historical revision 1 is retained; old offsets are not copied blindly into revision 2.*
 
@@ -205,19 +192,13 @@ Asking another model “Are the citations correct?” sounds simple. In practice
 
 Consider the synthetic SDK example again. The answer correctly states that SDK 2.4 removed `legacyLogin()`, but it cites the SDK 2.3 document. The reviewer may also receive the SDK 2.4 document as additional material. It should report: **the material set supports the claim, but the reference actually attached to the claim is wrong**. The existence of support elsewhere cannot retroactively fix the cited relationship.
 
-```mermaid
-flowchart TD
-    A["Explicitly select an answer revision"] --> B["Freeze body, actual citations, eligible materials"]
-    B --> C{"Enough readable evidence?"}
-    C -- "No" --> D["Record gaps and unchecked scope"]
-    C -- "Yes" --> E["Independent reviewer run"]
-    E --> F["Assess material support"]
-    E --> G["Assess actual citation correspondence"]
-    F --> H["Per-claim reasons and uncertainty"]
-    G --> H
-    D --> H
-    H -.-> I["Do not rewrite original Publication / Run"]
-```
+![Review does not rewrite facts · 1/2](../../visuals/en/panorama-citations/review-1.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/review-1.svg)
+
+![Review does not rewrite facts · 2/2](../../visuals/en/panorama-citations/review-2.svg)
+
+[Open the full vector diagram](../../visuals/en/panorama-citations/review-2.svg)
 
 *Figure 6. Review is a separate bounded operation, not an automatic final gate before publishing the original research.*
 

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="608" viewBox="0 0 520 608" role="img" aria-labelledby="title desc" lang="en"><title id="title">Revisions retain original evidence · 2</title><desc id="desc">Original identity, committed revision, actual reread</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L8 5L1 9" fill="none" stroke="#49796e" stroke-width="1.7"/></marker></defs><rect width="520" height="608" rx="20" fill="#f7f8f2"/><rect x="1" y="1" width="518" height="606" rx="19" fill="none" stroke="#cddbd1"/>
+<text x="28" y="32" font-family="Noto Sans CJK SC, sans-serif" font-size="12" font-weight="700" fill="#7756a0" text-anchor="start">CITATIONS / FIELD GUIDE</text>
+<text x="28" y="68" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" fill="#183e35" text-anchor="start">Revisions retain original evidence · 2</text>
+<text x="28" y="101" font-family="Noto Sans CJK SC, sans-serif" font-size="15" font-weight="500" fill="#586d65" text-anchor="start">Original identity, committed revision, actual reread</text>
+<text x="28" y="140" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#7756a0" text-anchor="start">05  Publication → Durable store</text>
+<rect x="28" y="154" width="464" height="72" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="196.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Valid replace creates revision 2</text>
+<text x="28" y="256" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#7756a0" text-anchor="start">06  Durable store → History / UI</text>
+<rect x="28" y="270" width="464" height="72" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="312.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Show effective revision 2</text>
+<text x="28" y="372" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#7756a0" text-anchor="start">07  History / UI → Durable store</text>
+<rect x="28" y="386" width="464" height="72" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="428.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Inspect citation from revision 2</text>
+<text x="28" y="488" font-family="Noto Sans CJK SC, sans-serif" font-size="16" font-weight="700" fill="#7756a0" text-anchor="start">08  Durable store → History / UI</text>
+<rect x="28" y="502" width="464" height="72" rx="12" fill="#ffffff" stroke="#bacdc4" stroke-width="1.5"/>
+<text x="260.0" y="544.0" font-family="Noto Sans CJK SC, sans-serif" font-size="19" font-weight="500" fill="#183e35" text-anchor="middle">Retained original passage or explicit gap</text></svg>

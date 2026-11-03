@@ -51,15 +51,9 @@ These are not perfectly interchangeable products, and there is no task-independe
 
 ### Figure 1. Domain goals and general execution capabilities
 
-```mermaid
-flowchart TD
-    Q[User fund-research question] --> D[Domain goal and business conditions]
-    D --> R[General execution capabilities]
-    R --> T[Read sources and calculate]
-    T --> C[Form evidence-bounded conclusions]
-    C --> O[Deliver a checkable result]
-    T --> D
-```
+![Domain goals guide execution — Sources and calculation can revise conditions](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-1.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-1.svg)
 
 The return edge matters. Research is not merely a predetermined list of tool calls. New information may require changing the question or answering only part of it. The runtime enables the loop; the domain capabilities help interpret each observation.
 
@@ -125,16 +119,9 @@ For a backtest of what could have been known on October 1, the report disclosed 
 
 ### Figure 2. Three times associated with one source
 
-```mermaid
-flowchart TD
-    A[Data as of September 30] --> B[Disclosed October 25]
-    B --> C[Retrieved November 2]
-    C --> D{Which research question}
-    D --> E[Explain historical holdings]
-    D --> F[Assess the current allocation]
-    E --> G[Use the stated historical scope]
-    F --> H[Retain lag and unknown changes]
-```
+![Three dates, two questions — Teaching dates: the question defines relevance](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-2.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-2.svg)
 
 ### New information must not silently rewrite old conclusions
 
@@ -170,15 +157,9 @@ Missing data cannot be filled with zero. Zero means absence is known; unknown me
 
 ### Figure 3. One amount, three denominators
 
-```mermaid
-flowchart TD
-    X[Known Company X amount CNY 9000] --> A[Divide by total assets CNY 120000]
-    X --> B[Divide by fund assets CNY 108000]
-    X --> C[Divide by disclosed sample CNY 64800]
-    A --> D[Total-asset exposure 7.5 percent]
-    B --> E[Fund-asset exposure about 8.33 percent]
-    C --> F[Sample exposure about 13.89 percent]
-```
+![One amount, three bases — Teaching case: Company X, known CNY 9,000](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-3.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-3.svg)
 
 ### The cash target uses the post-contribution denominator
 
@@ -226,16 +207,9 @@ Not every sentence needs a giant evidence object. Preserve the smallest useful c
 
 ### Figure 4. Evidence supports a claim; it does not automatically certify it
 
-```mermaid
-flowchart TD
-    S[Original source and revision] --> F[Extracted domain facts]
-    F --> M[Applicable calculation method]
-    M --> R[Recomputable result]
-    F --> C[Model research claim]
-    R --> C
-    C --> V[Independently check support]
-    V --> O[Retain or narrow the claim]
-```
+![Support is not certification — Keep source, calculation and claim distinct](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-4.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-4.svg)
 
 ### Links, hashes and lineage can accompany a wrong answer
 
@@ -273,17 +247,13 @@ A user's approval must also remain bound to the relevant object and version. Per
 
 ### Figure 5. Open-ended exploration, explicit authority for effects
 
-```mermaid
-flowchart TD
-    Q[User research question] --> R[Explore within approved sources]
-    R --> A[Deliver explanation and conditional options]
-    R --> W{External write requested}
-    W -- No --> A
-    W -- Yes --> P[Check object and action authorization]
-    P --> C{Authorization still applies}
-    C -- Yes --> E[Use the existing execution process]
-    C -- No --> N[Do not execute and retain valid analysis]
-```
+![Explore; authorize effects — Research autonomy is not permission to write](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-5-1.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-5-1.svg)
+
+![Explore; authorize effects — Research autonomy is not permission to write](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-5-2.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-5-2.svg)
 
 ### A prompt is guidance, not a security perimeter
 
@@ -361,16 +331,13 @@ Even justified custom work inherits streaming fragments, cancellation races, ret
 
 ### Figure 6. Start with a usable baseline, not a platform
 
-```mermaid
-flowchart TD
-    A[One explicit task] --> B[Existing SDK and domain tools]
-    B --> C{Rules recur across tasks}
-    C -- No --> D[Keep the implementation local]
-    C -- Yes --> E[Extract a shared domain core]
-    E --> F{Execution contracts are insufficient}
-    F -- No --> G[Keep the existing runtime]
-    F -- Yes --> H[Compare extensions and bounded custom work]
-```
+![Reuse before rebuilding — Domain core and runtime are separate choices](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-6-1.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-6-1.svg)
+
+![Reuse before rebuilding — Domain core and runtime are separate choices](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-6-2.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-6-2.svg)
 
 ### A reversed success criterion
 
@@ -410,17 +377,9 @@ User comprehension and adoption also do not prove improved investment returns. O
 
 ### Figure 7. Four completion questions, not an automatic promotion ladder
 
-```mermaid
-flowchart TD
-    T[One research task] --> E[Did execution finish]
-    T --> Q[Are the research claims supported]
-    T --> D[Can the result actually be obtained]
-    T --> U[Did the user actually use it]
-    E --> R[Record evidence and gaps separately]
-    Q --> R
-    D --> R
-    U --> R
-```
+![Four views of completion — Related observations—not automatic upgrades](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-7.svg)
+
+[Open the full vector diagram](../../visuals/vertical-financial-agent-principles-panorama/en/diagram-7.svg)
 
 ### Use counterexamples that change the conclusion
 
