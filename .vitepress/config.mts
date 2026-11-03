@@ -130,7 +130,7 @@ export default defineConfig({
       title: pageData.title,
       description,
       canonical,
-      image: 'https://hpoenixf.com/static/images/twitter-card.png',
+      image: SITE_URL + 'social-card.png',
       article: relativePath.startsWith('articles/') || relativePath.startsWith('en/articles/'),
       english
     }))

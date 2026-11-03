@@ -132,3 +132,15 @@ test('invalid explicit provenance fails instead of silently publishing invented 
   ]) assert.throws(() => articleStructuredData({ metadata }), TypeError)
   assert.equal(articleStructuredData({ metadata: { datePublished: '2024-02-29' } }).datePublished, '2024-02-29')
 })
+
+
+test('social previews use the reading-site brand asset rather than the starter blog image', async () => {
+ const { readFileSync } = await import('node:fs')
+ const config = readFileSync(new URL('../.vitepress/config.mts', import.meta.url), 'utf8')
+ assert.ok(config.includes("image: SITE_URL + 'social-card.png'"))
+ assert.ok(!config.includes('static/images/twitter-card.png'))
+ const png = readFileSync(new URL('../public/social-card.png', import.meta.url))
+ assert.equal(png.subarray(1, 4).toString(), 'PNG')
+ assert.equal(png.readUInt32BE(16), 1200)
+ assert.equal(png.readUInt32BE(20), 630)
+})
