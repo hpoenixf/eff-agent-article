@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { resolve, join } from 'node:path'
-import { localAsset, englishImageError } from './check-bilingual-visuals.mjs'
+import { localAsset, englishImageError, imageLinks } from './check-bilingual-visuals.mjs'
 
 const output = resolve('test-output')
 mkdirSync(output, { recursive: true })
@@ -67,4 +67,24 @@ test('fund allocation uses bilingual native relationships without losing the syn
     assert.equal(example.unallocated, 70)
     assert.equal(example.ledgerWritten, false)
   }
+})
+
+
+test('literal withBase image bindings retain the actual asset path', () => {
+  const source = `<picture><img :src="withBase('/diagrams/english.svg')" /></picture>
+<img v-bind:src='withBase("/diagrams/english.svg?v=1#caption")' />
+<img src="/visuals/legacy.svg" />`
+  assert.deepEqual(imageLinks(source), ['/diagrams/english.svg', '/diagrams/english.svg?v=1#caption', '/visuals/legacy.svg'])
+  for (const link of imageLinks(source)) assert.equal(englishImageError('en/articles/example.md', link, root), null)
+})
+test('bound assets still reject missing files and Chinese labels', () => {
+  const links = imageLinks(`<img :src="withBase('/diagrams/missing.svg')" /><img :src="withBase('/diagrams/chinese.svg')" />`)
+  assert.match(englishImageError('en/articles/example.md', links[0], root), /English image missing/)
+  assert.match(englishImageError('en/articles/example.md', links[1], root), /Chinese-labelled image/)
+})
+test('unknown image expressions fail closed and are never evaluated', () => {
+  for (const expression of ['assetPath', "withBase('/diagrams/' + name)", 'globalThis.evaluated = true']) {
+    assert.throws(() => imageLinks(`<img :src="${expression}" />`), /Unsupported bound image src/)
+  }
+  assert.equal(globalThis.evaluated, undefined)
 })
