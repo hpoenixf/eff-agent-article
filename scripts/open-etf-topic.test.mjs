@@ -83,17 +83,23 @@ test('offline snapshot validation is explicitly not a publication readback',()=>
 })
 
 
-test('revocable source uses its own fixed evidence without promoting candidate admission or schedule',()=>{
+test('new real-task slices retain independent evidence and old worker/revocation identities',()=>{
  for(const language of ['zh','en']) {
   const rows=topicGroups(language).flatMap(g=>g.articles)
   const rag=rows.find(r=>r.slug==='027-rag-revocation-publish-replay')
   assert.equal(rag.status,'limited')
   assert.equal(rag.since,'0.16')
   assert.equal(rag.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/src/session-cli.mjs')
-  assert.equal(rows.find(r=>r.slug==='agent-provider-admission-capacity-lease').status,'unmapped')
+  const admission=rows.find(r=>r.slug==='agent-provider-admission-capacity-lease')
+  assert.equal(admission.status,'limited')
+  assert.equal(admission.since,'0.17')
+  assert.equal(admission.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/187c942b2c43c6da77011bcb2cbab1bfde1bdead/docs/verification/v017-real-ten.safe.json')
   const schedule=rows.find(r=>r.slug==='agent-autonomous-scheduled-research')
   assert.equal(schedule.since,'0.9')
-  assert.ok(!schedule.additionalTargets.some(slice=>slice.since==='0.18'))
+  const occurrence=schedule.additionalTargets.find(slice=>slice.since==='0.18')
+  assert.equal(occurrence.status,'limited')
+  assert.equal(occurrence.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-real-ten.safe.json')
  }
- assert.deepEqual(versions.slice(-3).map(v=>v.version),['0.14','0.15','0.16'])
+ assert.deepEqual(versions.slice(-3).map(v=>v.version),['0.16','0.17','0.18'])
 })
+

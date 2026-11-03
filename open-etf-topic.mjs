@@ -1,4 +1,7 @@
 // Presentation joins only. Article identity/order: book.mjs; qualification: public repo snapshots.
+import { validateRealTenEvidence } from './scripts/real-ten-evidence.mjs'
+import admissionReceipt from './data/open-etf-agent/v017-real-ten.safe.json' with { type: 'json' }
+import scheduleReceipt from './data/open-etf-agent/v018-real-ten.safe.json' with { type: 'json' }
 import { collections } from './book.mjs'
 import { englishTitles, englishArticlePath, englishCollections } from './book.en.mjs'
 import source from './.github/open-etf-code-source.json' with { type: 'json' }
@@ -25,9 +28,13 @@ export function topicGroups(language = 'en') {
         const q=coverage.schemaVersion===3 && slice?.target?coverage.qualifications[coverage.targetEvidence[slice.target]]:null
         const scenarios={temporal:temporalReceipt.independentInstall,'ordinary-response':responseReceipt.independent,'memory-consumer':memoryReceipt.independent,'revocable-rag':revocableReceipt.independent}
         const scenario=q?.kind==='independent-scenario' && scenarios[q.scenario]
-        const verified=slice?.status==='verified' && (scenario?scenario.modelCalls===0 && !!scenario.report?.sha256:receipt?.exitCode===0 && coverage.verifiedAt===receipts.sourceCommit)
+        const realTen = q?.kind === 'independent-scenario' && ['shared-admission','schedule-occurrence'].includes(q.scenario)
+        // Consume the same canonical validator as snapshot import and code coverage.
+        // Never reinterpret real requests as provider-free evidence for display.
+        const realObserved = realTen ? validateRealTenEvidence(q.scenario === 'shared-admission' ? admissionReceipt : scheduleReceipt, q.scenario) : null
+        const verified=slice?.status==='verified' && (realTen ? !!realObserved.report?.sha256 : scenario?scenario.modelCalls===0 && !!scenario.report?.sha256:receipt?.exitCode===0 && coverage.verifiedAt===receipts.sourceCommit)
         const target=verified && lineage.targets[slice.target]
-        return {target:slice?.target,status:verified?'limited':slice?'unmapped':'unassessed',scope,since:target?.since,evidence:target?repo+'/blob/'+(q?.commit || receipts.sourceCommit)+'/'+target.evidencePath:null}
+        return {target:slice?.target,status:verified?'limited':slice?'unmapped':'unassessed',scope,since:target?.since,evidence:target?repo+'/blob/'+(realTen ? q.evidenceCommit : q?.commit || receipts.sourceCommit)+'/'+(realTen ? q.receipt.path : target.evidencePath):null}
       }
       const primary=view(record,record?(en?translations.articles[slug]?.scope || record.scope:record.scope):(en?'Not included in this coverage snapshot. No execution claim.':'不在本次覆盖快照中；不借用执行结论。'))
       const additionalTargets=(record?.additionalTargets || []).map(slice=>view(slice,en?translations.articles[slug]?.additionalScopes?.[slice.target]?.scope || slice.scope:slice.scope))

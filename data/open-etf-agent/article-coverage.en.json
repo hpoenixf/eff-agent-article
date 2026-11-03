@@ -100,9 +100,9 @@
     },
     "agent-provider-admission-capacity-lease": {
       "title": "Why the Next Model Request Still Queues After HTTP 200",
-      "scope": "No cross-process queue, lease/isolation, remote unknown/release or PostgreSQL control database.",
+      "scope": "Fixed-route shared local Admission; ten tasks retain nine successes and one interrupted unknown, with five continued in an isolated group. Separate two-process safety evidence; no original-group recovery, cross-group global capacity or live-contention certification.",
       "englishAvailable": true,
-      "articleBlob": "ff617e80b73478488b685bc7ad0bad8da96aae2b"
+      "articleBlob": "1cd01f3eabb7add697b90b627e02727468b48313"
     },
     "020-agent-extension-host-smartphone": {
       "title": "Extension Host: From Feature Phone to Smartphone",
@@ -162,7 +162,13 @@
       "title": "Scheduled Research Beyond a Conversation",
       "scope": "Explicit submit and separate work process read back the original Run; no schedule trigger, Task orchestration, notification or foreground concurrency.",
       "englishAvailable": true,
-      "articleBlob": "4d0f2286912b935925689ec26371c6cd9f2ee50d"
+      "articleBlob": "4d0f2286912b935925689ec26371c6cd9f2ee50d",
+      "additionalScopes": {
+        "schedule-occurrence": {
+          "articleBlob": "42b7be4d84aa81d3406fc105be831e76b5bac2cd",
+          "scope": "One confirmed due-time Schedule API occurrence with explicit wake; ten successful tasks retain the same Run through Worker, Admission, Publication and read-only Session inspection. Separate fixture CLI; no background or recurring service."
+        }
+      }
     },
     "025-agent-langfuse-from-trace-to-trustworthy-observability": {
       "title": "Langfuse: From Traces to Trustworthy Observability",

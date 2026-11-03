@@ -1,0 +1,918 @@
+{
+  "schemaVersion": 1,
+  "kind": "v018-real-ten-release-qualification-candidate",
+  "version": "0.18.0",
+  "preparedAt": "2026-11-03T02:06:44.126031+00:00",
+  "localExecutionCommit": "e895197443c70a46d047f72c2bf8ce3a3599907d",
+  "localExecutionTree": "97cc50024ae5b8d2f52ed1499fe1188f4fd9f09d",
+  "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+  "executionIdentityMeaning": "unchanged fixed execution-source identity; provider/profile and task inputs are additionally frozen by plan hashes",
+  "realProviderApplicability": "supported-with-stated-scope",
+  "providerModel": "deepseek-v4.1-flash",
+  "frozenPlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+  "frozenPlanFileSha256": "558377f3bbc74c718cdbb9de718a15e6c9fe53da7c66c8790a1a5970159e75b6",
+  "retainedStateSha256": "c47ef959b4025cdf7e6220b97454fe2776e85fca2868c65293003263341b90ca",
+  "readbackSha256": "b8f265e663c4430b7e55199cf4b06f934c04c84c7aa9cd3df26c2c82037afc2f",
+  "independentAcceptanceSha256": "11298c63b5758518069e28c5f6bb921dd5e695d79085bc37739db2f24c9680e2",
+  "inputFiles": [
+    {
+      "path": "fixtures/cases.json",
+      "sha256": "9f91af7bbf425d20e48d985d3f33e7770ca2aaf1e9fe011c1d35ace31a062ba6",
+      "gitBlob": "a4507653663035dd4e2e16dadbc5e97b704ccd49"
+    },
+    {
+      "path": "fixtures/comparison-table.json",
+      "sha256": "5904cd51243be2a5682aed8ace3089ca0dfa448b8dcb59b47ee12a5cb74eed0e",
+      "gitBlob": "c7ff764f883f21fa0b6338280c04eaae51da49d3"
+    },
+    {
+      "path": "fixtures/documents.json",
+      "sha256": "0eed0f1ba7aef916b67eedb397e92e52c68d1ef5d2b7598b4013330c314ea8f1",
+      "gitBlob": "b1adb45d573e56908d2e1be82a90419c7985c6c9"
+    },
+    {
+      "path": "fixtures/local-pdf.json",
+      "sha256": "6339ce78d317baab5bdbd76efd3357d62594659e9f343af63d391192c241d217",
+      "gitBlob": "1464a0977bf5f045637db2c65b210a1bdb586b19"
+    },
+    {
+      "path": "fixtures/portfolio-rebalance.json",
+      "sha256": "0cc6146ba68aa9e65cb640fcac2f07cb5f5a99e5a232d9bc2047c7d1846cd232",
+      "gitBlob": "3b5ce86dddadd6b67afcab6701ee1cfbfa50580e"
+    },
+    {
+      "path": "fixtures/skills/compare/SKILL.md",
+      "sha256": "f5dddc14e6deb9f0308bd1360794f343870cb31f2924f533370b6eb650d77754",
+      "gitBlob": "d3e63dcc1fab843d1eca08abb342cd0b63e7cc6f"
+    },
+    {
+      "path": "fixtures/skills/compare/checklist.txt",
+      "sha256": "3587d34fc69e1bf1e79a5c1230c32dcd9c588e5a1fc05f52bc26aff7ee318e31",
+      "gitBlob": "f9932537544e18808f0dc092aa9de80e018ce752"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b303dcd53b5b0f4150d6453d3f3646415f720607f83b495cfdae373ed9c0a05b",
+      "gitBlob": "f08dbed8eed273a1b8c0ed30befb3fd57bbecc78"
+    },
+    {
+      "path": "package.json",
+      "sha256": "f6e85a15ee4173f46995c36a36095ff09a4f3d355dc3be1891c892c03df48f47",
+      "gitBlob": "ce98b57a83ccaa5efd785debb6fba371d86b168f"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "99b74ef6e3fa0be2bab927adaeb9a65480dff22f4a6c4e67253622ecbac89344",
+      "gitBlob": "57ed4cbc220be41aceab2f116c11a00f60e2c0bd"
+    },
+    {
+      "path": "src/admission-demo-worker.mjs",
+      "sha256": "be27559ceb1b2b57a6dd13b5e541e2cd61b1b1b067d2d8fdb6646fb4ba463b48",
+      "gitBlob": "730fd000c3b1b34521d0be0c4e9e84a9671b799b"
+    },
+    {
+      "path": "src/admission-demo.mjs",
+      "sha256": "b86db55625cad861c9b18d992be2380ca8b12857bc0ad2bed368698ac6c63ec6",
+      "gitBlob": "8300675c217e8a793028caafc09cee4086ff64ca"
+    },
+    {
+      "path": "src/admission.mjs",
+      "sha256": "a9e602180531cd422abe3edc1af9488ee3f8739cb4256c5becec1152ed3bec63",
+      "gitBlob": "19e945fd6eeada27c9c18439b4a41fc3e9b05d1e"
+    },
+    {
+      "path": "src/artifact-demo.mjs",
+      "sha256": "b56ba56449613dc02754887aeaf3ae3227ff74dcf5d916a86df0d57c79e81ba6",
+      "gitBlob": "87e8cf9cbb400b253bfaee2d14ce86ad33c86279"
+    },
+    {
+      "path": "src/artifacts.mjs",
+      "sha256": "b8119eb752f6c2d17ab7917fd641eff1c040cbf2ae8c30e3b13d046f46e234f7",
+      "gitBlob": "949cc7651e887754886a8f76e4ba9fa04b1998c3"
+    },
+    {
+      "path": "src/calculation.mjs",
+      "sha256": "5b7b775e7b80c2326db16e8f5d7771cc64b0b112f6430f92afdc78b5d158b43f",
+      "gitBlob": "3e95cc04cd81b2ec2dc5b11378c97969fafd73bc"
+    },
+    {
+      "path": "src/child-results.mjs",
+      "sha256": "1e1522bf3fce336c03b4781a4fa303ff039986f35c2aa5dbb57b248411ce194c",
+      "gitBlob": "7368e9ac86ac28f03a0595461397bdee7f7f9c39"
+    },
+    {
+      "path": "src/child.mjs",
+      "sha256": "e501292f05e68974bb2dab1692f2de17fd07d1800947cc17323643997cd68414",
+      "gitBlob": "c3331e494115d512e52c00327d96a516f3dbb80a"
+    },
+    {
+      "path": "src/cli.mjs",
+      "sha256": "1a43616cf07c944509e6637c7f6dea53fa4a37534df7b363eb1aabe021a3c415",
+      "gitBlob": "30b8a58081133b30f78e7cb93f1303ce5ba4d20a"
+    },
+    {
+      "path": "src/compaction.mjs",
+      "sha256": "2d11ffd4b71f3418332b72f54e481ea2a669285129baec725b8b4541ae655210",
+      "gitBlob": "ce4547f2288b5af91643cdb020aff1c397d66080"
+    },
+    {
+      "path": "src/context.mjs",
+      "sha256": "780fd236a02cdbd08932c34a3f0169bd703bbb2b37c003636134263c13098c6e",
+      "gitBlob": "568532667ef727eb14b8cb550752f49e71534e07"
+    },
+    {
+      "path": "src/cooperation-demo.mjs",
+      "sha256": "8fe51ff844db362b2687e86fe53dc38cb1148441133ffd04f0f159dc9ea72e5c",
+      "gitBlob": "ee67e59c104ff0f45d2169e6d3cff4e8ed2ea012"
+    },
+    {
+      "path": "src/cooperation.mjs",
+      "sha256": "984f63e17a29b03b3bd97a84c363f217f867ae9f2a34af100e7ddf12e12b0c71",
+      "gitBlob": "2fbfe193b8446d6360cbd5de737b5a976e0eb843"
+    },
+    {
+      "path": "src/durable-child.mjs",
+      "sha256": "ce37d18ea8542d477c06deb2e8167613a80f2e5b81a9ad9730fd5f70688c7d5b",
+      "gitBlob": "39f1fec6d6b73793dd29957b83f16dedfd84822d"
+    },
+    {
+      "path": "src/durable-demo.mjs",
+      "sha256": "f054ddf80b60c47e19c16c2bafc5512bd72143c4c35c03bacc868ee80884eaa3",
+      "gitBlob": "b8d899fbe9384c2e80d7d2cf4d2476bc5d501634"
+    },
+    {
+      "path": "src/durable-memory.mjs",
+      "sha256": "5448f1306cb8da43dc3651c6d312742f2dd9d27dd25080b681308f66b8101f72",
+      "gitBlob": "dd7911151444a4609f6b5e9bc9d0e290978f7674"
+    },
+    {
+      "path": "src/evaluate-cli.mjs",
+      "sha256": "306bbad49b7698449421d1a694decbafdb1fdf31841a829edd058e2209ece794",
+      "gitBlob": "05abed88e0855f73ffca1e6c64f971504c8a0394"
+    },
+    {
+      "path": "src/evaluate.mjs",
+      "sha256": "974e288e0516dcd4098110bbba1e0ee2e868a717d48778ff48295b53e5aae200",
+      "gitBlob": "b8e27cfa0514dfc4b00a40aba4b0726c24820be1"
+    },
+    {
+      "path": "src/example-plugins.mjs",
+      "sha256": "05dc97f843e14f3fe4224dd35b0c57d5232b97240a3bd25115d3abdea537f0eb",
+      "gitBlob": "c31188c928a1cf4a3169c929899dc980fb6c5d04"
+    },
+    {
+      "path": "src/extensions.mjs",
+      "sha256": "0bc6ab3e24f1b8e51a3373dacca48ba5e6857064ff7aee29675340d57d4711db",
+      "gitBlob": "3c12ee8e6b4ca4516b842b5cdd6f46f67cf8f808"
+    },
+    {
+      "path": "src/fixture-gateway.mjs",
+      "sha256": "5ba1ae02049188f7b5890aca19df3bfe5e987cd389ef3b103518cbad88c40bcd",
+      "gitBlob": "530662b69faf65366ab903737caa3a034bb67177"
+    },
+    {
+      "path": "src/fixture-server.mjs",
+      "sha256": "98830aa62741d054efb969bf717e964790a109f31feef75681ba2ac105fd3738",
+      "gitBlob": "f3aef6d5ba6e9df5b8917ba6cb345cc059428bf1"
+    },
+    {
+      "path": "src/gateway.mjs",
+      "sha256": "f7b200b3a72bf35a9b8c3c9cc465c2999c67a2558ef4cd7611b5e43929deef5e",
+      "gitBlob": "d2c046a149ad2db922bc05e305af9469f1b7a939"
+    },
+    {
+      "path": "src/hooks.mjs",
+      "sha256": "aeedd9bfeaffbd5a23e069817740cfac0574e570c494b717588644f432db06d4",
+      "gitBlob": "874e75839e1fafd2b8ee298d345f50085ab9ffcf"
+    },
+    {
+      "path": "src/human-response.mjs",
+      "sha256": "89297937e02a6d03ac0d6deff735d66aa551110633198288d7510374d6c641ee",
+      "gitBlob": "4a5d1f07d844101d0b742353a85a82e4babe988e"
+    },
+    {
+      "path": "src/live-config.mjs",
+      "sha256": "e021eabdce6f4c8b9f52d70669e6be934f1a674197b45739c4ce592c1f21d546",
+      "gitBlob": "398840ac1eaedf24326135540aa2805f18e358b1"
+    },
+    {
+      "path": "src/live-options.mjs",
+      "sha256": "ddd4eba2bac029bd4c06227ad0807d412f2dff8d5b2caae8a471b5e7bcaf3555",
+      "gitBlob": "41bf9c2f13cd8b66dc659ecb33797fa7e22c3dc3"
+    },
+    {
+      "path": "src/live-trace.mjs",
+      "sha256": "9f45500caeb8a51c335fc01bc1b2eb05e24c97ecfe9a1d583581a77763e3374f",
+      "gitBlob": "3fa4f18a72d439473de6c84cb9587f530473e9f0"
+    },
+    {
+      "path": "src/live-transport.mjs",
+      "sha256": "a8912b1157418136e111e2184afe96711443e0e010bdf4e4f4e069524a9fcbc3",
+      "gitBlob": "3f105cd4b1d2fa19139aba872e3bc33ec73b9267"
+    },
+    {
+      "path": "src/live-validation.mjs",
+      "sha256": "1e5896f5686cc3d8cf0f6321e6c9dc63e3fb2621919119bff61ca4d1bcc626ef",
+      "gitBlob": "de3b9779b8e298f8dd2a66f4b145f0ce851754cc"
+    },
+    {
+      "path": "src/mcp.mjs",
+      "sha256": "fbc19a7192bf79ddb142aad1d828bd4f5fc5e183e2def8b7a71ac30431d04d39",
+      "gitBlob": "9eb02d08da378b0a87c32904f0a7d435e6150258"
+    },
+    {
+      "path": "src/memory-consumer.mjs",
+      "sha256": "56c12074b32be107ab8d097a4cf35302e0af2d7bd270a70523d31a5bd455b7cd",
+      "gitBlob": "eef897fb20eb5c34dda1b5809f4124799dfd0892"
+    },
+    {
+      "path": "src/memory-effects.mjs",
+      "sha256": "92b5079e6d0c8c5c40f6cae28de4612fba772b591c61a27092fba9236c148592",
+      "gitBlob": "fddc38897e93de91c2a93d003d9033201af4e54e"
+    },
+    {
+      "path": "src/memory-projection.mjs",
+      "sha256": "b4c5215c4507b35db0b6c74dc3a6ec2f5cfb2dc62ce3c13f4537d4ef1b34f6fe",
+      "gitBlob": "f8d293d62011962f41e29fd0c01763e1e16d154f"
+    },
+    {
+      "path": "src/memory-recall-demo.mjs",
+      "sha256": "c733ec7df7c97d05454c0c792160cbdd6438dd2249ef2af3da1b49ad85c60b98",
+      "gitBlob": "7a701c6dca76d987a10054c4b76d0fff9b6b5785"
+    },
+    {
+      "path": "src/memory-tools.mjs",
+      "sha256": "2f3b25a8b77d02e97bf35146dcf71019e9d197d9778684f294142c3e2761d724",
+      "gitBlob": "d9da0b538cca7bb6b994733155c0ad392e8daea9"
+    },
+    {
+      "path": "src/memory.mjs",
+      "sha256": "78826d5d0bce89e92c97134d5cc497ce835a09dcc12539e668fb4e527f48caae",
+      "gitBlob": "918b0b562a17e4d239ef496fd99f870a21a3d899"
+    },
+    {
+      "path": "src/observe.mjs",
+      "sha256": "377d72765b8683b0b8331b739a995d965389571e79dc2b213957032cc8c5308c",
+      "gitBlob": "2dd7a6d7c0cd2aed4c2ec0322ddc1ec3f58ac7e5"
+    },
+    {
+      "path": "src/pdf-demo.mjs",
+      "sha256": "8f805d01e82a046c0fb2e5c14c703df518de676ad35000a7ebe8602db658a553",
+      "gitBlob": "d8cf72f6e60723c3a7b5778085827ae74c40eaf0"
+    },
+    {
+      "path": "src/pdf-input.mjs",
+      "sha256": "1ec14ca7a8f6c462bd123907286bb73baa3eff73be05c3affedc1c7934e82841",
+      "gitBlob": "191e8e51db48cd28b25a1e8813dc5901eda0d350"
+    },
+    {
+      "path": "src/pdf-parser-worker.mjs",
+      "sha256": "987cbce7acc7ac809e707e3ea74858cec0cb1e2f1929a0309c14740c35586501",
+      "gitBlob": "5a211da75f41f0562bd164f41e1d9f26893168e7"
+    },
+    {
+      "path": "src/plugins.mjs",
+      "sha256": "188d109ad808661a9b0219619c74696560931d25e557f361718a2d0f2fa511f8",
+      "gitBlob": "947b7cc11cb4d7a45a285c4f8f7e382bcf47936f"
+    },
+    {
+      "path": "src/portfolio-rebalance-demo.mjs",
+      "sha256": "45c9ad864f05ed6bd56f99fc1194727b0ce39d93e0760020d5d0ff0f4a35fc2a",
+      "gitBlob": "a8b0ba428b4bce09d5ac4a6a760bb7384ac414b8"
+    },
+    {
+      "path": "src/publication.mjs",
+      "sha256": "18feb5cf2dc8798c204a8701eea6721dee9f18e87bd0e3d904560daa4a0dd5cb",
+      "gitBlob": "f5aed9fbc1673ae440d08b0bf37b9b406ade6013"
+    },
+    {
+      "path": "src/reader-cli.mjs",
+      "sha256": "60f5b9c5a743db2fe485e4da50853d39c1e2a0783525947cfea2674238678c2c",
+      "gitBlob": "17f8b20a1c36692a672803ea621c84a9c6c6e360"
+    },
+    {
+      "path": "src/reader.mjs",
+      "sha256": "5456850b37ee63d9024a1ae292ef7655d4873c4c983f987d8a356a0b55ed6efc",
+      "gitBlob": "541af8e19876f062f5081eddf2713f2b55ec66c9"
+    },
+    {
+      "path": "src/report.mjs",
+      "sha256": "9f62848fd8ca9d7cd47e0351598be62603910448e116b5a00ad87208cccbc678",
+      "gitBlob": "4088a6c5fe895c2708ac2e4fc38785e62d330ff0"
+    },
+    {
+      "path": "src/result-consumption-demo.mjs",
+      "sha256": "7c37a8418a157115d183e2ee7f8a025452da12b4135f491ad2916fc9c39ec3e7",
+      "gitBlob": "63ccc933be564e010bcddf3ab613767349008626"
+    },
+    {
+      "path": "src/results.mjs",
+      "sha256": "a3805ea95d6906e5b73faae0a83331d7bd0aeeb5d8300391dc038a323837520e",
+      "gitBlob": "b0518d9bce3c7e57e5ae28675a794d992f5e53df"
+    },
+    {
+      "path": "src/retrieval-demo.mjs",
+      "sha256": "d55b579fefdfd43e4797c98191a52786d73d5903981130071de37a6c09adcfac",
+      "gitBlob": "bef98b21cff1aa62d382c343fe7f1371f769a693"
+    },
+    {
+      "path": "src/retrieval.mjs",
+      "sha256": "23313cf6879fa1b29a80a00a1883fdfa2c3085bdb125eb5cfd8334937bce15de",
+      "gitBlob": "6cb64735194a8edc1a5afd4c73a72b48ee7dbc1e"
+    },
+    {
+      "path": "src/runtime.mjs",
+      "sha256": "10ebefb9a4e2fd1cf1fe0150ed540e4419e6a5cbe824b4f482babc20a171a1bb",
+      "gitBlob": "573931eca70b92481f15e719b7f7848f4be6a66d"
+    },
+    {
+      "path": "src/schedule-demo.mjs",
+      "sha256": "c2cb2967ada4e94e79f49702b4d2b9fc40b473132f795089667cb76f1622573a",
+      "gitBlob": "b7e7e7bc5ecff06a060145798d587c9d69a75201"
+    },
+    {
+      "path": "src/schedule.mjs",
+      "sha256": "8a326443f2312c8ef4dd00f2723b23f039ab9ff02fcc3ae0733ebffa3cbcff26",
+      "gitBlob": "46754d102e51f4049e13f77f8d0ce3a3803ccefe"
+    },
+    {
+      "path": "src/session-cli.mjs",
+      "sha256": "aa57f64553f0346995edaf276f38dbeb9c625519ee44777ba7d9c1c767b8514e",
+      "gitBlob": "0602def2688234d87814e663dbec9a660aaf87c5"
+    },
+    {
+      "path": "src/session-recovery.mjs",
+      "sha256": "10a04529c83cbefc127902221e57d8796f893f5f5fcb15d2aefc80cd6c5a1cf9",
+      "gitBlob": "da082cfa181d4dcced79378704d849b92e98e66e"
+    },
+    {
+      "path": "src/session.mjs",
+      "sha256": "48deb185586f0b47310058adc502ee81dcc871958e027c879233f8daf1a62094",
+      "gitBlob": "cdb524f7dc55b74708aad451e15a5f4f9e50c040"
+    },
+    {
+      "path": "src/skills.mjs",
+      "sha256": "39da1f37d9686bb93b2e2da406f1b7232b397eed99c0d61f6b4256b1c8e50de1",
+      "gitBlob": "403272808e0b5693648256947c19e9e95fadbfb1"
+    },
+    {
+      "path": "src/source.mjs",
+      "sha256": "ae004a390d600c7f2ead93c8ab3e2583cc442fa917ec914d91ae21c28bc7872b",
+      "gitBlob": "339ad73c093d775b48d2c4b43a46e9d8a45d5907"
+    },
+    {
+      "path": "src/specialist-child.mjs",
+      "sha256": "77eb103af95f9cd9db0348eab7cc664ee4ee40294a1aa0dadfa4d21fb294cea4",
+      "gitBlob": "c9ea48b729bcf133bbb1e408fa3aa3ce15ff1ef8"
+    },
+    {
+      "path": "src/specialist-cli.mjs",
+      "sha256": "32d02ffc073512d2689aadebad4e18dcb489b9cf6190311113d96b4d8721682a",
+      "gitBlob": "22b7dcdcf6219d8c268edd3702506b5edd11ff9a"
+    },
+    {
+      "path": "src/specialist-demo.mjs",
+      "sha256": "462deaa47fc2ea52e7806445ea41a2628396b662e5273de82420e5eef30d51af",
+      "gitBlob": "1a0eabf422d5bda72c7369e63807475d1a143f66"
+    },
+    {
+      "path": "src/storage-files.mjs",
+      "sha256": "44ec8a1efc0c270975b55743e706d6da5f6f967a9722099d51c3e66a278b1ea7",
+      "gitBlob": "492b1b734679e8f8e3c7441c32b2bdb4a10d6c3f"
+    },
+    {
+      "path": "src/stream.mjs",
+      "sha256": "010f66751e677184de6f4de9767582cfba1c353acadd1f6c4ed5bae3397b2cef",
+      "gitBlob": "d03554feafc72cb6927cd1bc758e3eaec8183a04"
+    },
+    {
+      "path": "src/temporal-cli.mjs",
+      "sha256": "485dfc249cceae4fe20eb1fd29b2408449c1ab5772f1dcb8acf8ff5bebfbd772",
+      "gitBlob": "485a83724c98b5ac9fe1cd1f48e5c37b7e0db635"
+    },
+    {
+      "path": "src/temporal-demo.mjs",
+      "sha256": "0c5c3de1b18be068deba0d45c8a1f80829a1ba8957515cd1e88086800305ffe4",
+      "gitBlob": "4b9835f595d348f8c52197196a59f379265eecc3"
+    },
+    {
+      "path": "src/temporal.mjs",
+      "sha256": "9fc839349cb2e7ecc362a954e7bf7dbc7590ac08e72a177b75e1472c3411eb8f",
+      "gitBlob": "689718c86020ae117434fe1779960a59c6b604f8"
+    },
+    {
+      "path": "src/tools.mjs",
+      "sha256": "9dc071b924bdcce4a714256e2c00df6434652c0ddee03706cf4cca3f0410e83b",
+      "gitBlob": "0476dbdda790ee09015483993c431ad3caf81fb2"
+    },
+    {
+      "path": "src/worker.mjs",
+      "sha256": "7aba65ed6a16a9561ebae2a6d0831122490606e64379e5d4f8986f1665b478c1",
+      "gitBlob": "df8338fdc8c4a679c711a509a56a4f6cfdd1f3b6"
+    },
+    {
+      "path": "src/working-demo.mjs",
+      "sha256": "cd3d8973b54bc141978cc654d33746ea3b02211991394d2f7fd04d8b6f61fa9a",
+      "gitBlob": "dc59bbf93d4927a92095626ddc55455e5b25f700"
+    },
+    {
+      "path": "src/working-note.mjs",
+      "sha256": "6bc9411849e92afdd8ff5c06d55067e833d7d9a4dcf5fecb778c35b16d1adaa7",
+      "gitBlob": "1cd6d77c46a27d520dc698390cbc248abcf977d5"
+    }
+  ],
+  "sourceInputRechecked": true,
+  "normalGate": {
+    "planned": 10,
+    "requiredSuccesses": 9,
+    "threshold": 0.9,
+    "taskIds": [
+      "fresh-v18-ten-20261103-01",
+      "fresh-v18-ten-20261103-02",
+      "fresh-v18-ten-20261103-03",
+      "fresh-v18-ten-20261103-04",
+      "fresh-v18-ten-20261103-05",
+      "fresh-v18-ten-20261103-06",
+      "fresh-v18-ten-20261103-07",
+      "fresh-v18-ten-20261103-08",
+      "fresh-v18-ten-20261103-09",
+      "fresh-v18-ten-20261103-10"
+    ],
+    "tasks": [
+      {
+        "id": "fresh-v18-ten-20261103-01",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 0,
+        "questionSha256": "f0982b25cbd2020991b9451896589859fa5c432d16c1b296ad89ac0cc4227fe8",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "470ea2ef7a517c31a99b0b7f5c767f8405621e1a1851567f8d9134af58499ea6",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-01.md",
+          "sha256": "8e7d2a0b9f3661962237ec47e6864cebbca08d36134588a8e4c1acd37284997b",
+          "bytes": 905,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "3dd386e379f81dd91e9bc755aee47775b199f51ddeee2d83a1f06ebfab2cb9a3",
+        "admissionEvidenceSha256": "fcbefbe5fa105b8fa9d2c658ecf7b42dc91a2a45e8db12c6829e7a480d916560",
+        "coldReaderEvidenceSha256": "d8250966280d790aa84e0c4a5f35cd5da7070702c8a90d5d1cb98f410e6f95fd",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "f291be71a7c524c9b1e9259b1922095d1cf0f0b7f837ac81db49aa8500eacb91",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-02",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 1,
+        "questionSha256": "8c89359de9a9fbe2f4455038cc35c6a27b27a5e07b596a0f4b412cf4310cdf0c",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "9d6b5e6ea7b807b963cd064851a3fc38f8e6a4c15a5d2064ed4a604765628659",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-02.md",
+          "sha256": "3dea7752cc57b1fdbea350d514767a1ca06d3389836e84996038492612a09663",
+          "bytes": 1203,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "076c2beb7ece61fa3c3c41819bd3066b3a51dcdf096b88100b36ff63f16c9141",
+        "admissionEvidenceSha256": "6d0a4c0bcadc45dc0e16f78f03aa0928f72334725f7d19ba405d691138f07bfd",
+        "coldReaderEvidenceSha256": "1ee3d9a230a704718ae59e8d01ec36d0be462f340379f4725fd6d074db1f479c",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "b317fcb631bcc415bc4ed4848eae443412abf556c2e114fe4d9d3836494244d1",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-03",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 2,
+        "questionSha256": "59004361fbbf3f9e4c501c510493f7940af3ae571d966dc3388e0c89dc4b8efa",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "c42498f169df3207b1bbcd6c59ca29558f431d68f04963d6d223c646ec260384",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-03.md",
+          "sha256": "da925bedb8ec687875e0abedd57664a07308365b43575f5dfda1d82f52a6c135",
+          "bytes": 1780,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "30e03bd630ea033dac0d62b3a9e61143a29de20241704fe2d0b76ec18ae50845",
+        "admissionEvidenceSha256": "2024d54b98f10cca207fe3a6019a57f32f5b08698b46491445ae36684053ef22",
+        "coldReaderEvidenceSha256": "44499d06efff6d1c85efaa7c7b3c8beee9ee6cf733a73084114838865cc95929",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "358a5094cc72bd7bcb7d4c4e665370000a2a456e5b41068b3092607489078d2e",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-04",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 3,
+        "questionSha256": "a1837f7009e1410bc7fd8537ec673a0a6e6df3d132f62cdc42688f9bcf8a74ef",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "b008357e61344ffc22795e552e3f45c4e8a5e6ed664589c4254e2a6d3598ae43",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-04.md",
+          "sha256": "d6f14394ed06ea70a4efd3a88beff2c8e5ca96010a1fcadacfafe8093ba30fde",
+          "bytes": 2020,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "c56f2830adfef8e462a32cd613219f17eb5401cd1133c5d4ae8260c408ce12c2",
+        "admissionEvidenceSha256": "f827b890ebf1a2bb31840f81689adade9e5e0ccb01f563c87dd7741f37ac24eb",
+        "coldReaderEvidenceSha256": "bd07d9c636fe7352ab9bffc02c77b57ea5b0ba791726053dffb281a6e2b74700",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "edbbac40df16ff4d9164d696012120fbf729335fbbe7b4ceb1efcfe9ad32d022",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-05",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 4,
+        "questionSha256": "10c70f20c082473be4ca531c9660357dd0a6977e6bcf7f87bc0d8b715dc85e12",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "25ec2571160c008ed203ccb63d609b690b8b2b886edd5a5eda6eb5023f6d6fe7",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-05.md",
+          "sha256": "8d43002efbe745b8c37b6fda60db1c192f8e012397e5b4ffdf467e237800b947",
+          "bytes": 1552,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "a2fea2bbb4cfe8f807704580c3f4b659dcd56a35b1e453f626facf48b5d2617f",
+        "admissionEvidenceSha256": "03a5fae4ff14c464edb6d810656348a5c7810c9f61b96e20783c33faa3ebd424",
+        "coldReaderEvidenceSha256": "d315742f1fcd3bf7afeedab492b3764383eb766d2fec4dfb087e379c7bc8213b",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "fc0629399dbe9d41e6fd1e39850d034ff4862cda0d6249f197632f73aadb9602",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-06",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 5,
+        "questionSha256": "f0982b25cbd2020991b9451896589859fa5c432d16c1b296ad89ac0cc4227fe8",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "f7d8fa2e447c979d2a39bfc1073f7ea92722f7190a989d27464ccd3f3668dcdc",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-06.md",
+          "sha256": "51e299f780de25a79541fadf49f7148cd95d99a611c11e1253f0ae15edb5fdaf",
+          "bytes": 894,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "54918f89826c77e731dd9a3ad0e07a7d3ddb3383611c806cca5483eee41d31fb",
+        "admissionEvidenceSha256": "0fb5fafbf173effe68db578c264eb40e8965f09f0da18f9de96c482e6100d23d",
+        "coldReaderEvidenceSha256": "c2b1d45ed72afd82cc2cc2b6ddcbb9e9b7b79ba6f44f58a7ed50dc8e45ec8edc",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "f193b4cce8e97f4010b8516c6f26b7c25329479db6af8175fe23ab60ed5c3645",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-07",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 6,
+        "questionSha256": "8c89359de9a9fbe2f4455038cc35c6a27b27a5e07b596a0f4b412cf4310cdf0c",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "d2064806273e1b538be4dee7d37ae5cb2fd8b3da5963fd3bfc04799326e939fd",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-07.md",
+          "sha256": "dde450e9a2b0eccbcc2c32e017bf2e1bc3d14beaf9276cc38819c8afb25885a4",
+          "bytes": 1037,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "b2c74b43ab59cd94b4321f64e682e8ed015f47be62bb165a731a705ac68fe239",
+        "admissionEvidenceSha256": "f572ce89224ec6088db3865ba123d1f381ada8d011b3e0c39c113545c8ef830c",
+        "coldReaderEvidenceSha256": "37e5b6fceccf1d46cf0c3292d270536f1e332559d6d8d1a8331c94cd33358101",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "cc917d8816c62d3e750259be27534d9911ea835bb019943350e0d2735947b8ad",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-08",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 7,
+        "questionSha256": "59004361fbbf3f9e4c501c510493f7940af3ae571d966dc3388e0c89dc4b8efa",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "785149312fff69dcb0e2ea087ae9e74659fb4c0935c63adcc29bfe488ff673eb",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-08.md",
+          "sha256": "a2d72ad2257de42a78c9c0300d0ba52ffd026c1778395e6c4a58db919da85df9",
+          "bytes": 2719,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "5c2b36860c49339ed05fe9f219ced9726f00463f21f79e630359840af74266f3",
+        "admissionEvidenceSha256": "9600f95ea374f9ff109fb5a49aaf15be024366713f1d407ebb23e6c49574f81c",
+        "coldReaderEvidenceSha256": "4c3d778652412346d3a6bef7252c1a9a1c7b91247a154bfbd0aa72e9f4fe9de7",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "b1ea935a8cc3a910eb4eebb6b31da4f113aed2913fc7e53dc76b18402c39709d",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-09",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 8,
+        "questionSha256": "a1837f7009e1410bc7fd8537ec673a0a6e6df3d132f62cdc42688f9bcf8a74ef",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "490b3bca19800321e83bdc3d48fe12f8681e88113b94a40a3a0983616b6b3094",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-09.md",
+          "sha256": "6d39cb39b6e1fd4198b4a31a22341805a3d8d3b3d316972b1934721197701e02",
+          "bytes": 2722,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "ecbccf5ba3cd081a89fb78255d6ea4a11e172a61728f3ec545d406ccd9ceeaac",
+        "admissionEvidenceSha256": "a016a47d5172b974a91cb967f211761cdedaaee8f1823e72e6eefdfe893edd79",
+        "coldReaderEvidenceSha256": "910d75a89b1ea51a0cd9b63c731bd351ac5081b3025f770e90ab9fbd1dfdd526",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "b0bdb064ffb5353d092a4b7143c7b84d5679a5324b260fb72631739fa09bf951",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      },
+      {
+        "id": "fresh-v18-ten-20261103-10",
+        "executionIdentity": "3bb579eb37d72a587f5f56ea0e57fd55dc050be8b3f8bf588974b399160a6038",
+        "status": "success",
+        "realProvider": true,
+        "physicalRequests": 3,
+        "eligibleSuccess": true,
+        "runtimeAccepted": true,
+        "workflowCompleted": true,
+        "deliveryReadback": true,
+        "onTime": true,
+        "unknownEffects": false,
+        "frozenTaskIndex": 9,
+        "questionSha256": "10c70f20c082473be4ca531c9660357dd0a6977e6bcf7f87bc0d8b715dc85e12",
+        "sourcePlanSha256": "a16c11c052a2f18837d5ba8c9a0a533035ce2aac295a9dc78c1126e98edb1dd6",
+        "originalResultSha256": "dedc2e8cde29beea19b32bae9a50f8bae2ab75cdba940e8ef0a41449ceb8c686",
+        "report": {
+          "path": "docs/verification/v018-real-ten-reports/task-10.md",
+          "sha256": "09947de808ae9471e541229985c8a5bfb67da74b11ca5ce2e100adc76ea47cc6",
+          "bytes": 2417,
+          "synthetic": true
+        },
+        "mechanisms": [
+          "original-schedule-confirm-before-actual-due",
+          "zero-dispatch-pre-due-and-materialization",
+          "single-explicit-wake-same-run-worker",
+          "original-admission-input-hash-to-wire",
+          "original-publication-body-receipt-event",
+          "actual-report-byte-readback",
+          "zero-provider-cold-inspection",
+          "schema5-session-read-only-reader"
+        ],
+        "publicationEvidenceSha256": "90554a4617e7e243233ee8f89088706118a8a5719971826ca09af43af81397a4",
+        "admissionEvidenceSha256": "52cc42f05e68b31ae4af2d9cfd033d622849ede04a1823c0f875f14fd865416f",
+        "coldReaderEvidenceSha256": "83e5182e5ce774759daf8fc4e4bb3830d454b5666f42e72798374058da0dcd73",
+        "completedAdmissionTickets": 3,
+        "admissionLiveContentionClaim": false,
+        "scheduleEvidenceSha256": "3f8c0c25994c5c1de4365376aa55723b93d3b6533329af992ea9bd6cd13431e0",
+        "scheduleApiOnly": true,
+        "originalResultHashAlgorithm": "sha256-original-canonical-json"
+      }
+    ],
+    "attempted": 10,
+    "notRun": 0,
+    "successes": 10,
+    "observedRate": 1
+  },
+  "separateSafetyGatePassed": true,
+  "separateSafetyGate": {
+    "passed": true,
+    "receipt": "docs/verification/v018-schedule.safe.json",
+    "sameExecutionSource": true,
+    "fullSuitePassed": 602,
+    "fullSuiteFailed": 0,
+    "independentInstallAndBuild": true,
+    "originalScheduleSafetyAndHistoricalOpener": true,
+    "independentSourceReview": "passed narrow final portability/historical-opener review; production five leaves identical to original reviewed WIP",
+    "offlineReceiptSha256": "0f0cab67df46fd3b42a5c65629f8244f8d243639603051fe9dccc2027e429d5f",
+    "independentTenTaskAcceptanceSha256": "11298c63b5758518069e28c5f6bb921dd5e695d79085bc37739db2f24c9680e2",
+    "independentTenTaskScopeDecision": "Original Schedule API confirm/preDue/materialize zero dispatch; actual due time then one explicit Worker wake, Admission and Publication same Run; schema5 readOnly Session coldReader. Admission opens through original ordinary API for inspection, not readOnly API; inventory unchanged. No background scheduling/live CLI/financial-semantic claim.",
+    "offlineSafetyNotInRealTaskDenominator": true,
+    "sameFixedExecutionInputsRechecked": true
+  },
+  "physicalRequests": 30,
+  "confirmedGoZeroResponses": 30,
+  "unknownBillingOrOutcomeReservations": 0,
+  "historicalFiveTaskReceipt": {
+    "path": "docs/verification/v018-release.safe.json",
+    "sha256": "01c7260920fd788011d8490fd2053dfc4ba53f802e6bc9a28870628df23fca22",
+    "unchanged": true,
+    "includedInNewNormalNumerator": false
+  },
+  "historicalResultsRewritten": false,
+  "oldUnknownSettled": false,
+  "liveContentionClaim": false,
+  "globalCapacityCertification": false,
+  "sameInterruptedAdmissionGroupRecoveryClaim": false,
+  "financialSemanticQualification": false,
+  "contentQualityAffectsSuccess": false,
+  "formalReleaseOrRemotePublicationClaim": false,
+  "knownRuntimeIssuesObservedWithinStatedScope": [],
+  "scope": "Original Schedule trusted API confirmed before actual due instant; pre-due and materialization zero dispatch; one explicit wake; same Run Worker/Admission and actual TaskTime wire through Publication/report and session read-only coldReader. No live fixture CLI, background or periodic scheduler qualification.",
+  "excludedFromPublicPackage": [
+    "credentials",
+    "private filesystem paths",
+    "provider raw request or response logs",
+    "databases",
+    "ledger contents",
+    "installed dependencies",
+    "caches"
+  ],
+  "liveCliClaim": false,
+  "backgroundOrRecurrence": false,
+  "singleExplicitWake": true,
+  "sessionReaderReadOnly": true,
+  "admissionReaderReadOnlyApiClaim": false,
+  "admissionInspectionInventoryUnchanged": true,
+  "mechanicalPolicySha256": "6dcef03dfeb52f8566dd49024fcd860b6f463021630b26c54453f78119c2f9ed",
+  "mechanicalDecision": {
+    "policy": "real-ten-min-nine-20261102",
+    "eligible": true,
+    "planned": 10,
+    "attempted": 10,
+    "successes": 10,
+    "observedRate": 1,
+    "scope": "declared receipts only; fixed evidence and publication review still required"
+  }
+}

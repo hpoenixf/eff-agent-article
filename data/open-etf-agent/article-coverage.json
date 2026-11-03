@@ -100,6 +100,14 @@
     "revocable-rag": {
       "kind": "scenario",
       "name": "revocable-rag"
+    },
+    "shared-admission": {
+      "kind": "scenario",
+      "name": "shared-admission"
+    },
+    "schedule-occurrence": {
+      "kind": "scenario",
+      "name": "schedule-occurrence"
     }
   },
   "articles": [
@@ -221,9 +229,10 @@
     {
       "slug": "agent-provider-admission-capacity-lease",
       "title": "模型返回 HTTP 200，为什么下一次还要排队",
-      "status": "无公开对应",
-      "target": null,
-      "scope": "缺跨进程队列、租约/隔离、远端 unknown/释放及 PG 控制库"
+      "status": "verified",
+      "target": "shared-admission",
+      "scope": "固定路线本地共享准入；十任务9成功1环境中断未知，余五在新隔离组完成；独立双进程安全证据，不证明旧组恢复、跨组全局容量或live并发",
+      "articleCommit": "b0a9b9ced1a233176b045df961914002179ad6d5"
     },
     {
       "slug": "020-agent-extension-host-smartphone",
@@ -293,7 +302,15 @@
       "title": "定时研究：会话结束后继续",
       "status": "verified",
       "target": "worker",
-      "scope": "显式 submit 与独立 work 进程沿原 Run 回读；无定时触发、Task 编排、通知或前台并发"
+      "scope": "显式 submit 与独立 work 进程沿原 Run 回读；无定时触发、Task 编排、通知或前台并发",
+      "additionalTargets": [
+        {
+          "status": "verified",
+          "target": "schedule-occurrence",
+          "articleCommit": "b0a9b9ced1a233176b045df961914002179ad6d5",
+          "scope": "一次确认、到时显式wake的Schedule API；十任务10成功，同Run Worker/Admission/Publication与只读Session回读；CLI另为fixture，无后台服务或周期调度"
+        }
+      ]
     },
     {
       "slug": "025-agent-langfuse-from-trace-to-trustworthy-observability",
@@ -354,7 +371,9 @@
     "temporal": "temporal",
     "ordinary-response": "ordinary-response",
     "memory-consumer": "memory-consumer",
-    "revocable-rag": "revocable-rag"
+    "revocable-rag": "revocable-rag",
+    "shared-admission": "shared-admission",
+    "schedule-occurrence": "schedule-occurrence"
   },
   "qualifications": {
     "legacy-runtime": {
@@ -422,6 +441,30 @@
       "receipt": {
         "path": "docs/verification/v016-revocable-rag.safe.json",
         "gitBlob": "99b6dc614dc42528fd617b04029306dfdea430b6"
+      }
+    },
+    "shared-admission": {
+      "kind": "independent-scenario",
+      "scenario": "shared-admission",
+      "commit": "8137e592b0a07bcb0dfdd8756409c5bbc7d909ce",
+      "tree": "182381c980924790262bcee403c322d716c43a2b",
+      "evidenceCommit": "187c942b2c43c6da77011bcb2cbab1bfde1bdead",
+      "evidenceTree": "caf5786aea4dbfc391f07e0f5f616607cfde9aa8",
+      "receipt": {
+        "path": "docs/verification/v017-real-ten.safe.json",
+        "gitBlob": "e9fe40a63111e6a5beae1c10a83bea948ad06a17"
+      }
+    },
+    "schedule-occurrence": {
+      "kind": "independent-scenario",
+      "scenario": "schedule-occurrence",
+      "commit": "b1d2431a6b86bd0120f2fe5acb531ef928e92de2",
+      "tree": "6743403885eeda0552f9ad1ebf7e84989c6fc525",
+      "evidenceCommit": "b1d2431a6b86bd0120f2fe5acb531ef928e92de2",
+      "evidenceTree": "6743403885eeda0552f9ad1ebf7e84989c6fc525",
+      "receipt": {
+        "path": "docs/verification/v018-real-ten.safe.json",
+        "gitBlob": "edecefd3e3f8620c962e772a1877049d50dd435f"
       }
     }
   }

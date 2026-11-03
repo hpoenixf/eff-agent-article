@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, writeFile, readFile } from 'node:fs/promises';
 import { join, resolve, dirname } from 'node:path';
 import { validateContract, verifyArticles, sameContract, commandFor, parseEnglishCatalog, checkArticles, checkCode } from './check-article-backlinks.mjs';
 const pin = '2'.repeat(40), other = '3'.repeat(40);
@@ -85,10 +85,49 @@ test('backlinks: revocable RAG requires visible exact source and both original C
  await assert.rejects(verify('<pre>'+body+'</pre>'),/non-prose/);
 });
 
-// Existing published scenario uses a code-formatted filename as a clickable link label.
-test('backlinks: existing temporal editions retain visible code-formatted source links', async () => {
- const {readFile}=await import('node:fs/promises');
- const pin='46c2822be9865b99696bb70fb9e0ff1b5257ff35',slug='agent-temporal-semantics-market-calendar';
- const result=await verifyArticles({contract:{verifiedAt:pin,articles:[{slug,target:'temporal'}],targets:{temporal:{kind:'scenario',name:'temporal'}}},english:new Set([slug]),paths:[],read:path=>readFile(new URL('../'+path,import.meta.url),'utf8')});
+// A code-formatted filename is a visible clickable label, unlike an entire code-hidden link.
+test('backlinks: legacy temporal source filename labels stay clickable', async () => {
+ const pin='46c2822be9865b99696bb70fb9e0ff1b5257ff35',slug='temporal-example';
+ const body='[`temporal.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/'+pin+'/src/temporal.mjs)\n\n```sh\n'+[
+  'npm run temporal -- submit --session runs/article-time --run fixed '+String.fromCharCode(92),
+  '--time-zone America/Los_Angeles --anchor 2026-10-28T00:30:00.000Z',
+  'npm run temporal -- work --session runs/article-time --run fixed',
+  'npm run temporal -- read --session runs/article-time --run fixed'
+ ].join('\n')+'\n```';
+ const result=await verifyArticles({contract:{verifiedAt:pin,articles:[{slug,target:'temporal'}],targets:{temporal:{kind:'scenario',name:'temporal'}}},english:new Set([slug]),paths:[],read:async()=>body});
  assert.equal(result.checkedBodies,2);
+});
+
+const tenReceipt=async name=>JSON.parse(await readFile(new URL(`../data/open-etf-agent/${name}`,import.meta.url),'utf8'));
+const tenContract=(scenario,evidence)=>{
+ const q={kind:'independent-scenario',scenario,commit:pin,evidenceCommit:other};
+ const m={schemaVersion:3,repository:manifest.repository,verifiedAt:pin,targets:{[scenario]:{kind:'scenario',name:scenario}},targetEvidence:{[scenario]:'new-scenario'},qualifications:{'new-scenario':q},articles:[{slug:'real-ten-example',status:'verified',target:scenario,articleCommit:other}]};
+ return validateContract(m,{sourceCommit:pin},source,{[scenario]:evidence});
+};
+test('backlinks: fixed real-ten scenarios retain separate source and evidence publication pins',async()=>{
+ for(const [scenario,name] of [['shared-admission','v017-real-ten.safe.json'],['schedule-occurrence','v018-real-ten.safe.json']]) {
+  const evidence=await tenReceipt(name),c=tenContract(scenario,evidence);
+  assert.equal(c.pins[scenario],pin);assert.equal(c.evidencePins[scenario],other);
+  for(const mutate of [r=>r.normalGate.planned=5,r=>r.normalGate.successes=8,r=>r.normalGate.tasks.pop(),r=>r.normalGate.tasks[1]=r.normalGate.tasks[0],r=>r.physicalRequests++]){const bad=structuredClone(evidence);mutate(bad);assert.throws(()=>tenContract(scenario,bad));}
+ }
+});
+const scheduleCommands=[`INSTANT="$(node -e 'console.log(new Date(Date.now()+60000).toISOString())')"`,'node src/session-cli.mjs schedule-confirm --session runs/schedule-demo --schedule one-shot --revision 1 --instant "$INSTANT" --zone Asia/Shanghai --lateness 60000','node src/session-cli.mjs schedule-wake --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH','node src/session-cli.mjs schedule-inspect --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH','node src/session-cli.mjs schedule-publication --session runs/schedule-demo --schedule one-shot --hash CONFIRMATION_HASH'];
+const admissionCommands=['node src/admission-demo.mjs normal output/admission-demo','node src/admission-demo.mjs unknown output/admission-demo'];
+const tenBody=(scenario,commands)=>{
+ const admission=scenario==='shared-admission',receipts=admission?['v017-real-ten.safe.json','v017-admission-offline.safe.json']:['v018-real-ten.safe.json','v018-schedule.safe.json'];
+ return `[Original source](https://github.com/hpoenixf/open-etf-agent/blob/${pin}/src/${admission?'admission':'schedule'}.mjs)\n${receipts.map(name=>`[Separate evidence](https://github.com/hpoenixf/open-etf-agent/blob/${other}/docs/verification/${name})`).join('\n')}\n\n\`\`\`sh\n${commands.join('\n')}\n\`\`\``;
+};
+test('backlinks: Admission requires both original demos and independently pinned real-ten/offline receipts',async()=>{
+ const scenario='shared-admission',c=tenContract(scenario,await tenReceipt('v017-real-ten.safe.json')),body=tenBody(scenario,admissionCommands);
+ const verify=text=>verifyArticles({contract:c,english:new Set(['real-ten-example']),paths:[],read:async()=>text});
+ assert.equal((await verify(body)).checkedBodies,2);
+ for(const text of [body.replace(admissionCommands[0],''),body.replace(admissionCommands[1],''),body.replace('v017-real-ten.safe.json','v017-release.safe.json'),body.replace('v017-admission-offline.safe.json','other.json'),body.replaceAll(`/blob/${other}/`,`/blob/${pin}/`)])await assert.rejects(verify(text),/sequence|receipt/);
+ await assert.rejects(verify(body.replace('/src/admission.mjs','/src/cli.mjs')),/source/);
+});
+test('backlinks: Schedule preserves ordered provider-free CLI separately from actual API qualification',async()=>{
+ const scenario='schedule-occurrence',c=tenContract(scenario,await tenReceipt('v018-real-ten.safe.json')),body=tenBody(scenario,scheduleCommands);
+ const verify=text=>verifyArticles({contract:c,english:new Set(['real-ten-example']),paths:[],read:async()=>text});
+ assert.equal((await verify(body)).checkedBodies,2);
+ for(const text of [body.replace(scheduleCommands[1],''),body.replace(scheduleCommands[1]+'\n'+scheduleCommands[2],scheduleCommands[2]+'\n'+scheduleCommands[1]),body.replace('CONFIRMATION_HASH','WRONG_HASH'),body.replace('v018-schedule.safe.json','v018-release.safe.json'),body.replace('v018-real-ten.safe.json','v018-release.safe.json')])await assert.rejects(verify(text),/sequence|receipt/);
+ await assert.rejects(verify(body.replace('/src/schedule.mjs','/src/session-cli.mjs')),/source/);
 });

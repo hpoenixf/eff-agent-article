@@ -23,7 +23,8 @@ test('recent modules join existing catalog fields in both languages, without new
       const q=coverage.qualifications?.[coverage.targetEvidence?.[record.target]]
       if(record.status==='verified') {
         assert.equal(row.status,'limited')
-        assert.equal(row.evidence,`https://github.com/${coverage.repository}/blob/${q?.commit || receipts.sourceCommit}/${lineage.targets[record.target].evidencePath}`)
+        const realTen=q?.kind==='independent-scenario' && ['shared-admission','schedule-occurrence'].includes(q.scenario)
+        assert.equal(row.evidence,`https://github.com/${coverage.repository}/blob/${realTen ? q.evidenceCommit : q?.commit || receipts.sourceCommit}/${realTen ? q.receipt.path : lineage.targets[record.target].evidencePath}`)
       } else assert.equal(row.evidence,null)
     }
     assert.deepEqual(all.filter(r=>r.status==='limited').map(r=>r.slug).sort(),coverage.articles.filter(a=>[a,...(a.additionalTargets || [])].some(slice=>slice.status==='verified')).map(a=>a.slug).sort())
@@ -77,3 +78,4 @@ test('one Memory card retains its old slice and displays its independently quali
  }
  assert.ok(component.includes('v-for="slice in article.additionalTargets"'))
 })
+

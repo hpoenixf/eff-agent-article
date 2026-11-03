@@ -67,6 +67,14 @@
     "0.16": {
       "commit": "35f244f2e06da447c110325d2ac5a5c39f36e842",
       "tree": "bc127865a46b172ef0884257e4ad9d5a32a5d862"
+    },
+    "0.17": {
+      "commit": "8137e592b0a07bcb0dfdd8756409c5bbc7d909ce",
+      "tree": "182381c980924790262bcee403c322d716c43a2b"
+    },
+    "0.18": {
+      "commit": "b1d2431a6b86bd0120f2fe5acb531ef928e92de2",
+      "tree": "6743403885eeda0552f9ad1ebf7e84989c6fc525"
     }
   },
   "targets": {
@@ -189,6 +197,18 @@
       "evidencePath": "src/session-cli.mjs",
       "evidenceGitBlob": "089de8f1244be3b7ea6df395b1b91e6102d56b22",
       "selector": "revocable-rag"
+    },
+    "shared-admission": {
+      "since": "0.17",
+      "evidencePath": "src/admission.mjs",
+      "evidenceGitBlob": "19e945fd6eeada27c9c18439b4a41fc3e9b05d1e",
+      "selector": "shared-admission"
+    },
+    "schedule-occurrence": {
+      "since": "0.18",
+      "evidencePath": "src/schedule.mjs",
+      "evidenceGitBlob": "46754d102e51f4049e13f77f8d0ce3a3803ccefe",
+      "selector": "schedule-occurrence"
     }
   },
   "notes": [
