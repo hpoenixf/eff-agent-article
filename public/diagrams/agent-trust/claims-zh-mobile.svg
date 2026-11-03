@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="780" viewBox="0 0 360 780" role="img" aria-labelledby="title desc">
+<title id="title">同一份报告，三种不同的承诺</title><desc id="desc">同一项基金比较任务包含并列的研究判断、行动权限和执行事实；三者各有依据，不构成可信度晋级阶梯。</desc>
+<defs>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#99551D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#526779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="358" height="778" rx="22" fill="#FAF9F6" stroke="#CFD9DD" stroke-width="1.3"/>
+<rect x="20" y="18" width="26" height="23" rx="6" fill="#173348"/>
+<text x="33" y="34" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">01</text>
+<text x="57" y="34" font-size="12" font-weight="600" fill="#526779" text-anchor="start">信任的对象</text>
+<text x="20" y="73" font-size="24" font-weight="700" fill="#173348" text-anchor="start">同一份报告，</text>
+<text x="20" y="103" font-size="24" font-weight="700" fill="#173348" text-anchor="start">三种不同的承诺</text>
+<text x="20" y="132" font-size="16" font-weight="400" fill="#526779" text-anchor="start">任务：比较两只基金并保存报告</text>
+<rect x="18" y="158" width="324" height="150" rx="14" fill="#FFFFFF" stroke="#CFD9DD" stroke-width="1.25"/>
+<rect x="18" y="158" width="5" height="150" rx="2" fill="#11766F"/>
+<text x="38" y="189" font-size="19" font-weight="650" fill="#11766F" text-anchor="start">研究判断</text>
+<circle cx="309" cy="189" r="22" fill="#E9F4EF"/>
+<path d="M 301 178 H 314 L 319 183 V 200 H 301 Z" fill="none" stroke="#11766F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 306 186 L 314 186" fill="none" stroke="#11766F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 306 192 L 314 192" fill="none" stroke="#11766F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="38" y="221" font-size="20" font-weight="650" fill="#173348" text-anchor="start">结论是否有依据</text>
+<text x="38" y="255" font-size="17" font-weight="400" fill="#526779" text-anchor="start">原文与数据日期</text>
+<text x="38" y="281" font-size="17" font-weight="400" fill="#526779" text-anchor="start">可比较的指标口径</text>
+<rect x="18" y="328" width="324" height="150" rx="14" fill="#FFFFFF" stroke="#CFD9DD" stroke-width="1.25"/>
+<rect x="18" y="328" width="5" height="150" rx="2" fill="#99551D"/>
+<text x="38" y="359" font-size="19" font-weight="650" fill="#99551D" text-anchor="start">行动权限</text>
+<circle cx="309" cy="359" r="22" fill="#FFF1DF"/>
+<circle cx="304" cy="356" r="6" fill="none" stroke="#99551D" stroke-width="1.8"/>
+<path d="M 309 360 L 319 370 M 315 366 L 319 362" fill="none" stroke="#99551D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="38" y="391" font-size="20" font-weight="650" fill="#173348" text-anchor="start">这次操作是否获准</text>
+<text x="38" y="425" font-size="17" font-weight="400" fill="#526779" text-anchor="start">用户、对象与具体动作</text>
+<text x="38" y="451" font-size="17" font-weight="400" fill="#526779" text-anchor="start">授权的有效时间</text>
+<rect x="18" y="498" width="324" height="150" rx="14" fill="#FFFFFF" stroke="#CFD9DD" stroke-width="1.25"/>
+<rect x="18" y="498" width="5" height="150" rx="2" fill="#43639A"/>
+<text x="38" y="529" font-size="19" font-weight="650" fill="#43639A" text-anchor="start">执行事实</text>
+<circle cx="309" cy="529" r="22" fill="#EBF0F9"/>
+<path d="M 299 518 H 319 V 540 H 299 Z M 304 529 L 308 533 L 315 525" fill="none" stroke="#43639A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="38" y="561" font-size="20" font-weight="650" fill="#173348" text-anchor="start">这个版本是否已交付</text>
+<text x="38" y="595" font-size="17" font-weight="400" fill="#526779" text-anchor="start">保存回执与版本身份</text>
+<text x="38" y="621" font-size="17" font-weight="400" fill="#526779" text-anchor="start">重新读取实际产物</text>
+<rect x="18" y="683" width="324" height="75" rx="13" fill="#173348"/>
+<text x="180" y="714" font-size="21" font-weight="650" fill="#FFFFFF" text-anchor="middle">有依据 ≠ 有权限 ≠ 已完成</text>
+<text x="180" y="743" font-size="16" font-weight="400" fill="#FFFFFF" text-anchor="middle">三种依据，不能互相代替</text>
+</g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="844" viewBox="0 0 360 844" role="img" aria-labelledby="title desc">
+<title id="title">一个前提变了，哪些结论要重查？</title><desc id="desc">持仓来源更新会使依赖它的重叠计算与判断需要复核；费用来源未变时，先核版本与适用范围，才可复用独立的费用比较。待确认不等于结论相反。</desc>
+<defs>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#99551D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#526779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="358" height="842" rx="22" fill="#FAF9F6" stroke="#CFD9DD" stroke-width="1.3"/>
+<rect x="20" y="18" width="26" height="23" rx="6" fill="#173348"/>
+<text x="33" y="34" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">02</text>
+<text x="57" y="34" font-size="12" font-weight="600" fill="#526779" text-anchor="start">变化沿依赖传播</text>
+<text x="20" y="73" font-size="24" font-weight="700" fill="#173348" text-anchor="start">一个前提变了，</text>
+<text x="20" y="103" font-size="24" font-weight="700" fill="#173348" text-anchor="start">哪些结论要重查？</text>
+<text x="20" y="132" font-size="16" font-weight="400" fill="#526779" text-anchor="start">沿依赖更新，保留独立有效部分。</text>
+<rect x="18" y="157" width="324" height="245" rx="14" fill="#FFF1DF"/>
+<circle cx="38" cy="183" r="4" fill="#99551D"/>
+<text x="51" y="190" font-size="20" font-weight="650" fill="#99551D" text-anchor="start">持仓来源更新</text>
+<text x="38" y="219" font-size="16.5" font-weight="400" fill="#526779" text-anchor="start">原判断的依据需要重查</text>
+<path d="M 180 229 L 180 248" fill="none" stroke="#99551D" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="38" y="257" width="284" height="48" rx="9" fill="#FFFFFF"/>
+<text x="180" y="287" font-size="20" font-weight="650" fill="#173348" text-anchor="middle">重算重叠比例</text>
+<path d="M 180 310 L 180 329" fill="none" stroke="#99551D" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<text x="180" y="357" font-size="20" font-weight="650" fill="#99551D" text-anchor="middle">复核重叠判断</text>
+<text x="180" y="386" font-size="16" font-weight="400" fill="#526779" text-anchor="middle">待确认，不等于结论相反</text>
+<rect x="18" y="422" width="324" height="216" rx="14" fill="#E9F4EF"/>
+<circle cx="38" cy="448" r="4" fill="#11766F"/>
+<text x="51" y="455" font-size="20" font-weight="650" fill="#11766F" text-anchor="start">费用来源未变</text>
+<text x="38" y="485" font-size="16" font-weight="400" fill="#526779" text-anchor="start">先核原版本和当前适用范围</text>
+<path d="M 180 497 L 180 516" fill="none" stroke="#11766F" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="38" y="525" width="284" height="48" rx="9" fill="#FFFFFF"/>
+<text x="180" y="556" font-size="20" font-weight="650" fill="#11766F" text-anchor="middle">费用比较仍可复用</text>
+<text x="180" y="611" font-size="16" font-weight="400" fill="#526779" text-anchor="middle">只保留与持仓变化无关的部分</text>
+<rect x="18" y="662" width="324" height="79" rx="13" fill="#173348"/>
+<text x="180" y="694" font-size="21" font-weight="650" fill="#FFFFFF" text-anchor="middle">刷新受影响的结论</text>
+<text x="180" y="723" font-size="21" font-weight="650" fill="#FFFFFF" text-anchor="middle">保留独立有效的部分</text>
+<text x="20" y="777" font-size="15" font-weight="400" fill="#526779" text-anchor="start">示意：依赖完整、原版本可回读；</text>
+<text x="20" y="799" font-size="15" font-weight="400" fill="#526779" text-anchor="start">实际使用仍须检查当前适用范围。</text>
+</g>
+</svg>

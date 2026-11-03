@@ -28,6 +28,10 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
     zh: ['架构决策全景', '以一份可回读的文档报告贯穿九个架构判断：分工、权限、证据、恢复、交付和长期演进。'],
     en: ['ARCHITECTURE DECISIONS', 'Use one verifiable document report to explore nine design judgments about ownership, permissions, evidence, recovery, delivery and evolution.']
   },
+  'agent-trust-from-claims-to-commitments': {
+    zh: ['可信工程全景', '沿同一基金比较任务，分清判断、授权与效果，按前提和依赖安排验证，让局部事实支持具体的系统承诺。'],
+    en: ['TRUST IN AGENT ENGINEERING', 'Follow one fund comparison to distinguish judgments, authorization and effects, and match verification to assumptions and dependencies.']
+  },
   'agent-context-governance-principles': {
     zh: ['上下文治理·原则篇', '目标、依据、边界、记忆、探索与进展怎样形成同一份任务视图，让每一步判断围绕目标展开。'],
     en: ['CONTEXT · PRINCIPLES', 'How goals, evidence, boundaries, memory, discovery and progress form one task view and keep decisions aligned with the goal.']

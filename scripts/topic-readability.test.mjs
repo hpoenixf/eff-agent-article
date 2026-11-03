@@ -39,6 +39,7 @@ const expectations = [
       "agent-context-governance-actions",
       "agent-context-governance-principles",
       "agent-in-15-minutes",
+      "agent-trust-from-claims-to-commitments",
       "rag-end-to-end-system-panorama"
     ],
     "headings": [
@@ -80,6 +81,7 @@ const expectations = [
       "agent-context-governance-actions",
       "agent-context-governance-principles",
       "agent-in-15-minutes",
+      "agent-trust-from-claims-to-commitments",
       "rag-end-to-end-system-panorama"
     ],
     "headings": [
