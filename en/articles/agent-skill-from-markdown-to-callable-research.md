@@ -5,7 +5,7 @@ readingBrief:
     - "A Skill's instructions are still text; registration, discovery, progressive loading, execution, and receipts are capabilities implemented by the Host."
     - "A Skill cannot grant tools or data access; an authorized script also needs a separate review of its actual operating-system privileges."
     - "ETF Agent constrains reviewed package scripts by identity, path, timeout, and output, but that runner is not an OS sandbox; its Docker Analysis Sandbox is separate."
-    - "Research can combine Skills and preserve partial results; a Bundle is only an optional packaging extension."
+    - "A Skill can be reused across requests and experts; incomplete evidence should preserve confirmed partial findings."
   appliesTo:
     - "Engineers designing Agent Skill loading, reuse, script execution, and authorization who need to separate file-format conventions from Host behavior."
   notFor:
