@@ -70,6 +70,7 @@ export const collections = [
           ["agent-skill-from-markdown-to-callable-research", "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行"],
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
           ["agent-deterministic-fund-allocation", "确定性基金计算：从持仓事实到金额建议"],
+          ["agent-atomic-portfolio-report-production", "原子报告：一份组合报告为什么不能边算边写"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
           ["agent-knowledge-retrieval-end-to-end", "知识检索：从资料入库到可信证据交付"],
