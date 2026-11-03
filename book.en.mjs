@@ -77,7 +77,7 @@ export const englishTitles = {
   "011-model-understands-code-authorizes": "Models Understand; Code Authorizes: Run-Scoped Authorization Through Recovery",
   "runtime-model-protocol-boundary-agent-article-v2": "Don't Turn the Model into a State Machine",
   "agent-model-runtime-mcp-skill-boundaries": "Responsibilities of Model, Runtime, MCP and Skills",
-  "agent-skill-from-markdown-to-callable-research": "A Skill Is More Than SKILL.md: Callable Research Methods",
+  "agent-skill-from-markdown-to-callable-research": "How Is a Skill Different from a Prompt?",
   "agent-disconnect-is-not-crash-recovery-contract": "A Disconnected Browser Is Not a Crashed Agent",
   "agent-veto-authority-and-run-termination": "Run Termination, Stage Budgets and Safe Recovery",
   "mcp-market-responsibility-retrospective": "Why Financial Market MCP Became a Decision System",
