@@ -33,7 +33,7 @@ The difference appears when a Host provides additional lifecycle mechanisms:
 | Scripts | Uses tools the Agent already has | Can organize reviewed scripts and input contracts, using the same Host tools |
 | Authorization and trace | Still belongs to the Host | Still belongs to the Host, linked to Skill identity, version, and actual receipts |
 
-[![Comparison of one-off prompts and Host-managed Skills](/diagrams/agent-skill/prompt-en.svg)](/diagrams/agent-skill/prompt-en.svg)
+<a href="/diagrams/agent-skill/prompt-en.svg" aria-label="Comparison of one-off prompts and Host-managed Skills"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/prompt-en-mobile.svg" /><img src="/diagrams/agent-skill/prompt-en.svg" alt="Comparison of one-off prompts and Host-managed Skills" loading="lazy" /></picture></a>
 
 *Figure 1: the extra capability comes from loading and execution governance, not magical Markdown.*
 
@@ -57,7 +57,7 @@ The instruction file describes eligibility, input requirements, steps, and what 
 
 ETF Agent supports two entry routes. A user may explicitly select a registered Skill ID, such as `/index-fund-tracking-quality`. Otherwise, an ordinary natural-language request may enter Research, after which Main sees a short catalog and decides whether to read the Skill. Entry need not preload the full catalog; a simple Direct answer need not start research.
 
-[![Skill discovery, reading, tool authorization, and actual execution](/diagrams/agent-skill/path-en.svg)](/diagrams/agent-skill/path-en.svg)
+<a href="/diagrams/agent-skill/path-en.svg" aria-label="Skill discovery, reading, tool authorization, and actual execution"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/path-en-mobile.svg" /><img src="/diagrams/agent-skill/path-en.svg" alt="Skill discovery, reading, tool authorization, and actual execution" loading="lazy" /></picture></a>
 
 *Figure 2: seeing a catalog, reading instructions, receiving a grant, and running code are separate events.*
 
@@ -113,7 +113,7 @@ This describes expected fields; it does not fetch prices, access a portfolio, or
 
 But the actual `runSkillPython` executor starts a **Host-side Python subprocess**. It does **not** establish an independent network, filesystem, environment-variable, or subprocess sandbox. Path validation restricts *which script is selected*, not *everything that script could access after starting*. The reviewed built-in scripts are intended to process supplied JSON without networking, package installation, or unrelated file reads; these are properties of reviewed trusted code, not OS isolation guarantees.
 
-[![Trust and sandbox boundary for ETF Agent Skill scripts versus Docker Analysis Sandbox](/diagrams/agent-skill/security-en.svg)](/diagrams/agent-skill/security-en.svg)
+<a href="/diagrams/agent-skill/security-en.svg" aria-label="Trust and sandbox boundary for ETF Agent Skill scripts versus Docker Analysis Sandbox"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/security-en-mobile.svg" /><img src="/diagrams/agent-skill/security-en.svg" alt="Trust and sandbox boundary for ETF Agent Skill scripts versus Docker Analysis Sandbox" loading="lazy" /></picture></a>
 
 *Figure 3: package path checks are not a sandbox; Docker Analysis Sandbox is a distinct execution route.*
 
