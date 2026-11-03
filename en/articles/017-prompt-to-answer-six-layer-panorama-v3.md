@@ -267,13 +267,13 @@ The original capability Owner registry is authoritative for effects and facts. T
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
 | A09 | [Scheduled Tasks](/en/articles/agent-autonomous-scheduled-research) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A09) | L2, L3, L5 |
-| A27 | [Daily Personalized Research](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A27) | L2, L3, L5 |
+| A27 | [Daily Personalized Research](/en/articles/agent-personalized-daily-research-cache) | L2, L3, L5 |
 
 ### L2 · Identity, Conversation and Context
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A01 | [Account Identity](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A01) · [Related reading](/en/articles/011-model-understands-code-authorizes) | L1, L4 |
+| A01 | [Account Identity](/en/articles/agent-account-identity-private-scope) · [Related reading](/en/articles/011-model-understands-code-authorizes) | L1, L4 |
 | A02 | [Conversation Admission and Continuation](/en/articles/agent-conversation-admission-task-continuation) · [Related reading](/en/articles/agent-veto-authority-and-run-termination) | L1, L5, L6 |
 | A04 | [Run Authorization and Capability Admission](/en/articles/011-model-understands-code-authorizes) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A04) | L1, L3, L4, L5 |
 | A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L1, L3, L5 |
@@ -293,7 +293,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A03 | [Research Decision and Synthesis](/en/articles/adaptive-research-python-workbench) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A03) | L2, L4, L5 |
+| A03 | [Research Decision and Synthesis](/en/articles/agent-research-decisions-evidence-synthesis) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A03) | L2, L4, L5 |
 | A05 | [Run Resource Management (Deep)](/en/articles/agent-runtime-constraint-governance-v2) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) | L2, L4, L5 |
 | A06 | [Run Continuation and Termination](/en/articles/agent-veto-authority-and-run-termination) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) | L2, L5 |
 | A07 | [Child Execution Lifecycle](/en/articles/agent-subagent-context-specialization) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) | L2, L4 |
@@ -322,13 +322,13 @@ The original capability Owner registry is authoritative for effects and facts. T
 | B02 | [Investment Fact Reading](/en/articles/portfolio-mcp-readonly-investment-data) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
 | B03 | [Deterministic Investment Calculations](/en/articles/agent-deterministic-fund-allocation) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [Investment Ledger and Confirmation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |
-| B05 | [Atomic Report Production](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B05) · [Related reading](/en/articles/portfolio-mcp-readonly-investment-data) | L3, L5 |
+| B05 | [Atomic Report Production](/en/articles/agent-atomic-portfolio-report-production) · [Related reading](/en/articles/portfolio-mcp-readonly-investment-data) | L3, L5 |
 
 ### L5 · Publication and Delivery
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A22 | [Private Artifact Storage and Sharing](/en/articles/agent-html-evolution-challenges) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
+| A22 | [Private Artifact Storage and Sharing](/en/articles/agent-artifact-version-access-sharing) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
 | A23 | [Answer Publication and Preparation](/en/articles/019-agent-answer-publication) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
 | A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
 | A40 | [User Answer Feedback Records](/en/articles/agent-feedback-facts-not-automatic-learning) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |

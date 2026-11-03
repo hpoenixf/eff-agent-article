@@ -48,11 +48,11 @@ test('the topic and badges consume the same tag data, not links parsed from the 
  assert.equal(existingFinanceArticleSlugs.length,14);
 })
 
-test('current authored finance tags add the two explicitly tagged panoramas and preserve the old fourteen', () => {
+test('current authored finance tags include the two panoramas and B05 while preserving the old fourteen', () => {
  const slugs=collections.flatMap(c=>c.chapters.flatMap(c=>c.items.map(([s])=>s)));
  const pages=slugs.map(slug=>({url:'/articles/'+slug,frontmatter:frontmatter(readFileSync(new URL('../articles/'+slug+'.md',import.meta.url),'utf8'))}));
  const members=financeArticleMembers({slugs,pages});
- assert.deepEqual(new Set(members),new Set([...existingFinanceArticleSlugs,'vertical-financial-agent-principles-panorama','etf-agent-framework-comparison-panorama']));
+ assert.deepEqual(new Set(members),new Set([...existingFinanceArticleSlugs,'vertical-financial-agent-principles-panorama','etf-agent-framework-comparison-panorama','agent-atomic-portfolio-report-production']));
 })
 
 test('actual finance component renders every tagged article in both languages and marks fallback', async () => {
