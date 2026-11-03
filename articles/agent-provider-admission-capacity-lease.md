@@ -125,9 +125,9 @@ node src/admission-demo.mjs normal output/admission-demo
 node src/admission-demo.mjs unknown output/admission-demo
 ```
 
-每次运行会建立隔离的合成目录。前者让第二个进程等待原槽位释放，后者保留未知占位并取消排队者；不要删除未知票据来制造空闲容量。它们仍是本地双进程安全实验。 场景与原票据读回见[独立无模型回执](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-admission-offline.safe.json)。
+每次运行会建立隔离的合成目录。前者让第二个进程等待原槽位释放，后者保留未知占位并取消排队者；不要删除未知票据来制造空闲容量。它们仍是本地双进程安全实验。 场景与原票据读回见[独立无模型回执](https://github.com/hpoenixf/open-etf-agent/blob/187c942b2c43c6da77011bcb2cbab1bfde1bdead/docs/verification/v017-admission-offline.safe.json)。
 
-另一个独立问题是：接入真实模型后，原准入、工具结果、Publication 与报告读取还能否接成一条链？[本轮固定真实任务记录](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-real-ten.safe.json)覆盖这条正常路径，报告再由不调用模型的冷 Reader 校对原字节。环境中断的任务仍保留未知结果和原容量占位；后续任务在隔离的新容量组完成，并不证明旧组已经恢复，也不能据此声称跨组全局容量协调或真实并发竞争已经验证。这里最重要的区别是：**后续任务完成，不等于先前未知占用可以释放。**
+另一个独立问题是：接入真实模型后，原准入、工具结果、Publication 与报告读取还能否接成一条链？[本轮固定真实任务记录](https://github.com/hpoenixf/open-etf-agent/blob/187c942b2c43c6da77011bcb2cbab1bfde1bdead/docs/verification/v017-real-ten.safe.json)覆盖这条正常路径，报告再由不调用模型的冷 Reader 校对原字节。环境中断的任务仍保留未知结果和原容量占位；后续任务在隔离的新容量组完成，并不证明旧组已经恢复，也不能据此声称跨组全局容量协调或真实并发竞争已经验证。这里最重要的区别是：**后续任务完成，不等于先前未知占用可以释放。**
 
 [较早的真实调用记录](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-release.safe.json)仍按原批次保留，不并入本轮结果。无模型双进程实验解释排队、unknown 与取消的安全边界；顺序真实调用解释正常交付链，两者都不证明金融研究质量。
 
