@@ -110,15 +110,17 @@ const catalogue = readFileSync('catalog.md', 'utf8')
 const readme = readFileSync('README.md', 'utf8')
 if (!engineering.includes('<ChapterCatalog category="engineering" />')) throw Error('Engineering landing page missing')
 if (!/<ChapterCatalog(?:\s[^>]*)?>/.test(catalogue) || !readme.includes('AI Agent 研发工程实践')) throw Error('Three-way catalogue entry missing')
-const financeSlugs = [...finance.matchAll(/\/articles\/([a-z0-9-]+)/g)].map(match => match[1])
-// The cross-category finance page is a thematic map: an indexed essay may be
-// linked from both a concern matrix and a reading route. This does not create
-// duplicate canonical entries; the single reading tree above still enforces that.
-if (new Set(financeSlugs).size < 2 || financeSlugs.some(slug => !knownArticles.has(slug))) {
-  throw Error('Finance topic must link only to indexed essays')
+const { financeTopicGroups } = await import('../finance-topic-groups.mjs')
+const financeSlugs = Object.values(financeTopicGroups).flat()
+if (financeSlugs.length < 2 || new Set(financeSlugs).size !== financeSlugs.length || financeSlugs.some(slug => !knownArticles.has(slug))) {
+  throw Error('Finance groups must reference unique indexed essays')
 }
-console.log('Three-perspective catalogue, curated finance links and local article links validated.')
-
+for (const page of [finance, readFileSync('en/fintech.md', 'utf8')]) {
+ const categories = [...page.matchAll(/<FinanceTopic category="([^"]+)" \/>/g)].map(match=>match[1])
+ if (new Set(categories).size !== categories.length || categories.length !== Object.keys(financeTopicGroups).length + 1 || !categories.includes('pending') || Object.keys(financeTopicGroups).some(group=>!categories.includes(group))) throw Error('Finance topic must render each group and its unclassified fallback exactly once')
+ if ((page.match(/<FinanceTopic summary \/>/g)||[]).length !== 1 || /\]\(\/(?:en\/)?articles\//.test(page)) throw Error('Finance topic must have one total and no duplicate static article list')
+}
+console.log('Three-perspective catalogue, single grouped finance topic and local article links validated.')
 
 // English presentation derives slugs from book.mjs, never maintains a second article tree.
 const { englishTitles, englishArticleSlugs, historicalEnglishArticleSlugs } = await import('../book.en.mjs')

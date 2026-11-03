@@ -93,7 +93,12 @@ test('topic cleanup preserves article-tag sources and every original heading anc
   for (const entry of expectations) {
     const text = read(entry.path)
     const slugs = [...new Set([...text.matchAll(/\]\(\/(?:en\/)?articles\/([^\s)#]+)(?:#[^)]*)?\)/g)].map(match => match[1]))].sort()
-    assert.deepEqual(slugs, entry.slugs, entry.path)
+    if (entry.path.includes('fintech')) {
+      const { financeTopicGroups } = await import('../finance-topic-groups.mjs')
+      const grouped = Object.values(financeTopicGroups).flat()
+      assert.deepEqual(grouped.slice().sort(), [...entry.slugs, 'vertical-financial-agent-principles-panorama', 'etf-agent-framework-comparison-panorama'].sort())
+      assert.deepEqual(slugs, [], 'No duplicate static article list')
+    } else assert.deepEqual(slugs, entry.slugs, entry.path)
     const html = md.render(text)
     const expected = ids(md.render(entry.headings.join('\n\n')))
     for (const id of expected) assert.ok(ids(html).includes(id), entry.path + '#' + id)

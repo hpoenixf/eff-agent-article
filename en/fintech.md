@@ -9,52 +9,65 @@ Explore financial research methods, evidence and accountability through the publ
 
 ## All finance-tagged articles
 
-This list uses the same membership as the finance tag on each article, with no additional curated filter. Primary categories stay unchanged. Articles without a complete English edition link to the clearly marked Chinese original.
+Browse by research question, with an individual introduction and reading link for every article. All finance-tagged articles are included; newly tagged articles awaiting classification remain visible. Primary categories stay unchanged.
 
-<FinanceTopic />
-
-<details>
-<summary>Read by research question (existing guide)</summary>
+<FinanceTopic summary />
 
 ## A · Financial AI Products and Investors
 
 What do financial AI products actually offer investors, and where can convenience distort judgment?
 
-- **A3 · Investor behavior and longitudinal reviews** — How can original hypotheses, user corrections and subsequent facts remain distinct, without hindsight rewriting?
-  [Investment Thesis history](/en/articles/agent-weekly-thesis-history-continuous-research)
+**A3 · Investor behavior and longitudinal reviews** — How can original hypotheses, user corrections and subsequent facts remain distinct, without hindsight rewriting?
+
+<FinanceTopic category="a3" />
 
 ## B · Research Quality and Strategy Science
 
 Provenance, methodology, conclusions and strategy validity are separate problems; correct arithmetic alone does not complete research.
 
-- **B1 · Financial data quality and reproducibility** — How do dates, share classes, NAVs, currencies, fees, look-through coverage and assumptions change the answer?
-  [Financial data: dates and reproducibility](/en/articles/031-fintech-data-time-and-reproducible-numbers) · [Exact numeric kernel: units and rounding](/en/articles/agent-numeric-kernel-exact-units-rounding) · [Read-only Portfolio MCP](/en/articles/portfolio-mcp-readonly-investment-data) · [Deterministic fund allocations](/en/articles/agent-deterministic-fund-allocation)
+**B1 · Financial data quality and reproducibility** — How do dates, share classes, NAVs, currencies, fees, look-through coverage and assumptions change the answer?
 
-- **B2 · Research methods and trustworthy lineage** — Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable?
-  [Traceable financial evidence and calculations](/articles/financial-agent-trustworthy-evidence-chain) (**Chinese original**) · [Financial Python result consumption](/en/articles/financial-agent-python-result-consumption) · [RAG evaluation: ranking versus supported financial evidence](/en/articles/rag-retrieval-evaluation-evidence)
+<FinanceTopic category="b1" />
 
-- **B3 · Research quality and counterevidence** — Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision?
-  [Multi-perspective investment research](/en/articles/investment-perspectives-and-thesis-falsification) · [F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12)
+**B2 · Research methods and trustworthy lineage** — Which links from actual sources through calculations, Python outputs and final explanations must remain verifiable?
+
+<FinanceTopic category="b2" />
+
+**B3 · Research quality and counterevidence** — Does the study address the real question, choose suitable methods, challenge its thesis and state conditions for revision?
+
+<FinanceTopic category="b3" />
+
+[F01 research task](https://github.com/hpoenixf/eff-agent-article/issues/12)
 
 ## C · Business Accountability and Trustworthy Governance
 
 User confirmation, professional judgment, application permission, executed effects and compliance review are not interchangeable.
 
-- **C1 · Research, advice, trading and suitability** — What obligations differ between factual explanation, personalized advice and transaction services?
-  [Research, advice and trading](/en/articles/030-fintech-from-research-to-investment-advice)
+**C1 · Research, advice, trading and suitability** — What obligations differ between factual explanation, personalized advice and transaction services?
 
-- **C2 · User authorization and actual financial effects** — Why must model proposals, intent, permissions, order submissions and fills be recorded separately?
-  [Models understand; code authorizes](/en/articles/011-model-understands-code-authorizes) · [Trusted business-agent handoffs](/en/articles/financial-business-agent-trusted-handoff)
+<FinanceTopic category="c1" />
+
+**C2 · User authorization and actual financial effects** — Why must model proposals, intent, permissions, order submissions and fills be recorded separately?
+
+<FinanceTopic category="c2" />
 
 ## D · Institutional Adoption and Business Economics
 
 Use-case selection, domain error assets, employee workflows and provider governance shape institutional value.
 
-- **D2 · Employee-facing AI and organizational workflows** — How do adviser workstations, research production, compliance review and approval change work and costs?
-  [Financial-agent systems, lifecycles and accountability](/en/articles/financial-agent-system-panorama)
+**D0 · System principles and framework choices**
 
-- **D4 · Market-data provider governance and service continuity** — How should multiple sources handle conflicting values, provider failures and exits without making research decisions?
-  [Market-data MCP responsibilities](/en/articles/mcp-market-responsibility-retrospective)
+<FinanceTopic category="d0" />
+
+**D2 · Employee-facing AI and organizational workflows** — How do adviser workstations, research production, compliance review and approval change work and costs?
+
+<FinanceTopic category="d2" />
+
+**D4 · Market-data provider governance and service continuity** — How should multiple sources handle conflicting values, provider failures and exits without making research decisions?
+
+<FinanceTopic category="d4" />
+
+<FinanceTopic category="pending" />
 
 <details>
 <summary>Questions still under research</summary>
@@ -78,5 +91,3 @@ Implementation, bounded tests, business outcomes and regulatory compliance are d
 [Research questions F01–F15](/en/financial-research-backlog) · [Full catalog](/en/catalog)
 
 <small>This page is not investment advice, a suitability determination, legal advice or regulatory certification.</small>
-
-</details>

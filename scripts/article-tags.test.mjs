@@ -4,6 +4,7 @@ import { canonicalArticleLinks, buildArticleTags } from '../article-tags.mjs'
 import { collections, panoramaSeriesSlugs } from '../book.mjs'
 import { topicGroups } from '../open-etf-topic.mjs'
 import { readFileSync } from 'node:fs'
+import { financeGroupMembers, financeTopicGroups } from '../finance-topic-groups.mjs'
 import { financeArticleMembers, existingFinanceArticleSlugs, taggedArticleSlugs } from '../finance-membership.mjs'
 import { createMarkdownRenderer } from 'vitepress'
 const markdown = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
@@ -43,7 +44,7 @@ test('the topic and badges consume the same tag data, not links parsed from the 
  assert.match(component,/taggedArticleSlugs\(tags, 'finance'/);
  assert.match(component,/article-tags.data/);assert.match(component,/descriptionForArticle/);
  assert.doesNotMatch(loader,/fintech\.md|financeMarkdown/);
- for(const path of ['fintech.md','en/fintech.md']) assert.match(readFileSync(new URL('../'+path,import.meta.url),'utf8'),/<FinanceTopic \/>/);
+ for(const path of ['fintech.md','en/fintech.md']) assert.match(readFileSync(new URL('../'+path,import.meta.url),'utf8'),/<FinanceTopic summary \/>/);
  assert.equal(existingFinanceArticleSlugs.length,14);
 })
 
@@ -81,15 +82,27 @@ test('actual finance component renders every tagged article in both languages an
  const Component=(await import(pathToFileURL(path))).default;
  for(const base of ['/','/eff-agent-article/']) for(const english of [false,true]){
   globalThis.__financeBase=base;globalThis.__financeState={lang:ref(english?'en-US':'zh-CN')};
-  const html=await renderToString(createSSRApp(Component));
-  assert.equal((html.match(/<li>/g)||[]).length,members.length);
+  const source = readFileSync(new URL('../'+(english?'en/':'')+'fintech.md',import.meta.url),'utf8');
+  let page = markdown.render(source, {});
+  const components = [...page.matchAll(/<FinanceTopic\s+([^>]*?)\s*\/>/g)];
+  assert.equal(components.length, 11, 'summary, nine classified groups and pending group');
+  for(const match of components) {
+   const category=match[1].match(/category="([^"]+)"/)?.[1];
+   const summary=/\bsummary\b/.test(match[1]);
+   page=page.replace(match[0],await renderToString(createSSRApp(Component,{category,summary})));
+  }
+  const html=page;
+  assert.doesNotMatch(html,/原有导读|existing guide|Read by research question/);
+  assert.equal((html.match(/<li><h3>/g)||[]).length,members.length);
   const escape = value => value.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const titles = new Map(collections.flatMap(c=>c.chapters.flatMap(c=>c.items)));
   const entries = [...html.matchAll(/<li>([\s\S]*?)<\/li>/g)].map(match=>match[1]);
   assert.ok(html.includes(english ? `${members.length} articles,` : `共 ${members.length} 篇`));
   for(const [i,slug] of members.entries()) {
    const href=english?englishArticlePath(slug):'/articles/'+slug;
-   const entry=entries[i];
+   const entry=entries.find(value=>value.includes('href="'+base.replace(/\/$/,'')+href+'"'));
+   assert.ok(entry,slug);
+   assert.equal(html.split('href="'+base.replace(/\/$/,'')+href+'"').length-1,1,'Whole page contains each article link exactly once: '+slug);
    assert.equal((entry.match(/<h3>/g)||[]).length,1,slug);
    assert.equal((entry.match(/<a /g)||[]).length,1,slug);
    assert.ok(entry.includes('href="'+base.replace(/\/$/,'')+href+'"'),slug);
@@ -98,5 +111,27 @@ test('actual finance component renders every tagged article in both languages an
   }
   if(english) assert.match(html,/Chinese original/);
  }
+ const newSlug = slugs.find(slug=>!members.includes(slug));
+ globalThis.__financeTags.articles[newSlug]=[{id:'finance'}];
+ const PendingComponent=(await import(pathToFileURL(path).href+'?pending')).default;
+ globalThis.__financeState={lang:ref('zh-CN')};globalThis.__financeBase='/eff-agent-article/';
+ const pendingHtml=await renderToString(createSSRApp(PendingComponent,{category:'pending'}));
+ assert.match(pendingHtml,/待分类的金融新文章/);
+ assert.ok(pendingHtml.includes('/eff-agent-article/articles/'+newSlug));
+ assert.equal((pendingHtml.match(/<li>/g)||[]).length,1);
  delete globalThis.__financeTags;delete globalThis.__financeDescriptions;delete globalThis.__financeState;delete globalThis.__financeBase;
+})
+
+
+test('research groups preserve all finance members once and visibly retain newly tagged articles', () => {
+ const members=[...existingFinanceArticleSlugs,'vertical-financial-agent-principles-panorama','etf-agent-framework-comparison-panorama'];
+ const grouped=Object.keys(financeTopicGroups).flatMap(key=>financeGroupMembers(members,key));
+ assert.equal(grouped.length,16);assert.equal(new Set(grouped).size,16);assert.deepEqual(new Set(grouped),new Set(members));
+ assert.deepEqual(financeGroupMembers([...members,'newly-tagged-finance'],'pending'),['newly-tagged-finance']);
+ for(const prefix of ['', 'en/']) {
+  const source=readFileSync(new URL('../'+prefix+'fintech.md',import.meta.url),'utf8');
+  for(const letter of ['A','B','C','D']) assert.match(source,new RegExp('## '+letter+' ·'));
+  assert.doesNotMatch(source,/\]\(\/(?:en\/)?articles\//);
+  assert.match(source,/<FinanceTopic category="pending" \/>/);
+ }
 })

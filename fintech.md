@@ -9,52 +9,65 @@ description: 汇总所有带金融标签的文章，覆盖金融产品、投研�
 
 ## 全部金融标签文章
 
-这里与文章页的金融标签使用同一成员集合，不再按精选名单二次筛选。文章仍保留原主分类；尚无英文全文的文章在英文专题中明确标记为中文原文。
+以下按研究问题分类，每篇保留独立介绍与阅读入口。所有金融标签文章都会收录，尚未归类的新文章显示在“待分类”区；文章原主分类不变。
 
-<FinanceTopic />
-
-<details>
-<summary>按研究问题阅读（原有导读）</summary>
+<FinanceTopic summary />
 
 ## A · 金融 AI 产品与投资者
 
 金融 AI 到底为投资者提供什么？怎样避免用信息便利替代判断？
 
-- **A3 · 投资者行为与跨期复盘** — 如何保留原假设、用户修正与后来事实，避免把事后收益当成当时的理由？
-  [Investment Thesis：周报后的跨期研究](/articles/agent-weekly-thesis-history-continuous-research)
+**A3 · 投资者行为与跨期复盘** — 如何保留原假设、用户修正与后来事实，避免把事后收益当成当时的理由？
+
+<FinanceTopic category="a3" />
 
 ## B · 投研质量与策略科学
 
 来源、金融方法、结论质量和策略有效性是四个不同问题；算对数字不是研究完成。
 
-- **B1 · 金融数据质量、口径与可复算** — 时点、基金份额、净值、币种、费用、穿透覆盖与假设如何改变结论？
-  [金融数字的时点、口径与可复算](/articles/031-fintech-data-time-and-reproducible-numbers) · [精确数值核：单位、舍入与残差](/articles/agent-numeric-kernel-exact-units-rounding) · [只读 Portfolio MCP 与持仓事实](/articles/portfolio-mcp-readonly-investment-data) · [确定性基金金额分配](/articles/agent-deterministic-fund-allocation)
+**B1 · 金融数据质量、口径与可复算** — 时点、基金份额、净值、币种、费用、穿透覆盖与假设如何改变结论？
 
-- **B2 · 研究方法与可信证据链** — 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？
-  [金融证据与计算可追溯](/articles/financial-agent-trustworthy-evidence-chain) · [Python 结果消费与研究方法](/articles/financial-agent-python-result-consumption) · [RAG 检索指标与金融证据评测](/articles/rag-retrieval-evaluation-evidence)
+<FinanceTopic category="b1" />
 
-- **B3 · 投资研究质量与反证方法** — 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？
-  [多视角 Agent 与投资假设检验](/articles/investment-perspectives-and-thesis-falsification) · [F01 质量研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12)
+**B2 · 研究方法与可信证据链** — 从真实来源到计算、Python 结果与最终解释，哪些关系必须被核对？
+
+<FinanceTopic category="b2" />
+
+**B3 · 投资研究质量与反证方法** — 研究是否回答原问题、选择了适用方法、挑战自身论点并讨论改判条件？
+
+<FinanceTopic category="b3" />
+
+[F01 质量研究任务](https://github.com/hpoenixf/eff-agent-article/issues/12)
 
 ## C · 业务责任与可信治理
 
 用户确认、金融专业判断、系统授权、实际执行和合规审查不能互相替代。
 
-- **C1 · 投研、投顾、交易与适当性** — 事实解释、个性化建议与交易服务跨过了哪些不同的业务责任？
-  [从投资研究到投顾与交易](/articles/030-fintech-from-research-to-investment-advice)
+**C1 · 投研、投顾、交易与适当性** — 事实解释、个性化建议与交易服务跨过了哪些不同的业务责任？
 
-- **C2 · 用户授权与实际金融效果** — 模型提议、用户意愿、主机授权、订单提交与成交为什么要分别留存？
-  [模型理解，代码授权](/articles/011-model-understands-code-authorizes) · [多业务 Agent：为什么不只是 Router？](/articles/financial-business-agent-trusted-handoff)
+<FinanceTopic category="c1" />
+
+**C2 · 用户授权与实际金融效果** — 模型提议、用户意愿、主机授权、订单提交与成交为什么要分别留存？
+
+<FinanceTopic category="c2" />
 
 ## D · 金融机构落地与经营
 
 选场景、沉淀金融错误、重构员工工作流与管理供应商，决定组织是否真正从 AI 获益。
 
-- **D2 · 员工端 AI 与组织工作流** — 投顾驾驶舱、研报生产、合规质检、人工审批怎样改变岗位职责与核查成本？
-  [金融 Agent 全景：系统、双生命周期与责任](/articles/financial-agent-system-panorama)
+**D0 · 系统原则与框架选型**
 
-- **D4 · 金融数据供应商治理与业务连续性** — 多来源接入怎样处理源冲突、字段差异、供应商失败和退出，而不替研究作判断？
-  [金融数据 MCP 的供应商与研究职责](/articles/mcp-market-responsibility-retrospective)
+<FinanceTopic category="d0" />
+
+**D2 · 员工端 AI 与组织工作流** — 投顾驾驶舱、研报生产、合规质检、人工审批怎样改变岗位职责与核查成本？
+
+<FinanceTopic category="d2" />
+
+**D4 · 金融数据供应商治理与业务连续性** — 多来源接入怎样处理源冲突、字段差异、供应商失败和退出，而不替研究作判断？
+
+<FinanceTopic category="d4" />
+
+<FinanceTopic category="pending" />
 
 <details>
 <summary>仍待研究的问题</summary>
@@ -80,5 +93,3 @@ description: 汇总所有带金融标签的文章，覆盖金融产品、投研�
 [研究问题 F01–F15](/financial-research-backlog) · [全部文章](/catalog)
 
 <small>本文并非投资建议、投资者适当性结论、法律意见或合规认证。</small>
-
-</details>
