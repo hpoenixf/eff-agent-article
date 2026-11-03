@@ -33,7 +33,7 @@ readingBrief:
 | 工具与脚本 | 依赖 Agent 原来拥有的工具 | 仍依赖 Host 原有工具；可以组织受审脚本和输入约定 |
 | 权限与追溯 | 由原 Host 决定，Prompt 不能越权 | 仍由原 Host 决定，并能关联 Skill 身份、版本、实际工具回执 |
 
-[![普通 Prompt 与 Host 管理的 Skill 的能力对比](/diagrams/agent-skill/prompt-zh.svg)](/diagrams/agent-skill/prompt-zh.svg)
+<a href="/diagrams/agent-skill/prompt-zh.svg" aria-label="普通 Prompt 与 Host 管理的 Skill 的能力对比"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/prompt-zh-mobile.svg" /><img src="/diagrams/agent-skill/prompt-zh.svg" alt="普通 Prompt 与 Host 管理的 Skill 的能力对比" loading="lazy" /></picture></a>
 
 *图 1：真正变化的是加载与执行治理，不是 Markdown 的神奇能力。*
 
@@ -57,7 +57,7 @@ index-fund-tracking-quality/
 
 ETF Agent 有两条入口：用户显式指定已注册 Skill ID，例如 `/index-fund-tracking-quality`；或者自然语言提问，进入 Research 后由 Main 从简短目录选择是否读取对应 Skill。普通 Entry 不必预加载整份目录，Direct 也不必为一次简单回答启动研究。
 
-[![用户请求、Skill 发现、按需读取、工具授权与结果的关系](/diagrams/agent-skill/path-zh.svg)](/diagrams/agent-skill/path-zh.svg)
+<a href="/diagrams/agent-skill/path-zh.svg" aria-label="用户请求、Skill 发现、按需读取、工具授权与结果的关系"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/path-zh-mobile.svg" /><img src="/diagrams/agent-skill/path-zh.svg" alt="用户请求、Skill 发现、按需读取、工具授权与结果的关系" loading="lazy" /></picture></a>
 
 *图 2：目录可见、正文已读、工具获准和脚本实际执行，是四个不同的事实。*
 
@@ -113,7 +113,7 @@ ETF Agent 的内部受审基金 Skill 包可通过原有 `run_skill_script` 工�
 
 但是，当前 `runSkillPython` 最终调用的是宿主侧 Python 子进程（`spawn`），**并没有在这个执行器里建立独立的网络、文件系统、环境变量或子进程沙箱**。路径校验限制“选择哪份脚本”，不保证这份脚本运行后“只能访问哪个路径”。受审内置脚本约定只处理输入 JSON、不联网、不安装依赖；这属于可信代码与审查约束，不能等同于 OS 级隔离。
 
-[![ETF Agent 受审 Skill 脚本与独立 Docker Analysis Sandbox 的安全边界](/diagrams/agent-skill/security-zh.svg)](/diagrams/agent-skill/security-zh.svg)
+<a href="/diagrams/agent-skill/security-zh.svg" aria-label="ETF Agent 受审 Skill 脚本与独立 Docker Analysis Sandbox 的安全边界"><picture><source media="(max-width: 700px)" srcset="/diagrams/agent-skill/security-zh-mobile.svg" /><img src="/diagrams/agent-skill/security-zh.svg" alt="ETF Agent 受审 Skill 脚本与独立 Docker Analysis Sandbox 的安全边界" loading="lazy" /></picture></a>
 
 *图 3：受审包执行器的路径约束不是沙箱。Docker Analysis Sandbox 是另一条路径，不可混为一谈。*
 
