@@ -209,6 +209,16 @@ Codex 同样说明执行边界与审批策略需要分别理解：允许运行�
 
 长任务的代价因此不只是一个队列。系统要分别保存执行进展、可读成果和交付承诺；一个总的“成功”字段已不够表达用户经历。[异步研究与定时交付](/articles/agent-asynchronous-research-time-bound-delivery)展开了这次拆分。
 
+这次拆分也给出了一个有用的展望：长期目标可以跨越许多轮研究，每轮执行仍有自己的范围与终点。已经验证的是任务与连接分离、成果独立回读；把它进一步组织成可修改、可退出的长期委托，还需要管理每次触发的条件和当前授权。下图把这两个时间尺度与单次模型请求放在一起，帮助看清下一步要承担什么。
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/durable-work-zh-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/durable-work-zh.svg')" alt="长期目标、单次 Run 与模型请求的三个时间尺度：有界执行按获准事件唤醒，等待可释放计算，成果独立保留" />
+  </picture>
+  <figcaption>图 3 · 从已验证的任务与成果分离，推演长期目标、单次执行和模型请求的分工。完整长期委托仍是设计方向。 <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/durable-work-zh.svg')" target="_blank" rel="noopener noreferrer">查看完整图</a></figcaption>
+</figure>
+
 ## 八、用户回答以后：消息收到，不等于工作已经改变 {#人工回复与实际采纳}
 
 任务能在用户离开后继续，随后就会遇到另一种等待：模型需要用户补充资料、确定范围或批准动作。弹出问题框并不难，难的是回答能否进入真正等待它的工作。
@@ -233,6 +243,16 @@ Codex 同样说明执行边界与审批策略需要分别理解：允许运行�
 
 因此，个性化的价值不能只用“存了多少条”衡量。值得保留的是跨对话少重复交代的可能性，必须支付的工程成本则包括来源、适用范围、更正和失效。我们已经在真实模型链路中确认有限的保存与消费，也明确保留“没有采用”的结果；持续收益仍需另外验证。关于旧记忆如何继续影响输入，以及为什么删除记录不等于完成遗忘，可继续读[上下文治理行动篇](/articles/agent-context-governance-actions)与[遗忘的持久效果](/articles/026-agent-memory-forget-durable-effects)。它们不是这组新增验证的原始记录。
 
+沿着这条消费链继续看，个人助手有望减少用户重复交代，也必须让用户能够更正旧信息。图中的来源、范围、版本与授权不是“多存一点历史”的同义词：我们已核对有限的记忆保存与后续消费，完整的跨任务个性化治理和持续收益仍需继续验证。
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personalization-zh-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personalization-zh.svg')" alt="个性化的设计关系：按来源、范围和版本使用信息，更正应撤销旧版本的后续使用资格并检查已识别的依赖摘要，操作授权独立控制执行" />
+  </picture>
+  <figcaption>图 4 · 记忆怎样参与下一次工作，以及更正与授权应怎样约束它。图展示工程关系，不把有限样本扩展成完整个性化产品。 <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personalization-zh.svg')" target="_blank" rel="noopener noreferrer">查看完整图</a></figcaption>
+</figure>
+
 ## 十、用户每天回来：个人助手也要把普通阅读做好 {#每日研究与稳定复读}
 
 跨对话记忆之外，我们还做了一件看起来更普通的事：每日研究生成以后，让用户能稳定地回来读。它没有自动推送那么醒目，却直接影响“这还是不是我刚才看到的那份研究”。
@@ -245,6 +265,16 @@ Codex 同样说明执行边界与审批策略需要分别理解：允许运行�
 
 有限的原结果复评也没有给出“每日选题都好”的结论：关联有支持的条目与关联有限的条目同时存在，实际追问成功率和真实用户采纳尚未验证。因此我们把成果表述为生成、保存、来源展示与复读链路得到改善，而不是已经做成了懂用户的主动投研服务。[每日研究缓存与来源](/articles/agent-personalized-daily-research-cache)保留了这一案例的具体机制。
 
+稳定复读是向主动助手继续推进的起点，而不是终点。下一步值得追求的是：按获准条件检查变化，真正影响目标时再研究，并把“值得现在通知用户吗”作为独立判断。这样的主动性应允许安静等待，也允许用户暂停委托；下面的循环是由现有案例引出的设计展望，尚不是已经验收的自动服务。
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-zh-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-zh.svg')" alt="个人 Agent 设计展望：获准事件唤醒，重建当前目标和权限，有界执行并校验成果，按价值通知或安静记录，再持久等待" />
+  </picture>
+  <figcaption>图 5 · 适度主动性的设计展望：事件触发有界工作，价值判断决定是否通知，等待不需要模型持续运行。 <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-zh.svg')" target="_blank" rel="noopener noreferrer">查看完整图</a></figcaption>
+</figure>
+
 ## 回顾：视野扩大，是因为前一步真的遇到了下一步的问题
 
 最初，一次请求结束时，我们只要交出结果。研究任务变长，用户会离开，于是连接的终点不再是工作的终点；成果必须能独立保存和回读。任务需要人作决定时，保存一条回复又不够，必须知道它是否改变了实际执行。到了下一次对话，保存一条记忆同样不够，还要确认它进入了正确的输入。用户第二天回来，最后还要能分清这是原成果、新研究，还是一次单纯的来源展示修正。
@@ -252,6 +282,14 @@ Codex 同样说明执行边界与审批策略需要分别理解：允许运行�
 这就是我们从后台请求走向长期个人助手时，视野实际展开的路径。不是因为先画出了一张能力全景图，再逐格填充，而是因为**返回成功、保存成功、模型调用成功，都不足以单独说明用户的事情已经办好。** 每一步都把责任延伸到下一个消费者和更晚的时间。
 
 这些经验还没有组成一个全面成熟的长期个人助手。真实模型质量、选题价值和长期使用收益，需要与机制正确性分开继续检验。但方向已经更具体：成熟框架帮助我们组织探索与恢复，后台工程保存事实、身份和效果；个人助手的新增责任，是让用户的决定和既有成果在下一次工作中仍然可信。长期性不是让模型一直运行，而是让用户回来以后，不必重新建立对系统的信任。
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/horizon-zh-mobile.svg')" />
+    <img :src="withBase('/diagrams/agent-vs-backend/horizon-zh.svg')" alt="从一次请求到持续任务、人机协作和长期个人助手：由当前结果扩展到跨中断的事实、人的决定和跨多次执行的委托" />
+  </picture>
+  <figcaption>图 6 · 视野从一次请求扩展到持续任务、人机协作和长期个人助手。前三者有本文具体案例支撑，完整长期助手仍是这些经验指向的目标。 <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/horizon-zh.svg')" target="_blank" rel="noopener noreferrer">查看完整图</a></figcaption>
+</figure>
 
 <!-- agent-article-sync:guidance:start -->
 ## 延伸阅读与交流 {#延伸阅读与交流}

@@ -209,6 +209,16 @@ We verified these distinctions through the real application page, authentication
 
 A queue alone is therefore insufficient. Execution progress, readable results, and delivery commitments need distinct records; one “success” field cannot describe the user's experience. [Asynchronous Research and Time-Bound Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) explains this separation.
 
+The separation also suggests a useful next horizon: a persistent goal can span many research runs while each execution retains its own scope and endpoint. What we verified is separation of the task from its connection and independent reading of its result. Organizing these into a revisable, revocable ongoing delegation still requires current authority and conditions for each trigger. The diagram places those time scales alongside an individual model request to show the additional responsibility.
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/durable-work-en-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/durable-work-en.svg')" alt="Three timescales for a persistent goal, an individual Run, and model requests: authorized events wake bounded executions, waiting can release compute, and deliverables remain independently available" />
+  </picture>
+  <figcaption>Figure 3 · From verified task/result separation toward distinct persistent goals, bounded executions, and model requests. Complete ongoing delegation remains a design direction. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/durable-work-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+</figure>
+
 ## 8. After the User Answers: Receipt Is Not Adoption {#human-responses-and-actual-adoption}
 
 Once work can outlive the user connection, another wait appears: the model needs material, a scope decision, or approval. Showing a question is easy. The difficult part is getting the answer into the work that actually needs it.
@@ -233,6 +243,16 @@ This also changed what we considered adequate verification. An answer compatible
 
 Personalization should therefore not be measured simply by counting saved records. Avoiding repeated explanations is the potential value; provenance, scope, correction, and invalidation are part of its engineering cost. We observed bounded saving and consumption in a real-model path while retaining the cases that were not adopted. Sustained benefit remains a separate question. [Context Governance in Practice](/en/articles/agent-context-governance-actions) and [The Durable Effects of Forgetting](/en/articles/026-agent-memory-forget-durable-effects) explain why old memory can still affect later input and why deleting a record is insufficient. They are not the original records of this newly described verification.
 
+Following this consumption path points toward an assistant that needs fewer repeated explanations while allowing users to correct old information. Provenance, scope, versions, and authorization in the diagram are not synonyms for storing more history. We verified bounded saving and later consumption; complete cross-task personalization governance and sustained benefit still require further work.
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personalization-en-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personalization-en.svg')" alt="Personalization design relationships: information has provenance, scope, and versions; corrections should revoke later use of obsolete versions and recheck identified dependent summaries; authorization independently controls execution" />
+  </picture>
+  <figcaption>Figure 4 · How memory participates in later work, and how correction and authorization should constrain it. These engineering relationships do not turn limited samples into a complete personalization product. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personalization-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+</figure>
+
 ## 10. When the User Returns Tomorrow: Ordinary Reading Still Matters {#daily-research-and-stable-rereading}
 
 Beyond cross-conversation memory, we built something less conspicuous: reliable return visits to daily research. It attracts less attention than automatic notifications, but directly affects whether the user is still reading the research they saw earlier.
@@ -245,6 +265,16 @@ Two actual problems taught us why this matters. First, long-running research hel
 
 Limited review of the original results did not establish that daily selections were consistently good: supported relevance and limited relevance both appeared, while actual follow-up success and real user adoption were not established. We describe the achievement as improved generation, persistence, source display, and rereading, rather than a proven proactive investment-research service. [Personalized Daily Research and Its Cache](/en/articles/agent-personalized-daily-research-cache) covers the mechanism.
 
+Reliable rereading is a starting point for a more proactive assistant, not its endpoint. A worthwhile next step is checking for change under approved conditions, investigating changes that affect the goal, and separately deciding whether the user needs to hear now. Such proactivity should permit quiet waiting and pausing a delegation. The following cycle is a design outlook motivated by the cases, not an already accepted automatic service.
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en-mobile.svg')" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en.svg')" alt="A future personal Agent design: an authorized event wakes the task, current goals and permissions are reconstructed, bounded work produces checked results, value determines whether to notify or record quietly, and the task returns to durable waiting" />
+  </picture>
+  <figcaption>Figure 5 · A measured proactivity outlook: events trigger bounded work, value determines notification, and waiting does not require a continuously running model. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+</figure>
+
 ## Looking Back: Each Wider Horizon Began with a Concrete Problem
 
 Initially, finishing a request meant returning a result. As research grew longer, users left, so the connection's end could no longer define the work's end; results needed independent persistence and reading. When a task needed a human decision, saving a response was insufficient: we had to know whether execution had adopted it. In the next conversation, saving a memory was likewise insufficient without checking its actual input. When the user returned tomorrow, we still needed to distinguish the original result, new research, and a source-display correction.
@@ -252,6 +282,14 @@ Initially, finishing a request meant returning a result. As research grew longer
 This is how our horizon expanded from backend requests toward a long-term personal assistant. We did not begin with a capability diagram and fill its boxes. We encountered the fact that **a successful response, a successful save, and a successful model call do not individually establish that the user's work is done.** Each step extends responsibility to another consumer and a later time.
 
 These experiences do not yet constitute a fully mature long-term assistant. Real-model quality, selection value, and sustained benefit require evaluation separate from mechanism correctness. But the direction is concrete: mature frameworks help organize exploration and recovery; backend engineering preserves facts, identity, and effects. The assistant adds responsibility for making the user's decisions and prior results trustworthy in the next piece of work. Continuity is not a model running forever. It is the user returning without having to rebuild trust from scratch.
+
+<figure>
+  <picture>
+    <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/horizon-en-mobile.svg')" />
+    <img :src="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" alt="From one request to continuing work, human collaboration, and a personal assistant: responsibility expands from a result to durable facts, human decisions, and delegations across executions" />
+  </picture>
+  <figcaption>Figure 6 · The horizon expands from one request to continuing work, human collaboration, and a long-term assistant. Concrete cases support the earlier steps; a complete assistant remains the goal they point toward. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+</figure>
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion {#further-reading-and-discussion}
