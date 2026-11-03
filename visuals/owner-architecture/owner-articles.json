@@ -68,14 +68,16 @@
     "agent-deterministic-fund-allocation": "确定性基金计算：从持仓事实到金额建议",
     "agent-account-identity-private-scope": "账户身份：如何隔离每个人的研究",
     "agent-research-decisions-evidence-synthesis": "研究决策：什么时候停止搜索并回答",
-    "agent-artifact-version-access-sharing": "研究产物：从固定版本到定向分享"
+    "agent-artifact-version-access-sharing": "研究产物：从固定版本到定向分享",
+    "agent-atomic-portfolio-report-production": "一份组合报告，为什么不能边算边写？",
+    "agent-personalized-daily-research-cache": "每天一份个性化研究：生成、去重与回读"
   },
   "owners": {
     "A01": {
       "related": [
-        "011-model-understands-code-authorizes",
-        "agent-account-identity-private-scope"
-      ]
+        "011-model-understands-code-authorizes"
+      ],
+      "primary": "agent-account-identity-private-scope"
     },
     "A02": {
       "primary": "agent-conversation-admission-task-continuation",
@@ -89,11 +91,11 @@
       ]
     },
     "A03": {
-      "primary": "adaptive-research-python-workbench",
+      "primary": "agent-research-decisions-evidence-synthesis",
       "related": [
         "022-agent-entry-from-intent-to-direct-research",
         "financial-agent-python-result-consumption",
-        "agent-research-decisions-evidence-synthesis"
+        "adaptive-research-python-workbench"
       ]
     },
     "A04": {
@@ -206,11 +208,11 @@
       ]
     },
     "A22": {
-      "primary": "agent-html-evolution-challenges",
+      "primary": "agent-artifact-version-access-sharing",
       "related": [
         "agent-python-compute-workbench-evolution",
         "agent-weekly-thesis-history-continuous-research",
-        "agent-artifact-version-access-sharing"
+        "agent-html-evolution-challenges"
       ]
     },
     "A23": {
@@ -242,6 +244,10 @@
     },
     "A26": {
       "primary": "026-agent-memory-forget-durable-effects"
+    },
+    "A27": {
+      "primary": "agent-personalized-daily-research-cache",
+      "related": []
     },
     "A28": {
       "related": [
@@ -303,7 +309,8 @@
     "B05": {
       "related": [
         "portfolio-mcp-readonly-investment-data"
-      ]
+      ],
+      "primary": "agent-atomic-portfolio-report-production"
     },
     "E04": {
       "primary": "agent-research-evidence-store-lifecycle",
