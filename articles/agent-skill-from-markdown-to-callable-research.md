@@ -1,5 +1,5 @@
 ---
-description: "Skill 与普通 Prompt 有什么区别？从一个基金比较任务出发，解释 SKILL.md、按需发现与加载、Host 工具授权、受审脚本执行及真实的安全边界；Bundle 只放在进阶附录。"
+description: "Skill 与普通 Prompt 有什么区别？从一个基金比较任务出发，解释 SKILL.md、按需发现与加载、Host 工具授权、受审脚本执行及真实的安全边界。"
 readingBrief:
   takeaways:
     - "Skill 的正文仍是指引；相较单纯 Prompt，工程价值来自 Host 的注册发现、渐进加载、资源组织、执行与回执。"
@@ -41,7 +41,7 @@ readingBrief:
 
 ## 一个最小 Skill 长什么样？
 
-[Agent Skills 规范](https://agentskills.io/specification)要求至少有 `SKILL.md`，并允许按需附带 `scripts/`、`references/` 和 `assets/`。先理解下面这个**独立 Skill**，不需要先知道 Bundle：
+[Agent Skills 规范](https://agentskills.io/specification)要求至少有 `SKILL.md`，并允许按需附带 `scripts/`、`references/` 和 `assets/`。先理解下面这个**独立 Skill**：
 
 ~~~text
 index-fund-tracking-quality/
@@ -51,7 +51,7 @@ index-fund-tracking-quality/
     └── calculate.py
 ~~~
 
-`SKILL.md` 说明适用条件、输入需求、步骤和缺失数据时的处理；脚本只是可选资源。文件夹存在不代表 Host 自动提供 `read_skill_resource` 或 `run_skill_script`。**文件格式是约定，能力接入是实现**。本系列的复杂基金 Skill 包只是把多个这样的 Skill 组织在一起，放在文末附录再谈。
+`SKILL.md` 说明适用条件、输入需求、步骤和缺失数据时的处理；脚本只是可选资源。文件夹存在不代表 Host 自动提供 `read_skill_resource` 或 `run_skill_script`。**文件格式是约定，能力接入是实现**。需要时可以把多个 Skill 组合使用；更复杂的目录组织留到文末再讲。
 
 ## 一次请求怎样真正使用 Skill？
 
