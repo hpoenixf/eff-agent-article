@@ -7,7 +7,8 @@ export const financeTopicGroups = {
     "031-fintech-data-time-and-reproducible-numbers",
     "agent-numeric-kernel-exact-units-rounding",
     "portfolio-mcp-readonly-investment-data",
-    "agent-deterministic-fund-allocation"
+    "agent-deterministic-fund-allocation",
+    "agent-atomic-portfolio-report-production"
   ],
   "b2": [
     "financial-agent-trustworthy-evidence-chain",
