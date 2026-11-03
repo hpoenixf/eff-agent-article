@@ -145,6 +145,10 @@ A server-side ending also cannot prove the browser received every passage. Gener
 
 If the final outcome is partial, the public status must retain that fact instead of carrying forward an earlier optimistic completion label. [Publication](019-agent-answer-publication.md) owns answer revisions; the [disconnection and recovery essay](agent-disconnect-is-not-crash-recovery-contract.md) explains the finer recovery promises.
 
+The public teaching implementation's [v0.20 Run control](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/run-control.md) further separates a correctable step from termination of the whole task. One correction within the original budget is permitted only when the original owner supplies validation evidence for the exact call with no unknown or partial effect. Source-permission failures and arbitrary plugin exceptions do not gain a general retry allowance. A mixed group containing a serial Child is rejected before any member dispatches, with paired results persisted; executing half the group first is not a safe fallback.
+
+Similarly, after Publication accepts the body, an ordinary notification failure cannot revoke it. The application records an unconfirmed notification, while actual cancellation, fencing, or result-integrity failures can still prevent success. This does not swallow every error or equate a local timeout with remote termination. Evidence includes offline regression through the original implementation path and hard-kill process recovery. The additional live B tasks did not naturally trigger correction, so their completion rate cannot stand in for live-model acceptance of that correction path.
+
 ## 9. Bring the principle into the next review
 
 When you encounter a `throw`, early return, or automatic retry, use a concrete task to ask: which independent results should survive this failure? Who records the final state? Does recovery change the goal or repeat an unknown effect?

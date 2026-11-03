@@ -241,6 +241,12 @@ Recovery must not silently migrate the protocol either. An old read-only Reader 
 
 ---
 
+### Observing a Summary Needs Its Own Bounded Window
+
+The local research project exposed another concrete problem: a summary request had been dispatched, but a short local observation window ended first. Extending that window changes how long the application waits; it cannot rewrite a timeout as “not executed.” For new projects and explicit configuration updates, v0.20 persists a default 60-second summary observation window, configurable up to 120 seconds, still bounded by the original Run deadline, cancellation, and call allowances. Existing projects and tasks retain their stored configuration; historical projects without the field retain the original application default rather than silently changing on upgrade.
+
+The original unknown summary remains in its original record. A separate new task completing after its observation window was explicitly increased from 10 to 30 seconds is a separate repair observation, not successful replay of the old task or proof that the final default suits every provider. That live task was not rerun with the final 60-second default. The window determines how long to observe locally. Whether an already dispatched request ended remotely requires separate evidence; stopping the wait does not establish cancellation. See the [fixed Run-control boundaries](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/run-control.md).
+
 ## What Still Needs Observation
 
 This change was manually archived under an explicit October 21 exception, not through a passing standard `spec:close`.

@@ -348,6 +348,20 @@ Some seams remain deliberately closed. **A combined durable waiting protocol for
 
 The real tasks also retained useful counterexamples. Cohorts A/B ran on the earlier execution source. One B task failed an oracle that demanded a single call even though its Skill allowed reading two documents; that failure was not replaced by a rerun. The original C cohort exposed repeated summaries consuming capacity. The repaired C cohort used a different execution source to check summary reuse, while the old failure and unknown occupancy remained intact. These records cannot become “all passed on one source,” let alone evidence of investment quality. The [fixed release record](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/verification/v019-release.md) preserves source identities, failures, and offline-validation limits; the [composition contract](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.md) defines inputs and exclusions. The reason for the summary repair belongs in the [existing context-compaction essay](./agent-main-run-context-compaction.md).
 
+### From Composition APIs to Your Own Local Research Project
+
+Explicit composition also needs an application entry point, so readers do not have to turn internal test assembly into their own program. The v0.20 research-project interface persists selected sources, configuration, and tasks in a dedicated directory. Initialize a project with `research project init`, import an explicit list of local text files or a PDF with `source import`, and bind the returned source manifest when submitting the question. Later edits to the original files do not rewrite a submitted task; import the new material and create a new task instead.
+
+Actual execution uses `node src/research-cli.mjs run work --project DIR --run RUN_ID`. The real provider, selected question and material, and execution allowance require separate approval. Credentials come only from the specified environment variable and are not stored in the project. Limits bound calls and time, not monetary cost. An offline project can first complete import and submission with zero model dispatches, but the CLI does not disguise a fixture project as executable live research.
+
+Within one project, practice capabilities incrementally: generate and cold-read a report, approve a specific Memory intent, or enable a bounded Child to check selected text. The model does not grant itself Memory write permission. Child and Main share the root budget, and the Child cannot publish the final report. Enabling every option is not a more complete exercise: Response with Schedule, either with Child, and actual PDF or trusted plugins with Child remain rejected combinations.
+
+Stopping and continuing use the same application entry point. Ctrl-C requests cooperative Host interruption. Running the same `run work` command in a new process retains the original Run's material, configuration, deadline, and budget. `run cancel` cancels rather than pauses. `run report` and the local Reader read persistent results without another model call. Unknown dispatches remain unknown; a replacement Run cannot be used to erase their reservations.
+
+This lets readers supply their own explicitly selected `.txt`, `.md`, `.markdown`, and bounded text-layer PDF files instead of being limited to particular repository fixtures. It is not directory crawling, OCR, arbitrary web research, or a general Python workbench. Follow the [fixed-version research-project guide](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/research-project.md) for installation, file limits, commands, and excluded combinations; this entry point does not establish production readiness.
+
+The unified entry point does not turn acceptance evidence into one all-green number. Original tasks retain their failures and unknown summary dispatch; independent repairs retain their execution versions. The additional B batch completed 9/10 Runs while its frozen mechanism score remained 8/10; the earlier B batch remains 7/10 and is not overwritten by newer results. For example, not consuming Memory after forgetting and requiring an explicit empty search are different acceptance questions. The accepted conclusion combines live runtime observations with separate provider-free filtering evidence without rewriting the original score. Use the [version evidence](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.md) to distinguish these layers rather than combining them into a claim that every task passed on one source revision.
+
 ## 6. Return from engineering mechanisms to the user experience
 
 From the frontend, the user only asks “Is my report ready?” Yet a trustworthy interface must distinguish **research still running**, **a readable version saved on the server**, and **that version displayed in this client**.
@@ -356,7 +370,7 @@ After a refresh, the UI should retrieve the report using stable task identity ra
 
 For a full-stack engineer, this explains why Publication, History, and UI require separate designs. The model produces candidate text, a durable system accepts a version, and delivery and presentation finally make it visible. Acceptance, storage, and display are separate, verifiable events.
 
-## 6. Explore the main path in one v0.15 checkout
+## 7. Explore the main path in one v0.15 checkout {#_6-explore-the-main-path-in-one-v0-15-checkout}
 
 Use the [v0.15 environment installed in the introduction](./agent-in-15-minutes.md#try-the-example-in-five-minutes) and a new dedicated directory:
 
@@ -400,7 +414,7 @@ This example's 30-second deadline begins at submission. It demonstrates submissi
 
 </details>
 
-## 7. From continuity contracts to the six-layer panorama
+## 8. From continuity contracts to the six-layer panorama {#_7-from-continuity-contracts-to-the-six-layer-panorama}
 
 Place everything we have learned in the larger map. **Six layers describe request handoffs, not six services that must run sequentially, and not a claim that each demonstration release implements every layer.**
 

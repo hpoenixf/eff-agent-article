@@ -28,7 +28,7 @@
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)
 
-**Agent 开发全景**：[Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md) · [Full English](en/articles/agent-vs-backend-development-panorama.md)——以 Open ETF Agent v0.19 和主流 Agent 机制为例，连接动态决策、可靠恢复、个性化与长期委托，配有五组中英响应式图解。
+**Agent 开发全景**：[Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md) · [Full English](en/articles/agent-vs-backend-development-panorama.md)——比较成熟 Agent 框架与传统后台的职责，再用异步交付、人工回复、记忆消费和每日复读的实际案例，讨论从一次请求走向长期个人助手的价值与边界。
 
 **工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
 
