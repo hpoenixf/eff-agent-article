@@ -259,6 +259,7 @@ export const learningPathSlugs = [
   'agent-in-15-minutes',
   'agent-ten-modules',
   'open-etf-agent-v010-system-design',
+  'open-etf-agent-research-project-workshop',
   '017-prompt-to-answer-six-layer-panorama-v3'
 ];
 

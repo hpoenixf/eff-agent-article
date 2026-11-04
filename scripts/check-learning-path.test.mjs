@@ -9,10 +9,11 @@ import { learningPathNavigation } from '../.vitepress/theme/learning-path-nav.mj
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 
-test('learning path is a four-stop selection from the unique canonical catalogue', () => {
+test('learning path is a five-stop selection from the unique canonical catalogue', () => {
   const all = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
   assert.deepEqual(learningPathSlugs, [
     'agent-in-15-minutes', 'agent-ten-modules', 'open-etf-agent-v010-system-design',
+    'open-etf-agent-research-project-workshop',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
   assert.deepEqual(all.filter(slug => learningPathSlugs.includes(slug)), learningPathSlugs)
@@ -44,7 +45,7 @@ test('each introductory stop links to its immediate next stop in both languages'
       const source = read(prefix + 'articles/' + learningPathSlugs[index] + '.md')
       assert.ok(source.includes(learningPathSlugs[index + 1]), prefix + learningPathSlugs[index])
     }
-    // Four-stop navigation is freely usable; the recommended next step still must not skip bridges.
+    // Five-stop navigation is freely usable; the recommended next step still must not skip bridges.
     for (const [index, slug] of learningPathSlugs.entries()) {
       const source = read(prefix + 'articles/' + slug + '.md')
       assert.equal((source.match(/<LearningPathNav \/>/g) ?? []).length, 1)
@@ -117,8 +118,8 @@ test('homepage keeps one intro CTA and a compact bilingual continuation disclosu
   assert.match(component, /<details ref="disclosure"/)
   assert.match(component, /<summary>/)
   assert.match(component, /withBase\(step.href\)/)
-  assert.match(component, /进阶 · 深入 · 全景/)
-  assert.match(component, /Intermediate · Deep dive · Panorama/)
+  assert.match(component, /进阶 · 深入 · 练手 · 全景/)
+  assert.match(component, /Intermediate · Deep dive · Workshop · Panorama/)
   assert.match(component, /event.key === 'Escape'/)
   assert.match(component, /removeEventListener\('pointerdown', outside\)/)
   assert.match(component, /removeEventListener\('focusin', outside\)/)
@@ -163,6 +164,9 @@ test('homepage CTA and disclosure share a wide-screen row without overlaying sec
     assert.ok(!html.includes('⌄'))
     assert.match(html, /class="home-reading-actions__secondary"/)
     for (const slug of learningPathSlugs.slice(1)) assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'articles/' + slug + '"'))
+    const menuPositions = learningPathSlugs.slice(1).map(slug => html.indexOf('href="/eff-agent-article/' + prefix + 'articles/' + slug + '"'))
+    assert.deepEqual(menuPositions, [...menuPositions].sort((a,b) => a-b))
+    assert.ok(html.includes(prefix ? 'Workshop' : '练手'))
     assert.ok(!html.includes('/articles/' + learningPathSlugs[0]), 'The original hero remains the single primary CTA owner')
     assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'catalog"'))
     assert.ok(html.includes('href="https://github.com/hpoenixf/open-etf-agent" target="_blank" rel="noreferrer"'))
@@ -177,4 +181,25 @@ test('homepage CTA and disclosure share a wide-screen row without overlaying sec
   assert.ok(!/position:\s*(absolute|fixed)/.test(css), 'Expanded menu must remain in normal flow')
   assert.deepEqual(compileStyle({ source: descriptor.styles[0].content, id: 'home-menu-test', scoped: true }).errors, [])
   assert.match(descriptor.styles[0].content, /prefers-reduced-motion: reduce/)
+})
+
+
+test('workshop follows deep dive in both menu and article navigation without a fabricated diagram', async () => {
+  const { learningPathStages } = await import('../.vitepress/theme/learning-path-nav.mjs')
+  for (const prefix of ['', 'en/']) {
+    const deep = learningPathNavigation(prefix + 'articles/open-etf-agent-v010-system-design.md')
+    assert.equal(deep.next.slug, 'open-etf-agent-research-project-workshop')
+    const practice = learningPathNavigation(prefix + 'articles/open-etf-agent-research-project-workshop.md')
+    assert.equal(practice.next.slug, '017-prompt-to-answer-six-layer-panorama-v3')
+    assert.equal(practice.steps.length, 5)
+    assert.equal(practice.steps[3].label, prefix ? 'Workshop' : '练手')
+    assert.equal(practice.steps[4].label, prefix ? 'Panorama' : '全景')
+  }
+  for (const en of [false, true]) {
+    const diagrams = learningPathStages(en)
+    assert.deepEqual(diagrams.map(x => x.key), ['intro', 'intermediate', 'deep', 'panorama'])
+    assert.equal(diagrams.at(-1).slug, '017-prompt-to-answer-six-layer-panorama-v3')
+    assert.equal(diagrams.at(-1).label, en ? 'Panorama' : '全景')
+    assert.ok(diagrams.every(x => !x.src.includes('workshop')))
+  }
 })

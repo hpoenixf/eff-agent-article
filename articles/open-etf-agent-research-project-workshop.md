@@ -14,6 +14,8 @@ readingBrief:
 
 # 把自己的资料交给 Agent：从第一份报告到可恢复的研究项目
 
+<LearningPathNav />
+
 深入篇解释了资料、执行进程与专家如何交接。这一次不再画架构图，我们换一个问题：**把仓库里的示例拿掉，只留下自己的资料和问题，你能否完成研究，检查结果，关掉程序后继续使用它？**
 
 本文使用正式 v0.20.0 的公开研究项目入口。模型动作不是预先写好的脚本：你给出目标与材料，模型在获准工具内决定怎么推进。因此本文规定输入与检查方法，不规定回答必须长什么样，也不保证模型每次都完成任务。
@@ -193,4 +195,4 @@ Child 的价值是分离一段有边界的核对工作，不是给每个观点�
 [当前项目指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/research-project.zh-CN.md)可能继续演进；复现本稿时仍固定 v0.20.0，不混用未来命令。
 
 
-这是[深入篇](open-etf-agent-v010-system-design.md)之后的动手支线，不替代机制讲解。能够检查自己资料上的任务后，再读[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)，把这些边界放回完整系统。
+这是[深入篇](open-etf-agent-v010-system-design.md)之后的动手一站，不替代机制讲解。能够检查自己资料上的任务后，再读[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)，把这些边界放回完整系统。

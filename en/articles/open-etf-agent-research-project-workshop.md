@@ -14,6 +14,8 @@ readingBrief:
 
 # Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project
 
+<LearningPathNav />
+
 The design article explains how sources, execution processes and specialists hand work to one another. This time, the question is practical: **if you remove the repository's examples and bring your own documents and question, can you complete the research, check the result and keep using it after closing the program?**
 
 This article uses the public research-project entry point in the released v0.20.0. The model's actions are not scripted in advance. You provide the goal and material, and the model decides how to proceed within the tools it is allowed to use. The exercise therefore specifies inputs and checks, not the exact answer to produce, and does not guarantee that the model will finish every task.
@@ -191,4 +193,4 @@ The design article explains why these contracts exist; this exercise lets you in
 [Fixed-version research-project guide](https://github.com/hpoenixf/open-etf-agent/blob/88afb84958ed8de9108d756cdc0d63e6d2fbee24/docs/research-project.md) · [Current main guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/research-project.md) · [Layered execution evidence](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.md) · [Design article: handoff contracts](open-etf-agent-v010-system-design.md)
 
 
-This is a practical branch after the [deep dive](open-etf-agent-v010-system-design.md), not a replacement for it. Once you can inspect a task on your own material, continue to the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) to place those boundaries in the wider system.
+This is the practical next stop after the [deep dive](open-etf-agent-v010-system-design.md), not a replacement for it. Once you can inspect a task on your own material, continue to the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) to place those boundaries in the wider system.

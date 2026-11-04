@@ -9,8 +9,8 @@ const disclosure = ref<HTMLDetailsElement>()
 const english = computed(() => lang.value.startsWith('en'))
 const steps = computed(() => learningPathNavigation(`${english.value ? 'en/' : ''}articles/agent-in-15-minutes.md`)!.steps.slice(1))
 const descriptions = computed(() => english.value
-  ? ['Ten modules and their responsibilities', 'From a working loop to a complete system', 'The six-layer architecture map']
-  : ['读懂十个模块及其分工', '从可运行闭环深入系统设计', '看清六层架构与完整交接'])
+  ? ['Ten modules and their responsibilities', 'From a working loop to a complete system', 'Use your own documents in a research project', 'The six-layer architecture map']
+  : ['读懂十个模块及其分工', '从可运行闭环深入系统设计', '带上自己的资料，完成可检查的研究任务', '看清六层架构与完整交接'])
 
 function close(restoreFocus = false) {
   if (!disclosure.value?.open) return
@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
   <div class="home-reading-actions">
     <details ref="disclosure" class="home-reading-menu">
       <summary>
-        <span>{{ english ? 'Keep reading' : '继续阅读' }}<small>{{ english ? 'Intermediate · Deep dive · Panorama' : '进阶 · 深入 · 全景' }}</small></span>
+        <span>{{ english ? 'Keep reading' : '继续阅读' }}<small>{{ english ? 'Intermediate · Deep dive · Workshop · Panorama' : '进阶 · 深入 · 练手 · 全景' }}</small></span>
         <svg class="home-reading-menu__chevron" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </summary>
       <nav :aria-label="english ? 'Continue the learning path' : '继续阅读路线'" class="home-reading-menu__links">
