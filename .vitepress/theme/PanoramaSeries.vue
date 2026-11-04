@@ -32,6 +32,10 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
     zh: ['可信工程全景', '沿同一基金比较任务，分清判断、授权与效果，按前提和依赖安排验证，让局部事实支持具体的系统承诺。'],
     en: ['TRUST IN AGENT ENGINEERING', 'Follow one fund comparison to distinguish judgments, authorization and effects, and match verification to assumptions and dependencies.']
   },
+  'agent-fragility-and-antifragility': {
+    zh: ['脆弱与反脆弱全景', '从局部失败的传播、终结权与职责深化，分清本次任务的恢复和工程从反例中改变后续设计。'],
+    en: ['FRAGILITY AND ANTIFRAGILITY', 'Trace local failure propagation, termination authority and deeper ownership, separating runtime recovery from engineering changes informed by counterexamples.']
+  },
   'agent-context-governance-principles': {
     zh: ['上下文治理·原则篇', '目标、依据、边界、记忆、探索与进展怎样形成同一份任务视图，让每一步判断围绕目标展开。'],
     en: ['CONTEXT · PRINCIPLES', 'How goals, evidence, boundaries, memory, discovery and progress form one task view and keep decisions aligned with the goal.']

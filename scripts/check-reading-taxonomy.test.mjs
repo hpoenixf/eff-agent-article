@@ -61,6 +61,7 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
     'agent-trust-from-claims-to-commitments',
+    'agent-fragility-and-antifragility',
     'agent-context-governance-principles',
     'agent-context-governance-actions',
     '025-agent-langfuse-from-trace-to-trustworthy-observability',
@@ -232,4 +233,47 @@ test('desktop About stays visible while compact navigation has only one menu tri
   assert.match(compact, /\.VPNavBar \.directory-menu \{ display: none;/)
   assert.ok(!/\.VPNavBar(?:\.has-sidebar)?\s*\{[^}]*display:\s*none/.test(css))
   assert.match(css, /min-width: 44px; min-height: 44px;/)
+})
+
+
+test('every panorama card server-renders with authored bilingual copy and canonical links', async () => {
+  const { compileScript } = await import('vue/compiler-sfc')
+  const { build } = await import('esbuild')
+  const { createSSRApp } = await import('vue')
+  const { renderToString } = await import('@vue/server-renderer')
+  const { mkdirSync, writeFileSync } = await import('node:fs')
+  const { resolve } = await import('node:path')
+  const { pathToFileURL } = await import('node:url')
+  const { englishArticlePath } = await import('../book.en.mjs')
+  const { descriptor } = parse(text('.vitepress/theme/PanoramaSeries.vue'))
+  const compiled = compileScript(descriptor, { id: 'panorama-render-test', inlineTemplate: true }).content
+  const bundle = await build({
+    stdin: { contents: compiled, loader: 'ts', resolveDir: resolve('.vitepress/theme') },
+    bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'],
+    plugins: [{ name: 'panorama-language-fixture', setup(builder) {
+      builder.onResolve({ filter: /^vitepress$/ }, args => ({ path: args.path, namespace: 'panorama-test' }))
+      builder.onLoad({ filter: /.*/, namespace: 'panorama-test' }, () => ({
+        contents: 'export const useData = () => ({ lang: { value: globalThis.__panoramaTestLanguage } }); export const withBase = p => "/eff-agent-article" + p;'
+      }))
+    } }]
+  })
+  mkdirSync(resolve('.vitepress/cache'), { recursive: true })
+  const modulePath = resolve('.vitepress/cache/panorama-render-fixture.mjs')
+  writeFileSync(modulePath, bundle.outputFiles[0].text)
+  const Component = (await import(pathToFileURL(modulePath))).default
+  try {
+    for (const english of [false, true]) {
+      globalThis.__panoramaTestLanguage = english ? 'en-US' : 'zh-CN'
+      const html = await renderToString(createSSRApp(Component))
+      assert.equal((html.match(/class="panorama-series-card"/g) || []).length, panoramaSeriesSlugs.length)
+      for (const slug of panoramaSeriesSlugs) {
+        const href = english ? englishArticlePath(slug) : '/articles/' + slug
+        assert.ok(html.includes('href="/eff-agent-article' + href + '"'), slug)
+      }
+      assert.doesNotMatch(html, /undefined|null|<p><\/p>|<h2><a[^>]*><\/a><\/h2>/)
+      assert.match(html, english ? /FRAGILITY AND ANTIFRAGILITY/ : /脆弱与反脆弱全景/)
+    }
+  } finally {
+    delete globalThis.__panoramaTestLanguage
+  }
 })

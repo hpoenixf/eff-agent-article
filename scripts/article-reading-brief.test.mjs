@@ -82,3 +82,19 @@ test('bare URLs in prose and code examples do not inflate the estimate', () => {
   assert.equal(env.frontmatter.readingEstimate.otherWords, 201)
   assert.equal(estimateReadingTime([{ type: 'text', content: 'word '.repeat(200) + 'https://example.com/a/b/c' }]).minutes, 1)
 })
+
+
+test('backend comparison keeps research teams in its audience and deployment claims out of scope', async () => {
+  const { readFileSync } = await import('node:fs')
+  const slug = 'agent-vs-backend-development-panorama'
+  for (const english of [false, true]) {
+    const relativePath = `${english ? 'en/' : ''}articles/${slug}.md`
+    const env = { relativePath }
+    md.render(readFileSync(new URL('../' + relativePath, import.meta.url), 'utf8'), env)
+    const { appliesTo, notFor } = env.frontmatter.readingBrief
+    assert.equal(appliesTo.length, 2)
+    assert.match(appliesTo[1], english ? /Teams designing research assistants, long-running tasks, or personal agents/ : /正在设计研究助手、长期任务或 personal agent/)
+    assert.match(notFor.join(' '), english ? /teaching project.*deployed.*framework performance ranking/ : /教学项目.*已上线.*框架性能排名/)
+    assert.doesNotMatch(notFor.join(' '), english ? /Teams designing research assistants/ : /正在设计研究助手/)
+  }
+})

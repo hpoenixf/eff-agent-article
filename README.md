@@ -32,6 +32,8 @@
 
 **可信工程全景**：[Agent 的可信与不可信：从局部事实到系统承诺](articles/agent-trust-from-claims-to-commitments.md) · [Full English](en/articles/agent-trust-from-claims-to-commitments.md)——用同一基金比较任务连接开发、研究、复核与交付，解释何时补证、何时复用，以及前提变化后怎样收窄重查范围。
 
+**脆弱与反脆弱全景**：[当保护机制开始制造故障](articles/agent-fragility-and-antifragility.md) · [Full English](en/articles/agent-fragility-and-antifragility.md)——从局部拦截误伤、终结权收敛与模块深化，解释故障传播如何被限制，以及 Spec 与 History 怎样让一次踩坑改变后续设计。
+
 **工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
 
 **RAG 检索评测专题**：[召回率很好看，为什么仍不能证明 Agent 找对了金融证据？](articles/rag-retrieval-evaluation-evidence.md) · [Full English](en/articles/rag-retrieval-evaluation-evidence.md)——从 ETF 公告、同源检索候选和真实 Knowledge 调用分清算法排名与金融主张是否受到证据支持。

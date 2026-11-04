@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="1082" viewBox="0 0 360 1082" role="img" aria-labelledby="title desc">
+<title id="title">小问题，为什么变成全局失败？</title>
+<desc id="desc">教学示意：可选研究笔记的局部问题，如果直接取得全局否决权，会阻断独立的合法工作。按影响范围处理后，局部事实交给终结职责判断下一步；继续、有限收尾或结束仍受原预算、权限、取消、硬时限和未知效果约束。</desc>
+<defs>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#99551D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#526779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="358" height="1080" rx="22" fill="#FAF9F6" stroke="#CFD9DD" stroke-width="1.25"/>
+<rect x="20" y="19" width="28" height="24" rx="6" fill="#173348"/>
+<text x="34" y="36" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">01</text>
+<text x="59" y="36" font-size="15" font-weight="600" fill="#526779" text-anchor="start">故障怎样传播</text>
+<text x="20" y="80" font-size="25" font-weight="700" fill="#173348" text-anchor="start">小问题，为什么变成</text>
+<text x="20" y="112" font-size="25" font-weight="700" fill="#173348" text-anchor="start">全局失败？</text>
+<text x="20" y="143" font-size="17" font-weight="400" fill="#526779" text-anchor="start">教学示意：相同局部问题，</text>
+<text x="20" y="167" font-size="17" font-weight="400" fill="#526779" text-anchor="start">不同的终结权划分。</text>
+<rect x="18" y="188" width="324" height="339" rx="15" fill="#FFF1DF"/>
+<circle cx="36" cy="217" r="4" fill="#99551D"/>
+<text x="49" y="224" font-size="21" font-weight="650" fill="#99551D" text-anchor="start">局部问题被扩大</text>
+<rect x="34" y="244" width="292" height="64" rx="10" fill="#FFFFFF"/>
+<text x="180" y="283" font-size="19" font-weight="600" fill="#173348" text-anchor="middle">可选研究笔记出问题</text>
+<path d="M 180 317 L 180 337" fill="none" stroke="#99551D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="34" y="348" width="292" height="54" rx="10" fill="#FFFFFF"/>
+<text x="180" y="382" font-size="19" font-weight="650" fill="#173348" text-anchor="middle">局部检查否决整个任务</text>
+<path d="M 180 411 L 180 431" fill="none" stroke="#99551D" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<text x="180" y="465" font-size="20" font-weight="600" fill="#99551D" text-anchor="middle">独立的合法工作</text>
+<text x="180" y="493" font-size="20" font-weight="600" fill="#99551D" text-anchor="middle">也被截断</text>
+<rect x="18" y="547" width="324" height="358" rx="15" fill="#E9F4EF"/>
+<circle cx="36" cy="576" r="4" fill="#11766F"/>
+<text x="49" y="583" font-size="21" font-weight="650" fill="#11766F" text-anchor="start">按实际影响处理</text>
+<rect x="34" y="603" width="292" height="64" rx="10" fill="#FFFFFF"/>
+<text x="180" y="642" font-size="19" font-weight="600" fill="#173348" text-anchor="middle">可选研究笔记出问题</text>
+<path d="M 180 676 L 180 696" fill="none" stroke="#11766F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="34" y="707" width="292" height="64" rx="10" fill="#FFFFFF"/>
+<text x="180" y="733" font-size="18.5" font-weight="650" fill="#173348" text-anchor="middle">局部处理，并报告事实</text>
+<text x="180" y="758" font-size="18.5" font-weight="650" fill="#173348" text-anchor="middle">终结职责判断下一步</text>
+<path d="M 180 780 L 180 800" fill="none" stroke="#11766F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<text x="180" y="838" font-size="17.5" font-weight="600" fill="#11766F" text-anchor="middle">条件允许：继续或有限收尾</text>
+<text x="180" y="867" font-size="17.5" font-weight="600" fill="#11766F" text-anchor="middle">条件不允许：结束并结算</text>
+<rect x="18" y="926" width="324" height="134" rx="14" fill="#173348"/>
+<text x="36" y="960" font-size="20" font-weight="650" fill="#FFFFFF" text-anchor="start">原预算与权限仍然生效</text>
+<text x="36" y="997" font-size="17" font-weight="400" fill="#FFFFFF" text-anchor="start">取消与硬时限不能绕过；</text>
+<text x="36" y="1025" font-size="17" font-weight="400" fill="#FFFFFF" text-anchor="start">效果未知时，不盲目重试。</text>
+</g>
+</svg>
