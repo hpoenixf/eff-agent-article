@@ -203,3 +203,56 @@ Progress 进入这个阅读模型后，还带来两个细节：
 
 键盘和触屏也属于这条阅读链：折叠区要正确表达展开状态，对话框要处理焦点进入、关闭和返回触发位置。它们不需要让用户学习内部 Runtime 术语，只需要让任务、内容和下一步动作始终对得上。
 
+## 七、长时间没有新消息时，系统应该说什么？
+
+当一项模型请求或工具调用持续较久，页面可能很长时间没有新的模型进度。此时最容易做错的，是让浏览器一直显示“正在研究”，或者每隔一段时间再调用模型生成一句“还在工作”。
+
+我们的选择更克制：当原 Run 的观看流仍然附着、没有新的有意义状态时，Host 可以约每 30 秒发出一条临时观察。如果无法确认当前阶段，就明确写“当前执行状态未知”，而不是猜测模型正在思考什么。
+
+这条 Host pulse 与模型进度不同：
+
+- 它来自系统当前能够观察到的事实，不是模型自述。
+- 它进入原 Run Stream 的同一事件队列，不创建第二套序号。
+- 它是临时事件，不写入 Outbox/History；用户重连后不会收到此前错过的心跳。
+- 它不触发新的模型请求，也不增加研究预算。
+
+因此，HTTP 每十秒发送的 `: heartbeat` 仍然只是传输保活；用户可见的 `research-pulse` 才是系统状态提示。两者不能混为一谈。
+
+停止、停放、人工交互等待、取消、终结或观看连接结束时，临时状态都必须收口。浏览器自己的连接提示则只说明它暂时无法取得新消息，不推断服务端已经停止。若进度事件自身的授权或保存失败，也不能因此阻断一份独立合法的正式答案。
+
+## 八、这条链验证到了哪里？
+
+Progress 的验证不能只看组件测试。真正有价值的是让原 Native、Conversation、HTTP/SSE、PostgreSQL、History 和浏览器在同一条受控路径里交错工作。
+
+ETF Agent 的这轮工作完成了本地 provider-free formal close。使用脚本模型与合成资料的原 HTTP/SSE、隔离 PostgreSQL 和浏览器路径，覆盖了多条同类进度的有序显示、长时间等待、History 回读与恢复、并发 Run、连接状态不确定、窄屏、键盘操作和不强制滚动等场景。一次超过 95 秒的前台等待观察中，页面出现了三条相隔约 30 秒的 Host 未知状态；独立的控制器测试也确认 Host pulse 不会额外触发模型请求。
+
+这证明的是限定工程路径中的身份、顺序、持久化、回读与展示行为，不是所有网络交错都已穷尽。没有据此证明真实模型进度文字的质量、生产 PostgreSQL 行为、生产时延 SLA、真实用户是否更安心或生产部署。屏幕阅读器与语音播报验收也不在本次范围内。
+
+公开的 Open ETF Agent 需要单独看待。当前公开 main 的 v0.21 提供本地单用户的普通顺序人机问答：问题和回答沿原任务关联，用户显式继续同一个 Run，并读回持久报告。它不是私有产品的完整 Web 客户端，也没有公开上述 Progress 时间线和 SSE 交付链。读者可以从[公开 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)与[v0.21 固定源码](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a)了解当前公开范围；[普通问答合同](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/human-interaction.md)展示了另一项跨模块能力如何复用原任务，而不是创建第二套执行器。
+
+## 九、如果从头再做一次，我会先做得更少
+
+这段工程演进最值得迁移的，不是一套必须照搬的 Progress 子系统，而是按用户承诺逐步增加机制：
+
+1. **短任务只交付答案。** 不要为了统一界面，让每次普通问答都生成进度事件。
+2. **出现长时间等待时，先给出保守状态。** 复用原 Run 和 Stream；系统不知道当前阶段，就说未知，不要伪造百分比。
+3. **确实需要保留多条模型进度时，再引入独立效果身份与持久顺序。** 不要把“最新阶段”槽位误当成完整历史。
+4. **真实出现 SSE/History 竞态时，再增加有界的原回执核验。** 核验留在原授权和历史 Owner 内，不另造权限系统或第二份历史账。
+5. **让进度保持可选、可降级。** 某条进度未知或不可展示，不应阻断独立合法的答案、文件或报告交付。
+
+什么时候才值得把 Progress 升级为独立模块？至少要出现独立于 Run 的生命周期、独立的订阅与保留策略、跨多个产品的共享消费者，或需要由它自己拥有某种最终效果。仅仅因为一个能力有自己的事件类型、数据字段和 UI，不足以证明它需要一个新的 Owner。
+
+回到开头那项基金比较：用户真正需要的不是一个永远在动的进度条，而是知道模型说了什么、系统观察到了什么、哪些内容已经保存，以及现在还能安全地读到什么。
+
+**好的 Progress，不是让界面永远有话说，而是让系统知道何时有资格说话、说的是什么、依据何时失效，以及什么时候“未知”才是正确答案。** 这正是 Agent 客户端超越普通 SSE 渲染的地方。
+
+## 延伸阅读
+
+- [Agent 客户端交互全景：从提出问题，到读懂结果、继续研究](./agent-client-interaction-panorama.md)：从用户旅程理解提问、等待、干预、阅读与重开。
+- [异步后台研究与前台并发交互](./agent-background-research-collaborative-experience.md)：讨论长研究期间如何继续聊天、补充要求和定向控制。
+- [研究还没结束，用户已经离开了：Agent 怎样按时交付真实成果？](./agent-asynchronous-research-time-bound-delivery.md)：区分研究执行、正文发布与通知时间。
+- [Agent 问完用户之后：持久人机交互如何接回原研究](./agent-durable-human-interaction-response-adoption.md)：解释回答接收、采用与原任务恢复。
+- [Agent 引用系统设计：从来源签发、版本绑定到独立复核](./ai-citations-do-not-prove-reliability.md)：解释来源身份与结论支持的区别。
+- [MDN：Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)：SSE 的传输与重连语义，不是应用层恢复合同。
+- [W3C WAI-ARIA APG：Disclosure Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) 与 [Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)：折叠区和模态对话框的交互约定。
+
