@@ -163,6 +163,8 @@ Effect Approval 绑定的则是原 Action、最终参数摘要、预览和版本
 
 Open ETF Agent 没有把完整 HIO 全部搬到公开版。[v0.13 的固定实现](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278)先建立单问题的持久接纳与原调用采用；[v0.21 的固定公开源码](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a)把它接入本地研究项目，支持有上限的顺序问答。
 
+这里的“固定公开源码”表示可读回的候选实现及其限定测评；最终发布包的原 CI 和正式 tag/Release 仍需另行核验，不能把源码提交等同于正式发布。
+
 这条实现对应 blocking 一侧：`ask_response` 保存问题并让出 Worker，用户回答后再显式执行同一个任务。它适合先把“找得到问题、答得上原问题、恢复后确实用到答案”做完整；没有后台独立工作要并行时，不必先建非阻塞纠偏和跨会话收件箱。
 
 按[固定项目指南](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/research-project.zh-CN.md)建立项目、导入选定资料并完成提供方、数据与费用批准。在项目配置中保留 `report`、启用 `response`，再显式设置：
