@@ -163,6 +163,8 @@ Effect Approval 绑定的则是原 Action、最终参数摘要、预览和版本
 
 Open ETF Agent 没有把完整 HIO 全部搬到公开版。[v0.13 的固定实现](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278)先建立单问题的持久接纳与原调用采用；[v0.21 的固定公开源码](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a)把它接入本地研究项目，支持有上限的顺序问答。
 
+这里的“固定公开源码”表示可读回的候选实现及其限定测评；最终发布包的原 CI 和正式 tag/Release 仍需另行核验，不能把源码提交等同于正式发布。
+
 这条实现对应 blocking 一侧：`ask_response` 保存问题并让出 Worker，用户回答后再显式执行同一个任务。它适合先把“找得到问题、答得上原问题、恢复后确实用到答案”做完整；没有后台独立工作要并行时，不必先建非阻塞纠偏和跨会话收件箱。
 
 按[固定项目指南](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/research-project.zh-CN.md)建立项目、导入选定资料并完成提供方、数据与费用批准。在项目配置中保留 `report`、启用 `response`，再显式设置：
@@ -185,7 +187,7 @@ node dist/src/research-cli.mjs run report --project PROJECT --run TASK
 
 这一接收、采用、再提问的顺序由[交互合同代码](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/src/human-interaction.mjs)核对，等待仍占用原任务期限。恢复时保留完整项目目录，并继续原任务，而不是重新提交一个替代任务。日常使用从[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入，旧任务留在其兼容版本完成。
 
-这条公开路径已有真实模型配合合成资料的执行记录。其中一次模型自行推断了资料版本的适用日期，最后按用户明确选择的版本继续并保留日期不确定性。它说明交接正确和理解正确仍是两件事：Runtime 能保证原答案回到原调用，研究结论仍要核对答案的具体含义。[固定执行证据](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/verification/v021-release.zh-CN.md)保留了这项观察。
+这条公开路径已有真实模型配合合成资料的执行记录。固定 v0.21 测评里，十个自然任务留下了十二次问题接收/采用与十份可冷读报告，说明顺序多问不再只有脚本网关演示。但这证明的是当次交接和报告读回，并不证明模型总能正确理解用户偏好：其中一题未能召回既有的英文格式偏好。其中一次模型自行推断了资料版本的适用日期，最后按用户明确选择的版本继续并保留日期不确定性。它说明交接正确和理解正确仍是两件事：Runtime 能保证原答案回到原调用，研究结论仍要核对答案的具体含义。[固定执行证据](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/verification/v021-release.zh-CN.md)保留了这项观察。
 
 采用时应把范围看清：这是本地单用户的普通顺序问答，不提供非阻塞插话、Child 定向咨询、追加权限或外部效果审批。需要这些能力时，前文的身份、消费者和恢复分工可以作为设计依据，不能把一个 `response` 开关当作完整平台。
 
