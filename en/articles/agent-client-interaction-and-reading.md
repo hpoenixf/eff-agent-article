@@ -63,6 +63,8 @@ The original request was straightforward. Research can last minutes; the model n
 - The model may propose short updates through a controlled tool, `send_research_update`.
 - User-defined asynchronous delivery times remain with the original task and notification path.
 
+The initial draft used 3/5/8-minute milestones as soft reminders; a later revision consolidated them under the existing reminder Owner, so those values should not be read as current hard thresholds. The lasting rule was that a reminder enters the next already-authorized model request without creating an extra model turn.
+
 That answered whether progress could be expressed. It did not insert model-authored progress into the formal answer, and reaching a time threshold did not automatically mean the task had completed.
 
 The next problem was persistence. An October 25 inspection found that same-kind progress could be overwritten in the Native pending map, public event collector, Memory/PostgreSQL event identity and Web projection. An earlier update could also be delayed until unrelated slow work later in the same model turn finished. The HTTP SSE comment heartbeat sent every ten seconds kept the transport alive, but was not visible to the user and said nothing about which research stage had actually happened.
