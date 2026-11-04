@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="642" viewBox="0 0 375 642" role="img" aria-labelledby="title desc">
+<title id="title">在线问答：问题变成可回查的回答</title>
+<desc id="desc">教学流程；检索可按研究需要重复. 形成查询: 查询 + 范围 → 召回融合: 有序候选 → 可选重排: 精选候选 → 装配上下文: 模型实际输入 → 生成与引用: 可回查回答</desc>
+<rect width="375" height="642" rx="20" fill="#f3f6fa"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#19334d">
+<text x="20" y="38" font-size="25" font-weight="700">在线问答</text>
+<text x="20" y="66" font-size="19" font-weight="400">问题 → 可回查回答</text>
+<rect x="20" y="82" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="91" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="112" font-size="19" font-weight="700" fill="#fff">5</text>
+<text x="74" y="112" font-size="20" font-weight="700">形成查询</text>
+<text x="36" y="135" font-size="15" font-weight="400" fill="#41586e">问题与比较目标 · 限定获准资料范围</text>
+<text x="36" y="159" font-size="17" font-weight="600" fill="#1b6e68">产物：查询 + 范围</text>
+<path d="M187 172 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="184" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="193" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="214" font-size="19" font-weight="700" fill="#fff">6</text>
+<text x="74" y="214" font-size="20" font-weight="700">召回融合</text>
+<text x="36" y="237" font-size="15" font-weight="400" fill="#41586e">词法 / 可选向量 · RRF 合并、去重</text>
+<text x="36" y="261" font-size="17" font-weight="600" fill="#1b6e68">产物：有序候选</text>
+<path d="M187 274 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="286" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="295" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="316" font-size="19" font-weight="700" fill="#fff">7</text>
+<text x="74" y="316" font-size="20" font-weight="700">可选重排</text>
+<text x="36" y="339" font-size="15" font-weight="400" fill="#41586e">对照问题读候选 · 不可用时保留原序</text>
+<text x="36" y="363" font-size="17" font-weight="600" fill="#1b6e68">产物：精选候选</text>
+<path d="M187 376 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="388" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="397" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="418" font-size="19" font-weight="700" fill="#fff">8</text>
+<text x="74" y="418" font-size="20" font-weight="700">装配上下文</text>
+<text x="36" y="441" font-size="15" font-weight="400" fill="#41586e">正文、位置与来源 · 按需补读，控制预算</text>
+<text x="36" y="465" font-size="17" font-weight="600" fill="#1b6e68">产物：模型实际输入</text>
+<path d="M187 478 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="490" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="499" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="520" font-size="19" font-weight="700" fill="#fff">9</text>
+<text x="74" y="520" font-size="20" font-weight="700">生成与引用</text>
+<text x="36" y="543" font-size="15" font-weight="400" fill="#41586e">回答具体主张 · 引用对应版本页段</text>
+<text x="36" y="567" font-size="17" font-weight="600" fill="#1b6e68">产物：可回查回答</text>
+<text x="20" y="608" font-size="14" font-weight="400" fill="#536b80">来源与版本保持关联</text>
+<text x="20" y="628" font-size="14" font-weight="400" fill="#536b80">向量 / 重排按需要启用</text>
+</g></svg>

@@ -114,6 +114,8 @@ Recent homepage entries reuse the existing publication chain’s full Git histor
 
 ### 分类与多标签并行
 
+全景标签包含系统、业务与完整工程专题：文章应独立讲清整体对象、关键环节与相互关系。可观测、测评与 Subagent 协作已形成完整专题体系，保留全景标签；聚焦单一架构论点或特定基础设施细节的文章继续按原主分类阅读。选取依据正文的主要读者问题、完整路径和独立判断，不以篇幅、配图、跨模块术语或标题关键词自动决定。标签退出不改写文章类型、正文、历史标题、原分类、双语身份或 URL。`book.mjs` 的 `panoramaSeriesSlugs` 仍为唯一成员登记；中英导读、卡片及共享标签据此同步。
+
 分类与学习路线仍由 `book.mjs` 唯一维护；标签不会移动文章或变更 URL。`article-tags.data.ts` 构建派生共享数据：金融取现有 `fintech.md` 的 canonical 本地文章链接（双语归一去重）；全景取既有 `panoramaSeriesSlugs`；开源取 `open-etf-topic.mjs` 的 coverage target 关联（含 additionalTargets）。首页入口、正文标签与目录多选筛选共用此数据。多选采用“同时满足”，可清除筛选。金融中英文专题须保持同一集合，原分类测试会核验。
 
 开源标签表示文章有关联 target，不等于功能完整实现或正式发布；只有原资格回执认可的 limited 状态显示“有限范围已验证”，其余显示“有关联 · 未验证”。没有证据不补造 WIP / Release 身份；细节链接至原开源专题。book-only 分类变动不是文章正文更新时间，最近更新仍按文章 Git 内容规则独立派生。

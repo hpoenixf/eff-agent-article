@@ -73,7 +73,7 @@ export const collections = [
           ["agent-atomic-portfolio-report-production", "一份组合报告，为什么不能边算边写？"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
           ["unavailable-is-correct", "数据过期后的受控刷新"],
-          ["agent-knowledge-retrieval-end-to-end", "知识检索：从资料入库到可信证据交付"],
+          ["agent-knowledge-retrieval-end-to-end", "RAG 全链路：从文档入库到可引用回答"],
           ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
           ["mcp-host-from-discovery-to-consumption", "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"],
           ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"],
@@ -81,7 +81,6 @@ export const collections = [
         ],
         "related": [
           ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
-          ["rag-end-to-end-system-panorama", "RAG 全链路全景：从知识入库到可信回答"]
         ]
       },
       {
@@ -180,7 +179,6 @@ export const collections = [
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],
-          ["rag-end-to-end-system-panorama", "RAG 全链路全景：从知识入库到可信回答"],
           ["agent-thinking-fast-slow-research-needs", "为什么 AI Agent 也需要《思考，快与慢》？"],
           ["ai-citations-do-not-prove-reliability", "Agent 引用系统设计：从来源签发、版本绑定到独立复核"],
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
@@ -241,18 +239,15 @@ export const panoramaSeriesSlugs = Object.freeze([
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
   'one-report-nine-architecture-judgments',
-  'agent-trust-from-claims-to-commitments',
-  'agent-fragility-and-antifragility',
   'agent-context-governance-principles',
   'agent-context-governance-actions',
   '025-agent-langfuse-from-trace-to-trustworthy-observability',
   'honest-agent-evaluation',
-  'ai-citations-do-not-prove-reliability',
   'agent-subagent-context-specialization',
   'agent-long-horizon-research-panorama',
   'vertical-financial-agent-principles-panorama',
   'etf-agent-framework-comparison-panorama',
-  'rag-end-to-end-system-panorama',
+  'agent-knowledge-retrieval-end-to-end',
   'agent-client-interaction-panorama'
 ]);
 
@@ -267,6 +262,7 @@ export const learningPathSlugs = [
 
 // Previously published URLs remain readable, without duplicating essays in search/navigation.
 export const mergedArticles = {
+  "rag-end-to-end-system-panorama": "agent-knowledge-retrieval-end-to-end",
   "agent-loop-to-application": "open-etf-agent-v010-system-design",
   "001-one-week-4-billion-tokens-etf-investment-agent": "etf-assistant-engineering-origins",
   "023-agent-publication-governance-retrospective": "019-agent-answer-publication",

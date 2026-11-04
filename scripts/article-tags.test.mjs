@@ -135,3 +135,23 @@ test('research groups preserve all finance members once and visibly retain newly
   assert.match(source,/<FinanceTopic category="pending" \/>/);
  }
 })
+
+// Editorial curation retains complete topic panoramas while focused arguments stay on their primary paths.
+test('complete engineering panoramas retain their shared tag', () => {
+ const retainedSlugs = ["025-agent-langfuse-from-trace-to-trustworthy-observability", "honest-agent-evaluation", "agent-subagent-context-specialization"];
+ const slugs = collections.flatMap(c => c.chapters.flatMap(ch => ch.items.map(([slug]) => slug)));
+ const result = buildArticleTags({slugs, financeSlugs:[], panoramaSlugs:panoramaSeriesSlugs, openGroups:[]});
+ for (const slug of retainedSlugs) assert.ok(result.articles[slug].some(tag => tag.id === 'panorama'), slug);
+});
+test('focused topics remain readable without inheriting the curated panorama tag', () => {
+ const focusedSlugs = ["agent-trust-from-claims-to-commitments", "agent-fragility-and-antifragility", "ai-citations-do-not-prove-reliability"];
+ const slugs = collections.flatMap(c => c.chapters.flatMap(ch => ch.items.map(([slug]) => slug)));
+ const result = buildArticleTags({slugs, financeSlugs:[], panoramaSlugs:panoramaSeriesSlugs, openGroups:[]});
+ for (const slug of focusedSlugs) {
+  assert.equal(slugs.filter(value => value === slug).length, 1, slug);
+  assert.ok(!result.articles[slug].some(tag => tag.id === 'panorama'), slug);
+  for (const language of ['', 'en/']) {
+   assert.ok(readFileSync(new URL('../' + language + 'articles/' + slug + '.md', import.meta.url), 'utf8').length > 1000, language + slug);
+  }
+ }
+});

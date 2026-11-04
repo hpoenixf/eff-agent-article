@@ -11,8 +11,8 @@ const expectations = [
       "011-model-understands-code-authorizes",
       "030-fintech-from-research-to-investment-advice",
       "031-fintech-data-time-and-reproducible-numbers",
-      "agent-deterministic-fund-allocation",
       "agent-atomic-portfolio-report-production",
+      "agent-deterministic-fund-allocation",
       "agent-numeric-kernel-exact-units-rounding",
       "agent-weekly-thesis-history-continuous-research",
       "financial-agent-python-result-consumption",
@@ -36,11 +36,21 @@ const expectations = [
   {
     "path": "en/panorama.md",
     "slugs": [
+      "017-prompt-to-answer-six-layer-panorama-v3",
+      "025-agent-langfuse-from-trace-to-trustworthy-observability",
+      "agent-client-interaction-panorama",
       "agent-context-governance-actions",
       "agent-context-governance-principles",
+      "agent-fragility-and-antifragility",
       "agent-in-15-minutes",
+      "agent-knowledge-retrieval-end-to-end",
+      "agent-long-horizon-research-panorama",
+      "agent-subagent-context-specialization",
       "agent-trust-from-claims-to-commitments",
-      "rag-end-to-end-system-panorama"
+      "ai-citations-do-not-prove-reliability",
+      "financial-agent-system-panorama",
+      "honest-agent-evaluation",
+      "one-report-nine-architecture-judgments"
     ],
     "headings": [
       "# Panorama Series",
@@ -53,8 +63,8 @@ const expectations = [
       "011-model-understands-code-authorizes",
       "030-fintech-from-research-to-investment-advice",
       "031-fintech-data-time-and-reproducible-numbers",
-      "agent-deterministic-fund-allocation",
       "agent-atomic-portfolio-report-production",
+      "agent-deterministic-fund-allocation",
       "agent-numeric-kernel-exact-units-rounding",
       "agent-weekly-thesis-history-continuous-research",
       "financial-agent-python-result-consumption",
@@ -78,11 +88,21 @@ const expectations = [
   {
     "path": "panorama.md",
     "slugs": [
+      "017-prompt-to-answer-six-layer-panorama-v3",
+      "025-agent-langfuse-from-trace-to-trustworthy-observability",
+      "agent-client-interaction-panorama",
       "agent-context-governance-actions",
       "agent-context-governance-principles",
+      "agent-fragility-and-antifragility",
       "agent-in-15-minutes",
+      "agent-knowledge-retrieval-end-to-end",
+      "agent-long-horizon-research-panorama",
+      "agent-subagent-context-specialization",
       "agent-trust-from-claims-to-commitments",
-      "rag-end-to-end-system-panorama"
+      "ai-citations-do-not-prove-reliability",
+      "financial-agent-system-panorama",
+      "honest-agent-evaluation",
+      "one-report-nine-architecture-judgments"
     ],
     "headings": [
       "# 全景系列",

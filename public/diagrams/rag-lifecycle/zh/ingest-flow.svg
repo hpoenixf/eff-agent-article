@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330" role="img" aria-labelledby="title desc">
+<title id="title">离线入库：文件变成可查的资料</title>
+<desc id="desc">来源与版本贯穿每一步. 接入文件: 文档记录 → 解析正文: 结构化正文 → 切成片段: 正文 + 定位 → 建立索引: 可检索资料</desc>
+<rect width="1000" height="330" rx="20" fill="#f3f6fa"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#19334d">
+<text x="24" y="43" font-size="28" font-weight="700">离线入库：文件变成可查的资料</text>
+<text x="24" y="75" font-size="18" font-weight="400" fill="#536b80">来源与版本贯穿每一步</text>
+<rect x="24.0" y="102" width="224.5" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="40.0" y="130" font-size="18" font-weight="700" fill="#28688c">1</text>
+<text x="40.0" y="161" font-size="20" font-weight="700">接入文件</text>
+<text x="40.0" y="192" font-size="18" font-weight="400" fill="#41586e">取得获准原件</text>
+<text x="40.0" y="219" font-size="18" font-weight="400" fill="#41586e">登记来源与版本</text>
+<text x="40.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">文档记录</text>
+<path d="M251.5 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="266.5" y="102" width="224.5" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="282.5" y="130" font-size="18" font-weight="700" fill="#28688c">2</text>
+<text x="282.5" y="161" font-size="20" font-weight="700">解析正文</text>
+<text x="282.5" y="192" font-size="18" font-weight="400" fill="#41586e">保留标题、页码</text>
+<text x="282.5" y="219" font-size="18" font-weight="400" fill="#41586e">检查表格与覆盖</text>
+<text x="282.5" y="255" font-size="18" font-weight="600" fill="#1b6e68">结构化正文</text>
+<path d="M494.0 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="509.0" y="102" width="224.5" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="525.0" y="130" font-size="18" font-weight="700" fill="#28688c">3</text>
+<text x="525.0" y="161" font-size="20" font-weight="700">切成片段</text>
+<text x="525.0" y="192" font-size="18" font-weight="400" fill="#41586e">按页面或章节组织</text>
+<text x="525.0" y="219" font-size="18" font-weight="400" fill="#41586e">长段有限切分重叠</text>
+<text x="525.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">正文 + 定位</text>
+<path d="M736.5 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="751.5" y="102" width="224.5" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="767.5" y="130" font-size="18" font-weight="700" fill="#28688c">4</text>
+<text x="767.5" y="161" font-size="20" font-weight="700">建立索引</text>
+<text x="767.5" y="192" font-size="18" font-weight="400" fill="#41586e">词法 / 可选向量</text>
+<text x="767.5" y="219" font-size="18" font-weight="400" fill="#41586e">保存筛选元数据</text>
+<text x="767.5" y="255" font-size="18" font-weight="600" fill="#1b6e68">可检索资料</text>
+<text x="24" y="309" font-size="17" font-weight="400" fill="#536b80">每格底部是这一步的产物；向量与重排按需要启用。</text>
+</g></svg>

@@ -241,7 +241,7 @@ const panoramaIds = [
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',
   'one-report-nine-architecture-judgments',
-  'rag-end-to-end-system-panorama'
+  'agent-knowledge-retrieval-end-to-end'
 ]
 for (const prefix of ['', 'en/']) {
   const route = prefix + 'panorama'

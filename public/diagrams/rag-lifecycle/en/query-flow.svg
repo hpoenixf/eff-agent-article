@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="330" viewBox="0 0 1120 330" role="img" aria-labelledby="title desc">
+<title id="title">Online: turn questions into cited answers</title>
+<desc id="desc">Teaching flow; repeat retrieval when the task needs it. Form queries: Query + scope → Retrieve + fuse: Ranked candidates → Rerank (optional): Selected passages → Assemble context: Actual model input → Answer + cite: Checkable answer</desc>
+<rect width="1120" height="330" rx="20" fill="#f3f6fa"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#19334d">
+<text x="24" y="43" font-size="28" font-weight="700">Online: turn questions into cited answers</text>
+<text x="24" y="75" font-size="18" font-weight="400" fill="#536b80">Teaching flow; repeat retrieval when the task needs it</text>
+<rect x="24.0" y="102" width="200.0" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="40.0" y="130" font-size="18" font-weight="700" fill="#28688c">5</text>
+<text x="40.0" y="161" font-size="20" font-weight="700">Form queries</text>
+<text x="40.0" y="192" font-size="18" font-weight="400" fill="#41586e">Question and goal</text>
+<text x="40.0" y="219" font-size="18" font-weight="400" fill="#41586e">Authorized scope</text>
+<text x="40.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">Query + scope</text>
+<path d="M227.0 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="242.0" y="102" width="200.0" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="258.0" y="130" font-size="18" font-weight="700" fill="#28688c">6</text>
+<text x="258.0" y="161" font-size="20" font-weight="700">Retrieve + fuse</text>
+<text x="258.0" y="192" font-size="18" font-weight="400" fill="#41586e">Lexical / vector*</text>
+<text x="258.0" y="219" font-size="18" font-weight="400" fill="#41586e">RRF + deduplication</text>
+<text x="258.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">Ranked candidates</text>
+<path d="M445.0 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="460.0" y="102" width="200.0" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="476.0" y="130" font-size="18" font-weight="700" fill="#28688c">7</text>
+<text x="476.0" y="161" font-size="20" font-weight="700">Rerank (optional)</text>
+<text x="476.0" y="192" font-size="18" font-weight="400" fill="#41586e">Question + passages</text>
+<text x="476.0" y="219" font-size="18" font-weight="400" fill="#41586e">Keep order on failure</text>
+<text x="476.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">Selected passages</text>
+<path d="M663.0 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="678.0" y="102" width="200.0" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="694.0" y="130" font-size="18" font-weight="700" fill="#28688c">8</text>
+<text x="694.0" y="161" font-size="20" font-weight="700">Assemble context</text>
+<text x="694.0" y="192" font-size="18" font-weight="400" fill="#41586e">Text + source + page</text>
+<text x="694.0" y="219" font-size="18" font-weight="400" fill="#41586e">Read within budget</text>
+<text x="694.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">Actual model input</text>
+<path d="M881.0 189 h12 m-4 -4 l4 4 l-4 4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="896.0" y="102" width="200.0" height="177" rx="12" fill="#fff" stroke="#cad6e2"/>
+<text x="912.0" y="130" font-size="18" font-weight="700" fill="#28688c">9</text>
+<text x="912.0" y="161" font-size="20" font-weight="700">Answer + cite</text>
+<text x="912.0" y="192" font-size="18" font-weight="400" fill="#41586e">Support each claim</text>
+<text x="912.0" y="219" font-size="18" font-weight="400" fill="#41586e">Versioned locations</text>
+<text x="912.0" y="255" font-size="18" font-weight="600" fill="#1b6e68">Checkable answer</text>
+<text x="24" y="309" font-size="17" font-weight="400" fill="#536b80">Bottom line = step output. * Vector retrieval is optional; reranking is optional.</text>
+</g></svg>

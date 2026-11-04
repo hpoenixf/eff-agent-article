@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="540" viewBox="0 0 375 540" role="img" aria-labelledby="title desc">
+<title id="title">Offline: turn files into searchable material</title>
+<desc id="desc">Retain source and version throughout. Acquire files: Document records → Parse content: Structured text → Create passages: Text + location → Build indexes: Searchable corpus</desc>
+<rect width="375" height="540" rx="20" fill="#f3f6fa"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#19334d">
+<text x="20" y="38" font-size="25" font-weight="700">Offline ingestion</text>
+<text x="20" y="66" font-size="18" font-weight="400">Files → searchable material</text>
+<rect x="20" y="82" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="91" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="112" font-size="19" font-weight="700" fill="#fff">1</text>
+<text x="74" y="112" font-size="20" font-weight="700">Acquire files</text>
+<text x="36" y="135" font-size="15" font-weight="400" fill="#41586e">Approved originals · Source and version</text>
+<text x="36" y="159" font-size="17" font-weight="600" fill="#1b6e68">Output: Document records</text>
+<path d="M187 172 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="184" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="193" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="214" font-size="19" font-weight="700" fill="#fff">2</text>
+<text x="74" y="214" font-size="20" font-weight="700">Parse content</text>
+<text x="36" y="237" font-size="15" font-weight="400" fill="#41586e">Headings and pages · Tables and coverage</text>
+<text x="36" y="261" font-size="17" font-weight="600" fill="#1b6e68">Output: Structured text</text>
+<path d="M187 274 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="286" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="295" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="316" font-size="19" font-weight="700" fill="#fff">3</text>
+<text x="74" y="316" font-size="20" font-weight="700">Create passages</text>
+<text x="36" y="339" font-size="15" font-weight="400" fill="#41586e">Page / section units · Bounded splitting</text>
+<text x="36" y="363" font-size="17" font-weight="600" fill="#1b6e68">Output: Text + location</text>
+<path d="M187 376 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="388" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="397" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="418" font-size="19" font-weight="700" fill="#fff">4</text>
+<text x="74" y="418" font-size="20" font-weight="700">Build indexes</text>
+<text x="36" y="441" font-size="15" font-weight="400" fill="#41586e">Lexical / vector* · Scope metadata</text>
+<text x="36" y="465" font-size="17" font-weight="600" fill="#1b6e68">Output: Searchable corpus</text>
+<text x="20" y="506" font-size="14" font-weight="400" fill="#536b80">Keep source + version linked</text>
+<text x="20" y="526" font-size="14" font-weight="400" fill="#536b80">* Vector retrieval is optional</text>
+</g></svg>

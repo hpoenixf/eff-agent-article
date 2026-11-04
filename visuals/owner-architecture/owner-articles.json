@@ -12,7 +12,7 @@
     "024-agent-pdf-from-text-to-evidence": "PDF：从文本到证据",
     "026-agent-memory-forget-durable-effects": "Memory：从保存、召回到安全遗忘",
     "027-rag-revocation-publish-replay": "RAG：文档撤权与历史回放",
-    "agent-knowledge-retrieval-end-to-end": "知识检索：从资料入库到可信证据交付",
+    "agent-knowledge-retrieval-end-to-end": "RAG 全链路：从文档入库到可引用回答",
     "rag-retrieval-evaluation-evidence": "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？",
     "030-fintech-from-research-to-investment-advice": "从投资研究到投顾与交易的边界",
     "031-fintech-data-time-and-reproducible-numbers": "金融数字的时点、口径与复算",
@@ -63,7 +63,6 @@
     "agent-action-reminder-coordination": "行动提醒：从生成建议到真正送达模型",
     "agent-research-assets-identity-version-lifecycle": "一份研究报告，为什么需要先变成「资产」？",
     "agent-skill-from-markdown-to-callable-research": "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行",
-    "rag-end-to-end-system-panorama": "RAG 全链路全景：从知识入库到可信回答",
     "agent-conversation-admission-task-continuation": "对话接纳：接着聊不等于接着执行",
     "agent-deterministic-fund-allocation": "确定性基金计算：从持仓事实到金额建议",
     "agent-account-identity-private-scope": "账户身份：如何隔离每个人的研究",
@@ -196,8 +195,7 @@
       "primary": "agent-knowledge-retrieval-end-to-end",
       "related": [
         "027-rag-revocation-publish-replay",
-        "rag-retrieval-evaluation-evidence",
-        "rag-end-to-end-system-panorama"
+        "rag-retrieval-evaluation-evidence"
       ]
     },
     "A21": {

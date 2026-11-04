@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="642" viewBox="0 0 375 642" role="img" aria-labelledby="title desc">
+<title id="title">Online: turn questions into cited answers</title>
+<desc id="desc">Teaching flow; repeat retrieval when the task needs it. Form queries: Query + scope → Retrieve + fuse: Ranked candidates → Rerank (optional): Selected passages → Assemble context: Actual model input → Answer + cite: Checkable answer</desc>
+<rect width="375" height="642" rx="20" fill="#f3f6fa"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#19334d">
+<text x="20" y="38" font-size="25" font-weight="700">Online answering</text>
+<text x="20" y="66" font-size="18" font-weight="400">Question → cited answer</text>
+<rect x="20" y="82" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="91" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="112" font-size="19" font-weight="700" fill="#fff">5</text>
+<text x="74" y="112" font-size="20" font-weight="700">Form queries</text>
+<text x="36" y="135" font-size="15" font-weight="400" fill="#41586e">Question and goal · Authorized scope</text>
+<text x="36" y="159" font-size="17" font-weight="600" fill="#1b6e68">Output: Query + scope</text>
+<path d="M187 172 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="184" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="193" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="214" font-size="19" font-weight="700" fill="#fff">6</text>
+<text x="74" y="214" font-size="20" font-weight="700">Retrieve + fuse</text>
+<text x="36" y="237" font-size="15" font-weight="400" fill="#41586e">Lexical / vector* · RRF + deduplication</text>
+<text x="36" y="261" font-size="17" font-weight="600" fill="#1b6e68">Output: Ranked candidates</text>
+<path d="M187 274 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="286" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="295" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="316" font-size="19" font-weight="700" fill="#fff">7</text>
+<text x="74" y="316" font-size="20" font-weight="700">Rerank (optional)</text>
+<text x="36" y="339" font-size="15" font-weight="400" fill="#41586e">Question + passages · Keep order on failure</text>
+<text x="36" y="363" font-size="17" font-weight="600" fill="#1b6e68">Output: Selected passages</text>
+<path d="M187 376 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="388" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="397" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="418" font-size="19" font-weight="700" fill="#fff">8</text>
+<text x="74" y="418" font-size="20" font-weight="700">Assemble context</text>
+<text x="36" y="441" font-size="15" font-weight="400" fill="#41586e">Text + source + page · Read within budget</text>
+<text x="36" y="465" font-size="17" font-weight="600" fill="#1b6e68">Output: Actual model input</text>
+<path d="M187 478 v9 m-4 -4 l4 4 l4 -4" fill="none" stroke="#6a8197" stroke-width="2"/>
+<rect x="20" y="490" width="335" height="88" rx="12" fill="#ffffff" stroke="#cad6e2"/>
+<rect x="32" y="499" width="30" height="30" rx="9" fill="#28688c"/>
+<text x="41" y="520" font-size="19" font-weight="700" fill="#fff">9</text>
+<text x="74" y="520" font-size="20" font-weight="700">Answer + cite</text>
+<text x="36" y="543" font-size="15" font-weight="400" fill="#41586e">Support each claim · Versioned locations</text>
+<text x="36" y="567" font-size="17" font-weight="600" fill="#1b6e68">Output: Checkable answer</text>
+<text x="20" y="608" font-size="14" font-weight="400" fill="#536b80">Keep source + version linked</text>
+<text x="20" y="628" font-size="14" font-weight="400" fill="#536b80">* Vector retrieval is optional</text>
+</g></svg>

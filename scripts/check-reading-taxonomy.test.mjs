@@ -60,18 +60,15 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     '017-prompt-to-answer-six-layer-panorama-v3',
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
-    'agent-trust-from-claims-to-commitments',
-    'agent-fragility-and-antifragility',
     'agent-context-governance-principles',
     'agent-context-governance-actions',
     '025-agent-langfuse-from-trace-to-trustworthy-observability',
     'honest-agent-evaluation',
-    'ai-citations-do-not-prove-reliability',
     'agent-subagent-context-specialization',
     'agent-long-horizon-research-panorama',
     'vertical-financial-agent-principles-panorama',
     'etf-agent-framework-comparison-panorama',
-    'rag-end-to-end-system-panorama',
+    'agent-knowledge-retrieval-end-to-end',
     'agent-client-interaction-panorama'
   ]
   assert.deepEqual([...panoramaSeriesSlugs], selected)
@@ -271,7 +268,13 @@ test('every panorama card server-renders with authored bilingual copy and canoni
         assert.ok(html.includes('href="/eff-agent-article' + href + '"'), slug)
       }
       assert.doesNotMatch(html, /undefined|null|<p><\/p>|<h2><a[^>]*><\/a><\/h2>/)
-      assert.match(html, english ? /FRAGILITY AND ANTIFRAGILITY/ : /脆弱与反脆弱全景/)
+      assert.match(html, english ? /SYSTEM RUNTIME/ : /系统运行全景/)
+      for (const slug of ["agent-trust-from-claims-to-commitments", "agent-fragility-and-antifragility", "ai-citations-do-not-prove-reliability"]) {
+        assert.ok(!html.includes('/articles/' + slug + '"'), 'Focused essay must not return as a panorama card: ' + slug)
+      }
+      for (const slug of ["025-agent-langfuse-from-trace-to-trustworthy-observability", "honest-agent-evaluation", "agent-subagent-context-specialization"]) {
+        assert.ok(html.includes('/articles/' + slug + '"'), 'Complete engineering panorama must remain: ' + slug)
+      }
     }
   } finally {
     delete globalThis.__panoramaTestLanguage
