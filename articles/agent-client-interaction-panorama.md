@@ -273,4 +273,4 @@ ETF Agent 的既有并发实践采用了相近的分工：独立短问单独回�
 
 [6] ETF Agent，[研究还没结束，用户已经离开了：Agent 怎样按时交付真实成果？](https://hpoenixf.com/eff-agent-article/articles/agent-asynchronous-research-time-bound-delivery)。
 
-机制深挖见配套文章[《Agent 客户端不只是展示 SSE：一次研究怎样被正确呈现？》](./agent-client-interaction-and-reading.md)。取材日期：2026 年 11 月 2 日。
+机制深挖见配套文章[《Agent 客户端不只是展示 SSE：如何呈现可信的研究过程》](./agent-client-interaction-and-reading.md)。取材日期：2026 年 11 月 2 日。
