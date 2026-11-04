@@ -187,7 +187,7 @@ node dist/src/research-cli.mjs run report --project PROJECT --run TASK
 
 这一接收、采用、再提问的顺序由[交互合同代码](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/src/human-interaction.mjs)核对，等待仍占用原任务期限。恢复时保留完整项目目录，并继续原任务，而不是重新提交一个替代任务。日常使用从[当前 main README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入，旧任务留在其兼容版本完成。
 
-这条公开路径已有真实模型配合合成资料的执行记录。其中一次模型自行推断了资料版本的适用日期，最后按用户明确选择的版本继续并保留日期不确定性。它说明交接正确和理解正确仍是两件事：Runtime 能保证原答案回到原调用，研究结论仍要核对答案的具体含义。[固定执行证据](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/verification/v021-release.zh-CN.md)保留了这项观察。
+这条公开路径已有真实模型配合合成资料的执行记录。固定 v0.21 测评里，十个自然任务留下了十二次问题接收/采用与十份可冷读报告，说明顺序多问不再只有脚本网关演示。但这证明的是当次交接和报告读回，并不证明模型总能正确理解用户偏好：其中一题未能召回既有的英文格式偏好。其中一次模型自行推断了资料版本的适用日期，最后按用户明确选择的版本继续并保留日期不确定性。它说明交接正确和理解正确仍是两件事：Runtime 能保证原答案回到原调用，研究结论仍要核对答案的具体含义。[固定执行证据](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/verification/v021-release.zh-CN.md)保留了这项观察。
 
 采用时应把范围看清：这是本地单用户的普通顺序问答，不提供非阻塞插话、Child 定向咨询、追加权限或外部效果审批。需要这些能力时，前文的身份、消费者和恢复分工可以作为设计依据，不能把一个 `response` 开关当作完整平台。
 
