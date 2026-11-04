@@ -126,3 +126,80 @@ Why not create a Progress Manager? Once it becomes a real module, it must answer
 
 An independent module may become justified later if Progress acquires a lifecycle outside the Run, cross-product subscribers, its own retention and query policies, or a shared event-service role. **What needs to be independent today is the capability's semantics, not another execution authority.**
 
+## 4. From Model Proposal to Visible Row: Four Facts and Two Orders
+
+A model progress update is not simply “the model sends an SSE message.” It passes through at least four distinct factual transitions:
+
+1. **Proposed:** The model submits bounded text through a controlled tool. This is still a model-authored statement.
+2. **Admitted and settled:** The original Runtime checks the Run, permission, display eligibility and terminal state. The original action path settles the effect and obtains a stable `updateId`.
+3. **Durably committed:** Conversation/Outbox stores the event and assigns its durable order, `deliveryOrdinal`.
+4. **Displayed live:** The attached Run Stream sends it over SSE, and the client projects it as a timeline row.
+
+“ The model said it,” “the system admitted it,” “the event was committed,” and “the browser displayed it” are four different facts. A polished UI message cannot be used to infer that an earlier step succeeded.
+
+Deduplication must also follow effect identity. Two `kind=progress` events with different `updateId` values are two independent statements. A retry is the same effect only when it uses the same identity and the same sealed request. If `runId + kind` remains the unique slot, “what we checked first” and “what we discovered next” collapse into the last sentence. History overwritten under the old contract cannot be reconstructed by a newer protocol.
+
+Two orders must also remain distinct:
+
+- **Durable order:** the original Conversation assigns `deliveryOrdinal` to committed model progress. History uses it to restore genuine records after reopening.
+- **Live order:** the current Run Stream event queue assigns `sequence`. It orders events only within that connection. A new connection after reconnecting may start its sequence again, so it cannot be treated as a global history cursor.
+
+A transient Host status has no durable `deliveryOrdinal` and is not written to the Outbox. It enters the same Run Stream queue and receives an order within the current connection. If the user disconnects, missed transient heartbeats are not replayed.
+
+The goal is not an abstract total order for every event in the system. The promise is smaller and enforceable: the current connection is ordered, durable event identities remain distinct, and reconnecting does not invent progress that never happened.
+
+## 5. The Hardest Race: History Arrives Later but Describes an Earlier State
+
+Consider a race that was explicitly tested. The browser starts a History request. SSE then delivers and displays a new progress row. The History response arrives later, but does not contain that row.
+
+Its absence may mean the snapshot began before the event was committed. It may also mean that the original identity or current permission no longer allows the content to be displayed. **Absence alone proves neither “this never happened” nor “this remains permanently valid.”**
+
+Replacing the entire view with History would erase legitimate live progress. Trusting every SSE message ever displayed would risk leaving revoked content on screen.
+
+The implemented approach is narrower. After the original SSE send guard succeeds, the transport may issue a short-lived, process-local receipt for that exact conversation, scope, Run, durable ordinal and payload. If a later History response omits the row, the client performs a bounded check of **that exact receipt already shown to the user** with the original authority. It cannot query arbitrary text or guessed IDs, and it does not create a second permission Owner.
+
+| Verification result | Current-view behavior |
+| --- | --- |
+| Original identity and content still match | Keep the row |
+| Explicitly no longer current, or receipt invalid | Remove only that row; leave independent answers and other Runs alone |
+| Unknown, timeout or network failure | Retain the already-visible row only within the current Run and reading generation, pending a later genuine History observation; do not turn it into permanent permission |
+
+A receipt comes from the current process and may no longer be verifiable after a server restart. That does not necessarily mean the content was revoked; a later authorized durable History read can independently display the original event. A late verification result also cannot cross cancellation, termination, account switching or a newer reading generation to resurrect an old row.
+
+There is another easily missed provenance problem. A second research turn may really include the first turn's answer in its model request. That alone does not prove that every source, version and attachment carried with the answer has the same display eligibility. A source ID by itself, or the fact that History returned some text, is not enough to prove complete lineage.
+
+The repair stayed with the original History → actual request fitting → new Run source association. Only when the original identity, version and actual inclusion in the current request were established by their existing Owners could the corresponding progress be displayed. Other materials remained unknown. The lesson is that **a statement about the research process can itself depend on source identity; saved history does not prove that this request used it completely and legitimately.**
+
+Most importantly, optional progress verification must not hold an independent answer hostage. Even if one progress row cannot yet be confirmed, an independently authorized formal answer should still be delivered. Progress serves the research; it must not become another termination authority.
+
+## 6. The Frontend Must Preserve Reading Continuity
+
+When answers can finish out of order, “the last message” is no longer an identity. A Run is one admitted task execution, not the entire conversation. A short question may finish first while the original research continues; each must find its answer through its own Run.
+
+ETF Agent's concurrent interaction work encountered a case where a temporary answer row was replaced by the persisted History message, while later stream updates still targeted the old temporary ID. The repair was not to create another copy of the answer, but to follow the original Run to its current message identity.
+
+![Long research and a short question retain separate task identities](../../visuals/en/a25-client/m-identity.svg)
+
+*Identity sketch: completion order can change; questions, answers and control targets must not become misaligned.*
+
+[Open the full-size vector figure](../../visuals/en/a25-client/m-identity.svg)
+
+The same answer may also be revised repeatedly. If the page already shows revision two of answer P and an earlier History request returns revision one, the old content must not replace the new just because it arrived later. Conversely, a reader who explicitly opens historical revision one should not be silently upgraded to the latest version.
+
+**Reconciling a current view and browsing a historical version are different actions.** If a preview is visible before its persistence receipt arrives, the client may retain it temporarily within the same Run and reading scope while it verifies the result. Only matching durable facts can confirm persistence. Explicit access denial takes priority over preview retention.
+
+![Reconciling current revision two, late revision one and a matching persistence receipt](../../visuals/en/a25-client/m-revisions.svg)
+
+*Reconciliation sketch: compare revisions of the same content object; explicit access denial takes priority over preview retention.*
+
+[Open the full-size vector figure](../../visuals/en/a25-client/m-revisions.svg)
+
+Progress adds two more reading details:
+
+- New progress should not force-scroll someone who is reading an earlier answer to the bottom. Preserve their reading position and offer an entry point to the new update.
+- When a temporary assistant message identity is replaced by its persisted identity, the same Run's “Research process” disclosure should not reset. A different Run should keep its own reading state.
+
+Drafts, controls and citations follow the same identity rule. An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
+
+Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
+
