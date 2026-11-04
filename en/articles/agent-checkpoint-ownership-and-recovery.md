@@ -25,7 +25,7 @@ Handling them requires both a record of research progress and a trustworthy acco
 
 **A useful checkpoint system makes ordinary work easy to continue and gives an interrupted system enough information to distinguish reusable material from actions that still require execution authority.** It need not turn the entire application into a permanently replayable graph.
 
-This article follows a teaching example through the normal path, then revisits why we introduced and later removed LangGraph in ETF Agent. The project account describes the private system's design and controlled verification. A separate public teaching example appears near the end; its capabilities are deliberately narrower.
+This article follows a teaching example through the normal path, then revisits why we introduced and later removed LangGraph in ETF Agent. The project account covers the private system's design, a live-model development evaluation and controlled verification. A separate public teaching example appears near the end; its capabilities are deliberately narrower.
 
 ## Start with the basics: a progress snapshot that gets updated
 
@@ -159,7 +159,7 @@ That created a specific duplication. **A new process still needed Recovery befor
 
 In early October, we removed the redundant graph execution and checkpointer wiring. The three logical stages remained as ordinary control flow inside ResearchRuntime, with durable continuation supplied by the existing Recovery owner. We did not replace the graph wrapper with a renamed general-purpose workflow manager.
 
-This was a decision about responsibilities in that project. Applications that need graph branching, parallel super-steps, state forks and time travel, and want the framework's execution model, can still benefit substantially from LangGraph.
+This was a decision about responsibilities in that project. Applications that need graph branching, parallel super-steps, state forks and time travel, and want the framework's execution model, can use those capabilities in LangGraph.
 
 ### Comparing the two on the same terms
 
@@ -256,9 +256,32 @@ Rejecting an operation whose prerequisites are missing is a legitimate local res
 
 ### Capacity policy also changed over time
 
-An earlier controlled case involved checkpoints duplicating large observations already retained in receipts, eventually exceeding an application byte cap. The first repair omitted exact duplicates through receipt references while keeping that cap. A later change removed the artificial fixed checkpoint byte limit, retaining JSON validation and real storage failures.
+Checkpoints have been used in the project. **On October 4, 2026, a development evaluation using a real model and synthetic research material had persisted 30 observations in a 123,940-byte checkpoint.** Further reads produced results, but the Run failed at checkpoint capacity validation before exhausting its model-request allowance. Those real calls are distinct from the scripted tests below.
+
+The rejected state was not captured at the failure point. A later read-only reconstruction from the original completed-read receipts produced a 132,166-byte candidate state with 32 observations, exceeding the then-current 128 KiB limit. That size is a **receipt-derived reconstruction**, not a captured failure payload.
+
+The repair removed duplicate observations already held in complete receipts, without truncating citations or original text. A zero-model reconstruction of that actual material preserved the content and order of 32 observations and 155 complete citations while reducing the checkpoint projection to 4,037 bytes. A projection generated after restoring it had the same size. A separate PostgreSQL synthetic fixture checked the storage seam; it was not a successful rerun of the real task.
+
+**The original live-model Run remained failed and was not rerun.** The record establishes actual use of the save path and a capacity fault caused by duplicated state. The later result establishes offline reconstruction equivalence, not rescue of a live task. This is a sanitized account of private run evidence; the full original records are not public.
+
+The earlier repair retained the original cap. A later change removed the artificial fixed checkpoint byte limit, retaining JSON validation and real storage failures.
 
 Those stages should not become a claim that compression eliminates capacity limits. Deduplication reduces repeated representation; databases and hosts still have physical limits. Model context capacity is another independent constraint. A state that can be persisted may still be too large for a model request.
+
+### What did failure-isolation tests actually observe?
+
+Alongside that real-task record, offline fault injection exercised the original Runtime seams. Concrete observations are more informative than saying that every test passed.
+
+| Injected fault | Observed result | Supported conclusion |
+| --- | --- | --- |
+| After initial or replacement content commits, insert a cycle into the following snapshot so the real serializer rejects it | Original content, revision and publication receipt remain available; independent completion is accepted | A confirmed publication does not need this auxiliary snapshot to become true again |
+| At that publication boundary, substitute an unknown storage error or lose the lease after failure | The continuation call rejects; existing content remains; the Run is not declared completed | Preserving work does not justify ignoring unknown writes or lost authority |
+| Make serialization fail while establishing a clarification wait that requires a checkpoint | The operation rejects and no clarify_pending state is written | A required safe point cannot be skipped by a general ignore-errors policy |
+
+These executed tests use scripted models and an in-memory Store. Their assertions inspect save outcomes, receipts, content and run state, not production-user samples, model quality, latency, cost or production failure rates. The complete private tests are not public. The public teaching code below supplies a different, narrower experiment readers can run themselves.
+
+An earlier publication fix also retained a before-and-after observation: under the same one-time pre-write fault, content existed in storage but the old path returned partial without establishing independent completion. After that fix, content remained and completion was accepted. That is evidence for the particular fault repair, not a benefit attributable to the later checkpoint-interface consolidation.
+
 
 ## 6. An independent checkpoint owner, with a narrow boundary
 
@@ -301,9 +324,9 @@ All three existing save entry points use the same interface: ordinary snapshots,
 
 **Repeated error classification is consolidated; business-specific continuation conditions remain distinct.** An auxiliary snapshot after a committed publication, a wait requiring an exact snapshot and a cursor before a model call need different proof. An existing special path that can continue from its own committed control receipt retains its original owner's policy. The common classifier must not turn that path into a whole-run failure.
 
-This provides more than an “ignore errors” switch: callers receive an explicit fact and handle it within their own effect scope. Checkpointing can have an independent interface while remaining inside Recovery's existing storage and authority boundaries.
+Unlike an “ignore errors” switch, this interface explicitly classifies the save fact; callers still handle it within their own effect scope. Checkpointing can have an independent interface while remaining inside Recovery's existing storage and authority boundaries.
 
-The interface and all three call-site migrations are integrated into the current implementation. Local verification without real-model calls and independent review covered the original recovery, terminal and wait seams. This change neither rewrote storage transactions nor expanded recovery after ordinary interruptions. Those engineering results do not establish acceptance with real models, a production database or a deployed service. The remote CI run failed without a reported cause; it cannot be counted as a successful remote pipeline.
+The interface and all three call-site migrations are integrated into the current implementation. Local verification without real-model calls and independent review covered the original recovery, terminal and wait seams. **Existing boundary tests already passed before this refactor and continued to pass afterward. The established change is centralized classification with preserved tested behavior, not conversion of previously failing business tasks into successes.** This change neither rewrote storage transactions nor expanded recovery after ordinary interruptions. Those engineering results do not establish acceptance with real models, a production database or a deployed service. The remote CI run failed without a reported cause; it cannot be counted as a successful remote pipeline.
 
 Existing initial-checkpoint handling remains narrow, and its separate qualification is unfinished. Other independent checkpoint work is not automatically completed by this interface consolidation. A clearer module boundary does not mean every recovery scenario in the wider system has been verified.
 
@@ -321,9 +344,12 @@ npm ci
 node --test --test-concurrency=1 --test-name-pattern='after result commit|dispatched-without-result' test/durable-runtime.test.mjs
 ```
 
-The [corresponding tests](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/durable-runtime.test.mjs) use scripted models and test-owned child processes. They actually terminate a process at the selected boundary and open the original state in another process. One exit consumes the existing result receipt without repeating the original tool effect. The other retains `TOOL_OUTCOME_UNKNOWN` and does not redispatch the unresolved action.
+This update inspected the [fixed test source](https://github.com/hpoenixf/open-etf-agent/blob/5f70dc0b4760ad70ef211f4823828ab2fee5c525/test/durable-runtime.test.mjs) without rerunning it. The tests are designed to use scripted models and test-owned child processes, send `SIGKILL` at a selected boundary, then open the original state in another process:
 
-Inspect call counts, original receipts and final status rather than the amount of generated prose. These tests need no live model calls. This article checked the fixed source but did not rerun them. The [current project entry](https://github.com/hpoenixf/open-etf-agent) links newer versions, whose behavior should be read against their own documentation.
+- With a committed result, assert one total tool dispatch, one stored tool message and one consumed ID after recovery.
+- With dispatch but no result, assert `TOOL_OUTCOME_UNKNOWN`, one unresolved effect and still only one effect invocation in the recorded attempts.
+
+Inspect call counts, original receipts and final status rather than the amount of generated prose. These tests need no live model calls and do not reproduce the complete private-system isolation protocol. The [current project entry](https://github.com/hpoenixf/open-etf-agent) links newer versions, whose behavior should be read against their own documentation.
 
 ## Design for the next handover
 
