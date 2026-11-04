@@ -1,11 +1,12 @@
 ---
-description: "沿一次研究的保存与接续过程，解释检查点、效果回执和恢复权限如何协作；回看 ETF Agent 从 LangGraph 到自有 Recovery 的演进，讨论检查点独立模块应该负责什么。"
+description: "讲清检查点何时保存、由谁发起、一次 Run 如何多次更新；用同一任务比较 LangGraph、Microsoft Agent Framework、Temporal 与 ETF Agent 的接续机制和职责边界。"
 readingBrief:
   takeaways:
     - "检查点是选定阶段保存的进度快照；一次 Run 可保存多次，当前实现只保留 revision 递增的最新快照。"
     - "写前序列化失败、写入结果未知和执行租约失效需要不同处理；已确认的独立成果不应被辅助快照失败抹掉。"
     - "ETF Agent 移除 LangGraph，是因为自有 Recovery 已承担持久恢复职责，图检查点形成重复层；这不构成对 LangGraph 通用能力的否定。"
     - "检查点适合拥有窄而清楚的独立模块边界，整体运行、效果提交和控制唤醒仍由各自负责人决定。"
+    - "LangGraph 的图快照、Microsoft 的工作流快照与 Temporal 的事件重放采用不同接续模型；都需要单独处理外部效果。"
   appliesTo:
     - "为多轮 Agent 设计持久进度、受限恢复，或评估现有检查点层是否职责过重。"
   notFor:
@@ -31,6 +32,12 @@ import { withBase } from 'vitepress'
 **Checkpoint（检查点）是在选定的运行边界保存的一份进度快照：这次 Run 走到了哪里，下一步从哪个阶段进入，还需要哪些工作状态和原始结果引用。** 它不是 Run 本身，也不是整段聊天记录或最终报告。
 
 可以把它理解为交接单。例如：“原始资料 A 已读过，结果在原回执中；目前还有一个问题没确认；下一步回到模型思考阶段。”接手者先读交接单，再去核对原回执，而不是把上一个进程的全部内存恢复出来。
+
+### 谁发起保存？它是模型可调用的工具吗？
+
+**本文的 Recovery 检查点由 Runtime 按执行协议发起保存，Recovery 组织快照与保存结果，Store 写入所选存储。它没有作为内建的 `checkpoint` 工具暴露给模型。** 例如模型提议读取资料或发送初稿，Host 执行业务动作并确认原回执，Runtime 再在对应边界更新快照。模型影响研究动作，但不是由它另发一次“存档”工具调用。
+
+需要区分另一个同名概念：**Workspace checkpoint 是研究进展记录。** 在 Host 开启相应能力并提供 Workspace 目标时，模型可以在 `send_answer_part` 中附带可选的 `workspaceCheckpoint`，提议更新问题状态、摘要和历史正文引用。Host 核验原发布回执与来源后再决定是否保存；这份可选提议无效，不应丢弃已经有效的正文。它不是执行接续游标，也不授予恢复运行的权限。
 
 ### 为什么有了数据库和日志，还需要检查点？
 
@@ -156,19 +163,72 @@ import { withBase } from 'vitepress'
 
 ### 与 LangGraph 放在同一张地图上
 
-[LangGraph 的检查点文档](https://docs.langchain.com/oss/javascript/langgraph/checkpointers)以 super-step 为保存边界，记录线程的图状态，并支持中断后接续、时间旅行和已完成节点的 pending writes。我们这里保留的检查点围绕自有 Runtime 的受限接续协议组织。
+先把我们的迁移经历放在一边，用同一个教学任务比较：**读取资料 A 和 B → 写初稿 → 等人确认 → 发布报告。** 下面的过程是按官方机制推演的示例，不是本项目跑过的跨框架测评。LangGraph 使用 JavaScript Graph API 口径；Microsoft Agent Framework 使用 Python 工作流口径；Temporal 则代表另一类持久工作流方案。
 
-| 比较维度 | LangGraph 提供的方式 | ETF Agent 当前选择 |
-| --- | --- | --- |
-| 执行组织 | 采用图 API 时，以图和 super-step 组织执行 | Runtime 内部三阶段循环 |
-| 检查点内容 | 线程中的图状态快照及执行相关信息 | 接续位置、必要工作状态和原事实引用 |
-| 状态存储 | checkpointer 对接相应状态存储 | 原 Recovery 合同下的内存（进程内）或 PostgreSQL（持久）适配器 |
-| 恢复承诺 | 在框架支持的图边界恢复或分叉 | 普通中断有限结算；合法控制唤醒保留受限接续 |
-| 外部效果 | 应用仍需处理幂等与结果未知 | 原请求、动作和发布负责人保存并解释回执 |
+<picture>
+  <source media="(max-width: 640px)" :srcset="withBase('/diagrams/checkpoint-system/zh/recovery-models-mobile.svg')" />
+  <img :src="withBase('/diagrams/checkpoint-system/zh/recovery-models.svg')" alt="同一报告任务的四种接续依据：LangGraph 保存图状态，Microsoft Agent Framework 保存执行器与消息状态，Temporal 从事件历史重建工作流，ETF Agent 使用最新进度快照和原回执；外部效果仍需单独确认" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" />
+</picture>
 
-外部效果这一行尤其值得注意。LangGraph 的[容错文档](https://docs.langchain.com/oss/javascript/langgraph/fault-tolerance#retry-boundaries-and-idempotency)同样区分图检查点与节点内部的外部写入，要求稳定幂等身份，并把丢失确认视为未知。我们的回执设计与它解决的是同一类问题，不应把这部分写成框架没有考虑过的独创发现。
+<a :href="withBase('/diagrams/checkpoint-system/zh/recovery-models.svg')">打开四种接续机制对照图</a>
 
-记忆也要单独看。LangGraph 区分线程内 checkpointer 与跨线程 Store；ETF Agent 的会话历史、长期记忆和恢复记录各有既有负责人。移除本项目的 LangGraph 接线，没有因此删除用户记忆。[官方持久化说明](https://docs.langchain.com/oss/python/langgraph/persistence)
+#### LangGraph：由图运行时保存，边界由节点划分决定
+
+开发者先定义状态、节点与边，为图配置 checkpointer；应用调用图时传入 `thread_id`。随后由图运行时调用保存器，不需要模型另选一个“保存 checkpoint”工具。模型可以决定走哪个业务分支，但保存协议属于执行层。这里的 thread 能承载多次图调用的累计状态，不能直接等同于本文应用里的一次 Run。[图 API 设计说明](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-graph-api)、[线程与检查点](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#threads)
+
+保存的也不只是一段聊天记录。对应用暴露的状态快照包含状态值、下一批待执行节点，以及关联的执行信息。节点返回的是状态更新，由图的更新规则合并；**只有进入这套状态和持久协议的内容，才能成为接续依据。** 节点函数随手放在进程变量里的对象，并不会自动变成完整的进程快照。
+
+保存粒度是 super-step，可以理解为“一批已经排定的节点共同推进一轮”。若读取 A、读取 B 被安排在同一轮并行执行，它们结束后才形成这一轮完整的状态边界；下一轮才消费这些更新去写初稿。顺序节点则分属不同轮次。把“读取”和“写初稿”塞进同一节点，就失去二者之间的完整检查点边界。[super-step 与状态快照](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#super-steps)、[节点边界的取舍](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-graph-api)
+
+这一轮并非必须全成或全废。假设 A 已完成，B 失败，LangGraph 还会保存已完成节点的任务级写入，也就是 pending writes。在这些写入已成功持久化的前提下，接续这一轮时可复用 A 的结果，不再调用 A。**任务级写入与完整的 super-step 快照是两种粒度**，不能把“一个节点完成”一律说成“多了一份可时间旅行的完整检查点”。[保存接口中的 `put` 与 `putWrites`](https://github.com/langchain-ai/langgraphjs/blob/77294a35a56bfdb86e5952158bcb343fc3c41950/libs/checkpoint/src/base.ts)
+
+#### 等审批、进程重启、回看历史，分别怎样继续？
+
+在审批节点里，应用代码调用 `interrupt()` 提交需要人确认的问题。图暂停后，宿主用同一 thread 和 `Command({ resume: ... })` 带回回答。要注意，**恢复时从该节点开头重新执行**，不是复活一段停在某行的调用栈。因此，把“发送报告”放在 `interrupt()` 前面，会面临那段代码再次执行的问题；把审批与副作用边界拆清楚，才有可控的恢复路径。[中断与恢复](https://docs.langchain.com/oss/javascript/langgraph/interrupts#resuming-interrupts)
+
+进程重启需要先有跨进程可读的保存器。`MemorySaver` 只在内存里保留状态；换成持久保存器以后，应用才能凭原 thread 找回已保存的进度。长期记忆又是另一层：checkpointer 管线程状态，Store 管跨线程的应用数据，两者可以一起使用。[持久化与 Store](https://docs.langchain.com/oss/javascript/langgraph/persistence)
+
+历史回放也有明确含义。应用可以选择保留的旧检查点继续或修改状态后分叉；选定点之前已有结果的节点被跳过，之后的节点重新执行，可能再次调用模型和 API。**回放不是观看一段完全无副作用的录像**，更不会让外部网站上的已发布报告自动撤回。[时间旅行的执行语义](https://docs.langchain.com/oss/javascript/langgraph/use-time-travel)
+
+#### 有检查点，是否等于每一步都已经落盘？
+
+还要看保存器和 durability 模式。`async` 允许下一步与保存重叠，进程突然退出时可能丢失最近尚未完成的写入；`exit` 把保存推迟到执行退出，包括正常结束、错误或人工中断，因此不提供执行中途崩溃时的逐步进度保护。本文对 `sync` 采用 **LangGraph.js 1.6.1 的固定实现**：完成一轮后，运行时等待该轮已安排的检查点写入，再推进下一轮。它等待的是保存器的完成结果，真实持久性仍取决于保存器与存储配置。[durability 说明](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#durability-modes)、[1.6.1 的轮次写入屏障](https://github.com/langchain-ai/langgraphjs/blob/77294a35a56bfdb86e5952158bcb343fc3c41950/libs/langgraph-core/src/pregel/loop.ts#L1280-L1288)
+
+这也是需要锁定版本的细节：本次查阅时，在线页对 JavaScript `sync` 的一段描述与上述固定源码不一致；这里按固定源码解释，不能据模式名字推定所有 SDK、所有版本都有相同等待边界。
+
+最后看发布报告：远端已经接受正文，节点却在收到确认前中断，图里仍可能缺少“发布成功”的状态。安全重试需要稳定的业务幂等身份、远端支持去重，或者先查询原操作结果。LangGraph 的容错文档本身就强调这一点。我们的原回执设计解决的是同类问题，而非框架遗漏了一个显而易见的原则。[外部副作用与确认丢失](https://docs.langchain.com/oss/javascript/langgraph/fault-tolerance#retry-boundaries-and-idempotency)
+
+### Microsoft Agent Framework：把执行器和待传消息一起交接
+
+Microsoft Agent Framework 的工作流同样以 super-step 推进，但更直接围绕消息投递与执行器组织：收集上一轮消息，路由给目标执行器，等待本轮执行结束，再处理新产生的下一轮消息。保存由配置了 checkpoint storage 的工作流运行时触发，模型无须主动调用存档工具。[官方执行模型](https://learn.microsoft.com/en-us/agent-framework/concepts/workflows/builder-and-execution#execution-model-supersteps)
+
+放回示例，初稿执行器已经生成内容，审批执行器还在等回答。要接起来，除了正文状态，还要知道哪条消息将送给谁、哪个请求在等回应。因此快照涵盖执行器状态、待投递消息、待处理请求与响应，以及共享状态。自定义执行器通过 `on_checkpoint_save` 和 `on_checkpoint_restore` 明确交出、读回自己的状态；不能指望所有实例字段自动被抓走。[Python 保存与恢复接缝](https://github.com/microsoft/agent-framework/blob/cf734bc4692ccfc944496a5b3182b3d65483c44d/python/packages/core/agent_framework/_workflows/_runner.py#L352-L427)
+
+开发者可以选择某个 checkpoint ID，在匹配的工作流中恢复，也可以重建实例后恢复，但必须保留相容的拓扑与执行器身份。内存存储、文件存储、Cosmos DB 存储又分别对应进程内、本机与持久后端，不能把“开启 checkpoint”直接写成“换台机器也能恢复”。[检查点、存储与重建要求](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints)
+
+保存点也会随版本演进。Python 1.13.0 加入了首次执行前的输入检查点，以及送回请求回应后、消费它之前的入口检查点。这样原输入和人的回答也成为可重放的边界材料，而不是只保存处理后的结果。[1.13.0 升级说明](https://learn.microsoft.com/en-us/agent-framework/support/upgrade/python-1-13-0-workflow-checkpoint-upgrade-guide)
+
+它与 LangGraph 都把接续纳入工作流执行模型；我们的当前实现则围绕自有 Run、原回执与获准控制唤醒组织。比较时应看这些真实状态与入口，而不是只比较三家有没有一个叫 Checkpoint 的类。至于报告是否已经被外部服务接受，单凭上述工作流状态的范围，仍不能推导跨系统事务或恰好执行一次的保证。
+
+### Temporal：保存事件历史，让工作流代码重建状态
+
+Temporal 是持久工作流平台，不是另一个同构的 Agent 图库。它展示了另一条路线：开发者用工作流代码组织步骤，把模型调用、网络请求等非确定性工作放进 Activity；服务记录工作流事件历史，Worker 按这份历史重放代码、重建执行状态。[Workflow 与重放](https://docs.temporal.io/workflows)、[Activity 的职责](https://docs.temporal.io/activities)
+
+同一份报告可以写成“读取资料 Activity → 生成初稿 Activity → 等审批信号 → 发布 Activity”。如果初稿的 Activity 完成结果已经进入事件历史，Worker 重启后，工作流代码虽然重新走到“生成初稿”，SDK 会返回历史结果，不需要只为恢复而再次调用模型。定时器与收到的信号也通过历史参与重建；普通局部变量则由确定性的工作流代码重新算出来。这里没有让模型发起一次“保存全部变量”的操作。[事件历史如何驱动恢复](https://docs.temporal.io/encyclopedia/event-history/event-history-typescript)
+
+要把两种“再执行”分开：**工作流重放**复用已经记录的 Activity 结果；**Activity 重试**可能再次执行 Activity 函数，次数与停止条件由重试策略决定。若发布服务已经接受报告，而 Activity 的完成结果还没记入历史，后续尝试仍可能再次触及外部服务，所以 Activity 也需要幂等与结果核对。[重试策略](https://docs.temporal.io/encyclopedia/retry-policies)
+
+这条路线用确定性重放和持久事件历史承担很强的执行接续职责，代价是应用要遵守对应的编程与部署模型。它不是给当前 Recovery 换一个存储适配器就能获得的能力，也不能从本文的最新快照接口推导出来。
+
+### 相同的基本问题，不同的恢复承诺
+
+把示例走完以后，差别落在三个具体选择上：
+
+- **谁定义可继续的位置？** LangGraph 的图运行时、Microsoft 的工作流运行时、Temporal 的工作流协议各自定义执行边界；本项目由自有 Runtime、Recovery 和控制协议协作。四者都需要宿主协议，而非模型一句“继续”就获得执行资格。
+- **保留怎样的过去？** LangGraph 支持保留的图检查点历史；Microsoft 提供按 ID 保存、选择和恢复工作流检查点；Temporal 使用事件历史。ETF Agent 当前 Store 只保留每个 scope + Run 的最新快照，原动作与发布事实另存，不能冒称具有相同的任意历史回放功能。
+- **中断以后承诺什么？** 前述框架提供各自模型下的执行恢复；本项目对普通中断选择按成果结算，显式继续进入新 Run，只为合法控制唤醒保留受限接续。后者是产品取舍，不是同等恢复能力的更轻实现。
+
+共同点是：恢复工作进度，不能代替外部效果的确认。无论选择哪种框架，报告已经发布、请求结果未知、用户已经取消，都需要回到负责这些事实的协议。选型应从自己要履行的承诺出发，而不是因为某个方案更容易画成一张图。
 
 ## 五、检查点失败时，先确定失败发生在哪里
 

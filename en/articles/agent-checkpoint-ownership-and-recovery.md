@@ -1,11 +1,12 @@
 ---
-description: "Follow a research run through saving and continuation to see how checkpoints, effect receipts and recovery authority cooperate. Revisit ETF Agent's move away from LangGraph and the proper scope of a checkpoint module."
+description: "Learn who saves checkpoints, when they are triggered and how one Run updates them. Follow the same task through LangGraph, Microsoft Agent Framework, Temporal and ETF Agent to compare continuation models and ownership."
 readingBrief:
   takeaways:
     - "A checkpoint is progress saved at a chosen boundary. One Run can save repeatedly; the current implementation keeps only its latest snapshot with an increasing revision."
     - "Known pre-write serialization failure, an unknown write outcome and a lost lease require different handling. A failed auxiliary snapshot should not erase independently confirmed work."
     - "ETF Agent removed its LangGraph layer after its own Recovery system acquired durable recovery responsibilities. That project-specific duplication does not invalidate LangGraph's general capabilities."
     - "Checkpointing deserves a narrow, explicit module boundary; execution, committed effects and accepted control wakes remain with their original owners."
+    - "LangGraph graph snapshots, Microsoft workflow snapshots and Temporal event replay use different continuation models. External effects still need separate handling."
   appliesTo:
     - "Designing persistent progress and bounded recovery for a multi-turn agent, or reviewing an overloaded checkpoint layer."
   notFor:
@@ -31,6 +32,12 @@ This article follows a teaching example through the normal path, then revisits w
 **A checkpoint is a snapshot saved at a chosen execution boundary: where this Run has reached, which stage comes next, and which working state and original-result references are needed there.** It is not the Run itself, the entire conversation or the finished report.
 
 Think of it as a handover note: “Source A has been read; its result is in the original receipt. One question remains unresolved. Next, return to model reasoning.” The next executor reads that note and verifies the original records rather than restoring every byte of the previous process's memory.
+
+### Who initiates a save? Is it a model-callable tool?
+
+**For the Recovery checkpoints discussed here, Runtime initiates a save under its execution protocol, Recovery assembles the snapshot and save outcome, and the Store writes to the selected storage. No built-in `checkpoint` tool exposes this operation to the model.** A model may propose reading a source or sending a draft. The Host executes that business action and confirms its original receipt; Runtime updates the snapshot at the corresponding boundary. The model influences the research action, rather than issuing a separate “save progress” tool call.
+
+A different concept shares the name: **a Workspace checkpoint records research progress.** When the Host enables that capability and supplies a Workspace goal, the model can attach an optional `workspaceCheckpoint` to `send_answer_part`, proposing question-status updates, a summary and historical content references. The Host verifies the original publication receipt and sources before accepting it. An invalid optional proposal must not discard otherwise valid published content. This record is not an execution-continuation cursor and grants no authority to resume a Run.
 
 ### Why keep one when there are already databases and logs?
 
@@ -156,19 +163,72 @@ This was a decision about responsibilities in that project. Applications that ne
 
 ### Comparing the two on the same terms
 
-[LangGraph's checkpointer documentation](https://docs.langchain.com/oss/javascript/langgraph/checkpointers) describes super-step snapshots of a thread's graph state, supporting interruption recovery, time travel and pending writes from completed nodes. Our retained checkpoint follows the bounded continuation protocol of our own runtime.
+Set aside our migration for a moment and use one teaching task: **read sources A and B → draft a report → wait for approval → publish it.** The walkthroughs below apply documented mechanisms; they are not a cross-framework benchmark we ran. LangGraph uses the JavaScript Graph API here, Microsoft Agent Framework uses Python workflows, and Temporal represents a different durable-workflow approach.
 
-| Dimension | LangGraph approach | ETF Agent's current choice |
-| --- | --- | --- |
-| Execution organization | With the Graph API: graphs and super-steps | An internal three-stage runtime loop |
-| Checkpoint contents | Thread graph-state snapshots and execution information | Continuation position, necessary working state and references to original facts |
-| State storage | A checkpointer connects to the chosen state store | In-memory or durable PostgreSQL adapters under the existing Recovery contract |
-| Recovery promise | Resume or fork at supported graph boundaries | Bounded ordinary-interruption settlement; scoped continuation for accepted control wakes |
-| External effects | Application-level idempotency and unknown-outcome handling remain necessary | Original request, action and publication owners retain and interpret receipts |
+<picture>
+  <source media="(max-width: 640px)" :srcset="withBase('/diagrams/checkpoint-system/en/recovery-models-mobile.svg')" />
+  <img :src="withBase('/diagrams/checkpoint-system/en/recovery-models.svg')" alt="Four continuation models for the same report task: LangGraph graph state, Microsoft Agent Framework executor and message state, Temporal event-history replay, and ETF Agent's latest snapshot plus original receipts. External effects still require confirmation." loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" />
+</picture>
 
-The last row is important. LangGraph's [fault-tolerance guidance](https://docs.langchain.com/oss/javascript/langgraph/fault-tolerance#retry-boundaries-and-idempotency) also separates graph checkpoints from external writes within nodes, calls for stable idempotency identities and treats a missing acknowledgement as unknown. Our receipt design addresses the same class of problem; it is not a discovery that the framework ignored.
+<a :href="withBase('/diagrams/checkpoint-system/en/recovery-models.svg')">Open the four-model comparison</a>
 
-Memory is another distinct concern. LangGraph separates thread-scoped checkpointers from cross-thread stores. ETF Agent already has separate conversation, long-term memory and recovery owners. Removing our LangGraph integration did not delete user memory. [Official persistence overview](https://docs.langchain.com/oss/python/langgraph/persistence)
+#### LangGraph: the graph runtime saves at boundaries defined by nodes
+
+The developer defines state, nodes and edges, then configures a checkpointer. The application invokes the graph with a `thread_id`; the graph runtime calls the saver without asking the model to select a checkpoint tool. A model can influence a business branch, while the execution layer owns persistence. A thread can accumulate state across several graph invocations, so it is not equivalent to one application Run in this article. [Graph API design](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-graph-api), [threads and checkpoints](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#threads)
+
+The application-facing snapshot contains state values, the next scheduled nodes and execution information. Nodes return updates that the graph merges under its state rules. **Only information admitted into that state and persistence protocol becomes continuation material.** Ordinary process variables do not turn into a complete memory image automatically.
+
+A super-step advances a scheduled batch of nodes. If reads A and B run in parallel in one batch, their completed updates form that full state boundary; the next batch can consume them to draft the report. Sequential nodes occupy different steps. Combining reading and drafting into one node removes the full checkpoint boundary between those operations. [Super-steps and snapshots](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#super-steps), [choosing node boundaries](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-graph-api)
+
+There is also finer-grained progress. If A finishes but B fails, completed task writes can be retained as pending writes. Once those writes are durably saved, resuming the step can reuse A instead of invoking it again. **Task writes and full super-step snapshots have different granularity**: a finished node does not necessarily create another full time-travel checkpoint. [The separate `put` and `putWrites` interfaces](https://github.com/langchain-ai/langgraphjs/blob/77294a35a56bfdb86e5952158bcb343fc3c41950/libs/checkpoint/src/base.ts)
+
+#### Approval, process restart and history replay take different paths
+
+Application code calls `interrupt()` inside an approval node. The Host later supplies `Command({ resume: ... })` with the same thread. **The interrupted node starts again from its beginning**; a suspended call stack is not resurrected at one line. Sending the report before `interrupt()` therefore risks running that code again. Separate approval from the side-effect boundary deliberately. [Interrupt and resume semantics](https://docs.langchain.com/oss/javascript/langgraph/interrupts#resuming-interrupts)
+
+Process recovery first requires storage that survives the process. `MemorySaver` retains state in RAM; a persistent saver lets the application retrieve saved progress using the original thread. Long-term memory is another concern: checkpointers hold thread state, while Stores hold application data across threads. Both can be used together. [Persistence and Stores](https://docs.langchain.com/oss/javascript/langgraph/persistence)
+
+History replay can select a retained checkpoint, or fork from it with changed state. Nodes before that point reuse saved results; subsequent nodes execute again, potentially making fresh model and API calls. **Replay is not a side-effect-free recording**, and it does not retract a report already published elsewhere. [Time-travel execution](https://docs.langchain.com/oss/javascript/langgraph/use-time-travel)
+
+#### Does a checkpoint mean each step is already durable?
+
+The saver and durability mode both matter. `async` overlaps saving with the next step, so a crash can lose recent unfinished writes. `exit` delays persistence until execution exits through completion, error or a human interrupt, rather than protecting intermediate progress against a crash. For `sync`, this article uses the **fixed LangGraph.js 1.6.1 implementation**: after a completed super-step, the runtime awaits the checkpoint work scheduled for that step before advancing. It waits for the saver's completion; actual durability still depends on the saver and storage configuration. [Durability modes](https://docs.langchain.com/oss/javascript/langgraph/checkpointers#durability-modes), [the 1.6.1 step barrier](https://github.com/langchain-ai/langgraphjs/blob/77294a35a56bfdb86e5952158bcb343fc3c41950/libs/langgraph-core/src/pregel/loop.ts#L1280-L1288)
+
+This detail warrants a version pin: at review time, one passage in the online JavaScript description differed from that fixed source. The explanation here follows the linked implementation. A mode name alone does not establish the same wait boundary across every SDK and version.
+
+Now consider publication. The remote service accepts the report, but the node stops before receiving confirmation. The graph may still lack a success record. Safe retry requires a stable business idempotency identity honored by the service, or reconciliation of the original operation. LangGraph's own fault-tolerance guidance addresses this. Our receipt design tackles the same problem, not a principle the framework overlooked. [External effects and missing acknowledgements](https://docs.langchain.com/oss/javascript/langgraph/fault-tolerance#retry-boundaries-and-idempotency)
+
+### Microsoft Agent Framework: hand over executors and queued messages
+
+Microsoft Agent Framework also uses super-steps, organized around message delivery and executors: collect messages, route them, finish the current batch, then process newly queued messages in the next batch. With checkpoint storage configured, the workflow runtime triggers saving; no model-issued archive tool is required. [Official execution model](https://learn.microsoft.com/en-us/agent-framework/concepts/workflows/builder-and-execution#execution-model-supersteps)
+
+In our example, drafting has produced content while approval awaits a response. Continuation needs the content, message destinations and outstanding requests. Its snapshot therefore includes executor state, queued messages, pending requests and responses, and shared state. Custom executors explicitly export and restore state through `on_checkpoint_save` and `on_checkpoint_restore`; arbitrary instance fields are not automatically captured. [Python save and restore hooks](https://github.com/microsoft/agent-framework/blob/cf734bc4692ccfc944496a5b3182b3d65483c44d/python/packages/core/agent_framework/_workflows/_runner.py#L352-L427)
+
+An application can choose a checkpoint ID and restore it into a matching workflow, including a rebuilt instance with compatible topology and executor identities. In-memory, file and Cosmos DB storage have different durability and deployment implications. Enabling checkpointing alone does not establish cross-machine recovery. [Storage and reconstruction requirements](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints)
+
+Save boundaries evolve too. Python 1.13.0 added an entry checkpoint before initial execution and another after requested responses arrive but before their consuming step. Original input and human responses thereby become replayable boundary material, rather than only their processed results being saved. [The 1.13.0 upgrade](https://learn.microsoft.com/en-us/agent-framework/support/upgrade/python-1-13-0-workflow-checkpoint-upgrade-guide)
+
+Like LangGraph, it incorporates continuation into the workflow execution model. Our current implementation instead organizes it around application Runs, receipts and accepted control wakes. Compare these concrete states and entry points, not whether every library has a class named Checkpoint. The documented workflow-state scope also provides no basis for inferring a cross-service transaction or exactly-once external publication.
+
+### Temporal: rebuild workflow state from event history
+
+Temporal is a durable-workflow platform, not another equivalent Agent graph library. Developers organize steps in workflow code and place non-deterministic work, such as model and network calls, in Activities. The service records event history; a Worker uses that history to replay code and reconstruct execution state. [Workflows and replay](https://docs.temporal.io/workflows), [Activity responsibilities](https://docs.temporal.io/activities)
+
+Our report becomes “read-source Activity → draft Activity → wait for an approval signal → publish Activity.” If the draft Activity's completion result is already recorded, a restarted Worker can reach that call again and receive the historical result without calling the model merely to restore progress. Recorded timers and signals also guide reconstruction; deterministic workflow code recomputes ordinary local variables. The model never requests a dump of all variables. [How event history drives recovery](https://docs.temporal.io/encyclopedia/event-history/event-history-typescript)
+
+Distinguish **workflow replay**, which reuses recorded Activity results, from **Activity retry**, which can execute the Activity function again under its retry policy. If publication succeeded remotely but Activity completion was not recorded, another attempt may contact that service again. Activities still need idempotency and outcome reconciliation. [Retry policies](https://docs.temporal.io/encyclopedia/retry-policies)
+
+Deterministic replay and durable history carry substantial continuation responsibility, in exchange for adopting that programming and deployment model. This is not a capability our Recovery gains simply by swapping storage adapters, nor one implied by our latest-snapshot interface.
+
+### Shared problems, different recovery promises
+
+The example exposes three concrete choices:
+
+- **Who defines a valid continuation point?** LangGraph's graph runtime, Microsoft's workflow runtime and Temporal's workflow protocol define their execution boundaries. Our Runtime, Recovery and Control protocols cooperate on ours. All require a Host protocol; a model saying “continue” is not execution authority.
+- **What past is retained?** LangGraph supports retained graph-checkpoint history; Microsoft supports saving and selecting workflow checkpoints by ID; Temporal uses event history. ETF Agent's current Store keeps only the latest snapshot per scope and Run, with original effects recorded separately. These are not interchangeable history-replay facilities.
+- **What happens after interruption?** The frameworks offer execution recovery under their respective models. Our ordinary-interruption path settles actual deliverables and admits a new Run for explicit continuation; accepted control wakes retain scoped continuation. That is a product trade-off, not equivalent recovery delivered with less machinery.
+
+They share another requirement: recovered progress cannot replace confirmation of external effects. An accepted report, an unresolved request and an accepted cancellation still need their responsible protocols. Choose the promise your product must keep before choosing how neatly its workflow can be drawn.
 
 ## 5. Locate the failure before choosing a response
 

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="510" viewBox="0 0 840 510" role="img" aria-labelledby="title desc">
+<title id="title">同一任务，四种接续依据</title>
+<desc id="desc">读取 A / B → 初稿 → 审批 → 发布（教学示意）. 图运行时 → 图状态; 工作流运行时 → 交接状态; 服务事件历史 → 确定性重放; 自有 Runtime → 最新快照 + 原回执. 恢复进度，不会撤销已经发生的外部效果。</desc>
+<rect width="840" height="510" rx="22" fill="#f7f5ef"/>
+<rect width="840" height="7" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif">
+<text x="28" y="43" font-size="28" font-weight="700" fill="#183b4a">同一任务，四种接续依据</text>
+<text x="28" y="74" font-size="16" font-weight="400" fill="#61767c">读取 A / B → 初稿 → 审批 → 发布（教学示意）</text>
+<rect x="28" y="101" width="382" height="150" rx="14" fill="#edf6f1" stroke="#c0d9cc"/>
+<circle cx="46" cy="125" r="4" fill="#237165"/>
+<text x="58" y="132" font-size="19" font-weight="700" fill="#183b4a">LangGraph</text>
+<text x="43" y="156" font-size="15" font-weight="700" fill="#237165">图运行时 → 图状态</text>
+<text x="43" y="178" font-size="16" font-weight="400" fill="#45616d">图状态边界：super-step</text>
+<text x="43" y="202" font-size="16" font-weight="400" fill="#45616d">已完成节点另有任务级写入</text>
+<text x="43" y="226" font-size="16" font-weight="400" fill="#45616d">从图边界接续或选择历史分叉</text>
+<rect x="430" y="101" width="382" height="150" rx="14" fill="#eef3f9" stroke="#c7d8e5"/>
+<circle cx="448" cy="125" r="4" fill="#406982"/>
+<text x="460" y="132" font-size="19" font-weight="700" fill="#183b4a">Microsoft Agent Framework</text>
+<text x="445" y="156" font-size="15" font-weight="700" fill="#406982">工作流运行时 → 交接状态</text>
+<text x="445" y="178" font-size="16" font-weight="400" fill="#45616d">保存执行器、消息与待处理回应</text>
+<text x="445" y="202" font-size="16" font-weight="400" fill="#45616d">恢复匹配拓扑和执行器身份</text>
+<text x="445" y="226" font-size="16" font-weight="400" fill="#45616d">接着消费消息与请求</text>
+<rect x="28" y="266" width="382" height="150" rx="14" fill="#f7efe4" stroke="#e5d6bf"/>
+<circle cx="46" cy="290" r="4" fill="#896436"/>
+<text x="58" y="297" font-size="19" font-weight="700" fill="#183b4a">Temporal</text>
+<text x="43" y="321" font-size="15" font-weight="700" fill="#896436">服务事件历史 → 确定性重放</text>
+<text x="43" y="343" font-size="16" font-weight="400" fill="#45616d">重放工作流代码，重建状态</text>
+<text x="43" y="367" font-size="16" font-weight="400" fill="#45616d">复用已记录的 Activity 结果</text>
+<text x="43" y="391" font-size="16" font-weight="400" fill="#45616d">未完成 Activity 另按策略处理</text>
+<rect x="430" y="266" width="382" height="150" rx="14" fill="#e7f0ed" stroke="#b8d1c5"/>
+<circle cx="448" cy="290" r="4" fill="#225e55"/>
+<text x="460" y="297" font-size="19" font-weight="700" fill="#183b4a">ETF Agent · 本文实现</text>
+<text x="445" y="321" font-size="15" font-weight="700" fill="#225e55">自有 Runtime → 最新快照 + 原回执</text>
+<text x="445" y="343" font-size="16" font-weight="400" fill="#45616d">每个 scope + Run 只保最新快照</text>
+<text x="445" y="367" font-size="16" font-weight="400" fill="#45616d">普通中断结算；显式继续是新 Run</text>
+<text x="445" y="391" font-size="16" font-weight="400" fill="#45616d">获准控制唤醒保留受限接续</text>
+<path d="M28 438H812" stroke="#cad7d3"/>
+<text x="28" y="465" font-size="17" font-weight="700" fill="#385b67">恢复进度，不会撤销已经发生的外部效果。</text>
+<text x="28" y="488" font-size="15" font-weight="400" fill="#385b67">报告是否发布、请求结果是否未知，仍需原记录确认。</text>
+</g></svg>
