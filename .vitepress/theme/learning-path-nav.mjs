@@ -1,8 +1,8 @@
 import { learningPathSlugs } from '../../book.mjs'
 
 const labels = {
-  zh: ['入门', '进阶', '深入', '全景'],
-  en: ['Introduction', 'Intermediate', 'Deep dive', 'Panorama']
+  zh: ['入门', '进阶', '深入', '练手', '全景'],
+  en: ['Introduction', 'Intermediate', 'Deep dive', 'Workshop', 'Panorama']
 }
 
 export function learningPathNavigation(relativePath) {
@@ -22,24 +22,25 @@ export function learningPathNavigation(relativePath) {
 
 // Presentation metadata only: article identity and order remain in book.mjs.
 const stageViews = [
-  { key: 'intro', width: 1720, height: 1110,
+  { key: 'intro', slug: 'agent-in-15-minutes', width: 1720, height: 1110,
     zh: '从最小 Agent 循环开始，看清输入、工具和回答如何相连。',
     en: 'Start with the smallest Agent loop: input, tools and an answer.' },
-  { key: 'intermediate', width: 2240, height: 1110,
+  { key: 'intermediate', slug: 'agent-ten-modules', width: 2240, height: 1110,
     zh: '沿十个模块理解一个可运行的公开教学实现。',
     en: 'Follow ten modules through a runnable public teaching implementation.' },
-  { key: 'deep', width: 2240, height: 1110,
+  { key: 'deep', slug: 'open-etf-agent-v010-system-design', width: 2240, height: 1110,
     zh: '深入固定公开版本的系统设计，连接证据、产物与交付。',
     en: 'Explore a pinned public implementation, connecting evidence, artifacts and delivery.' },
-  { key: 'panorama', width: 2960, height: 1824,
+  { key: 'panorama', slug: '017-prompt-to-answer-six-layer-panorama-v3', width: 2960, height: 1824,
     zh: '回到更广的六层系统设计，查看职责与交接；不等于公开实现的功能清单。',
     en: 'See responsibilities and handoffs across the broader six-layer design—not a public implementation feature checklist.' }
 ]
 
 export function learningPathStages(english = false) {
   const language = english ? 'en' : 'zh'
-  return learningPathSlugs.map((slug, index) => {
-    const view = stageViews[index]
+  return stageViews.map(view => {
+    const slug = view.slug
+    const index = learningPathSlugs.indexOf(slug)
     return {
       key: view.key, slug, label: labels[language][index], description: view[language],
       href: `${english ? '/en' : ''}/articles/${slug}`,

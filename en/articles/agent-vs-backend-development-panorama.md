@@ -10,8 +10,9 @@ readingBrief:
     - "From one request to a personal assistant, the scope of responsibility expands across time and decisions. Goals can persist, executions remain bounded, and users must be able to modify or withdraw a delegation."
   appliesTo:
     - "Developers with a backend or full-stack background who want to understand the engineering differences between Agent applications and conventional business systems."
-  notFor:
     - "Teams designing research assistants, long-running tasks, or personal agents who need to understand runtime frameworks, business responsibility, and delegations across time."
+  notFor:
+    - "Treating a teaching project as a deployed personal assistant, live fund-research service, or trading system, or looking for a framework performance ranking."
 ---
 
 <script setup>

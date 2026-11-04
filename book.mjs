@@ -158,11 +158,12 @@ export const collections = [
       },
       {
         "title": "架构学习路线",
-        "desc": "从十五分钟入门、十模块进阶，到可运行的深入实践和六层全景；按认知难度逐步阅读。",
+        "desc": "从入门、进阶到深入机制；用自己的资料练手，再展开六层全景。",
         "items": [
           ["agent-in-15-minutes", "十五分钟入门 Agent"],
           ["agent-ten-modules", "Agent 进阶：读懂 Open ETF Agent 的十个核心模块"],
           ["open-etf-agent-v010-system-design", "Agent 深入：从一份报告到持续执行与专家协作"],
+          ["open-etf-agent-research-project-workshop", "把自己的资料交给 Agent：从第一份报告到可恢复的研究项目"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
           ["agent-context-governance-principles", "Agent 上下文治理全景·原则篇：让每一步判断围绕目标展开"],
           ["agent-context-governance-actions", "Agent 上下文治理全景·行动篇：从首轮输入到长期记忆，怎样真正落地"]
@@ -260,6 +261,7 @@ export const learningPathSlugs = [
   'agent-in-15-minutes',
   'agent-ten-modules',
   'open-etf-agent-v010-system-design',
+  'open-etf-agent-research-project-workshop',
   '017-prompt-to-answer-six-layer-panorama-v3'
 ];
 

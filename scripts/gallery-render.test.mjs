@@ -28,7 +28,8 @@ const Component = (await import(pathToFileURL(modulePath))).default
 test('four gallery views reuse the canonical reading path and existing bilingual diagram geometry', () => {
   for (const english of [false, true]) {
     const stages = learningPathStages(english)
-    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs)
+    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs.filter(slug => slug !== 'open-etf-agent-research-project-workshop'))
+    assert.equal(stages.length, 4)
     for (const stage of stages) {
       assert.equal(stage.href, `${english ? '/en' : ''}/articles/${stage.slug}`)
       const svg = read(stage.src.slice(1))

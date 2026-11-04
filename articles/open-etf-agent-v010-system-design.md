@@ -338,29 +338,15 @@ Child 返回核对说明时，也把取得的原始页面交回来。可以把�
 
 ### 从独立示例到显式组合契约
 
-前面的三个示例保留各自的版本与证据。v0.19 向前走了一步：不是把所有模块打开，而是让 Host 明确交出本次任务的资料、扩展和持久输入，再由原来的 Session、Worker、RootBudget 与交付链执行。组合后，谁有权读资料、谁占用额度、谁提交效果，仍由原来的模块负责。
+本文的可运行主线固定在 v0.15：用同一份代码理解资料、Worker 和 Child 的交接，不把后续应用能力倒算给这一版。v0.19 后来补了 Host 显式提供资料与持久输入的组合契约；原模块仍各自负责权限、额度和效果，不是任意打开开关就能组成应用。Response 与 Schedule 的联合等待、Python 隔离执行等仍不在这条合同内。
 
-例如，把 Atlas 示例换成自己的合成资料，不能只替换提示词里的名称。Host 提交版本化的 `documentCatalog`；选定的文档 ID 决定工具可读范围，完整目录与内容身份进入持久定义。恢复时换了资料字节，系统应拒绝身份不一致，而不是把旧结果接到新材料上。原始选区、计算结果、CSV 与报告仍需沿同一份结构化结果核对。Child 只能使用父任务已经获准的范围与共享根预算，不能凭继承上下文获得额外授权。
-
-其它输入也遵循同一原则。PDF 在提交前准备快照，初次运行与恢复都携带原快照；可信 Skill、MCP 与插件由 Host 显式准备，可信不等于沙箱隔离，更不等于任意网络或进程权限。Memory 仍消费既有库，写入效果仍须原有的显式意图。Schedule 可以组合自定义资料、只读 Memory、已准备的 PDF、可信插件和有界摘要，但确认、到期和显式唤醒仍走原 Worker。这不是后台 cron，也没有顺带实现完整 Memory 生命周期。
-
-组合还有不能跨越的接缝：**Response 与 Schedule 的联合持久等待协议尚未实现**；旧 `document-revocation@1` 撤权 profile 保留为独立历史路径，不能据此宣称新组合支持运行中任意改 ACL；Python 隔离执行也未实现。普通 Response 自身仍绑定原问题、回复身份、截止时间与采用 fence。把模块列在同一张图里，不等于这些协议已经能任意叠加。
-
-本轮真实任务也留下了有用的反例。A/B 组来自修复前的执行源码；B 中曾把允许读取两份资料的 Skill 错判为只能调用一次，原失败没有被重跑覆盖。原 C 组暴露了重复摘要消耗额度的问题；修复后的 C 组使用另一份执行源码验证摘要复用，旧失败与未知占位照旧保留。因此，这些记录不能合并成“同一源码全部通过”，更不能推出投研质量已获保证。具体身份、原失败及离线验证边界见[固定版本的交付记录](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/verification/v019-release.zh-CN.md)，组合输入与排除项见[组合契约](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.zh-CN.md)。摘要修复的设计动因继续放在[既有上下文压缩文章](./agent-main-run-context-compaction.md)。
+这段演进不必在这里再展开成第二份应用教程。[固定组合契约](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.zh-CN.md)与[交付记录](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/verification/v019-release.zh-CN.md)保留原失败、未知与修复来源；摘要复用的动因见[上下文压缩文章](agent-main-run-context-compaction.md)。不能把不同来源的执行拼成“同源全部通过”。
 
 ### 从组合 API 到自己的本地研究项目
 
-显式组合还需要应用入口，读者才不必把内部测试装配改造成自己的程序。v0.20 的研究项目入口把选定资料、配置和任务保存到一个专属目录：先用 `research project init` 创建项目，再用 `source import` 导入明确列出的本地文本或 PDF，提交问题时绑定返回的资料 manifest。原文件后来改变，不会改写已经提交的任务；需要新资料时，重新导入并创建新任务。
+v0.20 已提供独立的本地研究项目入口：明确导入自己的资料、提交自然任务、管理获准 Memory、执行或继续原 Run，再冷读持久报告。它解决的是“读者如何使用”，不是改变前面 v0.15 的历史能力。实际步骤转到[研究项目练手篇](open-etf-agent-research-project-workshop.md)，公开能力与不支持的组合以[固定项目指南](https://github.com/hpoenixf/open-etf-agent/blob/88afb84958ed8de9108d756cdc0d63e6d2fbee24/docs/research-project.zh-CN.md)为准。
 
-真正执行走 `node src/research-cli.mjs run work --project DIR --run RUN_ID`。真实提供方、选定问题和资料、执行额度需要分别批准，凭据只从指定环境变量读取，不写入项目。额度是调用次数和时间限制，不等于货币费用上限。离线项目可以先完成零模型导入和提交，但 CLI 不会把 fixture 项目伪装成可运行的真实研究。
-
-同一个项目可以逐步练习不同能力：先生成并冷读报告，再批准一条明确的 Memory 意图，或启用有界 Child 检查选定文本。Memory 写入许可不由模型自己生成；Child 与 Main 共用根预算，也不能独立发表最终报告。一次启用所有开关并不是更完整的练习，Response 与 Schedule、两者各自与 Child，以及实际 PDF 或可信插件与 Child 的组合仍明确拒绝。
-
-停止与恢复也沿真实入口操作。Ctrl-C 请求 Host 协作停止；新进程再次执行同一个 `run work`，继续原 Run 的资料、配置、截止时间和预算。`run cancel` 则是取消，不是暂停。`run report` 和本地 Reader 读取已保存结果，不重新调用模型；未知派发仍保留未知，不能靠新建替代 Run 清掉占位。
-
-这条入口让读者能够接入自己明确选择的 `.txt`、`.md`、`.markdown` 和有限文本层 PDF，不局限于仓库里的某几个示例文件；它不是目录爬取、OCR、任意网络研究或通用 Python 工作台。安装、文件限制、逐步命令和能力排除项应沿[固定版本的研究项目指南](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/research-project.zh-CN.md)执行，不从本段推断生产资格。
-
-真实验收也没有被入口统一成一个全绿数字。原始任务保留失败和摘要未知，独立修复使用各自执行版本；追加 B 组运行完成 9/10，冻结机制评分仍为 8/10；更早 B 组仍为 7/10，不被新结果覆盖。例如，遗忘之后没有再消费 Memory，与“必须再执行一次空检索”是不同验收问题。最终采用真实运行与独立零模型过滤补证的分层结论，原评分不改写。应沿[版本证据](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.zh-CN.md)区分这几层事实，而不是把它们拼成同源全部通过。
+真实模型与机制验证仍是分层证据，不是所有历史任务都通过，也不等于投资研究质量。此前较完整的 v0.19/v0.20 补充说明保留在[本文的固定历史版本](https://github.com/hpoenixf/eff-agent-article/blob/041f6abda2f5e93da32c7882e692761b52c6096b/articles/open-etf-agent-v010-system-design.md)，不随此次阅读分工而改写。
 
 ## 六、把工程机制接回一次用户体验
 

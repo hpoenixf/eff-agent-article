@@ -138,3 +138,17 @@ test('v0.20 project source preserves historical qualification without inventing 
   assert.equal(slices.some(slice=>slice.since==='0.20'),false)
  }
 })
+
+
+test('v0.21 interaction has editorial captions without inventing a verified slice',()=>{
+ const interaction=versions.find(v=>v.version==='0.21')
+ assert.equal(interaction.commit,'427315b5554b1c9af8fa50b8ab622747045e691a')
+ assert.equal(interaction.tree,'8e0649c2fa6c7d1610cd680fe4b4362988a48cff')
+ assert.equal(interaction.title,'Return answers to the same task')
+ assert.equal(interaction.zh,'让回答回到原任务')
+ assert.equal(interaction.module,'Sequential questions · durable receipt · explicit adoption')
+ for(const language of ['zh','en']) {
+  const slices=topicGroups(language).flatMap(g=>g.articles).flatMap(row=>[row,...row.additionalTargets])
+  assert.equal(slices.some(slice=>slice.since==='0.21'),false)
+ }
+})
