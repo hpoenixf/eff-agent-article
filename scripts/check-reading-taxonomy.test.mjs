@@ -61,6 +61,7 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
     'agent-trust-from-claims-to-commitments',
+    'agent-fragility-and-antifragility',
     'agent-context-governance-principles',
     'agent-context-governance-actions',
     '025-agent-langfuse-from-trace-to-trustworthy-observability',

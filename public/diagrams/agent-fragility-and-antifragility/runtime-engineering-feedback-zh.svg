@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="848" viewBox="0 0 1000 848" role="img" aria-labelledby="title desc">
+<title id="title">一次故障，可以留下两种结果</title>
+<desc id="desc">运行路径在原有规则内限定影响、合法恢复、交付或停止；研发反馈由开发者和团队分析反例与历史，改变职责、删除重复控制，经 Spec 与行为验证影响后续设计。承受扰动和从扰动中形成净收益是不同命题，后者需要比较成本与后续结果。</desc>
+<defs>
+<marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#11766F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#99551D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#526779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, PingFang SC, Microsoft YaHei, Arial, sans-serif">
+<rect x="1" y="1" width="998" height="846" rx="22" fill="#FAF9F6" stroke="#CFD9DD" stroke-width="1.25"/>
+<rect x="40" y="26" width="34" height="30" rx="6" fill="#173348"/>
+<text x="57" y="48" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">02</text>
+<text x="88" y="48" font-size="19" font-weight="600" fill="#526779" text-anchor="start">运行与研发的反馈</text>
+<text x="40" y="102" font-size="36" font-weight="700" fill="#173348" text-anchor="start">一次故障，可以留下两种结果</text>
+<text x="40" y="145" font-size="24" font-weight="400" fill="#526779" text-anchor="start">本次任务怎样结束，与下一次设计怎样改变，需要分别观察。</text>
+<rect x="40" y="183" width="920" height="221" rx="16" fill="#E9F4EF"/>
+<circle cx="66" cy="215" r="5" fill="#11766F"/>
+<text x="82" y="224" font-size="27" font-weight="650" fill="#11766F" text-anchor="start">本次运行 · 原有规则内处理</text>
+<rect x="64" y="247" width="248" height="92" rx="11" fill="#FFFFFF"/>
+<text x="188" y="303" font-size="26" font-weight="600" fill="#173348" text-anchor="middle">扰动出现</text>
+<path d="M 324 293 L 362 293" fill="none" stroke="#11766F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="376" y="247" width="248" height="92" rx="11" fill="#FFFFFF"/>
+<text x="500" y="284" font-size="26" font-weight="600" fill="#173348" text-anchor="middle">限定影响</text>
+<text x="500" y="317" font-size="26" font-weight="600" fill="#173348" text-anchor="middle">合法恢复</text>
+<path d="M 636 293 L 674 293" fill="none" stroke="#11766F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-teal)"/>
+<rect x="688" y="247" width="248" height="92" rx="11" fill="#FFFFFF"/>
+<text x="812" y="284" font-size="26" font-weight="600" fill="#173348" text-anchor="middle">交付成果</text>
+<text x="812" y="317" font-size="26" font-weight="600" fill="#173348" text-anchor="middle">或诚实停止</text>
+<text x="64" y="378" font-size="24" font-weight="400" fill="#526779" text-anchor="start">恢复仍受原授权、预算与执行事实约束。</text>
+<path d="M 500 412 L 500 475" fill="none" stroke="#526779" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-muted)" stroke-dasharray="6 7"/>
+<rect x="244" y="422" width="512" height="33" rx="3" fill="#FAF9F6"/>
+<text x="500" y="447" font-size="24" font-weight="500" fill="#526779" text-anchor="middle">留下证据，由开发者／团队分析</text>
+<rect x="40" y="489" width="920" height="211" rx="16" fill="#FFF1DF"/>
+<circle cx="66" cy="521" r="5" fill="#99551D"/>
+<text x="82" y="530" font-size="27" font-weight="650" fill="#99551D" text-anchor="start">研发反馈 · 改变后续设计</text>
+<rect x="64" y="553" width="194" height="89" rx="11" fill="#FFFFFF"/>
+<text x="161" y="587" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">反例与历史</text>
+<text x="161" y="619" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">解释失败条件</text>
+<path d="M 265 598 L 281 598" fill="none" stroke="#99551D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="290" y="553" width="194" height="89" rx="11" fill="#FFFFFF"/>
+<text x="387" y="587" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">调整职责</text>
+<text x="387" y="619" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">删去重复控制</text>
+<path d="M 491 598 L 507 598" fill="none" stroke="#99551D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="516" y="553" width="194" height="89" rx="11" fill="#FFFFFF"/>
+<text x="613" y="587" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">Spec 与验证</text>
+<text x="613" y="619" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">检验允许与拒绝</text>
+<path d="M 717 598 L 733 598" fill="none" stroke="#99551D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+<rect x="742" y="553" width="194" height="89" rx="11" fill="#FFFFFF"/>
+<text x="839" y="587" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">后续设计</text>
+<text x="839" y="619" font-size="23" font-weight="600" fill="#173348" text-anchor="middle">按适用范围复用</text>
+<path d="M 839 650 L 839 674 L 161 674 L 161 650" fill="none" stroke="#99551D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-amber)" stroke-dasharray="6 7"/>
+<rect x="290" y="657" width="420" height="33" rx="3" fill="#FFF1DF"/>
+<text x="500" y="681" font-size="23" font-weight="500" fill="#99551D" text-anchor="middle">后续观察继续检验这次改动</text>
+<rect x="40" y="725" width="920" height="91" rx="15" fill="#173348"/>
+<text x="500" y="763" font-size="29" font-weight="650" fill="#FFFFFF" text-anchor="middle">承受扰动 ≠ 从扰动中形成净收益</text>
+<text x="500" y="797" font-size="22" font-weight="400" fill="#FFFFFF" text-anchor="middle">是否获益，需要比较改动成本与后续结果；图中不表示运行时自行改规则。</text>
+</g>
+</svg>

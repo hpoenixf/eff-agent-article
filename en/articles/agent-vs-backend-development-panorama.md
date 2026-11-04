@@ -1,18 +1,17 @@
 ---
 title: "How Agent Development Differs from Backend Development: From One Request to a Long-Term Personal Assistant"
-description: Compare backend requests and mature Agent frameworks, then follow real application cases in asynchronous delivery, human responses, memory consumption, and daily research toward a long-term personal assistant.
+description: "When model outputs help form execution paths at runtime, see how uncertainty changes state, failure handling, recovery, and testing, from one research request to long-term personal assistance."
 readingBrief:
   takeaways:
-    - "An Agent adds a model that chooses the next step from context; trusted code must still enforce business rules, permissions, and control over external effects."
+    - "An Agent lets parts of its execution path form at runtime. Tool order can change with observations, while the system still enforces permissions, the original budget, external-effect boundaries, and stopping conditions."
     - "Recovery must preserve the original task, evidence, and effects. An operation that was dispatched but has an unknown outcome cannot be treated as failed and repeated merely because it timed out."
-    - "Mature frameworks already provide loops, sessions, approval, checkpoints, and observation. Compare their actual recovery and handoff semantics rather than equating a successful tool call with business correctness."
+    - "Tests should establish both that unauthorized or duplicate effects are blocked and that independent permitted work can still finish. Open-ended research need not have one correct tool trajectory."
     - "Cases from our private application separate readable results, adopted responses, and memory entering later input. Mechanism correctness does not establish sustained user benefit."
     - "From one request to a personal assistant, the scope of responsibility expands across time and decisions. Goals can persist, executions remain bounded, and users must be able to modify or withdraw a delegation."
   appliesTo:
     - "Developers with a backend or full-stack background who want to understand the engineering differences between Agent applications and conventional business systems."
-    - "Teams designing research assistants, long-running tasks, or personal agents who need to understand runtime frameworks, business responsibility, and delegations across time."
   notFor:
-    - "Treating a teaching project as a deployed personal assistant, live fund-research service, or trading system, or looking for a framework performance ranking."
+    - "Teams designing research assistants, long-running tasks, or personal agents who need to understand runtime frameworks, business responsibility, and delegations across time."
 ---
 
 <script setup>
@@ -23,9 +22,11 @@ import { withBase } from 'vitepress'
 
 If you have built backend applications, an Agent can look familiar at first: receive a request, retrieve information, call APIs, save a result, and return it to the user. Put a model in the middle, and it seems like a business system with a natural-language interface.
 
-The real change appears during execution: **the developer no longer has to prescribe every next step; the model may choose one in response to material it has just seen.** Context, tool descriptions, historical summaries, and user preferences can all influence that choice.
+The real change appears during execution: **model output starts helping determine what the program does next.** Which document to read, which tool to invoke, how to divide the work, when to ask a person, and whether to finish may all be proposed by the model in response to material it has just seen. Context, tool descriptions, historical summaries, and user preferences therefore become inputs to the formation of an execution path.
 
-Agent engineering therefore builds on established backend engineering while introducing a decision step with semantic uncertainty. Developers need to support exploration while giving every action a defined scope, every interruption an explanation, and every deliverable a reliable way to reach the user. A personal assistant must preserve those constraints across time and changes in the user's circumstances.
+The runtime uncertainty considered here has concrete engineering consequences: the complete path may be unknown when the task starts, later observations can change the next action, and an unproductive attempt need not mean the task has failed. Concurrency, network timeouts, and unknown external effects already exist in backends. A model adds another input that can determine the direction execution takes.
+
+Beyond verifying established flows, engineering must now **constrain paths that form at runtime and retain evidence of the decisions and effects that actually occurred**. Exploration can change the order of work; it must not reinterpret authorization, reset cumulative allowances, or rewrite effects and stopping conditions. A personal assistant extends that responsibility across time and changes in the user's circumstances.
 
 The first half uses a teaching task to compare control: read two fund disclosures and produce a report, examining tools, state, and mature frameworks. The second turns to asynchronous delivery, human responses, memory consumption, and daily rereading already implemented in our private research application. Actual successes and counterexamples explain why the horizon expands. Teaching examples, scripted-model verification, and small real-model observations remain distinct; they do not establish live investment-research or automated-trading capabilities.
 
@@ -50,14 +51,24 @@ This is where a model can help: it can propose new research actions based on wha
 | What counts as completion? | Explicit business conditions are satisfied | Check execution facts, answer quality, and the deliverable the user can actually obtain |
 | How are costs controlled? | Requests, resources, queues, and quotas | Also bound the cumulative work of searching, summarizing, subtasks, and review |
 
-These are not mutually exclusive approaches. Workflow engines already support dynamic branches, asynchronous work, and long-running tasks. An Agent can also sit inside a fixed workflow. The change is that **some control decisions come from a model, and the conditions shaping those decisions change throughout execution.**
+These are not mutually exclusive approaches. Workflow engines already support dynamic branches, asynchronous work, and long-running tasks. An Agent can also sit inside a fixed workflow. The comparison concerns where control decisions come from: in a prescribed business path, developers specify how inputs map to the next step; in a model-directed segment, the model performs part of that mapping from the current context. Anthropic's [Building effective agents](https://www.anthropic.com/research/building-effective-agents) similarly distinguishes predefined code paths from model-directed processes, while acknowledging that definitions of an Agent vary.
+
+### Paths Form at Runtime; Stable Constraints Need an Independent Basis
+
+With the same two fund documents, one run may notice different reporting dates first and read a historical version. Another may first notice different denominators and check their definitions. A third may establish that a reliable comparison is unavailable and ask the user. When these choices fit the evidence and delegation, there need not be one inherently correct fixed order.
+
+The variation goes beyond wording an answer differently. When output chooses tools, it changes real execution: the objects read, action arguments, number of subtasks, and stopping point can all vary. Even fixing one model response would not establish that later observations cannot change the research path.
+
+Developers therefore have two connected responsibilities: make useful next steps visible to the model, and let the system independently check whether a proposed step may occur. The model can propose more research, while resource management checks the original task's remaining allowance. It can choose a different comparison method, while tools remain restricted to authorized material. Its preference to think for another turn cannot override cancellation or an effective hard deadline.
+
+**Stability belongs in the conditions every transition must satisfy; freezing the tool order from one successful demonstration is insufficient.** This does not require a new service for every decision. Existing tool backends, resource management, and task-lifecycle logic should retain the constraints they can already enforce.
 
 <figure>
   <picture>
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/decision-loop-en-mobile.svg')" />
     <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/decision-loop-en.svg')" alt="A rule-driven workflow compared with an Agent observation loop: the model proposes actions, the host validates and executes them, and results return to the model, with separate paths for rejection and delivery" />
   </picture>
-  <figcaption>Figure 1 · The model can explore possible decisions while the system controls the conditions for execution. These groups describe responsibilities; they do not require separate services. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/decision-loop-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 1 · The model can explore possible decisions while the system controls the conditions for execution. These groups describe responsibilities; they do not require separate services. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/decision-loop-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 ## 2. A Minimal Agent Is an Observation Loop; the Hard Parts Surround Its Handoffs {#_2-a-minimal-agent-is-an-observation-loop-the-hard-parts-surround-its-handoffs}
@@ -84,11 +95,30 @@ We should also avoid presenting one project's rules as universal across platform
 
 Codex expresses another useful distinction clearly: the sandbox limits the files, network, and other resources execution can reach, while the approval policy determines when further approval is required. Approval and execution isolation serve different purposes. A more capable model cannot replace either one. [Codex execution boundaries](https://learn.chatgpt.com/docs/agent-approvals-security)
 
+### Why an Unproductive Attempt Need Not End the Task
+
+An observation loop lets a model adjust direction in response to results, so it must distinguish an unhelpful path from an action that cannot safely proceed. In our teaching task, reading a footnote and finding that it does not explain a denominator still informs the investigation. The model may try another method within the original scope and budget. Treating every such result as a failed task would require exploration to guess the right path on its first attempt.
+
+| Current observation | Consequence for further execution |
+| --- | --- |
+| A read succeeded, but its content does not answer the question | Research may change direction; “not found in this material” must not become “the fact does not exist” |
+| Arguments were rejected and no action was dispatched | The original execution contract determines whether correction is permitted; corrected arguments create neither new authority nor a fresh budget |
+| A document is outside the authorized scope | Block that access; only independent work that does not depend on it may continue, without switching tools to bypass the restriction |
+| A write was dispatched, but its effect cannot be confirmed | Reconcile the original operation before proceeding; uncertainty is not a harmless attempt that can simply be repeated |
+
+Our private application encountered another kind of obstruction: optional research notes changed after a request had been prepared, and an old check rejected the entire model dispatch. Those notes helped organize the model's work, but their change did not establish that the user identity, tool scope, or resource conditions had become invalid. We subsequently clarified the responsibilities for local rejection and whole-task termination. [Run Termination and Safe Recovery](https://hpoenixf.com/eff-agent-article/en/articles/agent-veto-authority-and-run-termination) records that design history.
+
+The runtime requirement is concrete: provide the local outcome and its effects to the lifecycle logic that holds the task facts, so it can choose continuation, bounded finalization, or stopping. Permission to continue does not require a retry. When essential material is unavailable, an explicitly partial result or a wait for a human decision can also be the correct exit.
+
 ## 3. Manage Both What Happened and What the Model Can See Now {#_3-manage-both-what-happened-and-what-the-model-can-see-now}
 
 Backend engineers are used to treating the database as the source of truth. An Agent also has a limited working view: the context actually supplied to this model request.
 
 A document being in the database does not mean the model has seen it. A passage appearing in one request does not mean it remains visible in every later request. A summary saying “already verified” cannot substitute for the original verification result.
+
+This directly affects execution. If a summary omits “only some holdings are disclosed,” the next model turn may stop looking for supporting material and calculate overall overlap instead. The original text in the database has not changed, but the next action has. Changes to tool descriptions and result formats can have similar effects, so they deserve more attention than ordinary display copy.
+
+Diagnosing why a run took a different path requires connecting the actual input, visible tools, model proposal, dispatch, and result. Keeping only the initial user request and final answer cannot distinguish a model misjudgment from missing input or a runtime that never executed a permitted proposal. Retain the facts necessary to explain behavior; this does not require feeding the entire history into every model request.
 
 ### After One Run Ends, What Actually Changes in the Next?
 
@@ -137,12 +167,16 @@ Dispatch is the crucial boundary. If an action was definitively rejected before 
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/unknown-outcome-en-mobile.svg')" />
     <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/unknown-outcome-en.svg')" alt="Dispatch separates an unexecuted operation from one with a receipt or an unknown outcome: reconcile an unknown operation before repeating it, and do not release remote capacity solely because of a local timeout" />
   </picture>
-  <figcaption>Figure 2 · An unknown outcome is a real state that needs handling. The local process stopping does not establish that the external action stopped. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/unknown-outcome-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 2 · An unknown outcome is a real state that needs handling. The local process stopping does not establish that the external action stopped. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/unknown-outcome-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 Since its durable-recovery design, Open ETF Agent has recorded the original Run's proposals, tool dispatch, result commitment, and result consumption separately. If a complete proposal was saved, recovery can continue consuming that proposal. If a tool was dispatched and its outcome is unknown, re-executing it would not establish recovery of the original operation. Only adapters that explicitly support reconciliation can check whether that operation completed. Restarting does not refresh the original authorization, budget, or deadline. [Recovery design](https://github.com/hpoenixf/open-etf-agent/blob/fbefc074f161ae8de5b93060beae5b542de31038/openspec/changes/v07-trusted-recovery/design.md) · [Runtime recovery branches](https://github.com/hpoenixf/open-etf-agent/blob/fbefc074f161ae8de5b93060beae5b542de31038/src/runtime.mjs)
 
 This is not a general guarantee of exactly-once external execution. Database state and an external action usually do not share a transaction. Business idempotency keys, result queries, or an explicit human reconciliation path may still be required. LangGraph's documentation makes the same concern concrete: resuming a node containing `interrupt()` can rerun code. Even when a side effect is placed after approval, a failure after the external write succeeds but before the node finishes can still cause a duplicate write. [LangGraph interrupts and side effects](https://docs.langchain.com/oss/python/langgraph/interrupts)
+
+Runtime uncertainty adds another easily missed distinction: **asking the model to answer the original question again does not restore decisions already made**. The original run may have selected a particular document version, completed a calculation, and proposed saving the report. Sending the initial question again may lead the model to another version and a different report. Even if that second attempt succeeds, it is a new work process, not a receipt for the original action.
+
+Recovery should first reconnect still-valid proposals, results, and their consumption position, then permit further judgment where the original contract allows it. This does not require reproducing the entire investigation word for word, nor prohibit a new next step after recovery. It requires that new reasoning cannot rewrite an effect that already occurred or make an unconfirmed effect disappear merely by changing the plan.
 
 Durable recovery also widens the horizon toward human collaboration. If the two documents use incomparable reporting conventions, the Agent can explain the difference and ask the user to choose a scope. That is not an execution failure, nor a reason for the model to keep guessing. Preserve the specific question and its options, wait for a reply, then verify that it still belongs to the current task and valid conditions. A checkpoint prevents lost progress; it does not make the user’s decision. Being able to continue does not mean continuing is appropriate now.
 
@@ -158,7 +192,13 @@ Conventional testing still has a clear role. Permissions, arguments, calculation
 
 Then return to the user experience. Can the report be opened? Do its attachments agree with the body? If execution fails midway, can the user still read intermediate work that was already saved? A screen saying “completed” while the file cannot be downloaded has not completed delivery.
 
-For research tasks, evaluation should not mechanically require one exact tool sequence. Under the same permissions and business constraints, a model may take different paths to the same evidence. Conversely, an impressive trace with many tool calls may fail to answer the original question. Observe goal completion, evidence quality, execution reliability, and cost together rather than optimizing whichever is easiest to count.
+For research tasks, evaluation should not mechanically require one exact tool sequence. Under the same permissions and business constraints, a model may take different paths to the same evidence. Order can still matter: a write requiring approval must follow valid approval, and consumed results must correspond to the versions actually obtained. Assert business-required ordering without turning an incidental exploration trace into a template for every run.
+
+More revealing tests pair protection with progress. Unauthorized reading must be rejected while independent authorized material remains usable. A tool failure must be recorded without erasing confirmed results. An unknown write must not be repeated while the user can still read a body already saved. Testing only rejection can make stopping on every exception look highly reliable; testing only normal completion leaves prohibited paths unexplored.
+
+The same teaching task can vary one condition: read document A before B, reverse that order, or make optional material temporarily unavailable. Observe whether essential constraints still hold and an eligible deliverable remains reachable. A scripted model can verify these runtime control relationships. Whether a real model finds useful paths, notices incompatible definitions, and produces a good report still requires task evaluation. The two forms of verification serve different purposes.
+
+Conversely, an impressive trace with many tool calls may fail to answer the original question. Observe goal completion, evidence quality, execution reliability, and cost together rather than optimizing whichever is easiest to count.
 
 ## 6. The Shared Lesson from Mainstream Agents: Reuse Runtime Capabilities, Retain Business Responsibility {#framework-capabilities-and-business-responsibility}
 
@@ -206,6 +246,12 @@ Codex likewise illustrates why execution boundaries and approval policy should b
 
 These capabilities overlap; the table offers comparison lenses, not exclusive categories. Open ETF Agent remains an inspectable teaching example: original evidence, shared budgets, unknown outcomes, and bounded compositions can be followed through pinned source. Its limitations must not be projected onto mature frameworks. The useful comparison asks who stores and verifies the same document, approval, and external effect in the chosen framework.
 
+### When Is a Dynamic Path Worth Its Cost?
+
+When document types, processing steps, and exception exits are already well defined, a fixed workflow is often the more direct baseline. A model can extract or explain material while calculation, approval, and saving follow the prescribed process. This still offers a natural-language experience without opening the whole tool loop.
+
+Expand model-directed execution when new observations frequently require changing the research order, tool combination, or next question, and when that adaptability offers verifiable value. An Agent can first handle just the decision about which additional material to read while other stages stay fixed. A wider autonomous scope adds possible calls, states, and verification costs. Compare it with a simpler baseline on the same task instead of treating a longer trace as an upgrade.
+
 ## 7. After the User Leaves: Separate Continuing Work from Reading Its Result {#continuing-work-and-reading-results}
 
 The preceding section compared what frameworks provide. We now turn to problems we actually encountered in our private research application. These are steps toward responsibility across time, not a claim to have completed a personal-assistant product. Separate articles cover the cases in detail; here we focus on the experiences that changed our design judgments. Application verification is not evidence of research quality or real user benefit.
@@ -224,7 +270,7 @@ Timed delivery split completion again. With delivery promised *at* a time, an ea
 
 We verified these distinctions through the real application page, authentication route, and isolated database, using synthetic accounts and scripted model decisions: returning reads the original task, partial and later final delivery retain separate records, and another account cannot read the result. This tests application behavior, not a production latency guarantee or a real model's research ability.
 
-A queue alone is therefore insufficient. Execution progress, readable results, and delivery commitments need distinct records; one “success” field cannot describe the user's experience. [Asynchronous Research and Time-Bound Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) explains this separation.
+A queue alone is therefore insufficient. Execution progress, readable results, and delivery commitments need distinct records; one “success” field cannot describe the user's experience. [Asynchronous Research and Time-Bound Delivery](https://hpoenixf.com/eff-agent-article/en/articles/agent-asynchronous-research-time-bound-delivery) explains this separation.
 
 The separation also suggests a useful next horizon: a persistent goal can span many research runs while each execution retains its own scope and endpoint. What we verified is separation of the task from its connection and independent reading of its result. Organizing these into a revisable, revocable ongoing delegation still requires current authority and conditions for each trigger. The diagram places those time scales alongside an individual model request to show the additional responsibility.
 
@@ -233,7 +279,7 @@ The separation also suggests a useful next horizon: a persistent goal can span m
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/durable-work-en-mobile.svg')" />
     <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/durable-work-en.svg')" alt="Three timescales for a persistent goal, an individual Run, and model requests: authorized events wake bounded executions, waiting can release compute, and deliverables remain independently available" />
   </picture>
-  <figcaption>Figure 3 · From verified task/result separation toward distinct persistent goals, bounded executions, and model requests. Complete ongoing delegation remains a design direction. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/durable-work-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 3 · From verified task/result separation toward distinct persistent goals, bounded executions, and model requests. Complete ongoing delegation remains a design direction. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/durable-work-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 ## 8. After the User Answers: Receipt Is Not Adoption {#human-responses-and-actual-adoption}
@@ -246,7 +292,7 @@ The difference becomes especially clear with child tasks. The main task paraphra
 
 **The value is that a human decision actually changes execution, while “not yet applied” remains visible.** A conventional form often treats successful submission as the end of its responsibility. An Agent handoff must also observe the downstream consumer, or the interface can say “answered” while execution proceeds under stale conditions.
 
-These successes used synthetic data and a scripted model gateway through real application paths. They establish response ownership, handoff, and replay behavior. They do not show that a live model asks good questions, and they do not imply that automatic parking and recovery are fully enabled in production. [Durable Human Interaction](/en/articles/agent-durable-human-interaction-response-adoption) distinguishes receipt, adoption, and explicit continuation.
+These successes used synthetic data and a scripted model gateway through real application paths. They establish response ownership, handoff, and replay behavior. They do not show that a live model asks good questions, and they do not imply that automatic parking and recovery are fully enabled in production. [Durable Human Interaction](https://hpoenixf.com/eff-agent-article/en/articles/agent-durable-human-interaction-response-adoption) distinguishes receipt, adoption, and explicit continuation.
 
 ## 9. In the Next Conversation: How We Know Memory Was Actually Used {#saving-memory-and-later-consumption}
 
@@ -258,7 +304,7 @@ In a small real-model verification, we used synthetic user statements and explic
 
 This also changed what we considered adequate verification. An answer compatible with a preference might have been written that way anyway. Inspecting the actual input establishes that memory participated. Participation still does not establish improvement: these samples did not provide controlled evidence of better long-term answers or a general ability to decide what deserves remembering.
 
-Personalization should therefore not be measured simply by counting saved records. Avoiding repeated explanations is the potential value; provenance, scope, correction, and invalidation are part of its engineering cost. We observed bounded saving and consumption in a real-model path while retaining the cases that were not adopted. Sustained benefit remains a separate question. [Context Governance in Practice](/en/articles/agent-context-governance-actions) and [The Durable Effects of Forgetting](/en/articles/026-agent-memory-forget-durable-effects) explain why old memory can still affect later input and why deleting a record is insufficient. They are not the original records of this newly described verification.
+Personalization should therefore not be measured simply by counting saved records. Avoiding repeated explanations is the potential value; provenance, scope, correction, and invalidation are part of its engineering cost. We observed bounded saving and consumption in a real-model path while retaining the cases that were not adopted. Sustained benefit remains a separate question. [Context Governance in Practice](https://hpoenixf.com/eff-agent-article/en/articles/agent-context-governance-actions) and [The Durable Effects of Forgetting](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-memory-forget-durable-effects) explain why old memory can still affect later input and why deleting a record is insufficient. They are not the original records of this newly described verification.
 
 Following this consumption path points toward an assistant that needs fewer repeated explanations while allowing users to correct old information. Provenance, scope, versions, and authorization in the diagram are not synonyms for storing more history. We verified bounded saving and later consumption; complete cross-task personalization governance and sustained benefit still require further work.
 
@@ -267,7 +313,7 @@ Following this consumption path points toward an assistant that needs fewer repe
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personalization-en-mobile.svg')" />
     <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personalization-en.svg')" alt="Personalization design relationships: information has provenance, scope, and versions; corrections should revoke later use of obsolete versions and recheck identified dependent summaries; authorization independently controls execution" />
   </picture>
-  <figcaption>Figure 4 · How memory participates in later work, and how correction and authorization should constrain it. These engineering relationships do not turn limited samples into a complete personalization product. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personalization-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 4 · How memory participates in later work, and how correction and authorization should constrain it. These engineering relationships do not turn limited samples into a complete personalization product. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personalization-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 ## 10. When the User Returns Tomorrow: Ordinary Reading Still Matters {#daily-research-and-stable-rereading}
@@ -280,7 +326,7 @@ Two actual problems taught us why this matters. First, long-running research hel
 
 **Agent reliability also lives in the parts that do not call a model.** Reading should remain reading. Correcting source display should not produce a different report. Locks, connection pools, and source identity remain backend problems even when a model sits upstream.
 
-Limited review of the original results did not establish that daily selections were consistently good: supported relevance and limited relevance both appeared, while actual follow-up success and real user adoption were not established. We describe the achievement as improved generation, persistence, source display, and rereading, rather than a proven proactive investment-research service. [Personalized Daily Research and Its Cache](/en/articles/agent-personalized-daily-research-cache) covers the mechanism.
+Limited review of the original results did not establish that daily selections were consistently good: supported relevance and limited relevance both appeared, while actual follow-up success and real user adoption were not established. We describe the achievement as improved generation, persistence, source display, and rereading, rather than a proven proactive investment-research service. [Personalized Daily Research and Its Cache](https://hpoenixf.com/eff-agent-article/en/articles/agent-personalized-daily-research-cache) covers the mechanism.
 
 Reliable rereading is a starting point for a more proactive assistant, not its endpoint. A worthwhile next step is checking for change under approved conditions, investigating changes that affect the goal, and separately deciding whether the user needs to hear now. Such proactivity should permit quiet waiting and pausing a delegation. The following cycle is a design outlook motivated by the cases, not an already accepted automatic service.
 
@@ -289,10 +335,12 @@ Reliable rereading is a starting point for a more proactive assistant, not its e
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en-mobile.svg')" />
     <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en.svg')" alt="A future personal Agent design: an authorized event wakes the task, current goals and permissions are reconstructed, bounded work produces checked results, value determines whether to notify or record quietly, and the task returns to durable waiting" />
   </picture>
-  <figcaption>Figure 5 · A measured proactivity outlook: events trigger bounded work, value determines notification, and waiting does not require a continuously running model. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 5 · A measured proactivity outlook: events trigger bounded work, value determines notification, and waiting does not require a continuously running model. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/personal-agent-cycle-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 ## Looking Back: Each Wider Horizon Began with a Concrete Problem
+
+Across the article, the runtime change has one common thread: a model proposes the next step from observations, while the system ensures that the step occurs under valid conditions and preserves its actual effects for later work. Within a task, this concerns tools, state, failure, and recovery. Across time, the same responsibility reaches human responses, old memories, and deliverables already provided.
 
 Initially, finishing a request meant returning a result. As research grew longer, users left, so the connection's end could no longer define the work's end; results needed independent persistence and reading. When a task needed a human decision, saving a response was insufficient: we had to know whether execution had adopted it. In the next conversation, saving a memory was likewise insufficient without checking its actual input. When the user returned tomorrow, we still needed to distinguish the original result, new research, and a source-display correction.
 
@@ -303,15 +351,17 @@ These experiences do not yet constitute a fully mature long-term assistant. Real
 <figure>
   <picture>
     <source media="(max-width: 640px)" :srcset="withBase('/diagrams/agent-vs-backend/horizon-en-mobile.svg')" />
-    <img :src="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" alt="From one request to continuing work, human collaboration, and a personal assistant: responsibility expands from a result to durable facts, human decisions, and delegations across executions" />
+    <img style="max-height: none !important; height: auto;" :src="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" alt="From one request to continuing work, human collaboration, and a personal assistant: responsibility expands from a result to durable facts, human decisions, and delegations across executions" />
   </picture>
-  <figcaption>Figure 6 · The horizon expands from one request to continuing work, human collaboration, and a long-term assistant. Concrete cases support the earlier steps; a complete assistant remains the goal they point toward. <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" target="_blank" rel="noopener noreferrer">View the full diagram</a></figcaption>
+  <figcaption>Figure 6 · The horizon expands from one request to continuing work, human collaboration, and a long-term assistant. Concrete cases support the earlier steps; a complete assistant remains the goal they point toward. Expand full-size diagram <a class="diagram-original" :href="withBase('/diagrams/agent-vs-backend/horizon-en.svg')" target="_blank" rel="noopener noreferrer">View full diagram</a></figcaption>
 </figure>
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion {#further-reading-and-discussion}
 
-For deeper exploration, continue with the [Six-Layer Invocation Panorama](/en/articles/017-prompt-to-answer-six-layer-panorama-v3), [Long-Horizon Research Panorama](/en/articles/agent-long-horizon-research-panorama), [Context Governance in Practice](/en/articles/agent-context-governance-actions), and [Client Interaction Panorama](/en/articles/agent-client-interaction-panorama). They examine request handoffs, continuing research, memory consumption, and user control respectively. The comparisons and practical lessons in this article stand on their own.
+For deeper exploration, continue with the [Six-Layer Invocation Panorama](https://hpoenixf.com/eff-agent-article/en/articles/017-prompt-to-answer-six-layer-panorama-v3), [Long-Horizon Research Panorama](https://hpoenixf.com/eff-agent-article/en/articles/agent-long-horizon-research-panorama), [Context Governance in Practice](https://hpoenixf.com/eff-agent-article/en/articles/agent-context-governance-actions), and [Client Interaction Panorama](https://hpoenixf.com/eff-agent-article/en/articles/agent-client-interaction-panorama). They examine request handoffs, continuing research, memory consumption, and user control respectively. The comparisons and practical lessons in this article stand on their own.
 
-[Chinese edition](/articles/agent-vs-backend-development-panorama) · [Panorama Series](/en/panorama). If these articles and runnable examples help you, consider starring [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) or the [engineering collection](https://github.com/hpoenixf/eff-agent-article). Specific scenarios are welcome as a starting point for discussing different engineering choices.
+For the further question of why adding safeguards can make a local failure more likely to halt the whole task, read the [Fragility and Antifragility Panorama](/en/articles/agent-fragility-and-antifragility). It connects termination authority and engineering history to failure propagation and later design decisions.
+
+[Chinese edition](/articles/agent-vs-backend-development-panorama) · [Panorama Series](https://hpoenixf.com/eff-agent-article/en/panorama). If these articles and runnable examples help you, consider starring [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) or the [engineering collection](https://github.com/hpoenixf/eff-agent-article). Specific scenarios are welcome as a starting point for discussing different engineering choices.
 <!-- agent-article-sync:guidance:end -->
