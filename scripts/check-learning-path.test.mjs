@@ -15,8 +15,20 @@ test('learning path is a four-stop selection from the unique canonical catalogue
     'agent-in-15-minutes', 'agent-ten-modules', 'open-etf-agent-v010-system-design',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
-  const start = all.indexOf(learningPathSlugs[0])
-  assert.deepEqual(all.slice(start, start + 4), learningPathSlugs)
+  assert.deepEqual(all.filter(slug => learningPathSlugs.includes(slug)), learningPathSlugs)
+  const workshop = 'open-etf-agent-research-project-workshop'
+  assert.equal(all.filter(slug => slug === workshop).length, 1)
+  assert.equal(all.indexOf(workshop), all.indexOf('open-etf-agent-v010-system-design') + 1)
+  assert.equal(all.indexOf(workshop) + 1, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
+  assert.ok(englishArticleSlugs.includes(workshop))
+  for (const prefix of ['', 'en/']) {
+    const body = read(prefix + 'articles/' + workshop + '.md')
+    assert.ok(body.includes('88afb84958ed8de9108d756cdc0d63e6d2fbee24'))
+    assert.ok(body.includes('case-mechanism-observations.json'))
+    assert.ok(body.includes('synthetic-data-and-reports.json'))
+    assert.ok(body.includes('open-etf-agent-v010-system-design'))
+    assert.ok(body.includes('017-prompt-to-answer-six-layer-panorama-v3'))
+  }
   for (const slug of learningPathSlugs) {
     assert.equal(all.filter(value => value === slug).length, 1)
     assert.ok(englishArticleSlugs.includes(slug))

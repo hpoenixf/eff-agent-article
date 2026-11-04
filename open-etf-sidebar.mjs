@@ -10,6 +10,7 @@ export function openEtfSidebar(language = 'en') {
     { text: label('On this topic', '本专题'), items: [
       { text: label('Read recent modules', '阅读最近模块'), link: page + '#reading' },
       { text: label('Run the first report', '运行第一份报告'), link: page + '#quickstart' },
+      { text: label('Practice with your own documents', '用自己的资料练手'), link: (en ? '/en' : '') + '/articles/open-etf-agent-research-project-workshop' },
       { text: label('Fixed version history', '固定版本历史'), link: page + '#versions' },
       { text: label('Mechanisms and boundaries', '机制与验证边界'), link: page + '#mechanisms-title' },
       { text: label('Full module reading map', '完整模块阅读地图'), link: page + '#coverage-reading' }
