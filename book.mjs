@@ -99,7 +99,7 @@ export const collections = [
         "title": "L6 · 用户界面",
         "desc": "围绕客户端实际可见的回答、进度与正确 Run 归属阅读；不等同于独占前端 Owner。",
         "items": [
-          ["agent-client-interaction-and-reading", "客户端：一次研究怎样被正确呈现"],
+          ["agent-client-interaction-and-reading", "客户端：从进度到可信研究交互"],
           ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"]
         ]
       }
