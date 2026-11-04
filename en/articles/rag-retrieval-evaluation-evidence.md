@@ -104,9 +104,11 @@ These observations cover reranking calls, source eligibility, and fallback behav
 
 ### Integrating Ragas does not automatically yield a quality score
 
-The optional Ragas entry can validate samples in an isolated process, and a real SDK metric has separately been exercised with synthetic source IDs. The operator path for recorded cases still provides no real Judge quality score: original recordings and retrieval identities are not yet sufficient for a matched evaluation, and the four semantic metrics remain unassessed.
+At the October 30, 2026 check, the optional Ragas entry only validated samples in an isolated process, with a separate real-SDK check using synthetic source IDs. The historical `--engine=ragas` path still checks sample structure and leaves its four semantic metrics unassessed; that status no longer describes the later scoring entry as a whole.
 
-A constructed metric value must not be inserted into a real-research score. Nor does connecting Ragas alongside the existing DeepEval adapter establish a quality benefit. The new capability is a removable evaluation integration; claim support still requires original sources, actual model inputs, and final-answer review.
+**On November 3, `score:ragas` actually returned relevance scores for ten saved answers.** Scoring ten answers does not mean ten quality passes; the original research outcomes remain nine completed and one partial. C04's first accuracy assessment failed during execution; a separate recheck of the same input scored 1.0. Another controlled arithmetic example exercised all five metrics, but is excluded from those ten cases. Metrics lacking actual retrieved contexts or an independent reference remain unassessed as applicable, and currency billing remains unknown.
+
+This adds actual scoring, not a control group for comparing research configurations or a completed quality comparison with DeepEval or human review. Scores from the separate controlled example must not be inserted into the original ten-case cohort, nor used to claim that BM25, reranking or multiple agents improved research. Claim support still requires original sources, actual model inputs and final-answer review; the [evaluation panorama](honest-agent-evaluation.md) explains the denominators.
 
 ## 5. Five Questions to Ask Before Trusting a RAG Evaluation
 

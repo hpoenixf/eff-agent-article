@@ -166,7 +166,7 @@ These decisions resemble provenance and derivation ideas in [W3C PROV-DM](https:
 
 The private ETF Agent code and controlled tests show approved-root acquisition, content-hash and version registration, idempotent reuse, retention of a valid previous version on failed ingestion, and authorized reads through the current Evidence Workspace. MCP file handling also has bounded DOCX, XLSX, and HTML locators and localized attachment-failure behavior.
 
-The long-term Research Workspace P0 implementation has entered the main branch. Scripted-model and synthetic-source tests exercise exact historical Publication consumption across independent Runs. However, the feature remains disabled by default; the full application type-check and formal end-to-end closure still have outstanding gates. Those observations do not certify long-term real-model financial reasoning quality.
+The long-term Research Workspace P0 implementation has entered the main branch. Scripted-model and synthetic-source tests exercise exact historical Publication consumption across independent Runs. The type-check and formal qualification gaps retained at the earlier integration were resolved by formal engineering qualification without live model calls and archival on November 3, 2026. The feature remains disabled by default; this does not establish production enablement or certify long-term real-model financial research quality.
 
 The separate public teaching repository, [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent), does not expose the complete Research Assets and long-term Workspace system described here. This is an implementation-informed architecture discussion, not a public installation tutorial.
 

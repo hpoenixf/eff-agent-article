@@ -245,7 +245,7 @@ In addition to interface-level tests, controlled checks used synthetic research 
 
 These observations support specific engineering mechanisms—not just a type definition or screenshot.
 
-But a merge is not complete qualification. The integration retained a timeout gap in the full application type-check path, full formal acceptance had not finished, and the feature remained disabled by default. These results do not establish real-user usage or real-model financial research quality.
+At integration on November 1, 2026, the full application type-check path still had a timeout gap and formal engineering qualification was incomplete. By November 3, P0 had completed formal engineering qualification without live model calls and was archived. The feature remains disabled by default; this qualification neither establishes production enablement nor demonstrates the quality of real users’ long-term financial research.
 
 The public `open-etf-agent` repository also does not yet provide this Workspace module as a runnable capability. This article describes implemented engineering mechanisms; it is not an installation tutorial for the public project.
 

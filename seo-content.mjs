@@ -1,4 +1,4 @@
-import { SITE_URL } from './seo-routes.mjs'
+import { SITE_URL, READER_LANGUAGES, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute } from './seo-routes.mjs'
 
 const fallback = {
   zh: '讨论实现机制、工程取舍与证据边界，记录 Agent 系统可复核的演进过程。',
@@ -49,7 +49,7 @@ export function socialHead({ title, description, canonical, image, article = fal
 // Opt-in editorial provenance only: the caller must verify these facts against
 // the article. Never infer authorship from repo ownership, dates from build time,
 // or an article illustration from the generic site social card.
-function editorialMetadata(metadata) {
+export function editorialMetadata(metadata) {
   if (metadata == null) return {}
   if (typeof metadata !== 'object' || Array.isArray(metadata)) {
     throw new TypeError('articleMetadata must be an object')
@@ -96,7 +96,7 @@ export function articleStructuredData({ title, description, canonical, english =
     description,
     url: canonical,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-    inLanguage: english ? 'en-US' : 'zh-CN',
+    inLanguage: english ? READER_LANGUAGES.en : READER_LANGUAGES.zh,
     isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: 'https://hpoenixf.com/eff-agent-article/' },
     ...editorialMetadata(metadata)
   }
@@ -120,7 +120,7 @@ export function landingStructuredData({ relativePath, title, description, canoni
       alternateName: english ? 'ETF Agent · 工程手记' : 'ETF Agent · Engineering Notes',
       description,
       url: SITE_URL,
-      inLanguage: ['zh-CN', 'en-US']
+      inLanguage: [READER_LANGUAGES.zh, READER_LANGUAGES.en]
     }
   }
   if (!['catalog.md', 'principles.md', 'open-etf-agent.md', 'panorama.md'].includes(page)) return null
@@ -130,7 +130,7 @@ export function landingStructuredData({ relativePath, title, description, canoni
     name: clean(title),
     description,
     url: canonical,
-    inLanguage: english ? 'en-US' : 'zh-CN',
+    inLanguage: english ? READER_LANGUAGES.en : READER_LANGUAGES.zh,
     isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
   }
 }
@@ -146,4 +146,28 @@ export function setLandingStructuredData(heads, data) {
   const head = structuredDataHead(data)
   head[1].id = id
   heads.push(head)
+}
+
+// The same real navigation trail is rendered visibly and as JSON-LD.
+export function articleBreadcrumbs({ relativePath = '', title }) {
+  if (!/^(?:en\/)?articles\/[^/]+\.md$/.test(relativePath) ||
+      isLegacyArticleRoute(relativePath) || isNonReaderRoute(relativePath)) return []
+  const english = relativePath.startsWith('en/'), prefix = english ? 'en/' : ''
+  return [
+    { name: english ? 'Home' : '首页', url: canonicalUrl(prefix + 'index.md') },
+    { name: english ? 'All articles' : '全部文章', url: canonicalUrl(prefix + 'catalog.md') },
+    { name: clean(title), url: canonicalUrl(relativePath) }
+  ]
+}
+
+export function breadcrumbStructuredData(options) {
+  const items = articleBreadcrumbs(options)
+  if (!items.length) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(({ name, url }, index) => ({
+      '@type': 'ListItem', position: index + 1, name, item: url
+    }))
+  }
 }

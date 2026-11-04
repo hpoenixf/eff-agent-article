@@ -34,7 +34,7 @@ test('both language homes describe one bilingual website, not invented provenanc
     assert.equal(data.url, SITE_URL)
     assert.equal(data.name, english ? 'ETF Agent · Engineering Notes' : 'ETF Agent · 工程手记')
     assert.equal(data.alternateName, english ? 'ETF Agent · 工程手记' : 'ETF Agent · Engineering Notes')
-    assert.deepEqual(data.inLanguage, ['zh-CN', 'en-US'])
+    assert.deepEqual(data.inLanguage, ['zh-CN', 'en'])
     assert.equal(data.description, 'Visible introduction.')
     for (const key of ['author', 'publisher', 'datePublished', 'dateModified', 'image', 'aggregateRating', 'potentialAction']) assert.ok(!(key in data))
   }
@@ -47,7 +47,7 @@ test('catalogue and existing curated topics share localized collection semantics
     assert.deepEqual(data, {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
       name: 'Visible title', description: 'Visible description.', url: canonical,
-      inLanguage: prefix ? 'en-US' : 'zh-CN',
+      inLanguage: prefix ? 'en' : 'zh-CN',
       isPartOf: { '@type': 'WebSite', name: 'ETF Agent · Engineering Notes', url: SITE_URL }
     })
   }
@@ -81,7 +81,7 @@ test('article schema describes the canonical page without invented provenance', 
   assert.equal(data['@type'], 'Article')
   assert.equal(data.url, canonical)
   assert.equal(data.mainEntityOfPage['@id'], canonical)
-  assert.equal(data.inLanguage, 'en-US')
+  assert.equal(data.inLanguage, 'en')
   assert.equal(data.headline, 'Example')
   for (const key of ['author', 'datePublished', 'dateModified', 'image', 'aggregateRating']) assert.ok(!(key in data))
 })
@@ -143,4 +143,68 @@ test('social previews use the reading-site brand asset rather than the starter b
  assert.equal(png.subarray(1, 4).toString(), 'PNG')
  assert.equal(png.readUInt32BE(16), 1200)
  assert.equal(png.readUInt32BE(20), 630)
+})
+
+import { articleBreadcrumbs, breadcrumbStructuredData } from '../seo-content.mjs'
+import { READER_LANGUAGES, languageAlternates } from '../seo-routes.mjs'
+
+test('article breadcrumbs share real localized navigation with JSON-LD', () => {
+  for (const prefix of ['', 'en/']) {
+    const options = { relativePath: prefix + 'articles/agent-in-15-minutes.md', title: 'A <b>clear</b> title' }
+    const items = articleBreadcrumbs(options)
+    assert.deepEqual(items.map(item => item.url), [canonicalUrl(prefix + 'index.md'), canonicalUrl(prefix + 'catalog.md'), canonicalUrl(options.relativePath)])
+    assert.equal(items[2].name, 'A clear title')
+    assert.deepEqual(breadcrumbStructuredData(options).itemListElement,
+      items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: item.url })))
+  }
+  for (const relativePath of ['index.md', 'about.md', 'README.md', 'roadmap.md', 'articles/010-agent-first-brakes.md']) {
+    assert.deepEqual(articleBreadcrumbs({ relativePath }), [])
+    assert.equal(breadcrumbStructuredData({ relativePath }), null)
+  }
+})
+
+test('HTML, sitemap locale configuration and schemas share language codes', async () => {
+  const { readFileSync } = await import('node:fs')
+  const config = readFileSync(new URL('../.vitepress/config.mts', import.meta.url), 'utf8')
+  assert.match(config, /lang: READER_LANGUAGES\.en/)
+  assert.match(config, /lang: READER_LANGUAGES\.zh/)
+  assert.equal(READER_LANGUAGES.en, 'en')
+  assert.deepEqual(languageAlternates('index.md', () => true).map(([, a]) => a.hreflang), Object.values(READER_LANGUAGES))
+  assert.equal(articleStructuredData({ english: true }).inLanguage, READER_LANGUAGES.en)
+})
+
+test('SSR bylines render only verified metadata, including date-only and legacy cases', async () => {
+  const { readFileSync } = await import('node:fs')
+  const { parse, compileScript } = await import('@vue/compiler-sfc')
+  const { transform } = await import('esbuild')
+  const { createSSRApp } = await import('vue')
+  const { renderToString } = await import('vue/server-renderer')
+  const source = readFileSync(new URL('../.vitepress/theme/ArticleProvenance.vue', import.meta.url), 'utf8')
+  const render = async (metadata, english = false, relativePath = 'articles/agent-in-15-minutes.md') => {
+    const { descriptor } = parse(source)
+    let script = compileScript(descriptor, { id: 'provenance-fixture', inlineTemplate: true }).content
+    const fixture = { page: { relativePath, title: 'Visible article title' }, frontmatter: { articleMetadata: metadata }, lang: english ? 'en' : 'zh-CN' }
+    script = script.replace("import { useData } from 'vitepress'", `import { ref } from 'vue'; const useData = () => Object.fromEntries(Object.entries(${JSON.stringify(fixture)}).map(([key, value]) => [key, ref(value)]))`)
+      .replaceAll("'../../seo-content.mjs'", JSON.stringify(new URL('../seo-content.mjs', import.meta.url).href))
+      .replaceAll(/(['"])vue\1/g, JSON.stringify(import.meta.resolve('vue')))
+    const { code } = await transform(script, { loader: 'ts', format: 'esm' })
+    const component = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'))
+    return renderToString(createSSRApp(component.default))
+  }
+  const metadata = { author: { name: 'hpoenixf', url: 'https://hpoenixf.com/about' }, datePublished: '2026-10-31', dateModified: '2026-11-01' }
+  for (const english of [false, true]) {
+    const rendered = await render(metadata, english, (english ? 'en/' : '') + 'articles/agent-in-15-minutes.md')
+    assert.match(rendered, /rel="author"[^>]*>hpoenixf<\/a>/)
+    assert.ok(rendered.includes(english ? 'Author: ' : '作者：'))
+    assert.ok(rendered.includes(english ? 'Published: ' : '发布于：'))
+    assert.match(rendered, /datetime="2026-10-31">2026-10-31<\/time>/)
+    assert.match(rendered, /datetime="2026-11-01">2026-11-01<\/time>/)
+    assert.match(rendered, /aria-current="page">Visible article title<\/span>/)
+  }
+  const absent = await render(undefined)
+  assert.ok(!absent.includes('article-byline') && !absent.includes('<time'))
+  const updateOnly = await render({ dateModified: '2026-11-01' }, true)
+  assert.ok(updateOnly.includes('Updated: ') && !updateOnly.includes('Published: ') && !updateOnly.includes('Author: '))
+  const legacy = await render(metadata, false, 'articles/010-agent-first-brakes.md')
+  assert.ok(!legacy.includes('article-provenance') && !legacy.includes('hpoenixf'))
 })

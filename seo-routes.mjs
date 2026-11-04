@@ -2,6 +2,9 @@ import { mergedArticles, historicalEditions } from './book.mjs'
 import { englishArticleSlugs } from './book.en.mjs'
 import { availableEnglishPages } from './language-routing.mjs'
 
+// English editions target the language, not a US-only regional audience.
+export const READER_LANGUAGES = Object.freeze({ zh: 'zh-CN', en: 'en' })
+
 export const SITE_URL = 'https://hpoenixf.com/eff-agent-article/'
 
 // These routes are preserved for existing inbound links, but only their targets
@@ -63,8 +66,8 @@ export function languageAlternates(relativePath, sourceExists) {
     : [...availableEnglishPages, 'glossary'].includes(route)
   if (!accepted || !sourceExists(path) || !sourceExists('en/' + path)) return []
   return [
-    ['link', { rel: 'alternate', hreflang: 'zh-CN', href: canonicalUrl(path) }],
-    ['link', { rel: 'alternate', hreflang: 'en', href: canonicalUrl('en/' + path) }]
+    ['link', { rel: 'alternate', hreflang: READER_LANGUAGES.zh, href: canonicalUrl(path) }],
+    ['link', { rel: 'alternate', hreflang: READER_LANGUAGES.en, href: canonicalUrl('en/' + path) }]
   ]
 }
 

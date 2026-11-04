@@ -22,6 +22,8 @@ We moved from asking “How do we make an agent write a good Spec?” to “How 
 
 The workflow builds on **OpenSpec**, uses design and test-driven ideas from **Superpowers**, and adds durable evidence, closure and historical handoff for long-lived multi-agent development.
 
+**Want to try it first?** Clone the public [Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite), with pinned [Spec templates](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates), an [Evidence template](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md), and an [offline example](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/examples/changes/example). Section 7 gives the full commands. Commands such as `spec:close` belong to the original project; the public CLI checks record structure and generates verification views without copying that project’s formal acceptance workflow.
+
 ## 1. Separate What the System Currently Is from What We Want to Change
 
 One useful idea in [OpenSpec](https://github.com/Fission-AI/OpenSpec) is to distinguish accepted specifications from proposed changes. We retain that separation.
@@ -234,9 +236,26 @@ This workflow uses [method 4, “Planning a multi-phase delivery”](/en/princip
 
 The workflow above describes ETF Agent's own `superpowers-bridge` schema, project-specific verification and `spec:close`. Copying those parts wholesale into another repository would also copy application assumptions. In October 2026, we extracted a narrower, independently installable subset as [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit) ([v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json), MIT): **structural checks for tasks and observations, a generated Verify view, and read-only inspection of recorded completion**.
 
-The standalone v0.1.0 is a historical release; its release metadata and original Git history are preserved in the unified repository’s [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). The maintained entry is now **Spec Flow in Agent Engineering Suite**. The original version does not describe compatibility or acceptance of the entire plugin suite. For the commands below, obtain the suite source following the [current installation guide](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md), set `AES_ROOT` to its absolute path, and run from the project being checked.
+The standalone v0.1.0 is a historical release; its release metadata and original Git history are preserved in the unified repository’s [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). The maintained entry is now **Spec Flow in Agent Engineering Suite**. The original version does not describe compatibility or acceptance of the entire plugin suite. Clone the fixed source below; Skill and plugin installation are covered separately in the [installation guide at this fixed revision](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md). When using the CLI in another project, set `AES_ROOT` to the cloned suite’s absolute path and run from that project’s directory.
 
 It uses Node 26.11.1–26.x, with no runtime dependencies, database, or model calls. OpenSpec itself is optional: the package also works with an ordinary local directory. Its separately written [`evidence-driven` schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) is an optional OpenSpec adapter, not a republication of our internal schema or closure machinery.
+
+### Clone and run the bundled offline example
+
+The commands pin the public source used in this article. Use Node 26.11.1–26.x; no dependency installation or model key is needed.
+
+```bash
+git clone https://github.com/hpoenixf/agent-engineering-suite.git
+cd agent-engineering-suite
+git checkout 3b515de2f30e25b1e0757243f3ce4d1be19b00b0
+cd skills/aes-spec-flow/toolkit
+node bin/spec-evidence.mjs lint --root examples --changes-dir changes --change example --stage apply
+node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change example
+node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change example --check
+node bin/spec-evidence.mjs status --root examples --changes-dir changes --change example
+```
+
+`verify` generates `examples/changes/example/verify.md` locally; `--check` then compares that view with its inputs. The example task, observations, and completion record are fictional format material. `recorded-complete` only means a valid existing record was read, not that these checks just ran or that your project passed acceptance.
 
 ### From one task to an inspectable observation
 

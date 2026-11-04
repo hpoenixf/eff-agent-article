@@ -134,8 +134,8 @@ You now have a useful mental model: **the user sets a goal, AI chooses the next 
 
 Continue with [**Agent Intermediate: Ten Core Modules in Open ETF Agent**](./agent-ten-modules.md). In the same v0.15 checkout, meet Skills, MCP, context, memory, sessions, and subagents. Then the [Deep Dive](./open-etf-agent-v010-system-design.md) follows an implemented specialist collaboration to show how those parts cooperate.
 
-**Reading path: Introduction → Intermediate → Deep dive → Panorama.** Each stop keeps the familiar task and adds another layer of understanding.
+**Five-stop reading path: Introduction → Intermediate → Deep dive → Workshop → Panorama.** After Deep Dive, use the [Workshop](./open-etf-agent-research-project-workshop.md) to bring your own documents into a task, then return to the system panorama.
 
-You have already met three movements of the six-layer architecture: **L1 accepts the task, L3 decides the next action, and L4 uses tools**. Intermediate adds ownership and context (L2); Deep Dive follows how results are saved and actually delivered (L5/L6). You do not need to memorize the numbers yet—just keep following the task.
+You have already met three movements of the [six-layer responsibility map](./017-prompt-to-answer-six-layer-panorama-v3.md): **L1 accepts the task, L3 decides the next action, and L4 uses tools**. L4 means “tools and domain capabilities”: tools actually read, calculate, or save after the model proposes an action; an answer alone cannot establish that it happened. Intermediate adds ownership and context (L2); Deep Dive follows how results are saved and actually delivered (L5/L6). You do not need to memorize the numbers yet—just keep following the task.
 
 [Open ETF Agent source and examples](https://github.com/hpoenixf/open-etf-agent) · [中文版](/articles/agent-in-15-minutes) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)

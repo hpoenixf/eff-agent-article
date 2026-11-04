@@ -269,7 +269,7 @@ These are **independent examples**, each demonstrating a group of capabilities. 
 
 ## Next: where do ten capabilities sit in six layers?
 
-The ten capabilities are not synonyms for six layers. **Modules describe responsibilities; layers identify handoffs from task initiation to a user-visible result.** A module may participate in several stages.
+The ten capabilities are not synonyms for six layers. **Modules describe responsibilities; the [six-layer map](./017-prompt-to-answer-six-layer-panorama-v3.md) identifies handoffs from task initiation to a user-visible result.** A module may participate in several stages. L4, “tools and domain capabilities,” performs actual reads or calculations and returns those results to the research process.
 
 ![L1 to L3: task, identity and context, and decisions](/images/learning-path/en/modules-layers-1.svg)
 
@@ -293,6 +293,6 @@ Read the six layers as handoff positions, not six services that must run in sequ
 
 **Deep Dive adds fewer new nouns and asks harder questions instead:** How can a number be traced to its source? How does a task cross a process boundary? How can a specialist's summary avoid replacing primary evidence?
 
-Continue with [**Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration**](./open-etf-agent-v010-system-design.md). Then use the [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md) to place these concrete mechanisms in the larger system.
+Continue with [**Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration**](./open-etf-agent-v010-system-design.md). Then use the [Workshop](./open-etf-agent-research-project-workshop.md) to import your own documents and inspect a report, before placing those mechanisms in the larger [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md).
 
 [Back to Introduction](./agent-in-15-minutes.md) · [中文](../../articles/agent-ten-modules.md) · [Open ETF Agent (stars welcome)](https://github.com/hpoenixf/open-etf-agent)

@@ -166,7 +166,7 @@ ResearchAsset 管文件身份，PDF Reader 管真实阅读范围，RAG 管候选
 
 在私有 ETF Agent 的既有代码和受控测试中，已能看到获准文件取得、哈希与版本登记、幂等复用、失败时保留旧有效版本，以及当前 Evidence Workspace 的受控读取路径。MCP 文件接入还覆盖了 DOCX／XLSX／HTML 的有限格式定位与局部失败隔离。
 
-长期 Research Workspace 的 P0 实现已进入主干，并在合成来源及脚本化模型路径下验证精确历史 Publication 的跨 Run 消费。不过，它默认关闭，完整应用类型检查和正式全量闭环仍有未完成项；现有记录也不能证明真实模型长期投资研究质量。
+长期 Research Workspace 的 P0 实现已进入主干，并在合成来源及脚本化模型路径下验证精确历史 Publication 的跨 Run 消费。早期合入时保留的类型检查与正式验收缺口，已随 2026 年 11 月 3 日不调用真实模型的正式工程验收和归档关闭。功能仍默认关闭；这不代表生产已启用，也不能证明真实模型长期投资研究质量。
 
 独立开源教学仓库 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 并未开放这里描述的完整的研究资料资产与长期 Workspace 组合能力，不应把私有研究系统的实现误当成公开可运行教程。
 

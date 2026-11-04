@@ -269,7 +269,7 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 
 ## 下一站：十个模块，在六层地图里放在哪里？
 
-十个模块不是六层的别名。**模块是能力，六层是一次任务从触发到可见的交接位置**；同一个模块可能参与多个阶段。先用一个简化映射收束这一篇：
+十个模块不是六层的别名。**模块是能力，[六层职责地图](./017-prompt-to-answer-six-layer-panorama-v3.md)标出一次任务从触发到可见的交接位置**；同一个模块可能参与多个阶段。其中 L4“工具与领域能力”负责真正读取或计算，把工具结果交回研究过程。先用一个简化映射收束这一篇：
 
 ![L1 至 L3：任务、身份上下文与决策](/images/learning-path/zh/modules-layers-1.svg)
 
@@ -293,6 +293,6 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 
 **从这里进入深入篇，下一步不再增加名词，而是追问三个交接的正确性：一个数字怎样回到来源、一项任务怎样跨进程继续、专家结论怎样不越过原始证据。**
 
-继续阅读：[**Agent 深入：从一份报告到持续执行与专家协作**](./open-etf-agent-v010-system-design.md)。读完后再展开[六层调用全景](./017-prompt-to-answer-six-layer-panorama-v3.md)，就能把局部机制放回整张系统地图。
+继续阅读：[**Agent 深入：从一份报告到持续执行与专家协作**](./open-etf-agent-v010-system-design.md)。读完后先到[练手篇](./open-etf-agent-research-project-workshop.md)导入自己的资料、检查报告，再展开[六层调用全景](./017-prompt-to-answer-six-layer-panorama-v3.md)，把局部机制放回整张系统地图。
 
 [返回入门](./agent-in-15-minutes.md) · [English](../en/articles/agent-ten-modules.md) · [Open ETF Agent（欢迎 Star）](https://github.com/hpoenixf/open-etf-agent)

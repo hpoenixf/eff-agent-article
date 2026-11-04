@@ -20,6 +20,8 @@ readingBrief:
 
 我们后来把问题从「怎样让 Agent 写好一份 Spec」改成了「怎样让一项变更从讨论、实现、验证一直走到可追溯的关闭」。这套流程以 OpenSpec 为基础，结合 Superpowers 的设计与测试驱动思想，再为长期、多 Agent 协作补上证据、收尾和历史交接。
 
+**想先动手？** 本文配套的[公开套件 Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite)可直接 clone；[Spec 模板](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates)、[Evidence 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md)和[离线示例](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/examples/changes/example)都有固定源码。第七节给出完整命令。文中的 `spec:close` 等命令用于原项目，公开 CLI 负责记录结构检查与验证视图，不复制原项目的正式验收流程。
+
 ## 一、先区分两件事：现在的系统是什么，准备改成什么
 
 [OpenSpec](https://github.com/Fission-AI/OpenSpec) 的一个重要思想，是区分现行规范和待实施变更。我们沿用了这个区分：
@@ -215,9 +217,26 @@ npm run spec:close -- --change example-change
 
 前面介绍的是 ETF Agent 自己的研发流程：它有内部的 `superpowers-bridge` Schema、`spec:close` 和项目专属验证入口。这套完整流程不适合原样搬进其他仓库。2026 年 10 月，我们把其中**任务与观测的结构检查、Verify 生成视图、已有完成记录读取**抽成了独立的 [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)（[v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json)，MIT）。
 
-原独立工具的 v0.1.0 是历史发布版本，发布元数据与原始 Git 历史已保存在统一仓库的 [迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy) 中；当前维护入口为 **Agent Engineering Suite 的 Spec Flow 模块**。原版本号不代表整套插件的兼容性或验收范围。下面的命令使用统一仓库源码，先按[当前安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)取得源码，将 `AES_ROOT` 改成它的绝对路径，并在待检查项目目录执行。
+原独立工具的 v0.1.0 是历史发布版本，发布元数据与原始 Git 历史已保存在统一仓库的 [迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy) 中；当前维护入口为 **Agent Engineering Suite 的 Spec Flow 模块**。原版本号不代表整套插件的兼容性或验收范围。接入其他项目时，下面提供固定源码的 clone 命令；Skill 或插件安装另见[此固定版本的安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)。在其他项目使用 CLI 时，将 `AES_ROOT` 改成套件的绝对路径，并在待检查项目目录执行。
 
 这个版本要求 Node 26.11.1–26.x，不需要运行时依赖、数据库或模型调用。它能直接处理普通本地目录；[`evidence-driven` Schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) 是可选的 OpenSpec 适配，并不是把内部 `superpowers-bridge` 或正式关闭流程整体开源。
+
+### 先 clone 并运行自带离线示例
+
+下面固定到本文引用的公开提交；准备 Node 26.11.1–26.x 后即可执行，无需安装依赖或配置模型密钥。
+
+```bash
+git clone https://github.com/hpoenixf/agent-engineering-suite.git
+cd agent-engineering-suite
+git checkout 3b515de2f30e25b1e0757243f3ce4d1be19b00b0
+cd skills/aes-spec-flow/toolkit
+node bin/spec-evidence.mjs lint --root examples --changes-dir changes --change example --stage apply
+node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change example
+node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change example --check
+node bin/spec-evidence.mjs status --root examples --changes-dir changes --change example
+```
+
+`verify` 会在本地示例目录生成 `examples/changes/example/verify.md`，后续 `--check` 检查视图是否与输入一致。示例的任务、观测和完成记录都是虚构格式材料；`recorded-complete` 只表示读取到有效记录，不证明这些检查刚刚执行，更不表示你的项目已验收。
 
 ### 一条任务怎样形成可以检查的记录
 

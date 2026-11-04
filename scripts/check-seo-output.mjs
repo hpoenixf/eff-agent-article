@@ -4,7 +4,7 @@ import { resolve } from 'node:path'
 import { chapters, mergedArticles, historicalEditions } from '../book.mjs'
 import { SITE_URL, canonicalUrl } from '../seo-routes.mjs'
 import { createContentLoader, resolveConfig } from 'vitepress'
-import { articleStructuredData, landingStructuredData, seoDescription } from '../seo-content.mjs'
+import { articleStructuredData, breadcrumbStructuredData, landingStructuredData, seoDescription } from '../seo-content.mjs'
 
 const output = resolve('.vitepress/dist')
 const sitemap = readFileSync(resolve(output, 'sitemap.xml'), 'utf8')
@@ -186,7 +186,7 @@ for (const chapter of chapters) {
       assert.equal(allSchemas.length, 1, 'No landing or duplicate schema on an article: ' + source)
       assert.equal(schemas[0].url, canonicalUrl(source))
       assert.equal(schemas[0].mainEntityOfPage['@id'], canonicalUrl(source))
-      assert.equal(schemas[0].inLanguage, locale ? 'en-US' : 'zh-CN')
+      assert.equal(schemas[0].inLanguage, locale ? 'en' : 'zh-CN')
       assert.ok(schemas[0].headline && schemas[0].description)
       const frontmatter = editorialFrontmatter.get(source.replace(/\.md$/, ''))
       assert.ok(frontmatter, 'Content loader missed canonical source: ' + source)
@@ -198,6 +198,28 @@ for (const chapter of chapters) {
           assert.deepEqual(schemas[0][key], expectedMetadata[key],
             'Rendered Article ' + key + ' differs from editorial frontmatter: ' + source)
         }
+      }
+      const breadcrumbs = structuredNodes(html).filter(data => isType(data, 'BreadcrumbList'))
+      assert.equal(breadcrumbs.length, 1, 'Exactly one breadcrumb schema: ' + source)
+      assert.deepEqual(breadcrumbs[0], breadcrumbStructuredData({ relativePath: source, title: schemas[0].headline }))
+      const visibleBreadcrumbs = /<nav\b[^>]*class="article-breadcrumbs"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1]
+      assert.ok(visibleBreadcrumbs, 'Visible breadcrumb navigation missing: ' + source)
+      for (const item of breadcrumbs[0].itemListElement.slice(0, -1)) {
+        assert.ok(visibleBreadcrumbs.includes('href="' + item.item + '"'), 'Visible/schema breadcrumb mismatch: ' + source)
+        assert.ok(listed.has(item.item), 'Breadcrumb destination must be a real indexed page: ' + source)
+      }
+      const visibleByline = /<div\b[^>]*class="article-byline"[^>]*>([\s\S]*?)<\/div>/.exec(html)?.[1] || ''
+      assert.equal(Boolean(visibleByline), Boolean(expectedMetadata.author || expectedMetadata.datePublished || expectedMetadata.dateModified),
+        'Byline must reflect verified source metadata only: ' + source)
+      if (expectedMetadata.author) {
+        assert.ok(visibleByline.includes('href="' + expectedMetadata.author.url + '"'))
+        assert.ok(visibleByline.includes('rel="author"'))
+        assert.ok(visibleByline.includes(locale ? 'Author: ' : '作者：'))
+      }
+      for (const [field, className] of [['datePublished', 'published'], ['dateModified', 'modified']]) {
+        assert.equal(visibleByline.includes('article-byline__' + className), Boolean(expectedMetadata[field]),
+          'Visible date presence must match JSON-LD: ' + source + ':' + field)
+        if (expectedMetadata[field]) assert.ok(visibleByline.includes('datetime="' + expectedMetadata[field] + '">' + expectedMetadata[field] + '</time>'))
       }
       if (expectedMetadata.author) authoredSchemas++
       if (expectedMetadata.image) illustratedSchemas++
@@ -244,3 +266,24 @@ for (const prefix of ['', 'en/']) {
   }
 }
 console.log('Panorama tag: bilingual pages, canonical/hreflang/SSR cards and article badges verified.')
+
+// Check every indexed URL, not just a hand-picked bilingual sample. Both hreflang
+// delivery mechanisms must exactly match the accepted, existing source editions.
+const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, value]))
+let bilingualPages = 0, unpairedPages = 0
+for (const [, entry] of sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+  const url = /<loc>([^<]+)<\/loc>/.exec(entry)?.[1]
+  let route = url.slice(SITE_URL.length)
+  if (!route || route === 'en/') route += 'index'
+  const source = route + '.md'
+  const html = readFileSync(resolve(output, route + '.html'), 'utf8')
+  const expected = Object.fromEntries(languageAlternates(source, existsSync).map(([, attrs]) => [attrs.hreflang, attrs.href]))
+  const actual = Object.fromEntries([...html.matchAll(/<link\b[^>]*hreflang=[^>]*>/g)].map(([tag]) => attributes(tag)).map(attrs => [attrs.hreflang, attrs.href]))
+  const sitemapLinks = Object.fromEntries([...entry.matchAll(/<xhtml:link\b[^>]*>/g)].map(([tag]) => attributes(tag)).map(attrs => [attrs.hreflang, attrs.href]))
+  assert.deepEqual(actual, expected, 'Page alternates must match accepted translations: ' + source)
+  assert.deepEqual(sitemapLinks, expected, 'Sitemap and HTML hreflang must agree: ' + source)
+  for (const destination of Object.values(expected)) assert.ok(listed.has(destination), 'Alternate destination must exist in the canonical sitemap: ' + source)
+  if (Object.keys(expected).length) bilingualPages++
+  else unpairedPages++
+}
+console.log('All-page language consistency verified:', bilingualPages, 'paired pages;', unpairedPages, 'genuinely unpaired pages without invented translations')

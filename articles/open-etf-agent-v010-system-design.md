@@ -402,7 +402,7 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 
 ## 八、从不断线的主线，走到六层全景 {#七、从三条不断线的主线-走到六层全景}
 
-现在把全部内容放进一张更大的地图。**这里的六层是请求交接视角，不是六个必须依次执行的服务，也不表示每个演示版本都具备全部能力。**
+现在把全部内容放进[六层职责地图](./017-prompt-to-answer-six-layer-panorama-v3.md)。**这里的六层是请求交接视角，不是六个必须依次执行的服务，也不表示每个演示版本都具备全部能力。** 其中 L4“工具与领域能力”负责取得原文、执行计算并返回结果，连接模型的研究决定与后续报告。
 
 ![L1 至 L3 的任务身份、允许范围与动作决策](/images/learning-path/zh/deep-layers-1.svg)
 
@@ -426,6 +426,6 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 
 回头看，进阶篇介绍的十个模块负责提供能力，深入篇问的是**能力之间交接什么、失败如何判定、恢复时相信什么**。六层全景再扩展到整个系统：不只是读文档和保存报告，还有 Direct/Research/Coord 分流、异步任务、跨层 Owner、观测与最终用户体验。
 
-接下来读[**《从一次提问到答案可见：ETF Agent 六层调用全景》**](./017-prompt-to-answer-six-layer-panorama-v3.md)。建议先只顺着 L1 → L6 路线阅读，再按兴趣放大 Main/Child、工具结果和 Publication 等关键交接。**不要把图背下来；用它定位责任和验证证据。**
+下一站先到[**练手篇：把自己的资料交给 Agent**](./open-etf-agent-research-project-workshop.md)，导入资料、执行任务并核对报告；之后再读[**《从一次提问到答案可见：ETF Agent 六层调用全景》**](./017-prompt-to-answer-six-layer-panorama-v3.md)。建议先只顺着 L1 → L6 路线阅读，再按兴趣放大 Main/Child、工具结果和 Publication 等关键交接。**不要把图背下来；用它定位责任和验证证据。**
 
 [返回进阶](./agent-ten-modules.md) · [当前开源入口](https://github.com/hpoenixf/open-etf-agent) · [English](../en/articles/open-etf-agent-v010-system-design.md) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

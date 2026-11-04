@@ -125,12 +125,12 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
   const { runInNewContext } = await import('node:vm')
   const { englishArticlePath } = await import('../book.en.mjs')
   const { openEtfSidebar } = await import('../open-etf-sidebar.mjs')
-  const { canonicalUrl, filterSitemapItems } = await import('../seo-routes.mjs')
+  const { canonicalUrl, filterSitemapItems, READER_LANGUAGES } = await import('../seo-routes.mjs')
   const source = text('.vitepress/config.mts').replace(/^import .*$/gm, '')
     .replace('export default defineConfig(', 'globalThis.config = defineConfig(')
     .replaceAll('import.meta.url', JSON.stringify(import.meta.url))
   const context = { collections, englishCollections, englishArticlePath, openEtfSidebar, defineConfig: value => value,
-    SITE_URL: '', filterSitemapItems, socialHead: () => [] }
+    SITE_URL: '', READER_LANGUAGES, filterSitemapItems, socialHead: () => [] }
   runInNewContext(source, context)
   const flatten = items => items.flatMap(item => item.items ? flatten(item.items) : [item.link])
   for (const [locale, theme] of [['', context.config.themeConfig], ['en/', context.config.locales.en.themeConfig]]) {

@@ -402,7 +402,7 @@ This example's 30-second deadline begins at submission. It demonstrates submissi
 
 ## 8. From continuity contracts to the six-layer panorama {#_7-from-continuity-contracts-to-the-six-layer-panorama}
 
-Place everything we have learned in the larger map. **Six layers describe request handoffs, not six services that must run sequentially, and not a claim that each demonstration release implements every layer.**
+Place everything we have learned in the [six-layer responsibility map](./017-prompt-to-answer-six-layer-panorama-v3.md). **Six layers describe request handoffs, not six services that must run sequentially, and not a claim that each demonstration release implements every layer.** L4, “tools and domain capabilities,” reads originals, performs calculations, and returns results between the model’s research decisions and the eventual report.
 
 ![Task identity, permitted scope, and decisions across L1 to L3](/images/learning-path/en/deep-layers-1.svg)
 
@@ -426,6 +426,6 @@ Locate responsibility through task identity, actions and tools, the deliverable 
 
 Intermediate introduced ten capabilities. Deep Dive has asked **what they hand to each other, how failures are classified, and what evidence continuation can trust**. The full panorama expands to the whole system: Direct/Research/Coord paths, background tasks, cross-layer Owners, observability, and user-visible delivery.
 
-Next read [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Start by following L1 → L6; then zoom into Main/Child, tool results, and Publication as needed. **The goal is not to memorize the diagram, but to locate responsibility and verification evidence.**
+Next use the [**Workshop: Bring Your Own Documents to an Agent**](./open-etf-agent-research-project-workshop.md) to import sources, run a task, and inspect the report. Then read [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Start by following L1 → L6; then zoom into Main/Child, tool results, and Publication as needed. **The goal is not to memorize the diagram, but to locate responsibility and verification evidence.**
 
 [Back to Intermediate](./agent-ten-modules.md) · [Current source project](https://github.com/hpoenixf/open-etf-agent) · [中文](../../articles/open-etf-agent-v010-system-design.md) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)

@@ -134,8 +134,8 @@ npm run demo -- --case T1
 
 继续读[**《Agent 进阶：读懂 Open ETF Agent 的十个核心模块》**](./agent-ten-modules.md)，在同一个 v0.15 版本里认识 Skill、MCP、上下文、记忆、会话与子代理。接着进入[深入篇](./open-etf-agent-v010-system-design.md)，沿一次真实的专家协作看它们怎样配合。
 
-**阅读路线：入门 → 进阶 → 深入 → 全景。** 每一站沿用已经熟悉的任务，再多看一层。
+**五站阅读路线：入门 → 进阶 → 深入 → 练手 → 全景。** 深入之后，用[练手篇](./open-etf-agent-research-project-workshop.md)把自己的资料接入任务，再回看系统全景。
 
-现在你已经碰到了六层架构中的三个动作：**L1 收到任务、L3 决定下一步、L4 使用工具**。进阶篇会补上“任务属于谁、资料如何进入上下文（L2）”，深入篇再回答“答案怎样被保存和真正交给用户（L5/L6）”。此处不必背编号，先记住这条任务链即可。
+现在你已经碰到了[六层职责地图](./017-prompt-to-answer-six-layer-panorama-v3.md)中的三个动作：**L1 收到任务、L3 决定下一步、L4 使用工具**。L4 指“工具与领域能力”：模型提出动作后，由工具真正读取资料、计算或保存，而不是靠一句回答宣告完成。进阶篇会补上“任务属于谁、资料如何进入上下文（L2）”，深入篇再回答“答案怎样被保存和真正交给用户（L5/L6）”。此处不必背编号，先记住这条任务链即可。
 
 [Open ETF Agent 源码与示例](https://github.com/hpoenixf/open-etf-agent) · [English version](/en/articles/agent-in-15-minutes) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)

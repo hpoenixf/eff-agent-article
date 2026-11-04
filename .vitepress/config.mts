@@ -4,9 +4,9 @@ import { articleReadingBriefPlugin } from '../article-reading-brief.mjs'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
-import { SITE_URL, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
+import { SITE_URL, READER_LANGUAGES, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
-import { seoDescription, socialHead, articleStructuredData, structuredDataHead, landingStructuredData, setLandingStructuredData } from '../seo-content.mjs'
+import { seoDescription, socialHead, articleStructuredData, breadcrumbStructuredData, structuredDataHead, landingStructuredData, setLandingStructuredData } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
 import { readableRelations, diagramDimensions, needsReadableRelations, renderRelations } from '../diagram-reading.mjs'
 
@@ -38,10 +38,10 @@ const englishSidebar = englishCollections.map(collection => ({
 
 export default defineConfig({
   locales: {
-    root: { label: '简体中文', lang: 'zh-CN' },
+    root: { label: '简体中文', lang: READER_LANGUAGES.zh },
     en: {
       label: 'English',
-      lang: 'en-US',
+      lang: READER_LANGUAGES.en,
       link: '/en/',
       title: 'ETF Agent · Engineering Notes',
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
@@ -81,7 +81,7 @@ export default defineConfig({
   },
   title: 'ETF Agent · 工程手记',
   description: '从真实工程问题出发，沿模块机制、架构判断和 AI 研发实践连续阅读，并以金融专题串联领域案例。',
-  lang: 'zh-CN',
+  lang: READER_LANGUAGES.zh,
   base: '/eff-agent-article/',
   cleanUrls: true,
   lastUpdated: true,
@@ -142,6 +142,7 @@ export default defineConfig({
         title: pageData.title, description, canonical, english,
         metadata: pageData.frontmatter.articleMetadata
       })))
+      heads.push(structuredDataHead(breadcrumbStructuredData({ relativePath, title: pageData.title })))
     }
 
   },
