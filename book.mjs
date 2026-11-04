@@ -117,6 +117,7 @@ export const collections = [
         "desc": "后台异步研究、阶段交付、持久恢复和历史论点连续性：让复杂研究跨时间真正完成。",
         "items": [
           ["agent-client-interaction-panorama", "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究"],
+          ["agent-progress-truthful-inflight-research", "Agent 研究进度不是日志：如何让进行中的工作可信可见"],
           ["agent-long-horizon-research-panorama", "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"],
           ["agent-background-research-collaborative-experience", "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"],
           ["deepseek-superagent-continuous-research", "从投研聊天到持续研究：DeepSeek Super-agent 给我们的启示"],
