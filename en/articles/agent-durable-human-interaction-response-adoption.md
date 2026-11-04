@@ -189,6 +189,25 @@ This public path has execution evidence with real models and synthetic material.
 
 Its adoption scope is local, single-user, ordinary sequential questions. It does not provide non-blocking interruption, Child-directed consultation, additional permission or external-effect approval. The earlier identity, consumer and recovery responsibilities can guide those extensions; enabling `response` does not create the full platform.
 
+
+<details>
+<summary>Trace the minimal protocol: receive and adopt one reply in fixed v0.13</summary>
+
+To observe receipt before adoption in isolation, install the fixed release using the [v0.13 README](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/README.md), with Node 26.8.1–26.x and a new local directory. These commands use [that version’s original CLI](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/session-cli.mjs), not the project commands above:
+
+```bash
+npm run session -- start --session runs/article-reply --case durable-response
+# Replace the placeholders with the original runId and questionId returned by start
+npm run session -- question --session runs/article-reply --run RUN_ID --question QUESTION_ID
+npm run session -- respond --session runs/article-reply --run RUN_ID --question QUESTION_ID --response reply-1 --text 'Synthetic label: blue'
+npm run session -- resume --session runs/article-reply --run RUN_ID
+npm run session -- response-status --session runs/article-reply --run RUN_ID
+```
+
+This is a single-question path with a scripted gateway. `respond` preserves the original text and yields `received-not-adopted`; `resume` commits it as the original call’s tool result. Complete the interaction within the original 300-second deadline. Waiting does not extend it, and a reply grants no permission. This isolates the durable handoff; current projects should use the v0.21 entry above.
+
+</details>
+
 <span id="results-and-current-limits"></span>
 
 ## Conclusion: Stop Dependent Work and Preserve the Basis for Continuing

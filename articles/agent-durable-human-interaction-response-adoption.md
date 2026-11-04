@@ -189,6 +189,25 @@ node dist/src/research-cli.mjs run report --project PROJECT --run TASK
 
 采用时应把范围看清：这是本地单用户的普通顺序问答，不提供非阻塞插话、Child 定向咨询、追加权限或外部效果审批。需要这些能力时，前文的身份、消费者和恢复分工可以作为设计依据，不能把一个 `response` 开关当作完整平台。
 
+
+<details>
+<summary>追溯最小协议：在固定 v0.13 复现一次回复的接收与采用</summary>
+
+要单独观察“先收到，后采用”，可按 [v0.13 README](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/README.zh-CN.md)安装该固定版，使用 Node 26.8.1–26.x 和一个新的本地目录。下面调用的是[该版本原 CLI](https://github.com/hpoenixf/open-etf-agent/blob/300f78f7066ab76fcc4e9efb54137ff021ecc278/src/session-cli.mjs)，不是上面的项目命令：
+
+```bash
+npm run session -- start --session runs/article-reply --case durable-response
+# 用 start 输出的原 runId 和 questionId 替换占位符
+npm run session -- question --session runs/article-reply --run RUN_ID --question QUESTION_ID
+npm run session -- respond --session runs/article-reply --run RUN_ID --question QUESTION_ID --response reply-1 --text 'Synthetic label: blue'
+npm run session -- resume --session runs/article-reply --run RUN_ID
+npm run session -- response-status --session runs/article-reply --run RUN_ID
+```
+
+这是脚本网关的单问题路径：`respond` 保存原文并得到 `received-not-adopted`，`resume` 才把它提交为原调用的工具结果。请在原有 300 秒期限内完成；等待不续期，回复不授予权限。它用于观察持久交接，当前项目使用仍以上面的 v0.21 入口为准。
+
+</details>
+
 <span id="结果与当前边界"></span>
 
 ## 结语：该停的是依赖答案的工作，应该保留的是执行依据
