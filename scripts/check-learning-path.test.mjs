@@ -203,3 +203,25 @@ test('workshop follows deep dive in both menu and article navigation without a f
     assert.ok(diagrams.every(x => !x.src.includes('workshop')))
   }
 })
+
+
+test('workshop keeps six-layer scope, exact command boundaries and bilingual responsive source diagrams', () => {
+  for (const [prefix, language] of [['', 'zh'], ['en/', 'en']]) {
+    const body = read(prefix + 'articles/open-etf-agent-research-project-workshop.md')
+    for (const layer of ['L1','L2','L3','L4','L5','L6']) assert.ok(body.includes('**' + layer + ' ·'))
+    assert.ok(body.includes('REPORT_REQUIRED'))
+    assert.ok(body.includes('CLI_LIVE_WORK_REQUIRED'))
+    assert.ok(body.includes('case-mechanism-observations.json'))
+    assert.ok(body.includes('withBase'))
+    assert.ok(body.includes('(max-width: 640px)'))
+    assert.doesNotMatch(body, /```mermaid/)
+    for (const suffix of ['', '-mobile']) {
+      const asset = 'public/diagrams/open-workshop/six-layers-' + language + suffix + '.svg'
+      assert.ok(body.includes(asset.replace('public', '')))
+      const svg = read(asset)
+      assert.match(svg, /<title id="title">/)
+      assert.ok(svg.includes(language === 'en' ? 'Submission saves; work executes.' : '提交只保存；work 才执行。'))
+      assert.doesNotMatch(svg, /foreignObject|https?:\/\/[^w]/)
+    }
+  }
+})

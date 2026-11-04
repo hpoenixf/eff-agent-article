@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="640" viewBox="0 0 1040 640" role="img" aria-labelledby="title desc"><title id="title">Six layers. One inspectable task.</title><desc id="desc">v0.20 local research project · the subset used here</desc>
+<rect width="1040" height="640" rx="20" fill="#f4f7f3"/>
+<style>text{font-family:"Noto Sans CJK SC","DejaVu Sans",sans-serif;fill:#173f36}.muted{fill:#526b64}</style>
+<text x="36" y="49" font-size="30" font-weight="700" class="">Six layers. One inspectable task.</text>
+<text x="36" y="79" font-size="17" font-weight="400" class="muted">v0.20 local research project · the subset used here</text>
+<text x="36" y="119" font-size="20" font-weight="600" class="">Bring a document. Keep the report, task and sources.</text>
+<rect x="36" y="152" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="48" y="164" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="56" y="183" font-size="15" font-weight="700" class="">L1</text>
+<text x="98" y="184" font-size="21" font-weight="700" class="">Request work</text>
+<text x="52" y="224" font-size="19" font-weight="600" class="">Question file → submit</text>
+<text x="52" y="257" font-size="17" font-weight="400" class="muted">Submission saves; work executes.</text>
+<rect x="530" y="152" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="542" y="164" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="550" y="183" font-size="15" font-weight="700" class="">L2</text>
+<text x="592" y="184" font-size="21" font-weight="700" class="">Bind the scope</text>
+<text x="546" y="224" font-size="19" font-weight="600" class="">Project · Run · manifest</text>
+<text x="546" y="257" font-size="17" font-weight="400" class="muted">Recovery retains sources and budgets.</text>
+<rect x="36" y="300" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="48" y="312" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="56" y="331" font-size="15" font-weight="700" class="">L3</text>
+<text x="98" y="332" font-size="21" font-weight="700" class="">Choose the next step</text>
+<text x="52" y="372" font-size="19" font-weight="600" class="">Main · tool loop · Child</text>
+<text x="52" y="405" font-size="17" font-weight="400" class="muted">Model choices remain within the grant.</text>
+<rect x="530" y="300" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="542" y="312" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="550" y="331" font-size="15" font-weight="700" class="">L4</text>
+<text x="592" y="332" font-size="21" font-weight="700" class="">Acquire evidence</text>
+<text x="546" y="372" font-size="19" font-weight="600" class="">Text · Memory · bounded checks</text>
+<text x="546" y="405" font-size="17" font-weight="400" class="muted">Preferences are not source evidence.</text>
+<rect x="36" y="448" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="48" y="460" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="56" y="479" font-size="15" font-weight="700" class="">L5</text>
+<text x="98" y="480" font-size="21" font-weight="700" class="">Keep the deliverable</text>
+<text x="52" y="520" font-size="19" font-weight="600" class="">Report · Publication receipt</text>
+<text x="52" y="553" font-size="17" font-weight="400" class="muted">An answer is not a saved report.</text>
+<rect x="530" y="448" width="474" height="130" rx="12" fill="#ffffff" stroke="#cbdad2"/>
+<rect x="542" y="460" width="38" height="26" rx="6" fill="#dcece2"/>
+<text x="550" y="479" font-size="15" font-weight="700" class="">L6</text>
+<text x="592" y="480" font-size="21" font-weight="700" class="">Open it again</text>
+<text x="546" y="520" font-size="19" font-weight="600" class="">CLI · local read-only Reader</text>
+<text x="546" y="553" font-size="17" font-weight="400" class="muted">Read persisted results after execution.</text>
+<text x="36" y="620" font-size="15" font-weight="400" class="muted">A responsibility map, not six services or a complete production platform.</text>
+</svg>
