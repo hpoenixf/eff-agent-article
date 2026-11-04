@@ -163,6 +163,8 @@ The useful shared HIO machinery is therefore request identity, inbox presentatio
 
 Open ETF Agent does not expose the entire full-HIO system. The [fixed v0.13 implementation](https://github.com/hpoenixf/open-etf-agent/tree/300f78f7066ab76fcc4e9efb54137ff021ecc278) established durable receipt and original-call adoption for one question. The [fixed public v0.21 source](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a) connects it to local research projects with a bounded sequence of questions.
 
+Here, “fixed public source” means an inspectable candidate implementation with bounded qualification. The final package's original CI and formal tag/Release still require separate verification; a source commit is not proof of a completed release.
+
 This follows the blocking side: `ask_response` persists a question and yields the Worker; after answering, the user explicitly runs the same task again. It is a practical starting point for making questions discoverable, answers precisely associated, and resumed execution actually consume them. Without independent background work to run concurrently, non-blocking correction and a cross-conversation inbox need not come first.
 
 Follow the [fixed project guide](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/research-project.md) to create the project, import selected material and approve the provider, data and cost. Keep `report`, enable `response`, and explicitly add this project configuration:
