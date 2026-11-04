@@ -8,16 +8,18 @@ articleMetadata:
 description: "From message ownership, answer revisions and citation reading to model progress, Host observations and History/SSE races, this article explains how a client presents in-flight research truthfully—and why Progress can be a distinct capability without becoming a new execution authority."
 readingBrief:
   takeaways:
-    - "Model-authored progress, Host observations and browser connection state are different kinds of evidence; label their origins instead of presenting all three as 'researching'."
-    - "Progress is a cross-cutting capability contract, not a separate Runtime Owner: Run admission, Conversation persistence, SSE ordering, History readback and Web presentation remain with their existing owners."
-    - "A connection-local sequence differs from a durable delivery ordinal; displayed, committed and currently readable content are also different facts, so reconnects must check original identity and current access."
     - "The client must preserve Run attribution, answer revisions and reading continuity; optional progress verification must not block an independently authorized answer."
+    - "Model-authored progress, Host observations and browser connection state are different kinds of evidence; label their origins instead of presenting all three as 'researching'."
+    - "A connection-local sequence differs from a durable delivery ordinal; displayed, committed and currently readable content are also different facts, so reconnects must check original identity and current access."
+    - "Progress is a cross-cutting capability contract, not a separate Runtime Owner: Run admission, Conversation persistence, SSE ordering, History readback and Web presentation remain with their existing owners."
   appliesTo:
     - "Agent systems with long-running research, SSE and history that need to address missing or reordered progress, reconnects and client-state races."
     - "Frontend and backend teams clarifying the relationship between model claims, Host observations, durable results and visible UI state."
   notFor:
     - "Treating progress messages as research accuracy, completion percentages or production latency guarantees; this is not an installation guide for ETF Agent's private Web client."
 ---
+
+<div id="an-agent-client-is-more-than-an-sse-renderer-presenting-a-research-task-correctly" aria-hidden="true"></div>
 
 # An Agent Client Is More Than an SSE Renderer: Presenting Research Progress Truthfully
 
@@ -27,9 +29,9 @@ Each action is ordinary on its own. The problems emerge when they form one inter
 
 **The central job of an Agent client is to keep user actions, task progress and research results correctly associated.** SSE is one transport for updates. Receiving strings in a browser does not mean a research task has been presented correctly.
 
-Long-running work adds another challenge: the client must explain something that is not yet finished. It needs to distinguish the model's account of its own work, what the system can observe about execution, and the browser's current connection state. Otherwise, the interface may look busy while the user cannot tell which statements are worth trusting.
+We will first associate answers and actions with the right task, then examine progress, reconnects and reading during long-running research. The account retains ETF Agent's actual evolution and controlled observations, while distinguishing the private Web implementation from public CLI examples.
 
-This article follows ETF Agent's engineering evolution over time. The private product's full Web Progress implementation and the public teaching repository's CLI capabilities have different scopes; that distinction is made explicit below.
+<div id="_1-the-client-needs-state—but-cannot-declare-facts-owned-elsewhere" aria-hidden="true"></div>
 
 ## 1. The Client Needs Its Own State—but Cannot Declare Facts Owned Elsewhere
 
@@ -55,33 +57,35 @@ In the existing architecture, answer publication, conversation events and histor
 
 [Open the full-size vector figure](../../visuals/en/a25-client/m-boundaries.svg)
 
-## 2. Why Did Progress Take So Long? The Problem Changed from “No Updates” to “Can This Update Be Trusted?”
+<div id="_2-when-answers-can-finish-out-of-order-the-last-message-is-no-longer-an-identity" aria-hidden="true"></div>
+<div id="_3-live-events-and-history-reads-reconcile-the-same-answer" aria-hidden="true"></div>
 
-The original request was straightforward. Research can last minutes; the model needs to know time is passing, and the user needs feedback. The first design, on October 10, 2026, separated three things:
+## 2. Associate the Answer with Its Run, Then Reconcile Revisions
 
-- Host time reminders enter the next already-authorized model request; the system does not call the model just to report elapsed time.
-- The model may propose short updates through a controlled tool, `send_research_update`.
-- User-defined asynchronous delivery times remain with the original task and notification path.
+When answers can finish out of order, “the last message” is no longer an identity. A Run is one admitted task execution, not the entire conversation. A short question may finish first while the original research continues; each must find its answer through its own Run.
 
-The initial draft used 3/5/8-minute milestones as soft reminders; a later revision consolidated them under the existing reminder Owner, so those values should not be read as current hard thresholds. The lasting rule was that a reminder enters the next already-authorized model request without creating an extra model turn.
+ETF Agent's concurrent interaction work encountered a case where a temporary answer row was replaced by the persisted History message, while later stream updates still targeted the old temporary ID. The repair was not to create another copy of the answer, but to follow the original Run to its current message identity.
 
-That answered whether progress could be expressed. It did not insert model-authored progress into the formal answer, and reaching a time threshold did not automatically mean the task had completed.
+![Long research and a short question retain separate task identities](../../visuals/en/a25-client/m-identity.svg)
 
-The next problem was persistence. An October 25 inspection found that same-kind progress could be overwritten in the Native pending map, public event collector, Memory/PostgreSQL event identity and Web projection. An earlier update could also be delayed until unrelated slow work later in the same model turn finished. The HTTP SSE comment heartbeat sent every ten seconds kept the transport alive, but was not visible to the user and said nothing about which research stage had actually happened.
+*Identity sketch: completion order can change; questions, answers and control targets must not become misaligned.*
 
-The design question therefore became: **can multiple authorized model updates each survive and appear in order before a later slow operation finishes?**
+[Open the full-size vector figure](../../visuals/en/a25-client/m-identity.svg)
 
-Implementation and browser verification on November 2–3 exposed the next problem. Even after all three updates appeared, a late History snapshot could make one disappear. Having displayed a row once did not give it permanent permission to be read after reconnecting. Live delivery, durable persistence and current access had to be treated as separate facts.
+The same answer may also be revised repeatedly. If the page already shows revision two of answer P and an earlier History request returns revision one, the old content must not replace the new just because it arrived later. Conversely, a reader who explicitly opens historical revision one should not be silently upgraded to the latest version.
 
-The important change was not “add another SSE message.” Progress moved from a replaceable stage label to process information with identity, ordering and current-access constraints.
+**Reconciling a current view and browsing a historical version are different actions.** If a preview is visible before its persistence receipt arrives, the client may retain it temporarily within the same Run and reading scope while it verifies the result. Only matching durable facts can confirm persistence. Explicit access denial takes priority over preview retention.
 
-## 3. Progress Is an Independent Capability, Not a New Runtime Owner
+![Reconciling current revision two, late revision one and a matching persistence receipt](../../visuals/en/a25-client/m-revisions.svg)
 
-Two concepts need to be distinguished: a **capability** describes what the user can do or understand; an **Owner** has final authority over a particular fact or effect. In ETF Agent's architecture, a module is not merely a file or directory. It is a complete capability and the final owner of its effect.
+*Reconciliation sketch: compare revisions of the same content object; explicit access denial takes priority over preview retention.*
 
-Progress deserves its own domain semantics: signal origins, event identity, ordering, visibility and presentation rules. But it does not have an independent effect outside the original Run lifecycle that needs to own admission, persistence, recovery and termination. It is therefore a cross-cutting capability, not another Progress Manager.
+[Open the full-size vector figure](../../visuals/en/a25-client/m-revisions.svg)
 
-Start by distinguishing the three kinds of signal that may appear on screen:
+<div id="_7-what-should-the-system-say-after-a-long-silence" aria-hidden="true"></div>
+<div id="_4-connection-task-and-answer-states-need-different-meanings-on-screen" aria-hidden="true"></div>
+
+## 3. Distinguish Three Signals During Long-Running Research
 
 | Signal | Producer | What it can express | What it cannot prove |
 | --- | --- | --- | --- |
@@ -89,44 +93,22 @@ Start by distinguishing the three kinds of signal that may appear on screen:
 | Transient Host status `research-pulse` | Emitted by the original Run/Stream from currently observable facts | “System status”: a recent observation or an explicit unknown | That the model is thinking right now or the task will finish |
 | Client connection status | Observed locally by the browser | “Connection status”: reconnecting or temporarily unable to obtain updates | That the server has stopped, cancelled or completed |
 
-Each continues to use its original responsibility:
+### When no new message arrives for a while
 
-| Existing responsibility | What it owns | What Progress does there |
-| --- | --- | --- |
-| Model / Native Tool | Research strategy and controlled tool proposals | Proposes a short update; does not send SSE directly |
-| Runtime / original Action Owner | Run identity, permission, terminal fences and action settlement | Checks the current Run and display eligibility; issues the original action receipt and `updateId` |
-| Conversation / Outbox | Durable events, idempotent identity and historical delivery | Persists admitted model progress with a `deliveryOrdinal` |
-| Run Stream | The current connection's event queue and `sequence` | Sends both model progress and transient Host status |
-| History / Recovery | Reading and restoring facts under original identity and current access | Restores genuine durable progress on reopen; does not invent missed transient heartbeats |
-| Web Client | Interaction, timeline and reading state | Labels origins and reconciles visible content for the same Run |
+A model request or tool call may take a while, leaving the page without a new model-authored update. The easiest mistake is to keep showing “Researching,” or to call the model again periodically just to produce “Still working.”
 
-This is one capability crossing existing Owners, not a new module taking over the chain:
+We chose a more conservative approach. While the original Run's viewing stream remains attached and no meaningful visible status has arrived, the Host may emit a transient observation about every 30 seconds. If it cannot establish the current stage, it says “Current execution status unknown” rather than guessing what the model is thinking.
 
-```mermaid
-flowchart LR
-  subgraph Sources["Three distinct origins"]
-    M["Model progress<br/>research-progress"]
-    H["Host observation<br/>research-pulse"]
-    C["Client connection<br/>connection status"]
-  end
-  subgraph Owners["Existing Owners"]
-    R["Native / Runtime<br/>Run, permission, action receipt"]
-    O["Conversation / Outbox<br/>durable event, deliveryOrdinal"]
-    S["Run Stream<br/>SSE sequence"]
-    Hist["History / Recovery<br/>read under current access"]
-    UI["Web Client<br/>timeline and reading state"]
-  end
-  M --> R --> O --> S --> UI
-  H --> S
-  O --> Hist --> UI
-  C --> UI
-```
+This Host pulse differs from model progress:
 
-*Figure 1. Progress is a capability contract across existing Owners; model progress, system observations and client connection state do not share the same authority.*
+- It comes from facts the system can currently observe, not from model-authored prose.
+- It enters the original Run Stream event queue; it does not create a second sequence owner.
+- It is transient and is not written to the Outbox or History. Reconnecting does not replay heartbeats the user missed.
+- It does not trigger another model request or consume additional research budget.
 
-Why not create a Progress Manager? Once it becomes a real module, it must answer who admits progress, who assigns stable identity, who persists events, who decides whether updates can continue after termination, and who adjudicates history on reconnect. Existing Owners already own those facts. A new manager would either duplicate their decisions or centralize authority that is currently clear.
+The HTTP `: heartbeat` sent every ten seconds therefore remains transport maintenance. The user-visible `research-pulse` is a system-status observation. They must not be treated as the same event.
 
-An independent module may become justified later if Progress acquires a lifecycle outside the Run, cross-product subscribers, its own retention and query policies, or a shared event-service role. **What needs to be independent today is the capability's semantics, not another execution authority.**
+Stop, park, human-interaction wait, cancellation, termination or the end of the viewing connection must fence off later transient status. A browser connection notice says only that the client cannot currently obtain updates; it does not infer that the server has stopped.
 
 ## 4. From Model Proposal to Visible Row: Four Facts and Two Orders
 
@@ -174,65 +156,104 @@ The repair stayed with the original History → actual request fitting → new R
 
 Most importantly, optional progress verification must not hold an independent answer hostage. Even if one progress row cannot yet be confirmed, an independently authorized formal answer should still be delivered. Progress serves the research; it must not become another termination authority.
 
-## 6. The Frontend Must Preserve Reading Continuity
+<div id="_6-the-frontend-must-preserve-reading-continuity" aria-hidden="true"></div>
+<div id="_5-sending-amending-and-stopping-need-their-own-receipts" aria-hidden="true"></div>
+<div id="_6-the-answer-its-citations-and-the-reader-s-position-form-one-result" aria-hidden="true"></div>
 
-When answers can finish out of order, “the last message” is no longer an identity. A Run is one admitted task execution, not the entire conversation. A short question may finish first while the original research continues; each must find its answer through its own Run.
+## 6. Keep Actions and Reading Continuous
 
-ETF Agent's concurrent interaction work encountered a case where a temporary answer row was replaced by the persisted History message, while later stream updates still targeted the old temporary ID. The repair was not to create another copy of the answer, but to follow the original Run to its current message identity.
-
-![Long research and a short question retain separate task identities](../../visuals/en/a25-client/m-identity.svg)
-
-*Identity sketch: completion order can change; questions, answers and control targets must not become misaligned.*
-
-[Open the full-size vector figure](../../visuals/en/a25-client/m-identity.svg)
-
-The same answer may also be revised repeatedly. If the page already shows revision two of answer P and an earlier History request returns revision one, the old content must not replace the new just because it arrived later. Conversely, a reader who explicitly opens historical revision one should not be silently upgraded to the latest version.
-
-**Reconciling a current view and browsing a historical version are different actions.** If a preview is visible before its persistence receipt arrives, the client may retain it temporarily within the same Run and reading scope while it verifies the result. Only matching durable facts can confirm persistence. Explicit access denial takes priority over preview retention.
-
-![Reconciling current revision two, late revision one and a matching persistence receipt](../../visuals/en/a25-client/m-revisions.svg)
-
-*Reconciliation sketch: compare revisions of the same content object; explicit access denial takes priority over preview retention.*
-
-[Open the full-size vector figure](../../visuals/en/a25-client/m-revisions.svg)
+### Preserve the reading position when updates arrive
 
 Progress adds two more reading details:
 
 - New progress should not force-scroll someone who is reading an earlier answer to the bottom. Preserve their reading position and offer an entry point to the new update.
 - When a temporary assistant message identity is replaced by its persisted identity, the same Run's “Research process” disclosure should not reset. A different Run should keep its own reading state.
 
+### Follow the receipt for each send, amendment and stop
+
 When a user starts an amendment from a specific research panel, the client already knows the target and should carry the exact Run and context forward. It should not make the model guess what an explicit UI action means. Clarification is needed only when the user starts from a global input and the target is genuinely ambiguous. This keeps “adjust the original research” distinct from “ask a new question,” even when the wording is similar.
 
-Drafts, controls and citations follow the same identity rule. An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
+Receipts should describe what actually happened. “Requirement received” establishes admission. “Passed to the research task” establishes a later handoff. “Report updated accordingly” needs support from the result. Collapsing those stages into “Done” creates misleading reassurance.
+
+An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. The page should respond promptly, while final status follows the receipt for that particular action. Stopping generally affects subsequent work; it does not undo actions that already occurred or delete a saved answer.
+
+### Keep citations and focus aligned with the content
+
+After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
 
 Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
 
-## 7. What Should the System Say After a Long Silence?
+<div id="_3-progress-is-an-independent-capability-not-a-new-runtime-owner" aria-hidden="true"></div>
 
-A model request or tool call may take a while, leaving the page without a new model-authored update. The easiest mistake is to keep showing “Researching,” or to call the model again periodically just to produce “Still working.”
+## 7. Progress Collaboration: A Distinct Capability, Not New Execution Authority
 
-We chose a more conservative approach. While the original Run's viewing stream remains attached and no meaningful visible status has arrived, the Host may emit a transient observation about every 30 seconds. If it cannot establish the current stage, it says “Current execution status unknown” rather than guessing what the model is thinking.
+Two concepts need to be distinguished: a **capability** describes what the user can do or understand; an **Owner** has final authority over a particular fact or effect. In ETF Agent's architecture, a module is not merely a file or directory. It is a complete capability and the final owner of its effect.
 
-This Host pulse differs from model progress:
+Progress deserves its own domain semantics: signal origins, event identity, ordering, visibility and presentation rules. But it does not have an independent effect outside the original Run lifecycle that needs to own admission, persistence, recovery and termination. It is therefore a cross-cutting capability, not another Progress Manager.
 
-- It comes from facts the system can currently observe, not from model-authored prose.
-- It enters the original Run Stream event queue; it does not create a second sequence owner.
-- It is transient and is not written to the Outbox or History. Reconnecting does not replay heartbeats the user missed.
-- It does not trigger another model request or consume additional research budget.
+The existing responsibilities remain:
 
-The HTTP `: heartbeat` sent every ten seconds therefore remains transport maintenance. The user-visible `research-pulse` is a system-status observation. They must not be treated as the same event.
+| Existing responsibility | What it owns | What Progress does there |
+| --- | --- | --- |
+| Model / Native Tool | Research strategy and controlled tool proposals | Proposes a short update; does not send SSE directly |
+| Runtime / original Action Owner | Run identity, permission, terminal fences and action settlement | Checks the current Run and display eligibility; issues the original action receipt and `updateId` |
+| Conversation / Outbox | Durable events, idempotent identity and historical delivery | Persists admitted model progress with a `deliveryOrdinal` |
+| Run Stream | The current connection's event queue and `sequence` | Sends both model progress and transient Host status |
+| History / Recovery | Reading and restoring facts under original identity and current access | Restores genuine durable progress on reopen; does not invent missed transient heartbeats |
+| Web Client | Interaction, timeline and reading state | Labels origins and reconciles visible content for the same Run |
 
-Stop, park, human-interaction wait, cancellation, termination or the end of the viewing connection must fence off later transient status. A browser connection notice says only that the client cannot currently obtain updates; it does not infer that the server has stopped. Failure to authorize or persist an optional progress event must not block an independently legitimate formal answer either.
+This is one capability crossing existing Owners, not a new module taking over the chain:
 
-## 8. What Has This Path Actually Verified?
+```mermaid
+flowchart LR
+  subgraph Sources["Three distinct origins"]
+    M["Model progress<br/>research-progress"]
+    H["Host observation<br/>research-pulse"]
+    C["Client connection<br/>connection status"]
+  end
+  subgraph Owners["Existing Owners"]
+    R["Native / Runtime<br/>Run, permission, action receipt"]
+    O["Conversation / Outbox<br/>durable event, deliveryOrdinal"]
+    S["Run Stream<br/>SSE sequence"]
+    Hist["History / Recovery<br/>read under current access"]
+    UI["Web Client<br/>timeline and reading state"]
+  end
+  M --> R --> O --> S --> UI
+  H --> S
+  O --> Hist --> UI
+  C --> UI
+```
 
-Progress cannot be validated only with component tests. The useful test is to let the original Native, Conversation, HTTP/SSE, PostgreSQL, History and browser paths interleave within one controlled journey.
+*Figure 1. Progress is a capability contract across existing Owners; model progress, system observations and client connection state do not share the same authority.*
 
-ETF Agent's work reached a local provider-free formal close. With a scripted model and synthetic material, the original HTTP/SSE, isolated PostgreSQL and browser path covered ordered display of multiple progress updates, long waits, History readback and recovery, concurrent Runs, uncertain connection state, narrow viewports, keyboard operation and non-forced scrolling. In one foreground wait lasting more than 95 seconds, the page displayed three Host unknown-state observations about 30 seconds apart. A separate controller test confirmed that Host pulses did not trigger additional model requests.
+These Owners already govern admission, event identity, persistence, terminal fences and history on reconnect. A new Progress Manager would duplicate their decisions or centralize responsibilities that are already clear. An independent module becomes worth reconsidering only if Progress gains its own lifecycle, cross-product subscribers, or independent retention and query policies.
 
-This establishes bounded engineering behavior for identity, ordering, persistence, readback and presentation. It does not exhaust every possible network interleaving. It does not establish the quality of real-model progress text, production PostgreSQL behavior, a production latency SLA, whether real users feel more confident, or a production deployment. Screen-reader and speech-output acceptance were also outside this scope.
+<div id="_2-why-did-progress-take-so-long-the-problem-changed-from-no-updates-to-can-this-update-be-trusted" aria-hidden="true"></div>
+<div id="_8-what-has-this-path-actually-verified" aria-hidden="true"></div>
+<div id="_7-test-the-handoffs-most-likely-to-become-misaligned" aria-hidden="true"></div>
+<div id="_8-which-part-can-readers-reproduce-in-the-public-code" aria-hidden="true"></div>
 
-The public Open ETF Agent must be considered separately. Its current public main at v0.21 provides local, single-user, ordinary sequential human interaction: questions and answers remain associated with the original task, the user explicitly continues the same Run, and the persisted report can be read back. It is not the private product's complete Web client and does not expose the Progress timeline or SSE delivery path described here. Readers can inspect the [public README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) and [fixed v0.21 source](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a) for the current public scope. The [ordinary human-interaction contract](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/human-interaction.md) demonstrates how another cross-cutting capability reuses the original task rather than creating a second executor.
+## 8. How the Mechanisms Evolved, and What Was Verified
+
+The mechanisms accumulated as concrete problems emerged; the entire design was not needed at the outset:
+
+| Stage | Problem encountered | Resulting design choice |
+| --- | --- | --- |
+| October 10, 2026 | Long research lacked a sense of elapsed time and a way to express progress | Reminders enter the next authorized model request; the model proposes updates through `send_research_update`; asynchronous delivery stays with the original task and notification path |
+| October 25 | Same-kind updates were overwritten across Native pending state, event collection, Memory/PostgreSQL identity and Web projection; earlier updates waited behind later slow tools | Retain each admitted update's independent identity and deliver it promptly, in order, through the original event chain |
+| November 2–3 | All three updates had appeared, yet late History could erase a row; prior display did not establish permanent access | Separate live delivery, persistence and current readability; add bounded verification of the original receipt |
+
+The initial 3/5/8-minute milestones were soft reminders. Later fixed thresholds were consolidated under the existing reminder Owner; they are not current hard limits. Time reminders do not cause extra model calls, or turn progress text into a formal answer or a completion decision.
+
+### What was actually observed
+
+Validation interleaved the original Native, Conversation, HTTP/SSE, isolated PostgreSQL, History and browser paths in one local controlled journey. A scripted model and synthetic material covered ordered display of multiple progress updates, long waits, History readback and recovery, concurrent Runs, uncertain connection state, narrow viewports, keyboard operation and non-forced scrolling. In one foreground wait lasting more than 95 seconds, the page displayed three Host unknown-state observations about 30 seconds apart. A separate controller test confirmed that Host pulses did not trigger additional model requests.
+
+These observations support identity, ordering, readback and presentation within the tested path. They do not establish real-model text quality, production database or latency behavior, or increased user confidence. They are not evidence of a production deployment; screen-reader and speech-output acceptance remain untested.
+
+### What the public teaching code demonstrates
+
+The fixed Open ETF Agent v0.21 cited here provides local, single-user, ordinary sequential human interaction: questions and answers remain associated with the original task, the user explicitly continues the same Run, and the persisted report can be read back. It is not the private product's complete Web client and does not expose the Progress timeline or SSE delivery path described here. Readers can inspect the [public README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) and [fixed v0.21 source](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a) for that public version’s scope. The [ordinary human-interaction contract](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/human-interaction.md) demonstrates how another cross-cutting capability reuses the original task rather than creating a second executor.
 
 ## 9. If We Started Again, We Would Begin with Less
 
@@ -244,11 +265,11 @@ The most reusable outcome of this engineering history is not a Progress subsyste
 4. **Only when a real SSE/History race appears, add bounded verification of the original receipt.** Keep verification within the original authorization and History Owners; do not create a second permission system or history ledger.
 5. **Keep progress optional and degradable.** An unknown or undisplayable progress row must not block an independently authorized answer, file or report.
 
-When would Progress deserve an independent module? At minimum, it would need a lifecycle outside the Run, independent subscription and retention policies, consumers shared across multiple products, or a final effect that it alone owns. The fact that a capability has its own event types, fields and UI is not enough.
+Return to the fund comparison. The short answer appears under its own question. The original research labels the source of each update. Late history does not casually replace a newer revision. Stop and amendment actions have precise targets and receipts, while citations and scrolling stay aligned with the reader.
 
-Return to the fund comparison. The user does not need a progress bar that is always moving. They need to know what the model said, what the system observed, what has been saved, and what can still be read safely.
+**A trustworthy client keeps tasks, content and actions connected correctly.** Progress is one part of that interaction: say unknown when appropriate, and keep delivering independently authorized answers.
 
-**Good Progress is not a screen that always has something to say. It is a system that knows when it has grounds to speak, what its message represents, when that justification expires, and when “unknown” is the correct answer.** That is where an Agent client goes beyond rendering SSE.
+<div id="references-and-further-reading" aria-hidden="true"></div>
 
 ## Further Reading
 
@@ -259,4 +280,3 @@ Return to the fund comparison. The user does not need a progress bar that is alw
 - [Agent Citation System Design: Source Issuance, Version Binding and Independent Review](./ai-citations-do-not-prove-reliability.md) distinguishes source identity from support for a conclusion.
 - [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) describes SSE transport and reconnection, not an application-level recovery contract.
 - [W3C WAI-ARIA APG: Disclosure Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) and [Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) describe the interaction conventions for disclosures and modal dialogs.
-
