@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="650" viewBox="0 0 375 650" role="img" aria-labelledby="title desc">
+<title id="title">四类职责，各回答自己的问题</title>
+<desc id="desc">模块可以拒绝自己的操作，不因此取得整个任务的终结权. 运行时: 现在继续、收尾还是停止？, 组织下一步合法工作. 效果负责人: 读取、发布或取消发生了吗？, 解释各自真实提交回执. 检查点: 这份快照保存并可用吗？, 核对格式、身份与版本. 恢复与控制: 哪个获准唤醒可接回哪里？, 核对原等待与安全点</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#708393" stroke-width="1.6"/></marker></defs>
+<rect width="375" height="650" rx="22" fill="#f7f5ef"/>
+<rect x="0" y="0" width="375" height="8" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#183b4a">
+<text x="22" y="44" font-size="26" font-weight="700" fill="#183b4a">职责边界</text>
+<text x="22" y="73" font-size="17" font-weight="500" fill="#576d75">独立职责，共用原事实</text>
+<rect x="20" y="92" width="335" height="103" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="92" width="5" height="103" rx="2" fill="#164e63"/>
+<text x="36" y="119" font-size="15" font-weight="700" fill="#164e63">01</text>
+<text x="71" y="120" font-size="21" font-weight="700" fill="#183b4a">运行时</text>
+<text x="36" y="147" font-size="17" font-weight="400" fill="#45616d">现在继续、收尾还是停止？</text>
+<text x="36" y="170" font-size="17" font-weight="400" fill="#45616d">组织下一步合法工作</text>
+<rect x="20" y="207" width="335" height="103" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="207" width="5" height="103" rx="2" fill="#147d71"/>
+<text x="36" y="234" font-size="15" font-weight="700" fill="#147d71">02</text>
+<text x="71" y="235" font-size="21" font-weight="700" fill="#183b4a">效果负责人</text>
+<text x="36" y="262" font-size="17" font-weight="400" fill="#45616d">读取、发布或取消发生了吗？</text>
+<text x="36" y="285" font-size="17" font-weight="400" fill="#45616d">解释各自真实提交回执</text>
+<rect x="20" y="322" width="335" height="103" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="322" width="5" height="103" rx="2" fill="#926438"/>
+<text x="36" y="349" font-size="15" font-weight="700" fill="#926438">03</text>
+<text x="71" y="350" font-size="21" font-weight="700" fill="#183b4a">检查点</text>
+<text x="36" y="377" font-size="17" font-weight="400" fill="#45616d">这份快照保存并可用吗？</text>
+<text x="36" y="400" font-size="17" font-weight="400" fill="#45616d">核对格式、身份与版本</text>
+<rect x="20" y="437" width="335" height="103" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="437" width="5" height="103" rx="2" fill="#5b5c8a"/>
+<text x="36" y="464" font-size="15" font-weight="700" fill="#5b5c8a">04</text>
+<text x="71" y="465" font-size="21" font-weight="700" fill="#183b4a">恢复与控制</text>
+<text x="36" y="492" font-size="17" font-weight="400" fill="#45616d">哪个获准唤醒可接回哪里？</text>
+<text x="36" y="515" font-size="17" font-weight="400" fill="#45616d">核对原等待与安全点</text>
+<rect x="20" y="554" width="335" height="44" rx="10" fill="#e4eeeb"/>
+<text x="32" y="574" font-size="15" font-weight="500" fill="#205b55">原任务身份 · 授权 · 租约 · 围栏</text>
+<text x="32" y="594" font-size="15" font-weight="500" fill="#205b55">快照不授予新执行权</text>
+<text x="22" y="616" font-size="13" font-weight="400" fill="#64767b">职责划分，不要求新增服务</text>
+<text x="22" y="635" font-size="13" font-weight="400" fill="#64767b">或再建一套状态数据库。</text>
+</g></svg>

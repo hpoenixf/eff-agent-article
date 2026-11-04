@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="385" viewBox="0 0 840 385" role="img" aria-labelledby="title desc">
+<title id="title">正常研究怎样留下可接续的状态</title>
+<desc id="desc">先确认本步发生了什么，再保存下一步需要的工作状态. 接纳与租约: 任务、范围和额度, 当前执行者与围栏. 提议与效果: 获准动作真正执行, 原负责人保存回执. 保存检查点: 接续位置与工作状态, 引用原结果与来源. 继续或等待: 运行时安排下一步, 控制系统建立等待</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#708393" stroke-width="1.6"/></marker></defs>
+<rect width="840" height="385" rx="22" fill="#f7f5ef"/>
+<rect x="0" y="0" width="840" height="8" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#183b4a">
+<text x="26" y="48" font-size="28" font-weight="700" fill="#183b4a">正常研究怎样留下可接续的状态</text>
+<text x="26" y="80" font-size="17" font-weight="400" fill="#576d75">先确认本步发生了什么，再保存下一步需要的工作状态</text>
+<rect x="26" y="104" width="182" height="175" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="26" y="104" width="5" height="175" rx="2" fill="#164e63"/>
+<text x="42" y="131" font-size="17" font-weight="700" fill="#164e63">01</text>
+<text x="42" y="161" font-size="19" font-weight="700" fill="#183b4a">接纳与租约</text>
+<text x="42" y="193" font-size="16" font-weight="400" fill="#45616d">任务、范围和额度</text>
+<text x="42" y="219" font-size="16" font-weight="400" fill="#45616d">当前执行者与围栏</text>
+<text x="42" y="255" font-size="15" font-weight="600" fill="#164e63">取得本次执行身份</text>
+<path d="M211 188 h14" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="228" y="104" width="182" height="175" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="228" y="104" width="5" height="175" rx="2" fill="#147d71"/>
+<text x="244" y="131" font-size="17" font-weight="700" fill="#147d71">02</text>
+<text x="244" y="161" font-size="19" font-weight="700" fill="#183b4a">提议与效果</text>
+<text x="244" y="193" font-size="16" font-weight="400" fill="#45616d">获准动作真正执行</text>
+<text x="244" y="219" font-size="16" font-weight="400" fill="#45616d">原负责人保存回执</text>
+<text x="244" y="255" font-size="15" font-weight="600" fill="#147d71">确认已发生的工作</text>
+<path d="M413 188 h14" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="430" y="104" width="182" height="175" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="430" y="104" width="5" height="175" rx="2" fill="#926438"/>
+<text x="446" y="131" font-size="17" font-weight="700" fill="#926438">03</text>
+<text x="446" y="161" font-size="19" font-weight="700" fill="#183b4a">保存检查点</text>
+<text x="446" y="193" font-size="16" font-weight="400" fill="#45616d">接续位置与工作状态</text>
+<text x="446" y="219" font-size="16" font-weight="400" fill="#45616d">引用原结果与来源</text>
+<text x="446" y="255" font-size="15" font-weight="600" fill="#926438">取得快照保存结果</text>
+<path d="M615 188 h14" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="632" y="104" width="182" height="175" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="632" y="104" width="5" height="175" rx="2" fill="#5b5c8a"/>
+<text x="648" y="131" font-size="17" font-weight="700" fill="#5b5c8a">04</text>
+<text x="648" y="161" font-size="19" font-weight="700" fill="#183b4a">继续或等待</text>
+<text x="648" y="193" font-size="16" font-weight="400" fill="#45616d">运行时安排下一步</text>
+<text x="648" y="219" font-size="16" font-weight="400" fill="#45616d">控制系统建立等待</text>
+<text x="648" y="255" font-size="15" font-weight="600" fill="#5b5c8a">按各自条件推进</text>
+<rect x="26" y="297" width="788" height="43" rx="12" fill="#e4eeeb"/>
+<text x="42" y="324" font-size="17" font-weight="600" fill="#205b55">效果回执：已经发生什么</text>
+<text x="412" y="324" font-size="17" font-weight="600" fill="#205b55">检查点：从哪里、带什么状态接着做</text>
+<text x="26" y="365" font-size="15" font-weight="400" fill="#64767b">示意一个循环；必要的派发前持久边界仍由原执行协议负责。</text>
+</g></svg>

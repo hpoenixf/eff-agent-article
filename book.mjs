@@ -52,6 +52,7 @@ export const collections = [
           ["agent-model-capability-presentation-tool-surface", "Tool Surface：Agent 有工具，模型为什么看不到"],
           ["agent-multi-ecosystem-hook-execution", "多生态 Hook：Claude、Pi 与 Codex"],
           ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"],
+          ["agent-checkpoint-ownership-and-recovery", "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？"],
           ["agent-action-reminder-coordination", "行动提醒：从生成建议到真正送达模型"]
         ],
         "related": [
