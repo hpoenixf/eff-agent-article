@@ -1,6 +1,10 @@
 ---
 title: "Agent 研究进度不是日志：如何让进行中的工作可信可见"
 description: "从时间提醒、模型进度到有序时间线，复盘一次真实的 Agent Progress 演进：为什么 SSE 心跳不够、History 会抹掉新进度，以及怎样用既有执行事实实现可恢复、不过度承诺的过程反馈。"
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
     - "进度不是单一事实：模型描述、Host 观察与浏览器连接状态来自不同来源，不能合并成一条「正在执行」的权威断言。"
