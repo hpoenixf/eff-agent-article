@@ -199,6 +199,8 @@ Progress adds two more reading details:
 - New progress should not force-scroll someone who is reading an earlier answer to the bottom. Preserve their reading position and offer an entry point to the new update.
 - When a temporary assistant message identity is replaced by its persisted identity, the same Run's “Research process” disclosure should not reset. A different Run should keep its own reading state.
 
+When a user starts an amendment from a specific research panel, the client already knows the target and should carry the exact Run and context forward. It should not make the model guess what an explicit UI action means. Clarification is needed only when the user starts from a global input and the target is genuinely ambiguous. This keeps “adjust the original research” distinct from “ask a new question,” even when the wording is similar.
+
 Drafts, controls and citations follow the same identity rule. An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
 
 Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
