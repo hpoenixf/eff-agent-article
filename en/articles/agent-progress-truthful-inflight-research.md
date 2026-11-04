@@ -1,6 +1,10 @@
 ---
 title: "Agent Research Progress Is Not a Log: Making In-Flight Work Truthfully Visible"
 description: "A historical engineering case from time hints and model progress to an ordered timeline: why SSE heartbeats are not enough, how stale History can erase live progress, and how to provide recoverable feedback without inventing execution facts."
+articleMetadata:
+  author:
+    name: "hpoenixf"
+    url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
     - "Progress has different origins: a model's account, a Host observation, and a browser connection state must not be presented as the same authoritative claim that work is running."
