@@ -2,7 +2,7 @@
 description: "Follow a research run through saving and continuation to see how checkpoints, effect receipts and recovery authority cooperate. Revisit ETF Agent's move away from LangGraph and the proper scope of a checkpoint module."
 readingBrief:
   takeaways:
-    - "A checkpoint retains continuation position and working state; actions, publications, grants and budgets keep their original sources of truth."
+    - "A checkpoint is progress saved at a chosen boundary. One Run can save repeatedly; the current implementation keeps only its latest snapshot with an increasing revision."
     - "Known pre-write serialization failure, an unknown write outcome and a lost lease require different handling. A failed auxiliary snapshot should not erase independently confirmed work."
     - "ETF Agent removed its LangGraph layer after its own Recovery system acquired durable recovery responsibilities. That project-specific duplication does not invalidate LangGraph's general capabilities."
     - "Checkpointing deserves a narrow, explicit module boundary; execution, committed effects and accepted control wakes remain with their original owners."
@@ -25,6 +25,47 @@ Handling them requires both a record of research progress and a trustworthy acco
 **A useful checkpoint system makes ordinary work easy to continue and gives an interrupted system enough information to distinguish reusable material from actions that still require execution authority.** It need not turn the entire application into a permanently replayable graph.
 
 This article follows a teaching example through the normal path, then revisits why we introduced and later removed LangGraph in ETF Agent. The project account describes the private system's design and controlled verification. A separate public teaching example appears near the end; its capabilities are deliberately narrower.
+
+## Start with the basics: a progress snapshot that gets updated
+
+**A checkpoint is a snapshot saved at a chosen execution boundary: where this Run has reached, which stage comes next, and which working state and original-result references are needed there.** It is not the Run itself, the entire conversation or the finished report.
+
+Think of it as a handover note: “Source A has been read; its result is in the original receipt. One question remains unresolved. Next, return to model reasoning.” The next executor reads that note and verifies the original records rather than restoring every byte of the previous process's memory.
+
+### Why keep one when there are already databases and logs?
+
+Action receipts say what happened. Published revisions say which content was committed. Logs record events. Continuing the work also requires its current stage, unresolved questions and continuation position. A checkpoint puts that **reusable working state** behind a defined, identity-bound read interface, reducing the need to reconstruct the context from scratch.
+
+A short, simple task can run without one. For longer work or supported waits and continuations, however, the system may otherwise have to infer its progress again or may lack proof of where it can proceed. Calling a tool again is not a substitute for checking its original effect: the request may already have executed. A checkpoint helps a valid handover; it does not promise in-place recovery from every crash. An in-memory adapter loses its snapshots with the process. Retention across processes requires the corresponding persistent store.
+
+### What triggers a save?
+
+The execution protocol calls the save interface at explicit stage boundaries. A model saying “I remember” does not create a checkpoint, and every token, event or log entry need not create one. The current ETF Agent implementation has these classes of save call:
+
+- **Initialization:** when no checkpoint exists, attempt to save the initial execution position.
+- **Continuation-position updates:** for example, prepare state before a model request, or update the continuation hint after a model turn and its ordered proposals have been sealed but before Host effects are dispatched. The turn and proposals retain their own durable records.
+- **After a confirmed action or content commit:** save an auxiliary snapshot reflecting the new progress. The original effect owner confirms the effect first; the snapshot cannot replace its receipt.
+- **Main context-compaction state commit:** save the new state, then read and adopt that saved state only after success.
+- **Finalization or cancellation paths:** attempt to save the corresponding stage state. The original owners still maintain committed terminal and cancellation facts.
+
+These are trigger categories, not a fixed checklist executed once per loop. A path may skip some and call others several times. Control waits have another relationship: a wait can **bind the revision and digest of an already saved checkpoint** so an accepted wake can identify its state. Entering a wait does not itself mean another snapshot was successfully saved.
+
+### Can one Run have several checkpoints?
+
+**It can have several successful saves.** Imagine the same Run saving its initial state, progress after a source read, progress after publishing a draft, and its compacted state: revisions 1, 2, 3 and 4. The diagram selects four convenient save points; a real execution can save additional continuation states between them. The numbers are not mandatory step numbers.
+
+<picture>
+  <source media="(max-width: 640px)" :srcset="withBase('/diagrams/checkpoint-system/en/save-timeline-mobile.svg')" />
+  <img :src="withBase('/diagrams/checkpoint-system/en/save-timeline.svg')" alt="Four illustrative saves in one Run: initialization, source read completion, draft commit and compaction state commit. Successful saves increment the revision; the Store retains only the latest snapshot, while original action and publication receipts remain separate." loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px" />
+</picture>
+
+<a :href="withBase('/diagrams/checkpoint-system/en/save-timeline.svg')">Open the checkpoint update timeline</a>
+
+Several saves do not necessarily mean retained snapshot history. **The current in-memory and PostgreSQL adapters keep one latest checkpoint per scope and Run. Each successful save increments its revision and replaces that current snapshot.** They do not provide a history browser that can arbitrarily replay revisions 1, 2 or 3. The format version says how to interpret a snapshot; its revision counts successful saves for this Run. Those are different identifiers.
+
+A known pre-write rejection creates no new snapshot and leaves the previous successful one in place. An unknown write outcome does not establish that the old revision remained unchanged. Original action receipts, model turns and published content are separate from this latest-snapshot slot: replacing a checkpoint does not automatically delete them, and selecting an older progress position cannot undo their committed effects.
+
+Now put the save operation back into an ordinary research cycle to see how it works with those other records.
 
 ## 1. The normal path: how a checkpoint is produced
 

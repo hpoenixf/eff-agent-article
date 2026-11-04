@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="790" viewBox="0 0 375 790" role="img" aria-labelledby="title desc">
+<title id="title">One Run. Repeated saves. One latest snapshot.</title>
+<desc id="desc">Four illustrative successful saves, not a mandatory checklist. Initialize: No checkpoint yet; Read completes: Original receipt confirmed; Draft commits: Publication receipt confirmed; Save compaction: Adopt only after saving. Current slot: revision 4</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#6c8589" stroke-width="1.6"/></marker></defs>
+<rect width="375" height="790" rx="22" fill="#f7f5ef"/>
+<rect width="375" height="7" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif">
+<text x="21" y="42" font-size="23" font-weight="700" fill="#183b4a">One Run, multiple saves</text>
+<text x="21" y="69" font-size="15" font-weight="400" fill="#5a7279">A progress snapshot, updated over time</text>
+<rect x="20" y="89" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="118" font-size="19" font-weight="700" fill="#183b4a">Initialize</text>
+<text x="36" y="146" font-size="14" font-weight="400" fill="#45616d">No checkpoint yet</text>
+<text x="36" y="168" font-size="13" font-weight="700" fill="#237165">revision 1</text>
+<path d="M187 185 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="199" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="228" font-size="19" font-weight="700" fill="#183b4a">Read completes</text>
+<text x="36" y="256" font-size="14" font-weight="400" fill="#45616d">Original receipt confirmed</text>
+<text x="36" y="278" font-size="13" font-weight="700" fill="#237165">revision 2</text>
+<path d="M187 295 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="309" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="338" font-size="19" font-weight="700" fill="#183b4a">Draft commits</text>
+<text x="36" y="366" font-size="14" font-weight="400" fill="#45616d">Publication receipt confirmed</text>
+<text x="36" y="388" font-size="13" font-weight="700" fill="#237165">revision 3</text>
+<path d="M187 405 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="419" width="335" height="93" rx="13" fill="#edf6f1" stroke="#398276"/>
+<text x="36" y="448" font-size="19" font-weight="700" fill="#183b4a">Save compaction</text>
+<text x="36" y="476" font-size="14" font-weight="400" fill="#45616d">Adopt only after saving</text>
+<text x="36" y="498" font-size="13" font-weight="700" fill="#237165">revision 4</text>
+<rect x="20" y="537" width="335" height="91" rx="13" fill="#e2eee9" stroke="#bed5cc"/>
+<text x="34" y="563" font-size="18" font-weight="700" fill="#205b55">Current slot: revision 4</text>
+<text x="34" y="588" font-size="13" font-weight="400" fill="#205b55">New state replaces the current snapshot.</text>
+<text x="34" y="610" font-size="13" font-weight="400" fill="#205b55">No automatic replayable history.</text>
+<rect x="20" y="642" width="335" height="71" rx="13" fill="#e8eef5" stroke="#cedae4"/>
+<text x="34" y="669" font-size="14" font-weight="700" fill="#37576c">Action receipts + published content</text>
+<text x="34" y="693" font-size="14" font-weight="400" fill="#37576c">Stay separate from the snapshot slot.</text>
+<text x="21" y="739" font-size="12" font-weight="400" fill="#61767c">Other save points may occur. A failed response</text>
+<text x="21" y="757" font-size="12" font-weight="400" fill="#61767c">does not prove a new saved revision. Valid</text>
+<text x="21" y="775" font-size="12" font-weight="400" fill="#61767c">execution authority is still required.</text>
+</g></svg>
