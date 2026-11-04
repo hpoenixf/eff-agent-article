@@ -137,7 +137,7 @@ A model progress update is not simply “the model sends an SSE message.” It p
 3. **Durably committed:** Conversation/Outbox stores the event and assigns its durable order, `deliveryOrdinal`.
 4. **Displayed live:** The attached Run Stream sends it over SSE, and the client projects it as a timeline row.
 
-“ The model said it,” “the system admitted it,” “the event was committed,” and “the browser displayed it” are four different facts. A polished UI message cannot be used to infer that an earlier step succeeded.
+“The model said it,” “the system admitted it,” “the event was committed,” and “the browser displayed it” are four different facts. A polished UI message cannot be used to infer that an earlier step succeeded.
 
 Deduplication must also follow effect identity. Two `kind=progress` events with different `updateId` values are two independent statements. A retry is the same effect only when it uses the same identity and the same sealed request. If `runId + kind` remains the unique slot, “what we checked first” and “what we discovered next” collapse into the last sentence. History overwritten under the old contract cannot be reconstructed by a newer protocol.
 
