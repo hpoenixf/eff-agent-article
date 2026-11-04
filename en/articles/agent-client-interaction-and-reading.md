@@ -203,3 +203,56 @@ Drafts, controls and citations follow the same identity rule. An acknowledgment 
 
 Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
 
+## 7. What Should the System Say After a Long Silence?
+
+A model request or tool call may take a while, leaving the page without a new model-authored update. The easiest mistake is to keep showing “Researching,” or to call the model again periodically just to produce “Still working.”
+
+We chose a more conservative approach. While the original Run's viewing stream remains attached and no meaningful visible status has arrived, the Host may emit a transient observation about every 30 seconds. If it cannot establish the current stage, it says “Current execution status unknown” rather than guessing what the model is thinking.
+
+This Host pulse differs from model progress:
+
+- It comes from facts the system can currently observe, not from model-authored prose.
+- It enters the original Run Stream event queue; it does not create a second sequence owner.
+- It is transient and is not written to the Outbox or History. Reconnecting does not replay heartbeats the user missed.
+- It does not trigger another model request or consume additional research budget.
+
+The HTTP `: heartbeat` sent every ten seconds therefore remains transport maintenance. The user-visible `research-pulse` is a system-status observation. They must not be treated as the same event.
+
+Stop, park, human-interaction wait, cancellation, termination or the end of the viewing connection must fence off later transient status. A browser connection notice says only that the client cannot currently obtain updates; it does not infer that the server has stopped. Failure to authorize or persist an optional progress event must not block an independently legitimate formal answer either.
+
+## 8. What Has This Path Actually Verified?
+
+Progress cannot be validated only with component tests. The useful test is to let the original Native, Conversation, HTTP/SSE, PostgreSQL, History and browser paths interleave within one controlled journey.
+
+ETF Agent's work reached a local provider-free formal close. With a scripted model and synthetic material, the original HTTP/SSE, isolated PostgreSQL and browser path covered ordered display of multiple progress updates, long waits, History readback and recovery, concurrent Runs, uncertain connection state, narrow viewports, keyboard operation and non-forced scrolling. In one foreground wait lasting more than 95 seconds, the page displayed three Host unknown-state observations about 30 seconds apart. A separate controller test confirmed that Host pulses did not trigger additional model requests.
+
+This establishes bounded engineering behavior for identity, ordering, persistence, readback and presentation. It does not exhaust every possible network interleaving. It does not establish the quality of real-model progress text, production PostgreSQL behavior, a production latency SLA, whether real users feel more confident, or a production deployment. Screen-reader and speech-output acceptance were also outside this scope.
+
+The public Open ETF Agent must be considered separately. Its current public main at v0.21 provides local, single-user, ordinary sequential human interaction: questions and answers remain associated with the original task, the user explicitly continues the same Run, and the persisted report can be read back. It is not the private product's complete Web client and does not expose the Progress timeline or SSE delivery path described here. Readers can inspect the [public README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) and [fixed v0.21 source](https://github.com/hpoenixf/open-etf-agent/tree/427315b5554b1c9af8fa50b8ab622747045e691a) for the current public scope. The [ordinary human-interaction contract](https://github.com/hpoenixf/open-etf-agent/blob/427315b5554b1c9af8fa50b8ab622747045e691a/docs/human-interaction.md) demonstrates how another cross-cutting capability reuses the original task rather than creating a second executor.
+
+## 9. If We Started Again, We Would Begin with Less
+
+The most reusable outcome of this engineering history is not a Progress subsystem that everyone should copy. It is a way to add mechanisms only when the user-facing commitment requires them:
+
+1. **For short tasks, deliver the answer.** Do not create ceremonial progress events for every ordinary question.
+2. **When long waits appear, start with conservative status.** Reuse the original Run and stream; if the system does not know the current stage, say unknown rather than inventing a percentage.
+3. **Only when multiple model updates need to be retained, assign independent effect identities and durable order.** Do not mistake a “latest stage” slot for complete history.
+4. **Only when a real SSE/History race appears, add bounded verification of the original receipt.** Keep verification within the original authorization and History Owners; do not create a second permission system or history ledger.
+5. **Keep progress optional and degradable.** An unknown or undisplayable progress row must not block an independently authorized answer, file or report.
+
+When would Progress deserve an independent module? At minimum, it would need a lifecycle outside the Run, independent subscription and retention policies, consumers shared across multiple products, or a final effect that it alone owns. The fact that a capability has its own event types, fields and UI is not enough.
+
+Return to the fund comparison. The user does not need a progress bar that is always moving. They need to know what the model said, what the system observed, what has been saved, and what can still be read safely.
+
+**Good Progress is not a screen that always has something to say. It is a system that knows when it has grounds to speak, what its message represents, when that justification expires, and when “unknown” is the correct answer.** That is where an Agent client goes beyond rendering SSE.
+
+## Further Reading
+
+- [Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research](./agent-client-interaction-panorama.md) explains the user journey of asking, waiting, intervening, reading and reopening.
+- [Background Research and Concurrent Foreground Interaction](./agent-background-research-collaborative-experience.md) discusses continued conversation, amendments and targeted controls during long research.
+- [Research Is Still Running, but the User Has Left: Delivering Real Results on Time](./agent-asynchronous-research-time-bound-delivery.md) separates research execution, publication and notification time.
+- [After an Agent Asks: Durable Human Response Adoption](./agent-durable-human-interaction-response-adoption.md) explains response receipt, adoption and resuming the original task.
+- [Agent Citation System Design: Source Issuance, Version Binding and Independent Review](./ai-citations-do-not-prove-reliability.md) distinguishes source identity from support for a conclusion.
+- [MDN: Using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) describes SSE transport and reconnection, not an application-level recovery contract.
+- [W3C WAI-ARIA APG: Disclosure Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/) and [Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) describe the interaction conventions for disclosures and modal dialogs.
+
