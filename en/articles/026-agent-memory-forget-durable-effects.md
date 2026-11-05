@@ -5,20 +5,20 @@ readingBrief:
   takeaways:
     - "Separate writing, recall and governance: models interpret meaning, while the original repository owns provenance, revisions and durable operation receipts."
     - "A retrieval hit is not model use; an eligible revision still needs authorization, capacity and actual inclusion in the subsequent dispatched request."
-    - "Corrections target the current revision and forgetting changes future disclosure eligibility; settle writes separately from answers so response failure cannot replay an already committed effect."
+    - "Corrections target the current revision and forgetting stops new disclosure as current Memory; admitted same-Run historical reports retain their identity, while writes and answers settle separately."
   appliesTo:
     - "Building cross-session preferences users can save, correct and forget, while verifying whether recalled content actually reaches the model."
   notFor:
-    - "Promising physical erasure of all history or default automatic learning; disclosure rules combining same-Run wake and forgetting still need reconciliation."
+    - "Requiring forgetting to retroactively clear admitted same-Run historical reports, physically erase all history, or make optional automatic learning enabled by default."
 ---
 
 # The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting
 
-> **Module Deep Dive · Systems Architecture.** This article concerns application-level cross-session memory, not knowledge encoded in model weights or conversation-context compaction. It draws on ETF Agent's design, code, and bounded verification available through October 2026. Synthetic examples are labeled.
+> **Module Deep Dive · Systems Architecture.** This article concerns application-level cross-session memory, not knowledge encoded in model weights or conversation-context compaction. It draws on ETF Agent's current design and code, while retaining the bounded verification recorded through the end of October 2026. Synthetic examples are labeled.
 
-Yesterday, an investment research assistant learned that a user prefers low portfolio turnover. Today, it still gives a high-frequency-trading-oriented answer. The user corrects it, but an old preference reappears in a later conversation. There is a harder failure too: the user asks the assistant to “forget it”; the database commits the forget operation, and the model's next answer fails. Should the system trust the chat window, an embedding search result, or the durable operation record?
+After a user says “forget that preference,” three questions remain. Can the next request still read it? Must research that already admitted it as historical input be rewritten? If forgetting commits but the final acknowledgement never arrives, should recovery execute it again? These concern current content, historical input, and durable effects. One deletion or one model acknowledgement cannot answer all three.
 
-These apparently different problems point to the same engineering fact: **long-term memory is not a table of summaries. It is a lifecycle with sources of authority, separate read and write times, correction, and revocation.**
+These apparently different problems point to the same engineering fact: **long-term memory is not a table of summaries. It is a lifecycle with sources of authority, separate read and write times, correction, and forgetting.**
 
 We organize Memory into three cooperating paths: **writing, recall, and governance**. Writing decides what deserves to persist. Recall decides what is actually used in a later request. Governance decides who has authority when data expires, conflicts, or must be forgotten. These paths may join in a single research task, but they must not collapse into an ambiguous “memory succeeded” flag.
 
@@ -70,14 +70,18 @@ The conceptual loop is:
 ```text
 Explicit user request
   → search_memory (existing family or an available empty result)
-  → commit_memory (save / replace / forget)
+  → commit_memory (save / targeted correction / forget)
   → durable receipt (saved / updated / forgotten / conflict / unknown)
   → next Run independently checks eligibility for recall
 ```
 
+The diagram names conceptual operations. The current wire protocol uses `save` or `forget`; a correction is `save` with a Host-issued target reference, not a separate `replace` operation.
+
 The receipt supports both the user-visible acknowledgement and recovery after interruption. **The model saying “I remember” is not proof of a write.** If the outcome is unknown, it must not be reported as successful or automatically retried as though nothing happened. Recovery reconciles the existing operation identity and receipt.
 
 A failed save should not necessarily stop a safe research answer. The current answer can still follow the user's instruction while disclosing that durable retention has not been confirmed.
+
+Why place explicit operations in Research rather than add a Memory side effect to entry routing? The original requirement was to acknowledge a save truthfully in this turn. Deferring every write until after the answer cannot provide the required receipt; adding persistence to Direct expands its answer-only responsibility. Reusing Research tools, the repository, and receipts keeps interpretation and submission on the existing execution path without requiring a second semantic model to review every explicit save. The cost is research budget and latency in this turn. Searching first also cannot certify that every semantic duplicate was found.
 
 ### 2.2 Automatic learning: do not block the answer or fabricate consent
 
@@ -106,11 +110,15 @@ Recall has to pass several independent decisions:
 3. **Relevance to this task.** Is the user continuing an earlier review or asking something new? Preferences and episodic histories have different admission rules.
 4. **Context capacity and actual dispatch.** Ranking is not the final step. Selected candidates must still fit the bounded prompt, and a record not sent to the model cannot be counted as used.
 
-Our defaults bound Memory to a small preference and episodic set and roughly 4,000 characters of Memory context, rather than appending an ever-growing chat transcript. Usage is counted at **actual provider dispatch**, not at search hits, UI inspection, or recovery replay.
+**Durable retention does not mean complete injection on every turn.** The current automatic profile selects eligible preferences only, prioritizing response constraints and then recent updates. It examines at most 32 candidates, retains at most 8 records, and caps their projected JSON at 8,000 UTF-8 bytes. These limits govern the preference snapshot, not all discussion history. Oversized records are skipped whole rather than cutting a constraint in half; a later, shorter record may still fit. A second pass fits them with system text, messages, tools, and output schema into the complete request. Current user text is not shortened to accommodate Memory.
 
-Structured/lexical retrieval, dense vectors, and hybrid retrieval can all help discover candidates. ETF Agent's knowledge RAG already has lexical and vector channels with reciprocal-rank fusion (RRF). **That does not mean Memory currently uses the same RRF pipeline.** Memory's immediate requirements are valid provenance and genuine consumption, not a uniform-looking retrieval stack. We do not add a new Memory vector database just for architectural symmetry.
+A **synthetic example** makes the distinction concrete. “State the data date first” can enter the preference profile even when the new question does not repeat those words. A long older preference may remain in storage but not enter this request. **Stored, selected for the snapshot, and actually dispatched are three different facts.** Usage observations follow actual provider dispatch, not search hits, UI inspection, or recovery replay. They do not prove that the model obeyed the preference.
 
-Performance follows the governing request deadline and cancellation rather than an unrelated fixed timer. If retrieval is unavailable, the safe path degrades conservatively and preserves the difference between “no records found” and “read failed.”
+For explicit history queries, default `search_memory` performs bounded local inspection. Preferences may become candidates; episodic discussions need a summary substring or exact record/family identity match, followed by source and capacity checks. A differently worded continuation may therefore miss an earlier discussion. This is not the lexical/vector/RRF pipeline already used by ETF Agent's knowledge RAG. Sharing the word “retrieval” does not make the implementations identical.
+
+Optional semantic ranking offers another discovery path. Instead of lexically prefiltering candidates, it lets the admitted Run's model gateway select existing references from a bounded set of eligible records. This adds model calls, latency, and dependency management without removing candidate limits. One easily missed consequence is that **a candidate sent to the ranking model has participated in processing even if it is not selected**. Retaining only the winning sources would lose that fact. Eligibility is checked before and after ranking; semantic relevance does not replace revisions, provenance, or budgets. This optional path must not be described as running when semantic mode is disabled by default.
+
+Performance follows the governing request deadline and cancellation. Unavailable retrieval remains different from an empty library; a read failure must not be disguised as an empty result that permits a new save.
 
 ### Public code: when has an existing memory actually been read?
 
@@ -166,21 +174,25 @@ A preference changes. “I prefer a long-term holding period” and “I need ex
 
 ETF Agent uses **family + revision** to represent version relationships. A correction must target the currently observed revision. A stale target cannot overwrite a newer correction. The model may propose that two statements are related; the Host and repository enforce the actual compare-and-set operation.
 
-Forgetting makes the whole family ineligible for **future model context**. Ordinary records can expire or be softly evicted by policy. An explicitly saved `response_constraint`, however, is not silently discarded by ordinary TTL/LFU cleanup. The user can still correct or forget it.
+Forgetting makes the whole family ineligible for new disclosure as **current Memory** in subsequent model requests. Ordinary records can expire or be softly evicted by policy. An explicitly saved `response_constraint`, however, is not silently discarded by ordinary TTL/LFU cleanup. The user can still correct or forget it.
 
 This reveals a subtle problem: old content may become unavailable while the fact that it was corrected remains worth reporting. In our October source-projection review, we found risks in both directions:
 
 - Hiding every item associated with the old revision could hide the valid correction receipt too.
 - Treating a correction receipt as permission to expose the superseded old body could revive withdrawn content.
 
-We avoided a broad exception for historical content. The application must validate the original effect receipt, family identity, supersedes relation, and increasing revision. **It may explain that a correction occurred without reopening the old, ineligible text.**
+The current implementation separates these materials. The next request removes ineligible old Memory tool results together with call arguments that might contain the old body. The valid new revision and update receipt are checked under their own record identities. Expected omission of superseded history is not misreported as failure to read the current Memory snapshot. Missing records, foreign scope, a wrong revision, or invalid source dependencies still fail; a `superseded` label is not a bypass. The model can explain what just happened without treating the old preference as current: **it may explain that a correction occurred without reopening the old, ineligible text.**
 
-The same rule applies to generated summaries, historical results, background jobs, and indexes. After forgetting, a new Run cannot launder the old preference back through derived context. A late learning job cannot revive the old source by assigning a fresh family ID. But “no longer used in the future” is not a promise that backups, old conversations, or material already sent to a model provider have been physically erased. Those commitments require distinct data-retention operations.
+The same rule applies to generated summaries, historical results, background jobs, and indexes. After forgetting, a new Run cannot launder the old preference back through derived context. A late learning job cannot revive the old source by assigning a fresh family ID. But “no longer used as current Memory” is not a promise that backups, old conversations, or material already sent to a model provider have been physically erased. Those commitments require distinct data-retention operations.
 
 
-**A historical report has two distinct future uses.** Reading a committed report in authorized History does not mean the system may send it to a model again. A frozen grant for the original Run does not automatically make a report derived from a subsequently forgotten Memory record eligible for disclosure. The original report identity and source lineage, the current family/revision eligibility, and the body actually sent in the next model dispatch require separate checks.
+**Historical reports, current Memory, and new Runs have distinct consumption rules.** Being allowed to read a report in History does not automatically authorize another research task to use it. But when the current Run has admitted a selected report through the original history owner and durably retained its exact body, selection identity, and complete source lineage, same-Run wake continues from that receipt. Forgetting a Memory source later does not turn the admitted historical report into a fresh current-Memory read. Its source identity must remain intact; removing dependencies or relabeling the report as public would be incorrect.
 
-A scoped historical wake-path review in late October 2026 left an **unresolved semantic contract**: a recovery path may still read the previously retained report bytes, but that alone does not establish eligibility for a later model request. Immutable Run authorization and subsequent content revocation are different facts. Same-Run wake, retained reports, and Memory forgetting still need a reconciled rule and actual-dispatch acceptance tests; this article does not present that interaction as a qualified production guarantee.
+That choice has a cost: **forgetting does not retroactively rewrite historical input already admitted to the same Run.** It prevents the old preference from being acquired again as current Memory, and prevents a new Run from using derived history to skip its own admission. Missing, foreign, or content-mismatched historical receipts remain unavailable. A frozen grant cannot invent a report or turn one historical admission into permission for every future task.
+
+One source identity can appear both in historical lineage and in a preference independently read for the current request. The system therefore checks the material actually being submitted, rather than exempting an entire identity because it also appears in history. Admitted historical prose retains its original identity; independently materialized current Memory still requires valid family/revision eligibility. If that current body is forgotten after fitting but before transport, the original dispatch boundary rejects the stale disclosure. It does not revoke the Run grant or erase an already valid answer.
+
+Bounded Factory and isolated PostgreSQL observations from late October exercise this distinction: same-Run wake retains the admitted historical body and source proof, while late forgetting of independently materialized current Memory is rejected before dispatch. Inputs and gateways were synthetic. The PostgreSQL path recreated the Factory within one operating-system process, so it does not establish arbitrary cross-process recovery or real-model behavior.
 
 ## 5. A Complete Example: From First Preference to Forgetting
 
@@ -194,7 +206,7 @@ The following fund-research flow is a **synthetic walkthrough of the intended br
 | Run D | “Make conclusion-first the default from now on.” | Search identifies the family, and a successful correction creates a new revision |
 | Run E | “Forget that presentation habit.” | The family is forgotten and excluded from subsequent new Runs |
 
-The important observation is not whether the model happens to repeat a phrase from the remembered preference. The lifecycle has **four different proof points: commit, actual consumption in a new request, revision, and absence from future disclosure after forgetting**. An answer can accidentally match the preference without using Memory at all. A fluent acknowledgement can be generated even when storage failed.
+The important observation is not whether the model happens to repeat a phrase from the remembered preference. The lifecycle has **four different proof points: commit, actual consumption in a new request, revision, and no new acquisition as a current preference after forgetting**. An answer can accidentally match the preference without using Memory at all. A fluent acknowledgement can be generated even when storage failed.
 
 For a financial agent, Memory must remain in its proper role. Risk preferences can influence explanation. Holdings come from Portfolio. NAV and fees come from current time- and definition-specific evidence. Trading permission comes from independent authorization. **Memory helps recall how the user wants to reason or communicate; it does not decide what the user owns or what the system is allowed to execute.**
 
@@ -213,29 +225,34 @@ It also explains why conversation text alone is insufficient for recovery. The d
 
 The public code provides a narrower recovery counterexample. In the [fixed process-level test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs), the execution process is terminated after the tool result of an explicit Memory mutation commits. A new process resumes the same Run. The test observes a single tool dispatch, one persisted write-intent record, and no leftover writer lock. It establishes that **a durable effect is not repeated simply because the executor changed**. It does not prove real-model interpretation of save/correct/forget requests, or an authenticated end-to-end cross-session Memory lifecycle.
 
-## 7. Why Not Copy a Full External Memory Engine?
+<span id="_7-why-not-copy-a-full-external-memory-engine"></span>
 
-Some architectures combine an asynchronous outbox, dense-plus-lexical retrieval, four-state deduplication, and temporal invalidation. Peak Lake's [Agent Long-Term Memory System](https://www.peak-lake.com/en/blog/agent-memory-system/) explains these patterns through writing, reading, and governance. That is a useful narrative and technical organization, but **each system still needs its own authority model and an evidence-based reason to add complexity**.
+## 7. Which Alternatives Fit, and Why Choose This One?
 
-ETF Agent deliberately chose a narrower baseline:
+Peak Lake's [Memory engineering article](https://www.peak-lake.com/en/blog/agent-memory-system/) organizes the problem around writing, reading, and governance, including hybrid retrieval and temporal invalidation. That division is useful. Which capabilities to adopt depends on whether work crosses sessions, how history must be found, and who owns correction and forgetting.
 
-| Approach | Advantage | Our current choice |
+| Approach | When it fits better | Work it still leaves |
 | --- | --- | --- |
-| Inject the full conversation history every time | Easy to wire up | Unbounded context and weak handling of forgetting and provenance |
-| Let an external vector/graph memory engine own final state | Rich semantic discovery | A possible future adapter, not a second source of authorization or revision truth |
-| Application repository + bounded recall + optional asynchronous semantic proposals | Clear ownership of lifecycle, provenance, and recovery | Prioritize the current path; evaluate semantic retrieval before expanding it |
+| Thread history and a checkpointer | Mainly continuing one bounded thread or task | Cross-session preferences are not automatic; retained input still needs selection |
+| A framework's cross-session Store | Already using the framework and organizing records by user or business namespace | Integrating business identity, versions, correction, and eligibility |
+| A specialized Memory service | Tasks need richer semantic, entity, or temporal retrieval | Mapping service records to Host provenance, lifecycle, and invocation budgets |
+| Existing PostgreSQL repository + bounded profile/query + optional semantic proposals | Account scope, provenance, revisions, and receipts already exist; explicit preferences need an end-to-end path first | Weaker default history discovery; application-owned dependencies, capacity selection, and receipts |
 
-This does not make vector retrieval or temporal modeling unimportant. It means selecting them only when **measured recall misses or temporal conflicts** justify the extra queries, indexes, and lifecycle work. We should collect failed examples, candidates, actual model inputs, and user-task outcomes before choosing more infrastructure. Semantic similarity never substitutes for a user's revision authority.
+These are not deliberately weak alternatives in which an external engine must seize all authority. [LangGraph's Memory documentation](https://docs.langchain.com/oss/python/concepts/memory) separates thread state from a cross-thread Store. [Hindsight's Recall documentation](https://hindsight.vectorize.io/developer/api/recall) describes combined semantic, lexical, graph, and temporal retrieval. A Host can adopt such capabilities while retaining admission and business authority. This article does not present an equivalent-workload quality or performance benchmark against either product.
 
-## 8. What Have We Verified, and What Should We Measure Next?
+ETF Agent reused its repository because family/revision identity, account scope, durable receipts, and user administration already existed. Explicit saves did not need to wait for an external engine, and the first semantic adapter could reuse the existing admitted gateway. Hindsight remained a candidate rather than a prerequisite for remembering one explicit preference. This reduces migration and dual-write work, but leaves local discovery limits, source mapping, and governance maintenance with the application.
 
-As of the code and operational records used for this article, the supported local explicit save, correction, forgetting, cross-session, and PostgreSQL paths have bounded validation. A complete external live lifecycle, and sustained real-model understanding of those intentions, require separate qualification. The optional Hindsight semantic engine has not been qualified for that profile. Automatic semantic learning remains disabled by default.
+The reason to upgrade is therefore a concrete error, not an architecture looking insufficiently advanced. If paraphrases repeatedly fail to find prior discussions, or temporal/entity relationships determine task success, compare stronger retrieval on those examples. Also check whether extra candidates crowd out the current question or add unacceptable latency. Semantic similarity never substitutes for the user's revision authority.
 
-The most valuable next metrics are not counts of new Memory classes or tests. They concern the lifecycle in real tasks: false candidate adoption, correct same-family revision, whether eligible records **actually reach the model**, false recall and context cost, whether forgotten text resurfaces through old summaries, and p95 recall latency in the full research request. Without real samples, we should not claim that retrieval quality has improved.
+<span id="_8-what-have-we-verified-and-what-should-we-measure-next"></span>
 
-Returning to the opening question: a dependable Memory system must **provide a durable receipt when writing, enforce authorization when reading, use versions when correcting, and prevent forgotten content from returning to future use**.
+## 8. The Boundaries to Check Before Adopting This Design
 
-Those guarantees are harder than making a model appear to remember the user. They are what make a long-lived assistant genuinely corrigible and accountable.
+This path suits systems prioritizing explicit user saves, corrections, and forgetting with explainable outcomes. It is not a general Memory service with demonstrated high recall. Local explicit operations, cross-session consumption, and PostgreSQL paths have bounded validation. A complete external live lifecycle and sustained real-model interpretation of these intentions remain separately unqualified. The optional Hindsight adapter has not qualified for that profile, and automatic semantic learning is disabled by default. These limits neither erase existing mechanical evidence nor disappear because tests passed.
+
+Evaluate real tasks along the lifecycle: false candidate adoption, correct same-family revision, actual inclusion in model input, missed paraphrases, context cost and p95 latency, and whether a new Run can acquire forgotten preferences through historical summaries. Without real samples, do not claim retrieval quality has improved.
+
+The transferable division is concrete: **writes follow durable receipts, recall follows final input, correction follows current versions, and forgetting follows subsequent consumption; already admitted historical input retains its original identity.** That gives each user correction something more inspectable than a model saying “I remember.”
 
 <!-- open-etf-agent:minimal-experiment:start -->
 ## 9. Run a Save–Revise–Forget Sequence in the Public Code
@@ -278,4 +295,3 @@ First ensure `runs/article-memory/synthetic-memory` is a new synthetic-library p
 
 Historical revisions remain; forgetting changes future eligibility. This is an explicit single-writer file library, not automatic learning, an authenticated multi-user service, or a real-model cross-session evaluation.
 <!-- /open-etf-case -->
-

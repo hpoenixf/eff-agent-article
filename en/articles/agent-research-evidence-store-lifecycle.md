@@ -18,7 +18,7 @@ After an agent fails, two records can disagree. The gateway shows a completed mo
 
 This article focuses on a specific module: **Research Evidence Retention and Readback**. It owns bounded observation copies of model exchanges and physical attempts. It does **not** own sending model requests, business execution, publication, semantic scoring, or executable recovery.
 
-The illustrative examples and identities are synthetic; the separately identified lock-contention case comes from historical investigation and controlled reproduction. The mechanisms reflect the engineering contracts reviewed on October 31, 2026; scoped engineering checks are not proof of complete production capture, better financial research, or reconciled billing.
+The article explains the currently inspected capture and readback mechanisms. The illustrative examples and identities are synthetic; the separately identified lock-contention case comes from historical investigation and controlled reproduction.
 
 ## 1. First, separate three kinds of evidence
 
@@ -63,7 +63,7 @@ Run, exchange, attempt, and part are separate identity dimensions. One logical e
 
 The most important ordering rule is **admission first, sensitive payload traversal second**. Model requests may include holdings, user messages, personal preferences, and access-controlled documents. An observer must not serialize them and only then discover that the user opted out.
 
-Capture is conditional on the server-owned Run/Scope admission and content policy. Temporary mode, content opt-out, sampling, expiry and capacity can suppress capture. Source IDs and dependency versions are bound to a part; before asynchronous persistence, the writer rechecks authorization, revocation, and dependency validity.
+The current default policy sets `enabled` to false. Capture must be explicitly enabled and satisfy server-owned Run/Scope admission and content permission before traversing the payload. That code default does not mean every deployment disables capture; enabling a deployment does not replace a particular Run’s permission. Temporary mode, content opt-out, sampling, expiry and capacity can suppress capture. Source IDs and dependency versions are bound to a part; before asynchronous persistence, the writer rechecks authorization, revocation, and dependency validity.
 
 An intentionally uncaptured Run should not acquire a hidden “debug copy.” Neither deliberate opt-out nor collection failure means an empty model request, zero usage, or successful no-content output.
 
@@ -78,6 +78,10 @@ When limits are reached, capture returns an explicit gap. The same applies to in
 - failure of optional evidence persistence does not rewrite dispatch, budget, Run termination, or existing publications.
 
 A call may leave only its request, only its output, or neither. The data model must be honest about each possibility.
+
+Why not send everything through a reliable queue? For stage timing and fault localization, body-free safe traces may be sufficient. For restart or longer-outage resilience, [OpenTelemetry Collector’s resiliency guide](https://opentelemetry.io/docs/collector/resiliency/) describes memory queues, disk WAL and message queues, along with losses from exhausted capacity or expired retries. Durable buffering improves delivery resilience while adding operations and copy-governance costs; it supplies neither completeness nor read permission automatically.
+
+This design chooses a finite in-process queue because these copies are optional observations that original execution should not wait for. The trade-off is explicit: queued, unpersisted content may disappear on process exit; limits or contention may leave gaps. Bounded copying, digest computation and shared storage still cost resources. Asynchronous does not mean free or isolated.
 
 **A real lock-contention case shows the limits of asynchronous capture.** Optional research evidence was already queued for background persistence, yet the writer still competed with answer publication for locks in a shared database. The investigation found a cycle across three transactions: the evidence write held a source-related lock while waiting for a model-record lock, with publication also caught in the dependency chain. Moving the call to a queue did not isolate the underlying resource. The narrow repair rolled back the optional evidence transaction when it could not immediately acquire the required model-record lock, releasing held resources and recording a capture failure instead of claiming success. Controlled contention and readback supported removal of this particular dependency, not reconstruction of every detail of the historical failure or permission to discard required execution receipts.
 
@@ -136,7 +140,7 @@ This is a teaching projection, **not** the production public response schema. Un
 
 **Tracing** provides a timeline and diagnostic lens. A complete trace query does not certify exhaustive input capture. **Cost observation** can correlate original physical attempts and partial vendor usage, but list price, subscription credits, actual charges, and allocation to a particular deliverable remain distinct. An input snapshot is not a bill. **Recovery** requires executable state, original grants, and a valid checkpoint; the evidence store's read-only copies grant no permission to execute again.
 
-The Store's **depth** lies in one limited interface covering admission, bounded encoding, asynchronous persistence, lifecycle rules, readback, and purge. Its own failures remain local rather than turning telemetry into a global veto.
+Before choosing this policy, ask: **may the original action still occur without this copy?** If yes, bounded, lossy observation keeps debugging from governing research. If a protected action requires a durable receipt, retain that requirement with the original execution or commit owner instead. Applying this best-effort policy to required receipts would be a category error: a missing mandatory receipt cannot be excused as “logging must not block the main flow.”
 
 ## Conclusion: useful evidence includes the known gaps
 

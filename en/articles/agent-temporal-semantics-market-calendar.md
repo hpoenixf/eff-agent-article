@@ -83,11 +83,17 @@ Timezone provenance needs an order of precedence: **explicit selection for this 
 
 IANA `America/New_York` rules handle the EDT/EST transition. Hardcoding UTC−4 or UTC−5 as a permanent offset would silently break a valid request at another time of year.
 
+When is this separation unnecessary? If the caller supplies explicit UTC start and end instants, query that absolute interval rather than reinterpreting “today.” User calendar dates and regional wall-clock times require zone rules. [TC39’s Temporal documentation](https://tc39.es/proposal-temporal/docs/timezone.html) distinguishes exact and wall-clock time and explains why mapping local time back to an instant can be ambiguous. A mature date library can perform conversion; it cannot choose the user’s meaning or supply an exchange calendar.
+
+We keep UTC anchors and IANA zone identifiers and use the runtime’s `Intl` projection rather than maintaining another offset table. The trade-off is reliance on the environment’s rule data: the [IANA database](https://www.iana.org/time-zones) changes with timezone and daylight-saving policy. Freezing an anchor does not freeze the entire rule database. Byte-identical historical reproduction across rule updates would additionally require retained resolved results or rule versions; a fixed UTC value alone does not promise it.
+
 ## 4. Recovery Must Not Recompute the Original Task Date
 
 Imagine that a user asks on Friday night for an analysis of “today's figures.” The run pauses and resumes after midnight. If recovery overwrites the original task anchor with the latest Host now, “today” changes inside the same research task. Earlier evidence and later queries are no longer comparable.
 
 We therefore separate a moving `hostNowUtc` from the original `taskAnchorUtc`, which is sealed by the original Run and retained through same-run recovery. Explicit absolute ranges and user-set cutoffs are not reinterpreted merely because the process restarted or Web search ran again.
+
+An existing normal-restart observation exercises this distinction through real accounts, HTTP and PostgreSQL. A scripted Gateway’s first request consumes the saved zone and original Run anchor. After the original background persistence confirms completion, the API stops, the account zone changes and a new login is created. A fresh process reads the same request without another model call and retains its original message zone and task anchor; a new request and Run consume the changed preference. This is read-only replay after a normal restart, not resumed execution of the old task or a real model’s interpretation of “today.”
 
 Schedule occurrences and their own time zones still belong to the existing scheduling Owner. “Deliver by 7 p.m.” belongs to the delivery Owner. Source `publishedAt` and `dataAsOf` remain with their actual producers. Unifying temporal semantics means unifying the **interpretation seam**, not taking over every timer, publication decision, or approval.
 
@@ -117,6 +123,8 @@ Markets observe holidays, exceptional closures, early closes, and venue-specific
 
 Our first market-calendar scope is therefore bounded to regular U.S. cash-equity sessions with an identified **source, version, venue, time zone, and coverage interval**, supplied through the original market-evidence (Market) data path. Temporal resolution consumes eligible sessions and distinguishes the current market-local date, target session, and latest calendar-confirmed completed session. When the evidence is absent, it returns `partial` or `unavailable` rather than guessing from weekdays. Pre/post-market periods, individual halts, additional venues, and fund reporting calendars remain separate future work.
 
+The current source has a more specific limit: it reads and qualifies Nasdaq’s 2026 annual regular rules and explicit exceptions, then expands daily records. These are not exchange-issued live statuses for each session. The result retains `derivation=published-annual-rules`, `actualSessionStatus=unknown` and `emergencyChanges=not-covered`. Expanding weekdays from qualified published rules is legitimate; inventing a weekday calendar when the source is missing is not. A changed source template or unsupported year requires requalification rather than silent reuse.
+
 A qualified schedule still says only what was scheduled within its coverage. It does not certify executions, quote freshness, or that a company actually published a particular report. **Session confirmation and market-data confirmation are separate evidence chains.**
 
 ## 6. Three Cases Where Unknown Must Survive
@@ -131,9 +139,9 @@ None of these branches should automatically erase independent, authorized resear
 
 ## What Exists and What Remains Unverified
 
-As of **October 24, 2026**, ETF Agent main contains the timezone binding, UTC current time and frozen task time projection, consolidation of Web temporal rules, and a bounded Nasdaq 2026 schedule source with structured Market consumption. That optional calendar source requires explicit enablement and is **disabled by default**. These implementation seams and scoped local observations can support a precise description of the design.
+The currently inspected implementation contains timezone binding, UTC current time and frozen task time projection, consolidated Web temporal rules, and a bounded Nasdaq 2026 schedule source with structured Market consumption. That source still requires explicit enablement and is **disabled by default**. Source acquisition, deterministic interpretation and adoption by an ordinary Agent answer are three separate facts; one does not establish all three.
 
-The original temporal-semantics P0 acceptance is still open. The implementation merge does not establish that a normal authenticated research request consumes a qualified real calendar end to end, nor does it substitute for PostgreSQL/browser qualification or formal close. This article does not claim consistent live answers to “latest trading day,” and it never treats the synthetic example as live market evidence. A-share, Hong Kong, fiscal-year, and fund-reporting periods require their own qualified sources and scoped acceptance instead of an empty generic calendar framework today.
+The original temporal-semantics P0 acceptance remains open. Account preferences and normal process restart have the real PostgreSQL observation described above. It does not establish ordinary authenticated real-model selection and consumption of a qualified calendar, browser behaviour, emergency market status or whole-feature acceptance. Account replay establishes preservation of the original time identity; calendar qualification must trace which market facts the answer actually consumed. A-share, Hong Kong, fiscal-year and fund-reporting periods require their own sources and scoped acceptance, not an empty generic calendar framework.
 
 The lasting engineering distinction is: **the model can interpret the user's temporal intent, code can resolve the chosen time precisely, and calendar and quote producers must independently establish what they know**. Only then can a research answer responsibly use the word “latest.”
 

@@ -22,7 +22,7 @@ Claude Code Hooks may be external commands consuming stdin and expressing decisi
 
 Running these extensions through ETF Agent's **Native Loop**, without launching another Claude/Pi/Codex Agent to perform the task, takes more than an **on(event, callback)** helper.
 
-External callbacks must participate in model requests, actual tool execution, and Run completion while respecting the existing permission, resource, Recovery, and persistence contracts.
+The execution layer lets selected extensions participate in model requests, tool execution and Run completion while retaining original grants, resources and receipts. The current mechanism runs through event interpretation, execution and recovery; two real counterexamples explain why matching callback names or racing a Promise against a timer is insufficient.
 
 ## 1. Similar Hook Names Do Not Mean Equivalent Semantics
 
@@ -169,13 +169,15 @@ This is a schematic example, not the original todo plugin source.
 
 A real **execute** callback may share closures, module variables, and **ctx.sessionManager** with event handlers. Merely scanning source for function names and replacing them with homegrown mock callbacks cannot prove the original extension executed.
 
-We load a reviewed original module, execute its Factory, accept its genuinely registered eligible tools/events, and connect those to the ETF Agent Native Host.
+We execute the extension’s real Factory and callbacks rather than recreating substitutes from function names. The currently supported derived-artifact path additionally binds output bytes, loader and approval identity: it decodes and executes the same verified buffer rather than reopening content through a diagnostic filename. Original module behavior and actual executable bytes are separate concerns; an unchanged package hash cannot replace execution identity.
 
 ### Headless does not mean launching another Pi Agent
 
-Our Agent already owns its model, tool loop, and Run history. We only need Pi's extension mechanism—not Pi's second model loop.
+If a product already accepts Pi’s session and tool loop, its native host usually avoids another compatibility layer. [Pi’s official documentation](https://pi.dev/docs/latest/extensions) distinguishes interactive, RPC, JSON and print modes with different UI capabilities. The mode must still match an extension’s interaction needs; headless does not imply equivalent support for every API.
 
-The headless adapter supplies contextual, tool, and state interfaces backed by actual Host Owners. Missing interactive UI, session-tree, or dynamic-registration semantics are not replaced with no-op success.
+Our constraint differs: ETF Agent already owns its model loop, Run grants and durable receipts, and needs only selected extension capabilities. Keeping that Host and adding compatibility Profiles costs event-by-event adaptation and explicit refusals where semantics are absent. If the goal becomes the complete Pi product experience, reevaluating the native host may be preferable to accumulating adapters.
+
+The headless adapter supplies contextual, tool, and state interfaces backed by actual Host Owners. Missing interactive UI, session-tree, or dynamic-registration semantics are not replaced with no-op success. Presentation-only operations can be no-ops under a Profile that explicitly discloses missing rendering; that proves neither user-visible delivery nor a session or state effect.
 
 Scoped verification of the original Pi todo supports **add/list** and state handling. **session_tree** and the **/todos** command retain explicit unsupported records. We do not need to implement the entire Pi product for one extension.
 
@@ -253,7 +255,7 @@ The correction preserved SessionStart for real new sessions and prevented it fro
 
 Testing command Hooks, Pi Factories, and state recovery individually is not proof that extensions from different ecosystems coexist.
 
-We used two unmodified original plugin components—official Claude **Hookify** and Pi **todo**—plus a clearly labeled **synthetic Pi nested knowledge-read** component to exercise Host controls.
+The historical combination used two unmodified, version-pinned original plugin components: official Claude **Hookify** and Pi **todo**, plus a clearly labeled **synthetic Pi nested knowledge-read** component to exercise Host controls.
 
 The experiment used a synthetic account, scripted model, actual original plugin bytes, and an **in-memory store**. It involved no real investor data or paid model calls.
 
@@ -282,7 +284,7 @@ The supported conclusion is narrower and useful: **selected original Claude/Pi e
 
 ## 8. Why We Did Not Build One Universal Hook API
 
-It initially seemed attractive to define one JSON Hook abstraction for all ecosystems.
+A common JSON Hook is reasonable for owned plugins that exchange bounded structured inputs and outputs without shared closures: the protocol is smaller, with more straightforward independent deployment and isolation. The problem is treating it as a lossless universal substitute for existing heterogeneous extensions.
 
 Their differences reach beyond event names: Claude/Codex command processes have distinct exit codes and matchers; Pi has a Factory, closures, and session state; some Hooks transform arguments, some modify results, and some just send advice. Cancellation and Recovery must also preserve external effects.
 
@@ -294,9 +296,9 @@ We retained three separate responsibilities:
 - **Lifecycle Executor:** select and order callbacks, freeze inputs, invoke commands/callbacks, enforce deadlines, and report local failures.
 - **Original Runtime/Effect Owner:** authorize actual tools, validate what enters model context, settle committed effects, and choose Run continuation or termination.
 
-Our contribution is not a new theory of Hooks. It is engineering **interoperation without replacing the original Agent Loop or losing original execution facts**.
+Choose this split when the task is specifically to **retain an existing Agent Loop while reusing selected external extensions**. If you own every plugin, a smaller native interface is easier to maintain. If complete ecosystem semantics are required, consider the native host first. A compatibility layer keeps necessary differences explicit, at the cost of maintaining Profiles, executable identities, lifecycles and upstream-version correspondence.
 
-As of October 2026, Claude Hookify and supported Pi subsets have original-package, Factory, controlled-process, and scoped PostgreSQL/process evidence. Codex dialect compatibility is **not** blanket acceptance of original plugins. OpenCode's executable Profile has **not** received equivalent acceptance.
+The retained records separately cover a fixed Claude Hookify/Pi combination, controlled processes and scoped PostgreSQL seams. They are not continuing compatibility promises for the latest upstream versions or every plugin. Codex dialect support is **not** blanket acceptance of original plugins, and OpenCode’s executable Profile lacks equivalent acceptance.
 
 
 

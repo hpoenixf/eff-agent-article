@@ -22,7 +22,7 @@ For a demo, that looks sufficient. But once we integrated custom experts into ET
 
 These questions determine whether a custom expert remains a disposable prompt or becomes a maintainable product capability.
 
-We chose not to create another Runtime for each expert. Instead, users save a research method with a durable identity and revision; the existing generic Subagent performs the work. Along the way, we found concrete integration failures: instructions reached the wrong request layer, History failed to recognize an expert that the Child had actually used, and a browser test rendered a blank page because two React instances were present.
+We chose not to create another Runtime for each expert. Instead, users save a research method with a durable identity and revision; the existing generic Subagent performs the work. The failures that shaped this design were instructions entering the wrong request layer, History losing the identity of an expert actually used by a Child, and a failed catalog read being presented elsewhere as “that expert does not exist.” None is solved by another Prompt field.
 
 This article is specifically about **user-defined experts**: storing them, selecting them, executing their methods, and recovering their identity. Web/PDF/Python packages and multi-Agent conversations are supporting infrastructure, not a second architecture tour.
 
@@ -49,7 +49,7 @@ The ID above is a shape example: the part after `user/` is a server-issued Profi
 
 ## 2. Store a Method, Not an Execution Platform
 
-We deliberately kept the initial personal expert small:
+The core personal-expert configuration stays small:
 
 | Field | Purpose |
 | --- | --- |
@@ -57,6 +57,8 @@ We deliberately kept the initial personal expert small:
 | `description` | Helps Main decide which tasks fit this expert |
 | `instructions` | Full research method delivered to the selected Child |
 | `enabled` | Whether new research Runs can discover the expert |
+
+The current configuration can also store `preferredTools`, `preferredSkills`, and `preloadedSkills`. The first two express method preferences; the last requests Skill content for the selected Child in advance. None installs tools, grants permission, or creates execution budget.
 
 For example, a user might define a "Fund Holdings Overlap Reviewer." Its description would say that it examines shared underlying exposures across several funds. The instructions would require checking disclosure dates, separating fund names from underlying companies, and preserving uncertainty rather than inventing precise exposures.
 
@@ -90,13 +92,17 @@ At the start of a research Run, the system reads the account's enabled, non-dele
 
 Main receives only a bounded discovery catalog: exact IDs, names, and descriptions. It does not load every expert's `instructions` into its context. The complete method is sent as user-originated method data only to the Child that actually selects that expert.
 
-An empty catalog differs from a failed catalog read. In the latter case the system should report that expert configuration is unavailable. Other permitted research may continue, but an explicitly requested personal expert must not be silently replaced by General.
+The current projection preserves three states: an exact listed ID is `available`; known absence is `not-listed`; a missing `user/` ID whose original personal catalog could not be read is only `catalog-unknown`, with no invented false availability flag. Independently available built-ins keep their own state rather than failing with the personal catalog.
+
+An actual counterexample exposed why this matters. The original Profile envelope already reported unavailable, yet a separate selection hint inferred “not listed” from an empty unified expert list. The problem was not the database failure itself; flattening the list discarded its source's unknown status. Single, plural, and compact selection projections now consume that fact from the original snapshot. This does not authorize invocation. It lets Main explain the unfulfilled choice while continuing independent permitted work, without silently substituting General for an explicitly requested expert.
 
 ### 2. The existing General Child performs the work
 
 The Child reuses the established model, tools, source authorization, resource accounting, and result handoff. A personal expert's instructions are not new system instructions. They cannot grant trading, publication, recursive Child spawning, or broader data access.
 
 A prompt telling the model not to escalate privilege does not enforce that distinction. During a controlled request-assembly test of the unified `agentId` path, personal `instructions` had reached the Child's general system layer. We corrected their placement through the existing request assembly: Main receives catalog metadata, while only the selected Child receives the frozen user-originated method. **A prompt's trust level depends on its producer and message role, not merely its wording.** This was a scoped engineering finding, not evidence of an actual user-data leak.
+
+Optional Skill preloading follows the same principle: **derive the actual Child grant before reading the requested content**. It is not a Run-start preload of every expert and Skill body. The original reader checks read capability, registration and approved package identity, retaining complete instructions and their hashes. The Child request then fits each binding against actual input capacity. Incomplete reads, hash mismatches and oversized bindings produce specific unavailable reasons rather than truncated text labeled successfully loaded. This bounds context cost, but successful preloading still proves only that content entered the request, not that a model followed it.
 
 The chosen execution identity includes `agentId`, provenance, version, content hash, and personal Profile revision. An `agentId` is neither a filesystem path nor permission to run code.
 
@@ -114,11 +120,13 @@ During migration, the Child already used `agentId`, but an older History reader 
 
 Consider a simple counterexample.
 
-In the morning, a fund research Run starts with revision 1 of a Profile. In the afternoon the user publishes revision 2, with stricter disclosure-date rules. That evening, the interrupted research resumes.
+In the morning, a fund research Run starts with revision 1 of a Profile. In the afternoon the user publishes revision 2, with stricter disclosure-date rules. That evening, the original control and recovery path authorizes the research to continue.
 
 If recovery simply reloads the latest configuration by `profileId`, one Run may quietly use two research methods under the same displayed name. We therefore retain the original Run's frozen content: **new edits apply to future new Runs; an existing Run continues with its existing binding.**
 
-This matters both for consistent execution and for explaining why an answer was produced.
+Why not store only an ID pointing at the latest revision? That uses less snapshot storage and applies edits immediately, which can be appropriate for simple Prompt templates whose every invocation is a new task. This runtime may create another Child later in the same Run, reread earlier results, or continue through an authorized control wake. Changing methods midway would obscure the basis of its earlier judgments. We therefore retain actual content and identity, accepting storage, capacity and private-content retention costs.
+
+This does not make every process failure automatically resumable. The current contract distinguishes an accepted control wake from ordinary owner loss. Ordinary loss follows the existing interruption path, ends execution and preserves the snapshot without replaying a Child from history. An old record with no method snapshot also cannot be supplemented by reading today's account configuration. **Freezing a method preserves identity; execution still requires the original recovery eligibility.**
 
 ## 4. Comparing Octop: Template, Instance, and Execution Need Not Be One Object
 
@@ -182,11 +190,9 @@ This is adjacent to [the agents-as-tools and handoff distinction in the OpenAI A
 
 ## 7. What Works Today, and What Still Needs Qualification?
 
-As of October 27, 2026, versioned Profiles, exact selection from normal messages, soft Tool/Skill preferences, optional Skill preloading, on-demand calling guides, expert directory and contribution projections, account presets, and Child-authored description updates have scoped engineering implementation and verification evidence.
+The current implementation connects method configuration, exact selection, frozen requests and actual contributions. Engineering evidence should be used for the object it observed: isolated PostgreSQL and authenticated browser checks cover selected storage, message, recovery and presentation paths. Scripted model requests can verify selected method bytes and revisions, but not real-model selection quality or preference adherence. Profile-specific end-to-end control-wake qualification cannot be inferred from generic recovery or presentation tests either.
 
-Isolated PostgreSQL and authenticated browser tests using a scripted model interface verify selected storage, selection, replay, recovery, and presentation paths. They do **not** establish autonomous model selection quality or preference adherence in real investment research. Earlier live-model examples mainly exercised built-in methods or General/Python.
-
-The account does not thereby gain arbitrary executable-package installation, an expert-specific model or budget, or trading permission from a preference. The narrower engineering conclusion is that **versioned personal methods can use the existing Child and result system without a second Expert Manager**.
+Earlier live-model research mainly exercised built-in methods or General/Python, not a demonstrated investment-quality improvement from personal experts. These features do not introduce arbitrary executable packages, independent budgets, or trading permission through prose. More useful acceptance questions than implementation counts are: **Did the selected original revision actually reach that Child? Does the result come from real execution? Can a local failure be stated honestly while independent results remain available?**
 
 ## Conclusion
 

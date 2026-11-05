@@ -118,7 +118,13 @@ A product may expose an explicit **Continue** action for an interrupted comparis
 
 Even a supplied parent ID must be verified: the same Conversation and scope, an eligible durable terminal state, recorded Main execution, and the originally granted source and tool limits. Completed and partial results have applicable conditions; narrowly specified transport disconnections and lost execution ownership can also qualify. Generic failures, user cancellation, and arbitrary still-running tasks do not qualify simply because someone presses Continue.
 
-**Continue creates a linked new Run; it does not reopen the parent's phases, budget, or tool receipts.** Inherited rights and restrictions are reconciled against authoritative stored records and current admission limits. Consent that must be requested again cannot be silently copied.
+**Continue creates a linked new Run; it does not reopen the parent's phases, budget, or tool receipts.** Inheritance has two parts. The parent's source, tool, capability and policy grant is rebound to the new Run without repeating source admission against changing permission tables. Deny restrictions along the explicit same-task ancestry are retained together: omitting an old restriction from “continue” does not re-allow it. A historical-context `parentRunId` does not select this deny chain.
+
+Provider-disclosure consent is separate. The current inheritance function removes the parent's disclosure receipt; the new Run's original admission owner handles consent for that invocation. Inheritable source authority does not make every recipient's transmission permission copyable. Account/conversation isolation, scope activation, budgets and cancellation still apply independently.
+
+An eligible explicit Continue with recorded Native Main execution enters Main with the prepared original task and bounded context, rather than asking generic Entry to classify it again. This preserves a verified research relationship instead of making the model reconstruct it from “continue.” The model may still change focus based on new questions or evidence; old progress assessments do not become certified facts.
+
+One contract boundary remains inconsistent: the Recovery specification says unreadable parent restrictions cause rejection before dispatch. Current Conversation/Factory wiring instead uses an existing trusted parent-identity ceiling to deny personal data and search while allowing independently permitted work; without that ceiling it refuses. Unknown restrictions do not become unlimited authority, but not every such read failure guarantees zero dispatch. A caller requiring that stronger promise needs the specification and implementation aligned first.
 
 ## 4. Which earlier materials may the new Run take along?
 
@@ -133,7 +139,9 @@ Once the relationship is valid, the model needs useful context. That does not ju
 
 History compaction may omit earlier replies; a working summary may lose essential detail. The conversation admission component should not repair those gaps by making up a coherent narrative. It maintains the task relationship, while context projection decides what evidence may enter the next request. The research model then adapts its answer to what it has.
 
-The engineering history supplies a concrete counterexample. After eligibility for a narrowly interrupted Run was expanded, a focused test found that the new Run reached Main **without receiving the original question**. More prompt instructions would not restore missing task identity. The later correction checked the parent's original text hash, authorization, and context binding before allowing the original request into the new execution. These were controlled code and scripted-Gateway observations, not a production incident rate.
+A counterintuitive failure came from withholding all history to deny personal data: the original question for the same public-only task disappeared too. Once narrow interrupted-parent eligibility allowed a new Run to reach Main, controlled validation found only “continue,” without the original question. More prompt instructions could not repair the broken handoff.
+
+The current path binds original user text, content hashes, scope/conversation and grants along explicit parent links, then reads permitted body content through canonical History. Unrelated private turns in the same conversation, caller-cached answers and forged original text do not come along. A public-only task identity is not a classifier proving arbitrary text contains no personal details. If the body is unavailable, only the verified task survives, without an invented old conclusion. Focused regressions also covered another Continue and the ancestry of an accepted clarification, rather than treating a successful first handoff as universal continuity. These are controlled code/scripted-Gateway observations, not production incident statistics or a newly executed test.
 
 A second counterexample involves conflicting parent projections: a research record may show a partial result while the Conversation projection lacks the matching interruption reason. The admission path cannot just trust whichever one allows progress. A focused regression expects refusal with no extra execution. It does not assume that normal producers emit those deliberately inconsistent synthetic states.
 
@@ -203,7 +211,9 @@ After `start` completes normally, this `resume` sequence demonstrates **a repeat
 
 ## 8. Conversation admission does not decide what the model should do
 
-It is tempting to blend chat history, task identity, recovery, and permission inheritance in the name of a smooth experience. But a complex Agent needs **natural-language continuity and execution-fact continuity to cooperate without impersonating one another**.
+For short question answering without protected tool effects, retaining recent messages and letting the model interpret references may be enough; explicit task continuation is not required for every sentence. To resume saved steps within the same nonterminal execution, use its original checkpoint and effect receipts rather than a new chat message.
+
+Here, long research may already be terminal, and the user should decide whether to continue. A new Run with an explicit parent fits that need. The cost is maintaining trusted ancestry while handling missing context, inherited authority, fresh recipient consent and resource limits separately. It supports cooperation between conversational continuity and execution continuity, not automatic unlimited work.
 
 Conversation admission should answer narrow, verifiable questions: Has this original message already been admitted? Which trusted conversation owns it? What task relationship can be established? Which conflict must be refused?
 

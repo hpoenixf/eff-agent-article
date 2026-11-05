@@ -1,28 +1,30 @@
 ---
 title: Why Tool Results Should Not All Enter Model Context
-description: Keeping large tool results outside model context while preserving selective reads, coverage, authorization and exact versions.
+description: Distinguish acquired results, actual model input and exact rereading through silent truncation, repeated old reads and concurrent capacity conflicts, with alternatives and trade-offs.
 readingBrief:
   takeaways:
-    - "Keep large results in a controlled store and read exact versions or selections; catalog presence, successful reading and inclusion in model input are distinct facts."
-    - "Check scope, record identity and byte coverage before claiming completeness; a deliberate partial read can support a scoped answer, not a whole-dataset claim."
-    - "Replace older bodies with references only when original receipts establish exact rereadability; references grant no access, and refreshing must not silently replace the original snapshot."
+    - "Store authorized views and select exact versions or ranges; catalog presence, tool success and inclusion in the actual request are different facts."
+    - "Finite-set completeness needs identity, scope and byte coverage; a full-holdings path and a deliberate page read have different targets."
+    - "Soft targets retire older bodies first; actual hard pressure permits only verified whole-result references or actionable capacity outcomes, not endless reference-only success."
+    - "Exact rereading suits long research; small results are often simpler inline, while stored references add versioning, access, storage and reread costs."
   appliesTo:
-    - "Handling large holdings tables, documents or paginated APIs, especially repeated context payloads and silent truncation."
+    - "Large tables, documents and paginated results: downstream truncation, repeated payloads and concurrent reads that do not fit the next model request."
   notFor:
-    - "Using finite-set coverage to claim exhaustive web search, or inferring answer correctness and cost savings from complete input alone."
+    - "Inferring answer correctness from complete input, billing from serialized bytes, or exhaustive web knowledge from finite-set coverage."
 ---
 
 # Why Tool Results Should Not All Enter Model Context
 
-A natural starting point for an agent is to send whatever a tool retrieves straight to the model. Fetch holdings, return the holdings; fetch market data, return the market data. The model reads the response and decides what to do next.
+A tool retrieves a 120-row table, but the model needs only three fields for its next step. Sending the whole table every turn is wasteful. Keeping only a summary may discard the exception that matters in the following step.
 
-Longer research exposes two problems with that pattern. Repeated full results consume space needed for later work. Meanwhile, an intermediate layer may quietly remove records to satisfy a capacity limit, leaving the model to treat a subset as the complete dataset.
+The current design retains **acquired, authorized result views** with their original result owner and lets the model read exact versions and selections. Storage is the easy part. The harder questions are how to disclose partial delivery, how to return to the same original later, and how to continue honestly when a successful read no longer fits the next request.
 
-During a holiday engineering iteration, we moved some tool results outside the prompt and enabled selective reads. In a separate controlled investigation, we found that only 20 of 50 source records reached the actual model input. Both experiences lead to the same engineering question: **How can a model move less data while still knowing exactly what it has received?**
+We follow that consumption path, using three evidenced counterexamples to explain the choices: 50 records projected as 20, old reads repeatedly carried forward, and two individually valid selections colliding with a local capacity limit. The public exercise at the end implements a narrower, runnable slice.
 
-The sections below explain selection and coverage in the original system, then use a public code experiment to inspect the independently implemented slice: query-driven page reads, immutable results and exact rereads. That slice does not count the historical 50 → 20 case as its own execution result.
+<span id="a-desk-does-not-need-to-hold-the-entire-archive"></span>
+<span id="references-authorization-and-refresh-keep-different-meanings"></span>
 
-## A Desk Does Not Need to Hold the Entire Archive
+## 1. Separate the Stored Result, Catalog and Current Selection
 
 Context is the material available to the model during one inference step. Inserting complete tool results is like spreading every document across a desk. New queries and repeated results keep occupying more space as research continues.
 
@@ -76,29 +78,24 @@ SelectedContent --> CoverageFacts
 CoverageFacts --> NextModelRequest
 ```
 
-The catalog and content follow different consumption paths. Explicit reads check the Run's recorded grant, account/scope and result-version identity; the same Run and its recovery do not requery current ACLs. Only selections within that granted scope, together with their coverage facts, enter the subsequent request.
+The catalog and content follow different consumption paths. Explicit reads check the Run's recorded grant, account/scope and result-version identity; the same Run and its recovery do not requery current ACLs. Selection first obeys the original granted scope; request assembly then determines which bodies are actually presented. That last step must not upgrade the coverage facts.
 
-## Three Limits Answer Three Different Questions
+The result store should retain the authorized data view. If private fields are filtered out but the unfiltered capture enters a readable store, a later reference read may bring those fields back. Each read must still fit that Run's recorded grant and preserve account, scope and content-version identity. A new Run requires independent admission; an old reference cannot supply permission. A reference is an address, not an access grant.
 
-After moving large results outside context, it is easy to keep applying the small automatic-response limit to explicit reads. The system permits storing a result and the model deliberately requests it, yet the smaller automatic-insertion threshold prevents useful access.
+Reusing a previous fetch and automatically inserting its body require separate policies. A large response is not necessarily stable, and a read-only tool does not necessarily return the same data for identical parameters.
 
-We therefore separated three boundaries:
+Only queries explicitly approved for reuse should match existing results by business arguments, tool/version identity, authorization identity and research scope. A requested refresh fetches again and creates a new version. A failed refresh retains both the failure fact and the old version's identity. A failed read of an exact version must not silently refetch upstream and present new data as the original snapshot.
 
-| Limit | Question |
-| --- | --- |
-| Storage capacity | How much authorized data may one result retain? |
-| Automatic insertion | How much content should enter context without an explicit selection? |
-| Explicit read capacity | How much may the model deliberately request in one read? |
+Together, these boundaries let the model return to original material without gaining extra access or unknowingly changing the object being analyzed.
 
-In the result-presentation implementation at that time, automatic insertion used a **24 KiB** threshold, while an explicit read defaulted to **128 KiB**, still subject to the actual request's remaining capacity. These were implementation settings, not universal optimal values.
+<span id="when-50-records-became-20-the-failure-was-before-the-model"></span>
+<span id="completeness-needs-an-object-and-a-scope"></span>
 
-**“Do not insert automatically” must not silently become “cannot be read.”** Permission to read does not imply that every possible selection will fit in one request, either. An oversized selection needs explicit coverage information or pagination; a shortened body must not masquerade as a complete response.
-
-## When 50 Records Became 20, the Failure Was Before the Model
+## 2. Fifty Records Became Twenty: Success Is Not Complete Input
 
 In the controlled investigation, the source contained 50 records, but an intermediate entry limit admitted only 20 into the model input. The logs showed no obvious error, and the model produced a coherent summary. The other 30 records had never entered its field of view.
 
-The first suspicions concerned context length, model attention and the prompt. Inspecting the actual input changed the diagnosis: the model had not merely overlooked material it had received. It had never had an opportunity to see the tail of the dataset. Telling it to “omit no entries” could not restore content absent from its request.
+Inspecting the actual input located the loss in the generic entry projection: the outer envelope could report 50/50 while the inner payload retained only 20. The model had never had an opportunity to see the tail. Telling it to “omit no entries” could not restore content absent from its request.
 
 We made facts that had been scattered across reading, filtering and capacity handling explicit. This remains a teaching structure rather than the project's exact interface:
 
@@ -126,8 +123,6 @@ For finite sets with stable identities, also reconcile record IDs, page cursors,
 
 Authorization filtering can itself be correct. The issue is that the readable set after filtering and the original target are different objects. Later stages cannot silently keep using the old denominator. Coverage metadata must not redisclose fields that are prohibited from being read.
 
-## Completeness Needs an Object and a Scope
-
 Input coverage and answer quality require separate judgments:
 
 | Level | What it can establish | What it does not also establish |
@@ -148,72 +143,106 @@ An earlier rule allowing only a draft whenever input was incomplete was too broa
 
 This coverage contract applies to finite sets such as holdings, database results, file manifests, fixed documents and paginated APIs. Open-ended web search has no naturally enumerable universe. Twenty returned search results can support a statement such as “the current search plan was executed”; they cannot prove that all relevant knowledge has been covered.
 
-## A Successful Read Still Needs a Check at the Actual Model Request
+## 3. Why Not Return Everything, Summarize It, or Let a Framework Clear It?
 
-Another gap can occur after a tool returns. The model explicitly selects content, but later request assembly trims it again, replacing the body with a reference while the call continues to report success.
+These approaches overlap, but they do not replace one another.
 
-The tool response therefore cannot be the last observation point. We distinguish the catalog, historical reads and current-turn reads:
+| Approach | Strongest fit | What still needs an answer |
+| --- | --- | --- |
+| Inline tool results | Small, stable tasks completed in a few turns; simplest to implement and debug | Repeated large bodies and truthful coverage when later trimming occurs |
+| Summaries or selected excerpts | An overview is enough, detail loss is acceptable and originals remain accessible | Exceptions may be lost; a summary does not establish original-source coverage |
+| LangChain `ToolMessage.artifact` | Separating model-facing content from data needed by the application | The field alone does not define version storage, selected rereading or access lifetime |
+| Claude tool-result clearing | Using its API to clear older results while retaining recent or excluded tools | The application still owns exact original access and source authorization |
+| Authorized views, exact references and explicit reads | Long research repeatedly revisits sources and must explain versions and selections | Storage, availability, authorization, coverage and extra reads; the model must choose useful material |
 
-- Catalog entries are auxiliary navigation information and may be fitted to capacity.
-- Older reads may be reduced to their original version and selection parameters, allowing exact retrieval later.
-- Newly selected content must not quietly become a “successful read” with no body.
+[LangChain's message documentation](https://docs.langchain.com/oss/python/langchain/messages#tool-message) separates model-facing `content` from programmatically available `artifact` data that is not sent to the model. This is a useful foundation. Stable result identity and controlled rereading are additional application responsibilities, not automatic consequences of using that field.
 
-“Data acquired,” “reference returned,” and “content included in the request” are separate facts. Coverage must follow the actual consumption path as well. Completeness at an earlier stage cannot prove that the final request still contains the complete selection.
+[Claude context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing#tool-result-clearing) clears older results server-side with placeholders while the client retains full history, with recent-result retention and tool exclusions. It removes some request-management work, but the application still decides how to recover originals. Clearing can also invalidate a cached prompt prefix, so a shorter request is not automatically cheaper.
 
-There is another capacity conflict distinct from silent truncation: **the authorized source selection fits, but added derived fields push the model-visible result over its final limit**. A tool may first return a narrowed view respecting the grant and selected range, then attach derived annotations for analysis. Treating the enriched response as indivisible can make even the originally readable source unavailable once those annotations exceed the final byte budget.
+We chose exact rereading because a temporarily omitted number, date or exception may matter again. Summaries can coexist with it: summaries aid understanding; references recover originals. The price is more state and potentially more read turns. If the result is a few dozen rows and the task ends in one turn, inline delivery may be the better choice.
 
-The newer request-projection path makes a specific choice: try the enriched model-visible value first; if it is too large and **the same already-narrowed source projection** is available, recalculate the final size using that view, including the tool-call identity. Only if the fallback still exceeds capacity does the system explicitly return `post.result_too_large`. It may not fall back to an unfiltered original payload or quietly drop chosen records while claiming completeness. This preserves a useful bounded read in one failure case; it does not expand the capacity limit or prove that the model understood the retained content.
+<span id="three-limits-answer-three-different-questions"></span>
 
-### A New Finding: Old Reads Kept Reappearing Before Context Was Full
+## 4. Three Limits Still Do Not Tell You Whether Two Reads Fit Together
 
-We later inspected the actual model inputs of a long-running research Run. Main issued 37 Native requests and made 20 explicit tool-result reads. Across subsequent requests, we observed **279 repeated appearances of identical read-result messages**. These are appearances in different request messages—not 279 additional tool executions, and not a directly measured token or billing total.
+Storage capacity, automatic insertion and explicit-read capacity answer different questions: how much can be retained, how much is inserted without a selection, and how much can be deliberately read at once. An earlier implementation used 24 KiB for automatic insertion and 128 KiB for explicit reads. Those are historical settings, not one current limit for every interface or universal best-practice values.
 
-The earlier strategy had a reasonable purpose: it converted older result bodies into exact-reread references only when the aggregate tool-result working set exceeded a roughly 192 KiB soft target. That avoids retiring useful evidence too early while there is ample space. But in this particular Run the aggregate threshold was never crossed, so older materialized reads continued to travel with later requests.
+**“Do not insert automatically” must not mean “cannot be read.”** Conversely, two individually valid reads may not fit together with user text, tool definitions and history.
 
-The updated behavior does not reduce the global ceiling or ask the model to summarize the evidence. Instead, it applies a smaller working-set target **only to older explicit reads whose precise reread eligibility is established by a unique Host receipt**. When those older reads exceed that target, the request projection may replace their text with an original-result reference. The two newest read groups, current results, finalization, and the user's original text remain protected. Each reference preserves its selection and coverage facts and can only be reread under the same Run grant and source version. Unknown, ambiguous, failed, or unverifiable results are not silently discarded.
+A concurrent-read investigation exposed both sides:
 
-In a controlled request fixture with five read groups, the new projection reduced the **serialized request by more than 30,000 bytes**. This is an application-level byte comparison, not an observed reduction in paid model tokens or answer errors. A model may also choose to reread the older material later, so the net request frequency and cost still require real-run observation.
+- Two explicit reads shared a fixed 192 KiB pool, leaving 96 KiB each. In a controlled case, two authorized selections of about 105 KB could fit together inside a complete 512,000-byte input window, yet the smaller local allocation made the first read incomplete.
+- Simply enlarging the pool was insufficient. A fallback route might have a smaller window, and a later request might include a user correction that must remain exact. Earlier headroom cannot guarantee later capacity.
 
-The investigation also exposed an observability problem: the original bounded efficiency stream retained request-footprint details for only 21 of 92 model requests. Later work prioritized request facts within the same bounded capture budget and explicitly reported missing observations rather than treating an absent record as an absent request. **Reducing repeated context and knowing what the model actually received require separate checks.**
+Current allocation uses the existing input window and necessary prepared-request overhead to establish a usable aggregate, then divides it among explicit reads in that turn while retaining per-result bounds. Each actual route request is fitted again as a complete input. Disabling local byte rejection does not establish unlimited provider capacity.
 
-## References, Authorization and Refresh Keep Different Meanings
+Historical material also identified four related capacity outcomes across three Runs, but original headroom was not fully recorded. They cannot all be causally attributed to the split pool. The controlled production-path case establishes the defect and repair discussed here; it is not a new live-model quality comparison.
 
-The result store should retain the authorized data view. If private fields are filtered out but the unfiltered capture enters a readable store, a later reference read may bring those fields back. Each read must still fit that Run's recorded grant and preserve account, scope and content-version identity. A new Run requires independent admission; an old reference cannot supply permission. A reference is an address, not an access grant.
+<span id="a-successful-read-still-needs-a-check-at-the-actual-model-request"></span>
 
-Reusing a previous fetch and automatically inserting its body require separate policies. A large response is not necessarily stable, and a read-only tool does not necessarily return the same data for identical parameters.
+## 5. Request Assembly Can Still Change a Successful Read
 
-Only queries explicitly approved for reuse should match existing results by business arguments, tool/version identity, authorization identity and research scope. A requested refresh fetches again and creates a new version. A failed refresh retains both the failure fact and the old version's identity. A failed read of an exact version must not silently refetch upstream and present new data as the original snapshot.
+“Data acquired,” “reference returned” and “body included in this request” need separate observations. A current selection should normally deliver content. With ample capacity, it must not be externalized again merely because it is a read result.
 
-Together, these boundaries let the model return to original material without gaining extra access or unknowingly changing the object being analyzed.
+But **a soft working-set target is not an actual hard capacity limit**. Soft targets reduce old payloads without consuming latest-read protection. If the complete request still exceeds its route's hard envelope after ordinary fitting, the current fitter may replace a successful latest read as a whole with an exact reference independently confirmed by its original receipt.
 
-## A New Consumption Form: Reviewable Is Not a Second Answer
+That exception has specific conditions:
 
-After a research result is saved, readers may want to inspect supporting detail, input and coverage. By October 24, 2026, ETF Agent main included an **optional Reviewable research attachment**. The original result-and-citation management component still owns result identity, versions and source lineage. After the final text transformation, Publication binds eligible review details to the corresponding Publication revision; history delivery and client reading expose already-saved details through existing History and client reading surfaces.
+1. The original is retained and its reference, source identity and selection are uniquely verifiable. A model-authored ID or lookalike payload cannot authorize replacement.
+2. The whole body is replaced, preserving selection, coverage and the hard-capacity omission reason. No half-value remains authoritative, and omitted content is not reported as presented.
+3. Exact current user text, the original Run grant and durable result are not rewritten. Independently valid published text is not withdrawn by this capacity failure.
+4. If an earlier omission of the exact same selection is receipt-confirmed and the reread still cannot fit, return local `STORED_RESULT_CAPACITY` guidance to narrow or page. Do not produce another reference-only success. Unproven or non-beneficial replacements cannot silently remove the body.
 
-This is not a new “the review must pass before publication” gate. When an attachment fails to load, exceeds its limits, or is no longer eligible for the current reader, the attachment degrades locally. Independently authorized answer text remains under the original Publication owner and is not erased by review-attachment errors. Reviewable can show **how materials were associated with a result**, but cannot certify the semantic truth of a conclusion or replace human financial review.
+This preserves the original without creating “read A → receive A's reference → read A again” as an endless loop. Readable is not the same as read this time; useful pagination must actually change the selection.
 
-The implementation seams exist in main. A readable review panel, however, does not establish that every natural research answer has sufficient sources, that citations support each claim, or that users completed meaningful review. This change deepens **result consumption and inspection**, without creating a second Result Manager or duplicating the research fact ledger.
+A different conflict occurs earlier: the authorized source fits, but added derived fields make the result too large. Projection first tries the enriched value. If it overflows and **the same already-narrowed source projection** remains available, that view is measured again, including tool-call identity; another overflow yields `post.result_too_large`. Falling back to unfiltered capture or silently dropping selected rows is not allowed. The choice preserves the source already permitted for reading rather than letting optional explanation make it unavailable.
 
-## Put Decisive Records at the Tail of the Test
+<span id="a-new-finding-old-reads-kept-reappearing-before-context-was-full"></span>
 
-Changing the entry limit from 20 to 60 solved the immediate problem for the 50-record input. Increasing capacity alone, however, could not establish that the next over-limit response would disclose its limitations.
+## 6. Old Bodies Can Keep Traveling Before Any Hard Limit Is Reached
 
-We then prepared **65 records** with decisive information near the tail, causing the 60-entry limit to exercise the incomplete branch. The checks included:
+In the later inputs of one real long-running research Run, Main made 37 Native requests and 20 explicit result reads, yet the same read-result messages appeared **279 more times across subsequent requests**. These are repeated message appearances, not 279 extra tool executions or token and billing measurements.
 
-| Condition | Fact to preserve |
+The aggregate tool-body soft target was about 192 KiB and was never crossed in that Run. It reasonably avoided retiring useful material too early, but did not prevent smaller old reads from traveling indefinitely.
+
+The current policy retains that aggregate target and additionally handles older explicit reads. Above a secondary target based on the 24 KiB automatic-insertion size, only old bodies backed by a unique Host receipt and exact rereadability return to their original references. The latest two Native call groups are excluded from this early retirement; Child and finalization-only requests do not enable this extra optimization. It does not rank semantic relevance, merge similar text from different sources or delete durable originals. The latest-read exception in the previous section requires actual hard pressure, not routine cleanup.
+
+Halving the global target would affect all tool results. Deleting content after one read could remove evidence needed immediately afterward. Summarizing would change meaning when the problem is repeated transport. References and the read-tool descriptor also occupy space; if the complete candidate grows, keep the original.
+
+A controlled request with five read groups became more than 30,000 serialized bytes smaller. That establishes a smaller request, not lower paid tokens, fewer total calls or better answers. Frequent rereading could offset the gain.
+
+The Run's bounded efficiency stream also retained footprint details for only 21 of 92 model requests. That gap must be named rather than treating missing records as absent activity. Later observation work prioritized request-level facts; efficiency and actual content exposure still require separate checks.
+
+<span id="a-new-consumption-form-reviewable-is-not-a-second-answer"></span>
+
+## 7. The Same Result Can Support Human Inspection
+
+People may also want to inspect the inputs, selections and sources behind a conclusion. The existing optional Reviewable attachment, present in main by October 24, 2026, follows the original ownership chain: result and citation components retain identity, versions and lineage; Publication binds eligible details to its revision after final text transformation; History and the client expose the saved review view.
+
+The attachment is neither a second answer nor a new requirement that review pass before publication. Oversized, unavailable or currently ineligible attachments degrade locally. Independently valid text remains governed by the original publication path. Reviewable explains material-to-result relationships; it does not certify conclusions or replace human financial review.
+
+Reusing original identity matters for the same reason it matters during model rereading: a copied source registry could drift away from the version used by the answer. A connected display path also does not prove that natural research always has sufficient sources or that readers completed meaningful review.
+
+<span id="put-decisive-records-at-the-tail-of-the-test"></span>
+
+## 8. Tests Should Exercise the Boundary, Not Just a Small Success
+
+The historical 50 → 20 investigation raised a generic entry limit to 60, solving the immediate 50-record case. That intermediate repair is not the final current contract for full holdings.
+
+The original real-Host/model-projection regression with **65 holdings and gold at the tail** establishes **65/65 preservation**, including identity and precision. A result beyond the final byte limit gets an explicit size error, not a successful first-60 response. Full holdings and a deliberately selected page have different targets.
+
+A teaching counterexample for a generic collection that permits truncation could request 65 records and return 60; it should report five missing and `entry_limit`. That hypothetical must not be presented as the actual holdings-test outcome. At least these cases should be separated:
+
+| Counterexample | What to observe |
 | --- | --- |
-| Request 65 records and load 60 | `inputComplete=false`, reason `entry_limit`, with 5 missing records made explicit |
-| A byte budget cuts a record short | `byteComplete=false`; record count alone cannot establish completeness |
-| Parsing or filtering skips records | Preserve `filteredCount` and the corresponding gap |
-| Counts match but identities differ | Continue reporting identity mismatch; duplicates cannot fill the missing population |
+| A decisive tail record | Full-set contracts preserve it; selected reads claim only their scope; capacity failure does not impersonate the whole set |
+| Equal counts but changed identities, or a half-record | Reconcile identity and bytes rather than counts alone; disclose filtering gaps within their scope |
+| Two reads fit separately but enter one request | Inspect the serialized complete request, not just a single-result reader |
+| A smaller fallback window or new user correction | Refit for the current route and content; exact references do not rewrite user text or durable results |
+| Repeated reads of the same oversized selection | Deliver a real bounded page or actionable narrow/page guidance, not looping reference-only success |
+| Failed refresh, foreign-Run reference or missing original | No substituted snapshot, enlarged authority or unfiltered fallback |
 
-A controlled test reproduced the silent **50 → 20** loss: later records disappeared while the result could still appear complete. The fix makes this incomplete state visible within the tested input boundary; it is not a guarantee for every possible dataset.
-
-Externalized results need other checks too: large results yield the selected content; current selections reach the final request; failed refreshes never impersonate new snapshots; and cross-research references cannot be accessed. Data larger than one read can be processed in batches, but each batch must retain its coverage, and final aggregation must not erase the gaps.
-
-These mechanisms make previously silent data loss observable and separate access to information from repeatedly moving the entire body. Whether the model fully uses the material it has seen still needs to be assessed at the answer layer.
-
-The complete result can stay off the desk, and reading only part of it can be a sensible choice. What must remain explicit is **which result was retained, which part was selected, what the actual request received and which scope the current conclusion can support**.
+These checks answer which result, which selection and how much actually arrived. Correct interpretation, citation and reasoning remain a separate layer.
 
 ## Use the Public Code to Compare “Found” with “Read”
 

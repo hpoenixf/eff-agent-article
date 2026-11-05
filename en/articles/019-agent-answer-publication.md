@@ -1,39 +1,34 @@
 ---
-description: "When answers appear early and change later, sending text is not enough. Preview conflicts and commits missing from runtime logs explain why publication needs durable identities, scoped degradation and recovery—without confusing saved content with task completion or research correctness."
+description: "How can text be visible but unsaved, or disappear from history after commit? Follow the current publication path through candidates, rendered-content restrictions, previews, versioned receipts and readback, comparing direct streaming, save-before-display and transactional outboxes."
 evidence:
-  implementation: "Publication mechanism implemented (as documented here)"
-  scoped: "Controlled call paths and PostgreSQL recovery cases"
-  live: "User-facing rendering and research semantic quality require separate validation"
+  implementation: "Main publication path implemented; a documented specification/implementation gap remains between replacement quota and draft preview"
+  scoped: "Fixed implementation, controlled call paths, and separately identified historical database/browser evidence"
+  live: "Mechanism checks do not establish production gains, actual reception or research quality"
 readingBrief:
   takeaways:
-    - "Candidate text, temporary preview, durable commit, and actual user display are distinct facts; later research failure must not erase an earlier legitimate publication."
-    - "Publication owns body and revision decisions: degrade optional defects locally, reject unauthorized effects specifically, and remove competing whole-answer vetoes from callers."
-    - "Recovery reads protected receipts by original block and revision while rechecking display eligibility; a historical commit proves neither current access nor whole-task completion."
+    - "Candidate, preparation, preview, commit and client display need separate evidence; notification or later research failure cannot reverse a confirmed commit."
+    - "Validate original sources and render attachments before required restrictions; preview and save reuse the same final body."
+    - "Separate block identity, revision and display position to replace a section, identify exact duplicates and recover original receipts without regeneration."
+    - "Direct responses suit simple questions; early display and cross-process revision can justify a publication module and its version, source and transient-state costs."
   appliesTo:
-    - "Research applications with early display, later revisions, cross-process recovery, and content depending on revocable sources."
+    - "Research applications needing early display, later revision, cross-process readback and protected sources."
   notFor:
-    - "Certifying investment-analysis correctness through publication checks, or imposing a heavyweight publication service on every one-shot chat."
+    - "Using successful publication to certify investment conclusions, or imposing a full publication system on one-shot answers."
 ---
 
 # The Agent Has Generated an Answer. Why Does It Still Need a Separate Publication System?
 
-A research agent has queried a portfolio and retrieved materials, and the model has finally written an answer. The server already has the Markdown. Surely it only needs to forward that string to the browser.
+The model has written an explanation and the page displays it. After a reload, it disappears. Elsewhere, identical text at the same revision loses its confirmed source notice. Neither observation necessarily means that the model failed to write an answer or that the browser dropped a message. **Producing text, displaying a preview and saving that text are different events.**
 
-Progressive answers, source revocation, and reconnection make the problem more concrete: the body may be visible but not yet saved; one section may have been committed while the next model call can still fail; a new preview and an old receipt may share a revision number but carry different source notices. Using the outcome of the last model call to decide whether the entire answer exists would erase facts that have already occurred.
+Publication turns eligible candidates into facts with identities, revisions, source relationships and original receipts. This article follows the current path from input to historical readback, placing real counterexamples beside the choices they explain. The model still organizes the argument; the publication component does not judge investment conclusions.
 
-An actual fix in October 2026 exposed precisely this mismatch: during duplicate-content comparison, a live preview of the same revision obscured the source status of the genuinely committed receipt. Another test, involving the authenticated application and a PostgreSQL restart, found that when Publication had committed the body but the runtime log had not yet been written, rebuilding history from that log alone lost the answer.
+The main discussion covers the original project's multi-block mechanism. The [fixed Open ETF Agent v0.8 implementation](https://github.com/hpoenixf/open-etf-agent/tree/2c096ce47be2161f97531170af07ef255872f8b1) extracts only single-block publication, revisions and durable readback, without preview UI, multi-block citations or dynamic source revocation. The final exercises identify this and another public snapshot separately rather than combining their evidence.
 
-This article examines just one component: **why Publication—the answer publication component—cannot be merely a message sender, and how it manages candidate bodies, validation, previews, durable commits, revisions, and recovery.** It is an engineering publication mechanism, not an automatic judge of whether investment analysis is correct.
+<span id="_1-a-model-having-a-body-is-not-the-same-as-the-system-having-published-it"></span>
 
-By October 2026, we had encountered a deeper problem: the model had produced a readable body, yet Runtime, Native tool parsing, or a recovery path could still reject it independently before Publication. We therefore brought decisions about **whether to retain the body, how to degrade it locally, and which publication effect must be rejected** back under Publication as far as possible. Original authorization, execution permissions, and durable receipts remain with their respective factual owners.
+## 1. When a Message Is No Longer Enough
 
-The main article reviews the original project's publication mechanism and its evolution. The accompanying [fixed Open ETF Agent v0.8 implementation](https://github.com/hpoenixf/open-etf-agent/tree/2c096ce47be2161f97531170af07ef255872f8b1) extracts only its single-body-block publication, revision, and durable readback mechanisms. It does not include a preview interface, multi-block citations, or dynamic source revocation; do not conflate the two capability scopes.
-
-## 1. A Model Having a Body Is Not the Same as the System Having Published It
-
-Early question-answering interfaces tend to collapse three events into one operation: the model returns text, the server saves a message, and the client displays it. As long as an answer can only be returned as a whole at the end, this simplification can work for a while.
-
-Research agents, however, often need to deliver a supported partial answer, continue reading, and then revise sections already published. At least five distinct facts arise:
+For a short, one-shot answer, “model returns → save message → display” can be the simplest useful design. Research applications also need supported partial answers, further investigation and revisions to existing sections. At least five facts then matter:
 
 | Fact | Who can establish it | What it does not establish |
 | --- | --- | --- |
@@ -43,19 +38,28 @@ Research agents, however, often need to deliver a supported partial answer, cont
 | A versioned publication is committed | A durable Publication receipt | That the browser rendered it, or that the article is correct |
 | The client receives and displays it | Delivery and DOM observations for that version | That the user read or accepted it |
 
-**The most important change is not the number of states added, but that a later stage can no longer impersonate the authority of an earlier one.**
+A separate Publication component is not a claim that streaming protocols are immature. Transport does not own the body's business facts. [SSE event IDs and reconnection](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) help clients resume events; they do not define “this revision is saved” or establish that a person saw it.
 
-Without a separate Publication component, if model turns or streaming transport each handled publication themselves, structural contracts, citation binding, revision identity, save ordering, and recovery decisions would become scattered across callers. Publication centralizes those shared responsibilities; it does not decide which argument is more persuasive on the model's behalf.
+| Approach | When it fits better | Why this system needs more |
+| --- | --- | --- |
+| Stream directly, then save the final message | Short, disposable answers where intermediate loss is acceptable | The last model outcome cannot alone represent earlier committed sections and revisions |
+| Save before displaying | Every visible body must have a durable receipt; waiting for the write is acceptable | A simpler boundary; this system also wants earlier first-section display, so it has an explicitly unsaved preview |
+| Save the body and pending event in one transaction | A database update must reliably notify downstream consumers | Addresses database/message dual writes, but still needs body identity, sources and client version merging |
+| Preview plus versioned Publication | Content appears early, changes later and survives reconnects | Requires handling unsaved-content loss, revision conflicts and preview/receipt merging |
 
-## 2. Two Body Entrances, One Publication Owner
+A [transactional outbox](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html) is the established third approach: commit the business fact with its pending notification, while consumers handle duplicates and ordering. Here, body, versions and current delivery event also stay in the original transaction. This can coexist with early previews. A post-commit notification exception cannot reclassify a confirmed write as failed, nor establish successful delivery.
 
-This system went through a very practical interface evolution.
+[Event sourcing](https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing) may fit a domain that needs broad historical reconstruction, at the cost of event evolution, replay and queries. This design needs a narrower body-version and receipt boundary. An event table alone does not make the whole system event-sourced.
 
-Initially, we represented an answer through an explicit publication action. Later, we consolidated the progressive-answer tool into `send_answer_part`: the model only submits complete Markdown and, where necessary, a still-valid `replaces` target issued by the Host. It no longer has to supply source versions, numeric channels, text offsets, or runtime state.
+<span id="_2-two-body-entrances-one-publication-owner"></span>
+<span id="also-check-who-can-stop-a-candidate-reaching-publication"></span>
+<span id="display-normalization-must-not-rewrite-original-input"></span>
 
-Later still, we realized that requiring “the model must call a publication tool before any body is allowed to appear” was also unreasonable. Ordinary Assistant Text explicitly normalized by the gateway can be a candidate answer too; a model turn containing tool calls can also contain ordinary prose. The two entrances have different candidate identities but **share the downstream Publication validation and delivery mechanisms**.
+## 2. Two Entrances Preserve the Original Identity
 
-The following is a teaching illustration, not real holdings, source identifiers, or the current underlying wire payload:
+There are two current body entrances: ordinary Assistant Text explicitly normalized by the gateway, and `send_answer_part`. The latter takes complete Markdown and, when needed, a current Host-issued `replaces` target. The model does not maintain source versions, numeric lanes, text offsets or runtime state. A model turn containing tool calls may also contain ordinary prose.
+
+Each entrance has its own candidate identity, then reaches the same Publication component. This is a teaching illustration, not real holdings, source identifiers or the underlying wire payload:
 
 ```text
 Entrance A: ordinary model prose
@@ -69,47 +73,18 @@ Host:
   Establish an in-run identity for each candidate → validate → prepare → publish
 ```
 
-Raw protocol frames, hidden reasoning, Entry routing results, and incomplete tool arguments cannot enter the publication chain merely because they “contain something that looks like an answer.” For genuinely different bodies, the system does not use semantic similarity to delete content from one entrance; it reuses an existing identity only when the exact-duplicate rules are satisfied.
+Raw protocol frames, hidden reasoning, Entry routing output and unclosed tool arguments do not become candidates merely because they resemble an answer. Distinct bodies are not deleted by semantic similarity; exact duplicates have a separate rule.
 
-The Native tool entrance must also allow candidates to reach the publication decision owner. How it once bypassed Publication is covered in the two governance rounds below. Necessary tool identity, sealing of original arguments, and the overall intake capacity remain protected by their original owners.
+One easily missed failure was that direct Publisher checks passed while the Native entrance rejected control characters, display length or an empty `replaces` before Publication saw them. The relevant check is whether **both the problematic candidate and a later independent body reach the original disposition owner**, not just whether a low-level function passes. Original tool identity, sealing and total intake capacity remain enforced. The owner of an invalid revision rejects that effect; a peripheral filter must not swallow all prose first.
 
-The trade-off is this: **let the model decide what to write; let the Host decide whether that text qualifies as the current displayable, persistable answer.**
+NUL exposed a second distinction: text cleaned for in-memory display does not establish that the original arguments can round-trip through PostgreSQL in their original representation. The current approach stores recoverable original JSON text in existing fields, reuses mechanical normalization for display and dispatch, and performs no extra decoding on readback. Otherwise, the screen may look correct while the sealed identity has changed. Historical real-database checks separately covered original-input round trips, cleaned display, saving and readback through a new connection.
 
-## 3. Publication's Main Flow: Preparation, Preview, and Commit Are Different Actions
+<span id="_4-two-layers-of-validation-mechanical-validity-does-not-establish-the-argument"></span>
+<span id="local-degradation-does-not-relax-real-authorization"></span>
+<span id="_8-after-unifying-structure-reclaim-peripheral-body-disposition-authority"></span>
+<span id="the-first-round-unified-structure-the-second-reclaimed-decision-authority"></span>
 
-The key mechanism can be summarized in one diagram. A temporary preview is an optional early-delivery path; not every Publication call has to send a preview first.
-
-```mermaid
-graph TD
-ModelDraft --> HostNormalize
-HostNormalize --> PublicationProposal
-PublicationProposal --> CheckOriginalSourceProof
-CheckOriginalSourceProof --> RejectDependentEffect
-CheckOriginalSourceProof --> RetainPermittedBody
-RetainPermittedBody --> DegradeOptionalAttachments
-DegradeOptionalAttachments --> OptionalPreview
-DegradeOptionalAttachments --> CommitAttempt
-OptionalPreview --> CommitAttempt
-CommitAttempt --> SaveUnknown
-CommitAttempt --> VersionedReceipt
-VersionedReceipt --> DeliverEvents
-```
-
-**Relationships and decision conditions:**
-
-- **CheckOriginalSourceProof → RejectDependentEffect**: a real source on which the block depends is unauthorized, its identity is invalid, or a necessary inherited dependency cannot be confirmed. Reject only the affected effect; check independent blocks separately.
-- **CheckOriginalSourceProof → RetainPermittedBody**: the original Run, account, source, and content identities allow the effect to enter display preparation. This does not prove the prose's reasoning correct.
-- **RetainPermittedBody → DegradeOptionalAttachments**: incorrect citations, unverifiable numeric slots, and optional display metadata degrade in place rather than automatically swallowing a legitimate body.
-- **OptionalPreview → CommitAttempt**: preview may precede saving; preparation may also lead directly to a commit attempt. Preview is not mandatory.
-- **CommitAttempt → SaveUnknown / VersionedReceipt**: without a confirmable database receipt, the system cannot claim the content is saved. Only a committed fact can produce a versioned receipt.
-
-In the current implementation, the publication adapter combines the current model candidate with the evidence view actually permitted for this operation, yielding a displayable body and dependency bindings. It can finish preparation before writing to the database and let the UI see `answer-preview` early; a genuine `answer-publication` must be backed by a committed, versioned fact.
-
-The persistence path saves more than the body: within the original transaction it handles block versions, sources and dependencies, delivery events, and run constraints. Normal commits, revisions, and recovery reuse this owner. A temporary preview appearing on screen must not be disguised as a successful database write.
-
-To reduce the wait for the first section, the current path allows early preview delivery and subsequent save settlement. That introduces a cost we have to acknowledge: **the user may see content that is not yet durably saved.** A failed save must remain a failure fact; recovery cannot treat the temporary preview as committed content. Nor can some already-visible changes be treated as if they consumed no revision allowance merely because saving later failed.
-
-## 4. Two Layers of Validation: Mechanical Validity Does Not Establish the Argument
+## 3. Degrade Bad Attachments Without Erasing Real Dependencies
 
 Publication uses a shared `AnswerBlock` structural contract parsed by runtime, publication, recovery, and conversation projection. Internal blocks may contain text or tables, roles, and controlled bindings; the ordinary model writing entrance does not have to maintain these structural facts itself.
 
@@ -123,9 +98,7 @@ The second layer handles **the real eligibility of a publication effect**: do th
 
 **Source notices belong to specific publication blocks.** With no valid inline citations, or only some confirmed citations, the system can attach `sources_unverified` or `sources_partial` to that block. This does not make the entire answer unreliable, and a source notice alone must not mark an execution as interrupted. A committed source notice is bound to the block's revision and body identity. Legacy formats or mismatched bindings retain unknown status rather than defaulting to “risk-free.”
 
-### Local Degradation Does Not Relax Real Authorization
-
-The most important part of this consolidation is not a new kind of check, but separating **attachment defects, content disposition, and rejection of real effects**:
+### Say Which Effect a Local Error Changes
 
 | Problem encountered | How Publication and the original factual owner handle it |
 | --- | --- |
@@ -133,20 +106,66 @@ The most important part of this consolidation is not a new kind of check, but se
 | A numeric handle cannot be confirmed, or bindings for the same placeholder conflict | Show `[value missing]` at that position. Valid values are still rendered from the Host's originals; ordinary literal numbers gain no certification. |
 | The model labels private material public, or writes “the trade has been executed” | Model labels and prose do not change source permissions and cannot constitute a trade receipt. Real protected-source or execution effects are rejected by their original owner. |
 | Only candidate A in a batch depends on a denied private source | Reject A's protected publication effect. Do not let A's failure delete independently authorized B. |
-| `replaces` has no valid target, encounters a version conflict, or exhausts the revision allowance | Reject this modification and keep the original committed version. An invalid revision target must not be rewritten into a new insertion. |
+| `replaces` has no valid target, encounters a version conflict, or exhausts the revision allowance | Do not produce a durable replacement; retain the original committed version. An invalid target cannot become a new insertion. Section 5 identifies the implementation gap between drafts and quota enforcement. |
 | Required source, content-identity, or inherited-dependency proof is missing | Reject the corresponding protected effect. Do not delete dependencies just to make a body displayable. |
 
 Consider a synthetic example: the model submits two explanatory blocks. A misspells a public-material citation, but its text does not depend on unauthorized private material. B really does refer to an unauthorized private report. A can be delivered with an unverified-citation notice; B must be rejected. The system must neither swallow A because of A's bad citation nor allow B merely because A is deliverable.
 
 **Capacity, too, is a body-disposition concern, not a second veto for peripheral layers.** Within the original sealed-input/transport byte limits, bodies exceeding 60,000 display characters now reach Publication, which retains a bounded readable prefix and explicitly marks truncation. Citation targets and controlled amounts must not be cut into misleading half-valid values. This does not mean oversized text can be published completely and losslessly.
 
-“Unified” does not mean moving all permission checks into Publication. The Host still supplies true source and scope facts; storage still guarantees versions and concurrent modifications; execution still depends on actual receipts. What is unified is **the authority to decide how candidate bodies are published**, not every business authority.
 
-Put differently, Publication can answer “may this content be published under the current contract?” It cannot replace researchers or independent evaluations in answering “is this investment analysis correct?”
 
-## 5. A Block Has Three Key Coordinates: Identity, Revision, and Display Position
+Citation capacity follows that order too: establish eligibility, then retain at most eight valid references in original order. Eight unknown IDs must not displace one eligible reference that follows them. With nine eligible references, the ninth still degrades locally. No source access is granted by that rule.
 
-Progressive answers are not just strings repeatedly appended to a page. They are more like a collection of revisable, recoverable answer blocks:
+Why not let every layer “check once more”? A historical synthetic reproduction through production functions supplied 65 valid history records; a peripheral policy retained only 64 and labeled the first “citation source cannot be verified.” A count policy had acquired source-authority semantics. Elsewhere, the underlying publisher retained safe siblings, but an outer adapter threw because the batch was not entirely successful, erasing partial success. **A shared Schema does not imply a single disposition owner.**
+
+Publication therefore owns body disposition while surrounding components provide original facts. The Host still owns source authority, storage owns versions and concurrent writes, and execution needs real receipts. This neither centralizes every business permission nor deletes private dependencies to make text visible.
+
+The 60,000-character boundary also explains why history must not be rewritten as “it always worked this way.” An earlier contract rejected 60,001 characters; a later contract chose bounded display degradation within the total intake limit. Explaining today's truncation should preserve that changed choice, not retroactively declare the old assertion an omitted test.
+
+<span id="_3-publication-s-main-flow-preparation-preview-and-commit-are-different-actions"></span>
+
+## 4. Why Required Restrictions Run After Rendering
+
+Removing peripheral body vetoes does not mean skipping approved redaction requirements. One real counterexample had correctly filtered raw Markdown, only for a rendered citation label to restore text that must not be disclosed. The check was correct about the input it saw, but placed at the wrong boundary.
+
+Preparation now extracts the candidate, applies approved candidate revisions, validates original sources and content identity, renders citations and controlled values, and then applies necessary restrictions to **the final rendered body**. Only that result may reach preview or persistence.
+
+```mermaid
+graph TD
+ModelDraft --> HostNormalize
+HostNormalize --> PublicationProposal
+PublicationProposal --> CheckOriginalSourceProof
+CheckOriginalSourceProof --> RejectDependentEffect
+CheckOriginalSourceProof --> RetainPermittedBody
+RetainPermittedBody --> DegradeOptionalAttachments
+DegradeOptionalAttachments --> FinalRenderedRestriction
+FinalRenderedRestriction --> RejectDependentEffect
+FinalRenderedRestriction --> OptionalPreview
+FinalRenderedRestriction --> CommitAttempt
+OptionalPreview --> CommitAttempt
+CommitAttempt --> SaveUnknown
+CommitAttempt --> VersionedReceipt
+VersionedReceipt --> DeliverEvents
+```
+
+The diagram has three kinds of branches:
+
+- Invalid original sources, identity or required inherited relationships reject the affected protected effect; independent blocks are checked separately.
+- Optional attachment defects degrade locally. A required restriction that fails, times out or requests approval cannot fall back to unrestricted original text.
+- Successful final preparation may preview first or commit directly. Without a confirmable database receipt, saving remains unknown or failed; no versioned receipt is invented.
+
+Advice, revision authority and required restrictions are different permissions. Advice can contribute context; a revision needs explicit `publication:revise`, and a necessary restriction needs `publication:restrict`. A generic `required` flag or `tool:intercept` does not grant either. Existing reviewed generations, the Hook registry and bounded execution supply authority and runtime limits. An unbound arbitrary Host callback does not acquire body authority here.
+
+Repeated processing creates another risk: run redaction for a preview and again for saving, and the two results may differ. The short-lived preparation memo binds the original Run, scope, body, replacement target, registry and invocation identity. Preview and save reuse the final result instead of treating rendered text as fresh input. Changed identity or rendered bytes cannot reuse an old approval; restriction output cannot mint new citation or numeric authority.
+
+The historical raw-only redaction failure was exposed by real PostgreSQL checks and led to the final-rendering restriction. That establishes this exposure boundary. It does not also prove that every Hook can be preempted or replace real-model quality evaluation.
+
+<span id="_5-a-block-has-three-key-coordinates-identity-revision-and-display-position"></span>
+
+## 5. Revisions Need Three Coordinates, Not the Last String Received
+
+A block has separate identity, version and position:
 
 | Coordinate | Role | Why it cannot be omitted |
 | --- | --- | --- |
@@ -162,7 +181,7 @@ Revise the same section: A, revision=2, deliveryOrdinal=2
 Add a section: B, revision=1, deliveryOrdinal=3
 ```
 
-Representing “revise A” as a structured fact yields the following **synthetic internal publication event**. It is neither model input nor the complete outer SSE transport format:
+The corresponding **synthetic internal publication event** is neither model input nor the complete outer SSE format:
 
 ```json
 {
@@ -177,13 +196,60 @@ Representing “revise A” as a structured fact yields the following **syntheti
 }
 ```
 
-The database retains revision history, while the current delivery projection replaces the body in the same position rather than displaying two versions of A as two conclusions. If the client receives events with the same publication identity and revision but different bodies, it must treat that as a protocol conflict, not silently let “the last arrival win.”
+The original transaction preserves old-revision audit information, advances the current version and replaces the current delivery projection in the same position. Two versions of A must not become two conclusions. Identical identity and revision with different bodies is a protocol conflict, not “last arrival wins.”
 
-To prevent repeated publication of equivalent content, the system also has an intentionally narrow exact-duplicate rule: it may return `unchanged` and reuse the original receipt only if the body is exactly identical, protected-source and dependency bindings and notices have not changed, and current authorization passes again. It creates no new revision, delivery event, or revision-allowance charge. Similar wording is not a duplicate; even a Markdown whitespace change does not qualify. After source revocation, old content cannot bypass rechecking even if it is identical word for word.
+Exact deduplication is intentionally narrow: only byte-identical text with unchanged source/dependency bindings and notices, still supported by the original Run grant and receipt identity, can return `unchanged` and reuse the receipt without a new revision, delivery event or quota charge. Semantic similarity does not qualify; neither does changed Markdown whitespace. A later ACL change does not refresh or shrink an existing Run grant. An out-of-grant source, mismatched binding or unknown body identity cannot reuse a receipt merely because the text matches.
 
-The current default revision allowance is 2 modifications per block and 8 per Research. It limits modifications to existing blocks, not the addition of new answer sections. Exceeding it rejects that modification; it should not erase earlier legitimate content or automatically declare the whole research effort failed. A failed revision and a failed initial publication are different effects: an invalid `replaces` cannot automatically become a new block, nor is the original committed body deleted because a revision failed.
+**Replacement quota still has a specification/implementation gap.** Defaults are two modifications per block and eight per Research; new independent sections do not consume this modification quota. The current Spec requires quota to limit durable replacement only: independently authorized drafts should remain explicitly unsaved previews when a target or quota cannot admit the write. The inspected production path, however, still checks and reserves modification allowance before constructing previews, and a failed save does not release an already-visible reservation. Some invalid targets also fail during preparation. Thus, “an over-quota draft remains visible” is not established as implemented, and the old preview-quota behavior must not be presented as the final design goal. Neither permits an invented replacement receipt, deletion of the saved version or silently turning invalid `replaces` into insertion.
 
-### Reducing the Three Coordinates to a Runnable Example
+History offers an even more direct lesson. In one real-model run, `send_answer_part(replaces)` returned accepted and the preview contained the full new article, yet Recovery retained the old body. A noncanonical Factory fallback supported commit but lacked replacement coordination. The earlier attribution that “the model only wrote process, not an answer” had to be withdrawn: accepting a proposal is not a durable replacement. The fix reused original target coordinates and Recovery's atomic write rather than adding a prose-quality gate.
+
+<span id="_6-real-problem-one-a-same-revision-preview-once-obscured-a-committed-receipt"></span>
+
+## 6. Faster Previews Must Admit They May Not Be Saved
+
+Sending `answer-preview` after preparation can shorten the wait for a first section. Saving before display is simpler, but makes every visible body wait for the transaction. This path chooses the former, so users may temporarily see undurable content. A failure must stay explicitly unsaved, not become a fabricated commit reconstructed from cache after reload.
+
+The October 11, 2026 regression explains why merging cannot compare text alone. Live previews and committed candidates had the same revision, but the live map obscured durable source metadata. Identical words did not give the two records equal authority.
+
+```text
+Newer legitimate preview > older committed version (for current temporary display only)
+Committed receipt of a revision > preview metadata of that same revision
+An independently applicable history-display/retention denial > visibility of affected material
+```
+
+The first line allows a newer preview to occupy the active view temporarily. The second preserves the same revision's real source and version facts. The third is a separately justified historical-display or retention constraint, not a fresh generic ACL lookup for the same Run. Historical transaction, stable Run grant and independent present display restriction are separate questions.
+
+This reuses original candidates and receipts rather than introducing another permission-state system. It cannot resolve earlier parallel timeouts or establish improved real-model writing. A failed preview callback may still leave the original save path able to continue under cancellation, deadline and execution checks. If notification fails after commit, the body remains saved while client display still requires actual delivery evidence.
+
+<span id="_7-real-problem-two-the-database-committed-but-the-runtime-log-was-not-finished"></span>
+
+## 7. History Reads Saved Effects Without Taking Over Execution
+
+Suppose A's Publication transaction has committed its body, source bindings, version and delivery event, but the process exits before Runtime finishes its journal. Replaying only the journal can incorrectly conclude that A does not exist. Recovery should query the original Publication by Run, block and receipt, not ask the model to write it again.
+
+Readback still has strict boundaries:
+
+1. At ingress, verify the reader against the original Run account and scope.
+2. Validate body, version, event and source relationships under the original grant. If B inherits A's sources, B's direct citations are insufficient.
+3. Retain independently verified blocks and use existing delivery channels. Applicable historical-display or retention restrictions affect the relevant material.
+4. Keep Runtime terminal state, publication commit and client display separate. Missing incidental journal details do not automatically veto the original receipt.
+
+Missing required source proof is not safe access; a source set verified to be empty is not completely unknown either. Unverifiable original content, an out-of-grant source or a valid independent display denial must not fall back to an unprotected cache.
+
+A more surprising failure needed no crash: A was saved, B was a preview, and an active lease made execution recovery return pending. Empty History then erased A from the page. **Being unable to take over execution does not prevent reading committed content.** The current committed reader obtains no new lease, wakes no model and invents no commit for B. An active page may keep B explicitly unsaved; a cold page restores only real committed versions.
+
+These historical observations remain separate: actual Next/Chrome checks used a Memory fixture; new-connection checks used real isolated PostgreSQL. They were not one browser-plus-PostgreSQL-restart experiment. The earlier October 11 authenticated-app and isolated-PG restart evidence was another exercise covering the commit/journal gap and original-receipt recovery, not proof of a newly completed end-to-end acceptance.
+
+Another counterexample involved a redundant Knowledge-binding query that hid independent committed prose when it failed. Recovery exception handling also manufactured a failed terminal state. The solution reused the canonical reader's verified recursive bindings and removed the duplicate query and unauthorized terminal write, rather than adding a compatibility layer. Real cancellation, authorization denial and execution fences remain authoritative.
+
+Reading an old answer is also not recalculating today's portfolio. Historical prose retains its original identity; a new Run requires independent admission, and separately obtained historical excerpts meet their own read conditions. Dates, units and current numeric eligibility remain financial-calculation concerns.
+
+A saved body, a later research failure and unknown client reception can all be true. If publication committed but its tool receipt was lost, query the original identity rather than relabeling uncertainty as rejection and retrying blindly. An independent display constraint changes present visibility, not the historical transaction or original Run grant.
+
+<span id="reducing-the-three-coordinates-to-a-runnable-example"></span>
+
+## 8. Observe Identity, Revisions and Recovery in the Public Slice
 
 You do not need a full chat UI to observe these constraints. The public [Session implementation](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/session.mjs) puts body revision and current delivery position in the same SQLite transaction: a single Host answer block retains its identity and position, while explicit replacement advances only its revision. Even an identical body can reuse a receipt only after the original Run and Host bindings are checked. If the text is unchanged but the binding changes, explicit replacement is still required.
 
@@ -219,101 +285,29 @@ The case checks that the body equals the original answer and that the specified 
 The scope remains single-body-block publication, revisions, and local CLI readback. It does not include progressive browser display, an HTTP/SSE publication product layer, or validation of model answer quality.
 <!-- /open-etf-case -->
 
-## 6. Real Problem One: A Same-Revision Preview Once Obscured a Committed Receipt
-
-The regression case of October 11, 2026 shows particularly clearly why “the body is the same” is insufficient.
-
-At the time, runtime maintained live candidates and committed candidates. Duplicate detection looked for the same currently visible body, but in the early comparison, the live mapping could obscure a durable receipt with **the same revision number**. Even with identical text, the genuinely committed source status could therefore be lost.
-
-The model had not suddenly written a bad article. We had put records with two different levels of authority into the same candidate pool without clearly defining precedence within the same revision.
-
-The corrected rule can be simplified to:
-
-```text
-Newer legitimate preview > older committed version (for current temporary display only)
-Committed receipt of a revision > preview metadata of that same revision
-Current source denial > visibility of an old preview or old receipt
-```
-
-The second line is especially important: a committed receipt carries database-confirmed source and version facts. A preparation-stage preview cannot retroactively give it a status that “looks clean.” The third line reminds us that **a historical commit genuinely occurring does not mean a revoked source may still be displayed today.**
-
-The fix kept the original candidate and receipt ownership rather than introducing another publication-state or permission system. Committed facts still outrank same-revision previews. Earlier parallel timeouts and real-model quality problems, however, cannot be solved by changing receipt precedence.
-
-## 7. Real Problem Two: The Database Committed, but the Runtime Log Was Not Finished
-
-A more difficult timing window lies between the durable commit and the runtime log.
-
-Suppose answer A's Publication transaction has committed, including its body, source bindings, and delivery receipt. The process then exits before the Runtime journal records the corresponding state. Rebuilding only the journal after restart could incorrectly conclude that “A does not exist.”
-
-Correct recovery does not ask the model to write A again, nor forcibly mark the old preview saved. Instead:
-
-1. Read the protected body from its original Publication owner using the original Run, block identity, and committed receipt.
-2. Check inherited dependencies among the current account, sources, and blocks. If B refers to A's sources, checking only B's apparent direct citations is insufficient.
-3. Send portions still eligible for display through the existing history-snapshot and delivery channels. Portions whose permissions cannot be confirmed, or have been revoked, remain protected.
-4. Keep recording Runtime's original execution terminal state, Publication's commit fact, and whether the client displayed it independently.
-
-There is a further nuance: an old receipt lacking fields for current source-status eligibility does not mean its sources are confirmed safe. But a source set genuinely verified to be empty must not be confused with a completely unknown one either.
-
-Later work also brought **selection of the original published body for history display and active replay** back under Publication. It uses original Run authorization, protected body and event identities, and actual source relationships to decide which blocks remain readable. Damage to one block's original content or permission proof should not obscure other independently verified blocks. Missing incidental Runtime journal details no longer automatically justify rejecting all original bodies again. Conversely, if original content cannot be verified or real source permission is denied, recovery still cannot fall back to an unprotected cache or assemble a historical answer that merely “looks right.”
-
-This also avoids an unnecessary re-evaluation: **reading an old answer is not rerunning today's portfolio investment calculations**. Historical prose may retain its identity from that time under its original display authorization. New analysis or execution still requires current data and permission checks; a historical commit cannot grant authority over today's numbers.
-
-On October 11, 2026, the authenticated application, isolated PostgreSQL, and restart path actually exposed and verified this class of recovery gap. The fix included reading the original protected receipt, rechecking inherited sources, and preserving the unknown semantics of legacy source notices.
+### Interrupt the Actual Process and Read the Original Commit
 
 The public single-block implementation turns the same timing window into a [reproducible process-interruption counterexample](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/test/publication-runtime.test.mjs#L70): the process is actually terminated after the body transaction commits but before the run-terminal checkpoint is written. Another process recovers through the original sealed proposal and obtains the original body and receipt, without adding a revision or calling the synthetic model again. This is not an in-memory snapshot standing in for a restart.
 
 The neighboring failure branch matters too: after the body is committed, a later check may find that a required report is absent, and the Run can still fail. The earlier body remains readable, but its presence does not establish that the report was generated. [Runtime's commit positions](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/runtime.mjs) deliberately leave “body saved” and “entire task complete” at separate settlement points to preserve these simultaneously true facts.
 
-When answer A has already committed, subsequent research B may fail while **A's original commit, the Run's partial/failed status, and whether the client received A** remain three separately true or unknown facts. If `send_answer_part` committed its publication effect but the tool receipt was lost, recovery must query the original identity rather than relabel uncertainty as rejection and retry blindly. Source revocation changes **current display eligibility**, not the historical transaction; a server event does not prove the browser rendered it.
+<span id="_9-boundaries-that-remain-after-implementation"></span>
+<span id="conclusion-the-model-writes-the-answer-the-system-must-own-the-publication-facts"></span>
 
-## 8. After Unifying Structure, Reclaim Peripheral Body-Disposition Authority
+## 9. Test Relationships That Show the Module Owns the Decision
 
-After centralizing the mechanism, we still have to ask: can callers bypass it and independently decide that a body disappears? That is the additional lesson from the two earlier publication-governance reviews.
+Acceptance means more than “text finally appeared.” Several relationships must hold together:
 
-### The First Round Unified Structure; the Second Reclaimed Decision Authority
+- Problematic candidates reach Publication, independent siblings survive partial batch failure, and genuinely unauthorized effects remain rejected.
+- Necessary final-rendering restrictions precede every exposure; preview and save use the same bytes, with no unrestricted fallback on failure.
+- Original input round-trips through storage, revisions preserve identity and position, and exact duplicates do not produce a second effect.
+- Commit/journal gaps and active pending status do not erase confirmed bodies; receipt-free drafts do not reappear as commits in cold History.
+- Notification, task terminal state and publication each have their own evidence.
 
-The first governance round separated body, citations, saving, and task state, but it had not reclaimed body-disposition authority at every entrance. Subsequent production-path reproductions exposed candidates hidden by peripheral filters.
+This echoes [John Ousterhout's discussion of modular design](https://web.stanford.edu/~ouster/cgi-bin/cs190-winter18/lecture.php?topic=modularDesign): encapsulate decisions that callers no longer duplicate. Local degradation also needs checks for failure amplification when composed; see [Google SRE: Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/).
 
-In a synthetic reproduction using production functions on October 15, 65 legitimate history records resulted in only the most recent 64 being displayed; the first was replaced by “citation source cannot be verified.” The count policy had actually acquired the power to hide content, while the error message misrepresented the cause as a source problem. In another reproduction, underlying publication retained safe blocks from a batch, but the outer adapter threw because the batch had not succeeded completely, erasing partial success again.
+The explanation uses a fixed implementation and separately identified historical checks. It does not claim fewer empty bodies in production or treat engineering checks as investment-semantic or reading-experience acceptance. Some early first failures remain unreconstructable. The replacement-quota/draft-preview specification gap still needs an engineering resolution.
 
-Both examples exposed the same issue: **sharing a Schema can still leave multiple body decision-makers in place.** The second round therefore removed peripheral candidate filtering and the unresolved-publication-rejection set rather than extending an error-code list of “continuable” cases.
+The transferable choice is straightforward: early display, later replacement and cross-process readback can justify separating publication facts from model turns. This can be a deep module, not necessarily a service. A one-shot response often benefits more from simple save-and-return.
 
-### Also Check Who Can Stop a Candidate Reaching Publication
-
-After one round of engineering validation passed, rechecking the Native tool entrance still found that control characters, display length, and an empty `replaces` could stop a candidate before Publication. Generic argument processing and hooks could also become a second body judge.
-
-New production-entrance checks used a scripted model gateway to send a problematic candidate followed by an independent body, then observed whether publication preparation received both proposals. An invalid revision should reach the original decision owner and have that modification rejected, while independent content remains deliverable. Long text within the legitimate intake limit should be truncated to display capacity, not swallowed wholesale by a peripheral layer.
-
-There was a real contract change here: the first round classified 60,001 characters as input that should be rejected; only the second changed this to display degradation within the overall intake boundary. The new contract must not be projected backward to claim that the old assertion necessarily missed coverage. What matters is who rejects, which effect is limited, and whether other bodies survive.
-
-### Display Normalization Must Not Rewrite Original Input
-
-The NUL character also exposed a persistence problem: being displayable after in-memory cleanup does not mean the original arguments can be stored in PostgreSQL in their original representation. Decoding the stored string further changed the sealed identity as well.
-
-The final approach stores recoverable original JSON text in the existing fields, reuses mechanical normalization for display and dispatch, and does not apply extra decoding on readback. Real-database checks separately observed original-input round trips, cleaned display, saving, and history readback through a new connection.
-
-“Text finally appeared on the page” is insufficient acceptance for this kind of problem. We must also check that the candidate reaches the sole disposition owner, original arguments survive persistence round trips, and the same publication facts can be read back after restart.
-
-Modularity is valuable because it encapsulates decisions that callers no longer duplicate; compare [John Ousterhout's discussion of modular design](https://web.stanford.edu/~ouster/cgi-bin/cs190-winter18/lecture.php?topic=modularDesign). Degradation itself can introduce failures, so its layer and compositional behavior need checking; see [Google SRE: Addressing Cascading Failures](https://sre.google/sre-book/addressing-cascading-failures/). This article does not claim that these changes reduced the rate of empty bodies in production.
-
-## 9. Boundaries That Remain After Implementation
-
-The current implementation has centralized candidate-body normalization, source and version validation, local degradation, and publication receipts in Publication. Controlled production call paths and PostgreSQL recovery checks cover uninterrupted independent bodies, committed versions not being overwritten by old previews, rejection of invalid sources, and history readback of saved content.
-
-Publication answers **who has authority to publish and how publication facts are recorded**. Research quality and reading experience are evaluated by their respective stages.
-
-This mechanism has costs: separate preparation and commit stages; revision identities, persistent events, source relationships, and preview/receipt merge rules to maintain. Unifying body-disposition authority also requires examining Native entrances, runtime, hooks, and recovery reads for hidden duplicate vetoes. It should not be understood as “every chat application must copy a heavyweight publication service.”
-
-The first exceptions in some earlier runs still cannot be fully reconstructed from historical records, so those records cannot explain every instance of “no body.”
-
-The transferable criterion is simpler: **if content may appear early, be revised later, recover across processes, and depend on revocable material, then “writing an answer” and “publication facts” deserve separation. The implementation may be a deep module or a separate service.**
-
-This applies [Principle 3, “proposal, approval, execution, and effect are different facts”](/en/principles#principle-3): a model's candidate body is not the same as Publication accepting and committing it and producing a recoverable publication receipt. Recording preview, commit, and actual user reception separately prevents later failure from erasing an effect already established.
-
-## Conclusion: The Model Writes the Answer; the System Must Own the Publication Facts
-
-Looking back on this evolution, I am increasingly reluctant to treat an agent's output as a continuously growing string.
-
-The model organizes the explanation. Publication owns candidate-body extraction, necessary local degradation, and publication disposition, turning permitted content into recoverable committed facts with identities, revisions, and source bindings. Delivery transports and displays those facts. Runtime determines how this research run ends. Real authorization and execution authority remain with their original owners. They should cooperate, but they cannot impersonate one another.
-
-**In one sentence: useful content may reach the user early, but “it was seen,” “it was saved,” and “everything succeeded” must not become the same fact.**
+This applies [Principle 3, “proposal, approval, execution, and effect are different facts”](/en/principles#principle-3): the model writes, Publication owns identity and original receipts, delivery observes reception, and Runtime determines the execution outcome. **“It was seen,” “it was saved,” and “everything succeeded” must remain different facts.**

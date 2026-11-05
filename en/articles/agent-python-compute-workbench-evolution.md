@@ -1,50 +1,36 @@
 ---
-description: "Why can a failed follow-up calculation destroy earlier valid work? The evolution of a Python workbench connects code isolation, shared research methods and executor-owned files, while separating computation, interpretation and downloadable delivery."
+description: "A three-ETF comparison explains why a workbench preserves files instead of interpreter state, and why a rejected new calculation must not destroy earlier outputs. Current input, execution and export paths reveal the trade-offs."
 readingBrief:
   takeaways:
-    - "Authorize transient code separately from trusted Skill scripts while sharing maintained research methods; Python expands computational freedom without creating another business-data access path."
-    - "Continue through each executor’s own files rather than hidden interpreter state; a rejected request proven not to touch the workspace must not destroy earlier valid outputs."
-    - "Previews are not complete datasets, and static diagnostics do not all justify blocking; verify numerical correctness, interpretation and actual artifact delivery as separate outcomes."
+    - "Transient code uses identified inputs under the original Run grant in a separate environment; trusted Skills may share method source, not execution privileges."
+    - "Files continue under the actual executor while each Python process starts fresh; no-touch facts, settlement and inventory determine what survives a failure."
+    - "Previews, complete computational data and exported artifacts serve different consumers; static diagnostics, execution security and numerical quality also have different authority."
   appliesTo:
-    - "Building repeated Python analysis and subtask collaboration with explicit file continuity, capacity refusals, source propagation and downloadable artifacts."
+    - "Repeated Python analysis and Child collaboration that must preserve independent valid work after capacity rejection, code errors or unavailable dependencies."
   notFor:
-    - "Requiring persistent Notebooks or unrestricted network execution, or equating sandbox success and passing preflight with reliably correct complex investment research."
+    - "Persistent Notebooks, unrestricted networking or automatic scratch recovery, or treating successful calculation as proof of correct interpretation and user delivery."
 ---
-# Teaching an Agent to Compute: The Architectural Evolution from Python Tool to Computational Workbench
+# A Python Workbench That Keeps Calculations Connected and Prior Work Intact
 
-Imagine asking an AI:
+Compare three ETFs over a year: return, maximum drawdown, volatility and charts. The first invocation may only align dates. A second discovers inconsistent data definitions and needs another source. A third finally computes the result. A tool that runs Python solves just one part of this task.
 
-> Compare three ETFs over the last year: return, maximum drawdown, volatility, and charts showing how their behavior differs.
+Continuation depends on how new data enters, who owns earlier files, whether an error destroys prior results, and whether a chart ever becomes a file the user can download.
 
-Writing Python for this is no longer a difficult challenge for a modern model. pandas can normalize data, NumPy can calculate metrics, and Matplotlib can create charts. [OpenAI Code Interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter) and [Anthropic Code Execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) already provide code execution, iteration, and file outputs.
+The current path is explicit: **original tools retrieve data, Host validates inputs, each actual executor owns a file workspace, every invocation starts fresh Python, and export is deliberate.** The ETF comparison is a teaching scenario; dated failures and controlled samples retain their own scope rather than claiming this entire financial task has passed.
 
-So why not simply add a **Python execution tool** and declare the Agent capable of flexible analysis?
+<span id="teaching-an-agent-to-compute-the-architectural-evolution-from-python-tool-to-computational-workbench"></span>
+<span id="_1-reuse-analysis-methods-not-their-execution-permissions"></span>
+<span id="_2-flexible-code-does-not-mean-reimplementing-every-formula"></span>
 
-Our initial motivation was straightforward. ETF Agent already had market data, fund analysis, and established research methods, but user questions change constantly. Comparison windows vary; data needs recombination; new analyses do not always justify dedicated tools.
+## 1. Bring Data into Computation, Not Business Privileges into the Script
 
-Python gives the model room to solve what has not been predefined.
+The model submits temporary code and named input references. Host checks Run, scope, source, content identity and completeness before admitting data to the isolated environment. A model-supplied sandbox ID or permission field cannot expand that scope.
 
-The first problem is **safety**. Model-written code must not inherit access to an application server's files, credentials, internal network, or unlimited CPU merely because it is supposed to calculate returns. An Agent working with portfolios and private research material cannot delegate that requirement to a prompt asking for safe code.
+Inputs can come from an exact visible projection of a tool call, or from an authorized result reference and explicit selection. The latter does not require the whole dataset to pass through model context first. Neither path may treat a capacity-truncated prefix as a complete dataset or borrow another Run's authority.
 
-We began with isolated execution. As research grew longer, the questions changed: can a later calculation reuse earlier data? What survives a code error? Can multiple Agents overwrite one another's files? How does a generated result reach the user as a real artifact?
+Later analysis uses the same Run's recorded Host grant; a Child inherits its admitted subset without querying current ACL state again. Byte availability, hash, Reader identity, budget and cancellation remain separate checks. **Permission cannot restore missing bytes, and unavailability must not masquerade as revocation.**
 
-Several architectural changes followed. Some expanded the model's freedom; some constrained risk; and some removed excessive protection that was wrongly destroying otherwise valid work.
-
-## 1. Reuse Analysis Methods, Not Their Execution Permissions
-
-ETF Agent already had **run_skill_script**, which executes maintained scripts from trusted Skill packages. A tempting shortcut would have been to write the model's newly generated Python into a Skill directory and invoke that trusted runner.
-
-We rejected that approach. The existing runner trusts code because of its reviewed package origin. Moving transient model code into the same folder does **not** change its trust level.
-
-The important distinction is not "Python versus another language"; it is **reviewed code versus model-generated code**.
-
-We added **run_analysis_python** with a separate, controlled analysis environment. The model may submit temporary code, but it cannot thereby access arbitrary server files, secrets, or networks. Dependencies and runtime resources are prepared and constrained by Host, not installed without limit by the model.
-
-We made another choice: **Python computes; authorized external data still arrives through existing tools**.
-
-For the three-ETF example, the Agent obtains approved data through the original Market/Web capabilities and passes selected results into Python. If the computation reveals a missing time window, the Agent retrieves that data through the original tool path. Python does not secretly open another connection to the market provider or database.
-
-**Figure 1: Relay between data acquisition, isolated computation, and delivery**
+For the ETF comparison, a missing time interval sends the Agent back to the original data tools. Python does not connect directly to the business database, market provider or MCP. The model can transform and calculate without inheriting application-server files, credentials, internal networks or unlimited resources. Host prepares dependencies and the supported execution environment.
 
 ~~~mermaid
 graph TD
@@ -62,95 +48,62 @@ ExplicitExport --> DurableArtifact
 DurableArtifact --> AuthorizedDownload
 ~~~
 
-This is a responsibility diagram, **not a compulsory pipeline**. The Agent may collect more information, recalculate, or provide a bounded conclusion. Every later Python invocation still passes current Host admission and source checks. A file's mere existence in a workspace does not make it downloadable.
+These are optional handoffs, not a mandatory pipeline. Every later invocation still checks the original granted scope, input facts and execution conditions. A file existing in a workspace does not make it downloadable.
 
-The design sacrifices the convenience of a script that does retrieval, computation, and external API access all at once. We accept that because the alternative would create a second business-data path with competing permissions and error semantics.
+This sacrifices the convenience of putting retrieval, arithmetic and external API access into one script. In exchange, business data keeps its original acquisition and authorization path instead of gaining a competing implementation inside Python.
 
-**We wanted more freedom to compute—not an additional data-access system.**
+### Reusing a runner and sharing a method library are different choices
 
-## 2. Flexible Code Does Not Mean Reimplementing Every Formula
+The existing `run_skill_script` executes maintained code in trusted packages. Placing newly generated code in that directory does not change its provenance, so transient programs use the separate `run_analysis_python` route. The distinction concerns code origin, not the Python language.
 
-General Python solves "what if no dedicated tool exists?" But the converse soon appeared: why have the model rewrite an existing, maintained method?
+Method source can be shared. The build produces Skill and analysis-image artifacts from one canonical research library, avoiding missing-value or parameter semantics drifting between copies. Models may reuse maintained risk, attribution and scenario methods or write temporary analyses; ordinary scientific computation need not depend on every optional fund helper being available.
 
-Our fund-research packages already included risk, attribution, and scenario calculations. At first, the separate analysis environment could not import the shared research library. Copying a few functions would have been easy but dangerous over time.
+Optional-method drift is also different from an unsafe base Runner. The current implementation separates base-environment qualification from optional-method status rather than turning every mismatch into a ban on general computation. Whichever method runs, account shares, balances, holdings and investment execution remain facts of the original business owners. Derived research does not rewrite that ledger.
 
-One copy might fix missing-value behavior while another retains old semantics. A parameter meaning might change on one side but not the other. Both implementations would return plausible figures using subtly different definitions.
+<span id="_3-continuity-does-not-require-a-persistent-notebook"></span>
+<span id="multiple-agents-made-the-original-ownership-too-broad"></span>
 
-We therefore reused the **same research-method source** for trusted Skills and isolated analysis, producing the required artifacts through the existing build process.
+## 2. Preserve Files Across Invocations, Not Hidden Interpreter State
 
-This did not turn free-form Python into a rigid calculator. The model can still write temporary normalization, analysis, and composition code. But it need not reinvent maintained methods.
+After aligning the ETF dates, save the table in the workspace. The next invocation reads it and computes metrics. **Every invocation starts a new Python process; only files in a healthy workspace continue.** Variables, in-memory objects and imports do not persist implicitly, and the read-only input area is rebuilt each time.
 
-Reusing methodology also does **not** transfer business authority. Python may analyze a hypothetical allocation's risk. Account balances, holdings state, and investment execution continue to follow the original deterministic business Owners.
+The original design compared three reasonable options:
 
-**Share stable methods; allow temporary analysis; leave authoritative business facts with their original producers.**
+| Approach | When it fits | Cost in this task |
+| --- | --- | --- |
+| Fully stateless execution | Small one-off calculations that are cheap to repeat | Repeated normalization across iterations |
+| Persistent interpreter or Notebook kernel | Interactive exploration with important in-memory objects and a managed kernel lifecycle | More implicit state, checkpointing and cross-restart recovery complexity |
+| Continuing files with fresh processes | Intermediate outputs can be explicitly saved and reloaded | Repeated initialization/imports and explicit persistence by the model |
 
-## 3. Continuity Does Not Require a Persistent Notebook
+Persistent state is not inherently a mistake. [OpenAI Code Interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter) provides sandbox containers, reuse and file download. [Anthropic Code Execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) also continues files, with interpreter persistence under applicable versions and configuration. For hosted analysis alone, adopting such a service may be simpler. Our own workbench connects existing Run, source and Artifact owners; that is not a claim that hosted products lack isolation or files.
 
-An ETF comparison is not necessarily one script. The model may normalize the dates, discover inconsistent return definitions, retrieve missing material, and calculate again.
+Files were chosen because the immediate need was intermediate-output continuity, not a complete Notebook. A restarted service or failed session does not promise to rebuild scratch by rerunning old code. Export results that need to survive independently.
 
-Discarding all execution state forces repeated work. Keeping one Python interpreter alive indefinitely introduces hidden mutable state and more difficult recovery semantics.
+### Files belong to an executor, not the entire task tree
 
-We chose a middle ground:
+One Root-wide session was reasonable when there was one executor. Once Children arrived, model conversations could be separate while scratch, generations and lineage remained shared. Renaming a directory does not resolve that ownership mismatch.
 
-**Workspace files persist within a healthy analysis session; each execution starts a fresh interpreter.**
+Imagine two Children both saving `normalized.csv`. This is an illustrative collision, not a reported overwrite incident. Sharing a parent task should not silently grant shared mutable state.
 
-A first invocation saves an aligned dataset. A later invocation reads it explicitly. Global variables, imported modules, and in-memory objects do **not** silently survive.
+The current session is selected by the actual executionId in a sealed Host invocation record. An executor can repair its code and reuse its files; Main and sibling Children cannot directly read or export its workspace. Results require an explicit handoff. Creating logical Children also does not create additional physical execution slots.
 
-A restarted service or failed analysis session does not promise to reconstruct the temporary workspace by automatically rerunning old code.
+<span id="_4-after-failure-ask-which-existing-effects-are-still-valid"></span>
+<span id="why-did-a-request-that-never-ran-destroy-prior-results"></span>
 
-This is not a claim that Notebooks are bad. Our immediate need was **intermediate-artifact continuity**, not a persistent kernel, interpreter snapshots, and cross-restart object recovery.
+## 3. Before Invalidating Old Files, Establish Whether the New Request Touched Them
 
-The trade-off is explicit: models must save intermediate results and later reload them, and interpreter/library initialization may repeat.
+A script can write the aligned table and then fail while plotting. The workbench does not make execution a filesystem transaction or promise rollback. Continuing requires confirmed completion, stopped writes and a valid complete inventory. Unknown execution invalidates the workspace rather than rerunning code to guess at recovery.
 
-Files are still not trustworthy merely because they exist. Ownership, writable scope, and invalidation rules remain essential.
+A seemingly cautious rule once destroyed valid work. In an October 18 regression, A had a completed, exportable file while B and C occupied the compute slots. The adapter rejected A's next request before prepare or execution. The session treated it as potentially active work and destroyed A's healthy workspace.
 
-### Multiple Agents made the original ownership too broad
+**No new code ran, but old results disappeared.** Rejecting capacity was correct; assigning uncertainty to the untouched old state was not.
 
-At first, the whole research Run owned one analysis session. That fit a single main executor.
+The current rule is not “preserve on unavailable.” The adapter that knows dispatch facts supplies a narrow no-touch proof:
 
-After introducing Python subagents, Main and several Child tasks had separate model contexts but could still share the same lower-level session, intermediate files, and source dependencies.
-
-Imagine two Child tasks independently normalizing data and saving **normalized.csv**. This is an **illustrative risk**, not a reported file-corruption incident. They should not share mutable state simply because they belong to the same parent research task.
-
-We narrowed workspaces from root-task ownership to the **actual Host-verified executor identity**.
-
-Each executor can fix its own code and reuse its files. Main and sibling Children cannot directly read or export another executor's workspace. Results cross those boundaries only through explicit handoff.
-
-**Separate model contexts do not automatically separate execution state. And creating logical subagents does not create more physical compute capacity.**
-
-## 4. After Failure, Ask Which Existing Effects Are Still Valid
-
-With persistent intermediate files, an exception is more than an exit code.
-
-A script might write a table and fail while drawing a chart. Did the file persist? Is it complete? Can the next invocation use it?
-
-We did **not** make each Python execution a filesystem transaction, and did not promise automatic rollback. A normal code exception can leave prior writes intact. Continuing is allowed only when execution has definitely ended and the workspace is confirmed usable.
-
-If the code's execution state is unknown, its workspace must not be trusted blindly.
-
-That was a reasonable protective stance—until we found it could be overapplied.
-
-### Why did a request that never ran destroy prior results?
-
-An **October 18** regression reproduced:
-
-1. Task A completed a calculation and saved a file eligible for export.
-2. Tasks B and C occupied all available compute slots.
-3. Task A requested another invocation.
-4. The adapter rejected the new request **before preparing or executing any code**.
-5. The session manager misclassified the rejection as uncertain execution and destroyed A's previously healthy workspace.
-
-No new code ran. Old completed work was lost.
-
-The quota rejection was correct; its side effect was not.
-
-We did **not** simply preserve the workspace after every exception or match error-message strings. The execution adapter—the Owner that actually knows whether the workspace was touched—must supply evidence bound to the **specific invocation and workspace**.
-
-When it proves **no dispatch, no touch**, the session may preserve existing results.
-
-Cancellation, exhausted deadlines, mismatched identities, and uncertainty **after execution began** retain their own protective paths.
-
-**Figure 2: Execution facts determine whether the workspace survives**
+- Validate inputs and the target workspace first. A busy target itself does not qualify.
+- Issue the rejection only when the target is idle, other executions fill global capacity, and prepare has not started.
+- Bind the exception to this dispatch-input object's identity and the original workspace through a private identity map. Copies, matching names and old exceptions cannot substitute.
+- The session also requires an unchanged workspace, no closing transition, and active cancellation/deadline conditions. Only then restore prior lineage and retain generation and inventory; inputs from the rejected call do not contaminate old files.
 
 ~~~mermaid
 graph TD
@@ -167,37 +120,24 @@ UnusableInventory --> InvalidateWorkspace
 UnknownSettlement --> QuarantineWorkspace
 ~~~
 
-Branches represent **alternative outcomes**, not a sequence every request follows. Only proven pre-dispatch/no-touch rejection preserves existing work automatically. A dispatched execution that definitely settled requires trustworthy confirmation of stopped writes and file inventory; uncertain work is invalidated or quarantined rather than replayed to recreate files.
+The branches are alternatives, not mandatory successive stages. Later export still checks actual bytes, hashes and lineage; no-touch proof does not prove export. In the current Docker adapter, timeout, cancellation and output-hard-limit termination do not perform normal complete-inventory readback: they destroy the workspace and report unsettled execution. They do not inherit the preservation exception.
 
-Targeted adapter/session regression evidence exercised this repair using an alternative command transport. Later real-model samples did not naturally trigger compute-slot admission rejection. We therefore do **not** claim this particular branch passed combined real-container, real-model acceptance.
+The regression used real sessions and the production adapter with an injected command transport. It did not establish combined real-Docker and model acceptance of this branch. A later real-model sample calculated and exported successfully but never naturally hit capacity rejection, and its narrative remained flawed. Those outcomes cannot validate one another.
 
-**Refusing a new operation should not automatically invalidate earlier completed operations.**
+<span id="source-checks-exposed-the-same-ownership-problem"></span>
+<span id="_5-a-small-model-preview-must-not-become-the-computation-s-limit"></span>
 
-### Source checks exposed the same ownership problem
+## 4. Continue Provenance and Complete Data, Not Just a Small Preview
 
-To stop restricted data losing its source limits after computation, analysis retains source dependencies. A model copying a private figure into a Python constant cannot declare the computation "source-free."
+File continuity requires provenance continuity. Copying a private number into a code constant does not make analysis source-free. A normal failed script may already have written files, so a nonzero exit cannot erase dependencies.
 
-However, some failure and context-projection paths lost source facts that were already known. Python then encountered an "unknown source" and refused legitimate continuation.
+Historical failure and context-projection paths lost known source facts, leaving later Python with an unknown origin and no legitimate continuation. The repair kept facts with their original producers through exact receipts and projections, reusing the same Run's grants and lineage. Removing dependencies or adding error-text allowlists would not solve that ownership problem. More retries do not replace missing facts.
 
-The problem could be missing fact propagation, not a missing permission.
+Output completeness is independent. The current combined stdout/stderr preview is bounded at 64 KiB, with stderr at most 16 KiB; the combined execution-output hard ceiling is 2 MiB. Exceeding preview capacity need not stop calculation; exceeding the hard ceiling does. **2 MiB is not a promise to retain complete stdout**: omitted output may only continue to be counted. The final Native tool envelope also has its own capacity, including metadata and JSON escaping, so the model is not guaranteed 64 KiB of visible text.
 
-We did not remove provenance constraints or add exception after exception to an allowlist. Instead, original result producers preserve facts they know, and computation reuses eligible authorization/source records from the same research.
+Each stream records observed bytes, retained bytes, truncation and completeness. Missing historical metadata means unknown completeness, not an excuse to infer it from short text or a successful `JSON.parse`. Only completed execution with a usable workspace and complete output is eligible for registration as re-readable computational output.
 
-As with erroneous workspace cleanup, **restore correct fact ownership before adding more retries or weakening checks**.
-
-## 5. A Small Model Preview Must Not Become the Computation's Limit
-
-A program's real output and the preview shown to the model may differ dramatically in size.
-
-Sending every table, array, and log into model context wastes capacity. But forcing a tiny hard output limit just because model context is scarce can needlessly constrain otherwise legitimate analysis.
-
-We separated **preview truncation** from the **actual output hard limit**, and retained observed bytes, retained bytes, and completeness status for each output stream.
-
-The model may see a small bounded preview. That preview must not pretend to be the complete computational output.
-
-Silent truncation can be especially deceptive: a shortened result may still parse as valid JSON or resemble a full table. Subsequent arithmetic may be mathematically correct on an **incomplete, different dataset**.
-
-"Parses successfully" is not proof that **all records are present**. The model must not reconstruct omitted rows from memory to make analysis seem complete.
+For the ETF table, a truncated prefix may remain valid JSON. Arithmetic can be perfectly correct on that smaller, different dataset. Write large complete datasets to files and read them explicitly; do not reconstruct omitted rows from model memory.
 
 | Artifact | Primary purpose | What it cannot substitute for |
 | --- | --- | --- |
@@ -205,74 +145,49 @@ Silent truncation can be especially deceptive: a shortened result may still pars
 | Intermediate file in a healthy workspace | Continue analysis under the same execution identity | Durable downloadable artifact |
 | Explicitly exported file | Authorized reading and download | Original provenance and correctness of research conclusions |
 
-Different consumers need different representations. Forcing everything into one tool response damages those distinctions.
+<span id="_6-preflight-checks-are-useful—but-must-not-become-another-approval-system"></span>
 
-## 6. Preflight Checks Are Useful—but Must Not Become Another Approval System
+## 5. Static Diagnostics Can Advise Without Automatically Blocking
 
-Static inspection before executing model-generated code sounds sensible. We introduced optional preflight feedback using **CPython, Ruff, and Pyright**.
+Optional preflight uses CPython, Ruff and Pyright, separating suspicious code from proof that this invocation should not execute. Dynamic binding, uncalled functions and exception handling make general static diagnostics different from certain runtime failure.
 
-But diagnosing a suspicious pattern is different from proving the current code must be blocked. Python has dynamic behavior, lazy execution, and exception handling. A static diagnostic is not necessarily a runtime failure.
+Besides compilation errors, the name-error proof is extremely narrow: the entire program must be one top-level bare-name read, excluding built-in names. A standalone `mystery` may qualify; `print(mystery)` does not fit that proof. Ruff F821 or agreement between two analyzers is not independently blocking authority. Diagnostics can still guide revision; isolation and authorization remain responsibilities of the original environment.
 
-The implementation permits only **compilation errors and a very narrow class of independently proven name errors** to block this execution. Other diagnostics are localized guidance. If an optional analyzer is unavailable, an otherwise eligible sandbox execution is not forbidden solely for that reason.
+A genuine preflight block reports that execution was not attempted, without invented stdout, file changes or execution duration. Failure of an optional analyzer alone does not close an independently qualified sandbox. Original cancellation and deadlines still apply.
 
-The original isolation and authorization mechanism remains the execution-security authority.
+Checks cost time. Two synthetic cold/warm samples on October 17 observed roughly **1.5–1.7 seconds** of overhead. Those are historical controlled samples, not a current SLA or complex-task latency result. Preflight remains off by default; the samples do not establish fewer model corrections, lower end-to-end latency or better research. Computation itself also needs its own enablement and environment qualification.
 
-Preflight has a cost. In two synthetic cold/warm samples, it added roughly **1.5–1.7 seconds**. That matters for short scripts. The delivery therefore kept preflight **off by default**, and those measurements do not establish a reduction in actual model corrections, end-to-end latency, or task-quality failures.
+Long-lived research libraries use a separate development-time diagnostic baseline to constrain new issues. Maintained code and one-off generated programs need not have identical enforcement. A passing baseline does not certify financial formulas either.
 
-For maintained research libraries, we use a different policy: preserve a reviewable static-diagnostic baseline during development and prevent new defects. Long-lived production code and one-off model scripts do not require identical enforcement.
+<span id="_7-computation-interpretation-and-delivery-must-be-measured-separately"></span>
+<span id="python-should-not-be-mandatory-for-every-presentation-task"></span>
 
-**Security boundaries, pre-execution feedback, and repository quality controls are all "checks," but they should not share the same authority.**
+## 6. Calculation, Interpretation and User Delivery Need Separate Evidence
 
-## 7. Computation, Interpretation, and Delivery Must Be Measured Separately
+Computing ETF metrics creates derived results. A correctly executed formula does not prove that its date window matches the question; a rendered chart does not prove understanding. A file is not independent evidence for its own financial conclusion.
 
-As the basic executor matured, end-to-end studies exposed different types of failure.
+An early sample generated HTML but delivered only a code block rather than an attachment. Later samples achieved real delivery through Child handoff, export, download and historical readback. Other synthetic financial tasks passed independent numeric comparisons but failed export; some saved answers still contained omissions. A single “Python succeeded” label hides these differences.
 
-One early sample computed successfully and generated an HTML file, yet delivered only a code block rather than a normal attachment. Later samples traversed subtask handoff, export, download, and historical readback and achieved verifiable file delivery.
+Current workspace export reads actual bytes, checks size, hash and lineage, and saves through the original Artifact owner. HTML preparation may change the final bytes, so the saved artifact hash need not equal the scratch file's original hash. Saving, downloading and opening in a browser remain distinct facts.
 
-Counting both as "Python succeeded" would hide a crucial difference in user experience.
+### A presentation without new computation need not run Python first
 
-Synthetic financial-analysis cases also separated **numeric correctness**, **interpretation correctness**, and **artifact delivery**. Some calculations passed independent metric comparisons but failed export. Some bodies persisted while explanations still contained omissions or mistakes.
+The October 19 choice separated calculation from page composition. Fixed standard reports retained their renderer; custom pages could use direct HTML or authorized Python when programming helped. Existing values could be displayed without recalculation. The model chooses based on the task, without a separate Host router imposing row-count or chart-count thresholds.
 
-We began verifying distinct effects: which result the code produced, which measurement convention it used, how the model interpreted it, and what the user actually received.
+Today this is more than generation guidance. When the original Artifact and HTML-preparation capabilities are available, the direct HTML branch of `export_analysis_artifact` can accept content, check lineage, prepare it and save a file independently of Python-workspace health. It reuses the same artifact owner rather than allowing a text assertion or invented URL to stand in for a save receipt.
 
-Correct execution of a formula cannot establish that its input window matches the user's request. A chart rendering successfully does not prove that the model understood it. A generated file is a delivery medium—not independent evidence for its own financial conclusion.
+Missing computation limits the charts that depend on it; unavailable Python should not block otherwise legitimate static presentation of existing reliable values. An implemented engineering path does not establish that the model always selects well or that page aesthetics have improved.
 
-### Python should not be mandatory for every presentation task
+<span id="_8-preserve-freedom-to-compute-with-clear-boundaries"></span>
 
-Initially, making HTML often meant asking Python to assemble the page.
+## 7. Choose Complexity According to the State That Actually Needs to Continue
 
-We later separated **computing financial values** from **organizing a static page**.
+A stateless tool may suffice for one small calculation. Interactive exploration with important live objects may justify a persistent kernel. Our file workspaces connect iterative research to existing source, executor and delivery identities. The costs are Host-managed isolation and inventories, explicit save/read steps, and no guarantee of automatic recovery after invalidation.
 
-On **October 19**, fixed standardized reports continued using their existing renderer. For custom static pages, the model could generate HTML directly or use already-authorized Python when computation was useful.
+Three questions guide failure handling:
 
-Existing numeric facts continued to come from their original producers; styling a chart did not require recalculating them. We did not introduce a separate length/complexity classifier that forces tasks into one route.
+1. Did the new request touch the workspace? Only its execution owner can supply no-touch evidence bound to that invocation.
+2. If it executed, has it ended, and are inventory and provenance still valid? Ordinary errors, cancellation and unknown execution are not one outcome.
+3. Does the next consumer need model feedback, computational data or a downloadable artifact? They are not the same output.
 
-But HTML text alone is **not a downloadable saved file**. Persistence and delivery need real execution results.
-
-The change had focused engineering verification, not evidence that models always select the best route or that real-world page aesthetics improved.
-
-**Python is an optional capability, not a mandatory checkpoint for every research or presentation task.**
-
-## 8. Preserve Freedom to Compute with Clear Boundaries
-
-This journey was not simply adding features to a Python Tool.
-
-We distinguished transient model code from trusted Skill scripts to avoid inheriting inappropriate privileges. We shared stable research methods to avoid maintaining duplicate formulas. We kept intermediate file continuity without prematurely building a persistent Notebook.
-
-When multiple execution identities appeared, we separated their workspaces. When failures occurred, we learned to ask **whether new code actually ran** and **which existing files and source facts remained valid** before clearing them.
-
-New checks no longer automatically earned the right to block execution.
-
-Some mechanisms have engineering verification in supported container environments, and real-model paths have shown code corrections and successful artifact delivery. Complex research still has recorded failures in interpretation, completeness, and delivery.
-
-The evidence supports these architectural judgments, **not** a claim that complex investment research is reliably solved.
-
-The workbench's purpose is to give the model sufficiently flexible space to choose methods, write code, observe results, and then fix, re-fetch, or finish.
-
-Runtime must rigorously govern the facts it owns: authorized inputs, the execution environment, created files, and which state is still safe for continuation.
-
-**Teaching an Agent to compute means more than making code run. It means allowing valid prior work to survive, and making each necessary restriction affect only the operation it actually governs.**
-
-Sometimes progress comes from sharing an existing method, preserving a previously established fact, or removing an unnecessary precondition—not adding another tool, rule, or automatic retry.
-
-The desired Agent can compute when computation is useful, continue safely after ordinary errors, and finish tasks that do not require Python without paying an extra execution cost.
+Supported container environments have engineering verification, and real-model samples have repaired code and delivered files. Complex research still has interpretation, completeness and delivery failures. The workbench provides an explainable path for continuing calculations, not a claim that adding Python reliably solves investment research.

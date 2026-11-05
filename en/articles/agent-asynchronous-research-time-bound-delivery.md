@@ -23,20 +23,18 @@ Ten minutes is not necessarily long for a research agent, but it is long enough 
 
 The obvious solution is to move the Run into the background and send a completion notification. We already had Native Research, progressive answers, SSE, durable recovery, and conversation history. What was missing was more specific: **the ability to honor a delivery promise even when execution, published content, and the notification deadline happen at different times.**
 
-The contribution here is not a new background queue. It is the decision to preserve three distinct facts: **when useful content was published, when the user was promised a notification, and when the research finally ended.** They can occur in different orders and must not overwrite one another.
+The key is preserving three distinct facts: **when useful content was published, when the user was promised a notification, and when the research finally ended.** They can occur in different orders and must not overwrite one another.
 
 ## 1. A research request with a time commitment
 
-The earlier interaction followed a familiar path: accept a question, let the model use tools, publish useful answer parts, and eventually finish. Disconnecting the browser did not necessarily stop the original Run, and the user could later reopen committed history.
-
-That solved some lost-connection problems. It did not answer these questions:
+First turn “run it in the background” into questions with observable answers:
 
 - If research finishes in three minutes but the user says “tell me in ten minutes,” should the notification be early?
 - If there is only a committed partial answer at ten minutes, is the task completed or still running?
 - If the full answer arrives at minute twelve, may the system retroactively mark the deadline as met?
 - If the user returns to the page, can the UI restore the result without invoking the model again?
 
-We chose not to infer these states from the model's prose. The original Conversation and Run owners accept a bounded, trusted time fact, while the existing execution, publication, and history paths keep their original responsibilities.
+The normal Entry model still interprets the user's timing intent. The Host accepts a bounded proposal tied to the original user message, settled Entry and Run. A model saying “finished” cannot write a completion fact, and the client cannot submit an internal timing receipt directly.
 
 | User commitment | Delivery semantics | If research finishes early |
 | --- | --- | --- |
@@ -44,7 +42,7 @@ We chose not to infer these states from the model's prose. The original Conversa
 | “Tell me **within** ten minutes” | `by`: aim to deliver by the target | Notify when a valid final result is ready |
 | “Update me at ten minutes even if unfinished” | Report the observed state at the deadline | A committed partial, running, or missed state is not a completed report |
 
-The clock is anchored to the originally accepted user message. Reloading the browser, retrying transport, or receiving later model text cannot reset that commitment. The model can decide how to conduct research; it cannot rewrite the Host clock or committed state.
+The target is the original server-accepted message time plus the admitted delay; identity also binds the original content hash. Reload, reconnection and recovery read the accepted record rather than restarting ten minutes. A timing proposal adds neither a model request nor execution budget.
 
 ## 2. An early answer does not imply an early notification
 
@@ -56,7 +54,9 @@ A handler that always sends a notice on `Run completed` would treat those two di
 
 Instead, the due-time notification refers to the previously committed result. Publication remains responsible for admitting and storing the answer; the notification does not copy, rewrite, or recertify the research.
 
-This is why `at` and `by` are more than two labels. The completion time and delivery time have separate durable meaning.
+A subtler case is research completed before its deadline but a notice delayed by an outage. Its `by` completion may be met while notification is still late. Notification time cannot substitute for completion time, nor can observing completed now establish when it happened. Historical records without a trustworthy completion time remain unknown.
+
+The notice keeps target, actual completion, earliest notification and observed times separate. For `at`, notification becomes due at the later of target and completion; `by` permits notification on completion. An `at` with only a lower bound is not a completion deadline, so unfinished work at that instant is not automatically by-style missed. Completion also does not prove the body is currently viewable: History/Publication still reads it independently.
 
 ## 3. At the deadline, incomplete is still an honest deliverable
 
@@ -70,7 +70,9 @@ In the controlled acceptance scenario, a committed partial remained available wh
 
 This distinction matters: eventual task completion and on-time delivery answer different questions.
 
-Continuation is bounded. A user prohibition on late work, exhausted Run resources, or an invalid lease/grant can stop further dispatch. Where continuation is still legal, the model may choose to continue, narrow the question, or finish in a subsequent admissible turn. The deadline does not create a new Run or a fresh budget.
+Continuation retains the original Run grant but still requires remaining resources, a valid lease and no Stop or terminal restriction. At the next admissible model turn, the model may continue, narrow or finish. A due notice creates no new Run, permission or budget.
+
+If the user forbids late work, the Host tightens the original execution deadline. One easily missed failure path is rejection of optional notification admission: a validated no-late-work restriction still survives. An unavailable notice cannot turn that restriction into permission, and recovery unable to read the original timing authority withholds further execution rather than guessing that late work is allowed.
 
 ## 4. Reopening the browser must not repeat the research
 
@@ -94,7 +96,9 @@ HistoryProjection --> BrowserReopen
 
 The diagram is a simplified read model, not a single database transaction. `ResearchProgress` is a model-authored progress proposal; `PublishedBody` is admitted answer content; `TerminalFact` is an execution fact; `DueNotice` is a timed delivery fact. History relates them using the original Run and account identity.
 
-We also observed a narrower recovery case in which a legally parked Native Run resumed in a new process through its original Timer/Control, Checkpoint, and lease, then completed without re-running already settled Entry or Child work. That demonstrates reuse of existing recovery machinery, not a universal guarantee for arbitrary production process crashes.
+Reopening needs a read, not execution recovery. Continued work depends on server admission: the legacy foreground profile cancels on disconnect when neither background nor timing acceptance exists; admitted background/timed research may detach only the subscription. The later, default-off concurrent profile gives admitted Runs server-owned execution, but that must not be described as the default for every request. Explicit Stop keeps its separate cancellation path.
+
+A narrower observed path resumed a legally parked Native Run through its original Timer/Control, Checkpoint and lease in a new process, without repeating settled Entry or Child work. That recovery initially refused because first execution had used a policy broader than the grant ultimately persisted. The fix aligned initial execution with that grant, rather than weakening recovery identity checks. “Same Run” must still mean the same permission at cold recovery; this is not a guarantee that arbitrary process crashes can safely rerun work.
 
 For frontend engineering, the lesson is not to add another spinner. The live SSE connection is a transport, not the source of truth. A page can reopen, read stable identities, avoid rendering duplicate notices, and navigate to the originally committed answer.
 
@@ -110,15 +114,15 @@ These three kinds of information may share a chat screen, but they should not be
 
 In the client, these objects also need stable event identities, deduplication, and history replay. SSE carries events but does not replace durable state or viewer authorization. [MDN's guide to server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) explains the basic transport; our additional responsibility is replaying the correct account, Run, and notification identities.
 
-This is why the article focuses on **Conversation Events and Historical Delivery**, with a related role for **Client Interaction and Reading**. The former owns delivery and replay facts; the latter presents them in a comprehensible interface. Neither requires inventing an “Async Frontend Manager,” and this is not the same responsibility as recurring task scheduling.
+These are durable in-app notices, not an implemented browser Push, mobile OS push, email or SMS integration. A notice saved while the user is offline has not necessarily reached them. Another channel needs its own audience, delivery and retry contract; SSE or outbox success cannot establish those effects.
 
-## 6. The real browser test changed what we could claim
+<span id="_6-the-real-browser-test-changed-what-we-could-claim"></span>
 
-Early unit and component tests covered many branches, but an earlier browser fixture borrowed from another feature still returned HTTP 503 for the timed-notification route. That did not prove the real timed application page worked.
+## 6. Test the time commitment, not just text appearing on a page
 
-The final bounded acceptance used Chrome, the original Next page, synthetic Better Auth accounts, disposable PostgreSQL, and the original Account/Conversation/Control/History integration. It found two frontend-only import paths that returned HTTP 500. After restoring the existing import convention, the actual page displayed the target notices and results.
+The test should bind the same Run’s original target, committed body, completion fact, notice identity and model-request count, rather than merely finding a popup. The October 22, 2026 controlled acceptance connected those facts through real Chrome, the original Next page, synthetic Better Auth accounts and disposable PostgreSQL.
 
-Observed outcomes included:
+Why test the actual page? A borrowed browser fixture had returned 503 for timed notices despite component coverage. The original page then exposed two browser-only import paths returning HTTP 500. Restoring the surrounding frontend convention made these observations possible; the earlier failures were not counted as passes:
 
 - An early readable `at` result with a held notice, and an early `by` final notice.
 - A committed partial at the missed deadline and a later distinct final event on the same Run.
@@ -132,11 +136,11 @@ The delivery path has been verified under controlled engineering conditions. Tha
 
 ## 7. Why we did not build another Background Manager
 
-A new Background Manager that stores its own task, answer, retry, and notification states might look cleaner initially.
+For a short task with an online user and no separate timing commitment, a completion callback and notification can be sufficiently simple. For long-lived coordination across services, a platform such as [Temporal’s Workflow Execution model](https://docs.temporal.io/workflow-execution) deserves consideration: execution history reconstructs state, with external work handled through mechanisms such as Activities. The application must still define at/by, body access and whether late work is allowed.
 
-But the system already has execution and recovery under Run, committed content under Publication, control events under Control, and delivery/history under Conversation Events and Historical Delivery. Duplicating these facts raises new questions: which owner wins after a conflict, whether retrying a failed notice reruns the model, and what exactly Stop is allowed to terminate.
+Here, Run execution/recovery, Publication content, Control events and historical delivery already exist. Giving a Background Manager its own task and result records would add conflicts over which record wins, whether notice retries rerun research and what Stop terminates. We add original target and notice facts while retaining existing content and execution identities; Temporal is not integrated.
 
-We therefore extend the existing seams rather than creating a second execution or answer authority. The general idea is adjacent to [Temporal's Workflow Execution model](https://docs.temporal.io/workflow-execution), where durable history and recoverable work matter, but we neither integrated Temporal nor built an equivalent general-purpose workflow engine.
+The cost is concrete: this is not a general-purpose workflow engine. Recovery covers only supported waiting/receipt paths, delivery is in-app, and production notification latency is not guaranteed. Broader coordination or delivery requirements call for corresponding platform and channel contracts, not more notice states that imply unsupported capabilities.
 
 **This acceptance boundary needs a date.** The original timed-delivery verification showed that a study already in progress could honor its `at/by` commitment, preserve partial results, and be reopened after the user left. It did not test concurrent short questions in the same conversation. Later, separate [foreground/background concurrency work](agent-background-research-collaborative-experience.md) implemented and checked independent short replies, targeted corrections to the original research, and out-of-order result ownership. That is separate engineering evidence, not a result retroactively established by this timed-notification test or a verdict on financial research quality.
 
@@ -148,7 +152,7 @@ An early result may be readable before an `at` notice. A `by` deadline can arriv
 
 **Research may continue; the original delivery commitment must not be silently rewritten by execution, disconnection, or eventual completion.**
 
-That is what makes this work different from recurring schedules, progressive answer composition, and Publication mechanics.
+A useful audit starts with one question: does a single completed field stand for body persistence, execution termination, meeting the deadline and reaching the user? Separating those facts makes lateness, retries and reopening explainable without rerunning research to hide a gap.
 
 ---
 

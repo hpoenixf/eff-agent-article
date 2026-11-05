@@ -47,6 +47,8 @@ There is an important counterexample. To send a PDF page image through a multimo
 
 Content Trust therefore does not issue a universal `trusted: true` stamp. **Real producers establish identities; roles are carriers; the owner of a concrete effect evaluates authorization.** This also means that a structural check cannot make the model semantically immune to hostile text that arrives inside an otherwise legitimate `user` carrier.
 
+<span id="two-bypasses-found-after-the-initial-case"></span>
+
 ## 3. Capture Identity Before Mutation; Check It Before Dispatch
 
 Content Trust does not sit at the search endpoint, nor is it a universal safety review after model generation. It connects two existing seams: the context assembler supplies the original identity, and the model Gateway checks it against the actual SDK request after the mutable steps.
@@ -68,7 +70,7 @@ OriginalEffectOwner --> CommitEligibleEffect
 OriginalEffectOwner --> RejectLocalEffect
 ```
 
-The diagram shows two **conditional outcomes** of the trust check. If the final projection is consistent with the producer's original identity, the existing Gateway may dispatch it. If it has an objective structural inconsistency, the Gateway rejects **that request** through its existing pre-dispatch failure path. The trust checker does not dispatch tools, terminate research, or make publication or memory decisions.
+The diagram shows two outcomes **for requests whose coverage is `checked`**. If the final projection is consistent with the producer's original identity, the existing Gateway may dispatch it. If it has an objective structural inconsistency, the Gateway rejects **that request** through its existing pre-dispatch failure path. The trust checker does not dispatch tools, terminate research, or make publication or memory decisions.
 
 Three implementation details matter more than the apparent simplicity of this diagram.
 
@@ -95,13 +97,13 @@ return originalGateway.dispatch(sdkPayload);
 
 This is illustrative pseudocode, **not** a verbatim production function. Capture, binding, conversion, and settlement remain within the existing modules that own those operations. The additional mechanism gives their shared invariant a small interface; it does not relocate the execution pipeline into a new security controller.
 
-### Two Bypasses Found After the Initial Case
+### Why Clones and Schema Suffixes Belong to the Same Contract
 
-The first involved **scheduled-request cloning**. A `structuredClone`-style copy does not automatically preserve identity bindings held in process memory against the original request object. A clone may retain its visible fields while losing the original producer identity, leaving the final consumer without the baseline it needs. We corrected the existing scheduling and fitting seams to carry that binding rather than allowing the cloned request to certify itself.
+The identity chain must survive two different changes. **Cloning changes object identity:** the original binding lives in a `WeakMap` keyed by the request object. Copying the same fields into a new object does not copy that relationship. Scheduled requests and context-fitting clones therefore carry the original binding; they do not infer a new producer identity from the transformed text.
 
-The second involved **output-schema text appended to system instructions**. When a provider protocol does not support a native structured-output schema, the Gateway may append a server-owned schema description to the final `system` string. That suffix is legitimate only if it corresponds to the schema captured from the original producer. A late mutation to `outputSchema.description` could otherwise change what the model receives without changing the early `system` field that someone might have checked.
+**Protocol adaptation changes the final instruction representation:** some protocols require the Gateway to append an output-schema description to `system`. The comparison must cover the original instructions plus the legitimate suffix corresponding to the original schema, as well as the request schema against its earlier deep copy. Otherwise, an in-place mutation to `outputSchema.description` can change the instructions received by the model.
 
-These findings sharpened the design: **"We validate the final request" is not precise enough. What is the final representation? Who supplies the baseline? Does it survive clones and protocol-specific suffixes?** Those are the actual questions that determine whether the check has meaning.
+These are not hypothetical checklist items. After the initial Web-promotion regression, independent review reproduced both the scheduled clone losing its binding and a schema description entering the system suffix through the actual SDK path. Together they explain the current contract: **a transformation cannot reissue its own original identity; checking covers the representation actually sent; cached facts apply only to the same original binding and final version.** “Checked once” is meaningless without specifying the object checked.
 
 ## 4. The Risk Is Not Limited to a Wrong Sentence
 
@@ -113,7 +115,9 @@ This is **not** evidence that Content Trust invented a new trading-permission sy
 
 That is why Content Trust does not expose `denyRun` or `publishAllowed` tickets. Nor may it gain the same power indirectly by throwing a policy exception, filtering candidates, or demanding a mandatory extra model turn. If a final input fails an objective identity invariant, the original Gateway rejects that input. If a protected business effect lacks permission, its actual owner rejects that effect. **The scope of the rejection follows the scope of the failed fact.**
 
-We also deliberately distinguish three observation states: `checked`, `not-checked`, and `unavailable`. An unavailable assessment is not proof of safety; it must never be relabeled as verified. But failure of an optional observation does not automatically prove that an otherwise valid request or independent task must stop. A targeted fault-injection case demonstrated that an originally bound, eligible request could still follow the original dispatch path when the observation was unavailable, without switching off its existing necessary permissions.
+The failure trade-off deserves more precision than “safety first.” The checker reports `checked` only when an original binding exists and inspection completes, `not-checked` when the binding is absent, and `unavailable` when inspection fails internally. The Gateway takes the rejection branch above only for `checked` with an objective inconsistency. **Finding no inconsistency is not the same as having established consistency.** A newly integrated request producer therefore needs separate evidence that it carries the original binding; successful dispatch alone is not coverage evidence.
+
+Why not turn both missing-coverage states into a global stop? This contract separates optional observation from mandatory effect proof. Independently eligible work with established identity and permission is not erased merely because observation is missing; an effect still cannot execute without the authorization or source proof required by its original owner. The fault-injection test proves only that one originally bound, legitimate request completes through the actual SDK's synthetic send when observation is unavailable. It does not relabel the gap as `checked`. The cost is explicit: **that observation gap provides no claim of structural verification by this layer.** A different system that requires a valid trust-check receipt before every dispatch must make it a mandatory sender condition and define rejection or repair when unavailable. This optional observation does not provide that guarantee.
 
 ## 5. A Child Agent, Summary, or Memory Entry Cannot Launder Authority
 
@@ -127,15 +131,21 @@ Context compaction is particularly easy to describe incorrectly. The current Mai
 
 This part has implementation evidence beyond a design document. In one bounded PostgreSQL test, a writer process stored the relevant state and terminated; a fresh process recovered and exactly reread the original result. The scenario asserted preservation of the sealed proposal, source identity, and eligible text delivery. **That verifies a specific synthetic cross-process handoff, not every recovery variant, live-model behavior, or production history.**
 
-## 6. Why Not Add Another "Safety LLM"?
+<span id="_6-why-not-add-another-safety-llm"></span>
 
-Using a second model to judge whether web text is suspicious can seem stronger. But doing so introduces model costs, false-positive handling, evaluation requirements, and a new authority-design problem. If the review model itself can be influenced by its input, its "safe" label still cannot constitute an authorization receipt.
+## 6. What Do the Alternatives Protect, and Why Start with Structure?
 
-For this phase, we separated two jobs. **Software checks what it actually knows:** which producer supplied an instruction, whether current user text was replaced, whether source material landed in a privileged slot, and whether a proposed action has real permission. **The model interprets natural language:** whether a sentence is an analyst's view, an attack sample the user wants explained, or an attempt to redirect the current task.
+These approaches do not form a ladder where greater complexity automatically means greater safety. They address different questions:
 
-We added an optional, reviewed `source-instruction-safety` Skill through the existing method and resource admission path. It helps the model distinguish source views from unauthorized commands while preserving the legitimate task. It is not mandatory for ordinary requests, does not introduce another model, and does not require a self-certification statement at the end of each turn. If the optional method is unavailable, normal work and existing deterministic protections remain available.
+- **Shared instructions and clear data separation** tell the model what is a task and what is quoted material. They are inexpensive and useful for ordinary reading, but cannot establish that a Hook or protocol mapper preserved those positions. Our earlier path already had this guidance and still exhibited the opening regression.
+- **Semantic filters or a separate guardrail model** can inspect inputs, outputs, or proposed actions for content-level manipulation. They can complement a structural checker when malicious prose remains inside a legitimate tool carrier. [OWASP's model-based guardrail guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html#model-based-guardrails) describes them as supplements to deterministic controls and identifies missed attacks and blocked benign actions. Adoption also needs latency, cost, evaluation, and failure-handling decisions; a safety score is not authorization.
+- **Producer-bound identity and original effect checks** address directly testable facts: whether the current user's text was replaced, source content entered Host instruction slots, or a real action has permission. They add no model call, but cover only the encoded contracts, not how prose inside a legitimate carrier may influence a model.
 
-That is a deliberate trade-off, not an assertion that semantic defense does not matter. OWASP describes additional mitigations including filtering, least privilege, approval, and continuing security tests. **The first Content Security and Trust phase implements the narrower identity-and-effect contract we could validate locally.** It is not a real-time malicious-text classifier, and it does not claim to detect every indirect injection.
+We started with the third approach because the reproducible failure belonged to application assembly. Even a model that perfectly followed higher-priority instructions should not receive a web page disguised as a system command. Removing that program error while retaining shared guidance and existing permission checks is more direct than asking another model to decide whether the promotion seems dangerous. It does not establish that structural controls alone are sufficient or that semantic guardrails are useless.
+
+When finer language interpretation is useful, the current runtime can load the reviewed, optional `source-instruction-safety` Skill through its existing resource and method path. It helps the existing model distinguish analyst recommendations, attack examples requested by the user, and attempts to redirect the task. It is not another model, a mandatory per-turn call, or a requirement to produce a self-certification. Normal tasks and necessary protections remain available when the method is absent.
+
+Protecting real-model behavior against hostile material still requires adversarial evaluation and a separate decision about filtering, isolation, or human confirmation. The layered mitigations in OWASP's prompt-injection guidance reflect that broader problem. **This first phase delivers bounded identity-and-effect contracts, not a complete malicious-text detector or model-resistance certification.**
 
 ## 7. What the Structural Checks Established
 

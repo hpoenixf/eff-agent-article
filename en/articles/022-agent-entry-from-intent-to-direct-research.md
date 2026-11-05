@@ -1,255 +1,163 @@
 ---
-description: "Follow the move from keywords, elaborate intent objects and planners to a Direct/Research decision. Duplicate actions, lost clarification history and malformed-response fallback show how a smaller entry protocol still needs useful capability discovery, suitable parsing limits and legitimate research admission."
+description: "Start with the current Entry contract, then examine why a smaller decision still needs capability discovery. Real failures in repeated actions, lost clarification history, rejected Direct answers and fallback admission explain the choice of structured output, tools and planning, including current interaction profiles and older contracts."
 evidence:
-  implementation: "Direct / Research routing adopted (as recorded in this article)"
-  scoped: "Historical cases and observations of entry behavior"
-  live: "Routing decision quality still requires validation"
+  implementation: "Ordinary Entry and interaction profiles checked against fixed source"
+  scoped: "Spec, History, original-response replay and bounded engineering checks"
+  live: "Does not establish overall routing quality or research completion rates"
 readingBrief:
   takeaways:
-    - "Entry chooses between answering directly and starting research; subsequent evidence should reshape research steps rather than a complete plan being fixed up front."
-    - "A smaller output protocol still needs adequate input: supply bounded capability and document discovery information without prereading all business data just to route."
-    - "Validate structure and actual admission without inventing a second semantic arbiter; irrelevant fields should not veto valid Direct answers, and research fallback still requires appropriate capacity."
+    - "Ordinary Entry proposes Direct or Research; concurrent interactions use Host-available actions, not model-created authority or execution receipts."
+    - "Bounded capability and document discovery informs routing without prefetching all business data; discovery, reading and completion are separate facts."
+    - "Validate complete output for its actual profile, and distinguish transport retry, malformed-output fallback and real Research admission."
   appliesTo:
-    - "Simplifying an overloaded intent, planner or clarification entry while retaining ordinary follow-ups and correct research admission."
+    - "An overloaded Intent, Planner or clarification state machine that needs a smaller protocol without losing capability context and admission."
   notFor:
-    - "Expecting one routing decision to guarantee research success, or assuming a small protocol removes capacity, authorization and routing-quality evaluation."
+    - "Treating routing as proof of research success, or the historical two-branch design as every current interaction protocol."
 ---
 
 # Why Did We Keep Making the Agent's Entry Simpler?
 
-### From Intent and Planner to Direct / Research: The Evolution of an Agent Entry Architecture
+### Small decisions, sufficient context, and execution facts a model cannot supply
 
-While building ETF Agent, we spent considerable effort on a seemingly simple question:
+“What is an enhanced index fund?” can usually be answered directly. “Which of my two enhanced index funds had more stable excess returns over the past three years?” requires material, comparable periods, authorization and calculation. Both mention funds, but their execution needs differ.
 
-**When a user sends a message, should the Agent answer directly or start research?**
+Entry handles that distinction. We once packed intent, entities, time, research plans and completion conditions into the entrance, and also tried native tool actions for routing. The useful reduction was not to reach a single `if`: **let the model make the limited decision needed now, while the actual execution owners establish permission, capacity and results.**
 
-For example:
+This article starts with current behavior, then uses real counterexamples to explain the choices. Older Intent and action protocols are design evidence, not live compatibility paths. This follows [Principle 6, “Use the minimum sufficient mechanism”](/en/principles#principle-6) and [Method 1, “Choosing new capabilities”](/en/principles#method-1): what irreplaceable fact does another mechanism protect, and what cost does it impose on ordinary requests?
 
-> What is an enhanced index fund?
+<span id="from-intent-and-planner-to-direct-research-the-evolution-of-an-agent-entry-architecture"></span>
+<span id="_4-why-did-we-ultimately-return-to-structured-output"></span>
+<span id="_8-how-simple-is-our-entry-now"></span>
 
-This usually needs no live data. The model can explain it directly.
+## 1. Ordinary Entry Today: One Decision, Not the Whole Investigation
 
-But suppose the user asks:
+For an ordinary new request, Entry sees the original request, permitted history and limited Host context. Direct can handle explanations, ordinary follow-ups and faithful transformations that need no external verification. Current external facts, personal holdings, necessary document reading or requested computation when the analysis capability is available require Research.
 
-> Which of my two enhanced index funds has delivered more stable excess returns over the past three years?
-
-Now the Agent needs fund materials, a comparison period, verified historical data, and possibly calculations.
-
-Some requests are more complex still:
-
-> How good is this fund? Should I keep holding it?
-
-This may involve product research, personal holdings, risk preferences, and investment advice. Seeing the word “fund” is not enough to determine which tools to call.
-
-Initially, we wanted the entry point to be as smart as possible: recognize intent, extract entities, interpret time, split tasks, generate a plan, and choose an execution path.
-
-As capabilities grew, the entry point grew more complex too.
-
-After several rounds of real testing and architectural changes, however, we gradually realized:
-
-**A smarter entry point does not necessarily make the whole Agent smarter.**
-
-Many things we asked Entry to do could be done during research—and some belonged to the runtime instead.
-
-Eventually, we narrowed Entry's core responsibility to two basic choices:
-
-**Direct: the request can be answered directly now.**
-
-**Research: the request needs the research process.**
-
-This article is not about a new intent-classification algorithm. It is about why we progressively removed complexity from Intent and Planner, and the practical problems we encountered along the way.
-
-In retrospect, simplifying Entry corresponds to [Principle 6, “Keep the minimum sufficient mechanism”](/en/principles#principle-6): if the model can make the semantic choice between Direct and Research, the entry point need not prewrite an entire research plan. We also used [Method 1, “Evaluating new features”](/en/principles#method-1) to ask what irreplaceable facts an extra Planner, Validator, or Gate actually protects, and how much cost it adds to ordinary requests.
-
-## 1. The Original Idea: Understand the Whole Task at the Entry Point
-
-The earliest ETF Agent routed requests mainly through keywords.
-
-The approach was simple enough and useful during early development.
-
-For example, “holdings” suggested a portfolio query, “market quotes” led to market data, and “recurring investment” led to the corresponding feature.
-
-Natural language, however, is not always organized around keywords.
-
-“Explain recurring investment” and “Help me create a recurring-investment plan” share a keyword but describe very different tasks.
-
-“What have I bought before?” and “What can I buy now?” both involve trading language, but one asks about history while the other may ask for investment advice.
-
-Negation, time, references, and compound questions are also difficult to handle reliably with a keyword list.
-
-We therefore introduced a richer **Intent v2**.
-
-It tried to parse a user request into a semantic object containing the task domain, operating mode, entities, time, speech act, negation, and ambiguity.
-
-A simplified intent might look like this:
+The core Direct shape is:
 
 ```json
 {
-  "domain": "fund",
-  "mode": "analysis",
-  "subject": "portfolio",
-  "operation": "compare",
-  "time": "past_three_years",
-  "ambiguous": false
+  "kind": "direct",
+  "markdown": "指数增强基金通常在跟踪指数的基础上，尝试获取超额收益……"
 }
 ```
 
-This is an explanatory example, not the complete protocol definition from that time.
+Research can request currently available scopes:
 
-There were good reasons for the design. For an assistant with a small set of fixed capabilities, first determining what the user wants and then choosing a corresponding process is natural. Structured intent is also convenient for testing, debugging, and auditing.
+```json
+{
+  "kind": "research",
+  "scopes": ["fund"]
+}
+```
 
-Two problems emerged later.
+When no additional scope is needed, `scopes` can be omitted:
 
-### The Model Interpreted the Meaning, Then Code Interpreted It Again
+```json
+{
+  "kind": "research"
+}
+```
 
-We wanted the model to understand the user's natural language.
-
-In practice, after the model produced a semantic judgment, downstream code might interpret the user's meaning again through keywords, entity types, or override rules.
-
-Examples from earlier work included:
-
-- A conceptual request such as “Compare index funds and actively managed funds” was rejected by inappropriate entity requirements or presentation rules.
-- Natural wording such as “Take my existing holdings into account” was not correctly recognized by the old keyword checks.
-- Ordinary Chinese paraphrases were treated as invalid output because they fell outside a presentation-text allowlist.
-
-These were not just model-capability problems.
-
-**We claimed the model owned semantics, yet the system still contained another implicit semantic arbiter.**
-
-The two did not always agree.
-
-### The Intent Object Started to Resemble a Research Plan
-
-As tasks became more complex, we considered adding research goals, task scope, missing information, execution actions, and completion conditions to the structured decision.
-
-That seemed helpful for planning ahead. But there was a problem:
-
-**Before looking up any material, the Agent often does not know what research steps actually make sense.**
-
-For example, a request to compare two funds' excess returns over three years might produce this entry plan:
+Here `fund` is illustrative, not a scope every Host must offer. Omission does not grant every tool. After Host acceptance, Research chooses its next step within original permissions, budgets and actual results; Direct goes to the existing answer-handling path.
 
 ```mermaid
 graph TD
-FetchHistoricalReturns --> FetchBenchmarkReturns
-FetchBenchmarkReturns --> CalculateExcessReturns
-CalculateExcessReturns --> CompareStability
-CompareStability --> ProduceConclusion
+UserQuestion --> EntryDecision
+EntryDecision --> DirectAnswer
+EntryDecision --> ResearchPath
+ResearchPath --> ResearchNextStep
+ResearchNextStep --> RuntimeAuthorization
+RuntimeAuthorization --> ToolResults
+ToolResults --> ResearchReasoning
+ResearchReasoning --> Publication
 ```
 
-Once research begins, we may discover that one fund is less than three years old and the other changed its benchmark midway through the period.
+**This diagram describes the ordinary Direct / Research core, not every current interaction mode.** Concurrent conversations derive their protocol from the Host snapshot's `availableActions`. Where coordination is available, `coord` proposes inspect, correct or stop for an unambiguous listed active task. A short interaction may not offer Research; Sidecar is Direct-only. Visible actions still do not prove admission or successful control. A valid explicit Skill, an original-owner-prepared Continue, and certain explicit research entrances also need not ask ordinary Entry to rediscover the route.
 
-The right next step is then to redefine the comparison interval and benchmark basis, not mechanically follow the original steps.
+The common principle is ownership, not permanently having two fields: the model proposes what to do now; the Host determines what this execution may actually do.
 
-An entry-generated plan can be a suggestion. If the runtime treats it as mandatory, however, it can prevent the Agent from changing direction when new information arrives.
+<span id="_5-why-did-a-simpler-entry-receive-more-input"></span>
+<span id="entry-should-know-which-capabilities-exist-without-executing-them-in-advance"></span>
+<span id="a-real-case-why-did-a-blurry-pdf-not-enter-research"></span>
 
-We began to reconsider:
+## 2. Why Does Smaller Output Need Better Input?
 
-> **Does the entry point really need to determine the entire research process in the first turn?**
+If a user asks for return correlations and an exported chart, Entry may answer “I cannot do that” when it cannot see the admitted analysis or export capability downstream. Sending every request to Research is an expensive remedy. Running a complete investigation before routing defeats the purpose too.
 
-## 2. The First Shift: Let the Model Understand and the Runtime Own Execution Facts
+Ordinary Entry uses bounded discovery:
 
-In later semantic-planning changes, we withdrew the old heavyweight intent design and tried letting the model take more direct responsibility for interpreting goals, task scope, and research direction.
-
-At the same time, we returned objective execution facts to the runtime. This was not simply about deleting fields; it was about reallocating responsibility.
-
-| Responsibility | More appropriate owner |
+| Input | What it helps Entry determine |
 | --- | --- |
-| Understand the problem the user wants to solve | Model |
-| Decide whether research is needed now | Entry |
-| Determine which tools are available | Host / Runtime |
-| Confirm authorization to access personal data | Host / Runtime |
-| Record whether a tool actually executed | Runtime |
-| Revise research questions in light of new evidence | Research |
-| Determine whether an answer has been submitted | Publication |
-| Determine whether an answer is correct | Independent quality evaluation |
+| Current request and permitted history | What the user is actually asking |
+| Portfolio access level | Whether certain personal-data read access is currently authorized |
+| Analysis capability availability | Whether a path exists for further calculation and export |
+| Authorized document catalog | Whether research materials are available for further reading |
+| Limited discovery information for extension tools | Whether a suitable capability exists for Research to use |
 
-An important distinction follows:
-
-**The model may propose the capabilities it needs, but its own output cannot create permission to use them.**
-
-The model can decide that it needs personal holdings. It cannot make the system believe the user authorized access merely by emitting an “access allowed” field.
-
-Likewise, the model need not predict whether every tool call will succeed. Actual execution results enter the subsequent research context.
+`portfolioAccess: details` describes access, not existing or already-read holdings. A document ID and version locate material; they do not put its body into the model. Extension descriptions are discovery, not tools callable in Entry. Analysis and export availability are separate: being able to export a file does not automatically mean Python is available.
 
 ```mermaid
 graph TD
-UserRequest --> EntryInterpretation
-EntryInterpretation --> RouteSelection
-RouteSelection --> CapabilityCheck
-CapabilityCheck --> ResearchExecution
-ResearchExecution --> ModelAnalysis
-ModelAnalysis --> Publication
+UserRequest --> EntryDecision
+AuthorizedHistory --> EntryDecision
+HostCapabilityMetadata --> EntryDecision
+EntryDecision --> DirectPath
+EntryDecision --> ResearchPath
+ResearchPath --> EvidenceRetrieval
 ```
 
-As this division became clearer, we found that Entry no longer needed to describe every state of the research process in advance. That created the foundation for further simplification.
+Discovery lives in the original Host message with count and byte limits, and cannot displace the user's original text. The implementation fits bounded extension-tool and authorized-document entries, sampling current discovery after asynchronous context preparation. Metadata disclosure itself must be authorized; a later read check does not make the earlier catalog exempt. A failed read must not be represented as a successful empty catalog.
 
-## 3. We Even Tried Native Tool Calling in Entry
+This supplies more context than the last sentence alone, at lower cost than prefetching holdings, quotes and every document for each greeting. The tradeoff is incomplete discovery: absence cannot casually mean the system has no such capability. Ordinary Entry also does not acquire a full Skill-method catalog. A user-selected explicit Skill follows its own admitted entrance.
 
-As the Research Runtime moved to Native Tool Calling, we tried having Entry express its decision through native model tool calls too.
+### The Blurry PDF: Better Routing Did Not Finish the Research
 
-At the time, we designed three mutually exclusive actions:
+In an actual PDF diagnostic, Entry selected Direct without reading a page image. Code showed that Research had a document index while Entry lacked the same bounded discovery. That establishes a context gap, **not the sole cause of the model's routing choice**.
 
-```typescript
-direct_answer({ markdown: string })
+After the existing authorized catalog was exposed, one live first request selected Research and actually read a page image. Reliable transcription still failed, and the task ended partial / request-budget-exhausted. Discovery, reading, model selection and answer quality require separate evidence. We did not preload the PDF body or images, or add another PDF classifier.
 
-ask_user({ questions: Question[] })
+<span id="structured-output-does-not-mean-trusting-the-model-completely"></span>
+<span id="_7-a-smaller-protocol-does-not-eliminate-model-errors"></span>
+<span id="an-irrelevant-field-sent-a-valid-direct-answer-into-research"></span>
+<span id="an-upstream-parser-rejected-a-long-answer"></span>
+<span id="a-structural-error-should-not-arbitrarily-become-a-research-task"></span>
 
-start_research({ scopes?: ResearchScope[] })
+## 3. Valid JSON Is Not Yet an Executable Decision
+
+Provider output constraints can reduce formatting errors. Local handling must still inspect actual finish events, one structured object, fields, the current action set and real admission. This fragment is not a Research decision:
+
+```text
+{"kind":"research","scopes":
 ```
 
-The idea was natural: if the research stage already expressed actions through native tool calls, why maintain a separate decision protocol for the entry point?
+Unexpected tool events are not accepted as a structured proposal either. “Complete” is also more precise than one finish label: the current adapter can retain **actually complete, parseable text satisfying Direct's conditions** with `finishReason=length`. Truncated Research does not get the same acceptance. Accounting for an ordinary model response that really occurred also cannot be erased by a later local parse failure.
 
-But Entry and Research differ in an important way.
+### How Did a Valid Answer Trigger Repeated Research?
 
-**Research can propose multiple tool calls in one model response. Entry needs to make just one branching decision.**
+A historical diagnostic contained a roughly 340-character Direct answer with an irrelevant extra `null` field. The old handler rejected the object, then entered Research and repeated searches. The model had answered; an unused annotation had gained veto power over useful text.
 
-In real testing, we encountered a characteristic failure:
+The **ordinary Direct path** now consumes `kind=direct` and nonempty `markdown`, neither granting authority through extra annotations nor rejecting the valid core because of them. Offline replay of the original failure can finish with one Entry and zero Research calls. The scope matters: current coordination and `conversation-entry-snapshot@2` paths still require strict Direct schema validation. Ordinary projection is not a universal permissiveness rule.
 
-Entry emitted **61 identical `start_research` calls** in succession and eventually hit the output-length limit. Research had not actually begun, and no holdings data had been read.
+A second real failure occurred earlier. Publication allowed longer Markdown, but the JSON parser still used the smaller ordinary tool-argument byte limit. Final character clipping could not rescue input already rejected upstream; Chinese content made the byte/character distinction particularly visible. Entry now uses the parsing budget appropriate to its answer payload while ordinary Native arguments keep their default. Check transport, JSON parsing, body handling and publication separately rather than raising every limit together.
 
-The problem was excessive turn coordination at the entry point, not tool calling itself.
+### Transport Retry and Malformed-Output Fallback Are Different Decisions
 
-For an entry point that permits only one decision, a protocol capable of expressing multiple actions is not inherently simpler.
+The current durable production path requests Entry retry allowance only for failures originally classified as retryable with runtime-owned recovery. It asks the original Store before waiting or dispatching; each physical request still needs its own model-call capacity. Optional route switching additionally requires recorded failure facts and previously qualified routes. Cancellation, owner loss or any unknown error does not become an ordinary retry merely because another attempt might work.
 
-The system also has to handle missing actions, duplicate actions, conflicting actions, and output truncation that leaves the decision's completeness uncertain. The earlier the entry point sits in the flow, the more easily a protocol error can block everything downstream.
+Malformed output takes another path. Certain missing-core-text or schema failures in ordinary production can lead to Host Research fallback; Sidecar cannot be upgraded this way. Where the conversation requires background Scope promotion, the original owner must admit the actual workload on the same Run lease. Insufficient capacity rejects the unadmitted work rather than inventing a model decision. Without a qualified Native route or durable recovery conditions, current code returns a capability limitation instead of claiming research occurred.
 
-### Why Did We Eventually Remove Even `ask_user`?
+One specification discrepancy must remain visible. The older unified-semantic Spec still describes at most one full format repair followed by failure, and zero automatic Entry transport retries. Later resource, provider and conversation contracts, together with current production code, contain the bounded retry and specific Host fallback above. This account describes the pinned implementation; **it does not claim the old clauses and newer behavior are fully aligned, or that one format regeneration automatically takes place**.
 
-This was another representative simplification.
+These mechanisms protect identity and resources. They do not establish that every formatting failure deserves a long investigation. That choice still requires the original user request and routing evaluation.
 
-Initially, we thought clarification deserved its own state. For example:
+<span id="why-did-we-eventually-remove-even-ask-user"></span>
 
-> Which two funds would you like to compare?
+## 4. Why Does an Ordinary Follow-Up Not Need a Paused Workflow?
 
-After asking, the system would enter `clarify_pending`, wait for the user, then resume the earlier task.
+“How should I choose?” may need only: “Are you comparing two funds, or asking about fund-selection methods?” The user can answer in the next message. With no investigation underway to preserve, a dedicated pending-question state may be unnecessary.
 
-That design is useful when research is already underway and must wait for more information.
-
-But consider a user who simply asks:
-
-> How should I choose this?
-
-The Agent replies:
-
-> Are you comparing two funds, or asking how to choose funds in general?
-
-That is really just an ordinary conversation.
-
-We found that Entry's dedicated clarification path introduced extra complexity.
-
-In some cases, the question had already been shown to the user, but the next turn failed to preserve history through the dedicated parent-child association. The model could no longer see what it had just asked.
-
-We could have continued fixing the associations or built a more complete pending-question state. Instead, we revisited the requirement:
-
-**Does an ordinary follow-up question at the entry point really need a separate clarification state machine?**
-
-Our answer was no.
-
-We removed Entry's dedicated `ask_user`. Ordinary follow-up questions became Direct text responses.
-
-The next user message reaches Entry through normal conversation history, where the model can understand the context.
-
-In the diagram, the Direct branch answers or asks a follow-up, reusing ordinary conversation history on the next turn. A dedicated `ask_user` and recovery mechanism remain only after entering Research and genuinely needing to wait for user information.
+The old Entry-specific `ask_user` path once displayed a question but lost the history relationship needed to show it to the next turn. Fixing that relationship was possible, but gave ordinary dialogue more recovery responsibilities. Entry now asks through Direct and uses normal conversation history on the next turn. Ordinary text choices grant no tools or sources; the next turn still uses current authority.
 
 ```mermaid
 graph TD
@@ -262,182 +170,87 @@ ResearchPath --> ResearchExecution
 ResearchExecution --> OptionalClarificationWait
 ```
 
-This change introduced no new runtime state, database column, or compatibility protocol. It removed some Entry-specific logic instead.
+Dedicated `ask_user` and recovery remain useful when research already has work to continue; that path decides whether waiting must block. An ordinary follow-up must not pretend the user has answered, and a research wait must not be confused with a fresh routing decision. The cost is that Entry offers no separate structured-questionnaire lifecycle. Products needing required fields, timeouts or explicit pending-question objects should build that workflow rather than pretend every question is ordinary chat.
 
-**Not every multi-turn conversation needs a dedicated workflow.**
+<span id="_1-the-original-idea-understand-the-whole-task-at-the-entry-point"></span>
+<span id="the-model-interpreted-the-meaning-then-code-interpreted-it-again"></span>
+<span id="_3-we-even-tried-native-tool-calling-in-entry"></span>
 
-## 4. Why Did We Ultimately Return to Structured Output?
+## 5. Structured Output, Tool Calling and Intent Serve Different Jobs
 
-After removing the dedicated clarification action, Entry briefly had only two native actions:
+### Why Not Keep Three Tools for a Single Route Decision?
+
+We previously let Entry invoke three mutually exclusive native actions:
+
+```typescript
+direct_answer({ markdown: string })
+
+ask_user({ questions: Question[] })
+
+start_research({ scopes?: ResearchScope[] })
+```
+
+After removing dedicated Entry clarification, two remained for a time:
 
 ```text
 direct_answer
 start_research
 ```
 
-Later, however, we returned to structured output.
+A live test produced **61 identical `start_research` calls** before hitting the output limit. Research had not begun and no holdings had been read. A single SDK request was not proof that the model emitted one action. This is evidence about that historical protocol failure, not a general verdict against tool calling.
 
-This was not a return to the original complex Intent JSON. JSON would express only a bounded entry decision.
+Native tools fit real operations and repeated result consumption in Research. A structured object for one limited route decision has fewer combinations of absent, repeated or conflicting actions to handle. The cost is maintaining and validating different output protocols for Entry and Research. If the entrance itself must fetch external information and act repeatedly, an Agent loop with real tool results may be more natural than wrapping it in an empty two-branch router.
 
-There are now two basic branches.
+[OpenAI's Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs) likewise distinguishes connecting application functionality through function calling from structuring a model response. That supports choosing by responsibility; strict JSON does not establish meaning, permission or research quality.
 
-Direct:
+### Intent Is Useful; Freezing All Meaning Up Front Is the Risk
 
-```json
-{
-  "kind": "direct",
-  "markdown": "指数增强基金通常在跟踪指数的基础上，尝试获取超额收益……"
-}
-```
-
-The example Markdown says: “Enhanced index funds generally seek excess returns on top of tracking an index…”
-
-Research:
+The old Intent v2 approach translated natural language into an object convenient for fixed handlers. This simplified historical illustration is not the current Entry schema:
 
 ```json
 {
-  "kind": "research",
-  "scopes": ["fund"]
+  "domain": "fund",
+  "mode": "analysis",
+  "subject": "portfolio",
+  "operation": "compare",
+  "time": "past_three_years",
+  "ambiguous": false
 }
 ```
 
-If no additional research scope needs to be requested, Research can omit `scopes`:
+For a few clearly separated business categories, keywords, classifiers or structured Intent can be cheaper and easier to integrate. Open research complicates the boundary: the same “regular investing” phrase can request a concept explanation or a plan; “what did I buy before?” and “what can I buy now?” should not share a route merely because both mention transactions.
 
-```json
-{
-  "kind": "research"
-}
-```
+Historical semantic probes also found code reinterpreting a model's decision through entity requirements, keywords and display allowlists. An unnecessary entity requirement rejected conceptual comparisons, a natural holdings expression missed the rule, and normal Chinese paraphrases failed display validation. Two semantic judges could undo each other. Current structural, permission and source checks still matter, but should not secretly replace the model's interpretation of the user's goal.
 
-These examples show the core forms of the two branches. Optional research questions such as `researchNeeds` can provide a starting point, but Entry no longer has to generate a complete plan.
-
-This was an important change.
-
-Entry no longer had to tell the runtime, “Here is the order in which I will call tools, how many steps I expect, and the conditions I must meet before finishing.”
-
-It only had to decide:
-
-**Can I answer directly now, or do I need to enter Research?**
-
-Actual research remains the responsibility of the Native Tool Loop.
-
-### Structured Output Does Not Mean Trusting the Model Completely
-
-The current model gateway can provide JSON output mode. That does not mean we can rely entirely on the provider to guarantee compliance with the local schema.
-
-The system must still check whether a response is complete, ended normally, parses as a valid object, and contains fields that satisfy the current constraints.
-
-For example, the model might return half a JSON object:
-
-```text
-{"kind":"research","scopes":
-```
-
-The system cannot treat the presence of the word `research` as a valid decision. Unexpected tool events or invalid research scopes likewise cannot directly produce execution effects.
-
-One qualification matters:
-
-**One semantic entry decision does not mean that every failure condition permits only one physical model request underneath it.**
-
-Transport failures may trigger bounded retries, and structural errors need explicit handling.
-
-Our goal is to avoid adding a default Planner stage merely to choose a research approach—not to promise that no retry will ever occur.
-
-The earlier structured protocol tried to describe the whole research process. The current one describes only a bounded entry decision.
-
-## 5. Why Did a Simpler Entry Receive More Input?
-
-This is one of the most interesting turns in the evolution.
-
-We kept reducing what Entry had to output, yet recent implementations give it richer necessary context than it had at the start.
-
-That looks contradictory, but the changes address different problems:
-
-**Reducing output avoids assigning unnecessary control responsibilities to the model.**
-
-**Improving input gives the model enough information to make a reasonable judgment.**
-
-Having only two basic branches does not mean Entry should see only the user's last sentence.
-
-### Entry Should Know Which Capabilities Exist Without Executing Them in Advance
-
-For example, a user asks:
-
-> Calculate the return correlation between two funds and draw a comparison chart.
-
-If Entry does not know that authorized Python analysis and export capabilities exist, it may simply answer “I cannot draw charts” or ask the user to calculate it themselves.
-
-With limited availability information about current analysis capabilities, it can choose Research more reasonably.
-
-We therefore gradually gave Entry several kinds of necessary information.
-
-| Input | What it helps Entry determine |
-| --- | --- |
-| Current request and permitted history | What the user is actually asking |
-| Portfolio access level | Whether certain personal-data read access is currently authorized |
-| Analysis capability availability | Whether a path exists for further calculation and export |
-| Authorized document catalog | Whether research materials are available for further reading |
-| Limited discovery information for extension tools | Whether a suitable capability exists for Research to use |
-
-This information does not mean those capabilities have executed.
-
-For example, `portfolioAccess: details` expresses an access level, not proof that current holdings data exists.
-
-The same applies to the document catalog.
-
-**Knowing that a PDF exists is not the same as having read it.**
+This retained diagram summarizes design history, not stages that all run sequentially today:
 
 ```mermaid
 graph TD
-UserRequest --> EntryDecision
-AuthorizedHistory --> EntryDecision
-HostCapabilityMetadata --> EntryDecision
-EntryDecision --> DirectPath
-EntryDecision --> ResearchPath
-ResearchPath --> EvidenceRetrieval
+KeywordRouting --> IntentFrame
+IntentFrame --> ModelPlanning
+ModelPlanning --> FlatDecision
+FlatDecision --> EntryActions
+EntryActions --> DirectResearchOutput
 ```
 
-The important principle is:
+<span id="the-intent-object-started-to-resemble-a-research-plan"></span>
+<span id="_6-entry-should-supply-a-starting-point-not-prescribe-the-research-process"></span>
 
-**Entry may receive necessary capability-discovery information, but it should not preread all business data just to choose a route.**
+## 6. Without an Upfront Plan, How Do We Retain Complex Questions?
 
-The Direct branch in the diagram does not gather research evidence. Evidence is retrieved as needed only after choosing Research. Otherwise, even a simple “hello” might trigger holdings, market-data, knowledge-base, and external-service queries.
+Retaining the user's question does not require fixing every step before reading. For a three-year excess-return comparison, this looks reasonable:
 
-That adds unnecessary work and makes simple conversation depend on more external systems.
+```mermaid
+graph TD
+FetchHistoricalReturns --> FetchBenchmarkReturns
+FetchBenchmarkReturns --> CalculateExcessReturns
+CalculateExcessReturns --> CompareStability
+CompareStability --> ProduceConclusion
+```
 
-### A Real Case: Why Did a Blurry PDF Not Enter Research?
+If a fund is younger than three years or has changed its benchmark, the comparison period and basis need attention first. Research can revise an advisory plan. A mandatory execution graph instead lets an early guess obstruct necessary corrections.
 
-A recent PDF-reading test illustrates the point.
-
-The user wanted the Agent to read a blurry PDF and extract information from it.
-
-The old Entry did not receive the currently authorized document catalog. It chose Direct and did not actually read page images.
-
-This was not a total lack of PDF-reader capability.
-
-We found that Research could already obtain the relevant document information, but Entry lacked the same limited discovery data.
-
-We connected the existing authorized document catalog to Entry's context.
-
-We did not put the entire PDF text, let alone its page images, into Entry in advance. We supplied only the document metadata currently authorized for discovery.
-
-In a real diagnostic run after the fix, Entry chose Research and the downstream flow did read PDF page images.
-
-Research was still incomplete, however: the model did not reliably finish the transcription, and the task ultimately stopped after exhausting its request budget.
-
-This case captures our new understanding of Entry:
-
-**Providing missing entry information can fix some routing gaps, but it does not guarantee that downstream research succeeds.**
-
-There was no need to restore a complex Planner or add a PDF-specific model decision inside Entry. We only provided existing information relevant to routing.
-
-## 6. Entry Should Supply a Starting Point, Not Prescribe the Research Process
-
-A user question can now contain several research needs. For example:
-
-> Compare two funds' tracking error, fees, and underlying holdings, then consider my portfolio and assess whether an adjustment is worthwhile.
-
-If Entry generates complete steps in advance, it might produce this plan:
+Larger requests can similarly be expanded into a checklist:
 
 ```text
 Query fund A
@@ -449,15 +262,9 @@ Analyze overlap
 Generate an adjustment recommendation
 ```
 
-But the available material may change the research order.
+Such a sequence can suit a stable business workflow. In evidence-driven research, fees, tracking error and personal holdings may have different availability. A missing private authorization should not erase independently permitted public research.
 
-One fund may have benchmark-version differences that temporarily make tracking error incomparable.
-
-Personal holdings details may not be authorized, while public fund fees and tracking quality can still be analyzed independently.
-
-The sensible response is not to regenerate the entire entry plan. It is to let Research choose its next step from the information actually obtained.
-
-Entry currently allows a few initial research questions, for example:
+Current `researchNeeds` can carry a few useful initial questions across turns:
 
 ```json
 {
@@ -472,75 +279,43 @@ Entry currently allows a few initial research questions, for example:
 }
 ```
 
-The example `need` means: “Verify the fees and effective dates for the specified share class.” These questions are initial research directions proposed by the model. They are not verified facts, execution permissions, or a task graph that must be completed in strict order.
+Both the need and its status are model assessments, not evidence, permission or completion receipts. The complete original task remains authoritative, and Research revises questions using actual material. This avoids a default Planner call, at the cost of not supplying a complete fixed task graph that can be approved item by item before execution.
 
-Once research begins, the model can revise questions, add evidence, or disclose limitations based on actual results.
+[Anthropic's comparison of workflows and agents](https://www.anthropic.com/research/building-effective-agents) separates fixed steps, routing and dynamic decomposition: distinct categories support specialized routes, while unpredictable subtasks motivate dynamic decomposition. We place that work in Research, where evidence and tool results exist. Stable approvals or fixed pipelines may instead benefit from an explicit workflow.
 
-We now prefer to view Entry as a **research entry point**, not a controller that finishes all planning in advance.
+<span id="_2-the-first-shift-let-the-model-understand-and-the-runtime-own-execution-facts"></span>
+<span id="looking-back-what-did-we-actually-fix"></span>
+<span id="what-questions-remain"></span>
+<span id="_9-a-smarter-agent-does-not-necessarily-need-a-more-complex-entry-point"></span>
 
-**Entry decides whether research should start. Research decides how it should continue.**
+## 7. Which Chain Should We Observe to Judge Reliability?
 
-## 7. A Smaller Protocol Does Not Eliminate Model Errors
+Consider one route that enters Research:
 
-Reducing Entry to two basic branches did not make every problem disappear.
+```mermaid
+graph TD
+UserRequest --> EntryInterpretation
+EntryInterpretation --> RouteSelection
+RouteSelection --> CapabilityCheck
+CapabilityCheck --> ResearchExecution
+ResearchExecution --> ModelAnalysis
+ModelAnalysis --> Publication
+```
 
-We continued to encounter several failures worth sharing.
+This illustrates responsibilities, not a claim that every check runs once in that exact order. Original permissions and capacity still have their checks at actual dispatch. The owners differ:
 
-### An Irrelevant Field Sent a Valid Direct Answer into Research
+| Responsibility | More appropriate owner |
+| --- | --- |
+| Understand the problem the user wants to solve | Model |
+| Decide whether research is needed now | Entry |
+| Determine which tools are available | Host / Runtime |
+| Confirm authorization to access personal data | Host / Runtime |
+| Record whether a tool actually executed | Runtime |
+| Revise research questions in light of new evidence | Research |
+| Determine whether an answer has been submitted | Publication |
+| Determine whether an answer is correct | Independent quality evaluation |
 
-In one real diagnostic run, the model had already generated a direct answer of about 340 Chinese characters.
-
-It also included an extra `null` field.
-
-The old handling was too strict and rejected the entire decision. The task then entered research, leading to duplicate searches and other failures.
-
-A simple question became complicated research.
-
-The question worth asking was:
-
-**If Direct needs only `kind` and nonempty `markdown`, why should a field unused in execution be allowed to veto a valid answer?**
-
-We changed how Direct consumes fields.
-
-When the core conditions hold, it extracts only the fields it actually needs, without letting irrelevant extras trigger additional research.
-
-An offline replay of the original failing response showed that a single Entry decision could complete without starting Research.
-
-That does not mean anything the model adds is acceptable.
-
-Ignoring irrelevant fields does not turn them into authorization, tool arguments, or business facts.
-
-### An Upstream Parser Rejected a Long Answer
-
-Another issue was less obvious.
-
-Entry's Direct branch can generate relatively long Markdown. At one stage, however, its strict JSON parser still used the smaller byte limit intended for ordinary native tool arguments.
-
-The result was that parsing rejected text the final publication layer would have accepted.
-
-For Chinese content in particular, byte count is not character count.
-
-This was not a model-comprehension problem. Capacity constraints across layers were misaligned.
-
-The eventual fix gave Entry a parsing boundary suited to its own answer capacity rather than enlarging the limit for every tool's arguments.
-
-The lesson was:
-
-**An answer passes through model generation, protocol parsing, body processing, and final publication. Acceptance at one layer does not mean acceptance throughout the chain.**
-
-### A Structural Error Should Not Arbitrarily Become a Research Task
-
-When an Entry response is malformed, the system may fail explicitly or follow an existing fallback. But **being able to recover does not grant the capacity needed for a different kind of work**.
-
-A later engineering case exposed the distinction: after an invalid Entry response fell back to Native Research, the original Run could retain its short-interaction Scope classification. The system was now attempting background research without necessarily going through that research capacity admission. Asking what the model “really intended” could not supply a trustworthy decision from malformed output.
-
-The fix neither invented model intent nor introduced a privileged research shortcut. The original Scope owner atomically promotes **the same leased Run** to the appropriate research admission, and Host records an identity-bound fallback receipt. If capacity is denied, only the not-yet-admitted research is rejected; independent foreground interaction and explicit Stop remain with their original owners. Reopening History shows only the bounded public reason for that exact failed Run, rather than exposing arbitrary internal failures.
-
-Controlled browser and isolated PostgreSQL checks exercised capacity denial, subsequent progress after release, and the corresponding failure readback. These checks establish a specific resource boundary, not that every malformed response warrants Research or that live-model routing quality has improved.
-
-**When recovery changes the execution type, it must obtain permissions and capacity appropriate to the work actually started.**
-
-### Looking Back, What Did We Actually Fix?
+The historical failures yield reusable inspection questions:
 
 | Actual problem | Subsequent engineering judgment |
 | --- | --- |
@@ -550,81 +325,8 @@ Controlled browser and isolated PostgreSQL checks exercised capacity denial, sub
 | A parser rejected a long answer before publication | Align parsing and publication capacity layer by layer |
 | Malformed Entry fallback could bypass research capacity | Let the original Scope owner admit the actual workload without inventing a model decision |
 
-These problems share one characteristic:
+The table's Direct field projection applies to the ordinary path qualified above, not every interaction profile. Controlled browser observations covered fallback capacity refusal and the original research finishing after release. Isolated-database and UI regressions covered admission and same-Run failure-reason readback, but the final UI repair had no fresh browser rerun and cannot be presented as fully exercised interaction. Original-response replay can prove that a particular valid answer is no longer misrouted into Research. Neither is an overall routing accuracy measurement for current requests.
 
-**Entry's reliability depends not only on whether the model understands correctly, but also on how much protocol we ask it to obey and how the program handles local deviations.**
+More useful ongoing questions are whether simple requests trigger redundant research, whether current facts are guessed in Direct, whether mixed requests retain independently actionable work, and whether discovery informs the model without displacing its real task. The PDF's actual page read still failed to produce reliable transcription: entering the right door is not reaching the destination.
 
-## 8. How Simple Is Our Entry Now?
-
-The overall evolution can be summarized roughly as follows:
-
-```mermaid
-graph TD
-KeywordRouting --> IntentFrame
-IntentFrame --> ModelPlanning
-ModelPlanning --> FlatDecision
-FlatDecision --> EntryActions
-EntryActions --> DirectResearchOutput
-```
-
-This was not merely a move from complex to simple. It was a gradual clarification of where different techniques fit.
-
-**Keyword rules** are appropriate for explicit, deterministic rules, but not for open-ended semantic understanding.
-
-**Structured Intent** is convenient for engineering integration, but task understanding, research planning, and execution state should not all be packed into one object.
-
-**Native Tool Calling** suits actual operations during Research, but is not necessarily the best way to express a single branching entry decision.
-
-**Structured output** suits bounded decisions that require explicit parsing, but its fields should describe the current decision rather than simulate the whole runtime.
-
-We did not abandon these techniques. We moved them to more appropriate places.
-
-```mermaid
-graph TD
-UserQuestion --> EntryDecision
-EntryDecision --> DirectAnswer
-EntryDecision --> ResearchPath
-ResearchPath --> ResearchNextStep
-ResearchNextStep --> RuntimeAuthorization
-RuntimeAuthorization --> ToolResults
-ToolResults --> ResearchReasoning
-ResearchReasoning --> Publication
-```
-
-Entry makes the Direct / Research choice. Once in Research, the process continues to choose its next step from tool results. Real execution also includes recovery, budgets, cancellation, source permissions, and multi-turn context. None of that should require the model to generate a complete execution plan at the entry point.
-
-### What Questions Remain?
-
-For example, are simple questions incorrectly routed to Research? Are questions requiring up-to-date information answered by Direct guesses? Can complex mixed requests preserve the parts that can proceed independently?
-
-Capability-discovery information also needs restraint. Too little, and the model may not know what the system can do. Too much, and Entry may gradually become another complex planner.
-
-Fallback capacity admission now has a scoped fix; whether a formatting failure actually warrants lengthy research still needs task-level evaluation.
-
-None of these issues requires designing a more elaborate Intent again.
-
-Instead, they suggest that **improving routing judgment while keeping the protocol small is the more worthwhile next investment.**
-
-## 9. A Smarter Agent Does Not Necessarily Need a More Complex Entry Point
-
-This evolution changed our understanding of Entry considerably.
-
-Initially, we wanted it to answer many questions in advance: What does the user want? Which data is needed? Which tools should be called? How many steps are there? When is the task complete?
-
-Later, we found that the question Entry really needed to answer could be simpler:
-
-**Is there enough information to answer directly now? If not, should we enter a process that can gather more information, execute tools, and revise the research direction?**
-
-A real implementation is not just an `if`, of course.
-
-It still needs context, structural constraints, authorization checks, and failure handling. Those mechanisms should not require the model to produce a complete plan for future execution before research begins.
-
-Research continually gathers information and revises judgments. Asking Entry to decide all the steps before it has begun reading the material is not necessarily reasonable.
-
-For our ETF Agent, the direction has become clearer:
-
-**The entry point decides whether to start research; the research process decides how to continue.**
-
-That fits our current understanding of an Agent better than continually expanding an Intent Schema.
-
-Entry ultimately keeps just one decision: answer directly or start research. After research begins, the model chooses tools, investigates gaps, or revises questions based on the materials it obtains. Entry's initial judgment does not lock in the entire route.
+Simplifying Entry leaves unknowns to the stage that can obtain evidence. A limited proposal, sufficient discovery and the original execution owners together make routing explainable. Fewer fields or one fewer model call is not, by itself, success.

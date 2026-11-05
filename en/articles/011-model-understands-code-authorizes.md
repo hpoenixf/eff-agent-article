@@ -22,13 +22,11 @@ An investment research assistant handles three different activities: interpretin
 
 That is the useful meaning of “build brakes first”: **keep permissions and ledger facts where they can be checked, while letting the model research freely within its granted scope.** It does not require every answer to pass through a fixed checklist, or imply that code can determine whether every sentence is correct.
 
-This article incorporates the ledger and confirmation examples from *Why an Agent Needs Brakes Before Intelligence*, and aligns older statements with the October 2026 Run authorization contract. The teaching scenarios below are not real trading incidents. Research capability also does not establish that a live trading channel has been enabled.
+Run authorization connects research, Child delegation and recovery below; ledger and confirmation examples explain the facts it cannot replace. These are teaching scenarios, not real trading incidents. Research capability does not establish an enabled live trading channel.
 
 ## 1. Interpretation Can Produce a Proposal, Not Permission
 
-An earlier design tried to express intent interpretation, research planning and execution arrangements in one heavyweight Intent v2 object. That proposal was withdrawn. Its fields and fixed workflow are no longer the authorization basis.
-
-The useful question it left behind was how to separate the model's interpretation from actions the system actually permits.
+The current starting point is a concrete action, not a planning object that grants permission once interpretation looks correct. The withdrawn Intent v2 proposal combined intent, plans and execution arrangements. Its useful lesson remains: a richer model description cannot grant broader access, and its old fields and fixed workflow are not today's authority.
 
 “The user seems to want to buy,” “this material looks public,” and “the model thinks the evidence is sufficient” are interpretations or judgments. They can influence a research route, but cannot replace account identity, resource scope, tool admission or an actual execution receipt. Passing a schema check does not turn a structured field into an authorization mechanism.
 
@@ -38,29 +36,14 @@ The system therefore checks **the concrete action proposed by the model**: which
 
 Actions outside granted scope are denied before dispatch. An admitted action can still fail during execution, and its receipt must preserve the actual outcome. The model can interpret success or failure; answer delivery has its own records. No stage can announce that a later stage succeeded on its behalf.
 
+<span id="a-grant-is-a-recoverable-run-fact-not-a-question-asked-on-every-turn"></span>
+<span id="keep-authorization-capacity-and-outcomes-with-their-own-owners"></span>
+
 ## 2. Authorization Follows a Run; Execution Conditions Remain Separate
 
-A Run is one logical research execution. The current contract uses the Host's recorded Run grant as its permission authority: initial admission establishes source and tool scope, and later reads, analysis, publication, suspension and recovery within that Run inherit the grant.
+A Run is one logical research execution, not a browser connection or process. At admission, Host records source, tool and capability scope on the original Run. Subsequent reads, analysis, publication and permitted suspension/recovery use that durable grant. Exposure separately records what a model request actually received: **seeing data does not grant permission, and permission does not depend on seeing it first.**
 
-This differs from the old wording that permission should be looked up again on every use. **An existing Run does not revoke an earlier grant because an external permission table changes, or clear previously authorized material during recovery based on a current ACL.** Explicit additional grants can extend scope. A new Run needs its own admission; an old conversation, cache or receipt does not automatically supply permission.
-
-Execution checks still apply. Each action must match its account, scope, Run, tool and source identities, and respect the relevant resource budget, explicit cancellation and execution state. Checking an action against a recorded grant is different from querying current permissions again.
-
-| Changed condition | Required handling |
-| --- | --- |
-| The same Run resumes after suspension | Restore the original grant and execution records without querying current ACLs again |
-| A request targets a resource outside the original grant | Use the existing additional-admission path; a model declaration cannot expand permission |
-| A new Run wants material read previously | Obtain that new Run's own grant; past exposure cannot substitute for it |
-| A file is missing, content identity differs, or computation fails | Report the availability or execution problem rather than relabeling it as revoked permission |
-| Budget is exhausted or the user cancels | The relevant lifecycle rules constrain subsequent effects without inventing success |
-
-Tool registration, model visibility and permission to execute are also distinct. The tool surface can narrow because of phase, admitted capability or resource constraints. Seeing a tool proves neither execution nor success; having no tools available does not automatically prohibit a general explanation. Exposure records describe what the model actually received. They do not grant or shrink permission.
-
-This design makes an explicit tradeoff: stable authorization throughout one research execution and its recovery. New-Run admission remains independent, as do account and scope isolation for the original Run. It is not a mechanism for immediate revocation during an existing Run.
-
-### A Grant Is a Recoverable Run Fact, Not a Question Asked on Every Turn
-
-Consider a synthetic task: an agent reads two permitted fund reports and delegates one to a specialist Child. Admission is not the model claiming “I am authorized.” The Host records the admitted source, tool, and capability scope on the current Run. **Exposure evidence** describes what a particular model request actually received; it is not a second permission registry. Previously observed material cannot authorize a future Run.
+Consider two permitted fund reports. Main delegates one to a Child whose admitted scope is sealed as a subset of the parent grant. If the Child proposes an ungranted private portfolio, Host denies that action; sharing a conversation cannot supply permission. Explicit additional grants can extend scope without replacing or shrinking earlier grants.
 
 ~~~mermaid
 flowchart TD
@@ -77,9 +60,9 @@ flowchart TD
     H --> I
 ~~~
 
-This diagram isolates the authorization handoff; it is not a complete agent execution state machine. **The Child may not receive a wider grant than its parent Run.** Its admission, dispatch, handoff, and recovery reuse the sealed subset. A model proposal for a new source cannot enlarge it. Park/wake and waiting for a user reply do not become an implicit recheck of current ACLs.
+This isolates authorization handoff, not the whole execution state machine. Child dispatch, handoff and recovery reuse the recorded subset. A proposed new source does not enlarge it. Waiting for a user, changing workers or waking parked work does not itself justify a current-ACL query.
 
-The following is a conceptual teaching record, not the database schema:
+This is a teaching record, not the database schema:
 
 ~~~json
 {
@@ -93,13 +76,27 @@ The following is a conceptual teaching record, not the database schema:
 }
 ~~~
 
-**Recovery and new admission differ by Run identity, not by whether the bytes are still cached.** Another worker may restore the same Run's persisted grant, checkpoint, and receipts. If the file has disappeared or its content identity is invalid, the Reader reports unavailability rather than inventing revocation. A different Run needs a fresh Host grant even if prior reports remain in history. The Host may explicitly append additional permitted scope; it does not replace or shrink the original grant.
+Changes to external roles or permission tables do not revoke an existing same-Run grant. Account, scope, Run and source identity must still match. A new Run obtains its own admission rather than borrowing authority from cached bytes, exposure history or old receipts.
 
-### Keep Authorization, Capacity, and Outcomes with Their Own Owners
+| Changed condition | Required handling |
+| --- | --- |
+| The same Run resumes after suspension | Restore the original grant and execution records without querying current ACLs again |
+| A request targets a resource outside the original grant | Use the existing additional-admission path; a model declaration cannot expand permission |
+| A new Run wants material read previously | Obtain that new Run's own grant; past exposure cannot substitute for it |
+| A file is missing, content identity differs, or computation fails | Report the availability or execution problem rather than relabeling it as revoked permission |
+| Budget is exhausted or the user cancels | The relevant lifecycle rules constrain subsequent effects without inventing success |
 
-A tool may be registered, visible to a model, admitted for this Run, dispatched, or proven successful; these are five different facts. Run authorization owns **what this Run is permitted to do**. Resource budgets control **what more it may consume**; tool receipts record **what actually happened**; Publication decides **which answer content was committed**. Budget exhaustion, explicit cancellation, and missing file bytes retain their own local failure semantics instead of silently rewriting the grant.
+Recoverable authorization does not mean every interrupted execution can resume. Only control wakes accepted by the original recovery contract may continue through the original checkpoint and fence; ordinary abandoned-Root re-entry may only settle and return saved results. A missing or corrupted old grant cannot be reconstructed by guessing from today's ACL. The promise is **original authority along a permitted recovery path**, not universal replay.
 
-There is a deliberate trade-off: this contract does not support immediate dynamic revocation within a Run. It suits research work that needs repeatable recovery and auditable continuation. A product requiring administrator revocation to stop all in-flight effects would need an explicit termination and access policy; that behavior is not supplied by this contract.
+Registered, model-visible, granted, dispatched and successful are five distinct facts. Phase and resources can narrow tools, and visibility does not reserve the next unit of capacity. Budgets and cancellation limit effects without rewriting grants. Missing bytes, changed hashes and computation failures retain their own outcomes instead of becoming blanket revocation that clears independent valid material.
+
+### Why use a Run grant rather than query current permissions every time?
+
+Per-use permission queries are a reasonable alternative when later access should promptly reflect administrative changes. An application using [OpenFGA Check](https://openfga.dev/docs/interacting/consistency), for example, can bypass caches and query the database. That trades freshness against query cost; it does not by itself prove an in-flight external effect was revoked.
+
+Our earlier system simultaneously depended on initial grants, exposed sources and current permissions. Recovery, Memory, Children, waiting and publication accumulated separate queries, pruning and compensation. The October 15 decision fixed authorization lifetime to the logical Run, reused its persistent owner and separated permitted scope from actual execution facts. It did not preserve the same repeated queries behind renamed helpers.
+
+The cost is no immediate dynamic revocation within that Run. A product requiring administrator revocation to block all later protected operations should choose a corresponding access-check and execution-stop contract rather than copy this policy unchanged. Explicit Stop, resource limits and terminal state still apply, but they are not a revocation service and cannot erase reads or sends that already occurred.
 
 ## 3. Missing Information Restricts the Actions That Depend on It
 
@@ -113,7 +110,7 @@ Personal holdings and research documents also require distinct permissions. A us
 
 ## 4. Units Times NAV: Analysis Must Not Rewrite the Ledger
 
-One concrete rule from the earlier “brakes” article matters more than a general reliability slogan: **units held are a portfolio fact; a monetary value is derived from those units and the corresponding NAV.**
+One concrete ledger rule matters more than a general reliability slogan: **units held are a portfolio fact; a monetary value is derived from those units and the corresponding NAV.**
 
 The following data is a synthetic teaching example:
 
@@ -179,7 +176,9 @@ In a teaching scenario, every unit in a statement could reconcile without establ
 
 PDF page-image reading is a controlled feature disabled by default. A functioning local interface does not establish visual understanding quality or production readiness. The [PDF article](/en/articles/024-agent-pdf-from-text-to-evidence) covers the reading mechanisms.
 
-## 8. The Judgments Retained After Consolidation
+<span id="_8-the-judgments-retained-after-consolidation"></span>
+
+## 8. Choose Authorization Lifetime According to Required Permission Changes
 
 | Question | Judgment used in this article |
 | --- | --- |
@@ -190,6 +189,6 @@ PDF page-image reading is a controlled feature disabled by default. A functionin
 | Can a confirmed plan be recorded as executed? | Preserve confirmation, instruction and execution receipts separately; hypothetical scenarios do not rewrite account facts |
 | Can one document route certify another? | Each retains its own evidence scope; success is not promoted across routes |
 
-This consolidation corrects wording against existing ledger invariants and the current Run authorization and publication contracts, while preserving the original evidence boundaries. It did not rerun production tests or introduce claims about model success rates, cost or investment returns.
+Before adopting this policy, decide whether external permission changes must alter running work and whether recovery must retain its original grant. Those requirements determine authorization lifetime; the presence of a snapshot is not a reason to trust it forever. Here the lifetime is limited to the original logical Run, does not cross accounts or new Runs, and supplies no trading execution capability.
 
 The model can keep adapting its research route. The system needs stable records of what it was permitted to do, what it actually did, and which effects have not occurred. Keeping those facts separate makes each operation explainable as capabilities expand.

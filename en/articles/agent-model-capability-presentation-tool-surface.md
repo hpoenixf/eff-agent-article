@@ -1,41 +1,48 @@
 ---
-description: "Why can a registered tool remain invisible—or appear without being executable? Follow Skill, MCP and Host boundaries into final request assembly, where an independent admission baseline detects descriptor changes and rejected requests settle through the existing execution ledger."
+description: "Why can a registered tool remain invisible, or arrive with an altered interface? Follow one request from assembly to dispatch to understand independent admission baselines, shared Schemas and asynchronous aliases, then compare SDK tool selection with application-level consistency checks."
 readingBrief:
   takeaways:
-    - "Tool registration, Skill declarations, Host admission and actual model visibility are different facts; Tool Surface projects lawful decisions from their original Owners."
-    - "Copy complete tool descriptors independently before mutable Hooks, then check early and final parity; request seals and shared mutable objects cannot authorize themselves."
-    - "Reject only the malformed request assembly and settle its undispatched reservation through the original ledger; do not create another permission registry or erase legitimate published text."
+    - "Registration, admission, per-turn presentation and execution are four facts. Tool Surface consumes original admission decisions instead of creating another permission registry."
+    - "Copy the expected descriptors independently before mutable assembly. Deep comparison can pass incorrectly if both sides share a nested Schema."
+    - "Asynchronous work can remain after the last assertion. Detaching mutable controls protects dispatch without blindly deep-cloning every message."
+    - "Lawful narrowing differs from arbitrary tool deletion. Rejection must also reach the original request ledger, rather than merely throwing or erasing independently valid prose."
   appliesTo:
-    - "Investigating tools that exist in a registry but remain invisible, or Hooks, context fitting and asynchronous preparation that alter the final model-facing tool set."
+    - "Systems with Hooks, context fitting and asynchronous preparation that need to explain and preserve the exact tools presented to the model."
   notFor:
-    - "Seeking an all-purpose capability manager, or treating logical tool parity as proof of good model choices, Provider wire compatibility or newly granted permissions."
+    - "Using Tool Surface as a new authorization manager, or treating interface consistency as proof of correct tool selection, comprehension or completed research."
 ---
 <div><a id="the-agent-has-the-tool—so-why-can-t-the-model-see-it-our-path-to-a34-tool-surface"></a><a id="the-agent-has-the-toolso-why-cant-the-model-see-it-our-path-to-a34-tool-surface"></a></div>
 
 # The Agent Has the Tool—So Why Can't the Model See It? Our Path to Tool Surface
 
-Integrating an MCP tool into an Agent sounds straightforward: register it, define its schema, configure permissions, and let the model invoke it.
+For a product comparison, the system has registered tools to search for products and read their profiles. You want the model to find candidates and then inspect the details. If it receives only the search tool, another instruction to “check original material” cannot supply the missing interface.
 
-In ETF Agent development, however, we encountered two opposite problems. **A tool existed in the system but was invisible to the model; or the model could see a tool that the Host might not actually authorize.**
+The opposite problem is subtler. A request begins with an admitted tool set, but later assembly changes a parameter definition. The model may produce a call valid under that new definition without the execution Host recognizing the interface.
 
-We first consolidated definitions, then exposure rules, and eventually removed duplicate business-tool definitions from the Runtime so MCP could own the capability interface.
+Product comparison is a teaching example here. The question is **how to deliver the tools intended for this turn, rather than merely prove that they exist in a registry**. The current design derives an independent baseline from original admission facts, checks mutable assembly against it, and returns failures to the existing execution lifecycle. It does not introduce another capability-management service.
 
-Each refactor solved a real problem. But in October 2026, we recognized a remaining gap: even correct authorization, registration, and projection cannot prove that the list ultimately sent to the model remains correct after Hooks, context fitting, and asynchronous preparation.
+<span id="_1-the-first-failure-the-skill-mentions-a-tool-but-the-model-cannot-use-it"></span>
+<span id="_2-consolidating-tool-definitions-was-only-half-the-ownership-decision"></span>
 
-That gap led to **Model Capability Presentation & Tool Surface**. This was not a greenfield architecture; it was the responsibility missing after several rounds of simplification.
+## 1. Separate the Four Places a Tool Passes Through
 
-## 1. The First Failure: The Skill Mentions a Tool, but the Model Cannot Use It
+| Position | What it establishes | What it does not establish |
+| --- | --- | --- |
+| Supplier or MCP registration | Name, description and input Schema | Permission for this task |
+| Original Run and Host admission | Capabilities available under the original grant, scope and phase | Unchanged presentation through later assembly |
+| Model-request tool surface | Complete descriptors supplied in this turn | Invocation or permission for a particular execution |
+| Host dispatch and receipt | Which call executed, was refused or remains uncertain | Correct research conclusions or model comprehension |
 
-On September 27, 2026, we inspected a public product-tracking and comparison Skill. It declared two Market MCP methods:
+Tool Surface preserves consistency between the third position and the first two. Actual argument, resource and access checks remain with the execution Host. Model visibility does not remove them.
+
+A historical integration gap made this distinction concrete. On September 27, 2026, a product-tracking Skill declared two Market MCP methods:
 
 ~~~text
 market__search_instruments
 market__get_instrument_profile
 ~~~
 
-The Skill Registry recognized both, and MCP had registered the service. It seemed natural to expect the Agent to call them when finding and comparing products.
-
-But tracing the actual Research path showed that **research-skill-context.ts** did not map these methods into Research Actions. The Native static Tool Contract also lacked their definitions.
+Research Actions and the Native static tool contract did not yet expose them. This was the break established by source inspection, not attribution of a production user incident:
 
 ~~~text
 Skill declares support
@@ -47,39 +54,32 @@ Native Research has no corresponding tool
 The model cannot call it through this path
 ~~~
 
-That was an integration gap established by source inspection, **not** an inference from a production user incident.
+A controlled path also reproduced the opposite mismatch: capability derivation announced Market availability even when Host network policy did not permit the corresponding action. Conversely, disabling Web search should not disable structured Market data. **Declaration, visibility and executability each need their own source; one “enabled” flag cannot represent all three.**
 
-Our first response was to connect the missing pieces across Skill, Native Contract, and Host Action. Implementing that revealed a second contradiction: the **market** capability might be announced as available when the default MCP Market path was enabled, even though production Host network policy did not permit the action. The Factory then faced a capability declaration with no executable Host Action.
+Business descriptors now come from MCP; the original Run grant and Host provide admission; Tool Surface handles this turn's presentation. A Skill mentioning one method no longer has authority to hide another already-admitted ordinary method in the same domain. Precise tool ceilings were useful on an earlier shared Web route, but an old list cannot retain authority after the interface's ownership changes.
 
-Controlled reproductions exposed mismatches between model-visible tools and executable capabilities. We also corrected the opposite boundary: disabling Web search must not automatically disable Structured Market. Fixing one mismatch does not justify permanently coupling the two capabilities.
+<span id="_4-validate-the-final-tool-surface-against-an-independent-admission-baseline"></span>
+<span id="a-request-seal-cannot-authorize-its-own-contents"></span>
 
-**What began as "show the model two more tools" revealed that Skill declarations, derived capabilities, Host admission, and model-visible tool interfaces are different facts.**
+## 2. How One Request Is Assembled Today
 
-## 2. Consolidating Tool Definitions Was Only Half the Ownership Decision
+Tool Surface is more than a single comparison against the final array. The main path is:
 
-Initially, Native Tool Contract, Skill Context, and Runtime Factory each maintained parts of the model-facing tool mapping. Web search and page reading even shared a `search_public_sources` Host route: **sharing an execution route does not mean the model may see the same tools**. An exact `modelToolCeiling` was a reasonable protection for those earlier synthetic Web tools.
+| Step | Action | Why it belongs here |
+| --- | --- | --- |
+| Project original admission | Obtain complete names, descriptions, Schemas and order | Do not recreate permission from Skill prose or arbitrary diagnostics |
+| Copy an independent baseline | Preserve admitted descriptors before mutable Hooks | Later mutation must not change the comparison standard too |
+| Check after extension projection | Validate tools and protected control inputs | Detect unauthorized changes before legitimate rebuilding can hide them |
+| Let original owners narrow lawfully | Apply existing phase and resource decisions | Narrowing cannot introduce an unadmitted capability |
+| Preserve another independent baseline | Copy the legally narrowed descriptors | Provide a standard for later context, evidence and asynchronous preparation |
+| Detach controls and check finally | Validate the actual logical request after late preparation | Protect against late drift and retained mutable aliases |
+| Dispatch through the existing model layer | Encode the provider protocol | Logical parity does not require identical wire bytes across protocols |
 
-Later, MCP Host could own discovery, Schema validation, authorization, and receipts. Rewrapping business methods such as `read_portfolio` in Runtime then created a competing interface. We returned **business-tool contracts to MCP, authorization to Run Grant/Host, and per-turn presentation to Tool Surface**. Under that new ownership, a Skill's method list no longer has authority to hide another ordinary, legitimately admitted tool in the same native MCP domain.
+Comparison covers count, order, names, full descriptions and input Schemas. Checking names alone misses `query` changing from a string to a number; checking only Schemas misses description changes that may influence selection.
 
-The two decisions are not contradictory: the old ceiling prevented sibling exposure on a shared route; the new arrangement retires an obsolete shadow restriction. **Decide whether a tool may be presented by tracing the authority that admitted it, not by preserving a list from an earlier abstraction.**
+The `read_tool_result` control follows the same rule. The original Host or context-fitting path can admit it under the appropriate conditions. A Hook cannot earn that permission merely by inserting its name into the request.
 
-## 3. Availability Comes from Its Original Owner, Not a Plausible Diagnostic Field
-
-Tool visibility also changes with search quotas, source permissions, and deadlines. An October 2026 controlled regression showed that an unrelated MCP result carrying fields resembling Web budget exhaustion could incorrectly hide `market__web_search` during recovery. This was not a typing failure: **diagnostic material had been promoted into availability authority**.
-
-The current path consumes status and receipts from the original Web Gateway/Host, bound to Run, Scope, Invocation, and Connection identities. Recovery does not reconstruct permission from arbitrary MCP results. Exhausting the search quota need not prohibit reading an already authorized `sourceRef`; expiry of the overall Web window may affect both.
-
-This was corrected at the original seam, not by appointing Tool Surface as the Web authorization owner. It is why Tool Surface projects existing decisions instead of keeping another budget and availability cache.
-
-## 4. Validate the Final Tool Surface Against an Independent Admission Baseline
-
-Even when MCP Schemas, Run Grant, and Skill discovery are correct, a request still passes through Hooks, context fitting, evidence assembly, and asynchronous preparation. Controlled request-seam regressions in October 2026 generated **13 cases the old path failed to block**, including additions, removals, reordering, and Schema changes. Those were scoped tests, not 13 production incidents.
-
-Comparing the final **request.tools** with expected descriptors is necessary. The harder question is **where the expected baseline comes from**: it must be independent of the request being checked and grounded in the original admission facts.
-
-### A request seal cannot authorize its own contents
-
-If the final request generates the seal used to validate that same request, the comparison merely proves consistency between an object and its own snapshot:
+A final request seal remains useful, but it answers “what was prepared,” not “what was admitted”:
 
 ~~~text
 Mutated actual tool list
@@ -91,38 +91,60 @@ Compare request against its seal
 The mutation may pass
 ~~~
 
-A seal records execution facts. It does **not** grant tool authorization again.
+The independent baseline, final request and seal can be correlated. None can stand in for the others.
 
-### Expected and actual descriptors cannot share a mutable Schema
+<span id="expected-and-actual-descriptors-cannot-share-a-mutable-schema"></span>
+<span id="why-keep-both-early-and-final-checks"></span>
 
-Another controlled RED demonstrated a reference-aliasing problem. If expected and actual tool descriptors share the same nested Schema object, a Hook that modifies the Provider **inputSchema** in place changes *both sides*. A deep comparison can then pass incorrectly.
+## 3. Why Deep Comparison Can Produce a False Equality
 
-The expected baseline therefore needs an independent copy of the full descriptor **before** mutable Hooks and projections, derived from the original Effective Contract admission decision.
+The easily missed issue is not the comparison algorithm. It is whether the compared objects are independent.
 
-A further RED established that **read_tool_result** cannot simply be introduced by a Hook. The original Host/context-fitting entry must first establish that the readback control is permitted; it is then included in the same independent baseline.
+A controlled regression used a supplier Schema whose nested `properties.query` initially required a string. A Hook replaced it with a number definition in place. If expected and actual descriptors reference the same nested object, both change together. Even a strict comparator then sees “number equals number.”
 
-### Why keep both early and final checks?
+Copying only the outer array does not solve this. The current path copies complete admitted descriptors independently before mutable projection. It copies again after legitimate narrowing so later assembly cannot share the new comparison standard.
 
-This is intentional duplication at different lifecycle points, not a case of mechanically preserving redundant checks:
+This resembles a time-of-check/time-of-use, or TOCTOU, problem. The evidence here concerns controlled request mutation and object aliases, not a demonstrated production concurrency attack.
 
-- **Early parity** runs after extension projection and before legitimate Owner revalidation. It prevents an unauthorized Hook mutation from being "laundered" by later assembly.
-- **Final parity** runs after later context, evidence, and asynchronous preparation. It checks that the actual logical model request still matches the legally narrowed admission result. It runs **even with no optional Hook**.
+Early and final checks therefore serve different purposes. Early checking prevents an unauthorized change from being concealed by later rebuilding. Final checking catches changes introduced by late asynchronous preparation. Later assembly still exists without an optional Hook, so the final check cannot disappear with that switch. Legitimate message compaction changes messages, not tool descriptors, and should not be rejected as tool drift.
 
-Checks cover tool **count, order, names, complete descriptions, and input Schema**. Tool Surface reuses the existing **ChatToolDefinition[]** and request adapter rather than introducing another tool-schema registry.
+## 4. Why Detach Objects After Reaching the Last Check?
 
-The comparison operates on the logical tool surface **before Provider wire serialization**. Valid Provider-specific wire encodings remain the model invocation Owner's responsibility. Logical parity must not prohibit legitimate encoding differences.
+“We checked at the end of the adapter” sounds sufficient, but the adapter does not necessarily write the network request itself. A Factory wrapper can still await another operation before entering the model SDK.
 
-This resembles the engineering structure of a **time-of-check/time-of-use (TOCTOU)** problem, but our evidence concerns later projection and shared mutable objects. It should not be described as a proven production concurrency attack.
+A controlled regression at the actual SDK serialization boundary found that a Hook retained a reference to the request. After adapter validation, that reference could still append an unadmitted tool or alter a description. A previously recorded tool hash could remain unchanged while the tools about to be sent had changed.
 
-## 5. Rejecting a Mismatch Must Also Settle the Request
+The current response is not another authorization layer at every boundary. It is to **detach mutable controls before the last check**: copy the request envelope and message array, deep-copy tool descriptors, output Schema and reasoning configuration, then check the object used downstream. The old Hook alias can no longer change dispatch through the same control object.
 
-The first Tool Surface implementation had another regression.
+Why not deep-clone the entire request? Some image, compaction and evidence relationships depend on message identity and live in side structures such as WeakMaps. Replacing every message object can preserve its text while losing the association that explains where it came from. This path retains the identities required by the original message owners. Source envelopes that specifically need copying carry their proofs through their own path; generic JSON cloning is not a substitute.
 
-After detecting a mismatch, the adapter threw a protocol error and correctly stopped dispatch. Tool parity was protected. But an asynchronous-preparation regression test found that one path failed to report definitive non-dispatch through the existing **onProviderRequestFailure** lifecycle.
+The trade-off is deliberate: controls are independent, while original owners maintain data identity. Every new control field needs an explicit copying and validation responsibility. “We copied the request” cannot mean every body or semantic property is protected. The regression inspected real SDK serialization using synthetic transport, not a real-model quality evaluation.
 
-By that point, Runtime might already have created a reservation and request identity. Throwing an exception does not guarantee that those existing accounting effects close correctly.
+<span id="_3-availability-comes-from-its-original-owner-not-a-plausible-diagnostic-field"></span>
 
-We reused the original **pre_dispatch_rejected** callback to close the reservation for a request known never to have been sent. The original Main/Child request ledger owns that closure; Tool Surface does not issue a competing receipt or acquire resource-accounting authority.
+## 5. When Fewer Tools Is the Correct Result
+
+Complete presentation does not require one immutable tool list forever. It requires **original-owner authority for lawful changes, without arbitrary removal of required tools**.
+
+Three situations differ:
+
+- **Phase or resource changes:** the original contract may narrow this turn's surface. Assembly cannot expand it to a capability that was never admitted.
+- **Context capacity:** if required tools do not fit, report an explicit capacity result instead of silently keeping the first N business tools. The current path can omit an explicitly optional progress-notification control after a particular capacity failure. That is not permission for arbitrary Hook deletion.
+- **Trusted availability changes:** exhausted search quota may disable search while leaving an already-admitted `sourceRef` readable. The overall Web deadline may affect both. The decision comes from original Web Gateway/Host facts bound to this execution, not a budget-looking field in an arbitrary tool result.
+
+The last distinction comes from a controlled counterexample: an unrelated MCP result carried a diagnostic resembling quota exhaustion and incorrectly hid Web search during recovery. The repair belongs at the original availability source. Tool Surface must not add another budget cache or invent a new same-Run authorization policy under the name of revalidation.
+
+Entry's capability summary is still just a summary. Access to Portfolio does not mean holdings have been read; permission to use a document reference does not mean its contents have arrived. Research's full descriptors and Entry's restricted capability hints serve different positions. Metadata is not a successful read receipt.
+
+<span id="_5-rejecting-a-mismatch-must-also-settle-the-request"></span>
+
+## 6. After Rejection, One More Effect Remains
+
+A mismatched request has been prevented from dispatching. Is the guard finished? Not necessarily: the original execution flow may already have established a request identity and resource reservation during preparation.
+
+An asynchronous-preparation regression found exactly that gap. The adapter refused dispatch correctly but omitted the original request's definitive non-dispatch record. Throwing does not automatically settle the reservation.
+
+A mismatch now reports `pre_dispatch_rejected` through the existing `onProviderRequestFailure` callback for the original Main/Child ledger to handle. Adapter calls without the corresponding durable lifecycle can report only a local protocol failure. A resolved callback is not, by itself, proof that a durable reservation existed and was settled.
 
 ~~~text
 Tool surface mismatch
@@ -134,27 +156,28 @@ Original request Owner records definitive non-dispatch
 Original Runtime decides whether to continue, recover, or terminate
 ~~~
 
-Tool Surface also does not delete independently valid publishable text merely because one attempted model request was malformed.
+The guard rejects this invalid request assembly. The original runtime decides whether to continue, recover or terminate. Independently valid prose is not erased because one subsequent request had a tool-surface mismatch.
 
-**A new safety guard that rejects correctly but fails to settle the lifecycle effects of its own rejection can still break the system.**
+The transferable lesson is to find where the existing system records “this did not happen” whenever adding a refusal guard. Otherwise, the access boundary may hold while the lifecycle retains an unresolved state.
 
-## 6. Why We Need Only a Logical Tool Surface Owner
+<span id="_6-why-we-need-only-a-logical-tool-surface-owner"></span>
 
-It would have been tempting to create a unified Capability Manager responsible for registration, authorization, availability, Skills, budgets, and the final tool list.
+## 7. When to Use the SDK Directly, and When This Protection Helps
 
-But the previous refactors had specifically removed Runtime's shadow business-tool registry. Recreating authorization and budget state in Tool Surface would add another competing fact source, not genuine unification.
+Mature SDKs already offer dynamic tool-selection mechanisms. This is a comparison against today's requirements, not a claim that the project historically benchmarked these products on the same task.
 
-Tool Surface has a narrow responsibility:
+| Mechanism | Strong fit | What the application still decides |
+| --- | --- | --- |
+| OpenAI Agents SDK `is_enabled` | Enable tools from context, preferences or runtime conditions | Argument/resource authorization inside tools, and the policy behind visibility |
+| Vercel AI SDK `activeTools` and `prepareStep` | Keep a typed registry while selecting per-step subsets and adjusting messages or model settings | Which changes are intended configuration and which are drift in its own assembly pipeline |
+| MCP `tools/list`, change notifications and `tools/call` | Standard supplier discovery, descriptors and invocation | How discovery connects to task admission and the final request |
+| Independent baseline and detachment here | Multiple mutable extensions, context processors and asynchronous wrappers sharing one request | Copy boundaries, lawful narrowing and original-request failure settlement |
 
-> Consume capabilities already admitted by their original Owners; determine what the model should see in this turn; ensure the final logical request does not deviate.
+[OpenAI's conditional-enabling documentation](https://openai.github.io/openai-agents-python/tools/#conditional-tool-enabling) also distinguishes visibility from authorization that depends on particular arguments and resources. [AI SDK tool-calling documentation](https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#active-tools) describes per-step selection; the [MCP 2025-06-18 Tools specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) defines discovery and invocation. These operate at different layers from application consistency checks. Missing this project's internal fields does not make them inadequate.
 
-It creates no new durable state and does not change Run Grant, MCP Schema, Web Gateway quotas, Provider routing, or Publication decisions. It may reject only the assembly of an invalid **model request**.
+For a few fixed tools sent directly to an SDK without shared mutable extensions, explicit configuration and tool-side authorization are often simpler. Our extra complexity comes from our own longer assembly chain: retaining extensions and context processing while preventing them from rewriting independent admission facts. Copying, comparison and additional boundary tests are the cost, not a free guarantee of a better model.
 
-For **Entry**, it retains a current, restricted summary of Host capabilities. Permission to access Portfolio does not mean holdings were already read, and permission to cite a document does not mean its contents have been obtained.
-
-For **Research**, it retains the complete legitimate list, rejecting unauthorized descriptor changes without treating valid context compression as corruption. If capacity is too small for required tools, it reports the capacity failure explicitly instead of silently dropping Top-N tools.
-
-Tool Surface is therefore a **logical effect Owner spanning existing files**, not a new service, database table, or permission authority.
+## 8. Start with a Small Public Exercise
 
 <!-- open-etf-case:surface@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Inspect the tools Child actually receives each round
@@ -172,23 +195,17 @@ Both scripted model calls see only `read_page`; the root counters end at two mod
 This covers restricted Child tool presentation and shared counters, not the complete Model Capability Presentation and Tool Surface design or a real model's ability to choose the right tool.
 <!-- /open-etf-case -->
 
-## 7. Conclusion: Preserve Final Visibility Without a Capability Manager
+The [current public README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) remains the usage entry. The command and assertions above belong to the linked fixed snapshot; do not combine different versions into one claimed run.
 
-The former Tool Contract, Skill ceiling, and Web diagnostics each addressed a real issue. But as ownership changed, outdated tests had to be checked against the accepted contract rather than reinstating obsolete whitelists. The essential invariant is that **later projections cannot rewrite the original admission baseline, and a final request cannot authorize itself**.
+<span id="_7-conclusion-preserve-final-visibility-without-a-capability-manager"></span>
 
-Tool Surface's answer was **not** a larger Capability Manager. It was an independently preserved admission baseline, unconditional final tool-surface parity, and lifecycle-correct settlement of local rejection by the original execution Owner.
+## 9. What to Ask During the Next Investigation
 
-The resulting model separates three objects:
+When the model does not use a tool, locate four facts first: was it discovered, admitted for this execution, actually presented in the turn, and dispatched for the particular call? Do not infer permission failure from non-selection or infer delivery from successful registration.
 
-1. **Original admission facts:** which capabilities are lawful in this turn.
-2. **Final model request:** which tools the model actually receives.
-3. **Request seal and execution records:** what the system prepared, dispatched, and settled.
+For request assembly, preserve three test cases: illegal descriptor changes must fail, lawful message fitting must pass, and rejection must produce the right original-ledger result. Also place an asynchronous wait after validation and try to mutate a retained reference. Comparing arrays only before the function returns may miss the actual dispatch gap.
 
-They can be correlated; none can impersonate the others.
-
-**Some architecture upgrades add a necessary constraint. Others refuse to add an unnecessary Owner. Tool Surface illustrates both.**
-
-Tool Surface applies [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2): admission evidence and final-request consistency need clear owners, but not another all-purpose Capability Manager. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) helps distinguish the original admission fact, what the model actually sees, and the final dispatch receipt.
+That is [principle 2, “Complexity belongs with its rightful owner”](/en/principles#principle-2) here: make final presentation someone's clear responsibility without duplicating authorization and budgets. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) separates admission evidence, the actual request and dispatch receipts so the missing connection can be located.
 
 ---
 
