@@ -161,5 +161,6 @@ test('the top navigation links straight to each language catalogue before About'
   for (const prefix of ['', 'en/']) assert.match(read(prefix + 'catalog.md'), /<ChapterCatalog/)
   const css = read('.vitepress/theme/navigation-layout.css')
   assert.match(css, /max-width: 959px/)
+  assert.ok(css.includes('.VPNavScreen .VPNavScreenMenuLink[href$="/catalog"] { display: none; }'))
   assert.match(css, /\.VPNavBar \.VPNavBarHamburger \{ display: flex/)
 })

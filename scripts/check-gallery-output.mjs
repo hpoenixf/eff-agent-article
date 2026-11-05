@@ -70,9 +70,10 @@ try {
         const menu = document.querySelector('.VPNavScreen')
         return menu && getComputedStyle(menu).opacity === '1'
       })
-      assert.equal(await page.$eval('.VPNavScreenMenuLink', node => node.getAttribute('href')), target)
+      const visibleCatalogueLinks = await page.$$eval('.VPNavScreen a', (nodes, href) => nodes.filter(node => node.getAttribute('href') === href && node.getBoundingClientRect().height > 0).length, target)
+      assert.equal(visibleCatalogueLinks, 1, 'The mobile menu must have one visible catalogue entry')
       await page.screenshot({ path: output + `/${language}-${width}-menu.png`, fullPage: false })
-      await page.click('.VPNavScreenMenuLink')
+      await page.click('.VPNavScreen .reading-directory > a[href="' + target + '"]')
     } else await page.click('.VPNavBarMenu a')
     await page.waitForFunction(expected => location.pathname === expected, {}, target)
     await page.goBack({ waitUntil: 'networkidle0' })
