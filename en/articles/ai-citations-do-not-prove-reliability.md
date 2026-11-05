@@ -5,6 +5,7 @@ readingBrief:
     - "Source identity, citation correspondence, material support and task relevance are separate questions. A valid reference establishes an inspection relationship, not the truth of a conclusion."
     - "The Host issues references from actual reads, submitted ranges and use eligibility. Excerpts remain excerpts; revisions and historical inspection bind original versions, not today’s webpage."
     - "Broken public attachments affect their citations while private dependencies stay protected. Independent reviewers assess support and correspondence without controlling the original publication or terminal state."
+    - "A stored search selection receives excerpt-scoped citation eligibility only after its original Host binding and exact submitted text plus identity match the fitted model request."
   appliesTo:
     - "Building citation issuance, revision binding, original-passage inspection and optional review, or diagnosing attribution and identity drift across the delivery path."
   notFor:
@@ -127,6 +128,10 @@ The revised design preserves the distinction between representations. A permitte
 *Figure 4. Eligibility follows actual receipts, model exposure, and use permissions—not the model's URL, label, or assertion that it has read something.*
 
 An excerpt needs its own per-hit identity, timestamps, submitted content, and representation level. A URL, title, raw unsubmitted provider response, or the name of a search action is insufficient. A subsequent full-page read can supply **new, more detailed evidence**; it cannot retroactively relabel the original search excerpt as page text.
+
+**Externalizing a result introduces another handoff.** Suppose a search returned three excerpt candidates with source identities, stored outside the model's immediate context. The model later selects only the second. The old search candidate, or even a successful stored-read receipt, does not establish that the later fitted request contained that excerpt: capacity fitting or a hook may have omitted it or left only a field-level view without the citation identity.
+
+The stored-selection path therefore joins the **exact complete selected excerpt** to the **original Host binding from that same receipt**. An excerpt-scoped `search-excerpt` citation becomes eligible only when the final fitted model request actually includes both that selected item and its corresponding citation identity. A shared URL, a copied candidate from another Run, an incomplete selection or an omitted final input cannot supply missing authority. Recovery reuses only the sealed original exposure fact; it does not reissue citations from today's webpage. When only citation eligibility is missing, independently authorized prose can still proceed under the original Publication rules. This proves **submission of the selected representation**, not model understanding, semantic support or use in the eventual answer.
 
 This is why neither “nothing categorized as discovery can be cited” nor “all discovery can be cited” is a sound universal rule. An action name describes what happened; **what may be cited is the actual material exposed under the applicable permission for that use.**
 
