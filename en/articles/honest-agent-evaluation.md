@@ -207,6 +207,8 @@ Requirements should be proportionate. Static public explanations need less infra
 
 <div><a id="_2-do-not-average-away-different-kinds-of-failure"></a><a id="the-same-runs-can-have-three-different-outcomes"></a></div>
 
+![Choose the evidence check according to the claim being made](../../visuals/en/panorama-evaluation/evidence-path.svg)
+
 ## 12. Evaluation Evidence Loop: Why One Boolean Is Not Enough
 
 Real evaluation populations contain cases that resist pass/fail compression: completed execution with poor content, provider disconnection before a usable answer, a valid answer whose judge failed, or two well-scored runs with incompatible settings. They require different remediation.
