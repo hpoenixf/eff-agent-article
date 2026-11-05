@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="790" viewBox="0 0 375 790" role="img" aria-labelledby="title desc">
+<title id="title">一次 Run，多次保存，只保最新快照</title>
+<desc id="desc">四次成功保存的简化示意，不是固定步骤清单. 初始化: 尚无旧检查点; 读取完成: 原动作回执已确认; 初稿提交: 发布回执已确认; 压缩状态提交: 保存成功后再采纳. 当前快照槽位：revision 4</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#6c8589" stroke-width="1.6"/></marker></defs>
+<rect width="375" height="790" rx="22" fill="#f7f5ef"/>
+<rect width="375" height="7" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif">
+<text x="21" y="42" font-size="23" font-weight="700" fill="#183b4a">同一 Run 的保存时间线</text>
+<text x="21" y="69" font-size="15" font-weight="400" fill="#5a7279">一份进度快照，逐次更新</text>
+<rect x="20" y="89" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="118" font-size="21" font-weight="700" fill="#183b4a">初始化</text>
+<text x="36" y="146" font-size="16" font-weight="400" fill="#45616d">尚无旧检查点</text>
+<text x="36" y="168" font-size="13" font-weight="700" fill="#237165">revision 1</text>
+<path d="M187 185 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="199" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="228" font-size="21" font-weight="700" fill="#183b4a">读取完成</text>
+<text x="36" y="256" font-size="16" font-weight="400" fill="#45616d">原动作回执已确认</text>
+<text x="36" y="278" font-size="13" font-weight="700" fill="#237165">revision 2</text>
+<path d="M187 295 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="309" width="335" height="93" rx="13" fill="#fff" stroke="#d6dfdc"/>
+<text x="36" y="338" font-size="21" font-weight="700" fill="#183b4a">初稿提交</text>
+<text x="36" y="366" font-size="16" font-weight="400" fill="#45616d">发布回执已确认</text>
+<text x="36" y="388" font-size="13" font-weight="700" fill="#237165">revision 3</text>
+<path d="M187 405 v10" fill="none" stroke="#6c8589" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="419" width="335" height="93" rx="13" fill="#edf6f1" stroke="#398276"/>
+<text x="36" y="448" font-size="21" font-weight="700" fill="#183b4a">压缩状态提交</text>
+<text x="36" y="476" font-size="16" font-weight="400" fill="#45616d">保存成功后再采纳</text>
+<text x="36" y="498" font-size="13" font-weight="700" fill="#237165">revision 4</text>
+<rect x="20" y="537" width="335" height="91" rx="13" fill="#e2eee9" stroke="#bed5cc"/>
+<text x="34" y="563" font-size="19" font-weight="700" fill="#205b55">当前快照槽位：revision 4</text>
+<text x="34" y="588" font-size="14" font-weight="400" fill="#205b55">新快照替换当前值</text>
+<text x="34" y="610" font-size="14" font-weight="400" fill="#205b55">不自动保留可任意回放的全部历史</text>
+<rect x="20" y="642" width="335" height="71" rx="13" fill="#e8eef5" stroke="#cedae4"/>
+<text x="34" y="669" font-size="15" font-weight="700" fill="#37576c">原动作回执 · 已发布正文</text>
+<text x="34" y="693" font-size="15" font-weight="400" fill="#37576c">各自独立保留，不被旧快照覆盖</text>
+<text x="21" y="739" font-size="12" font-weight="400" fill="#61767c">示意省略其他可能保存点；</text>
+<text x="21" y="757" font-size="12" font-weight="400" fill="#61767c">失败尝试不计作成功保存，继续仍需获准。</text>
+</g></svg>

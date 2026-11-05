@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="510" viewBox="0 0 840 510" role="img" aria-labelledby="title desc">
+<title id="title">One task. Four ways to continue.</title>
+<desc id="desc">Read A / B → draft → approve → publish (teaching example). Graph runtime → graph state; Workflow runtime → handover state; Service history → deterministic replay; Our Runtime → latest state + receipts. Continuing progress does not undo external effects.</desc>
+<rect width="840" height="510" rx="22" fill="#f7f5ef"/>
+<rect width="840" height="7" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif">
+<text x="28" y="43" font-size="28" font-weight="700" fill="#183b4a">One task. Four ways to continue.</text>
+<text x="28" y="74" font-size="16" font-weight="400" fill="#61767c">Read A / B → draft → approve → publish (teaching example)</text>
+<rect x="28" y="101" width="382" height="150" rx="14" fill="#edf6f1" stroke="#c0d9cc"/>
+<circle cx="46" cy="125" r="4" fill="#237165"/>
+<text x="58" y="132" font-size="19" font-weight="700" fill="#183b4a">LangGraph</text>
+<text x="43" y="156" font-size="15" font-weight="700" fill="#237165">Graph runtime → graph state</text>
+<text x="43" y="178" font-size="16" font-weight="400" fill="#45616d">Graph boundary: super-step</text>
+<text x="43" y="202" font-size="16" font-weight="400" fill="#45616d">Separate completed-task writes</text>
+<text x="43" y="226" font-size="16" font-weight="400" fill="#45616d">Resume a boundary or fork history</text>
+<rect x="430" y="101" width="382" height="150" rx="14" fill="#eef3f9" stroke="#c7d8e5"/>
+<circle cx="448" cy="125" r="4" fill="#406982"/>
+<text x="460" y="132" font-size="19" font-weight="700" fill="#183b4a">Microsoft Agent Framework</text>
+<text x="445" y="156" font-size="15" font-weight="700" fill="#406982">Workflow runtime → handover state</text>
+<text x="445" y="178" font-size="16" font-weight="400" fill="#45616d">Executors, messages, responses</text>
+<text x="445" y="202" font-size="16" font-weight="400" fill="#45616d">Restore matching topology and IDs</text>
+<text x="445" y="226" font-size="16" font-weight="400" fill="#45616d">Continue queued work</text>
+<rect x="28" y="266" width="382" height="150" rx="14" fill="#f7efe4" stroke="#e5d6bf"/>
+<circle cx="46" cy="290" r="4" fill="#896436"/>
+<text x="58" y="297" font-size="19" font-weight="700" fill="#183b4a">Temporal</text>
+<text x="43" y="321" font-size="15" font-weight="700" fill="#896436">Service history → deterministic replay</text>
+<text x="43" y="343" font-size="16" font-weight="400" fill="#45616d">Replay code to rebuild state</text>
+<text x="43" y="367" font-size="16" font-weight="400" fill="#45616d">Reuse recorded Activity results</text>
+<text x="43" y="391" font-size="16" font-weight="400" fill="#45616d">Handle unfinished Activities separately</text>
+<rect x="430" y="266" width="382" height="150" rx="14" fill="#e7f0ed" stroke="#b8d1c5"/>
+<circle cx="448" cy="290" r="4" fill="#225e55"/>
+<text x="460" y="297" font-size="19" font-weight="700" fill="#183b4a">ETF Agent · this implementation</text>
+<text x="445" y="321" font-size="15" font-weight="700" fill="#225e55">Our Runtime → latest state + receipts</text>
+<text x="445" y="343" font-size="16" font-weight="400" fill="#45616d">Latest snapshot per scope + Run</text>
+<text x="445" y="367" font-size="16" font-weight="400" fill="#45616d">Interruption settles; continue: new Run</text>
+<text x="445" y="391" font-size="16" font-weight="400" fill="#45616d">Accepted wakes: scoped continuation</text>
+<path d="M28 438H812" stroke="#cad7d3"/>
+<text x="28" y="465" font-size="17" font-weight="700" fill="#385b67">Continuing progress does not undo external effects.</text>
+<text x="28" y="488" font-size="15" font-weight="400" fill="#385b67">Confirm publication and unknown outcomes in their original records.</text>
+</g></svg>

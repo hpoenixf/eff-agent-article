@@ -69,7 +69,8 @@
     "agent-research-decisions-evidence-synthesis": "研究决策：什么时候停止搜索并回答",
     "agent-artifact-version-access-sharing": "研究产物：从固定版本到定向分享",
     "agent-atomic-portfolio-report-production": "一份组合报告，为什么不能边算边写？",
-    "agent-personalized-daily-research-cache": "每天一份个性化研究：生成、去重与回读"
+    "agent-personalized-daily-research-cache": "每天一份个性化研究：生成、去重与回读",
+    "agent-checkpoint-ownership-and-recovery": "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？"
   },
   "owners": {
     "A01": {
@@ -110,7 +111,8 @@
       "primary": "agent-veto-authority-and-run-termination",
       "related": [
         "agent-provider-failover-without-resetting-the-run",
-        "agent-long-horizon-research-panorama"
+        "agent-long-horizon-research-panorama",
+        "agent-checkpoint-ownership-and-recovery"
       ]
     },
     "A07": {
@@ -250,7 +252,8 @@
     "A28": {
       "related": [
         "tool-results-outside-model-context",
-        "agent-long-horizon-research-panorama"
+        "agent-long-horizon-research-panorama",
+        "agent-checkpoint-ownership-and-recovery"
       ],
       "primary": "agent-main-run-context-compaction"
     },

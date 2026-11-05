@@ -11,7 +11,6 @@ readingBrief:
     - "The client must preserve Run attribution, answer revisions and reading continuity; optional progress verification must not block an independently authorized answer."
     - "Model-authored progress, Host observations and browser connection state are different kinds of evidence; label their origins instead of presenting all three as 'researching'."
     - "A connection-local sequence differs from a durable delivery ordinal; displayed, committed and currently readable content are also different facts, so reconnects must check original identity and current access."
-    - "Progress is a cross-cutting capability contract, not a separate Runtime Owner: Run admission, Conversation persistence, SSE ordering, History readback and Web presentation remain with their existing owners."
   appliesTo:
     - "Agent systems with long-running research, SSE and history that need to address missing or reordered progress, reconnects and client-state races."
     - "Frontend and backend teams clarifying the relationship between model claims, Host observations, durable results and visible UI state."
@@ -29,15 +28,15 @@ Each action is ordinary on its own. The problems emerge when they form one inter
 
 **The central job of an Agent client is to keep user actions, task progress and research results correctly associated.** SSE is one transport for updates. Receiving strings in a browser does not mean a research task has been presented correctly.
 
-We will first associate answers and actions with the right task, then examine progress, reconnects and reading during long-running research. The account retains ETF Agent's actual evolution and controlled observations, while distinguishing the private Web implementation from public CLI examples.
+We follow three steps: establish task and content identity, handle user actions and reading, then examine progress and reconnects during long research. The first half develops general client-side judgments; the second uses ETF Agent's concrete mechanisms to explain the trade-offs.
 
 <div id="_1-the-client-needs-state—but-cannot-declare-facts-owned-elsewhere" aria-hidden="true"></div>
 
 ## 1. The Client Needs Its Own State—but Cannot Declare Facts Owned Elsewhere
 
-“Do not build another state machine in the frontend” can sound like “the frontend should not have state.” In practice, the opposite is true. Drafts, dialogs, scroll position, the selected research task and pending button actions all need explicit local state.
+Start by separating transport from application semantics. SSE carries server events to the browser over a persistent connection, while `EventSource` provides event reception and reconnection behavior. The application still defines task ownership, answer revisions and whether an operation took effect. Those questions remain if the transport changes to polling or WebSocket.
 
-The problem is **using that local state as a substitute for the task's actual state**.
+A clear organization separates two kinds of state: **the client maintains interaction state; the server supplies task and content facts.** Drafts, dialogs, scroll position, the selected task and pending actions belong to the first category. Task creation, durable answers and current access to material belong to the second.
 
 Clicking Send can immediately show that a message is being submitted. Whether a research task has been created depends on admission. Clicking Stop can disable repeated clicks and show a pending request; the request itself does not prove that the original research has stopped. The client can open a citation detail and manage focus, but that interaction cannot decide which material the current user is entitled to read.
 
@@ -82,10 +81,41 @@ The same answer may also be revised repeatedly. If the page already shows revisi
 
 [Open the full-size vector figure](../../visuals/en/a25-client/m-revisions.svg)
 
+<div id="_6-the-frontend-must-preserve-reading-continuity" aria-hidden="true"></div>
+<div id="_5-sending-amending-and-stopping-need-their-own-receipts" aria-hidden="true"></div>
+<div id="_6-the-answer-its-citations-and-the-reader-s-position-form-one-result" aria-hidden="true"></div>
+
+<div id="_6-keep-actions-and-reading-continuous" aria-hidden="true"></div>
+
+## 3. Keep Actions and Reading Continuous
+
+### Preserve the reading position when updates arrive
+
+As long research produces answers and progress updates, two details can interrupt reading:
+
+- New progress should not force-scroll someone who is reading an earlier answer to the bottom. Preserve their reading position and offer an entry point to the new update.
+- When a temporary assistant message identity is replaced by its persisted identity, the same Run's “Research process” disclosure should not reset. A different Run should keep its own reading state.
+
+### Follow the receipt for each send, amendment and stop
+
+When a user starts an amendment from a specific research panel, the client already knows the target and should carry the exact Run and context forward. It should not make the model guess what an explicit UI action means. Clarification is needed only when the user starts from a global input and the target is genuinely ambiguous. This keeps “adjust the original research” distinct from “ask a new question,” even when the wording is similar.
+
+Receipts should describe what actually happened. “Requirement received” establishes admission. “Passed to the research task” establishes a later handoff. “Report updated accordingly” needs support from the result. Collapsing those stages into “Done” creates misleading reassurance.
+
+An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. The page should respond promptly, while final status follows the receipt for that particular action. Stopping generally affects subsequent work; it does not undo actions that already occurred or delete a saved answer.
+
+### Keep citations and focus aligned with the content
+
+After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
+
+Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
+
 <div id="_7-what-should-the-system-say-after-a-long-silence" aria-hidden="true"></div>
 <div id="_4-connection-task-and-answer-states-need-different-meanings-on-screen" aria-hidden="true"></div>
 
-## 3. Distinguish Three Signals During Long-Running Research
+<div id="_3-distinguish-three-signals-during-long-running-research" aria-hidden="true"></div>
+
+## 4. Distinguish Three Signals During Long-Running Research
 
 | Signal | Producer | What it can express | What it cannot prove |
 | --- | --- | --- | --- |
@@ -110,16 +140,18 @@ The HTTP `: heartbeat` sent every ten seconds therefore remains transport mainte
 
 Stop, park, human-interaction wait, cancellation, termination or the end of the viewing connection must fence off later transient status. A browser connection notice says only that the client cannot currently obtain updates; it does not infer that the server has stopped.
 
-## 4. From Model Proposal to Visible Row: Four Facts and Two Orders
+<div id="_4-from-model-proposal-to-visible-row-four-facts-and-two-orders" aria-hidden="true"></div>
 
-A model progress update is not simply “the model sends an SSE message.” It passes through at least four distinct factual transitions:
+## 5. From Model Proposal to Visible Row: Four Facts and Two Orders
+
+In ETF Agent, a model-authored update follows the existing execution and delivery path through four stages:
 
 1. **Proposed:** The model submits bounded text through a controlled tool. This is still a model-authored statement.
 2. **Admitted and settled:** The original Runtime checks the Run, permission, display eligibility and terminal state. The original action path settles the effect and obtains a stable `updateId`.
 3. **Durably committed:** Conversation/Outbox stores the event and assigns its durable order, `deliveryOrdinal`.
 4. **Displayed live:** The attached Run Stream sends it over SSE, and the client projects it as a timeline row.
 
-“The model said it,” “the system admitted it,” “the event was committed,” and “the browser displayed it” are four different facts. A polished UI message cannot be used to infer that an earlier step succeeded.
+The page should show the stage supported by the available receipt. A missing step remains pending rather than being inferred from the interface.
 
 Deduplication must also follow effect identity. Two `kind=progress` events with different `updateId` values are two independent statements. A retry is the same effect only when it uses the same identity and the same sealed request. If `runId + kind` remains the unique slot, “what we checked first” and “what we discovered next” collapse into the last sentence. History overwritten under the old contract cannot be reconstructed by a newer protocol.
 
@@ -128,11 +160,13 @@ Two orders must also remain distinct:
 - **Durable order:** the original Conversation assigns `deliveryOrdinal` to committed model progress. History uses it to restore genuine records after reopening.
 - **Live order:** the current Run Stream event queue assigns `sequence`. It orders events only within that connection. A new connection after reconnecting may start its sequence again, so it cannot be treated as a global history cursor.
 
-A transient Host status has no durable `deliveryOrdinal` and is not written to the Outbox. It enters the same Run Stream queue and receives an order within the current connection. If the user disconnects, missed transient heartbeats are not replayed.
+The transient Host status described earlier uses only live ordering, so it has no durable record to replay after disconnection.
 
-The goal is not an abstract total order for every event in the system. The promise is smaller and enforceable: the current connection is ordered, durable event identities remain distinct, and reconnecting does not invent progress that never happened.
+Each order serves a concrete promise: ordered delivery within the current connection, and restoration of durable events after reopening.
 
-## 5. The Hardest Race: History Arrives Later but Describes an Earlier State
+<div id="_5-the-hardest-race-history-arrives-later-but-describes-an-earlier-state" aria-hidden="true"></div>
+
+## 6. The Hardest Race: History Arrives Later but Describes an Earlier State
 
 Consider a race that was explicitly tested. The browser starts a History request. SSE then delivers and displays a new progress row. The History response arrives later, but does not contain that row.
 
@@ -155,33 +189,6 @@ There is another easily missed provenance problem. A second research turn may re
 The repair stayed with the original History → actual request fitting → new Run source association. Only when the original identity, version and actual inclusion in the current request were established by their existing Owners could the corresponding progress be displayed. Other materials remained unknown. The lesson is that **a statement about the research process can itself depend on source identity; saved history does not prove that this request used it completely and legitimately.**
 
 Most importantly, optional progress verification must not hold an independent answer hostage. Even if one progress row cannot yet be confirmed, an independently authorized formal answer should still be delivered. Progress serves the research; it must not become another termination authority.
-
-<div id="_6-the-frontend-must-preserve-reading-continuity" aria-hidden="true"></div>
-<div id="_5-sending-amending-and-stopping-need-their-own-receipts" aria-hidden="true"></div>
-<div id="_6-the-answer-its-citations-and-the-reader-s-position-form-one-result" aria-hidden="true"></div>
-
-## 6. Keep Actions and Reading Continuous
-
-### Preserve the reading position when updates arrive
-
-Progress adds two more reading details:
-
-- New progress should not force-scroll someone who is reading an earlier answer to the bottom. Preserve their reading position and offer an entry point to the new update.
-- When a temporary assistant message identity is replaced by its persisted identity, the same Run's “Research process” disclosure should not reset. A different Run should keep its own reading state.
-
-### Follow the receipt for each send, amendment and stop
-
-When a user starts an amendment from a specific research panel, the client already knows the target and should carry the exact Run and context forward. It should not make the model guess what an explicit UI action means. Clarification is needed only when the user starts from a global input and the target is genuinely ambiguous. This keeps “adjust the original research” distinct from “ask a new question,” even when the wording is similar.
-
-Receipts should describe what actually happened. “Requirement received” establishes admission. “Passed to the research task” establishes a later handoff. “Report updated accordingly” needs support from the result. Collapsing those stages into “Done” creates misleading reassurance.
-
-An acknowledgment for an earlier message must not clear a newer draft. Clicking Stop can first show a pending request; it cannot announce that the task has stopped. The page should respond promptly, while final status follows the receipt for that particular action. Stopping generally affects subsequent work; it does not undo actions that already occurred or delete a saved answer.
-
-### Keep citations and focus aligned with the content
-
-After an answer revision, citation details must remain bound to the correct version. A citation opens an inspection path; it does not certify the claim.
-
-Keyboard and touch interaction are part of this reading chain too. A disclosure should expose its expanded state; a dialog should handle focus entry, closing and return to its trigger. Users do not need to learn internal Runtime terminology, but the task, content and next action must remain aligned.
 
 <div id="_3-progress-is-an-independent-capability-not-a-new-runtime-owner" aria-hidden="true"></div>
 

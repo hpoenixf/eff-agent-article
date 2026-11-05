@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="470" viewBox="0 0 840 470" role="img" aria-labelledby="title desc">
+<title id="title">Four roles, four distinct questions</title>
+<desc id="desc">A local refusal does not create authority to terminate the entire task. Runtime: Continue, finalize or stop?, Organize lawful next work. Effect owners: Did the original effect commit?, Interpret its own receipt. Checkpoint: Is this snapshot saved and usable?, Check format, identity, revision. Recovery + Control: Which accepted wake may resume?, Check the original safe point</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#708393" stroke-width="1.6"/></marker></defs>
+<rect width="840" height="470" rx="22" fill="#f7f5ef"/>
+<rect x="0" y="0" width="840" height="8" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#183b4a">
+<text x="26" y="48" font-size="28" font-weight="700" fill="#183b4a">Four roles, four distinct questions</text>
+<text x="26" y="80" font-size="17" font-weight="400" fill="#576d75">A local refusal does not create authority to terminate the entire task</text>
+<rect x="26" y="102" width="384" height="114" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="26" y="102" width="5" height="114" rx="2" fill="#164e63"/>
+<text x="43" y="131" font-size="16" font-weight="700" fill="#164e63">01</text>
+<text x="78" y="132" font-size="22" font-weight="700" fill="#183b4a">Runtime</text>
+<text x="43" y="162" font-size="18" font-weight="400" fill="#45616d">Continue, finalize or stop?</text>
+<text x="43" y="187" font-size="18" font-weight="400" fill="#45616d">Organize lawful next work</text>
+<rect x="430" y="102" width="384" height="114" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="430" y="102" width="5" height="114" rx="2" fill="#147d71"/>
+<text x="447" y="131" font-size="16" font-weight="700" fill="#147d71">02</text>
+<text x="482" y="132" font-size="22" font-weight="700" fill="#183b4a">Effect owners</text>
+<text x="447" y="162" font-size="18" font-weight="400" fill="#45616d">Did the original effect commit?</text>
+<text x="447" y="187" font-size="18" font-weight="400" fill="#45616d">Interpret its own receipt</text>
+<rect x="26" y="234" width="384" height="114" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="26" y="234" width="5" height="114" rx="2" fill="#926438"/>
+<text x="43" y="263" font-size="16" font-weight="700" fill="#926438">03</text>
+<text x="78" y="264" font-size="22" font-weight="700" fill="#183b4a">Checkpoint</text>
+<text x="43" y="294" font-size="18" font-weight="400" fill="#45616d">Is this snapshot saved and usable?</text>
+<text x="43" y="319" font-size="18" font-weight="400" fill="#45616d">Check format, identity, revision</text>
+<rect x="430" y="234" width="384" height="114" rx="14" fill="#fff" stroke="#d8dfde"/>
+<rect x="430" y="234" width="5" height="114" rx="2" fill="#5b5c8a"/>
+<text x="447" y="263" font-size="16" font-weight="700" fill="#5b5c8a">04</text>
+<text x="482" y="264" font-size="22" font-weight="700" fill="#183b4a">Recovery + Control</text>
+<text x="447" y="294" font-size="18" font-weight="400" fill="#45616d">Which accepted wake may resume?</text>
+<text x="447" y="319" font-size="18" font-weight="400" fill="#45616d">Check the original safe point</text>
+<rect x="26" y="366" width="788" height="56" rx="12" fill="#e4eeeb"/>
+<text x="42" y="389" font-size="17" font-weight="600" fill="#205b55">Shared constraints: original identity, grant, lease and fence</text>
+<text x="42" y="411" font-size="16" font-weight="400" fill="#205b55">A saved snapshot grants no new execution authority.</text>
+<text x="26" y="450" font-size="15" font-weight="400" fill="#64767b">Responsibilities, not four new services or databases.</text>
+</g></svg>

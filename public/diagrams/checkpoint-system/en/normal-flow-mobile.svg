@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="650" viewBox="0 0 375 650" role="img" aria-labelledby="title desc">
+<title id="title">How ordinary work leaves usable progress</title>
+<desc id="desc">Confirm what happened; retain the state needed for the next step. Admit + lease: Task, scope, budget, Executor and fence. Confirm effect: Authorized action, Original receipt. Save snapshot: Position + state, Original references. Continue / wait: Runtime advances, Control sets a wait</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#708393" stroke-width="1.6"/></marker></defs>
+<rect width="375" height="650" rx="22" fill="#f7f5ef"/>
+<rect x="0" y="0" width="375" height="8" rx="4" fill="#164e63"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, sans-serif" fill="#183b4a">
+<text x="22" y="44" font-size="26" font-weight="700" fill="#183b4a">Normal operation</text>
+<text x="22" y="73" font-size="17" font-weight="500" fill="#576d75">One cycle, two durable facts</text>
+<rect x="20" y="92" width="335" height="96" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="92" width="5" height="96" rx="2" fill="#164e63"/>
+<text x="36" y="119" font-size="15" font-weight="700" fill="#164e63">01</text>
+<text x="71" y="120" font-size="21" font-weight="700" fill="#183b4a">Admit + lease</text>
+<text x="36" y="145" font-size="17" font-weight="400" fill="#45616d">Task, scope, budget</text>
+<text x="36" y="169" font-size="17" font-weight="400" fill="#45616d">Executor and fence</text>
+<path d="M187 190 v10" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="204" width="335" height="96" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="204" width="5" height="96" rx="2" fill="#147d71"/>
+<text x="36" y="231" font-size="15" font-weight="700" fill="#147d71">02</text>
+<text x="71" y="232" font-size="21" font-weight="700" fill="#183b4a">Confirm effect</text>
+<text x="36" y="257" font-size="17" font-weight="400" fill="#45616d">Authorized action</text>
+<text x="36" y="281" font-size="17" font-weight="400" fill="#45616d">Original receipt</text>
+<path d="M187 302 v10" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="316" width="335" height="96" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="316" width="5" height="96" rx="2" fill="#926438"/>
+<text x="36" y="343" font-size="15" font-weight="700" fill="#926438">03</text>
+<text x="71" y="344" font-size="21" font-weight="700" fill="#183b4a">Save snapshot</text>
+<text x="36" y="369" font-size="17" font-weight="400" fill="#45616d">Position + state</text>
+<text x="36" y="393" font-size="17" font-weight="400" fill="#45616d">Original references</text>
+<path d="M187 414 v10" fill="none" stroke="#708393" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="20" y="428" width="335" height="96" rx="14" fill="#ffffff" stroke="#d8dfde"/>
+<rect x="20" y="428" width="5" height="96" rx="2" fill="#5b5c8a"/>
+<text x="36" y="455" font-size="15" font-weight="700" fill="#5b5c8a">04</text>
+<text x="71" y="456" font-size="21" font-weight="700" fill="#183b4a">Continue / wait</text>
+<text x="36" y="481" font-size="17" font-weight="400" fill="#45616d">Runtime advances</text>
+<text x="36" y="505" font-size="17" font-weight="400" fill="#45616d">Control sets a wait</text>
+<rect x="20" y="538" width="335" height="55" rx="10" fill="#e4eeeb"/>
+<text x="32" y="558" font-size="14" font-weight="500" fill="#205b55">Effect receipt: what happened</text>
+<text x="32" y="578" font-size="14" font-weight="500" fill="#205b55">Checkpoint: position + working state</text>
+<text x="22" y="616" font-size="13" font-weight="400" fill="#64767b">Teaching flow; the execution protocol</text>
+<text x="22" y="635" font-size="13" font-weight="400" fill="#64767b">still owns pre-dispatch durability.</text>
+</g></svg>
