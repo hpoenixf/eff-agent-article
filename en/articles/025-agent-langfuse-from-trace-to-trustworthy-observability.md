@@ -13,6 +13,7 @@ readingBrief:
     - "Locate discrepancies across four handoffs: source to tool, tool to model, input to generation, and generation to user. A complete call tree cannot replace content and revision checks."
     - "Original systems establish execution and persistence; telemetry describes process and gaps. Capture, receipt, processing and query readback are separate, and complete pagination does not establish complete capture."
     - "Deduplicate costs by physical request and keep unmeasured durations unknown; verify historical readback. Synthetic probes cannot restore missing history or establish long-term completeness."
+    - "A Native Host handler interval is not queueing, authorization, post-processing or full-Run latency; never sum overlapping local durations into wall time."
   appliesTo:
     - "Designing identity-linked diagnosis, capture-gap handling, telemetry self-checks and historical recovery for a research Agent."
   notFor:
@@ -21,160 +22,107 @@ readingBrief:
 
 # Agent Observability Panorama: From Model Requests to Verifiable Research Facts
 
-Start with a teaching scenario: a user asks an Agent to check the figures in an announcement and produce a report with sources. The report cites the right announcement, but the number is wrong. The API reports no error, and the tracing page is green throughout. Should we change the model, revise the prompt, or fix the reading tool?
+A fund-research answer contains a wrong number, but the Trace dashboard looks healthy: successful tools, completed calls and a retrieval duration of zero. It is tempting to blame the model. Inspect the original records, however, and **some “0 ms” values were never measured at all, while some “missing” operations really happened and were lost in the diagnostic pipeline**.
 
-Knowing only that “the call succeeded” is not enough to choose. The source might omit a unit, the tool might drop a footnote, or the model might receive an incomplete result—or receive it correctly but misunderstand it. Even when the model generates the right content, the user might see a different version.
+The surprising lesson is that more telemetry is not always closer to truth. The useful questions are **who measured which interval, what passed through each projection, where evidence was lost, and whether an observer has quietly been promoted into an execution authority**.
 
-**Useful Agent observability helps us find where a judgment first departed from the facts, while showing what our records still lack.** We follow this report to explain how to inspect handoffs, handle missing evidence, and check the observability tools themselves. The teaching scenario explains the diagnostic method; the separately identified engineering cases come from our actual work on the Langfuse telemetry pipeline.
+![Four handoffs from source to user-visible answer](../../visuals/en/panorama-observability/handoff-checkpoints.svg)
 
 <span id="_1-give-each-observability-signal-a-specific-job"></span>
 <span id="_2-follow-the-handoffs-behind-an-answer"></span>
 
-## 1. Find the Four Handoffs Before Deciding What to Fix
+<div><a id="_1-find-the-four-handoffs-before-deciding-what-to-fix"></a><a id="_2-correlate-the-same-action-without-replacing-execution-records-with-diagnostic-copies"></a></div>
 
-A trace can connect model requests, tool calls, and service activity within a task. But even a complete call tree cannot replace checking the content. For the report above, four handoffs deserve inspection:
+## 1. Surprise One: The Missing Trace Event May Describe an Action That Already Happened
 
-| Checkpoint | What to compare | What the comparison lets us judge |
-| --- | --- | --- |
-| Source to tool result | The original announcement version and relevant pages against the text, headers, units, and footnotes returned by the tool | Whether the source was appropriate and whether reading omitted something that changed its meaning |
-| Tool result to model request | The complete tool result against the input actually sent to the model on this request | Whether the material was merely stored or was actually seen by the model this time |
-| Model request to generated content | The actual input against the candidate answer and how the request ended | Whether interpretation or calculation failed, or the output was truncated or the request failed partway through |
-| Generated content to user-visible text | The candidate answer, saved version, server transmission, and client receipt records | Whether the user obtained the same version that was checked |
+One research request spans several different transitions: source retrieval, tool result, actual model input, candidate answer, Publication commitment and eventual delivery. A successful model call says little about which of these transitions was correct.
 
-![Match four checkpoints by their original identities: source material, tool results, the actual model request and delivered text](../../visuals/en/panorama-observability/handoff-checkpoints.svg)
+In one long-run investigation, the Trace lacked a publication event, but the original Publication history contained an authorized, committed answer. Treating “not in Trace” as “never happened” could cause an operator to rerun a model or effect that already completed.
 
-*Figure 1 · Match four checkpoints by their original identities: source material, tool results, the actual model request and delivered text. Arrows mark handoffs to inspect, not guaranteed passage of content. Model output, persistence, sending and display still require separate checks.*
+Our final design leaves **execution facts with their producers**. Original Run, tool and Publication records own effects, revisions, permissions and settlement. OpenTelemetry and Langfuse receive bounded diagnostic projections correlated by Run, physical request, tool action and answer revision. Observation failures do not veto independent research or decide whether it has terminated.
 
-For example, the announcement says “amounts in ten thousand yuan,” but the tool returns only the numbers. Asking the model to “calculate carefully” does not restore the missing unit. If the tool result retains the unit but the actual request includes only a numerical summary, fix input assembly. Only when the request is complete but the answer still uses the wrong unit should the investigation turn to interpretation, calculation methods, and verification strategy. These are conditional teaching branches, not an assumed real root cause for the opening scenario.
+This is deliberately less authority for observability, not an invitation to build a parallel state machine.
 
-This investigation does not require access to the model’s undisclosed internal reasoning. What we can check is the evidence it received, the content it returned, and what the surrounding program actually did. Accurate input does not guarantee a correct answer, but it helps us avoid repeatedly tuning the wrong part of the system.
-
-[OpenTelemetry’s observability primer](https://opentelemetry.io/docs/concepts/observability-primer/) distinguishes logs, metrics, and traces: metrics help detect unusual changes across a class of tasks, traces locate waits and branches within a task, and logs add events at particular points. Here, they work together to examine the four handoffs. A richer dashboard does not certify a correct report.
-
-<span id="_3-reuse-a-mature-platform-but-define-what-it-does-not-own"></span>
-<span id="_4-longer-research-demands-more-than-call-logging"></span>
-
-## 2. Correlate the Same Action Without Replacing Execution Records with Diagnostic Copies
-
-Before comparing two records, establish that they describe the same action. The same tool may run several times in succession, and two subtasks may read the same announcement at nearly the same time. Matching tool names and nearby timestamps do not prove that the results correspond.
-
-We therefore correlate the user task, its execution (Run), individual model requests, tool calls, and answer versions. If the main agent delegates numerical checking to a child agent, we need to find both the research task it belongs to and that child’s own requests and results. Parent–child relationships explain ownership; original identifiers establish which occurrence corresponds to which.
-
-Correlation does not merge responsibilities. **To establish whether a tool actually executed or a report was saved, consult the original system’s execution and persistence records. To understand how calls progressed, where they waited, or what observations are missing, consult diagnostic telemetry: runtime data automatically collected and reported for diagnosis.** These records can cross-check one another, but neither can stand in for the other.
-
-### More Than Langfuse: Which Technologies Make Up This Pipeline?
-
-Think of it as four layers, each with a different job:
-
-- **Original system records: business PostgreSQL and local redacted traces.** Run, tool-execution and answer-persistence records establish what actually happened; local traces add diagnostic clues. Langfuse does not replace those original records.
-- **OpenTelemetry: capture and transport.** OpenTelemetry provides common conventions for describing and correlating runtime records, plus tools to collect and transport them. Our in-process adapter organizes calls into correlated spans, with OTLP export and Langfuse processing integration for delivery. This is instrumentation inside the application, not a separately deployed OpenTelemetry Collector service.
-- **Langfuse: querying and diagnosis.** Its Web application provides trace search and detail pages, while a background Worker processes asynchronous events. It helps us inspect the process; it does not decide whether a report is correct or its text has been saved.
-- **Langfuse storage and queues: separate responsibilities.** A separate PostgreSQL stores platform transactional data, ClickHouse stores traces and other observations, Redis handles queues and caching, and MinIO supplies object storage. This PostgreSQL is separate from the Agent's business database, rather than one database doing every job.
-
-See [Langfuse’s official architecture](https://langfuse.com/handbook/product-engineering/architecture) for these component roles. Readers need not deploy the whole stack first: identify the facts that need checking, then choose how to capture, query and retain them.
-
-We initially chose Langfuse to reuse mature trace-search and detail pages rather than build another diagnostic interface inside the business chat page. It has an entry point and storage separate from the Agent. This answered “where can we inspect the process?” without making the observability platform the authority on execution facts.
-
-During long-research readback on October 30–31, 2026, one trace had no answer-publication event, while the original publication history returned text that had actually been committed. The right next step was to inspect the saved records using the original Run identifier and access permissions—not rerun the model to produce a replacement answer, and certainly not fabricate an event that had never been captured.
-
-This matters especially for actions with side effects: when a query finds no record, first establish whether the original action occurred. Otherwise, a missing observation can become duplicate execution through a blind retry.
-
-<span id="_5-missing-data-is-an-observation-fact-not-empty-space"></span>
-<span id="complete-query-results-do-not-prove-complete-capture"></span>
-
-## 3. Records May Be Incomplete; Gaps Must Not Masquerade as Conclusions
-
-Saving every model input and output seems convenient for diagnosis. But research requests may contain long web pages, PDFs, and private material. Capture requires separate decisions about authorization, redaction, capacity, and retention. “We might need it for troubleshooting later” is not a reason to retain all source content by default.
-
-The harder question is whether, after limiting content, we can still describe honestly what we observed.
-
-An October 2026 controlled review found that our body-capture limit was **256 KiB (262,144 bytes)**: content exactly at the boundary could be retained, but one additional byte was rejected. When both input and output exceeded the limit, the read interface could even omit the entire model turn. “The body was not saved” came to look like “this call did not happen.”
-
-Raising the limit only postpones the next overflow and increases storage and privacy costs. We kept the limit and instead recorded bounded metadata when a body could not be retained: the invocation identifier, whether the gap concerned input or output, and a cause the collector actually knew. The reader then shows the call and its gap rather than removing the whole turn.
-
-This also requires distinguishing three cases. A captured, valid JSON `null` is an observed value. Content known to have been omitted because of a size limit is a gap with a known cause. An old record without a recorded cause remains unknown. Today’s rules cannot supply an invented explanation for yesterday’s blank space.
-
-A query marked `complete` needs the same scrutiny: it may mean only that pagination has finished, not that every body and protocol event was captured at the source. In an **October 30–31, 2026 interim review**, 59 of 120 planned runs had finished. These were execution instances, not necessarily 59 distinct questions or the final results of the entire evaluation. All 59 had `complete` trace readbacks, yet turn-by-turn inspection found **17 missing model-turn outputs**, and 41 Runs had protocol-event capacity gaps. These were not “17 Runs with no output” or “41 failed tool executions.” One Run with no trace publication event still had a nonempty answer retrievable from the original Publication history.
-
-One contributor was the large number of provider/SDK fragments emitted by streamed tool calls, which can exhaust a finite event budget before a long research task finishes. The targeted change kept the existing limits and added separate counts in new gap receipts for `omittedFragmentEvents` and `omittedOtherEvents`. The latter is **not** a tool-execution count; historical receipts without these fields remain unknown rather than being backfilled as zero. This improves diagnosis of future omissions, not recovery of previously unrecorded events or proof of higher long-run capture completeness.
-
-![Investigate an empty trace against original run, tool and publication records first](../../visuals/en/panorama-observability/empty-trace-diagnosis.svg)
-
-*Figure 2 · Investigate an empty trace against original run, tool and publication records first. Once execution is established, inspect capture gaps and asynchronous telemetry stages. Insufficient evidence stays unknown; a new model run cannot recreate missing historical evidence.*
-
-Return to the announcement report. If this request’s input was not retained because of authorization or capacity limits, we cannot claim that “the model definitely saw the unit,” nor that it did not. Other records may still be useful, but conclusions about the actual input must stop at the evidence boundary. That is more useful for improvement than filling a gap with a plausible explanation.
-
-<span id="_8-the-telemetry-pipeline-can-break-so-give-it-minimal-self-diagnostics"></span>
-
-## 4. The Telemetry Pipeline Can Fail Too: Verify That a Record Reaches the Query Interface
-
-When original execution records establish that a model request occurred but its trace cannot be found, inspect capture and transmission rather than continuing to suspect that the Agent never ran.
-
-We encountered precisely this situation: observation was enabled and the Langfuse page was accessible, yet actual requests had no corresponding records. Following transmission revealed that URL concatenation produced a double-slash path and triggered a redirect. The failure occurred in the background batch exporter, outside the alerts that watched only synchronous exceptions.
-
-The useful lesson is not the trailing-slash fix, but an easily missed distinction: **the application handing an event to the SDK, the receiver accepting it, and the query interface reading it back are different stages.** The object storage, queue, and background Worker in [Langfuse’s official architecture](https://langfuse.com/handbook/product-engineering/architecture) explain why processing continues after acceptance.
-
-At the actual export boundary, we added bounded, sanitized batch status, correlation identifiers, and HTTP status information permitted for recording. We then sent a synthetic event through the real capture pipeline and queried it using the same event identifier. This probe needs neither a model call nor changes to the original research records.
-
-Diagnosis can therefore narrow the problem step by step: did the collector produce an event? Did background transmission succeed? After acceptance, is processing still pending, or did it fail? Finally, can the exact identifier be read back? If evidence runs out at a stage, stop there; an empty downstream query does not establish that nothing happened upstream.
-
-Successful probe readback establishes that the path was reachable on that occasion. It cannot fill historical gaps or automatically prove long-term capture completeness. It does, however, provide a small, concrete self-check without requiring another large platform to monitor the monitoring platform.
+## 2. Surprise Two: Zero Milliseconds May Mean “We Never Had a Clock”
 
 <span id="usage-and-time-also-require-original-identities"></span>
+One real research readback displayed `0 ms` for 19 retrieval-stage events. The original result callbacks carried completion facts but no start timestamp. The old projection filled missing durations with zero. A separate Native diagnostic wrote `createdAt` and `completedAt` together after tool completion; subtracting those database timestamps could fabricate another zero.
 
-## 5. Seeing One Request Three Times Does Not Mean Paying Three Times
+**Unmeasured is not fast, but an actually measured zero is not automatically unknown either.** We now distinguish a valid measured zero, a valid nonzero interval and absence of a measurable interval. Historical rows without underlying timestamps cannot be retrospectively repaired by inference. An OpenTelemetry export span's start and end times are not inherently the business tool's execution time.
 
-Once report content can be checked, another common question is: “Why was this run slow or expensive?” Again, start by identifying the facts behind the records.
+A later, explicit local measurement, `hostHandlerDurationMs`, brackets the actual Native Host handler call using a monotonic clock. It includes work, adapters and waits inside the handler, but **excludes external queueing, pre-dispatch authorization, source binding and settlement after return**. It is not pure vendor network latency.
 
-A request actually sent to a model service may appear in SDK usage records, a research-wide summary, and a trace page. These are different observations of one request, not rows to add together. Re-exporting old records creates no new consumption; a retry that genuinely issues another request has its own request identity.
+In one real Run that ended `partial` after interruption, 77 Host lifecycle records carried this field. That establishes a measurable interval for those observed handlers, not a faster or completed research task. Parallel handler intervals overlap; summing them does not yield Run wall time. Handlers that have not completed have no finished interval to report. Define the **measurement owner and its exact start/end points** before calculating percentiles.
 
-![SDK, Run and Trace can be three views of one physical request, not three billable requests](../../visuals/en/panorama-observability/request-identity.svg)
+<span id="_4-longer-research-demands-more-than-call-logging"></span>
+<span id="_5-missing-data-is-an-observation-fact-not-empty-space"></span>
 
-*Figure 3 · SDK, Run and Trace can be three views of one physical request, not three billable requests. Deduplicate against the original request and debit receipt. Unknown is not zero, an estimate is not a bill, subtraction requires the same clock domain, and a server observation is not browser first render.*
+<span id="_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"></span>
 
-We anchor metering to the original physical request identifier and its debit receipt, not to rows displayed in a chart. A zero can be recorded only when the SDK explicitly reports zero; missing usage remains unknown. Conflicting costs for the same request cannot be resolved by taking the last value and pretending the conflict disappeared.
+<div><a id="_4-the-telemetry-pipeline-can-fail-too-verify-that-a-record-reaches-the-query-interface"></a></div>
 
-An amount calculated from model prices should be called an estimate, not a provider invoice. [Langfuse’s token and cost documentation](https://langfuse.com/docs/observability/features/token-and-cost-tracking) likewise distinguishes imported usage and costs from values inferred using pricing. Our controlled synthetic-request path checked selected identity and usage propagation, and confirmed that sampling or export failures did not change model-dispatch counts. It was not provider billing reconciliation.
+## 3. Surprise Three: More Captured Events Can Push Important Requests Out
 
-Timing requires the same care. Model return, answer persistence, server transmission, and browser display measure different stages. Only an original persistence receipt confirming a new commit on this occasion can establish when the current process observed that new commit. Reading an old answer during recovery must not count as its first save again. Monotonic clocks from different processes cannot simply be subtracted, and a server-side observation time is not the user’s first-paint time.
+<span id="complete-query-results-do-not-prove-complete-capture"></span>
+Long research generates a flood of streamed provider fragments, paged reads and tool-state updates. A query can return `complete` after reading every available page even though an earlier capture limit dropped model bodies or protocol events. A subtler capacity problem occurs when lower-priority read/gap events fill the bounded observer before the next request or usage fact is emitted.
 
-Comparing latency, error rates, or costs before and after a change also requires the task scope, time window, sample denominator, and number of requests with missing records. Otherwise, a chart that missed slow requests can look better than one that captured them completely.
+We keep bounded space for higher-value request and usage observations, report source overflow separately from query-side omission, and never interpret “no request event was returned” as “no model request occurred.” Capturing full prompts and tool payloads by default is not a solution: the research may contain private portfolios and lengthy licensed documents, and retention itself creates security and storage costs.
 
-A more dangerous kind of zero is **a measurement that was never taken but was recorded as 0 ms**. In the readback of one real fund research Run, 19 retrieval-stage entries all displayed `0 ms`, although the original result callbacks provided no start/end timing. The former projection defaulted a missing measurement to zero. Those values neither establish instantaneous retrieval nor belong in latency percentile comparisons.
+![Diagnose missing traces against original business facts](../../visuals/en/panorama-observability/empty-trace-diagnosis.svg)
 
-The later implementation distinguishes a genuinely measured `0`, a measured nonzero duration, and **unmeasured (unknown)**. In the last case it does not invent a `durationMs`; the exported event is explicitly marked as observation-only. An OpenTelemetry span's own transport or recording interval is not necessarily the business retrieval time, and this repair cannot retroactively produce missing historical clocks. Before adding more latency charts, ask whether the original stage was measured at all.
+<div><a id="_5-seeing-one-request-three-times-does-not-mean-paying-three-times"></a></div>
 
+## 4. Why One Paid Request Can Appear in Three Different Views
+
+![Gateway, Run and Trace may describe the same physical request](../../visuals/en/panorama-observability/request-identity.svg)
+
+The SDK, a Run summary and a Langfuse Generation can all describe the same physical model call. Sum their display rows and cost triples. Resume a task and assign the same call a new diagnostic identity, and accounting can double again.
+
+We associate usage and cost with the **original physical attempt identity** and provider usage response, not with the count of UI rows. Conflicting amounts for the same attempt remain a conflict or unknown rather than being overwritten by the latest value. Known provider-cost subtotals are useful; they are not a complete invoice. The same discipline applies to time: the server's observation of a new save is not the user's browser first paint.
+
+<span id="_3-reuse-a-mature-platform-but-define-what-it-does-not-own"></span>
+
+<div><a id="more-than-langfuse-which-technologies-make-up-this-pipeline"></a></div>
+
+## 5. Why We Use OpenTelemetry and Langfuse Without Making Them the Source of Truth
+
+[OpenTelemetry Trace concepts](https://opentelemetry.io/docs/concepts/signals/traces/) define spans, events, propagation and their time boundaries. [Langfuse](https://langfuse.com/docs/observability/features/token-and-cost-tracking) supplies an effective LLM-oriented inspection, token and cost interface. They prevent us from rebuilding an entire trace-search UI inside the chat application.
+
+But their abstractions and our business contracts are not interchangeable:
+
+| Mechanism | Valuable capability | What it does not own |
+| --- | --- | --- |
+| Automatic spans and platform timing | Find call trees, errors and bottlenecks | Original Handler duration, Publication commit or browser rendering may use different intervals |
+| Langfuse query and dashboards | Find a research Run and compare observations | Query completeness cannot certify source capture completeness |
+| **Original Run / Gateway / Publication records** | Keep execution, grants, settlement and revisions authoritative | Not a convenient trace-search UI, so they export bounded evidence through one-way adapters |
+
+The trade-off is **reusing mature telemetry infrastructure while not allowing telemetry to become a business judge**. It requires original identity correlation, privacy controls, failure-isolated exporting and explicit treatment of missing observations.
+
+<span id="_8-the-telemetry-pipeline-can-break-so-give-it-minimal-self-diagnostics"></span>
 <span id="_6-an-auxiliary-ui-became-a-data-system-that-needed-governance"></span>
 <span id="_7-a-backup-is-not-useful-until-history-can-be-read-back"></span>
 
-## 6. If Diagnosis Depends on History, Require Restored Records to Be Queryable
+<div><a id="_6-if-diagnosis-depends-on-history-require-restored-records-to-be-queryable"></a></div>
 
-Limited records may be enough for short-term debugging. Once we promise that a report can be investigated later, however, we must specify what is retained, for how long, and how it can be retrieved after failure. Retention and backup policies should serve that requirement rather than allow telemetry to grow indefinitely.
+## 6. The Operational Surprise: A Backup May Exist While Historical Research Is Unreadable
 
-During a storage failure, table-level inspection found approximately 117 GiB in ClickHouse’s `system.trace_log`, compared with approximately 286 MiB of business-table data parts that needed preservation. These measure different things and cannot simply be added or used to infer a “percentage saved.” They do make the case for distinguishing system diagnostic logs from business traces first. [Langfuse’s self-hosting guidance](https://langfuse.com/faq/all/reduce-clickhouse-disk-size) also notes that built-in system log tables can occupy most of the disk space.
+During a self-hosted Langfuse recovery, ClickHouse diagnostic system logs occupied far more storage than the business trace tables that mattered. Before cleanup, the team had to protect the existing business snapshot and metadata identity. After recovery, being able to list files and tables still did not establish usable history. The decisive check was reopening **one pre-snapshot real Run** and comparing its events, model-input records and publication history.
 
-We first verified the existing offline snapshots of business data and metadata, then handled old system logs and retention policies within the authorized scope, instead of deleting the entire observation volume. A separate observability stack also needs explicit configuration boundaries so that inherited settings with the same names do not connect it to the wrong target.
+Successfully exporting a new synthetic probe is a different check: it establishes the new ingestion path, not recovery of old material. This turns “observability should be recoverable” into a concrete promise: **an investigator can find the original research under its original identity**, rather than merely finding a backup archive.
 
-During the subsequent isolated restore, the archive listed files, but the new instance initially could not recognize the business tables. After repairing metadata relationships in the copy, we did not stop at “the tables are back.” We selected a real historical research Run from before the snapshot and used the original reader interfaces to compare events, model inputs, turns, and publication records between the original instance and the copy. Results matched for that scoped sample.
-
-We checked the new-write path separately by writing and reading back a synthetic event through the actual SDK and background processing pipeline. These are two different questions: **can old records still be queried, and can new records still arrive?** Recovering the old sample does not cover research performed after the snapshot, much less recreate bodies that were never captured.
-
-When long-term readback is required, a recovery exercise should therefore end with an original research task readable again under its original identity—not merely with a backup file existing or a database starting. Short tasks need not adopt every long-term governance mechanism just to complete an observability panorama.
+Unlimited retention of prompts, portfolio data and tool payloads would not be a defensible fix.
 
 <span id="_9-when-is-a-trace-trustworthy-enough-to-diagnose"></span>
 
-## 7. Return to the Report: Which Gap Should We Address First?
+<span id="_7-return-to-the-report-which-gap-should-we-address-first"></span>
 
-Revisit the wrong number at the beginning. Changing models need not be the first move:
+## 7. What to Do When the Next Answer Is Wrong
 
-- If the source version or unit was unsuitable, fix source selection; if the tool omitted headers or footnotes, fix reading.
-- If the tool returned complete material but the actual request lacked key content, fix the input handoff. If the input was complete but reasoning or calculation still failed, examine interpretation and calculation methods.
-- If the candidate answer was correct but a different version was saved or displayed, inspect delivery rather than asking the model to learn the same problem again.
-- If key records are missing, establish whether capture omitted them for a known reason, transmission failed, or the cause remains unknown. Cross-check original execution records instead of presenting a guess as an incident’s root cause.
+Begin with the answer, not the trace color. Was the original disclosure's time and unit correct? Did the tool retain the needed material? Did it enter the **actual** model request? Was the committed revision also the one sent and displayed? When one step is unobserved, name that exact gap instead of assigning a plausible root cause.
 
-For your own system, start with one failed task. Select the records you genuinely need at these four checkpoints and correlate them using their original identities. For bodies that cannot be captured, leave a bounded, truthful description of the gap. Then verify the telemetry path with a probe that can be read back by its exact identity. Add further mechanisms only when long-term investigation, cost analysis, or more complex collaboration actually calls for them.
+Only if latency is the problem should you compare correctly scoped Host, Gateway, Run and delivery intervals. Only if cost is the problem should you deduplicate by physical attempts and state which usage is missing.
 
-**The value of observability is not making every node green. It is reducing the key facts we must guess, and the wrong places we might repair, during the next investigation.** It cannot judge every answer for us, but it can make “what we know, what is missing, and where to look next” concrete.
+**Our design goal is not more green traces. It is fewer fabricated business facts: telemetry helps locate an issue but never owns the action it observes.**
 
 ---
 
