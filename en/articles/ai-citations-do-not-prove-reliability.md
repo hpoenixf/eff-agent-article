@@ -101,4 +101,4 @@ First identify **the exact original source version and read result**. Then check
 
 **A good citation system enables precise investigation and lets valid work continue. It does not stamp every answer “trustworthy.”**
 
-Related reading: [Financial Agent Trustworthy Evidence Chain](financial-agent-trustworthy-evidence-chain.md) covers financial dates, arithmetic and cross-agent evidence lineage; [Agent Evaluation](honest-agent-evaluation.md) discusses how to judge source support. More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).
+Related reading: [Financial Agent Trustworthy Evidence Chain (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain) covers financial dates, arithmetic and cross-agent evidence lineage; [Agent Evaluation](honest-agent-evaluation.md) discusses how to judge source support. More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).
