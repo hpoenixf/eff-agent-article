@@ -4,6 +4,7 @@ import { createServer } from 'node:http'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, extname } from 'node:path'
 import puppeteer from 'puppeteer'
+import { sixLayerNames } from './six-layer-names.mjs'
 
 const root = resolve('.vitepress/dist'), output = resolve('test-output/gallery-navigation')
 mkdirSync(output, { recursive: true })
@@ -46,6 +47,21 @@ try {
     const src = await page.$eval('.gallery-workshop-map img', image => image.currentSrc)
     assert.ok(src.endsWith(`six-layers-${language}${width < 640 ? '-mobile' : ''}.svg`), src)
     assert.ok(await page.$eval('.gallery-workshop-map img', image => image.complete && image.naturalWidth > 0))
+    // Check the actual rendered SVG labels and geometry as well as the enclosing page.
+    const svgPage = await browser.newPage()
+    await svgPage.goto(src, { waitUntil: 'networkidle0' })
+    const geometry = await svgPage.evaluate(async () => {
+      await document.fonts.ready
+      const box = document.documentElement.viewBox.baseVal
+      return {
+        layers: [...document.querySelectorAll('g[data-layer-id]')].map(node => ({ id: node.dataset.layerId, name: node.dataset.layerName, top: Number(node.dataset.layerTop) })),
+        overflow: [...document.querySelectorAll('text')].map(node => ({ label: node.textContent, box: node.getBBox() })).filter(({ box: b }) => b.x < 0 || b.y < 0 || b.x + b.width > box.width || b.y + b.height > box.height).map(node => node.label)
+      }
+    })
+    assert.deepEqual(geometry.layers.map(layer => ({ id: layer.id, name: layer.name })), sixLayerNames.map(layer => ({ id: layer.id, name: layer[language] })))
+    assert.ok(geometry.layers.every((layer, index) => !index || layer.top > geometry.layers[index - 1].top))
+    assert.deepEqual(geometry.overflow, [], 'Actual SVG text must fit the canvas')
+    await svgPage.close()
     const target = '/eff-agent-article/' + prefix + 'catalog'
     if (width > 959) {
       assert.equal(await page.$eval('.VPNavBarMenu a', node => node.getAttribute('href')), target)
@@ -81,7 +97,7 @@ try {
     await page.reload({ waitUntil: 'networkidle0' })
     await page.waitForSelector('#gallery-tab-workshop[aria-selected="true"]')
     assert.deepEqual(errors, [])
-    observations.push({ language, width, tabs: 5, picture: src.split('/').at(-1), catalogue: target, closeReopen: true, backAndRefresh: true, horizontalOverflow: false })
+    observations.push({ language, width, tabs: 5, picture: src.split('/').at(-1), catalogue: target, closeReopen: true, backAndRefresh: true, horizontalOverflow: false, canonicalLayerNames: true, verticalLayerOrder: true, svgTextWithinCanvas: true })
     await page.close()
   }
   writeFileSync(output + '/verified.json', JSON.stringify({ observations }, null, 2) + '\n')

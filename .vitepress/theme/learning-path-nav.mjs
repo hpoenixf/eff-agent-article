@@ -31,7 +31,7 @@ const stageViews = [
   { key: 'deep', slug: 'open-etf-agent-v010-system-design', width: 2240, height: 1110,
     zh: '深入固定公开版本的系统设计，连接证据、产物与交付。',
     en: 'Explore a pinned public implementation, connecting evidence, artifacts and delivery.' },
-  { key: 'workshop', slug: 'open-etf-agent-research-project-workshop', width: 1040, height: 640,
+  { key: 'workshop', slug: 'open-etf-agent-research-project-workshop', width: 1280, height: 840,
     zh: '带入自己的资料，沿 v0.20 本地练习检查任务、报告和可回查来源。',
     en: 'Bring your own materials and inspect the task, saved report and sources in the v0.20 local workshop.' },
   { key: 'panorama', slug: '017-prompt-to-answer-six-layer-panorama-v3', width: 2960, height: 1824,

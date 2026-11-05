@@ -39,7 +39,7 @@ test('five gallery views reuse the canonical reading path and existing bilingual
       assert.equal(stage.sourceLinks, ['intro', 'intermediate', 'deep'].includes(stage.key))
       if (stage.key === 'workshop') {
         assert.ok(article.includes(stage.mobileSrc))
-        assert.match(read('public' + stage.mobileSrc), /viewBox="0 0 390 824"/)
+        assert.match(read('public' + stage.mobileSrc), /viewBox="0 0 390 956"/)
         assert.doesNotMatch(svg, /<a\b/)
       }
     }

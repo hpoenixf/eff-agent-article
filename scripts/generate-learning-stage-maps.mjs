@@ -1,6 +1,7 @@
 // Deterministic six-layer learning maps for three bilingual article stages.
 // Source snapshot is fixed; each rendered chip links to an actual v0.15 source file.
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { sixLayerNames } from './six-layer-names.mjs';
 const STAGES={
   "intro": {
     "title": {
@@ -871,60 +872,42 @@ const STAGES={
 };
 const LAYERS=[
   {
-    "id": "L1",
-    "zh": "任务输入与触发",
-    "en": "Task Intake",
     "hz": "CLI 输入",
     "he": "CLI entry",
     "y": 233,
     "h": 103
   },
   {
-    "id": "L2",
-    "zh": "身份、会话与上下文",
-    "en": "Identity & Context",
     "hz": "范围 · 状态 · 资料",
     "he": "Scope · state · context",
     "y": 342,
     "h": 127
   },
   {
-    "id": "L3",
-    "zh": "Agent 决策与运行",
-    "en": "Agent & Runtime",
     "hz": "Model · Main · Child",
     "he": "Model · Main · Child",
     "y": 475,
     "h": 156
   },
   {
-    "id": "L4",
-    "zh": "工具与领域能力",
-    "en": "Tools & Domains",
     "hz": "Host · 读取 · 证据",
     "he": "Host · reads · evidence",
     "y": 637,
     "h": 165
   },
   {
-    "id": "L5",
-    "zh": "结果发布与交付",
-    "en": "Result & Delivery",
     "hz": "本例：保存报告",
     "he": "Demo: persist report",
     "y": 808,
     "h": 104
   },
   {
-    "id": "L6",
-    "zh": "用户界面",
-    "en": "User Interface",
     "hz": "本例：CLI 回读",
     "he": "Demo: CLI readback",
     "y": 918,
     "h": 101
   }
-];
+].map((layer, index) => ({ ...sixLayerNames[index], ...layer }));
 function escSvg(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;")}
 function svgText(x,y,txt,size=17,weight=560,fill="#172D46",anchor="start"){
  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${fill}" font-family="Noto Sans CJK SC,Noto Sans SC,Microsoft YaHei,Arial,sans-serif" font-size="${size}" font-weight="${weight}" text-anchor="${anchor}">${escSvg(txt)}</text>`;
