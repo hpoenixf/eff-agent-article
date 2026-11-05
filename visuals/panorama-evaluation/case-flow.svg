@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="740" viewBox="0 0 640 740" role="img" aria-labelledby="flowTitle flowDesc" lang="zh">
+<title id="flowTitle">一次 Case 如何走到结论</title><desc id="flowDesc">真实研究执行后，客观验证和语义评分在不同维度工作，最终结合来源与可比性形成报告。</desc>
+<defs><marker id="fArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1L6 4L1 7" stroke="#ac7138" stroke-width="1.6" fill="none"/></marker></defs>
+<rect width="640" height="740" rx="24" fill="#f8f7f2"/><rect x="1" y="1" width="638" height="738" rx="23" fill="none" stroke="#dad9cb"/>
+<g font-family="Noto Sans CJK SC,PingFang SC,Microsoft YaHei,Arial,sans-serif">
+<text x="30" y="36" fill="#9c6328" font-size="15" font-weight="700" letter-spacing="1.2">CASE / END TO END</text>
+<text x="30" y="80" fill="#173b32" font-size="29" font-weight="750">一次 Case 如何走到结论</text>
+<g fill="#fff" stroke="#cadbd1" stroke-width="2"><rect x="30" y="114" width="580" height="84" rx="15"/><rect x="30" y="232" width="580" height="84" rx="15"/><rect x="30" y="352" width="279" height="102" rx="15"/><rect x="331" y="352" width="279" height="102" rx="15"/><rect x="30" y="488" width="580" height="82" rx="15"/><rect x="30" y="604" width="580" height="85" rx="15" fill="#e6efe9"/></g>
+<g fill="#173b32" font-size="23" font-weight="700"><text x="54" y="152">01  固定题目与版本</text><text x="54" y="270">02  真实研究执行</text><text x="52" y="394">客观事实与约束</text><text x="351" y="394">语义质量与指标</text><text x="54" y="526">04  关联证据并确认是否可比</text><text x="54" y="643">05  报告保留三种信息</text></g>
+<g fill="#526b61" font-size="18"><text x="54" y="183">Case · 条件 · 模型配置 · 题库哈希</text><text x="54" y="302">Run · 工具调用 · 保存或实际发送的正文</text><text x="52" y="433">协议 / 权限 / 存储</text><text x="351" y="433">Judge / 可选外部评分</text><text x="54" y="557">来源暴露 · 时点 · 评分对象 · 环境</text><text x="54" y="676">已证实 · 已知失败 · 未评/未知</text></g>
+<g stroke="#ac7138" fill="none" stroke-width="2.4" marker-end="url(#fArrow)"><path d="M320 200v26"/><path d="M320 318v14H170v15"/><path d="M320 332h151v15"/><path d="M170 456v17h150v10"/><path d="M471 456v17H320"/><path d="M320 574v24"/></g>
+<text x="30" y="720" fill="#746b59" font-size="16">图为教学化数据流；缺材料时不自动补成通过</text></g></svg>

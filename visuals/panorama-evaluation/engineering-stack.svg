@@ -1,58 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="944" viewBox="0 0 640 944" role="img" aria-labelledby="title description" lang="zh">
-<title id="title">Agent 评测技术体系</title>
-<desc id="description">题目与标准经过真实研究运行、证据留存、分层校验，最后形成可比较的结论。Ragas 尚未产生真实质量评分。</desc>
-<defs>
-  <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b7cbc1" opacity=".48"/></pattern>
-  <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#16362f" flood-opacity=".08"/></filter>
-  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#a66b21" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></marker>
-</defs>
-<rect width="640" height="944" rx="24" fill="#f7f8f2"/>
-<rect x="1" y="1" width="638" height="942" rx="23" fill="url(#dots)" stroke="#cbd9d0"/>
-<text x="40" y="43" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="1.5" fill="#a66b21">EVALUATION / IMPLEMENTATION</text>
-<text x="40" y="92" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="34" font-weight="750" fill="#16362f">我们怎样实施 Agent 评测</text>
-<g font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif"><g>
-      <rect x="40" y="134" width="560" height="103" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
-      <rect x="40" y="134" width="8" height="103" rx="4" fill="#2a6b55"/>
-      <circle cx="87" cy="171" r="23" fill="#e6efe9"/>
-      <text x="87" y="178" font-size="19" font-weight="750" fill="#25604d" text-anchor="middle">01</text>
-      <text x="125" y="180" font-size="27" font-weight="700" fill="#16362f">固定题目与判断标准</text>
-      <text x="73" y="218" font-size="21" fill="#4e665e">13 个 ETF 回归案例 + 精选研究题库</text>
-      
-      </g><g>
-      <rect x="40" y="282" width="560" height="103" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
-      <rect x="40" y="282" width="8" height="103" rx="4" fill="#2a6b55"/>
-      <circle cx="87" cy="319" r="23" fill="#e6efe9"/>
-      <text x="87" y="326" font-size="19" font-weight="750" fill="#25604d" text-anchor="middle">02</text>
-      <text x="125" y="328" font-size="27" font-weight="700" fill="#16362f">运行真实研究任务</text>
-      <text x="73" y="366" font-size="21" fill="#4e665e">TypeScript Runtime · AI SDK · MCP</text>
-      
-      </g><g>
-      <rect x="40" y="430" width="560" height="103" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
-      <rect x="40" y="430" width="8" height="103" rx="4" fill="#2a6b55"/>
-      <circle cx="87" cy="467" r="23" fill="#e6efe9"/>
-      <text x="87" y="474" font-size="19" font-weight="750" fill="#25604d" text-anchor="middle">03</text>
-      <text x="125" y="476" font-size="27" font-weight="700" fill="#16362f">留存证据与交付回执</text>
-      <text x="73" y="514" font-size="21" fill="#4e665e">PostgreSQL · OpenTelemetry · Langfuse</text>
-      
-      </g><g>
-      <rect x="40" y="578" width="560" height="139" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
-      <rect x="40" y="578" width="8" height="139" rx="4" fill="#b6792b"/>
-      <circle cx="87" cy="615" r="23" fill="#f5ead5"/>
-      <text x="87" y="622" font-size="19" font-weight="750" fill="#a66b21" text-anchor="middle">04</text>
-      <text x="125" y="624" font-size="27" font-weight="700" fill="#16362f">分层检查与评分</text>
-      <text x="73" y="663" font-size="21" fill="#4e665e">Vitest / Playwright · 规则 · 可选 DeepEval</text>
-      <text x="73" y="696" font-size="20" fill="#936016">Ragas 已验证接入，尚无真实质量评分</text>
-      </g><g>
-      <rect x="40" y="756" width="560" height="108" rx="18" fill="#ffffff" stroke="#cbd9d0" stroke-width="1.6" filter="url(#cardShadow)"/>
-      <rect x="40" y="756" width="8" height="108" rx="4" fill="#2a6b55"/>
-      <circle cx="87" cy="793" r="23" fill="#e6efe9"/>
-      <text x="87" y="800" font-size="19" font-weight="750" fill="#25604d" text-anchor="middle">05</text>
-      <text x="125" y="802" font-size="27" font-weight="700" fill="#16362f">形成可比较的结果</text>
-      <text x="73" y="840" font-size="21" fill="#4e665e">保留失败、未知和全部计划任务</text>
-      
-      </g></g>
-<g stroke="#a66b21" stroke-width="2.6" fill="none" marker-end="url(#arr)">
-<path d="M320 240 V271"/><path d="M320 388 V419"/><path d="M320 536 V567"/><path d="M320 720 V745"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="760" viewBox="0 0 640 760" role="img" aria-labelledby="evalTitle evalDesc" lang="zh">
+<title id="evalTitle">一条真实评测证据链</title><desc id="evalDesc">固定题库进入真实 Agent，运行事实与可观测数据分别记录，再通过确定性规则及可选质量评分形成证据报告。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M1 1L6 4L1 7" stroke="#a96b2b" stroke-width="1.5" fill="none"/></marker></defs>
+<rect width="640" height="760" rx="25" fill="#f7f8f3"/><rect x="1" y="1" width="638" height="758" rx="24" stroke="#cbd9d1" fill="none"/>
+<g font-family="Noto Sans CJK SC,PingFang SC,Microsoft YaHei,Arial,sans-serif">
+<text x="30" y="37" font-size="15" font-weight="700" fill="#9b6528" letter-spacing="1.5">EVALUATION / ENGINEERING</text>
+<text x="30" y="82" font-size="31" font-weight="750" fill="#173b32">一条真实评测证据链</text>
+<g fill="#fff" stroke="#c8dad0" stroke-width="2">
+<rect x="30" y="115" width="580" height="90" rx="15"/><rect x="30" y="235" width="580" height="90" rx="15"/>
+<rect x="30" y="366" width="279" height="104" rx="15"/><rect x="331" y="366" width="279" height="104" rx="15"/>
+<rect x="30" y="501" width="279" height="100" rx="15"/><rect x="331" y="501" width="279" height="100" rx="15"/>
+<rect x="30" y="628" width="580" height="83" rx="15" fill="#e7f0e9"/>
 </g>
-<text x="40" y="916" font-family="Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="650" fill="#936016">记录了执行，不等于证明了回答正确。</text>
+<g stroke="#2a7055" stroke-width="5"><path d="M41 131v58"/><path d="M41 251v58"/><path d="M41 382v72"/><path d="M342 382v72"/><path d="M41 517v68"/><path d="M342 517v68"/></g>
+<g fill="#173b32" font-size="23" font-weight="700">
+<text x="57" y="157">01  固定题库与实验身份</text><text x="57" y="277">02  原 Agent 实际执行</text>
+<text x="54" y="407">03  原始执行记录</text><text x="355" y="407">04  运行可观测</text>
+<text x="54" y="544">05  确定性检查</text><text x="355" y="544">06  语义和可选评分</text>
+<text x="57" y="670">证据关联与报告</text>
+</g>
+<g fill="#49665c" font-size="18">
+<text x="57" y="188">Curated Cases · Case/Prompt/Rubric 哈希</text><text x="57" y="308">Node.js/TypeScript · AI SDK · MCP</text>
+<text x="54" y="450" font-size="16">Run / Tools / PostgreSQL</text><text x="355" y="450" font-size="16">OTel / Langfuse（采样）</text>
+<text x="54" y="582" font-size="16">Vitest · 权限 · 存储 · 交付</text><text x="355" y="582" font-size="16">LLM Judge · DeepEval · Ragas</text>
+<text x="57" y="698">状态 / 可比性 / 分母 / 缺口</text>
+</g>
+<g stroke="#a96b2b" fill="none" stroke-width="2.4" marker-end="url(#arrow)">
+<path d="M320 207v23"/><path d="M320 327v18H169v16"/><path d="M320 345h151v16"/>
+<path d="M169 474v23"/><path d="M471 474v23"/>
+<path d="M169 606v12H320v5"/><path d="M471 606v12H320"/>
+</g>
+<text x="30" y="741" font-size="15" fill="#776b57">可选评分器并非每次必经；Trace 不取代原始执行事实</text>
+</g>
 </svg>
