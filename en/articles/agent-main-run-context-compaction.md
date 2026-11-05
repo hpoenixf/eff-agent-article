@@ -3,7 +3,7 @@ title: "Why Not Just Ask a Model to Summarize the Conversation When Context Is F
 description: "Main Run context compaction with bounded pressure, settled turns, non-authoritative summaries, immutable checkpoints and honest live evidence."
 readingBrief:
   takeaways:
-    - "Use semantic compaction after externalization and reversible fitting; adopt a candidate only when the complete request still faces pressure and shows actual net savings."
+    - "Use semantic compaction after externalization and reversible fitting; a soft target is desired headroom, while adoption still requires measured savings, hard-capacity fit and original authorization."
     - "Compact eligible older work while preserving original user text, complete call relationships and effect receipts; summaries acquire neither source authority nor execution authority."
     - "Bind compaction records to the original Run, range and request identity; recovery reads the checkpoint rather than repeating summarization or tool effects after a lost acknowledgment."
   appliesTo:
@@ -44,7 +44,7 @@ Our default is an **application-level pressure policy** with a measurable basis.
 
 These are application thresholds, not a provider's token context window. They do not mean a particular model has 256 KiB of context. Actual model windows, transport capacity and final-send validation remain under their existing owners.
 
-Main considers semantic compaction only after reversible fitting is complete and the full request still exhibits supported pressure. Unknown token counts are not treated as zero, nor is unknown context size treated as infinite.
+Main considers semantic compaction only after reversible fitting is complete and the full request still exhibits supported pressure. The 224 KiB figure is **desired headroom, not a hard one-step adoption gate**: a summary that leaves the request above that target can still be useful if it saves enough actual bytes and fits the real hard input limit. Unknown token counts are not treated as zero, nor is unknown context size treated as infinite.
 
 The next research step and finalization also need capacity. The system must not covertly spend a model request on internal summarization when the remaining resource budget already needs to be protected for completion.
 
@@ -112,7 +112,9 @@ The multiple exits are conditions, not mandatory steps. Unqualified pressure or 
 
 Summarization is a **real model request**. It uses the original Gateway, resource reservation, deadline, cancellation and failure settlement. Calling it “internal” does not make it free. Unknown dispatch outcomes consume their original receipt and must not be retried indefinitely under fresh identities.
 
-After producing a candidate summary, the system re-inserts it into the **complete next Main request** and checks whether the summary, reference catalog, tool definitions and protected original text actually fit and save enough capacity. If they do not, the original history remains in use.
+Before paying for a summary request, the revised preflight tests **feasibility from a minimal valid, nonempty summary**. Only if even that lower-bound case cannot meet the required net gain or actual hard input fit does it skip with `no-feasible-candidate`. It no longer rejects a possible improvement solely because the worst-case maximum-size summary might not fit. Historical `conservative-preflight` observations still describe the older conservative rule; a preflight decision never proves the model would have produced a usable summary.
+
+After a candidate is produced, the system fits it back into the **complete next Main request** alongside the reference catalog, tool definitions and protected original text. It checks actual net savings, the real hard input limit, valid completion and original source/receipt identities. **Remaining above the soft target is no longer a rejection on its own**. Insufficient measured gain, actual hard overflow or invalid evidence still keeps the original history. This permits safe incremental reductions without granting the summary any new capacity or execution authority.
 
 Optional PreCompact and PostCompact hooks may observe the process. They do not gain permission to rewrite original effects or force acceptance of a summary.
 
