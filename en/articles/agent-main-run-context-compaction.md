@@ -257,7 +257,7 @@ The original unknown summary remains in its original record. A separate new task
 
 This change was manually archived under an explicit October 21 exception, not through a passing standard `spec:close`.
 
-Controlled paths confirmed summary inclusion in subsequent Main input, and a real research run completed a summary request and committed its checkpoint. Whether that real summary was correctly used by the next request, and how repeated compaction affects meaning, numbers, citations and cost, still need further observation. Enabling pressure-triggered compaction does not resolve those quality questions.
+Controlled paths established model-input inclusion and recovery. The October live research showed checkpoint commitment, while a separate November live Run showed a summary included in later Main input. These are different evidence scopes, not one end-to-end causal comparison. What still needs verification is **whether repeated compaction preserves critical numbers, citations and user corrections, and whether it affects task quality or total cost**. A softer target does not resolve those semantic questions.
 
 More recent Access/Memory/Factory ownership changes do not turn summaries into Memory records or historical numeric authority. Exact calculations and evidence still require the original source/result read path; subsequent model consumption and complete task delivery are separate facts.
 
