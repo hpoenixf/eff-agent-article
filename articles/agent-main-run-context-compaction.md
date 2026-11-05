@@ -44,7 +44,7 @@ readingBrief:
 2. **是否值得采用**：摘要模型实际结束，未发生截断；在完整请求上重新拟合，确认净节省、真实硬限制、源区间与当前 Run/纠正身份均成立，然后由 Recovery 提交检查点。
 3. **是否真的使用**：后继 Main 请求必须确实携带该摘要。恢复从原 checkpoint 读回已提交记录，不重新请求模型，也不重做已结算工具。
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
   A["完整 Main 请求"] --> B{"仍有容量压力？"}
   B -- "否" --> Z["保留原请求"]
@@ -57,9 +57,9 @@ flowchart TD
   F -- "是" --> G["提交原身份 Checkpoint"]
   G --> H["后继 Main 请求实际使用"]
   H --> I["必要时按原引用回读来源"]
-\`\`\`
+```
 
-摘要是一次真正计费的模型请求，也要遵守原 Gateway、deadline、路由输出限制、请求扣账和收尾预留。一轮真实摘要曾因为额外写死的 900 输出 token 上限以 \`finishReason=length\` 结束，故不采用；当前不再单设更小的内部上限，而是使用已拟合 Main 与实际路由的界限。结果不合格则继续原历史，不重试到“看起来成功”。
+摘要是一次真正计费的模型请求，也要遵守原 Gateway、deadline、路由输出限制、请求扣账和收尾预留。一轮真实摘要曾因为额外写死的 900 输出 token 上限以 `finishReason=length` 结束，故不采用；当前不再单设更小的内部上限，而是使用已拟合 Main 与实际路由的界限。结果不合格则继续原历史，不重试到“看起来成功”。
 
 另一真实 Run 中，完整拟合请求由 264,062 字节缩到 182,786 字节，且后继 Main 确实携带摘要。两次来自不同研究，不能当作质量或成本改善的 A/B 证明。真正有意义的观察不是“摘要文件存在”，而是“原请求改了什么、模型最终收到什么、原件是否仍能读回”。
 
@@ -76,17 +76,17 @@ flowchart TD
 
 ## 六、一个能自己跑通的公开实验
 
-[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 的固定教学快照把其中一段做成了可运行的实验：合成资料在显式字节压力下生成派生便笺，后继请求先消费便笺，再用原 \`resultRef\` 读取原页面并保存报告。它展示的是**工作便笺被采用，原件却仍保留原身份**，不是私有 Main Recovery 的全量开源实现。
+[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 的固定教学快照把其中一段做成了可运行的实验：合成资料在显式字节压力下生成派生便笺，后继请求先消费便笺，再用原 `resultRef` 读取原页面并保存报告。它展示的是**工作便笺被采用，原件却仍保留原身份**，不是私有 Main Recovery 的全量开源实现。
 
-\`\`\`bash
+```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-compaction-demo
 cd open-etf-agent-compaction-demo
 git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
 npm ci --ignore-scripts --no-audit --no-fund
 npm run demo -- --case compact-and-reread
-\`\`\`
+```
 
-检查生成目录中的 \`run.jsonl\`、\`report.md\`、\`manifest.json\`。便笺为 \`derived-summary\`，展示性的上下文调用对带有 \`projectionOnly\`，不会假装工具真的再次执行。较晚的独立固定快照还有[跨进程便笺恢复](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs)与[已提交效果回执保留](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs)用例；不同版本的能力不要混写为一次验收。
+检查生成目录中的 `run.jsonl`、`report.md`、`manifest.json`。便笺为 `derived-summary`，展示性的上下文调用对带有 `projectionOnly`，不会假装工具真的再次执行。较晚的独立固定快照还有[跨进程便笺恢复](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs)与[已提交效果回执保留](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs)用例；不同版本的能力不要混写为一次验收。
 
 **下次设计类似机制时，先问哪段历史能被精确回读，再问哪段旧工作适合被有损总结。只有读不到原始事实时，摘要才会从“节省上下文”变成“制造另一套事实”。**
 
