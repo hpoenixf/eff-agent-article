@@ -13,236 +13,92 @@ readingBrief:
 ---
 # Designing Agent Citations: From Host-Issued References to Revision-Safe Independent Review
 
-![Citation panorama: from retained material to inspectable conclusions](../../visuals/en/panorama-citations/cover.svg)
+An agent answers that a fund charges a certain fee and includes a real URL. The link is not fabricated—yet it may describe a different share class, another disclosure date or a search result that never entered the model's actual input. Even stranger, the original material may have been saved but the citation becomes unreadable after a restart. At the other extreme, one bad reference once threatened to block an otherwise authorized answer in its entirety.
 
-**A citation is a route to verification, not a certificate of correctness.** A link can lead a reader to a web page without proving that an agent read that version. A valid citation handle can prove an attribution relationship without proving that the conclusion follows from the cited material.
+**The interesting problem is not how to append URLs to sentences. It is how to ensure that a citation refers to the specific, permitted, versioned material actually exposed to the model—through context fitting, result externalization, publication revisions and historical recovery.**
 
-What a research agent needs is not the largest possible number of references, but an infrastructure that answers concrete questions: **Who may issue a citation? Which exact material does it identify? Can a reader inspect it after a revision? And who decides what happens when the citation is wrong?**
+![Citation architecture: from material to inspectable claims](../../visuals/en/panorama-citations/cover.svg)
 
-This article focuses on general-purpose citation infrastructure. It comes from a real engineering progression: first, the model was expected to supply evidence IDs; then the Host began issuing eligible citation capabilities. Source-completeness signals once influenced answer grades; later, those semantic grades were removed. Finally, durable versions, original-passage inspection, and independent review required distinct responsibilities. Financial methods, portfolio calculations, and market-time semantics remain in the separate financial evidence-chain article.
+## 1. Surprise One: A Correct URL Can Still Be the Wrong Citation
 
-## 1. Why a URL Is Not Enough to Explain a Citation
+Consider a synthetic software-documentation example: the same URL says an interface remains available in version 2.3, then says it was removed in version 2.4. A model claiming “2.4 still supports it” might cite the perfectly correct address. That address does not establish **which version was read, which passage was submitted, or whether the passage supports the claim**.
 
-Consider a **synthetic teaching scenario**. A user asks: “Does SDK 2.4 still support `legacyLogin()`?”
+![Source identity, correspondence, support and relevance are separate](../../visuals/en/panorama-citations/four-questions.svg)
 
-The same documentation address, `docs.example.invalid/sdk/auth`, contains different statements at two points in time:
+We therefore separate four questions: **source identity**, **citation-to-source correspondence**, **support for the actual claim**, and **relevance to the user's task**. Deterministic software can do much of the first two. The latter two still require domain rules, reproducible calculations or a bounded independent reviewer.
 
-| Version originally read | What that document says | What it can support |
+## 2. Do Not Give a Universal Citation Manager the Power to Declare an Answer Trustworthy
+
+![Distinct responsibilities along a citation chain · 1/3](../../visuals/en/panorama-citations/responsibility-1.svg)
+![Distinct responsibilities along a citation chain · 2/3](../../visuals/en/panorama-citations/responsibility-2.svg)
+![Distinct responsibilities along a citation chain · 3/3](../../visuals/en/panorama-citations/responsibility-3.svg)
+
+We did not introduce an all-knowing “trusted answer” authority. The Host records controlled sources and what was actually submitted to a Run. Original Source/Result owners retain scope, version and authorized rereading. Publication owns revisions and eligible citation attachments. An optional reviewer may dispute correspondence and sufficiency; it does not rewrite executed tools or own the answer's publication.
+
+Three identities serve different purposes:
+
+| Identity | What it names | What it does not imply |
 | --- | --- | --- |
-| SDK 2.3 documentation | `legacyLogin()` still works but is deprecated | “Supported in 2.3; migrate away” |
-| SDK 2.4 documentation | `legacyLogin()` was removed; use `loginWithToken()` | “Not supported in 2.4” |
+| `sourceRef` | Original source and its version/scope | The model has read its whole contents |
+| `resultRef` | An authorized tool result and a rereadable selection | The later model request actually included it |
+| `citationRef` | A scoped, Host-issued reference handle | The assertion has been independently verified |
 
-Suppose the model answers, “SDK 2.4 still supports `legacyLogin()`,” and includes the genuine documentation URL. The link exists and the domain is correct. The current page might even state that the method was removed in 2.4. None of that explains the contradictory conclusion. The model may have relied on an older search excerpt, bound the wrong document version, or misunderstood a correctly read passage.
+![From navigation to eligible evidence · 1/2](../../visuals/en/panorama-citations/identity-1.svg)
+![From navigation to eligible evidence · 2/2](../../visuals/en/panorama-citations/identity-2.svg)
 
-Four questions must be kept separate:
+## 3. Surprise Two: A Search Result Existed, but the Model Never Saw It
 
-![Source identity, citation correspondence, material support and task relevance are separate checks](../../visuals/en/panorama-citations/four-questions.svg)
+An early design asked the model to provide internal `evidenceIds` when publishing. It could guess a search hit number or a partial-read ID, but could not establish that either was eligible for the particular answer. We moved to Host-issued `citationRef` handles while making an important distinction: **a permitted search excerpt may be cited as an excerpt; it may not impersonate a full-page read**.
 
-*Figure 1. These are separate verification layers; satisfying an earlier layer does not prove a later one.*
+Result externalization created a less obvious handoff. A search returns excerpts A, B and C; candidates are placed in the controlled result store; the model later selects B. Neither “B existed in search” nor “B was read from storage” proves it was included in the **final fitted model request**. Capacity fitting or a hook might remove it, or the selected field projection might omit the citation identity.
 
-**Source identity** asks whether a particular read happened, was retained, and was eligible for use. **Citation correspondence** asks whether a marker points to that read. **Material support** asks whether the text supports the statement. **Task relevance** asks whether the response actually resolves the user's SDK 2.4 question.
+The current rule activates an excerpt-scoped reference only when **the exact complete selection joins to the original Host binding from the same receipt**, and **the actual final model request contains both the excerpt and its corresponding reference identity**. A shared URL, a copied candidate from another Run or a model-supplied ID cannot create that historical fact.
 
-The first two admit substantial deterministic verification. The latter two require understanding the content and the user's goal; neither can be replaced by a reference count or a universal Boolean. The infrastructure therefore has to narrow its authority while making its observable facts stronger.
+![Exposure and eligibility · 1/3](../../visuals/en/panorama-citations/eligibility-1.svg)
+![Exposure and eligibility · 2/3](../../visuals/en/panorama-citations/eligibility-2.svg)
+![Exposure and eligibility · 3/3](../../visuals/en/panorama-citations/eligibility-3.svg)
 
-## 2. Do Not Build a Manager That Declares Everything “Trusted”
+This does not require fetching a full page for every answer. When the excerpt can support a narrowly qualified statement, retain its `search-excerpt` representation. When a number, rule or date requires more detail, read the page through the existing authorized path. **The action's name and URL do not define evidence granularity; the representation actually submitted does.**
 
-Citations cross source acquisition, tool receipts, retained results, model inputs, publication, and historical inspection. If every consumer independently parses URLs, versions, and permissions, the rules drift. If one central manager produces `trusted=true` instead, unrelated kinds of authority collapse into a single decision.
+## 4. Surprise Three: The Source Was Persisted but the Historical Citation Would Not Open
 
-Our eventual choice was to **unify mechanical interpretation of results and references while keeping each owner responsible for its own effects**.
+Publication history, citation attachments and the live tool panel have different lifecycles. We encountered a citation displaying only “Structured source” because financial JSON was carried in an MCP text block while the display projection lost provider and instrument metadata. In another case, PostgreSQL's JSONB key reordering changed a serialization hash, causing the original read-item identity to fail validation after reopening.
 
-![Distinct citation responsibilities · 1/3](../../visuals/en/panorama-citations/responsibility-1.svg)
+Adding another UI hyperlink would not solve either failure. The stable path must carry **original producer → actual exposure → publication revision → historical readback** identities. Serialization must follow the original producer's stable DTO conventions; recovery cannot invent a new identifier from a reordered object. Two reads of the same URL remain two separately versioned material observations.
 
-[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-1.svg)
+![Publication revision must not rewrite source identity · 1/2](../../visuals/en/panorama-citations/revision-1.svg)
+![Publication revision must not rewrite source identity · 2/2](../../visuals/en/panorama-citations/revision-2.svg)
 
-![Distinct citation responsibilities · 2/3](../../visuals/en/panorama-citations/responsibility-2.svg)
+The resulting detail view uses the original Publication revision and original Source/Result version. A page's current content never silently replaces an unavailable historical excerpt. Opening a citation does not require rerunning the model or recreating the original tool call.
 
-[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-2.svg)
+## 5. Why One Bad Citation Must Not Swallow an Independently Authorized Answer
 
-![Distinct citation responsibilities · 3/3](../../visuals/en/panorama-citations/responsibility-3.svg)
+An earlier rule gave citation eligibility too much power over publication. One invalid public `citationRef`, a ninth reference beyond a display limit or a missing optional public-source attachment could reject **thousands of words of otherwise legitimate text** and make the model spend another turn trying to fix a link.
 
-[Open the full vector diagram](../../visuals/en/panorama-citations/responsibility-3.svg)
+We removed that external “repair every citation before publishing” veto and scoped each failure:
 
-*Figure 2. The arrows show consumption of facts, not a new authority over access, publication, or semantic truth.*
+- **Invalid optional public citation:** omit or mark the attachment; retain independently authorized prose.
+- **Genuinely unauthorized private dependency:** reject the protected effect. Removing the citation must not launder the underlying scope violation.
+- **Conflicting publication revision or failed persistence:** Publication preserves the last committed version and reports the actual result.
+- **Historical source unavailable:** History says the original material cannot currently be inspected; it never fetches today's URL to impersonate that old source.
 
-The division of responsibility matters:
+This is stricter, not more permissive: optional display faults cannot veto unrelated text, while real permission failures remain binding.
 
-- **The source producer** answers what actually happened: which content, range, time, and tool receipt were obtained. A URL cannot replace these facts.
-- **The result and reference owner** interprets identity, derivation, representation, and existing citation eligibility consistently. It neither re-grants source access nor certifies the truth of a sentence.
-- **The model-input path** records the exact window eventually delivered to the model. A full tool return, a summary, a fitted excerpt, and what the model actually saw are not automatically the same.
-- **Publication** owns acceptance and disposition of the answer body, attachment binding, replacement revisions, and durable commit. A citation error does not inherently confer veto power over the whole answer.
-- **History and UI** read from committed identities under the current viewer's access rules. Rendering a source card does not make the argument correct.
-- **The reviewer** can identify wrong attribution or an unsupported inference, but cannot rewrite the original publication or take over the original run's execution authority.
+## 6. The Industry Baseline and Why We Chose a Host-Bound Contract
 
-In October 2026, result governance consolidated duplicated identity interpretation previously scattered across computation, recovery, native reads, and the publication adapter into one logical owner. This was not a new pass-through `CitationManager`. Actual implementation and consumers moved to the shared owner; consumers stopped rebuilding identical eligibility decisions from the same snapshot. Time-sensitive permissions and effect-specific checks remained with the owners that have those effects.
+[LlamaIndex's CitationQueryEngine](https://developers.llamaindex.ai/python/framework-api-reference/query_engine/citation/) constructs citation-bearing source nodes and lets developers control citation chunk granularity, which is useful for ordinary RAG question answering. Common retrieval pipelines also return source nodes or document URLs as references. They help users **locate relevant material**.
 
-## 3. Why `sourceRef`, `resultRef`, and `citationRef` Are Different
+Our long-running system also needs to answer what was submitted *at a particular time*, under which grant, after fitting and selection, and how that identity survives answer revisions and recovery. Generic retrieval and citation machinery does not remove the need for these application contracts.
 
-Seeing three types of references in a system may suggest that they should be collapsed into a single ID. But each answers a different question.
+We therefore place deterministically checkable citation eligibility at the Host's original receipt and **actual model input exposure**, while leaving semantic support to separate review. A Host-issued handle is not proof that the model reasoned correctly, but it is an inspectable link to the representation the model was entitled to use.
 
-| Reference | What it identifies | What it does not grant |
-| --- | --- | --- |
-| `sourceRef` | A registered source that this run may navigate or read under its current rules | Proof that its contents were read, or permission to cite them |
-| `resultRef` | An exact retained result, version, selection, and receipt | Read authorization or original-source authority |
-| `citationRef` | A reference issued by the Host under existing evidence-eligibility rules | Proof of semantic entailment, or automatic cross-run reuse |
+![Reviewers check claims; they do not replace original facts · 1/2](../../visuals/en/panorama-citations/review-1.svg)
+![Reviewers check claims; they do not replace original facts · 2/2](../../visuals/en/panorama-citations/review-2.svg)
 
-![Navigation is not citation eligibility · 1/2](../../visuals/en/panorama-citations/identity-1.svg)
+## 7. Where to Look Next Time a Citation Feels Wrong
 
-[Open the full vector diagram](../../visuals/en/panorama-citations/identity-1.svg)
+First identify **the exact original source version and read result**. Then check whether the selected passage and reference identity were both included in the later model request. Next find the committed answer revision. Only then ask whether the cited material actually supports the assertion. A failure at any one step should be attributed to that source, attachment or argument; it should not create authority in another layer.
 
-![Navigation is not citation eligibility · 2/2](../../visuals/en/panorama-citations/identity-2.svg)
+**A good citation system enables precise investigation and lets valid work continue. It does not stamp every answer “trustworthy.”**
 
-[Open the full vector diagram](../../visuals/en/panorama-citations/identity-2.svg)
-
-*Figure 3. A result can be used for analysis or navigation while still lacking authority to appear as an external citation.*
-
-For example, `find_in_public_source` can locate text within an already admitted source and return an opaque cursor, but does not thereby create a new evidence identity. A `run_analysis_python` result may have a `resultRef` and full input lineage, but its calculated value is not an original sentence in a web page. An artifact ID identifies another kind of generated file or output; a download receipt alone does not turn that artifact into the original source.
-
-**Do not collapse identifier existence, object readability, and citation eligibility into one permanently valid state.** The same source in a different run, after revocation, or after a content change may require a different determination.
-
-There are two distinct forms of sameness to resist as well: two reads can share a URL but differ in content version; two sources can have the same byte hash but different authorization. URL equality must not merge the former, and content equality must not transfer the latter's permissions.
-
-## 4. From Model-Guessed Evidence IDs to Host-Issued Citations—and a Later Correction
-
-In an early protocol, the model supplied internal-style `evidenceIds` when publishing. Knowing a source identifier, however, did not tell the model whether that identifier represented actual publishable evidence. It could insert a search-result ID, a partial-read navigation ID, or another observation ID and wait for the Runtime to reject it.
-
-The September 28, 2026 Q17 diagnostic exposed that confusion. One attempt cited a search or market ID; another used a partial read that lacked publication eligibility. Both were refused. After the model used an eligible read reference, the first publication was accepted. This observation demonstrates the **protocol distinction and its rejection paths**, not the quality of the research as a whole.
-
-The protocol then made the model use the `citationRef` supplied by the Host. The Host checks the run/scope, original evidence identity, and actual eligibility before issuing or resolving it. The model does not get to declare internal `evidenceId` values or source authority for itself.
-
-But the September rule was not the end of the design. **On October 6, we recognized that a controlled search excerpt may itself be evidence that the user has explicitly permitted the agent to use.** If that excerpt was genuinely submitted to the model, categorically treating it as navigation-only made an unreadable full page unnecessarily block a useful, limited answer.
-
-The revised design preserves the distinction between representations. A permitted search excerpt that actually entered the model request can receive an **excerpt-scoped citation**, explicitly marked `representation=search-excerpt`. This can support a statement about what the returned excerpt reported. It does not pretend the agent read the full original page.
-
-![Delivery before citation eligibility · 1/3](../../visuals/en/panorama-citations/eligibility-1.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-1.svg)
-
-![Delivery before citation eligibility · 2/3](../../visuals/en/panorama-citations/eligibility-2.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-2.svg)
-
-![Delivery before citation eligibility · 3/3](../../visuals/en/panorama-citations/eligibility-3.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/eligibility-3.svg)
-
-*Figure 4. Eligibility follows actual receipts, model exposure, and use permissions—not the model's URL, label, or assertion that it has read something.*
-
-An excerpt needs its own per-hit identity, timestamps, submitted content, and representation level. A URL, title, raw unsubmitted provider response, or the name of a search action is insufficient. A subsequent full-page read can supply **new, more detailed evidence**; it cannot retroactively relabel the original search excerpt as page text.
-
-**Externalizing a result introduces another handoff.** Suppose a search returned three excerpt candidates with source identities, stored outside the model's immediate context. The model later selects only the second. The old search candidate, or even a successful stored-read receipt, does not establish that the later fitted request contained that excerpt: capacity fitting or a hook may have omitted it or left only a field-level view without the citation identity.
-
-The stored-selection path therefore joins the **exact complete selected excerpt** to the **original Host binding from that same receipt**. An excerpt-scoped `search-excerpt` citation becomes eligible only when the final fitted model request actually includes both that selected item and its corresponding citation identity. A shared URL, a copied candidate from another Run, an incomplete selection or an omitted final input cannot supply missing authority. Recovery reuses only the sealed original exposure fact; it does not reissue citations from today's webpage. When only citation eligibility is missing, independently authorized prose can still proceed under the original Publication rules. This proves **submission of the selected representation**, not model understanding, semantic support or use in the eventual answer.
-
-This is why neither “nothing categorized as discovery can be cited” nor “all discovery can be cited” is a sound universal rule. An action name describes what happened; **what may be cited is the actual material exposed under the applicable permission for that use.**
-
-## 5. Why a Bad Citation Should Not Make the Entire Answer Disappear
-
-The cost of turning references into a publication gate becomes apparent during failures. An October 6, 2026 source audit found a reachable path in which a generated answer could be rejected as a whole because of one invalid `citationRef`, a ninth citation, or an unavailable public-source attachment. The model could then spend more turns trying to repair a link before the user saw any answer.
-
-This does not mean every body should always be displayed. The correct distinction is between **an optional inspection attachment that is broken** and **a genuinely protected content effect that must be refused**.
-
-| Situation | Appropriate scope of action | What must not happen |
-| --- | --- | --- |
-| Invalid public citation syntax, foreign-run handle, or missing eligibility | Omit or qualify the affected citation attachment | Do not fabricate a valid source or erase independently permitted prose |
-| More citations than the display limit | Degrade the excess while retaining eligible references that fit | Do not veto thousands of words because of the ninth citation |
-| Missing original window, mismatched hash, or changed historical URL | Report that the original material cannot be inspected | Do not fetch the current page and impersonate the previous version |
-| Unapproved private dependency, wrong account, or wrong scope | Refuse the protected effect | Do not remove a citation or change the model's label to launder the actual dependency |
-| Replacement conflict or durable-store failure | Preserve the last valid revision and report delivery state accurately | Do not claim the uncommitted content has been saved |
-
-The October 16 publication-governance change returned body disposition to its original Publication owner. Runtime, citation adapters, recovery, and projections provide observed facts instead of erecting another “fix the citation before finishing” gate. Source authorization, real dependencies, revision compare-and-swap, and durable commits retain their original protections.
-
-A portable principle follows: **a broken citation does not prove the answer false, and it does not prove the answer safe.** Restrict the failing effect first; let the owner with actual authority decide what happens next.
-
-## 6. Bind Citations to the Final Revision, Not to a Mutable Web Page
-
-A research answer is not necessarily generated once and then frozen. Parts may be streamed, replaced in place, committed durably, and later opened through History in another process. A reference recorded only as a URL or an old string offset can quietly change meaning along this route.
-
-![Revisions retain original evidence · 1/2](../../visuals/en/panorama-citations/revision-1.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/revision-1.svg)
-
-![Revisions retain original evidence · 2/2](../../visuals/en/panorama-citations/revision-2.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/revision-2.svg)
-
-*Figure 5. A replacement has its own anchors in the final body. Historical revision 1 is retained; old offsets are not copied blindly into revision 2.*
-
-Four identities in this process must not substitute for one another.
-
-**The source version** identifies what bytes or normalized content were read at that time. **The exact read-item ID** points to the specific passage or table item. **The parent tool-observation ID** identifies the invocation that produced it. **The `publicationId / revision`** identifies the committed answer revision that contains the reference. One parent observation may contain several read items; replacing a child item ID with the parent ID merely to simplify recovery destroys precision.
-
-This is more than a theoretical risk. On October 21, real PostgreSQL inspection showed that JSONB object-key reordering changed a serialization-based identity for a PDF table read item. The fix retained the original reading ID and stable production DTO ordering rather than removing the hash check.
-
-A separate browser path received a full answer over SSE, but a later empty History projection during a pending save cleared the visible body. The fix coordinated delivery and historical reads for the same run; it did not ask the model to regenerate the answer. On October 24, another integration exposed review attachments missing from live events, while a cold History read had received the parent observation ID where it needed the exact read-item ID. Both were fixed at their original production or relay seams, retaining the distinct identities.
-
-The shared lesson: **stored in a database, delivered over SSE, and rendered as a link are three different facts from “still inspectable under its original identity after reopening.”** Verification must cross production, commit, delivery, cold read, and actual inspection, rather than only testing a citation component.
-
-Historical recovery has a separate safety rule. A durable citation receipt can explain an earlier publication, but cannot resurrect an old `sourceRef` as a new read/find capability in another process. History uses the current viewer's access rules. A new run that wants to read again requires its own admission and live source registration.
-
-## 7. Why We Removed Runtime's “Trustworthy Answer Grade”
-
-An early design classified source requirements and projected terminal grades such as `grounded_answer` and `advisory_answer`. The motivation was understandable: a long research run needs to distinguish required materials from supporting or optional ones.
-
-A real diagnostic provided a sharp counterexample. Across four research runs and 57 source reads, **all 57 of 57 were marked required**. We reminded the model that its classifications would affect the final grade, but the distribution did not meaningfully improve. A model-authored requirement label was not a reliable source of authoritative terminal truth.
-
-Yet even perfectly classified materials would have shown only how the research was organized. They would not prove that the model understood the correct SDK version, used a sound comparison method, or answered the question. Replacing a “source completeness” score with “citation coverage” would have reproduced the same mistake: attaching valid citations to a wrong conclusion does not make that conclusion true.
-
-The October 1 cleanup therefore removed these Runtime-owned authoritative semantic grades, while preserving the facts the system can actually verify: model requests, Host reads, exact citation bindings, permissions, budgets, durable receipts, and the identities of accepted answer revisions.
-
-**The stronger a mechanical fact becomes, the more carefully its claimed meaning must be bounded.** A valid `citationRef` says that a relationship exists. Whether the cited material supports the claim remains a question for a reader or an independent evaluator with the necessary context.
-
-## 8. An Independent Reviewer Checks Two Things, but Does Not Own Publication
-
-Asking another model “Are the citations correct?” sounds simple. In practice, the task must be divided into at least two judgments.
-
-Consider the synthetic SDK example again. The answer correctly states that SDK 2.4 removed `legacyLogin()`, but it cites the SDK 2.3 document. The reviewer may also receive the SDK 2.4 document as additional material. It should report: **the material set supports the claim, but the reference actually attached to the claim is wrong**. The existence of support elsewhere cannot retroactively fix the cited relationship.
-
-![Review does not rewrite facts · 1/2](../../visuals/en/panorama-citations/review-1.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/review-1.svg)
-
-![Review does not rewrite facts · 2/2](../../visuals/en/panorama-citations/review-2.svg)
-
-[Open the full vector diagram](../../visuals/en/panorama-citations/review-2.svg)
-
-*Figure 6. Review is a separate bounded operation, not an automatic final gate before publishing the original research.*
-
-Our on-demand review entry first fixes the answer, actual citation mapping, supplemental materials, representation levels, source versions, and known gaps into a review package. A separate model then returns its opinions. It does not rerun the research, search for more evidence on the user's behalf, read arbitrary private paths from the input package, or inherit the original run's permissions or request budget.
-
-The output distinguishes “supported,” “contradicted,” “insufficient evidence,” and “unable to assess,” while also locating the claim, actual citation, supporting passage, and reasoning. Fabricated quotations, ambiguous locations, truncated responses, and uncertain dispatch are kept as uncheckable or unchecked—not converted into “no issues found” or a universal trust score.
-
-The independent JSON/Markdown reports, default-off behavior, and separate resource receipts received bounded offline and PostgreSQL verification. **That does not establish live-model review accuracy, false-positive rates, or production enablement.** The reviewer's result is an inspectable advisory opinion, never an automatic correction or invisible veto over the original answer.
-
-## 9. How to Verify the Architecture Without Trusting a Diagram
-
-Useful verification starts from failure modes and tests specific invariants, not from the number of references in an answer.
-
-1. **Identities cannot be laundered.** Same URL but different versions, same figure from different origins, foreign run/scope, and invalid hashes must not merge into a plausible-looking citation.
-2. **Exposure cannot be invented.** If the model received an excerpt, the system can only claim that representation. Unread PDF pages, unsubmitted content, and parent observations cannot impersonate exact read items.
-3. **Failure stays local.** Broken public attachments become explicitly unavailable while independent permitted prose survives. Private dependencies, revision conflicts, and account isolation still deny the effects they actually protect.
-4. **Versions survive real readback.** Publication, replacement, live stream, PostgreSQL commit, fresh-process History, and browser inspection must agree on the original citation/revision relationship. “Saved” and “seen live” are separately observed.
-5. **Review cannot take authority.** Disabled review adds no model requests. Enabled review only consumes fixed eligible inputs, retains unknown outcomes after timeouts, and leaves the original Publication, budget, and terminal state unchanged.
-
-These invariants have bounded implementation and contract evidence across result ownership, original passage inspection, reviewable conclusions, and on-demand evaluation, including isolated database and browser paths. They show **how the mechanisms preserve identity, authorization, and delivery**. They do not establish that a live model consistently interprets documents correctly, or that external sources will remain available indefinitely.
-
-We deliberately did not build another global “trusted-evidence database,” nor promote the reviewer into a terminal authority. The smaller authority of each mechanism makes its verifiable claims more defensible.
-
-## 10. Conclusion: What a Citation System Should—and Should Not—Prove
-
-A reusable citation system begins by naming its objects clearly: navigation clues, exact source-read windows, search excerpts, derived results, and committed historical references each provide different capabilities.
-
-It then names the decision owner: the Host and result/reference owner verify identity and eligibility; Publication owns the answer body and revisions; History preserves inspectable original relationships; the reviewer provides independent opinions. The parts cooperate without impersonating one another.
-
-Finally, it deals honestly with failure: **a bad citation must not generate invented evidence; missing historical details must not become today's web page; an uncertain reviewer must not turn into a pass; and independently permitted prose must not vanish merely because an auxiliary attachment is broken.**
-
-Returning to the SDK 2.4 question, the reader needs neither nine decorative footnotes nor a universal confidence badge. The useful outcome is access to **the version that was actually read at the time**, a clear relationship between that text and the claim that the method was removed, and an honest account of what was not checked.
-
-**Citations make a judgment reviewable. Only the subsequent review can address how much confidence that judgment deserves.**
-
-### Further Reading
-
-[The Trustworthy Evidence Chain for Financial Agents (Chinese original)](../../articles/financial-agent-trustworthy-evidence-chain.md) addresses a different layer: maintaining reproducible business reasoning across financial data conventions, calculations, delegated agents, and delivery. It does not replace this article's general citation issuance and inspection mechanism.
-
-[Chinese original](/articles/ai-citations-do-not-prove-reliability) · [Panorama series](/en/panorama) · [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).
-
-If you find an instructive counterexample, please share it through [GitHub Issues](https://github.com/hpoenixf/eff-agent-article/issues). If these engineering retrospectives are useful, a Star on the article repository is appreciated.
+Related reading: [Financial Agent Trustworthy Evidence Chain](financial-agent-trustworthy-evidence-chain.md) covers financial dates, arithmetic and cross-agent evidence lineage; [Agent Evaluation](honest-agent-evaluation.md) discusses how to judge source support. More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).
