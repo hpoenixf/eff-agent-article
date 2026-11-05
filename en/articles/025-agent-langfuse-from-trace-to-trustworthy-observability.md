@@ -28,6 +28,9 @@ The surprising lesson is that more telemetry is not always closer to truth. The 
 
 ![Four handoffs from source to user-visible answer](../../visuals/en/panorama-observability/handoff-checkpoints.svg)
 
+<span id="_1-give-each-observability-signal-a-specific-job"></span>
+<span id="_2-follow-the-handoffs-behind-an-answer"></span>
+
 ## 1. Surprise One: The Missing Trace Event May Describe an Action That Already Happened
 
 One research request spans several different transitions: source retrieval, tool result, actual model input, candidate answer, Publication commitment and eventual delivery. A successful model call says little about which of these transitions was correct.
@@ -49,6 +52,9 @@ A later, explicit local measurement, `hostHandlerDurationMs`, brackets the actua
 
 In one real Run that ended `partial` after interruption, 77 Host lifecycle records carried this field. That establishes a measurable interval for those observed handlers, not a faster or completed research task. Parallel handler intervals overlap; summing them does not yield Run wall time. Handlers that have not completed have no finished interval to report. Define the **measurement owner and its exact start/end points** before calculating percentiles.
 
+<span id="_4-longer-research-demands-more-than-call-logging"></span>
+<span id="_5-missing-data-is-an-observation-fact-not-empty-space"></span>
+
 ## 3. Surprise Three: More Captured Events Can Push Important Requests Out
 
 <span id="complete-query-results-do-not-prove-complete-capture"></span>
@@ -66,6 +72,8 @@ The SDK, a Run summary and a Langfuse Generation can all describe the same physi
 
 We associate usage and cost with the **original physical attempt identity** and provider usage response, not with the count of UI rows. Conflicting amounts for the same attempt remain a conflict or unknown rather than being overwritten by the latest value. Known provider-cost subtotals are useful; they are not a complete invoice. The same discipline applies to time: the server's observation of a new save is not the user's browser first paint.
 
+<span id="_3-reuse-a-mature-platform-but-define-what-it-does-not-own"></span>
+
 ## 5. Why We Use OpenTelemetry and Langfuse Without Making Them the Source of Truth
 
 [OpenTelemetry Trace concepts](https://opentelemetry.io/docs/concepts/signals/traces/) define spans, events, propagation and their time boundaries. [Langfuse](https://langfuse.com/docs/observability/features/token-and-cost-tracking) supplies an effective LLM-oriented inspection, token and cost interface. They prevent us from rebuilding an entire trace-search UI inside the chat application.
@@ -80,6 +88,10 @@ But their abstractions and our business contracts are not interchangeable:
 
 The trade-off is **reusing mature telemetry infrastructure while not allowing telemetry to become a business judge**. It requires original identity correlation, privacy controls, failure-isolated exporting and explicit treatment of missing observations.
 
+<span id="_8-the-telemetry-pipeline-can-break-so-give-it-minimal-self-diagnostics"></span>
+<span id="_6-an-auxiliary-ui-became-a-data-system-that-needed-governance"></span>
+<span id="_7-a-backup-is-not-useful-until-history-can-be-read-back"></span>
+
 ## 6. The Operational Surprise: A Backup May Exist While Historical Research Is Unreadable
 
 During a self-hosted Langfuse recovery, ClickHouse diagnostic system logs occupied far more storage than the business trace tables that mattered. Before cleanup, the team had to protect the existing business snapshot and metadata identity. After recovery, being able to list files and tables still did not establish usable history. The decisive check was reopening **one pre-snapshot real Run** and comparing its events, model-input records and publication history.
@@ -87,6 +99,8 @@ During a self-hosted Langfuse recovery, ClickHouse diagnostic system logs occupi
 Successfully exporting a new synthetic probe is a different check: it establishes the new ingestion path, not recovery of old material. This turns “observability should be recoverable” into a concrete promise: **an investigator can find the original research under its original identity**, rather than merely finding a backup archive.
 
 Unlimited retention of prompts, portfolio data and tool payloads would not be a defensible fix.
+
+<span id="_9-when-is-a-trace-trustworthy-enough-to-diagnose"></span>
 
 ## 7. What to Do When the Next Answer Is Wrong
 
