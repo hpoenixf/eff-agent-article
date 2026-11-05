@@ -168,11 +168,9 @@ This is stronger than testing whether a registry helper returns a fresh descript
 
 ### Same name does not authorize silent vendor switching
 
-In our teaching example, turn T sees and selects Provider A. If A disconnects before dispatch, sending the same call to Provider B without model reconsideration is unsafe: the definitions may differ.
+Transparent failover is not universally wrong. A service may promise that its replicas implement the same contract; switching internally need not change the basis of a call. What we reject is Host displaying A’s interface and then sending the arguments to B’s different contract.
 
-We intentionally prefer an explanatory failed invocation followed by **a new model turn** using a verified current Provider.
-
-That costs a turn, but preserves which interface justified the generated arguments.
+If interchangeable vendors are required, establish and verify a stable business contract first. Its owner must perform the conversions, and the model must see that contract. A shared tool name alone does not establish equivalent dates, units or required arguments. Native research instead presents the actual source protocol, so source changes wait for a new turn and binding is checked at the real request and seal.
 
 ### One tool's lifecycle in the Research path
 
@@ -334,9 +332,11 @@ Our fixes did not produce a magically smarter MCP Client. They put errors back a
 - **Invocation level:** binding mismatch cannot silently switch vendors.
 - **Result level:** capacity and shape errors do not masquerade as empty data.
 
-With a few static internal tools, not every mechanism may be necessary. Once research spans stdio, remote HTTP, several Vendors, and multiple model turns, the important question is no longer how many tool names appear in a catalog.
+Choose according to who needs a stable contract. For a few fixed internal tools, reuse an official SDK’s protocol implementation with explicit admission and argument checks; a general supplier-routing layer may add little. Deterministic reports or calculations that need fixed units, dates and fields can still benefit from a dedicated business facade, provided it owns and verifies those conversions.
 
-It is:
+For open-ended model research, we chose native source definitions and frozen bindings so the model can interpret actual interfaces and results without a second financial-semantic translation layer in Runtime. Contracts needed by existing deterministic consumers remain with their producers. The costs are supplier-specific model arguments, possible extra turns after source changes, and potentially larger native results. Schema compatibility, capacity and actual-consumption checks remain necessary. This does not establish superior research quality for the native approach.
+
+The important question is not how many tool names appear in a catalog:
 
 **Which interface did the model see, which one did Host invoke, what actually returned, and what did the next model request truly receive?**
 

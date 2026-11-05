@@ -62,7 +62,9 @@ Rather than allow the file and database to serve as competing authorities, we ch
 
 For transactions publishing protected material, checking and committing must participate in an understandable locking and commit order against the same index record. Before commit, validate current policy/auth revision, document version/hash and assessment validity. If revocation commits first, publication is denied. If publication commits first, subsequent revocation can block future disclosure, but cannot retrospectively retract bytes that were already sent.
 
-The check adds work at publication time, but avoids treating two unsynchronized stores as equally “latest.”
+The historical permission index and answer commit already lived in the same database, so they could contend on the same record lock. That is why we chose the index. The cost is publication waiting for checks or concurrent updates. Editing a sidecar no longer makes revocation immediately effective: the index transaction must commit first. This does not provide an atomic transaction spanning the filesystem and database.
+
+When several products share complex organization and document relationships, a dedicated authorization service can avoid duplicating relation logic. [OpenFGA’s consistency modes](https://openfga.dev/docs/interacting/consistency), for example, distinguish cache-eligible low-latency queries from HIGHER_CONSISTENCY database reads that skip the cache. Caching is disabled by default; enabling it introduces the stale-decision consideration. This controls the freshness of the authorization read. The application must still account for changes between an “allowed” response and its actual disclosure commit. In this historical case, the explainable order came from the existing database boundary. Moving authorization into a separate service would require a separately designed and verified handoff; changing a query mode alone does not establish it.
 
 **The crucial property is not the number of permission checks. It is whether the check and the disclosure effect share one explainable ordering.**
 
@@ -84,10 +86,10 @@ This is especially important for an agent that uses public documents, authorized
 
 ## 5. Evidence Beyond the Architecture Diagram
 
-The retrospective retained targeted before/after evidence:
+The important test is not another collection of allowed/denied examples. It inserts permission changes into two easily missed windows:
 
 - A generated first SSE response previously escaped revocation; after commit-time revalidation, protected content was blocked.
-- Publication and concurrent approved-index changes used one logical commit order, with explainable outcomes depending on which committed first.
+- In isolated PostgreSQL, the application guard prepared an allowed response while another connection changed the index. The old transaction still committed the excerpt: calling a resolver inside a transaction was not a shared consistency boundary. After the fix, an earlier revocation denied publication; in the reverse barrier, publication held the lock and revocation waited until it committed.
 - Explicit retention revoke was tested separately from ordinary scope-denied and unknown cases. “Cannot currently show” must not be silently upgraded to “permanently erase.”
 
 Controlled revocation and publication checks did not establish the quality of the full RAG system. Later real-source exercises still had unsuccessful screening outcomes. **Preventing unauthorized disclosure and retrieving useful financial evidence are different objectives.**
@@ -119,12 +121,14 @@ node src/session-cli.mjs publication --session ./test-output/revocable-demo --pr
 
 This fixed source retains an [independent install, build and revocation-readback receipt](https://github.com/hpoenixf/open-etf-agent/blob/35f244f2e06da447c110325d2ac5a5c39f36e842/docs/verification/v016-revocable-rag.safe.json). Installation used an existing official cache, not a fresh network download; synthetic documents and scripted actions made no external model calls. Source qualification remains distinct from publication to main, a tag or a formal Release. It governs later disclosure through these paths, not direct filesystem access by the same operating-system user, and cannot recall content already delivered. It demonstrates revocation across a consumption chain, not retrieval quality or a complete enterprise permission system.
 
-## 6. Why This Deserves Its Own Design Discussion
+<span id="_6-why-this-deserves-its-own-design-discussion"></span>
 
-We had already discussed citations, Publication and runtime authorization. This example isolates a different question:
+## 6. Choose the Authorization Contract Before Reusing the Design
 
-**When protected knowledge moves from allowed to revoked, how does that change remain effective across retrieval, first publication and historical redisplay?**
+The transferable lesson is not “check the ACL everywhere.” Identify the effect, the moment of authority and the owner of that authority first.
 
-The answer is neither “the model should be more careful” nor “add another source allowlist.” Retrieved content, approved source index, publication time and replay must all respect current eligibility, while hiding and deletion remain distinct effects.
+Current ETF Agent execution, recovery and replay of the original Run’s results retain the recorded source grant; a later source ACL change does not shrink that Run. A new Run needs its own admission. Separately applicable historical-display or retention restrictions still govern the affected protected excerpt. Failure to enrich an optional source card is not such a restriction and must not erase independently lawful body text. The September per-segment current-eligibility scheme is therefore historical, not a wholesale recipe for today’s same-Run path.
 
-For question answering over public, immutable documents, this engineering complexity may be unnecessary. For agents reading revocable, revisable and account-scoped content, however, **successful retrieval proves authorization at read time—not permission to publish forever**.
+Choose according to the contract. For permanently public immutable material, preserve identity and revision. If permission lasts through a defined task boundary, record and inherit that grant. If revocation must take effect at disclosure, give current eligibility and the disclosure effect an explainable order. All three need explicit viewer scope, source dependencies and retention rules; “stricter authorization” does not resolve their different meanings.
+
+The final question is: **when an old answer appears again, can the system identify the permission, version and display effect that justify it, rather than merely say retrieval once succeeded?**
