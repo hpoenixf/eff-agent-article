@@ -60,7 +60,7 @@ flowchart TD
   H --> I["Reread sources using original references"]
 ~~~
 
-Summarization remains a metered model request under the original Gateway, deadline, route limits and finalization reserve. One real summary was cut off under an additional hardcoded 900-output-token ceiling and returned \`finishReason=length\`; it was not adopted. The current system uses the applicable fitted Main request and finite route ceiling instead. An invalid result falls back to the original history rather than being retried until it looks successful.
+Summarization remains a metered model request under the original Gateway, deadline, route limits and finalization reserve. One real summary was cut off under an additional hardcoded 900-output-token ceiling and returned `finishReason=length`; it was not adopted. The current system uses the applicable fitted Main request and finite route ceiling instead. An invalid result falls back to the original history rather than being retried until it looks successful.
 
 A different real Run reduced its complete fitted request from **264,062 to 182,786 bytes** and later dispatched the adopted summary. These are distinct research runs, not a matched A/B result about quality or cost. What matters is the actual request sent to the model—not merely whether a summary file was written.
 
@@ -76,7 +76,7 @@ The point is **not that custom summaries are smarter**. It is that the summary c
 
 ## 6. A Runnable Public Teaching Slice
 
-The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) provides a pinned synthetic exercise: create a derived working note under byte pressure, include it in a subsequent request, then reread original source material by \`resultRef\`. It demonstrates **actual note adoption with unchanged source identity**, not the private Main Recovery implementation in its entirety.
+The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) provides a pinned synthetic exercise: create a derived working note under byte pressure, include it in a subsequent request, then reread original source material by `resultRef`. It demonstrates **actual note adoption with unchanged source identity**, not the private Main Recovery implementation in its entirety.
 
 ~~~bash
 git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-compaction-demo
@@ -86,7 +86,7 @@ npm ci --ignore-scripts --no-audit --no-fund
 npm run demo -- --case compact-and-reread
 ~~~
 
-Inspect \`run.jsonl\`, \`report.md\` and \`manifest.json\` in the generated run directory. The note retains a \`derived-summary\` identity and projected note displays are marked \`projectionOnly\`; they are not counterfeit tool execution. Separate fixed public revisions include a [process-recovery test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) and [effect-receipt preservation tests](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs). They must not be backdated onto the original teaching snapshot.
+Inspect `run.jsonl`, `report.md` and `manifest.json` in the generated run directory. The note retains a `derived-summary` identity and projected note displays are marked `projectionOnly`; they are not counterfeit tool execution. Separate fixed public revisions include a [process-recovery test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) and [effect-receipt preservation tests](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs). They must not be backdated onto the original teaching snapshot.
 
 **The portable design judgment:** first identify which old material can be reread exactly; only summarize what remains useful as a working hint. If a lossy note becomes your only source of facts, reducing context size may simply manufacture a second, less trustworthy history.
 
