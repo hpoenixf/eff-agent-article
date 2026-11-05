@@ -5,7 +5,7 @@ readingBrief:
   takeaways:
     - "Assess execution, evidence, content quality, and delivery separately. Judges must evaluate the actual artifact claimed; a complete draft or terminated Run is not task completion."
     - "Freeze inputs, revisions, budgets, and the planned denominator, retaining failures and unknowns. Compare qualified windows; retrieval scores and text matches alone do not demonstrate benefit."
-    - "Calibrate graders and bind criterion-level judgments to the saved answer, frozen references and actual source associations. Preserve original observations when correcting evaluators; choose verification depth by risk."
+    - "Calibrate graders and bind criterion-level judgments to the saved answer and frozen evidence. Later supplemental files cannot become original-Run exposure, and a corrected evaluation must preserve prior observations."
   appliesTo:
     - "Teams designing agent regression suites, live research evaluations, or model comparisons with explicit scoring objects, denominators, and evidence eligibility."
   notFor:
@@ -161,6 +161,8 @@ If a stream ended early, reconstruction must preserve that incompleteness. A ful
 **The identity and scope of the scored object matter more than a sophisticated scoring formula.** That is one difference between agent-product evaluation and a pure model benchmark: product results also pass through a real delivery system.
 
 A recent real-model comparison of two ETFs pushed “which answer are we judging?” one level further: **which criterion, supported by which source?** The saved answer is bound to the original Run, question, answer and reference criteria frozen before dispatch. The overall review can be reopened, but two quarterly reports appearing among a Run's readable results does not mean both reports were bound as support for every criterion. A new read-only criterion view verifies the original reference fingerprint, assessed artifact and recorded source associations. A criterion without adequate recorded associations remains visibly unsupported rather than borrowing authority from the overall verdict.
+
+There is a further time distinction. Suppose an exchange's ETF-trading guidance is fetched again **after** a review. It may help check today's assessment of the trading-cost claim; it does **not** prove that the original Run or original reviewer used those bytes. The read-only criterion view can now match explicitly supplied local supplemental files by SHA-256 fingerprint and display those matches separately from same-Run source associations. A matching digest establishes local byte correspondence only—not acquisition time, remote provenance, past model exposure, actual reviewer use, or support for the claim. Missing, changed or duplicate files remain unavailable or uncertain rather than being backfilled as historical Run evidence. **Review material can be added later; the original exposure history cannot be rewritten.**
 
 In that repeat, three of four necessary criteria passed, while a claim that secondary-market ETF trading incurred stamp duty failed. The overall review therefore remains failed. Criterion details explain the recorded decision without rescoring the saved answer or certifying independent judgment. A passing necessary check is not a full-document certificate, and a failing one should identify the specific financial premise. The [fund research claim-eligibility case study](financial-agent-research-claim-boundaries.md) develops the holdings, coverage and trading-rule examples.
 
