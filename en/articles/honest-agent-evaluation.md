@@ -108,6 +108,8 @@ The minimum case contract should identify the judged object, necessary condition
 
 Start from a confirmed mistake, freeze the source and rubric, add one normal and one adjacent negative case, and rerun under a comparable model/configuration/resource window. Read the final report for **comparison eligibility** before reading means, costs and confidence.
 
+This follows [method 5, “Verification and failure attribution”](/en/principles#method-5): distinguish product defects, measurement defects and missing evidence before deciding on a deterministic regression, a live-model comparison or human review.
+
 **Evaluation is not a certificate issued to a model. It is a way to decide whether to repair product behavior, repair the judge, obtain missing sources, or defer comparison.**
 
 ## Further Reading
