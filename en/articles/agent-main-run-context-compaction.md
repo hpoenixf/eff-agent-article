@@ -1,10 +1,10 @@
 ---
 title: "Why Not Just Ask a Model to Summarize the Conversation When Context Is Full?"
-description: "Main Run context compaction with bounded pressure, settled turns, non-authoritative summaries, immutable checkpoints and honest live evidence."
+description: "How LLM abstractive summarization compresses settled tool turns while retaining the latest two turns and original-result references, and why this design uses incremental, non-recursive notes."
 readingBrief:
   takeaways:
     - "Use semantic compaction after externalization and reversible fitting; a soft target is desired headroom, while adoption still requires measured savings, hard-capacity fit and original authorization."
-    - "Compact eligible older work while preserving original user text, complete call relationships and effect receipts; summaries acquire neither source authority nor execution authority."
+    - "Summarize sealed older tool proposals with an LLM while retaining the latest two turns; user text and tool results stay independent, and previous notes never become new summary input."
     - "Bind compaction records to the original Run, range and request identity; recovery reads the checkpoint rather than repeating summarization or tool effects after a lost acknowledgment."
   appliesTo:
     - "Reducing context pressure within a long research Run while preserving original-source access, execution facts and process recovery."
@@ -16,7 +16,7 @@ readingBrief:
 
 A research agent has inspected dozens of fund documents and still has work to do. The obvious fix is to ask the model to summarize earlier turns. But the real risk is not a verbose summary. It is **a fluent sentence turning an intended action into a completed tool call, or last quarter's figures into current facts**.
 
-Two further surprises shaped the final design. Conservative capacity preflight can reject every potentially helpful summary. And a committed checkpoint containing a summary does not mean the next model request actually contained it. We did not solve this by introducing a smarter summarizer. We made the summary a **non-authoritative working note** while leaving sources, grants, effects and recovery with their original owners.
+We use **LLM abstractive summarization**: select safe older tool turns in chronological order, ask the existing model to condense their tool proposals into a short working note, and retain the latest two turns plus original-result references. New prose stands in for older actions, making this lossy semantic compression; original records still supply the facts. First, let us unpack the algorithm, then explain the incremental, non-recursive choice.
 <div><a id="_1-three-ways-to-reduce-context-cost-are-not-the-same"></a></div>
 
 ## 1. Not Every Context Problem Calls for Summarization
@@ -24,6 +24,19 @@ Two further surprises shaped the final design. Conservative capacity preflight c
 We reduce pressure in an intentional order: **externalize repeated tool results → apply reversible fitting and exact rereads → only then summarize older work**. A PDF or fund-holdings table with a stable source identity and permitted selector should not be reinserted into every model turn. Recent tool calls and their corresponding results must stay together.
 
 [Anthropic's context-engineering guidance](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats context as scarce working space. Its [tool-result clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing) is well suited to workflows that no longer need to see earlier tool output. Our financial research adds a constraint: **removing current model-visible text must not remove auditable source identity, authorization or numeric provenance**.
+
+
+### The Algorithm: Select by Rules, Summarize with an LLM, Retain Originals
+
+A compaction pass does not send the entire conversation to a summarizer. It has five explicit steps:
+
+1. **Keep recent turns and select older groups.** Scan Main model turns chronologically, always retaining the latest two. Earlier turns require durable records and complete, settled, identity-matched tool call/result groups. A definitively settled failure can also qualify. Stop extending at unsafe boundaries; the candidate must also be contiguous in the current message sequence, without crossing retained user or Host messages.
+2. **Assemble only the permitted summary input.** The input consists of sealed assistant tool proposals: turn identity, call identity, tool name and arguments. Original user text, previous notes and tool-result bodies are not supplied as separate summary inputs. Missing assistant narrative or hidden reasoning is not reconstructed. The note therefore captures what was proposed, rather than re-deriving financial conclusions from disclosures.
+3. **Generate plain text through the existing model.** Reuse Main's Gateway and model route rather than selecting a separate compression model. The prompt asks for concise proposal-only prose and no tools. Only nonempty output within the byte cap, ending normally with `stop`, reaches adoption checks.
+4. **Reattach original references and measure savings.** The Host independently retains call status, original `resultRef`, permitted selectors and source identities. It replaces the selected complete call/result groups with one note plus that reference directory, then measures the entire next request. Insufficient savings or a hard-capacity violation leaves the original history in place.
+5. **Append new segments without resummarizing old notes.** An adopted note has an immutable source interval. Later passes select only previously uncompacted older work, never feeding an earlier note back into the summarizer. All notes remain ordered and count toward request capacity.
+
+Consider a **simplified teaching example** with four Main turns. The first two proposed finding two funds' disclosures and reading selected pages; the latest two are comparing data. If the first pair forms a safe contiguous interval, it can become: “Earlier proposals sought the two funds' disclosures and requested selected pages.” Original receipts beside the note establish whether each call succeeded or failed. The latest two turns stay intact. Comparing amounts or dates still requires rereading the original pages through their references, not guessing figures from that sentence.
 
 <div><a id="_2-establish-real-capacity-pressure-before-compacting"></a></div>
 
@@ -76,13 +89,19 @@ A different real Run reduced its complete fitted request from **264,062 to 182,7
 
 ## 5. What Other Frameworks Do, and Why We Kept Our Own Ownership Rules
 
-| Approach | Best fit | Why we chose an additional application contract |
-| --- | --- | --- |
-| [LangChain SummarizationMiddleware](https://reference.langchain.com/python/langchain/agents/middleware/summarization/SummarizationMiddleware) | Summarizes older messages at a threshold, retaining recent messages and AI/Tool pairs | Conversation management is useful; financial provenance, frozen grants, durable effects and cold recovery still belong to the application |
-| [Anthropic Context Editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) | Clears stale tool-result content from active context | Clearing does not create our original source and effect receipts |
-| **ETF Agent Main compaction** | Externalize first, summarize only under pressure, keep original-Run ownership | Requires more implementation and identity checks, but a lossy note never becomes execution truth |
+Different mechanisms reduce different kinds of bulk. Clearing or externalizing older tool outputs removes repeated text directly; abstractive summarization can then turn a verbose action trail into a shorter note. We apply them in that order. The comparison below uses current official documentation to explain choices, not to rank measured quality.
 
-The point is **not that custom summaries are smarter**. It is that the summary cannot replace an execution ledger or source database. A casual conversation can tolerate looser paraphrase; research with dates, money and potentially repeated effects cannot.
+| Approach | Mechanism and good fit | Our local tradeoff |
+| --- | --- | --- |
+| [Anthropic Context Editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) | Clears older tool output; useful when that output no longer needs to remain visible | We also remove repeated bodies first, while retaining original-version rereads and action clues |
+| [LangChain SummarizationMiddleware](https://docs.langchain.com/oss/python/langchain/middleware/built-in#summarization) | Summarizes older messages at a threshold and keeps recent context by message count, token count or fraction; a direct fit for general conversation | We restrict summary input to older tool proposals, projecting user constraints, results and execution status separately from original records |
+| [Pi compaction](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/compaction.md) | Chooses a cut using a recent-token budget and includes the previous summary in the next summarization pass; useful for maintaining one updated working summary | We append independent notes to avoid repeated paraphrasing; notes accumulate, so recursion cannot provide indefinite space |
+| [OpenAI Responses compaction](https://developers.openai.com/api/docs/guides/compaction) | Server-side or standalone compaction produces an opaque encrypted item for subsequent Responses requests | That representation fits its API chain; our existing Gateway carries a readable note with independently bound Host receipts |
+
+**Abstractive summarization retains more action clues than deletion; deterministic selection and original references limit the model's job to shortening language.** Clearing old outputs alone can leave verbose arguments and repeated attempts. Condensing those into a working note offers another reduction, while exact source content stays available through rereads rather than relying on a lossy model as a fact store.
+
+**Incremental, non-recursive notes trade capacity for stable provenance.** Each note remains tied to its own original interval, avoiding repeated paraphrase of summaries while reusing the existing Gateway, accounting and recovery path. Every pass adds model cost and latency. Notes and references can eventually fill the request too, requiring the original bounded continuation or finalization path. Keeping two recent turns is the current engineering policy, not an experimentally optimal window. For casual conversation without original-source rereads, generic rolling summarization is usually simpler; if clearing duplicate tool output is sufficient, there is no need to pay for another model call.
+
 
 <div><a id="observe-note-adoption-and-original-source-rereading-in-the-public-code"></a><a id="inspect-what-remains-readable-after-note-adoption"></a><a id="does-the-same-working-note-survive-a-process-restart"></a><a id="why-a-saved-report-must-not-become-merely-a-sentence-in-a-summary"></a></div>
 
