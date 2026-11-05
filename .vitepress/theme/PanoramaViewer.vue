@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useData } from 'vitepress'
 
-const props = defineProps<{ src: string; label: string; sourceLinks?: boolean; canvasWidth?: number; canvasHeight?: number }>()
+const props = defineProps<{ src: string; label: string; sourceLinks?: boolean; workshop?: boolean; canvasWidth?: number; canvasHeight?: number }>()
 const { lang } = useData()
 const english = computed(() => lang.value.startsWith('en'))
 const dialog = ref<HTMLDialogElement>()
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
 <template>
   <figure class="panorama-viewer" :class="{ 'compact-learning-map': props.sourceLinks }" :style="props.sourceLinks ? compactPreviewStyle : undefined">
     <div class="panorama-toolbar">
-      <span>{{ props.sourceLinks ? (english ? 'Learning map · select a chip for pinned source code' : '分阶段能力图 · 点击卡片查看固定源码') : (english ? 'Panorama · select a module to read more' : '全景图 · 点击模块阅读专文') }}</span>
+      <span>{{ props.workshop ? (english ? 'Workshop · from your materials to a saved report' : '练手图 · 从自己的资料到持久报告') : props.sourceLinks ? (english ? 'Learning map · select a chip for pinned source code' : '分阶段能力图 · 点击卡片查看固定源码') : (english ? 'Panorama · select a module to read more' : '全景图 · 点击模块阅读专文') }}</span>
       <button ref="trigger" type="button" aria-haspopup="dialog" :disabled="!mounted" @click="open">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6" /></svg>
         {{ english ? 'Expand fullscreen' : '全屏展开' }}
@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
     <Teleport v-if="mounted" to="body">
       <dialog ref="dialog" class="panorama-dialog" :aria-label="label" @close="cleanup" @cancel.prevent="close">
         <div class="panorama-toolbar panorama-controls">
-          <strong>{{ props.sourceLinks ? (english ? 'Six-layer learning map' : '六层能力地图') : (english ? 'Six-layer panorama' : '六层调用全景') }}</strong>
+          <strong>{{ props.workshop ? (english ? 'Workshop: six responsibilities' : '练手篇：六类职责') : props.sourceLinks ? (english ? 'Six-layer learning map' : '六层能力地图') : (english ? 'Six-layer panorama' : '六层调用全景') }}</strong>
           <div class="panorama-actions">
             <button type="button" :aria-label="english ? 'Zoom out' : '缩小'" :disabled="scale <= 0.1" @click="zoom(scale / 1.25)">−</button>
             <output aria-live="polite">{{ Math.round(scale * 100) }}%</output>
@@ -117,7 +117,7 @@ onBeforeUnmount(() => {
             <a :href="src">{{ english ? 'Open SVG panorama' : '打开 SVG 全景图' }}</a>
           </object>
         </div>
-        <p class="panorama-hint">{{ props.sourceLinks ? (english ? 'Zoom and scroll · Select a chip for the pinned source · Esc to close' : '放大后可滚动查看 · 点击卡片打开固定源码 · Esc 退出') : (english ? 'Zoom in and scroll to explore · Select a module to read more · Esc to close' : '放大后可横向、纵向滚动查看 · 点击模块阅读专文 · Esc 退出') }}</p>
+        <p class="panorama-hint">{{ props.workshop ? (english ? 'Zoom and scroll to inspect the diagram · Esc to close' : '放大后可滚动查看 · Esc 退出') : props.sourceLinks ? (english ? 'Zoom and scroll · Select a chip for the pinned source · Esc to close' : '放大后可滚动查看 · 点击卡片打开固定源码 · Esc 退出') : (english ? 'Zoom in and scroll to explore · Select a module to read more · Esc to close' : '放大后可横向、纵向滚动查看 · 点击模块阅读专文 · Esc 退出') }}</p>
       </dialog>
     </Teleport>
   </figure>

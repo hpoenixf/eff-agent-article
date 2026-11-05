@@ -197,10 +197,13 @@ test('workshop follows deep dive in both menu and article navigation without a f
   }
   for (const en of [false, true]) {
     const diagrams = learningPathStages(en)
-    assert.deepEqual(diagrams.map(x => x.key), ['intro', 'intermediate', 'deep', 'panorama'])
+    assert.deepEqual(diagrams.map(x => x.key), ['intro', 'intermediate', 'deep', 'workshop', 'panorama'])
     assert.equal(diagrams.at(-1).slug, '017-prompt-to-answer-six-layer-panorama-v3')
     assert.equal(diagrams.at(-1).label, en ? 'Panorama' : '全景')
-    assert.ok(diagrams.every(x => !x.src.includes('workshop')))
+    const workshop = diagrams.find(x => x.key === 'workshop')
+    assert.equal(workshop.src, '/diagrams/open-workshop/six-layers-' + (en ? 'en' : 'zh') + '.svg')
+    assert.equal(workshop.label, en ? 'Workshop' : '练手')
+    assert.equal(workshop.sourceLinks, false)
   }
 })
 

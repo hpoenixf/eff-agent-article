@@ -31,6 +31,9 @@ const stageViews = [
   { key: 'deep', slug: 'open-etf-agent-v010-system-design', width: 2240, height: 1110,
     zh: '深入固定公开版本的系统设计，连接证据、产物与交付。',
     en: 'Explore a pinned public implementation, connecting evidence, artifacts and delivery.' },
+  { key: 'workshop', slug: 'open-etf-agent-research-project-workshop', width: 1040, height: 640,
+    zh: '带入自己的资料，沿 v0.20 本地练习检查任务、报告和可回查来源。',
+    en: 'Bring your own materials and inspect the task, saved report and sources in the v0.20 local workshop.' },
   { key: 'panorama', slug: '017-prompt-to-answer-six-layer-panorama-v3', width: 2960, height: 1824,
     zh: '回到更广的六层系统设计，查看职责与交接；不等于公开实现的功能清单。',
     en: 'See responsibilities and handoffs across the broader six-layer design—not a public implementation feature checklist.' }
@@ -46,8 +49,11 @@ export function learningPathStages(english = false) {
       href: `${english ? '/en' : ''}/articles/${slug}`,
       src: view.key === 'panorama'
         ? `/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-${language}.svg`
-        : `/visuals/learning-stage-maps/${view.key}-${language}.svg`,
-      width: view.width, height: view.height, sourceLinks: view.key !== 'panorama'
+        : view.key === 'workshop'
+          ? `/diagrams/open-workshop/six-layers-${language}.svg`
+          : `/visuals/learning-stage-maps/${view.key}-${language}.svg`,
+      mobileSrc: view.key === 'workshop' ? `/diagrams/open-workshop/six-layers-${language}-mobile.svg` : null,
+      width: view.width, height: view.height, sourceLinks: ['intro', 'intermediate', 'deep'].includes(view.key)
     }
   })
 }

@@ -46,7 +46,7 @@ export default defineConfig({
       title: 'ETF Agent · Engineering Notes',
       description: 'Engineering notes on AI agent mechanisms, architecture and development.',
       themeConfig: {
-        nav: [{ text: 'About', link: '/about' }],
+        nav: [{ text: 'All articles', link: '/en/catalog' }, { text: 'About', link: '/about' }],
         sidebar: {
           '/en/open-etf-agent': openEtfSidebar('en'),
           '/en/': [
@@ -196,7 +196,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/brand.svg',
     siteTitle: 'ETF Agent / Notes',
-    nav: [{ text: 'About', link: '/about' }],
+    nav: [{ text: '全部文章', link: '/catalog' }, { text: 'About', link: '/about' }],
     sidebar: {
       '/open-etf-agent': openEtfSidebar('zh'),
       '/': [

@@ -25,21 +25,26 @@ mkdirSync(resolve('.vitepress/cache'), { recursive: true })
 const modulePath = resolve('.vitepress/cache/gallery-render-fixture.mjs'); writeFileSync(modulePath, bundle.outputFiles[0].text)
 const Component = (await import(pathToFileURL(modulePath))).default
 
-test('four gallery views reuse the canonical reading path and existing bilingual diagram geometry', () => {
+test('five gallery views reuse the canonical reading path and existing bilingual diagram geometry', () => {
   for (const english of [false, true]) {
     const stages = learningPathStages(english)
-    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs.filter(slug => slug !== 'open-etf-agent-research-project-workshop'))
-    assert.equal(stages.length, 4)
+    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs)
+    assert.equal(stages.length, 5)
     for (const stage of stages) {
       assert.equal(stage.href, `${english ? '/en' : ''}/articles/${stage.slug}`)
-      const svg = read(stage.src.slice(1))
+      const svg = read((stage.key === 'workshop' ? 'public' : '.') + stage.src)
       assert.match(svg, new RegExp(`viewBox="0 0 ${stage.width} ${stage.height}"`))
       const article = read(`${english ? 'en/' : ''}articles/${stage.slug}.md`)
       assert.ok(article.includes(stage.src), stage.key + ' must reuse its actual article diagram')
-      assert.equal(stage.sourceLinks, stage.key !== 'panorama')
+      assert.equal(stage.sourceLinks, ['intro', 'intermediate', 'deep'].includes(stage.key))
+      if (stage.key === 'workshop') {
+        assert.ok(article.includes(stage.mobileSrc))
+        assert.match(read('public' + stage.mobileSrc), /viewBox="0 0 390 824"/)
+        assert.doesNotMatch(svg, /<a\b/)
+      }
     }
   }
-  for (const key of ['intro', 'intermediate', 'deep', 'panorama']) assert.equal(galleryStageFromHash('#stage=' + key), key)
+  for (const key of ['intro', 'intermediate', 'deep', 'workshop', 'panorama']) assert.equal(galleryStageFromHash('#stage=' + key), key)
   for (const hash of ['', '#stage=missing', '#stage=intro&other', '#owner-inventory']) assert.equal(galleryStageFromHash(hash), 'panorama')
   assert.equal(galleryStageForKey('panorama', 'ArrowRight'), 'intro')
   assert.equal(galleryStageForKey('intro', 'ArrowLeft'), 'panorama')
@@ -48,7 +53,7 @@ test('four gallery views reuse the canonical reading path and existing bilingual
   assert.equal(galleryStageForKey('intro', 'Escape'), null)
 })
 
-test('SSR exposes four real reading links, default panorama and original Owner index without an iframe or status wall', async () => {
+test('SSR exposes five real reading links, default panorama and original Owner index without an iframe or status wall', async () => {
   const md = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
   const registry = JSON.parse(/<script[^>]*id="owner-data"[^>]*>([\s\S]*?)<\/script>/.exec(read('visuals/owner-architecture/index.html'))[1])
   const expected = registry.owners.filter(owner => !['E01', 'E02', 'E03'].includes(owner.id)).map(owner => owner.id).sort()
@@ -104,6 +109,10 @@ test('real Vue gallery events support keyboard selection, modifier links, hash r
     assert.equal(selected().props.id, 'gallery-tab-deep')
     assert.equal(find(n => n.props.role === 'tablist').props['aria-label'], 'Reading stages')
     assert.equal(all(root).filter(n => n.props.role === 'tab' && n.props.tabindex === 0).length, 1)
+    assert.equal(await key('ArrowRight'), true); assert.equal(selected()?.props.id, 'gallery-tab-workshop')
+    assert.ok(find(n => n.tag === 'picture'))
+    assert.ok(find(n => n.tag === 'source').props.srcset.endsWith('/six-layers-en-mobile.svg'))
+    assert.equal(find(n => n.tag === 'img').props.src, '/eff-agent-article/diagrams/open-workshop/six-layers-en.svg')
     assert.equal(await key('ArrowRight'), true); assert.equal(selected()?.props.id, 'gallery-tab-panorama')
     assert.equal(await key('ArrowRight'), true); assert.equal(selected()?.props.id, 'gallery-tab-intro')
     assert.equal(await key('ArrowLeft'), true); assert.equal(selected()?.props.id, 'gallery-tab-panorama')
@@ -118,6 +127,7 @@ test('real Vue gallery events support keyboard selection, modifier links, hash r
     await tab('deep').props.onKeydown({ key: ' ', preventDefault() {} }); await nextTick(); assert.equal(selected()?.props.id, 'gallery-tab-deep')
     window.location.hash = '#owner-inventory'; listeners.get('hashchange')(); await nextTick()
     assert.equal(find(n => n.props.id === 'owner-inventory').open, true)
+    window.location.hash = '#stage=workshop'; listeners.get('hashchange')(); await nextTick(); assert.equal(selected()?.props.id, 'gallery-tab-workshop')
     window.location.hash = '#stage=unknown'; listeners.get('hashchange')(); await nextTick(); assert.equal(selected()?.props.id, 'gallery-tab-panorama')
   } finally { app.unmount(); delete globalThis.window }
   assert.equal(listeners.size, 0)
@@ -141,4 +151,15 @@ test('the installed VitePress capture router leaves enhanced stage links to the 
   listen(event); assert.equal(navigations, 0)
   raw = false; listen(event); assert.equal(navigations, 1, 'The fixture must reproduce the original routing conflict')
   assert.match(descriptor.template.content, /<nav[^>]*class="gallery-stages vp-raw"/)
+})
+
+
+test('the top navigation links straight to each language catalogue before About', () => {
+  const config = read('.vitepress/config.mts')
+  assert.ok(config.includes("nav: [{ text: 'All articles', link: '/en/catalog' }, { text: 'About', link: '/about' }]"))
+  assert.ok(config.includes("nav: [{ text: '全部文章', link: '/catalog' }, { text: 'About', link: '/about' }]"))
+  for (const prefix of ['', 'en/']) assert.match(read(prefix + 'catalog.md'), /<ChapterCatalog/)
+  const css = read('.vitepress/theme/navigation-layout.css')
+  assert.match(css, /max-width: 959px/)
+  assert.match(css, /\.VPNavBar \.VPNavBarHamburger \{ display: flex/)
 })
