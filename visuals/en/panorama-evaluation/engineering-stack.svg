@@ -14,13 +14,13 @@
 <g stroke="#2a7055" stroke-width="5"><path d="M41 131v58"/><path d="M41 251v58"/><path d="M41 382v72"/><path d="M342 382v72"/><path d="M41 517v68"/><path d="M342 517v68"/></g>
 <g fill="#173b32" font-size="21" font-weight="700">
 <text x="57" y="157">01  Frozen Cases and Identity</text><text x="57" y="277">02  Run the Actual Agent</text>
-<text x="54" y="407">03  Original Run Facts</text><text x="355" y="407">04  Runtime Observability</text>
-<text x="54" y="544">05  Deterministic Checks</text><text x="355" y="544">06  Semantic / Optional Scores</text>
+<text x="54" y="407">03  Original Run Facts</text><text x="355" y="407" font-size="18">04  Runtime Observability</text>
+<text x="54" y="544">05  Deterministic Checks</text><text x="355" y="544" font-size="18">06  Semantic / Optional Scores</text>
 <text x="57" y="670">Evidence and Report</text>
 </g>
 <g fill="#49665c" font-size="16.5">
 <text x="57" y="188">Case / Prompt / Rubric fingerprints</text><text x="57" y="308">Node.js/TypeScript · AI SDK · MCP</text>
-<text x="54" y="450" font-size="15">Run · Tools · Publication · PostgreSQL</text><text x="355" y="450" font-size="15">OpenTelemetry · sampled Langfuse</text>
+<text x="54" y="450" font-size="15">Run / Tools / PostgreSQL</text><text x="355" y="450" font-size="15">OTel / Langfuse · sampled</text>
 <text x="54" y="582" font-size="15">Vitest · permission · storage · delivery</text><text x="355" y="582" font-size="15">LLM Judge · DeepEval · Ragas</text>
 <text x="57" y="698">Status / comparison / denominator / gaps</text>
 </g>
