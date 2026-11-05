@@ -39,6 +39,10 @@ try {
     await page.focus('#gallery-tab-deep'); await page.keyboard.press('ArrowRight')
     await page.waitForSelector('#gallery-tab-workshop[aria-selected="true"]')
     assert.ok(page.url().endsWith('gallery#stage=workshop'))
+    await page.waitForFunction(() => {
+      const image = document.querySelector('.gallery-workshop-map img')
+      return image?.complete && image.naturalWidth > 0
+    })
     const src = await page.$eval('.gallery-workshop-map img', image => image.currentSrc)
     assert.ok(src.endsWith(`six-layers-${language}${width < 640 ? '-mobile' : ''}.svg`), src)
     assert.ok(await page.$eval('.gallery-workshop-map img', image => image.complete && image.naturalWidth > 0))
