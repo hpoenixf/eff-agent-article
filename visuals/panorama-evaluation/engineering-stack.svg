@@ -20,7 +20,7 @@
 </g>
 <g fill="#49665c" font-size="18">
 <text x="57" y="188">Curated Cases · Case/Prompt/Rubric 哈希</text><text x="57" y="308">Node.js/TypeScript · AI SDK · MCP</text>
-<text x="54" y="450" font-size="16">Run · Tools · Publication · PostgreSQL</text><text x="355" y="450" font-size="16">OpenTelemetry · Langfuse（可采样）</text>
+<text x="54" y="450" font-size="16">Run / Tools / PostgreSQL</text><text x="355" y="450" font-size="16">OTel / Langfuse（采样）</text>
 <text x="54" y="582" font-size="16">Vitest · 权限 · 存储 · 交付</text><text x="355" y="582" font-size="16">LLM Judge · DeepEval · Ragas</text>
 <text x="57" y="698">状态 / 可比性 / 分母 / 缺口</text>
 </g>
