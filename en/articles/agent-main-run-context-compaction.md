@@ -99,6 +99,8 @@ node src/cli.mjs --case compact-and-reread --output runs/article-compaction
 The selected CLI is from another pinned public snapshot; do not imply that the preceding demonstration and this case share one implementation version.
 <!-- /open-etf-case -->
 
+This is the concrete application of [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5): retain original figures and execution effects first, then let Main continue through a lossy working note.
+
 **The portable design judgment:** first identify which old material can be reread exactly; only summarize what remains useful as a working hint. If a lossy note becomes your only source of facts, reducing context size may simply manufacture a second, less trustworthy history.
 
 ## Further Reading and Discussion
