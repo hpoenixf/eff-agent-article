@@ -16,7 +16,7 @@ The user sees a completed research report. Behind it, the agent may have made se
 
 A real system has at least three ledgers that are often mistaken for one: **Run budget** constrains how much work remains, **physical model attempts** record actual dispatches and observable tokens, and **personal Credits** represent known usage under an internal allocation rule. They are related, but one cannot fill the missing facts in another.
 
-We recently added a P0 **Shadow Credits** usage view to ETF Agent. Shadow means observing without denying existing research. The immediate objective is correct identity, honest unknowns, and reproducible accounting—not payments, customer billing, or a new quota gate.
+ETF Agent currently uses a **Shadow Credits** usage view: it observes usage without denying existing research. The first task is to make identities, unknowns and calculation rules reviewable before deciding whether payments, billing or enforced quotas are needed.
 
 ## 1. Three Numbers Answer Three Questions
 
@@ -93,7 +93,7 @@ A controlled readback also confirmed that saved delivery remained independently 
 
 ## Implementation and Verification Limits
 
-As of **October 24, 2026**, monthly allowance revisions, Shadow physical-attempt observations, a self-scoped API, and the original account settings view have been integrated into main. The two-user authenticated browser path has independent evidence; selected gateway, account, and request seams have targeted engineering verification. Real Scheduler/Task PostgreSQL noninterference and whole-change formal close remain open. Scoped passes are not complete billing qualification.
+The current implementation includes monthly allowance revisions, Shadow physical-attempt observations, a self-scoped API and the original account settings view. Controlled verification on October 24, 2026 covered authenticated browser isolation between two users and real PostgreSQL paths where Shadow accounting leaves original Task/Scheduler behavior unchanged; engineering qualification without real model calls was also completed. This supports the design that observation failures should not block the original task. It does not establish production enablement, complete billable coverage or invoice reconciliation.
 
 This phase has no payments, automatic charging, authentic provider invoices, or comprehensive coverage of every model, embedding route, and semantic Memory call. We do not claim token savings, lower costs, or a reconciled production bill.
 

@@ -1,52 +1,39 @@
 ---
-description: "New evidence can invalidate a planned ETF comparison. Follow working questions, explicit data inputs and file-based Python handoffs to see how research changes course while preserving measurement conventions, provenance, time anchors and unresolved gaps instead of equating successful code with a sound answer."
+description: "An ETF comparison can fail before Python starts: its inputs may not be comparable. Follow working questions, explicit input identity and execution-local files to understand evidence-driven research, the alternatives, and the costs of choosing isolated computation with explicit state."
 readingBrief:
   takeaways:
-    - "Let evidence change the research question and next action; researchNeeds records working judgments, not completion, authorization or a mandatory sequence of tools."
-    - "Python connects stages through explicit inputs and persisted files; currently visible results differ from authorized resultRefs, and capacity limits must not silently truncate datasets."
-    - "Preserve provenance, measurement conventions and task-time anchors through computation; check workspace state after failure, and assess execution success, resolved notes and answer correctness separately."
+    - "The model judges research direction; the Host owns permissions, input identity and execution facts. Resolved working notes are not an answer certificate."
+    - "A visible tool projection and an authorized stored view are different inputs. Computation can consume data outside the model context without silently truncating the sample."
+    - "Files continue within one healthy execution, but Python variables do not. Main and sibling tasks do not share a workspace."
+    - "Persistent kernels and hosted computation suit different needs. Local isolation and explicit files trade simpler state boundaries for environment maintenance and serialization."
   appliesTo:
-    - "Connecting search, reading and repeated Python analysis into research that changes course with findings instead of following a fixed tool pipeline."
+    - "Connecting retrieval, reading and repeated computation so that findings change the research direction instead of merely completing a tool checklist."
   notFor:
-    - "Treating working-note changes, Python proposal counts or exit codes as proof of convergence, correct financial calculations or better answers."
+    - "Treating exit codes, research-note statuses or invocation counts as proof of financial correctness or research quality."
 ---
 # From Tool Calls to Adaptive Research: Let the Agent Search, Compute, and Change Course
 
-If we give an Agent search, market data, documents, and Python, can it do research?
+A user asks: “Which of these two ETFs delivered higher returns and a smaller drawdown over the past year?”
 
-At first, it is tempting to imagine a fixed series of calls: search, read, compute, summarize. More tools appear to produce a more complete research workflow.
+The easiest pipeline fetches both series, runs Python and reports two metrics. The easiest mistake happens before computation: A supplies adjusted prices, B supplies unadjusted prices, and the date ranges may differ. The program can finish successfully without answering a valid comparison.
 
-Real work exposes a different problem. The tools return plenty of material, **but the Agent may not know what should happen next**.
+**Adaptive research lets new evidence change the next action. It does not simply run every available tool in order.**
 
-It may search again for an established fact, compare numbers from incompatible definitions, successfully run Python on insufficient inputs, or mark every research question "resolved" while continuing in circles.
+This teaching example connects the current design: the model maintains working questions, obtains material through existing tools, passes explicit inputs into isolated Python, and brings computational findings back into research. It is not an accepted end-to-end ETF test run. Historical observations below are identified separately.
 
-We shifted attention from **which tools are available** to **whether new evidence changes the Agent's understanding and therefore its next action**.
+<span id="_1-a-research-question-that-must-change-course"></span>
 
-That is the transition from tool chaining to **Adaptive Research**. Python's particular contribution is connecting material returned by different tools into intermediate datasets that can be checked, compared, and reused for subsequent reasoning.
+## 1. Why a Result Should Change the Research Route
 
-## 1. A Research Question That Must Change Course
+The same user question should lead to different next steps when the evidence differs.
 
-Suppose the user asks:
-
-> Which of these two ETFs delivered higher returns and a smaller drawdown over the past year?
-
-The example below illustrates the mechanism; it is **not** a real end-to-end test run that has passed acceptance.
-
-A predefined workflow might be:
-
-**Read ETF A → Read ETF B → Calculate return and drawdown → Report.**
-
-Actual evidence may change the plan:
-
-| New discovery | Why the next step must change |
+| Finding | What should change |
 | --- | --- |
-| A returns an adjusted price series; B returns unadjusted prices | Verify return definitions before computing incomparable numbers |
-| The two series have different start or end dates | Inspect coverage; do not silently shorten "the last year" |
-| The data is present but units and schemas differ | Normalize and compute; more searches will not solve a formatting mismatch |
-| A calculated drawdown looks anomalous | Check missing values, price units, and source before accepting the figure |
-| Complete annual data is still unavailable for one ETF | Give only supported comparisons and disclose the missing annual conclusion |
-
-**How findings change the research route**
+| Return definitions differ | Establish or align the basis before putting two numbers side by side |
+| Start or end dates differ | Check coverage; do not silently shorten “one year” |
+| Data is complete but schemas or units differ | Transform and compute; another search will not fix a formatting mismatch |
+| Drawdown looks anomalous | Inspect missing values, units and sources before presenting the number |
+| Complete annual data remains unavailable | Offer the supported comparison and identify the missing annual conclusion |
 
 ~~~mermaid
 graph TD
@@ -55,90 +42,92 @@ DetectDifferentScopes --> FetchAndRecompute
 FetchAndRecompute --> DecideNextAction
 ~~~
 
-The next legitimate step may be to collect evidence, adjust the calculation, or disclose limitations and stop. The diagram is a simplified decision cycle, not a fixed production pipeline.
+This is a simplified decision cycle, not a fixed production pipeline. A calculation may expose another evidence gap, establish that the available material is sufficient, or show why a limited answer is appropriate.
 
-Results no longer serve merely as numbers to paste into an answer. They **reshape the work**. We may begin thinking we need a missing return number and discover we first need to establish comparability. We may plan another search and discover that the remaining work is computational.
+A real historical diagnosis motivated this direction. In an early document-question case, the model searched four times, missed the applicable period, and expanded “not present in the returned excerpts” into “not present in the document.” A targeted query against the same index found the relevant passage. The problem was not simply a shortage of tools: the model did not revise its question using the feedback already available. This old counterexample explains the design motivation; it neither proves that the current version always repeats it nor that working notes alone fix it.
 
-Following the original plan mechanically can generate a fluent but invalid answer even with an excellent tool inventory.
+<span id="_2-keep-track-of-open-questions-not-a-rigid-sequence-of-calls"></span>
 
-## 2. Keep Track of Open Questions, Not a Rigid Sequence of Calls
+## 2. Keep Questions, Without Turning Them into an Execution Plan
 
-We let research maintain a short set of **researchNeeds**—the questions that remain to be resolved.
+`researchNeeds` records the questions the model currently considers important:
 
 ~~~json
 {
   "items": [
-    {
-      "id": "return-basis",
-      "need": "Verify the two ETF return series use comparable definitions",
-      "status": "open"
-    },
-    {
-      "id": "period-coverage",
-      "need": "Verify coverage of the user's requested one-year period",
-      "status": "open"
-    }
+    {"id": "return-basis", "need": "Verify comparable return definitions for both ETFs", "status": "open"},
+    {"id": "period-coverage", "need": "Verify coverage of the requested one-year period", "status": "open"}
   ]
 }
 ~~~
 
-Each item contains **id**, **need**, and **status**. Statuses include **open**, **resolved**, **unresolved**, and **not_needed**. The model can revise its working judgment through **set_research_needs**.
+An item has only `id`, `need` and `status`. The available statuses are `open`, `resolved`, `unresolved` and `not_needed`; the model updates its judgment with `set_research_needs`. Contrary evidence can reopen a resolved question, while another finding can make a planned question unnecessary.
 
-This is not a list of the next three tool calls. If a single authoritative source establishes that two series have the same return basis, three planned searches can be skipped. Conversely, ten tool calls do not make an unresolved definition problem go away.
+Why not record “search three times, read two pages, run Python once”? Those are actions, not objectives. One authoritative source may settle the return basis. Ten calls may still leave it unresolved.
 
-We encourage the model to reassess gaps after major findings, failures, conflicts, and transitions from lookup to reading, analysis, or synthesis.
+The responsibilities are deliberately separate:
 
-Three conceptual situations help:
+- **The model chooses the research direction.** Acquire missing facts, compute when available data needs transformation, and explain what the evidence supports. These are thinking prompts, not new routing fields.
+- **The Host stores and bounds the state.** It checks structure, capacity and update facts. It does not certify that a question is resolved or let notes grant tool or source permissions.
+- **The original request remains authoritative.** Deleting a need or submitting an empty list does not delete “one year” from the task or establish completion.
 
-| Remaining gap | Appropriate next action |
-| --- | --- |
-| Facts or required inputs are not yet available | Retrieve relevant evidence |
-| Inputs are available but insufficient for a direct answer | Compare, normalize, aggregate, or compute |
-| Data and calculations are ready; interpretation remains | Return to the evidence and original question; form a bounded conclusion |
+Without a usable list, research can retain the complete original question rather than requiring another planning-model call. If optional notes cannot fit, preserving them must not displace protected original material.
 
-These are reasoning categories, **not** new hard-coded Runtime routing fields.
+<span id="_3-a-trap-we-encountered-updating-the-list-is-not-making-progress"></span>
 
-The original user question remains authoritative. Deleting a working need cannot delete a user constraint. Marking a need **resolved** is not evidence that it is resolved.
+### Why an All-Green List Can Still Fail to Finish
 
-## 3. A Trap We Encountered: Updating the List Is Not Making Progress
+The October 9, 2026 diagnosis preserved two contrasting cases. One strategy task reached `not_needed / not_needed / resolved` but continued publishing until QA cancelled it. Another advisory task retained an `unresolved` question, gave a useful explanation of insufficient inputs, and finished normally.
 
-A working-question list sounds useful. It becomes dangerous if the system infers that any update proves progress—or that an unchanged list proves stagnation.
+The current Runtime therefore does not gate publication or completion on needs statuses. An unresolved question may block a conclusion, or it may be precisely the limitation the user should hear.
 
-A recent CLI sample contained **90 runs**, of which **70** had standard body capture. Across those captured bodies, **19 runs** included **71 model-authored research-needs updates**.
+Likewise, **unchanged notes do not imply unchanged research**. Reading three sources to verify the same definition can leave the question text unchanged. An earlier implementation independently triggered a reminder when the list still matched its initial value. The current design retains periodic guidance based on actual turns and invocation facts, plus a finalization check, without asking the model to rewrite notes to look busy. The verified change is a prompting contract, not a measured improvement in answer quality.
 
-That establishes that the model used the feature. It does not provide a question-resolution rate or prove that updates improved the answers.
+<span id="_4-python-as-a-relay-between-research-steps"></span>
 
-Two contrasting examples are important.
+## 3. Why Isolated Python Is Separate from Trusted Skill Scripts
 
-In a strategy check, the needs had reached **not_needed / not_needed / resolved**, but the model still kept revising until QA terminated the Run.
+Existing trusted Skill scripts execute previously reviewed methods. Their runner is not a sandbox for arbitrary model-authored code. Saving newly generated Python into a trusted package and invoking it would borrow a trusted identity for untrusted content.
 
-In a portfolio-adjustment consultation, an **unresolved** need remained, yet the Agent gave a useful explanation of insufficient inputs and ended.
+`run_analysis_python` separates those trust models. The model can author temporary analysis code; the Host provides a prepared local isolation environment, fixed dependencies and resource limits. Existing tools retain external acquisition authority. Python does not gain network, database, MCP or model access, and cannot install packages on demand.
 
-**All-green working notes and a sufficiently useful answer are different things.**
+Use an existing authoritative deterministic calculation when one applies. General Python handles long-tail transformation, comparison and analysis; it does not replace the owners of portfolio facts, allocation or investment execution.
 
-An unresolved gap may genuinely block a conclusion, or may be impossible to resolve with present inputs, in which case an explicit limitation is the correct result. A completely resolved list may have ignored some part of the original question or offer no guidance on when to stop.
+Local isolation keeps private material within the existing execution boundary and connects to the same grants, invocation receipts and delivery mechanisms. This is not a claim that hosted computation is weaker. It avoids introducing another data-processing and lifecycle boundary for this particular research path.
 
-Runtime therefore neither treats these statuses as completion authority nor forces more tool calls solely because an item remains unresolved.
+<span id="leg-one-give-each-tool-result-an-explicit-identity"></span>
 
-We also corrected the reminder policy. Previously, a needs list that matched its original form could repeatedly trigger a "review your needs" reminder. That assumed no change in notes meant no progress.
+## 4. Tool-to-Python Inputs Must Identify Both the Data and Its Permission
 
-But reading three independent sources to verify the same definition can be meaningful work even when the need remains identically phrased.
+The model can select inputs explicitly:
 
-The **October 9** code change removed an **unchanged-list** trigger. Periodic reminders based on actual completed turns/tool activity and checks near finalization remain. They ask the model to reconsider evidence, gaps, and next steps; they do not require it to rewrite its notes to look busy.
+~~~json
+{
+  "inputs": [
+    {"name": "etf_a.json", "toolCallId": "call_etf_a"},
+    {"name": "etf_b.json", "toolCallId": "call_etf_b"}
+  ]
+}
+~~~
 
-A useful working list keeps research oriented. It must never substitute for the research itself.
+After validation, the Host materializes this invocation's inputs under read-only `/inputs`. Two input forms have different meanings:
 
-## 4. Python as a Relay Between Research Steps
+| Input | What it identifies | What it must not imply |
+| --- | --- | --- |
+| A current-Run `toolCallId` | The completed call's actual projection submitted to the model | The call ID cannot retrieve original bytes hidden or omitted from that projection |
+| An authorized stored-view `resultRef` with an explicit selection | Saved data bound to a version, content and sources, potentially broader than the model-visible body | Knowing the reference string does not mean the model read the data or gained another permission |
 
-Adaptive Research determines *why* the next step changes. Python handles *how* authorized data from earlier tools can be connected, compared, and reused.
+The second path lets the model choose what to calculate without first reading every row and copying it into code. **Computational consumption and model reading are separate facts.**
 
-Offering an arbitrary code-execution button is not enough. A new interpreter may lack the variables from the prior invocation. A very large tool response may be visible only as a summary. Huge printed tables are difficult to reuse reliably.
+Permission comes from the Run's sealed grant, including any applicable Child subset. Consuming unchanged, already-granted data within that Run does not query current external ACLs again. The Host still verifies Run and scope, receipts or stored-view identity, content hashes, source dependencies and available bytes. An external permission change is not automatically a same-Run invalidation rule. Conversely, a reference cannot authorize foreign, altered or originally ungranted data. A new Run has its own admission.
 
-The code evolved toward explicit inputs, an in-Run workspace, and on-demand result references. Existing authoritative deterministic calculation interfaces take precedence when available. Python is a workbench for analyzing permitted data, **not** a replacement for binding investment allocation, monetary decisions, or execution authorization.
+Capacity is also part of input semantics. The current configuration allows at most 32 named inputs totaling 4 MiB, still subject to the chosen read range and other transport limits. Oversize inputs must fail explicitly rather than silently retaining half the table. Deliberately selecting a date window is different from truncating data to make it fit.
 
-There are three legs in this relay.
+For the ETF example, input preparation should preserve the return basis, actual date coverage, and missing-data exclusions. Otherwise the next stage cannot tell which question its numbers actually answer.
 
-**Passing work between tools and Python**
+<span id="leg-two-persist-intermediate-work-in-files-not-invisible-interpreter-state"></span>
+
+## 5. Continue Through Files, Not Hidden Python Variables
 
 ~~~mermaid
 graph TD
@@ -148,188 +137,102 @@ ToolBAddsData --> PythonRecomputes
 PythonRecomputes --> ModelInterprets
 ~~~
 
-The second Python invocation reads saved files and newly acquired data; it does **not** inherit interpreter variables. The model chooses the actual tool calls. This diagram reuses our simplified ETF scenario.
-
-### Leg one: give each tool result an explicit identity
-
-The model may specify a **toolCallId** for a returned result already projected into the current model input:
-
-~~~json
-{
-  "inputs": [
-    {
-      "name": "etf_a.json",
-      "toolCallId": "call_etf_a"
-    },
-    {
-      "name": "etf_b.json",
-      "toolCallId": "call_etf_b"
-    }
-  ]
-}
-~~~
-
-After the Host validates the receipt, read eligibility, and current permissions, the data becomes available in Python's read-only input directory:
-
-~~~text
-/inputs/etf_a.json
-/inputs/etf_b.json
-~~~
-
-A subtle boundary matters: a **toolCallId** input consumes the content **actually projected into the current context**. It cannot silently fetch an original hidden body that context fitting chose not to expose.
-
-A later **resultRef** path addresses a distinct problem. Full results can live outside model context. The model explicitly selects a stored reference; Host rechecks authorization and provides either the full eligible view or an explicitly selected subset to computation.
-
-This allows Python to process datasets the model did not read line by line. The model decides **what to calculate**; the data travels through a controlled reference.
-
-The reference is a locator, **not a permission token**. Run ownership, source eligibility, and dependency rules still apply. Past possession of a reference is not an everlasting grant.
-
-Input limits are explicit: at most **eight explicit inputs** and **512 KiB total input** per computation. Exceeding a limit rejects the request; it must not silently truncate rows and pretend the dataset is complete.
-
-An intentional, documented selection of dates or pages is a legitimate analytical choice. Invisible truncation to make a dataset fit changes the research question without consent.
-
-### Leg two: persist intermediate work in files, not invisible interpreter state
-
-A healthy, active Python analysis session shares a workspace:
-
-~~~text
-/workspace
-~~~
-
-Each execution nevertheless launches a **fresh Python interpreter**.
-
-If the first execution defines:
+Later Python calls within the same healthy execution can reuse `/workspace` files, but each starts a fresh interpreter. An `aligned` variable created in one call is not inherited by the next. Reusable state must be saved explicitly:
 
 ~~~python
-aligned = ...
+# Illustration: basis checks and date alignment have completed in this call.
+aligned.to_json("/workspace/aligned.json", orient="table", date_format="iso")
 ~~~
 
-the next execution cannot directly read that variable. Persist what must survive:
-
-~~~python
-# Example: "aligned" already passed definition and date-alignment checks.
-aligned.to_json(
-    "/workspace/aligned.json",
-    orient="table",
-    date_format="iso"
-)
-~~~
-
-A later execution loads the file explicitly:
+The next invocation reads it explicitly:
 
 ~~~python
 import pandas as pd
 
-aligned = pd.read_json(
-    "/workspace/aligned.json",
-    orient="table"
-)
+aligned = pd.read_json("/workspace/aligned.json", orient="table")
 ~~~
 
-This supports staged work. Python first normalizes two tool results and saves the aligned dataset. The model reads a compact computation summary and realizes that one return definition still needs confirmation. It uses an authorized external tool to collect that evidence. A second Python execution then combines the new material with the existing file and recalculates.
+Between these calculations, the model can obtain another source through an ordinary tool and combine the new input with the saved file. Python does not call that tool itself; choosing the next research action remains the model's job.
 
-Python does **not** directly call Web or Market tools. The model decides which evidence is missing and obtains it through currently permitted interfaces.
+“The same execution” is more precise than “the same research task.” Sessions are selected by the Host-sealed `executionId`. Main and different Child tasks do not share a workspace. Collaborating on one root task should not grant access to a sibling's temporary files or exports, or mix their provenance.
 
-Workspace continuity is scoped to the **healthy current analysis session**. A process restart, invalid session, or new Run does not guarantee that old files exist.
+This distinction came from an actual design correction. A single root-owned session mixed Main and Python siblings' scratch, generations and lineage. Creating several independent fake workspaces in a test was also insufficient: the real runner had to admit the corresponding capacity. Identity isolation and machine capacity require separate verification.
 
-Computations within one session run **serially** so two calls do not race to rewrite intermediate files. Each return reports execution status, workspace state, and a bounded file-change list, letting later steps distinguish safe continuation from uncertain state.
+Operations in one workspace are serialized to avoid concurrent mutation. After a service restart, sandbox loss or invalidated generation, a familiar pathname is not proof that its file still exists. **A durable receipt records what happened; it does not make the temporary directory durable.**
 
-Continuity is about **knowing what was actually saved**, not assuming the interpreter remembers everything.
+<span id="leg-three-return-reusable-results-not-just-exit-code-zero"></span>
 
-### Leg three: return reusable results, not just "exit code zero"
+## 6. Where Other Approaches Fit, and Why We Chose File State
 
-After computation, the model needs more than process success. In the ETF example, it needs to know:
 
-- The time window actually compared.
-- Which data failed definition or coverage checks.
-- Which numerical comparisons are supported.
-- Which conclusions remain unjustified.
+This comparison evaluates the current requirements. It does not claim that the team deployed or experimentally compared every listed product.
 
-We prefer bounded structured summaries over printing a full data table. **stdout and stderr share an 8 KiB output limit**. Large tables belong in the workspace, and files intended for the user require explicit export.
+| Approach | Stronger fit | Our trade-off |
+| --- | --- | --- |
+| Fixed scripts or workflows | Stable inputs, formulas and steps requiring consistent execution | Keep authoritative methods; do not require every long-tail analysis to become a prewritten script |
+| A persistent Jupyter kernel | Human-led exploration with convenient variables, rapid iteration and rich presentation | Fresh interpreters reduce implicit memory state, at the cost of explicit intermediate-file serialization |
+| Hosted computation such as OpenAI Code Interpreter | Managed isolated execution, containers and files under an acceptable data-processing boundary | Local execution connects to existing grants and receipts, but makes image maintenance, supervision, health checks and cleanup our responsibility |
+| A completely stateless computation each time | Small calculations whose inputs are cheap to reconstruct | Retain files to avoid repeating every transformation, without promising workspace recovery across restarts |
 
-An eligible completed execution with valid execution/workspace metadata can register its **returned output** as a result reference for later steps. That lets research use both raw tool data and an earlier computed output.
+[Jupyter's kernel and interactive session](https://jupyter-notebook.readthedocs.io/en/latest/notebook.html#opening-notebooks) explain the value of persistent interaction. [OpenAI Code Interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter#containers) provides isolated containers that can be created, reused and populated with files, with lifecycle limits when containers expire. Neither is the wrong design; the state, operational and data-boundary choices differ.
 
-This does not mean **every workspace file automatically becomes a resultRef**. Workspace files are for analysis-session continuation; referencable results derive from eligible returned outputs; exported files serve delivery. These are separate paths.
+Our midpoint is to let files carry useful iterative state without making interpreter memory another recovery system. This does not automatically establish reproducibility. Recalculation still requires input identities, code, environment and explicit intermediate artifacts, not merely a record that an earlier call succeeded.
 
-Computation then changes the research route again. Inadequate overlapping dates reopen coverage questions. Comparable data allows synthesis. Anomalies trigger further source verification.
+<span id="_5-computing-on-data-must-not-erase-its-provenance"></span>
+<span id="_6-continuing-after-failure-requires-knowing-what-still-exists"></span>
+<span id="_7-time-definitions-must-travel-with-the-research"></span>
 
-**Python supplies new material for judgment; Adaptive Research uses that material to choose what happens next.**
+## 7. A Preview Is Not a Complete Result
 
-## 5. Computing on Data Must Not Erase Its Provenance
 
-Once Python sits between tools, the difficult question is which earlier sources a later computed value depends upon.
+Useful computational output tells research the actual period, definitions, valid sample, anomalies, limitations and supported numbers. Printing the whole table consumes context and can bury the finding that matters.
 
-A revoked or inaccessible source does not become permanently usable merely because its contents were written into a CSV.
+The current combined stdout/stderr preview ceiling is 64 KiB, with at most 16 KiB reserved for stderr. The eventual model-visible tool result also has its existing outer message limit, so 64 KiB is not a promise that all retained preview bytes reach the model. Exceeding the preview ceiling alone does not terminate computation, but partial output must be marked. Exceeding the 2 MiB combined hard output ceiling triggers resource termination. These are configuration boundaries, not performance measurements.
 
-The workbench therefore keeps **source and dependency relationships**. Stored-result consumption binds a **result reference and content hash**; execution records keep a **code hash and environment information**. Execution, export, and artifact download have their own current-permission checks.
+A truncated prefix must not become a supposedly complete table in the next calculation, even if the prefix happens to be valid JSON. Write large data to a file explicitly, or consume an eligible complete saved result through its existing path.
 
-The present dependency model **conservatively accumulates dependencies at workspace level**. It is not perfect per-cell provenance, but it does not forget sources after several Python rounds.
+Three kinds of output serve different purposes:
 
-Copying a number out of a conversation into a Python constant does not magically remove the source restrictions attached to that number.
+- **Workspace files** support further processing within the same healthy execution; they are not automatically durable deliveries.
+- **Referenceable returned results** can be registered when completion, completeness and execution metadata qualify them. An arbitrary stdout prefix does not qualify.
+- **Explicitly exported files** pass the existing export and delivery checks. Generating a chart or CSV does not turn it into original source evidence.
 
-A related recent improvement distinguishes **currently bound Skill method instructions** from external business evidence. A method description, analysis instructions, or an empty-data control message should not automatically count as an unknown business source that blocks computation.
+For the ETF example, “the common window covers only nine months, so an annual conclusion is unsupported” may be more useful than a polished ranking that quietly shortened the sample.
 
-But Host must verify the identity of the currently bound Skill. A model calling arbitrary text "method instructions" does not make it trusted method context.
+<span id="_8-six-connections-worth-building-first"></span>
+<span id="_9-what-the-recent-evidence-actually-establishes"></span>
 
-Research needs continuity for both **data** and **method**, while keeping their authorities distinct.
+## 8. Computation Retains Provenance, and Failed Calls Can Leave Real Files
 
-## 6. Continuing After Failure Requires Knowing What Still Exists
+The workspace conservatively accumulates dependencies from admitted inputs and originating exposure. It does not track every cell's lineage. This is coarser than a fine-grained dependency graph, but converting data to CSV, running more Python, or copying a number into a code literal does not erase its source.
 
-Real tests showed the model revising broken Python and trying again. That can be useful, but only when the execution environment supplies precise failure facts.
+Same-Run execution uses recorded grants while preserving content and source identity checks. Later delivery, retention and new-Run reads follow their respective entry-point rules. “We calculated it before” is not permanent access authority.
 
-A completed code error and an execution whose status is unknown require different treatment.
+Method material and business data also differ. A Host-verified method document from the currently bound Skill should not be treated as unknown business data. The model calling arbitrary text “a method” cannot establish that identity. The distinction rests on actual material provenance, not prose appearance.
 
-If execution definitively stopped and the workspace remains confirmed safe, the model may fix the code and continue. A failed run may already have written files, so prior source dependencies must not be casually cleared.
+Failures require similarly precise interpretation:
 
-If execution or workspace safety cannot be established, intermediate files must not be trusted. The current mechanism invalidates the workspace.
+| Outcome | What the next step can rely on |
+| --- | --- |
+| Ordinary code exception; process stopped and file inventory complete | Diagnostics can guide repair; files already written may remain because there was no automatic rollback |
+| Input or capacity denial before execution | No code ran; the denial is not a calculation result and should not needlessly destroy previously healthy state |
+| Execution settlement or file state is unknown | Invalidate the affected workspace rather than trusting its intermediates |
+| Recovery finds an existing completed receipt | Replay its recorded result without rerunning code; the receipt cannot resurrect lost scratch |
 
-Recovery and replay create another form of "continuation." A completed invocation with a receipt is **read back rather than reexecuted** during replay. A new computation invocation remains genuinely new. Similar code and arguments are not sufficient to reuse an arbitrary old result because inputs and workspace state can have changed.
+“Retry until success” is not a substitute for knowing whether execution started, which effects are settled and where safe continuation begins.
 
-This is less magical than retrying until something works, but it preserves the identity of the work being continued.
+Time is also an input. The task's saved time anchor differs from the current reference clock; a fresh query does not make an old fact current. The normal production path cannot infer a user's timezone merely from the task timestamp. Without a trusted timezone, it remains unknown. “The past year” needs an explicit reference time and actual interval rather than drifting with the last query.
 
-## 7. Time Definitions Must Travel With the Research
+## 9. What to Connect First in a Similar System
 
-Code review also identified an important time-model correction: distinguish the task's saved time anchor from the current reference time.
+Keep the complete task and a few working questions, then connect a path that can explain inputs, execution, outputs and the next action:
 
-A long research Run may issue queries at different moments. Market-data timestamps, news publication times, and document applicability periods differ. Re-querying does not make old observations current.
+1. **Let findings change actions.** Distinguish missing evidence, missing transformation and missing explanation; a checklist of actions is not a research result.
+2. **Give inputs exact identities.** Separate visible projections from stored views, admit them within the execution's grant, and reject oversize samples rather than truncating them.
+3. **Make continuation state explicit.** Reuse files within one healthy execution, without hidden interpreter variables or sibling scratch sharing.
+4. **Keep the question's boundaries in the output.** Report actual periods, definitions and gaps; distinguish previews, complete results and deliveries.
+5. **Be honest about failure and completion.** Repair ordinary errors, invalidate uncertain state, and recognize a useful limitation statement as a valid outcome.
 
-The implementation separates the saved **task-time anchor** from the current reference. A timezone is accepted only from an explicit trusted caller input.
+Historical diagnoses observed repeated computation, but also repeated publication, mistaken inference and failure to converge. They span different versions and are not a controlled quality comparison of the current implementation. Engineering contracts can verify isolation, identity and receipts; they cannot certify arbitrary formulas, evidence sufficiency or answer quality.
 
-The ordinary production path currently provides a task-time anchor. This does **not** mean the system knows the user's timezone. If none was provided, it remains unknown rather than being inferred from a market or deployment location.
-
-For "the last year," calculation must therefore preserve both the chosen measurement convention and the time anchor from which the requested period was defined.
-
-New evidence may change the research conclusion. It may not silently rewrite the original time window.
-
-## 8. Six Connections Worth Building First
-
-You do not need to clone an entire Agent framework. These six connections provide a foundation for research that can change course:
-
-1. **Keep the original task intact.** Working notes may change; user goals and constraints may not disappear with them.
-2. **Maintain a small list of current questions.** Update it with evidence, but never use its status as completion or authorization proof.
-3. **Give data stable identities.** Distinguish currently visible tool output from authorized stored results; validate ownership, permission, coverage, and capacity on each use.
-4. **Provide a per-Run analysis workspace.** Read-only inputs and file-persisted intermediates; fresh interpreters, session-scoped files, and serial execution.
-5. **Return inspectable computation outputs.** Include numbers, actual windows, and caveats; retain identities and dependencies for reuse.
-6. **Reconsider the next action when evidence or stage changes.** Continue reading, recompute, interpret, or stop with an explicit limitation.
-
-Two distinct forms of judgment remain necessary:
-
-The **model** interprets what the current gaps mean. The **Host** checks which inputs/actions are authorized and whether execution state is certain.
-
-Model-driven research does not grant model-driven permissions. A successful process exit does not authorize Host to certify the analysis as correct.
-
-## 9. What the Recent Evidence Actually Establishes
-
-By **October 9**, the inspected implementation contained working-question updates, evidence feedback, Python explicit inputs, per-Run file continuity, authorized result references, and dependency continuation checks.
-
-CLI observations showed the model proposing Python work across research turns. That indicates it considered computational steps, not that the code executed successfully or improved the final answer.
-
-Working questions were also used, but the examples show why list updates, successful computation, research convergence, and correct answers need distinct evidence.
-
-The CLI sample spanned service versions and preceded the latest reminder and timing fixes. It cannot demonstrate that those fixes improved quality or that all kinds of end-to-end research now complete reliably.
-
-The architectural lesson is stronger than those unmeasured claims:
-
-Tools retrieve material. Python connects it into inspectable intermediate results. The model uses new findings to update its working questions and actions. When the remaining gap can be resolved, research advances; when it cannot, a clear limitation is itself an honest research result.
-
-**Adaptive Research emerges from those connections, not from maximizing the number of available tool calls.**
+The ultimate test of adaptive research is whether **new material changes the next action and helps the user receive a more trustworthy, understandable answer**.

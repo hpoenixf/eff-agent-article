@@ -8,7 +8,7 @@ readingBrief:
   takeaways:
     - "Candidate text, temporary preview, durable commit, and actual user display are distinct facts; later research failure must not erase an earlier legitimate publication."
     - "Publication owns body and revision decisions: degrade optional defects locally, reject unauthorized effects specifically, and remove competing whole-answer vetoes from callers."
-    - "Recovery reads protected receipts by original block and revision while rechecking display eligibility; a historical commit proves neither current access nor whole-task completion."
+    - "Recovery checks original block identity, revision and protected receipts under the original Run grant, while honoring independently applicable display restrictions; a historical commit does not prove whole-task completion."
   appliesTo:
     - "Research applications with early display, later revisions, cross-process recovery, and content depending on revocable sources."
   notFor:
@@ -179,7 +179,7 @@ Representing “revise A” as a structured fact yields the following **syntheti
 
 The database retains revision history, while the current delivery projection replaces the body in the same position rather than displaying two versions of A as two conclusions. If the client receives events with the same publication identity and revision but different bodies, it must treat that as a protocol conflict, not silently let “the last arrival win.”
 
-To prevent repeated publication of equivalent content, the system also has an intentionally narrow exact-duplicate rule: it may return `unchanged` and reuse the original receipt only if the body is exactly identical, protected-source and dependency bindings and notices have not changed, and current authorization passes again. It creates no new revision, delivery event, or revision-allowance charge. Similar wording is not a duplicate; even a Markdown whitespace change does not qualify. After source revocation, old content cannot bypass rechecking even if it is identical word for word.
+To prevent repeated publication of equivalent content, the system also has an intentionally narrow exact-duplicate rule: it may return `unchanged` and reuse the original receipt only if the body is exactly identical, protected-source and dependency bindings and notices have not changed, and the original Run grant and receipt identity still admit it. It creates no new revision, delivery event, or revision-allowance charge. Similar wording is not a duplicate; even a Markdown whitespace change does not qualify. The same Run does not refresh or shrink its grant after an external ACL change. An out-of-grant source, mismatched binding or unknown body identity still cannot reuse a receipt merely because its text matches.
 
 The current default revision allowance is 2 modifications per block and 8 per Research. It limits modifications to existing blocks, not the addition of new answer sections. Exceeding it rejects that modification; it should not erase earlier legitimate content or automatically declare the whole research effort failed. A failed revision and a failed initial publication are different effects: an invalid `replaces` cannot automatically become a new block, nor is the original committed body deleted because a revision failed.
 
@@ -227,15 +227,15 @@ At the time, runtime maintained live candidates and committed candidates. Duplic
 
 The model had not suddenly written a bad article. We had put records with two different levels of authority into the same candidate pool without clearly defining precedence within the same revision.
 
-The corrected rule can be simplified to:
+The version precedence preserved by this fix, combined with the current independent display constraints, can be summarized as:
 
 ```text
 Newer legitimate preview > older committed version (for current temporary display only)
 Committed receipt of a revision > preview metadata of that same revision
-Current source denial > visibility of an old preview or old receipt
+An independently applicable history-display/retention denial > visibility of affected material
 ```
 
-The second line is especially important: a committed receipt carries database-confirmed source and version facts. A preparation-stage preview cannot retroactively give it a status that “looks clean.” The third line reminds us that **a historical commit genuinely occurring does not mean a revoked source may still be displayed today.**
+The second line is especially important: a committed receipt carries database-confirmed source and version facts. A preparation-stage preview cannot retroactively give it a status that “looks clean.” The third line concerns a separately justified historical-excerpt display or retention restriction, not a fresh ACL query for the same Run. The historical commit, its stable Run grant and an independent present display restriction must be evaluated separately.
 
 The fix kept the original candidate and receipt ownership rather than introducing another publication-state or permission system. Committed facts still outrank same-revision previews. Earlier parallel timeouts and real-model quality problems, however, cannot be solved by changing receipt precedence.
 
@@ -248,23 +248,23 @@ Suppose answer A's Publication transaction has committed, including its body, so
 Correct recovery does not ask the model to write A again, nor forcibly mark the old preview saved. Instead:
 
 1. Read the protected body from its original Publication owner using the original Run, block identity, and committed receipt.
-2. Check inherited dependencies among the current account, sources, and blocks. If B refers to A's sources, checking only B's apparent direct citations is insufficient.
-3. Send portions still eligible for display through the existing history-snapshot and delivery channels. Portions whose permissions cannot be confirmed, or have been revoked, remain protected.
+2. At ingress, check the present reader against the original Run account and scope, then validate source, block and inherited-dependency identities under the original Run grant. If B refers to A's sources, checking only B's apparent direct citations is insufficient.
+3. Replay the original Run's committed body through its existing grant and delivery channels. A separately applicable historical-excerpt display or retention denial restricts only the affected material. A generic ACL lookup failure cannot hide all independently authorized bodies.
 4. Keep recording Runtime's original execution terminal state, Publication's commit fact, and whether the client displayed it independently.
 
-There is a further nuance: an old receipt lacking fields for current source-status eligibility does not mean its sources are confirmed safe. But a source set genuinely verified to be empty must not be confused with a completely unknown one either.
+There is a further nuance: an old receipt lacking required original source or grant proof does not establish safe access. But a source set genuinely verified to be empty must not be confused with a completely unknown one either.
 
-Later work also brought **selection of the original published body for history display and active replay** back under Publication. It uses original Run authorization, protected body and event identities, and actual source relationships to decide which blocks remain readable. Damage to one block's original content or permission proof should not obscure other independently verified blocks. Missing incidental Runtime journal details no longer automatically justify rejecting all original bodies again. Conversely, if original content cannot be verified or real source permission is denied, recovery still cannot fall back to an unprotected cache or assemble a historical answer that merely “looks right.”
+Publication now owns **selection of the original published body for history display and active replay**. It uses original Run authorization, protected body and event identities, and actual source relationships to decide which blocks remain readable. Damage to one block's original content or permission proof should not obscure other independently verified blocks. Missing incidental Runtime journal details no longer automatically justify rejecting all original bodies again. Conversely, if original content cannot be verified, a source falls outside the original Run grant, or an independent display/retention denial applies, recovery cannot fall back to an unprotected cache or assemble a historical answer that merely “looks right.”
 
-This also avoids an unnecessary re-evaluation: **reading an old answer is not rerunning today's portfolio investment calculations**. Historical prose may retain its identity from that time under its original display authorization. New analysis or execution still requires current data and permission checks; a historical commit cannot grant authority over today's numbers.
+This also avoids an unnecessary re-evaluation: **reading an old answer is not rerunning today's portfolio investment calculations**. Historical prose may retain its identity from that time under its original display authorization. A new Run still needs its own admission, and a separate historical-excerpt read must meet its applicable conditions. Financial calculation still validates dates, units and data eligibility; a historical commit cannot grant authority over today's numbers. These checks are not fresh permission checks within an already authorized Run.
 
-On October 11, 2026, the authenticated application, isolated PostgreSQL, and restart path actually exposed and verified this class of recovery gap. The fix included reading the original protected receipt, rechecking inherited sources, and preserving the unknown semantics of legacy source notices.
+On October 11, 2026, the authenticated application, isolated PostgreSQL, and restart path actually exposed and verified this class of recovery gap. The fix at that time included reading the original protected receipt, rechecking inherited sources and preserving the unknown semantics of legacy source notices. Later Run-grant stabilization changed the timing of permission queries, not the need to validate original receipts, content identity and source relationships.
 
 The public single-block implementation turns the same timing window into a [reproducible process-interruption counterexample](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/test/publication-runtime.test.mjs#L70): the process is actually terminated after the body transaction commits but before the run-terminal checkpoint is written. Another process recovers through the original sealed proposal and obtains the original body and receipt, without adding a revision or calling the synthetic model again. This is not an in-memory snapshot standing in for a restart.
 
 The neighboring failure branch matters too: after the body is committed, a later check may find that a required report is absent, and the Run can still fail. The earlier body remains readable, but its presence does not establish that the report was generated. [Runtime's commit positions](https://github.com/hpoenixf/open-etf-agent/blob/2c096ce47be2161f97531170af07ef255872f8b1/src/runtime.mjs) deliberately leave “body saved” and “entire task complete” at separate settlement points to preserve these simultaneously true facts.
 
-When answer A has already committed, subsequent research B may fail while **A's original commit, the Run's partial/failed status, and whether the client received A** remain three separately true or unknown facts. If `send_answer_part` committed its publication effect but the tool receipt was lost, recovery must query the original identity rather than relabel uncertainty as rejection and retry blindly. Source revocation changes **current display eligibility**, not the historical transaction; a server event does not prove the browser rendered it.
+When answer A has already committed, subsequent research B may fail while **A's original commit, the Run's partial/failed status, and whether the client received A** remain three separately true or unknown facts. If `send_answer_part` committed its publication effect but the tool receipt was lost, recovery must query the original identity rather than relabel uncertainty as rejection and retry blindly. A separately justified history-display or retention denial changes the affected material's **current display effect**, not the historical transaction or original Run grant; a server event does not prove the browser rendered it.
 
 ## 8. After Unifying Structure, Reclaim Peripheral Body-Disposition Authority
 

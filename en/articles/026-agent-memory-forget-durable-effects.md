@@ -5,20 +5,20 @@ readingBrief:
   takeaways:
     - "Separate writing, recall and governance: models interpret meaning, while the original repository owns provenance, revisions and durable operation receipts."
     - "A retrieval hit is not model use; an eligible revision still needs authorization, capacity and actual inclusion in the subsequent dispatched request."
-    - "Corrections target the current revision and forgetting changes future disclosure eligibility; settle writes separately from answers so response failure cannot replay an already committed effect."
+    - "Corrections target the current revision and forgetting stops new disclosure as current Memory; admitted same-Run historical reports retain their identity, while writes and answers settle separately."
   appliesTo:
     - "Building cross-session preferences users can save, correct and forget, while verifying whether recalled content actually reaches the model."
   notFor:
-    - "Promising physical erasure of all history or default automatic learning; disclosure rules combining same-Run wake and forgetting still need reconciliation."
+    - "Requiring forgetting to retroactively clear admitted same-Run historical reports, physically erase all history, or make optional automatic learning enabled by default."
 ---
 
 # The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting
 
-> **Module Deep Dive · Systems Architecture.** This article concerns application-level cross-session memory, not knowledge encoded in model weights or conversation-context compaction. It draws on ETF Agent's design, code, and bounded verification available through October 2026. Synthetic examples are labeled.
+> **Module Deep Dive · Systems Architecture.** This article concerns application-level cross-session memory, not knowledge encoded in model weights or conversation-context compaction. It draws on ETF Agent's current design and code, while retaining the bounded verification recorded through the end of October 2026. Synthetic examples are labeled.
 
 Yesterday, an investment research assistant learned that a user prefers low portfolio turnover. Today, it still gives a high-frequency-trading-oriented answer. The user corrects it, but an old preference reappears in a later conversation. There is a harder failure too: the user asks the assistant to “forget it”; the database commits the forget operation, and the model's next answer fails. Should the system trust the chat window, an embedding search result, or the durable operation record?
 
-These apparently different problems point to the same engineering fact: **long-term memory is not a table of summaries. It is a lifecycle with sources of authority, separate read and write times, correction, and revocation.**
+These apparently different problems point to the same engineering fact: **long-term memory is not a table of summaries. It is a lifecycle with sources of authority, separate read and write times, correction, and forgetting.**
 
 We organize Memory into three cooperating paths: **writing, recall, and governance**. Writing decides what deserves to persist. Recall decides what is actually used in a later request. Governance decides who has authority when data expires, conflicts, or must be forgotten. These paths may join in a single research task, but they must not collapse into an ambiguous “memory succeeded” flag.
 
@@ -166,7 +166,7 @@ A preference changes. “I prefer a long-term holding period” and “I need ex
 
 ETF Agent uses **family + revision** to represent version relationships. A correction must target the currently observed revision. A stale target cannot overwrite a newer correction. The model may propose that two statements are related; the Host and repository enforce the actual compare-and-set operation.
 
-Forgetting makes the whole family ineligible for **future model context**. Ordinary records can expire or be softly evicted by policy. An explicitly saved `response_constraint`, however, is not silently discarded by ordinary TTL/LFU cleanup. The user can still correct or forget it.
+Forgetting makes the whole family ineligible for new disclosure as **current Memory** in subsequent model requests. Ordinary records can expire or be softly evicted by policy. An explicitly saved `response_constraint`, however, is not silently discarded by ordinary TTL/LFU cleanup. The user can still correct or forget it.
 
 This reveals a subtle problem: old content may become unavailable while the fact that it was corrected remains worth reporting. In our October source-projection review, we found risks in both directions:
 
@@ -175,12 +175,16 @@ This reveals a subtle problem: old content may become unavailable while the fact
 
 We avoided a broad exception for historical content. The application must validate the original effect receipt, family identity, supersedes relation, and increasing revision. **It may explain that a correction occurred without reopening the old, ineligible text.**
 
-The same rule applies to generated summaries, historical results, background jobs, and indexes. After forgetting, a new Run cannot launder the old preference back through derived context. A late learning job cannot revive the old source by assigning a fresh family ID. But “no longer used in the future” is not a promise that backups, old conversations, or material already sent to a model provider have been physically erased. Those commitments require distinct data-retention operations.
+The same rule applies to generated summaries, historical results, background jobs, and indexes. After forgetting, a new Run cannot launder the old preference back through derived context. A late learning job cannot revive the old source by assigning a fresh family ID. But “no longer used as current Memory” is not a promise that backups, old conversations, or material already sent to a model provider have been physically erased. Those commitments require distinct data-retention operations.
 
 
-**A historical report has two distinct future uses.** Reading a committed report in authorized History does not mean the system may send it to a model again. A frozen grant for the original Run does not automatically make a report derived from a subsequently forgotten Memory record eligible for disclosure. The original report identity and source lineage, the current family/revision eligibility, and the body actually sent in the next model dispatch require separate checks.
+**Historical reports, current Memory, and new Runs have distinct consumption rules.** Being allowed to read a report in History does not automatically authorize another research task to use it. But when the current Run has admitted a selected report through the original history owner and durably retained its exact body, selection identity, and complete source lineage, same-Run wake continues from that receipt. Forgetting a Memory source later does not turn the admitted historical report into a fresh current-Memory read. Its source identity must remain intact; removing dependencies or relabeling the report as public would be incorrect.
 
-A scoped historical wake-path review in late October 2026 left an **unresolved semantic contract**: a recovery path may still read the previously retained report bytes, but that alone does not establish eligibility for a later model request. Immutable Run authorization and subsequent content revocation are different facts. Same-Run wake, retained reports, and Memory forgetting still need a reconciled rule and actual-dispatch acceptance tests; this article does not present that interaction as a qualified production guarantee.
+That choice has a cost: **forgetting does not retroactively rewrite historical input already admitted to the same Run.** It prevents the old preference from being acquired again as current Memory, and prevents a new Run from using derived history to skip its own admission. Missing, foreign, or content-mismatched historical receipts remain unavailable. A frozen grant cannot invent a report or turn one historical admission into permission for every future task.
+
+One source identity can appear both in historical lineage and in a preference independently read for the current request. The system therefore checks the material actually being submitted, rather than exempting an entire identity because it also appears in history. Admitted historical prose retains its original identity; independently materialized current Memory still requires valid family/revision eligibility. If that current body is forgotten after fitting but before transport, the original dispatch boundary rejects the stale disclosure. It does not revoke the Run grant or erase an already valid answer.
+
+Bounded Factory and isolated PostgreSQL observations from late October exercise this distinction: same-Run wake retains the admitted historical body and source proof, while late forgetting of independently materialized current Memory is rejected before dispatch. Inputs and gateways were synthetic. The PostgreSQL path recreated the Factory within one operating-system process, so it does not establish arbitrary cross-process recovery or real-model behavior.
 
 ## 5. A Complete Example: From First Preference to Forgetting
 
@@ -194,7 +198,7 @@ The following fund-research flow is a **synthetic walkthrough of the intended br
 | Run D | “Make conclusion-first the default from now on.” | Search identifies the family, and a successful correction creates a new revision |
 | Run E | “Forget that presentation habit.” | The family is forgotten and excluded from subsequent new Runs |
 
-The important observation is not whether the model happens to repeat a phrase from the remembered preference. The lifecycle has **four different proof points: commit, actual consumption in a new request, revision, and absence from future disclosure after forgetting**. An answer can accidentally match the preference without using Memory at all. A fluent acknowledgement can be generated even when storage failed.
+The important observation is not whether the model happens to repeat a phrase from the remembered preference. The lifecycle has **four different proof points: commit, actual consumption in a new request, revision, and no new acquisition as a current preference after forgetting**. An answer can accidentally match the preference without using Memory at all. A fluent acknowledgement can be generated even when storage failed.
 
 For a financial agent, Memory must remain in its proper role. Risk preferences can influence explanation. Holdings come from Portfolio. NAV and fees come from current time- and definition-specific evidence. Trading permission comes from independent authorization. **Memory helps recall how the user wants to reason or communicate; it does not decide what the user owns or what the system is allowed to execute.**
 
@@ -231,9 +235,9 @@ This does not make vector retrieval or temporal modeling unimportant. It means s
 
 As of the code and operational records used for this article, the supported local explicit save, correction, forgetting, cross-session, and PostgreSQL paths have bounded validation. A complete external live lifecycle, and sustained real-model understanding of those intentions, require separate qualification. The optional Hindsight semantic engine has not been qualified for that profile. Automatic semantic learning remains disabled by default.
 
-The most valuable next metrics are not counts of new Memory classes or tests. They concern the lifecycle in real tasks: false candidate adoption, correct same-family revision, whether eligible records **actually reach the model**, false recall and context cost, whether forgotten text resurfaces through old summaries, and p95 recall latency in the full research request. Without real samples, we should not claim that retrieval quality has improved.
+The most valuable next metrics are not counts of new Memory classes or tests. They concern the lifecycle in real tasks: false candidate adoption, correct same-family revision, whether eligible records **actually reach the model**, false recall and context cost, whether a new Run reintroduces a forgotten preference through old summaries, and p95 recall latency in the full research request. Without real samples, we should not claim that retrieval quality has improved.
 
-Returning to the opening question: a dependable Memory system must **provide a durable receipt when writing, enforce authorization when reading, use versions when correcting, and prevent forgotten content from returning to future use**.
+Returning to the opening question: a dependable Memory system must **provide a durable receipt when writing, enforce authorization when reading, use versions when correcting, and stop acquiring forgotten content as current preferences, while preserving the explicit identity of already admitted historical input**.
 
 Those guarantees are harder than making a model appear to remember the user. They are what make a long-lived assistant genuinely corrigible and accountable.
 

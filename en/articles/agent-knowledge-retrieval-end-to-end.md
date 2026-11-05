@@ -330,9 +330,11 @@ These responsibilities can share a process; each row need not become a service. 
 
 ### How are changing or revocable sources delivered?
 
-Account-scoped or revocable material requires eligibility checks when it is read, when an answer is committed and when history is displayed again. A user may revoke access during generation or reopen a conversation hours later. Body publication and historical delivery apply their own checks, using the source identities preserved by retrieval.
+Distinguish active research, replay of its original answer and a separate historical-material read. This project currently fixes authorization to the Run: same-Run reads, publication, recovery and owner-bound replay of committed bodies use the existing grant rather than revoke it after an external ACL change. Source identity, version and actual reading evidence must still match; stable permission does not make the source content permanently valid.
 
-In a controlled September 2026 revocation reproduction, historical replay already hid revoked material while the initial stream could still emit protected passages. The relevant correction belongs at actual disclosure commit: recheck eligibility and establish an explicit ordering between concurrent revocation and commit. Already delivered bytes cannot be recalled.
+A new Run consuming history needs its own admission. Separately applicable historical-excerpt display or retention restrictions remain with their original owners and affect only the relevant material. A generic permission lookup failure must not erase an independently lawful historical body. Retrieval preserves source relationships; it does not create a separate publication authority.
+
+In a controlled September 2026 revocation reproduction, historical replay already hid revoked material while the initial stream could still emit protected passages. Under the dynamic-permission contract at that time, the correction belonged at actual disclosure commit: recheck eligibility and establish an ordering between concurrent revocation and commit. This historical case explains why authorization needs an explicit purpose and timing; it does not make repeated permission queries the current same-Run rule. Already delivered bytes cannot be recalled.
 
 Temporary access failure and explicit withdrawal of retention rights also need distinct handling. The former does not automatically trigger permanent deletion; the latter requires retained copies and derived content to follow retention rules. Public static material can use a simpler delivery design; revisable or account-scoped material needs these explicit constraints.
 
@@ -340,7 +342,7 @@ Temporary access failure and explicit withdrawal of retention rights also need d
 
 [Open the full vector diagram](../../visuals/en/panorama-rag/disclosure.svg)
 
-*Figure 6 | Alongside content support, sources must remain eligible at actual delivery.*
+*Figure 6 | Within one Run, commit eligibility comes from the original grant and exact source identity. History viewing distinguishes original-body replay from separate excerpt/retention effects; it does not imply a fresh source ACL query every time.*
 
 <span id="_8-when-is-full-rag-worth-it—and-when-should-we-keep-things-simple"></span>
 
@@ -356,7 +358,7 @@ An engineering starting point can be small: connect finding material, reading th
 | More files, mostly queried by codes, titles and exact fields | A catalog, scope filters and lexical retrieval | Repeated misses caused by alternative wording in the task set |
 | Many equivalent expressions within a controlled corpus | Vector candidates and reproducible fusion | Relevant material recovered for the same questions |
 | Relevant passages are retrieved but fall outside the final context | Reranking over the same candidate set | Quality gains that justify latency, cost and failure handling |
-| Account-scoped, revocable or historically reread material | Source eligibility and version checks at each stage | These constraints follow the source and delivery setting |
+| Account-scoped, revocable or historically reread material | Preserve Run grants and source identity; distinguish replay from new-read eligibility | Generic ACL checks do not replace the original rules for each purpose |
 
 Matched task comparisons establish the value of optional components. Unstable reranking gains may justify returning to RRF; a vector route that fills no observed gap may be omitted in favor of lexical search; a user-specified two-page notice can simply be read. Source rights, account separation, versions and actual read coverage remain in place.
 

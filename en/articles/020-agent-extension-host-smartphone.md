@@ -107,7 +107,7 @@ Pi's todo extension gave a decisive counterexample: in one controlled run, **thr
 Another case arose in PostgreSQL recovery. Reading **an already-terminal Run** incorrectly followed the new-Run initialization path and invoked a side-effecting `SessionStart` again. The corrected boundaries are:
 
 - Genuinely new Run: invoke initialization, restore existing todo state, and allow new operations and receipts.
-- Historical replay of a terminal Run: read committed receipts, recheck current display eligibility, and create no new initialization effect.
+- Historical replay of a terminal Run: check original committed receipts and content identity under the original Run grant, honor independently applicable display restrictions, and create no new initialization effect.
 
 This does not disable Hooks for legitimate fresh runs. Run identity decides whether any new effect is appropriate. **Concurrent invocations need not have concurrent commits; reading history does not authorize re-execution.**
 
@@ -126,7 +126,7 @@ report_read
 report_view
 ~~~
 
-Each write has a role scope, logical identity, immutable version, and original source dependencies. A Child writes only its assigned strand; a Synthesizer reads the currently authorized fixed view; Main selects versions and coordinates handoffs. The original source must be rechecked at actual model dispatch if revocation could have occurred. A file on disk, or a source ID mentioned in prose, is not a durable receipt or permission grant.
+Each write has a role scope, logical identity, immutable version, and original source dependencies. A Child writes only its assigned strand; a Synthesizer reads the fixed view authorized for the original Run; Main selects versions and coordinates handoffs. Actual model dispatch checks the durable Run grant, the Child’s admitted subset, source identity, and execution conditions. Later changes to external permission tables do not shrink the same Run’s grant. A new Run or an out-of-scope resource still needs explicit admission; missing bytes, a changed version, or a content-hash mismatch remain read failures. A file on disk, or a source ID mentioned in prose, is not a durable receipt or permission grant.
 
 **Byte identity and structured equality** are also different: PostgreSQL JSONB may change object-key order without changing an object's values, while original file hashes and signed bytes must still match exactly.
 
@@ -245,6 +245,6 @@ This article covers extension packages, generation identity, and the Extension H
 
 ## Historical Evidence and Scope
 
-The implementation window is **October 12, 2026**. Observed problems come from recorded engineering verification; simplified directories, file examples, and data values serve explanatory purposes.
+The plugin cases retain their **October 12, 2026** engineering observation window. Same-Run authorization follows the current contract rather than the repeated source-permission checks used at that time. Observed problems come from recorded engineering verification; simplified directories, file examples, and data values serve explanatory purposes.
 
 Evidence categories include plugin lifecycle and Pi terminal replay; approval versus executable identity; platform dependency hashing; original Hookify/Pi test outcomes; Codex report file/Main/Child recovery; and Extension Package Registry, Command Hook Lifecycle, and Report Adapter implementations.

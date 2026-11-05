@@ -4,11 +4,11 @@ readingBrief:
   takeaways:
     - "A rating must target a readable completed answer within a trusted account Scope; “not grounded” records the user’s opinion, not an established quality verdict."
     - "Database uniqueness and intent identity govern persistence; exact-target readback governs reopening. Unavailable reads are not absent ratings, and stale responses must not update another answer."
-    - "Feedback is a candidate for separately authorized investigation, not automatic changes to answers, Memory, or execution permissions; focused readback tests do not establish an end-to-end learning loop."
+    - "Reopening restores the saved rating and reason; feedback remains a candidate for separate investigation, not automatic changes to answers, Memory, or permissions, nor proof of improvement."
   appliesTo:
     - "Building or debugging answer ratings affected by duplicate submissions, lost state after reload, cross-account reads, or stale responses during target changes."
   notFor:
-    - "Automatically training models or changing investment policy from a dislike, or claiming arbitrary historical-answer targeting and full browser reopening are already qualified."
+    - "Automatically training models, changing investment policy, or overwriting a saved rating from a dislike; controlled reopening observations do not establish production deployment or improved user outcomes."
 ---
 # A User Dislikes an Agent Answer. Should the Agent Automatically Learn? Feedback Identity, Idempotency, and Reliable Improvement Signals
 
@@ -81,17 +81,19 @@ After a click, the frontend can update local state: the server responded success
 
 An engineering record from **October 27, 2026** contains a concrete component-level RED test: **a feedback record existed, but the remounted control failed to display its saved “recorded” state**. The issue was not a missing model call. Transient component state is not an authoritative read of durable feedback.
 
-The focused repair made the control query by exact `runId + assistantMessageId` and distinguish three outcomes:
+The current control queries by exact `runId + assistantMessageId` and distinguishes three outcomes:
 
 | Readback result | Correct interface behavior |
 | --- | --- |
 | Valid response, `records: []` | No saved rating for this exact answer; submission may be enabled |
-| Valid response with a matching record | Display the persisted rating and prevent an incompatible repeat |
+| Valid response with a matching record | Display the saved rating and reason, and prevent an incompatible repeat |
 | Network, authorization, or response-structure failure | Show temporarily unavailable; **do not** interpret it as “no record” |
+
+Readback must also preserve the original record’s meaning. A positive rating displays “Helpful”; a negative rating displays its saved reason. A missing, unknown, or inconsistent reason degrades only that field to “Reason temporarily unavailable,” while preserving the rating. The interface does not guess “Other” and write it back.
 
 Target switching needs another precaution. Imagine the user opens answer A, its read is still pending, and then switches to answer B. A's late `up` response must not update B's control. Request cancellation and exact target identity checks are required, rather than merely adding a spinner.
 
-There is an important implementation boundary here. The inspected `FeedbackPanel` selects the **most recent completed Run and assistant message in the currently opened Conversation**. It is not yet proof of a product feature allowing users to pick any historical answer for rating. Exact feedback readback and arbitrary history-message targeting are two different capabilities.
+**The feedback control now belongs to the exact answer rather than a guessed latest research task.** The main research page enables it beneath each completed assistant answer that has an original Run identity, binding the target by message ID and Run ID together. Switching or reopening history reads the record for that same answer. Incomplete messages and messages without execution identity have no feedback control. Other pages reusing the transcript component leave feedback disabled by default; sharing a UI component does not automatically enable this capability.
 
 ## 4. Three Failure Cases Determine Whether Feedback Is Trustworthy
 
@@ -115,11 +117,11 @@ Current feedback persistence **does not** modify the published answer, automatic
 
 ## 6. What the Engineering Evidence Actually Supports
 
-As of **October 27, 2026**, the system has feedback storage and idempotency logic, completed-answer checks within a Scope, an exact-read endpoint, and the corresponding Web control. The in-progress feedback change documents a component-level RED case and later **focused GREEN** observations for reopen behavior, stale responses, target switching, and selected HTTP identity reads.
+If a user rates answer A “not grounded,” a later login should show that rating and reason under A, not attach A’s state to answer B in the same conversation. The current Main page, original authenticated HTTP routes, and PostgreSQL chain have exercised submission, answer switching, and reopening in a real-browser journey with synthetic tasks. Fresh database connections also retrieve the original record. These observations come from the controlled application path exercised on October 29, 2026.
 
-That evidence has explicit limits. Some results come from an unclosed development worktree. A broader affected test selection also reported a separate Publication History failure unrelated to feedback. Isolated PostgreSQL new-connection readback, a real-browser full submit-and-reopen journey, temporary and deletion lifecycles, and formal closure are **not** established by those records.
+Durable feedback does not make its target permanently readable. After the original answer is deleted, reads and submissions must still pass the original answer-readability check, even if a feedback record remains. Feedback cannot become a bypass for recovering the answer. Controlled normal and temporary paths preserve the existing contract for explicit ratings and verify denial after deletion; a temporary conversation is not automatically a prohibition on voluntary feedback. A failed read displays unavailable, and recovery returns to the same rating rather than treating the error as “no feedback yet.”
 
-This article therefore explains an **existing base contract and a targeted readback improvement still being qualified**. It does not claim a production-ready feedback learning loop, improved user satisfaction, or automatic model training. In particular, a passing focused Web test does not establish end-to-end improvement in real user outcomes.
+These observations used synthetic accounts, the original application, and an isolated database. Feedback operations dispatched no model requests and performed no investment writes. They support **persistence and reopening for exact answers**, not production deployment, natural-user satisfaction, or model learning. Even perfect readback still leaves separate questions to investigate: what problem did the user identify, and did a later change improve it?
 
 ## Conclusion
 
