@@ -99,3 +99,29 @@ test('V3 source guard rejects removed inputs, unknown sources and stale cross-la
   assert.throws(() => validateOwnerLayout(svg, stale), /A37 projection L1 absent/)
   assert.throws(() => validateOwnerLayout(svg.replace('translate(0 210)', 'rotate(10)'), doc), /unsupported owner transform: A39/)
 })
+
+test('workshop uses the same layer vocabulary and vertical order, with actions kept as examples', async () => {
+  const { sixLayerNames } = await import('./six-layer-names.mjs')
+  const escape = text => text.replaceAll('&', '&amp;')
+  for (const lang of ['zh', 'en']) for (const mobile of [false, true]) {
+    const path = `public/diagrams/open-workshop/six-layers-${lang}${mobile ? '-mobile' : ''}.svg`
+    const svg = read(path)
+    const layers = [...svg.matchAll(/data-layer-id="([^"]+)" data-layer-name="([^"]+)" data-layer-top="(\d+)"/g)]
+    assert.deepEqual(layers.map(match => match[1]), sixLayerNames.map(layer => layer.id))
+    assert.deepEqual(layers.map(match => match[2]), sixLayerNames.map(layer => escape(layer[lang])))
+    const tops = layers.map(match => Number(match[3]))
+    assert.ok(tops.every((top, index) => !index || top > tops[index - 1]))
+    for (const layer of sixLayerNames) {
+      for (const stage of ['intro', 'intermediate', 'deep']) assert.ok(read(map(stage, lang)).includes('>' + escape(layer[lang]) + '</text>'))
+      if (lang === 'zh') assert.ok(ownerMap(lang).includes('>' + layer.zh + '</text>'))
+    }
+    for (const term of ['v0.20', 'submit', 'work', 'Run', 'manifest', 'Main', 'Child', 'Memory', 'Publication', 'Reader']) assert.ok(svg.includes(term), term)
+    assert.doesNotMatch(svg, /<a\b|mermaid|foreignObject/)
+    if (lang === 'en') assert.doesNotMatch(svg, /[\u3400-\u9fff]/)
+    assert.ok(svg.includes(lang === 'zh' ? '本地练习不等于完整生产或金融平台。' : 'production or finance platform.'))
+  }
+  const files = ['zh', 'en'].flatMap(lang => ['', '-mobile'].map(suffix => `public/diagrams/open-workshop/six-layers-${lang}${suffix}.svg`))
+  const before = files.map(read)
+  execFileSync(process.execPath, ['scripts/generate-workshop-layer-map.mjs'], { cwd: root, stdio: 'pipe' })
+  assert.deepEqual(files.map(read), before, 'workshop diagram edits must be made in the deterministic generator')
+})

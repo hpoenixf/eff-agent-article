@@ -1,45 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="390" height="824" viewBox="0 0 390 824" role="img" aria-labelledby="title desc"><title id="title">Six layers. One inspectable task.</title><desc id="desc">v0.20 local research project · the subset used here</desc>
-<rect width="390" height="824" rx="20" fill="#f4f7f3"/>
-<style>text{font-family:"Noto Sans CJK SC","DejaVu Sans",sans-serif;fill:#173f36}.muted{fill:#526b64}</style>
-<text x="18" y="40" font-size="20" font-weight="700" class="">Six layers. One inspectable task.</text>
-<text x="18" y="67" font-size="14" font-weight="400" class="muted">v0.20 local research project</text>
-<text x="18" y="86" font-size="14" font-weight="400" class="muted">The bounded subset used in this workshop</text>
-<text x="18" y="113" font-size="15" font-weight="600" class="">Bring a document. Keep a checkable result.</text>
-<rect x="18" y="136" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="148" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="167" font-size="15" font-weight="700" class="">L1</text>
-<text x="80" y="168" font-size="18" font-weight="700" class="">Request work</text>
-<text x="34" y="195" font-size="16" font-weight="600" class="">Question file → submit</text>
-<text x="34" y="217" font-size="15" font-weight="400" class="muted">Submission saves; work executes.</text>
-<rect x="18" y="240" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="252" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="271" font-size="15" font-weight="700" class="">L2</text>
-<text x="80" y="272" font-size="18" font-weight="700" class="">Bind the scope</text>
-<text x="34" y="299" font-size="16" font-weight="600" class="">Project · Run · manifest</text>
-<text x="34" y="321" font-size="15" font-weight="400" class="muted">Recovery retains sources and budgets.</text>
-<rect x="18" y="344" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="356" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="375" font-size="15" font-weight="700" class="">L3</text>
-<text x="80" y="376" font-size="18" font-weight="700" class="">Choose the next step</text>
-<text x="34" y="403" font-size="16" font-weight="600" class="">Main · tool loop · Child</text>
-<text x="34" y="425" font-size="15" font-weight="400" class="muted">Model choices remain within the grant.</text>
-<rect x="18" y="448" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="460" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="479" font-size="15" font-weight="700" class="">L4</text>
-<text x="80" y="480" font-size="18" font-weight="700" class="">Acquire evidence</text>
-<text x="34" y="507" font-size="16" font-weight="600" class="">Text · Memory · bounded checks</text>
-<text x="34" y="529" font-size="15" font-weight="400" class="muted">Preferences are not source evidence.</text>
-<rect x="18" y="552" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="564" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="583" font-size="15" font-weight="700" class="">L5</text>
-<text x="80" y="584" font-size="18" font-weight="700" class="">Keep the deliverable</text>
-<text x="34" y="611" font-size="16" font-weight="600" class="">Report · Publication receipt</text>
-<text x="34" y="633" font-size="15" font-weight="400" class="muted">An answer is not a saved report.</text>
-<rect x="18" y="656" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="668" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="687" font-size="15" font-weight="700" class="">L6</text>
-<text x="80" y="688" font-size="18" font-weight="700" class="">Open it again</text>
-<text x="34" y="715" font-size="16" font-weight="600" class="">CLI · local read-only Reader</text>
-<text x="34" y="737" font-size="15" font-weight="400" class="muted">Read persisted results after execution.</text>
-<text x="18" y="797" font-size="13" font-weight="400" class="muted">A map, not six services or a full platform.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="956" viewBox="0 0 390 956" role="img" aria-labelledby="title desc">
+<title id="title">Workshop: the same six layers</title><desc id="desc">v0.20 local project · the bounded subset used here</desc>
+<style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei",Arial,sans-serif}</style>
+<rect width="390" height="956" fill="#F6F8FC"/>
+<rect width="390" height="100" fill="#0F203D"/>
+<text x="18" y="35" font-size="22" font-weight="760" fill="#FFFFFF" >Workshop: the same six layers</text>
+<text x="18" y="64" font-size="15" font-weight="500" fill="#BDCEE4" >v0.20 local project</text>
+<text x="18" y="86" font-size="14" font-weight="500" fill="#BDCEE4" >Only the bounded subset used here</text>
+<text x="18" y="126" font-size="16" font-weight="650" fill="#245A97" >Architecture layer → workshop example</text>
+<g data-layer-id="L1" data-layer-name="Task Intake" data-layer-top="144">
+<rect x="12" y="144" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="168" font-size="17" font-weight="760" fill="#2563A9" >L1</text>
+<text x="62" y="168" font-size="17" font-weight="730" fill="#172C46" >Task Intake</text>
+<text x="24" y="192" font-size="16" font-weight="700" fill="#17334B" >Request work</text>
+<text x="24" y="214" font-size="15" font-weight="600" fill="#17334B" >Question file → submit</text>
+<text x="24" y="235" font-size="14" font-weight="450" fill="#5C6F84" >Submission saves; work executes.</text>
+</g>
+<g data-layer-id="L2" data-layer-name="Identity &amp; Context" data-layer-top="268">
+<rect x="12" y="268" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="292" font-size="17" font-weight="760" fill="#2563A9" >L2</text>
+<text x="62" y="292" font-size="17" font-weight="730" fill="#172C46" >Identity &amp; Context</text>
+<text x="24" y="316" font-size="16" font-weight="700" fill="#17334B" >Bind the scope</text>
+<text x="24" y="338" font-size="15" font-weight="600" fill="#17334B" >Project · Run · manifest</text>
+<text x="24" y="359" font-size="14" font-weight="450" fill="#5C6F84" >Recovery retains sources,</text>
+<text x="24" y="376" font-size="14" font-weight="450" fill="#5C6F84" >permissions and budgets.</text>
+</g>
+<g data-layer-id="L3" data-layer-name="Agent &amp; Runtime" data-layer-top="392">
+<rect x="12" y="392" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="416" font-size="17" font-weight="760" fill="#2563A9" >L3</text>
+<text x="62" y="416" font-size="17" font-weight="730" fill="#172C46" >Agent &amp; Runtime</text>
+<text x="24" y="440" font-size="16" font-weight="700" fill="#17334B" >Choose the next step</text>
+<text x="24" y="462" font-size="15" font-weight="600" fill="#17334B" >Main · tool loop · Child</text>
+<text x="24" y="483" font-size="14" font-weight="450" fill="#5C6F84" >Model choices remain</text>
+<text x="24" y="500" font-size="14" font-weight="450" fill="#5C6F84" >within the original grant.</text>
+</g>
+<g data-layer-id="L4" data-layer-name="Tools &amp; Domains" data-layer-top="516">
+<rect x="12" y="516" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="540" font-size="17" font-weight="760" fill="#2563A9" >L4</text>
+<text x="62" y="540" font-size="17" font-weight="730" fill="#172C46" >Tools &amp; Domains</text>
+<text x="24" y="564" font-size="16" font-weight="700" fill="#17334B" >Acquire evidence</text>
+<text x="24" y="586" font-size="15" font-weight="600" fill="#17334B" >Text · Memory · bounded checks</text>
+<text x="24" y="607" font-size="14" font-weight="450" fill="#5C6F84" >Preferences and Child opinions</text>
+<text x="24" y="624" font-size="14" font-weight="450" fill="#5C6F84" >cannot replace the source.</text>
+</g>
+<g data-layer-id="L5" data-layer-name="Result &amp; Delivery" data-layer-top="640">
+<rect x="12" y="640" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="664" font-size="17" font-weight="760" fill="#2563A9" >L5</text>
+<text x="62" y="664" font-size="17" font-weight="730" fill="#172C46" >Result &amp; Delivery</text>
+<text x="24" y="688" font-size="16" font-weight="700" fill="#17334B" >Keep the deliverable</text>
+<text x="24" y="710" font-size="15" font-weight="600" fill="#17334B" >Report · Publication receipt</text>
+<text x="24" y="731" font-size="14" font-weight="450" fill="#5C6F84" >An answer is not a saved report.</text>
+</g>
+<g data-layer-id="L6" data-layer-name="User Interface" data-layer-top="764">
+<rect x="12" y="764" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="788" font-size="17" font-weight="760" fill="#2563A9" >L6</text>
+<text x="62" y="788" font-size="17" font-weight="730" fill="#172C46" >User Interface</text>
+<text x="24" y="812" font-size="16" font-weight="700" fill="#17334B" >Open it again</text>
+<text x="24" y="834" font-size="15" font-weight="600" fill="#17334B" >CLI · local read-only Reader</text>
+<text x="24" y="855" font-size="14" font-weight="450" fill="#5C6F84" >Read persisted results</text>
+<text x="24" y="872" font-size="14" font-weight="450" fill="#5C6F84" >after the execution process exits.</text>
+</g>
+<text x="18" y="917" font-size="13.5" font-weight="500" fill="#465673" >Responsibility layers, not six services.</text>
+<text x="18" y="939" font-size="13.5" font-weight="500" fill="#465673" >Not a complete production or finance platform.</text>
 </svg>

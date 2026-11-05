@@ -1,44 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="390" height="824" viewBox="0 0 390 824" role="img" aria-labelledby="title desc"><title id="title">六层，落到一件能检查的事</title><desc id="desc">v0.20 本地研究项目 · 本文实际使用的有界子集</desc>
-<rect width="390" height="824" rx="20" fill="#f4f7f3"/>
-<style>text{font-family:"Noto Sans CJK SC","DejaVu Sans",sans-serif;fill:#173f36}.muted{fill:#526b64}</style>
-<text x="18" y="40" font-size="20" font-weight="700" class="">六层，落到一件能检查的事</text>
-<text x="18" y="67" font-size="13" font-weight="400" class="muted">v0.20 本地研究项目 · 本文实际使用的有界子集</text>
-<text x="18" y="108" font-size="15" font-weight="600" class="">带入一份资料，带走报告、原任务与可回查来源。</text>
-<rect x="18" y="136" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="148" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="167" font-size="15" font-weight="700" class="">L1</text>
-<text x="80" y="168" font-size="18" font-weight="700" class="">提出任务</text>
-<text x="34" y="195" font-size="16" font-weight="600" class="">问题文件 → submit</text>
-<text x="34" y="217" font-size="15" font-weight="400" class="muted">提交只保存；work 才执行。</text>
-<rect x="18" y="240" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="252" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="271" font-size="15" font-weight="700" class="">L2</text>
-<text x="80" y="272" font-size="18" font-weight="700" class="">锁定范围</text>
-<text x="34" y="299" font-size="16" font-weight="600" class="">项目 · Run · manifest</text>
-<text x="34" y="321" font-size="15" font-weight="400" class="muted">资料、权限和预算不随恢复重置。</text>
-<rect x="18" y="344" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="356" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="375" font-size="15" font-weight="700" class="">L3</text>
-<text x="80" y="376" font-size="18" font-weight="700" class="">决定下一步</text>
-<text x="34" y="403" font-size="16" font-weight="600" class="">Main · 工具循环 · Child</text>
-<text x="34" y="425" font-size="15" font-weight="400" class="muted">模型选择动作，执行仍受原约束。</text>
-<rect x="18" y="448" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="460" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="479" font-size="15" font-weight="700" class="">L4</text>
-<text x="80" y="480" font-size="18" font-weight="700" class="">取得依据</text>
-<text x="34" y="507" font-size="16" font-weight="600" class="">选定文本 · Memory · 受限核对</text>
-<text x="34" y="529" font-size="15" font-weight="400" class="muted">偏好与 Child 判断不能冒充原文。</text>
-<rect x="18" y="552" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="564" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="583" font-size="15" font-weight="700" class="">L5</text>
-<text x="80" y="584" font-size="18" font-weight="700" class="">留下成果</text>
-<text x="34" y="611" font-size="16" font-weight="600" class="">报告文件 · Publication 回执</text>
-<text x="34" y="633" font-size="15" font-weight="400" class="muted">说“完成”不等于报告已经保存。</text>
-<rect x="18" y="656" width="354" height="94" rx="12" fill="#ffffff" stroke="#cbdad2"/>
-<rect x="30" y="668" width="38" height="26" rx="6" fill="#dcece2"/>
-<text x="38" y="687" font-size="15" font-weight="700" class="">L6</text>
-<text x="80" y="688" font-size="18" font-weight="700" class="">重新打开</text>
-<text x="34" y="715" font-size="16" font-weight="600" class="">CLI 回读 · 本地只读 Reader</text>
-<text x="34" y="737" font-size="15" font-weight="400" class="muted">关闭执行进程后，仍可读持久结果。</text>
-<text x="18" y="797" font-size="14" font-weight="400" class="muted">职责地图，不是完整生产或金融平台。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="956" viewBox="0 0 390 956" role="img" aria-labelledby="title desc">
+<title id="title">练手篇：同一套六层架构</title><desc id="desc">v0.20 本地项目 · 本练习实际使用的有界子集</desc>
+<style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei",Arial,sans-serif}</style>
+<rect width="390" height="956" fill="#F6F8FC"/>
+<rect width="390" height="100" fill="#0F203D"/>
+<text x="18" y="35" font-size="22" font-weight="760" fill="#FFFFFF" >练手篇：同一套六层架构</text>
+<text x="18" y="64" font-size="15" font-weight="500" fill="#BDCEE4" >v0.20 本地项目</text>
+<text x="18" y="86" font-size="14" font-weight="500" fill="#BDCEE4" >本练习实际使用的有界子集</text>
+<text x="18" y="126" font-size="16" font-weight="650" fill="#245A97" >统一架构层 → 本次练习示例</text>
+<g data-layer-id="L1" data-layer-name="任务输入与触发" data-layer-top="144">
+<rect x="12" y="144" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="168" font-size="17" font-weight="760" fill="#2563A9" >L1</text>
+<text x="62" y="168" font-size="17" font-weight="730" fill="#172C46" >任务输入与触发</text>
+<text x="24" y="192" font-size="16" font-weight="700" fill="#17334B" >提出任务</text>
+<text x="24" y="214" font-size="15.5" font-weight="600" fill="#17334B" >问题文件 → submit</text>
+<text x="24" y="235" font-size="14" font-weight="450" fill="#5C6F84" >提交只保存；work 才执行。</text>
+</g>
+<g data-layer-id="L2" data-layer-name="身份、会话与上下文" data-layer-top="268">
+<rect x="12" y="268" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="292" font-size="17" font-weight="760" fill="#2563A9" >L2</text>
+<text x="62" y="292" font-size="17" font-weight="730" fill="#172C46" >身份、会话与上下文</text>
+<text x="24" y="316" font-size="16" font-weight="700" fill="#17334B" >锁定范围</text>
+<text x="24" y="338" font-size="15.5" font-weight="600" fill="#17334B" >项目 · Run · manifest</text>
+<text x="24" y="359" font-size="14" font-weight="450" fill="#5C6F84" >资料、权限和预算不随恢复重置。</text>
+</g>
+<g data-layer-id="L3" data-layer-name="Agent 决策与运行" data-layer-top="392">
+<rect x="12" y="392" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="416" font-size="17" font-weight="760" fill="#2563A9" >L3</text>
+<text x="62" y="416" font-size="17" font-weight="730" fill="#172C46" >Agent 决策与运行</text>
+<text x="24" y="440" font-size="16" font-weight="700" fill="#17334B" >决定下一步</text>
+<text x="24" y="462" font-size="15.5" font-weight="600" fill="#17334B" >Main · 工具循环 · Child</text>
+<text x="24" y="483" font-size="14" font-weight="450" fill="#5C6F84" >模型选择动作，执行仍受原约束。</text>
+</g>
+<g data-layer-id="L4" data-layer-name="工具与领域能力" data-layer-top="516">
+<rect x="12" y="516" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="540" font-size="17" font-weight="760" fill="#2563A9" >L4</text>
+<text x="62" y="540" font-size="17" font-weight="730" fill="#172C46" >工具与领域能力</text>
+<text x="24" y="564" font-size="16" font-weight="700" fill="#17334B" >取得依据</text>
+<text x="24" y="586" font-size="15.5" font-weight="600" fill="#17334B" >选定文本 · Memory · 受限核对</text>
+<text x="24" y="607" font-size="14" font-weight="450" fill="#5C6F84" >偏好与 Child 判断不能冒充原文。</text>
+</g>
+<g data-layer-id="L5" data-layer-name="结果发布与交付" data-layer-top="640">
+<rect x="12" y="640" width="366" height="118" rx="8" fill="#FFFFFF" stroke="#DCE5ED"/>
+<text x="24" y="664" font-size="17" font-weight="760" fill="#2563A9" >L5</text>
+<text x="62" y="664" font-size="17" font-weight="730" fill="#172C46" >结果发布与交付</text>
+<text x="24" y="688" font-size="16" font-weight="700" fill="#17334B" >留下成果</text>
+<text x="24" y="710" font-size="15.5" font-weight="600" fill="#17334B" >报告文件 · Publication 回执</text>
+<text x="24" y="731" font-size="14" font-weight="450" fill="#5C6F84" >说“完成”不等于报告已经保存。</text>
+</g>
+<g data-layer-id="L6" data-layer-name="用户界面" data-layer-top="764">
+<rect x="12" y="764" width="366" height="118" rx="8" fill="#EFF3F9" stroke="#DCE5ED"/>
+<text x="24" y="788" font-size="17" font-weight="760" fill="#2563A9" >L6</text>
+<text x="62" y="788" font-size="17" font-weight="730" fill="#172C46" >用户界面</text>
+<text x="24" y="812" font-size="16" font-weight="700" fill="#17334B" >重新打开</text>
+<text x="24" y="834" font-size="15.5" font-weight="600" fill="#17334B" >CLI 回读 · 本地只读 Reader</text>
+<text x="24" y="855" font-size="14" font-weight="450" fill="#5C6F84" >关闭执行进程后，仍可读持久结果。</text>
+</g>
+<text x="18" y="917" font-size="13.5" font-weight="500" fill="#465673" >六层是职责地图，不是六个服务。</text>
+<text x="18" y="939" font-size="13.5" font-weight="500" fill="#465673" >本地练习不等于完整生产或金融平台。</text>
 </svg>
