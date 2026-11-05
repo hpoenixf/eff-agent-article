@@ -13,6 +13,7 @@ readingBrief:
     - "Locate discrepancies across four handoffs: source to tool, tool to model, input to generation, and generation to user. A complete call tree cannot replace content and revision checks."
     - "Original systems establish execution and persistence; telemetry describes process and gaps. Capture, receipt, processing and query readback are separate, and complete pagination does not establish complete capture."
     - "Deduplicate costs by physical request and keep unmeasured durations unknown; verify historical readback. Synthetic probes cannot restore missing history or establish long-term completeness."
+    - "A Native Host handler interval is not queueing, authorization, post-processing or full-Run latency; never sum overlapping local durations into wall time."
   appliesTo:
     - "Designing identity-linked diagnosis, capture-gap handling, telemetry self-checks and historical recovery for a research Agent."
   notFor:
@@ -143,6 +144,10 @@ Comparing latency, error rates, or costs before and after a change also requires
 A more dangerous kind of zero is **a measurement that was never taken but was recorded as 0 ms**. In the readback of one real fund research Run, 19 retrieval-stage entries all displayed `0 ms`, although the original result callbacks provided no start/end timing. The former projection defaulted a missing measurement to zero. Those values neither establish instantaneous retrieval nor belong in latency percentile comparisons.
 
 The later implementation distinguishes a genuinely measured `0`, a measured nonzero duration, and **unmeasured (unknown)**. In the last case it does not invent a `durationMs`; the exported event is explicitly marked as observation-only. An OpenTelemetry span's own transport or recording interval is not necessarily the business retrieval time, and this repair cannot retroactively produce missing historical clocks. Before adding more latency charts, ask whether the original stage was measured at all.
+
+A later change introduced an **explicitly bounded, genuinely measured local interval** for Native Host invocations: `hostHandlerDurationMs` is taken with a monotonic clock immediately around the awaited handler. It includes adapters, waits and calls inside that handler, but excludes authorization, external concurrency queueing and dispatch admission before it, as well as source binding, result projection and settlement afterward. It is neither pure network/vendor time nor full tool end-to-end latency. The field remains absent when no handler ran, no completion was observed or the clock evidence is invalid. A rounded-down `0 ms` can represent a valid sub-millisecond measurement; absence remains unknown.
+
+One real research diagnostic, which ultimately ended `partial` after interruption, read back this timing on 77 Host lifecycle records. That establishes a measurable handler interval in this path, not completed research or a performance improvement. Parallel handler intervals can overlap, so **adding them cannot produce the Run's wall-clock duration**. When diagnosing latency, identify the owner and start/end boundaries of a measurement before comparing values.
 
 <span id="_6-an-auxiliary-ui-became-a-data-system-that-needed-governance"></span>
 <span id="_7-a-backup-is-not-useful-until-history-can-be-read-back"></span>
