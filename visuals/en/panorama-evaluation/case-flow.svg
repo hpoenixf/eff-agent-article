@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="740" viewBox="0 0 640 740" role="img" aria-labelledby="flowTitle flowDesc" lang="en">
+<title id="flowTitle">HOW A CASE BECOMES A CLAIM</title><desc id="flowDesc">After real research, objective checks and semantic ratings remain distinct until evidence is joined and comparison eligibility is established.</desc>
+<defs><marker id="fArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1L6 4L1 7" stroke="#ac7138" stroke-width="1.6" fill="none"/></marker></defs>
+<rect width="640" height="740" rx="24" fill="#f8f7f2"/><rect x="1" y="1" width="638" height="738" rx="23" fill="none" stroke="#dad9cb"/>
+<g font-family="Inter,Arial,sans-serif">
+<text x="30" y="36" fill="#9c6328" font-size="15" font-weight="700" letter-spacing="1.2">CASE / END TO END</text>
+<text x="30" y="80" fill="#173b32" font-size="24" font-weight="750">HOW A CASE BECOMES A CLAIM</text>
+<g fill="#fff" stroke="#cadbd1" stroke-width="2"><rect x="30" y="114" width="580" height="84" rx="15"/><rect x="30" y="232" width="580" height="84" rx="15"/><rect x="30" y="352" width="279" height="102" rx="15"/><rect x="331" y="352" width="279" height="102" rx="15"/><rect x="30" y="488" width="580" height="82" rx="15"/><rect x="30" y="604" width="580" height="85" rx="15" fill="#e6efe9"/></g>
+<g fill="#173b32" font-size="21" font-weight="700"><text x="54" y="152">01  Freeze Case and Identity</text><text x="54" y="270">02  Execute Real Research</text><text x="52" y="394">Objective Evidence</text><text x="351" y="394">Semantic Quality</text><text x="54" y="526">04  Join Evidence and Check Comparability</text><text x="54" y="643">05  Keep All Outcome Classes</text></g>
+<g fill="#526b61" font-size="17"><text x="54" y="183">Question · conditions · model · fingerprints</text><text x="54" y="302">Run · tools · saved or emitted answer</text><text x="52" y="433">Protocol / rights / store</text><text x="351" y="433">Judge / optional metrics</text><text x="54" y="557">Source exposure · time · target · environment</text><text x="54" y="676">Verified · known failure · unassessed / unknown</text></g>
+<g stroke="#ac7138" fill="none" stroke-width="2.4" marker-end="url(#fArrow)"><path d="M320 200v26"/><path d="M320 318v14H170v15"/><path d="M320 332h151v15"/><path d="M170 456v17h150v10"/><path d="M471 456v17H320"/><path d="M320 574v24"/></g>
+<text x="30" y="720" fill="#746b59" font-size="14">Conceptual flow: absent evidence never becomes an implicit pass</text></g></svg>
