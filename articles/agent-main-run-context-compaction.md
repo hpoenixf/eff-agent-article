@@ -99,6 +99,8 @@ node src/cli.mjs --case compact-and-reread --output runs/article-compaction
 它和上面的公开示例属于不同固定快照，不应把各版本的能力混成一次执行结果。
 <!-- /open-etf-case -->
 
+这也是[原则 5「Context 是工作台，不是事实数据库」](/principles#principle-5)的直接应用：研究所依赖的数值与执行效果，应先保留原件，再让 Main 使用便笺继续工作。
+
 **下次设计类似机制时，先问哪段历史能被精确回读，再问哪段旧工作适合被有损总结。只有读不到原始事实时，摘要才会从“节省上下文”变成“制造另一套事实”。**
 
 ## 延伸阅读与交流
