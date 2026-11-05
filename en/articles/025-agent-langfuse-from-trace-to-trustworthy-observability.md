@@ -12,7 +12,7 @@ readingBrief:
   takeaways:
     - "Locate discrepancies across four handoffs: source to tool, tool to model, input to generation, and generation to user. A complete call tree cannot replace content and revision checks."
     - "Original systems establish execution and persistence; telemetry describes process and gaps. Capture, receipt, processing and query readback are separate, and complete pagination does not establish complete capture."
-    - "Deduplicate costs by physical request, retain unknowns and test actual historical reads. Synthetic probes verify a current path, not missing history or long-term completeness."
+    - "Deduplicate costs by physical request and keep unmeasured durations unknown; verify historical readback. Synthetic probes cannot restore missing history or establish long-term completeness."
   appliesTo:
     - "Designing identity-linked diagnosis, capture-gap handling, telemetry self-checks and historical recovery for a research Agent."
   notFor:
@@ -142,6 +142,10 @@ Comparing latency, error rates, or costs before and after a change also requires
 
 <span id="_6-an-auxiliary-ui-became-a-data-system-that-needed-governance"></span>
 <span id="_7-a-backup-is-not-useful-until-history-can-be-read-back"></span>
+
+A more dangerous kind of zero is **a measurement that was never taken but was recorded as 0 ms**. In the readback of one real fund research Run, 19 retrieval-stage entries all displayed `0 ms`, although the original result callbacks provided no start/end timing. The former projection defaulted a missing measurement to zero. Those values neither establish instantaneous retrieval nor belong in latency percentile comparisons.
+
+The later implementation distinguishes a genuinely measured `0`, a measured nonzero duration, and **unmeasured (unknown)**. In the last case it does not invent a `durationMs`; the exported event is explicitly marked as observation-only. An OpenTelemetry span's own transport or recording interval is not necessarily the business retrieval time, and this repair cannot retroactively produce missing historical clocks. Before adding more latency charts, ask whether the original stage was measured at all.
 
 ## 6. If Diagnosis Depends on History, Require Restored Records to Be Queryable
 
