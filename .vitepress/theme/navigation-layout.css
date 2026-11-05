@@ -10,4 +10,6 @@
   .VPNavBar .VPNavBarMenu { display: none !important; }
   .VPNavBar .VPNavBarHamburger { display: flex !important; }
   .VPNavBar .directory-menu { display: none; }
+  /* The mobile reading directory already owns this same catalogue link. */
+  .VPNavScreen .VPNavScreenMenuLink[href$="/catalog"] { display: none; }
 }

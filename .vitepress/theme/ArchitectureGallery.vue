@@ -71,8 +71,12 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', restoreHash))
         <a :href="withBase(selected.href)">{{ english ? 'Read this stage →' : '阅读这一站 →' }}</a>
       </div>
       <PanoramaViewer :key="selected.key" :src="withBase(selected.src)" :label="selected.label"
-        :source-links="selected.sourceLinks" :canvas-width="selected.width" :canvas-height="selected.height">
-        <object class="gallery-stage-map" :data="withBase(selected.src)" type="image/svg+xml"
+        :source-links="selected.sourceLinks" :workshop="selected.key === 'workshop'" :canvas-width="selected.width" :canvas-height="selected.height">
+        <picture v-if="selected.mobileSrc" class="gallery-workshop-map">
+          <source media="(max-width: 640px)" :srcset="withBase(selected.mobileSrc)" />
+          <img class="gallery-stage-map" :src="withBase(selected.src)" :alt="selected.description" />
+        </picture>
+        <object v-else class="gallery-stage-map" :data="withBase(selected.src)" type="image/svg+xml"
           :aria-label="selected.label" :style="{ aspectRatio: `${selected.width} / ${selected.height}` }">
           <a :href="withBase(selected.src)">{{ english ? 'Open the full SVG diagram' : '打开完整 SVG 图' }}</a>
         </object>
@@ -92,7 +96,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', restoreHash))
 
 <style scoped>
 .architecture-gallery { min-width: 0; }
-.gallery-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; margin: 24px 0 18px; border: 1px solid var(--vp-c-divider); border-radius: 12px; background: var(--vp-c-bg-soft); }
+.gallery-stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding: 4px; margin: 24px 0 18px; border: 1px solid var(--vp-c-divider); border-radius: 12px; background: var(--vp-c-bg-soft); }
 .gallery-stages a { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; color: var(--vp-c-text-2); font-size: 14px; line-height: 1.4; text-align: center; text-decoration: none; }
 .gallery-stages a:hover { color: var(--vp-c-brand-1); }
 .gallery-stages a.selected { background: var(--vp-c-bg); color: var(--vp-c-brand-1); box-shadow: 0 1px 4px #0000000c; font-weight: 650; }
@@ -111,6 +115,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', restoreHash))
 .gallery-inventory :deep(th:first-child), .gallery-inventory :deep(td:first-child) { width: 23%; }
 .gallery-inventory :deep(td) { overflow-wrap: anywhere; line-height: 1.9; }
 @media (max-width: 640px) {
+  .gallery-stages { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .gallery-stages a { padding: 8px 4px; font-size: 13px; }
   .gallery-stage-heading { gap: 8px; }
   .gallery-stage-heading p { flex-basis: 100%; }

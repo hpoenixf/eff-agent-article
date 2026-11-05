@@ -91,6 +91,16 @@ jobs:
           test -f .vitepress/dist/index.html
           test -f .vitepress/dist/articles/017-prompt-to-answer-six-layer-panorama.html
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html
+      - name: Verify gallery and primary navigation in a real browser
+        run: node scripts/check-gallery-output.mjs
+      - name: Retain gallery and navigation QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-navigation-qa
+          path: test-output/gallery-navigation/
+          retention-days: 7
+          if-no-files-found: ignore
       - name: Test legacy redirect contract
         run: node --test scripts/build-legacy-redirects.test.mjs
       - name: Build redirect-only legacy site
