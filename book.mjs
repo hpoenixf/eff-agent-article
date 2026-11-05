@@ -153,7 +153,8 @@ export const collections = [
           ["mcp-market-responsibility-retrospective", "金融数据 MCP 为什么变成决策系统"],
           ["030-fintech-from-research-to-investment-advice", "从投资研究到投顾与交易的边界"],
           ["031-fintech-data-time-and-reproducible-numbers", "金融数字的时点、口径与复算"],
-          ["financial-agent-python-result-consumption", "Python 算过了，投研报告为什么还会错"]
+          ["financial-agent-python-result-consumption", "Python 算过了，投研报告为什么还会错"],
+          ["financial-agent-research-claim-boundaries", "一份基金研究报告，为什么关键结论仍可能不成立？"]
         ]
       },
       {

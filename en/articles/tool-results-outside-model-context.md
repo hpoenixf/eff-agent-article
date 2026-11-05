@@ -160,6 +160,10 @@ The tool response therefore cannot be the last observation point. We distinguish
 
 “Data acquired,” “reference returned,” and “content included in the request” are separate facts. Coverage must follow the actual consumption path as well. Completeness at an earlier stage cannot prove that the final request still contains the complete selection.
 
+There is another capacity conflict distinct from silent truncation: **the authorized source selection fits, but added derived fields push the model-visible result over its final limit**. A tool may first return a narrowed view respecting the grant and selected range, then attach derived annotations for analysis. Treating the enriched response as indivisible can make even the originally readable source unavailable once those annotations exceed the final byte budget.
+
+The newer request-projection path makes a specific choice: try the enriched model-visible value first; if it is too large and **the same already-narrowed source projection** is available, recalculate the final size using that view, including the tool-call identity. Only if the fallback still exceeds capacity does the system explicitly return `post.result_too_large`. It may not fall back to an unfiltered original payload or quietly drop chosen records while claiming completeness. This preserves a useful bounded read in one failure case; it does not expand the capacity limit or prove that the model understood the retained content.
+
 ### A New Finding: Old Reads Kept Reappearing Before Context Was Full
 
 We later inspected the actual model inputs of a long-running research Run. Main issued 37 Native requests and made 20 explicit tool-result reads. Across subsequent requests, we observed **279 repeated appearances of identical read-result messages**. These are appearances in different request messages—not 279 additional tool executions, and not a directly measured token or billing total.
