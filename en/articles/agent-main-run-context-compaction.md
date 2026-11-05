@@ -116,6 +116,8 @@ After producing a candidate summary, the system re-inserts it into the **complet
 
 Optional PreCompact and PostCompact hooks may observe the process. They do not gain permission to rewrite original effects or force acceptance of a summary.
 
+A summary request also needs one easily missed constraint: **its output budget must follow the original Main request and the actual model route's limits**. A seemingly reasonable hardcoded 900-token cap can truncate a valid summary with `finishReason=length`. Conversely, treating a route's declared ceiling as actual consumed tokens distorts cost reporting. An unfinished summary is not adopted; the original history continues instead. This is a legitimate fallback, not a reason to accept half a summary.
+
 ## 6. The Identity of the Checkpoint Matters More Than the Summary Text
 
 Suppose a summary is in context and the server crashes. On recovery, having only that string—without knowing which turns it replaced, from what revision or whether the summary request already incurred a cost—could lead to duplicate summarization, repeated tools or an incorrectly positioned summary.
@@ -148,6 +150,10 @@ Existing records still did not prove that this live summary was fully consumed b
 The implementation and controlled recovery paths are available, but we still lack sufficient observations showing that subsequent Main requests consistently use real summaries correctly across repeated compaction, especially for meaning, citations, and financial numbers.
 
 This design follows [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5): a compacted summary is a lossy work hint, not an authoritative receipt, number or source. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) separates original records, model-visible projections and the actual request so compression cannot silently promote a summary into fact.
+
+A different real-model comparison of two ETFs on November 5, 2026 offered a more concrete counterexample. One admitted summary request was sent under an old **900 output-token** cap, and the provider returned `finishReason=length`; no normally adoptable summary resulted and the original history was retained. After aligning the summary limit with the ordinary Main route, **a separate real Run** committed one compaction: the summary actually used 567 output tokens, the complete fitted request shrank from **264,062 to 182,786 bytes**, and later Main requests did carry that summary. At least in this Run, compaction entered subsequent model input rather than existing only as checkpoint text.
+
+These are different runs, not a controlled counterfactual. In particular, 567 is below the old limit of 900, so the evidence cannot establish that the old cap would necessarily have truncated the very same summary, nor that compaction caused either run's latency or financial-answer differences. The successful run establishes **commitment and observed subsequent request inclusion**, not semantic faithfulness or improved investment analysis. For diagnosis, record bounded `admitted`, `failed`, `skipped` and `committed` stages with their request identities; absence of a commit in an incomplete observation stream does not show that an entire Run never compacted.
 
 ## 8. Was the Complexity Worth It?
 
