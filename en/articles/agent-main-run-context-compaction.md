@@ -14,252 +14,81 @@ readingBrief:
 
 # When Context Is Nearly Full, Why Can't We Simply Ask a Model to Summarize History?
 
-Deep research may take dozens of turns. The model reads a long PDF, queries several funds, calculates in Python, then checks citations and writes a report. As tool calls accumulate, the problem is not just **insufficient room in context**. The next model request needs to keep reasoning while old material consumes space and contains execution facts that must not be rewritten.
+A research agent has inspected dozens of fund documents and still has work to do. The obvious fix is to ask the model to summarize earlier turns. But the real risk is not a verbose summary. It is **a fluent sentence turning an intended action into a completed tool call, or last quarter's figures into current facts**.
 
-A common strategy asks a model to summarize the preceding conversation and continues with the summary. That helps with length. It also creates a worse failure mode: the summary may turn “planned to call a tool” into “the tool succeeded,” omit a user correction, or describe a stale amount as current. Subsequent work may then depend on a fabricated history.
+Two further surprises shaped the final design. Conservative capacity preflight can reject every potentially helpful summary. And a committed checkpoint containing a summary does not mean the next model request actually contained it. We did not solve this by introducing a smarter summarizer. We made the summary a **non-authoritative working note** while leaving sources, grants, effects and recovery with their original owners.
+## 1. Not Every Context Problem Calls for Summarization
 
-Our Main Research Run compaction feature is organized around a different decision: **the model creates only a lossy summary of its prior work; the original task, permissions, tool effects, financial numbers, citations and recovery state remain owned by deterministic records elsewhere**.
+We reduce pressure in an intentional order: **externalize repeated tool results → apply reversible fitting and exact rereads → only then summarize older work**. A PDF or fund-holdings table with a stable source identity and permitted selector should not be reinserted into every model turn. Recent tool calls and their corresponding results must stay together.
 
-The main discussion describes the original system; the final section demonstrates its runnable public note-adoption and original-rereading slice in [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent). That smaller implementation lacks the original system’s cold recovery, so one demo must not stand in for validation of the entire research path.
+[Anthropic's context-engineering guidance](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats context as scarce working space. Its [tool-result clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing) is well suited to workflows that no longer need to see earlier tool output. Our financial research adds a constraint: **removing current model-visible text must not remove auditable source identity, authorization or numeric provenance**.
 
-## 1. Three Ways to Reduce Context Cost Are Not the Same
+## 2. The Surprise: Being Too Conservative Can Make Compaction Impossible
 
-Initially every tool result could be carried into subsequent model history. That was acceptable for simple queries but caused old results, duplicate materials and repeated correction attempts to crowd out relevant context in long research.
+The application policy measures the **entire fitted request in UTF-8 bytes**. Its defaults are a 256 KiB soft threshold, a 224 KiB desired target, a 4 KiB minimum net reduction and a 6,000-byte summary cap. These are application thresholds, **not a provider's token context limit**.
 
-We had already adopted two remedies.
+The old preflight imagined a maximum-length, maximally escaped summary and rejected the attempt unless that hypothetical worst case fit. A useful short summary never got a chance. A second rule treated the soft target as a strict one-shot requirement: even a substantial actual reduction was rejected if it remained above the target.
 
-**Externalized results:** large tables and document bodies remain in a controlled result store. The model sees a catalog and reads exact versions or ranges as needed. This answers whether an entire result must be permanently included, but it does not remove the growing history of model turns.
+The final mechanism separates two questions. **Before spending**, reject only when even the smallest valid nonempty summary cannot meet minimum savings or real hard capacity. **After generating**, fit the actual summary into the *complete next Main request*—including tool schemas, source catalog, recent working set and exact user corrections—and check real net savings, the hard limit and original identities. The soft target expresses desired headroom, not a hard adoption gate. We retain strict hard limits while permitting **safe incremental reductions**.
 
-**Reversible context fitting:** shrink auxiliary catalogs, replace older tool bodies that can be reread later, and adjust safe display representations to fit the final request. It is reversible because the authoritative result still exists and can be read again.
+## 3. The Greater Risk: A Working Note Impersonates an Execution Receipt
 
-**Semantic compaction** is a third, deliberately more intrusive technique. It compresses the earlier model's *working process*, which inevitably loses some information. It must come after the first two techniques, not become the knee-jerk response to any capacity pressure.
+Consider a teaching scenario. The agent requested two funds' quarterly disclosures; a tool returned only part of a document. The user then clarified: “Do not substitute old NAV for today's price.” A free-form summary could falsely say “the latest disclosures were checked,” causing the later model to stop reading missing evidence.
 
-Anthropic's [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) notes the risk of losing details that only later become important. Research adds another constraint: tool effects, source eligibility and financial calculation definitions must survive regardless of the wording of a summary prompt.
+We summarize only **older, complete, settled model/tool groups with durable identities inside the same Run**. Unsettled effects, unknown outcomes, recent work, user originals and corrections are retained. Previously adopted notes are not recursively fed back as new evidence, avoiding compound paraphrase errors.
 
-## 2. Establish Real Capacity Pressure Before Compacting
+Current needs, committed answers, source references, balances and exact numerical results are still projected from their original owners. A source ID mentioned in a summary is not a grant. **A higher compression ratio that erases whether a tool actually ran is not an improvement**.
 
-When should the system ask for a summary? Counting messages is misleading: five large tool outputs can take more space than fifty short turns. Counting only text tokens also ignores tool schemas, response reserves and request envelopes.
+## 4. The Final Execution Path: Three Different Questions
 
-Our default is an **application-level pressure policy** with a measurable basis. It measures the serialized complete request in UTF-8 bytes: a **256 KiB soft threshold**, **224 KiB target**, **at least 4 KiB of required savings**, and a **6,000-byte summary cap**.
-
-These are application thresholds, not a provider's token context window. They do not mean a particular model has 256 KiB of context. Actual model windows, transport capacity and final-send validation remain under their existing owners.
-
-Main considers semantic compaction only after reversible fitting is complete and the full request still exhibits supported pressure. The 224 KiB figure is **desired headroom, not a hard one-step adoption gate**: a summary that leaves the request above that target can still be useful if it saves enough actual bytes and fits the real hard input limit. Unknown token counts are not treated as zero, nor is unknown context size treated as infinite.
-
-The next research step and finalization also need capacity. The system must not covertly spend a model request on internal summarization when the remaining resource budget already needs to be protected for completion.
-
-## 3. Compact Only Settled Older Work, Not the Whole Conversation
-
-This is the most important—and easiest to miss—decision.
-
-Model-visible history is not an ordinary list of sentences. A Tool Call may have parameters, dispatch identity, response, failure reason and retry eligibility. These form a protocol unit. Retaining “the model wanted to look up this fund” while discarding its result, or keeping the result with no call identity, changes the facts a subsequent turn sees.
-
-A candidate compaction interval must meet strict conditions:
-
-- Select older model turns within **the same Main Run** whose sealed inputs and receipts are trustworthy; preserve the most recent work groups intact.
-- Keep each tool invocation and result together. Never cut a tool protocol unit in half or call an unsettled effect completed.
-- Preserve the user's initial request and explicit later corrections **verbatim and in order** in subsequent requests. They are not replaceable by a model-written summary.
-- Never recursively feed earlier summaries into the next summary model. A new compaction covers fresh, nonoverlapping settled ranges rather than repeatedly paraphrasing previous paraphrases.
-
-The summary input is intentionally narrow. The current implementation mostly derives work clues from **recoverable sealed model tool proposals**. It does not pretend to recreate unretained hidden reasoning, every assistant narration or arbitrary raw tool content. If the underlying material is unavailable, it does not fabricate it.
-
-This shares the motivation of [Pi's compaction design](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/compaction.md): preserve recent context and summarize older material so work can continue. Our particular choice is to avoid recursively treating past summaries as authoritative inputs and keep tool, number and permission facts in their existing durable stores. These are tradeoffs under different constraints, not universal proof that one framework is better.
-
-## 4. A Summary May Describe Work, but Cannot Inherit Execution Authority
-
-Consider a simplified request:
-
-> Compare the overlap and fees in my technology funds. Do not treat NAV values from a month ago as current.
-
-In early turns, the model proposed document reads and holdings-overlap calculations, and received partial tool results. A free-form model summary might say “Overlap calculation is complete and the latest NAV values are fine.” That fluent sentence proves neither successful computation nor fresh source data.
-
-We separate the representations:
-
-| Content in the next model request | Authoritative source and handling |
-| --- | --- |
-| User goal and the “do not use stale NAV” correction | Original text and current revision, preserving precise meaning and order |
-| Executed tools and results | Original receipts, versioned stored results and selections; re-readable |
-| Older model work clues | Non-authoritative, lossy summary to avoid repeating explanations |
-| Current Research Needs, stage and remaining limits | Fresh projection from actual Runtime and resource state |
-| Submitted answers, citations and files | Original Publication, Result and Artifact owners |
-| Fund NAV, amounts, units and calculated metrics | Domain producers and their controlled numerical/source receipts |
-
-A source ID, a number or “tool succeeded” inside the summary does not acquire authorization or calculation authority. When needed, the model must use the current versioned read interface to obtain eligible original material.
-
-Nor can this structure guarantee the model will later reason perfectly. Mechanisms can protect factual inputs and source identity; semantic accuracy of final investment analysis still needs separate evaluation.
-
-## 5. How a Main Compaction Actually Runs
-
-Think of the process as **select candidate → summarize → check net benefit → commit → replay**.
+1. **Is an attempt worthwhile?** The fitted request still has supported pressure, a safe older interval exists, and a minimal nonempty summary could satisfy original hard limits and measured minimum gain.
+2. **Is the result admissible?** The original Gateway returns a complete, non-truncated summary. Recovery commits it only when the full refitted request genuinely saves space and satisfies source, grant, and checkpoint identities.
+3. **Was it consumed?** The subsequent dispatched Main request actually contains the adopted note. Recovery later uses that checkpoint without rerunning the model or replaying settled tool effects.
 
 ~~~mermaid
 flowchart TD
-  A["Prepared Main request"] --> B["Reversible context fitting"]
-  B --> C{"Qualified capacity pressure?"}
-  C -- "No" --> N["Continue without compaction"]
-  C -- "Yes" --> D["Select settled old turn groups"]
-  D --> E["Bounded summary model request"]
-  E -- "Failed or not helpful" --> F["Continue with original history"]
-  E -- "Candidate produced" --> G["Fit the complete next request"]
-  G -- "Insufficient savings" --> F
-  G -- "Valid and beneficial" --> H["Commit compaction checkpoint"]
-  H --> R["Next Main request"]
-  F --> R
-  N --> R
+  A["Complete Main request"] --> B{"Capacity pressure?"}
+  B -- "No" --> Z["Keep original request"]
+  B -- "Yes" --> C["Select settled older groups"]
+  C --> D{"Even minimal valid summary infeasible?"}
+  D -- "Yes" --> Z
+  D -- "No" --> E["Summarize through original Gateway"]
+  E --> F{"Actual full fitted request saves space and remains valid?"}
+  F -- "No" --> Z
+  F -- "Yes" --> G["Commit original-identity checkpoint"]
+  G --> H["Actual subsequent Main input"]
+  H --> I["Reread sources using original references"]
 ~~~
 
-The multiple exits are conditions, not mandatory steps. Unqualified pressure or the absence of a safe compaction interval keeps the original request. Failed or low-benefit summaries keep old history. Only a candidate satisfying final capacity, identity and savings conditions produces a checkpoint.
+Summarization remains a metered model request under the original Gateway, deadline, route limits and finalization reserve. One real summary was cut off under an additional hardcoded 900-output-token ceiling and returned \`finishReason=length\`; it was not adopted. The current system uses the applicable fitted Main request and finite route ceiling instead. An invalid result falls back to the original history rather than being retried until it looks successful.
 
-Summarization is a **real model request**. It uses the original Gateway, resource reservation, deadline, cancellation and failure settlement. Calling it “internal” does not make it free. Unknown dispatch outcomes consume their original receipt and must not be retried indefinitely under fresh identities.
+A different real Run reduced its complete fitted request from **264,062 to 182,786 bytes** and later dispatched the adopted summary. These are distinct research runs, not a matched A/B result about quality or cost. What matters is the actual request sent to the model—not merely whether a summary file was written.
 
-Before paying for a summary request, the revised preflight tests **feasibility from a minimal valid, nonempty summary**. Only if even that lower-bound case cannot meet the required net gain or actual hard input fit does it skip with `no-feasible-candidate`. It no longer rejects a possible improvement solely because the worst-case maximum-size summary might not fit. Historical `conservative-preflight` observations still describe the older conservative rule; a preflight decision never proves the model would have produced a usable summary.
+## 5. What Other Frameworks Do, and Why We Kept Our Own Ownership Rules
 
-After a candidate is produced, the system fits it back into the **complete next Main request** alongside the reference catalog, tool definitions and protected original text. It checks actual net savings, the real hard input limit, valid completion and original source/receipt identities. **Remaining above the soft target is no longer a rejection on its own**. Insufficient measured gain, actual hard overflow or invalid evidence still keeps the original history. This permits safe incremental reductions without granting the summary any new capacity or execution authority.
+| Approach | Best fit | Why we chose an additional application contract |
+| --- | --- | --- |
+| [LangChain SummarizationMiddleware](https://reference.langchain.com/python/langchain/agents/middleware/summarization/SummarizationMiddleware) | Summarizes older messages at a threshold, retaining recent messages and AI/Tool pairs | Conversation management is useful; financial provenance, frozen grants, durable effects and cold recovery still belong to the application |
+| [Anthropic Context Editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) | Clears stale tool-result content from active context | Clearing does not create our original source and effect receipts |
+| **ETF Agent Main compaction** | Externalize first, summarize only under pressure, keep original-Run ownership | Requires more implementation and identity checks, but a lossy note never becomes execution truth |
 
-Optional PreCompact and PostCompact hooks may observe the process. They do not gain permission to rewrite original effects or force acceptance of a summary.
+The point is **not that custom summaries are smarter**. It is that the summary cannot replace an execution ledger or source database. A casual conversation can tolerate looser paraphrase; research with dates, money and potentially repeated effects cannot.
 
-A summary request also needs one easily missed constraint: **its output budget must follow the original Main request and the actual model route's limits**. A seemingly reasonable hardcoded 900-token cap can truncate a valid summary with `finishReason=length`. Conversely, treating a route's declared ceiling as actual consumed tokens distorts cost reporting. An unfinished summary is not adopted; the original history continues instead. This is a legitimate fallback, not a reason to accept half a summary.
+## 6. A Runnable Public Teaching Slice
 
-## 6. The Identity of the Checkpoint Matters More Than the Summary Text
+The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) provides a pinned synthetic exercise: create a derived working note under byte pressure, include it in a subsequent request, then reread original source material by \`resultRef\`. It demonstrates **actual note adoption with unchanged source identity**, not the private Main Recovery implementation in its entirety.
 
-Suppose a summary is in context and the server crashes. On recovery, having only that string—without knowing which turns it replaced, from what revision or whether the summary request already incurred a cost—could lead to duplicate summarization, repeated tools or an incorrectly positioned summary.
-
-So the existing Recovery checkpoint stores an immutable compaction record binding:
-
-- Original Run and scope; predecessor revision; current correction revision; selected model route.
-- Complete compacted turns and source hashes.
-- Tool result references and selections derived from genuine receipts.
-- Summary request identity, model/prompt version and summary text.
-
-The summary segment describes **how successor turns project earlier history**. It is not a new execution cursor, source registry or financial fact database. Cold recovery replays these records, and original tool results remain readable under their old identities. No additional tool or network call is needed merely to reconstruct context.
-
-A classic counterexample is a checkpoint that committed before the process lost the ACK. Recovery cannot infer “not committed” from absence of a local success response and send a new summary request. It must read the durable receipt and retain the previous attempt's settlement state. If the effect is genuinely unknown, it stays unknown rather than becoming an invented safe retry.
-
-Disabling *new* compaction in the future does not invalidate summaries legitimately committed earlier. Feature enablement and durable past effects are different facts.
-
-## 7. What Did Real Evidence—and Missing Evidence—Show?
-
-As of October 21, 2026, three evidence levels existed.
-
-**Offline implementation checks:** controlled Factory construction, request assembly and isolated PostgreSQL tested full tool-unit preservation, net-benefit assessment, checkpoint commit, cold recovery, user corrections, unknown effects and re-reading old results. Some tests intentionally used lower synthetic thresholds to trigger pressure; these cannot be presented as ordinary provider model windows.
-
-**Default wiring and guard checks:** Main's pressure-triggered compaction policy is enabled by default in the then-current Runtime. It should not send extra summary requests below the threshold, when explicitly disabled, when source evidence is inadequate, or when finalization reserves already need protection. “Enabled by default” does not imply “every deep research run compacts.”
-
-**A real research trigger:** a follow-up review of an October 20 PUBLIC01 deep research run found **at least one naturally triggered summary request completed and a compaction checkpoint segment committed**. This was not merely planned and did not use only a fake model. Yet the overall research finished **partial**, with finalization capacity exhausted. Compaction happening successfully did not complete the research task.
-
-The October records established a committed summary, but did not yet show its inclusion in a subsequent Main request.
-
-A different real-model comparison of two ETFs on November 5, 2026 offered a more concrete counterexample. One admitted summary request was sent under an old **900 output-token** cap, and the provider returned `finishReason=length`; no normally adoptable summary resulted and the original history was retained. After aligning the summary limit with the ordinary Main route, **a separate real Run** committed one compaction: the summary actually used 567 output tokens, the complete fitted request shrank from **264,062 to 182,786 bytes**, and later Main requests did carry that summary. At least in this Run, compaction entered subsequent model input rather than existing only as checkpoint text.
-
-These are different runs, not a controlled counterfactual. In particular, 567 is below the old limit of 900, so the evidence cannot establish that the old cap would necessarily have truncated the very same summary, nor that compaction caused either run's latency or financial-answer differences. The successful run establishes **commitment and observed subsequent request inclusion**, not semantic faithfulness or improved investment analysis. For diagnosis, record bounded `admitted`, `failed`, `skipped` and `committed` stages with their request identities; absence of a commit in an incomplete observation stream does not show that an entire Run never compacted.
-
-This design follows [principle 5, “Context is a workbench, not a fact database”](/en/principles#principle-5): a compacted summary is a lossy work hint, not an authoritative receipt, number or source. [Method 3, “Passing evidence through a research system”](/en/principles#method-3) separates original records, model-visible projections and the actual request so compression cannot silently promote a summary into fact.
-
-## 8. Was the Complexity Worth It?
-
-Protected originals do not magically disappear. Exact user text, tool receipts, citation catalogs and the new summary itself all occupy capacity. If little safely compactable old work remains, the system must still follow its normal bounded continuation, partial delivery or failure rules—not recursively summarize until everything appears to fit.
-
-Summaries also cost real model requests and time. Identity binding and durable checkpoints are more complex than replacing a list of messages.
-
-The payoff is not “context can never overflow.” It is three verifiable rules:
-
-**Compact only older work that can safely retire; accept only candidates that demonstrably save space; never allow a summary to rewrite original facts.**
-
-For long-running agents, context management resembles a lossy caching policy—not a new memory authority. Its real effectiveness must be judged by actual model input, recoverability and whether semantic omissions degrade final research.
-
-<!-- open-etf-agent:minimal-experiment:start -->
-## Observe Note Adoption and Original-Source Rereading in the Public Code
-
-[Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) now exposes one runnable slice: acquire synthetic material, derive a working note under explicit byte pressure, include it in the next request, then read both the note and an original page. It reproduces the boundary that **compaction must not replace originals**, not the full Main Recovery checkpoint described above.
-
-[`compaction.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/compaction.mjs) starts from the existing reversible context projection, then selects older, complete, successfully settled tool-call groups while preserving the latest group and user question. A candidate note, including its original references, must be smaller than that actual baseline—not an inflated raw-text history that would already have been externalized. If summarization fails, yields no net savings, or the basis changes while the summary is generated or saved, the candidate is not adopted. A written file alone does not prove inclusion in the next request.
-
-With Node.js 26.11.1–26.x, run the fixed snapshot in a new directory:
-
-```bash
+~~~bash
 git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-compaction-demo
 cd open-etf-agent-compaction-demo
 git checkout --detach 05c0dd2dc550f4f7e5da034340ff5c3159768fcf
 npm ci --ignore-scripts --no-audit --no-fund
 npm run demo -- --case compact-and-reread
-```
+~~~
 
-Initial installation may access npm; this case makes no remote model calls after installation. [`working-demo.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-demo.mjs) explicitly sets a low synthetic byte threshold and uses a fixed script to produce the summary. That threshold is not a provider token window. Runtime performs the actual basis checks, net-byte comparison, note persistence and subsequent request assembly.
+Inspect \`run.jsonl\`, \`report.md\` and \`manifest.json\` in the generated run directory. The note retains a \`derived-summary\` identity and projected note displays are marked \`projectionOnly\`; they are not counterfeit tool execution. Separate fixed public revisions include a [process-recovery test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) and [effect-receipt preservation tests](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs). They must not be backdated onto the original teaching snapshot.
 
-The case checks more than the existence of a summary file. The next Gateway invocation must find a `derived-working-note` in its actual input before issuing `read_note`. It then calls `read_result` with the previously acquired `resultRef`, checks the original page identity and saves a report citing original sources. The terminal JSON returns the run's `directory` and report `receipt`. Pass that directory to `node src/cli.mjs --observe` to inspect the `working_note` event's `applied` status, adopted `noteRef` and before/after byte counts alongside subsequent real reads and the file-save event.
-
-[`working-note.mjs`](https://github.com/hpoenixf/open-etf-agent/blob/05c0dd2dc550f4f7e5da034340ff5c3159768fcf/src/working-note.mjs) retains `origin: derived-summary` and `semanticStatus: unreviewed`. Its references point back to original records; the note does not acquire original-source identity. The call/result pair used to display the note in context is also marked `projectionOnly` and `dispatched: false`, so a constructed working view is not mistaken for a real tool execution.
-
-Readers can therefore reproduce an engineering path in which **a note is actually adopted, originals remain readable under their original identities, and a report is actually saved**. This public slice lacks the cold-recovery capability discussed earlier, and does not establish that a real model interprets the summary correctly. The [first real-model batch](https://github.com/hpoenixf/open-etf-agent/blob/d075068ac99a6c798d012c46bff4fe0c33eb9979/docs/verification/live-v01-v05-first-batch.md) did not trigger compaction and cannot validate that mechanism. The scripted observation here tests input handoffs and real effects; summary semantics require separate evaluation.
-<!-- open-etf-agent:minimal-experiment:end -->
-
-<!-- open-etf-case:compaction@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
-### Inspect what remains readable after note adoption
-
-The [CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) retains the same narrow comparison: adopt a derived note, then reread both the note and an original page.
-
-After installing dependencies according to the README at the linked fixed snapshot, run:
-
-```bash
-node src/cli.mjs --case compact-and-reread --output runs/article-compaction
-```
-
-Use the returned `directory` to inspect note adoption, `read_note`, and `read_result` in `run.jsonl`, alongside `report.md` and `manifest.json`. The report cites original pages; the derived note does not inherit their source authority.
-
-A synthetic script creates the note. This checks adoption and readback, not real-summary semantic accuracy or retention of every historical byte in context.
-<!-- /open-etf-case -->
-
-
-### Does the Same Working Note Survive a Process Restart?
-
-The v0.5 example above checks note adoption and original-source readback; later capabilities must not be attributed to that snapshot. A separate [fixed v0.10 process test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) terminates the first executor after a note has entered the working input. Another process continues **the same Run**. The assertions check that the resumed process's first model-input hash matches the previously sealed working input and still refers to the same note rather than reconstructing a new summary from prose.
-
-Install the fixed version in a **fresh directory**, not by switching the v0.5 demo directory in place:
-
-```bash
-git clone https://github.com/hpoenixf/open-etf-agent.git open-etf-agent-note-recovery
-cd open-etf-agent-note-recovery
-git checkout --detach ff5b9273ef0d239e804f61792702cd2e94174be7
-npm ci --ignore-scripts --no-audit --no-fund
-node --test --test-concurrency=1 --test-name-pattern='adopted note survives process termination' test/durable-runtime.test.mjs
-```
-
-This combines scripted synthetic behavior with real process termination and checkpoint recovery. It **verifies consumption of the adopted input identity after recovery**, not real-model understanding of the summary, recovery after arbitrary interruptions, or success in a full financial research task.
-
-### Why a saved report must not become merely a sentence in a summary
-
-The fixed example above preserves v0.5's selection rules. In public **v0.15.1**, “this call group succeeded” is no longer sufficient. Reading a page and saving a report can both succeed, but the latter also leaves an effect receipt. Compressing that receipt into “report saved” removes the original basis for deciding whether another save is necessary.
-
-The repaired [Compaction](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/src/compaction.mjs) selects only older, complete, successful read-only groups verified by the original Host. Read-only eligibility comes from a trusted binding, not a model claim or a marker in the result. `save_report`, mixed-effect groups and unknown-effect groups remain exact. An extension's `historyCompaction: 'read-only@1'` declaration affects history selection only; it grants no execution or source access, and undeclared bindings are retained by default.
-
-That protection has a real capacity cost: mandatory receipts may still not fit. Runtime reports `CONTEXT_CAPACITY_EXCEEDED` rather than replaying a save, enlarging the window or inventing success. A notes-enabled Host binds the selection policy's identity into its checkpoint; incompatible older compaction checkpoints are rejected, not automatically migrated. See the [receipt-preservation regression](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs), [version explanation](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/docs/verification/v0151-runtime-repair.md), and [current main](https://github.com/hpoenixf/open-etf-agent). This protects execution facts, not summary quality, and does not change the qualification of the historical examples above.
-
-
-### Why summarize the same evidence repeatedly?
-
-Real summary calls expose another possible loop: a report has been saved, but Main has not yet produced its final answer. The next turn sees the same history and spends another request summarizing it. An original v0.19 composition task encountered this failure. When a later summary hit a local role limit, the original Admission reservation already existed. The system retained unknown occupancy rather than treating an ordinary exception as proof that nothing was sent. The repair belongs before repeated work is created, not in clearing that occupancy or raising the external call limit.
-
-The implementation records the summarized range as `compaction-frontier@1`, pointing to an immutable derived note and the original message prefix. Reuse checks the content address, complete covered call groups, source identity, and current Memory dependencies. The same evidence need not purchase another summary request. New calls, effectful groups, and the latest group stay original; the summary acquires neither authority nor the status of a report receipt. Changed dependencies invalidate the old projection as a representation of current facts.
-
-A second guard binds the summary-attempt cap to the Run. `gateway-history-compaction@2` records each attempt together with its original root-budget reservation. At the cap, it selects a valid existing projection or the original bounded-context fallback before reserving another summary. Unknown, cancelled, and failed work does not refund occupied capacity or let Main bypass its budget. Reusing a note reduces repeated compression; Main still has to finish the answer.
-
-Recovery must not silently migrate the protocol either. An old read-only Reader explicitly refuses the new compaction definition; the new Reader can read the original bytes under the new contract. Keep the matching source and recovery material for older Runs. Read the [fixed implementation and composition contract](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.md) alongside the [frontier regression cases](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/test/managed-compaction-frontier.test.mjs). Those cases combine a synthetic gateway with real durable state to check reuse, no terminal replay, and tampering rejection; they are not another real-model quality evaluation. The [release record](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/verification/v019-release.md) also retains the earlier failure, distinct execution sources, and the fact that the historical full offline suite was not entirely green. This establishes clearer summary identity and budget boundaries, not lossless summarization.
-
----
-
-### Observing a Summary Needs Its Own Bounded Window
-
-The local research project exposed another concrete problem: a summary request had been dispatched, but a short local observation window ended first. Extending that window changes how long the application waits; it cannot rewrite a timeout as “not executed.” For new projects and explicit configuration updates, v0.20 persists a default 60-second summary observation window, configurable up to 120 seconds, still bounded by the original Run deadline, cancellation, and call allowances. Existing projects and tasks retain their stored configuration; historical projects without the field retain the original application default rather than silently changing on upgrade.
-
-The original unknown summary remains in its original record. A separate new task completing after its observation window was explicitly increased from 10 to 30 seconds is a separate repair observation, not successful replay of the old task or proof that the final default suits every provider. That live task was not rerun with the final 60-second default. The window determines how long to observe locally. Whether an already dispatched request ended remotely requires separate evidence; stopping the wait does not establish cancellation. See the [fixed Run-control boundaries](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/run-control.md).
-
-## What Still Needs Observation
-
-This change was manually archived under an explicit October 21 exception, not through a passing standard `spec:close`.
-
-Controlled paths established model-input inclusion and recovery. The October live research showed checkpoint commitment, while a separate November live Run showed a summary included in later Main input. These are different evidence scopes, not one end-to-end causal comparison. What still needs verification is **whether repeated compaction preserves critical numbers, citations and user corrections, and whether it affects task quality or total cost**. A softer target does not resolve those semantic questions.
-
-More recent Access/Memory/Factory ownership changes do not turn summaries into Memory records or historical numeric authority. Exact calculations and evidence still require the original source/result read path; subsequent model consumption and complete task delivery are separate facts.
+**The portable design judgment:** first identify which old material can be reread exactly; only summarize what remains useful as a working hint. If a lossy note becomes your only source of facts, reducing context size may simply manufacture a second, less trustworthy history.
 
 ## Further Reading and Discussion
 
