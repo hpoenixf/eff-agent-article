@@ -55,6 +55,8 @@ In one real Run that ended `partial` after interruption, 77 Host lifecycle recor
 <span id="_4-longer-research-demands-more-than-call-logging"></span>
 <span id="_5-missing-data-is-an-observation-fact-not-empty-space"></span>
 
+<span id="_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"></span>
+
 ## 3. Surprise Three: More Captured Events Can Push Important Requests Out
 
 <span id="complete-query-results-do-not-prove-complete-capture"></span>
@@ -101,6 +103,8 @@ Successfully exporting a new synthetic probe is a different check: it establishe
 Unlimited retention of prompts, portfolio data and tool payloads would not be a defensible fix.
 
 <span id="_9-when-is-a-trace-trustworthy-enough-to-diagnose"></span>
+
+<span id="_7-return-to-the-report-which-gap-should-we-address-first"></span>
 
 ## 7. What to Do When the Next Answer Is Wrong
 
