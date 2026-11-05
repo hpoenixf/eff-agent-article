@@ -88,6 +88,17 @@ npm run demo -- --case compact-and-reread
 
 Inspect `run.jsonl`, `report.md` and `manifest.json` in the generated run directory. The note retains a `derived-summary` identity and projected note displays are marked `projectionOnly`; they are not counterfeit tool execution. Separate fixed public revisions include a [process-recovery test](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs) and [effect-receipt preservation tests](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs). They must not be backdated onto the original teaching snapshot.
 
+
+<!-- open-etf-case:compaction@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
+For a reproducible fixed-CLI check, use the [original case entry](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) and inspect the resulting source reread and report files:
+
+~~~bash
+node src/cli.mjs --case compact-and-reread --output runs/article-compaction
+~~~
+
+The selected CLI is from another pinned public snapshot; do not imply that the preceding demonstration and this case share one implementation version.
+<!-- /open-etf-case -->
+
 **The portable design judgment:** first identify which old material can be reread exactly; only summarize what remains useful as a working hint. If a lossy note becomes your only source of facts, reducing context size may simply manufacture a second, less trustworthy history.
 
 ## Further Reading and Discussion
