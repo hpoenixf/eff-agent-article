@@ -19,6 +19,8 @@ An agent answers that a fund charges a certain fee and includes a real URL. The 
 
 ![Citation architecture: from material to inspectable claims](../../visuals/en/panorama-citations/cover.svg)
 
+<div><a id="_1-why-a-url-is-not-enough-to-explain-a-citation"></a></div>
+
 ## 1. Surprise One: A Correct URL Can Still Be the Wrong Citation
 
 Consider a synthetic software-documentation example: the same URL says an interface remains available in version 2.3, then says it was removed in version 2.4. A model claiming “2.4 still supports it” might cite the perfectly correct address. That address does not establish **which version was read, which passage was submitted, or whether the passage supports the claim**.
@@ -26,6 +28,8 @@ Consider a synthetic software-documentation example: the same URL says an interf
 ![Source identity, correspondence, support and relevance are separate](../../visuals/en/panorama-citations/four-questions.svg)
 
 We therefore separate four questions: **source identity**, **citation-to-source correspondence**, **support for the actual claim**, and **relevance to the user's task**. Deterministic software can do much of the first two. The latter two still require domain rules, reproducible calculations or a bounded independent reviewer.
+
+<div><a id="_2-do-not-build-a-manager-that-declares-everything-trusted"></a><a id="_3-why-sourceref-resultref-and-citationref-are-different"></a></div>
 
 ## 2. Do Not Give a Universal Citation Manager the Power to Declare an Answer Trustworthy
 
@@ -46,6 +50,8 @@ Three identities serve different purposes:
 ![From navigation to eligible evidence · 1/2](../../visuals/en/panorama-citations/identity-1.svg)
 ![From navigation to eligible evidence · 2/2](../../visuals/en/panorama-citations/identity-2.svg)
 
+<div><a id="_4-from-model-guessed-evidence-ids-to-host-issued-citations—and-a-later-correction"></a></div>
+
 ## 3. Surprise Two: A Search Result Existed, but the Model Never Saw It
 
 An early design asked the model to provide internal `evidenceIds` when publishing. It could guess a search hit number or a partial-read ID, but could not establish that either was eligible for the particular answer. We moved to Host-issued `citationRef` handles while making an important distinction: **a permitted search excerpt may be cited as an excerpt; it may not impersonate a full-page read**.
@@ -60,6 +66,8 @@ The current rule activates an excerpt-scoped reference only when **the exact com
 
 This does not require fetching a full page for every answer. When the excerpt can support a narrowly qualified statement, retain its `search-excerpt` representation. When a number, rule or date requires more detail, read the page through the existing authorized path. **The action's name and URL do not define evidence granularity; the representation actually submitted does.**
 
+<div><a id="_6-bind-citations-to-the-final-revision-not-to-a-mutable-web-page"></a></div>
+
 ## 4. Surprise Three: The Source Was Persisted but the Historical Citation Would Not Open
 
 Publication history, citation attachments and the live tool panel have different lifecycles. We encountered a citation displaying only “Structured source” because financial JSON was carried in an MCP text block while the display projection lost provider and instrument metadata. In another case, PostgreSQL's JSONB key reordering changed a serialization hash, causing the original read-item identity to fail validation after reopening.
@@ -70,6 +78,8 @@ Adding another UI hyperlink would not solve either failure. The stable path must
 ![Publication revision must not rewrite source identity · 2/2](../../visuals/en/panorama-citations/revision-2.svg)
 
 The resulting detail view uses the original Publication revision and original Source/Result version. A page's current content never silently replaces an unavailable historical excerpt. Opening a citation does not require rerunning the model or recreating the original tool call.
+
+<div><a id="_5-why-a-bad-citation-should-not-make-the-entire-answer-disappear"></a></div>
 
 ## 5. Why One Bad Citation Must Not Swallow an Independently Authorized Answer
 
@@ -84,6 +94,8 @@ We removed that external “repair every citation before publishing” veto and 
 
 This is stricter, not more permissive: optional display faults cannot veto unrelated text, while real permission failures remain binding.
 
+<div><a id="_7-why-we-removed-runtime-s-trustworthy-answer-grade"></a><a id="_8-an-independent-reviewer-checks-two-things-but-does-not-own-publication"></a></div>
+
 ## 6. The Industry Baseline and Why We Chose a Host-Bound Contract
 
 [LlamaIndex's CitationQueryEngine](https://developers.llamaindex.ai/python/framework-api-reference/query_engine/citation/) constructs citation-bearing source nodes and lets developers control citation chunk granularity, which is useful for ordinary RAG question answering. Common retrieval pipelines also return source nodes or document URLs as references. They help users **locate relevant material**.
@@ -95,10 +107,14 @@ We therefore place deterministically checkable citation eligibility at the Host'
 ![Reviewers check claims; they do not replace original facts · 1/2](../../visuals/en/panorama-citations/review-1.svg)
 ![Reviewers check claims; they do not replace original facts · 2/2](../../visuals/en/panorama-citations/review-2.svg)
 
+<div><a id="_9-how-to-verify-the-architecture-without-trusting-a-diagram"></a><a id="_10-conclusion-what-a-citation-system-should—and-should-not—prove"></a></div>
+
 ## 7. Where to Look Next Time a Citation Feels Wrong
 
 First identify **the exact original source version and read result**. Then check whether the selected passage and reference identity were both included in the later model request. Next find the committed answer revision. Only then ask whether the cited material actually supports the assertion. A failure at any one step should be attributed to that source, attachment or argument; it should not create authority in another layer.
 
 **A good citation system enables precise investigation and lets valid work continue. It does not stamp every answer “trustworthy.”**
+
+<div><a id="further-reading"></a></div>
 
 Related reading: [Financial Agent Trustworthy Evidence Chain (Chinese original)](/articles/financial-agent-trustworthy-evidence-chain) covers financial dates, arithmetic and cross-agent evidence lineage; [Agent Evaluation](honest-agent-evaluation.md) discusses how to judge source support. More essays are available in [ETF Agent Engineering Notes](https://github.com/hpoenixf/eff-agent-article).

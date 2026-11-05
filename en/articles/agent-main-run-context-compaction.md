@@ -17,11 +17,15 @@ readingBrief:
 A research agent has inspected dozens of fund documents and still has work to do. The obvious fix is to ask the model to summarize earlier turns. But the real risk is not a verbose summary. It is **a fluent sentence turning an intended action into a completed tool call, or last quarter's figures into current facts**.
 
 Two further surprises shaped the final design. Conservative capacity preflight can reject every potentially helpful summary. And a committed checkpoint containing a summary does not mean the next model request actually contained it. We did not solve this by introducing a smarter summarizer. We made the summary a **non-authoritative working note** while leaving sources, grants, effects and recovery with their original owners.
+<div><a id="_1-three-ways-to-reduce-context-cost-are-not-the-same"></a></div>
+
 ## 1. Not Every Context Problem Calls for Summarization
 
 We reduce pressure in an intentional order: **externalize repeated tool results → apply reversible fitting and exact rereads → only then summarize older work**. A PDF or fund-holdings table with a stable source identity and permitted selector should not be reinserted into every model turn. Recent tool calls and their corresponding results must stay together.
 
 [Anthropic's context-engineering guidance](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) treats context as scarce working space. Its [tool-result clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing) is well suited to workflows that no longer need to see earlier tool output. Our financial research adds a constraint: **removing current model-visible text must not remove auditable source identity, authorization or numeric provenance**.
+
+<div><a id="_2-establish-real-capacity-pressure-before-compacting"></a></div>
 
 ## 2. The Surprise: Being Too Conservative Can Make Compaction Impossible
 
@@ -31,6 +35,8 @@ The old preflight imagined a maximum-length, maximally escaped summary and rejec
 
 The final mechanism separates two questions. **Before spending**, reject only when even the smallest valid nonempty summary cannot meet minimum savings or real hard capacity. **After generating**, fit the actual summary into the *complete next Main request*—including tool schemas, source catalog, recent working set and exact user corrections—and check real net savings, the hard limit and original identities. The soft target expresses desired headroom, not a hard adoption gate. We retain strict hard limits while permitting **safe incremental reductions**.
 
+<div><a id="_3-compact-only-settled-older-work-not-the-whole-conversation"></a><a id="_4-a-summary-may-describe-work-but-cannot-inherit-execution-authority"></a><a id="why-summarize-the-same-evidence-repeatedly"></a></div>
+
 ## 3. The Greater Risk: A Working Note Impersonates an Execution Receipt
 
 Consider a teaching scenario. The agent requested two funds' quarterly disclosures; a tool returned only part of a document. The user then clarified: “Do not substitute old NAV for today's price.” A free-form summary could falsely say “the latest disclosures were checked,” causing the later model to stop reading missing evidence.
@@ -38,6 +44,8 @@ Consider a teaching scenario. The agent requested two funds' quarterly disclosur
 We summarize only **older, complete, settled model/tool groups with durable identities inside the same Run**. Unsettled effects, unknown outcomes, recent work, user originals and corrections are retained. Previously adopted notes are not recursively fed back as new evidence, avoiding compound paraphrase errors.
 
 Current needs, committed answers, source references, balances and exact numerical results are still projected from their original owners. A source ID mentioned in a summary is not a grant. **A higher compression ratio that erases whether a tool actually ran is not an improvement**.
+
+<div><a id="_5-how-a-main-compaction-actually-runs"></a><a id="_6-the-identity-of-the-checkpoint-matters-more-than-the-summary-text"></a><a id="_7-what-did-real-evidence—and-missing-evidence—show"></a><a id="observing-a-summary-needs-its-own-bounded-window"></a><a id="what-still-needs-observation"></a></div>
 
 ## 4. The Final Execution Path: Three Different Questions
 
@@ -64,6 +72,8 @@ Summarization remains a metered model request under the original Gateway, deadli
 
 A different real Run reduced its complete fitted request from **264,062 to 182,786 bytes** and later dispatched the adopted summary. These are distinct research runs, not a matched A/B result about quality or cost. What matters is the actual request sent to the model—not merely whether a summary file was written.
 
+<div><a id="_8-was-the-complexity-worth-it"></a></div>
+
 ## 5. What Other Frameworks Do, and Why We Kept Our Own Ownership Rules
 
 | Approach | Best fit | Why we chose an additional application contract |
@@ -73,6 +83,8 @@ A different real Run reduced its complete fitted request from **264,062 to 182,7
 | **ETF Agent Main compaction** | Externalize first, summarize only under pressure, keep original-Run ownership | Requires more implementation and identity checks, but a lossy note never becomes execution truth |
 
 The point is **not that custom summaries are smarter**. It is that the summary cannot replace an execution ledger or source database. A casual conversation can tolerate looser paraphrase; research with dates, money and potentially repeated effects cannot.
+
+<div><a id="observe-note-adoption-and-original-source-rereading-in-the-public-code"></a><a id="inspect-what-remains-readable-after-note-adoption"></a><a id="does-the-same-working-note-survive-a-process-restart"></a><a id="why-a-saved-report-must-not-become-merely-a-sentence-in-a-summary"></a></div>
 
 ## 6. A Runnable Public Teaching Slice
 

@@ -31,6 +31,8 @@ The surprising lesson is that more telemetry is not always closer to truth. The 
 <span id="_1-give-each-observability-signal-a-specific-job"></span>
 <span id="_2-follow-the-handoffs-behind-an-answer"></span>
 
+<div><a id="_1-find-the-four-handoffs-before-deciding-what-to-fix"></a><a id="_2-correlate-the-same-action-without-replacing-execution-records-with-diagnostic-copies"></a></div>
+
 ## 1. Surprise One: The Missing Trace Event May Describe an Action That Already Happened
 
 One research request spans several different transitions: source retrieval, tool result, actual model input, candidate answer, Publication commitment and eventual delivery. A successful model call says little about which of these transitions was correct.
@@ -57,6 +59,8 @@ In one real Run that ended `partial` after interruption, 77 Host lifecycle recor
 
 <span id="_3-records-may-be-incomplete-gaps-must-not-masquerade-as-conclusions"></span>
 
+<div><a id="_4-the-telemetry-pipeline-can-fail-too-verify-that-a-record-reaches-the-query-interface"></a></div>
+
 ## 3. Surprise Three: More Captured Events Can Push Important Requests Out
 
 <span id="complete-query-results-do-not-prove-complete-capture"></span>
@@ -65,6 +69,8 @@ Long research generates a flood of streamed provider fragments, paged reads and 
 We keep bounded space for higher-value request and usage observations, report source overflow separately from query-side omission, and never interpret “no request event was returned” as “no model request occurred.” Capturing full prompts and tool payloads by default is not a solution: the research may contain private portfolios and lengthy licensed documents, and retention itself creates security and storage costs.
 
 ![Diagnose missing traces against original business facts](../../visuals/en/panorama-observability/empty-trace-diagnosis.svg)
+
+<div><a id="_5-seeing-one-request-three-times-does-not-mean-paying-three-times"></a></div>
 
 ## 4. Why One Paid Request Can Appear in Three Different Views
 
@@ -75,6 +81,8 @@ The SDK, a Run summary and a Langfuse Generation can all describe the same physi
 We associate usage and cost with the **original physical attempt identity** and provider usage response, not with the count of UI rows. Conflicting amounts for the same attempt remain a conflict or unknown rather than being overwritten by the latest value. Known provider-cost subtotals are useful; they are not a complete invoice. The same discipline applies to time: the server's observation of a new save is not the user's browser first paint.
 
 <span id="_3-reuse-a-mature-platform-but-define-what-it-does-not-own"></span>
+
+<div><a id="more-than-langfuse-which-technologies-make-up-this-pipeline"></a></div>
 
 ## 5. Why We Use OpenTelemetry and Langfuse Without Making Them the Source of Truth
 
@@ -93,6 +101,8 @@ The trade-off is **reusing mature telemetry infrastructure while not allowing te
 <span id="_8-the-telemetry-pipeline-can-break-so-give-it-minimal-self-diagnostics"></span>
 <span id="_6-an-auxiliary-ui-became-a-data-system-that-needed-governance"></span>
 <span id="_7-a-backup-is-not-useful-until-history-can-be-read-back"></span>
+
+<div><a id="_6-if-diagnosis-depends-on-history-require-restored-records-to-be-queryable"></a></div>
 
 ## 6. The Operational Surprise: A Backup May Exist While Historical Research Is Unreadable
 
