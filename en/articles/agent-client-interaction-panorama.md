@@ -273,4 +273,4 @@ Return to the original scenario. The user delegates a comparison, asks about a t
 
 [6] ETF Agent, [Research Is Still Running, but the User Has Left: Delivering Real Results on Time](https://hpoenixf.com/eff-agent-article/en/articles/agent-asynchronous-research-time-bound-delivery).
 
-For implementation boundaries, see the companion article, [An Agent Client Is More Than an SSE Renderer: Presenting a Research Task Correctly](./agent-client-interaction-and-reading.md). Sources consulted on November 2, 2026.
+For implementation boundaries, see the companion article, [An Agent Client Is More Than an SSE Renderer: Presenting Research Progress Truthfully](./agent-client-interaction-and-reading.md). Sources consulted on November 2, 2026.
