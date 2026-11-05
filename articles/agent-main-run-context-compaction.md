@@ -88,6 +88,17 @@ npm run demo -- --case compact-and-reread
 
 检查生成目录中的 `run.jsonl`、`report.md`、`manifest.json`。便笺为 `derived-summary`，展示性的上下文调用对带有 `projectionOnly`，不会假装工具真的再次执行。较晚的独立固定快照还有[跨进程便笺恢复](https://github.com/hpoenixf/open-etf-agent/blob/ff5b9273ef0d239e804f61792702cd2e94174be7/test/durable-runtime.test.mjs)与[已提交效果回执保留](https://github.com/hpoenixf/open-etf-agent/blob/8ba24a15cb1ce6ad3a0ebd48141be0549bfda35a/test/compaction-receipts.test.mjs)用例；不同版本的能力不要混写为一次验收。
 
+
+<!-- open-etf-case:compaction@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
+如果要按固定 CLI 契约复核同一条选区与原文回读路径，请使用[对应版本的入口](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs)，在该版本安装后执行：
+
+```bash
+node src/cli.mjs --case compact-and-reread --output runs/article-compaction
+```
+
+它和上面的公开示例属于不同固定快照，不应把各版本的能力混成一次执行结果。
+<!-- /open-etf-case -->
+
 **下次设计类似机制时，先问哪段历史能被精确回读，再问哪段旧工作适合被有损总结。只有读不到原始事实时，摘要才会从“节省上下文”变成“制造另一套事实”。**
 
 ## 延伸阅读与交流
