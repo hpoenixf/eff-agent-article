@@ -335,6 +335,8 @@ ETF Agent 的 Evaluation Evidence Loop 把结果拆成独立轴。其中执行�
 
 ## 延伸阅读与实现来源
 
+选择验证方式和定位失败归属，可以结合[验证选择与故障诊断方法](/principles#method-5)阅读。
+
 本文为工程全景，不是公开可复制的完整产品部署指南。ETF Agent 内部研发仓库中的全部实现、运行权限与未脱敏结果并未因此开放。读者可以从现有的[可观测全景](025-agent-langfuse-from-trace-to-trustworthy-observability.md)、[引用系统](ai-citations-do-not-prove-reliability.md)、[多专家贡献](agent-subagent-contribution-evidence.md)和[成本归因](agent-report-cost-attribution.md)继续深入；即使不点击这些链接，本文所需的完整主链已经在前面解释。
 
 通用评测方案的官方资料可参考 [Langfuse Evaluation Concepts](https://langfuse.com/docs/evaluation/core-concepts)、[Ragas Metrics](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/)、[DeepEval Docs](https://deepeval.com/docs/faq) 和 [Anthropic：Demystifying Evals for AI Agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents)。这些平台提供通用的实验、观测与评分能力；文中涉及 ETF Agent 的版本、真实案例和局限均来自本项目的具体工程记录，不应解释成第三方平台的缺陷或官方认证。

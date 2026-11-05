@@ -333,6 +333,8 @@ We now find it more useful to think of Agent evaluation as a system for turning 
 
 ## Further Reading and Sources
 
+For choosing an appropriate verification method and locating the owner of a failure, see [choosing verification and diagnosing failure](/en/principles#method-5).
+
 This is an engineering panorama, not a public deployment guide to the complete internal research product. The full internal source, credentials, and unredacted run records are not implied to be public. For deeper explanations, see [observability](025-agent-langfuse-from-trace-to-trustworthy-observability.md), [citation evidence](ai-citations-do-not-prove-reliability.md), [subagent contribution](agent-subagent-contribution-evidence.md), and [cost attribution](agent-report-cost-attribution.md). The core mechanism is explained here without requiring those follow-up articles.
 
 Useful primary references for general-purpose evaluation are [Langfuse Evaluation Concepts](https://langfuse.com/docs/evaluation/core-concepts), [Ragas Metrics](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/), [DeepEval documentation](https://deepeval.com/docs/faq), and [Anthropic's guide to evaluating agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents). Their general tools and guidance should not be misrepresented as verification of the ETF Agent-specific observations described above.
