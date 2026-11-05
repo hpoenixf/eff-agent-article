@@ -68,7 +68,8 @@ const captions = {
  '0.18': ['Wake one confirmed occurrence','唤醒一次已确认的时间机会','Schedule · explicit wake · same Run'],
  '0.19': ['Compose existing contracts','组合既有契约','Original owners · explicit inputs · bounded summary'],
  '0.20': ['Run your own research project','运行自己的研究项目','Local sources · same-Run recovery · layered evidence'],
- '0.21': ['Return answers to the same task','让回答回到原任务','Sequential questions · durable receipt · explicit adoption']
+ '0.21': ['Return answers to the same task','让回答回到原任务','Sequential questions · durable receipt · explicit adoption'],
+ '0.22': ['Delegate bounded read-only work','有界委派只读研究','Serial Child · scoped sources · original Main']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

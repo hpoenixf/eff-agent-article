@@ -152,3 +152,20 @@ test('v0.21 interaction has editorial captions without inventing a verified slic
   assert.equal(slices.some(slice=>slice.since==='0.21'),false)
  }
 })
+
+
+test('v0.22 Child entry keeps execution lineage and historical article evidence distinct',()=>{
+ const childVersion=versions.find(v=>v.version==='0.22')
+ assert.equal(childVersion.commit,'fed2c5f886200d4c04281c6293d5eb1ee7c2eab9')
+ assert.equal(childVersion.tree,'b42e1b0dfa2d1c8a21248e654255d91524f11ba2')
+ assert.equal(childVersion.title,'Delegate bounded read-only work')
+ assert.equal(childVersion.zh,'有界委派只读研究')
+ assert.equal(childVersion.module,'Serial Child · scoped sources · original Main')
+ for(const language of ['zh','en']) {
+  const rows=topicGroups(language).flatMap(g=>g.articles)
+  const child=rows.find(row=>row.slug==='agent-subagent-context-specialization')
+  assert.equal(child.since,'0.3')
+  assert.equal(child.evidence,'https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs')
+  assert.equal(rows.flatMap(row=>[row,...row.additionalTargets]).some(slice=>slice.since==='0.22'),false)
+ }
+})
