@@ -1,6 +1,6 @@
 ---
 title: "From Tool Invocation to Model Input: A Traceable Agent Execution Chain"
-description: "Lifecycle hooks, authorized projections, result-to-request provenance, failure phases and bounded model-input capture."
+description: "Why does an answer omit data after a successful tool call? Follow one read into later model requests, connecting receipts, projections and passive storage while comparing call tracing with result-consumption provenance."
 readingBrief:
   takeaways:
     - "Tool execution, result projection, and actual model submission are separate events; connect their identities and versions before diagnosing unused data."
@@ -14,15 +14,20 @@ readingBrief:
 
 # From Tool Invocation to Model Input: Connecting an Agent's Observability Chain
 
-The tool succeeded, the backend has the result—so why did the model fail to use it?
+A tool returns five rows. The next model request contains only a reference, and a later request contains the five-row body. The backend sees one successful call, while different model turns receive different representations. “Did the tool succeed?” no longer explains missing information in the answer.
 
-Investigating this question requires two linked traces: one showing **how the tool executed**, and another showing **how its result entered subsequent model requests**. Tool logs alone stop at “the tool is fine.” Input snapshots alone cannot explain where data changed along the way.
+This is a teaching scenario. Our current design connects **execution receipts, result projections, actual requests and passive storage** using original identities. Each stage retains its own facts, so investigation can distinguish a tool defect, context assembly and model synthesis.
 
-Our approach is to route read-oriented tools through a unified execution entry, capture execution and projection using lifecycle hooks, and relate the result to the model request actually submitted. Here, **“what the model saw” means observable request input, not the model's private understanding.**
+Here, “what the model saw” means observable submitted input, not an inference about its private understanding.
 
-## 1. Standardize the Execution Entry Before Standardizing Hooks
+<span id="_1-standardize-the-execution-entry-before-standardizing-hooks"></span>
+<span id="identity-assembly-can-fail-before-tool-dispatch"></span>
 
-If web reading, knowledge retrieval and business-data queries each log from separate implementations, the same field easily represents different facts. One tool's “success” might mean its upstream provider responded; another's might mean parsing, trimming and storage have all finished.
+## 1. Encapsulate one read before adding more logs
+
+Originally, the ordinary Runtime and recovery adapter jointly coordinated a read. The upper layer reserved attempts and supplied projection callbacks; the lower layer handled replay, dispatch, hooks and receipts. Each responsibility was reasonable, but callers had to know the handshake across them.
+
+Even a well-logged new read could miss a projection or settlement step. Moving functions into one file would not reduce that protocol burden. We chose a Run-bound execution coordinator that encapsulates the sequence while reusing the original authorization, budgets and durable stores. This decision came from call-chain inspection, not a quantified comparison of production failure rates.
 
 We route Native read calls through one execution coordinator. The caller submits a sealed model turn and action identity. The entry point coordinates authorization, budget, invocation, result projection and receipt finalization. New execution and recovery-time reads follow the same coordinated path. Knowledge retrieval algorithms remain in the retriever; they are not pulled into the generic executor.
 
@@ -47,11 +52,7 @@ One entry point does **not** mean all business logic belongs in one module. It c
 
 Tools also cannot be correlated by name alone: the same tool may run concurrently more than once. We need run and action identities, the model-call ID, and separate links to requests that later consume the result. **The producing turn and the consuming turn are different concepts.**
 
-### Identity assembly can fail before tool dispatch
-
-A streaming repair in the public teaching implementation occurs before this execution chain. A response index already had a nonempty tool ID, but a later `id: null` fragment was rejected as an invalid new identity. The repair preserves that established ID only for this continuation. Initial null, null on a new index, conflicting strings, and invalid types remain rejected; complete arguments still pass final validation and Host authorization.
-
-Provider fragments, SDK-aggregated proposals, actual Host dispatch, and results in the next model request are distinct stages. Without a dispatch receipt, assembly failure must not be described as tool-execution failure, and a replacement call ID must not be invented. This case concerns open-etf-agent and does not retrospectively explain other runtimes. See [How a null Broke an Agent Tool Call](agent-stream-tool-call-null-continuation.md).
+Calls can fail even before execution: provider fragments must form a complete SDK proposal before Host dispatch. Without a dispatch receipt, inspect protocol assembly before calling it a tool-execution failure. The public implementation's `id: null` continuation case is covered in the [tool identity assembly article](agent-stream-tool-call-null-continuation.md), rather than repeated here.
 
 ## 2. Hooks Track Changes, Not Just Start and End
 
@@ -77,7 +78,9 @@ Execution failure, unavailable result, projection failure and persistence failur
 
 ToolFailure is a lifecycle extension point, not a universal catch that owns all phases. Hooks and observers also cannot seize control of receipts: permission denial and execution completion remain facts determined by the executor.
 
-## 3. Extend Tracing to the Actual Model Request
+<span id="_3-extend-tracing-to-the-actual-model-request"></span>
+
+## 3. How can one execution appear in several model requests?
 
 Finishing post-call projection is not the end of the chain. During later context assembly, a result might be trimmed again or replaced with a reference that permits on-demand retrieval. Therefore, a post-call hook cannot establish that the next inference received the content.
 
@@ -127,46 +130,14 @@ Other observations similarly lead to different first checks:
 
 The gain is not a larger pile of logs. Each symptom now points to a different owner and repair location.
 
-## 5. Recovery and Observability Must Preserve Execution Facts
+<span id="_5-recovery-and-observability-must-preserve-execution-facts"></span>
+<span id="_6-october-2026-follow-up-execution-receipts-and-evidence-storage-have-different-owners"></span>
 
-Unified observability has two easy-to-miss hazards.
+## 5. Let the observation chain fail without changing execution facts
 
-**Re-executing during recovery.** If a read has finished and a legitimate receipt exists, recovery should replay the result according to its contract, not invoke upstream services or side-effecting hooks just to generate a prettier trace. Recovery storage still owns the receipt; observability must not maintain a second execution ledger. The executor distinguishes fresh execution from receipt replay. This is **not** an exactly-once guarantee for external services.
+When a read has finished with a legitimate receipt, recovery reuses its settled final result. It does not invoke upstream services or side-effecting hooks again to produce a complete trace. The original recovery store owns the receipt; observation adds no execution ledger. This avoids counting repeated appearances as new executions, but does not promise exactly-once external effects.
 
-**Allowing observation to alter the business operation.** Body capture checks permission and configuration before iterating and copying content. Observers receive copies; exceptions must not mutate the actual request. If capture exceeds its limit, the gap must be recorded. “Not captured” does not mean “did not occur.” The implementation includes isolation and capacity controls for capture.
-
-Cross-interface handoffs must preserve the identity of execution and consumption, not merely report that a hook ran:
-
-| Handoff scenario | Required behavior |
-| --- | --- |
-| Same receipt appears in multiple requests | Each appearance logged; execution count unchanged |
-| Context capacity replaces body with a reference | Snapshot lacks old body but retains original receipt association |
-| Replaced result, duplicate identity or mismatched run | Never auto-associate a merely similar-looking result |
-| Capture disabled, or observer mutates input then throws | No extra body inspection when disabled; callback error cannot affect request or receipt |
-
-These are invariants that observation must not change; they do not evaluate the quality of the research itself.
-
-<!-- open-etf-case:batch@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
-### Follow batch-read results into the saved report
-
-The [batch-read CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) offers an inspectable chain: two fixed read tasks return synthetic originals, then Main saves a cited report.
-
-After installing dependencies according to the README at the linked fixed snapshot, run:
-
-```bash
-node src/cli.mjs --case batch-read --output runs/article-batch
-```
-
-Terminal `observations` records tool-result return and Run release. The returned `directory` contains `run.jsonl`, `report.md`, and `manifest.json`, allowing calls, acquired sources, and the final report to be compared rather than reduced to a success flag.
-
-These are fixed read workers and local Hook observations, not concurrent model experts, a complete model-input tracing platform, or a Langfuse exporter. An observation alone does not prove an external effect was durably committed.
-<!-- /open-etf-case -->
-
-## 6. October 2026 Follow-up: Execution Receipts and Evidence Storage Have Different Owners
-
-Earlier debugging often jumped between “the tool executed” and “the model input contained a reference.” The independently defined Research Evidence Store makes a third question explicit: **was a copy of this model attempt captured, durably retained, and still readable?**
-
-**Figure: The original execution path and passive evidence path correlate by identity, but do not share a success state.**
+Observation copies have their own capture, queue, durable storage and readback path. A queued snapshot may not yet be stored. A failed historical read may reflect retention or present read eligibility. Neither implies that the original tool did not execute or that the model did not receive input at the time.
 
 ~~~mermaid
 flowchart LR
@@ -181,21 +152,49 @@ flowchart LR
     H --> I[Separately authorized readback]
 ~~~
 
-There are four different facts to inspect:
+The dotted edges are passive capture. They correlate original identities without taking control of the call. The [evidence store article](agent-research-evidence-store-lifecycle.md) explains capture admission, retention and readback. The practical ordering here is: **preserve the authoritative execution receipt, then let observation keep an accurate copy on its own path.**
 
-| Observation | Supported conclusion | Unsupported leap |
-| --- | --- | --- |
-| Original Host action settled successfully | The original Owner settled its tool action | The next model request contained the full body |
-| Model-input projection shows ResultRef | A reference was present in the projected request | The model read all source bytes |
-| Research Evidence Store returned queued | A bounded snapshot entered a persistence job | The bytes are already durably stored and readable |
-| Historical selection returns unavailable | Current permission, source, retention, or integrity requirements failed | The original execution never happened |
+Capture checks permission and configuration before traversing or copying bodies. Observers receive detached copies; exceptions cannot mutate actual requests. Capacity, provenance and storage gaps remain explicit. Disabled capture does not read extra bodies for diagnostics, and observation failure does not become whole-Run failure.
 
-This distinction also explains why a complete trace query is not a complete historical execution. Preserve observation gaps; do not add a new policy that halts research when optional telemetry fails.
+This yields a useful investigation order:
 
-The separate [evidence retention and readback deep dive](/en/articles/agent-research-evidence-store-lifecycle) now covers admission, capacity, lifecycle, and source revalidation. This essay remains focused on **controlled tool-execution facts and their continuation into model input**.
+| Observation | What to inspect next |
+| --- | --- |
+| One result appears in two requests | Deduplicate executions by original receipt; inspect each representation separately |
+| Request includes only a reference | Check whether a subsequent read returned the body |
+| Copy is queued or expired | Inspect persistence and retention without repeating a settled action |
+| Result was replaced, identity conflicts or linkage is missing | Keep the gap unknown rather than constructing a chain from similar text |
+
+## 6. Why add result provenance when general tracing already works?
+
+[OpenTelemetry's generative AI semantic conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-spans.md) provide common representations for model inference, tool execution and related inputs and outputs. Tracking latency, errors and tool names along calls is a reasonable starting point for most systems.
+
+A call tree answers which call happened under which parent. Our question is which representation of which result reached a later request. One result can serve several later turns, first as a reference and then as a partial body. That consumption relationship is not simply parent-child nesting.
+
+We retain existing tracing and storage, carrying result identity, version and appearance location through actual transformations. In-process associations keep diagnostic fields out of model messages and avoid another execution ledger. The cost is explicit propagation at each transformation: a missing handoff creates an observation gap rather than being reconstructed from text similarity.
+
+For a single model call with an unchanged tool result, ordinary call tracing is often enough. Result consumption links become worth adding when externalized results, trimming, replay and multi-turn reuse appear. They supplement general tracing rather than replace it.
+
+## 7. Inspect one small path in public teaching code
+
+<!-- open-etf-case:batch@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
+### Follow batch-read results into the saved report
+
+The [batch-read CLI at this fixed public snapshot](https://github.com/hpoenixf/open-etf-agent/blob/e1b8e4edde724548fab16d8ca4b205379bfa7f30/src/cli.mjs) offers an inspectable chain: two fixed read tasks return synthetic originals, then Main saves a cited report.
+
+This example uses the linked fixed snapshot. Consult the [current README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md) for newer versions without mixing commands. After installing dependencies according to the fixed snapshot's README, run:
+
+```bash
+node src/cli.mjs --case batch-read --output runs/article-batch
+```
+
+Terminal `observations` records tool-result return and Run release. The returned `directory` contains `run.jsonl`, `report.md`, and `manifest.json`, allowing calls, acquired sources, and the final report to be compared rather than reduced to a success flag.
+
+These are fixed read workers and local Hook observations, not concurrent model experts, a complete model-input tracing platform, or a Langfuse exporter. An observation alone does not prove an external effect was durably committed.
+<!-- /open-etf-case -->
 
 ## Conclusion
 
-For a multi-turn agent, tool lifecycle and model-input observability should be designed together. One explains how an action executed; the other explains how its result participated in subsequent inference.
+When an answer omits material, work backward: what was in the relevant request, which result produced that representation, and which actual execution produced the result?
 
-Start with three connection points: **unified execution entry, result projection and actual request submission**. Preserving identities, versions and phase facts at those seams is more useful for finding the right repair than piling up unrelated “tool succeeded” log lines.
+Connect the read entry point, result transformations and actual request submission, then keep evidence storage on a separately fallible path. This identifies a repair target more reliably than additional success logs, without repeating business actions merely to complete the trace.

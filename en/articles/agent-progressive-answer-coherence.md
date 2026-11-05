@@ -1,60 +1,50 @@
 ---
-description: "Why do incremental research answers read like miniature reports stitched together? Writing goals, an authorized view of the current text and identity-based revisions help new evidence advance one argument, while usefulness, readability, factual accuracy and completion remain separate evaluation goals."
+description: "As evidence arrives in batches, how can readers keep following one answer? Use append, correction and completion decisions to connect current text, exact revisions and durable delivery, then compare streaming UI primitives with a separate writing stage."
 readingBrief:
   takeaways:
-    - "Incremental delivery should develop one answer around the user’s questions, not package every tool-work phase as another self-contained miniature report."
-    - "The model needs authorized current text, revision identities, and omission notices to choose between adding, correcting, or finishing; historical IDs alone are insufficient."
-    - "Measure the first useful answer, then assess readability, facts, citations, and completion separately; limited real-model observations do not establish a stable quality gain."
+    - "Several deliveries can develop one argument: new evidence should determine whether to append, correct or finish, rather than trigger another miniature report."
+    - "Continuation needs current text, revisions and explicit omissions from the original publication owner; historical IDs or a preview alone do not define a recoverable article."
+    - "Corrections must bind an exact section and expected revision across persistence, readback and the next model input, not merely change the screen."
+    - "Streaming, version consistency and writing quality solve different problems; add a writing or evaluation stage when clear criteria and demonstrated value justify its extra latency."
   appliesTo:
-    - "Agents with progressive publication that repeatedly summarize, append contradictory findings, or leave readers to assemble multiple research reports."
+    - "Research agents that deliver in parts but repeat summaries, retain conflicting conclusions, or restore old text after reconnecting."
   notFor:
-    - "Unrestricted document merging and reordering, or replacing factual checks and completion assessment with writing prompts and valid citation IDs."
+    - "Unrestricted document merging and reordering, or using valid citations and durable storage as substitutes for factual verification."
 ---
 # Progressive Agent Answers: How to Keep One Research Narrative Coherent
 
-After adding web search, PDF reading, and data analysis to a financial research Agent, we could deliver useful material before the full investigation finished. This revealed a new problem: how can later research extend the text the user has already seen, instead of turning every successive output into another entry in a running log?
+A user asks how two index funds differ. The agent first obtains index rules, then annual prices, and finally fee disclosures. These sources arrive at different times. The user should not have to wait until the end to begin reading.
 
-**The more tools an Agent uses, the easier it becomes for the final answer to look like several research reports mechanically glued together.**
+Yet if each batch produces a miniature report with its own introduction, analysis and conclusion, earlier output can make the final result harder to follow. What did the new finding add? Does the previous conclusion still stand? The reader becomes the final editor.
 
-Imagine a user asks how two index funds differ:
+Our current approach is to **develop one answer continuously, letting new evidence determine whether to append, correct or finish**. The model makes that semantic choice. The publication system maintains section identity, revisions and durable delivery. The index comparison below is a teaching example; historical observations are identified separately.
 
-> ### Part One: Initial Research
-> First, we examine the fundamentals of both indices...
->
-> ### Preliminary Summary
-> They differ in certain ways; further validation is needed.
->
-> ### Part Two: Additional Research
-> Further investigation reveals...
->
-> ### Overall Conclusion
-> In summary...
->
-> ### Part Three: New Findings
-> Building on the above, here is more information...
->
-> ### Final Conclusion
-> Taking the entire analysis into account...
+<span id="part-one-initial-research"></span>
+<span id="preliminary-summary"></span>
+<span id="part-two-additional-research"></span>
+<span id="overall-conclusion"></span>
+<span id="part-three-new-findings"></span>
+<span id="final-conclusion"></span>
+<span id="_1-why-progressive-answers-can-undermine-coherence"></span>
+<span id="_1-1-from-one-final-answer-to-incremental-delivery"></span>
+<span id="_1-2-how-we-accidentally-incentivized-miniature-reports"></span>
+<span id="_2-first-change-keep-writing-the-same-article"></span>
+<span id="_2-1-before-and-after-organize-around-reader-questions-not-execution-chronology"></span>
+<span id="what-is-the-fundamental-difference"></span>
+<span id="how-did-they-perform-over-the-last-year"></span>
+<span id="what-does-this-mean-for-allocation"></span>
+<span id="what-remains-unverified"></span>
+<span id="_2-2-first-publication-versus-first-useful-answer"></span>
 
-Each part may be defensible on its own. Together, however, they make readers decide which conclusion is final, whether new material supplements or corrects earlier claims, and why the answer keeps summarizing itself.
+## 1. Deliver a useful finding before another outline
 
-Some runs even started with an English research plan, switched to Chinese analysis, and ended with another English summary.
+Progressive delivery preserves an important benefit: an independently supported part should not wait for an unrelated slow lookup.
 
-Code inspection and real-model testing led to a useful diagnosis: **this was not simply a writing-skill problem. Our delivery protocol unintentionally encouraged the model to treat each publication as a standalone report.**
+An earlier tool description asked for each part to be complete and self-contained. This was intended to make early text understandable, but it could also encourage a fresh introduction, risk statement and summary every time. A historical census on October 10, 2026 covered 149 runs with 275 publication records, only two with a revision above one. This describes an append-heavy pattern. It does not by itself measure writing quality or prove a particular prompt caused it.
 
-We did not introduce a Writer Agent or a full document editor. We re-coordinated the Research model's writing goals, its context, and our existing Publication mechanism.
+Preserve “this passage is independently understandable,” without requiring “this passage is an independent essay.”
 
-## 1. Why Progressive Answers Can Undermine Coherence
-
-### 1.1 From one final answer to incremental delivery
-
-The conventional Research Agent follows a linear path:
-
-**Question → Search → Analyze → Synthesize → Deliver the full answer.**
-
-Its weakness is latency. A complex financial study may involve dozens of tool calls; even when useful evidence is available early, the user cannot read it until every step finishes.
-
-**Progressive Answer** lets the Agent publish meaningful portions as it works:
+Once index rules are available, the answer can explain differences in company size, sectors and risk exposure. Annual returns can follow when the price lookup finishes. An early research plan does not answer that question, and style characteristics cannot substitute for missing return figures.
 
 ~~~text
 User asks
@@ -70,168 +60,62 @@ Publish the next passage ──────────→ The page evolves
 Research completes
 ~~~
 
-But it introduces a distinction: **the system sees several Publications while the user expects one coherent article**.
+The diagram describes delivery timing. The article itself should be organized around the core differences, comparable-period performance and portfolio implications, rather than first search and second supplement.
 
-A *Publication* is an engineering unit: validated content that may be presented, versioned, and persisted. Article organization is semantic: what is the central finding, how does new evidence relate to it, and should the argument be extended or corrected?
+A first useful answer addresses a material subquestion. Nonempty text, progress messages and early tokens are earlier signals, not equivalent outcomes.
 
-Those two units do not naturally coincide.
+## 2. Ask how new evidence relates to the existing answer
 
-### 1.2 How we accidentally incentivized miniature reports
+A continuous argument usually needs three choices:
 
-An older tool instruction emphasized:
+| What changed? | What should happen to the article? |
+| --- | --- |
+| An important unanswered aspect gains evidence | Extend the argument and explain what the new information adds |
+| An existing finding is contradicted or corrected | Correct that section while retaining its position and revision identity |
+| No useful information was added | Finish necessary checks, without publishing another summary |
 
-> Submit a complete, self-contained answer passage each time.
+This is not a runtime keyword classifier. The model interprets the evidence; the system provides interfaces that make those choices possible.
 
-The motivation was sound. Readers should not be handed a fragment that makes no sense until some future message arrives.
+Suppose an early source covered only part of a year, but the model described a local low as the annual minimum. A later full-year series disproves it. Appending “Correction: the minimum was another value” is easy, but leaves readers facing two contradictory answers.
 
-But **"understandable independently"** can be misinterpreted as **"containing all sections of an independent report."** A model invoking **send_answer_part** may regenerate background, analysis, conclusion, and risk notes each time.
+The existing `replaces` mechanism lets the model identify the original section and expected revision, then submit a corrected complete section. The new revision appears in the same position; the old version remains historical. Neither titles nor text similarity decide what to replace.
 
-Historical runs exhibited this tendency. One sample of **149 runs** contained **275 Publication records**, of which only **two** had a revision greater than one. That count alone does not establish writing quality, but the recorded text supported the observation that the Agent preferred appending more sections over revising a developing argument.
+If the new material only adds a fee comparison, an additional section is appropriate. With no new information, completion does not require another conclusion. **Append when the reader gains something new; revise the original finding that changed.**
 
-The question became: how do we preserve early delivery while making the eventual answer read like one naturally written article?
+<span id="_3-second-change-let-the-model-see-what-it-has-already-written"></span>
+<span id="_3-1-conversation-history-is-not-the-same-as-the-present-article"></span>
+<span id="_3-2-project-the-actual-current-article"></span>
 
-## 2. First Change: Keep Writing the Same Article
+## 3. Give the model the current article
 
-We changed the goal before changing the Runtime.
+“Do not repeat yourself” cannot repair missing context. The next request needs to show what was already written, which revision replaced it, and what was omitted from the current input.
 
-The implicit instruction had been "make each publication a relatively complete piece." The new emphasis was:
-
-> Answer the most important questions supported by evidence as early as possible. Let subsequent passages develop or correct the same line of reasoning.
-
-**Every passage should remain intelligible, but it need not have the structure of a complete report.**
-
-### 2.1 Before and after: organize around reader questions, not execution chronology
-
-Consider a synthetic question:
-
-> How do the CSI 500 and CSI 300 differ? How did their performance and risk compare over the last year?
-
-Before the change, the structure might follow the sequence of tool work:
-
-~~~text
-Part One: Index basics
-    What are the two indices?
-    ↓
-Preliminary conclusion
-    They differ; more analysis is needed.
-    ↓
-Part Two: New data
-    How do their returns and drawdowns compare?
-    ↓
-Overall conclusion
-    Summarize fundamentals and returns again.
-    ↓
-Part Three: New discovery
-    Add a risk or correct an earlier claim.
-    ↓
-Final conclusion
-    Summarize everything yet again.
-~~~
-
-The intended structure instead follows the reader's actual questions:
-
-> ### What is the fundamental difference?
->
-> The CSI 300 and CSI 500 largely represent different company-size segments. Their industry weights, style exposures, and risk sources differ. They can therefore behave differently across market environments, although that does not mean they eliminate each other's equity-market risk.
->
-> ### How did they perform over the last year?
->
-> Compare return, maximum drawdown, and volatility for *the same start and end dates* and *the same measurement convention*. Returns help identify performance; drawdown shows how much downside was experienced along the way. Neither should be interpreted in isolation.
->
-> ### What does this mean for allocation?
->
-> Both are Chinese A-share equities. Holding distinct index funds does not automatically diversify their common market exposure; the underlying assets and sources of risk matter.
->
-> ### What remains unverified?
->
-> Yearly performance metrics require complete, comparably defined data. Until they are available, actual returns and drawdowns remain unconfirmed; index style alone cannot establish them.
-
-These are **illustrations of two writing structures**, not verbatim historical answers. No annual return figures have been invented.
-
-Previously, headings described **what the Agent did**. Afterwards, they describe **what the user needs to understand**. The material can still arrive incrementally, but later passages should advance the same argument.
-
-### 2.2 First Publication versus First Useful Answer
-
-This change also challenged our delivery metrics.
-
-**First Token** measures when the model begins emitting text. **First Publication** measures when content first becomes publishable. Neither guarantees the user has received an actual answer.
-
-For example, the passage "I will search the index rules, then analyze historical returns" might appear promptly without resolving any meaningful part of the question.
-
-We therefore place more emphasis on **First Useful Answer**: the first delivered passage should answer at least one important subquestion with adequate supporting evidence.
-
-This does **not** license premature conclusions. When the essential facts are still missing, research should continue. When one independently meaningful point is already established, it need not wait for every other point.
-
-**Publish useful substance early, not merely progress narration.**
-
-## 3. Second Change: Let the Model See What It Has Already Written
-
-A Prompt saying "do not repeat yourself" cannot reliably solve the problem. The model must first know what the current article actually contains.
-
-### 3.1 Conversation history is not the same as the present article
-
-In a multi-step Agent, the next model request may not contain all prior output. Context may have been compacted; tool results may be loaded on demand; a Publication may have been revised; some sources may no longer be authorized.
-
-A historical Publication ID alone does not tell the model the text of that passage, which revision is current, which conclusions reached the user, or which content is missing due to permission or capacity.
-
-Without those facts, even a model attempting to write coherently cannot reliably avoid repetition or contradiction.
-
-### 3.2 Project the actual current article
-
-We strengthened **Current Publication Context**: a view of the **currently readable, authorized article body**, provided by the existing Publication mechanism. It is not a second document store.
-
-A simplified contract looks like:
+We reuse a current-text view from the publication module, rather than creating another editable article database. A conceptual representation is:
 
 ~~~json
 {
   "sections": [
-    {
-      "id": "section-1",
-      "revision": 2,
-      "text": "The text currently visible to the user"
-    }
+    { "id": "section-1", "revision": 2, "text": "The current text of this section" }
   ],
   "omittedCount": 0
 }
 ~~~
 
-Three design requirements matter.
+Text enables continuity, identity and revision enable targeted correction, and omission information prevents an assumption that the entire article was included. The actual projection preserves the Run's grant, source identity and capacity constraints. An existing grant is not revoked midway through that Run merely because an external permission table changes; historical reads by a new Run have their own admission. These lifecycles must remain distinct.
 
-**First, provide actual text, not just IDs.** The model can see established judgments and qualifications and choose how new evidence should connect.
+### The surprising failure: corrected on screen, old text in storage
 
-**Second, keep version and authorization aligned.** A revoked or invalidated passage must not re-enter the model context merely because it appeared in a previous message.
+Historical investigation exposed a subtler issue than a model declining to revise. One publication adapter supported commits without completing the durable replacement path. Accepted replacement text could appear as a preview while the persisted article differed. Quality attribution based on those inconsistent versions was therefore withdrawn.
 
-**Third, disclose omissions.** If fitting constraints exclude some body text, **omittedCount** tells the model it lacks a complete view instead of suggesting it saw the whole article.
+The repair added no Writer. The adapter reads the original section's exact identity, revision and position; the original persistence owner still performs the atomic, version-checked replacement. Relevant verification covered the saved new revision, its publication event and the next actually fitted model request.
 
-This is the practical role of context engineering: not simply limiting token volume, but ensuring visible content corresponds to the present task and authorized state.
+This explains why “current article” cannot mean only the last text sent to the page. A preview lets users read early; a durable receipt supports later reopening; subsequent model turns must stay consistent with committed publication. **Check the screen, saved result and next model input together when testing a correction.**
 
-## 4. Third Change: Revise When Evidence Changes Instead of Appending Forever
+<span id="_4-third-change-revise-when-evidence-changes-instead-of-appending-forever"></span>
+<span id="_4-1-appending-is-not-the-only-option"></span>
+<span id="_4-2-how-the-existing-mechanics-cooperate"></span>
 
-Later evidence has three common relationships to the existing answer:
-
-| Relationship of new evidence | Preferred behavior |
-| --- | --- |
-| Adds valuable information | Extend the current argument with a relevant point |
-| Changes an earlier conclusion | Revise the affected earlier passage |
-| Adds nothing useful | Avoid repeating; complete remaining checks and finish |
-
-These choices have different effects on article quality.
-
-### 4.1 Appending is not the only option
-
-Suppose an Agent already published:
-
-> On the data currently examined, the CSI 300's lowest closing value in the specified year was X.
-
-A complete-year dataset later reveals that X was only a local low; the actual annual minimum was Y.
-
-An append-only strategy produces a new paragraph saying "Correction: the minimum was actually Y," leaving both X and Y visible and making the reader resolve the conflict.
-
-We already had a **replaces** mechanism: the model can identify the original Publication ID and submit a corrected complete passage. The system validates target revision and authorization before updating the current body.
-
-This does not require guessing replacement targets from Markdown headings or deleting text based on similarity.
-
-### 4.2 How the existing mechanics cooperate
+## 4. Bound the editing operation while preserving the reading experience
 
 ~~~mermaid
 graph TD
@@ -250,139 +134,71 @@ AppendInformation --> HostSavesVersion
 ReviseById --> HostSavesVersion
 ~~~
 
-The decision edges mean:
+The decisions in the diagram belong to the model: continue research when support is insufficient, publish when evidence supports the passage, then append, revise or finish according to the new information. The Host validates and stores effects; it does not certify semantic sufficiency.
 
-- **CheckAnswerReadiness → ResearchEvidence:** not enough evidence yet.
-- **CheckAnswerReadiness → PublishUsefulAnswer:** a supported useful answer is ready.
-- **CheckNewEvidence → AppendInformation:** add a new point.
-- **CheckNewEvidence → ReviseById:** an existing point needs correction.
-- **CheckNewEvidence → FinishChecks:** no new value.
+The current correction capability is not a general editor. It targets an original section and expected revision, subject to existing modification limits, permissions and durable state. A missing replacement target cannot silently become an append. Arbitrary cross-section merging, deletion and reordering are not implied.
 
-**The model determines how the argument evolves. Runtime validates the identity, version, permissions, and evidence of each delivery.**
+This choice limits editing protocols and failure handling, but makes good initial organization more important. A collaborative document product may justify a richer document model or editing protocol. A research conversation does not need to start with that complexity.
 
-We deliberately did not introduce a generic article AST or mandatory final polishing stage. The present priority is evidence-based correction, not unrestricted cross-section merging, deletion, or reordering.
+<span id="_6-why-we-did-not-add-a-writer-agent"></span>
+<span id="less-repeated-guidance-can-work-better"></span>
 
-This is an architectural trade-off, not an accidental missing feature.
+## 5. Which layer do established approaches solve?
 
-## 5. Better Writing Also Means Less System Noise
+Three useful capabilities are often confused here.
 
-Repetition is not the only obstacle. Financial research needs source constraints, numeric precision, and risk disclosures. Important guardrails can still damage readability when repeated indiscriminately.
+[LangGraph streaming](https://docs.langchain.com/oss/python/langgraph/streaming) separates messages, state updates and custom events. It helps consumers receive ongoing execution changes. The application still decides which events belong in the report and which are progress only.
 
-### 5.1 Place qualifications beside the claims they qualify
+[Vercel AI SDK data streams](https://ai-sdk.dev/docs/ai-sdk-ui/streaming-data) distinguish message-history data parts from transient notifications and reconcile updates with the same ID. This is a useful client-side primitive. An application's server still defines modification permission, expected revisions and durable storage.
 
-We saw answers repeatedly append statements such as:
+At a different layer, [Anthropic's evaluator–optimizer pattern](https://www.anthropic.com/engineering/building-effective-agents) iterates generation and feedback. It fits clear evaluation criteria and improvements that justify additional calls. It does not automatically restore missing source evidence or fix a broken durable replacement path.
 
-> This is not personalized investment advice.
-> We do not have complete portfolio data.
-> Further validation is required.
+We first reused the research model, current text and publication versions because those capabilities already existed and the observed gaps lay mainly in their coordination. A separate Writer would receive another context, source and version handoff, adding latency and failure handling. It remains an option if its value for the target tasks can be demonstrated.
 
-Those warnings sometimes matter. But general index-mechanics questions rarely benefit from repeating the same generic paragraph at the start, middle, and end.
+<span id="_5-better-writing-also-means-less-system-noise"></span>
+<span id="_5-1-place-qualifications-beside-the-claims-they-qualify"></span>
+<span id="_5-2-make-citation-warnings-local-and-useful"></span>
+<span id="_5-3-change-the-affordance-not-only-the-instruction"></span>
 
-A more useful qualification is attached to the argument:
+## 6. Reduce system noise without erasing material limits
 
-> Broad market indices may span several industries, but wider coverage does not prevent substantial drawdowns when the equity market falls.
+A qualification should explain the conditions of a particular finding. “Both indices remain exposed to the A-share market” is more informative than repeating a generic investment disclaimer in every section. Missing annual data, unfinished calculations and conflicting sources still belong next to the claims they affect.
 
-We are not removing risk disclosure. We are making the boundary of the claim clear at the point where the claim appears.
+Citation notices should follow the affected section and revision. One section without bound citations cannot establish that the entire report lacks reliable material. A cited section cannot certify its neighbor either. The [publication article](019-agent-answer-publication.md) covers that mechanism.
 
-### 5.2 Make citation warnings local and useful
-
-"The paragraph has no recorded verifiable inline citation" is more precise than declaring an entire long answer unreliable. Put notices near affected passages rather than repeating an article-wide disclaimer after every append.
-
-Publication owns version binding, source downgrade, and presentation eligibility. This essay does not duplicate those contracts; see the [Publication essay](/en/articles/019-agent-answer-publication).
-
-### 5.3 Change the affordance, not only the instruction
-
-One real-model test exposed a particularly concrete failure mode: the model received valid citation IDs but shortened them when embedding citations in its answer. The Host then rejected the bindings.
-
-Adding more reminders to "always use the full ID" was not consistently effective. We instead provided a **copy-ready, complete citation marker** in model context:
+Interfaces also influence writing. Historical tests showed the model shortening valid citation IDs. Providing a complete, copyable marker makes correct use easier than requiring reconstruction:
 
 ~~~text
-[[cite:COMPLETE_SOURCE_REFERENCE_ID]]
+[[cite:complete-source-citation-ID]]
 ~~~
 
-The model only had to copy a valid marker instead of assembling one.
+In one sample, all 37 authored citations matched complete IDs; a later run still shortened them. The contrast supports improving the interface while retaining validation, rather than treating one successful sample as a universal fix.
 
-In one subsequent real-model run, **all 37 generated citations matched full Host-issued IDs**, and the page displayed the citation details.
+Adding writing instructions also once exhausted a fixed context budget. We consolidated existing guidance instead of continually raising capacity or adding a naturalness classifier. Prompts need editing as much as prose does.
 
-A later run nevertheless produced truncated citations again. This was an improvement observed in one run, **not** a stable solution across all tasks; Host-side validation remained indispensable.
+<span id="_7-what-improved-and-what-was-still-unresolved"></span>
 
-The more general lesson is simple: **make correct behavior easier at the interface, rather than endlessly warning the model not to make mistakes.**
+## 7. Evaluate the whole reading process
 
-## 6. Why We Did Not Add a Writer Agent
+Look beyond the final returned value: when did the first useful content appear, did later text develop the same argument, were errors corrected in place, and did the result remain consistent after reconnecting?
 
-A natural response to awkward answers would be another model pipeline:
+On October 11, 2026, the user gave six answers from the then-supported environment overall scores of 4, 4, 3, 5, 4 and 4, averaging 4.0/5. This is a dated reading assessment, not evidence that all six tasks completed or a matched-model, matched-source, matched-budget experiment. The records also retain unfinished tasks, incomplete review reasons, incorrect numerical selections and citation failures. Later delegated reviews concern separate samples and cannot be combined into one improvement result.
 
-~~~text
-Research Agent
-      ↓
-Writer Agent
-      ↓
-Reviewer Agent
-      ↓
-Final Answer
-~~~
+Keep the failure classes separate. Selecting the wrong minimum from an available full-year price series calls for investigating synthesis and calculation. Accepting a replacement without persisting it calls for repairing publication. Both can produce a bad final article, but need different remedies.
 
-That can be appropriate elsewhere. We did not use it as the first remedy for three reasons.
+For the next evaluation, ask:
 
-First, the Writer would need research context and independent guarantees about source eligibility, numeric fidelity, and current permissions.
+- Did the earliest useful content address a material subquestion rather than present a plan?
+- Did later text add reasoning or restart the answer?
+- Did facts, citations and durable versions agree after correction?
+- Was any reading improvement purchased by dropping requested scope, adding excessive calls or increasing waiting time?
 
-Second, every additional model phase incurs latency, context-transfer work, and another failure path.
+<span id="conclusion-users-should-not-have-to-read-the-agent-s-work-log"></span>
 
-Third, we already had Publication, revisions, **replaces**, and a projection of the current body. The issue was how these existing capabilities worked together, not necessarily a missing new capability.
+## Conclusion: readers need an answer, not an execution log
 
-Our division of responsibility remained:
+Timeliness is the reason to preserve progressive delivery. Letting execution order dictate article structure is the failure to avoid.
 
-| Model responsibility | Runtime responsibility |
-| --- | --- |
-| Understand the user's real question | Preserve constraints and authorization scope |
-| Decide which information matters | Validate sources, numbers, and permissions |
-| Choose append versus revision | Validate Publication identity and revision |
-| Organize the argument naturally | Keep persistence, recovery, and delivery consistent |
-| Explain uncertainty | Preserve actual evidence and failure states |
+Keep one user question in view, show the model the current text, choose append, correction or completion from the evidence, and let the existing publication owner preserve every change accurately. The system can work in many steps while the reader follows one argument.
 
-We also avoided having Runtime decide whether prose was "natural" by searching for certain words or Markdown headings. Checking whether a citation ID is valid is a deterministic protocol problem; deciding whether an article is repetitive is a semantic writing-quality problem.
-
-### Less repeated guidance can work better
-
-An expanded set of writing instructions once pushed a fixed-capacity model request over its context budget.
-
-Rather than simply raising the budget, we consolidated existing prompts while retaining necessary constraints.
-
-**Prompts consume finite runtime capacity too.** More rules about coherence, completeness, style, and repetition can displace the user question and supporting evidence. We chose a unified writing goal over ever more format directives.
-
-## 7. What Improved, and What Was Still Unresolved?
-
-Real-model testing after these changes showed some encouraging results. In one six-question sample, all six tasks completed, with an overall user rating averaging **4.0/5** and **five questions rated at least 4**.
-
-We did **not** report a precise percentage improvement. This was not a controlled A/B test using identical model versions, data snapshots, and budgets. The improvement cannot be attributed exclusively to prompts or context projection.
-
-The runs also revealed unresolved defects:
-
-- Some answers still included English process narration.
-- Some citation IDs were incomplete despite otherwise readable content.
-- Some runs obtained data but selected the wrong numeric value during synthesis.
-- Some runs published useful partial passages without completing the underlying research.
-
-In one index-research test, the model retrieved a complete time series but incorrectly identified a local low as the annual lowest closing value. Stronger guidance then required the same metric, full time period, and matched extreme value/date from the same row. A later real test corrected that particular value but still encountered citation and unfinished-computation problems.
-
-This is why **readability, factual correctness, source reliability, and task completion are related but distinct dimensions**.
-
-Useful next measurements include when the *first useful* answer reaches the user, whether later passages actually advance the argument, whether reduced repetition preserves evidence and caveats, whether revisions leave stale conclusions or broken citations, and whether smoother writing increases model calls or latency.
-
-The goal is not merely attractive prose. It is an answer the user can understand sooner without a meaningful regression in correctness or cost.
-
-## Conclusion: Users Should Not Have to Read the Agent's Work Log
-
-Research may involve many rounds of search, computation, verification, recovery, and incremental publication. That execution chronology should not dictate the structure of the article.
-
-The user asked a question—not for a timestamped transcript of tool calls.
-
-We kept the Research model responsible for organizing **one evolving answer** around that question. The authorized current body helps it continue what it has written. Publication owns accurate append and revision. Runtime keeps evidence, numbers, and permissions grounded.
-
-**Delivery is incremental; the answer is not a stack of independent reports.**
-
-The broader principle is to **let the model choose how to express the argument while the system strictly controls what has authority**.
-
-Sometimes improving an Agent does not require a Writer Agent, more states, or additional defensive rules. It requires existing mechanisms to cooperate around the user's actual goal.
-
-A successful user experience sounds less like "here is every step I took" and more like: **I understood the question, found the evidence, and explained the answer clearly, naturally, and reliably.**
+Further reading: [Independent publication](019-agent-answer-publication.md) · [Reconciling live client events with history](agent-client-interaction-and-reading.md). This article describes the broader research system. [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) is a smaller independent teaching implementation, not a public release of every capability discussed here.
