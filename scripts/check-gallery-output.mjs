@@ -62,6 +62,10 @@ try {
     if (width < 960) {
       await page.click('.VPNavBarHamburger')
       await page.waitForSelector('.VPNavScreenMenuLink')
+      await page.waitForFunction(() => {
+        const menu = document.querySelector('.VPNavScreen')
+        return menu && getComputedStyle(menu).opacity === '1'
+      })
       assert.equal(await page.$eval('.VPNavScreenMenuLink', node => node.getAttribute('href')), target)
       await page.screenshot({ path: output + `/${language}-${width}-menu.png`, fullPage: false })
       await page.click('.VPNavScreenMenuLink')
