@@ -297,7 +297,7 @@ These are domain-method questions. A safely executed script can implement the wr
 
 ### A concrete comparison with another financial implementation
 
-FinRobot V2 provides a useful comparison. In its pinned [equity research DCF pipeline](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c14c13c2d45/finrobot_desktop/finrobot/engine/pipelines/equity_research.py#L520), code assembles financial inputs and performs deterministic valuation and sensitivity calculations, which then inform later analysis and narrative. The source supports an observation about division of labor; it does not, by itself, certify valuation assumptions or the eventual investment view.
+FinRobot V2 provides a useful comparison. In its pinned [equity research DCF pipeline](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c4ad9afd1113c2d45/finrobot_desktop/finrobot/engine/pipelines/equity_research.py#L520), code assembles financial inputs and performs deterministic valuation and sensitivity calculations, which then inform later analysis and narrative. The source supports an observation about division of labor; it does not, by itself, certify valuation assumptions or the eventual investment view.
 
 The transferable choice is to give financial methods explicit inputs and maintenance responsibility, then let the model interpret eligible results. Equity DCF and fund holdings or fee analysis apply to different instruments. FinRobot's implementation is not evidence that ETF Agent's remaining financial-numeric work has passed acceptance.
 
@@ -416,7 +416,7 @@ Neither a summary nor an old reference upgrades stale financial data into curren
 
 When a user reopens a report days later, they are first reading a historical result. Preserve the then-committed answer revision, original references and fixed file identity. Do not insert updated market numbers into that version without explaining why the old conclusion is being changed.
 
-FinRobot's pinned [research instructions](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c14eaecf3b9a2fb/finrobot_desktop/finrobot/engine/instructions.md#L42) make a related distinction: upside estimates in historical reports use the price recorded at report time as their denominator, while current watchlist views may use live prices. This is a documented instruction, not a claim that we verified all real executions of that project.
+FinRobot's pinned [research instructions](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c4ad9afd1113c2d45/finrobot_desktop/finrobot/engine/instructions.md#L42) make a related distinction: upside estimates in historical reports use the price recorded at report time as their denominator, while current watchlist views may use live prices. This is a documented instruction, not a claim that we verified all real executions of that project.
 
 Historical conclusions can be understood against the prices recorded at their time. New market prices produce new observations. They do not silently rewrite the arithmetic base of the old report.
 
