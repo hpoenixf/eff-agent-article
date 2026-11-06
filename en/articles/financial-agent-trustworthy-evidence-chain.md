@@ -442,3 +442,89 @@ flowchart TD
 - **Start new research.** A new Run obtains separate admission and newly applicable source material and produces a new result and report version. Historical work can inform the analysis but does not transfer its old grants.
 
 These branches describe user intentions, **not** a new recovery state machine. Historical viewing must not become an implicit data refresh, resuming must not redo settled side effects, and a new task must not inherit the authorization of an older Run.
+
+
+## 9. How Did This Chain Emerge from Tool Interfaces?
+
+### At first, metadata accompanied one tool response
+
+Looking back, we did not begin with a complete research-asset architecture.
+
+When the MCP data plane was established in August 2026, tool outputs already separated sources, retrieval times, freshness, authority scope and coverage. Personal portfolio data and public market capabilities were organized separately. The immediate problem was to acquire meaningful data across actual tool interfaces without exposing provider configuration, raw private payloads or investment ledgers directly to the model or browser.
+
+As research became longer, one ordinary tool response started to play many roles. It entered model context, was later selected, externalized and reread, became Python input, was consumed by a Child, supported a published answer block, and ultimately appeared in a checkpoint or historical record. Metadata that originally traveled with one returned value needed to survive the entire research process.
+
+“Just now the tool succeeded” could no longer answer every later question. Child needed to identify its exact inputs. Computation needed to know whether the selection was complete. Publication needed the real source relationships. Recovery needed to distinguish an original commit from a proposed new action. That drove the need for a result interpretation usable by several consumers.
+
+### Compare the design with established lineage and metadata systems
+
+This is not a claim to have reinvented result IDs or provenance graphs. Established systems provide useful reference models, though their entities, granularity and responsibilities differ.
+
+| Existing technology | Typical problem it addresses | What can be borrowed without claiming equivalence |
+| --- | --- | --- |
+| [W3C PROV-O](https://www.w3.org/TR/prov-o/) | Describes how facts arise using Entity, Activity, Agent and derivation relationships | Explains original receipts, reads, calculations and derived outputs; does not decide financial method applicability or access grants |
+| [OpenLineage](https://openlineage.io/docs/spec/naming/) and [Marquez](https://marquezproject.ai/docs/quickstart/) | Capture and display lineage for Jobs, Runs, Datasets and extended run metadata | Research Runs, Child execution and calculations can borrow identity and dependency concepts; this does not assert that ETF Agent uses their event schema |
+| [Google ML Metadata](https://github.com/google/ml-metadata/blob/master/docs/index.md) | Relates Artifacts, Executions and Contexts in ML workflows | Helps reason about research output, execution and history; does not automatically resolve investment citations or account revocation |
+| [DataHub](https://docs.datahub.com/docs/features/feature-guides/lineage) | Tracks dataset, field and downstream-asset dependencies | Encourages precise field and transformation lineage; an Agent must additionally track which content and conditions were actually read |
+
+PROV-O and OpenLineage are **design references** here. Adopting a separate metadata platform would have to be justified by cross-system interoperability, lineage queries and governance costs.
+
+### Consolidate shared interpretation while keeping effect owners separate
+
+During the October result-governance work, we first removed duplicate decisions about capacities and identity from downstream consumers. Then we consolidated the mechanical interpretation of result identities, provenance relationships, projections and citation eligibility into one logical responsibility.
+
+“One” does not mean that every security, computation and publication decision moved under a new central judge. Source producers establish original facts. Tool execution owners record dispatch and settlement. Computation owners use admitted input. Publication owns answer disposition. Storage owns durable commits; file readback owns the relevant access checks. Shared result interpretation allows all of them to refer to the same provenance without claiming each other's effects.
+
+A Python method, for instance, may need complete calculable input while an answer cites one short excerpt. Reusing a result requires its original version, whereas a refresh produces new content. Identical bytes from two sources do not automatically have identical access rights. Those differences must not be erased merely to make one convenient interface.
+
+The next consumer should have to understand **less** of the preceding producer's internal structure. It should receive a usable interpretation from the original owner, rather than reconstructing a payload and inventing its own eligibility rules. When format rules change, the fix can then stay near the original interpretation.
+
+**Figure 8 — Shared result interpretation does not transfer effect authority.** Existing facts enter a common interpretation; calculations, publication, file operations and recovery retain their own decisions.
+
+```mermaid
+flowchart TD
+    F["Original owners supply facts"] --> R["Interpret results and citations consistently"]
+    R --> C["Consumers retain their own authority"]
+```
+
+Three kinds of input reach that interpretation: **source reads** supply values, content versions and observed ranges; **execution records** establish dispatch, output and settlement; and **Run admission** specifies original grants and scopes. Result and citation handling interpret identity, derivation, projection and reference eligibility; they do not replace the producers of those facts.
+
+Downstream consumers then make decisions within their own remit. Context chooses content to include in model requests. Calculations own method requirements and execution outcomes. Publication manages text revisions; Artifact storage and download manage file persistence and access. Recovery handles checkpoints and unknown effects. **Result identity and citation interpretation are shared, not a universal semantic truth verdict or a new authorization power.** Models retain research strategy, interpretation and synthesis.
+
+These arrows are relationships of fact consumption, not new permissions to access account data, trade securities or veto every answer. Reducing duplicate interpretation should not erase independent safeguards.
+
+### Why not create one global “trust manager”?
+
+Consider three observations: a source is authentic but covers only a fraction of holdings; a computation completed but used an inapplicable method; a file was saved but the requester cannot download it. They cannot be collapsed into a meaningful global `trusted=true`.
+
+A central manager empowered to declare the entire answer sufficient would also risk assuming the model's semantic responsibility and the effect authority of the original owners. What is unified here is **interpretation of result identity and derived facts**, not a global reliability grade.
+
+Source acquisition, domain methods, Publication, Artifact and Recovery retain verifiable facts and bounded refusal behavior. A local missing condition should not destroy other legitimate work that remains independently supported.
+
+### A new capability also needs a way to stay out of unrelated work
+
+The more capabilities an Agent acquires, the more important it is to identify which effects each module may refuse. Failure of optional citation enhancement should not retroactively revoke an authorized answer. A historical-read timeout should not rewrite an earlier Publication commit. Authorization, data identity, computational method and actual file access stay with their original owners.
+
+This is a problem of **distributed decision authority and failure scope**, not merely a generic single point of failure. [Run Termination, Stage Budgets and Safe Recovery](agent-veto-authority-and-run-termination.md) develops related mechanisms for avoiding global vetoes.
+
+The checks relevant to this article ask whether selected source content truly reached the executor, Child output was truly consumed by Main, committed answer text could be reread through a fresh connection, and a fixed file version could be obtained through authenticated download. Those observations must still be distinguished from whether the eventual investment analysis is right.
+
+## 10. Making the Evidence Chain Useful for Investment Judgment
+
+At the source checkpoints discussed here, shared handling of result identity, provenance, projections and citation interpretation had bounded engineering verification. Real Child calculations, actual handoffs, report persistence and authenticated file reads each had their own scoped observations. **Those are evidence that research material can be transferred and reread accurately within tested paths; they do not establish that the model's financial analysis is correct.**
+
+For someone returning to a report later, three questions should still be answerable: **Which fund, share class and time window were compared? Which method and qualifications produced the numbers supporting the conclusion? If new documents arrive, which assumptions need to be reassessed?**
+
+For the architect, the practical rule is equally specific. When material moves from tools to summaries, calculations, subagents, answers and history, **each consumer should reuse only facts still qualified for that purpose, without inventing provenance or expanding access**. Calculation and reference relationships can be recorded; whether the research answered the user's actual question still requires real-task evidence and independent judgment.
+
+We borrow established lineage ideas such as [W3C PROV](https://www.w3.org/TR/prov-o/), but reject a single global `trusted=true` as a proxy for financial correctness. Original sources, applicable methods, committed delivery and later access are protected by the owners responsible for those facts. When the financial comparison cannot be justified, the agent can retain supported findings while stating what is unknown.
+
+**The value of a trustworthy evidence chain is not to make all AI conclusions automatically trustworthy. It is to let humans and future agent runs genuinely recheck the conclusions that matter.** A related engineering checklist is available in [Principle 3](/en/principles#method-3).
+
+<!-- agent-article-sync:guidance:start -->
+## Further Reading and Discussion
+
+For continuous reading with the architecture maps and adjacent articles, visit the [independent reading site](https://hpoenixf.com/eff-agent-article/).
+
+The complete series and diagrams are collected in the [GitHub repository](https://github.com/hpoenixf/eff-agent-article). If this article helped, consider giving it a **Star**, or use Issues to discuss questions and counterexamples.
+<!-- agent-article-sync:guidance:end -->
