@@ -204,6 +204,7 @@ export const englishArticleSlugs = [
   "agent-conversation-history-compaction-source-boundaries",
   "financial-agent-python-result-consumption",
   "financial-agent-research-claim-boundaries",
+  "financial-agent-trustworthy-evidence-chain",
   "031-fintech-data-time-and-reproducible-numbers",
   "026-agent-spec-evidence-workflow",
   "027-agent-context-document-history",
