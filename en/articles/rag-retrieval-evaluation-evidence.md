@@ -111,7 +111,7 @@ At the October 30, 2026 check, the optional Ragas entry only validated samples i
 
 This adds actual scoring, not a control group for comparing research configurations or a completed quality comparison with DeepEval or human review. Scores from the separate controlled example must not be inserted into the original ten-case cohort, nor used to claim that BM25, reranking or multiple agents improved research. Claim support still requires original sources, actual model inputs and final-answer review; the [evaluation panorama](honest-agent-evaluation.md) explains the denominators.
 
-### The retrieval contract passed, but the model changed the question
+**Another consumption error: the retrieval contract passed, but the model changed the question.**
 
 Open ETF Agent v0.23 supplies another, more direct counterexample. When a task explicitly specified the search text, the model sometimes changed the `knowledge_query` query. The tool could still accept a valid string, retrieve from the admitted collection, register original pages and sources, and persist a report. Yet it had not fulfilled the requirement to **search using the specified query**.
 
