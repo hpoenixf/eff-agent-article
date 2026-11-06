@@ -6,6 +6,7 @@ readingBrief:
     - "Compare retrieval on matching eligible sources, candidate pools, and chunk granularity. Perfect recall of synthetic positives neither labels unjudged passages nor establishes real-corpus recall."
     - "Authorization, request visibility, invocation, and source-text consumption need separate evidence. A complete literal-match list locates terms without proving the surrounding passages were read."
     - "Connecting BM25 or a reranker does not establish better financial research. Check source dates, claim support, and matched task quality and cost before asserting benefit."
+    - "Separating Runtime contract execution, fidelity to an explicitly requested query, and complete task quality in real runs instead of pooling their success rates."
   appliesTo:
     - "Teams evaluating financial RAG changes or diagnosing the gap between retrieval ranking, tool consumption, and supported final claims."
   notFor:
@@ -110,6 +111,14 @@ At the October 30, 2026 check, the optional Ragas entry only validated samples i
 
 This adds actual scoring, not a control group for comparing research configurations or a completed quality comparison with DeepEval or human review. Scores from the separate controlled example must not be inserted into the original ten-case cohort, nor used to claim that BM25, reranking or multiple agents improved research. Claim support still requires original sources, actual model inputs and final-answer review; the [evaluation panorama](honest-agent-evaluation.md) explains the denominators.
 
+**Another consumption error: the retrieval contract passed, but the model changed the question.**
+
+Open ETF Agent v0.23 supplies another, more direct counterexample. When a task explicitly specified the search text, the model sometimes changed the `knowledge_query` query. The tool could still accept a valid string, retrieve from the admitted collection, register original pages and sources, and persist a report. Yet it had not fulfilled the requirement to **search using the specified query**.
+
+In the [independently reviewed, fixed-source repaired ten-task cohort](https://github.com/hpoenixf/open-etf-agent/blob/2fa6f29d322a3ee72ec5500ddaae21cea9dac14f/docs/verification/v023-release.md), observed Runtime contracts passed **10/10**, the original frozen mechanical predicates passed **9/10**, and strict complete natural-task quality passed only **5/10**. K05, K08, K09 and K10 changed requested queries; K01 materially contradicted an explicit network-access requirement. The earlier cohort's **8/10** remains under its original scoring and is not pooled with the repaired cohort. The subsequent release decision was scoped to Runtime mechanisms; it did not make the original strict task-quality gate pass. These are different measurements, not three alternate scores for one model-quality property.
+
+The actionable decision is to distinguish strategy from a task constraint. If the user leaves query formulation open, the model may choose search terms. If the task explicitly binds a query, count or order, evaluation must compare the actual tool arguments with that requirement. The present public implementation uses tool and task guidance to preserve those instructions, but does not hard-code a single allowable query. Applications that require deterministic adherence need a corresponding enforceable entry contract; a valid retrieval receipt cannot substitute for one.
+
 ## 5. Five Questions to Ask Before Trusting a RAG Evaluation
 
 | Evaluation boundary | Evidence to collect |
@@ -117,7 +126,7 @@ This adds actual scoring, not a control group for comparing research configurati
 | Source eligibility | Which source, version, research date, authorization scope, and available passages were used? |
 | Candidate comparability | Did both methods rank the same eligible candidate set, with the same chunk granularity? |
 | Relevance judgment | Which passages directly support the question, which are merely context, and which remain unjudged? |
-| Model consumption | Was the tool visible and invoked? Did the model receive match locations, selected text, or the complete source, and is that coverage inspectable? |
+| Model use and task fidelity | Was the tool visible and invoked? Did the actual query preserve explicit user constraints, and did the model receive locations, selected text, or full sources? |
 | Final claim | Which evidence supports each answer claim, and how were missing or incorrect claims independently reviewed? |
 
 If the first two boundaries are not fixed, a BM25-versus-RRF experiment may simply compare different materials. Without the third, an attractive Recall figure may be a property of constructed labels. Without the last two, even an excellent retrieval evaluation remains confined to the retriever.

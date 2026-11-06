@@ -33,7 +33,7 @@ const dates = {
   [`en/articles/${a}.md`]: { created: date('2026-01-03T00:00:00Z'), updated: date('2026-02-01T00:00:00Z') },
   [`articles/${b}.md`]: { created: date('2026-01-02T00:00:00Z'), updated: date('2026-02-01T00:00:00Z') },
   [`en/articles/${b}.md`]: { created: date('2026-01-01T00:00:00Z'), updated: date('2026-02-02T00:00:00Z') },
-  [`articles/${untranslated}.md`]: { created: date('2025-01-01T00:00:00Z'), updated: date('2025-02-01T00:00:00Z') }
+  ...(untranslated ? { [`articles/${untranslated}.md`]: { created: date('2025-01-01T00:00:00Z'), updated: date('2025-02-01T00:00:00Z') } } : {})
 }
 globalThis.__catalogDescriptions = { articles: Object.fromEntries(canonical.flatMap(slug => [
   ['articles/' + slug + '.md', '测试简介：机制、取舍与适用边界。' + slug],
@@ -43,7 +43,7 @@ globalThis.__catalogChronology = { available: true, articles: dates }
 globalThis.__catalogTags = { definitions: [{ id: 'finance', zh: '金融', en: 'Finance' }, { id: 'open', zh: '开源', en: 'Open source' }], articles: {
   [a]: [{ id: 'finance' }, { id: 'open' }, { id: 'fallback' }],
   [b]: [{ id: 'finance' }, { id: 'open' }],
-  [untranslated]: [{ id: 'finance' }, { id: 'fallback' }]
+  ...(untranslated ? { [untranslated]: [{ id: 'finance' }, { id: 'fallback' }] } : {})
 } }
 const bundled = await build({ stdin: { contents: compiled, loader: 'ts', resolveDir: theme }, bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'local-catalog-test-providers', setup(builder) {
   builder.onResolve({ filter: /^(vitepress|\.\/article-tags\.data|\.\/article-chronology\.data|\.\/article-descriptions\.data)$/ }, args => ({ path: args.path, namespace: 'catalog-test' }))
@@ -114,10 +114,10 @@ test('SSR page two, out-of-range, empty and language fallback retain correct pag
   assert.equal(orderedSlugs(last).length, canonical.length % 20 || 20)
   assert.match(last, /<button[^>]*disabled[^>]*>下一页<\/button>/)
   const one = await render({ tags: ['fallback'], currentPage: 8, english: true, page: 'en/catalog.md' })
-  assert.equal(orderedSlugs(one).length, 2)
+  assert.equal(orderedSlugs(one).length, untranslated ? 2 : 1)
   assert.ok(!one.includes('<nav class="catalog-pagination"'))
   assert.match(one, /Page 1 of 1/)
-  assert.ok(one.includes('(Chinese original)'))
+  assert.equal(one.includes('(Chinese original)'), Boolean(untranslated), 'Full English coverage needs no Chinese-original fallback')
   const empty = await render({ tags: ['absent'], currentPage: 8 })
   assert.deepEqual(orderedSlugs(empty), [])
   assert.ok(!empty.includes('class="catalog-all-links"'))
@@ -192,10 +192,15 @@ test('actual SFC renders all four global orders, matching tags, edition dates, a
   assert.deepEqual(orderedSlugs(english), [a, b])
   assert.ok(english.includes(`/en/articles/${a}`)); assert.ok(english.includes('2026-01-03'))
   const fallback = await render({ english: true, page: 'en/catalog.md', order: 'created-asc', tags: ['fallback'] })
-  assert.deepEqual(orderedSlugs(fallback), [untranslated, a])
-  assert.ok(fallback.includes('(Chinese original)')); assert.ok(fallback.includes('2025-01-01'))
-  assert.ok(fallback.includes(globalThis.__catalogDescriptions.articles['articles/' + untranslated + '.md']))
-  assert.ok(!fallback.includes(globalThis.__catalogDescriptions.articles['en/articles/' + untranslated + '.md']))
+  assert.deepEqual(orderedSlugs(fallback), untranslated ? [untranslated, a] : [a])
+  assert.equal(fallback.includes('(Chinese original)'), Boolean(untranslated))
+  if (untranslated) {
+    assert.ok(fallback.includes('2025-01-01'))
+    assert.ok(fallback.includes(globalThis.__catalogDescriptions.articles['articles/' + untranslated + '.md']))
+    assert.ok(!fallback.includes(globalThis.__catalogDescriptions.articles['en/articles/' + untranslated + '.md']))
+  } else {
+    assert.ok(!fallback.includes('2025-01-01'), 'No synthetic Chinese-only dates for a fully translated catalogue')
+  }
   const empty = await render({ order: 'updated-desc', tags: ['not-a-tag'] })
   assert.deepEqual(orderedSlugs(empty), []); assert.match(empty, /role="status"/)
 })
@@ -261,7 +266,7 @@ test('mounted catalogue restores URL, history and language routes without writes
     browser.visit('/eff-agent-article/catalog?sort=category&page=999&tags=finance,unknown#keep')
     await nextTick()
     assert.equal(select().props.value, 'category')
-    assert.equal(all(root).filter(n => n.props['data-article']).length, 3)
+    assert.equal(all(root).filter(n => n.props['data-article']).length, untranslated ? 3 : 2)
     assert.equal(location(), '/eff-agent-article/catalog?sort=category&tags=finance#keep')
     const beforeLeaving = browser.counts()
     browser.visit('/eff-agent-article/articles/example?sort=category&page=3')

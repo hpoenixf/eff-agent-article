@@ -152,6 +152,18 @@ The old report remains an authentic historical result, but the applicability of 
 
 Neither extreme is useful: treating the whole report as permanently valid ignores change, while repeating all the research discards work that still holds. A better approach is to follow dependencies to identify the affected judgments.
 
+A **controlled, synthetic same-Run regression in November 2026** made the distinction concrete. The Root holdings snapshot and portfolio weight stayed fixed. The research first acquired disclosure A and computed known look-through exposures, then obtained a changed disclosure B within the same Run. Both disclosures covered only part of the underlying holdings; new source bytes did not make the unknown remainder disappear.
+
+| Known look-through exposure | Disclosure A | Recomputed disclosure B |
+| --- | ---: | ---: |
+| Stock A | 5% | 2% |
+| Stock B | 3% | 6% |
+| Unknown remainder | 92% | 92% |
+
+A completed calculation is not automatically applicable to a later disclosure. In the controlled path, the original method composer rejected reuse of the old result under B, then new computation produced a second report. Both A and B were saved and reread under their own identities; B did not overwrite A's file bytes. **Historical source lineage from one Run or Workspace** records what the research has depended on, not proof that a selected computation remains compatible with the current inputs. The workspace record can retain earlier dependencies while the latest report actually selects the freshly recomputed child result.
+
+This does not establish a general-purpose automatic invalidation engine. The case was verified using synthetic inputs, a scripted model, and real local Python and file-delivery handlers. Selective reuse is defensible only where input, method, and output versions can be associated precisely; otherwise the review should widen rather than infer validity from the fact that everything happened in one task.
+
 <figure>
   <picture>
     <source media="(max-width: 760px)" :srcset="withBase('/diagrams/agent-trust/dependency-en-mobile.svg')" />

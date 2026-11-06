@@ -7,6 +7,7 @@ readingBrief:
     - "LlamaIndex, LangChain and Haystack supply loading, splitting, retrieval and generation components; projects still define source scope, versions, actual delivery and evaluation."
     - "The private ETF Agent implementation described in earlier public articles combines knowledge ingestion, PostgreSQL/pgvector, lexical retrieval and RRF, optional TEI reranking, and Native Knowledge delivery into Host-managed citations."
     - "Follow the same 2023 notice through each input and output, then evaluate retrieval, actual model reading, claim support and cost separately."
+    - "Public v0.23 Knowledge carries an admitted snapshot, original whole pages, result identities, and recovery through one research Run; complete lexical matches do not mean the user task was completed correctly."
   appliesTo:
     - "Developers and technical leads who want a complete working picture of RAG and a practical mapping from framework components to engineering steps."
     - "Agent projects answering questions, comparing documents and tracing sources across a versioned corpus."
@@ -369,6 +370,18 @@ npm run demo -- --case retrieve-reread --query "offline editing"
 ```
 
 Then change the query to `Markdown` and inspect how candidate pages, actually reread originals and report sources change. This fixed-version example uses synthetic documents and a scripted Gateway, with no real model call required. It demonstrates scoped lexical retrieval and rereading, rather than reproducing the private PostgreSQL/pgvector, hybrid-retrieval and TEI stack described above. This article supplies the runnable entry point; the example was not rerun for this revision.
+
+The public implementation has since advanced beyond that single retrieval example. The [fixed Open ETF Agent v0.23 Knowledge implementation](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/src/knowledge.mjs) starts from explicitly imported, admitted source snapshots frozen to a Run. The model calls `knowledge_query` through its permitted tool surface; Host registers matching **whole original pages** in the existing Result store, preserving exact `sourceId` and `resultRef` identities. Reports and Reader reread those original sources rather than treating a ranking score as a certificate of claim correctness. This public path is still bounded lexical retrieval, not the private system's vector search, fusion or reranking stack.
+
+Several implementation choices now become observable. A query is limited to 512 UTF-8 bytes, with admitted result-count and original-text caps. `complete` means every lexical match within this admitted collection was returned; `partial` records pages omitted by count or capacity, while `no-evidence` does not prove the answer is absent outside the collection. When a page does not fit, the system omits the whole page instead of silently clipping its original text under an unchanged content hash. Context capacity must also count actual encoded tool definitions and the additional JSON escaping of Chat tool content, not merely the retriever's text bytes.
+
+Use the [fixed-source Knowledge guide](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/docs/knowledge.md) to configure an explicitly authorized project, import synthetic text and submit a task. The read-only inspection command does not invoke a model:
+
+```sh
+node src/research-cli.mjs knowledge inspect --project DIR --run RUN_ID
+```
+
+The result identifies the original manifest, index identity and limits. Actual invocation, fidelity to an explicitly requested query, and report readback must be checked against the executed Run. [v0.23's layered real-task evidence](https://github.com/hpoenixf/open-etf-agent/blob/2fa6f29d322a3ee72ec5500ddaae21cea9dac14f/docs/verification/v023-release.md) includes cases where the retrieval contract worked but the model changed the user's specified query. This newer public example extends the source-to-answer path; it does not imply that the private RAG stack described earlier has been fully open-sourced.
 
 <span id="_9-walk-the-2023-notice-question-through-the-system-again"></span>
 

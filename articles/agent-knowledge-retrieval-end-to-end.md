@@ -7,6 +7,7 @@ readingBrief:
     - "LlamaIndex、LangChain、Haystack 提供加载、切块、检索和生成积木；项目仍需确定资料范围、版本、实际交付与评测方式。"
     - "此前公开文章描述的 ETF Agent 私有系统实现采用知识导入、PostgreSQL/pgvector、词法与 RRF 融合、可选 TEI 精排，以及 Native Knowledge 到 Host 引用的交付路径。"
     - "用同一份 2023 年公告观察每一步的输入与产物，再按召回、模型实际阅读、主张支持和成本分别验证效果。"
+    - "公开 v0.23 Knowledge 把已准入快照、完整原页、结果身份和恢复接到同一研究任务；检索命中完整不代表用户原问题已正确完成。"
   appliesTo:
     - "希望建立完整 RAG 工作印象，并把框架组件对应到实际工程步骤的开发者与技术负责人。"
     - "需要在多版本文档库中做问答、资料对照和来源回查的 Agent 项目。"
@@ -369,6 +370,18 @@ npm run demo -- --case retrieve-reread --query "offline editing"
 ```
 
 然后把查询改成 `Markdown`，检查候选页面、实际回读的原文与报告来源如何变化。这个固定版本示例使用合成文档和脚本化 Gateway，不需要真实模型调用；它演示受限词法检索与回读，没有复现前文私有系统的 PostgreSQL/pgvector、混合召回和 TEI 全套路径。这里提供的是可运行入口，本次改稿没有重新运行该示例。
+
+公开实现后来又向前走了一步。[Open ETF Agent v0.23 的固定 Knowledge 实现](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/src/knowledge.mjs)不再只是先找候选、再由示例读取：用户先明确导入一组资料，Run 固定原件快照与准入范围；模型在获准工具表面调用 `knowledge_query`，Host 把命中的**完整原文页**登记到原有 Result，并携带准确的 `sourceId`、`resultRef`。后续报告与 Reader 回读同一原始来源身份，不靠搜索分数来认证结论。它仍是有界的词法检索，没有在公开版实现私有系统的向量召回、融合和精排。
+
+这条真实调用路径带来几个容易忽略的选择。查询文字最多 512 UTF-8 字节，结果受已准入数量和原文字节限制；`complete` 只代表这次获准集合的词法命中全部返回，`partial` 要说明容量或条数省略，`no-evidence` 不证明资料库外不存在答案。超限时宁可不返回某个完整页面，也不截短正文却沿用它原来的哈希。Context 还要计入实际模型请求里工具定义与 JSON 再转义后的字节，而不能只统计检索器返回的文本长度。
+
+读者可以沿[固定版使用说明](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/docs/knowledge.zh-CN.md)创建明确授权的项目、导入合成文本并提交任务；不发起模型请求的检查入口是：
+
+```sh
+node src/research-cli.mjs knowledge inspect --project DIR --run RUN_ID
+```
+
+它应返回原资料清单、索引身份与本轮限额；真正的工具调用、模型是否按指定 query 查询，以及报告能否从原 Run 读回，仍须沿实际运行单独验证。[v0.23 的真实任务分层记录](https://github.com/hpoenixf/open-etf-agent/blob/2fa6f29d322a3ee72ec5500ddaae21cea9dac14f/docs/verification/v023-release.zh-CN.md)就出现过检索工具按合同执行、模型却改写用户指定查询的情况。这个较新的公开示例扩展了原版演示的研究链，并不等于本文前半部分描述的私有 RAG 管线已经整体开源。
 
 <span id="九、重新走完那份-2023-年公告研究"></span>
 

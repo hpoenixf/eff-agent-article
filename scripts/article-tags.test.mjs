@@ -109,7 +109,11 @@ test('actual finance component renders every tagged article in both languages an
    assert.ok(entry.includes(escape(english ? englishTitles[slug] : titles.get(slug))),slug);
    assert.ok(entry.includes('<p>'+escape(descriptionForArticle(globalThis.__financeDescriptions.articles,href))+'</p>'),slug);
   }
-  if(english) assert.match(html,/Chinese original/);
+  if(english) {
+   const hasUntranslatedFinance = members.some(slug => !englishArticleSlugs.includes(slug));
+   assert.equal(html.includes('Chinese original'), hasUntranslatedFinance,
+     'A fully translated finance catalogue must not show a stale Chinese-original fallback');
+  }
  }
  const newSlug = slugs.find(slug=>!members.includes(slug));
  globalThis.__financeTags.articles[newSlug]=[{id:'finance'}];
