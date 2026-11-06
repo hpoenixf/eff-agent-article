@@ -12,8 +12,11 @@ test('description coverage follows canonical language editions, never a second a
   assert.equal(paths.length, slugs.length + englishArticleSlugs.length)
   assert.equal(new Set(paths).size, paths.length)
   for (const slug of Object.keys({ ...historicalEditions, ...mergedArticles })) assert.ok(!paths.includes('articles/' + slug + '.md'))
-  const fallback = slugs.find(slug => !englishArticleSlugs.includes(slug))
-  assert.ok(fallback); assert.equal(englishArticlePath(fallback), '/articles/' + fallback)
+  const missingEnglish = slugs.filter(slug => !englishArticleSlugs.includes(slug))
+  // Preserve the Chinese-original routing contract even when every real canonical article has English text.
+  const fallback = missingEnglish[0] ?? 'synthetic-chinese-only-fixture'
+  if (!missingEnglish.length) assert.ok(slugs.every(slug => englishArticleSlugs.includes(slug)), 'All canonical editions are translated')
+  assert.equal(englishArticlePath(fallback), '/articles/' + fallback)
   assert.equal(descriptionForArticle({ ['articles/' + fallback + '.md']: '真实中文简介。' }, englishArticlePath(fallback)), '真实中文简介。')
 })
 
