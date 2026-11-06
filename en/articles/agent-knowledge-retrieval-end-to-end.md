@@ -381,7 +381,7 @@ Use the [fixed-source Knowledge guide](https://github.com/hpoenixf/open-etf-agen
 node src/research-cli.mjs knowledge inspect --project DIR --run RUN_ID
 ```
 
-The result identifies the original manifest, index identity and limits. Actual invocation, fidelity to an explicitly requested query, and report readback must be checked against the executed Run. [v0.23's layered real-task evidence](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/docs/verification/v023-release.md) includes cases where the retrieval contract worked but the model changed the user's specified query. This newer public example extends the source-to-answer path; it does not imply that the private RAG stack described earlier has been fully open-sourced.
+The result identifies the original manifest, index identity and limits. Actual invocation, fidelity to an explicitly requested query, and report readback must be checked against the executed Run. [v0.23's layered real-task evidence](https://github.com/hpoenixf/open-etf-agent/blob/2fa6f29d322a3ee72ec5500ddaae21cea9dac14f/docs/verification/v023-release.md) includes cases where the retrieval contract worked but the model changed the user's specified query. This newer public example extends the source-to-answer path; it does not imply that the private RAG stack described earlier has been fully open-sourced.
 
 <span id="_9-walk-the-2023-notice-question-through-the-system-again"></span>
 
