@@ -314,3 +314,131 @@ A subsequent, more concrete handoff was tested on November 5–6. In one control
 We have not added a universal financial veto switch. If a required input is absent, the affected calculation can be unavailable with a reason. An optional diagnostic that has not run or is temporarily unavailable need not erase independently valid research text. Diagnostics identify gaps; original domain owners repair their methods; the existing publication mechanism controls answer delivery.
 
 Main still has a job after receiving correct arithmetic. It must use the numbers faithfully, preserve their conditions and explain what they mean for the user's question. [Financial Data: Time, Definitions and Reproducibility](031-fintech-data-time-and-reproducible-numbers.md) discusses the gap between true source values, numerical correctness and final interpretation. Our focus here is how each of these enters one coherent research conclusion.
+
+
+## 7. Carry Evidence and Its Conditions into the Final Answer
+
+### Citations point to material; interpretation connects it to the question
+
+By this point Main has public fee terms, known portfolio data, derived calculations and explicit limitations. It must now answer the original question: **what would adding this ETF actually change?**
+
+A useful answer can start with observed overlapping holdings, state the coverage limitation, and then explain the relevance to the user's aim. Companies appearing in both disclosed subsets suggest that the new investment may not create entirely new company-level exposure for that portion. Industry, market and currency risks still need separate analysis. If the goal is to reduce concentration in one sector, the comparison may need to return to the entire portfolio rather than focus on two fund names.
+
+Citations help readers inspect disclosures and calculations. They cannot substitute for the reasoning that connects instrument choice, investment objective, methods and evidence. A numbered citation at the end of every sentence is not a method of financial validation.
+
+[Designing Agent Citations: From Host-Issued References to Revision-Safe Independent Review](ai-citations-do-not-prove-reliability.md) covers this distinction independently. At delivery time the responsibility remains clear: citation binding retains source identity while Main owns the explanation of why a finding matters.
+
+### Answer text acquires a version when it is published
+
+A model producing text does not, by itself, establish that the user has a durable, readable answer.
+
+Publication is the separate answer-delivery responsibility. Ordinary model text and explicit publication requests enter a shared preparation path. It prepares text and references, optionally produces a preview and records a versioned commit.
+
+Preview, persistence and client visibility are different facts. A server may stream useful content before storage completes. Later revision requires knowing which block, revision and position in the original answer were changed. If subsequent research fails, independently committed earlier content should retain its existing identity.
+
+This is particularly useful in financial research. An answer might first present verified fee terms, then add a qualified computation, then correct a condition. These can be related revisions within one study without requiring all local tasks to finish before the user sees any useful result.
+
+The details of preparation, replacement and recovery are in [Publication: Why Answers Need Their Own Delivery System](019-agent-answer-publication.md).
+
+### Local defects should produce accurately scoped outcomes
+
+Suppose the fee explanation is independently supported by permitted evidence, but one citation marker is malformed. The associated link can be omitted or marked unverifiable while the legitimate answer text remains deliverable.
+
+Two truths are preserved: text was generated; citation binding for that marker did not succeed. There is no reason to force another full research turn merely to repair optional metadata. But the runtime must not guess an unknown citation ID and silently bind it to a different source.
+
+A different rule applies when the text actually depends on unauthorized private material or its protected content identity cannot be established. The original owner still restricts that effect. Deleting source relationships or relabeling personal data as public cannot cure an authorization failure. Local degradation protects **independently authorized work**, not access rights that were never granted.
+
+Similarly, an unavailable calculation can be reported as one missing component. A failed file export need not erase already committed answer text; it should be described as an undelivered attachment. The system should make the usable portion and the missing portion visible without converting either into a fictitious success.
+
+### A downloadable report must end in bytes the user may actually obtain
+
+When a user wants an HTML report, a model can assemble static HTML directly or use authorized Python when a calculation or batch transformation genuinely requires it. Not every report needs to pass through a Python call.
+
+Both routes use common publication preparation and the Artifact path for durable files. Preparation handles answer content and references. Artifact handling validates and saves the final file bytes and records their fixed identity; authenticated download returns the corresponding content.
+
+A file existing in a workspace proves only that a temporary artifact exists there. Successful persistence establishes a durable file. Download adds another check: is this requester authorized to read the specific file version? Knowing its URL is a location fact, not permission to read its bytes.
+
+A historical file has a time meaning of its own. Downloading an old report should not require its past holdings to satisfy today's freshness requirement. Authorized sharing is limited to an identified recipient and fixed report version; it does not grant access to the entire account or every underlying source.
+
+[Why Saved HTML Can Still Fail Delivery](agent-html-evolution-challenges.md) studies this path more closely. The relevant guarantee here is modest but important: a user obtaining a financial report should get the *same persisted file*, under the right authorization. Opening that file does not certify the correctness of its financial reasoning.
+
+If text persistence and HTML persistence use different durable resources and a business rule requires them to succeed together, the system faces a classic **dual-write consistency** problem. The [Transactional Outbox pattern](https://microservices.io/patterns/data/transactional-outbox.html) addresses difficulties in atomically updating database state while publishing messages; [Saga](https://learn.microsoft.com/en-us/azure/architecture/patterns/saga) coordinates local transactions with compensation or recovery. They are useful comparisons, not evidence that this delivery path implements either pattern. Nor must every answer wait for its optional attachment to succeed.
+
+Our adopted delivery semantics establish text and file results **separately**. If text was committed but file persistence failed, report partial delivery. If an acknowledgement was lost, preserve the unknown state and reconcile the original operation identity. **Downloading is a later authorized read, not the second write in a dual-write transaction.** Even saved bytes require authorization and version checks when read.
+
+**Figure 5 — Answer text and files leave distinct delivery facts.** They share preparation, but text commit, file persistence and download are not one transaction or one kind of success.
+
+```mermaid
+flowchart TD
+    P["Shared publication preparation"] --> B["Commit versioned answer text"]
+    P --> F["Persist final file bytes"]
+    B --> H["Read answer history"]
+    F --> A["Authenticate and read fixed bytes"]
+```
+
+The two paths must be settled independently. Text may be previewed, but only a versioned commit establishes persistence. Invalid optional citations can degrade locally, while protected sources cannot be disclosed through that fallback. An HTML file needs final stored bytes and a fixed identity; the later download checks requester and content version. Persistence, possession of a URL and authorized byte readback are different facts.
+
+File failure cannot revoke independently committed answer text. Both outputs retain their own success, failure or unknown outcomes. The diagram does not imply an atomic transaction or that a readable report establishes correct investment reasoning.
+
+## 8. What Should Survive When Research Crosses Time?
+
+### First distinguish two kinds of context transformation
+
+**Mechanical fitting** replaces older material that need not remain resident with its original identity and an exact reread location. It does not generate a new interpretation. **Semantic summarization** asks a model to compress settled work into versioned derivative text, potentially losing dates, definitions, user corrections or counterevidence. That summary cannot stand in for the original source or an execution receipt.
+
+A later ETF Agent turn must still be able to locate exact evidence and preserve the original user input and source eligibility. [Main Context Compaction Without Rewriting Facts](agent-main-run-context-compaction.md) explains capacity triggers, summary adoption and recovery; here we care specifically about preserving the instrument, time and dependencies of financial material.
+
+### Summaries must be useful without pretending to be originals
+
+In this design, a summary helps research continue while the original result remains under its original read path. When exact numbers or wording matter, read the actual result again. If those source bytes are unavailable, preserve the absence rather than reconstructing imaginary originals from a summary.
+
+Provenance must survive context transformation. Replacing an original text block with an exact reference does not make the source disappear. Likewise, summarizing private content cannot wash away its original access dependencies merely because the summary is a newly generated string.
+
+A summary being triggered, generated, committed as adopted, and included in the next actual model request are different events. Attempting compaction does not prove that the next model consumed it. Persisting a summary does not prove every important qualification survived.
+
+Controlled tests of Main compaction cover capacity pressure, numeric and PDF references, and cold recovery. Multiple rounds of compaction during very long research still require checking semantic, citation and financial-number consistency across time.
+
+**Figure 6 — Fit earlier exact results before conditionally generating a derivative summary.** Proposal, committed adoption and actual subsequent model input are distinct steps.
+
+```mermaid
+flowchart TD
+    F["Fit original text to exact reread references"] --> G["Check capacity and eligible history"]
+    G -->|Summary appropriate| S["Generate and validate summary proposal"]
+    S -->|Adoption committed| P["Include in next candidate request"]
+    P --> R["Submit under original request rules"]
+```
+
+The decision sequence is: **first fit exact-reread original results**. Only when genuine capacity pressure remains and eligible history exists should a lossy summary be considered. If generation, identity checks or adoption fails, retain the original source and let existing capacity policy decide what can continue. Even after adoption, verify that the proposed summary actually entered the next model request.
+
+Neither a summary nor an old reference upgrades stale financial data into current evidence. Figure 6 is conditional: it does not say every Run compacts, that fallback always dispatches successfully, or that summarization has been certified semantically faithful.
+
+### Historical reading, same-Run recovery and new research
+
+When a user reopens a report days later, they are first reading a historical result. Preserve the then-committed answer revision, original references and fixed file identity. Do not insert updated market numbers into that version without explaining why the old conclusion is being changed.
+
+FinRobot's pinned [research instructions](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c14eaecf3b9a2fb/finrobot_desktop/finrobot/engine/instructions.md#L42) make a related distinction: upside estimates in historical reports use the price recorded at report time as their denominator, while current watchlist views may use live prices. This is a documented instruction, not a claim that we verified all real executions of that project.
+
+Historical conclusions can be understood against the prices recorded at their time. New market prices produce new observations. They do not silently rewrite the arithmetic base of the old report.
+
+If the user asks, “Compare again using today's material,” the agent is performing **new research**. The old report may be read as an identified reference, but the new Run requires its own admission and evidence appropriate to the current question. Previously valid calculation assumptions are not automatically refreshed by opening the old file.
+
+**Same-Run recovery** is different. It continues an interrupted but eligible operation under the original authorization, receipts and checkpoints. It must reconcile already executed effects rather than asking a model to guess what happened. A committed answer can be reread; a preview does not establish persistence; an outcome whose dispatch status is unknown must not be repeated blindly.
+
+There is bounded evidence from controlled real-model source reading, Child calculations, publication and same-Run Memory replay, as well as combinations of a scripted model transport with real CPython and new PostgreSQL readback connections. These observations cover distinct source, execution, delivery, replay and persistence paths; they are **not** one uninterrupted end-to-end production run.
+
+For a user, continuity therefore has three different meanings: inspect what was concluded at the time, resume the original work, or reassess using new facts. Separating them preserves history while allowing conclusions to evolve.
+
+**Figure 7 — Three user intents across time.** Historical reading, resuming an original execution and starting new research consume different facts.
+
+```mermaid
+flowchart TD
+    U["User's intention across time"] --> H["Read historical report"]
+    U --> R["Resume original Run"]
+    U --> N["Start new research"]
+```
+
+- **Read a historical report.** History and delivery paths verify the original commit, version and read permission, then return the historical text, file and limitations. They do not replace them with today's data.
+- **Resume an original Run.** The original recovery entry reconciles grants, receipts and checkpoints. Already committed effects are reread under the same identity; the next safe action continues within the original limits; unknown effects go back to their owner for resolution. Recovery does not invent a new execution history.
+- **Start new research.** A new Run obtains separate admission and newly applicable source material and produces a new result and report version. Historical work can inform the analysis but does not transfer its old grants.
+
+These branches describe user intentions, **not** a new recovery state machine. Historical viewing must not become an implicit data refresh, resuming must not redo settled side effects, and a new task must not inherit the authorization of an older Run.
