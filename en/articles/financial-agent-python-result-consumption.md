@@ -6,6 +6,7 @@ readingBrief:
     - "Python success establishes only local execution. Trace method selection, input eligibility, result handoff, and interpretation rather than treating more script calls as whole-task acceptance."
     - "Results must retain instruments, windows, denominators, units, and proxy limits. Contributions can exceed 100% under a net-gain denominator; percentage-point differences are not relative returns."
     - "Repair original domain methods and actual model inputs without blocking unrelated valid prose. Synthetic handoff tests do not establish reliable research completion by a natural model."
+    - "Diagnosing incompatible native-execution and legacy-script result envelopes, where completed computation still needs verifiably complete output before a domain method can consume it."
   appliesTo:
     - "Diagnosing reports that omit, misread, or lose qualifications despite successful calculations, and separating handoff tests from interpretation-quality evaluation."
   notFor:
@@ -16,7 +17,7 @@ readingBrief:
 
 > **Series:** Fintech and Compliance, with cross-links to architecture and module mechanics.
 >
-> The engineering source window ends on October 21, 2026. Numerical counterexamples are explicitly safe test or teaching inputs. Bounded regression success is not evidence that a natural model consistently completes autonomous investment research.
+> The original financial examples use evidence through October 21, 2026; Section 5 adds a controlled tool-result envelope regression from November 5. Numerical examples use safe test or teaching inputs. Bounded regression success does not establish reliable autonomous investment research by a natural model.
 
 **Delegating arithmetic to Python does not delegate financial judgment along with it.** A defensible investment conclusion still requires an applicable method, eligible inputs, and an interpretation that preserves the result's original meaning. A successful script solves only one part of the problem.
 
@@ -122,6 +123,10 @@ The production path is broadly:
 5. Publication determines delivery of independently eligible answer text.
 
 In controlled handoffs, domain methods can pass results with their denominators, qualification flags such as `proxy` or `insufficient`, and source identities through Skill and Result handling into the next Main request. One insufficient metric also need not erase unrelated valid text. This establishes the handoff for those result types, not that a real model will always select the right method, interpret each number faithfully, or finish the research task.
+
+There is also a failure mode distinct from financial formulas: **the tool finished computing, but its consumer did not understand the result envelope**. In a controlled fund-research chain on November 5, `run_analysis_python` had completed and retained its output. The old method parser recognized only legacy script receipts carrying `exitCode=0`; the native `AnalysisExecution` result intentionally had no such field, so the complete result was rejected as `INVALID_RESEARCH_METHOD_INPUT`. Passing the same unwrapped data succeeded, locating the incompatibility at the transport contract rather than in arithmetic.
+
+The current method-input decoder accepts both the old script envelope and the native execution shape. For the latter it requires a completed status, execution identity and workspace metadata, then checks `stdout` and `stderr` against `outputPreview`: complete, untruncated streams whose retained byte counts match the actual UTF-8 output. Failed, cancelled, unknown or incomplete results remain ineligible. An old workspace becoming invalidated does not negate an already retained complete output. The decoder owns interpretation of this input envelope; source admission, authorization and Publication remain with their original owners. Controlled Python, Artifact and HTTP continuation demonstrates the compatibility repair, not correctness for private accounts or autonomous investment research.
 
 Adding one more universal reviewer might look safer, but it could turn a local metric's insufficiency into rejection of the entire report, while reinterpreting source ownership, formulas and Run status in a new place. We chose to repair the original methods and the actual consumption seam, leaving permission, arithmetic, method eligibility, result identity and publication with their respective owners.
 
