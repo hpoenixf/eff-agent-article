@@ -202,3 +202,115 @@ Mechanical context fitting can replace older resident text with its original ide
 For Main, the result store is a versioned archive. The working desk need not hold every document, but the catalog must lead back to the precise original. That analogy describes access, not authority: the original research scope and content identity still govern every read.
 
 Material can leave the current context and enter the local context of another agent. The most consequential handoff now moves from Main to Child.
+
+
+## 5. What Exactly Passes Between Agents?
+
+### When is delegation worthwhile?
+
+In a fund comparison, Main retains the user's objective, share-class identity and time definitions. Child receives a narrower task only when that local work justifies a separate context. “Check ongoing and one-time fees for this product, preserving share class, channel, effective date and original conditions” is more useful than “research this fund.”
+
+The distinction between Web, PDF and Python specialists is primarily about **research emphasis**, not an obligatory pipeline partitioned by file format. An authorized Web Child may follow an approved PDF link and inspect tables or notes under its existing grant. For one straightforward read, Main may be the better choice. An additional Child incurs execution time, context cost and handoff risk; specialist count alone is not a measure of research quality.
+
+### Hand off the material that was acquired, not just a claim of completion
+
+Main knowing that a holdings table exists does not prove that Child received the table. PDF text, tables and footnotes can originate in different read ranges. A common filename cannot turn these limited observations into “the whole document was read.”
+
+Original result identity, selected content, source access rights, units, disclosure date and coverage restrictions must travel with the delegated work through an actually readable result entry.
+
+**Figure 3 — Select original results, delegate a bounded calculation and let Main inspect the returned work.** This is a handoff map, not a guarantee that calculation succeeded.
+
+```mermaid
+flowchart TD
+    M["Main: define a local question"] --> I["Deliver inputs under original result identity"]
+    I --> C["Child: inspect and calculate"]
+    C --> M2["Main: inspect and synthesize"]
+```
+
+Three checks make this meaningful:
+
+1. **Original inputs.** Main selects admitted results; Child reads those exact materials under the research identity. It must not invent missing fields from a summary or guess the filesystem path of another Child's output.
+2. **Local execution.** A Python Child first checks sample scope, instrument mapping and method preconditions, then calculates. On failure it returns the failure and missing conditions. A sandbox constrains execution but does not dissolve permissions on private source data. See [Python: From Tool to Computational Workbench](agent-python-compute-workbench-evolution.md).
+3. **Actual consumption.** Child returns the derived result, original evidence, definitions and limits. Main must really read and use those results to answer the initial question. If a fee condition and a holdings disclosure establish different risks, the final answer should explain their relative implications—not append two specialist reports without synthesis. Conflicting sources require revisiting the original instrument, date and coverage.
+
+That is why delegation is useful here: **isolate the local process without severing provenance or transferring Main's responsibility for the complete answer**. Broader mechanisms for specialist execution, recovery and profiles are discussed in [Subagent Panorama: Independent Context, Specialist Work and Real Handoffs](agent-subagent-context-specialization.md).
+
+## 6. Correct Arithmetic Still Requires a Valid Financial Method
+
+### First identify the denominator of overlap
+
+Suppose Python has received its selected inputs and completed a calculation. Return to the user's original concern: what is meant by “shared holdings”?
+
+In a **teaching example**, Fund A's disclosed top-ten holdings account for 60% of its total assets. Of that disclosed subset, 20% by weight consists of companies also appearing in Fund B. The 20% is measured against *A's disclosed subset*, so it represents 12% of all assets in Fund A.
+
+That establishes one fact about the identified portion: at least that known portion of A is invested in companies appearing in both disclosures. It says nothing about the matching amount in B, omits A's undisclosed 40%, and does not automatically define a symmetric weighted fund-overlap metric.
+
+A common weighted intersection calculation, for example, sums the smaller of the two comparable asset weights for each shared holding. To compute that quantity, we need comparable weights on both sides, their coverage and an accurate entity mapping. Matching company names alone do not establish the result.
+
+Python will implement whichever method we actually specify. The method must first answer: which asset layer is being compared, what is the denominator, how are unknown holdings represented, and are the dates comparable?
+
+**Figure 4 — Restore the denominator to Fund A's full assets.** Disclosed holdings account for 60%; 20% of that subset represents 12% of the entire fund. The remaining disclosed holdings account for 48%, and undisclosed assets remain 40%.
+
+| Asset scope in the teaching example | Share of Fund A's total assets |
+| --- | ---: |
+| Disclosed assets associated with companies appearing in both funds | 12% |
+| Other assets within the disclosed holdings | 48% |
+| Undisclosed holdings | 40% |
+
+<details>
+<summary>View the same teaching numbers as a complete pie chart</summary>
+
+```mermaid
+%%{init: {"theme":"base","themeVariables":{"pie1":"#9cc7ed","pie2":"#c9dfd0","pie3":"#e6e9ed","pieStrokeColor":"#64748b","pieStrokeWidth":"1px"}}}%%
+pie showData
+    title Teaching example: Fund A asset coverage
+    "Disclosed assets with shared companies" : 12
+    "Other disclosed assets" : 48
+    "Undisclosed assets" : 40
+```
+
+</details>
+
+The 48% must **not** be relabeled “confirmed non-overlap.” The unknown 40% does not disappear merely because the known portion can be calculated. This chart describes Fund A's disclosure coverage; it does not give the complete bilateral weighted overlap.
+
+### Disclosure coverage and portfolio-value coverage are distinct
+
+Suppose a portfolio has ten funds and the agent retrieves documents for nine. That does not prove that 90% of portfolio assets were covered: the missing fund might hold a large share of the money. Conversely, reading only a few dominant funds may cover much of the value while their constituent disclosures remain incomplete.
+
+Fund-list coverage, valuation coverage, look-through disclosure coverage, identity-mapping coverage and time coverage are different dimensions. Reducing them all to a single “completeness” score loses information necessary for interpretation.
+
+Look-through may traverse several layers: the user owns a fund, which owns another product, which owns companies. Multiplying weights across identified layers describes known capital relationships. Aggregation must choose a consistent layer so parent and child assets are not double-counted. Multiple appearances of the same underlying company can be analyzed together without erasing real capital merely because it appeared under several accounts or share classes.
+
+Unknown holdings must remain unknown. Renormalizing an observed sample to 100% is legitimate for a **clearly labeled sample analysis**, but it cannot be presented as a complete look-through of the entire portfolio. The agent can report findings supported within observed coverage while keeping the remainder explicit.
+
+### Fees represent three different kinds of fact
+
+Fee calculations have a similar structure.
+
+One number may be a **hypothetical assumption**, used for sensitivity analysis. Another may be an **estimate derived from applicable product terms**. A third may be an **actual deduction reported in an execution or account receipt**. All three can be numeric; they do not assert the same thing.
+
+A terms-based estimate requires the share class, channel, effective period, charging base, holding period and, where relevant, tiers, rounding and debit timing. Without a decisive condition, keep the hypothetical scenario explicitly hypothetical; do not promote it into a claimed actual fee.
+
+An annual fee-drag simulation must be distinguished from a one-time subscription or redemption cost. NAV may already incorporate some charges, and subtracting them again risks double counting. If fees enter a cash-allocation proposal, a single qualified fee breakdown should enter the relevant cash identity once, not be independently recomputed by several consumers.
+
+These are domain-method questions. A safely executed script can implement the wrong formula for the question, and a well-sourced table can be used with the wrong denominator. Provenance, execution facts and domain applicability must connect while retaining their separate owners.
+
+### A concrete comparison with another financial implementation
+
+FinRobot V2 provides a useful comparison. In its pinned [equity research DCF pipeline](https://github.com/AI4Finance-Foundation/FinRobot/blob/2717499b8e30f242640af08c14c13c2d45/finrobot_desktop/finrobot/engine/pipelines/equity_research.py#L520), code assembles financial inputs and performs deterministic valuation and sensitivity calculations, which then inform later analysis and narrative. The source supports an observation about division of labor; it does not, by itself, certify valuation assumptions or the eventual investment view.
+
+The transferable choice is to give financial methods explicit inputs and maintenance responsibility, then let the model interpret eligible results. Equity DCF and fund holdings or fee analysis apply to different instruments. FinRobot's implementation is not evidence that ETF Agent's remaining financial-numeric work has passed acceptance.
+
+### What was designed, what was actually checked, and what remains
+
+As this chain developed, the team formed a common design for financial numbers and indicators. Numeric foundations handle unit-bound values, explicit conversion, precision and residuals. Portfolio, fee and look-through domains own their applicable methods. Source adapters preserve original values and timestamps; result handling retains identity and dependencies.
+
+The design also distinguishes calculation precision, settlement precision and presentation precision. Monetary amounts can require exact decimals; statistical methods may use floating point under explicit tolerances. Different currencies cannot simply be added. Ratio-to-percentage-point conversions must follow actual definitions rather than guesses based on numeric magnitude.
+
+**At the original October 20, 2026 source checkpoint, P0 cash, fee and look-through repairs and subsequent federated-indicator convergence were still planned work.** That historical state should not be silently relabeled “the entire financial numeric system has passed” because one later synthetic scenario was checked.
+
+A subsequent, more concrete handoff was tested on November 5–6. In one controlled Run, synthetic Root holdings and two editions of Web disclosure passed through real local Python methods, a method composer, report persistence and HTTP readback. The calculation retained **known exposure and a 92% unknown remainder**, and rejected reusing the old calculation selection under the changed disclosure. This establishes a narrowly scoped input-version and calculation-compatibility behavior for that path. It does **not** qualify every cash or fee method, every currency and timing combination, natural-model method selection or real-account financial correctness. For the general dependency principle, see Section 6 of [What to Trust in Agent Engineering](agent-trust-from-claims-to-commitments.md).
+
+We have not added a universal financial veto switch. If a required input is absent, the affected calculation can be unavailable with a reason. An optional diagnostic that has not run or is temporarily unavailable need not erase independently valid research text. Diagnostics identify gaps; original domain owners repair their methods; the existing publication mechanism controls answer delivery.
+
+Main still has a job after receiving correct arithmetic. It must use the numbers faithfully, preserve their conditions and explain what they mean for the user's question. [Financial Data: Time, Definitions and Reproducibility](031-fintech-data-time-and-reproducible-numbers.md) discusses the gap between true source values, numerical correctness and final interpretation. Our focus here is how each of these enters one coherent research conclusion.
