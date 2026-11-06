@@ -33,7 +33,7 @@ const dates = {
   [`en/articles/${a}.md`]: { created: date('2026-01-03T00:00:00Z'), updated: date('2026-02-01T00:00:00Z') },
   [`articles/${b}.md`]: { created: date('2026-01-02T00:00:00Z'), updated: date('2026-02-01T00:00:00Z') },
   [`en/articles/${b}.md`]: { created: date('2026-01-01T00:00:00Z'), updated: date('2026-02-02T00:00:00Z') },
-  [`articles/${untranslated}.md`]: { created: date('2025-01-01T00:00:00Z'), updated: date('2025-02-01T00:00:00Z') }
+  ...(untranslated ? { [`articles/${untranslated}.md`]: { created: date('2025-01-01T00:00:00Z'), updated: date('2025-02-01T00:00:00Z') } } : {})
 }
 globalThis.__catalogDescriptions = { articles: Object.fromEntries(canonical.flatMap(slug => [
   ['articles/' + slug + '.md', '测试简介：机制、取舍与适用边界。' + slug],
@@ -43,7 +43,7 @@ globalThis.__catalogChronology = { available: true, articles: dates }
 globalThis.__catalogTags = { definitions: [{ id: 'finance', zh: '金融', en: 'Finance' }, { id: 'open', zh: '开源', en: 'Open source' }], articles: {
   [a]: [{ id: 'finance' }, { id: 'open' }, { id: 'fallback' }],
   [b]: [{ id: 'finance' }, { id: 'open' }],
-  [untranslated]: [{ id: 'finance' }, { id: 'fallback' }]
+  ...(untranslated ? { [untranslated]: [{ id: 'finance' }, { id: 'fallback' }] } : {})
 } }
 const bundled = await build({ stdin: { contents: compiled, loader: 'ts', resolveDir: theme }, bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'local-catalog-test-providers', setup(builder) {
   builder.onResolve({ filter: /^(vitepress|\.\/article-tags\.data|\.\/article-chronology\.data|\.\/article-descriptions\.data)$/ }, args => ({ path: args.path, namespace: 'catalog-test' }))
