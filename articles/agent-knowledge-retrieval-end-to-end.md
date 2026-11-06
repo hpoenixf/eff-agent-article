@@ -381,7 +381,7 @@ npm run demo -- --case retrieve-reread --query "offline editing"
 node src/research-cli.mjs knowledge inspect --project DIR --run RUN_ID
 ```
 
-它应返回原资料清单、索引身份与本轮限额；真正的工具调用、模型是否按指定 query 查询，以及报告能否从原 Run 读回，仍须沿实际运行单独验证。[v0.23 的真实任务分层记录](https://github.com/hpoenixf/open-etf-agent/blob/4e893ead9ebe8cdd13146ddc96fe1d56a1e56365/docs/verification/v023-release.zh-CN.md)就出现过检索工具按合同执行、模型却改写用户指定查询的情况。这个较新的公开示例扩展了原版演示的研究链，并不等于本文前半部分描述的私有 RAG 管线已经整体开源。
+它应返回原资料清单、索引身份与本轮限额；真正的工具调用、模型是否按指定 query 查询，以及报告能否从原 Run 读回，仍须沿实际运行单独验证。[v0.23 的真实任务分层记录](https://github.com/hpoenixf/open-etf-agent/blob/2fa6f29d322a3ee72ec5500ddaae21cea9dac14f/docs/verification/v023-release.zh-CN.md)就出现过检索工具按合同执行、模型却改写用户指定查询的情况。这个较新的公开示例扩展了原版演示的研究链，并不等于本文前半部分描述的私有 RAG 管线已经整体开源。
 
 <span id="九、重新走完那份-2023-年公告研究"></span>
 
