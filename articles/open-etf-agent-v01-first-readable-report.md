@@ -26,9 +26,18 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-最新三条推进线是 [v0.22 有界 Child 执行](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md)、[v0.21 项目中的普通人机问答](./agent-durable-human-interaction-response-adoption.md)和 [v0.20 本地研究项目](./open-etf-agent-v010-system-design.md)。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口；版本推进不自动增加已验证文章映射。
+最新三条推进线是 [v0.24 项目容量](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.zh-CN.md)、[v0.23 已准入资料检索](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/knowledge.zh-CN.md)和 [v0.22 有界 Child 执行](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md)。动手可沿[现有练手篇](./open-etf-agent-research-project-workshop.md)，不必重新拼装一篇模块清单。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口；版本推进不自动增加已验证文章映射。
 
-截至 2026-11-05，最新正式发布版本为 [v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0)，[上一版 v0.21.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.21.0)保留原发布记录。此前 v0.17 与 v0.18 的证据边界仍各自保留。v0.17 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce)把共享准入接到原请求与报告回读；环境中断留下的未知占位仍保留，新隔离组的后续成功不代表旧组恢复。v0.18 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2)进一步连接原 Schedule API 的确认、实际到期、显式单次唤醒和同 Run 交付。CLI 合成演示与 API 真实任务分开说明，不宣称后台自动调度。具体边界和回执见上面的既有模块文章；正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。此前 v0.16 的[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及其无模型撤权回读证据保持原样。
+截至 2026-11-07，最新正式发布版本为 [v0.24.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.24.0)，[v0.23.1 维护版](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.23.1)保留原记录。此前 v0.17 与 v0.18 的证据边界仍各自保留。v0.17 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce)把共享准入接到原请求与报告回读；环境中断留下的未知占位仍保留，新隔离组的后续成功不代表旧组恢复。v0.18 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2)进一步连接原 Schedule API 的确认、实际到期、显式单次唤醒和同 Run 交付。CLI 合成演示与 API 真实任务分开说明，不宣称后台自动调度。具体边界和回执见上面的既有模块文章；正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。此前 v0.16 的[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及其无模型撤权回读证据保持原样。
+
+v0.24 让同一新格式项目在等价 endpoint 的配置修订间沿用原 Admission 请求槽；换模型名或凭据变量别名不产生新容量。它是项目内合同，不是账户级或分布式限流，旧项目不自动迁移。[本版十题](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v024-release.zh-CN.md)观察到机械及具名 Runtime 合同 10/10，但原报告的 C09 错引仍保留，不能说模型答案全对；串行任务也不证明真实并发。
+
+v0.23 的 Knowledge 返回准入文本的完整原文页，再由 Main 和既有报告链消费；Child 不自动获得检索工具。[原批次](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-release.zh-CN.md)保留 Runtime 10/10、机械 9/10、严格完整任务质量 5/10 的区别，查询词改写和语义问题没有因发布而消失。这里提供当前入口，下方各版的历史证据不重记为新结果。
+
+<details>
+<summary>此前版本与原验收边界</summary>
+
+[v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0)与[上一版 v0.21.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.21.0)保留原发布记录；[v0.21 项目中的普通人机问答](./agent-durable-human-interaction-response-adoption.md)与 [v0.20 本地研究项目](./open-etf-agent-v010-system-design.md)沿原入口阅读。
 
 v0.22 将串行、单层、只读 Child 接入原 Main：以已准入方法和有限来源完成局部检查，再由 Main 继续组织交付。沿[固定 Child 指南](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md)操作；不支持并行、后台或嵌套，也不支持 Response、Schedule、PDF 或可信插件与 Child 组合。[本版验收](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/verification/v022-release.zh-CN.md)来自同一源码的两个事前批准阶段，十个场景原始机械成功 9/10；C06 原测量失败与不新增模型调用的读回补证分别保留，不写成连续 10/10。旧 Child 文章映射仍指向自己的历史资格，不随本版更新。
 
@@ -37,6 +46,8 @@ v0.21 将普通回复接回项目中的连续问答：查找原问题、保存�
 v0.20 把自选文本、Markdown 与有限 PDF 接入统一的本地研究项目：明确导入资料、批准提供方与数据范围、执行或恢复原 Run，再独立回读报告。安装和操作沿[固定 CLI/API 指南](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/research-project.zh-CN.md)，先从合成资料开始；它不是无限资料库、任意组合或生产投研服务。验收采用[公开分层证据](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.zh-CN.md)：新增 B 组运行完成 9/10、冻结机制仍 8/10，独立无模型遗忘过滤补证另列，原失败与未知均保留。不同执行版本不被合并成最终源码全部通过。
 
 v0.19 的下一步是[让既有模块通过显式输入组合](./open-etf-agent-v010-system-design.md)，并在[上下文压缩](./agent-main-run-context-compaction.md)中复用经过核对的摘要范围，避免同一证据反复消耗额度。[固定组合契约](https://github.com/hpoenixf/open-etf-agent/blob/9b6ae0adf1df7efd4fd138b8d2957103b8fd9132/docs/composition.zh-CN.md)保留原授权、预算与交付归属；Response 与 Schedule 的联合等待、通用动态撤权和 Python 隔离不在已实现范围。真实任务包含修复前后不同源码及保留的失败，不能写成全部同源通过。
+
+</details>
 
 下面保留旧版本的时间截面与最初 v0.1 案例。旧证据只解释自己的固定源码，不因新版本出现而改写。
 

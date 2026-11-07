@@ -169,3 +169,20 @@ test('v0.22 Child entry keeps execution lineage and historical article evidence 
   assert.equal(rows.flatMap(row=>[row,...row.additionalTargets]).some(slice=>slice.since==='0.22'),false)
  }
 })
+
+
+test('v0.23/v0.24 navigation preserves exact lineage without upgrading old article qualification',()=>{
+ const expected = {
+  '0.23': ['4e893ead9ebe8cdd13146ddc96fe1d56a1e56365','4531111e641200ab046f28b618f3ffda5a1b2a87','Retrieve admitted evidence','检索已准入原文'],
+  '0.24': ['0d47e318e0f5fb36d45d8be274324a06bdd20d5c','aa59d9c8ba735ff05a881134d665cc64edaee6d7','Keep project capacity across revisions','修订之间保留项目容量']
+ }
+ for(const [version,[commit,tree,title,zh]] of Object.entries(expected)) {
+  const row=versions.find(v=>v.version===version)
+  assert.deepEqual([row.commit,row.tree,row.title,row.zh],[commit,tree,title,zh])
+ }
+ assert.deepEqual(versions.slice(-3).reverse().map(v=>v.version),['0.24','0.23','0.22'])
+ for(const language of ['zh','en']) {
+  const slices=topicGroups(language).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets])
+  assert.equal(slices.some(s=>['0.23','0.24'].includes(s.since)),false)
+ }
+})

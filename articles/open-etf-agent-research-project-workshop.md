@@ -1,12 +1,12 @@
 ---
 title: "把自己的资料交给 Agent：从第一份报告到可恢复的研究项目"
-description: "沿一份可回查报告动手使用 Open ETF Agent v0.20，理解六层能力怎样接住自己的资料、模型决策、Memory、专家核对与任务恢复，以及目前仍未覆盖的边界。"
+description: "固定 Open ETF Agent v0.24，把自己的资料变成可回查报告，再用检索与有界 Child 核对同一个问题；学会区分原文、派生意见、任务恢复和项目容量。"
 readingBrief:
   takeaways:
-    - "v0.20 把自己的资料、自然任务与可回读报告接在同一本地项目里，贯通六层的有界子集，不是完整生产平台。"
+    - "v0.24 练习沿本地项目完成导入、检索、受限核对与报告回读；模型执行仍需自己的提供方与授权。"
     - "更换问题或资料应创建新任务；继续未完成的工作则沿原 Run，不重置授权、预算和截止时间。"
     - "报告可重新打开与内容可靠是两回事，应从结论反查来源，并单独检查未说明的信息。"
-    - "Memory 需要明确写入意图；Child 只核对受限材料，不能自动获得更大权限或代替 Main 发布。"
+    - "Main 用 Knowledge 查找原文，再把局部问题与文档范围交给 Child；Child 不继承检索工具，Main 仍须核对并发布。"
   appliesTo:
     - "愿意配置自己的模型提供方、费用及资料授权，使用本地文本练习 Agent 工程的开发者。"
   notFor:
@@ -23,11 +23,11 @@ import { withBase } from 'vitepress'
 
 你交给 Agent 一份很短的试验记录：投入 64 单位，可用产出 48 单位，损失原因尚未确定。你想要的不是一句“可用比例为 75%”，而是一份保存下来的报告：原文说了什么、哪些是计算、哪些仍然不知道，都能检查。关掉执行程序后还能打开；明天材料更新了，也知道旧报告依据的是哪一版。
 
-**这篇要完成的，就是“自己的资料进来，一份可核对的报告和一个可继续的任务留下”。** 我们会创建项目，把问题绑定到资料快照，让真实模型选择下一步，再逐步加入明确偏好、受限专家核对和未完成任务的继续执行。不是照着预写的工具动作跑一次 Demo。
+**这篇要完成的，就是“自己的资料进来，一份可核对的报告和一个可继续的任务留下”。** 我们会创建项目，把问题绑定到资料快照，让真实模型选择下一步，再把资料检索与受限专家核对放进同一项新任务，最后检查怎样继续未完成的工作。不是照着预写的工具动作跑一次 Demo。
 
-[深入篇](open-etf-agent-v010-system-design.md)解释资料、执行与专家交接为什么需要契约，主线是 v0.15 前后的独立机制示例。v0.20 把这些问题接到同一个公开本地项目入口。这里跟随读者的动作和实际拿到的东西前进，不再重讲一遍架构，也不把私有完整系统都算给开源版。
+[深入篇](open-etf-agent-v010-system-design.md)解释交接为何需要契约；这里固定已发布的 **v0.24.0**，跟随读者的输入和产物前进。[原 v0.20 练习全文](https://github.com/hpoenixf/eff-agent-article/blob/16547101a8a42f01a62695a7a4e32ecfcace0d05/articles/open-etf-agent-research-project-workshop.md)保留旧命令、资料和观察，旧项目不要直接套用新版步骤。
 
-练习基于该版本已经完成的[真实模型运行记录](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020/case-mechanism-observations.json)：公开项目 API 已观察到资料导入、Memory 与 Child 消费、报告持久化，以及新进程继续原任务。下文 CLI 调用这套 API，命令参数及无需模型的操作另行核对。已有实测并不意味着这组终端命令逐条实跑过，也不保证换一份资料仍得到相同结果。
+原 v0.20 的[真实运行记录](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020/case-mechanism-observations.json)支持资料、Memory、Child 与恢复的早期路径；后来的 [Knowledge 实跑](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-release.zh-CN.md)包含 Main 检索、Child 读原文、Main 消费交接并保存报告。后者属于固定 v0.23 执行源码，不是 v0.24 新跑的组合测评。本文按 v0.24 核对命令和离线准备步骤，没有为改稿再调用模型，也不承诺这组终端命令或新材料会得到同样答案。
 
 ## 先看终点：跑完以后，手里应该留下什么
 
@@ -39,9 +39,9 @@ import { withBase } from 'vitepress'
 
 这三样并不是同一个“成功”。资料可以在零模型调用时导入；模型可能给了回答却没有保存报告；报告确实存在，推理也仍可能出错。下面每一步都让其中一个区别变得可观察。
 
-## 对照深入篇：0.20 走到了六层的哪里
+## 对照深入篇：沿同一张六层地图动手 {#对照深入篇-0-20-走到了六层的哪里}
 
-把[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)当作职责地图，不是功能清单。这次练习贯通六层的一个有界子集，仍是本地单用户项目，不是已经完成的多人金融研究产品。
+下图保留原 v0.20 职责地图，不把图上的版本当作本次执行身份。把[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)当作职责地图，不是功能清单。这次练习贯通六层的一个有界子集，仍是本地单用户项目，不是已经完成的多人金融研究产品。
 
 <figure>
   <picture>
@@ -56,7 +56,7 @@ import { withBase } from 'vitepress'
 | **L1 · 任务输入与触发** | `run submit` 保存明确问题，`run work` 才执行。 | 没有聊天意图分流或无人值守守护进程。版本另有受限 Response、Schedule 入口，本篇不启用。 |
 | **L2 · 身份、会话与上下文** | project、Run、资料 manifest、grant 与配置保持范围一致；明确 Memory 可提供偏好。 | 本地项目身份不是账户认证或多租户隔离，保存偏好也不是自动学习。 |
 | **L3 · Agent 决策与运行** | Main 在研究循环里选择动作，可使用受限 Child；已知的未完成任务可沿同 Run 继续。 | 不是生产系统完整的 Direct/Research/Coord 三路分流，也不是任意层级的自主代理组织。 |
-| **L4 · 工具与领域能力** | 读取选定文本及结果，查询 Memory，让受限专家核对来源。 | 不包含实时金融取数、任意网络爬取或隔离 Python。本配置未开计算工具，75% 是读者人工复核点。 |
+| **L4 · 工具与领域能力** | 读取选定文本及结果，Main 检索准入资料，查询 Memory，让受限专家核对来源。 | 不包含实时金融取数、任意网络爬取或隔离 Python。本配置未开计算工具，75% 是读者人工复核点。 |
 | **L5 · 结果发布与交付** | 沿原 Publication 链保存报告，再读回持久结果和回执。 | 保存不等于答案质量认证，也不证明完整消息历史、流式推送和通知送达服务。 |
 | **L6 · 用户界面** | CLI 检查，以及读取已保存报告与来源的本地只读 Reader。 | 不是聊天产品、账户门户、多人协作界面或公网分享服务。 |
 
@@ -81,12 +81,12 @@ Independent trial: intake 64 units; usable output 48 units; failure causes not e
 
 **这一段在练 L1 和 L2。** 创建项目是在给工作准备本地归处；导入固定证据版本；提交把版本绑定到一个问题。资料真正发给提供方之前，你已经能检查这是哪件事、允许用什么。
 
-使用 Node.js 26.8.1–26.x。在仓库之外保存自己的练习材料；以下命令在仓库根目录执行，`../my-research` 是自行创建的工作目录。
+声明支持 Node.js 26.8.1–26.x；本版发布实测为 26.11.1。在仓库之外保存自己的练习材料；以下命令在仓库根目录执行，`../my-research` 是自行创建的工作目录。
 
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
-git checkout v0.20.0
+git checkout v0.24.0
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 node src/research-cli.mjs --help
@@ -101,7 +101,7 @@ mkdir -p ../my-research
 
 这是明确选择文件，不是授予整个目录的访问权。入口支持文本、Markdown 和受限的文本层 PDF；本次先用文本，以便之后加入 Child。路径相对于运行命令的当前目录。不要用通配符或把文件夹当文件。
 
-创建 `../my-research/config.json`：
+为本次练习使用新的空项目目录；`project init` 不是旧目录升级命令。创建 `../my-research/config.json`：
 
 ```json
 {
@@ -179,25 +179,46 @@ node src/research-cli.mjs report serve --project ../my-research/live-project --r
 
 打开命令打印的实际本地地址。Reader 读取已保存的报告与来源，不重新调用模型；按 Ctrl-C 停止 Reader。报告存在，是交付事实；报告结论是否成立，仍需要你的判断。
 
-## 四、换问题和资料，不偷换旧任务
+## 四、用检索找到依据，仍然保留旧任务 {#四、换问题和资料-不偷换旧任务}
 
-**这一步练的是版本关系，不是聊天记忆。** L2 保留旧问题与资料身份，L5 保留对应报告。新问题可以得出不同判断，但不应让旧成果失去来历。
+一份短文直接阅读就够了。资料变成多份时，先检索再核对能缩小要读的范围；这里的 Knowledge 是对**本任务已导入文本**做有界词法检索，不是联网搜索或向量资料库。它返回完整原文页及来源身份，分数只帮助排序。`complete` 只表示本集合的词法命中已返回；`partial` 有省略；`no-evidence` 只说明这次没命中。
 
-把另一个问题，例如“要解释不可用产出的原因，还缺哪些信息？”，写到 `../my-research/second-question.txt`，沿同一 manifest 提交新的 `--run decision-gaps`。这不是在第一次任务里追加一句话，而是用相同资料完成另一项任务。对比两份报告，观察哪些来源被复用，判断的重点怎样变化。
+保留 `independent.md`，另建 `follow-up.md`，写入下面的**教学构造**，不要当作原测评中的新发现：
+
+```text
+Independent trial follow-up: 8 of the 16 unusable units had damaged packaging. Causes for the other 8 units remain unresolved.
+```
+
+把 `files.json` 改成两个明确路径，再导入一次：
+
+```json
+["../my-research/independent.md", "../my-research/follow-up.md"]
+```
+
+新 manifest 包含两份资料，旧 Run 仍属于原快照。将完整 `live-config.json` 复制为 `knowledge-config.json`，把 capabilities 改为 `["report", "memory", "knowledge"]`，并添加顶层 `"knowledge": {"maxResults": 4, "maxSourceBytes": 128000}`。保留 gateway 和 limits，不自定义 `allowedTools`，以保留当前 Main 及后续 Child 所需的原工具范围。
 
 ```bash
-node src/research-cli.mjs run submit --project ../my-research/live-project --run decision-gaps --question ../my-research/second-question.txt --manifest LIVE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs project inspect --project ../my-research/live-project
+node src/research-cli.mjs project update --project ../my-research/live-project --config ../my-research/knowledge-config.json --expected-config CURRENT_CONFIG_SHA
+node src/research-cli.mjs source import --project ../my-research/live-project --files ../my-research/files.json > ../my-research/knowledge-import.json
+```
+
+`CURRENT_CONFIG_SHA` 必须来自刚才的 inspect，`KNOWLEDGE_MANIFEST_SHA` 则来自新导入。把新问题保存到 `second-question.txt`：“先用 Knowledge 查找试验与后续检查的依据。不可用部分是否都能归因于包装？区分原文事实、计算和仍未知的原因，引用原文并保存报告。”
+
+```bash
+node src/research-cli.mjs run submit --project ../my-research/live-project --run decision-gaps --question ../my-research/second-question.txt --manifest KNOWLEDGE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs knowledge inspect --project ../my-research/live-project --run decision-gaps
 node src/research-cli.mjs run work --project ../my-research/live-project --run decision-gaps
 node src/research-cli.mjs run report --project ../my-research/live-project --run decision-gaps
 ```
 
-接着做一个明确标为教学变化的新版本，补一句“后续检查发现 8 单位包装受损，其他原因仍未确定”，重新 `source import`。这句是练习用的新信息，不是原测评试验的事实。新导入应返回不同 manifest，第三项任务绑定它。第一份报告仍属于原资料快照，不应被新文件悄悄改写。
+`knowledge inspect` 只检查准入资料和检索绑定，不证明模型已搜索。实际执行时，Main 用 `knowledge_query` 获得原文与 `sourceId`、`resultRef`，可用 `read_result` 重读，再保存引用原文的报告。检查它有没有把“8 单位”扩大成“全部 16 单位”，或把没有命中写成不存在原因。材料只说这 8 单位存在包装受损，也未证明它们就是因此不可用。原文件改名、替换或再次导入都不应改写这次任务的已准入资料；问题或证据变化，就用新 Run。
 
-这比“模型记住了我刚才说什么”更具体：你可以区分新问题、新证据和旧结果。项目目录是持久状态，不是可随意删除的缓存；资料、任务、会话、报告与 Memory 要一起保留。
+这条路径的取舍是简单、固定、容易回查，但不会自动发现新文件，也不保证召回语义相关的材料。只有两段很短的文本时，直接读页更省事；此处加入检索，是为了观察命中怎样成为可引用原文，而不是证明检索必然更好。[固定 Knowledge 指南](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/knowledge.zh-CN.md)给出完整容量和恢复边界。
 
 ## 五、把偏好和分工加入项目
 
-**现在改变的是研究方式，不是证据本身。** Memory 让经过确认的偏好跨任务进入上下文；Child 把一段有限的来源核对与 Main 的综合分开。两者都不能改写原文，也不会自动扩大权限。
+**沿用上一步的问题，增加一次独立的局部核对，不再重讲架构。** Memory 是可选的呈现偏好，Child 则检查 Main 找到的资料是否真的支持某个判断；两者都不是新证据。
 
 先让系统记住一种明确的呈现偏好，而不是存入未经核实的业务结论。创建 `preference.txt`，内容例如“报告先列出资料未说明的事项，再写比较结论”。
 
@@ -206,22 +227,41 @@ node src/research-cli.mjs memory save --project ../my-research/live-project --in
 node src/research-cli.mjs memory inspect --project ../my-research/live-project
 ```
 
-随后创建新任务，请它查找并使用适用的报告偏好。检查结果时分开两件事：Memory 是否已保存，以及本次模型是否确实读到并采用。格式偶然一样，不能单独证明 Memory 被消费。如果当前输出不足以确认采用，就记作未确认，不凭回答相似来推断。既有测评核对了原执行记录，普通报告并不等于同样完整的执行追踪。需要更新或遗忘时，使用 inspect 返回的真实条目 ID 和当前 revision 执行 `memory revise` 或 `memory forget`，仍须明确批准意图。遗忘不等于把磁盘历史物理擦除。
+保存和采用分开检查：新任务需要实际读到并使用偏好，不能凭格式相似推断。要更新或遗忘，沿 inspect 返回的真实 ID 和当前 revision 调用 `memory revise` / `memory forget` 并批准意图；遗忘不等于物理擦除历史。
 
-接下来才加入 Child。在完整配置的 capabilities 中增加 `child`，用 `project inspect` 取得当前 `configSha256`，再以 `project update --config ... --expected-config ...` 更新未来任务的配置。旧 Run 不会跟着获得新权限。
-
-把修改后的完整真实模型配置保存为 `../my-research/child-config.json`，其中 `capabilities` 为 `["report", "memory", "child"]`。将 `CURRENT_CONFIG_SHA` 换成 inspect 返回的当前配置哈希，不沿用过期值。
+本次使用 v0.22 引入、v0.24 保留的 `delegate_child`，不是旧单次 `source_check`。在仓库根目录执行下面这段配置生成命令，从固定源码导入完整方法及其哈希，避免手抄不完整描述：
 
 ```bash
+node --input-type=module <<'JS'
+import { readFileSync, writeFileSync } from 'node:fs';
+import { CLAIM_COMPARISON_METHOD } from './src/child.mjs';
+const config = JSON.parse(readFileSync('../my-research/knowledge-config.json', 'utf8'));
+config.capabilities = ['report', 'memory', 'knowledge', 'child'];
+config.childExecution = {
+  schemaVersion: 'child-execution@1',
+  maxChildren: 1,
+  methods: [CLAIM_COMPARISON_METHOD]
+};
+writeFileSync('../my-research/child-config.json', JSON.stringify(config, null, 2) + '\n');
+JS
 node src/research-cli.mjs project inspect --project ../my-research/live-project
 node src/research-cli.mjs project update --project ../my-research/live-project --config ../my-research/child-config.json --expected-config CURRENT_CONFIG_SHA
 ```
 
-用新任务让助手核对所选材料是否支持对不可用产出原因的一种解释，再综合为报告。
+这次也必须使用新的配置哈希；旧 Run 不会获得 Child 权限。创建 `review-question.txt`：“用 Knowledge 查找两份试验记录，再用一次 claim-comparison 核对：所有不可用产出都由包装受损造成吗？给 Child 明确的局部问题和已准入文档范围。Main 回到原文检验其意见，区分已知、计算和未知，保存报告。”
 
-Child 的价值是分离一段有边界的核对工作，不是给每个观点配一个角色。这里的公开 Child 只处理一至两份选定文本，工具和预算受限，返回的意见不能冒充原文；最终报告仍由 Main 保存。若没有真实触发 Child，就不能把普通报告称为协作示例，应该如实记录这一轮只完成了单助手研究。
+```bash
+node src/research-cli.mjs run submit --project ../my-research/live-project --run reviewed-gaps --question ../my-research/review-question.txt --manifest KNOWLEDGE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs run work --project ../my-research/live-project --run reviewed-gaps
+node src/research-cli.mjs child list --project ../my-research/live-project --run reviewed-gaps
+node src/research-cli.mjs run report --project ../my-research/live-project --run reviewed-gaps
+```
 
-最终实现还在另一份合成试验材料上实际组合了 Memory、Child 与报告：基线 80、结果 100，使用同一传感器，但天气未受控。这证明这些机制确实在同一任务中被消费，不证明能够作出因果解释；变化原因仍不能从这几句话中得出。
+Main 从命中里选择已准入的 `documentId`，连同局部问题交给 Child。**不是把父任务的 ResultRef 或整段工具历史复制过去。** 这里的 `claim-comparison` 只允许 Child 用自己的 `read_page` 读取最多两份选定文档；它没有 `knowledge_query`。Child 返回核实过的原文引用和派生意见，Main 再判断并保存最终报告。
+
+用 `child list` 检查是否真有执行、哪些文档获准、交接是 `not-consumed`、`committed-not-consumed` 还是 `consumed`。这个只读命令不调用模型；若模型没触发 Child，就记录为单助手研究。Child 已完成但 Main 没采用，也不能叫协作已经交付。一次独立核对会增加调用与预算消耗；两份材料已足够直接判断时，不必为了角色数量加入 Child。
+
+这里有一个真实提醒：[v0.23 的 K09](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-real-ten.safe.json)完成了检索、Child 读原文、Main 消费交接和报告保存，却改写了任务要求的查询词，因此严格任务质量仍未通过。协作发生，不代表它准确遵循了问题。原 v0.20 还在“基线 80、结果 100、同一传感器、天气未受控”的合成材料上观察到 Memory、Child 和报告组合；这同样不能支持因果解释，也不是本次新版的运行结果。
 
 ## 六、继续同一件事，而不是从头再来
 
@@ -237,13 +277,13 @@ Child 的价值是分离一段有边界的核对工作，不是给每个观点�
 
 ## 结语：真正带走的是一套检查方式
 
-完成练习之后，你应能拿另一份或另一对资料、换一个问题，独立得到并核对持久报告；能说明什么时候应新建任务、什么时候只能继续原任务；也能辨认 Memory 与协作究竟发生了，还是只是自己希望发生。
+练习收束为一条路径：明确导入 → Main 找到原文 → Child 在自己的窄范围核对 → Main 消费并保存 → 独立回读。你应能分清新问题、新证据与原任务，也能辨认检索和协作究竟发生了，还是只是自己希望发生。
 
-深入篇解释这些契约为什么存在，这篇让你在自己的输入上看见它们的作用。可复现不代表每次答案一样，更不代表没有失败；它首先意味着输入、权限、执行与结果之间的关系能被检查。
+v0.24 还让新格式项目在同一规范化 HTTPS endpoint 的配置修订间保留原请求槽。用 `node src/research-cli.mjs capacity inspect --project ../my-research/live-project --run reviewed-gaps` 只读检查原票据；换模型名或凭据变量别名不意味着得到新容量。不同项目目录仍独立，不是账户级限流。旧 v0.20 项目保留原合同，不自动迁移；不要删除旧状态或新建任务来抹掉未知请求。具体兼容规则见下方固定容量指南。
 
 [固定版本研究项目指南](https://github.com/hpoenixf/open-etf-agent/blob/88afb84958ed8de9108d756cdc0d63e6d2fbee24/docs/research-project.zh-CN.md) · [分层执行证据](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.zh-CN.md) · [深入篇：交接契约](open-etf-agent-v010-system-design.md)
 
-[当前项目指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/research-project.zh-CN.md)可能继续演进；复现本稿时仍固定 v0.20.0，不混用未来命令。
+[v0.24 项目指南](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/research-project.zh-CN.md) · [Child 方法与检查](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/child-execution.zh-CN.md) · [项目容量与旧格式边界](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.zh-CN.md)。[当前项目指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/research-project.zh-CN.md)会继续演进；本练习固定 v0.24.0，上面的旧版指南和分层执行证据仅作历史入口。
 
 
 这是[深入篇](open-etf-agent-v010-system-design.md)之后的动手一站，不替代机制讲解。能够检查自己资料上的任务后，再读[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)，把这些边界放回完整系统。
