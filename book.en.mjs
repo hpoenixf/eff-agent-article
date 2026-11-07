@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "chat-copilot-agent-runtime-evolution": "From Chat to Copilot to Agent: What Actually Changes in the Architecture?",
   "agent-vs-backend-development-panorama": "How Agent Development Differs from Backend Development: From One Request to a Long-Term Personal Assistant",
   "agent-artifact-version-access-sharing": "A Report Is Generated: Why Can’t It Be Shared Yet?",
   "agent-research-decisions-evidence-synthesis": "When Should an Agent Stop Researching and Start Answering?",
@@ -110,6 +111,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "chat-copilot-agent-runtime-evolution",
   "agent-vs-backend-development-panorama",
   "agent-personalized-daily-research-cache",
   "agent-account-identity-private-scope",
