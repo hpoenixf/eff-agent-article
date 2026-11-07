@@ -174,6 +174,7 @@ export const collections = [
         "title": "系统边界与演进",
         "desc": "跨模块证据关系、职责边界、故障归因、可靠性与长期架构演化。",
         "items": [
+          ["chat-copilot-agent-runtime-evolution", "从 Chat 到 Copilot，再到 Agent：AI 系统的底层架构究竟发生了什么变化？"],
           ["agent-vs-backend-development-panorama", "Agent 开发与后台开发有什么不同：从一次请求到长期个人助手"],
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["agent-trust-from-claims-to-commitments", "Agent 的可信与不可信：从局部事实到系统承诺"],
