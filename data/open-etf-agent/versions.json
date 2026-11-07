@@ -91,6 +91,14 @@
     "0.22": {
       "commit": "fed2c5f886200d4c04281c6293d5eb1ee7c2eab9",
       "tree": "b42e1b0dfa2d1c8a21248e654255d91524f11ba2"
+    },
+    "0.23": {
+      "commit": "4e893ead9ebe8cdd13146ddc96fe1d56a1e56365",
+      "tree": "4531111e641200ab046f28b618f3ffda5a1b2a87"
+    },
+    "0.24": {
+      "commit": "0d47e318e0f5fb36d45d8be274324a06bdd20d5c",
+      "tree": "aa59d9c8ba735ff05a881134d665cc64edaee6d7"
     }
   },
   "targets": {

@@ -1,12 +1,12 @@
 ---
 title: "Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project"
-description: "Use Open ETF Agent v0.20 to turn your own documents into a checkable report, following the six-layer handoffs through model decisions, Memory, bounded specialists and task recovery without claiming a complete production platform."
+description: "Use fixed Open ETF Agent v0.24 to produce a checkable report, then combine retrieval with bounded Child work on the same question. Distinguish original evidence, derived advice, task recovery and project capacity."
 readingBrief:
   takeaways:
-    - "v0.20 connects your documents, a natural task and a readable report inside one local project: a bounded path through six layers, not a complete production system."
+    - "The v0.24 exercise connects import, retrieval, bounded checks and report readback in a local project. Model execution still requires your own provider and authorization."
     - "A different question or source snapshot belongs in a new task. Continue unfinished work through its original Run, preserving its authorization, budget and deadline."
     - "A report that can be reopened is not necessarily a reliable report. Trace conclusions back to their sources and check separately for missing information."
-    - "Memory requires an explicit write intent. Child work checks a bounded set of sources without acquiring broader authority or publishing on Main's behalf."
+    - "Main searches with Knowledge, then gives Child a local question and document scope. Child does not inherit retrieval tools; Main still checks and publishes the result."
   appliesTo:
     - "Developers practicing agent engineering with local text documents who are prepared to authorize their own model provider, data transmission and costs."
   notFor:
@@ -23,11 +23,11 @@ import { withBase } from 'vitepress'
 
 You give an Agent a short trial note: 64 units went in, 48 were usable, and the causes of the loss are not established. A useful outcome is not merely “75%.” You want a saved report that distinguishes the original facts from the calculation, refuses to invent a cause, and still opens after the process that produced it has exited. When the source changes tomorrow, you also want to know which report belongs to which version.
 
-**That is the project we build here: your own material in, a checkable report and a durable task out.** You will create a project, bind a question to a source snapshot, let a real model choose its steps, then try preferences, bounded specialist work and continuation of an unfinished task. The model is not following a prewritten tool transcript.
+**That is the project we build here: your own material in, a checkable report and a durable task out.** You will create a project, bind a question to a source snapshot, let a real model choose its steps, then combine retrieval and a bounded specialist check in a new task before inspecting continuation of unfinished work. The model is not following a prewritten tool transcript.
 
-The [deep dive](open-etf-agent-v010-system-design.md) explains why source, execution and specialist handoffs need contracts, using separate examples around v0.15. v0.20 brings those concerns behind one public local-project entry. This article follows what the reader does and gets back; it does not repeat the architecture or attribute the entire private system to the open release.
+The [deep dive](open-etf-agent-v010-system-design.md) explains why handoffs need contracts. Here we use released **v0.24.0** and follow the reader’s inputs and artifacts. The [original v0.20 workshop](https://github.com/hpoenixf/eff-agent-article/blob/16547101a8a42f01a62695a7a4e32ecfcace0d05/en/articles/open-etf-agent-research-project-workshop.md) retains its commands, sources and observations. Do not apply the new steps directly to an old project directory.
 
-The exercises build on the release’s [recorded real-model runs](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020/case-mechanism-observations.json). Those runs used the public project API and observed source import, Memory and Child use, persisted reports, and continuation in a new process. The CLI below calls that API; its argument handling and no-model operations have been checked separately. The existing runs do not mean this exact terminal sequence or every replacement document has been tested.
+The original [v0.20 real-model records](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020/case-mechanism-observations.json) support the earlier source, Memory, Child and recovery paths. Later [Knowledge runs](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-release.md) observed Main retrieval, Child reading originals, and Main consuming the handoff before saving a report. Those observations belong to fixed v0.23 execution source, not a new v0.24 combined evaluation. This revision checks the v0.24 commands and offline preparation without new model calls; it does not promise the exact terminal sequence or new documents will yield the same answer.
 
 ## See the destination before typing commands
 
@@ -39,9 +39,9 @@ At the end of the main exercise, you should have three things you can inspect:
 
 These are different outcomes. The source may be imported before any model is called; a model may answer without saving the required report; a report may exist while its reasoning is wrong. Each step below makes one of those distinctions observable.
 
-## Where v0.20 sits in the six-layer map
+## Follow the same six-layer map {#where-v0-20-sits-in-the-six-layer-map}
 
-Read the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) as a map of responsibilities, not a feature checklist. This exercise passes through a bounded subset of all six layers. It is still a local, single-user project, not a multi-user financial research product.
+The diagram retains the original v0.20 responsibility map, not the execution identity of this revision. Read the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) as a map of responsibilities, not a feature checklist. This exercise passes through a bounded subset of all six layers. It is still a local, single-user project, not a multi-user financial research product.
 
 <figure>
   <picture>
@@ -56,7 +56,7 @@ Read the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) as 
 | **L1 · Input and triggers** | `run submit` stores a question; `run work` executes it. | No chat-intent router or unattended daemon. The release has bounded Response and Schedule entries, but we do not enable them here. |
 | **L2 · Identity, session and context** | Project, Run, source manifest, grant and configuration keep scope stable; explicit Memory can supply preferences. | A local project ID is not account authentication or multi-tenant isolation. A stored preference is not automatic learning. |
 | **L3 · Agent decisions and execution** | Main chooses tool actions in a research loop; a bounded Child can contribute; known unfinished work can continue in the same Run. | Not the production system’s complete Direct/Research/Coord routing or an arbitrary hierarchy of autonomous agents. |
-| **L4 · Tools and domain capabilities** | Read selected text and stored results; consult Memory; ask a restricted specialist to check sources. | No live financial-data service, arbitrary web crawling or isolated Python. This configuration does not enable a calculation tool: the 75% ratio is your manual check. |
+| **L4 · Tools and domain capabilities** | Read selected text and stored results; Main searches admitted sources; consult Memory and ask a restricted specialist to check originals. | No live financial-data service, arbitrary web crawling or isolated Python. This configuration does not enable a calculation tool: the 75% ratio is your manual check. |
 | **L5 · Publication and delivery** | Save the report through the original Publication path, then read the persisted result and receipt. | Saving is not answer-quality certification or proof of a full message-history, streaming and notification service. |
 | **L6 · User interface** | CLI inspection and a read-only local Reader for saved reports and sources. | Not a chat application, account portal, collaboration UI or public sharing service. |
 
@@ -81,12 +81,12 @@ Once comfortable, replace the material with your own short text or Markdown docu
 
 **You are now exercising L1 and L2.** Project creation prepares the local home for the work; import fixes the evidence version; submission binds that version to one question. Before data is sent to a provider, you can inspect what the task is and what it may use.
 
-Use Node.js 26.8.1–26.x. Keep your exercise material outside the repository. The commands below run from the repository root; `../my-research` is a working directory you create for the exercise.
+The declared Node.js range is 26.8.1–26.x; release verification used 26.11.1. Keep your exercise material outside the repository. The commands below run from the repository root; `../my-research` is a working directory you create for the exercise.
 
 ```bash
 git clone https://github.com/hpoenixf/open-etf-agent.git
 cd open-etf-agent
-git checkout v0.20.0
+git checkout v0.24.0
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 node src/research-cli.mjs --help
@@ -101,7 +101,7 @@ Save the source above as `../my-research/independent.md`, and the question as `.
 
 This selects specific files; it does not grant access to the whole directory. The entry point supports text, Markdown and bounded PDFs with extractable text. Start with text here so that you can add Child work later. Paths are resolved from the command's current working directory. Do not use globs or supply a directory in place of a file.
 
-Create `../my-research/config.json`:
+Use new, empty project directories for this exercise; `project init` is not an upgrade command for an existing directory. Create `../my-research/config.json`:
 
 ```json
 {
@@ -179,25 +179,46 @@ node src/research-cli.mjs report serve --project ../my-research/live-project --r
 
 Open the actual local address printed by the command. The Reader reads saved reports and sources without calling a model again; stop it with Ctrl-C. A persisted report establishes that an artifact was delivered. Its conclusions still need your judgment.
 
-## 4. Change questions and sources without rewriting the old task
+## 4. Retrieve evidence without rewriting the old task {#_4-change-questions-and-sources-without-rewriting-the-old-task}
 
-**This is a versioning exercise, not a conversation-memory trick.** L2 keeps the old question and source identity; L5 keeps its old report. A new question may reach a different conclusion without making the previous artifact disappear.
+Reading one short document directly is enough. With several documents, retrieval can narrow what to inspect. Knowledge here performs bounded lexical search over **this task’s imported text**, not the web or a vector service. It returns complete original pages and source identities; scores help rank results. `complete` covers lexical matches within this collection, `partial` omits some matches, and `no-evidence` means this query found none.
 
-Write a different question, such as “What information is missing before we can explain the unusable output?”, to `../my-research/second-question.txt` and submit it against the same manifest with a new `--run decision-gaps`. This starts another task on the same sources rather than appending a message to the first task. Compare the two reports: which sources are used again, and how does the focus of the reasoning change?
+Keep `independent.md`. Add `follow-up.md` with this **constructed teaching input**, not a new observation from the original evaluation:
+
+```text
+Independent trial follow-up: 8 of the 16 unusable units had damaged packaging. Causes for the other 8 units remain unresolved.
+```
+
+Change `files.json` to two explicit paths and import them again:
+
+```json
+["../my-research/independent.md", "../my-research/follow-up.md"]
+```
+
+The new manifest contains both sources; the old Run keeps its original snapshot. Copy the complete `live-config.json` to `knowledge-config.json`, set capabilities to `["report", "memory", "knowledge"]`, and add top-level `"knowledge": {"maxResults": 4, "maxSourceBytes": 128000}`. Keep the gateway and limits. Do not override `allowedTools`: preserve the original tool scope needed by Main and the later Child step.
 
 ```bash
-node src/research-cli.mjs run submit --project ../my-research/live-project --run decision-gaps --question ../my-research/second-question.txt --manifest LIVE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs project inspect --project ../my-research/live-project
+node src/research-cli.mjs project update --project ../my-research/live-project --config ../my-research/knowledge-config.json --expected-config CURRENT_CONFIG_SHA
+node src/research-cli.mjs source import --project ../my-research/live-project --files ../my-research/files.json > ../my-research/knowledge-import.json
+```
+
+Use the just-inspected `CURRENT_CONFIG_SHA` and the new import’s `KNOWLEDGE_MANIFEST_SHA`. Save this question as `second-question.txt`: “Use Knowledge to find evidence from the trial and follow-up inspection. Can all unusable output be attributed to packaging? Distinguish stated facts, calculations and unresolved causes; cite the originals and save a report.”
+
+```bash
+node src/research-cli.mjs run submit --project ../my-research/live-project --run decision-gaps --question ../my-research/second-question.txt --manifest KNOWLEDGE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs knowledge inspect --project ../my-research/live-project --run decision-gaps
 node src/research-cli.mjs run work --project ../my-research/live-project --run decision-gaps
 node src/research-cli.mjs run report --project ../my-research/live-project --run decision-gaps
 ```
 
-Next, make a clearly labeled teaching revision of the source, adding “A follow-up inspection identified damaged packaging in 8 units; other causes remain unresolved.” Then run `source import` again. This revision is an exercise, not a claim about the original evaluated trial. The changed source should produce a different manifest, which you bind to a third task. The first report still belongs to the original snapshot; editing a source file should not silently rewrite it.
+`knowledge inspect` checks admitted sources and retrieval bindings; it does not show that the model searched. During execution Main can use `knowledge_query` to obtain originals with `sourceId` and `resultRef`, reread them with `read_result`, then cite them in a saved report. Check that “8 units” has not become “all 16 units,” or a search miss a claim that no cause exists. Even for those eight units, observed packaging damage does not establish that it caused the unusable output. Renaming, replacing or reimporting the external file must not rebind an admitted task. Changed evidence or questions belong in a new Run.
 
-You now have a concrete way to distinguish a new question, new evidence and an old result. The project directory is persistent state. Keep its sources, tasks, sessions, reports and Memory together rather than treating it as disposable cache.
+This is a simple, fixed and inspectable path, at the cost of automatic file discovery and semantic-recall guarantees. Direct page reading is simpler for two tiny sources; retrieval is included to expose how a hit becomes citable original evidence, not to claim search is always better. The [fixed Knowledge guide](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/knowledge.md) explains capacity and recovery limits.
 
 ## 5. Add explicit preferences and bounded specialist work
 
-**Now change how the task is approached, without changing what counts as evidence.** Memory can put a confirmed preference into context across tasks. Child separates a limited source check from Main’s synthesis. Neither changes the original document or automatically increases authority.
+**Keep the same question and add one independent, local check rather than repeating the architecture.** Memory supplies an optional presentation preference; Child checks whether the sources found by Main support a claim. Neither creates new evidence.
 
 Start by saving an explicit presentation preference instead of an unverified business conclusion. Create `../my-research/preference.txt` containing, for example: “List what the sources do not state before presenting the comparison's conclusions.”
 
@@ -206,22 +227,41 @@ node src/research-cli.mjs memory save --project ../my-research/live-project --in
 node src/research-cli.mjs memory inspect --project ../my-research/live-project
 ```
 
-Create a new task and ask it to look for and use applicable report preferences. Check two things separately: whether Memory was saved, and whether this model run actually read and applied it. Matching formatting alone does not establish that Memory was consumed. If the available output does not show adoption, record it as unconfirmed rather than inferring it from a similar answer. The existing evaluation checked original execution records; an ordinary report is not an equivalent trace. To update or forget the preference, use the real entry ID and current revision returned by inspection with `memory revise` or `memory forget`, again with explicit intent approval. Forgetting is not physical erasure of the disk's history.
+Check storage separately from adoption: a new task must actually read and apply the preference, not merely produce similar formatting. To revise or forget it, use the actual ID and current revision from inspection with `memory revise` / `memory forget`, approving the intent. Forgetting is not physical erasure of history.
 
-Only then add Child work. Add `child` to the complete configuration's capabilities, obtain the current `configSha256` through `project inspect`, and use `project update --config ... --expected-config ...` to update configuration for future tasks. Existing Runs do not acquire the new permissions.
-
-Save the complete updated live configuration as `../my-research/child-config.json`, with `capabilities` set to `["report", "memory", "child"]`. Replace `CURRENT_CONFIG_SHA` with the project’s current hash; do not reuse a stale one.
+This exercise uses `delegate_child`, introduced in v0.22 and retained in v0.24, rather than the old one-off `source_check`. Run this configuration command from the repository root. It imports the complete method and hash from fixed source instead of asking you to transcribe a partial descriptor:
 
 ```bash
+node --input-type=module <<'JS'
+import { readFileSync, writeFileSync } from 'node:fs';
+import { CLAIM_COMPARISON_METHOD } from './src/child.mjs';
+const config = JSON.parse(readFileSync('../my-research/knowledge-config.json', 'utf8'));
+config.capabilities = ['report', 'memory', 'knowledge', 'child'];
+config.childExecution = {
+  schemaVersion: 'child-execution@1',
+  maxChildren: 1,
+  methods: [CLAIM_COMPARISON_METHOD]
+};
+writeFileSync('../my-research/child-config.json', JSON.stringify(config, null, 2) + '\n');
+JS
 node src/research-cli.mjs project inspect --project ../my-research/live-project
 node src/research-cli.mjs project update --project ../my-research/live-project --config ../my-research/child-config.json --expected-config CURRENT_CONFIG_SHA
 ```
 
-In a new task, ask the assistant to check whether the selected source supports a proposed explanation for the unusable output, then bring the findings together in a report.
+Again, use the fresh configuration hash. Existing Runs do not acquire Child permission. Create `review-question.txt`: “Use Knowledge to find the two trial records, then use one claim-comparison check: was all unusable output caused by damaged packaging? Give Child a precise local question and admitted document scope. Main must check its advice against the originals, separate known facts, calculations and unknowns, and save a report.”
 
-Child work separates a bounded source check from the main task. There is no need to assign a role to every opinion. The public Child path here handles one or two selected text documents with restricted tools and budgets. Its findings are derived material, not original source text, and Main still saves the final report. If the model never invokes Child, record that this was a single-assistant research run instead of presenting the report as a collaboration example.
+```bash
+node src/research-cli.mjs run submit --project ../my-research/live-project --run reviewed-gaps --question ../my-research/review-question.txt --manifest KNOWLEDGE_MANIFEST_SHA --approve-provider --approve-data --approve-cost
+node src/research-cli.mjs run work --project ../my-research/live-project --run reviewed-gaps
+node src/research-cli.mjs child list --project ../my-research/live-project --run reviewed-gaps
+node src/research-cli.mjs run report --project ../my-research/live-project --run reviewed-gaps
+```
 
-The final implementation also has an observed Memory–Child–report run on a different synthetic trial: baseline 80, result 100, the same sensor, and uncontrolled weather. It demonstrates that the mechanisms were consumed together, not that a causal interpretation was justified. The supplied source still does not establish why the result changed.
+Main selects admitted `documentId` values from the hits and gives Child the local question. **It does not copy parent ResultRefs or the entire tool history.** This `claim-comparison` method permits only Child’s own `read_page` over at most two selected documents, not `knowledge_query`. Child returns verified original references plus derived advice; Main checks that advice and saves the final report.
+
+Use `child list` to inspect whether execution occurred, which documents were admitted, and whether the handoff is `not-consumed`, `committed-not-consumed` or `consumed`. This read-only command does not call a model. If no Child was invoked, record a single-assistant run; a completed Child whose output Main has not consumed is not delivered collaboration. An independent check costs extra calls and budget. For a question already easy to resolve from two sources, more roles are unnecessary.
+
+A real caution comes from [v0.23 K09](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-real-ten.safe.json): retrieval, Child reading, Main consumption and report saving occurred, but the model changed the requested query, so the strict natural-task check still failed. Collaboration is not proof of faithful task execution. The original v0.20 also observed Memory, Child and report composition on a synthetic trial with baseline 80, result 100, the same sensor and uncontrolled weather. That still does not establish a cause, and it is not a new-version execution result.
 
 ## 6. Continue the same work without starting over
 
@@ -237,11 +277,12 @@ Do not enable every capability merely to make the exercise look complete. Respon
 
 ## What to carry into the next project
 
-The goal is to take another document or pair of documents and a different question, then obtain and check a persistent report yourself. You should be able to explain when a new task is appropriate, when work must continue through the original task, and whether Memory or specialist collaboration actually took place.
+The exercise follows one path: explicit import → Main finds originals → Child checks a narrow scope → Main consumes and saves → independent readback. You should be able to distinguish changed questions or evidence from the original task, and actual retrieval or collaboration from merely wishing they occurred.
 
-The design article explains why these contracts exist; this exercise lets you inspect their effects on your own inputs. Reproducibility does not promise identical answers or the absence of failures. It starts with an inspectable relationship between inputs, permissions, execution and results.
+v0.24 also preserves one original request slot across configuration revisions using the same normalized HTTPS endpoint in a new-format project. Inspect it without calling a model: `node src/research-cli.mjs capacity inspect --project ../my-research/live-project --run reviewed-gaps`. Changing the model name or credential-variable alias does not create capacity. Separate project directories remain independent; this is not account-wide limiting. Old v0.20 projects keep their original contract without automatic migration. Do not delete old state or create a new task to erase an unknown request; the fixed capacity guide below explains compatibility.
 
 [Fixed-version research-project guide](https://github.com/hpoenixf/open-etf-agent/blob/88afb84958ed8de9108d756cdc0d63e6d2fbee24/docs/research-project.md) · [Current main guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/research-project.md) · [Layered execution evidence](https://github.com/hpoenixf/open-etf-agent/blob/a5cef6d5cf1a4597f0f1271025cd6cc16be151e5/docs/verification/v020-release.md) · [Design article: handoff contracts](open-etf-agent-v010-system-design.md)
 
+[v0.24 project guide](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/research-project.md) · [Child methods and inspection](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/child-execution.md) · [Project capacity and legacy formats](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.md). This exercise is fixed to v0.24.0; the older guide and layered execution evidence above remain historical entry points. Do not mix commands from future main revisions.
 
 This is the practical next stop after the [deep dive](open-etf-agent-v010-system-design.md), not a replacement for it. Once you can inspect a task on your own material, continue to the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) to place those boundaries in the wider system.
