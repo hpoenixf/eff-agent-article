@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-label="Recovery is not a replay button">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="780" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">Recovery is not a replay button</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">A request may have taken effect before its receipt is committed</text>
+<rect x="42" y="200" width="260" height="124" rx="16" fill="#F0F7FF" stroke="#D6E5F4" stroke-width="1.5"/>
+<text x="56" y="244" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">1. Seal proposal</text>
+<text x="56" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Proposed call is durable</text>
+<path d="M302 263 L318 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="324" y="200" width="260" height="124" rx="16" fill="#F0F7FF" stroke="#D6E5F4" stroke-width="1.5"/>
+<text x="338" y="244" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">2. Dispatch tool</text>
+<text x="338" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">External work may start</text>
+<path d="M584 263 L600 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="606" y="200" width="260" height="124" rx="16" fill="#FFF6ED" stroke="#EBCDAC" stroke-width="1.5"/>
+<text x="620" y="244" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">3. External effect</text>
+<text x="620" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Could already be committed</text>
+<path d="M866 263 L882 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="888" y="200" width="260" height="124" rx="16" fill="#ECF8F5" stroke="#C7E5DC" stroke-width="1.5"/>
+<text x="902" y="244" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">4. Save receipt</text>
+<text x="902" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Outcome confirmed locally</text>
+<path d="M1148 263 L1164 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="1170" y="200" width="260" height="124" rx="16" fill="#ECF8F5" stroke="#C7E5DC" stroke-width="1.5"/>
+<text x="1184" y="244" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">5. Publish</text>
+<text x="1184" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Answer revision committed</text>
+<rect x="342" y="355" width="792" height="83" rx="14" fill="#FFF1E9" stroke="#E5B79A" stroke-width="1.5"/>
+<text x="738" y="390" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="750" text-anchor="middle">UNCERTAIN EFFECT WINDOW</text>
+<text x="738" y="417" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle">A timeout is not evidence that the external system did nothing.</text>
+<rect x="70" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="92" y="529" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Known settled</text>
+<text x="92" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Read original receipt, continue</text>
+<rect x="535" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="557" y="529" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Unknown effect</text>
+<text x="557" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Reconcile or fail closed</text>
+<rect x="1000" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1022" y="529" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">No dispatch</text>
+<text x="1022" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">A bounded correction may be safe</text>
+<rect x="70" y="639" width="1320" height="98" rx="16" fill="#E9EFF5" stroke="#DDE5EE" stroke-width="1.5"/>
+<text x="94" y="674" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">LangGraph:</text>
+<text x="257" y="674" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="500">checkpoints, task replay and durable execution</text>
+<text x="94" y="713" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">ETF Agent:</text>
+<text x="257" y="713" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="500">original receipts, lease/fence, and narrower crash-resume contract</text>
+</svg>

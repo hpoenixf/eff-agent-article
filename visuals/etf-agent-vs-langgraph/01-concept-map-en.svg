@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="815" viewBox="0 0 1440 815" role="img" aria-label="Concept map: similar work, different ownership">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="815" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">Concept map: similar work, different ownership</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">Six core LangGraph abstractions mapped to ETF Agent ownership</text>
+<rect x="42" y="139" width="500" height="70" rx="16" fill="#EAF2FF" stroke="#C4D9F8" stroke-width="1.5"/>
+<rect x="903" y="139" width="495" height="70" rx="16" fill="#E8F7F4" stroke="#C5E5DB" stroke-width="1.5"/>
+<text x="75" y="183" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="750">LANGGRAPH</text>
+<text x="937" y="183" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">ETF AGENT · RESEARCH HARNESS</text>
+<rect x="42" y="224" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="224" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="256" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">StateGraph / Node</text>
+<text x="66" y="284" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Declarative graph and execution</text>
+<text x="926" y="256" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">ResearchRuntime</text>
+<text x="926" y="284" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Fixed 3-stage loop; no graph DSL</text>
+<path d="M552 263 L890 263" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="246" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="270" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">partial</text>
+<rect x="42" y="315" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="315" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="347" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">State / Reducer</text>
+<text x="66" y="375" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Working data and updates</text>
+<text x="926" y="347" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">LoopState · Evidence</text>
+<text x="926" y="375" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Working / evidence / durable facts split</text>
+<path d="M552 354 L890 354" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="337" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="361" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">1 → many</text>
+<rect x="42" y="406" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="406" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="438" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Checkpointer / Thread</text>
+<text x="66" y="466" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Persistence and identity</text>
+<text x="926" y="438" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Recovery Store · Run</text>
+<text x="926" y="466" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Receipts, cursor, leases and fences</text>
+<path d="M552 445 L890 445" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="428" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="452" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">related</text>
+<rect x="42" y="497" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="497" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="529" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">interrupt / Command</text>
+<text x="66" y="557" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Pause and resume input</text>
+<text x="926" y="529" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Human Interaction · Wake</text>
+<text x="926" y="557" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Receipt, admission, adoption separate</text>
+<path d="M552 536 L890 536" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="519" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="543" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">partial</text>
+<rect x="42" y="588" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="588" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="620" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Send / Subgraph</text>
+<text x="66" y="648" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Dynamic dispatch and subflows</text>
+<text x="926" y="620" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Child Execution</text>
+<text x="926" y="648" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Parent lineage, scope and budget</text>
+<path d="M552 627 L890 627" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="610" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="634" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">partial</text>
+<rect x="42" y="679" width="500" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<rect x="903" y="679" width="495" height="78" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="66" y="711" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">END / Streaming</text>
+<text x="66" y="739" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Control end and streamed output</text>
+<text x="926" y="711" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">Termination · Publication</text>
+<text x="926" y="739" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">Execution end ≠ committed answer</text>
+<path d="M552 718 L890 718" stroke="#97ACC8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="628" y="701" width="170" height="34" rx="16" fill="#EDF1F7" stroke="#EDF1F7" stroke-width="1.5"/>
+<text x="713" y="725" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle">partial</text>
+</svg>

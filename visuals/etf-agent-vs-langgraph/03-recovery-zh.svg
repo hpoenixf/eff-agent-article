@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-label="恢复不是“重新执行一次”：副作用的不确定窗口">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="780" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">恢复不是“重新执行一次”：副作用的不确定窗口</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">外部动作可能已经发生，但本地回执尚未提交</text>
+<rect x="42" y="200" width="260" height="124" rx="16" fill="#F0F7FF" stroke="#D6E5F4" stroke-width="1.5"/>
+<text x="56" y="244" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">1. 封存提案</text>
+<text x="56" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">动作与参数已留存</text>
+<path d="M302 263 L318 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="324" y="200" width="260" height="124" rx="16" fill="#F0F7FF" stroke="#D6E5F4" stroke-width="1.5"/>
+<text x="338" y="244" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">2. 派发工具</text>
+<text x="338" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">外部执行可能开始</text>
+<path d="M584 263 L600 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="606" y="200" width="260" height="124" rx="16" fill="#FFF6ED" stroke="#EBCDAC" stroke-width="1.5"/>
+<text x="620" y="244" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">3. 外部效果</text>
+<text x="620" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">操作可能已经生效</text>
+<path d="M866 263 L882 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="888" y="200" width="260" height="124" rx="16" fill="#ECF8F5" stroke="#C7E5DC" stroke-width="1.5"/>
+<text x="902" y="244" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">4. 保存回执</text>
+<text x="902" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">本地确认执行结果</text>
+<path d="M1148 263 L1164 263" stroke="#8FA2B8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="1170" y="200" width="260" height="124" rx="16" fill="#ECF8F5" stroke="#C7E5DC" stroke-width="1.5"/>
+<text x="1184" y="244" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">5. 正文提交</text>
+<text x="1184" y="283" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">报告版本真正持久化</text>
+<rect x="342" y="355" width="792" height="83" rx="14" fill="#FFF1E9" stroke="#E5B79A" stroke-width="1.5"/>
+<text x="738" y="390" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="750" text-anchor="middle">危险窗口：派发后结果未知</text>
+<text x="738" y="417" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle">本地超时 ≠ 外部没有执行；禁止据此无条件重派。</text>
+<rect x="70" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="92" y="529" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">结果已确认</text>
+<text x="92" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">读取原回执并继续</text>
+<rect x="535" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="557" y="529" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">派发后未知</text>
+<text x="557" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">先核对，不能盲目重试</text>
+<rect x="1000" y="488" width="435" height="114" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1022" y="529" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">确认未派发</text>
+<text x="1022" y="568" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">可按原合同做有限纠正</text>
+<rect x="70" y="639" width="1320" height="98" rx="16" fill="#E9EFF5" stroke="#DDE5EE" stroke-width="1.5"/>
+<text x="94" y="674" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">LangGraph：</text>
+<text x="257" y="674" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="500">检查点、持久执行与任务结果复用</text>
+<text x="94" y="713" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="750">ETF Agent：</text>
+<text x="257" y="713" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="500">原始执行回执、租约与围栏；普通 Root 崩溃采用较窄的恢复合同</text>
+</svg>

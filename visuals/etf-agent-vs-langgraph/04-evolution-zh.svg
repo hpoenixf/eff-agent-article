@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="730" viewBox="0 0 1440 730" role="img" aria-label="架构演进：我们为什么引入 LangGraph，又为什么移除？">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="730" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">架构演进：我们为什么引入 LangGraph，又为什么移除？</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">这是特定实现中的职责收敛，不是证明通用图框架不适合 Agent</text>
+<path d="M85 385 L1357 385" stroke="#99AEC3" stroke-width="7" fill="none" marker-end="url(#arr)"/>
+<circle cx="202" cy="385" r="21" fill="#FFFFFF" stroke="#3171CB" stroke-width="6"/>
+<rect x="62" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="80" y="226" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">2026-09 · 引入</text>
+<text x="80" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">三节点 StateGraph</text>
+<text x="80" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">连续研究 + 持久恢复诉求</text>
+<path d="M202 342 L202 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="547" cy="385" r="21" fill="#FFFFFF" stroke="#168B8E" stroke-width="6"/>
+<rect x="407" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="425" y="226" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">Host Recovery 成熟</text>
+<text x="425" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">封存回合与动作回执</text>
+<text x="425" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">预算 / 租约 / 正文提交资格</text>
+<path d="M547 342 L547 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="892" cy="385" r="21" fill="#FFFFFF" stroke="#D86A57" stroke-width="6"/>
+<rect x="752" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="770" y="226" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">2026-10 · 移除</text>
+<text x="770" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">图检查点仅为有限投影</text>
+<text x="770" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">两套游标概念产生重复职责</text>
+<path d="M892 342 L892 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="1237" cy="385" r="21" fill="#FFFFFF" stroke="#8063A6" stroke-width="6"/>
+<rect x="1097" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1115" y="226" fill="#8063A6" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">当前架构</text>
+<text x="1115" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">普通三阶段循环</text>
+<text x="1115" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">保留执行与恢复不变量</text>
+<path d="M1237 342 L1237 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<rect x="140" y="460" width="1150" height="180" rx="16" fill="#EBF6F5" stroke="#D2E7E4" stroke-width="1.5"/>
+<text x="182" y="514" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="750">删除检验</text>
+<text x="182" y="560" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="650">删除图层后，重复的复杂度是消失了，还是扩散到多个调用方？</text>
+<text x="182" y="602" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">只收回已有 owner 能完整承接的职责，不为了“零依赖”重新造一套框架。</text>
+</svg>

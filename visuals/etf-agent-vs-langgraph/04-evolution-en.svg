@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="730" viewBox="0 0 1440 730" role="img" aria-label="Why ETF Agent adopted—and later retired—LangGraph">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="730" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">Why ETF Agent adopted—and later retired—LangGraph</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">A project-specific deletion decision, not evidence that graph execution is inferior</text>
+<path d="M85 385 L1357 385" stroke="#99AEC3" stroke-width="7" fill="none" marker-end="url(#arr)"/>
+<circle cx="202" cy="385" r="21" fill="#FFFFFF" stroke="#3171CB" stroke-width="6"/>
+<rect x="62" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="80" y="226" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">Sep 2026 · Adopt</text>
+<text x="80" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">3-node StateGraph</text>
+<text x="80" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">Continuous research + durable resume</text>
+<path d="M202 342 L202 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="547" cy="385" r="21" fill="#FFFFFF" stroke="#168B8E" stroke-width="6"/>
+<rect x="407" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="425" y="226" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">Host Recovery grows</text>
+<text x="425" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">Sealed turns, receipts</text>
+<text x="425" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">Budgets / leases / publication authority</text>
+<path d="M547 342 L547 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="892" cy="385" r="21" fill="#FFFFFF" stroke="#D86A57" stroke-width="6"/>
+<rect x="752" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="770" y="226" fill="#D86A57" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">Oct 2026 · Retire</text>
+<text x="770" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">Graph checkpoint lossy</text>
+<text x="770" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">Two cursor models became redundant</text>
+<path d="M892 342 L892 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<circle cx="1237" cy="385" r="21" fill="#FFFFFF" stroke="#8063A6" stroke-width="6"/>
+<rect x="1097" y="190" width="307" height="150" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1115" y="226" fill="#8063A6" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">Today · Keep ownership</text>
+<text x="1115" y="267" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="650">Plain 3-stage loop</text>
+<text x="1115" y="303" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="500">Preserve effect and recovery invariants</text>
+<path d="M1237 342 L1237 362" stroke="#99AEC3" stroke-width="2" fill="none"/>
+<rect x="140" y="460" width="1150" height="180" rx="16" fill="#EBF6F5" stroke="#D2E7E4" stroke-width="1.5"/>
+<text x="182" y="514" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="750">Decision test</text>
+<text x="182" y="560" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="650">Did removing the graph remove duplicated work — or spread it to more callers?</text>
+<text x="182" y="602" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Keep what has clear ownership and measurable leverage.</text>
+</svg>
