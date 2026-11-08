@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc">
+  <title id="title">一致以后，还要检查判断依据</title>
+  <desc id="desc">同一未经核对的假设可以同时让实现和测试保持一致，二者仍可能共同出错。用业务规则与独立样本形成预期结果，用真实执行路径取得观察结果，再比较行为并构造反例。发现矛盾后，回到假设与实现。</desc>
+  <defs>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="#237D78"/></marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="#A26515"/></marker>
+    <style>
+      text{font-family:'Noto Sans CJK SC','Noto Sans SC',sans-serif;fill:#183249}
+      .title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.bad{fill:#805013}.good{fill:#176F6B}.result{font-size:31px;font-weight:700;fill:#FFFFFF}
+    </style>
+  </defs>
+  <rect width="720" height="980" rx="24" fill="#F4F7FA"/>
+  <text x="40" y="58" class="title">一致以后，还要检查判断依据</text>
+  <text x="40" y="103" class="note">预期来自业务依据，观察来自实际执行</text>
+
+  <rect x="28" y="126" width="664" height="342" rx="20" fill="#FFF4E1" stroke="#E4C693" stroke-width="2"/>
+  <text x="52" y="167" class="heading bad">只有内部一致</text>
+  <rect x="60" y="190" width="600" height="62" rx="13" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+  <text x="360" y="230" text-anchor="middle" class="body">同一未经核对的假设</text>
+
+  <path d="M 360 253 V 268 H 203 V 284" fill="none" stroke="#A26515" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+  <path d="M 360 268 H 517 V 284" fill="none" stroke="#A26515" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow-amber)"/>
+  <rect x="60" y="292" width="286" height="62" rx="12" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+  <rect x="374" y="292" width="286" height="62" rx="12" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+  <text x="203" y="333" text-anchor="middle" class="body">实现符合假设</text>
+  <text x="517" y="333" text-anchor="middle" class="body">测试复述假设</text>
+
+  <path d="M 203 355 V 375 H 517 V 355" fill="none" stroke="#A26515" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 360 375 V 389" fill="none" stroke="#A26515" stroke-width="3" marker-end="url(#arrow-amber)"/>
+  <rect x="60" y="398" width="600" height="50" rx="12" fill="#F0D6A8"/>
+  <text x="360" y="432" text-anchor="middle" class="body bad">二者一致，仍可能共同出错</text>
+
+  <rect x="28" y="495" width="664" height="431" rx="20" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+  <text x="52" y="536" class="heading good">检验共同假设</text>
+  <rect x="60" y="560" width="286" height="92" rx="13" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+  <rect x="374" y="560" width="286" height="92" rx="13" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+  <text x="203" y="597" text-anchor="middle" class="body"><tspan x="203">业务规则与</tspan><tspan x="203" dy="36">独立样本</tspan></text>
+  <text x="517" y="615" text-anchor="middle" class="body">真实执行路径</text>
+
+  <path d="M 203 653 V 679" fill="none" stroke="#237D78" stroke-width="3.5" marker-end="url(#arrow-teal)"/>
+  <path d="M 517 653 V 679" fill="none" stroke="#237D78" stroke-width="3.5" marker-end="url(#arrow-teal)"/>
+  <rect x="60" y="688" width="286" height="60" rx="12" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+  <rect x="374" y="688" width="286" height="60" rx="12" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+  <text x="203" y="728" text-anchor="middle" class="heading">预期结果</text>
+  <text x="517" y="728" text-anchor="middle" class="heading">观察结果</text>
+
+  <path d="M 203 749 V 773 H 517 V 749" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M 360 773 V 789" fill="none" stroke="#237D78" stroke-width="3.5" marker-end="url(#arrow-teal)"/>
+  <rect x="142" y="798" width="436" height="60" rx="13" fill="#237D78"/>
+  <text x="360" y="838" text-anchor="middle" class="result">比较行为，构造反例</text>
+  <text x="360" y="901" text-anchor="middle" class="note good">发现矛盾后，回到假设与实现</text>
+</svg>
+

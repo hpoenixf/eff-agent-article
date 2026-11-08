@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="800" viewBox="0 0 720 800" role="img" aria-labelledby="title desc" xml:lang="en">
+<title id="title">Building quality as work evolves</title><desc id="desc">Specify acceptable behavior and clear boundaries. Implement and verify with counterexamples and evidence. Deliver results users can obtain, then carry feedback into the next change. Real feedback updates rules and implementation. Every acceptance decision refers to a specific version and behavior.</desc>
+<defs><style>
+text{font-family:'Noto Sans CJK SC','Noto Sans SC',Arial,sans-serif;fill:#183249}
+.title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.small{font-size:26px;fill:#526775}.teal{fill:#176F6B}.amber{fill:#805013}.white{fill:#fff}
+</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#237D78"/></marker>
+<marker id="amber-arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#A26515"/></marker>
+</defs><rect width="720" height="800" rx="24" fill="#F4F7FA"/>
+<text x="40" y="58" class="title" text-anchor="start">Building quality as work evolves</text>
+<text x="40" y="103" class="note" text-anchor="start">Define the promise; learn from the result.</text>
+<path d="M 532 601 H 672 V 222 H 541" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="607" y="336" class="note teal" text-anchor="middle" style="font-size:25px">Real</text>
+<text x="607" y="372" class="note teal" text-anchor="middle" style="font-size:25px">feedback</text>
+<text x="607" y="408" class="note teal" text-anchor="middle" style="font-size:25px">updates</text>
+<text x="607" y="444" class="note teal" text-anchor="middle" style="font-size:25px">rules and</text>
+<text x="607" y="480" class="note teal" text-anchor="middle" style="font-size:25px">code</text>
+<rect x="40" y="144" width="492" height="156" rx="18" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="40" y="144" width="8" height="156" rx="4" fill="#237D78"/>
+<text x="72" y="189" class="heading" text-anchor="start">Specification &amp; design</text>
+<text x="72" y="237" class="body" text-anchor="start" style="font-size:27px">Acceptable behavior</text>
+<text x="72" y="277" class="body" text-anchor="start" style="font-size:27px">Clear change boundaries</text>
+<rect x="40" y="342" width="492" height="156" rx="18" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="40" y="342" width="8" height="156" rx="4" fill="#237D78"/>
+<text x="72" y="387" class="heading" text-anchor="start">Implementation &amp; checks</text>
+<text x="72" y="435" class="body" text-anchor="start" style="font-size:27px">Counterexamples reveal errors</text>
+<text x="72" y="475" class="body" text-anchor="start" style="font-size:27px">Review grounded in evidence</text>
+<rect x="40" y="540" width="492" height="156" rx="18" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<rect x="40" y="540" width="8" height="156" rx="4" fill="#237D78"/>
+<text x="72" y="585" class="heading" text-anchor="start">Delivery &amp; evolution</text>
+<text x="72" y="633" class="body" text-anchor="start" style="font-size:27px">Users obtain the result</text>
+<text x="72" y="673" class="body" text-anchor="start" style="font-size:27px">Feedback guides the next change</text>
+<path d="M 286 307 V 331" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 286 505 V 529" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 40 729 H 680" fill="none" stroke="#CCD9E1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40" y="770" class="note" text-anchor="start">Acceptance is tied to a version and behavior.</text>
+</svg>

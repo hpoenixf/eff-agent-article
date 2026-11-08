@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="880" viewBox="0 0 720 880" role="img" aria-labelledby="title desc" xml:lang="zh-CN">
+<title id="title">完成判断，要接住两组对应</title><desc id="desc">概念示意：检查记录与交付构建核对代码版本和构建环境；版本或相关配置改变时补充对应检查，旧结论不能自动沿用。保存回执与用户读回核对任务与内容身份。哈希相同可以核对内容身份，但不能证明业务语义正确。</desc>
+<defs><style>
+text{font-family:'Noto Sans CJK SC','Noto Sans SC',Arial,sans-serif;fill:#183249}
+.title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.small{font-size:26px;fill:#526775}.teal{fill:#176F6B}.amber{fill:#805013}.white{fill:#fff}
+</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#237D78"/></marker>
+<marker id="amber-arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#A26515"/></marker>
+</defs><rect width="720" height="880" rx="24" fill="#F4F7FA"/>
+<text x="40" y="58" class="title" text-anchor="start">完成判断，要接住两组对应</text>
+<text x="40" y="103" class="note" text-anchor="start">检查的适用条件，要覆盖交付对象</text>
+<rect x="28" y="134" width="664" height="326" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<text x="52" y="178" class="heading" text-anchor="start">01  检查与实际版本</text>
+<rect x="52" y="200" width="282" height="154" rx="13" fill="#F4F7FA" stroke="#D5E0E7" stroke-width="2"/>
+<rect x="386" y="200" width="282" height="154" rx="13" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<text x="193" y="240" class="heading" text-anchor="middle">检查记录</text>
+<text x="193" y="285" class="body" text-anchor="middle">代码版本 A</text>
+<text x="193" y="322" class="body" text-anchor="middle">构建环境 X</text>
+<text x="527" y="240" class="heading" text-anchor="middle">交付构建</text>
+<text x="527" y="285" class="body" text-anchor="middle">代码版本 A</text>
+<text x="527" y="322" class="body" text-anchor="middle">构建环境 X</text>
+<path d="M 344 278 H 375" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="52" y="373" width="616" height="64" rx="12" fill="#FFF4E1" stroke="#E4C693" stroke-width="2"/>
+<text x="360" y="400" class="small amber" text-anchor="middle">版本或相关配置改变，补对应检查</text>
+<text x="360" y="428" class="small amber" text-anchor="middle">旧结论不能自动沿用</text>
+<rect x="28" y="484" width="664" height="254" rx="16" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<text x="52" y="528" class="heading" text-anchor="start">02  保存与后续消费</text>
+<rect x="52" y="550" width="282" height="160" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="386" y="550" width="282" height="160" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<text x="193" y="590" class="heading" text-anchor="middle">保存回执</text>
+<text x="193" y="635" class="body" text-anchor="middle">任务 T</text>
+<text x="193" y="672" class="body" text-anchor="middle">内容哈希 H</text>
+<text x="527" y="590" class="heading" text-anchor="middle">用户读回</text>
+<text x="527" y="635" class="body" text-anchor="middle">任务 T</text>
+<text x="527" y="672" class="body" text-anchor="middle">内容哈希 H</text>
+<path d="M 344 630 H 375" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="40" y="790" class="note" text-anchor="start">哈希用于核对内容身份</text>
+<text x="40" y="832" class="note" text-anchor="start">业务语义正确，还需要相应验证</text>
+</svg>

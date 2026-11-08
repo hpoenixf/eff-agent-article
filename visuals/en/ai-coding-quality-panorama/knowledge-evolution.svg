@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="934" viewBox="0 0 720 934" role="img" aria-labelledby="title desc" xml:lang="en">
+<title id="title">Learn from findings; retire stale guards</title><desc id="desc">Four artifacts serve distinct roles: the current specification states intended behavior, implementation defines actual behavior, tests retain useful counterexamples, and history explains decisions. Findings update the affected artifacts; these roles inform but do not replace each other. Keep or adapt guards whose assumptions still hold; revise or retire those whose assumptions no longer apply.</desc>
+<defs><style>
+text{font-family:'Noto Sans CJK SC','Noto Sans SC',Arial,sans-serif;fill:#183249}
+.title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.small{font-size:26px;fill:#526775}.teal{fill:#176F6B}.amber{fill:#805013}.white{fill:#fff}
+</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#237D78"/></marker>
+<marker id="amber-arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#A26515"/></marker>
+</defs><rect width="720" height="934" rx="24" fill="#F4F7FA"/>
+<text x="40" y="58" class="title" text-anchor="start" style="font-size:31px">Learn from findings; retire stale guards</text>
+<text x="40" y="103" class="note" text-anchor="start">Distinct roles, revisited when conditions change.</text>
+<rect x="40" y="135" width="640" height="66" rx="14" fill="#237D78" stroke="#237D78" stroke-width="2"/>
+<text x="360" y="178" class="heading white" text-anchor="middle" style="font-size:28px">A real finding → update what it affects</text>
+<rect x="40" y="231" width="304" height="164" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="40" y="231" width="7" height="164" rx="3.5" fill="#237D78"/>
+<text x="62" y="274" class="heading" text-anchor="start" style="font-size:27px">Current specification</text>
+<text x="62" y="320" class="note" text-anchor="start" style="font-size:25px">Intended behavior</text>
+<text x="62" y="357" class="note" text-anchor="start" style="font-size:25px">Confirm or update</text>
+<rect x="376" y="231" width="304" height="164" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="376" y="231" width="7" height="164" rx="3.5" fill="#237D78"/>
+<text x="398" y="274" class="heading" text-anchor="start" style="font-size:27px">Implementation</text>
+<text x="398" y="320" class="note" text-anchor="start" style="font-size:25px">Actual behavior</text>
+<text x="398" y="357" class="note" text-anchor="start" style="font-size:25px">Fix the behavior</text>
+<rect x="40" y="421" width="304" height="164" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="40" y="421" width="7" height="164" rx="3.5" fill="#237D78"/>
+<text x="62" y="464" class="heading" text-anchor="start" style="font-size:27px">Tests</text>
+<text x="62" y="510" class="note" text-anchor="start" style="font-size:25px">Protected conditions</text>
+<text x="62" y="547" class="note" text-anchor="start" style="font-size:25px">Keep counterexamples</text>
+<rect x="376" y="421" width="304" height="164" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="376" y="421" width="7" height="164" rx="3.5" fill="#237D78"/>
+<text x="398" y="464" class="heading" text-anchor="start" style="font-size:27px">History</text>
+<text x="398" y="510" class="note" text-anchor="start" style="font-size:25px">Reasons for decisions</text>
+<text x="398" y="547" class="note" text-anchor="start" style="font-size:25px">Keep the rationale</text>
+<text x="360" y="631" class="heading teal" text-anchor="middle" style="font-size:28px">Inform each other; do not substitute.</text>
+<path d="M 40 661 H 680" fill="none" stroke="#C8D7E0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="360" y="709" class="heading" text-anchor="middle" style="font-size:29px">Does the old guard&#x27;s premise still hold?</text>
+<path d="M 360 726 V 742 H 192 V 755" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 360 742 H 528 V 755" fill="none" stroke="#A26515" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber-arrow)"/>
+<rect x="40" y="765" width="304" height="100" rx="14" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<rect x="376" y="765" width="304" height="100" rx="14" fill="#FFF4E1" stroke="#E4C693" stroke-width="2"/>
+<text x="192" y="803" class="heading teal" text-anchor="middle">Still holds</text>
+<text x="192" y="843" class="note teal" text-anchor="middle">Keep or adapt</text>
+<text x="528" y="803" class="heading amber" text-anchor="middle" style="font-size:28px">No longer holds</text>
+<text x="528" y="843" class="note amber" text-anchor="middle">Revise or retire</text>
+<text x="360" y="907" class="small" text-anchor="middle">Preserve the reason—and when it stops applying.</text>
+</svg>
