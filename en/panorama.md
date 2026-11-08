@@ -15,6 +15,8 @@ Start with how the system works and how business rules change decisions, then ex
 - Designing context? Read [Principles](/en/articles/agent-context-governance-principles), then [Practice](/en/articles/agent-context-governance-actions).
 - Designing a complete research experience? Choose [long-horizon research](/en/articles/agent-long-horizon-research-panorama), [end-to-end RAG](/en/articles/agent-knowledge-retrieval-end-to-end) or [client interaction](/en/articles/agent-client-interaction-panorama) to follow the task from input to delivery and subsequent use.
 
+- Responsible for the quality of an AI-developed project? Start with the [AI Coding quality panorama](/en/articles/ai-coding-quality-panorama) to connect requirements, design, verification, review and delivery, then adopt the methods that fit your risks.
+
 - Designing complete engineering methods? Follow the [observability panorama](/en/articles/025-agent-langfuse-from-trace-to-trustworthy-observability) through collection, diagnosis and readback; the [evaluation panorama](/en/articles/honest-agent-evaluation) through samples, scoring and actual delivery; and the [Subagent panorama](/en/articles/agent-subagent-context-specialization) through delegation, independent context and result handoff.
 
 <PanoramaSeries />

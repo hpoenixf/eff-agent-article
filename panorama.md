@@ -15,6 +15,8 @@ description: 精选系统、金融业务与完整工程专题全景，串起架�
 - 设计上下文：先读[原则篇](/articles/agent-context-governance-principles)，再读[行动篇](/articles/agent-context-governance-actions)。
 - 建设完整研究体验：按问题选择[超长研究](/articles/agent-long-horizon-research-panorama)、[RAG 全链路](/articles/agent-knowledge-retrieval-end-to-end)或[客户端交互](/articles/agent-client-interaction-panorama)，追踪任务从输入到结果、再到后续使用的关系。
 
+- 对 AI 开发的项目质量负责：先读[AI Coding 质量全景](/articles/ai-coding-quality-panorama)，贯通约定、设计、验证、审查与交付，再按需要采用具体方法。
+
 - 设计完整工程方法：用[可观测全景](/articles/025-agent-langfuse-from-trace-to-trustworthy-observability)贯通采集、诊断与回查，用[测评全景](/articles/honest-agent-evaluation)串起样本、评分与实际交付，用[Subagent 全景](/articles/agent-subagent-context-specialization)理解分工、独立上下文和成果交接。
 
 <PanoramaSeries />

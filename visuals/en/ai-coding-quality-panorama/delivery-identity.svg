@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="880" viewBox="0 0 720 880" role="img" aria-labelledby="title desc" xml:lang="en">
+<title id="title">Two links make delivery checkable</title><desc id="desc">Conceptual example: match a check record to the release build by revision and build environment. A new revision or relevant configuration change requires appropriate checks; the old result does not automatically apply. Match the saved receipt to what the user reads by task and content identity. A matching hash checks identity, not semantic correctness.</desc>
+<defs><style>
+text{font-family:'Noto Sans CJK SC','Noto Sans SC',Arial,sans-serif;fill:#183249}
+.title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.small{font-size:26px;fill:#526775}.teal{fill:#176F6B}.amber{fill:#805013}.white{fill:#fff}
+</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#237D78"/></marker>
+<marker id="amber-arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#A26515"/></marker>
+</defs><rect width="720" height="880" rx="24" fill="#F4F7FA"/>
+<text x="40" y="58" class="title" text-anchor="start" style="font-size:33px">Two links make delivery checkable</text>
+<text x="40" y="103" class="note" text-anchor="start">Keep each conclusion tied to its actual object.</text>
+<rect x="28" y="134" width="664" height="326" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<text x="52" y="178" class="heading" text-anchor="start">01  Checks and the actual build</text>
+<rect x="52" y="200" width="282" height="154" rx="13" fill="#F4F7FA" stroke="#D5E0E7" stroke-width="2"/>
+<rect x="386" y="200" width="282" height="154" rx="13" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<text x="193" y="240" class="heading" text-anchor="middle">Check record</text>
+<text x="193" y="285" class="body" text-anchor="middle">Revision A</text>
+<text x="193" y="322" class="body" text-anchor="middle">Build env. X</text>
+<text x="527" y="240" class="heading" text-anchor="middle">Release build</text>
+<text x="527" y="285" class="body" text-anchor="middle">Revision A</text>
+<text x="527" y="322" class="body" text-anchor="middle">Build env. X</text>
+<path d="M 344 278 H 375" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="52" y="373" width="616" height="64" rx="12" fill="#FFF4E1" stroke="#E4C693" stroke-width="2"/>
+<text x="360" y="400" class="small amber" text-anchor="middle">Revision or relevant config changed?</text>
+<text x="360" y="428" class="small amber" text-anchor="middle">Recheck the affected behavior.</text>
+<rect x="28" y="484" width="664" height="254" rx="16" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<text x="52" y="528" class="heading" text-anchor="start">02  Saving and later consumption</text>
+<rect x="52" y="550" width="282" height="160" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<rect x="386" y="550" width="282" height="160" rx="16" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+<text x="193" y="590" class="heading" text-anchor="middle">Save receipt</text>
+<text x="193" y="635" class="body" text-anchor="middle">Task T</text>
+<text x="193" y="672" class="body" text-anchor="middle">Content hash H</text>
+<text x="527" y="590" class="heading" text-anchor="middle" style="font-size:28px">User readback</text>
+<text x="527" y="635" class="body" text-anchor="middle">Task T</text>
+<text x="527" y="672" class="body" text-anchor="middle">Content hash H</text>
+<path d="M 344 630 H 375" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="40" y="790" class="note" text-anchor="start">A hash checks content identity.</text>
+<text x="40" y="832" class="note" text-anchor="start">Semantic correctness needs its own checks.</text>
+</svg>

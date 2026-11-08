@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="800" viewBox="0 0 720 800" role="img" aria-labelledby="title desc">
+  <title id="title">质量如何随开发持续建立</title>
+  <desc id="desc">约定与设计先明确可接受行为和变更边界，实现与验证用反例及事实支持判断，交付与演进关注用户取得结果。真实反馈返回约定与设计，修正规则与实现。每次完成判断都对应具体版本与行为。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="#237D78"/></marker>
+    <style>
+      text{font-family:'Noto Sans CJK SC','Noto Sans SC',sans-serif;fill:#183249}
+      .title{font-size:34px;font-weight:700}.stage{font-size:33px;font-weight:700}.body{font-size:30px}.note{font-size:27px;fill:#526775}.teal{fill:#176F6B}
+    </style>
+  </defs>
+  <rect width="720" height="800" rx="24" fill="#F4F7FA"/>
+  <text x="40" y="58" class="title">质量如何随开发持续建立</text>
+  <text x="40" y="103" class="note">先明确承诺，再用结果校准判断</text>
+
+  <path d="M 532 601 H 672 V 222 H 541" fill="none" stroke="#237D78" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+  <text x="607" y="362" text-anchor="middle" class="note teal">
+    <tspan x="607">真实反馈</tspan><tspan x="607" dy="42">修正规则</tspan><tspan x="607" dy="42">与实现</tspan>
+  </text>
+
+  <rect x="40" y="144" width="492" height="156" rx="18" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+  <rect x="40" y="144" width="8" height="156" rx="4" fill="#237D78"/>
+  <text x="72" y="189" class="stage">约定与设计</text>
+  <text x="72" y="237" class="body">可接受的行为</text>
+  <text x="72" y="277" class="body">清楚的变更边界</text>
+
+  <path d="M 286 307 V 331" fill="none" stroke="#237D78" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="40" y="342" width="492" height="156" rx="18" fill="#FFFFFF" stroke="#C8D7E0" stroke-width="2"/>
+  <rect x="40" y="342" width="8" height="156" rx="4" fill="#237D78"/>
+  <text x="72" y="387" class="stage">实现与验证</text>
+  <text x="72" y="435" class="body">反例能够暴露错误</text>
+  <text x="72" y="475" class="body">审查有事实依据</text>
+
+  <path d="M 286 505 V 529" fill="none" stroke="#237D78" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="40" y="540" width="492" height="156" rx="18" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+  <rect x="40" y="540" width="8" height="156" rx="4" fill="#237D78"/>
+  <text x="72" y="585" class="stage">交付与演进</text>
+  <text x="72" y="633" class="body">用户实际取得结果</text>
+  <text x="72" y="673" class="body">反馈进入下一次开发</text>
+
+  <path d="M 40 729 H 680" stroke="#CCD9E1" stroke-width="2"/>
+  <text x="40" y="770" class="note">每次完成判断，都对应具体版本与行为</text>
+</svg>
+

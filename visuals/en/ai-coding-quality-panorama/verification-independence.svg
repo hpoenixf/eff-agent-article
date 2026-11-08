@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc" xml:lang="en">
+<title id="title">Agreement is not enough</title><desc id="desc">A single unchecked assumption can shape both code and tests. They can agree while both are wrong. Form expectations from business rules and independent samples; collect observed results from the actual execution path. Compare behavior, construct counterexamples, and revisit assumptions and code when contradictions appear.</desc>
+<defs><style>
+text{font-family:'Noto Sans CJK SC','Noto Sans SC',Arial,sans-serif;fill:#183249}
+.title{font-size:34px;font-weight:700}.heading{font-size:30px;font-weight:700}.body{font-size:29px}.note{font-size:27px;fill:#526775}.small{font-size:26px;fill:#526775}.teal{fill:#176F6B}.amber{fill:#805013}.white{fill:#fff}
+</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#237D78"/></marker>
+<marker id="amber-arrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="#A26515"/></marker>
+</defs><rect width="720" height="980" rx="24" fill="#F4F7FA"/>
+<text x="40" y="58" class="title" text-anchor="start">Agreement is not enough</text>
+<text x="40" y="103" class="note" text-anchor="start">Check the basis of the expected result.</text>
+<rect x="28" y="126" width="664" height="370" rx="20" fill="#FFF4E1" stroke="#E4C693" stroke-width="2"/>
+<text x="52" y="167" class="heading amber" text-anchor="start">Internal agreement only</text>
+<rect x="60" y="190" width="600" height="62" rx="13" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+<text x="360" y="230" class="body" text-anchor="middle">One unchecked assumption</text>
+<path d="M 360 253 V 277 H 203 V 292" fill="none" stroke="#A26515" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber-arrow)"/>
+<path d="M 360 277 H 517 V 292" fill="none" stroke="#A26515" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber-arrow)"/>
+<rect x="60" y="302" width="286" height="86" rx="12" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+<rect x="374" y="302" width="286" height="86" rx="12" fill="#FFFFFF" stroke="#DAB57E" stroke-width="2"/>
+<text x="203" y="336" class="body" text-anchor="middle" style="font-size:28px">Code follows</text>
+<text x="203" y="372" class="body" text-anchor="middle" style="font-size:28px">the assumption</text>
+<text x="517" y="336" class="body" text-anchor="middle" style="font-size:28px">Tests repeat</text>
+<text x="517" y="372" class="body" text-anchor="middle" style="font-size:28px">the assumption</text>
+<path d="M 203 389 V 407 H 517 V 389" fill="none" stroke="#A26515" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 360 407 V 422" fill="none" stroke="#A26515" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber-arrow)"/>
+<rect x="60" y="432" width="600" height="46" rx="12" fill="#F0D6A8" stroke="#F0D6A8" stroke-width="2"/>
+<text x="360" y="464" class="body amber" text-anchor="middle" style="font-size:27px">Both agree; both can still be wrong.</text>
+<rect x="28" y="522" width="664" height="430" rx="20" fill="#E6F3EF" stroke="#99C7BE" stroke-width="2"/>
+<text x="52" y="564" class="heading teal" text-anchor="start">Test the shared assumption</text>
+<rect x="60" y="588" width="286" height="92" rx="13" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+<rect x="374" y="588" width="286" height="92" rx="13" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+<text x="203" y="623" class="body" text-anchor="middle" style="font-size:27px">Business rules +</text>
+<text x="203" y="659" class="body" text-anchor="middle" style="font-size:27px">independent samples</text>
+<text x="517" y="623" class="body" text-anchor="middle" style="font-size:28px">Actual execution</text>
+<text x="517" y="659" class="body" text-anchor="middle" style="font-size:28px">path</text>
+<path d="M 203 681 V 710" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 517 681 V 710" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="60" y="720" width="286" height="60" rx="12" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+<rect x="374" y="720" width="286" height="60" rx="12" fill="#FFFFFF" stroke="#9FC8C1" stroke-width="2"/>
+<text x="203" y="760" class="heading" text-anchor="middle">Expected result</text>
+<text x="517" y="760" class="heading" text-anchor="middle">Observed result</text>
+<path d="M 203 781 V 805 H 517 V 781" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 360 805 V 820" fill="none" stroke="#237D78" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="88" y="830" width="544" height="60" rx="13" fill="#237D78" stroke="#237D78" stroke-width="2"/>
+<text x="360" y="870" class="heading white" text-anchor="middle" style="font-size:28px">Compare; construct counterexamples</text>
+<text x="360" y="932" class="small teal" text-anchor="middle">If they conflict, revisit assumptions and code.</text>
+</svg>

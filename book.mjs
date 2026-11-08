@@ -205,6 +205,7 @@ export const collections = [
         "title": "Spec、证据与工程记忆",
         "desc": "从规范到真实执行证据，再到按需加载的长期工程历史。",
         "items": [
+          ["ai-coding-quality-panorama", "AI Coding 质量全景：当代码大多由 AI 编写，怎样对整个项目负责？"],
           ["agent-engineering-suite", "Agent Engineering Suite：让 Agent 从需求一路接到发布"],
           ["docs-code-tests-evolve-together", "测试比实现还多之后：怎样让文档、代码和测试一起向前"],
           ["agent-article-code-evidence-contract", "文章说能运行，代码真的支持吗？——技术文章与开源实现的证据契约"],
@@ -238,6 +239,7 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 
 // #全景系列 is a cross-category tag: curated existing essays, never a fourth canonical collection.
 export const panoramaSeriesSlugs = Object.freeze([
+  'ai-coding-quality-panorama',
   'agent-vs-backend-development-panorama',
   '017-prompt-to-answer-six-layer-panorama-v3',
   'financial-agent-system-panorama',

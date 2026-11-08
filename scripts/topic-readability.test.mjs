@@ -48,6 +48,7 @@ const expectations = [
       "agent-subagent-context-specialization",
       "agent-trust-from-claims-to-commitments",
       "ai-citations-do-not-prove-reliability",
+      "ai-coding-quality-panorama",
       "financial-agent-system-panorama",
       "honest-agent-evaluation",
       "one-report-nine-architecture-judgments"
@@ -100,6 +101,7 @@ const expectations = [
       "agent-subagent-context-specialization",
       "agent-trust-from-claims-to-commitments",
       "ai-citations-do-not-prove-reliability",
+      "ai-coding-quality-panorama",
       "financial-agent-system-panorama",
       "honest-agent-evaluation",
       "one-report-nine-architecture-judgments"
