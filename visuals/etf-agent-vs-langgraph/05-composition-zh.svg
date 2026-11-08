@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="745" viewBox="0 0 1440 745" role="img" aria-label="同一基金比较任务的三种架构组合">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="745" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">同一基金比较任务的三种架构组合</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">选择框架不是选品牌，而是避免两套运行时同时裁决同一项执行与终态</text>
+<rect x="40" y="171" width="445" height="475" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="60" y="215" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">A · LangGraph 主控</text>
+<rect x="64" y="245" width="394" height="98" rx="16" fill="#EDF4FF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="84" y="287" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">图节点 + 检查点</text>
+<text x="84" y="316" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">执行决策归属</text>
+<path d="M261 346 L261 390" stroke="#93A8BA" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="64" y="390" width="394" height="102" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="84" y="427" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="650">领域工具：资料 / 计算 / 授权</text>
+<text x="84" y="465" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">业务事实与执行回执</text>
+<rect x="64" y="520" width="394" height="93" rx="16" fill="#F4F6F9" stroke="#E5E9EF" stroke-width="1.5"/>
+<text x="82" y="554" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="750">适用条件</text>
+<text x="82" y="586" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">适合从零构建持久多阶段流程</text>
+<rect x="515" y="171" width="445" height="475" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="535" y="215" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">B · ETF Agent 主控</text>
+<rect x="539" y="245" width="394" height="98" rx="16" fill="#EAF8F4" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="559" y="287" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">研究循环 + 自有 Recovery</text>
+<text x="559" y="316" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">执行决策归属</text>
+<path d="M736 346 L736 390" stroke="#93A8BA" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="539" y="390" width="394" height="102" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="559" y="427" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="650">领域工具 + Publication</text>
+<text x="559" y="465" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">业务事实与执行回执</text>
+<rect x="539" y="520" width="394" height="93" rx="16" fill="#F4F6F9" stroke="#E5E9EF" stroke-width="1.5"/>
+<text x="557" y="554" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="750">适用条件</text>
+<text x="557" y="586" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">适合已有明确运行合同的项目</text>
+<rect x="990" y="171" width="445" height="475" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1010" y="215" fill="#8063A6" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="750">C · 外图内研究</text>
+<rect x="1014" y="245" width="394" height="98" rx="16" fill="#F2EDF8" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1034" y="287" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700">LangGraph 管业务阶段</text>
+<text x="1034" y="316" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">执行决策归属</text>
+<path d="M1211 346 L1211 390" stroke="#93A8BA" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="1014" y="390" width="394" height="102" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="1034" y="427" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="650">ETF Agent 作为有身份的研究任务</text>
+<text x="1034" y="465" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">业务事实与执行回执</text>
+<rect x="1014" y="520" width="394" height="93" rx="16" fill="#F4F6F9" stroke="#E5E9EF" stroke-width="1.5"/>
+<text x="1032" y="554" fill="#8063A6" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="750">适用条件</text>
+<text x="1032" y="586" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="500">必须明确定义身份、重试与回执</text>
+<rect x="43" y="671" width="1350" height="50" rx="16" fill="#E9EFF5" stroke="#E9EFF5" stroke-width="1.5"/>
+<text x="717" y="705" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="700" text-anchor="middle">组合前先对齐四个合同：身份 · 取消 · 预算 · 正文提交回执</text>
+</svg>

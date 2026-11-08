@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="770" viewBox="0 0 1440 770" role="img" aria-label="Research loops: who owns the next step?">
+<defs><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#24334b" flood-opacity="0.09"/></filter><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8D9CB2"/></marker></defs>
+<rect width="1440" height="770" rx="24" fill="#F7F9FC"/>
+<rect x="34" y="36" width="6" height="54" rx="3" fill="#168B8E"/>
+<text x="62" y="66" fill="#142237" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="31" font-weight="700">Research loops: who owns the next step?</text>
+<text x="62" y="102" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="500">LangGraph can orchestrate dynamic agents; ETF Agent keeps a fixed host loop</text>
+<rect x="44" y="148" width="650" height="525" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="68" y="185" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="740">LangGraph · graph orchestration</text>
+<rect x="744" y="148" width="650" height="525" rx="16" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.5"/>
+<text x="768" y="185" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="740">ETF Agent · research runtime</text>
+<rect x="70" y="228" width="585" height="104" rx="16" fill="#F5F9FF" stroke="#D9E8F7" stroke-width="1.5"/>
+<text x="98" y="267" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">Agent node</text>
+<text x="98" y="302" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Model chooses an action</text>
+<path d="M363 336 L363 367" stroke="#9AACBF" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="70" y="371" width="585" height="104" rx="16" fill="#F5F9FF" stroke="#D9E8F7" stroke-width="1.5"/>
+<text x="98" y="410" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">ToolNode</text>
+<text x="98" y="445" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Run approved tools</text>
+<path d="M363 479 L363 510" stroke="#9AACBF" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="70" y="514" width="585" height="104" rx="16" fill="#F5F9FF" stroke="#D9E8F7" stroke-width="1.5"/>
+<text x="98" y="553" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">Conditional edge</text>
+<text x="98" y="588" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Continue / stop / interrupt</text>
+<path d="M 655 558 C 700 558, 700 220, 655 220" fill="none" stroke="#3171CB" stroke-width="3" stroke-dasharray="9 7" opacity="0.65"/>
+<text x="490" y="619" fill="#3171CB" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700">CONTINUE</text>
+<rect x="770" y="228" width="585" height="104" rx="16" fill="#F2FBF8" stroke="#CCEDE2" stroke-width="1.5"/>
+<text x="798" y="267" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">AgentTurn</text>
+<text x="798" y="302" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Seal the model proposal</text>
+<path d="M1063 336 L1063 367" stroke="#9AACBF" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="770" y="371" width="585" height="104" rx="16" fill="#F2FBF8" stroke="#CCEDE2" stroke-width="1.5"/>
+<text x="798" y="410" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">ActionRuntime</text>
+<text x="798" y="445" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Execute and record receipts</text>
+<path d="M1063 479 L1063 510" stroke="#9AACBF" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+<rect x="770" y="514" width="585" height="104" rx="16" fill="#F2FBF8" stroke="#CCEDE2" stroke-width="1.5"/>
+<text x="798" y="553" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="25" font-weight="700">CompletionGate</text>
+<text x="798" y="588" fill="#5D6D82" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="500">Decide from durable facts</text>
+<path d="M 1355 558 C 1400 558, 1400 220, 1355 220" fill="none" stroke="#168B8E" stroke-width="3" stroke-dasharray="9 7" opacity="0.65"/>
+<text x="1190" y="619" fill="#168B8E" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700">CONTINUE</text>
+<rect x="115" y="698" width="1209" height="48" rx="12" fill="#EBEEF4" stroke="#EBEEF4" stroke-width="1.5"/>
+<text x="719" y="730" fill="#24334B" font-family="Inter, Noto Sans CJK SC, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">Shared principle: model exploration is flexible; real effects must be verified.</text>
+</svg>

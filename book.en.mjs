@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "etf-agent-vs-langgraph": "ETF Agent vs LangGraph: Concept Mapping, Recovery, and Research Delivery",
   "ai-coding-quality-panorama": "AI Coding Quality Panorama: Taking Responsibility for the Whole Project When AI Writes Most of the Code",
   "chat-copilot-agent-runtime-evolution": "From Chat to Copilot to Agent: What Actually Changes in the Architecture?",
   "agent-vs-backend-development-panorama": "How Agent Development Differs from Backend Development: From One Request to a Long-Term Personal Assistant",
@@ -112,6 +113,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "etf-agent-vs-langgraph",
   "ai-coding-quality-panorama",
   "chat-copilot-agent-runtime-evolution",
   "agent-vs-backend-development-panorama",
