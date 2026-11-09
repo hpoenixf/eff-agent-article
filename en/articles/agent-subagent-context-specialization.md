@@ -254,6 +254,10 @@ node src/cli.mjs --case fixture-child --output runs/article-child
 ```
 <!-- /open-etf-case -->
 
+[Open ETF Agent v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0) extends beyond that offline fixture with bounded, serial, one-level read-only Children within a project. Main selects an admitted method, a local question and a narrower source subset; Child works in its own context and returns a derived conclusion with verified original source identities. After configuration using the [fixed-version guide](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md), `node src/research-cli.mjs child list --project DIR --run RUN_ID` reads the original Child, method, sources and Main consumption status without invoking a model. Continuation after a safe stop retains the same Child identity rather than replaying unknown work.
+
+The [same-version verification entry](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/verification/v022-release.md) retains the original same-source staged result: nine original mechanical successes among ten tasks, with one original HTTP measurement failure later supplemented by successful readback without another model call. That is not a continuous ten-task perfect pass. This public slice excludes parallel or background Children, nesting, peer messages and dynamic Profiles; it does not qualify the entire specialist system above or its financial-research quality.
+
 ---
 
 <!-- agent-article-sync:guidance:start -->
