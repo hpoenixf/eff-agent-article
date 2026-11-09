@@ -239,6 +239,10 @@ The second line is especially important: a committed receipt carries database-co
 
 The fix kept the original candidate and receipt ownership rather than introducing another publication-state or permission system. Committed facts still outrank same-revision previews. Earlier parallel timeouts and real-model quality problems, however, cannot be solved by changing receipt precedence.
 
+A later revision conflict was different: a body passed publication preparation but the original Publication owner refused its **durable modification** because of the edit quota. Discarding the body would hide content already authorized for display; treating it as a saved edit would block a subsequent legitimate revision. The main application's delivery protocol 11 therefore permits such an `answer-preview` to carry `displayOnly: true`. It may be shown temporarily but is not a saved version, a reserved modification, or a History receipt.
+
+For example, A has been saved at `revision=3`. Quota-refused B is visible only as a proposed `revision=4`. A later authorized C can still commit the real `revision=4`, rather than inventing revision 5. The client uses preview arrival order only within the current SSE connection. After reconnecting it reconciles against original History: a saved body at the same revision may supersede the temporary draft, while unsaved B cannot be promised recovery. **Permission to display is not permission to persist.** This protocol belongs to the main application, not the public Open ETF Agent v0.8 teaching slice below; neither source authorization nor edit quotas have been relaxed.
+
 ## 7. Real Problem Two: The Database Committed, but the Runtime Log Was Not Finished
 
 A more difficult timing window lies between the durable commit and the runtime log.
