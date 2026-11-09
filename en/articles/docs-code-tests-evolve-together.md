@@ -26,6 +26,12 @@ This article offers an operational method for requirements, bugs, refactors, and
 
 A common mistake is assuming that documentation always holds the truth, green tests imply correctness, or the current code establishes the requirement. They answer different questions.
 
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/contract.svg" alt="A current contract anchors docs, code and tests, and the user's outcome validates it" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 1 | Distinct responsibilities, not a rigid pipeline · <a href="../../visuals/en/docs-code-tests-evolve-together/contract.svg">Open full-size figure</a></figcaption>
+</figure>
+
+
 | Source | What it can establish | What it cannot establish by itself |
 | --- | --- | --- |
 | Active requirement, design decision, or API contract | How the system **should** behave; which old rules were replaced and which protections remain | That the implementation already satisfies the agreement |
@@ -49,6 +55,12 @@ Synchronization therefore does not mean making three artifacts identical. It mea
 
 The source of the change determines the order, not the file extension. "First" means establishing the evidence needed for the next decision, not imposing the same test-driven development ritual on every team.
 
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/sequence.svg" alt="Different working orders for changes, bugs, refactors and incidents" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 2 | Choose the sequence by trigger · <a href="../../visuals/en/docs-code-tests-evolve-together/sequence.svg">Open full-size figure</a></figcaption>
+</figure>
+
+
 | Change type | Start with | Next action | Confirm before delivery |
 | --- | --- | --- | --- |
 | New feature or changed business rule | Confirm the new contract and the constraints that must stay; update the relevant specification | Write tests that distinguish old and new behavior, implement, and iterate | New behavior passes; old protections remain; user entry works |
@@ -68,6 +80,12 @@ There is also a difference between *during development* and *after delivery*. A 
 ## 3. How to Detect Drift: Inspect Four Different Perspectives
 
 Text similarity between docs and code is not enough. Start with a concrete change or failed user journey and trace the relevant contract, assertions, execution path, and resulting artifact.
+
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/drift.svg" alt="Five kinds of divergence and the appropriate diagnostic question" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 3 | Move from symptom to diagnosis · <a href="../../visuals/en/docs-code-tests-evolve-together/drift.svg">Open full-size figure</a></figcaption>
+</figure>
+
 
 ### 3.1 Narrow the Search Before Scanning the Whole Repository
 
@@ -113,6 +131,12 @@ Avoid generating the entire expected result with the exact production function u
 
 Start by writing two sentences: **the currently authorized target behavior is...** and **the observed behavior is...**. Then locate where the discrepancy belongs. The table below is a triage guide, not an automatic authority rule.
 
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/triage.svg" alt="Agree on the target before selecting the layer to repair" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 4 | Correctness is not decided by voting · <a href="../../visuals/en/docs-code-tests-evolve-together/triage.svg">Open full-size figure</a></figcaption>
+</figure>
+
+
 | Observed state | Check first | Primary repair |
 | --- | --- | --- |
 | A new rule was approved, while old code and old tests agree with each other | Was the old restriction explicitly superseded? | Update relevant docs and expectations, then implement the new rule |
@@ -129,6 +153,12 @@ Classify the dispute as "target undecided," "implementation mismatch," "obsolete
 ## 5. An End-to-End Repair Loop
 
 Use this compact loop for any drift you find:
+
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/closure.svg" alt="Identify the discrepancy, protect invariants, repair and verify outcomes" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 5 | A verifiable repair loop · <a href="../../visuals/en/docs-code-tests-evolve-together/closure.svg">Open full-size figure</a></figcaption>
+</figure>
+
 
 1. **Describe the discrepancy**, not just the failure message: "the contract requires every matching order, but the file contains only the current page."
 2. **Name the invariants** that cannot be lost, such as authorization, filters, output fields, error semantics, or compatibility obligations.
@@ -196,6 +226,16 @@ A practical maintenance stack has three levels:
 3. **Review judgments:** whether the contract truly changed, which old behavior remains valid, whether test expectations are independent, and whether the intended outcome reaches users.
 
 Not every change needs a new synchronization audit report. Explain the decision in the existing PR instead of creating another register that must itself be kept in sync. Tom Manshreck discusses integrating documentation into engineering work in [the documentation chapter of *Software Engineering at Google*](https://abseil.io/resources/swe-book/html/ch10.html). The practical extension here is to **automate checkable relationships and review relationships that require judgment**.
+
+### Three ETF Agent Practices Worth Borrowing
+
+The current engineering specifications, implementation and tests support three practical patterns:
+
+- **Scenario-driven changes.** OpenSpec scenarios state inputs, expected behavior, and preserved constraints. Some tasks connect RED/GREEN observations to generated verification views; generating that view is not reported as a fresh test execution.
+- **Executable test-layer declarations.** Static, unit, integration, smoke, and E2E layers have declared entry points. Routine tests use fake gateways instead of paid models, and mock success is not presented as proof of the live user journey.
+- **Read-only drift diagnosis by default.** Selected Research verification paths classify missing sources, stale hashes and unexpected sources. Correcting an active plan requires explicit write authority; frozen historical evidence is not silently refreshed.
+
+These are practices for **traceability of responsibilities, source identity and verification scope**, not proof that every specification is correct or the entire product is production-qualified. A small team can adopt falsifying scenarios, test-layer honesty and concise PR discrepancy notes without copying the full governance process.
 
 The earlier article reported one dated snapshot of ETF Agent's committed working set as of October 27, 2026: 49,425 nonblank lines of current engineering docs and instructions, 248,636 lines of implementation and scripts, and 380,853 lines of tests and helpers. Tests were about 1.53 times the implementation by that measure. These figures indicate the scale of potentially maintained material, **not test quality, coverage, or an ideal ratio**. The useful question is which distinct regression each retained protection can still catch.
 

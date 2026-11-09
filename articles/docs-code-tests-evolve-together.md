@@ -26,6 +26,12 @@ readingBrief:
 
 最容易犯的错误，是默认“文档是标准答案”“测试都过了就对”或者“现有代码才是真相”。三者提供的证据不同。
 
+<figure>
+  <img src="../visuals/docs-code-tests-evolve-together/contract.svg" alt="当前有效契约分别约束文档、代码与测试，并由用户结果验证" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">图 1｜三种职责，不是一条固定流水线 · <a href="../visuals/docs-code-tests-evolve-together/contract.svg">放大查看</a></figcaption>
+</figure>
+
+
 | 对象 | 能回答什么 | 不能单独证明什么 |
 | --- | --- | --- |
 | 当前有效的需求、设计决策或接口契约 | 系统**应该**怎样表现，哪些旧行为被替代，哪些保护不能退让 | 代码已经按约定工作 |
@@ -49,6 +55,12 @@ readingBrief:
 
 先后顺序由**变化的来源**决定，不由文件类型决定。下面的“先”指取得下一步决策所需的依据，并非强制所有团队采用同一种 TDD 仪式。
 
+<figure>
+  <img src="../visuals/docs-code-tests-evolve-together/sequence.svg" alt="需求、故障、重构、事故的不同修改顺序" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">图 2｜判断变更类型，再决定先后顺序 · <a href="../visuals/docs-code-tests-evolve-together/sequence.svg">放大查看</a></figcaption>
+</figure>
+
+
 | 变更类型 | 最先做什么 | 随后的主要动作 | 交付前还要确认 |
 | --- | --- | --- | --- |
 | 新功能或业务规则变化 | 确认新契约及不变的约束，更新对应规范 | 写能区分新旧行为的测试，实施代码；允许小步交替 | 新预期通过、旧保护仍在，用户入口可用 |
@@ -68,6 +80,12 @@ readingBrief:
 ## 三、怎样发现不同步？从四个方向同时检查
 
 不能仅靠搜索“文档和代码的文字是否相似”。最有效的排查从一次真实变更或一次用户失败出发，追到相应的契约、断言、代码路径和输出。
+
+<figure>
+  <img src="../visuals/docs-code-tests-evolve-together/drift.svg" alt="五种不同步信号及各自的排查方向" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">图 3｜从症状进入下一步诊断 · <a href="../visuals/docs-code-tests-evolve-together/drift.svg">放大查看</a></figcaption>
+</figure>
+
 
 ### 1. 先定位改动范围，不要全仓盲扫
 
@@ -113,6 +131,12 @@ rg -n '旧字段名|旧错误码|旧规则文本' src tests docs
 
 发现差异后，先列出两行：**当前获准的目标行为是什么**、**观察到的行为是什么**。然后判断差异落在哪里。下面是常见的处置，不是自动判决表。
 
+<figure>
+  <img src="../visuals/docs-code-tests-evolve-together/triage.svg" alt="先确认目标，再定位需要修改的责任层" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">图 4｜不是多数服从少数 · <a href="../visuals/docs-code-tests-evolve-together/triage.svg">放大查看</a></figcaption>
+</figure>
+
+
 | 看到的状态 | 先验证什么 | 主要修复动作 |
 | --- | --- | --- |
 | 新规则获准，旧代码与旧测试彼此一致 | 新规则是否已明确替代旧限制 | 更新对应文档与测试，按新规则改实现 |
@@ -129,6 +153,12 @@ rg -n '旧字段名|旧错误码|旧规则文本' src tests docs
 ## 五、从发现差异到关闭：一个完整修复闭环
 
 面对任何一类失步，可以按以下顺序做一次小闭环：
+
+<figure>
+  <img src="../visuals/docs-code-tests-evolve-together/closure.svg" alt="明确差异、保护不变量、最小修复、验证结果" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">图 5｜可验证的修复闭环 · <a href="../visuals/docs-code-tests-evolve-together/closure.svg">放大查看</a></figcaption>
+</figure>
+
 
 1. **写出差异**：例如“契约要求所有筛选结果，但实际文件只有当前页”，而不是“测试失败”。
 2. **圈定不变量**：明确本次不能退让的权限、筛选条件、字段、错误语义与旧消费者。
@@ -196,6 +226,16 @@ ETF Agent 的一个真实边界可以帮助理解为什么“旧断言不成立�
 3. **合并评审中的人工判断**：契约是否真的改变、历史行为是否仍有效、测试预期是否独立、用户是否能取得正确结果。
 
 不必为每次改动制作一份“同步审计报告”。在 PR 描述里交代关键决策，比新增第三份长期维护表格有效。Tom Manshreck 在 [《Software Engineering at Google》的文档章节](https://abseil.io/resources/swe-book/html/ch10.html)讨论了将文档纳入工程工作流；这里的进一步实践是**把容易自动验证的关系变成检查，把需要判断的关系留在评审中**。
+
+### 我们在 ETF Agent 中有哪些可借鉴实践
+
+从当前工程规范、实现和测试可以核对到三项具体做法：
+
+- **用 Scenario 约束变更。** OpenSpec 场景写出输入、预期行为与保留条件；一些任务还用 RED/GREEN 观察与验证记录对应实现。自动汇总验证记录不等于重新执行测试。
+- **把测试层级写成可检查的清单。** 静态、单元、集成、Smoke、E2E 各有入口；日常测试使用 Fake Gateway，避免依赖付费模型，并区分模拟验证与真实用户路径。
+- **来源漂移默认只读诊断。** 部分研究验证流程分别报告来源缺失、过期哈希和意外来源；只有显式授权的活动计划才允许修正，冻结的历史证据不会被自动改写。
+
+这三项解决的是职责、来源与验证层级的**可追踪性**；它们本身不能证明所有规范都正确，也不能代替真实模型或生产验收。多数团队可以先借鉴场景反例、测试分层和 PR 中的差异说明，无需复制完整治理流程。
 
 原稿曾统计 ETF Agent 截至 2026 年 10 月 27 日的已提交工作集：现行研发文档与指令 49,425 非空行、实现与脚本 248,636 行、测试及辅助代码 380,853 行；后者约为实现的 1.53 倍。这个时点的规模说明维护负担可能很重，**不能用行数反推测试质量、覆盖率或理想比例**。真正重要的是，每条保留的保护能否指出一种仍可能发生的错误。
 
