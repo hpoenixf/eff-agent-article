@@ -212,6 +212,10 @@ node src/session-cli.mjs schedule-publication --session runs/schedule-demo --sch
 
 [较早的真实调用记录](https://github.com/hpoenixf/open-etf-agent/blob/b1d2431a6b86bd0120f2fe5acb531ef928e92de2/docs/verification/v018-release.safe.json)仍独立保留。上面的 CLI 演示是无模型验证，不能把 API 的真实调用记录移作 CLI 真实模型验收，也不能把冷读的零调用扩大为整个任务零调用。这些路径不证明后台自动唤醒、周期调度、金融质量或通用断电恢复。
 
+公开版后续的 [v0.25 一次性 Scheduled Task](https://github.com/hpoenixf/open-etf-agent/blob/99485ed3e7d45d462f9908e53ff5653a8c0791c1/docs/scheduled-tasks.md)，把另一个容易漏掉的竞态说得更清楚：调用者 A 在原 Session 事务中创建了 Run，却在交给 Worker 前中断；调用者 B 再扫到同一任务时，**查到已有 Run 不等于 B 可以接管它**。新宿主只有在本次事务确实新建 Run、取得新建观察时才启动 Worker；否则保留原身份、预留与可能未知的效果，等待检查后通过原 `run work` 显式恢复。[同版并发回归](https://github.com/hpoenixf/open-etf-agent/blob/99485ed3e7d45d462f9908e53ff5653a8c0791c1/test/scheduled-tasks-fresh.test.mjs)检验的正是这一差别：避免重复创建，并不自动授权重复派发。
+
+这仍不是无人值守的日程服务：v0.25 的 `run-due` 需要显式调用，只做有限扫描，不含 Cron、常驻守护进程、周期任务或未知工作的自动恢复。[同版验证记录](https://github.com/hpoenixf/open-etf-agent/blob/99485ed3e7d45d462f9908e53ff5653a8c0791c1/docs/verification/v025-release.md)也把 Runtime 完成与模型正文质量分开。上面 v0.18 的 `schedule-wake` 和这里 v0.25 的 `run-due` 是不同版本的入口，不应混用命令。
+
 ## 七、我们究竟验证到了哪里
 
 这次能力不是只有一份 Spec。
