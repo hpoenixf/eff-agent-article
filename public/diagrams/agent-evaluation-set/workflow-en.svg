@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+<title id="title">Evaluation tasks across development and acceptance</title><desc id="desc">Select verification to match the scope of the commitment</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087E73" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;font-kerning:normal} .label{letter-spacing:1.4px}</style>
+<rect x="0" y="0" width="1000" height="500" rx="24" fill="#F7FAF9"/>
+<rect x="0" y="0" width="7" height="500" rx="0" fill="#087E73"/>
+<text x="44" y="35.0" font-size="14" fill="#087E73" font-weight="700" text-anchor="start" class="label">01 / AGENT EVALUATION</text>
+<text x="44" y="79.0" font-size="31" fill="#183742" font-weight="700" text-anchor="start">Evaluation tasks across development and acceptance</text>
+<text x="44" y="112.0" font-size="19" fill="#50656D" font-weight="400" text-anchor="start">Select verification to match the scope of the commitment</text>
+<rect x="44" y="160" width="170" height="190" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="44" y="160" width="170" height="5" rx="2" fill="#087E73"/>
+<circle cx="71" cy="193" r="15" fill="#087E73"/>
+<text x="71" y="198.0" font-size="15" fill="white" font-weight="700" text-anchor="middle">1</text>
+<text x="60" y="233" font-size="22" fill="#183742" font-weight="700" text-anchor="start">Needs and</text>
+<text x="60" y="260" font-size="22" fill="#183742" font-weight="700" text-anchor="start">task design</text>
+<text x="60" y="299" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Task criteria</text>
+<text x="60" y="324" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Evidence scope</text>
+<path d="M217 257 H225" fill="none" stroke="#087E73" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="228" y="160" width="170" height="190" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="228" y="160" width="170" height="5" rx="2" fill="#087E73"/>
+<circle cx="255" cy="193" r="15" fill="#087E73"/>
+<text x="255" y="198.0" font-size="15" fill="white" font-weight="700" text-anchor="middle">2</text>
+<text x="244" y="233" font-size="22" fill="#183742" font-weight="700" text-anchor="start">Development</text>
+<text x="244" y="260" font-size="22" fill="#183742" font-weight="700" text-anchor="start">&amp; regression</text>
+<text x="244" y="299" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Controlled inputs</text>
+<text x="244" y="324" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Scoped checks</text>
+<path d="M401 257 H409" fill="none" stroke="#087E73" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="412" y="160" width="170" height="190" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="412" y="160" width="170" height="5" rx="2" fill="#087E73"/>
+<circle cx="439" cy="193" r="15" fill="#087E73"/>
+<text x="439" y="198.0" font-size="15" fill="white" font-weight="700" text-anchor="middle">3</text>
+<text x="428" y="233" font-size="22" fill="#183742" font-weight="700" text-anchor="start">Real-task</text>
+<text x="428" y="260" font-size="22" fill="#183742" font-weight="700" text-anchor="start">acceptance</text>
+<text x="428" y="299" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Actual execution</text>
+<text x="428" y="324" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Quality review</text>
+<path d="M585 257 H593" fill="none" stroke="#087E73" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="596" y="160" width="170" height="190" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="596" y="160" width="170" height="5" rx="2" fill="#087E73"/>
+<circle cx="623" cy="193" r="15" fill="#087E73"/>
+<text x="623" y="198.0" font-size="15" fill="white" font-weight="700" text-anchor="middle">4</text>
+<text x="612" y="233" font-size="22" fill="#183742" font-weight="700" text-anchor="start">Delivery</text>
+<text x="612" y="260" font-size="22" fill="#183742" font-weight="700" text-anchor="start">&amp; release</text>
+<text x="612" y="299" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Scoped verdict</text>
+<text x="612" y="324" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Known gaps</text>
+<path d="M769 257 H777" fill="none" stroke="#087E73" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="780" y="160" width="170" height="190" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="780" y="160" width="170" height="5" rx="2" fill="#087E73"/>
+<circle cx="807" cy="193" r="15" fill="#087E73"/>
+<text x="807" y="198.0" font-size="15" fill="white" font-weight="700" text-anchor="middle">5</text>
+<text x="796" y="233" font-size="22" fill="#183742" font-weight="700" text-anchor="start">Operation</text>
+<text x="796" y="260" font-size="22" fill="#183742" font-weight="700" text-anchor="start">&amp; feedback</text>
+<text x="796" y="299" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">New failures</text>
+<text x="796" y="324" font-size="17.5" fill="#50656D" font-weight="400" text-anchor="start">Reviewed cases</text>
+<path d="M866 354 V409 H129 V356" fill="none" stroke="#087E73" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" stroke-dasharray="6 6"/>
+<rect x="245" y="388" width="510" height="42" rx="10" fill="#F7FAF9"/>
+<text x="500" y="415.0" font-size="20" fill="#087E73" font-weight="600" text-anchor="middle">Review feedback, then extend the task catalog</text>
+<text x="44" y="471.0" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Reuse the task across stages. Interpret evidence at the layer actually completed.</text>
+</svg>

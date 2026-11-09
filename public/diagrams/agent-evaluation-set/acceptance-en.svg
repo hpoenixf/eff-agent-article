@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="590" viewBox="0 0 1000 590" role="img" aria-labelledby="title desc">
+<title id="title">Build an acceptance conclusion from distinct evidence</title><desc id="desc">RQ-08 teaching example · interpreting amendments across document versions</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087E73" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;font-kerning:normal} .label{letter-spacing:1.4px}</style>
+<rect x="0" y="0" width="1000" height="590" rx="24" fill="#F7FAF9"/>
+<rect x="0" y="0" width="7" height="590" rx="0" fill="#087E73"/>
+<text x="44" y="35.0" font-size="14" fill="#087E73" font-weight="700" text-anchor="start" class="label">03 / AGENT EVALUATION</text>
+<text x="44" y="79.0" font-size="31" fill="#183742" font-weight="700" text-anchor="start">Build an acceptance conclusion from distinct evidence</text>
+<text x="44" y="112.0" font-size="19" fill="#50656D" font-weight="400" text-anchor="start">RQ-08 teaching example · interpreting amendments across document versions</text>
+<rect x="44" y="137" width="912" height="57" rx="14" fill="#E5F3EF"/>
+<text x="500" y="173.0" font-size="23" fill="#087E73" font-weight="700" text-anchor="middle">Collect distinct evidence around the same task</text>
+<rect x="44" y="224" width="294" height="225" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="44" y="224" width="294" height="5" rx="2" fill="#087E73"/>
+<text x="64" y="268.0" font-size="23" fill="#183742" font-weight="700" text-anchor="start">Engineering behavior</text>
+<text x="64" y="312" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Evidence transfer</text>
+<text x="64" y="343" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Read-only restrictions</text>
+<rect x="59" y="384" width="264" height="45" rx="9" fill="#F7FAF9"/>
+<text x="74" y="413.0" font-size="16.5" fill="#087E73" font-weight="600" text-anchor="start">Behavior at the tested seam</text>
+<path d="M191 456 V482" fill="none" stroke="#087E73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="353" y="224" width="294" height="225" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="353" y="224" width="294" height="5" rx="2" fill="#6555B9"/>
+<text x="373" y="268.0" font-size="23" fill="#183742" font-weight="700" text-anchor="start">Actual execution</text>
+<text x="373" y="312" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Requests and tool receipts</text>
+<text x="373" y="343" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Report and storage readback</text>
+<rect x="368" y="384" width="264" height="45" rx="9" fill="#F7FAF9"/>
+<text x="383" y="413.0" font-size="16.5" fill="#6555B9" font-weight="600" text-anchor="start">Actual task progress</text>
+<path d="M500 456 V482" fill="none" stroke="#6555B9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="662" y="224" width="294" height="225" rx="16" fill="white" stroke="#DCE5E4"/>
+<rect x="662" y="224" width="294" height="5" rx="2" fill="#A96913"/>
+<text x="682" y="268.0" font-size="23" fill="#183742" font-weight="700" text-anchor="start">Research quality</text>
+<text x="682" y="312" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Source support and scope</text>
+<text x="682" y="343" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Dates, arithmetic, user needs</text>
+<rect x="677" y="384" width="264" height="45" rx="9" fill="#F7FAF9"/>
+<text x="692" y="413.0" font-size="16.5" fill="#A96913" font-weight="600" text-anchor="start">What supports the conclusions</text>
+<path d="M809 456 V482" fill="none" stroke="#A96913" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M191 483 H809" fill="none" stroke="#DCE5E4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="44" y="499" width="912" height="55" rx="12" fill="#E5F3EF"/>
+<text x="500" y="534.0" font-size="20" fill="#087E73" font-weight="600" text-anchor="middle">Acceptance conclusion = declared scope + observed evidence + remaining gaps</text>
+<text x="44" y="579.0" font-size="16" fill="#50656D" font-weight="400" text-anchor="start">Record formal closure, deployment, and user outcomes separately.</text>
+</svg>

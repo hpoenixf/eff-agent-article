@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="615" viewBox="0 0 1000 615" role="img" aria-labelledby="title desc">
+<title id="title">One catalog, multiple views</title><desc id="desc">Scope, task families, and tags describe different dimensions</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087E73" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;font-kerning:normal} .label{letter-spacing:1.4px}</style>
+<rect x="0" y="0" width="1000" height="615" rx="24" fill="#F7FAF9"/>
+<rect x="0" y="0" width="7" height="615" rx="0" fill="#087E73"/>
+<text x="44" y="35.0" font-size="14" fill="#087E73" font-weight="700" text-anchor="start" class="label">02 / AGENT EVALUATION</text>
+<text x="44" y="79.0" font-size="31" fill="#183742" font-weight="700" text-anchor="start">One catalog, multiple views</text>
+<text x="44" y="112.0" font-size="19" fill="#50656D" font-weight="400" text-anchor="start">Scope, task families, and tags describe different dimensions</text>
+<text x="44" y="198.0" font-size="68" fill="#087E73" font-weight="700" text-anchor="start">83</text>
+<text x="158" y="166.0" font-size="27" fill="#183742" font-weight="700" text-anchor="start">unique questions</text>
+<text x="158" y="198.0" font-size="20" fill="#50656D" font-weight="400" text-anchor="start">Shared, stable case identities</text>
+<rect x="566" y="139" width="181" height="70" rx="14" fill="#E5F3EF"/>
+<text x="587" y="184.0" font-size="38" fill="#087E73" font-weight="700" text-anchor="start">14</text>
+<text x="647" y="181.0" font-size="22" fill="#183742" font-weight="600" text-anchor="start">core</text>
+<rect x="765" y="139" width="191" height="70" rx="14" fill="#EEEAF8"/>
+<text x="785" y="184.0" font-size="38" fill="#6555B9" font-weight="700" text-anchor="start">69</text>
+<text x="845" y="181.0" font-size="21" fill="#183742" font-weight="600" text-anchor="start">extended</text>
+<rect x="44" y="246" width="170" height="143" rx="14" fill="white" stroke="#DCE5E4"/>
+<text x="61" y="274.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">C</text>
+<text x="61" y="319.0" font-size="41" fill="#183742" font-weight="700" text-anchor="start">31</text>
+<text x="61" y="347" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">General funds</text>
+<text x="61" y="370" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">&amp; dialogue</text>
+<rect x="228" y="246" width="170" height="143" rx="14" fill="white" stroke="#DCE5E4"/>
+<text x="245" y="274.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">L + Q</text>
+<text x="245" y="319.0" font-size="41" fill="#183742" font-weight="700" text-anchor="start">25</text>
+<text x="245" y="347" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Application</text>
+<text x="245" y="370" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Q&amp;A</text>
+<rect x="412" y="246" width="170" height="143" rx="14" fill="white" stroke="#DCE5E4"/>
+<text x="429" y="274.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">RQ</text>
+<text x="429" y="319.0" font-size="41" fill="#183742" font-weight="700" text-anchor="start">12</text>
+<text x="429" y="347" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Financial</text>
+<text x="429" y="370" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">documents</text>
+<rect x="596" y="246" width="170" height="143" rx="14" fill="white" stroke="#DCE5E4"/>
+<text x="613" y="274.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">MAE</text>
+<text x="613" y="319.0" font-size="41" fill="#183742" font-weight="700" text-anchor="start">5</text>
+<text x="613" y="347" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Synthetic</text>
+<text x="613" y="370" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">research</text>
+<rect x="780" y="246" width="170" height="143" rx="14" fill="white" stroke="#DCE5E4"/>
+<text x="797" y="274.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">RPS</text>
+<text x="797" y="319.0" font-size="41" fill="#183742" font-weight="700" text-anchor="start">10</text>
+<text x="797" y="347" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Synthetic</text>
+<text x="797" y="370" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">accounts</text>
+<rect x="44" y="413" width="912" height="55" rx="12" fill="#EEEAF8"/>
+<text x="500" y="448.0" font-size="22" fill="#6555B9" font-weight="600" text-anchor="middle">Scope × task focus × evidence conditions × execution runner</text>
+<rect x="44" y="490" width="442" height="77" rx="12" fill="white" stroke="#DCE5E4"/>
+<rect x="510" y="490" width="446" height="77" rx="12" fill="white" stroke="#DCE5E4"/>
+<text x="62" y="518.0" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Core calculation, exclude private input</text>
+<text x="62" y="548.0" font-size="24" fill="#087E73" font-weight="700" text-anchor="start">C04 · C23</text>
+<text x="528" y="518.0" font-size="18" fill="#50656D" font-weight="400" text-anchor="start">Financial-knowledge runner</text>
+<text x="528" y="548.0" font-size="24" fill="#087E73" font-weight="700" text-anchor="start">RQ-01 … RQ-12</text>
+<text x="44" y="598.0" font-size="16" fill="#50656D" font-weight="400" text-anchor="start">Source snapshot · 2026-11-09. The same case can serve multiple selections.</text>
+</svg>

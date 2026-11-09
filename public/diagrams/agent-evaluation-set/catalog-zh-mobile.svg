@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="664" viewBox="0 0 390 664" role="img" aria-labelledby="title desc">
+<title id="title">一个目录，多种选集</title><desc id="desc">范围、内容与标签共同组织任务</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087E73" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;font-kerning:normal} .label{letter-spacing:1.4px}</style>
+<rect x="0" y="0" width="390" height="664" rx="24" fill="#F7FAF9"/>
+<rect x="0" y="0" width="7" height="664" rx="0" fill="#087E73"/>
+<text x="24" y="31.0" font-size="11" fill="#087E73" font-weight="700" text-anchor="start" class="label">02 / 研发与验收</text>
+<text x="24" y="65.0" font-size="22" fill="#183742" font-weight="700" text-anchor="start">一个目录，多种选集</text>
+<text x="24" y="93.0" font-size="15" fill="#50656D" font-weight="400" text-anchor="start">范围、内容与标签共同组织任务</text>
+<rect x="24" y="107" width="342" height="80" rx="16" fill="#E5F3EF"/>
+<text x="40" y="160.0" font-size="48" fill="#087E73" font-weight="700" text-anchor="start">83</text>
+<text x="110" y="136.0" font-size="17" fill="#183742" font-weight="600" text-anchor="start">道唯一问句</text>
+<text x="110" y="164.0" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">核心 14  ·  扩展 69</text>
+<rect x="24" y="202" width="342" height="44" rx="11" fill="white" stroke="#DCE5E4"/>
+<text x="39" y="231.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">C</text>
+<text x="128" y="233.0" font-size="27" fill="#183742" font-weight="700" text-anchor="middle">31</text>
+<text x="165" y="231" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">通用基金与对话</text>
+<rect x="24" y="252" width="342" height="44" rx="11" fill="white" stroke="#DCE5E4"/>
+<text x="39" y="281.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">L + Q</text>
+<text x="128" y="283.0" font-size="27" fill="#183742" font-weight="700" text-anchor="middle">25</text>
+<text x="165" y="281" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">应用问答</text>
+<rect x="24" y="302" width="342" height="44" rx="11" fill="white" stroke="#DCE5E4"/>
+<text x="39" y="331.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">RQ</text>
+<text x="128" y="333.0" font-size="27" fill="#183742" font-weight="700" text-anchor="middle">12</text>
+<text x="165" y="331" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">金融知识</text>
+<rect x="24" y="352" width="342" height="44" rx="11" fill="white" stroke="#DCE5E4"/>
+<text x="39" y="381.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">MAE</text>
+<text x="128" y="383.0" font-size="27" fill="#183742" font-weight="700" text-anchor="middle">5</text>
+<text x="165" y="381" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">合成研究</text>
+<rect x="24" y="402" width="342" height="44" rx="11" fill="white" stroke="#DCE5E4"/>
+<text x="39" y="431.0" font-size="16" fill="#6555B9" font-weight="700" text-anchor="start">RPS</text>
+<text x="128" y="433.0" font-size="27" fill="#183742" font-weight="700" text-anchor="middle">10</text>
+<text x="165" y="431" font-size="17" fill="#50656D" font-weight="400" text-anchor="start">合成账户研究</text>
+<rect x="24" y="458" width="342" height="51" rx="12" fill="#EEEAF8"/>
+<text x="40" y="479.0" font-size="17" fill="#6555B9" font-weight="600" text-anchor="start">范围 × 任务特点</text>
+<text x="40" y="501.0" font-size="17" fill="#6555B9" font-weight="600" text-anchor="start">资料条件 × 执行入口</text>
+<rect x="24" y="522" width="342" height="48" rx="12" fill="white" stroke="#DCE5E4"/>
+<text x="40" y="542.0" font-size="16" fill="#50656D" font-weight="400" text-anchor="start">核心计算，排除私人输入</text>
+<text x="40" y="562.0" font-size="22" fill="#087E73" font-weight="700" text-anchor="start">C04 · C23</text>
+<rect x="24" y="582" width="342" height="48" rx="12" fill="white" stroke="#DCE5E4"/>
+<text x="40" y="602.0" font-size="16" fill="#50656D" font-weight="400" text-anchor="start">金融知识入口</text>
+<text x="40" y="622.0" font-size="22" fill="#087E73" font-weight="700" text-anchor="start">RQ-01 … RQ-12</text>
+<text x="24" y="653.0" font-size="13" fill="#50656D" font-weight="400" text-anchor="start">2026-11-09 源码快照</text>
+</svg>
