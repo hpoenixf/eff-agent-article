@@ -254,6 +254,10 @@ node src/cli.mjs --case fixture-child --output runs/article-child
 ```
 <!-- /open-etf-case -->
 
+[Open ETF Agent v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0)在这个离线示例之外，提供了项目内有界、串行、单层的只读 Child。Main 从已准入方法中选择一项局部问题与更窄的来源集合，Child 使用独立上下文，交回派生结论和经核对的原始来源身份。按[固定版本手册](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.zh-CN.md)配置后，`node src/research-cli.mjs child list --project DIR --run RUN_ID` 可只读原 Child、所选方法、来源和 Main 的消费状态，不触发模型；安全停止后的继续仍沿同一 Child 身份，不重放未知请求。
+
+[同版验证入口](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/verification/v022-release.zh-CN.md)保留同源分阶段执行的原始结果：十个任务中九个原机械成功，一项原 HTTP 测量失败后来取得无新模型调用的成功回读补证，但不改写成连续十项全过。这个公开切片不包括并行或后台 Child、嵌套、专家间通信和动态 Profile，也不代表上文全部专家体系或金融研究质量已经验证。
+
 ---
 
 <!-- agent-article-sync:guidance:start -->

@@ -131,6 +131,12 @@ node src/admission-demo.mjs unknown output/admission-demo
 
 [较早的真实调用记录](https://github.com/hpoenixf/open-etf-agent/blob/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce/docs/verification/v017-release.safe.json)仍按原批次保留，不并入本轮结果。无模型双进程实验解释排队、unknown 与取消的安全边界；顺序真实调用解释正常交付链，两者都不证明金融研究质量。
 
+### 更换模型配置以后，仍是同一份项目容量
+
+[Open ETF Agent v0.24.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.24.0)进一步处理了配置修订：同一个新格式项目中，只要规范化端点相同，更换模型、流式选项或凭据环境变量别名就不会意外得到第二个容量位置。按[固定版本手册](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.zh-CN.md)准备项目后，`node src/research-cli.mjs capacity inspect --project DIR --run RUN_ID` 可以只读原票据与容量归属，不调用模型，也不结算 unknown。旧任务保留原配置；缺失容量状态时拒绝执行，而不是创建空库冒充没有占用。
+
+[同版验证入口](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v024-release.zh-CN.md)把真实模型顺序执行与合成传输下的跨进程竞争分开记录。容量范围仍是一个项目、一个规范化端点和一个本地位置，不是账号级或分布式限流。正常交付也不保证引用语义正确：其中一份已保存报告把导入材料的引文指向导出来源，最终回答披露了错误，但没有重存修正后的报告。原报告与这个缺口都保留，不能用交付成功替代内容核对。
+
 ## 七、当前实现到了哪里，下一步应该验证什么
 
 截至 2026 年 10 月 24 日，完整 ETF Agent 系统的主干（并非 `open-etf-agent` 公开仓库）包含基于 PostgreSQL 的共享 Provider Admission、按端点分组、有界队列和租约、冷却/半开、最终派发前的原权限 guard、流式协议结束观察和 unknown 隔离。受管 API、后台研究、自检/评审等在**同一配置的协调域**共享这条准入边界；人工伪造的本地测试协调器不作为生产回退。
