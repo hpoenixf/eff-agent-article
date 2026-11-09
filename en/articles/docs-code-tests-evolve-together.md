@@ -1,215 +1,271 @@
 ---
-title: "When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together"
-description: "A teaching example about exporting orders shows how requirements, implementation, and tests can evolve together while preserving valid protections and checking the result users receive."
+title: "When Tests Outgrow Implementation: Keeping Docs, Code, and Tests in Step"
+description: "A practical workflow for evolving documentation, implementation, and tests: decide the order by change type, detect drift through contracts and user paths, and repair the layer that is actually wrong."
 date: 2026-10-28
 readingBrief:
   takeaways:
-    - "When requirements change, separate replaced behavior from protections that still apply; do not revert a correct implementation merely to satisfy obsolete tests."
-    - "Tests must distinguish old behavior from the new promise and inspect the actual delivery boundary; file existence, row counts, or backend success alone are insufficient."
-    - "Production definitions may be shared, but test expectations need independence. Retire checks when their responsibility ends or protection moves, not merely because they fail or run slowly."
+    - "There is no fixed docs-then-code-then-tests order: clarify contracts for requirement changes, reproduce bugs first, lock down behavior before refactoring, and contain production incidents before restoring the full workflow."
+    - "Compare the active contract, test assertions, real call paths, and user-visible outcomes; green tests or three matching artifacts do not establish that the requirement is correct."
+    - "When the three disagree, do not take a majority vote. Establish which behavior is authorized before deciding whether to fix documentation, implementation, tests, or the requirement itself."
+    - "The merge goal is verified behavior and preserved protections, not a diff in every file; keep, refactor, consolidate, retire, or delete old tests based on their responsibilities."
   appliesTo:
-    - "Teams aligning specifications, implementation, tests, and decision history as existing behavior evolves."
+    - "Teams maintaining evolving products with changing requirements, stale tests, drifting documentation, migrations, or failures spanning multiple layers."
   notFor:
-    - "Not a rationale for deleting failing tests wholesale or treating documentation and test line counts as quality measures."
+    - "Not a formula for measuring quality by changed-file counts, nor a requirement to create a separate spec or full end-to-end test for every small fix."
 ---
 
-# When Tests Outgrow the Code: Helping Docs, Code, and Tests Evolve Together
+# When Tests Outgrow Implementation: Keeping Docs, Code, and Tests in Step
 
-Start with a teaching example. An order list has 50 matching results, but the current page displays 20. The product requirement is to export all 50 to Excel with one click.
+After a requirement changes, documentation may say "export all results," the code may still export only the current page, and the test suite may be entirely green. Should the team change the code first, fix the tests first, or update the documentation? What if all three agree but misunderstand the user's need?
 
-A developer updates the export logic, and an old test fails: it still requires the export to contain no more than one page. Someone might revert the implementation to make the test pass again. Someone else might simply change 20 to 50 in the test. The first response loses the new requirement; the second may only replace one hard-coded number with another.
+The difficulty is that **these artifacts have no universal order of precedence or universally correct update sequence**. Documentation communicates agreements; code executes; tests challenge assumptions through concrete examples. The basis for deciding what each should say is the currently valid behavioral contract, checked against actual observations. Temporary disagreement during development can be intentional. Disagreement left unexplained at delivery is a maintenance defect.
 
-Even if the backend tests pass, the page button might still pass only the current 20 rows to the export function. The file the user receives would remain incomplete.
+This article offers an operational method for requirements, bugs, refactors, and migrations: classify the change, choose the sequence, find drift using complementary checks, decide which layer owns the discrepancy, and make that reasoning reviewable in an ordinary pull request.
 
-**A single requirement change needs to address the old promise in the specification, the path the code actually follows, and the old assumptions still enforced by tests.** What to change and what to preserve must be expressed as concrete behavior. A final task item saying “update the docs and add tests” leaves too much unresolved.
+## 1. Before Comparing Files, Decide What Counts as the Current Agreement
 
-The fictional order system below is a teaching example throughout. The numbers 20 and 50, the business rules, and the filenames are illustrative settings, not business incidents from ETF Agent. The project measurements and historical observations are drawn from actual materials.
+A common mistake is assuming that documentation always holds the truth, green tests imply correctness, or the current code establishes the requirement. They answer different questions.
 
-## 1. When Tests Already Exceed the Implementation, Where Can Problems Remain?
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/contract.svg" alt="A current contract anchors docs, code and tests, and the user's outcome validates it" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 1 | Distinct responsibilities, not a rigid pipeline · <a href="../../visuals/en/docs-code-tests-evolve-together/contract.svg">Open full-size figure</a></figcaption>
+</figure>
 
-We recounted ETF Agent's working set of materials that directly guide current development. Documentation includes current specifications, active designs, development and operations guides, and model instructions actually in use. Historical archives, old handoffs, one-off reports, sharing drafts, and example text inside test fixtures are treated as reference material. Known build-generated copies are also excluded from maintained implementation source.
 
-For the committed version as of 2026-10-27, the nonblank-line counts were:
+| Source | What it can establish | What it cannot establish by itself |
+| --- | --- | --- |
+| Active requirement, design decision, or API contract | How the system **should** behave; which old rules were replaced and which protections remain | That the implementation already satisfies the agreement |
+| Current documentation (specs, guides, examples) | How that agreement is presented to developers and users | That every statement still applies to today's version |
+| Current code and its real execution paths | What is actually called, returned, and persisted | That the observed behavior is desirable |
+| Tests and their prepared expectations | Which concrete scenarios are checked and which regressions could be detected | That the test oracle is correct or that untested paths work |
+| User actions, production symptoms, or controlled end-to-end observations | Whether the outcome reaches the user through the relevant entry point | That every other condition or long-term scenario is correct |
 
-| Material | Nonblank lines | Share |
-| --- | ---: | ---: |
-| Development documentation and instructions, including current specifications | 49,425 | 7.28% |
-| Implementation code and engineering scripts | 248,636 | 36.62% |
-| Tests and test support code | 380,853 | 56.10% |
+The first row helps establish the **target**. The other rows provide **implementation and observation evidence**. An "active contract" need not be a file called `Spec`. It might be an approved business rule, an API compatibility commitment, an ADR, or explicit acceptance criteria. Its version, audience, and approval status matter. An old requirement does not remain valid just because it still appears in a document; an unapproved idea does not become the requirement because someone implemented it.
 
-Current specifications account for 303 files and 33,025 nonblank lines, already included in the first row. Test text is about 1.53 times the size of the implementation. Code comments and documentation examples remain in the counts. These measurements describe the size of the material; they do not directly measure coverage, effort, or an ideal ratio.
+Use this decision sequence:
 
-They do make one question concrete: with so many explanations and safeguards already accumulated, how does a developer know which ones remain valid for the next change?
+1. **Fix the scope and time:** Which version, user entry point, mode, and consumer are we discussing? Is this a correction of agreed behavior or an authorized change to it?
+2. **Locate an accountable agreement:** Which rule defines the expected outcome, and who confirmed the change? When documents conflict, check decision and change history rather than voting by modification timestamp.
+3. **Gather independent perspectives:** What do the docs say, what does the actual code path do, what do the tests assert, and what does the user obtain?
+4. **If the intended behavior remains disputed, resolve that dispute first.** Rewriting code or test assertions cannot substitute for a product decision.
 
-More tests can cover more faults, but they can also preserve more obsolete requirements. More documentation can explain a design, but it can also put descriptions from different versions side by side. A more complete implementation may make features easier to add, while also spreading an old assumption across the page, API, and export module.
+Synchronization therefore does not mean making three artifacts identical. It means making each artifact fulfill its own role in support of **one valid behavioral commitment**.
 
-The evolution of existing material therefore belongs inside each requirement change. Focusing only on new functionality can leave old assumptions for the next maintainer to untangle.
+## 2. What Comes First? Choose a Sequence for Each Change Type
 
-## 2. Clarify What “Export All” Means Before the Work Begins
+The source of the change determines the order, not the file extension. "First" means establishing the evidence needed for the next decision, not imposing the same test-driven development ritual on every team.
 
-Return to the teaching example.
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/sequence.svg" alt="Different working orders for changes, bugs, refactors and incidents" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 2 | Choose the sequence by trigger · <a href="../../visuals/en/docs-code-tests-evolve-together/sequence.svg">Open full-size figure</a></figcaption>
+</figure>
 
-The first version promises to export only the current page. That can be a reasonable delivery choice: the page already has those rows, so reusing them provides a simple export feature. The guide says “export the current page,” the code uses the page data, and the tests enforce a maximum of 20 rows. All three agree with the requirement at that time.
 
-Later, a user needs to hand finance the orders that are both completed and from the current month. There are 50, spread across three pages. Exporting each page and merging the files manually becomes inconvenient, prompting a new requirement: export all matching results.
+| Change type | Start with | Next action | Confirm before delivery |
+| --- | --- | --- | --- |
+| New feature or changed business rule | Confirm the new contract and the constraints that must stay; update the relevant specification | Write tests that distinguish old and new behavior, implement, and iterate | New behavior passes; old protections remain; user entry works |
+| Bug against an unchanged requirement | Reproduce the symptom and identify the **current** expected behavior | Add a regression case that fails for the old bug, then fix the code | The case actually catches the bug; correct docs need no artificial change |
+| Behavior-preserving refactor | Lock down observable behavior, consumers, and the regression baseline | Add characterization tests where needed, then refactor internals | Contract unchanged; only stale architecture descriptions need updates |
+| API, protocol, or data migration | Define coexistence, consumer compatibility, and explicit exit criteria | Preserve compatibility checks; move implementation and documentation in stages | Old consumers exited or remain protected; retirement is justified |
+| Stale test expectation | Verify the requirement version and the behavior the assertion once protected | Correct, split, or remove the obsolete assertion; edit code only for an actual defect | The replacement catches errors without losing independent protections |
+| Incorrect guide or outdated example | Compare implementation, tests, current contract, and real entry point | Correct the guide or its generated output | Do not change correct runtime behavior just to make files differ |
+| Production incident or urgent security issue | Contain impact first: roll back, isolate, or restrict | Capture reproduction evidence, repair behavior, add tests, update affected guidance | Containment is not root-cause closure; complete the follow-up checks |
 
-Writing only those words leaves important questions open. Does “all” mean every order or only filtered orders? Should the file include the columns currently shown on the page? What happens when there are no matches?
+For example, **requirement changes usually start with agreement, bugs with reproduction, and refactors with a protected baseline**. Emergencies may demand containment before tests. That is a justified exception to the normal sequence, not permission to omit later verification.
 
-For this example, establish the following agreement:
+Test-driven development is useful when a failing test can clearly state the intended change, but it is not compulsory for every task. Discovery may require a feasibility spike first, intermittent production failures may require observability first, and a small copy change may need only lightweight checks. What matters is that, by merge time, the team can say what evidence supports the intended behavior.
 
-> Clicking Export produces a file containing every order that matches the selected filters and that the current user is allowed to view, regardless of the current page or page size. Keep the existing export columns and their order. If no orders match, show “No orders to export.”
+There is also a difference between *during development* and *after delivery*. A red test and an outdated guide halfway through a branch may represent a deliberate intermediate state. An unexplained conflict among active agreements on the main branch is another matter. The sequence organizes the work; **verifiable consistency at integration time is the result**.
 
-This states both the change and the protections that remain. The export now crosses page boundaries; filters, the user's permitted data scope, and the field requirements still apply.
+## 3. How to Detect Drift: Inspect Four Different Perspectives
 
-**The 50 orders are a sample. The rule is “all matching orders.”** Changing the upper limit from 20 to 50 would bring the same problem back when there are 51 orders.
+Text similarity between docs and code is not enough. Start with a concrete change or failed user journey and trace the relevant contract, assertions, execution path, and resulting artifact.
 
-A test can explicitly expect 50 rows from a fixed sample. Business code must not treat 50 as the new export limit. The same number serves different purposes in those two places.
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/drift.svg" alt="Five kinds of divergence and the appropriate diagnostic question" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 3 | Move from symptom to diagnosis · <a href="../../visuals/en/docs-code-tests-evolve-together/drift.svg">Open full-size figure</a></figcaption>
+</figure>
 
-There is no need to begin with a lengthy design document. This short agreement gives development and review a shared basis. If it remains disputed, resolve that disagreement before letting the code and tests independently guess what “all” means.
 
-## 3. Which Parts Does One Change Actually Touch?
+### 3.1 Narrow the Search Before Scanning the Whole Repository
 
-The following filenames are illustrative. They show an executable division of work in an ordinary project:
+Read the pull request's purpose, then compare its branch with the intended baseline:
 
-| Location | Required work |
-| --- | --- |
-| `docs/order-export.md` | Replace “export the current page” with the clarified rule and remove conflicting old instructions |
-| `src/orders/export-orders.ts` | Retrieve the complete data using the filters instead of processing only the page already loaded |
-| The page's Export button | Pass the filters rather than continuing to hand only current-page rows to the export function |
-| `tests/order-export.test.ts` | Adjust the old count assertion and check completeness, fields, filtering, and the no-data case |
-| A page interaction test | Click the actual button and inspect the downloaded file, rather than only calling a backend function |
+```bash
+git diff --name-only origin/main...HEAD
+git diff origin/main...HEAD -- src/ tests/ docs/
+rg -n 'old-field|old-error-code|old-rule' src tests docs
+```
 
-The point of this table is to make synchronization inspectable. A reviewer can identify whether the old wording remains, whether the button still uses the old entry point, and whether the test merely changes one number.
+These are generic examples; adapt paths and search terms to the repository. A match from `rg` is a lead, not proof. Historical notes can legitimately contain deprecated names. Conversely, the absence of an old string does not establish correct behavior.
 
-It does not require every listed file to change on every task. If the export module already supports the complete dataset and only the page passes the current page, the fix belongs in the page call and its tests. If the new rule is already effective but an old test still limits the export to one page, correct that test using the current requirement and preserve the correct implementation.
+Work backward from the **changed behavioral contract** instead of enforcing "every change under `src/` requires a docs edit." Pure internal refactors may leave user guides untouched. Changes to permissions, public APIs, errors, or durable data formats do justify checking affected consumers, tests, and documentation.
 
-The specification needs to change when the product promise changes. A local repair of already agreed behavior can use the current agreement. Explicitly deciding that a checked component needs no modification is a valid outcome too.
+### 3.2 Recognize Five Distinct Signals
 
-### Do Not Discard the Old Tests as a Group
+| Signal | How to discover it | Avoid this false conclusion |
+| --- | --- | --- |
+| Docs state A while runtime does B | Compare active guidance with entry-point calls and observed responses | Do not choose A or B until the current contract is established |
+| Tests enforce an old rule that a new requirement superseded | Run affected assertions and review the decision that changed the rule | A failing test does not automatically mean the implementation regressed |
+| Code and unit tests agree, but the user receives the wrong output | Execute the actual entry point and inspect arguments, steps, and final artifacts | Unit tests may bypass UI wiring, authorization, or real dependencies |
+| Two guides contradict each other or old examples remain searchable | Check canonical pages, versions, history, and redirects | Historical material can be valid when its period is explicit |
+| All three agree, but the business outcome is still wrong | Challenge the assumptions with independent examples and consumer feedback | Green checks cannot approve a misunderstood requirement |
 
-Suppose the existing tests require:
+Three complementary strategies emerge: **change-diff checks** find likely omissions, **contract checks** catch broken interfaces and assertions, and **outcome checks** determine what reached the user. None is a substitute for the others.
 
-- Export only the current page, with at most 20 rows.
-- Export only orders that match the filters.
-- Never export orders that the current user is not allowed to view.
-- Preserve the agreed column names and order.
+### 3.3 What Can CI Check, and What Still Needs Review?
 
-The new requirement directly replaces the first item. The others remain valid and deserve attention: if filtering is lost while retrieving additional pages, a wider export can include more incorrect data.
+Static checks can catch broken links, deprecated symbols, non-executable examples, or unrefreshed generated artifacts. Type checks, schema validation, and consumer contract tests can expose certain integration incompatibilities. A small number of real-entry tests can catch missing connections. With consumer-driven contracts such as [Pact](https://docs.pact.io/), the focus should be the **requests and responses that actual consumers depend on**, not reproducing every provider implementation detail as a test expectation.
 
-Replace the current-page assertion, preserve the filtering, access-scope, and field checks, and add a check for completeness across pages. Removing the old quantity limit does not justify deleting the entire test file.
+CI cannot reliably determine whether the business now wants one page or all pages. Nor can it decide that two matching files automatically overrule the third. Leave questions about intended semantic changes and still-valid protections to review; automate structural consistency, behavioral regressions, and observable execution evidence. This is more useful than inventing a large "documentation synchronization score."
 
-Andrew Trenk's Google Testing Blog article [“Test Behavior, Not Implementation”](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html) discusses organizing tests around externally visible behavior. Here we must also ask whether the behavior a test enforces has been replaced by the approved requirement change.
+### 3.4 Tests Must Distinguish Correct Behavior from a Plausible Wrong One
 
-ETF Agent's recovery tests exposed the same distinction: a missing or expired execution claim could make a task **eligible for further inspection**, but that did not prove the original executor had stopped or authorize recovery or modification. Correcting the old assertion had to preserve both protection of active execution and the later admission checks. Widening discovery must not silently widen execution authority.
+Ask a reverse question: **would this test fail if the old bug reappeared?**
 
-**Existing tests have more than two destinations.** Choose according to the current promise; no new assertion-level register is needed:
+If the previous export implementation handles only the current page and the new contract requires all pages, a fixture with ten orders cannot distinguish them. A fixture with fifty matching orders spread over three pages can. Checking that the file contains fifty rows is still too weak: duplicated pages may produce the same count. Compare actual order IDs with a pre-established expected set.
 
-| Treatment | When it applies |
-| --- | --- |
-| Retain | It still uniquely guards a valid requirement or counterexample |
-| Refactor | The requirement stands, but the assertion depends on internal implementation |
-| Consolidate | Several cases repeat a behavior, and combined checks still catch their unique faults |
-| Retire | The old path still has real consumers; keep checks until explicit migration exit conditions hold |
-| Delete | The requirement has expired, the assertion is redundant, or migration exit has been independently confirmed |
+Avoid generating the entire expected result with the exact production function under test. A shared production field definition may help frontend and backend stay consistent, but a key business scenario should still independently assert required columns and their order. Otherwise implementation, docs, and tests may all **omit the same column**.
 
-### Give the Implementation a Real Chance to Fail the Test
+## 4. When Artifacts Disagree, Which One Should Be Fixed?
 
-If the new test prepares only 10 orders, both the old and new implementations may export them successfully. It does not distinguish whether the feature has actually changed.
+Start by writing two sentences: **the currently authorized target behavior is...** and **the observed behavior is...**. Then locate where the discrepancy belongs. The table below is a triage guide, not an automatic authority rule.
 
-A more discriminating sample prepares 50 matching orders across pages of 20, 20, and 10. Add orders that do not match the status or date filters, and orders that the current user is not allowed to view.
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/triage.svg" alt="Agree on the target before selecting the layer to repair" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 4 | Correctness is not decided by voting · <a href="../../visuals/en/docs-code-tests-evolve-together/triage.svg">Open full-size figure</a></figcaption>
+</figure>
 
-Then check:
 
-| Scenario | Expected observation |
-| --- | --- |
-| The current page contains 20 rows, while 50 orders match | The file contains all 50 |
-| The current page or page size changes | The matching dataset remains the same |
-| The dataset includes orders outside the filters | Those orders are absent from the file |
-| The dataset includes orders the user cannot view | Those orders are absent from the file |
-| No orders match | The user receives an explicit message |
+| Observed state | Check first | Primary repair |
+| --- | --- | --- |
+| A new rule was approved, while old code and old tests agree with each other | Was the old restriction explicitly superseded? | Update relevant docs and expectations, then implement the new rule |
+| Docs express the active contract, code deviates, and tests catch it | Does the failure occur on the real path? | Fix code; keep valid tests; do not rewrite correct documentation |
+| Code meets the contract, but tests still demand the old behavior | Does the old assertion protect anything independently valuable? | Refactor or replace that assertion; do not roll correct code backward |
+| Code and tests are correct, but the guide describes an old entry point | Who reads the guide, and for which version? | Update commands, examples, and redirects as appropriate |
+| All three agree, yet the user outcome is wrong | Is the requirement ambiguous or the user path untested? | Reconfirm intent; add independent examples and end-to-end evidence |
+| Old and new consumers coexist, and an old check starts failing | What is the compatibility window and actual exit criterion? | Preserve transition protections, migrate consumers, then retire checks |
 
-Checking only that the file contains 50 rows is insufficient. Repeated pages and a missing last page can still produce the same count. Compare the order IDs in the file with the prepared set to verify that nothing is missing, duplicated, or added from outside the expected set.
+The central rule: **never decide correctness by a two-out-of-three vote among documentation, code, and tests**. Two old artifacts can agree on a restriction that is now obsolete. Conversely, a new implementation may have silently widened a permission boundary, while a test was written to accept whatever it returns.
 
-Those expectations come from the business sample prepared before the export runs. If the test generates its expected result by calling the same internal data-preparation method used by the export, both sides may omit the third page and still agree.
+Classify the dispute as "target undecided," "implementation mismatch," "obsolete expectation," "stale documentation," or "insufficient evidence." Resolve target decisions before implementation work; add real observations where evidence is missing. Do not hide uncertainty behind weaker assertions just to make a pipeline green.
 
-This is the independent constraint tests need to provide: they must have an opportunity to identify an implementation error, rather than simply repeat its calculation.
+## 5. An End-to-End Repair Loop
 
-## 4. After the Backend Tests Pass, Follow the Path to the User's File
+Use this compact loop for any drift you find:
 
-Passing the module tests above does not immediately establish that the export feature is complete.
+<figure>
+  <img src="../../visuals/en/docs-code-tests-evolve-together/closure.svg" alt="Identify the discrepancy, protect invariants, repair and verify outcomes" loading="lazy" style="display:block;width:100%;max-width:680px;height:auto;margin:1.3rem auto 0;border-radius:20px" />
+  <figcaption style="text-align:center;color:var(--vp-c-text-2);font-size:.88rem;line-height:1.6">Figure 5 | A verifiable repair loop · <a href="../../visuals/en/docs-code-tests-evolve-together/closure.svg">Open full-size figure</a></figcaption>
+</figure>
 
-In this simulated system, imagine a common omission: the backend can now export the full filtered dataset, but the page button still calls an old method and passes the current 20 rows. A test that directly calls the new export function passes, while a user clicking the button still receives only one page.
 
-The path that needs verification is concrete:
+1. **Describe the discrepancy**, not just the failure message: "the contract requires every matching order, but the file contains only the current page."
+2. **Name the invariants** that cannot be lost, such as authorization, filters, output fields, error semantics, or compatibility obligations.
+3. **Choose a falsifying check:** construct the smallest input that reveals the old wrong behavior. If that is not currently possible, record whether data, environment, or entry point is missing.
+4. **Change the smallest responsible surface:** fix the button if it fails to pass filters; change the exporter only when its own pagination is wrong.
+5. **Run affected and adjacent regression checks:** include relevant consumers and authorization paths, not only the test you just edited.
+6. **Update outward-facing guidance:** touch current instructions only where the contract or entry point changed; preserve historical rationale and label obsolete guidance appropriately.
+7. **Observe the result through the user path:** distinguish mocked, integrated, and production verification, and state exactly which layers were exercised.
 
-1. Open the order page and select “current month” and “completed.”
-2. Confirm that results span several pages while only one page is displayed.
-3. Click the page's Export button.
-4. Read the actual downloaded file and compare its full set of order IDs and export fields.
+The closure criterion is not "docs, code, and tests all have a diff." It is **a settled target, supporting behavioral evidence, intact protections, non-misleading current instructions, and visible outstanding uncertainties**.
 
-Observing this far answers what the user receives. A success message, a successful API response, and the existence of a file each establish that one part of the path completed. None alone establishes that the file content meets the requirement.
+If a particular effect can only be observed after a production rollout, the PR can specify that post-release check. Do not present an unexecuted real-world test as completed.
 
-This does not mean every test should begin in a browser. Module tests can quickly exercise combinations of filtering and cross-page aggregation. A page test can concentrate on the button, parameter passing, and the final file. Different test layers address different questions instead of repeating the same large scenario everywhere.
+## 6. One Teaching Example from Sequence to Diagnosis
 
-The example also shows why a failure should first be localized. If the file contains one page, check what the page passed, which pages the backend retrieved, and what data was finally written. Do not automatically increase every timeout, repeat requests, or ask a model to try again without identifying the difference.
+We will keep just one example, with enough detail to show decisions rather than merely tell a long story. **The order-export behavior and numbers below are synthetic teaching material, not an actual ETF Agent order feature.**
 
-**A fix should change the condition that caused the failure.** If the button still calls the old entry point, the repair must connect the user's action to the correct path and leave a check capable of detecting the same omission.
+Originally, the agreement was "export the current page": twenty displayed orders. Docs, code, and tests all enforced that rule. A new decision changes it to: **export every filtered order the current user is authorized to view, regardless of page; retain column names and order; show an explicit message when there is no data.**
 
-## 5. How the Three Move Each Other Forward, One Round at a Time
+Under the requirement-change row in Section 2, confirm the rule and retained protections first. Replace the old "at most twenty" assertion with a cross-page scenario, then update export logic and the button. Prepare fifty matching orders across three pages (20, 20, and 10), plus orders outside the filter or the user's access scope.
 
-Connecting the stages of the export feature reveals the feedback between documentation, implementation, and tests.
+A good test verifies not merely fifty rows but **exactly the fifty intended order IDs**, expected fields, exclusions, and the empty case. Otherwise a repeated page and an omitted last page could still produce the expected count.
 
-In the first round, the specification says “export the current page,” the implementation does so, and the tests check the one-page limit. They satisfy the requirement of that version.
+Suppose backend unit tests are green, but the UI button passes only the current page array into the old function. That is a **mismatch between call paths**, not another business-rule change. Fix the button wiring and add a check from the actual click to the downloaded file, rather than changing the expected count back to twenty.
 
-In the second round, actual use creates a need to export all filtered results. This changes the specification and invalidates the old test's quantity restriction. The developer needs to update data retrieval and the page call. Tests add a cross-page sample while retaining filtering and access-scope protections.
+Alternatively, suppose only the old assertion still demands twenty rows while code already satisfies the new rule. Fix that assertion, not correct code. But preserve checks for "do not export unauthorized orders" and "do not export orders outside the filter." **Retiring one obsolete restriction is not permission to delete an entire regression suite.**
 
-In the third round, module tests show that the new method handles the full dataset, but page interaction reveals that the old button has not been connected. That observation drives a call-path repair and a check on the final file.
+This one example now illustrates four decisions: which artifact leads, how drift becomes observable, which surface is responsible, and which old guarantees still matter.
 
-Suppose a later request introduces “export selected orders only.” The developer should not immediately rewrite the “export all” assertion. First decide whether this is a new optional action or a replacement for the original feature, then specify which orders each entry point should export. Code and tests need a clear product decision to follow.
+<!-- Preserve legacy consolidated-article section fragments without duplicating the essay. -->
+<a id="do-not-discard-the-old-tests-as-a-group"></a>
 
-This is the iterative evolution discussed here: a real need or a counterexample changes a judgment, and the change reaches the relevant materials and execution paths. New experience can revise a specification; a test can expose a missing implementation connection; and the result the user receives checks whether the change worked.
+## 7. Keep, Refactor, Consolidate, Retire, or Delete Old Tests?
 
-All three can also preserve the same wrong assumption. A specification may vaguely require “a successful export,” the implementation may equate success with “a file was generated,” and the test may only check file existence. Internally they agree, yet they still do not answer whether the file contains the orders the user needs.
+Do not delete a test merely because it fails, or keep it forever because it once mattered. Classify it by the **currently valid behavior** it protects:
 
-Alongside consistency, preserve the ability to ask different questions: the specification asks what the user needs, tests examine the promise through concrete samples, and the implementation must produce the result. Their corrections move an apparently finished feature toward something usable.
+| Treatment | When appropriate | Check before acting |
+| --- | --- | --- |
+| Keep | It guards a valid requirement or a unique risk | Would it catch a real regression rather than just a changed internal call? |
+| Refactor | Business behavior is stable, but the assertion is tied to old internals | Does the behavior-oriented replacement still catch the original failure? |
+| Consolidate | Cases repeat the same observable effect | Are distinct failure paths still detectable afterward? |
+| Defer retirement | Old routes, protocols, or consumers still exist | Are the compatibility window and exit conditions explicit? |
+| Delete | The old requirement is revoked, the check adds nothing, or migration exit is established | Who now protects any remaining risk? |
 
-## 6. Why Synchronization Itself Can Slow Development
+A real ETF Agent constraint illustrates why removing an obsolete assertion must not remove safety protections: a missing or expired execution claim may make a task a **candidate for further inspection**, but it does not prove that the original executor stopped or authorize resuming execution. When old recovery expectations change, protection of active execution and later admission checks must remain.
 
-After fixing the feature, the next change can remain difficult if the maintenance structure stays the same.
+Similarly, retirement of scans used solely for a migration away from an older runtime depends on actual production wiring, current behavioral protection, and the safety of historical data still needing to be read. A retired package name appearing in a comment is not a live dependency, and green tests alone cannot certify that migration is finished. Tests using a fake clock must also check whether the database clock used by the decision actually receives the same time conditions.
 
-Continue with the simulated project. Export column names are separately maintained in page configuration, backend export code, and several guides. Adding a column requires manual updates everywhere. An omission can leave the page and file inconsistent.
+These examples establish **invariants and exit criteria**; they are not arguments for adding a new process for every past repair.
 
-For a structure that must agree exactly, maintain one production field definition and let both the page and export code consume it. When multiple files are genuinely needed, generate the copies during the build and check the output. People edit the designated source instead of letting copies evolve independently.
+<a id="_6-why-synchronization-itself-can-slow-development"></a>
 
-Tests still need an independent judgment. If a test imports that same definition as its expected result, a missing required column can be absent from the page, the export, and the test together. Share the production definition while independently checking agreed column names, order, and content in important business examples.
+## 8. Reduce Future Synchronization Work Instead of Adding Endless Checks
 
-Other repetition is better replaced by references. The observed result of one export check need not be copied into a design, task list, summary, and history entry. Keep the result where observations are recorded, track completion in the task list, and link from other pages when necessary.
+The economical approach is not making three artifacts change manually on every commit. It is **removing unnecessary duplicate facts while preserving necessary independent judgments**.
 
-Tom Manshreck's [documentation chapter in *Software Engineering at Google*](https://abseil.io/resources/swe-book/html/ch10.html) discusses incorporating documentation into the engineering workflow. In everyday maintenance, this also means reducing manual synchronization points and distinguishing what can be generated from what needs independent checking.
+Facts that can be derived mechanically should be generated or referenced where reasonable: API schemas, types, field mappings, CLI option descriptions, and some reference docs may use an existing authoritative definition. CI can compare generated output with its source. Explanations that code cannot derive—why a behavior is allowed, the scope of business permissions, or a design trade-off—must remain explicit in appropriate documents.
 
-Historical material has a different role. Useful lessons include why the first version exported only one page, what usage need prompted the change, and why a row-count check could still miss an error. These judgments help later developers understand the trade-offs. Repeatedly recording that “the export tests passed” adds material without necessarily adding the same value.
+Tests cannot fully share their answers. A production field definition can be reused, while critical business scenarios must independently check required export columns, ordering, and meaning. This echoes the engineering advice in [Google Testing Blog's discussion of testing behavior rather than implementation](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html): reduce assertions coupled to internals while preserving observations that distinguish correct behavior from wrong behavior.
 
-Old checks also need exit conditions. Suppose the project has a check created only to confirm that an old export library has been removed. After the migration, inspect whether old callers are gone and current behavior remains protected, then decide whether that check still belongs in routine regression runs. Slow or failing tests do not by themselves justify deletion; obsolete requirements should not permanently occupy the regression suite either.
+A practical maintenance stack has three levels:
 
-ETF Agent applied that exit test when retiring scans written solely for its migration away from a LangGraph runtime layer. The relevant evidence was production dependencies and wiring, current behavioral protection, and continued readability of historical data that still needed it. An obsolete package name in a comment was not a live runtime dependency, and deleting a test alone could not prove migration was complete. When speeding up expiry tests with a fake clock, the clock seen by the database that makes the decision must also be checked; changing application time alone may have no effect on it.
+1. **Cheap, always-on checks:** types, schemas, links, executable examples, generated files, and affected unit tests.
+2. **Risk-triggered checks:** consumer contracts, compatibility, permission regressions, migration paths, and critical entry-point integrations.
+3. **Review judgments:** whether the contract truly changed, which old behavior remains valid, whether test expectations are independent, and whether the intended outcome reaches users.
 
-## 7. Where to Start When the Next Requirement Arrives
+Not every change needs a new synchronization audit report. Explain the decision in the existing PR instead of creating another register that must itself be kept in sync. Tom Manshreck discusses integrating documentation into engineering work in [the documentation chapter of *Software Engineering at Google*](https://abseil.io/resources/swe-book/html/ch10.html). The practical extension here is to **automate checkable relationships and review relationships that require judgment**.
 
-A task to change “export the current page” into “export all filtered results” can begin with the description below. It remains a teaching example:
+### Three ETF Agent Practices Worth Borrowing
 
-> Expand the order export to include every order matching the current filters that the current user is allowed to view, regardless of the page. Update the original scope description while preserving filtering, access scope, and field requirements. Inspect the page button and backend export method to locate any path that still handles only the current page. Replace the old quantity assertion with a sample spanning three pages; check the complete order-ID set for omissions and duplicates, and retain exclusions for nonmatching and unauthorized orders. Finally, click the button from the page and inspect the downloaded file. Preserve implementations that already behave correctly and change only the parts that have fallen out of step.
+The current engineering specifications, implementation and tests support three practical patterns:
 
-This identifies the goal, protections, likely omission points, test sample, and completion conditions. A developer can locate the work, and a reviewer can assess its result.
+- **Scenario-driven changes.** OpenSpec scenarios state inputs, expected behavior, and preserved constraints. Some tasks connect RED/GREEN observations to generated verification views; generating that view is not reported as a fresh test execution.
+- **Executable test-layer declarations.** Static, unit, integration, smoke, and E2E layers have declared entry points. Routine tests use fake gateways instead of paid models, and mock success is not presented as proof of the live user journey.
+- **Read-only drift diagnosis by default.** Selected Research verification paths classify missing sources, stale hashes and unexpected sources. Correcting an active plan requires explicit write authority; frozen historical evidence is not silently refreshed.
 
-There is no need to start by creating another set of forms. Record three things in the existing task: how the behavior changes, which old requirements remain or are replaced, and what input and observation point will verify the result. New API, permission, or data agreements should follow the project's existing design and verification process.
+These are practices for **traceability of responsibilities, source identity and verification scope**, not proof that every specification is correct or the entire product is production-qualified. A small team can adopt falsifying scenarios, test-layer honesty and concise PR discrepancy notes without copying the full governance process.
 
-Completion should also be reviewable. In this example, the result should establish that cross-page data is exported completely, filters and access scope have not widened, the page button reaches the correct path, and the downloaded content matches the agreement. If a layer was not verified, retain that gap. Changes to both code and documentation files do not alone establish completion.
+The earlier article reported one dated snapshot of ETF Agent's committed working set as of October 27, 2026: 49,425 nonblank lines of current engineering docs and instructions, 248,636 lines of implementation and scripts, and 380,853 lines of tests and helpers. Tests were about 1.53 times the implementation by that measure. These figures indicate the scale of potentially maintained material, **not test quality, coverage, or an ideal ratio**. The useful question is which distinct regression each retained protection can still catch.
 
-ETF Agent's actual materials contain similar forms of drift: configuration changes while tests retain old amounts, a code transition requiring updates to 19 current documents, and tests that do not pass through the execution path users actually use. The order-export example translates these relationships into a familiar development scenario.
+<a id="_7-where-to-start-when-the-next-requirement-arrives"></a>
 
-Returning to the Export button, a failing test should prompt us to ask whether the old quantity limit still applies. A success message should prompt us to inspect which orders are in the file. A request to update documentation should identify the old statement that no longer holds.
+## 9. A Small Pull-Request Record You Can Reuse Tomorrow
 
-**Moving all three forward should be observable: the data the user needs is actually exported, valid protections remain in place, and obsolete requirements no longer force the implementation backward.** Judgments tied to inputs, files, and results help an accumulated body of documentation, code, and tests remain useful to development.
+No new system is necessary. Five fields in the existing task or PR description are sufficient to start:
+
+```text
+Change: export scope moves from "current page" to "all authorized matching orders."
+Preserve: filters, authorization scope, output columns, and column order.
+Affected: button -> export entry -> paginated retrieval -> downloaded file;
+          current guidance and old row-count assertions.
+Counterexample: fifty matching orders across three pages, plus filtered-out
+                and unauthorized rows.
+Evidence: the new test must catch the old path; check module and button paths;
+          compare exact order-ID sets; explicitly mark any unrun live check.
+```
+
+If only the test is stale, change only the test. If only the guide is stale, change only the guide. "Checked, no update needed" is a valid outcome. Do not generate meaningless diffs to obtain three green boxes.
+
+A reviewer can now ask, in order: **What establishes the current contract? Would the counterexample detect the old wrong behavior? Does the real user path reach the intended implementation? Are authorization and other invariants intact? Are remaining uncertainties disclosed accurately?** Answering those questions is stronger evidence of maintainable evolution than matching file counts.
+
+## 10. Conclusion: Align Commitments, Not File Edits
+
+Documentation explains the current agreement. Code performs it. Tests independently challenge the promise with examples. Actual user paths check whether the result reaches its destination. What changes first depends on whether the trigger was a requirement, a defect, a refactor, a migration, or a documentation correction.
+
+The three can temporarily diverge; they can also be wrong together. The goal is not to move every file in lockstep. It is to identify the still-valid commitment when a conflict appears, fix the responsible layer, and leave evidence of the critical behavior before integration.
+
 
 <!-- agent-article-sync:guidance:start -->
 ## Further Reading and Discussion
