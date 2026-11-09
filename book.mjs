@@ -221,6 +221,7 @@ export const collections = [
         "items": [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "Agent 测评全景：从测试绿灯到真实任务价值"],
+          ["agent-evaluation-set-for-iteration", "怎样建立贯穿研发与验收的 Agent 评测集"],
 
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="660" viewBox="0 0 390 660" role="img" aria-labelledby="title desc">
+<title id="title">验收结论怎样获得依据</title><desc id="desc">RQ-08 教学示意 · 多版本文档中的修订范围</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087E73" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", Arial, sans-serif;font-kerning:normal} .label{letter-spacing:1.4px}</style>
+<rect x="0" y="0" width="390" height="660" rx="24" fill="#F7FAF9"/>
+<rect x="0" y="0" width="7" height="660" rx="0" fill="#087E73"/>
+<text x="24" y="31.0" font-size="11" fill="#087E73" font-weight="700" text-anchor="start" class="label">03 / 研发与验收</text>
+<text x="24" y="65.0" font-size="22" fill="#183742" font-weight="700" text-anchor="start">验收结论怎样获得依据</text>
+<text x="24" y="93.0" font-size="15" fill="#50656D" font-weight="400" text-anchor="start">RQ-08 教学示意 · 多版本文档中的修订范围</text>
+<rect x="24" y="119" width="342" height="52" rx="12" fill="#E5F3EF"/>
+<text x="40" y="142.0" font-size="18" fill="#087E73" font-weight="700" text-anchor="start">同一任务，分开取得证据</text>
+<text x="40" y="162.0" font-size="15" fill="#50656D" font-weight="400" text-anchor="start">具体验证按本次承诺选用</text>
+<rect x="24" y="183" width="342" height="107" rx="14" fill="white" stroke="#DCE5E4"/>
+<rect x="24" y="183" width="5" height="107" rx="2" fill="#087E73"/>
+<text x="42" y="210.0" font-size="20" fill="#183742" font-weight="700" text-anchor="start">工程行为</text>
+<text x="42" y="235" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">材料传递 · 只读限制</text>
+<text x="42" y="257" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">相关接缝的回归表现</text>
+<text x="42" y="281.0" font-size="15.5" fill="#087E73" font-weight="600" text-anchor="start">说明受测路径的行为</text>
+<rect x="24" y="302" width="342" height="107" rx="14" fill="white" stroke="#DCE5E4"/>
+<rect x="24" y="302" width="5" height="107" rx="2" fill="#6555B9"/>
+<text x="42" y="329.0" font-size="20" fill="#183742" font-weight="700" text-anchor="start">真实执行</text>
+<text x="42" y="354" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">实际请求 · 工具回执</text>
+<text x="42" y="376" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">报告与保存结果可回读</text>
+<text x="42" y="400.0" font-size="15.5" fill="#6555B9" font-weight="600" text-anchor="start">说明任务实际做到哪里</text>
+<rect x="24" y="421" width="342" height="107" rx="14" fill="white" stroke="#DCE5E4"/>
+<rect x="24" y="421" width="5" height="107" rx="2" fill="#A96913"/>
+<text x="42" y="448.0" font-size="20" fill="#183742" font-weight="700" text-anchor="start">研究质量</text>
+<text x="42" y="473" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">来源支撑 · 修订范围</text>
+<text x="42" y="495" font-size="16.5" fill="#50656D" font-weight="400" text-anchor="start">日期、计算与需求覆盖</text>
+<text x="42" y="519.0" font-size="15.5" fill="#A96913" font-weight="600" text-anchor="start">说明结论得到什么支持</text>
+<rect x="24" y="547" width="342" height="76" rx="14" fill="#E5F3EF"/>
+<text x="40" y="573.0" font-size="19" fill="#087E73" font-weight="700" text-anchor="start">验收结论</text>
+<text x="40" y="596.0" font-size="16" fill="#183742" font-weight="400" text-anchor="start">事前承诺的范围 + 实际证据</text>
+<text x="40" y="615.0" font-size="16" fill="#183742" font-weight="400" text-anchor="start">尚缺项继续保留</text>
+<text x="24" y="648.0" font-size="15" fill="#50656D" font-weight="400" text-anchor="start">关闭、部署与用户效果分别记录</text>
+</svg>
