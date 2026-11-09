@@ -158,6 +158,9 @@ Alternatively, suppose only the old assertion still demands twenty rows while co
 
 This one example now illustrates four decisions: which artifact leads, how drift becomes observable, which surface is responsible, and which old guarantees still matter.
 
+<!-- Preserve legacy consolidated-article section fragments without duplicating the essay. -->
+<a id="do-not-discard-the-old-tests-as-a-group"></a>
+
 ## 7. Keep, Refactor, Consolidate, Retire, or Delete Old Tests?
 
 Do not delete a test merely because it fails, or keep it forever because it once mattered. Classify it by the **currently valid behavior** it protects:
@@ -176,6 +179,8 @@ Similarly, retirement of scans used solely for a migration away from an older ru
 
 These examples establish **invariants and exit criteria**; they are not arguments for adding a new process for every past repair.
 
+<a id="_6-why-synchronization-itself-can-slow-development"></a>
+
 ## 8. Reduce Future Synchronization Work Instead of Adding Endless Checks
 
 The economical approach is not making three artifacts change manually on every commit. It is **removing unnecessary duplicate facts while preserving necessary independent judgments**.
@@ -193,6 +198,8 @@ A practical maintenance stack has three levels:
 Not every change needs a new synchronization audit report. Explain the decision in the existing PR instead of creating another register that must itself be kept in sync. Tom Manshreck discusses integrating documentation into engineering work in [the documentation chapter of *Software Engineering at Google*](https://abseil.io/resources/swe-book/html/ch10.html). The practical extension here is to **automate checkable relationships and review relationships that require judgment**.
 
 The earlier article reported one dated snapshot of ETF Agent's committed working set as of October 27, 2026: 49,425 nonblank lines of current engineering docs and instructions, 248,636 lines of implementation and scripts, and 380,853 lines of tests and helpers. Tests were about 1.53 times the implementation by that measure. These figures indicate the scale of potentially maintained material, **not test quality, coverage, or an ideal ratio**. The useful question is which distinct regression each retained protection can still catch.
+
+<a id="_7-where-to-start-when-the-next-requirement-arrives"></a>
 
 ## 9. A Small Pull-Request Record You Can Reuse Tomorrow
 
