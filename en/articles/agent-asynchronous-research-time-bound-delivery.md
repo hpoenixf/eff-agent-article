@@ -6,13 +6,14 @@ articleMetadata:
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
-    - "“Notify at” and “deliver by” are different commitments: at may expose saved content early while holding the notice; by permits early final delivery."
-    - "At the deadline, report committed partial results and running or missed status honestly; later completion neither erases lateness nor creates a fresh budget."
-    - "Reopening reads the original Run’s durable body and notices; progress, execution termination, and delivery timing stay distinct without rerunning research to notify."
+    - "'Tell me in ten minutes' holds the notice until then; 'tell me within ten minutes' permits early delivery. Either can save the answer early."
+    - "If work is unfinished at the deadline, report its actual status and saved partial results. Later completion cannot turn a missed deadline into an on-time delivery."
+    - "Continuing after the deadline still requires the original permissions, budget and user allowance. It does not grant fresh resources."
+    - "Reopening reads the original answer and notices instead of rerunning research. A progress message saying 'checking' is not a published conclusion."
   appliesTo:
-    - "Background research with explicit delivery commitments, absent users, and partial and final results that must retain one stable Run identity."
+    - "Background research where users leave the page but expect a result or status update at an agreed time."
   notFor:
-    - "Inferring production delivery SLAs or research quality from controlled browser checks, or treating recurring schedules as the same problem as timed delivery."
+    - "Recurring task scheduling; controlled browser tests also do not guarantee production notification latency or research quality."
 ---
 
 # The User Has Left, but the Research Is Still Running: How an Agent Delivers on Time

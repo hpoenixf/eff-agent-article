@@ -2,13 +2,14 @@
 description: "New evidence can invalidate a planned ETF comparison. Follow working questions, explicit data inputs and file-based Python handoffs to see how research changes course while preserving measurement conventions, provenance, time anchors and unresolved gaps instead of equating successful code with a sound answer."
 readingBrief:
   takeaways:
-    - "Let evidence change the research question and next action; researchNeeds records working judgments, not completion, authorization or a mandatory sequence of tools."
-    - "Python connects stages through explicit inputs and persisted files; currently visible results differ from authorized resultRefs, and capacity limits must not silently truncate datasets."
-    - "Preserve provenance, measurement conventions and task-time anchors through computation; check workspace state after failure, and assess execution success, resolved notes and answer correctness separately."
+    - "Let new evidence change the next step. Working questions track what needs checking, not a fixed tool sequence or proof of completion."
+    - "Python steps share files, not interpreter variables. Workspace continuity lasts only within the current healthy session."
+    - "Use explicit, authorized inputs and preserve sources, dates and measurement conventions. Reject oversized inputs rather than silently trimming samples."
+    - "After a code error, confirm execution stopped and the workspace is usable. Successful execution still does not prove sound analysis."
   appliesTo:
-    - "Connecting search, reading and repeated Python analysis into research that changes course with findings instead of following a fixed tool pipeline."
+    - "Connecting search, reading and repeated Python analysis so findings can change the research direction."
   notFor:
-    - "Treating working-note changes, Python proposal counts or exit codes as proof of convergence, correct financial calculations or better answers."
+    - "Treating checklist changes, Python proposal counts or exit codes as proof of research quality."
 ---
 # From Tool Calls to Adaptive Research: Let the Agent Search, Compute, and Change Course
 

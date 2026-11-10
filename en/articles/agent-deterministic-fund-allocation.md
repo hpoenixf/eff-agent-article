@@ -3,15 +3,14 @@ title: "Deterministic Fund Allocation: From Holdings to Reproducible Amount Advi
 description: "A synthetic fund-allocation example traces ledger holdings, deployable budgets, asset buckets, fund caps, stale evidence, and explicitly unallocated cash."
 readingBrief:
   takeaways:
-    - "Amount advice must separate recorded shares, settled changes, valuations, and scenarios. Stale values cannot determine new shares, and simulated purchases never change ledger holdings."
-    - "Budgets, asset buckets, and fund-level allocations each impose constraints; when caps, no-buy rules, or unsuitable evidence apply, residual cash must be explicitly unallocated."
-    - "Portfolio-wide evidence coverage cannot certify every fund. Withdrawing an amount from one fund does not erase historical facts or stop independent general research."
-    - "The deterministic investment calculation module owns domain calculations and advice eligibility, not ledger writes, user confirmation, live trades, or report publication; model prose cannot substitute for those facts."
+    - "Shares come from the ledger and settled trades, not stale values divided by new NAV. Simulated purchases must not become recorded holdings."
+    - "Set the deployable budget, then apply bucket and fund limits. Spending the whole budget cannot justify bypassing caps, no-buy rules or protected cash."
+    - "Each fund needs its own eligible evidence. Withdraw only the affected amount when it fails, and keep the remainder explicitly unallocated."
+    - "This is a read-only scenario calculation, not a ledger write or automatic order. User confirmation, executed trades and report delivery need separate checks."
   appliesTo:
-    - "Engineers building fund contribution or rebalancing scenarios that require auditable per-fund constraints, cash reconciliation, and source identity."
-    - "Agent developers designing deterministic financial tools with explicit partial availability rather than fabricated amounts."
+    - "Building fund contribution or rebalancing calculations that reconcile limits and cash while preserving usable results when evidence is incomplete."
   notFor:
-    - "Not current-market purchase advice or live order execution. The public Open ETF Agent teaching repository does not implement this complete private fund allocation system."
+    - "Current-market purchase advice or live trading. The example is entirely synthetic, and the public teaching project does not provide this complete allocator."
 ---
 
 # Deterministic Fund Allocation: From Holdings to Reproducible Amount Advice

@@ -2,13 +2,14 @@
 description: "How can source material end up in a privileged instruction slot during request assembly? A controlled regression connects producer-bound identity, final SDK projection checks and existing action authorization, while separating structural protection from real-model resistance to malicious instructions."
 readingBrief:
   takeaways:
-    - "Source reliability, instruction identity, SDK carrier roles and effect authorization are distinct; quoting or summarizing a page cannot grant it authority."
-    - "Bind original producer identity before mutable processing, then check the actual final SDK projection to prevent source material from entering privileged instruction slots."
-    - "The original Gateway rejects inconsistent requests and effect owners reject unauthorized actions; a local failure must not erase independently valid outcomes."
+    - "Even a reliable web page is source material, not user permission. Summaries, child-agent retellings and saved memories cannot change that."
+    - "Capture original system instructions and user messages, then compare the final request sent to the model. Request processing must not promote page text into system instructions."
+    - "The model saying ‘approved’ cannot authorize account reads, file writes or sharing. Each action still needs the existing permission checks."
+    - "Reject a request whose original identities were altered, or an action that lacks permission. Do not erase other independently valid results."
   appliesTo:
-    - "Auditing model requests after retrieval, hooks, compaction and protocol mapping, and governing the boundary from external content to real actions."
+    - "Checking final model input and unauthorized actions in Agents that read web pages or files and use plugins."
   notFor:
-    - "Treating structural checks or the public identity regression as a malicious-text classifier, complete content-security-and-trust implementation or real-model injection-resistance guarantee."
+    - "Detecting all malicious text or guaranteeing prompt-injection resistance. These checks cover request structure and permissions; real-model adversarial testing remains separate."
 ---
 # Prompt Injection Is More Than Malicious Text: How We Built a Content Trust Boundary for an Agent
 

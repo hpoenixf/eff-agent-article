@@ -8,13 +8,14 @@ tags:
   - Agent Architecture
 readingBrief:
   takeaways:
-    - "Preserve financial methods, ledger authority, provenance, and delivery contracts; use existing positive and negative cases to test whether general frameworks can replace custom execution infrastructure."
-    - "Acquisition does not prove model consumption, and correct arithmetic does not prove report adoption; verify denominators, coverage, revisions, and actual readback across each handoff."
-    - "This comparison uses documented mechanisms and bounded project verification, not paired benchmarks; controlled paths establish neither financial quality nor parity between private and public implementations."
+    - "When replacing a runtime, preserve financial methods, the original ledger, permissions, and result revisions; mature frameworks may take over custom loops and protocol code."
+    - "Test cancellation, budgets, recovery, and delivery with existing positive and negative cases before migration, rather than matching API names alone."
+    - "After a tool acquires material, check what the model actually received and whether the report preserves denominators, coverage, and limitations."
+    - "Verify domain calculation, execution handoff, and real-model research separately; a working synthetic path does not establish sound financial judgment."
   appliesTo:
-    - "For engineering teams choosing between Pi, Claude Agent SDK, LangGraph, and a custom runtime, or planning migration tests around existing domain contracts."
+    - "Evaluating Pi, Claude Agent SDK, LangGraph, and a custom runtime, and planning migration checks."
   notFor:
-    - "Not a performance, accuracy, or cost ranking, nor evidence of qualified real-account research, investment returns, or public availability of every private capability."
+    - "A four-way performance, accuracy, or cost ranking: no paired benchmark was run, and the public edition is not the private system."
 ---
 
 # From a General Harness to Financial Research: A Four-Way Architecture Comparison of ETF Agent

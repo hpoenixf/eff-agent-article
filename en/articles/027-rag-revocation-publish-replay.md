@@ -3,13 +3,14 @@ title: "Revoking a Document: Why an Agent's Old Answer Can Still Reveal It"
 description: "Rechecking authorization at disclosure, preventing first-stream leaks and separating historical hiding from retention deletion."
 readingBrief:
   takeaways:
-    - "This historical case shows that permission to retrieve does not authorize later streaming or redisplay; replay filtering cannot retract bytes already delivered to a browser."
-    - "Current eligibility checks and disclosure commits need one explainable ordering; the historical design used a committed approval index instead of competing sidecar and database authorities."
-    - "Temporary invisibility and cleanup under explicit retention revocation are different effects; unknown eligibility must not permanently erase history or invalidate independent public explanations."
+    - "A source permitted during reading may be revoked before an answer or history is shown. Check first delivery too; later hiding cannot recall sent content."
+    - "Permission checks and publication need a shared order. If revocation commits first, reject the affected publication; if publication completes first, block later disclosures."
+    - "Temporary inaccessibility or unknown permission does not justify permanent deletion. Explicit withdrawal of retention rights triggers cleanup of affected copies."
+    - "A revoked private source must not erase independent public explanations. A valid public citation cannot authorize private material either."
   appliesTo:
-    - "RAG over revocable, revisable or account-scoped material, especially races before first delivery and authorization during historical redisplay."
+    - "RAG using private, revisable or revocable sources that must handle access changes during generation and historical reads."
   notFor:
-    - "Question answering over permanently public immutable documents, or treating the historical fix as current architecture, better retrieval quality or recall of already delivered content."
+    - "Simple questions over permanently public static documents; this historical case establishes neither the current architecture nor better retrieval quality."
 ---
 
 # A Document Was Revoked. Why Can an Agent's Old Answer Still Bring It Back?

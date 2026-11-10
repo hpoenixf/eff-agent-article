@@ -2,13 +2,13 @@
 description: "Why do request counts, tokens and Credits disagree behind one report? Trace actual dispatches, SDK retries and missing usage through a non-enforcing Shadow ledger, separating known consumption from unknown coverage, deliverable associations, cost allocation and provider invoices."
 readingBrief:
   takeaways:
-    - "Run budgets, physical model attempts and personal Credits are separate ledgers; logical requests, retries and token usage cannot substitute for one another."
-    - "Account only for identified attempts and reported usage; missing observations, ambiguous aggregates or unavailable storage cannot be presented as zero cost."
-    - "Shadow observes without denying research: wouldDeny changes no original admission decision, and deliverable association is not exclusive allocation or provider-invoice reconciliation."
+    - "Request budgets limit further requests. Actual sends, tokens and Credits need separate records."
+    - "Count Credits only from identified sends and reported usage. Unsplit retries and missing usage stay unknown, not zero."
+    - "Shadow observes usage without blocking research. Costs linked to a report are not its total cost."
   appliesTo:
-    - "Building user-level agent usage observations with SDK retries, incomplete coverage and cost views that must not interfere with delivery."
+    - "Building an agent usage view that accounts for retries and missing usage."
   notFor:
-    - "Implementing payments, enforced credit debits, complete per-report costing or production billing reconciled against actual supplier invoices."
+    - "Implementing payments, enforced credit limits or complete billing reconciled with provider invoices."
 ---
 # How Much Did an Agent Really Consume? Requests, Tokens, and Credits Are Different Facts
 

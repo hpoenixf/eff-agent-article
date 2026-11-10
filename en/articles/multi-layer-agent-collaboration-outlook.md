@@ -12,13 +12,13 @@ head:
       href: https://hpoenixf.com/eff-agent-article/en/articles/agent-subagent-context-specialization
 readingBrief:
   takeaways:
-    - "Before delegating, identify the missing source, calculation, or analytical test; when Main can already answer well, multiple experts need not become a fixed approval pipeline."
-    - "Check actual consumption of original results, responses to counterevidence, stable method revisions, and preservation of independent findings when one participant fails."
-    - "Compare against a capable tool-equipped Main, measuring new findings, latency, and cost separately; an outlook, subsequent repairs, and investment-quality gains are different evidence."
+    - "Identify the missing source, calculation or test first. If the lead researcher can answer well, another expert and extra approval stages are unnecessary."
+    - "An assistant saying 'calculated' is not enough. The lead researcher needs the original result, dates and coverage; 'overlap is high' cannot support a precise comparison."
+    - "Compare against one capable researcher with suitable tools. Measure new findings alongside extra time and cost; more participants are not an outcome."
   appliesTo:
-    - "Planning optional Children, investment methods, Bull/Bear, and Reviewer collaboration and evaluating whether handoff benefits justify their cost."
+    - "Deciding when to delegate, add challenge or review, and test whether collaboration is useful."
   notFor:
-    - "Treating expert counts, relationship fields, or a formed pair as delivered results, or claiming the outlook proves multi-expert research outperforms one Main."
+    - "Using a historical outlook or later local repairs to claim that multiple experts make better investment judgments than one researcher."
 ---
 
 # From Multiple Experts to One Research Result: The Next Step for Multi-Layer Agents (2026 Outlook)

@@ -3,13 +3,13 @@ title: "Agent Intermediate: Ten Core Modules in Open ETF Agent"
 description: "Use actual Open ETF Agent v0.15 code to understand the loop, tools and methods, information and memory, sessions, and specialist collaboration."
 readingBrief:
   takeaways:
-    - "The ten module groups extend a minimal loop with explicit owners for sources, preferences, durable tasks, and bounded delegation, rather than adding ten arbitrary execution layers."
-    - "Skills supply methods, MCP connects tools, and Memory carries preferences; none replaces access control or primary evidence, so code must validate model proposals."
-    - "Missing sources must remain visible, out-of-scope Child calls must fail, and unknown tool outcomes must not trigger blind retries; each failure needs observable state."
+    - "Start with a minimal loop; add modules when you need source records, preferences, or tasks that can continue later."
+    - "Skills teach methods, MCP connects tools, and Memory retains preferences. Code still checks access, and facts still need original sources."
+    - "Report missing sources, reject out-of-scope child calls, and check records before retrying a tool with an unknown outcome."
   appliesTo:
-    - "For developers who understand a basic loop and want to explore pinned v0.15 code while adding evidence handling, durable work, and bounded specialists."
+    - "Developers who know the agent loop and want to extend a small project using the v0.15 code."
   notFor:
-    - "Not a trace of one run or proof that separate scripted examples provide every recovery checkpoint and production publication capability."
+    - "A single demo using every module, or a complete production recovery and publication design."
 ---
 
 # Agent Intermediate: Ten Core Modules in Open ETF Agent

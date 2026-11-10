@@ -2,13 +2,14 @@
 description: "A subagent change spread through recovery and both stores because rules and mutable state lacked clear ownership. The retrospective connects encapsulation, compatibility retirement, test migration and parallel-work boundaries, without treating offline acceptance as deployment or measured maintenance gains."
 readingBrief:
   takeaways:
-    - "Local changes spread when recovery and storage repeatedly interpret the same business rule; consolidate interpretation without removing transactions, concurrency controls, or idempotency protections."
-    - "Shared mutable context and escaping references defeat file boundaries. Let invariant owners hold state and expose necessary operations rather than require callers to understand internal state machines."
-    - "Bound compatibility retirement, test migration, and parallel writes by real consumers and shared rules. Offline engineering acceptance does not establish deployment, model quality, or faster maintenance."
+    - "When recovery and multiple stores repeat a business rule, assign one interpreter while retaining transaction and concurrency protections."
+    - "Separate files and private fields do not ensure encapsulation; returned mutable references can still expose internal state."
+    - "Check real consumers and durable records before retiring protocols. Preserve valid business assertions when migrating test inputs."
+    - "Divide parallel work by shared rules and state writers; serialize only the parts that actually conflict."
   appliesTo:
-    - "Teams whose Runtime or subagent changes repeatedly spread across recovery, stores, shared state, and concurrent work."
+    - "Teams whose small subagent or Runtime changes spread across recovery, storage, and concurrent work."
   notFor:
-    - "Not a production-outage report or justification for deleting historical readers without checking durable data, or locking the entire system to one writer indefinitely."
+    - "A production-outage account or measured proof of better model quality and maintenance efficiency after refactoring."
 ---
 # Why Did One Subagent Change Hold Up Our Work for an Entire Day?
 

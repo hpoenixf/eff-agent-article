@@ -2,13 +2,15 @@
 description: "How can web research move from snippets to original passages, attachments and long documents without repeatedly starting over? Follow in-page find, link navigation, governed rendering and citation display to see how reading scope and source identity reach an inspectable answer."
 readingBrief:
   takeaways:
-    - "Search, reading, in-page find and link following address different gaps; reuse existing leads instead of restarting search or launching a subagent for every operation."
-    - "Track navigation links, authorized snippets and actually read text separately; no match is not document-wide absence, and snippet citations must not imply original-source verification."
-    - "Prefer static reading with governed rendering fallback and preserve independent evidence on failure; citations must reach the current answer’s interface, but valid attribution does not prove correct interpretation."
+    - "Use find, continued reading or link following when a document or lead already exists. Not every gap needs another search or subagent."
+    - "Distinguish navigation links, authorized snippets and read text. Cite snippets as snippets, not as verified originals."
+    - "No match in a partial search does not mean absence from the document. Preserve actual reading scope in citations and subagent handoffs."
+    - "Try authorized rendering only when static text is insufficient. A render failure should preserve other valid material."
+    - "Bind citations to the current answer and make sources inspectable. Correct citation format does not prove correct interpretation."
   appliesTo:
-    - "Agents stuck at snippets, repeating searches, missing attachments or showing uninspectable citations, where discovery, continued reading, handoff and display need connecting."
+    - "Improving continued web reading, attachment discovery, evidence handoff and citation display."
   notFor:
-    - "Seeking general browser automation such as login or purchasing, or assuming deeper reading and multiple agents already prove accuracy, latency or token savings."
+    - "General browser automation for login, forms or purchases."
 ---
 # From Finding Pages to Reading Further: How We Taught an Agent to Browse the Web
 

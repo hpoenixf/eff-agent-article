@@ -3,13 +3,14 @@ title: Local Improvements Are Not System Progress
 description: A receipt-image teaching example distinguishes local repairs, measurement corrections, and user-task improvements, with a practical way to compare changes.
 readingBrief:
   takeaways:
-    - "Local repairs, measurement corrections and user-task improvements are different progress. A better evaluator or repaired input omission does not itself establish better model quality."
-    - "Follow one input through tool output, actual model requests, saved revisions and the user page. Establish expected values independently rather than using the same model as its own oracle."
-    - "Compare consistent criteria, failure denominators and added costs. Permissions and privacy are not tradeable metrics, and verification should match the improvement being claimed."
+    - "Fixing local code, correcting an evaluator and improving the user’s task are different gains, not interchangeable model improvements."
+    - "Follow the same input through tool output, actual model requests, saved revisions and the user page."
+    - "Establish expected answers independently. Keep criteria and failed samples comparable, and record added time and cost."
+    - "Claim improvement only at the verified level. Speed or quality gains cannot compensate for permission or privacy violations."
   appliesTo:
-    - "Assessing context, tool, model or interface changes by what improved, whether it reached the user and where additional costs appeared."
+    - "Assessing whether tool, context, model or interface changes actually help the user."
   notFor:
-    - "Declaring system improvement from compression ratios, green tests or one fortunate response; receipt-image figures are illustrative, not measured gains."
+    - "Compression ratios, green tests or one lucky answer do not establish system improvement. Receipt figures are illustrative."
 ---
 
 # Local Improvements Are Not System Progress

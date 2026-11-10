@@ -2,13 +2,14 @@
 description: "How should a research Agent interpret “today” across time zones and resumed tasks? Frozen task anchors, sourced market calendars and separate quote timestamps show why resolving a date is not evidence of fresh market data."
 readingBrief:
   takeaways:
-    - "Current instant, task anchor, user date, market session and quote timestamp have separate sources; timezone conversion or scheduled closing cannot establish refreshed market data."
-    - "The model selects temporal meaning and code resolves trusted IANA zones; same-Run recovery retains the original anchor instead of silently replacing the question’s “today.”"
-    - "Market calendars require venue, version and coverage evidence; missing evidence stays unknown, while the public slice freezes task dates without completing full calendar acceptance."
+    - "Keep the user’s “today,” market session and quote timestamp separate. A scheduled close does not establish fresh quotes."
+    - "The model interprets temporal intent; code resolves it using a sourced IANA zone. Leave an unknown zone unknown."
+    - "When the same task resumes after midnight, retain its original time anchor rather than changing what “today” meant."
+    - "Use a sourced calendar with known coverage, not weekday guesses. Full calendar-path acceptance remains unfinished."
   appliesTo:
-    - "Cross-timezone questions, recovery after midnight or “latest trading day” queries that require separating intent, task time, session schedules and data freshness."
+    - "Handling cross-timezone questions, tasks resumed after midnight and “latest trading day” requests."
   notFor:
-    - "Seeking a qualified worldwide live market calendar, or treating synthetic date examples and disabled-by-default schedules as proof of fresh quotes and reliable natural-language research."
+    - "Obtaining a qualified live market calendar; the public example freezes task dates, not current market data."
 ---
 # When an Agent Says “Today,” Which Day Does It Mean? Task Time, User Time, and Market Sessions
 

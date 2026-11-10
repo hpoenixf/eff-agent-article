@@ -6,13 +6,14 @@ articleMetadata:
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
-    - "Retain original investment hypotheses, evidence dates, and falsification conditions—not only report summaries; asset changes without cash-flow context are not investment returns."
-    - "Qualified method documents, model inferences, and authenticated corrections retain separate provenance and successor versions, without overwriting reports or granting fresh access to historical sources."
-    - "Long-term goals, Theses, and research Checkpoints have different owners; controlled storage and scheduling checks do not establish that models consistently reassess investment rationales correctly."
+    - "Retain the original investment rationale, evidence dates and falsification conditions so later reviews can test past judgments rather than rewrite them."
+    - "Check dates, currencies and calculation bases before comparing periods. Without cash-flow data, asset growth cannot simply be counted as investment return."
+    - "Record user corrections as new versions with authors and timestamps. Preserve the original report and keep model inference distinct from user confirmation."
+    - "Reading history and sending notices demonstrate working engineering paths. Whether the model actually reassesses old hypotheses needs separate checking."
   appliesTo:
-    - "Designing recurring portfolio reviews, comparable historical observations, and user corrections so later research can test earlier judgments against their original evidence."
+    - "Designing recurring portfolio reviews, cross-period comparisons and traceable user corrections."
   notFor:
-    - "Assuming the public project provides complete weekly-review or Workspace workflows, or treating retained hypotheses and notifications as proof of multi-period research quality or cost savings."
+    - "Using complete weekly-review or research-workspace features in the public project; this article covers private implementation, with real multi-period research quality still unverified."
 ---
 
 # After the Weekly Report, Does the Agent Remember Why It Made That Call?

@@ -8,15 +8,14 @@ articleMetadata:
 description: "Follow a complete fund-comparison journey to examine how an Agent client receives requests, reduces unproductive waiting, supports intervention, presents inspectable results and lets users return to continue their research."
 readingBrief:
   takeaways:
-    - "Organize Agent interactions around the user's next step: expressing a need, confirming scope, waiting and intervening, reading and checking, then leaving and returning—not just around text-generation animation."
-    - "Long research should not automatically occupy the entire composer; independent questions, task amendments, clarification replies and stop actions need recognizable targets."
-    - "The default interface should prioritize useful findings, consequential gaps and available actions; tool logs and execution details are optional supporting information, not the answer."
-    - "Inspection, downloads, reopening and follow-up questions need to preserve result context and version; local failures should explain their impact rather than erase existing work."
+    - "During research, users should be able to ask a separate question, add a requirement or stop a specific task without first ending the current study."
+    - "Show supported findings, important gaps and the next useful action first; make tool logs optional."
+    - "Let readers check facts against original passages, calculations against inputs and measurement bases, and judgments against stated assumptions."
+    - "Reopening should load a saved version. Continuing the research and starting it again should be separate, explicit actions."
   appliesTo:
-    - "Designing chat, task panels, result reading and historical continuity for research-oriented Agent products."
-    - "Product, design and engineering teams reviewing the entire user journey without expanding backend runtime or model internals."
+    - "Designing chat, task panels, result reading and reopening for research-oriented Agents."
   notFor:
-    - "A component source-code tutorial, a runtime architecture panorama or an operating manual for an already complete product."
+    - "Using this as a product manual: the example layouts and wording include design proposals that are not all implemented."
 ---
 
 # Agent Client Interaction Panorama: From Asking a Question to Understanding Results and Continuing Research

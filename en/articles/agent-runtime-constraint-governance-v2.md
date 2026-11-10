@@ -2,13 +2,14 @@
 description: "An agent can keep searching and reading yet fail to deliver. Local-budget misclassification, expired source handles and exhausted publication-repair capacity show why constraints must compose, finalization needs its own reserve, and retries or recovery must retain the original allowance."
 readingBrief:
   takeaways:
-    - "Budgets, source-handle lifetimes and registry capacity must compose into a viable research path; local quota refusal must not masquerade as provider failure and invite retries."
-    - "Budget for delivery, publication correction and explicit completion; finalization reserves come from the original allowance, cannot fund new search, and do not guarantee completion."
-    - "Recovery preserves original admission contracts and consumed usage; retries cannot replenish allowance, and narrowing tools for known constraints does not decide whether evidence is sufficient."
+    - "Align search allowance, result-registration capacity and source lifetimes, or discovered sources may be unreadable."
+    - "Report local quota exhaustion as such; do not retry it as a Provider outage."
+    - "Reserve part of the total budget for delivery, corrections and completion. It cannot fund new searches or guarantee success."
+    - "Recovery and retries retain the original allowance and usage. The Host limits available tools; the model judges whether evidence is sufficient."
   appliesTo:
-    - "Diagnosing agents that search and read extensively but fail to deliver, especially mismatched quotas, source handles, finalization capacity and error ownership."
+    - "Diagnosing agents that search and read extensively but fail to finish delivery."
   notFor:
-    - "Looking for universally optimal budget numbers, or treating regression fixes as proof of better task success, cost, latency or answer quality."
+    - "Choosing universal budget values or inferring better answer quality and success rates from these fixes."
 ---
 # The Agent Found Plenty of Sources—Why Couldn't It Deliver an Answer?
 

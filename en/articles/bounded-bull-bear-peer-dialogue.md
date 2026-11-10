@@ -2,13 +2,14 @@
 description: "Opposing essays are not a real discussion. Following a challenge to an investment premise, this design explains peer pairing, durable messages, actual model-input delivery, bounded waiting and recovery—without fabricated exchanges, expanded permissions or a vote disguised as investment judgment."
 readingBrief:
   takeaways:
-    - "A real Bull/Bear discussion challenges a specific premise and obtains its proponent’s response; parallel essays, simulated bubbles, and votes cannot replace an actual exchange."
-    - "Message proposal, durable acceptance, and inclusion in the recipient’s actual request need separate evidence; frozen pair, round, and provenance identities prevent invented dialogue during recovery."
-    - "Waiting yields execution slots, while rounds add no budget; peer messages grant no data or trading authority, and bounded communication checks do not prove investment-quality gains."
+    - "Bull/Bear dialogue should challenge a specific reason and obtain its proponent's actual response; two opposing reports are not yet a conversation."
+    - "Proposing a message, saving it, and including it in the recipient's model request are separate facts that need separate records."
+    - "Recovery preserves the original message, pair, and round. It must not simply resend a model request with an unknown outcome or invent a missing reply."
+    - "Waiting saves state and yields an execution slot. Round limits add no budget, and peer messages grant no data or trading authority."
   appliesTo:
-    - "Multi-agent research with a material falsifiable premise and a need for direct messaging, bounded waiting, source permissions, and process recovery."
+    - "Implementing direct challenges, message handoff, waiting, and failure recovery between agents."
   notFor:
-    - "Simple fee lookups, forcing agreement, or counting repeated sources as independent evidence and averaging opinions into trades."
+    - "Simple fee lookups or forcing agreement; communication checks have not established better investment quality."
 ---
 # When Two Agents Talk Directly: Designing Bounded Bull–Bear Research
 

@@ -7,13 +7,14 @@ series: "Agent Context Governance Panorama"
 part: "Practice"
 readingBrief:
   takeaways:
-    - "Build each working view from the original task, eligible memory, admitted material, and real receipts; inspect the submitted request rather than only the prompt template."
-    - "Read old results at their original versions and give new observations distinct identities; switching from P1 to P2 requires reassessment, not relabeling earlier calculations."
-    - "Memory effects require commit receipts, forgetting must govern derived content, and optional compaction or delegation should be judged by task quality and total cost."
+    - "Inspect the request actually sent: the goal, user corrections, available tools and necessary source text must reach the model."
+    - "Read old results at their original versions. When inputs change, reassess affected conclusions instead of relabeling old calculations."
+    - "Use commit receipts to confirm memory saves and forgetting. Old caches, summaries and delayed jobs must not reactivate forgotten content."
+    - "Start with the smallest workable design. Add compaction or subagents when needed, comparing answer quality and whole-task cost."
   appliesTo:
-    - "For engineers implementing user corrections, versioned evidence, memory lifecycle controls, and long-task context reduction with actual-request and end-to-end checks."
+    - "Engineers implementing and testing source versions, user corrections, memory and long-task context management."
   notFor:
-    - "Not a production API, a single real trace, or a public-repository feature checklist; smaller payloads alone do not prove lower cost or better answers."
+    - "Copying a production API or auditing public-repository features. The scenarios and interfaces are teaching illustrations."
 ---
 
 # Agent Context Governance Panorama · Practice: From the First Request to Long-Term Memory

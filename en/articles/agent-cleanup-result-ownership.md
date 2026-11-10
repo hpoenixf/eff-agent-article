@@ -2,15 +2,13 @@
 description: "A size limit has been exceeded, a 401 has arrived, or a connection has timed out. Why is the failure still not reaching the caller? Examine asynchronous waits, error classification, and shared slots to decide when cleanup belongs in result settlement and what evidence is still missing between requesting cancellation and reclaiming resources."
 readingBrief:
   takeaways:
-    - "Awaiting cleanup gives it a say in when a result reaches the caller. Whether to wait depends on the interface's completion contract, not a blanket rule to add or remove await."
-    - "Cleanup errors should not overwrite a known primary failure, because doing so can change retries, fallback behavior, and the ability of later valid calls to proceed."
-    - "Manage shared acquisition entries separately from physical capacity. A call can finish within a bounded time while capacity that has not been confirmed released remains unavailable."
-    - "Cleanup also requires valid authority over the resource. Entering finally, requesting cancellation, or passing tests does not by itself prove that resources have been reclaimed."
+    - "Await cleanup when the interface promises resource reclamation; otherwise it can hold up an already-known failure."
+    - "Record cleanup errors separately, without turning a known size or authentication failure into a retryable error."
+    - "Remove failed shared waits, but reuse physical capacity only after confirmed release. The cleaner must still have authority over the resource."
   appliesTo:
-    - "Diagnosing asynchronous paths that still do not return despite a timeout, replace the primary error during cleanup, or let a failed acquisition block later requests."
-    - "Reviewing responsibility boundaries for cancellation, shared connections, process capacity, and Run cleanup."
+    - "Diagnosing calls stuck after timeout, overwritten errors, or blocked shared connections."
   notFor:
-    - "Making all cleanup non-awaited, or treating local cancellation alone as proof that remote work has stopped, capacity has been released, or billing has ended."
+    - "Not a rule to stop awaiting all cleanup. Local cancellation does not prove remote termination or the end of billing."
 ---
 # The Failure Is Already Known. Why Hasn't the Call Returned? Cleanup and Result Ownership
 

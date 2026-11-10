@@ -3,13 +3,15 @@ title: "HTML Was Saved—Why Did Delivery Still Fail? An Agent Report Architectu
 description: "From isolated Python and a dedicated weekly generator to shared Publication, Artifacts, authorization and verifiable downloads."
 readingBrief:
   takeaways:
-    - "HTML generation, Artifact commit, current-account download permission, and retrieval of identical bytes are separate facts; no local success alone proves report delivery."
-    - "Source eligibility must follow original Host receipts; current-data freshness must not invalidate historical files, and sharing binds an account to a fixed file revision."
-    - "Weekly reports specialize research methods, not file infrastructure; direct HTML and Python files share publication and artifact delivery, with safety checks targeting dangerous effects rather than aesthetics."
+    - "After generating or saving a file, verify that the current user can download and open the same file before declaring delivery."
+    - "When data passes through subagents and file conversions, carry its provenance and permissions with original execution receipts; copying text does not transfer them."
+    - "Check current-account access when downloading an old report. Outdated underlying data alone should not invalidate a historical file."
+    - "Directly generated HTML and Python files can share publication, storage and download paths, leaving weekly reports to specialize in research methods."
+    - "HTML checks should restrict scripts, dangerous loading and parsing costs, rather than treating ordinary styling as a security risk."
   appliesTo:
-    - "Agent report systems that compute or save files but fail during export, provenance handoff, authenticated download, or later reopening."
+    - "Diagnosing Agent reports that were computed or saved but cannot be exported, downloaded or reopened."
   notFor:
-    - "Treating sandboxing as data authorization, downloads as proof of correct analysis, or flexible styling as permission to remove script, resource-loading, and parser limits."
+    - "Treating a downloadable file as proof of correct analysis, or sandbox isolation as permission to use data."
 ---
 
 # The HTML Was Saved. Why Did Delivery Still Fail?

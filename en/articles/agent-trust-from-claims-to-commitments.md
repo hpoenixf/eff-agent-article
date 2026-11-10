@@ -3,12 +3,12 @@ title: "What to Trust in Agent Engineering: From Local Facts to System Commitmen
 description: "Follow a fund-comparison task through development, research, review, and delivery to see why local success does not automatically establish system-wide trust, and how claims, premises, and dependencies guide verification while preserving uncertainty and useful autonomy."
 readingBrief:
   takeaways:
-    - "Trust should attach to a specific claim, its scope, version, and premises. Authentic material, an authorized action, and an effect that has occurred require different kinds of support."
-    - "A handoff can reuse evidence that remains valid. Additional checks are needed when a commitment expands or its premises change; retelling alone cannot establish greater certainty."
-    - "A Reviewer's value depends on whether it can detect the error in question. Fix its actual inputs and evaluation criteria before deciding to add another reviewer."
-    - "Let an agent explore within its authorization. Apply the appropriate constraints to published conclusions, actions, and completion claims, and recheck the affected parts when their premises change."
+    - "Check claims, permissions and actual effects separately. Authentic sources do not ensure a valid comparison, and saving does not establish correctness."
+    - "Summaries and handoffs may reuse evidence, but must retain conditions such as dates and coverage that make a claim valid."
+    - "Before adding a reviewer, define the error to find and supply the necessary originals. Reassessing the same incomplete summary cannot fill the gap."
+    - "When a premise changes, recheck dependent claims. Reuse unaffected parts only when dependencies are clear and original versions remain readable."
   appliesTo:
-    - "Engineers building research agents or developing products with Coding Agents who need to decide what evidence is sufficient for acceptance and autonomous execution."
+    - "Engineers building research agents or using Coding Agents who need acceptance checks and boundaries for autonomous execution."
   notFor:
     - "A universal trust score, comprehensive security certification, or a ready-to-use automated trading system."
 ---

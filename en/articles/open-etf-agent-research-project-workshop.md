@@ -3,14 +3,14 @@ title: "Bring Your Own Documents to an Agent: From the First Report to a Resumab
 description: "Use fixed Open ETF Agent v0.24 to produce a checkable report, then combine retrieval with bounded Child work on the same question. Distinguish original evidence, derived advice, task recovery and project capacity."
 readingBrief:
   takeaways:
-    - "The v0.24 exercise connects import, retrieval, bounded checks and report readback in a local project. Model execution still requires your own provider and authorization."
-    - "A different question or source snapshot belongs in a new task. Continue unfinished work through its original Run, preserving its authorization, budget and deadline."
-    - "A report that can be reopened is not necessarily a reliable report. Trace conclusions back to their sources and check separately for missing information."
-    - "Main searches with Knowledge, then gives Child a local question and document scope. Child does not inherit retrieval tools; Main still checks and publishes the result."
+    - "Bind a question to a source snapshot before approving model execution. Use a new task when the question or sources change."
+    - "A report that opens still needs its claims checked against the originals. Do not invent causes the sources never established."
+    - "Main searches; Child checks a local question using only admitted documents. Main must still review the advice and save the report."
+    - "Continuation keeps the original task, permissions, budget and deadline. Inspect unknown outcomes rather than clearing them with a new task."
   appliesTo:
-    - "Developers practicing agent engineering with local text documents who are prepared to authorize their own model provider, data transmission and costs."
+    - "Developers practicing with a local v0.24 project who can configure a model service and approve data transmission and costs."
   notFor:
-    - "This is not a complete research workflow without model costs, or a guide to unattended research, arbitrary web crawling or investment decisions."
+    - "Free offline research execution, unattended operation, arbitrary web crawling, or investment decisions."
 ---
 
 <script setup>

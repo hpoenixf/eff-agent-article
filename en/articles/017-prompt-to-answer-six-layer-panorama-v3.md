@@ -3,13 +3,15 @@ title: "ETF Agent Six-Layer Request Lifecycle · From Prompt to Visible Answer"
 description: "Follow one user request through Main/subagents, model and tools, Direct/Research/Coord, asynchronous delivery and cross-layer capability owners."
 readingBrief:
   takeaways:
-    - "The six layers locate handoffs from trigger to visible answer; each Owner retains authority over its facts and effects, without imposing a fixed pipeline."
-    - "Direct skips research tools but still uses models and publication; Research iterates on receipts, while Coord proposes bounded controls to an identified existing Run."
-    - "Run termination, committed text, notification, and browser rendering require separate evidence; lawful wakes, execution-owner loss, and explicit continuation are also distinct contracts."
+    - "Six layers map a request: receive it, establish identity, choose an action, run tools, save the answer, and show it. They are not a fixed pipeline."
+    - "Answer directly, research when sources are needed, or target an existing task for changes or Stop. All three routes retain permission and publication checks."
+    - "The model chooses its next step from actual results. Subtasks share the original budget and permissions; Main delivers the answer."
+    - "Check tool success, saved answers, sent notices, and visible pages separately. Later failure must not erase earlier legitimate answers."
+    - "Reopening reads old results; an authorized wake resumes a wait; explicit continuation after termination creates a linked new execution."
   appliesTo:
-    - "For full-stack engineers and architecture reviewers tracing model inputs, tool effects, ownership boundaries, and failures between saved answers and user readback."
+    - "Engineers learning the whole Agent system, then tracing model, tool and delivery problems along one request."
   notFor:
-    - "Not a precise execution trace, deployment topology, or acceptance record; the teaching panorama and scoped verification do not establish production readiness or financial-analysis quality."
+    - "An exact call trace or deployment diagram; the overview cannot replace module acceptance or financial-analysis evaluation."
 ---
 
 # From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle

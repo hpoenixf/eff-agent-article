@@ -2,13 +2,14 @@
 description: "Closing a browser, restarting a crashed service and explicitly continuing research require different contracts. Background execution, bounded settlement and a newly admitted Run can preserve committed material and uncertain effects without promising reconstruction of every old execution graph."
 readingBrief:
   takeaways:
-    - "Browser disconnection changes observation, not execution; an ordinary server crash may settle interruption and preserve results without reconstructing the old model, tool, and Child graph."
-    - "Uncommitted execution position may be abandoned, but committed results and uncertain effects must remain; leases, fences, and original receipts govern remaining write and settlement authority."
-    - "Explicit continuation admits a new Run that reuses qualified material; legitimate Human/Child wakes retain constrained recovery, not permission to replay arbitrary historical graphs."
+    - "Closing a page disconnects viewing. Background research can continue while the server and authorization remain valid; reopening only reads the original results."
+    - "If losing uncommitted progress is acceptable, a crash can end the old execution while preserving results. Completed or uncertain actions must not be erased or repeated."
+    - "An explicit continuation reuses still-authorized material in a newly admitted Run, without taking the old Run’s budget or execution authority."
+    - "Authorized user replies and child-task wakes can still continue at limited checkpoints without supporting replay of every old execution graph."
   appliesTo:
-    - "Exploratory research that tolerates bounded lost progress and needs simpler recovery while retaining results, unknown usage, and legitimate safe points."
+    - "Exploratory research systems that accept some lost uncommitted progress and want simpler crash recovery."
   notFor:
-    - "Business operations requiring lossless continuation after every restart or strict once-only effects; those promises need appropriate durable execution and external-effect protocols."
+    - "Operations requiring lossless continuation after any restart or strict once-only effects; these need stronger durable execution and external-effect protocols."
 ---
 # A Disconnected Browser Is Not a Crashed Agent: Why Recovery Need Not Rebuild the Execution Graph
 

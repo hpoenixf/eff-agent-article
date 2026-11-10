@@ -3,14 +3,15 @@ title: "Agent Fragility and Antifragility: When Safeguards Start Causing Failure
 description: "From optional-note vetoes to termination ownership, Spec, and History: why safeguards can amplify local failures and how engineering can reduce repeated control and evolution debt."
 readingBrief:
   takeaways:
-    - "Judge fragility by how a disturbance reaches the user's task. If a change in auxiliary state can veto independent permitted work, the safeguard itself has expanded the failure's reach."
-    - "Centralizing termination requires ownership of continuation, finalization, and stopping decisions, together with their coordination rules. A shared failure write or another all-purpose manager does not resolve scattered responsibility."
-    - "Recovering a task shows that it survived a particular disturbance. Antifragility also requires specifying which system benefits, under which conditions, and after accounting for costs; passing tests is insufficient."
-    - "Engineering experience matters when it changes later decisions. Preserve counterexamples and design history, put valid constraints into the current Spec, and retire obsolete rules and duplicate vetoes."
+    - "A missing document or failed optional note should not halt independent permitted work. Reconcile unknown writes before retrying."
+    - "Let one termination module decide from Run facts whether to continue, finalize or stop. A shared failure write alone does not centralize those decisions."
+    - "Consolidation should remove rules callers must maintain, not add an all-purpose manager."
+    - "Recovery shows tolerance of a particular fault. Antifragility also requires specifying who benefits, within what scope, after losses and improvement costs."
+    - "Keep counterexamples and reasons for changed decisions in history. Current specifications should preserve valid protections and retire obsolete checks."
   appliesTo:
-    - "Teams maintaining research Agents, investigating local failures that halt larger tasks, resolving conflicts between retries and finalization, or reviewing an accumulation of safeguards and engineering rules."
+    - "Investigating local faults that halt research or reviewing an accumulation of safeguards."
   notFor:
-    - "A quantitative certification of antifragility, an automatic self-improvement design, or a fault-injection runbook ready for production use."
+    - "Not antifragility certification, an automatic self-improvement design or a production fault-injection runbook."
 ---
 
 <script setup>

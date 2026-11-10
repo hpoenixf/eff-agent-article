@@ -4,14 +4,16 @@ title: "Six-Layer Agent Architecture V2 · The Native Research Loop"
 description: "The essential ETF Agent architecture guide: six layers, more than forty capability owners, twenty-six handoffs, Native Agent Loop, tools, financial evidence, Publication, HIL and Recovery."
 readingBrief:
   takeaways:
-    - "V2 organizes six handoff perspectives around one native research loop. Foreground replies and background research remain Run-isolated while sharing execution and publication infrastructure."
-    - "Model-visible tools do not grant Host permission, external content cannot authorize instructions, and exact arithmetic cannot choose the right formula; each capability retains its factual boundary."
-    - "Durable HIL separates asking, receiving, and Main adoption. Nonblocking correction and safe parking reuse existing recovery, while continuation after termination requires explicit confirmation."
-    - "Publication, persistence, client display, and answer quality require distinct evidence. HIO had bounded engineering acceptance, with production Human Park disabled and real-user quality unestablished."
+    - "Six layers surround one research loop: the model chooses what to investigate; code checks permission, runs tools, and records results. They are not six services."
+    - "Background research and quick replies can run concurrently, each with its own identity, budget, and Stop target, while sharing execution and publication."
+    - "A model-visible tool is not automatically authorized. Web pages and PDFs provide evidence, not permission."
+    - "Asking the user need not stop independent work. A saved reply is not yet adopted by the model; continuing terminated research requires confirmation and a linked new Run."
+    - "Visible text, saved text, and answer quality need separate checks. Exact arithmetic cannot repair the wrong data or formula."
   appliesTo:
-    - "Readers tracing V2’s October 2026 design of concurrent research, final tool presentation, evidence-based calculation, and durable human interaction."
+    - "Understanding how V2 connected parallel research, tool calls, human input, and answer delivery in October 2026."
   notFor:
-    - "Not a current system-status or full production-acceptance report; use V3 for the current request-lifecycle reading perspective."
+    - "This historical design snapshot is not a current status or full production-acceptance report. Read V3 for the current request lifecycle."
+    - "Human interaction had bounded engineering validation; production Human Park was off by default, with real-model behavior and long-term quality unverified."
 ---
 
 # From a Portfolio Question to Continuous Collaboration: ETF Agent’s Six-Layer Architecture · V2

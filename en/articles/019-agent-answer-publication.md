@@ -6,13 +6,14 @@ evidence:
   live: "User-facing rendering and research semantic quality require separate validation"
 readingBrief:
   takeaways:
-    - "Candidate text, temporary preview, durable commit, and actual user display are distinct facts; later research failure must not erase an earlier legitimate publication."
-    - "Publication owns body and revision decisions: degrade optional defects locally, reject unauthorized effects specifically, and remove competing whole-answer vetoes from callers."
-    - "Recovery reads protected receipts by original block and revision while rechecking display eligibility; a historical commit proves neither current access nor whole-task completion."
+    - "Generation, preview, database storage, and actual display are different facts. A temporary preview may not survive a disconnect."
+    - "One component handles answer text and revisions: flag bad citations locally, block unauthorized content, and retain independently permitted sections."
+    - "Later failures must not erase earlier legitimate answers. A saved answer does not prove task completion."
+    - "Recover the original section and version, not a model rewrite. Recheck source access before display; old commits cannot bypass revocation."
   appliesTo:
-    - "Research applications with early display, later revisions, cross-process recovery, and content depending on revocable sources."
+    - "Applications that show answers during research, revise them later, recover after disconnects and use revocable sources."
   notFor:
-    - "Certifying investment-analysis correctness through publication checks, or imposing a heavyweight publication service on every one-shot chat."
+    - "Judging investment-analysis accuracy or copying a full publication service into a simple one-shot chat."
 ---
 
 # The Agent Has Generated an Answer. Why Does It Still Need a Separate Publication System?

@@ -7,13 +7,15 @@ articleMetadata:
   image: "https://hpoenixf.com/eff-agent-article/visuals/en/deepseek-superagent-continuous-research/lifetimes.png"
 readingBrief:
   takeaways:
-    - "Ongoing collaboration starts by separating a durable task, one assignment, and a worker session; transfer lifecycle boundaries rather than copying object names."
-    - "New input needs one handling owner, while pending-action generations prevent old deliveries from deleting newer requirements; persistence, delivery, history entry, and understanding remain distinct."
-    - "Waiting requires real events and wake conditions; delivery requires channel identities and receipts. Financial uses of the coding prototype are proposed adaptations, not a maturity ranking."
+    - "Separate a long-lived task from one execution: a request can end or be replaced while the task and completed work remain."
+    - "Give each new requirement one clear task to handle it, so the main session and worker do not both act on it."
+    - "Version pending deliveries. An old delivery may clear only the version it claimed, leaving newer requirements intact."
+    - "Ongoing waiting needs real events and wake conditions. Telling a model to “keep tracking” does not implement automatic resumption."
+    - "Retain external message identities and check for duplicates. Local transactions and channel deduplication still cannot guarantee end-to-end exactly-once delivery."
   appliesTo:
-    - "Comparing lightweight chat, existing async research, and longer-lived collaboration while examining correction, waiting, recovery, and external-delivery seams."
+    - "Comparing lightweight chat with ongoing research and checking task updates, waiting, recovery and external notifications."
   notFor:
-    - "Treating the coding prototype as a qualified investment-research product, or inferring end-to-end exactly-once effects from local transactions and channel deduplication."
+    - "Treating the coding-oriented Super-agent prototype as a validated investment-research product or a research-quality ranking."
 ---
 
 # From Investment-Research Chat to Ongoing Research: Lessons from DeepSeek Super-agent

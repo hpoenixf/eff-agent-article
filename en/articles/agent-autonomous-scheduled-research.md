@@ -3,13 +3,13 @@ title: "Scheduled Agent Research Without an Always-Running Conversation"
 description: "Separate confirmation, due opportunities, research and notification to preserve identity across restarts; public Worker and single-occurrence examples remain smaller than the complete scheduling system."
 readingBrief:
   takeaways:
-    - "Persist the user-confirmed task definition, not an endless model loop; each due time remains subject to authorization, overlap and resource admission."
-    - "Condition checks distinguish true, false and unknown; first-match triggers latch on actual Task creation, and unknown observations cannot re-arm an edge."
-    - "Keep triggering, research, publication and notification separate; recover uncertain commits by their original identity, and retry notices without rerunning research."
+    - "Save the time, source scope and budget the user confirmed. Check permission to start when the task is due, rather than keeping a model running while it waits."
+    - "Record stale or failed market-data reads as unknown, not false. Confusing the two can trigger the same research again."
+    - "After a restart, check the original task and commit records. Retry a failed notification without repeating the research."
   appliesTo:
-    - "Services adding scheduled or conditional research outside a conversation, with restarts, duplicate triggers and notification retries."
+    - "Adding scheduled or condition-triggered Agent tasks that handle duplicate triggers, restarts and failed notifications."
   notFor:
-    - "Treating the public Worker or single-occurrence example as a complete scheduler, or synthetic checks as proof of live-market integration or long-term review quality."
+    - "A ready-to-run unattended scheduling service: the public examples still require explicit execution and do not establish live-market monitoring or long-term reliability."
 ---
 
 # Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends

@@ -6,13 +6,14 @@ evidence:
   live: "Semantic adoption and incremental multi-agent quality not independently compared"
 readingBrief:
   takeaways:
-    - "Admission, submission, Main-input exposure, semantic adoption, and answer improvement are separate facts with distinct identities and denominators; participation counts cannot measure contribution."
-    - "Matching sampled excerpts in later Main requests establishes exposure of those excerpts, not complete handoff, preserved caveats, or an independent causal contribution from specialists."
-    - "Trace original submissions through Main requests, final claims, and sources to locate failures. Demonstrating benefit requires matched tasks, explicit total budgets, and quality-and-cost comparisons."
+    - "Separate specialist admission, submission, Main exposure, adoption, and better answers. Participation counts do not measure contribution."
+    - "A fragment in Main’s input proves that fragment arrived, not that the whole report was adopted."
+    - "Missing material points to handoff; lost caveats point to synthesis. Trace submissions, model inputs, and final claims."
+    - "Benefits require matched tasks and sources with an explicit total budget and quality-cost comparison. This article has not completed that comparison."
   appliesTo:
-    - "Multi-agent teams inspecting whether specialist findings reached Main and separating handoff defects from synthesis or attribution problems."
+    - "Teams diagnosing specialist handoffs or assessing whether multi-agent collaboration adds value."
   notFor:
-    - "Not a specialist-adoption rate or proof of architectural benefit; an independent incremental quality-and-cost comparison remains incomplete."
+    - "Inferring adoption rates or multi-agent quality gains from text matches alone."
 ---
 
 # How Do We Know the Main Agent Actually Used a Specialist’s Findings?

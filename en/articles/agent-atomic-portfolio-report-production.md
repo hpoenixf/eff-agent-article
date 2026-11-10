@@ -5,15 +5,14 @@ tags:
   - "Finance"
 readingBrief:
   takeaways:
-    - "A portfolio report should bind actual holdings, market evidence, advice eligibility, and read-only projections to one identified snapshot rather than mix results from separate runs."
-    - "Validate the whole report, write a temporary file, then replace the published file. Atomic visibility protects one file; it is not a transaction spanning files, databases, or trades."
-    - "Generation time, portfolio snapshot date, fund NAV dates, and evidence identity mean different things. Structural validity does not prove freshness or executable advice."
-    - "Same-day lightweight summaries must not overwrite the discoverable canonical report. A historical path alone cannot identify immutable content."
+    - "Keep one generation's holdings, evidence, advice and projections in one report. Do not assemble it from unrelated ‘latest’ results."
+    - "Validate the complete report, write a temporary file, then replace the formal file so readers never see half a report. This guarantee covers one file only."
+    - "A report generated today may use yesterday's holdings and older NAVs. Its report date cannot replace each source's actual date."
+    - "Store same-day summaries separately from formal reports. Dated files can be replaced, so verify the original saved record rather than trust an old path."
   appliesTo:
-    - "Engineers designing deterministic portfolio report production and authorized read-only consumption by financial research agents."
-    - "Systems with multiple report modes, scheduled retries, or historical readers that need to keep results from distinct runs separate."
+    - "Producing read-only portfolio reports for Agents while preventing partial writes, same-day overwrites and mixed-generation data."
   notFor:
-    - "Not a trading, ledger-confirmation, or chat-publication workflow. The public Open ETF Agent teaching repository does not include the complete private root portfolio-report producer described here."
+    - "Trading, ledger confirmation or chat-answer publication. The public teaching project also does not include this complete portfolio-report producer."
 ---
 
 # Why Can't a Portfolio Report Be Written While It Is Still Being Calculated?

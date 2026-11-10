@@ -2,13 +2,15 @@
 description: "Follow a document-comparison report through reading, saving, missing pages and recovery. Nine architectural judgments connect ownership, partial results and replaceable components to a checkable user outcome, while separating hypothetical design choices from implemented behavior."
 readingBrief:
   takeaways:
-    - "Start with a small report users can open and verify; let factual owners govern reads, authorization, and saving while recording proposal, permission, dispatch, and effect separately."
-    - "Missing pages should constrain dependent claims without erasing independent lawful work; summaries cannot rewrite conditions, and unknown save outcomes do not justify blind repetition."
-    - "Before adding reviewers or replacing readers, locate the failure, measure normal-path costs, and preserve old report access; local improvements still need whole-task validation."
+    - "Start with a small report users can open and check against its sources; add modules when a real need arises."
+    - "Proposing, authorizing, dispatching and confirming a save are separate steps. Check unknown outcomes before repeating an operation."
+    - "A missing page limits claims that need it, not independent lawful results. Summaries must retain conditions such as which plan a feature applies to."
+    - "Locate the error before adding another reviewer. When replacing a reader, preserve access to old reports and their sources."
+    - "Clickable citations and saved files do not prove a report correct. Assess local improvements through the complete user task."
   appliesTo:
-    - "For engineering teams using a concrete reporting task to review ownership, partial delivery, durable effects, and the introduction or retirement of modules."
+    - "Engineering teams reviewing module responsibilities, failure handling, recovery and trade-offs through one reporting task."
   notFor:
-    - "Not nine mandatory components or gates; hypothetical failures and limited live runs establish neither every discussed mechanism nor general model reliability."
+    - "Building nine mandatory components, or treating design examples and small live samples as proof of complete implementation or reliability."
 ---
 # Nine Architecture Judgments Behind One Report
 

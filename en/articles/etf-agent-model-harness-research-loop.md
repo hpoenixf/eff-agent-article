@@ -3,13 +3,15 @@ title: "A Research Agent Needs More Than Tools: How Model, Harness, and Loop Wor
 description: "A simple example involving fund holdings from different reporting dates explains how evidence should change an Agent’s judgment without changing execution history."
 readingBrief:
   takeaways:
-    - "A research loop matters when evidence changes strategy or conclusions, not when search counts rise; models judge meaning while execution owners preserve permissions, calculations, and commits."
-    - "Financial claims must retain numbers, denominators, and valid dates; fresh articles citing old holdings or precise calculations on mismatched bases do not establish current findings."
-    - "Children and Reviewers add evidence and counterexamples when useful, not votes; Run termination, publication, and an accessible report remain separate outcomes."
+    - "A research loop should let new evidence change the next step and conclusion. Repeated searching alone does not make research deeper."
+    - "The model chooses what to investigate and how to interpret it. Execution records must establish permissions, actual reads, calculations and saves."
+    - "Financial numbers need denominators and valid dates. Today’s article citing old holdings cannot establish today’s portfolio exposure."
+    - "Subagents and reviewers should add evidence, calculations or counterexamples, rather than vote on a conclusion through sheer numbers."
+    - "Deliver independently supported results early, while separately checking execution ending, answer storage and the user’s ability to open the report."
   appliesTo:
-    - "Understanding how a financial-research model, harness, and loop cooperate, and checking whether new observations genuinely change subsequent actions."
+    - "Understanding how a financial-research Agent responds to observations, and checking its numbers and delivered results."
   notFor:
-    - "Using tool counts, expert counts, resolved flags, or orderly termination as proof of investment correctness, or assuming the public project implements the full design."
+    - "Using call counts or orderly termination as proof of investment correctness, or treating the design as a complete research system already available in the public project."
 ---
 
 # A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together

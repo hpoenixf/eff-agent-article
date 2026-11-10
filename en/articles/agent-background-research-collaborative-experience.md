@@ -7,13 +7,14 @@ articleMetadata:
   image: "https://hpoenixf.com/eff-agent-article/visuals/en/agent-background-research-collaborative-experience/interaction-flow.png"
 readingBrief:
   takeaways:
-    - "Long research needs its own lifecycle: short questions execute independently, adjustments target a task, and Stop addresses that task rather than monopolizing the chat box."
-    - "Out-of-order answers, history replacements, and unsent drafts require Run, Conversation, and account identity; saving an adjustment, supplying it to the model, and fulfilling it are distinct."
-    - "Interrupting one request to adopt a correction must not terminate the research; successful concurrency checks still do not certify the report’s financial inferences."
+    - "Let long research run independently and answer short questions separately. Target additions and stop actions at a specific study."
+    - "Pass on the user’s original requirement, distinguishing saving it, including it in model input and fulfilling it in the answer."
+    - "Answers can arrive out of order, so locate them by task. Keep unsent drafts in their own conversations too."
+    - "Interrupting one model request to adopt a new requirement should not end the entire study."
   appliesTo:
-    - "Products that already have research loops, durable history, and publication and now need foreground chat and targeted changes during background work."
+    - "Products with existing research, history and publication capabilities that need concurrent chat and targeted task updates."
   notFor:
-    - "Building a complete research agent from scratch in one day, removing all stop controls, or treating concurrent execution as proof of reliable financial analysis."
+    - "Building a complete research Agent from scratch, or treating successful concurrent interaction as proof of correct financial analysis."
 ---
 
 # Keep Chatting: Taking the Stop Button Out of the Way—Adding Async Background Research to an Agent in a Day

@@ -6,15 +6,15 @@ articleMetadata:
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
-    - "Choose research mechanisms by scope, independence, and delivery needs: hosted APIs, multiple agents, and explicit stage graphs suit different constraints, and larger budgets alone do not establish quality."
-    - "An agent with an existing tool loop need not build a second execution graph for Deep Research: it can upgrade an authorized Run's effective resources and adapt subsequent model guidance to Host-confirmed state."
-    - "An upgrade proposal is not an applied resource grant. Used capacity is not reset, and finalization or independent limits cannot be bypassed by a late request."
-    - "Research progress can be visible early, independent supported findings can ship early, and broader conclusions can be synthesized more cautiously; this is model guidance, not a server-enforced evidence-maturity threshold."
-    - "Six matched Standard/Deep cases show mixed outcomes. They demonstrate that both modes execute but do not establish that Deep is consistently more accurate, faster, or cheaper."
+    - "Deep can reuse the existing research loop, adding authorized capacity and changing later delivery guidance without building another execution flow."
+    - "Selecting Deep does not apply the upgrade. The system must approve and activate it; used and reserved capacity still counts, and finalization limits still apply."
+    - "Parallelize independent source investigations. Conclusions that depend on several branches need their evidence combined; more agents do not guarantee quality."
+    - "Share progress and independent findings early, while resolving material disagreements before synthesis. This guides the model; it is not an automatic evidence-sufficiency test."
+    - "Six matched cases had mixed results: Deep sometimes produced a complete answer sooner, and sometimes ended sooner with omissions. It is not reliably more accurate, faster or cheaper."
   appliesTo:
-    - "Teams with an existing agent tool loop, research budgets, answer publication, and recovery that need a bounded Deep mode for selected complex tasks."
+    - "Teams with a recoverable research loop that need more capacity and different delivery timing for complex questions."
   notFor:
-    - "Readers seeking a mandatory research graph, a universal evidence-sufficiency score, or proof of real-world investment performance from synthetic cases."
+    - "A mandatory research sequence or real-world investment proof from synthetic tests; this Deep implementation is also not a feature already shipped in the public repository."
 ---
 
 <script setup>

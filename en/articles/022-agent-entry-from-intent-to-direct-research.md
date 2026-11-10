@@ -7,12 +7,12 @@ evidence:
 readingBrief:
   takeaways:
     - "Entry chooses between answering directly and starting research; subsequent evidence should reshape research steps rather than a complete plan being fixed up front."
-    - "A smaller output protocol still needs adequate input: supply bounded capability and document discovery information without prereading all business data just to route."
-    - "Validate structure and actual admission without inventing a second semantic arbiter; irrelevant fields should not veto valid Direct answers, and research fallback still requires appropriate capacity."
+    - "Give Entry available capabilities and authorized document metadata, without prereading all the material just to choose a route."
+    - "Parse the fields the selected branch needs. A fallback to research still requires the appropriate permissions and capacity."
   appliesTo:
-    - "Simplifying an overloaded intent, planner or clarification entry while retaining ordinary follow-ups and correct research admission."
+    - "Simplifying overloaded intent classification, upfront planning or entry clarification."
   notFor:
-    - "Expecting one routing decision to guarantee research success, or assuming a small protocol removes capacity, authorization and routing-quality evaluation."
+    - "Expecting one routing decision to guarantee research success or remove authorization and capacity checks."
 ---
 
 # Why Did We Keep Making the Agent's Entry Simpler?

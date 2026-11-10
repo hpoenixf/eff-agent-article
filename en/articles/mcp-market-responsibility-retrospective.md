@@ -2,13 +2,15 @@
 description: "How does a unified market-data adapter quietly become a research decision-maker? This retrospective separates structured reads needed by deterministic calculations from native tools for open research, preserving the limits of provider fallback, cached dates, coverage and source agreement."
 readingBrief:
   takeaways:
-    - "Integration should report sources and failures faithfully. A schema mismatch is not missing data, and adapters should not decide evidence sufficiency or follow-up research."
-    - "Deterministic consumers retain structured Market contracts; open research uses approved native tools. Switching providers requires newly constructed arguments, not silent reuse across incompatible schemas."
-    - "Multi-source fallback stays within one bounded request. Preserve cache dates, partial coverage, and conflicts; agreement between terminal values does not validate an entire series or investor returns."
+    - "The access layer should report material and failures faithfully; a field mismatch does not mean the source has no data."
+    - "Deterministic calculations need stable structured inputs. Open research can use approved native tools, leaving follow-up choices to the model."
+    - "When switching a native tool's provider, rebuild arguments for the new interface instead of silently reusing another provider's format."
+    - "Structured multi-source fallback completes the same bounded request, preserving cached dates, partial coverage, and conflicts."
+    - "Similar terminal values support only a limited cross-check, not agreement across a whole series or an investor's actual returns."
   appliesTo:
-    - "Integrating market-data MCPs, HTTP endpoints, and Python sources while deciding which adaptations belong in access infrastructure versus research."
+    - "Integrating market MCPs, HTTP endpoints, and Python sources while separating interface adaptation from research decisions."
   notFor:
-    - "Not a live vendor-availability report or quality ranking, nor proof that every adapter is enabled or every price series fully verified."
+    - "Comparing current vendor availability or quality; the capability inventory does not mean every integration is enabled by default."
 ---
 # Why a Financial Market Data MCP Started Turning into a Research Decision System
 

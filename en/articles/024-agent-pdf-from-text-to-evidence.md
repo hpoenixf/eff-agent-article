@@ -3,13 +3,14 @@ title: "From Reading Text to Research Evidence: How We Evolved an Agent's PDF Re
 description: "Navigable long documents, table structure, on-demand page vision, source identity and bounded acceptance evidence."
 readingBrief:
   takeaways:
-    - "Parsing, search coverage, page reading and model receipt are distinct facts; navigation and citations must follow delivered content rather than treating search hits as full-document review."
-    - "Use text as the baseline and add tables or page images when needed, recording each scope; prove the existing Reader’s evidence gap before adding another parser."
-    - "Rendering does not establish image delivery; recheck source permission at actual dispatch, and validate tool delivery, model interpretation and completed research separately."
+    - "A search hit is not a full-document read. Track search, reading and delivery scope separately; page citations follow the text actually delivered."
+    - "Start with text and add tables or page images as needed, tracking each scope. Identify missing evidence before adding another parser."
+    - "A rendered image may never reach the model. Check source permission again when dispatching it."
+    - "Trace numerical errors through extraction, delivery and model interpretation. Tool success does not establish completed research."
   appliesTo:
-    - "Comparing distant pages, checking table footnotes or reading scans while tracing numerical errors across acquisition, delivery, interpretation and citation."
+    - "Designing cross-page reading, table-footnote checks and scan reading, or diagnosing numerical and citation errors."
   notFor:
-    - "Treating the public selected-page text slice as a complete OCR/multimodal Reader, or extrapolating arbitrary-PDF accuracy and production cost benefits from limited samples."
+    - "Using the public slice as a complete OCR or multimodal reader; it covers selected-page text only."
 ---
 
 # From Being Able to Read to Being Able to Research: Evolving PDF into Traceable Multimodal Evidence

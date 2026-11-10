@@ -2,13 +2,14 @@
 description: "After a rating is submitted, how does the interface recover the right record on reload or answer changes? Answer identity, account scope, idempotency and stale-response handling make feedback an investigable signal—not automatic training or an established quality verdict."
 readingBrief:
   takeaways:
-    - "A rating must target a readable completed answer within a trusted account Scope; “not grounded” records the user’s opinion, not an established quality verdict."
-    - "Database uniqueness and intent identity govern persistence; exact-target readback governs reopening. Unavailable reads are not absent ratings, and stale responses must not update another answer."
-    - "Feedback is a candidate for separately authorized investigation, not automatic changes to answers, Memory, or execution permissions; focused readback tests do not establish an end-to-end learning loop."
+    - "Identify who rated which completed answer. 'Not grounded' records the user's opinion, not a system finding that the answer is wrong."
+    - "Retrying the same rating saves it once. Reject conflicting ratings for the same answer instead of silently letting the later one overwrite the first."
+    - "After reload, read the rating for that exact answer. A failed read is not an absent rating, and A's late response must not update B."
+    - "Feedback can guide later investigation. It does not automatically change answers, long-term memory or investment permissions, or prove the model learned."
   appliesTo:
-    - "Building or debugging answer ratings affected by duplicate submissions, lost state after reload, cross-account reads, or stale responses during target changes."
+    - "Building answer ratings and fixing duplicate submissions, lost reload state, cross-account reads or mixed-up answer targets."
   notFor:
-    - "Automatically training models or changing investment policy from a dislike, or claiming arbitrary historical-answer targeting and full browser reopening are already qualified."
+    - "Automatic training or investment-policy changes; the focused tests do not establish arbitrary history-message rating or a complete browser reopening flow."
 ---
 # A User Dislikes an Agent Answer. Should the Agent Automatically Learn? Feedback Identity, Idempotency, and Reliable Improvement Signals
 

@@ -10,14 +10,15 @@ articleMetadata:
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
-    - "Locate discrepancies across four handoffs: source to tool, tool to model, input to generation, and generation to user. A complete call tree cannot replace content and revision checks."
-    - "Original systems establish execution and persistence; telemetry describes process and gaps. Capture, receipt, processing and query readback are separate, and complete pagination does not establish complete capture."
-    - "Deduplicate costs by physical request and keep unmeasured durations unknown; verify historical readback. Synthetic probes cannot restore missing history or establish long-term completeness."
-    - "A Native Host handler interval is not queueing, authorization, post-processing or full-Run latency; never sum overlapping local durations into wall time."
+    - "Check original sources, tool results, actual model input and final text, not just green traces."
+    - "A missing trace does not prove an action never happened. Complete query pagination does not prove complete capture."
+    - "Do not report unmeasured time as 0 ms. Host timing excludes external queues, and parallel intervals cannot be summed into elapsed time."
+    - "Count one physical request once across multiple views, while preserving unknown costs."
+    - "After recovery, reread real pre-backup history. A successful new probe does not establish that old records are readable."
   appliesTo:
-    - "Designing identity-linked diagnosis, capture-gap handling, telemetry self-checks and historical recovery for a research Agent."
+    - "Designing research-Agent diagnosis, timing, cost checks and telemetry-history recovery."
   notFor:
-    - "Using a green trace to certify answers, or treating a probe and scoped restore as long-term capture assurance or provider billing reconciliation."
+    - "Green traces do not certify answers. Scoped probes and restores do not guarantee long-term capture completeness or reconciled bills."
 ---
 
 # Agent Observability Panorama: From Model Requests to Verifiable Research Facts

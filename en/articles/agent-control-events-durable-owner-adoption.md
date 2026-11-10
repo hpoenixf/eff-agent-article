@@ -2,13 +2,13 @@
 description: "A stop command takes effect, but its delivery acknowledgment is lost. Follow command identity, expiring claims and original business receipts to see how durable control handles duplicates and unknown outcomes without mistaking successful delivery for task completion."
 readingBrief:
   takeaways:
-    - "The control channel owns command identity, order and delivery; original business owners still decide whether stop, correction or recovery effects are admitted."
-    - "Claims expire: the original owner rechecks the claim, fence and target revision when admitting an effect; dequeueing work does not confer permanent execution authority."
-    - "After a lost acknowledgment, reconcile the original business receipt: settle delivery for an admitted effect, and preserve unknown outcomes instead of retrying under a new identity."
+    - "Receiving a stop command does not mean the task stopped. The control channel delivers it; the original task component checks and performs the action."
+    - "A worker's claim expires. Before acting, recheck that the claimant, lease and target version are still valid."
+    - "After a lost delivery acknowledgment, check the original operation record. Confirm an effect already performed, investigate an unknown outcome, and never redo it under a new identity."
   appliesTo:
-    - "Designing cross-process stop, wake or correction handoffs under lease contention, lost receipts and uncertain effects."
+    - "Handing stop, wake or correction commands between processes without duplicate effects from disconnects, retries or expired workers."
   notFor:
-    - "Equating queue acknowledgments with task completion, or treating the public local-Session cancellation example as the complete multi-owner control bus."
+    - "Installing a control bus for every business component. The public example checks local Session claims, cancellation and recovery, not the full handoff system."
 ---
 <div><a id="why-an-agent-cannot-execute-a-stop-command-immediately-a08-durable-control-event-handoffs"></a></div>
 

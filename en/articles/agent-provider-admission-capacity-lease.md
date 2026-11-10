@@ -2,13 +2,14 @@
 description: "A model has returned text, yet the next call still waits. Examine shared queues, leases, renewal and unknown occupancy to distinguish local cancellation, protocol termination and transaction acknowledgments—and determine when a capacity slot can safely be released."
 readingBrief:
   takeaways:
-    - "Capacity is shared by normalized endpoint within the managed coordination domain; persistent queues and leases prevent process-local counters or control-store failures from resetting occupancy."
-    - "Queueing, model execution and Run allowances are separate accounts; recheck authorization and deadlines after acquiring a lease, without duplicating allowance through waiting or renewal."
-    - "HTTP 200, cancellation and lost heartbeats do not prove remote completion; quarantine unknown occupancy and reconcile ambiguous release acknowledgments against the original ticket."
+    - "Share endpoint queues and leases within one coordination domain. A control-store failure cannot reset occupancy through an in-memory fallback."
+    - "Queueing is not model execution and must not debit the budget twice. Recheck permissions and deadlines just before sending."
+    - "HTTP 200 or cancellation does not prove remote completion. Quarantine unknown occupancy and check the original ticket when release is uncertain."
   appliesTo:
-    - "Diagnosing cross-process model queues and capacity retained after cancellation, or designing shared admission for disconnected workers and ambiguous transaction acknowledgments."
+    - "Diagnosing queues, cancellation and capacity release when processes share model access."
   notFor:
-    - "Inferring provider SLAs, production throughput or definitive failure causes from lease settings, or letting the capacity layer independently rerun research."
+    - "Inferring provider availability, throughput or failure causes from lease settings."
+    - "Letting the capacity layer rerun research on its own."
 ---
 <div><a id="why-the-next-model-request-still-queues-after-http-200-a30-provider-admission-leases-and-unknown-occupancy"></a></div>
 

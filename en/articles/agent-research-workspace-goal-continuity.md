@@ -2,13 +2,15 @@
 description: "A research goal can outlive any single Run. Follow a multiweek fund study to see how Workspace organizes goals, exact historical reports and advisory progress without taking over execution, permissions or result lifecycles; this is architecture, not a public installation guide."
 readingBrief:
   takeaways:
-    - "Workspace organizes enduring goals, relationships and progress without taking over Run execution or duplicating report and permission authorities."
-    - "A history catalog supplies candidates, not consumption proof; each new study validates exact historical versions and must actually receive their content in its model request."
-    - "Goals and advisory progress have distinct revisions; archiving does not cancel admitted Runs, and removing organizational relationships does not cascade-delete original research results."
+    - "Workspace links independent studies to one lasting goal without duplicating execution or reports."
+    - "A new study needs permission to read a specific old report version. A catalog entry is not a model read."
+    - "Progress notes are source-backed model suggestions. They cannot rewrite the user's goal or mark omitted questions as resolved."
+    - "Archiving does not cancel admitted work, and removing Workspace does not delete the original reports."
   appliesTo:
-    - "Research goals spanning independent Runs, with exact historical report reuse, open questions and result lifecycle management."
+    - "Researching one goal over weeks or months, revisiting old reports, tracking open questions and managing research results."
   notFor:
-    - "Simple follow-ups within one conversation, or seeking a publicly installable, default-enabled Workspace with completed formal qualification."
+    - "Simple follow-ups in one conversation, where ordinary session management usually suffices."
+    - "Installing a ready-made public product. The module passed engineering qualification without live models, but remains disabled by default and is not open source."
 ---
 # Why Agents Need a Workspace: From One-Off Conversations to Long-Term Research
 

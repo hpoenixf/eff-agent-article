@@ -3,14 +3,15 @@ title: "Why an Agent Can Call Python and Still Miscalculate an Investment Report
 description: "Financial method choice, eligible input, Python result projection, qualified metrics and faithful narrative interpretation."
 readingBrief:
   takeaways:
-    - "Python success establishes only local execution. Trace method selection, input eligibility, result handoff, and interpretation rather than treating more script calls as whole-task acceptance."
-    - "Results must retain instruments, windows, denominators, units, and proxy limits. Contributions can exceed 100% under a net-gain denominator; percentage-point differences are not relative returns."
-    - "Repair original domain methods and actual model inputs without blocking unrelated valid prose. Synthetic handoff tests do not establish reliable research completion by a natural model."
-    - "Diagnosing incompatible native-execution and legacy-script result envelopes, where completed computation still needs verifiably complete output before a domain method can consume it."
+    - "After Python finishes, still check whether the method applies, inputs are sufficient, and the model interprets the result correctly."
+    - "Numbers passed to the model need their instrument, time window, denominator, units, and estimation limits, not just a value."
+    - "A contribution measured against net portfolio gain can exceed 100%. Subtracting two return rates produces a percentage-point difference."
+    - "Incompatible result formats can make completed calculations unusable; consumers must recognize the format and verify output completeness."
+    - "Use targeted tests for calculation and handoff, and real research tasks to assess method selection and interpretation."
   appliesTo:
-    - "Diagnosing reports that omit, misread, or lose qualifications despite successful calculations, and separating handoff tests from interpretation-quality evaluation."
+    - "Diagnosing research reports that omit calculations, misread results, or lose qualifications despite using computation tools."
   notFor:
-    - "Not a Python-workbench deployment guide or proof of stable research completion, improved returns, or full private computation capabilities in the public edition."
+    - "Deploying a Python workbench or inferring autonomous research completion rates and investment gains from local tests."
 ---
 
 # The Agent Ran Python. Why Was the Investment Research Report Still Wrong?

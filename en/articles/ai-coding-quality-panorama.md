@@ -3,13 +3,15 @@ title: "AI Coding Quality Panorama: Taking Responsibility for the Whole Project 
 description: "From behavior contracts, understandable changes, and checks that can detect mistakes to review, delivery, and continued evolution: how to make sound quality judgments while keeping verification and maintenance affordable, with examples from our open-source work and established industry approaches."
 readingBrief:
   takeaways:
-    - "Implementation, tests, and documentation can all inherit the same misunderstanding. Quality judgments need explicit business grounds and checks capable of challenging the current implementation."
-    - "Architecture and maintainability are part of quality. Clear responsibilities and understandable changes make it possible to verify the next change effectively."
-    - "Completion must refer to the actual version and the user's result. Findings should also update contracts, tests, and history so that the next development task starts from better grounds."
+    - "Define inputs, expected results, and failure behavior before coding, so implementation and tests do not share the same misunderstanding."
+    - "Derive test expectations from business rules or independent examples, then use counterexamples to check whether tests catch mistakes."
+    - "Give each business rule a clear module owner to reduce omissions in later changes."
+    - "Check the version being delivered and retrieve the result as a user would. Old test results do not verify new code."
+    - "After a fix, update contracts, tests, and decision rationale; retire safeguards whose original conditions no longer apply."
   appliesTo:
-    - "Engineers and small teams that use AI extensively in software development and want a coherent approach to engineering quality."
+    - "Engineers and small teams using AI extensively who want better requirements, review, and acceptance checks."
   notFor:
-    - "Readers looking for a particular coding agent's installation guide, a complete model evaluation setup, or production deployment configuration."
+    - "Installation instructions for a coding agent, or a complete model-evaluation or production-release setup."
 ---
 
 # AI Coding Quality Panorama: Taking Responsibility for the Whole Project When AI Writes Most of the Code

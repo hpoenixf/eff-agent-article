@@ -3,11 +3,11 @@ title: "A Report Is Generated: Why Can’t It Be Shared Yet?"
 description: "Follow two reports with the same filename to understand save receipts, immutable bytes, access identity, and recipient-specific sharing—and what retries, expiry, and revocation actually change."
 readingBrief:
   takeaways:
-    - "A filename describes purpose; a fixed version and content digest identify the object. Sharing must bind a specific version rather than silently follow regenerated content."
-    - "The current downloader's access and the producing task's research authorization have separate lifetimes. Receiving a file grants no access to the whole research or its original materials."
-    - "A save timeout can leave the outcome unknown. Check the original operation before retrying or repairing delivery; a missing receipt does not prove the file is absent."
+    - "Reports with the same filename can be different versions. An old share delivers only the approved version; a new report needs separate permission, not a silent replacement."
+    - "Check the current reader's permission on every download. Access to one report does not grant access to the conversation or source materials."
+    - "A save timeout does not prove the file is absent. Check the original operation before repairing delivery or retrying, rather than generating a second, different report."
   appliesTo:
-    - "Applications that must save, reread, download, and share Agent reports with named recipients while preserving version and actor identity."
+    - "Applications that save Agent reports, download historical versions or share files with named recipients."
   notFor:
     - "Chat features that only display temporary text, or systems expected to recall offline copies after a share is revoked."
 ---

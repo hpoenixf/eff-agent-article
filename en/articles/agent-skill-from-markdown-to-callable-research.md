@@ -2,12 +2,12 @@
 description: "What separates an Agent Skill from an ordinary prompt? Follow a fund-research example through on-demand loading, Host tools, reviewed Python scripts, and their actual security boundary."
 readingBrief:
   takeaways:
-    - "A Skill's instructions are still text; registration, discovery, progressive loading, execution, and receipts are capabilities implemented by the Host."
-    - "A Skill cannot grant tools or data access; an authorized script also needs a separate review of its actual operating-system privileges."
-    - "ETF Agent constrains reviewed package scripts by identity, path, timeout, and output, but that runner is not an OS sandbox; its Docker Analysis Sandbox is separate."
-    - "Context projection separates visible catalog entries, loaded instructions, and usable tools; ecosystem compatibility gaps must not be relabeled as deliberate choices."
+    - "A Skill is reusable task guidance. Its Host must implement discovery, on-demand reading, script execution and result records."
+    - "Seeing a Skill in the catalog does not prove the model read its instructions or ran its script. Each step needs an actual record."
+    - "A Skill may declare required tools and data, but cannot grant access. Review a script's actual operating-system privileges separately."
+    - "Script-path checks are not a sandbox. This Skill runner has no independent OS isolation; the separate Docker analysis route cannot supply that guarantee."
   appliesTo:
-    - "Engineers designing Agent Skill loading, reuse, script execution, and authorization who need to separate file-format conventions from Host behavior."
+    - "Deciding when a recurring task needs a Skill, then designing its loading, script execution and permission checks."
   notFor:
     - "A one-off style instruction often needs only a prompt; fixed deterministic calculations generally need a function rather than a Skill system."
 ---

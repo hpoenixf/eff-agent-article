@@ -3,13 +3,15 @@ title: "The Most Dangerous Financial AI Illusion: Real Data, Wrong Numbers"
 description: "Reproducible time-bound market data, exact decimals, cash conservation, fee semantics and federated financial metrics."
 readingBrief:
   takeaways:
-    - "Real sources can still support wrong conclusions. Fix instruments, windows, units, and denominators before recomputing; a wrong answer alone does not prove Runtime lost data."
-    - "The Numeric kernel provides exact arithmetic under explicit units and rounding policies. Compare cash constraints before formatting: two-decimal displays can conceal a CNY 0.001 shortfall."
-    - "Fee estimates are not actual charges, and simulated annualization is not account performance. Share genuinely equivalent methods while preserving distinct semantics, versions, and historical reports."
+    - "Before checking a financial number, confirm its instrument, date, units, and denominator; then recompute it and check the prose."
+    - "Compare exact cash amounts before rounding. Two-decimal displays can hide a CNY 0.001 shortfall."
+    - "A fee estimate is not an actual charge, and simulated annualized returns are not real account performance."
+    - "Share calculations with matching semantics. Keep distinct definitions versioned, and do not recalculate old reports with today's formulas when reopening them."
   appliesTo:
-    - "Reviewing research numbers, cash constraints, or fee calculations, and dividing responsibility between numeric infrastructure and financial methods."
+    - "Checking important research numbers, fee estimates, and cash constraints."
+    - "Separating the checks owned by exact arithmetic from those owned by financial methods."
   notFor:
-    - "Not current market data or a record of investor losses; scoped numerical fixes do not certify all transactions or autonomous research quality."
+    - "Current quotes or actual trading losses; the historical misread and synthetic examples do not establish overall research quality."
 ---
 
 # Financial AI's Most Dangerous Appearance of Expertise: The Data Is Real, but the Numbers Are Wrong

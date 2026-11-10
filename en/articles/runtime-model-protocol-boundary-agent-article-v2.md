@@ -2,13 +2,14 @@
 description: "A protocol simplification separates model-chosen actions from program-owned permissions, receipts and outcomes. Booking examples and a bounded public calculation path explain why stopping research, publishing text and safely retrying an operation need distinct evidence."
 readingBrief:
   takeaways:
-    - "The model interprets intent and chooses actions; effect owners retain permissions, calls and receipts instead of asking the model to maintain a conflicting state mirror."
-    - "Stopping research, committing prose and saving a file are separate facts. Citation defects need not erase independently authorized prose, and completion flags cannot certify meaning."
-    - "Recover confirmed results under their original identity and reconcile unknown effects first. The public one-correction path covers narrowly bounded, undispatched calculation inputs—not general retries."
+    - "The model chooses actions; programs record permissions, calls and receipts, avoiding two accounts of the same fact."
+    - "Confirm research completion, text commitment and file persistence separately. A completion flag cannot certify an answer."
+    - "A bad citation affects its attachment, not independently authorized text. Private-source permissions still apply."
+    - "Reconcile unknown outcomes before retrying. The public version allows one argument correction only for a bounded, undispatched calculation."
   appliesTo:
-    - "Simplifying Agent turn protocols or reviewing the boundary between model judgment, execution state, correction and recovery."
+    - "Simplifying turn protocols and separating model judgment from execution records."
   notFor:
-    - "Treating the room-booking example as an implemented feature, or inferring better model quality, lower cost or universal crash recovery from fewer fields."
+    - "Room booking is illustrative. Fewer fields do not establish better accuracy, lower cost or recovery from every crash."
 ---
 # Stop Making the Model a State Machine: Simplifying an Agent Protocol
 

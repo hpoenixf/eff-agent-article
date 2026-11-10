@@ -3,12 +3,13 @@ description: "Why do incremental research answers read like miniature reports st
 readingBrief:
   takeaways:
     - "Incremental delivery should develop one answer around the user’s questions, not package every tool-work phase as another self-contained miniature report."
-    - "The model needs authorized current text, revision identities, and omission notices to choose between adding, correcting, or finishing; historical IDs alone are insufficient."
-    - "Measure the first useful answer, then assess readability, facts, citations, and completion separately; limited real-model observations do not establish a stable quality gain."
+    - "Show the model the permitted current text and version, with omissions noted. Revise an overturned finding instead of appending a contradiction."
+    - "Answer a supported, important subquestion early. “I am about to search” is not a first useful answer."
+    - "Assess readability, facts, citations, and task completion separately. A few real-model tests do not establish stable quality gains."
   appliesTo:
-    - "Agents with progressive publication that repeatedly summarize, append contradictory findings, or leave readers to assemble multiple research reports."
+    - "Agents whose incremental answers repeat summaries, contradict earlier findings or leave readers to assemble the report."
   notFor:
-    - "Unrestricted document merging and reordering, or replacing factual checks and completion assessment with writing prompts and valid citation IDs."
+    - "Arbitrary document merging, deletion and reordering, or replacing factual checks with writing prompts and valid citation IDs."
 ---
 # Progressive Agent Answers: How to Keep One Research Narrative Coherent
 

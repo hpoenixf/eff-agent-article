@@ -3,13 +3,14 @@ title: "What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Ag
 description: "A mechanism-level account of the Research Evidence Store's passive, bounded capture of logical requests, observable outputs, and source dependencies—without turning telemetry into execution authority."
 readingBrief:
   takeaways:
-    - "Research evidence stores bounded observation copies, not execution receipts; dispatch, queue acceptance, and durable persistence remain separate facts."
-    - "Capture permission precedes sensitive-content traversal; bounded queues and writes keep optional retention failures from rewriting dispatch, budgets, or Run termination."
-    - "Historical reads recheck current access, source revocation, dependency versions, and integrity; retained copies authorize neither executable recovery nor billing claims."
+    - "A call record is a limited observed copy. Sending a request, queuing its record, and saving the content are separate events."
+    - "Check capture permission before reading. Bound queues and prevent database lock conflicts; storage failure must not stop research."
+    - "Recheck current permission, source version, and integrity when reading old records. Past access does not grant access now."
+    - "Missing records do not prove no request or zero cost. Saved copies cannot directly resume execution."
   appliesTo:
-    - "Designing auditable agent input/output retention, bounded asynchronous storage, and historical readback with revocation and expiry checks."
+    - "Saving Agent inputs and outputs for debugging while handling capture permission, storage limits, expiry and revoked access."
   notFor:
-    - "Guaranteeing complete reconstruction of every call, replaying tasks from telemetry, or certifying production capture rates and financial research quality."
+    - "Reconstructing every call completely or using retained records to claim better financial research."
 ---
 
 # What a Model Attempt Leaves Behind: Capturing, Retaining, and Reading Agent Research Evidence

@@ -3,13 +3,14 @@ title: "Why Not Just Ask a Model to Summarize the Conversation When Context Is F
 description: "How LLM abstractive summarization compresses settled tool turns while retaining the latest two turns and original-result references, and why this design uses incremental, non-recursive notes."
 readingBrief:
   takeaways:
-    - "Use semantic compaction after externalization and reversible fitting; a soft target is desired headroom, while adoption still requires measured savings, hard-capacity fit and original authorization."
-    - "Summarize sealed older tool proposals with an LLM while retaining the latest two turns; user text and tool results stay independent, and previous notes never become new summary input."
-    - "Bind compaction records to the original Run, range and request identity; recovery reads the checkpoint rather than repeating summarization or tool effects after a lost acknowledgment."
+    - "Replace repeated results with rereadable references first. Summarize only if space remains tight; summaries cost time and model usage."
+    - "Summaries describe old tool proposals, not proof of execution. Preserve original user text, results, and execution records separately."
+    - "Keep the latest two turns and summarize only uncompacted work. Do not resummarize old notes; the tradeoff is accumulating notes."
+    - "Adopt a summary only if the full request saves space and meets capacity and permission limits. Reuse saved notes after restart without repeating tools."
   appliesTo:
-    - "Reducing context pressure within a long research Run while preserving original-source access, execution facts and process recovery."
+    - "Keeping a long research task within context limits while retaining source rereads, tool execution records and restart recovery."
   notFor:
-    - "Treating committed summaries or scripted note adoption as proof of real-model understanding, repeated-compaction quality or successful end-to-end research."
+    - "Ordinary chat summaries, or tasks where removing repeated output is enough. The article also does not establish better answer quality or total cost after repeated compaction."
 ---
 
 # When Context Is Nearly Full, Why Can't We Simply Ask a Model to Summarize History?

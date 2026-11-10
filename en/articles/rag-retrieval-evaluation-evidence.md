@@ -3,14 +3,14 @@ title: "RAG Recall Looks Great. Why Doesn't That Prove an Agent Found the Right 
 description: "A real ETF disclosure investigation shows why synthetic retrieval scores, authorized candidates, model consumption, and supported financial claims need separate evidence."
 readingBrief:
   takeaways:
-    - "Compare retrieval on matching eligible sources, candidate pools, and chunk granularity. Perfect recall of synthetic positives neither labels unjudged passages nor establishes real-corpus recall."
-    - "Authorization, request visibility, invocation, and source-text consumption need separate evidence. A complete literal-match list locates terms without proving the surrounding passages were read."
-    - "Connecting BM25 or a reranker does not establish better financial research. Check source dates, claim support, and matched task quality and cost before asserting benefit."
-    - "Separating Runtime contract execution, fidelity to an explicitly requested query, and complete task quality in real runs instead of pooling their success rates."
+    - "Compare retrieval on the same eligible sources and chunk sizes. Unjudged passages are not negatives; synthetic perfection is not real-corpus recall."
+    - "Check authorization, visibility, invocation, and text reading separately. Finding keyword locations does not establish that evidence was read."
+    - "After successful retrieval, check the actual query against user instructions and the final claims against their sources."
+    - "Wiring in BM25 or reranking proves an execution path. Better research requires matched quality-and-cost comparisons."
   appliesTo:
-    - "Teams evaluating financial RAG changes or diagnosing the gap between retrieval ranking, tool consumption, and supported final claims."
+    - "Teams comparing financial RAG methods or diagnosing answers that remain wrong despite retrieval hits."
   notFor:
-    - "Not evidence of established BM25, TEI, or Ragas quality gains, or a comprehensively labeled real-corpus benchmark."
+    - "Proven quality gains from BM25, TEI, or Ragas, or a fully labeled real-corpus benchmark."
 ---
 
 # RAG Recall Looks Great. Why Doesn't That Prove an Agent Found the Right Financial Evidence?

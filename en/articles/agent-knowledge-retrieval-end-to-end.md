@@ -3,16 +3,15 @@ title: "The RAG Lifecycle: From Document Ingestion to Cited Answers"
 description: "Follow one ETF notice through ingestion, parsing, chunking, hybrid indexing, retrieval, reranking, context and citations, with framework comparisons and ETF Agent implementation details."
 readingBrief:
   takeaways:
-    - "Understand RAG through two paths: turn originals into source-linked indexes offline, then turn questions into candidates, context and cited answers online."
-    - "LlamaIndex, LangChain and Haystack supply loading, splitting, retrieval and generation components; projects still define source scope, versions, actual delivery and evaluation."
-    - "The private ETF Agent implementation described in earlier public articles combines knowledge ingestion, PostgreSQL/pgvector, lexical retrieval and RRF, optional TEI reranking, and Native Knowledge delivery into Host-managed citations."
-    - "Follow the same 2023 notice through each input and output, then evaluate retrieval, actual model reading, claim support and cost separately."
-    - "Public v0.23 Knowledge carries an admitted snapshot, original whole pages, result identities, and recovery through one research Run; complete lexical matches do not mean the user task was completed correctly."
+    - "RAG makes files searchable, finds material for a question, reads the originals and produces a cited answer. Keep sources and versions through every step."
+    - "Limit the allowed sources before ranking. Reranking only reorders existing candidates; missing text needs an ingestion or retrieval fix."
+    - "Finding a passage is not enough: check that its text reached the model, the citation points to it, and it supports the specific claim."
+    - "Start with finding material, reading it and answering. Use the same questions to test whether adding vector retrieval or reranking is worthwhile."
+    - "Public v0.23 searches permitted sources lexically and delivers whole original pages, not the full private RAG stack. Complete matches do not establish a correct answer."
   appliesTo:
-    - "Developers and technical leads who want a complete working picture of RAG and a practical mapping from framework components to engineering steps."
-    - "Agent projects answering questions, comparing documents and tracing sources across a versioned corpus."
+    - "Developers learning the file-to-answer RAG flow or choosing components for questions over versioned documents."
   notFor:
-    - "Treating the teaching flow or small public example as certification of a complete production deployment, financial-research quality or compliance."
+    - "Using teaching examples to certify production readiness, financial-answer accuracy or compliance."
 ---
 
 <script setup>

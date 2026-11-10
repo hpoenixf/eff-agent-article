@@ -3,13 +3,14 @@ title: "Why a Small ETF Investment Assistant Became an Engineering Problem"
 description: "A dated first-week retrospective: timeouts, stale data, disappearing reports, confirmations and evidence-aware design."
 readingBrief:
   takeaways:
-    - "The first week showed that a successful minimal model probe does not establish a working research path; tool completion, file existence, and HTTP success are separate facts."
-    - "Holdings units, current NAV, and source dates need distinct authority. Missing current evidence cannot be replaced with stale snapshots or general knowledge about portfolios."
-    - "A confirmation button submits proposal identity while the server rechecks permission, revision, and freshness. That early flow did not write a real investment ledger."
+    - "A successful minimal model call does not prove the full research path. Inspect data, tools, persistence, and page delivery separately."
+    - "Recalculate current value from units and current NAV. Stale snapshots or general knowledge cannot fill missing current holdings evidence."
+    - "Check file contents and versions, not just existence. Tool completion and HTTP 200 do not establish the intended result."
+    - "Confirmation submits a proposal identity; the server still checks permission, version, and freshness. The first-week flow did not write real holdings."
   appliesTo:
-    - "Readers exploring why the ETF assistant’s first week, August 26–September 2, 2026, centered on data, delivery, and authorization."
+    - "Readers interested in the ETF assistant’s first-week lessons about data, delivery, and authorization."
   notFor:
-    - "Not the current architecture, an autonomous investment-product description, or acceptance evidence for real trading safety."
+    - "The current architecture manual, an autonomous-investing product description, or real-trading safety acceptance."
 ---
 
 # Why a Small ETF Investment Assistant Became an Engineering Problem

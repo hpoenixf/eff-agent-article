@@ -3,13 +3,14 @@ title: "Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, R
 description: "The Numeric kernel: exact decimal strings, explicit dimensions, signed rounding, comparisons, residuals, and separation from financial-method authority."
 readingBrief:
   takeaways:
-    - "Decimal strings preserve source precision, with explicit units and ratio scales; amounts, shares and percentage points cannot derive their meaning from magnitude or display formatting."
-    - "Rounding policy determines negative ties, and residuals record rounded minus exact; identical displays need not mean equal values, while conflicting strict constraints remain infeasible."
-    - "Numeric owns reproducible operations and local rejection; domains own formulas, denominators, dates and applicability, so exact arithmetic does not establish correct investment conclusions."
+    - "Preserve precision with decimal strings. Specify currency, share identity, and ratio scale; do not guess units from magnitude."
+    - "Declare rounding rules and record the difference: 2.055 to 2.06 leaves 0.005. Negative ties also follow the declared rule."
+    - "Three weights of exactly 0.333 do not total 1. Report the conflict instead of hiding it through formatting."
+    - "The kernel handles arithmetic; business modules choose formulas, dates, and conditions. Exact calculation does not validate an investment judgment."
   appliesTo:
-    - "Designing deterministic amount, share and weight calculations that need explicit unit checks, signed rounding, residuals and domain-constraint ownership."
+    - "Implementing reproducible amount, share and weight calculations with unit checks, rounding differences and conflicting constraints."
   notFor:
-    - "Seeking a universal investment-truth authority, or using synthetic arithmetic tests to certify fresh data, correct return conventions or executed trades."
+    - "Deciding whether an investment is sound, data is current or a trade executed. Exact arithmetic cannot establish those facts."
 ---
 
 # Exact Numbers Are Not Correct Investments: A Numeric Kernel for Units, Rounding, and Residuals

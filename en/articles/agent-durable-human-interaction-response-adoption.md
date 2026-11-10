@@ -2,13 +2,14 @@
 description: "When an agent needs user input, which work can continue and which must wait? Follow research dependencies through non-blocking questions, safe parking, response adoption and same-run recovery, while separating input, permission grants and operation approval."
 readingBrief:
   takeaways:
-    - "Choose non-blocking when authorized work can proceed independently; request blocking when all useful next work depends on the answer. Runtime still decides whether parking is safe."
-    - "Persist question identity, response receipt and adoption by the original consumer separately so that disconnects, retries and restarts can continue the original task."
-    - "The waiting mode determines scheduling; the interaction type determines what an answer can change. Ordinary input, additional permission and approval of one operation are not interchangeable."
+    - "After asking, continue independent authorized work. When waiting is necessary, Runtime checks whether pausing is safe."
+    - "Match replies to the original question and task. Receipt is not adoption; retries must not apply a reply twice."
+    - "Resume paused tasks from checkpoints. Continuing a finished task needs user confirmation and a linked new execution."
+    - "Research input, read permission, and action approval are separate. Permission to continue is not approval for every action."
   appliesTo:
     - "Designing research agents that wait for human input while preserving intermediate results and recoverable execution."
   notFor:
-    - "Finding a ready-made remote approval platform, or treating the public ordinary-response path as a complete HIO implementation."
+    - "Remote multi-user approvals. The public version has local, single-user sequential questions only, without extra permissions, action approval, or post-termination continuation."
 ---
 # After an Agent Asks the User: Returning a Durable Human Response to the Original Research
 

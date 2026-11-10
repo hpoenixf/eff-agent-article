@@ -6,13 +6,14 @@ evidence:
   live: "Shared allocation, complete causal costs and invoice reconciliation remain open"
 readingBrief:
   takeaways:
-    - "Meter actual physical attempts. Gateway, trace and summary observations must not charge one dispatch repeatedly, while failed attempts must not disappear through deduplication."
-    - "The current report view associates publication revisions with requests, not the full causal workload. Shared views are non-additive, and costs stay unallocated until a policy is chosen."
-    - "Distinguish known estimates, unknown costs and final invoices. A failed cost observer must not break report readback or trigger fresh model work merely to repair accounting."
+    - "Meter actual dispatches: do not count one send twice or deduplicate away a failed attempt followed by another send."
+    - "When a report and chart share requests, their cost views cannot be added. Keep shared costs unallocated until a rule is chosen."
+    - "The current implementation links publication revisions to requests; it does not cover all earlier retrieval, specialist work and shared research."
+    - "Unknown cost is not zero, and an estimate is not an invoice. Failed cost queries must not block authorized report reads or trigger reruns."
   appliesTo:
-    - "Designing report-cost displays and checking request association, shared work, missing usage and the failure boundary of optional cost reads."
+    - "Designing report-cost displays and checking duplicate charges, shared work and missing usage."
   notFor:
-    - "Presenting publication-request subtotals as total report cost or zero reported balance charges as free work; complete allocation, causal costing and invoice reconciliation remain open."
+    - "Publication-request subtotals are not complete report costs. A zero response-time balance charge does not mean free work."
 ---
 
 # What Does an Agent-Generated Report Actually Cost?

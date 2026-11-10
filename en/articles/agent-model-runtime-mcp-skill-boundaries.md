@@ -2,13 +2,14 @@
 description: "Centralizing a tool definition does not guarantee correct ownership. Two design evolutions clarify the roles of models, skills, capability interfaces and Runtime, including when hooks or wrappers help and which protections must survive their removal."
 readingBrief:
   takeaways:
-    - "Models interpret, Skills supply methods, capability owners define tools, and Runtime governs process facts. One owner is not enough if that owner is misplaced."
-    - "Hooks suit deterministic field normalization and bounded projection, not business-model reconstruction. Repeated result reshaping usually calls for a better capability interface."
-    - "Migrate necessary protections before deleting wrappers. Visible tools still require invocation authorization, and oversized complete results must not silently become partial successes."
+    - "Models interpret questions, Skills supply methods, tools define capabilities, and Runtime records permissions and execution."
+    - "Use hooks for deterministic field changes. If every result needs business restructuring, improve the tool interface."
+    - "Move authorization and source checks before removing a wrapper. Tool visibility still requires invocation checks."
+    - "If a complete result does not fit, report it as unavailable rather than silently returning only the first few items."
   appliesTo:
-    - "Deciding whether an Agent tool, Skill, Hook or wrapper should be retained, deepened, relocated or removed."
+    - "Deciding who should own Agent tools, Skills, hooks and wrappers."
   notFor:
-    - "Seeking a universal four-service deployment template, framework benchmark, or proof that historical partial migrations completed the investment-research system."
+    - "Not a four-service deployment template. Partial historical migrations and synthetic demos do not qualify the full research system."
 ---
 # From Asking the Model to Do Less to Asking Runtime to Own Less: Model, Runtime, MCP, and Skill Responsibilities
 

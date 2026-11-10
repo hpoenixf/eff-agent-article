@@ -2,13 +2,13 @@
 description: "Why can a registered tool remain invisible—or appear without being executable? Follow Skill, MCP and Host boundaries into final request assembly, where an independent admission baseline detects descriptor changes and rejected requests settle through the existing execution ledger."
 readingBrief:
   takeaways:
-    - "Tool registration, Skill declarations, Host admission and actual model visibility are different facts; Tool Surface projects lawful decisions from their original Owners."
-    - "Copy complete tool descriptors independently before mutable Hooks, then check early and final parity; request seals and shared mutable objects cannot authorize themselves."
-    - "Reject only the malformed request assembly and settle its undispatched reservation through the original ledger; do not create another permission registry or erase legitimate published text."
+    - "A registered tool may be invisible or unauthorized. Build the model-facing list from Host admission decisions."
+    - "Copy complete tool definitions before Hooks can mutate them, then check intermediate changes and the final request against that independent baseline."
+    - "On a tool mismatch, reject this request, record non-dispatch and close its reservation in the original ledger. Preserve valid content already produced."
   appliesTo:
-    - "Investigating tools that exist in a registry but remain invisible, or Hooks, context fitting and asynchronous preparation that alter the final model-facing tool set."
+    - "Diagnosing missing tools or tool-list changes caused by Hooks and context processing."
   notFor:
-    - "Seeking an all-purpose capability manager, or treating logical tool parity as proof of good model choices, Provider wire compatibility or newly granted permissions."
+    - "Assessing model tool choices or Provider wire-format compatibility."
 ---
 <div><a id="the-agent-has-the-tool—so-why-can-t-the-model-see-it-our-path-to-a34-tool-surface"></a><a id="the-agent-has-the-toolso-why-cant-the-model-see-it-our-path-to-a34-tool-surface"></a></div>
 

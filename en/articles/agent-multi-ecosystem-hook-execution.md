@@ -2,13 +2,13 @@
 description: "The same Hook name can imply different effects across Claude, Pi and Codex. Compare command dialects with Pi Factories and closures to understand ordering, termination and recovery for selected extensions without replacing the existing Agent loop or replaying settled effects."
 readingBrief:
   takeaways:
-    - "Identically named Hooks need not share semantics; compatibility Profiles interpret each dialect while the original Runtime authorizes effects and explicitly rejects unsupported combinations."
-    - "Putting reviewed Pi modules and closures in terminable processes goes beyond ending a wait, but does not sandbox untrusted code or undo external effects."
-    - "Bind side-effecting Hooks to original invocation and plugin-generation identities; recovery reuses settled receipts, preserves unknown outcomes, and avoids rerunning initialization on terminal replay."
+    - "Same-named Hooks may differ in inputs, exit codes and effects. Adapt each ecosystem explicitly and reject unsupported combinations."
+    - "A separate process lets the Host attempt termination of a reviewed Pi module and its closures, then check the outcome. Ending a wait alone does not stop execution."
+    - "Recovery reuses receipts for the original invocation and plugin generation. Keep unknown outcomes unknown, and do not rerun initialization when rereading completed tasks."
   appliesTo:
-    - "Running selected Claude/Pi extension capabilities inside an existing Agent loop while checking callback ordering, termination and recovery semantics."
+    - "Adding selected Claude/Pi extensions to an existing Agent loop with explicit ordering, cancellation and recovery."
   notFor:
-    - "Expecting universal plug-and-play compatibility, forced isolation of every JavaScript Hook, or full ecosystem production acceptance from scoped combination tests."
+    - "Universal plug-and-play compatibility, untrusted-code sandboxing, or undoing external effects by terminating a process."
 ---
 # From Claude and Pi to Codex: Running Multi-Ecosystem Hooks Inside Our Agent Runtime
 
