@@ -1,8 +1,103 @@
 import { learningPathSlugs } from '../../book.mjs'
 
-const labels = {
-  zh: ['入门', '进阶', '深入', '练手', '全景'],
-  en: ['Introduction', 'Intermediate', 'Deep dive', 'Workshop', 'Panorama']
+// Presentation only. Article identity and reading order belong to book.mjs.
+const presentation = {
+  "agent-in-15-minutes": {
+    "zh": {
+      "label": "入门",
+      "title": "十五分钟入门 Agent",
+      "description": "先跑一个文档比较例子，理解最小 Agent 循环。"
+    },
+    "en": {
+      "label": "Introduction",
+      "title": "Agents in 15 Minutes",
+      "description": "Run a document comparison and understand the smallest Agent loop."
+    }
+  },
+  "prompt-context-rag-memory": {
+    "zh": {
+      "label": "输入与知识",
+      "title": "Prompt、Context、RAG、Memory",
+      "description": "分清任务要求、当前材料、检索与长期积累。"
+    },
+    "en": {
+      "label": "Input and knowledge",
+      "title": "Prompt, Context, RAG and Memory",
+      "description": "Connect instructions, current inputs, retrieval and lasting preferences."
+    }
+  },
+  "agent-ten-modules": {
+    "zh": {
+      "label": "进阶",
+      "title": "读懂十个核心模块",
+      "description": "沿实际代码认识工具、上下文、记忆和会话。"
+    },
+    "en": {
+      "label": "Intermediate",
+      "title": "Ten Core Modules",
+      "description": "Follow working code through tools, context, memory and sessions."
+    }
+  },
+  "tools-function-calling-mcp-skill": {
+    "zh": {
+      "label": "工具与方法",
+      "title": "Tool、Function Calling、MCP、Skill",
+      "description": "沿一次文档读取，理解能力怎样被发现和调用。"
+    },
+    "en": {
+      "label": "Tools and methods",
+      "title": "Tools, Function Calling, MCP and Skills",
+      "description": "Follow one document read through discovery, calls and execution."
+    }
+  },
+  "conversation-context-memory-checkpoints": {
+    "zh": {
+      "label": "记忆与接续",
+      "title": "聊天记录、上下文、记忆、检查点",
+      "description": "理解保存信息、记住偏好与继续执行的区别。"
+    },
+    "en": {
+      "label": "Memory and continuity",
+      "title": "History, Context, Memory and Checkpoints",
+      "description": "Distinguish retained information, preferences and execution progress."
+    }
+  },
+  "open-etf-agent-v010-system-design": {
+    "zh": {
+      "label": "深入",
+      "title": "从一份报告到持续执行与专家协作",
+      "description": "沿资料、执行与分工，深入系统设计和交接。"
+    },
+    "en": {
+      "label": "Deep dive",
+      "title": "From One Report to Durable Execution and Specialists",
+      "description": "Connect evidence, execution and specialist handoffs."
+    }
+  },
+  "open-etf-agent-research-project-workshop": {
+    "zh": {
+      "label": "练手",
+      "title": "把自己的资料交给 Agent",
+      "description": "导入自己的资料，检查报告并继续研究。"
+    },
+    "en": {
+      "label": "Workshop",
+      "title": "Bring Your Own Documents to an Agent",
+      "description": "Import documents, inspect a report and continue your research."
+    }
+  },
+  "017-prompt-to-answer-six-layer-panorama-v3": {
+    "zh": {
+      "label": "全景",
+      "title": "六层调用全景",
+      "description": "带着已理解的任务，展开六层系统及完整交接。"
+    },
+    "en": {
+      "label": "Panorama",
+      "title": "Six-Layer Request Lifecycle",
+      "description": "Expand a familiar task into the six-layer system and its handoffs."
+    }
+  }
 }
 
 export function learningPathNavigation(relativePath) {
@@ -12,7 +107,7 @@ export function learningPathNavigation(relativePath) {
   if (current < 0) return null
   const steps = learningPathSlugs.map((value, index) => ({
     slug: value,
-    label: labels[english ? 'en' : 'zh'][index],
+    ...presentation[value][english ? 'en' : 'zh'],
     href: `${english ? '/en' : ''}/articles/${value}`,
     current: index === current,
     number: index + 1
@@ -43,9 +138,8 @@ export function learningPathStages(english = false) {
   const language = english ? 'en' : 'zh'
   return stageViews.map(view => {
     const slug = view.slug
-    const index = learningPathSlugs.indexOf(slug)
     return {
-      key: view.key, slug, label: labels[language][index], description: view[language],
+      key: view.key, slug, label: presentation[slug][language].label, description: view[language],
       href: `${english ? '/en' : ''}/articles/${slug}`,
       src: view.key === 'panorama'
         ? `/visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-${language}.svg`

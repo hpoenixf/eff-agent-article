@@ -128,13 +128,13 @@ The command reports the directory for the run. Open `report.md` inside that dire
 
 The default example uses a **scripted model-action sequence**, so no model API key is needed. You can explore the tool execution process locally. When you later connect a live model, the same idea of choosing steps, using tools, and consuming results remains central.
 
-## Next: Intermediate, with ten modules in the code
+## Next, trace where the model input comes from
 
 You now have a useful mental model: **the user sets a goal, AI chooses the next step from each result, the runtime drives the loop, and tools perform the actions.**
 
-Continue with [**Agent Intermediate: Ten Core Modules in Open ETF Agent**](./agent-ten-modules.md). In the same v0.15 checkout, meet Skills, MCP, context, memory, sessions, and subagents. Then the [Deep Dive](./open-etf-agent-v010-system-design.md) follows an implemented specialist collaboration to show how those parts cooperate.
+Read [Prompt, Context, RAG and Memory](./prompt-context-rag-memory.md) first to distinguish requirements, original text and lasting preferences in the same comparison. Then [Ten Core Modules](./agent-ten-modules.md) connects those capabilities to working code.
 
-**Five-stop reading path: Introduction → Intermediate → Deep dive → Workshop → Panorama.** After Deep Dive, use the [Workshop](./open-etf-agent-research-project-workshop.md) to bring your own documents into a task, then return to the system panorama.
+**The eight steps are Introduction → Input and knowledge → Intermediate → Tools and methods → Memory and continuity → Deep dive → Workshop → Panorama.** The three concept guides explain information, actions and continuity. After [Deep Dive](./open-etf-agent-v010-system-design.md), use the [Workshop](./open-etf-agent-research-project-workshop.md) with your own documents, then return to the full architecture.
 
 You have already met three movements of the [six-layer responsibility map](./017-prompt-to-answer-six-layer-panorama-v3.md): **L1 accepts the task, L3 decides the next action, and L4 uses tools**. L4 means “tools and domain capabilities”: tools actually read, calculate, or save after the model proposes an action; an answer alone cannot establish that it happened. Intermediate adds ownership and context (L2); Deep Dive follows how results are saved and actually delivered (L5/L6). You do not need to memorize the numbers yet—just keep following the task.
 

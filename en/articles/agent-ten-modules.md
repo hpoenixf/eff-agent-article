@@ -291,8 +291,8 @@ Read the six layers as handoff positions, not six services that must run in sequ
 
 </details>
 
-**Deep Dive adds fewer new nouns and asks harder questions instead:** How can a number be traced to its source? How does a task cross a process boundary? How can a specialist's summary avoid replacing primary evidence?
+Next, read [Tools, Function Calling, MCP and Skills](./tools-function-calling-mcp-skill.md) to follow capabilities, protocols and methods through one page read. Then [History, Context, Memory and Checkpoints](./conversation-context-memory-checkpoints.md) distinguishes information for reasoning from records for execution continuation.
 
-Continue with [**Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration**](./open-etf-agent-v010-system-design.md). Then use the [Workshop](./open-etf-agent-research-project-workshop.md) to import your own documents and inspect a report, before placing those mechanisms in the larger [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md).
+Continue to [Deep Dive](./open-etf-agent-v010-system-design.md) for source tracing, cross-process continuation and specialist handoffs. Follow it with the [Workshop](./open-etf-agent-research-project-workshop.md) and the [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md).
 
 [Back to Introduction](./agent-in-15-minutes.md) · [中文](../../articles/agent-ten-modules.md) · [Open ETF Agent (stars welcome)](https://github.com/hpoenixf/open-etf-agent)

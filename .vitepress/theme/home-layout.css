@@ -29,14 +29,22 @@
 .VPHome .VPHero .VPButton.brand { background: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); color: var(--vp-c-bg); }
 .VPHome .VPHero .VPButton.brand:hover { background: var(--vp-c-brand-2); border-color: var(--vp-c-brand-2); }
 .VPHome .VPHero .home-reading-actions { max-width: 560px; gap: 8px 16px; margin-top: 12px; align-items: center; }
-.VPHome .VPHero .home-reading-menu { max-width: none; width: 100%; flex-basis: 100%; color: var(--vp-c-text-1); }
+.VPHome .VPHero .home-reading-menu { position: relative; z-index: 30; max-width: none; width: 100%; flex-basis: 100%; color: var(--vp-c-text-1); }
 .VPHome .VPHero .home-reading-menu summary {
   min-height: 48px; padding: 10px 16px; border: 1px solid var(--vp-c-divider);
   border-radius: 8px; background: var(--vp-c-bg); font-size: 14px;
 }
 .VPHome .VPHero .home-reading-menu summary > span:first-child { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
 .VPHome .VPHero .home-reading-menu small { color: var(--vp-c-text-2); font-size: 13px; }
-.VPHome .VPHero .home-reading-menu__links { border-color: var(--vp-c-divider); background: var(--vp-c-bg-soft); }
+.VPHome .VPHero .home-reading-menu__links {
+  position: absolute; top: 100%; left: 0; right: 0; margin-top: 8px;
+  max-height: min(360px, 55dvh, var(--home-menu-space, 55dvh)); overflow-y: auto; overscroll-behavior: contain;
+  border-color: var(--vp-c-divider); background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-3);
+}
+.VPHome .VPHero .home-reading-menu[data-placement="above"] .home-reading-menu__links {
+  top: auto; bottom: 100%; margin-top: 0; margin-bottom: 8px;
+}
 .VPHome .VPHero .home-reading-menu__links a { min-height: 48px; color: var(--vp-c-text-1); }
 .VPHome .VPHero .home-reading-menu__links a:hover, .VPHome .VPHero .home-reading-menu summary:hover { background: var(--vp-c-bg-soft); }
 .VPHome .VPHero .home-reading-actions__secondary { display: flex; flex-wrap: wrap; gap: 8px 16px; }

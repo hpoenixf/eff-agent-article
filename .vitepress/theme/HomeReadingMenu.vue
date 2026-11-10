@@ -8,9 +8,17 @@ const route = useRoute()
 const disclosure = ref<HTMLDetailsElement>()
 const english = computed(() => lang.value.startsWith('en'))
 const steps = computed(() => learningPathNavigation(`${english.value ? 'en/' : ''}articles/agent-in-15-minutes.md`)!.steps.slice(1))
-const descriptions = computed(() => english.value
-  ? ['Ten modules and their responsibilities', 'From a working loop to a complete system', 'Use your own documents in a research project', 'The six-layer architecture map']
-  : ['读懂十个模块及其分工', '从可运行闭环深入系统设计', '带上自己的资料，完成可检查的研究任务', '看清六层架构与完整交接'])
+
+function fit() {
+  const menu = disclosure.value
+  if (!menu) return
+  const box = menu.getBoundingClientRect()
+  const below = window.innerHeight - box.bottom - 16
+  const above = box.top - 16
+  const placement = below < 200 && above > below ? 'above' : 'below'
+  menu.dataset.placement = placement
+  menu.style.setProperty('--home-menu-space', `${Math.max(0, placement === 'above' ? above : below)}px`)
+}
 
 function close(restoreFocus = false) {
   if (!disclosure.value?.open) return
@@ -29,27 +37,32 @@ function escape(event: KeyboardEvent) {
 watch(() => route.path, () => close())
 watch(lang, () => close())
 onMounted(() => {
+  fit()
   document.addEventListener('pointerdown', outside)
   document.addEventListener('focusin', outside)
   document.addEventListener('keydown', escape)
+  window.addEventListener('resize', fit)
+  window.addEventListener('scroll', fit, { passive: true })
 })
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', outside)
   document.removeEventListener('focusin', outside)
   document.removeEventListener('keydown', escape)
+  window.removeEventListener('resize', fit)
+  window.removeEventListener('scroll', fit)
 })
 </script>
 
 <template>
   <div class="home-reading-actions">
-    <details ref="disclosure" class="home-reading-menu">
+    <details ref="disclosure" class="home-reading-menu" @toggle="fit">
       <summary>
-        <span>{{ english ? 'Keep reading' : '继续阅读' }}<small>{{ english ? 'Intermediate · Deep dive · Workshop · Panorama' : '进阶 · 深入 · 练手 · 全景' }}</small></span>
+        <span>{{ english ? 'Keep reading' : '继续阅读' }}<small>{{ english ? 'Concepts and hands-on guides' : '概念串讲与实作进阶' }}</small></span>
         <svg class="home-reading-menu__chevron" width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </summary>
       <nav :aria-label="english ? 'Continue the learning path' : '继续阅读路线'" class="home-reading-menu__links">
-        <a v-for="(step, index) in steps" :key="step.slug" :href="withBase(step.href)" @click="close()">
-          <span><strong>{{ step.label }}</strong><small>{{ descriptions[index] }}</small></span>
+        <a v-for="step in steps" :key="step.slug" :href="withBase(step.href)" @click="close()">
+          <span><strong>{{ step.label }}</strong><small>{{ step.description }}</small></span>
           <span aria-hidden="true">→</span>
         </a>
       </nav>

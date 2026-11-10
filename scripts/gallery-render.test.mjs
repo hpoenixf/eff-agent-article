@@ -28,7 +28,9 @@ const Component = (await import(pathToFileURL(modulePath))).default
 test('five gallery views reuse the canonical reading path and existing bilingual diagram geometry', () => {
   for (const english of [false, true]) {
     const stages = learningPathStages(english)
-    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs)
+    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs.filter(slug => ![
+      'prompt-context-rag-memory', 'tools-function-calling-mcp-skill', 'conversation-context-memory-checkpoints'
+    ].includes(slug)))
     assert.equal(stages.length, 5)
     for (const stage of stages) {
       assert.equal(stage.href, `${english ? '/en' : ''}/articles/${stage.slug}`)

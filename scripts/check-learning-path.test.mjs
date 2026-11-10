@@ -9,10 +9,12 @@ import { learningPathNavigation } from '../.vitepress/theme/learning-path-nav.mj
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 
-test('learning path is a five-stop selection from the unique canonical catalogue', () => {
+test('learning path inserts three concept essays into the canonical reading order', () => {
   const all = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
   assert.deepEqual(learningPathSlugs, [
-    'agent-in-15-minutes', 'agent-ten-modules', 'open-etf-agent-v010-system-design',
+    'agent-in-15-minutes', 'prompt-context-rag-memory', 'agent-ten-modules',
+    'tools-function-calling-mcp-skill', 'conversation-context-memory-checkpoints',
+    'open-etf-agent-v010-system-design',
     'open-etf-agent-research-project-workshop',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
@@ -45,7 +47,7 @@ test('each introductory stop links to its immediate next stop in both languages'
       const source = read(prefix + 'articles/' + learningPathSlugs[index] + '.md')
       assert.ok(source.includes(learningPathSlugs[index + 1]), prefix + learningPathSlugs[index])
     }
-    // Five-stop navigation is freely usable; the recommended next step still must not skip bridges.
+    // Navigation is freely usable; the recommended next step must include concept bridges.
     for (const [index, slug] of learningPathSlugs.entries()) {
       const source = read(prefix + 'articles/' + slug + '.md')
       assert.equal((source.match(/<LearningPathNav \/>/g) ?? []).length, 1)
@@ -57,6 +59,7 @@ test('each introductory stop links to its immediate next stop in both languages'
       assert.equal(nav.english, prefix === 'en/')
       for (const step of nav.steps) {
         assert.equal(step.href, '/' + prefix + 'articles/' + step.slug)
+        for (const field of ['label', 'title', 'description']) assert.ok(step[field]?.trim(), step.slug + ':' + field)
       }
     }
     // The alias may serve old bookmarks, but canonical reading pages must not send new readers there.
@@ -92,8 +95,7 @@ test('the duplicate deep-dive address is a bilingual compatibility page only', (
 
 test('shared homepage and catalog cards consume the canonical learning-path selection', () => {
   const component = read('.vitepress/theme/FlagshipEntry.vue')
-  assert.ok(component.includes("from '../../book.mjs'"))
-  assert.ok(component.includes('learningPathSlugs.map'))
+  assert.ok(component.includes('learningPathNavigation'))
   assert.ok(component.includes("'/en'"))
   assert.ok(component.includes('withBase('))
 })
@@ -117,9 +119,13 @@ test('homepage keeps one intro CTA and a compact bilingual continuation disclosu
   assert.match(component, /steps\.slice\(1\)/)
   assert.match(component, /<details ref="disclosure"/)
   assert.match(component, /<summary>/)
+  assert.match(component, /@toggle="fit"/)
+  assert.match(component, /getBoundingClientRect\(\)/)
+  assert.match(component, /removeEventListener\('resize', fit\)/)
+  assert.match(component, /removeEventListener\('scroll', fit\)/)
   assert.match(component, /withBase\(step.href\)/)
-  assert.match(component, /进阶 · 深入 · 练手 · 全景/)
-  assert.match(component, /Intermediate · Deep dive · Workshop · Panorama/)
+  assert.match(component, /概念串讲与实作进阶/)
+  assert.match(component, /Concepts and hands-on guides/)
   assert.match(component, /event.key === 'Escape'/)
   assert.match(component, /removeEventListener\('pointerdown', outside\)/)
   assert.match(component, /removeEventListener\('focusin', outside\)/)
@@ -134,7 +140,7 @@ test('homepage keeps one intro CTA and a compact bilingual continuation disclosu
   }
 })
 
-test('homepage CTA and disclosure share a wide-screen row without overlaying secondary links', async () => {
+test('homepage disclosure floats below its trigger without moving the hero layout', async () => {
   const { parse, compileScript, compileStyle } = await import('@vue/compiler-sfc')
   const { build } = await import('esbuild')
   const { createSSRApp } = await import('vue')
@@ -178,7 +184,11 @@ test('homepage CTA and disclosure share a wide-screen row without overlaying sec
   assert.match(css, /\.home-reading-menu \{ grid-column: 2; grid-row: 3; align-self: start;/)
   assert.match(css, /\.home-reading-actions__secondary \{ grid-column: 1 \/ -1; margin-top: 12px;/)
   assert.match(css, /@media \(max-width: 767px\)[\s\S]*padding: 28px 20px 24px/)
-  assert.ok(!/position:\s*(absolute|fixed)/.test(css), 'Expanded menu must remain in normal flow')
+  assert.match(css, /\.home-reading-menu \{[^}]*position: relative/)
+  assert.match(css, /\.home-reading-menu__links \{[^}]*position: absolute/)
+  assert.match(css, /max-height: min\(360px, 55dvh, var\(--home-menu-space, 55dvh\)\)/)
+  assert.match(css, /\[data-placement="above"\][\s\S]*bottom: 100%/)
+  assert.match(css, /overflow-y: auto/)
   assert.deepEqual(compileStyle({ source: descriptor.styles[0].content, id: 'home-menu-test', scoped: true }).errors, [])
   assert.match(descriptor.styles[0].content, /prefers-reduced-motion: reduce/)
 })
@@ -191,9 +201,9 @@ test('workshop follows deep dive in both menu and article navigation without a f
     assert.equal(deep.next.slug, 'open-etf-agent-research-project-workshop')
     const practice = learningPathNavigation(prefix + 'articles/open-etf-agent-research-project-workshop.md')
     assert.equal(practice.next.slug, '017-prompt-to-answer-six-layer-panorama-v3')
-    assert.equal(practice.steps.length, 5)
-    assert.equal(practice.steps[3].label, prefix ? 'Workshop' : '练手')
-    assert.equal(practice.steps[4].label, prefix ? 'Panorama' : '全景')
+    assert.equal(practice.steps.length, 8)
+    assert.equal(practice.steps[6].label, prefix ? 'Workshop' : '练手')
+    assert.equal(practice.steps[7].label, prefix ? 'Panorama' : '全景')
   }
   for (const en of [false, true]) {
     const diagrams = learningPathStages(en)

@@ -177,7 +177,10 @@ export const collections = [
         "desc": "从入门、进阶到深入机制；用自己的资料练手，再展开六层全景。",
         "items": [
           ["agent-in-15-minutes", "十五分钟入门 Agent"],
+          ["prompt-context-rag-memory", "Prompt、Context、RAG、Memory，模型的输入从哪里来？"],
           ["agent-ten-modules", "Agent 进阶：读懂 Open ETF Agent 的十个核心模块"],
+          ["tools-function-calling-mcp-skill", "Tool、Function Calling、MCP、Skill，一次行动怎样发生？"],
+          ["conversation-context-memory-checkpoints", "聊天记录、上下文、记忆、检查点，Agent 怎样接上过去？"],
           ["open-etf-agent-v010-system-design", "Agent 深入：从一份报告到持续执行与专家协作"],
           ["open-etf-agent-research-project-workshop", "把自己的资料交给 Agent：从第一份报告到可恢复的研究项目"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "六层调用全景：从提问到答案可见"],
@@ -278,7 +281,10 @@ export const panoramaSeriesSlugs = Object.freeze([
 // A curated subset of the canonical catalogue, not a second classification tree.
 export const learningPathSlugs = [
   'agent-in-15-minutes',
+  'prompt-context-rag-memory',
   'agent-ten-modules',
+  'tools-function-calling-mcp-skill',
+  'conversation-context-memory-checkpoints',
   'open-etf-agent-v010-system-design',
   'open-etf-agent-research-project-workshop',
   '017-prompt-to-answer-six-layer-panorama-v3'
