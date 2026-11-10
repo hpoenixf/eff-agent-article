@@ -45,6 +45,7 @@ export const collections = [
         "items": [
           ["022-agent-entry-from-intent-to-direct-research", "Entry：为什么入口越来越简单"],
           ["agent-research-decisions-evidence-synthesis", "研究决策：什么时候停止搜索并回答"],
+          ["agent-deep-research-resource-and-delivery", "Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？"],
           ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
           ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-provider-architecture-and-admission", "Provider：统一接口之后，为什么还需要共享准入"],
