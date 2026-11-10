@@ -1,3 +1,4 @@
+import './project-listings-render.test.mjs'
 import './project-layout.test.mjs'
 import test from 'node:test'
 import { execFileSync } from 'node:child_process'
