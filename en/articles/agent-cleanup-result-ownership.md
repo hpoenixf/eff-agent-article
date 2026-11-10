@@ -75,9 +75,7 @@ Error classification here is more than message text. The existing Host makes a l
 The current fix preserves the existing HTTP decisions, permission constraints, and retry rules. It only stops response-body cancellation from blocking the original classification. The HTTP response determines what 401 means; the outcome of cleaning up its body should not reinterpret it.
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../../visuals/en/cleanup-result-ownership/http-classification.svg" target="_blank" rel="noopener noreferrer" aria-label="Open the full-size diagram">
-    <img src="../../visuals/en/cleanup-result-ownership/http-classification.svg" alt="In the old 401 path, a cancellation rejection could be misclassified as a connection failure. The current path preserves the authentication failure, which does not receive a transient-error retry under the existing policy." loading="lazy" />
-  </a>
+  <img src="../../visuals/en/cleanup-result-ownership/http-classification.svg" alt="In the old 401 path, a cancellation rejection could be misclassified as a connection failure. The current path preserves the authentication failure, which does not receive a transient-error retry under the existing policy." loading="lazy" />
   <figcaption>Figure 1: A cleanup exception can change the upper layer's retry decision, not just its error message. The old path shows only the cancellation-rejection branch. <a class="diagram-original" href="../../visuals/en/cleanup-result-ownership/http-classification.svg" target="_blank" rel="noopener noreferrer">Open the full-size diagram</a></figcaption>
 </figure>
 
@@ -158,9 +156,7 @@ This example distinguishes three actions: starting cleanup, handling cleanup rej
 If the cleanup function blocks synchronously before returning its Promise, this pattern cannot make it non-blocking. It removes the wait for Promise settlement; it does not automatically isolate the execution cost of arbitrary code.
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../../visuals/en/cleanup-result-ownership/lifecycles.svg" target="_blank" rel="noopener noreferrer" aria-label="Open the full-size diagram">
-    <img src="../../visuals/en/cleanup-result-ownership/lifecycles.svg" alt="After a size-limit failure is known, cancellation starts and the result path delivers the original failure. The cancellation Promise may remain pending or settle later." loading="lazy" />
-  </a>
+  <img src="../../visuals/en/cleanup-result-ownership/lifecycles.svg" alt="After a size-limit failure is known, cancellation starts and the result path delivers the original failure. The cancellation Promise may remain pending or settle later." loading="lazy" />
   <figcaption>Figure 2: Observe call settlement separately from cleanup-Promise settlement. Neither alone proves that remote resources have been reclaimed. <a class="diagram-original" href="../../visuals/en/cleanup-result-ownership/lifecycles.svg" target="_blank" rel="noopener noreferrer">Open the full-size diagram</a></figcaption>
 </figure>
 
@@ -204,9 +200,7 @@ That rendering path therefore takes a different approach: terminate the worker, 
 This is compatible with separating results from cleanup. **A failure can reach the caller within a bounded time while resource capacity remains marked unavailable.** The call result, the shared waiting entry, and physical capacity cannot be collapsed into one “done” flag.
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../../visuals/en/cleanup-result-ownership/slot-contracts.svg" target="_blank" rel="noopener noreferrer" aria-label="Open the full-size diagram">
-    <img src="../../visuals/en/cleanup-result-ownership/slot-contracts.svg" alt="Wind's logical entry can be removed after acquisition fails. PDF capacity for real processes can be returned only after termination is confirmed." loading="lazy" />
-  </a>
+  <img src="../../visuals/en/cleanup-result-ownership/slot-contracts.svg" alt="Wind's logical entry can be removed after acquisition fails. PDF capacity for real processes can be returned only after termination is confirmed." loading="lazy" />
   <figcaption>Figure 3: Both are called slots, but they represent different promises. Ending the wait for a result does not make unconfirmed physical capacity safe to reuse. <a class="diagram-original" href="../../visuals/en/cleanup-result-ownership/slot-contracts.svg" target="_blank" rel="noopener noreferrer">Open the full-size diagram</a></figcaption>
 </figure>
 

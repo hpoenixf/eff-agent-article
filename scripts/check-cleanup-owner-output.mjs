@@ -51,6 +51,7 @@ try {
       assert.ok(data.alt.length > 30)
       assert.ok(data.left >= 0 && data.right <= width + 1, JSON.stringify(data))
       await figure.screenshot({ path: `${output}/${lang}-${width}-figure-${index + 1}.png` })
+      assert.ok(await figure.$('img[data-diagram-zoom]'), 'The figure must use the shared zoom enhancement')
       const trigger = await figure.$('.diagram-original')
       await trigger.focus(); await page.keyboard.press('Enter')
       await page.waitForSelector('dialog.diagram-zoom-dialog[open]')

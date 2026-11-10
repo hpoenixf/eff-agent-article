@@ -75,9 +75,7 @@ if (response.status === 401) {
 当前修复保留原有 HTTP 判定、权限约束和重试规则，只让响应体取消不再挡在原分类前面。401 的意义由 HTTP 响应决定，不能交给响应体的清理结果重新解释。
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../visuals/cleanup-result-ownership/http-classification.svg" target="_blank" rel="noopener noreferrer" aria-label="放大查看完整图">
-    <img src="../visuals/cleanup-result-ownership/http-classification.svg" alt="旧 401 路径在取消拒绝后可能误归为连接失败；当前路径保留认证失败，按原策略不做瞬时重试。" loading="lazy" />
-  </a>
+  <img src="../visuals/cleanup-result-ownership/http-classification.svg" alt="旧 401 路径在取消拒绝后可能误归为连接失败；当前路径保留认证失败，按原策略不做瞬时重试。" loading="lazy" />
   <figcaption>图 1：清理异常可能改变的不只是错误文案，还有上层的重试决定。旧路径只画取消拒绝这一分支。 <a class="diagram-original" href="../visuals/cleanup-result-ownership/http-classification.svg" target="_blank" rel="noopener noreferrer">放大查看完整图</a></figcaption>
 </figure>
 
@@ -158,9 +156,7 @@ if (tooLarge) {
 清理函数如果在返回 Promise 之前就同步阻塞，以上写法也无法让它变成非阻塞调用。它切断的是对 Promise 结算的等待，不会自动隔离任意代码的执行成本。
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../visuals/cleanup-result-ownership/lifecycles.svg" target="_blank" rel="noopener noreferrer" aria-label="放大查看完整图">
-    <img src="../visuals/cleanup-result-ownership/lifecycles.svg" alt="已知超限后发起取消，结果路径交付原失败；取消 Promise 可以继续待定或随后结算。" loading="lazy" />
-  </a>
+  <img src="../visuals/cleanup-result-ownership/lifecycles.svg" alt="已知超限后发起取消，结果路径交付原失败；取消 Promise 可以继续待定或随后结算。" loading="lazy" />
   <figcaption>图 2：调用已结算与清理 Promise 已结算分开观察；两者都不能单独证明远端资源已经回收。 <a class="diagram-original" href="../visuals/cleanup-result-ownership/lifecycles.svg" target="_blank" rel="noopener noreferrer">放大查看完整图</a></figcaption>
 </figure>
 
@@ -204,9 +200,7 @@ PDF 图像渲染的并发槽约束的是实际工作进程。如果旧进程还�
 这与结果和清理解耦并不冲突。**可以给调用方一个有界的失败结果，同时继续把资源容量记为不可用。** 调用结果、共享等待条目和物理容量，不能合成一个“完成”标记。
 
 <figure class="diagram-frame diagram-static">
-  <a class="diagram-preview" href="../visuals/cleanup-result-ownership/slot-contracts.svg" target="_blank" rel="noopener noreferrer" aria-label="放大查看完整图">
-    <img src="../visuals/cleanup-result-ownership/slot-contracts.svg" alt="Wind 的逻辑条目在获取失败后可移除；PDF 的真实进程容量须在终止确认后才能归还。" loading="lazy" />
-  </a>
+  <img src="../visuals/cleanup-result-ownership/slot-contracts.svg" alt="Wind 的逻辑条目在获取失败后可移除；PDF 的真实进程容量须在终止确认后才能归还。" loading="lazy" />
   <figcaption>图 3：同样叫“槽位”，代表的承诺不同。结束结果等待，不意味着可以复用尚未确认归还的物理容量。 <a class="diagram-original" href="../visuals/cleanup-result-ownership/slot-contracts.svg" target="_blank" rel="noopener noreferrer">放大查看完整图</a></figcaption>
 </figure>
 
