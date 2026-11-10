@@ -34,6 +34,8 @@
 
 **脆弱与反脆弱全景**：[当保护机制开始制造故障](articles/agent-fragility-and-antifragility.md) · [Full English](en/articles/agent-fragility-and-antifragility.md)——从局部拦截误伤、终结权收敛与模块深化，解释故障传播如何被限制，以及 Spec 与 History 怎样让一次踩坑改变后续设计。
 
+**清理与结果的责任边界**：[失败已经确定，为什么还返回不了？清理与结果结算的责任边界](articles/agent-cleanup-result-ownership.md) · [Full English](en/articles/agent-cleanup-result-ownership.md)——从 Web 超限与 MCP 401 解释清理如何阻塞结果、改变分类；用三张机制图区分结果结算、清理状态和物理容量归还。
+
 **AI Coding 质量全景**：[当代码大多由 AI 编写，怎样对整个项目负责？](articles/ai-coding-quality-panorama.md) · [Full English](en/articles/ai-coding-quality-panorama.md)——从业务约定、可理解的变化与有辨别力的检查，贯通审查、实际交付和持续演进；用七张图解释关系，穿插我们的开源实践与行业方案。
 
 **工程实践精选**：[文章说能运行，代码真的支持吗？](articles/agent-article-code-evidence-contract.md) · [Read the full English article](en/articles/agent-article-code-evidence-contract.md)——固定源码、最小演示、验证证据与正式发布之间怎样保持对应；是现有「文档、代码、测试协同演进」文章的独立续题。
@@ -353,6 +355,7 @@ npm run docs:build
 
 <summary><b>04 · 系统边界与演进</b></summary>
 
+- [失败已经确定，为什么还返回不了？清理与结果结算的责任边界](articles/agent-cleanup-result-ownership.md)
 - [Agent 开发与后台开发有什么不同：从一次请求到长期个人助手](articles/agent-vs-backend-development-panorama.md)
 - [一份报告背后的九个架构判断](articles/one-report-nine-architecture-judgments.md)
 - [从第一份报告到可恢复的研究程序：Open ETF Agent 的第二个阶段](articles/open-etf-agent-v010-system-design.md)

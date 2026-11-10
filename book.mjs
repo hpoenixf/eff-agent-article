@@ -181,6 +181,7 @@ export const collections = [
           ["one-report-nine-architecture-judgments", "一份报告背后的九个架构判断"],
           ["agent-trust-from-claims-to-commitments", "Agent 的可信与不可信：从局部事实到系统承诺"],
           ["agent-fragility-and-antifragility", "Agent 的脆弱与反脆弱：当保护机制开始制造故障"],
+          ["agent-cleanup-result-ownership", "失败已经确定，为什么还返回不了？清理与结果结算的责任边界"],
           ["runtime-model-protocol-boundary-agent-article-v2", "别让模型当状态机"],
           ["agent-model-runtime-mcp-skill-boundaries", "Model / Runtime / MCP / Skill 的分工"],
           ["financial-agent-trustworthy-evidence-chain", "金融 Agent 的可信证据链"],

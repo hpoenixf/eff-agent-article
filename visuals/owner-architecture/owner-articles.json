@@ -70,7 +70,8 @@
     "agent-artifact-version-access-sharing": "研究产物：从固定版本到定向分享",
     "agent-atomic-portfolio-report-production": "一份组合报告，为什么不能边算边写？",
     "agent-personalized-daily-research-cache": "每天一份个性化研究：生成、去重与回读",
-    "agent-checkpoint-ownership-and-recovery": "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？"
+    "agent-checkpoint-ownership-and-recovery": "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？",
+    "agent-cleanup-result-ownership": "失败已经确定，为什么还返回不了？清理与结果结算的责任边界"
   },
   "owners": {
     "A01": {
@@ -112,7 +113,8 @@
       "related": [
         "agent-provider-failover-without-resetting-the-run",
         "agent-long-horizon-research-panorama",
-        "agent-checkpoint-ownership-and-recovery"
+        "agent-checkpoint-ownership-and-recovery",
+        "agent-cleanup-result-ownership"
       ]
     },
     "A07": {
