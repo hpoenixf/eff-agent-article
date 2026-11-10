@@ -48,6 +48,16 @@ try {
     assert.ok(side.includes(en ? 'Related reading' : '关联阅读'))
     const sidebarDeep = await page.$('.VPSidebar a[href="/eff-agent-article/' + prefix + 'articles/agent-deep-research-resource-and-delivery"]')
     assert.ok(sidebarDeep && await sidebarDeep.isVisible())
+    const clippedLabels = await page.$eval('.VPSidebar', sidebar => {
+      const right = sidebar.getBoundingClientRect().right
+      return [...sidebar.querySelectorAll('.text')].filter(node => {
+        if (!node.getClientRects().length) return false
+        const range = document.createRange(); range.selectNodeContents(node)
+        return [...range.getClientRects()].some(box => box.right > right - 1) || node.scrollWidth > node.clientWidth + 1
+      }).map(node => node.textContent)
+    })
+    assert.deepEqual(clippedLabels, [], 'Expanded sidebar text must fit without hidden horizontal overflow')
+    await sidebarDeep.evaluate(node => node.scrollIntoView({ block: 'center' }))
     await page.screenshot({ path: output + '/' + language + '-sidebar.png', fullPage: true })
     await tag(en ? 'Panorama' : '全景')
     await page.waitForFunction(() => document.querySelectorAll('.chapter-card').length < 6)
@@ -84,8 +94,25 @@ try {
     await page.goBack({ waitUntil: 'networkidle0' })
     await page.waitForFunction(() => new URL(location.href).searchParams.get('page') === '2')
     assert.deepEqual(await page.$$eval('.catalog-article-list [data-article]', nodes => nodes.map(n => n.dataset.article)), second)
+    await page.setViewport({ width: 390, height: 844 })
+    await go('modules')
+    await page.click('.VPLocalNav button.menu')
+    await page.waitForSelector('.VPSidebar.open')
+    await page.waitForFunction(() => getComputedStyle(document.querySelector('.VPSidebar')).transform === 'matrix(1, 0, 0, 1, 0, 0)')
+    await page.$$eval('.VPSidebarItem.collapsed > .item', nodes => nodes.forEach(n => n.click()))
+    const mobileClipping = await page.$eval('.VPSidebar', sidebar => {
+      const bounds = sidebar.getBoundingClientRect()
+      return [...sidebar.querySelectorAll('.text')].filter(node => {
+        if (!node.getClientRects().length) return false
+        const range = document.createRange(); range.selectNodeContents(node)
+        return [...range.getClientRects()].some(box => box.left < bounds.left - 1 || box.right > bounds.right - 1) || node.scrollWidth > node.clientWidth + 1
+      }).map(node => node.textContent)
+    })
+    assert.deepEqual(mobileClipping, [], '390px native sidebar labels fit horizontally; vertical scrolling remains allowed')
+    await page.$eval('.VPSidebar a[href="/eff-agent-article/' + prefix + 'articles/agent-deep-research-resource-and-delivery"]', node => node.scrollIntoView({ block: 'center' }))
+    await page.screenshot({ path: output + '/' + language + '-sidebar-390.png' })
     assert.deepEqual(errors, [])
-    observations.push({ language, canonicalModules: 41, total: 113, sidebarRelated: true, relatedOnlyAndFilter: true, uniqueResults: true, paginationAndBack: true })
+    observations.push({ language, canonicalModules: 41, total: 113, sidebarRelated: true, relatedOnlyAndFilter: true, uniqueResults: true, paginationAndBack: true, desktopAndMobileLabelsFit: true })
     await page.close()
   }
   writeFileSync(output + '/verified.json', JSON.stringify({ observations }, null, 2) + '\n')

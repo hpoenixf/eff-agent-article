@@ -328,3 +328,11 @@ test('Owner dialog distinguishes dedicated module essays from related reading an
   assert.ok(html.includes('相关文章'))
   assert.ok(!html.includes('专题文章'))
 })
+
+
+test('sidebar groups fit actual available width and long bilingual labels wrap', () => {
+  const css = text('.vitepress/theme/custom.css')
+  assert.match(css, /\.VPSidebar \.group \{ width: 100%; \}/)
+  assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ min-width: 0; \}/)
+  assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ overflow-wrap: anywhere; \}/)
+})

@@ -643,6 +643,13 @@
 }
 .recent-articles .article-list-description { grid-column: 1 / -1; max-width: 72ch; }
 
+/* The shared wider layout can make the desktop sidebar narrower than its
+   nominal width at the 1440px breakpoint. Fit groups to the actual content box. */
+.VPSidebar .group { width: 100%; }
+.VPSidebar .VPSidebarItem .link,
+.VPSidebar .VPSidebarItem .text { min-width: 0; }
+.VPSidebar .VPSidebarItem .text { overflow-wrap: anywhere; }
+
 /* The editorial backlog remains plain, complete Markdown, not a task board. */
 .financial-backlog > h1 { margin-bottom: 12px; }
 .financial-backlog > p > small { display: block; color: var(--vp-c-text-2); font-size: 12px; letter-spacing: .035em; }
