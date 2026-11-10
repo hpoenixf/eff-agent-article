@@ -93,12 +93,16 @@ jobs:
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html
       - name: Verify gallery and primary navigation in a real browser
         run: node scripts/check-gallery-output.mjs
+      - name: Verify Deep Research figures and keyboard zoom
+        run: node scripts/check-deep-research-output.mjs
       - name: Retain gallery and navigation QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: gallery-navigation-qa
-          path: test-output/gallery-navigation/
+          path: |
+            test-output/gallery-navigation/
+            test-output/deep-research/
           retention-days: 7
           if-no-files-found: ignore
       - name: Test legacy redirect contract

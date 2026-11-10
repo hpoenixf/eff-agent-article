@@ -16,6 +16,10 @@ readingBrief:
     - "寻找固定研究步骤、自动判断所有证据成熟度的统一阈值，或希望仅凭这批合成题证明真实投资研究效果。"
 ---
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？
 
 普通的投研问答可能只需核对一只基金的费率；另一类问题却要求穿透组合、读取跨期报告、处理修订版本、让不同研究分支协作，最后给出一份连贯的结论。这两类任务都叫 Research，但对资源和交付节奏的要求不一样。
@@ -77,6 +81,11 @@ Deep 可以来自用户的显式选择、已注册 Skill 的可信默认声明�
 升级还有时间窗口。约在原有请求或时间额度达到 50% 的提醒阶段，系统可以建议 Main 考虑 Deep；但建议不会自行启动新模型调用。在原始额度接近 80%、进入 `finalization-only`、期限或授权条件不允许时，资源 Owner 会在真正执行升级的边界重新判断，而不是因为工具先前可见就放行。
 
 这里还有一个容易忽略的差别：升级的持久批准记录不等于当前 Host 已经把新额度应用到运行中的预算和时钟。运行时区分 `standard`、`recorded-pending`、`deep` 与 `unknown`；只有实际应用的 `deep` 才能改变后续有效行为。
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/upgrade-boundaries-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/upgrade-boundaries-zh.svg')" alt="模式意图由资源批准者核查，经 Host 实际应用后，下一轮请求才采用 Deep 指导；已有消耗和预留继续计入。" loading="lazy" /></picture>
+<figcaption><strong>图 1 · Deep 从意图到实际生效</strong><br />模式意图由资源批准者核查，经 Host 实际应用后，下一轮请求才采用 Deep 指导；已有消耗和预留继续计入。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-zh.svg')">打开完整图</a></figcaption>
+</figure>
 
 ### 3. 改变的是每一轮请求，而不是修改上一轮 Prompt
 
@@ -140,6 +149,15 @@ Deep 没有新建一位强制终稿 Writer，也没有规定“先查满 N 条�
 
 随后在 2026 年 11 月 10 日又完成了四组配对，分别覆盖**运行前资料齐全的静态研究**（S1、S2）和**首次发布后才登记更正版资料的动态研究**（D1、D2）。各组使用相同的题目、来源字节、模型 `deepseek-v4.1-flash`、Provider 与工具装配，Standard/Deep 分别运行在独立的 Conversation、数据库和研究工作区。
 
+为方便理解下表，先交代每组报告中可核查的研究重点：
+
+- **S1 · 估值与来源约束（7 组要求）**：关注估值区间是否明确保留开放上界、结论是否具名引用来源，以及旧快照能否支持用当前份额反算旧净值。最后一点仍缺同份额证据，两模式都有额外推断，不能被通过数掩盖。
+- **S2 · 来源支持与风险表述（9 组要求）**：两模式都要到第二次交付才补齐来源引用；Deep 首版缺少资产类型依据的“最大损失 −100%”例子在最终版被移除。这里的终稿通过数不代表首版就可靠。
+- **D1 · 更正资料到达后的回答（8 组要求）**：比较两模式收到更正资料后的最终回答；首次发布实际上是准备提示，不能据此认定已完成“旧结论 → 新证据 → 修订”的全过程。
+- **D2 · 收益差额与版本修订（8 组要求）**：题面明确要求先发布可修订的旧版结论，再检查更正版。材料中的差额从 −0.5 变为 −0.9 个百分点，评审同时检查先后顺序和费用解释是否越过证据边界。
+
+完整冻结题面与逐项规则未随工程报告公开，以上是报告能核实的观察重点，并非完整题目或评分量表。**分母是每题预先冻结的要求组数，每组全部子条件满足才算通过；未评项也保留在分母中。** 因此 7/7 与 9/9 不能当作难度相同的能力百分比，更不宜跨题加总成胜率。
+
 ### 1. 四组配对结果不是“Deep 全胜”
 
 | 任务 | 最终要求组：Standard → Deep | 首次满足全部要求：Standard → Deep | Run 完成事件：Standard → Deep |
@@ -149,11 +167,21 @@ Deep 没有新建一位强制终稿 Writer，也没有规定“先查满 N 条�
 | D1 · 发布触发资料更新 | 8/8 → 8/8 | **123 秒** → 183 秒 | **184 秒** → 262 秒 |
 | D2 · 发布触发资料更新 | 7/8 → 6/8 | 两者均未达到 | 445 秒 → 329 秒 |
 
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/matched-outcomes-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/matched-outcomes-zh.svg')" alt="四组探索性配对保留不同分母和失败项。S2 的 Deep 更早满足全部要求，却更晚结束；S1、D2 的更早结束伴随遗漏。" loading="lazy" /></picture>
+<figcaption><strong>图 2 · 完整回答与运行结束是两个时点</strong><br />四组探索性配对保留不同分母和失败项。S2 的 Deep 更早满足全部要求，却更晚结束；S1、D2 的更早结束伴随遗漏。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-zh.svg')">打开完整图</a></figcaption>
+</figure>
+
 表里的“满足要求”是按事先冻结的组别及全部子条件判定，不等于全文没有任何额外错误。“完成事件”是 Conversation 的终态观察，不是浏览器绘制时间；“首次发布”也不能自动算作首次有效成果。
 
-S1 的 Deep 虽更快结束，却遗漏了估值上界区间和具名来源支持等关键要求。S2 中 Deep 更早形成全项满足的版本，但较晚结束。D1 中 Standard 形成正确结果并结束得更快。D2 两模式都没有全项满足，且 Deep 首次发布的内容只是读取提示；其关于先发布旧版可修订结论的要求按严格口径未完成。
+S1 的 Deep 虽更快结束，却遗漏了估值上界区间和具名来源支持等关键要求。S2 中 Deep 更早形成全项满足的版本，但较晚结束。D1 中 Standard 形成全项满足版本并结束得更快，但两模式的首次发布都只是准备读取的提示；更正版在提示后约 0.002 秒登记，早于实际来源读取和实质答案。因此这组的 8/8 不能证明模型先形成了旧版结论、再根据新证据修订。D2 两模式都没有全项满足，且 Deep 首次发布的内容只是读取提示；其关于先发布旧版可修订结论的要求按严格口径未完成。
 
 D2 有一处题面要求的解释存在宽读空间：若只要求最终回述旧版事实，Deep 的通过数可以从 6/8 变为 7/8；但另一个费用推断错误仍存在，所以无论哪种口径都不能成为 8/8。不能因这个边界模糊，就把结论改写为 Deep 成功。
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/evidence-timing-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/evidence-timing-zh.svg')" alt="D1 两模式先发准备提示，D2 Deep 也先发提示；它们不能证明先形成旧版结论。D2 Standard 有旧版结论再修订，但费用推断仍错误。" loading="lazy" /></picture>
+<figcaption><strong>图 3 · 发布触发更新，未必证明发生过改判</strong><br />D1 两模式先发准备提示，D2 Deep 也先发提示；它们不能证明先形成旧版结论。D2 Standard 有旧版结论再修订，但费用推断仍错误。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-zh.svg')">打开完整图</a></figcaption>
+</figure>
 
 ### 2. 为什么不能只用“耗时更短”选模式？
 
@@ -169,7 +197,9 @@ D2 有一处题面要求的解释存在宽读空间：若只要求最终回述�
 
 真实执行里已经观察到 Deep 的升级生效记录、Subagent 的实际参与、来源版本更新后的继续读取、`replaces` 修订，以及正文持久化后的读回。另一批 A/B 研究也保留了实际 Model Turn、来源与修订证据。这些是“机制能够工作”的执行证据。
 
-Ragas 和 DeepEval 的后评同样已经接入并用于这些回答，但两套指标有不同的材料范围、拆分规则和 Judge 偏差。实际评测还暴露过声明数量与判断数量不一致、评分输入容量不足、以及 Judge 指令与 Schema 枚举不统一等问题。我们不把一个单次的 `faithfulness=1.0` 当作来源、计算和读取范围都已真实核实的证明。
+此前 **A/B 两题的四份配对答案**另行接受了 Ragas 和 DeepEval 后评，**不包括本节 S1、S2、D1、D2 四组实验**。两引擎正式输入使用各格保存的正文及已确认、精确去重的实际接收来源上下文；它们的参考答案与每题 11 项外评要求，和主评 A 的 14 组、B 的 15 组条件分开解释。
+
+Ragas 的 20 项指标均出分；DeepEval 的 16 项中 10 项出分、2 项因指标判断结构问题而不确定，另 4 项因 A Standard 输入超出本地容量而不确定。两套指标还有不同的声明拆分规则与 Judge 偏差。外评不能替代要求组评审，也不能认证真实执行和来源读取事实：单次 `faithfulness=1.0` 并不表示来源、计算和读取范围都已独立核实。
 
 这里恰好能看见 Deep Research 的工程边界：**给模型更多研究空间是可以确定地实现的；模型是否充分利用这份空间，则必须回到实际结果检验。**
 
@@ -185,6 +215,12 @@ ETF Agent 已经有工具循环、Child、资源与收尾阶段、进度事件�
 
 ---
 
-**实现与证据**：本文基于 ETF Agent 工程仓 `main` 快照 [`d8b0432`](https://github.com/hpoenixf/etf-agent/tree/d8b0432a7a09dc474416dce86568428d8068e1a4) 取材；最新四组测评实际冻结的研究代码为 [`ef2cc81`](https://github.com/hpoenixf/etf-agent/tree/ef2cc8143effdfa7b45a66a8371adfbded42a887)。研究细节见 [四组配对报告](https://github.com/hpoenixf/etf-agent/blob/d8b0432a7a09dc474416dce86568428d8068e1a4/doc/engineering/normal-deep-four-pairs-20261110.md) 与 [此前 A/B 配对报告](https://github.com/hpoenixf/etf-agent/blob/d8b0432a7a09dc474416dce86568428d8068e1a4/doc/engineering/deep-multi-agent-evaluation-results-20261108.md)。工程仓链接可能需要相应访问权限，合成评测不包含真实个人持仓或投资交易。
+**实现与证据**：本文按 2026 年 11 月 10 日核实的 ETF Agent 工程实现撰写；配对结果来自此前 A/B 两题及当日四组研究的保存答案、来源视图和独立评审记录。完整原始输入与评审材料未公开，本文保留能核查的结果口径、反例和未知项。这些合成实验不包含真实个人持仓或交易。
 
 **延伸阅读**：[研究什么时候该停](./agent-research-decisions-evidence-synthesis.md)解释模型如何选择下一步，[长研究全景](./agent-long-horizon-research-panorama.md)讨论跨时间持续执行。本文只聚焦 Deep 的资源模式、交付节奏与对照效果。公开的 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 可用于了解基础 Agent 项目，**不要将本文工程版 Deep 能力直接等同于该公开版本的已发布功能**；如果项目对你有帮助，欢迎为公开仓库 Star。
+
+<style scoped>
+.deep-research-figure { margin: 28px 0; }
+.deep-research-figure picture, .deep-research-figure img { display: block; width: 100%; height: auto; }
+.deep-research-figure figcaption { margin-top: 12px; font-size: 14px; line-height: 1.7; }
+</style>

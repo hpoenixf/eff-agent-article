@@ -16,6 +16,10 @@ readingBrief:
     - "Readers seeking a mandatory research graph, a universal evidence-sufficiency score, or proof of real-world investment performance from synthetic cases."
 ---
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # Deep Research: From Budget Upgrades to Delivery—What We Built and What the Tests Show
 
 An ordinary investment-research question may require checking one fund's fee schedule. A different question can demand portfolio look-through, reports from multiple periods, updated source versions, collaboration among research branches, and one coherent conclusion. Both are called Research, but their resource requirements and delivery cadence are different.
@@ -77,6 +81,11 @@ These are default baselines and target ceilings, not guaranteed capacity for eve
 There is also an eligibility window. Around the 50% reminder stage of the original request or time budget, the system can suggest that Main consider Deep for unresolved work; the suggestion does not itself start another model call. Near the 80% threshold of the original basis, in `finalization-only`, or when deadlines or authority prohibit expansion, the resource owner checks eligibility again at the actual effect boundary. A tool having been visible earlier is not sufficient.
 
 One more distinction matters: a durable approval is not proof that the live Host has applied the new resource profile to running admission and clocks. The runtime distinguishes `standard`, `recorded-pending`, `deep`, and `unknown`. Only actually applied `deep` affects subsequent effective behavior.
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/upgrade-boundaries-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/upgrade-boundaries-en.svg')" alt="Resource Owner checks the intent; only after Host applies the upgrade does the next request use Deep guidance. Existing consumption and reservations still count." loading="lazy" /></picture>
+<figcaption><strong>Figure 1 · From mode intent to applied Deep</strong><br />Resource Owner checks the intent; only after Host applies the upgrade does the next request use Deep guidance. Existing consumption and reservations still count. <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-en.svg')">Open full diagram</a></figcaption>
+</figure>
 
 ### Rebuild each model request; do not mutate an earlier prompt
 
@@ -140,6 +149,15 @@ An earlier matched study used two synthetic fund cases. In A, Deep delivered the
 
 On November 10, 2026, we completed another four matched cases: two with **all source material present at Run start** (S1, S2), and two where **a corrected source was registered after the first publication** (D1, D2). Within each pair, the question, source bytes, `deepseek-v4.1-flash` model, provider, and tool composition were held fixed, with fresh Conversations, databases, and workspaces for each mode.
 
+The reports support the following case-specific observations, which make the scores easier to interpret:
+
+- **S1 · Valuation and source constraints (7 requirement groups):** whether the valuation interval retained an open upper bound, conclusions named their sources, and an earlier snapshot justified back-calculating an old NAV from the current share count. The last inference lacked evidence of an unchanged share count in both modes, an extra error the pass counts must not conceal.
+- **S2 · Source support and risk statements (9 groups):** both modes completed their source citations only in the second delivery. Deep's final version removed a first-version “maximum loss of −100%” example unsupported by the asset-type evidence. A passing final score does not make the first version reliable.
+- **D1 · Answering after a source correction (8 groups):** final answers were compared after the correction became available. The first publications were preparation notices, so they do not establish an old conclusion → new evidence → revision sequence.
+- **D2 · Return gap and version revision (8 groups):** the question explicitly asked for a revisable v1 conclusion before inspecting the correction. The reported gap changed from −0.5 to −0.9 percentage points; review checked both that ordering and whether fee explanations exceeded the evidence.
+
+The complete frozen questions and item-by-item rules were not published with the engineering report. These are verifiable observation points, not complete task statements or a reproduced rubric. **The denominator is the number of preregistered requirement groups for that case; a group passes only when all its subconditions are met, and unassessed groups remain in the denominator.** Thus 7/7 and 9/9 are not equal-difficulty capability percentages and should not be pooled into a win rate.
+
 ### The four pairs did not produce a Deep sweep
 
 | Task | Final requirements met, Standard → Deep | Earliest version meeting all requirements, Standard → Deep | Conversation completed, Standard → Deep |
@@ -149,11 +167,21 @@ On November 10, 2026, we completed another four matched cases: two with **all so
 | D1 · Publication-triggered update | 8/8 → 8/8 | **123 s** → 183 s | **184 s** → 262 s |
 | D2 · Publication-triggered update | 7/8 → 6/8 | Neither reached | 445 s → 329 s |
 
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/matched-outcomes-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/matched-outcomes-en.svg')" alt="These exploratory pairs retain their different denominators and failures. S2 Deep met all requirements sooner but finished later; S1 and D2 ended sooner with omissions." loading="lazy" /></picture>
+<figcaption><strong>Figure 2 · A complete answer and a completed Run are different</strong><br />These exploratory pairs retain their different denominators and failures. S2 Deep met all requirements sooner but finished later; S1 and D2 ended sooner with omissions. <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-en.svg')">Open full diagram</a></figcaption>
+</figure>
+
 A “met requirement” here means that every subcondition of a preregistered requirement group was judged satisfied. It does not mean the entire answer contained no other errors. A completion event is not a browser-render timestamp; a first publication is not necessarily the first useful result.
 
-S1 Deep reached terminal state sooner but missed an upper-bound interval and named source support. S2 Deep produced a fully satisfactory version earlier, yet terminated later. D1 Standard formed the satisfactory version and terminated sooner. Neither D2 mode satisfied all requirements, and Deep's first publication was merely a reading notice: the task's requirement to publish a revisable old-version conclusion before inspecting the correction was not demonstrated.
+S1 Deep reached terminal state sooner but missed an upper-bound interval and named source support. S2 Deep produced a fully satisfactory version earlier, yet terminated later. D1 Standard reached a version meeting all requirements and terminated sooner. However, both D1 modes first published only a preparation notice; the correction was registered about 0.002 seconds later, before actual source reading or a substantive answer. Its 8/8 scores therefore do not demonstrate that either model first formed an old-version conclusion and then revised it in response to new evidence. Neither D2 mode satisfied all requirements, and Deep's first publication was merely a reading notice: the task's requirement to publish a revisable old-version conclusion before inspecting the correction was not demonstrated.
 
 One part of the D2 task wording admits a looser interpretation. If a later accurate restatement of v1 suffices, Deep could be counted as 7/8 instead of 6/8. An unsupported fee-bound inference remains in either interpretation, so Deep still does not reach 8/8. We retain both interpretations rather than silently changing the criterion after the result.
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/evidence-timing-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/evidence-timing-en.svg')" alt="Both D1 modes and D2 Deep first published preparation notices. D2 Standard did publish an old-version conclusion before revising it, but its fee inference remained wrong." loading="lazy" /></picture>
+<figcaption><strong>Figure 3 · An update trigger does not prove a revised conclusion</strong><br />Both D1 modes and D2 Deep first published preparation notices. D2 Standard did publish an old-version conclusion before revising it, but its fee inference remained wrong. <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-en.svg')">Open full diagram</a></figcaption>
+</figure>
 
 ### Why “shorter elapsed time” cannot decide the mode
 
@@ -169,7 +197,9 @@ These runs establish that both modes entered Native Research, consumed their dis
 
 Other live runs captured applied Deep grants, actual Child participation, continued reads after source updates, `replaces` revisions, and durable readback of the resulting answer. These are execution facts: the mechanisms can participate in real long-running research, not merely produce an impressive-looking text response.
 
-Ragas and DeepEval have also been used for post-hoc assessment, but their metrics differ in material scope, claim decomposition, and Judge behavior. Evaluation runs exposed verdict-count mismatches, input-capacity limits, and mismatches between Judge instructions and schema enums. We do not treat a single `faithfulness=1.0` as proof that source provenance, calculations, and reported read scope have all been independently verified.
+The **four paired answers from the earlier A/B study** were separately evaluated with Ragas and DeepEval; **those evaluations do not cover S1, S2, D1, or D2**. Both engines used each saved answer and its confirmed, exactly deduplicated source contexts actually received by the model. Their reference answers and 11 external requirements per case are distinct from the primary review's 14 groups for A and 15 for B.
+
+All 20 Ragas metrics produced scores. Of 16 DeepEval metrics, 10 produced scores, two were inconclusive because of metric-verdict structure problems, and four were inconclusive because A Standard exceeded the local input-capacity limit. The engines also differ in claim decomposition and Judge behavior. External scores neither replace requirement-group review nor certify execution or source-reading facts: a single `faithfulness=1.0` is not proof that provenance, calculations, and reported read scope have all been independently verified.
 
 That distinction locates the real boundary of this implementation: **we can deterministically give a model more authorized room to research; whether it uses that room well must still be established from observed results.**
 
@@ -185,6 +215,12 @@ For an agent that already has a mature Native Loop, Deep can start as a **bounde
 
 ---
 
-**Implementation and evidence:** This article draws on ETF Agent engineering `main` at [`d8b0432`](https://github.com/hpoenixf/etf-agent/tree/d8b0432a7a09dc474416dce86568428d8068e1a4). The latest four-pair study ran against pinned research source [`ef2cc81`](https://github.com/hpoenixf/etf-agent/tree/ef2cc8143effdfa7b45a66a8371adfbded42a887). Details appear in the [four-pair evaluation report](https://github.com/hpoenixf/etf-agent/blob/d8b0432a7a09dc474416dce86568428d8068e1a4/doc/engineering/normal-deep-four-pairs-20261110.md) and the [earlier A/B paired study](https://github.com/hpoenixf/etf-agent/blob/d8b0432a7a09dc474416dce86568428d8068e1a4/doc/engineering/deep-multi-agent-evaluation-results-20261108.md). Engineering repository links may require the relevant access; the synthetic evaluations involved no real personal holdings or trades.
+**Implementation and evidence:** This article describes the ETF Agent engineering implementation verified on November 10, 2026. Paired results draw on saved answers, source views, and independent reviews from the earlier two-case A/B study and the four-case study completed that day. Full raw inputs and review materials are not public; the article retains verifiable result definitions, counterexamples, and unknowns. These synthetic evaluations involved no real personal holdings or trades.
 
 **Further reading:** [When should research stop?](./agent-research-decisions-evidence-synthesis.md) discusses choosing the next evidence-gathering action. The [long-horizon research panorama](./agent-long-horizon-research-panorama.md) covers continuity across time. This article focuses specifically on Deep resource mode, delivery cadence, and comparative outcomes. The public [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) repository provides a starting point for exploring the broader Agent project; **do not assume that this engineering Deep implementation is already shipped in that public version**. If the project is useful, consider starring the public repository.
+
+<style scoped>
+.deep-research-figure { margin: 28px 0; }
+.deep-research-figure picture, .deep-research-figure img { display: block; width: 100%; height: auto; }
+.deep-research-figure figcaption { margin-top: 12px; font-size: 14px; line-height: 1.7; }
+</style>
