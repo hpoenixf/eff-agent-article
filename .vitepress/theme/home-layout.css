@@ -91,3 +91,27 @@
   .VPHome .vp-doc .recent-articles li > a { font-size: 18px; }
   .VPHome .vp-doc .recent-heading { align-items: center; flex-wrap: wrap; gap: 8px; }
 }
+
+/* Language-neutral editorial illustrations, shipped locally with the reading site. */
+.VPHome .VPHero.has-image .container { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.VPHome .VPHero.has-image .main { order: 0; min-width: 0; width: 100%; }
+.VPHome .VPHero.has-image .text { font-size: 38px; }
+.VPHome .VPHero.has-image .image { order: 1; margin: 0; min-width: 0; }
+.VPHome .VPHero.has-image .image-container { width: 100%; height: auto; margin: 0; transform: none; }
+.VPHome .VPHero.has-image .image-bg { background: none; }
+.VPHome .VPHero.has-image .image-src { position: static; transform: none; width: 100%; max-width: 480px; height: auto; max-height: none; border-radius: 18px; }
+.VPHome .VPFeature .box > .VPImage { width: 100%; height: auto; aspect-ratio: 360 / 152; border-radius: 12px; margin-bottom: 20px; }
+.VPHome:where(.dark *) .VPHero .image-src, .VPHome:where(.dark *) .VPFeature .box > .VPImage { filter: brightness(.8) saturate(.8); }
+@media (min-width: 768px) and (max-width: 1099px) {
+  .VPHome .VPHero.has-image .main { display: block; }
+  .VPHome .VPHero.has-image .home-reading-actions { display: flex; }
+  .VPHome .VPHero.has-image .home-reading-menu { margin-top: 0; }
+}
+@media (max-width: 767px) {
+  .VPHome .VPHero.has-image .container { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .VPHome .VPHero.has-image .text { font-size: 32px; }
+  .VPHome .VPHero.has-image .image { width: 100%; max-width: 360px; justify-self: center; }
+  .VPHome .VPHero.has-image .image-src { max-height: 260px; object-fit: contain; }
+  .VPHome .VPFeature .box { padding: 12px 0; }
+  .VPHome .VPFeature .box > .VPImage { max-height: 156px; object-fit: cover; }
+}
