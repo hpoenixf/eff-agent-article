@@ -8,7 +8,8 @@ const receipts = JSON.parse(readFileSync(new URL('../data/open-etf-agent/article
 const lineage = JSON.parse(readFileSync(new URL('../data/open-etf-agent/versions.json', import.meta.url),'utf8'))
 const component = readFileSync(new URL('../.vitepress/theme/OpenEtfTopic.vue', import.meta.url), 'utf8')
 test('recent modules join existing catalog fields in both languages, without new qualification', () => {
-  const expected = coverage.articles.map((row,index)=>({slug:row.slug,index,since:[row,...(row.additionalTargets || [])].filter(slice=>slice.status==='verified').map(slice=>lineage.targets[slice.target]?.since).filter(Boolean).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}))[0]})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.slug)
+  const moduleSlugs = new Set(topicGroups().filter(g=>!g.relatedReading).flatMap(g=>g.articles.map(a=>a.slug)))
+  const expected = coverage.articles.filter(row=>moduleSlugs.has(row.slug)).map((row,index)=>({slug:row.slug,index,since:[row,...(row.additionalTargets || [])].filter(slice=>slice.status==='verified').map(slice=>lineage.targets[slice.target]?.since).filter(Boolean).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}))[0]})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.slug)
   for (const language of ['en', 'zh']) {
     const rows = recentModuleArticles(language)
     const all = topicGroups(language).flatMap(g => g.articles)

@@ -358,3 +358,31 @@ test('dense independent page shell preserves original anchors, responsive grid a
   assert.ok(category.includes('class="chapter-card"')); assert.ok(!category.includes('catalog-article-list'))
   assert.ok(!category.includes('article-list-description')); assert.ok(!category.includes('<h1')); assert.ok(!category.includes('catalog-entry-meta'))
 })
+
+test('related-only results render bilingually, compact previews stay bounded, full catalog counts only primary categories', async () => {
+  const saved = globalThis.__catalogTags.articles
+  const slug = 'agent-subagent-context-specialization'
+  globalThis.__catalogTags.articles = { [slug]: [{ id: 'finance' }, { id: 'open' }] }
+  try {
+    for (const english of [false, true]) {
+      const page = english ? 'en/modules.md' : 'modules.md'
+      const html = await render({ english, page, props: { category: 'modules' }, tags: ['finance', 'open'] })
+      assert.ok(html.includes('chapter-related'))
+      assert.ok(html.includes('/articles/' + slug))
+      assert.match(html, english ? /0 articles/ : /0 篇文章/)
+      assert.ok(!html.includes('No articles match') && !html.includes('暂无同时符合'))
+      const compact = await render({ english, page, props: { category: 'modules', compact: true }, tags: ['finance', 'open'] })
+      assert.ok(compact.includes('/articles/' + slug), 'Compact related-only match must not vanish')
+      const all = await render({ english, page: english ? 'en/catalog.md' : 'catalog.md', tags: ['finance', 'open'] })
+      assert.match(all, english ? /1 categories · 1 articles/ : /1 大类 · 1 篇文章/)
+      assert.deepEqual(orderedSlugs(all), [slug])
+      const empty = await render({ english, page, props: { category: 'modules' }, tags: ['finance', 'missing'] })
+      assert.ok(empty.includes(english ? 'No articles match' : '暂无同时符合'))
+      const preview = await render({ english, page, props: { category: 'modules', compact: true } })
+      for (const card of preview.split('class="chapter-card"').slice(1)) {
+        const rows = card.split('</section>')[0].match(/<li\b/g) || []
+        assert.ok(rows.length <= 3, 'Compact primary and related previews share the three-link limit')
+      }
+    }
+  } finally { globalThis.__catalogTags.articles = saved }
+})

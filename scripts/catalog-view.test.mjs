@@ -139,3 +139,22 @@ test('filter then global sort then paginate keeps ties and language dates while 
   assert.equal(paginateCatalogEntries(sorted.slice(0, 1), { page: 3 }).page, 1)
   assert.equal(paginateCatalogEntries([], { page: 3 }).pageCount, 0)
 })
+
+test('related-only chapters survive AND filters without entering canonical totals or date ordering', () => {
+  for (const source of [collections, englishCollections]) {
+    const before = JSON.stringify(source)
+    const articles = { 'agent-subagent-context-specialization': [{ id: 'panorama' }, { id: 'research' }] }
+    const view = catalogView(source, { category: 'modules', selectedTags: ['panorama', 'research'], articles })
+    assert.equal(view.articleCount, 0)
+    assert.equal(view.collections.length, 1)
+    assert.equal(view.collections[0].chapters.length, 1)
+    const chapter = view.collections[0].chapters[0]
+    assert.equal(chapter.id, 'l3')
+    assert.deepEqual(chapter.items, [])
+    assert.deepEqual(chapter.related.map(([slug]) => slug), ['agent-subagent-context-specialization'])
+    assert.deepEqual(chronologicalCatalog(view.collections, { order: 'created-desc' }), [])
+    assert.equal(paginateCatalogEntries(primaryCatalogEntries(view.collections)).total, 0)
+    assert.equal(catalogView(source, { category: 'modules', selectedTags: ['panorama', 'missing'], articles }).collections.length, 0)
+    assert.equal(JSON.stringify(source), before)
+  }
+})

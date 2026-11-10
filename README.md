@@ -10,6 +10,12 @@
 
 **By hpoenixf: 10 years of software development experience, including 5 years building financial business systems.** A frontend-leaning full-stack developer focused on Agent engineering, connecting system design with runnable implementations and verification evidence.
 
+## 阅读分类与关联入口
+
+L1–L6 仅收录模块专文；跨模块研究模式与协作专题归入架构思考，故障与验证复盘归入研发工程。原模块入口保留关联阅读，不重复计数。Owner 专文与相关文章分别展示；没有模块专文时保留空缺，不以专题凑覆盖。文章 slug、历史版本与中英文阅读地址不变。
+
+Only module-focused essays belong in L1–L6. Cross-module topics and engineering retrospectives keep their own categories and remain available as related reading without increasing module counts. Dedicated Owner essays and related topics are distinguished; missing dedicated coverage stays explicit. Article URLs and historical editions are preserved.
+
 ## 微信公众号 · 小飞的 AI 投研工坊
 
 扫码关注微信公众号，在微信里继续阅读 Agent 工程实践。手机端可保存二维码，再在微信中识别。
@@ -23,7 +29,7 @@
 <!-- open-etf-recent-modules:start -->
 - [定时研究：会话结束后继续](articles/agent-autonomous-scheduled-research.md) · [Scheduled Research Beyond a Conversation](en/articles/agent-autonomous-scheduled-research.md)
 - [模型返回 HTTP 200，为什么下一次还要排队](articles/agent-provider-admission-capacity-lease.md) · [Why the Next Model Request Still Queues After HTTP 200](en/articles/agent-provider-admission-capacity-lease.md)
-- [RAG：文档撤权与历史回放](articles/027-rag-revocation-publish-replay.md) · [RAG: Revocation and Historical Replay](en/articles/027-rag-revocation-publish-replay.md)
+- [Memory：从保存、召回到安全遗忘](articles/026-agent-memory-forget-durable-effects.md) · [Memory: From Saving and Recall to Safe Forgetting](en/articles/026-agent-memory-forget-durable-effects.md)
 <!-- open-etf-recent-modules:end -->
 
 [浏览全部文章 →](https://hpoenixf.com/eff-agent-article/catalog) · [Full English catalog →](https://hpoenixf.com/eff-agent-article/en/catalog)

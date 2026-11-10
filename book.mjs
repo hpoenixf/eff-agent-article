@@ -4,7 +4,7 @@ export const collections = [
   {
     "id": "modules",
     "title": "模块维度",
-    "subtitle": "沿六层请求链阅读具体机制；按主要交接定位，保留跨层 Owner 与关联阅读。",
+    "subtitle": "沿六层请求链阅读模块的对象、接口、生命周期与边界；跨模块专题另列关联阅读。",
     "label": "MODULE DEEP DIVES",
     "chapters": [
       {
@@ -25,17 +25,21 @@ export const collections = [
           ["agent-account-identity-private-scope", "账户身份：如何隔离每个人的研究"],
           ["011-model-understands-code-authorizes", "模型会理解，代码才授权：Run 授权的生命周期"],
           ["020-agent-extension-host-smartphone", "Extension Host：从功能机到智能机"],
-          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
           ["agent-main-run-context-compaction", "Main 压缩：摘要不改写原始事实"],
           ["agent-conversation-history-compaction-source-boundaries", "跨 Run 会话压缩：旧助手摘要不能替代用户原文"],
           ["agent-research-workspace-goal-continuity", "Workspace：从一次性对话到长期研究"],
-          ["agent-research-assets-identity-version-lifecycle", "一份研究报告，为什么需要先变成「资产」？"],
           ["026-agent-memory-forget-durable-effects", "Memory：从保存、召回到安全遗忘"],
           ["agent-content-trust-prompt-injection", "内容信任：Prompt Injection 不只是恶意文本"],
           ["agent-control-events-durable-owner-adoption", "Agent 收到控制指令后，为什么不能立刻执行"],
           ["agent-durable-human-interaction-response-adoption", "Agent 问完用户之后：持久人机交互"],
           ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"],
-          ["agent-personal-credits-shadow-accounting", "Agent 的请求数、Token 与 Credits 记账"]
+          ["agent-personal-credits-shadow-accounting", "Agent 的请求数、Token 与 Credits 记账"],
+          ["agent-skill-from-markdown-to-callable-research", "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行"],
+          ["agent-action-reminder-coordination", "行动提醒：从生成建议到真正送达模型"]
+        ],
+        "related": [
+          ["agent-research-assets-identity-version-lifecycle", "一份研究报告，为什么需要先变成「资产」？"],
+          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"]
         ]
       },
       {
@@ -45,19 +49,20 @@ export const collections = [
         "items": [
           ["022-agent-entry-from-intent-to-direct-research", "Entry：为什么入口越来越简单"],
           ["agent-research-decisions-evidence-synthesis", "研究决策：什么时候停止搜索并回答"],
-          ["agent-deep-research-resource-and-delivery", "Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？"],
-          ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
-          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-provider-architecture-and-admission", "Provider：统一接口之后，为什么还需要共享准入"],
           ["agent-provider-admission-capacity-lease", "模型返回 HTTP 200，为什么下一次还要排队"],
           ["agent-model-capability-presentation-tool-surface", "Tool Surface：Agent 有工具，模型为什么看不到"],
           ["agent-multi-ecosystem-hook-execution", "多生态 Hook：Claude、Pi 与 Codex"],
-          ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"],
           ["agent-checkpoint-ownership-and-recovery", "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？"],
-          ["agent-action-reminder-coordination", "行动提醒：从生成建议到真正送达模型"]
+          ["agent-research-evidence-store-lifecycle", "一次模型调用留下了什么：研究证据的采集、留存与回读"]
         ],
         "related": [
-          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"]
+          ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"],
+          ["agent-deep-research-resource-and-delivery", "Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？"],
+          ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
+          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
+          ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"],
+          ["agent-action-reminder-coordination", "行动提醒：从生成建议到真正送达模型"]
         ]
       },
       {
@@ -69,20 +74,21 @@ export const collections = [
           ["024-agent-pdf-from-text-to-evidence", "PDF：从文本到证据"],
           ["agent-temporal-semantics-market-calendar", "Agent 说“今天”时，到底是哪一天"],
           ["agent-python-compute-workbench-evolution", "Python：从工具到计算工作台"],
-          ["agent-skill-from-markdown-to-callable-research", "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行"],
           ["agent-numeric-kernel-exact-units-rounding", "精确数字并不等于正确投资：数值核的单位、舍入与残差"],
           ["agent-deterministic-fund-allocation", "确定性基金计算：从持仓事实到金额建议"],
           ["agent-atomic-portfolio-report-production", "一份组合报告，为什么不能边算边写？"],
           ["portfolio-mcp-readonly-investment-data", "把个人持仓接入 Agent：我们怎样设计一个只读金融 MCP"],
-          ["unavailable-is-correct", "数据过期后的受控刷新"],
           ["agent-knowledge-retrieval-end-to-end", "RAG 全链路：从文档入库到可引用回答"],
-          ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
           ["mcp-host-from-discovery-to-consumption", "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建"],
-          ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"],
-          ["agent-research-evidence-store-lifecycle", "一次模型调用留下了什么：研究证据的采集、留存与回读"]
+          ["agent-research-assets-identity-version-lifecycle", "一份研究报告，为什么需要先变成「资产」？"],
+          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"]
         ],
         "related": [
-          ["tool-results-outside-model-context", "结果外置与完整性：模型到底读到了多少"],
+          ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"],
+          ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
+          ["unavailable-is-correct", "数据过期后的受控刷新"],
+          ["agent-skill-from-markdown-to-callable-research", "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行"],
+          ["agent-research-evidence-store-lifecycle", "一次模型调用留下了什么：研究证据的采集、留存与回读"]
         ]
       },
       {
@@ -92,8 +98,10 @@ export const collections = [
         "items": [
           ["019-agent-answer-publication", "Publication：为什么需要独立发布系统"],
           ["agent-artifact-version-access-sharing", "研究产物：从固定版本到定向分享"],
-          ["agent-asynchronous-research-time-bound-delivery", "异步研究：离开页面后怎样按时交付"],
           ["agent-feedback-facts-not-automatic-learning", "用户点了踩，Agent 就该学习吗？"]
+        ],
+        "related": [
+          ["agent-asynchronous-research-time-bound-delivery", "异步研究：离开页面后怎样按时交付"]
         ]
       },
       {
@@ -101,7 +109,9 @@ export const collections = [
         "title": "L6 · 用户界面",
         "desc": "围绕客户端实际可见的回答、进度与正确 Run 归属阅读；不等同于独占前端 Owner。",
         "items": [
-          ["agent-client-interaction-and-reading", "客户端：从进度到可信研究交互"],
+          ["agent-client-interaction-and-reading", "客户端：从进度到可信研究交互"]
+        ],
+        "related": [
           ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"]
         ]
       }
@@ -126,7 +136,11 @@ export const collections = [
           ["agent-provider-failover-without-resetting-the-run", "故障切换：换路线，不重置任务"],
           ["agent-disconnect-is-not-crash-recovery-contract", "断线不是崩溃：为什么 Agent 不必恢复原来的执行图？"],
           ["agent-veto-authority-and-run-termination", "Run 终结权、阶段预算与安全恢复"],
-          ["etf-agent-model-harness-research-loop", "投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop"]
+          ["etf-agent-model-harness-research-loop", "投研 Agent 的关键不是多调用工具：Model、Harness 与 Loop"],
+          ["agent-deep-research-resource-and-delivery", "Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？"],
+          ["adaptive-research-python-workbench", "Adaptive Research 与 Python"],
+          ["agent-asynchronous-research-time-bound-delivery", "异步研究：离开页面后怎样按时交付"],
+          ["agent-progressive-answer-coherence", "渐进式回答如何保持连贯"]
         ]
       },
       {
@@ -135,12 +149,12 @@ export const collections = [
         "items": [
           ["investment-perspectives-and-thesis-falsification", "不止一个投资专家：多视角 Agent 如何共同检验投资假设"],
           ["bounded-bull-bear-peer-dialogue", "当两个 Agent 开始直接对话：有界多空协作的 Runtime 设计"],
-
+          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"]
         ],
         "related": [
-          ["agent-subagent-context-specialization", "Subagent 全景：独立上下文、专业协作与真实成果交接"],
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
-          ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"]
+          ["agent-custom-expert-from-prompt-to-recovery", "自定义专家，不应该只是一个 Prompt 输入框"],
+          ["agent-runtime-refactor-one-day-blocked", "一个 Subagent 改动，为什么拖住了我们整整一天？"]
         ]
       },
       {
@@ -190,10 +204,10 @@ export const collections = [
           ["code-cheaper-systems-harder-to-evolve", "代码越来越便宜，为什么系统却越来越难升级？"],
           ["agent-differentiated-evolution-contracts", "Agent 架构如何做到该稳定的稳定，该变化的变化？"],
           ["agent-failure-is-a-boundary-problem", "别把每个失败都算给模型"],
-
           ["local-improvement-is-not-system-progress", "局部改善不等于整体进步：怎样判断 Agent 真的变好了？"],
           ["025-agent-langfuse-from-trace-to-trustworthy-observability", "Agent 可观测全景：从一次模型请求到可回查的研究事实"],
-          ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"]
+          ["agent-report-cost-attribution", "Agent 生成一份报告，到底应该怎么算成本？"],
+          ["agent-tool-lifecycle-and-model-input", "工具调用到模型输入的观测链"]
         ]
       }
     ]
@@ -224,15 +238,16 @@ export const collections = [
           ["open-etf-agent-v01-first-readable-report", "Open ETF Agent v0.1：从第一份可回读报告开始"],
           ["honest-agent-evaluation", "Agent 测评全景：从测试绿灯到真实任务价值"],
           ["agent-evaluation-set-for-iteration", "怎样建立贯穿研发与验收的 Agent 评测集"],
-
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
           ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],
-
           ["agent-runtime-refactor-one-day-blocked", "一个 Subagent 改动，为什么拖住了我们整整一天？"],
           ["032-ai-development-from-bug-loop-to-task-convergence", "从 Bug 循环到完整任务收敛"],
           ["etf-assistant-engineering-origins", "一个 ETF 投资助手的工程起点"],
-          ["ai-coding-judgment-and-verification", "AI Coding 最贵的不是写代码，而是决定什么值得验证"]
+          ["ai-coding-judgment-and-verification", "AI Coding 最贵的不是写代码，而是决定什么值得验证"],
+          ["027-rag-revocation-publish-replay", "RAG：文档撤权与历史回放"],
+          ["unavailable-is-correct", "数据过期后的受控刷新"],
+          ["agent-runtime-constraint-governance-v2", "Run 预算与约束治理"]
         ]
       }
     ]

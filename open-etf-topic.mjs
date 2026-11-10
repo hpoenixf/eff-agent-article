@@ -19,8 +19,16 @@ export const topicPath = language => language === 'zh' ? '/open-etf-agent' : '/e
 const records = new Map(coverage.articles.map(row => [row.slug, row]))
 export function topicGroups(language = 'en') {
   const en = language === 'en'
-  return (en ? englishCollections : collections).find(c => c.id === 'modules').chapters.map((chapter) => ({
+  const source = en ? englishCollections : collections
+  const groups = source.flatMap(collection => collection.chapters.map(chapter => ({
+    ...chapter,
+    relatedReading: collection.id !== 'modules',
+    title: collection.id === 'modules' ? chapter.title : (en ? 'Related reading · ' : '关联阅读 · ') + collection.title + ' / ' + chapter.title,
+    items: collection.id === 'modules' ? chapter.items : chapter.items.filter(([slug]) => records.has(slug))
+  }))).filter(chapter => chapter.items.length)
+  return groups.map((chapter) => ({
     title: chapter.title,
+    relatedReading: chapter.relatedReading,
     articles: chapter.items.map(([slug,title]) => {
       const record = records.get(slug)
       const view=(slice,scope)=>{
@@ -80,6 +88,6 @@ export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)
 export const recentVersions = versions.slice(-3).reverse()
 export function recentModuleArticles(language = 'en') {
   const latest = article => [article,...article.additionalTargets].filter(slice=>slice.evidence && slice.since).map(slice=>slice.since).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}))[0]
-  return topicGroups(language).flatMap(group=>group.articles).map((article,index)=>({article,index,since:latest(article)})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.article)
+  return topicGroups(language).filter(group=>!group.relatedReading).flatMap(group=>group.articles).map((article,index)=>({article,index,since:latest(article)})).filter(row=>row.since).sort((a,b)=>b.since.localeCompare(a.since,undefined,{numeric:true}) || a.index-b.index).slice(0,3).map(row=>row.article)
 }
 

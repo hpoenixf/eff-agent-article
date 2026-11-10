@@ -4,7 +4,7 @@ title: Module Deep Dives
 
 # Module Deep Dives
 
-Follow six layers from input and context through execution, tools, delivery and the user interface.
+Follow module objects, interfaces, lifecycles and boundaries across six layers. Only module-focused essays belong in L1–L6; cross-module topics and engineering retrospectives remain related reading and do not count as module articles.
 
 Local implementation and offline checks do not establish production readiness, real-model performance or financial research quality. Each article retains its specific limits and outstanding checks. Links marked “Chinese original” lead to articles without a published English edition.
 

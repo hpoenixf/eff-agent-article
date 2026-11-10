@@ -187,3 +187,14 @@ test('v0.23/v0.24 navigation preserves exact lineage without upgrading old artic
   assert.equal(slices.some(s=>['0.23','0.24'].includes(s.since)),false)
  }
 })
+
+test('module reclassification preserves qualified topic evidence in explicit related groups', () => {
+ for (const lang of ['zh','en']) {
+  const groups = topicGroups(lang), rows = groups.flatMap(g=>g.articles)
+  assert.equal(groups.filter(g=>!g.relatedReading).flatMap(g=>g.articles).length,41)
+  assert.equal(new Set(rows.map(r=>r.slug)).size, rows.length)
+  assert.equal(rows.length,50)
+  const related = groups.filter(g=>g.relatedReading).flatMap(g=>g.articles)
+  for (const slug of ['agent-subagent-context-specialization','027-rag-revocation-publish-replay','agent-runtime-constraint-governance-v2','agent-tool-lifecycle-and-model-input']) assert.ok(related.some(r=>r.slug===slug))
+ }
+})

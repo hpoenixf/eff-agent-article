@@ -91,6 +91,8 @@ jobs:
           test -f .vitepress/dist/index.html
           test -f .vitepress/dist/articles/017-prompt-to-answer-six-layer-panorama.html
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html
+      - name: Verify module and related navigation in a real browser
+        run: node scripts/check-catalog-navigation-output.mjs
       - name: Verify gallery and primary navigation in a real browser
         run: node scripts/check-gallery-output.mjs
       - name: Verify Deep Research figures and keyboard zoom
@@ -104,6 +106,7 @@ jobs:
           name: gallery-navigation-qa
           path: |
             test-output/gallery-navigation/
+            test-output/catalog-navigation/
             test-output/deep-research/
             test-output/cleanup-owner/
           retention-days: 7

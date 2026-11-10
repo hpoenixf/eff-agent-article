@@ -7,7 +7,7 @@ export function catalogView(collections, { category, selectedTags = [], articles
       ...chapter,
       items: chapter.items.filter(([slug]) => matches(slug)),
       related: chapter.related?.filter(([slug]) => matches(slug))
-    })).filter(chapter => chapter.items.length)
+    })).filter(chapter => chapter.items.length || chapter.related?.length)
   })).filter(collection => collection.chapters.length)
   const articleCount = new Set(visible.flatMap(collection => collection.chapters.flatMap(chapter => chapter.items.map(([slug]) => slug)))).size
   return { collections: visible, articleCount }

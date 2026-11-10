@@ -1,11 +1,12 @@
 ---
-description: "How ETF Agent adds Deep Research to an existing research loop: approved budget upgrades, request-by-request delivery guidance, revision support, and what six matched Standard/Deep comparisons actually show."
+description: "Compare OpenAI, Anthropic, Google, and open-source research practices, then examine ETF Agent’s resource, parallel-evidence, and delivery choices through its implementation and six matched experiments."
 articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
+    - "Choose research mechanisms by scope, independence, and delivery needs: hosted APIs, multiple agents, and explicit stage graphs suit different constraints, and larger budgets alone do not establish quality."
     - "An agent with an existing tool loop need not build a second execution graph for Deep Research: it can upgrade an authorized Run's effective resources and adapt subsequent model guidance to Host-confirmed state."
     - "An upgrade proposal is not an applied resource grant. Used capacity is not reset, and finalization or independent limits cannot be bypassed by a late request."
     - "Research progress can be visible early, independent supported findings can ship early, and broader conclusions can be synthesized more cautiously; this is model guidance, not a server-enforced evidence-maturity threshold."
@@ -26,7 +27,7 @@ An ordinary investment-research question may require checking one fund's fee sch
 
 In ETF Agent, we did not build a second agent for the more demanding task. We gave the **same Native Research Loop** an authorized higher resource profile and adjusted guidance according to the mode that had actually taken effect: provide genuine progress as work continues, publish independently supported findings when useful, and be more deliberate when synthesizing conclusions that depend on several pieces of evidence.
 
-This article asks three questions: why ordinary Research was insufficient; precisely what Deep changes in the runtime; and what matched Standard/Deep runs actually showed. The Deep implementation discussed here comes from the ETF Agent engineering repository. It should not be mistaken for a feature already shipped in the public Open ETF Agent repository.
+After examining how industry systems approach long research, this article asks three questions about ETF Agent: why ordinary Research was insufficient; precisely what Deep changes in the runtime; and what matched Standard/Deep runs actually showed. The Deep implementation discussed here comes from the ETF Agent engineering repository. It should not be mistaken for a feature already shipped in the public Open ETF Agent repository.
 
 ## 1. Why introduce a separate Deep mode?
 
@@ -51,7 +52,49 @@ We therefore distinguish two kinds of delivery:
 
 This is not a rule forbidding output during the first 70% of execution. Nor is it a server-readable boolean called “evidence mature.” It is a change in the model's research and writing priorities.
 
-## 2. How it works inside the existing runtime
+## 2. Which industry practices are worth adopting?
+
+Deep Research does not imply one mandatory internal architecture. The following comparison focuses on **research effort, decomposition, and delivery**. Product documentation establishes exposed behavior; engineering accounts explain disclosed design; open-source code exposes an inspectable execution path. These are different kinds of evidence, and this comparison does not imply that we evaluated or adopted each option when building our implementation.
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/industry-decisions-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/industry-decisions-en.svg')" alt="Read the public sources by decision: asynchronous work and citations, independent investigations, plan and effort selection, and bounded research loops. This is not a ranking or a reconstruction of private internals." loading="lazy" /></picture>
+<figcaption><strong>Figure 1 · Four public practices, four engineering decisions</strong><br />Read the public sources by decision: asynchronous work and citations, independent investigations, plan and effort selection, and bounded research loops. This is not a ranking or a reconstruction of private internals. <a class="diagram-original" :href="withBase('/diagrams/deep-research/industry-decisions-en.svg')">Open full diagram</a></figcaption>
+</figure>
+
+### OpenAI: expose long-running work and traceable reports as product interfaces
+
+OpenAI's [Deep Research API example](https://developers.openai.com/cookbook/examples/deep_research_api/introduction_to_deep_research_api) shows report text with structured citations containing text spans, titles, and URLs. Its [background-mode documentation](https://developers.openai.com/api/docs/guides/background) describes response IDs and event cursors for reconnecting to the same response after a dropped connection.
+
+Two concrete practices matter here: **let readers locate the evidence behind a claim, and retrieve an existing task before restarting research after a client disconnect.** A hosted API can reduce orchestration work for teams that do not need their own research execution layer, at the cost of depending on its interfaces, data handling, and observability. Stream reconnection does not establish arbitrary tool-step rollback or exactly-once external actions. ETF Agent still uses its own existing resource, publication-version, and recovery responsibilities; adding Deep did not turn it into a wrapper around this API.
+
+### Anthropic: parallelize independent investigations, not agent counts
+
+Anthropic's [June 2025 engineering account](https://www.anthropic.com/research/multi-agent-research-system) describes a lead researcher delegating parallel tasks, synthesizing findings, and investigating further. Delegation specifies objectives, outputs, sources, and boundaries. Breadth-oriented work suits parallelism; tightly coupled work and extensive shared context may not. A separate citation-processing step follows research.
+
+For our fund question, one branch could examine the original report's period and calculation basis while another seeks correction notices and counterevidence. Deciding which version to use when recalculating the gap depends on both branches, so each should not independently deliver a final causal attribution. The diagram is a **teaching composition**, not a reconstruction of Anthropic's private implementation or an observed trajectory from our paired tests.
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/parallel-evidence-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/parallel-evidence-en.svg')" alt="Teaching composition: the original report and correction can be read independently, but synthesis must align versions and measurement bases. Handoffs retain source pointers and unknowns, not just a polished summary." loading="lazy" /></picture>
+<figcaption><strong>Figure 2 · Parallel evidence, synthesis after alignment</strong><br />Teaching composition: the original report and correction can be read independently, but synthesis must align versions and measurement bases. Handoffs retain source pointers and unknowns, not just a polished summary. <a class="diagram-original" :href="withBase('/diagrams/deep-research/parallel-evidence-en.svg')">Open full diagram</a></figcaption>
+</figure>
+
+The costs include additional calls, lossy summaries, and coordination. Our proposed handoff retains original-source pointers, applicable dates, and unknowns instead of treating Child count as evidence of depth. ETF Agent already supports Child collaboration, but this article establishes neither a correctness gain from more parallelism nor the addition of an Anthropic-style citation agent. Observed errors such as a present but unsupported citation should determine whether a dedicated citation check is justified.
+
+### Google: align the question before choosing research effort
+
+Google's [April 2026 Deep Research / Max announcement](https://blog.google/innovation-and-ai/models-and-research/gemini-models/next-Generation-gemini-deep-research/) distinguishes lower-latency interactive research from background research using more inference-time computation. It also offers reviewing and adjusting a research plan before execution. These are documented product choices, not independently measured performance findings in this article.
+
+The practical lesson is to **check that extra resources will address the right question**. For “why did the tracking gap widen?”, a plan should establish the period, benchmark, and whether fee attribution is required rather than defaulting to a fund encyclopedia. Plan review is useful when several people must agree on scope or the task will run for a long time; mandatory review adds friction to short questions. ETF Agent's `auto/standard/deep` controls mode intent and authorization. Those values are not equivalent to Google's product tiers, and they do not establish an equivalent interactive plan-review capability.
+
+### LangChain: make research boundaries inspectable in the loop
+
+A [fixed version of Open Deep Research](https://github.com/langchain-ai/open_deep_research/blob/1b7d2e80db9faa586165c60e09096dbbfd483a64/src/open_deep_research/deep_researcher.py) exposes supervisor and researcher loops, a parallel-research cap, and a separate report-generation stage. The supervisor can exit on a completion signal, no tool calls, an iteration limit, or an execution exception. This is an inspectable example of why **reaching report generation does not establish complete investigation**.
+
+An explicit stage graph suits teams that want to replace research, compression, and writing models independently. It also requires maintaining state handoffs, truncation policy, and failure semantics across stages. ETF Agent has a different local constraint: an existing unified research loop and publication-version path. We therefore first change capacity and guidance within that loop rather than maintain two sets of execution facts. This does not make graph-based orchestration inferior or the existing loop inherently more reliable.
+
+Together, these practices suggest an order of decisions: establish question and source boundaries, identify investigations worth parallelizing, choose effort, then assess stopping reasons and report quality separately. **This is our engineering synthesis, not a protocol that all four providers publicly claim to implement.**
+
+## 3. How it works inside the existing runtime {#_2-how-it-works-inside-the-existing-runtime}
 
 ### Four proposal surfaces, one resource authority
 
@@ -78,13 +121,20 @@ The current depth profile calculates a target as the admitted total plus half of
 
 These are default baselines and target ceilings, not guaranteed capacity for every Run. Already consumed requests, Child reservations, unknown settlements, and external provider or task limits still apply. **Upgrading does not reset usage or start a second budget.**
 
+Consider a teaching allocation: a Root total of 57, with 20 used and 6 reserved for Children, leaves at most 31 unallocated. Applying a total of 85 raises that upper bound to 59. The increase is 28, not a fresh grant of 85. These allocation figures are illustrative, not observed Run usage; other constraints can still reduce availability.
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/budget-ledger-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/budget-ledger-en.svg')" alt="Teaching arithmetic: Root requests rise from 57 to 85. Used 20 and Child-reserved 6 carry forward, so the unallocated upper bound rises from 31 to 59. Unknown settlements and external caps can further constrain availability." loading="lazy" /></picture>
+<figcaption><strong>Figure 3 · Upgrade total capacity, not a second budget</strong><br />Teaching arithmetic: Root requests rise from 57 to 85. Used 20 and Child-reserved 6 carry forward, so the unallocated upper bound rises from 31 to 59. Unknown settlements and external caps can further constrain availability. <a class="diagram-original" :href="withBase('/diagrams/deep-research/budget-ledger-en.svg')">Open full diagram</a></figcaption>
+</figure>
+
 There is also an eligibility window. Around the 50% reminder stage of the original request or time budget, the system can suggest that Main consider Deep for unresolved work; the suggestion does not itself start another model call. Near the 80% threshold of the original basis, in `finalization-only`, or when deadlines or authority prohibit expansion, the resource owner checks eligibility again at the actual effect boundary. A tool having been visible earlier is not sufficient.
 
 One more distinction matters: a durable approval is not proof that the live Host has applied the new resource profile to running admission and clocks. The runtime distinguishes `standard`, `recorded-pending`, `deep`, and `unknown`. Only actually applied `deep` affects subsequent effective behavior.
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/upgrade-boundaries-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/upgrade-boundaries-en.svg')" alt="Resource Owner checks the intent; only after Host applies the upgrade does the next request use Deep guidance. Existing consumption and reservations still count." loading="lazy" /></picture>
-<figcaption><strong>Figure 1 · From mode intent to applied Deep</strong><br />Resource Owner checks the intent; only after Host applies the upgrade does the next request use Deep guidance. Existing consumption and reservations still count. <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-en.svg')">Open full diagram</a></figcaption>
+<figcaption><strong>Figure 4 · From mode intent to applied Deep</strong><br />Resource Owner checks the intent; only after Host applies the upgrade does the next request use Deep guidance. Existing consumption and reservations still count. <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-en.svg')">Open full diagram</a></figcaption>
 </figure>
 
 ### Rebuild each model request; do not mutate an earlier prompt
@@ -113,21 +163,10 @@ Suppose the first five turns ran in Standard and Main requested an upgrade on tu
 
 The core research path can be summarized as follows; authorization, deadline, correction, and recovery details are deliberately omitted:
 
-```mermaid
-flowchart TD
-    A["Research request"] --> B{"Has Host applied Deep?"}
-    B -->|"Yes"| C["Deep capacity and delivery guidance"]
-    B -->|"No"| D["Original capacity and ordinary guidance"]
-    C --> E["The same Native Research Loop"]
-    D --> E
-    E --> F["Read, compute, collaborate with Child"]
-    F --> G{"What should be delivered now?"}
-    G -->|"Progress"| H["send_research_update"]
-    G -->|"Independently supported content"| I["send_answer_part / replaces"]
-    H --> E
-    I --> E
-    E --> J["Finalize when termination conditions hold"]
-```
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/delivery-lanes-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/delivery-lanes-en.svg')" alt="Only Host-applied Deep selects Deep guidance; otherwise ordinary guidance remains. Both progress and independently supported answers can return to research. Publishing a part is not termination; existing stop conditions still govern." loading="lazy" /></picture>
+<figcaption><strong>Figure 5 · Two delivery paths within one research loop</strong><br />Only Host-applied Deep selects Deep guidance; otherwise ordinary guidance remains. Both progress and independently supported answers can return to research. Publishing a part is not termination; existing stop conditions still govern. <a class="diagram-original" :href="withBase('/diagrams/deep-research/delivery-lanes-en.svg')">Open full diagram</a></figcaption>
+</figure>
 
 `send_research_update` carries a concise progress or attention assessment, subject to its own receipt and presentation rules. It is not a formal answer. `send_answer_part` publishes a portion of the answer. Publishing one part does not end the research; termination remains governed by the existing completion mechanism. Ordinary assistant text and explicit answer tools still follow the existing Publication authority.
 
@@ -143,7 +182,7 @@ This does not permit arbitrary whole-document edits. Target identity, revision, 
 
 The implementation remains intentionally narrow: **Resource Owner governs capacity; the model researches and synthesizes; Publication owns official answer versions; the existing durable path owns recovery.** Deep alters strategy and capacity inside this path rather than cloning it.
 
-## 3. What did the matched runs actually show?
+## 4. What did the matched runs actually show? {#_3-what-did-the-matched-runs-actually-show}
 
 An earlier matched study used two synthetic fund cases. In A, Deep delivered the first useful content later but eventually met 14/14 requirement groups versus Standard's 13/14, and reached terminal state earlier. In B, both met 15/15; Deep began useful delivery slightly earlier but finished later and consumed more known resources. The directions were already mixed, and the sample was small.
 
@@ -169,7 +208,7 @@ The complete frozen questions and item-by-item rules were not published with the
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/matched-outcomes-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/matched-outcomes-en.svg')" alt="These exploratory pairs retain their different denominators and failures. S2 Deep met all requirements sooner but finished later; S1 and D2 ended sooner with omissions." loading="lazy" /></picture>
-<figcaption><strong>Figure 2 · A complete answer and a completed Run are different</strong><br />These exploratory pairs retain their different denominators and failures. S2 Deep met all requirements sooner but finished later; S1 and D2 ended sooner with omissions. <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-en.svg')">Open full diagram</a></figcaption>
+<figcaption><strong>Figure 6 · A complete answer and a completed Run are different</strong><br />These exploratory pairs retain their different denominators and failures. S2 Deep met all requirements sooner but finished later; S1 and D2 ended sooner with omissions. <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-en.svg')">Open full diagram</a></figcaption>
 </figure>
 
 A “met requirement” here means that every subcondition of a preregistered requirement group was judged satisfied. It does not mean the entire answer contained no other errors. A completion event is not a browser-render timestamp; a first publication is not necessarily the first useful result.
@@ -180,7 +219,7 @@ One part of the D2 task wording admits a looser interpretation. If a later accur
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/evidence-timing-en-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/evidence-timing-en.svg')" alt="Both D1 modes and D2 Deep first published preparation notices. D2 Standard did publish an old-version conclusion before revising it, but its fee inference remained wrong." loading="lazy" /></picture>
-<figcaption><strong>Figure 3 · An update trigger does not prove a revised conclusion</strong><br />Both D1 modes and D2 Deep first published preparation notices. D2 Standard did publish an old-version conclusion before revising it, but its fee inference remained wrong. <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-en.svg')">Open full diagram</a></figcaption>
+<figcaption><strong>Figure 7 · An update trigger does not prove a revised conclusion</strong><br />Both D1 modes and D2 Deep first published preparation notices. D2 Standard did publish an old-version conclusion before revising it, but its fee inference remained wrong. <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-en.svg')">Open full diagram</a></figcaption>
 </figure>
 
 ### Why “shorter elapsed time” cannot decide the mode
@@ -203,7 +242,7 @@ All 20 Ragas metrics produced scores. Of 16 DeepEval metrics, 10 produced scores
 
 That distinction locates the real boundary of this implementation: **we can deterministically give a model more authorized room to research; whether it uses that room well must still be established from observed results.**
 
-## 4. Why not introduce a separate Deep graph?
+## 5. Why not introduce a separate Deep graph? {#_4-why-not-introduce-a-separate-deep-graph}
 
 An alternative is a fixed sequence such as plan → search → expert review → final Writer. That may be appropriate when a product's research workflow is tightly standardized.
 

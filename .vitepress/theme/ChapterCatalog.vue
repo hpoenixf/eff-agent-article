@@ -26,6 +26,7 @@ const toggleTag = (id: string) => {
 const clearTags = () => { if (selectedTags.value.length) { selectedTags.value = []; currentPage.value = 1; pushLocation() } }
 const view = computed(() => catalogView(allCollections.value, { category: props.category, selectedTags: selectedTags.value, articles: tagData.articles }))
 const selectedCollections = computed(() => view.value.collections)
+const primaryCategoryCount = computed(() => selectedCollections.value.filter(c => c.chapters.some(ch => ch.items.length)).length)
 const canSort = computed(() => !props.category && !props.compact && ['catalog.md', 'en/catalog.md'].includes(page.value.relativePath))
 const sortOrder = ref(DEFAULT_CATALOG_SORT)
 const currentPage = ref(1)
@@ -88,12 +89,13 @@ onUnmounted(() => { if (mounted) window.removeEventListener('popstate', restoreL
   <div class="reader-catalog" :class="{ 'reader-catalog--index': canSort }">
   <header v-if="canSort" class="catalog-page-heading">
     <h1 :id="isEnglish ? 'article-catalog' : '全部文章'">{{ isEnglish ? 'Article Catalog' : '全部文章' }}</h1>
-    <div class="catalog-heading-summary"><span>{{ isEnglish ? 'ARTICLE CATALOG' : '文章目录' }}</span><strong>{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · {{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong></div>
+    <div class="catalog-heading-summary"><span>{{ isEnglish ? 'ARTICLE CATALOG' : '文章目录' }}</span><strong>{{ primaryCategoryCount }} {{ isEnglish ? 'categories' : '大类' }} · {{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong></div>
   </header>
   <div v-else class="catalog-headline">
     <span>{{ category ? (isEnglish ? 'IN THIS CATEGORY' : '本类文章') : (isEnglish ? 'ARTICLE CATALOG' : '文章目录') }}</span>
-    <strong><template v-if="!category">{{ selectedCollections.length }} {{ isEnglish ? 'categories' : '大类' }} · </template>{{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
+    <strong><template v-if="!category">{{ primaryCategoryCount }} {{ isEnglish ? 'categories' : '大类' }} · </template>{{ view.articleCount }} {{ isEnglish ? 'articles' : '篇文章' }}</strong>
   </div>
+  <p v-if="category" class="catalog-history-note">{{ isEnglish ? 'Counts include articles in this category only; related reading is listed separately.' : '篇数仅计本类文章，关联阅读另列，不重复计数。' }}</p>
   <div v-if="canSort" class="catalog-intro"><slot name="intro" /></div>
   <div :class="canSort ? 'catalog-toolbar' : 'catalog-filters'">
   <div class="catalog-tag-filter" :aria-label="isEnglish ? 'Filter by article tags; match all selected' : '按文章标签筛选，同时满足所选标签'">
@@ -164,20 +166,20 @@ onUnmounted(() => { if (mounted) window.removeEventListener('popstate', restoreL
         </div>
         <component :is="category ? 'h2' : 'h3'" class="chapter-title">{{ chapter.title }}</component>
         <p>{{ chapter.desc }}</p>
-        <ol>
+        <ol v-if="chapter.items.length">
           <li v-for="([slug, label]) in (compact ? chapter.items.slice(0, 3) : chapter.items)" :key="slug" :data-article="canSort ? slug : undefined">
             <a :href="withBase(pathFor(slug))">{{ label }} <span v-if="isEnglish && !pathFor(slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span> <span aria-hidden="true">↗</span></a>
           </li>
         </ol>
-        <div v-if="!compact && chapter.related?.length" class="chapter-related">
-          <p class="chapter-related-label">{{ isEnglish ? 'Related reading · primary category elsewhere' : '关联阅读 · 正文归属其他主类' }}</p>
+        <div v-if="chapter.related?.length && (!compact || chapter.items.length < 3)" class="chapter-related">
+          <p class="chapter-related-label">{{ isEnglish ? 'Related reading · canonical entry elsewhere' : '关联阅读 · 主目录收录在别处' }}</p>
           <ol>
-            <li v-for="([slug, label]) in chapter.related" :key="slug">
+            <li v-for="([slug, label]) in (compact ? chapter.related.slice(0, Math.max(0, 3 - chapter.items.length)) : chapter.related)" :key="slug">
               <a :href="withBase(pathFor(slug))">{{ label }} <span v-if="isEnglish && !pathFor(slug).startsWith('/en/')" class="article-original-label">(Chinese original)</span> <span aria-hidden="true">↗</span></a>
             </li>
           </ol>
         </div>
-        <a v-if="compact && chapter.items.length > 3" class="chapter-more" :href="withBase(categoryFor(collection.id))">
+        <a v-if="compact && chapter.items.length + (chapter.related?.length || 0) > 3" class="chapter-more" :href="withBase(categoryFor(collection.id))">
           {{ isEnglish ? 'More articles →' : '查看本类其余文章 →' }}
         </a>
       </section>

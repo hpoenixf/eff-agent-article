@@ -71,7 +71,8 @@
     "agent-atomic-portfolio-report-production": "一份组合报告，为什么不能边算边写？",
     "agent-personalized-daily-research-cache": "每天一份个性化研究：生成、去重与回读",
     "agent-checkpoint-ownership-and-recovery": "Checkpoint 系统设计：Agent 保存什么，又凭什么继续？",
-    "agent-cleanup-result-ownership": "失败已经确定，为什么还返回不了？清理与结果结算的责任边界"
+    "agent-cleanup-result-ownership": "失败已经确定，为什么还返回不了？清理与结果结算的责任边界",
+    "agent-deep-research-resource-and-delivery": "Deep Research：从资源升级到研究交付，我们怎么实现，又测出了什么？"
   },
   "owners": {
     "A01": {
@@ -96,21 +97,23 @@
       "related": [
         "022-agent-entry-from-intent-to-direct-research",
         "financial-agent-python-result-consumption",
-        "adaptive-research-python-workbench"
+        "adaptive-research-python-workbench",
+        "agent-deep-research-resource-and-delivery"
       ]
     },
     "A04": {
       "primary": "011-model-understands-code-authorizes"
     },
     "A05": {
-      "primary": "agent-runtime-constraint-governance-v2",
       "related": [
-        "agent-personal-credits-shadow-accounting"
+        "agent-runtime-constraint-governance-v2",
+        "agent-personal-credits-shadow-accounting",
+        "agent-deep-research-resource-and-delivery"
       ]
     },
     "A06": {
-      "primary": "agent-veto-authority-and-run-termination",
       "related": [
+        "agent-veto-authority-and-run-termination",
         "agent-provider-failover-without-resetting-the-run",
         "agent-long-horizon-research-panorama",
         "agent-checkpoint-ownership-and-recovery",
@@ -118,8 +121,8 @@
       ]
     },
     "A07": {
-      "primary": "agent-subagent-context-specialization",
       "related": [
+        "agent-subagent-context-specialization",
         "agent-provider-failover-without-resetting-the-run",
         "agent-durable-human-interaction-response-adoption",
         "agent-custom-expert-from-prompt-to-recovery",
@@ -139,8 +142,8 @@
       ]
     },
     "A11": {
-      "primary": "agent-tool-lifecycle-and-model-input",
       "related": [
+        "agent-tool-lifecycle-and-model-input",
         "mcp-host-from-discovery-to-consumption",
         "agent-stream-tool-call-null-continuation"
       ]
@@ -159,8 +162,8 @@
       ]
     },
     "A14": {
-      "primary": "tool-results-outside-model-context",
       "related": [
+        "tool-results-outside-model-context",
         "agent-main-run-context-compaction",
         "agent-temporal-semantics-market-calendar"
       ]
@@ -221,17 +224,18 @@
       "primary": "019-agent-answer-publication",
       "related": [
         "agent-html-evolution-challenges",
-        "agent-report-cost-attribution"
+        "agent-report-cost-attribution",
+        "agent-deep-research-resource-and-delivery"
       ]
     },
     "A24": {
       "related": [
+        "agent-asynchronous-research-time-bound-delivery",
         "agent-progressive-answer-coherence",
         "agent-background-research-collaborative-experience",
         "agent-durable-human-interaction-response-adoption",
         "agent-long-horizon-research-panorama"
-      ],
-      "primary": "agent-asynchronous-research-time-bound-delivery"
+      ]
     },
     "A25": {
       "primary": "agent-client-interaction-and-reading",
@@ -287,10 +291,10 @@
     },
     "B01": {
       "related": [
+        "mcp-market-responsibility-retrospective",
         "unavailable-is-correct",
         "agent-temporal-semantics-market-calendar"
-      ],
-      "primary": "mcp-market-responsibility-retrospective"
+      ]
     },
     "B02": {
       "related": [

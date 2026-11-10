@@ -4,37 +4,15 @@ import { articleReadingBriefPlugin } from '../article-reading-brief.mjs'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { collections } from '../book.mjs'
+import { readingSidebar as buildReadingSidebar } from '../reading-sidebar.mjs'
 import { SITE_URL, READER_LANGUAGES, canonicalUrl, isLegacyArticleRoute, isNonReaderRoute, filterSitemapItems, languageAlternates } from '../seo-routes.mjs'
 import { englishCollections, englishArticlePath } from '../book.en.mjs'
 import { seoDescription, socialHead, articleStructuredData, breadcrumbStructuredData, structuredDataHead, landingStructuredData, setLandingStructuredData } from '../seo-content.mjs'
 import { diagramId, IMAGE_ROOT, escapeAttribute } from '../static-mermaid.mjs'
 import { readableRelations, diagramDimensions, needsReadableRelations, renderRelations } from '../diagram-reading.mjs'
 
-const readingSidebar = collections.map((collection) => ({
-  text: collection.title,
-  collapsed: true,
-  items: collection.chapters.map((chapter) => ({
-    text: chapter.title,
-    collapsed: true,
-    items: chapter.items.map(([slug, text]) => ({
-      text,
-      link: '/articles/' + slug
-    }))
-  }))
-}))
-
-const englishSidebar = englishCollections.map(collection => ({
-  text: collection.title,
-  collapsed: true,
-  items: collection.chapters.map(chapter => ({
-    text: chapter.title,
-    collapsed: true,
-    items: chapter.items.map(([slug, title]) => ({
-      text: title + (englishArticlePath(slug).startsWith('/en/') ? '' : ' · 中文'),
-      link: englishArticlePath(slug)
-    }))
-  }))
-}))
+const readingSidebar = buildReadingSidebar(collections)
+const englishSidebar = buildReadingSidebar(englishCollections, { pathFor: englishArticlePath, english: true })
 
 export default defineConfig({
   locales: {

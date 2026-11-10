@@ -288,7 +288,7 @@ const headings = {
   ]
 }
 const labels = {
-  modules: ['Module Deep Dives','Mechanisms along the six-layer request lifecycle, with cross-layer responsibilities preserved.'],
+  modules: ['Module Deep Dives','Module objects, interfaces, lifecycles and boundaries across six layers; cross-module topics remain related reading.'],
   thinking: ['Architecture and Systems Thinking','System boundaries, responsibility, reliability and change.'],
   engineering: ['AI Agent Engineering Practice','From coding-agent workflows to runtime validation, protocol compatibility, incident analysis and verifiable task outcomes.']
 }
