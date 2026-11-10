@@ -2,13 +2,14 @@
 description: "A connected MCP can still break a model request or leave the next turn using an outdated interface. Schema failures, binding drift and rejected valid results reveal the checks needed between discovery, admission, dispatch and actual model consumption."
 readingBrief:
   takeaways:
-    - "Separate connection, discovery, admission and per-turn visibility; preserve upstream Schema semantics and validate model-route compatibility rather than integrating tools by silently dropping constraints."
-    - "Bind the interface the model sees to the actual source and dispatch contract; reject within-turn drift and consider another provider only after presenting its real definition."
-    - "Inspect the next actual model request, preserving empty, failed, invalid and oversized outcomes; optional-source failure stays local, and readable results do not automatically qualify as citations."
+    - "An MCP connection does not mean its tools are permitted or present in the model request. Check each step, not just the catalog."
+    - "A tool's parameter definition can break the model request itself. Fix compatibility without dropping required fields or other constraints."
+    - "Call the provider using the interface the model saw. If it changes, reject that call and present the new definition on the next turn."
+    - "Distinguish empty tables, failed calls and oversized results. Keep optional-source failures local, then check what reaches the next model request."
   appliesTo:
-    - "Integrating local stdio and remote HTTP MCP into multi-turn research, including connected-but-unused tools, stale descriptors and lost result handoffs."
+    - "Integrating local or remote MCP and diagnosing missing tools, stale interfaces or results that never reach the model."
   notFor:
-    - "Seeking only a minimal SDK demo, or treating the public scripted stdio case as acceptance of remote OAuth, universal Schema compatibility or real-model research quality."
+    - "A minimal SDK tutorial; the public stdio case also does not establish remote OAuth, universal interface compatibility or real-model research quality."
 ---
 # From Connecting MCP to Actually Using Its Tools: Building an End-to-End Agent Integration Path
 

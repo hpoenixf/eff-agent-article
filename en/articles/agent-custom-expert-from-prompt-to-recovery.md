@@ -2,13 +2,15 @@
 description: "Turning a personal prompt into a reusable research method requires more than storage. Follow versioned profiles, exact selection, Child task revisions and execution-backed contribution history to see how methods evolve without rewriting past research or granting new authority."
 readingBrief:
   takeaways:
-    - "A personal expert is a versioned research method, not an independent authority platform; Main sees a catalog and only the selected Child receives full instructions."
-    - "Each Run freezes its method identity; edits affect future Runs, and historical contributions come from original execution receipts rather than the latest profile."
-    - "A Child may revise its current task description as evidence changes, but cannot rewrite prior requests, change expert identity, expand access or claim unperformed collaboration."
+    - "Personal experts store research methods. Main sees the catalog; only the selected Child receives full instructions."
+    - "Each Run fixes an expert revision. Later edits affect new Runs; resumed Runs keep the original."
+    - "A Child can revise its task as evidence changes, but cannot switch experts, expand access or rewrite history."
+    - "Show contributions from actual execution results. Selecting an expert does not prove it participated."
   appliesTo:
-    - "Adding user-defined methods to existing Subagents with concurrent edits, recovery, exact selection and execution-backed contribution displays."
+    - "Adding user-defined methods, versioning and recovery to existing Subagents."
   notFor:
-    - "Seeking arbitrary executable expert packages or independent long-lived assistant workspaces, or equating selection with improved investment-research quality."
+    - "Installing arbitrary executable expert packages or creating independent long-lived assistants."
+    - "Using engineering tests to prove better real-world investment research."
 ---
 # A Custom Expert Should Be More Than a Prompt Field
 

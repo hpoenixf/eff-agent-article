@@ -3,13 +3,15 @@ title: "Start with a Report You Can Read Back: Open ETF Agent v0.1"
 description: Run the fixed offline example to inspect source identity, tool execution, partial writes, and independent file readback, then separate known facts from gaps in a real-model rejection.
 readingBrief:
   takeaways:
-    - "v0.1 connects reading, calculation, and saving through Gateway, Runtime, and Tool Host; scripted action selection with real tool effects does not establish model comprehension."
-    - "Preserve source identity, partial writes, and file receipts separately. Checking original bytes after process exit proves neither browser delivery nor resumable execution."
-    - "A real-model run stopped at pre-dispatch calculation rejection without a report. Missing arguments leave the reason unresolved; later successes cannot rewrite that observation."
+    - "v0.1 connects reading, calculation, saving, and cross-process readback. Scripted actions do not prove model comprehension."
+    - "Reports may cite only sources read in that run, but valid source identities do not establish support for every claim."
+    - "If saving fails partway, report the files already written and inspect them before deciding whether to retry."
+    - "Reading the original file checks persistence, not browser delivery or resumable execution."
+    - "One real-model run was rejected before calculation and produced no report. Missing original arguments leave the rejection reason unresolved."
   appliesTo:
-    - "Readers starting from the fixed v0.1 offline example to understand source identity, tool effects, and independent report readback."
+    - "Readers using the fixed v0.1 offline example to inspect sources, tool effects, and saved reports."
   notFor:
-    - "Not a current full-capability manual or evidence of investment quality, browser delivery, or later persistence features in v0.1."
+    - "A current feature manual or proof of investment quality, browser delivery, or durable recovery."
 ---
 
 # Start with a Report You Can Read Back: Open ETF Agent v0.1

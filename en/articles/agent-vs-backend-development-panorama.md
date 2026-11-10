@@ -3,16 +3,17 @@ title: "How Agent Development Differs from Backend Development: From One Request
 description: "When model outputs help form execution paths at runtime, see how uncertainty changes state, failure handling, recovery, and testing, from one research request to long-term personal assistance."
 readingBrief:
   takeaways:
-    - "An Agent lets parts of its execution path form at runtime. Tool order can change with observations, while the system still enforces permissions, the original budget, external-effect boundaries, and stopping conditions."
-    - "Recovery must preserve the original task, evidence, and effects. An operation that was dispatched but has an unknown outcome cannot be treated as failed and repeated merely because it timed out."
-    - "Tests should establish both that unauthorized or duplicate effects are blocked and that independent permitted work can still finish. Open-ended research need not have one correct tool trajectory."
-    - "Cases from our private application separate readable results, adopted responses, and memory entering later input. Mechanism correctness does not establish sustained user benefit."
-    - "From one request to a personal assistant, the scope of responsibility expands across time and decisions. Goals can persist, executions remain bounded, and users must be able to modify or withdraw a delegation."
+    - "Agents let models choose the next step from observations. The system still enforces permissions, cumulative budgets and stopping conditions."
+    - "Recovery reconnects the original task, evidence and results. A timeout does not prove an external action failed; do not blindly repeat an unknown outcome."
+    - "Test both that unauthorized or duplicate actions are blocked and that independent permitted work can finish. Research need not follow one fixed tool order."
+    - "Check report readback, response adoption and memory reaching later input separately. A successful save does not establish actual use."
+    - "Long-term goals can span many tasks, but each execution stays bounded and users must be able to revise or withdraw the delegation."
   appliesTo:
-    - "Developers with a backend or full-stack background who want to understand the engineering differences between Agent applications and conventional business systems."
-    - "Teams designing research assistants, long-running tasks, or personal agents who need to understand runtime frameworks, business responsibility, and delegations across time."
+    - "Backend or full-stack developers learning what changes in Agent engineering."
+    - "Teams designing research assistants, long-running tasks, or personal agents."
   notFor:
-    - "Treating a teaching project as a deployed personal assistant, live fund-research service, or trading system, or looking for a framework performance ranking."
+    - "Treating a teaching project as a deployed assistant, live research or trading service, or seeking a framework performance ranking."
+    - "Using mechanism checks and small samples as proof of sustained user benefit."
 ---
 
 <script setup>

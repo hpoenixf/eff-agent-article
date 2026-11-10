@@ -3,13 +3,14 @@ title: "Documentation Is Not Meant to Be Read All at Once: Knowledge, Memory and
 description: "Hot/Warm/Cold routing, History and Handoff, plus the portable open-source Engineering History Skill."
 readingBrief:
   takeaways:
-    - "Keep invariants and navigation in global rules, then load domain knowledge for the task; Hot, Warm, and Cold change when knowledge enters context."
-    - "Current contracts, code, evidence, History, and Handoff answer different questions. Historical explanation must not regain present authority simply because a search retrieved it."
-    - "Retire obsolete commands, instructions, and compatibility dependencies with their mechanisms. Preserve lasting judgments selectively; deterministic tools protect identity and manual writing, not narrative truth."
+    - "Keep essential constraints and navigation in global rules. Load domain docs for the task and history when its causes matter."
+    - "Current specs describe intended behavior; code shows actual behavior. Old proposals and handoffs are not automatically current requirements."
+    - "Retire obsolete commands, instructions, and compatibility layers with the mechanism, while preserving useful tests and rationale."
+    - "Keep reusable judgments in history. Tools check dates, links, and protected writing, not whether a lesson is correct."
   appliesTo:
-    - "Long-lived multi-agent projects managing relevant context, durable engineering lessons, and obsolete instructions that can revive retired designs."
+    - "Long-lived multi-agent projects where growing documentation can revive obsolete designs."
   notFor:
-    - "Not evidence of proportional token or productivity savings, nor a reason to let semantic retrieval or a history CLI decide current authority."
+    - "Automatically deciding source authority, or inferring token and productivity savings from document length."
 ---
 
 # Documentation Isn't Meant to Be Read in Full: On-Demand Knowledge, Engineering Memory and Retirement

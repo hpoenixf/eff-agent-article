@@ -3,14 +3,14 @@ title: "Long-Horizon Research Panorama: Continuing Across Context, Interruptions
 description: Long research needs more than a running model. Follow a fund comparison to see how evidence changes decisions, when supported findings should reach the user, and how context, recovery and delivery retain their separate responsibilities.
 readingBrief:
   takeaways:
-    - "Measure research progress by changes to the original question's uncertainty, conclusions or usable deliverables; tool counts and checklist statuses are only clues."
-    - "Deliver independently supported findings promptly. When a core premise is missing, explain the gap rather than using a timer to force an unsupported answer."
-    - "The model owns research strategy, interpretation and sufficiency judgments; the runtime owns permissions, actual effects, resources and persistence. Neither certifies the other's work."
-    - "Summaries help the next worker understand the task; original instructions, receipts and report versions retain factual authority. Reconnection, same-Run recovery and new-Run continuation stay distinct."
+    - "Judge progress by what new evidence changes or resolves, rather than by the number of tool calls."
+    - "Deliver supported, independently readable findings early. When a core premise is missing, explain the gap instead of forcing a definite answer."
+    - "Compact working context while separately retaining original requirements, tool results and report versions for later inspection and continuation."
+    - "Reconnection restores viewing; process recovery uses the original execution records. An explicit continuation starts a new execution that still needs the original question and applicable constraints."
   appliesTo:
-    - "Designing research that crosses context windows, user absence or service interruptions while continuing evidence gathering and delivering reports that can be reopened."
+    - "Designing long research and staged delivery across context windows, user absence or process interruptions."
   notFor:
-    - "Simple fixed-step work that fits one request, or treating bounded engineering checks as proof of autonomous financial quality or long-term reliability."
+    - "Using bounded engineering checks as proof of real financial research quality; the full task walkthrough uses a synthetic example."
 ---
 
 # Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time

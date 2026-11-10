@@ -3,13 +3,14 @@ title: Why Tool Results Should Not All Enter Model Context
 description: Keeping large tool results outside model context while preserving selective reads, coverage, authorization and exact versions.
 readingBrief:
   takeaways:
-    - "Keep large results in a controlled store and read exact versions or selections; catalog presence, successful reading and inclusion in model input are distinct facts."
-    - "Check scope, record identity and byte coverage before claiming completeness; a deliberate partial read can support a scoped answer, not a whole-dataset claim."
-    - "Replace older bodies with references only when original receipts establish exact rereadability; references grant no access, and refreshing must not silently replace the original snapshot."
+    - "Large tables and documents need not travel with every request. Save the original result and let the model read the fields, records or passages it needs."
+    - "A successful tool read does not prove the text reached the model. Check which records survived into the final request and whether any content was cut."
+    - "Reading 80 of 100 holdings supports analysis of those 80, not a conclusion about the entire portfolio."
+    - "Replace old text with a reference only when the exact version and selection can be reread. References grant no extra access; a refresh creates a new version."
   appliesTo:
-    - "Handling large holdings tables, documents or paginated APIs, especially repeated context payloads and silent truncation."
+    - "Handling large tables, long documents or paginated APIs while reducing repeated input and finding data silently dropped before it reaches the model."
   notFor:
-    - "Using finite-set coverage to claim exhaustive web search, or inferring answer correctness and cost savings from complete input alone."
+    - "Proving exhaustive web search, correct answers or lower model bills. Neither complete input nor shorter requests establishes those outcomes."
 ---
 
 # Why Tool Results Should Not All Enter Model Context

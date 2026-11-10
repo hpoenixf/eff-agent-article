@@ -3,13 +3,14 @@ title: "Why AI Agents Need Thinking, Fast and Slow"
 description: "From automatic and deliberate human cognition to Direct / Research routing: cost, context contamination, and research notes that can change as evidence arrives."
 readingBrief:
   takeaways:
-    - "Route Direct versus Research by the need for new facts, not question length or intelligence level. More tool calls can add cost, distraction and failure exposure."
-    - "Research Needs are revisable working notes, not acceptance certificates. Evidence should be able to change the next action; green statuses do not prove the original request answered."
-    - "Before continuing, ask whether another source could change the judgment. Check a missing denominator; skip irrelevant material; acknowledging uncertainty can be an appropriate finish."
+    - "Answer directly when existing information is sufficient; use research for new facts or computation, not merely longer questions."
+    - "Revise or reopen research notes as evidence changes. Marking every item complete does not prove the request was answered."
+    - "Before searching again, ask whether new evidence could change the judgment. Fill key gaps rather than collect more material."
+    - "If a key premise cannot be verified, state the uncertainty and stop without exhausting the budget."
   appliesTo:
-    - "Designing request routing, research loops and context policies that avoid unnecessary evidence gathering while allowing evidence-driven revision."
+    - "Designing direct-answer routing or stopping conditions for research loops."
   notFor:
-    - "Treating dual-process theory as a model brain architecture, or illustrative costs and bounded reminder checks as measured quality or savings."
+    - "Fast and slow thinking is an analogy. Hypothetical costs and bounded reminder checks do not establish measured quality or savings."
 ---
 
 # Why AI Agents Need *Thinking, Fast and Slow*

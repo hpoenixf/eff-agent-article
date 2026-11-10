@@ -3,13 +3,14 @@ title: Financial Agents in Context — Systems, Lifecycles, and Accountability
 description: Follow a portfolio question through system responsibilities, research loops, data and calculations, collaboration, trustworthy delivery, ongoing review, and business operations. Give research room to explore while controlling real effects.
 readingBrief:
   takeaways:
-    - "Research may explore freely, but account facts, calculations, access, and real operations keep distinct owners; research permission never silently becomes trading authority."
-    - "Financial numbers need their objects, dates, denominators, and coverage. Missing material should narrow dependent claims, not erase independently supported research."
-    - "Evaluate whether the original question was answered and results actually reached the user; establish read-only research before adding collaboration or controlled operations."
+    - "The model chooses research routes, account systems hold actual positions, and code executes explicit calculations; research permission does not authorize trading."
+    - "Deliver financial numbers with their objects, dates, denominators, and coverage so correct arithmetic is not given the wrong meaning."
+    - "When material is incomplete, narrow affected claims and retain other valid findings rather than inventing precise answers or rejecting the whole report."
+    - "First complete a read-only task that answers the question and delivers checkable results; add specialists, continuing research, and controlled operations as needed."
   appliesTo:
-    - "Designing responsibility boundaries across financial research, data, calculations, delivery, and business systems, or planning phased adoption."
+    - "Defining data, calculation, delivery, and business responsibilities in a financial research product and planning its rollout."
   notFor:
-    - "Not an interface-by-interface implementation guide or evidence that ETF Agent already provides trading, institutional approval, or validated investment gains."
+    - "An interface-level implementation guide; trading and institutional approval are target responsibilities, not currently deployed capabilities."
 ---
 
 # Financial Agents in Context: Systems, Lifecycles, and Accountability

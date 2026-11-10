@@ -2,13 +2,14 @@
 description: "More specialists do not automatically make investment research better. A synthetic technology-ETF example shows how allocation, tail-risk, cost and cash-discipline perspectives test a shared hypothesis, and how Main should synthesize evidence and disagreements rather than vote on positions."
 readingBrief:
   takeaways:
-    - "Multiple perspectives should test one material hypothesis through different methods, not vote; a simple lookup need not incur extra delegation cost."
-    - "Specialists share comparable authorized facts and calculations while separating facts, hypotheses, and opinions; Main’s provisional view must not masquerade as common source evidence."
-    - "A useful Bull/Bear exchange revises a specific reason; Main synthesizes disagreement and gaps. Reviewer offers advice, and working integration does not prove better investment decisions."
+    - "Add a specialist only when a new method can test a material hypothesis; a simple fee lookup does not need several agents."
+    - "Specialists should use the same authorized facts and calculations, without treating the lead researcher's provisional view as evidence."
+    - "Bull/Bear debate should revise specific reasons. Final synthesis should explain disagreements and gaps, not turn votes into portfolio weights."
+    - "A reviewer may recommend more research or closure but cannot approve the answer. Engineering checks have not yet shown better investment decisions."
   appliesTo:
-    - "Research with a decision-relevant falsifiable hypothesis that benefits from distinct allocation, tail-risk, implementation-cost, or cash-discipline tests."
+    - "Choosing analytical methods and testing decision-relevant assumptions in investment research."
   notFor:
-    - "Averaging expert votes into trades, giving review advice approval authority, or treating synthetic portfolios and scoped engineering checks as evidence of investment gains."
+    - "Automatically issuing trades or using synthetic portfolio examples to prove real investment gains."
 ---
 # More Than One Investment Expert: How Multi-Perspective Agents Test an Investment Thesis
 

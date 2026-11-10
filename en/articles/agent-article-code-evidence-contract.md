@@ -4,13 +4,15 @@ description: "Using a small Open ETF Agent Memory example to connect claims in t
 date: 2026-10-29
 readingBrief:
   takeaways:
-    - "Tie capability claims to a fixed revision, real execution entry, observable result, and explicit scope; a repository link cannot substantiate an entire article."
-    - "Introduction and verification revisions describe different facts, and metadata checks do not rerun behavior; changed inputs or implementation require reconsidering old evidence."
-    - "Validate code, bilingual article sources, and deployed reading pages independently. A public example demonstrates its bounded behavior, not every capability discussed in the article."
+    - "For runnable claims, provide a pinned revision, command, and observable result, not just a repository link."
+    - "A minimal example establishes only the behavior it checks. State clearly when no public implementation exists."
+    - "Record first-publication and verification revisions separately. Checking an old receipt is not a fresh test run."
+    - "When source, dependencies, or inputs change, reassess whether the old evidence still applies."
+    - "Check code verification, both article sources, and the live website separately; completing one does not complete the others."
   appliesTo:
-    - "Authors and open-source maintainers connecting technical claims to reproducible examples, revision identities, and bilingual publication evidence."
+    - "Technical authors and open-source maintainers connecting runnable examples to specific code versions."
   notFor:
-    - "Not a certificate that one passing example verifies an entire article, a private system, or the live website."
+    - "Using one passing example to certify an entire system or live-model quality."
 ---
 
 # Does the Code Really Support the Article? An Evidence Contract for Technical Writing

@@ -3,13 +3,14 @@ title: "Daily Personalized Research Is Not Just Repeating a Prompt"
 description: "Follow a research homepage across repeated visits, same-day deduplication, and followed topics, then examine real engineering examples of citation misbinding and connection-pool starvation."
 readingBrief:
   takeaways:
-    - "Followed topics guide selection; they are neither source permissions nor automatic memory. Daily research reuses the original engine, and the model may select no items."
-    - "Reading saved results and explicitly generating them must remain separate. This implementation deduplicates by account scope and UTC date, reuses same-day success, and never starts model research merely because the homepage opens."
-    - "Cached citations must bind the original publication and revision while checking the current viewer. Generation locks need separate, bounded connection capacity so they cannot consume the query pool required by the research itself."
+    - "Followed topics guide selection without granting access to more sources. The model may return no items; it need not fill all three slots."
+    - "Opening the homepage reads saved results; clicking Generate starts research. Reuse a successful result for the same account and UTC date."
+    - "Card citations must match the original report and revision. Fix incorrect source display in the read path rather than regenerating the research."
+    - "Long-held generation locks need a separate, bounded connection pool so they cannot exhaust the database connections the research itself needs."
   appliesTo:
-    - "Teams extending a conversational Agent into a daily digest, research homepage, or proactive-service entry while controlling repeated execution, private data, and rereads."
+    - "Building a daily research homepage that avoids duplicate generation and lets users safely reopen saved results."
   notFor:
-    - "Treating daily cards as investment opportunities, or assuming the current implementation includes local-midnight refresh, real-time novelty detection, and automatic push notifications."
+    - "Local-midnight refresh, real-time novelty detection or automatic push: this implementation does not provide them, and a card does not certify an investment opportunity."
 ---
 
 # Daily Personalized Research Is Not Just Repeating a Prompt

@@ -3,13 +3,14 @@ title: "Building Agents with Agents: Why Fixing Bugs Doesn't Complete the Resear
 description: "A grounded engineering retrospective on task-level acceptance, source-proof loss, Python file handoff, meaningful outcome measures, and proportionate validation."
 readingBrief:
   takeaways:
-    - "Define the missing task effect before choosing the smallest useful experiment. Attribution, bounded capability, and product completion are different kinds of progress, not interchangeable bug counts."
-    - "Only 21 of 93 stored result groups reached visible projection; repair the source-proof producer rather than weaken consumers. That local fix does not deliver the original missing report."
-    - "A Python exercise proved its download and History-readback path, not all research. Runtime completion and saved-answer rates still require task-specific delivery and independent quality review."
+    - "Identify the result still missing from the user task, then choose the smallest useful check instead of chasing the latest error."
+    - "When material never reaches the model, locate the lost source proof rather than weaken access checks."
+    - "Download a reportedly generated file and reopen it from history. A working local path does not complete the original task."
+    - "Keep run completion, answer persistence, and research success separate. Task completion also needs requirements and independent quality review."
   appliesTo:
-    - "Teams using coding agents to build research agents who keep fixing defects without completing the original user task."
+    - "Teams using coding agents to build research systems but fixing bugs without delivering the original task."
   notFor:
-    - "Not evidence of overall success-rate or engineering-cost improvement, nor a demand for full live research after every local change."
+    - "Proof of overall success-rate or cost gains; full live research is also unnecessary for every local edit."
 ---
 
 # When an Agent Builds Another Agent, Why Does Fixing Many Bugs Still Leave Real Research Unfinished?

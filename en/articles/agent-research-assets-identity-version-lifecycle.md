@@ -3,13 +3,13 @@ title: "Why a Research Report Must Become an Asset Before an Agent Can Reuse It"
 description: "The research-asset boundary: authorized acquisition, source identity, version fallback, partial extraction, run-scoped evidence and long-term research workspaces."
 readingBrief:
   takeaways:
-    - "File bytes, asset registration and consumed evidence are separate facts; preserve source, scope, version and actual coverage rather than treating registration as reading."
-    - "Extract and persist usable evidence before activating a replacement; a failed import preserves the prior valid asset, and partial extraction remains explicitly partial."
-    - "Long-term Workspace links historical outputs; a readable old report neither guarantees access to its original files nor grants a new Run permission to retrieve them."
+    - "Saving a file does not mean the model read it. Record who may access it, which version was acquired, and which parts were extracted and actually read."
+    - "Extract and save usable content before replacing an old version. A failed import keeps the old material available; partial extraction must still disclose its gaps."
+    - "Being able to read an old research report does not guarantee access to its cited PDF. A new study still needs its own permission to access that file."
   appliesTo:
-    - "Ingesting research attachments across formats and designing source identity, version changes, partial extraction and cross-Run reuse boundaries."
+    - "Importing PDFs, Word documents and spreadsheets while handling updates, incomplete parsing and rereading in later research."
   notFor:
-    - "Certifying investment conclusions from hashes, or treating Workspace as permanent storage for arbitrary files or a complete open-source tutorial."
+    - "Permanently collecting arbitrary files or installing the complete system described. The public teaching project lacks this combined capability, and file identity does not prove an investment conclusion."
 ---
 
 # Why a Research Report Must Become an Asset Before an Agent Can Reuse It

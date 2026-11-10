@@ -2,13 +2,13 @@
 description: "Why do stale snapshots and internal notes remain unusable despite repeated calls? This historical refresh retrospective follows source rejection, qualified candidates and atomic publication, separating transferable evidence boundaries from the retired Agent auto-refresh design."
 readingBrief:
   takeaways:
-    - "This is a retrospective on a retired automatic-refresh path; stale snapshots describe the past, and repeatedly calling a rejected source cannot create current evidence."
-    - "Refresh through a separately authorized read-only candidate path, publishing atomically only after validation; an ineligible source or failed refresh leaves the result unavailable."
-    - "Source, time and measurement definition jointly determine numeric eligibility; internal notes and plausible guesses cannot fill gaps, and scoped tests do not prove global exactly-once behavior or long-term reliability."
+    - "This revisits a retired Agent auto-refresh design. Its old triggers and hourly windows do not describe current behavior."
+    - "Stale snapshots describe the past, and retrying a rejected source creates no new evidence. Internal notes and guesses cannot fill missing numbers."
+    - "Authorize refresh separately and check new sources, dates and definitions before replacing the report. Failure remains unavailable; the investment ledger is unchanged."
   appliesTo:
-    - "Reviewing stale-data degradation, explicit refresh and candidate-report publication without disguising old numbers, annotations or guesses as fresh evidence."
+    - "Designing stale-data explanations and refresh flows without presenting old numbers as current facts."
   notFor:
-    - "Looking for current Agent auto-refresh controls, or treating historical hourly windows and in-session deduplication as today’s runtime contract and a global execution guarantee."
+    - "Finding current auto-refresh features or guarantees of global exactly-once execution and long-term reliability. The historical controlled cases establish neither."
 ---
 # When Data Goes Stale: How Should an Agent Refresh Evidence Instead of Retrying Blindly?
 

@@ -2,13 +2,14 @@
 description: "How can a long conversation shrink without rewriting what the user actually said? Follow source-bound message pairs, assistant-only summarization and immutable commits to understand cross-Run history reuse, failure fallback and the difference between stored history and material actually sent."
 readingBrief:
   takeaways:
-    - "Cross-Run compaction handles completed question–answer pairs in one conversation; it is neither recovery of a research Run nor a substitute for long-term memory."
-    - "Source identity binds both sides of each exchange, but the summarizer receives only older assistant replies; original user messages remain separate and cannot be rewritten."
-    - "Exact ranges use atomic claims, bounded retries and immutable completion; reads revalidate their sources, and durable storage does not prove inclusion in the current request."
+    - "Conversation summaries carry completed exchanges into a later request. They neither resume old tasks nor provide long-term memory."
+    - "Summarize only older assistant replies and retain user text separately. A summary saying ‘the user asked’ cannot replace the original message."
+    - "Do not start competing summaries for the same messages and version, or overwrite a successful result. Before reuse, check that the source messages still match."
+    - "A failed summary can fall back to original messages, but request space is still limited. Stored history is not necessarily history the model saw this time."
   appliesTo:
-    - "Designing source-bound history summaries and capacity fallback for conversations spanning multiple independent requests."
+    - "Shortening older answers in a conversation spanning multiple research tasks while preserving user text and handling failed or outdated summaries."
   notFor:
-    - "Seeking lossless recall of every exchange, optimal compression ratios, or treating test code as long-term production fidelity and financial-quality evidence."
+    - "Requiring every turn to recall the entire conversation or seeking a proven optimal compression ratio. Long-term summary fidelity and better financial answers have not been established."
 ---
 # Why an Agent Cannot Simply Summarize Its Conversation History: Cross-Run Compaction, Source Binding, and Immutable Summaries
 

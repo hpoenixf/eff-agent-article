@@ -7,13 +7,14 @@ series: "Agent Context Governance Panorama"
 part: "Principles"
 readingBrief:
   takeaways:
-    - "Context should support the current decision: system instructions provide stable principles, the user defines the goal, and methods, memory, and observations retain distinct origins and purposes."
-    - "Stored material, previously read material, and currently visible input are different scopes; retain provenance, versions, coverage, and kinds of unknowns without mistaking relevance for permission."
-    - "Measure progress against unresolved goals, make memory correctable, and preserve key relationships through compaction and handoffs; these distinctions do not each require a separate mechanism."
+    - "Each model input should make the goal, available evidence and remaining questions clear enough to choose a next step."
+    - "Stored, previously read and currently visible are different states. Keep source, version and coverage information, and check permissions separately."
+    - "Memory must support correction and forgetting. Old preferences cannot override the current request, and past judgments are not new evidence."
+    - "Measure progress by remaining gaps. After compaction or handoff, keep important corrections, open questions and sources retrievable."
   appliesTo:
-    - "For engineers designing system instructions, memory, and sustained research inputs who need a coherent way to inspect goals, evidence, authority, and progress."
+    - "Engineers designing system instructions, memory, or context for multi-turn research."
   notFor:
-    - "Not a mandatory build list for memory stores, compaction, or subagents, nor investment advice or proof of complete public-repository capabilities."
+    - "A mandatory implementation checklist or production API. This is a design discussion with a synthetic fund-comparison example."
 ---
 
 # Agent Context Governance Panorama · Principles: Keep Every Decision Aligned with the Goal

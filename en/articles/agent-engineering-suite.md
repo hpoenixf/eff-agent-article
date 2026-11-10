@@ -2,13 +2,15 @@
 description: "How can the next agent continue engineering work without reviving discarded decisions or overstating tests? A background-report example connects specifications, review, history, maturity and roadmaps, explaining optional adoption, shared packaging and the limits of automated checks."
 readingBrief:
   takeaways:
-    - "Engineering continuity needs explicit handoffs between decisions, tasks, evidence, and next steps; the suite complements Git, CI, and project acceptance rather than replacing them."
-    - "Spec, History, Maturity, and Roadmap own different questions: promised behavior, decision rationale, current assessment, and next work. Structural checks cannot substitute for semantic judgment."
-    - "The nine modules are optional and share one implementation across packaging forms; bounded installation checks establish neither model quality nor permission to publish."
+    - "A handoff needs goals, revision, artifacts, unresolved issues, and the next action, not just a claim that work is done."
+    - "Spec records behavior, History explains decisions, assessment finds gaps, and Roadmap orders work. A higher score does not complete a task."
+    - "Acceptance should check that users can obtain the result, plus critical recovery, cancellation, and access paths."
+    - "Adopt modules where work breaks down; every task need not use the whole suite. Keep existing Git, CI, and release processes."
+    - "Passing a structural check validates record format, not functional correctness or permission to publish."
   appliesTo:
-    - "Projects coordinating multi-agent or multi-session engineering with durable decisions, revision-specific evidence, and explicit handoffs."
+    - "Development projects that need requirements, evidence, and handoffs to survive across agents or conversations."
   notFor:
-    - "Not an autonomous scheduler, acceptance authority, or release platform; small edits do not need the entire suite."
+    - "Projects seeking an automatic scheduler, acceptance authority, or release platform."
 ---
 # Agent Engineering Suite: Connecting Requirements to Release
 

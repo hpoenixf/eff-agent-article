@@ -3,15 +3,15 @@ title: "Building Agent Evaluation Sets Across Development and Acceptance"
 description: "How do evaluation sets connect requirements, development, real-task acceptance, and operational feedback? External practices and ETF Agent's current 83 questions explain case selection, engineering closure, and research-quality evidence."
 readingBrief:
   takeaways:
-    - "Evaluation tasks define success during requirements work, support diagnosis during development, provide acceptance evidence, and grow through operational feedback."
-    - "The current catalog has 83 unique questions, with 14 core and 69 extended cases, five task families, and multidimensional tags for different evaluation scopes."
-    - "Self-contained synthetic material, designated financial documents, and public retrieval expose different problems, and their conditions determine what a result can establish."
-    - "Engineering regression, real execution, answer quality, and formal closure support distinct conclusions tied to the predeclared acceptance scope."
-    - "The nine current detailed criteria records serve development, while independent acceptance needs exposure, grading coverage, unknowns, and source authorization made explicit."
+    - "Define success in evaluation cases during requirements work, then reuse the tasks through development, acceptance, and feedback."
+    - "Select core and specialist cases for the risk being tested. Include prerequisite turns and inspect the selection before execution."
+    - "Supplied calculations, designated documents, and live retrieval test different capabilities; success in one does not establish the others."
+    - "Record engineering regression, real execution, and answer quality separately. Obtain evidence for the layer the task promises."
+    - "Calibrate graders with deliberately wrong answers. Cases repeatedly used for debugging are no longer unseen challenges."
   appliesTo:
-    - "Developers connecting Agent requirements, implementation verification, and task acceptance while maintaining different kinds of evaluation material."
+    - "Teams maintaining varied Agent tasks and connecting requirements to development checks and acceptance criteria."
   notFor:
-    - "Public model rankings or an installation guide for the complete private evaluation environment."
+    - "Public model rankings or installation instructions for the complete private evaluation environment."
 ---
 <script setup>
 import { withBase } from 'vitepress'

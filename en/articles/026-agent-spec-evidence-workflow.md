@@ -3,13 +3,15 @@ title: "Writing a Spec Doesn't Mean the Work Is Done: Verifiable Agent Engineeri
 description: "OpenSpec, TDD, evidence ledgers and the open-source Evidence Kit: how to inspect Agent completion claims."
 readingBrief:
   takeaways:
-    - "Specifications, implementation, tests, formal closure, and release are separate facts; checked tasks and local passes cannot replace an unexecuted acceptance route."
-    - "Record observations during execution with their original time, revision, and scope. Generated Verify views must not turn reused, blocked, or missing evidence into fresh passes."
-    - "Reuse valid closure evidence when behavior has not changed instead of rerunning acceptance for paperwork; the public toolkit checks record structure without acquiring release authority."
+    - "A written spec, checked tasks, passing tests, and a release are separate milestones. Unrun acceptance checks remain incomplete."
+    - "Record revision, time, result, and scope when tests run, rather than reconstructing them at the end."
+    - "Generate Verify from observations. Reused, blocked, or missing evidence must not become a fresh pass."
+    - "Reuse valid closure evidence when behavior is unchanged; documentation cleanup alone does not justify rerunning full acceptance."
+    - "The public toolkit checks record structure. It does not run tests or decide project acceptance and release."
   appliesTo:
-    - "Changes crossing interfaces, authorization, recovery, or model evaluation that need durable evidence and a clear stopping condition."
+    - "Changes involving interfaces, permissions, recovery, or model evaluation that need evidence across sessions and a clear stopping point."
   notFor:
-    - "Not a mandatory full workflow for copy edits, nor a substitute for test execution, model-quality assessment, or project acceptance."
+    - "Simple copy edits, or automatic certification of model quality and release readiness."
 ---
 
 # Why Can't We Call an Agent Feature Finished After Writing the Spec?

@@ -3,13 +3,14 @@ title: "When Should an Agent Stop Researching and Start Answering?"
 description: "Use a fund share-class fee comparison to connect research questions, next actions, conflicting sources, and synthesis—and explain why source counts, checklists, and execution completion do not establish sufficient evidence."
 readingBrief:
   takeaways:
-    - "Translate the user's question into judgments that need evidence before choosing a read, calculation, or clarification. Target gaps that could change the conclusion, rather than simply collecting more material."
-    - "A research question marked resolved is a revisable model judgment; a source-count limit is a work constraint. Neither certifies correctness or research sufficiency."
-    - "Conclude claim by claim: answer supported parts and preserve conditions around important unknowns. Stopping because resources ran out must not be presented as evidence becoming sufficient."
+    - "Choose reads, calculations and follow-ups that address gaps capable of changing the conclusion, rather than just adding material."
+    - "More sources or a completed checklist do not prove correctness. Revisit earlier judgments when new evidence arrives."
+    - "Answer supported parts and explain conditions around key unknowns. Running out of budget means stopping, not having sufficient evidence."
   appliesTo:
-    - "Developers with search, document, and computation tools who want their Agent to move from collection toward conditional, evidence-based synthesis."
+    - "Helping agents with search, document and computation tools decide when to continue researching and when to answer."
   notFor:
-    - "Systems seeking a universal confidence threshold or fixed search count, or readers treating the teaching fee example as an actual fund-switching recommendation."
+    - "Seeking a fixed search count or universal confidence threshold."
+    - "Treating the teaching fee example as a real fund-switching recommendation."
 ---
 
 # When Should an Agent Stop Researching and Start Answering?

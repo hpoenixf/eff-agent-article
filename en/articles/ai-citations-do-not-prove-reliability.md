@@ -2,14 +2,14 @@
 description: "A valid link can still identify the wrong version or fail to support a claim. Follow Host-issued citations through publication, revisions and historical inspection, with separate checks for material support and the limits of independent review."
 readingBrief:
   takeaways:
-    - "Source identity, citation correspondence, material support and task relevance are separate questions. A valid reference establishes an inspection relationship, not the truth of a conclusion."
-    - "The Host issues references from actual reads, submitted ranges and use eligibility. Excerpts remain excerpts; revisions and historical inspection bind original versions, not today’s webpage."
-    - "Broken public attachments affect their citations while private dependencies stay protected. Independent reviewers assess support and correspondence without controlling the original publication or terminal state."
-    - "A stored search selection receives excerpt-scoped citation eligibility only after its original Host binding and exact submitted text plus identity match the fitted model request."
+    - "A real link can cite the wrong version or fail to support a claim. Check identity, correspondence, support and task relevance separately."
+    - "Citations must match authorized material actually submitted to the model. A stored excerpt and its citation identity must reach the final request together."
+    - "Bind old answers to original source versions, not today’s webpage. Keep excerpts distinct from full-text reads."
+    - "Omit a broken public citation locally while retaining independently authorized text. Removing citations cannot bypass private-source permissions."
   appliesTo:
-    - "Building citation issuance, revision binding, original-passage inspection and optional review, or diagnosing attribution and identity drift across the delivery path."
+    - "Designing inspectable Agent citations and diagnosing version drift or missing model input."
   notFor:
-    - "Certifying answer truth through citation counts, coverage or reviewer output; live-model review accuracy and production enablement are not established here."
+    - "Citation counts and reviewer opinions cannot certify an answer. Real-model review accuracy is not established here."
 ---
 # Designing Agent Citations: From Host-Issued References to Revision-Safe Independent Review
 

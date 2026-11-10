@@ -2,13 +2,14 @@
 description: "As code and answers become cheaper, deciding what deserves verification becomes harder. Retracted financial comparisons, incomplete reviewer inputs and a rounding defect illustrate how to test premises, choose decisive counterexamples and match verification methods to the consequences of error."
 readingBrief:
   takeaways:
-    - "Check premises before arithmetic: similar wording does not make metrics, periods, or denominators comparable. Even a completed report may require a separately preserved retraction."
-    - "Reviewer independence depends on the original material actually received; successful invocation or agreement among agents cannot reveal conditions omitted from their shared summary."
-    - "Use deterministic checks for explicit precision rules and risk-matched review for complex interpretation. Define the claim and decisive counterexample before counting code or tests."
+    - "Check that metrics, periods, and denominators are comparable before recalculating. Precise arithmetic cannot rescue a false premise."
+    - "Reviewers need the key original material to detect summary omissions. Agreement alone does not establish independent verification."
+    - "Use deterministic tests for explicit rules such as rounding, and source-based review for complex meaning; do not add model reviewers indiscriminately."
+    - "Find counterexamples that could defeat the design, then match scrutiny to consequences. Model scores cannot replace money or access safeguards."
   appliesTo:
-    - "Engineering teams allocating verification effort in AI coding, architecture review, or research assessment where hidden assumptions determine risk."
+    - "Engineering teams choosing verification priorities for AI coding, architecture, or research review."
   notFor:
-    - "Not a mandate for universal reviewers or manual checking, and not proof of cost savings or comprehensive financial-semantic correctness."
+    - "Mandatory reviewers for every task, or proof that on-demand review saves money or resolves all financial interpretation errors."
 ---
 # The Expensive Part of AI Coding Is Deciding What Deserves Verification
 

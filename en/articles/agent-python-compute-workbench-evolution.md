@@ -2,13 +2,14 @@
 description: "Why can a failed follow-up calculation destroy earlier valid work? The evolution of a Python workbench connects code isolation, shared research methods and executor-owned files, while separating computation, interpretation and downloadable delivery."
 readingBrief:
   takeaways:
-    - "Authorize transient code separately from trusted Skill scripts while sharing maintained research methods; Python expands computational freedom without creating another business-data access path."
-    - "Continue through each executor’s own files rather than hidden interpreter state; a rejected request proven not to touch the workspace must not destroy earlier valid outputs."
-    - "Previews are not complete datasets, and static diagnostics do not all justify blocking; verify numerical correctness, interpretation and actual artifact delivery as separate outcomes."
+    - "Temporary code may reuse trusted scripts’ methods, not permissions. Compute in isolation using data from authorized tools."
+    - "Start a fresh Python interpreter each time. Reuse only the executor’s healthy files, not memory variables or sibling tasks’ files."
+    - "Keep earlier outputs after rejection only with proof of no execution and no workspace changes. Do not blindly retry unknown outcomes."
+    - "A preview is not a complete dataset. Correct calculation, explanation, and file download need separate checks."
   appliesTo:
-    - "Building repeated Python analysis and subtask collaboration with explicit file continuity, capacity refusals, source propagation and downloadable artifacts."
+    - "Building multi-step Agent calculations that reuse intermediate files and deliver charts or reports for download."
   notFor:
-    - "Requiring persistent Notebooks or unrestricted network execution, or equating sandbox success and passing preflight with reliably correct complex investment research."
+    - "Persistent Notebooks or unrestricted networking. Successful sandbox execution also does not guarantee a correct investment conclusion."
 ---
 # Teaching an Agent to Compute: The Architectural Evolution from Python Tool to Computational Workbench
 

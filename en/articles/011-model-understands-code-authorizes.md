@@ -3,15 +3,16 @@ title: "Models Understand; Code Authorizes"
 description: "Run-scoped authorization: how Host grants constrain tools and sources through Child delegation, suspension, recovery, and new Run admission."
 readingBrief:
   takeaways:
-    - "The model proposes research and actions; the Host records source, tool, and capability grants for a particular Run. Tool visibility or prior exposure does not create permission."
-    - "A Child receives only an admitted subset of its parent grant; suspension and cold recovery retain the original grant, additions require explicit admission, and a new Run cannot inherit old receipts."
-    - "Permission, resource availability, budgets, cancellation, and execution receipts are separate facts; one unavailable source must not be mistaken for revoked authorization or erase independent published content."
-    - "Ledger holdings, plan confirmation, and actual execution remain independently authoritative; valid citations neither certify model conclusions nor authorize trades."
+    - "The model proposes actions; the system records permission. Seeing a tool or having read a source before does not authorize its use."
+    - "A child task cannot exceed its parent's permissions. The same research keeps its grant through suspension and recovery; wider scope and new research require separate admission."
+    - "Handle missing files, exhausted budgets and user cancellation separately. One unavailable source should not erase an independently authorized answer."
+    - "Read fund units from the ledger; do not infer them from an old value and a new NAV. A user confirming a plan does not mean a trade has occurred."
   appliesTo:
-    - "Engineers designing scoped authorization for long-running agents, specialist Children, or cross-process recovery."
-    - "Developers separating model interpretation, investment facts, confirmation, and execution effects in fund-research systems."
+    - "Designing permissions for long tasks, subagents and recovery, rather than allowing execution merely because a tool is visible."
+    - "Separating model suggestions, account facts, user confirmation and actual trades in fund research."
   notFor:
-    - "Not a live revocation mechanism, trading implementation, or comprehensive production security certification. The public teaching project does not reproduce the complete private Host authorization system."
+    - "Systems requiring permission changes to revoke in-flight research immediately: this design retains the original grant for the same research."
+    - "Connecting live trading or deploying the complete authorization system; the public teaching project does not include every capability described here."
 ---
 
 # 011 Models Understand; Code Authorizes

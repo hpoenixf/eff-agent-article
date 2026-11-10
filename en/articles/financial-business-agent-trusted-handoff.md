@@ -2,13 +2,15 @@
 description: "Why should one financial-group login not give every business Agent the same history? Synthetic public-fund, private-fund and insurance handoffs illustrate separate admission, purpose-limited sharing and result readback, without claiming institutional compliance or an equivalent public implementation."
 readingBrief:
   takeaways:
-    - "One login establishes identity, not business admission or data reuse; switching, information sharing, and transaction authorization remain separate decisions when responsibilities change."
-    - "The destination receives only purpose-appropriate, permitted sources—not all prior history or permissions. Simple routing remains appropriate within an unchanged trusted scope."
-    - "Creation, execution, publication, and readback are distinct facts. Synthetic tests recover the same Run, but do not establish dynamic revocation, exactly-once trading, or institutional compliance."
+    - "One login establishes who the customer is; private-fund, insurance, and other services still need separate admission and data-purpose checks."
+    - "Confirming a business switch does not consent to sharing prior records or authorize a transaction; handle these decisions separately."
+    - "The destination agent receives only necessary, permitted material, not all of the previous business's history and permissions."
+    - "When a handoff acknowledgement is uncertain, look up the original target task before creating another. Creating a target does not establish answer delivery."
+    - "Simple routing is enough when the business and permission scope stay unchanged; not every switch needs an independent task."
   appliesTo:
-    - "Designing admission, history isolation, independent execution, and recovery for business-agent handoffs within a financial group."
+    - "Designing business admission, data sharing, and recovery for agents within a financial group."
   notFor:
-    - "Not a deployable compliance solution, a public insurance integration, or evidence of investment quality from a live language model."
+    - "A deployable compliance solution; the synthetic prototype has not validated dynamic revocation, exactly-once trading, or live-model research quality."
 ---
 # Trusted Handoffs Between Financial Business Agents: Why a Router Is Not Enough
 

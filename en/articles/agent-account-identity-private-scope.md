@@ -3,13 +3,14 @@ title: "How Does an Agent Keep Each User’s Research Private?"
 description: "Follow two users accessing the same research to connect trusted sessions, resource ownership, task authorization, and client identity changes—and keep login, logout, and cancellation separate."
 readingBrief:
   takeaways:
-    - "Login establishes the visitor's identity, not access to every resource. Ownership must still be checked; browser-supplied user IDs, session IDs, and links are not access credentials."
-    - "Current-request authorization and admitted-research authorization need separate lifetime definitions. This implementation retains the same research's original grant while admitting new requests and research independently."
-    - "A backend denial cannot clear content already loaded in a browser. Identity changes must isolate old views and late responses so the previous user's state cannot enter the new session."
+    - "After login, still check whether this user may access this report. User IDs and links supplied by the browser do not prove permission."
+    - "An admitted research task keeps its original permission scope; new requests need fresh access checks. Logging out does not automatically cancel background research."
+    - "On logout or an account switch, hide old private content and reject late responses from earlier requests so the previous user's data cannot reappear."
   appliesTo:
-    - "Teams turning a personal Agent into an account-based application with private conversations, materials, background research, and client state."
+    - "Turning a personal Agent into a multi-account application with separate conversations, materials and background research."
   notFor:
-    - "A complete enterprise SSO or production security certification, or systems requiring every permission change to revoke in-flight tasks without changing task-authorization design."
+    - "Systems requiring permission changes to stop in-flight research immediately need separate revocation and task-settlement rules."
+    - "Installing a complete multi-user product: the public teaching version described here remains a local, single-user example."
 ---
 
 # How Does an Agent Keep Each User’s Research Private?

@@ -2,13 +2,14 @@
 description: "A successful model response can still end in missing delivery. Publication failures, lost revisions and telemetry gaps show how to trace requests, objects and receipts to the last confirmed blocker without inventing root causes or self-repair success."
 readingBrief:
   takeaways:
-    - "No answer is a user-visible symptom, not a model-failure verdict. Trace dispatch, parsing, tools, publication and delivery to locate the last confirmed blocker before investigating causes."
-    - "Later success proves repair only with original-object, revision and feedback-consumption links. Commit, server transmission and actual user receipt need separate evidence."
-    - "Bounded diagnostic identities and statuses preserve gaps without turning unknown cost or delivery into zero or failure. Slow or failed observation must not change business outcomes."
+    - "When no answer arrives, locate the stop in dispatch, parsing, tools, publication or delivery before blaming the model."
+    - "Later success does not prove an earlier failure was repaired. Check the same object’s revision and actual feedback delivery to the model."
+    - "Saved text, server transmission and user receipt each need their own evidence."
+    - "Unknown cost is not zero, and missing delivery records are not proof of failure. Slow or failed diagnostics must not change business outcomes."
   appliesTo:
-    - "Investigating missing Agent deliveries, misleading failure labels, self-repair statistics or telemetry problems to identify the next justified repair or observation."
+    - "Investigating missing Agent deliveries, misleading error labels and inflated self-repair statistics."
   notFor:
-    - "Inferring causes from nearby timestamps, coarse errors or matching totals; improved detection of unclassified failures does not repair their underlying Runtime causes."
+    - "The last confirmed blocker is not necessarily the root cause. Detecting unclassified failures does not repair their underlying causes."
 ---
 # Stop Blaming Every Agent Failure on the Model: From Coarse Error Codes to a Verifiable Failure Chain
 

@@ -6,13 +6,14 @@ evidence:
   live: "Independent live tasks check integration, not occurrence of a nullable continuation"
 readingBrief:
   takeaways:
-    - "A later null preserves identity only when the same response-local index already has a nonempty ID; initial nulls, conflicts, and unsupported types remain rejected."
-    - "Keep compatibility inside stream assembly without borrowing or inventing IDs. Complete-response validation, argument checks, and original Host authorization remain separate requirements."
-    - "Controlled positive and negative transitions establish the null fix; live tasks check integration. Bounded state diagnostics cannot retrospectively explain every older identity failure."
+    - "A later null means no identity update only when the same response and index already have a nonempty ID."
+    - "Reject initial nulls, conflicting identities, and invalid types. Never borrow another call’s ID or invent one."
+    - "Limit the repair to stream assembly; retain complete-response, argument, and tool-authorization checks."
+    - "Controlled positive and negative cases verify the null branch. Passing live tasks checks integration, not whether those streams contained null."
   appliesTo:
-    - "Developers maintaining streaming tool gateways who need incremental-field compatibility without weakening call identity or execution boundaries."
+    - "Developers maintaining incremental streaming tool-call parsers."
   notFor:
-    - "Not general null cleanup or universal provider acceptance; successful live integration does not establish that those streams contained null continuations."
+    - "General null cleanup or relaxed validation of arbitrary provider responses."
 ---
 
 # How a null Broke an Agent Tool Call: A Streaming Compatibility Case

@@ -8,13 +8,15 @@ tags:
   - Agent Architecture
 readingBrief:
   takeaways:
-    - "Financial complexity justifies domain modeling, not automatically a framework or runtime; begin with one main agent and domain tools, extracting shared abstractions when real reuse emerges."
-    - "Financial facts need objects, denominators, dates, and method assumptions; sample weights are not total-asset exposure, unknowns are not zero, and contributions change the cash denominator."
-    - "Traceability, execution completion, downloadable reports, and correct research need separate evidence; use specialists and memory selectively, evaluating their task benefits against a simple baseline."
+    - "Complex financial rules usually need domain methods and tools, not necessarily a custom runtime. Start with one main agent."
+    - "Financial numbers need objects, dates, and denominators. Disclosed-sample weights are not whole-portfolio exposure, and unknown values are not zero."
+    - "After adding capital, calculate the cash target against the new total assets rather than the old portfolio denominator."
+    - "The model may change research strategy, not expand data permissions. A traceable, downloadable report is not necessarily correct."
+    - "Specialists, long-term memory, and shared frameworks should follow real needs, with cost and benefit compared against a simpler design."
   appliesTo:
-    - "For designers deciding whether financial rules belong in skills, tools, shared domain modules, or a custom runtime, while reviewing portfolio methods and evidence boundaries."
+    - "Deciding whether financial rules belong in skills, tools, or shared modules, and whether a custom runtime is justified."
   notFor:
-    - "Not allocation or trading advice, legal guidance, or a framework leaderboard; teaching calculations and public demos prove neither investment returns nor every private-system capability."
+    - "Allocation advice or a framework leaderboard; teaching calculations do not demonstrate real investment gains."
 ---
 
 # After General-Purpose Agent Frameworks, Why Build Financial Domain Capabilities?

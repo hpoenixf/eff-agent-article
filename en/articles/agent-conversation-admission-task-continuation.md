@@ -6,16 +6,16 @@ articleMetadata:
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
-    - "One Conversation may contain multiple Runs; reading an earlier answer does not grant permission to continue its task, and an ordinary follow-up normally starts an independent execution."
-    - "Admission depends on durable message identity and original text: an identical retry reads the existing record, while a changed message or parent Run under the same ID is a conflict."
-    - "Explicit Continue requires a verified parent Run, matching conversation scope, eligible terminal status, and recorded authorization; it creates a linked new Run rather than restarting its parent."
-    - "Historical summaries, original requests, saved results, and current evidence are distinct; missing provenance must narrow reusable context instead of manufacturing continuity."
+    - "One chat can contain several independent executions. A normal follow-up may use history without inheriting the earlier task's source permissions."
+    - "Retry with the original message ID. Return the saved record if its text and continuation target match; reject changes as conflicts."
+    - "Explicit Continue checks the original task's identity, status and permissions, then creates a linked new execution. It does not restart the old one."
+    - "Treat old summaries as leads. Verify sources and versions before reusing old data, and leave missing context missing rather than inventing it."
   appliesTo:
-    - "Agent applications with persistent conversations and independent Runs that need follow-ups, clarification, retries, and explicit continuation."
-    - "Engineers investigating mixed-up tasks, duplicate retries, unintended permission inheritance, or broken interrupted research."
+    - "Adding follow-ups, clarification and task continuation to an Agent with persistent conversations."
+    - "Investigating duplicate tasks after retries, mixed-up conversations or incorrectly inherited permissions."
   notFor:
-    - "Stateless single-turn chatbots, or systems that expect history alone to safely replay external effects."
-    - "Treating a public educational CLI as an implementation of the full Web-based cross-Run Continue mechanism described here."
+    - "Single-turn chat, or recovering dispatched tool operations from chat history alone."
+    - "Adopting a complete Web chat implementation: the public CLI example demonstrates execution identity and terminal readback, not full conversation continuation."
 ---
 
 # Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation

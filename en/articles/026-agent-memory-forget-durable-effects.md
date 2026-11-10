@@ -3,13 +3,14 @@ title: "The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe
 description: "A source-governed design for explicit memory writes, asynchronous learning, bounded recall, revisions, forgetting, and truthful effect receipts."
 readingBrief:
   takeaways:
-    - "Separate writing, recall and governance: models interpret meaning, while the original repository owns provenance, revisions and durable operation receipts."
-    - "A retrieval hit is not model use; an eligible revision still needs authorization, capacity and actual inclusion in the subsequent dispatched request."
-    - "Corrections target the current revision and forgetting changes future disclosure eligibility; settle writes separately from answers so response failure cannot replay an already committed effect."
+    - "‘Remembered’ needs a durable write record. An interrupted answer must not repeat a save or forget that already committed."
+    - "Finding a memory is not showing it to the model. An eligible, authorized record must still fit into the actual request."
+    - "Corrections must target the current revision, not overwrite newer preferences. One-time instructions must not become lasting habits."
+    - "Forgetting must also stop reuse through summaries and tool records. It is more than removing search hits, but not physical erasure of history."
   appliesTo:
-    - "Building cross-session preferences users can save, correct and forget, while verifying whether recalled content actually reaches the model."
+    - "Letting users save, correct or forget preferences across conversations, and tracing missing recall or the reappearance of old preferences."
   notFor:
-    - "Promising physical erasure of all history or default automatic learning; disclosure rules combining same-Run wake and forgetting still need reconciliation."
+    - "Default-on automatic learning or forgetting guaranteed across all recovery paths. Learning is off by default; old-report disclosure after the same task wakes still needs qualification."
 ---
 
 # The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting

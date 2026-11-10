@@ -2,13 +2,14 @@
 description: "Third-party plugins bring loading, callbacks, state and file semantics—not just tools. Follow Hookify, Pi todo and research-plugin handoffs to see how an extension host adapts them without creating a second authority for execution, authorization or recovery."
 readingBrief:
   takeaways:
-    - "Compatibility profiles interpret external ecosystems while the Host connects them to the existing Runtime; plugins cannot redefine authorization, budgets or recovery."
-    - "Trustworthy loading binds the actual executable bytes and authorized generation; a complete capability set becomes visible only after the batch initializes successfully."
-    - "A successful callback does not prove its effect was consumed; serialize state settlement where needed, and never repeat initialization while replaying terminal history."
+    - "Compatibility adapters connect plugins to the existing Agent. Their tools and callbacks still follow its permissions, budgets and recovery rules."
+    - "Pinning a version is not enough: the code actually loaded must match the approved content. Expose capabilities only after the whole batch initializes."
+    - "Testing a Hook means checking its intended effect: a tool was blocked, guidance reached the model, or a notice reached the user—not just that the callback ran."
+    - "Commit writes to shared plugin state in order. Reading a finished task must not repeat initialization that creates new effects."
   appliesTo:
-    - "Integrating third-party methods, tools and hooks into an existing agent while governing loading, state and cleanup."
+    - "Adding third-party plugins to an existing Agent and handling code loading, tool callbacks, saved state and resource cleanup."
   notFor:
-    - "Using the trusted-local-package example as a sandbox guarantee, full ecosystem compatibility claim or promise of cost-free hot unloading."
+    - "Running untrusted plugins or supporting every Claude, Pi and Codex extension. The public example accepts trusted local packages; it provides neither a sandbox nor arbitrary hot unloading."
 ---
 # How Agent Extensions Enter the Host: Plugin Lifecycle and Runtime Boundaries
 

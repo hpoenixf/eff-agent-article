@@ -3,13 +3,13 @@ title: "Agent Deep Dive: From One Report to Durable Execution and Specialist Col
 description: "Combine the original v0.10 system-design article with v0.15 specialist collaboration, following data, execution, and delegation before the six-layer panorama."
 readingBrief:
   takeaways:
-    - "Reported numbers should trace through ResultRef, source selection, and operand identities; the report and CSV reuse one calculation, while read rows are not automatically operands."
-    - "Durable continuation retains task identity, authorization, budget, and deadline, resumes only supported checkpoints, and never blindly replays a dispatched effect with an unknown outcome."
-    - "A scoped source-checking Child returns originals and derived observations for Main to synthesize and save; separate mechanism demos and CLI readback do not establish complete online delivery."
+    - "Reports and CSVs should share one calculation that traces to the source rows actually used."
+    - "Resume under the original permissions, budget and deadline, from supported checkpoints only. Do not replay calls with unknown outcomes blindly."
+    - "A scoped child returns original sources separately from its judgments; the main agent remains responsible for the report."
   appliesTo:
-    - "For engineers reviewing data-to-report provenance, process continuation, and Main/Child handoff contracts while distinguishing demonstrated mechanisms from application acceptance requirements."
+    - "Engineers designing report provenance, cross-process continuation, or main/child handoffs."
   notFor:
-    - "Not proof of arbitrary historical recovery, parallel expert orchestration, live-model accuracy, or a verified end-to-end Web product."
+    - "Arbitrary checkpoint recovery, parallel specialists, or a complete Web product. These are separate mechanism demos with scripted model actions by default."
 ---
 
 # Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration

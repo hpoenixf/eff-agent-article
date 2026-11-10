@@ -8,14 +8,14 @@ articleMetadata:
 description: "From message ownership, answer revisions and citation reading to model progress, Host observations and History/SSE races, this article explains how a client presents in-flight research truthfully—and why Progress can be a distinct capability without becoming a new execution authority."
 readingBrief:
   takeaways:
-    - "The client must preserve Run attribution, answer revisions and reading continuity; optional progress verification must not block an independently authorized answer."
-    - "Model-authored progress, Host observations and browser connection state are different kinds of evidence; label their origins instead of presenting all three as 'researching'."
-    - "A connection-local sequence differs from a durable delivery ordinal; displayed, committed and currently readable content are also different facts, so reconnects must check original identity and current access."
+    - "Merge answers by task and version, not arrival order. A late revision one must not replace revision two already on screen."
+    - "Label AI progress, system observations and browser connection state separately. Disconnection does not prove research stopped; say unknown when the stage is unknown."
+    - "Clicking Stop first shows a pending request; confirm it only after it takes effect. New progress should not force readers to scroll to the bottom."
+    - "On reconnect, check original records and current access. Unverified progress must not block an independently permitted answer or turn old cache into permanent permission."
   appliesTo:
-    - "Agent systems with long-running research, SSE and history that need to address missing or reordered progress, reconnects and client-state races."
-    - "Frontend and backend teams clarifying the relationship between model claims, Host observations, durable results and visible UI state."
+    - "Teams building long-research chat interfaces with out-of-order answers, progress updates, Stop controls and reconnects."
   notFor:
-    - "Treating progress messages as research accuracy, completion percentages or production latency guarantees; this is not an installation guide for ETF Agent's private Web client."
+    - "Inferring completion percentages or research quality from progress text; this is not an open-source installation guide for the private Web client."
 ---
 
 <div id="an-agent-client-is-more-than-an-sse-renderer-presenting-a-research-task-correctly" aria-hidden="true"></div>

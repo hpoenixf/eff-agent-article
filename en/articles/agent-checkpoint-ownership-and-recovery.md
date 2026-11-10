@@ -2,15 +2,15 @@
 description: "Learn who saves checkpoints, when they are triggered and how one Run updates them. Follow the same task through LangGraph, Microsoft Agent Framework, Temporal and ETF Agent to compare continuation models and ownership."
 readingBrief:
   takeaways:
-    - "A checkpoint is progress saved at a chosen boundary. One Run can save repeatedly; the current implementation keeps only its latest snapshot with an increasing revision."
-    - "Known pre-write serialization failure, an unknown write outcome and a lost lease require different handling. A failed auxiliary snapshot should not erase independently confirmed work."
-    - "ETF Agent removed its LangGraph layer after its own Recovery system acquired durable recovery responsibilities. That project-specific duplication does not invalidate LangGraph's general capabilities."
-    - "Checkpointing deserves a narrow, explicit module boundary; execution, committed effects and accepted control wakes remain with their original owners."
-    - "LangGraph graph snapshots, Microsoft workflow snapshots and Temporal event replay use different continuation models. External effects still need separate handling."
+    - "A checkpoint saves progress needed for the next step. One Run can save repeatedly; this implementation retains only the latest snapshot."
+    - "A snapshot neither proves a tool executed nor authorizes continuation. Recovery still checks original receipts and current execution authority."
+    - "Handle pre-write failure, unknown write outcomes and lost leases separately. An auxiliary snapshot failure must not erase confirmed work."
+    - "ETF Agent removed LangGraph to avoid duplicating its own recovery system, not because graph frameworks are unsuitable for Agents."
+    - "Choose recovery by save boundaries and interruption guarantees. Graph snapshots, workflow snapshots and event replay still require external-effect checks."
   appliesTo:
-    - "Designing persistent progress and bounded recovery for a multi-turn agent, or reviewing an overloaded checkpoint layer."
+    - "Designing Agent progress and recovery, or comparing checkpoint and durable-workflow approaches."
   notFor:
-    - "Copying a universal workflow implementation that promises lossless continuation across every interruption and version."
+    - "Obtaining lossless continuation across arbitrary interruptions and versions."
 ---
 
 <script setup>

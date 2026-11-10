@@ -3,14 +3,15 @@ title: "Agent Evaluation Panorama: From Green Tests to Real Task Value"
 description: "An engineering tour of ETF Agent evaluation: versioned cases, a Node.js runner, database isolation, OpenTelemetry/Langfuse, structured LLM judges, optional DeepEval and Ragas, evidence-linked outcomes, and the limits of every score."
 readingBrief:
   takeaways:
-    - "Evaluation is an engineering evidence pipeline: freeze cases and configurations, execute the actual Agent, record facts, grade at the appropriate layer, and report all planned outcomes."
-    - "Node.js/TypeScript, Vitest, PostgreSQL, OpenTelemetry/Langfuse, a structured judge, DeepEval, and Ragas have different jobs; no general metric certifies financial correctness or user delivery."
-    - "Execution, evidence, semantic quality, and delivery need distinct claims. A completed Run, visible trace, or high judge score is not the same as task success."
-    - "Stable case identities, versions, denominators, and scoring contracts make comparisons meaningful; a historical 0/10-to-9/10 correction came from grader repair, not model progress."
+    - "Freeze cases, sources, configuration, and scoring targets before running the real Agent. Retain failed and unassessed trials."
+    - "Check execution, evidence, answer quality, and user delivery separately. A high score cannot establish all four."
+    - "Use code for permissions, storage, and arithmetic; calibrated judges or people for open-ended quality; domain evidence for financial-rule applicability."
+    - "Align sources and budgets before comparing models. When correcting a grader, retain original outputs and earlier judgments."
+    - "Missing traces do not prove no execution; missing billing records do not mean zero cost. Check the evidence first."
   appliesTo:
-    - "Engineers building regression suites, live research evaluations, or model comparisons for tool-using, research, or finance-focused agents."
+    - "Engineers building regression, model-comparison, or release evaluations for tool-using and research agents."
   notFor:
-    - "Not a live model ranking, investment recommendation, or complete production-quality certificate; illustrative cases do not establish investment performance."
+    - "Live model rankings, investment advice, or comprehensive production certification."
 ---
 
 # Agent Evaluation Panorama: From Green Tests to Real Task Value

@@ -2,13 +2,14 @@
 description: "A unified model API does not prevent several processes from consuming the same external capacity. Separate model catalogs, concrete routes, protocol adapters and shared admission to understand queueing, circuit breakers and why local cancellation cannot prove remote execution has ended."
 readingBrief:
   takeaways:
-    - "Model, Provider Profile, actual route and capacity group are separate identities; changing a model name or configuration alias must not manufacture additional shared capacity."
-    - "The Gateway unifies invocation and events, not model capabilities; changes to protocol or significant configuration require qualification of the actual route for its research role."
-    - "Shared admission owns capacity and termination facts only; control-store failure blocks new dispatch, unconfirmed remote endings remain unknown, and retries or model changes need separate authority."
+    - "Within one coordination domain, models and processes using the same endpoint share capacity. Renaming them creates no extra allowance."
+    - "A unified API does not make model capabilities equal. Requalify the research route when its protocol or significant configuration changes."
+    - "Control-store failure blocks new sends. After cancellation or a broken stream, an unconfirmed remote ending remains unknown."
+    - "The capacity layer decides whether a slot is available now. The original task still decides whether to retry or switch models."
   appliesTo:
-    - "Coordinating research, Child and review processes sharing model endpoints while separating route configuration, protocol adaptation, capacity and Run ownership."
+    - "Sharing model endpoints across processes while separating configuration, protocol and capacity responsibilities."
   notFor:
-    - "Looking only for an SDK integration, building a dynamic model marketplace, or treating local coordination limits as worldwide provider quotas or availability guarantees."
+    - "Building a dynamic model marketplace or inferring global provider quotas and availability from local limits."
 ---
 # Inside an Agent’s Provider Layer: Why a Unified API Still Needs Shared Admission
 

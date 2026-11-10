@@ -3,13 +3,14 @@ title: Code Is Cheaper; Why Are Systems Harder to Evolve?
 description: A report with an optional chart attachment illustrates spreading dependencies, costs paid by ordinary tasks, and how obsolete mechanisms can actually leave a system.
 readingBrief:
   takeaways:
-    - "A capability’s cost includes knowledge imposed on callers, overhead paid by ordinary tasks and eventual removal. Moving files alone does not reduce that complexity."
-    - "Optional attachment failures should degrade locally while independently permitted prose survives. Compare unused-feature overhead without dropping promised behavior or actual permission safeguards."
-    - "Replacement needs exit conditions for old entry points, dependencies and requirements. Refusing new work under an old identity does not rewrite admitted tasks, grants or historical files."
+    - "Encapsulation should reduce what callers must know; moving files alone does not reduce complexity."
+    - "If an optional chart fails, independently authorized text should remain readable. Legally required attachments are not optional."
+    - "Check for waiting, queries or prompt overhead even when the feature is unused. Ordinary tasks should not continually pay for it."
+    - "Set exit conditions for replaced code while preserving legitimate history, original task identities and authorization records."
   appliesTo:
-    - "Reviewing optional features, encapsulation and retirement to determine whether the next system change becomes easier."
+    - "Reviewing optional features, encapsulation and retirement of old implementations."
   notFor:
-    - "Treating the chart simulation as a real incident, or deleting required attachments, active readers or legitimate history before their commitments are handled."
+    - "The chart story is illustrative. Simplification does not justify deleting readers or historical files that still have legitimate consumers."
 ---
 
 # Code Is Cheaper; Why Are Systems Harder to Evolve?

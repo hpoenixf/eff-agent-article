@@ -3,13 +3,13 @@ title: "Agents in 15 Minutes"
 description: "A friendly introduction for frontend and backend developers. Follow a runnable document-comparison example to understand the model, runtime, and tools."
 readingBrief:
   takeaways:
-    - "An agent can choose its next action from each tool result, feeding new evidence into the next model turn before continuing or answering."
-    - "The model chooses actions, the runtime coordinates the loop and enforces limits, and tools execute operations; ordinary code remains useful for stable, predefined steps."
-    - "The runnable comparison scripts model decisions but performs real reads and report writes; CLI readback does not establish online publication or a complete Web application."
+    - "An agent uses each tool result to decide what to do next and when to answer."
+    - "The model chooses, the runtime manages the loop and limits, and tools act. Use ordinary code when the steps are fixed."
+    - "The demo uses scripted model decisions but actually reads documents and saves a report, with no model API key required."
   appliesTo:
-    - "For developers familiar with APIs or scripts who want to understand and run a minimal agent loop through a document comparison."
+    - "Developers familiar with APIs or scripts who want to run a minimal agent loop."
   notFor:
-    - "Not evidence of live-model decision quality, production publication, or complete six-layer capabilities."
+    - "Evaluating live-model quality or building a complete Web product and online publication flow."
 ---
 
 # Agents in 15 Minutes

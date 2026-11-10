@@ -2,13 +2,15 @@
 description: "Why can one failed read stop an entire research task? Optional-note vetoes, nested retries and stage clocks expose the boundary between local refusal and Run termination: preserve independent results without resetting budgets, changing the question or replaying uncertain effects."
 readingBrief:
   takeaways:
-    - "A local module should reject only effects it owns; the Run lifecycle, holding original execution facts, decides whether the overall task continues, finalizes, or stops."
-    - "Retries and stage changes do not create budgets; distinguish queue, execution, no-progress, and overall clocks, and never disguise a substituted user goal as degradation."
-    - "Recovery first reconciles effects and preserves independent results and uncertainty; cancellation and hard limits still stop work. Removing redundant vetoes does not remove necessary denials."
+    - "A failed read should affect the relevant content. Whether the whole task continues or stops depends on other results, permissions and resources."
+    - "Retries and stage changes use the original allowances and deadline; they do not grant fresh budgets at each layer."
+    - "When waiting takes too long, distinguish queue time, execution time and time without progress before choosing what to fix."
+    - "Check original receipts before recovery: read back completed results and do not blindly repeat actions with unknown outcomes."
+    - "Partial delivery must identify what is missing, rather than quietly substituting an easier question to mark the task complete."
   appliesTo:
-    - "Reviewing exceptions, early returns, optional research notes, and repeated checks that may turn one local failure into whole-task termination."
+    - "Reviewing exceptions, early returns and duplicate checks that may wrongly stop an entire study after a local failure."
   notFor:
-    - "Using partial delivery to justify unlimited retries, disregarding cancellation, or rerunning uncertain external effects and reporting success."
+    - "Using partial results to justify unlimited retries, ignore cancellation or bypass permissions and hard resource limits."
 ---
 # When Every Module Can Say No: Agent Run Termination, Stage Budgets, and Safe Recovery
 

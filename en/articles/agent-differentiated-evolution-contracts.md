@@ -3,13 +3,14 @@ title: What Should Stay Stable—and What Should Change—in an Agent Architectu
 description: A customer-support ticket example separates evolving methods from operation protections and historical results, making stability a property of specific commitments.
 readingBrief:
   takeaways:
-    - "Stability belongs to specific commitments, not directories. Operation protections, saved outcomes, evolving methods and replaceable integrations need different change policies."
-    - "Keep method details inside their capability. Distinguish new recommendations from historical actions: recalculation must not silently rewrite an old result or impersonate execution."
-    - "Verify the commitments actually affected. Service replacement retains original identity, authorization, dispatched requests and uncertain charges rather than resetting the ledger."
+    - "Methods may change while isolation, confirmation and duplicate-operation protections remain. A directory is too coarse to freeze or relax them all."
+    - "Keep classification details inside classification, rather than teaching them to storage and notifications."
+    - "Store new recommendations separately from historical actions. Recalculation neither rewrites old results nor executes an action."
+    - "Changing services must not reset requests, authorization or unknown charges. Test the commitments this change actually affects."
   appliesTo:
-    - "Planning method, adapter or recovery changes and separating what may evolve from protected operations and preserved historical meaning."
+    - "Planning changes to algorithms, external services or recovery behavior."
   notFor:
-    - "Freezing whole modules under a core label, or equating historical reads with seamless cross-version recovery; the ticket scenario is illustrative."
+    - "The ticket example is illustrative. Reading old results does not establish seamless cross-version continuation."
 ---
 
 # What Should Stay Stable—and What Should Change—in an Agent Architecture?

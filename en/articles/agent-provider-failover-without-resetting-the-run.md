@@ -2,13 +2,15 @@
 description: "A backup model may share the same outage—or be ineligible to receive the request. This bounded, default-off failover design separates failure domains, retry authority, payload disclosure and attempt accounting while preserving the original task and previously committed results."
 readingBrief:
   takeaways:
-    - "Select backups by actual failure domain: changing models behind one endpoint may not escape group limits, and one failed request does not establish a provider-wide outage."
-    - "New attempts retain the original Run’s retry and budget authority while recording actual routes and charges; cross-provider dispatch rechecks capability and disclosure coverage for the whole payload."
-    - "Effective output or uncertain effects prevent restarting an attempt; preserve committed results and original grants. The bounded default-off implementation is not production high availability."
+    - "Choose backups outside the actual failure scope. Switching models behind one endpoint may still hit the same group rate limit."
+    - "Consider switching only before effective output, after a confirmed failure and with retry permission. An unknown outcome must not be resent from the beginning."
+    - "Before changing providers, recheck capability requirements and recipient authorization for the full request, including history, tool results and model-generated content."
+    - "Record each new request’s route and usage separately, retain the original task budget and preserve previously committed results."
   appliesTo:
-    - "Designing controlled model failover with shared-capacity groups, cross-provider disclosure restrictions, and separately accountable physical attempts."
+    - "Designing model failover across shared capacity, provider-specific data permissions and multiple request attempts."
   notFor:
-    - "Repairing answer quality, bypassing permissions or local budgets, or silently switching models in fixed-model evaluations and replaying uncertain effects."
+    - "Adopting a production high-availability solution: this remains a default-off implementation verified through separate, bounded paths."
+    - "Repairing answer quality, bypassing permissions or budgets, or silently changing models in a fixed-model evaluation."
 ---
 # How Does an Agent Continue After a Model Failure? Designing Failure-Domain-Aware Failover
 

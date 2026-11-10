@@ -3,9 +3,10 @@ title: "ETF Agent 与 LangGraph 深度对比：概念映射、状态恢复与研
 description: "从 ETF Agent 曾经采用、后来退役 LangGraph 的真实经历出发，把图、状态、检查点、人机交互和子图对应到当前模块，解释两种设计的联系、差异与组合边界。"
 readingBrief:
   takeaways:
-    - "LangGraph 的图能够承载自主 Agent；两者的主要差异在执行单元、状态归属和恢复承诺。"
-    - "ETF Agent 曾用三节点 LangGraph 循环，后来因本地恢复职责重叠而退役该层；这是特定架构条件下的选择。"
-    - "State、Thread、Checkpointer、interrupt、Subgraph 在我们的代码中都有可比较的职责，但大多无法与一个模块完全等同。"
+    - "LangGraph 的图也能让模型动态选路；选型要看谁负责状态、恢复和外部操作。"
+    - "ETF Agent 移除图层，是因为小循环已有恢复机制、两层职责重复，不代表图不适合 Agent。"
+    - "多阶段、并行和人工等待可优先评估 LangGraph；保留自有循环，就要继续承担恢复与维护成本。"
+    - "两层运行时组合时，先约定任务身份、重试、取消、预算和报告提交，避免重复执行同一操作。"
   appliesTo:
     - "希望读懂 ETF Agent 架构，或判断 LangGraph 应承担多少运行职责的工程师。"
   notFor:

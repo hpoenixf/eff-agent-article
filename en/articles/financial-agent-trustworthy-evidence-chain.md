@@ -3,13 +3,14 @@ title: "A Trustworthy Evidence Chain for Financial Agents"
 description: "How can a fund research agent preserve the provenance of evidence as it moves across websites, PDFs, calculations, subagents, and historical reports? Follow one research task to distinguish traceability, method applicability, and sound investment judgment."
 readingBrief:
   takeaways:
-    - "Across reading, calculation, subagent handoff and summarization, preserve the original instrument, time, version, coverage and authorization; traceable data does not automatically support a correct conclusion."
-    - "Main must actually consume specialist results and answer the original question. Disclosure coverage, portfolio value coverage and calculation denominators are different; normalization cannot erase missing holdings."
-    - "An answer revision, a persisted report file and an authorized download are separate facts. Historical reading, same-Run recovery and fresh research must not silently replace old inputs with new ones."
+    - "Preserve instrument, time, version, coverage and authorization through calculation, retelling and summarization."
+    - "Main must read specialist results and answer the original question; attaching their reports is not synthesis."
+    - "Reading nine of ten funds does not establish 90% asset coverage. State denominators and keep unknown holdings visible."
+    - "Confirm text commitment, file persistence and authenticated download separately. Reopening an old report must not silently refresh its data."
   appliesTo:
-    - "Designing cross-tool financial research workflows with calculations, specialist agents and long-running recovery, where sources and their permitted uses must remain verifiable."
+    - "Designing financial research across websites, PDFs, calculations and specialist agents."
   notFor:
-    - "Certifying investment advice from provenance alone or from a local synthetic look-through check; cash, fee and wider financial-method qualification remain separately bounded."
+    - "Traceability does not certify methods or investment judgments. Local synthetic cases do not validate all cash and fee methods."
 ---
 
 # A Trustworthy Evidence Chain for Financial Agents: Keeping the Grounds of a Conclusion Intact

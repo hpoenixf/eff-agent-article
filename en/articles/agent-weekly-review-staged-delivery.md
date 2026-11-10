@@ -2,13 +2,14 @@
 description: "An evening of weekly-report development produced working components but no first report. This retrospective explains redefining the initial downloadable result, extracting shared HTML delivery and aligning phased tasks with acceptance—without mistaking file delivery for research quality."
 readingBrief:
   takeaways:
-    - "A complete design is not a commitment to implement everything immediately; define the first usable result and update its tasks, dependencies, and acceptance conditions accordingly."
-    - "Weekly reviews own a research method, not separate file infrastructure. Reuse HTML storage and download capabilities while preserving authorization, provenance, and genuine delivery."
-    - "Stage the first report, continuing history, and ongoing assistance around independent outcomes; a working download proves the delivery path, not investment-research quality."
+    - "Define the first downloadable report, then move history, subscriptions, and other later capabilities out of initial acceptance."
+    - "Narrow tasks, dependencies, and acceptance together without removing permissions, provenance, or file safety."
+    - "Keep research methods in the weekly-review feature and reuse shared HTML storage and download capabilities."
+    - "A working download proves file delivery, not investment-analysis quality or completion of the whole product."
   appliesTo:
-    - "Projects where peripheral capabilities in a large specification delay the first usable deliverable."
+    - "Large specifications whose peripheral features delay the first usable result."
   notFor:
-    - "Not a mandatory three-phase template, an excuse to remove safety protections, or evidence that one phase completes the whole product."
+    - "Small tasks deliverable in one pass; the three phases here are not a mandatory template."
 ---
 # We Spent an Entire Evening on a Weekly Report—Why Was the First Deliverable Still Missing?
 

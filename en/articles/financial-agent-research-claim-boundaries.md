@@ -4,14 +4,15 @@ description: "A bounded review of real-model fund reports shows how cash reconci
 date: 2026-11-05
 readingBrief:
   takeaways:
-    - "Cash flows, holdings rankings and trading costs require different checks: reconciliation, coverage and applicable market rules; genuine sources cannot substitute for those decisions."
-    - "With only partial holdings, report the largest contribution among observed positions, not the largest underlying holding of the entire portfolio."
-    - "Passing preregistered necessary checks does not certify every additional claim in a long report; later findings should not silently rewrite prior scores."
+    - "Cash tables must reconcile opening balances, movements, and closing balances; correct individual calculations are not enough."
+    - "Partial holdings support rankings within the disclosed subset, not a claim about the largest holding across the whole portfolio."
+    - "Before calculating trading costs, check the instrument, market, transaction route, and applicable date to avoid using the wrong rule."
+    - "Passing preset checks does not validate every sentence in a long report; record later findings separately without rewriting earlier scores."
   appliesTo:
-    - "Engineers and researchers evaluating portfolio look-through, fund comparisons or consequential numerical claims in investment research reports."
-    - "Agent teams with saved real-model answers that need reproducible criterion-level review and source readback."
+    - "Reviewing consequential claims in fund comparisons and portfolio look-through reports."
+    - "Building repeatable scoring and source checks for saved real-model reports."
   notFor:
-    - "Not a current fund recommendation or comprehensive investment advice, and not an estimate of aggregate model accuracy from a few non-blind cases."
+    - "Current fund recommendations or estimates of aggregate model accuracy from a few non-blind cases."
 ---
 
 # Why Can a Fund Research Report Still Make Unsupported Conclusions?

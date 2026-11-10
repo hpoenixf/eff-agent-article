@@ -4,14 +4,15 @@ description: "A practical workflow for evolving documentation, implementation, a
 date: 2026-10-28
 readingBrief:
   takeaways:
-    - "There is no fixed docs-then-code-then-tests order: clarify contracts for requirement changes, reproduce bugs first, lock down behavior before refactoring, and contain production incidents before restoring the full workflow."
-    - "Compare the active contract, test assertions, real call paths, and user-visible outcomes; green tests or three matching artifacts do not establish that the requirement is correct."
-    - "When the three disagree, do not take a majority vote. Establish which behavior is authorized before deciding whether to fix documentation, implementation, tests, or the requirement itself."
-    - "The merge goal is verified behavior and preserved protections, not a diff in every file; keep, refactor, consolidate, retire, or delete old tests based on their responsibilities."
+    - "Start requirement changes with agreement, bugs with reproduction, and refactors with a behavior baseline. There is no universal update order."
+    - "When docs, code, and tests disagree, check the active contract and fix the wrong layer. Do not decide by majority vote."
+    - "Challenge expectations with independent examples, then check the real user path. Green tests can share the same misunderstanding."
+    - "When removing obsolete assertions, preserve still-valid protections such as permissions and compatibility."
+    - "Before merging, resolve behavioral mismatches. Documentation, code, and tests need not all change in every PR."
   appliesTo:
-    - "Teams maintaining evolving products with changing requirements, stale tests, drifting documentation, migrations, or failures spanning multiple layers."
+    - "Teams maintaining evolving systems with stale tests, outdated docs, or inconsistent behavior across layers."
   notFor:
-    - "Not a formula for measuring quality by changed-file counts, nor a requirement to create a separate spec or full end-to-end test for every small fix."
+    - "Measuring quality by code or test line counts, or requiring a full specification workflow for every small edit."
 ---
 
 # When Tests Outgrow Implementation: Keeping Docs, Code, and Tests in Step

@@ -2,13 +2,14 @@
 description: "Follow a portfolio query from a limited overview to a rebalancing scenario. Report identity, dates, denominators and explicit cash assumptions keep account facts separate from hypothetical calculations—and neither a feasible scenario nor a confirmed plan proves a trade occurred."
 readingBrief:
   takeaways:
-    - "Read-only access can support scenario calculations, but account snapshots, hypotheses and executed trades remain distinct; feasibility neither records user approval nor changes an account."
-    - "Start with a restricted overview and retain report identity, dates and denominators in detail; separate reads need not share a snapshot, and minimization must reach actual input."
-    - "Bind rebalancing to report and strategy versions plus explicit assumptions; displayable data may be ineligible for calculation, and unknown relationships or unavailable funds must not become zero."
+    - "Read-only tools can calculate rebalancing scenarios. ‘Feasible under these assumptions’ is not user approval, an account change or an executed trade."
+    - "Start with an overview and fetch details when needed. Inspect actual model input so another path does not reintroduce the full account report."
+    - "Keep report identity, dates and portfolio denominators with every query. A report can change between reads; do not assume one shared snapshot."
+    - "Bind rebalancing to report and strategy versions, with complete weights, fees and cash assumptions. A displayable value may still be ineligible for calculation."
   appliesTo:
-    - "Connecting personal holdings to a research Agent for overviews and “what if” analysis while preserving read-only accounts and field-level eligibility."
+    - "Letting an Agent inspect holdings and calculate scenarios without excessive disclosure or unintended account changes."
   notFor:
-    - "Seeking automatic orders, allocation approval or optimal weights, or treating readOnlyHint, plan status and feasible scenarios as proof of safe or completed trades."
+    - "Placing orders, confirming allocations for the user or finding optimal weights. Read-only labels and plan status cannot prove a trade occurred."
 ---
 # Bringing Personal Holdings into an Agent: Designing a Read-Only Financial MCP
 

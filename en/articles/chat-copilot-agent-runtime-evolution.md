@@ -3,16 +3,15 @@ title: "From Chat to Copilot to Agent: What Actually Changes in the Architecture
 description: "Trace one fund-research task through Chat, Copilot, Agents, and long-term assistants: context construction, execution control, tool calls, durable state, and recovery, grounded in Open ETF Agent v0.24."
 readingBrief:
   takeaways:
-    - "The step from Chat to Copilot adds awareness of the work environment, selective context assembly, and reviewable changes; it does not necessarily require a different underlying model."
-    - "An Agent lets model observations influence the next action, but structured tool proposals must pass Runtime and Tool Host checks before execution."
-    - "Dispatch, result commitment, and result consumption are different facts. A dispatched external action with an unknown outcome must not simply be retried as if it failed."
-    - "The model's working context is not the system's full store of original facts. Summaries, retrieval, and memory need source identities and applicability conditions."
-    - "Long-term assistance adds scheduling, persistence, recovery, memory, and continuing authorization, not an endless model loop or unlimited autonomy."
+    - "Copilots add work-environment context and reviewable changes; they need not use a different model."
+    - "Agents let models choose the next step from tool results. The runtime still checks permissions, arguments and budgets."
+    - "Dispatched, saved and consumed by the model are separate facts. An unknown external outcome is not a safe reason to retry."
+    - "Stored information is not necessarily visible in this turn. Summaries and memory still need sources and conditions of use."
+    - "Long-term assistants use bounded tasks over time, rechecking facts and permissions, rather than one endless loop."
   appliesTo:
-    - "Frontend, full-stack, and backend developers moving from an LLM application toward a Copilot or Agent."
-    - "AI product teams choosing between predefined workflows, model-guided execution, and work that spans multiple sessions."
+    - "Engineers and product teams moving from LLM applications to Copilots, Agents or cross-session tasks."
   notFor:
-    - "Treating Open ETF Agent's offline teaching examples as a live fund-research, production trading, or validated long-term personal-finance service."
+    - "Treating offline demos as live fund research, trading systems or validated long-term financial advice."
 ---
 
 # From Chat to Copilot to Agent: What Actually Changes in the Architecture?

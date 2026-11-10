@@ -3,9 +3,10 @@ title: "ETF Agent vs LangGraph: Concept Mapping, Recovery, and Research Delivery
 description: "Why ETF Agent adopted and then retired LangGraph, how 26 LangGraph concepts map to concrete research-runtime responsibilities, and where persistence, human interaction, and publication contracts diverge."
 readingBrief:
   takeaways:
-    - "LangGraph can orchestrate autonomous agents; the real differences concern execution units, state ownership, and recovery promises."
-    - "ETF Agent once used a three-node LangGraph loop and later retired the overlapping graph layer; this is a project-specific decision, not a verdict on graphs."
-    - "State, Thread, Checkpointer, interrupt, and Subgraph all have comparable responsibilities in ETF Agent, but few map one-to-one to a module."
+    - "LangGraph can let models choose paths dynamically. Compare who owns state, recovery and external operations."
+    - "ETF Agent removed an overlapping graph layer because its small loop already had recovery machinery, not because graphs cannot support agents."
+    - "Consider LangGraph for multiple stages, parallel branches and durable human waits. A custom loop leaves recovery and maintenance with your team."
+    - "When combining runtimes, define task identity, retries, cancellation, budgets and report commits to prevent duplicate operations."
   appliesTo:
     - "Engineers comparing LangGraph with domain-specific research runtimes or deciding which layer should own durable execution."
   notFor:
