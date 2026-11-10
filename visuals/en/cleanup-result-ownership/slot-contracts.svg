@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="708" viewBox="0 0 500 708" role="img" aria-labelledby="title desc">
+<title id="title">A result can end while physical capacity remains unavailable</title>
+<desc id="desc">Wind pending Map entries represent shared acquisition work. After acquisition fails, the logical entry is removed before the original call rejects, allowing a later authorized call to acquire again; this does not prove the old connection has stopped. A PDF rendering slot represents physical process capacity. When termination cannot be confirmed, return an explicit failure without images and retain the capacity slot. Capacity can be returned only after termination is confirmed; pending termination also keeps subsequent work from starting in that slot.</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#126D75"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#965B17"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#54676B"/></marker>
+</defs>
+<rect width="500" height="708" rx="20" fill="#F6F8F8"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<text x="26" y="38" font-size="25" font-weight="700" fill="#193C47" text-anchor="start">The result can end.</text>
+<text x="26" y="72" font-size="23" font-weight="700" fill="#193C47" text-anchor="start">Physical capacity need not be reusable.</text>
+<rect x="20" y="94" width="460" height="240" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="128" font-size="22" font-weight="700" fill="#193C47" text-anchor="start">Wind · shared acquisition work</text>
+<text x="40" y="160" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">pending Map = logical entry</text>
+<rect x="40" y="183" width="185" height="68" rx="12" fill="#E6F3F2"/>
+<text x="132.5" y="210" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">Acquisition</text>
+<text x="132.5" y="237" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">failure is known</text>
+<path d="M234 217H267" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="276" y="183" width="184" height="68" rx="12" fill="#E6F3F2"/>
+<text x="368" y="210" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">Remove entry</text>
+<text x="368" y="237" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">then call rejects</text>
+<text x="40" y="284" font-size="19" font-weight="400" fill="#126D75" text-anchor="start">A later authorized call can acquire again</text>
+<text x="40" y="314" font-size="18" font-weight="400" fill="#965B17" text-anchor="start">This does not prove the old connection stopped</text>
+<rect x="20" y="351" width="460" height="280" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="386" font-size="22" font-weight="700" fill="#193C47" text-anchor="start">PDF · physical process capacity</text>
+<rect x="60" y="405" width="380" height="47" rx="12" fill="#FFF0D9"/>
+<text x="250" y="436" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">Termination not confirmed in time</text>
+<path d="M250 453V470M132 470H368" fill="none" stroke="#965B17" stroke-width="2"/>
+<path d="M132 470V487" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<path d="M368 470V487" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber)"/>
+<rect x="40" y="499" width="185" height="75" rx="12" fill="#E6F3F2"/>
+<text x="132.5" y="528" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">Explicit failure</text>
+<text x="132.5" y="556" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">No images</text>
+<rect x="276" y="499" width="184" height="75" rx="12" fill="#FFF0D9"/>
+<text x="368" y="528" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">Keep the slot</text>
+<text x="368" y="556" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">No slot reuse</text>
+<text x="40" y="603" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">Release capacity only after confirmed termination</text>
+<text x="26" y="665" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">Call results, shared entries and capacity</text>
+<text x="26" y="692" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">need separate completion states.</text>
+</g></svg>

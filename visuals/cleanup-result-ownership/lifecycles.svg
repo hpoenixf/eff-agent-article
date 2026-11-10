@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="548" viewBox="0 0 500 548" role="img" aria-labelledby="title desc">
+<title id="title">已知超限后的双生命周期时序</title>
+<desc id="desc">时间向下。超限失败已确定后，保留原失败并发起取消。结果路径交付原失败，上层随后作出决定；取消 Promise 此时可以仍然待定，随后结算或继续待定。取消 Promise 结算不等于远端资源回收。</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#126D75"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#965B17"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#54676B"/></marker>
+</defs>
+<rect width="500" height="548" rx="20" fill="#F6F8F8"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<text x="26" y="38" font-size="25" font-weight="700" fill="#193C47" text-anchor="start">一个失败，两条生命周期</text>
+<text x="26" y="70" font-size="19" font-weight="400" fill="#54676B" text-anchor="start">时间向下</text>
+<text x="22" y="118" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">t₀</text>
+<rect x="80" y="88" width="360" height="48" rx="12" fill="#193C47"/>
+<text x="260" y="120" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle">超限事实已确定</text>
+<path d="M260 137V151M150 151H365M150 151V165M365 151V165" fill="none" stroke="#D6E0E1" stroke-width="2"/>
+<text x="150" y="189" font-size="22" font-weight="700" fill="#126D75" text-anchor="middle">结果路径</text>
+<text x="365" y="189" font-size="22" font-weight="700" fill="#965B17" text-anchor="middle">清理路径</text>
+<rect x="60" y="206" width="180" height="64" rx="12" fill="#E6F3F2"/>
+<rect x="275" y="206" width="180" height="64" rx="12" fill="#FFF0D9"/>
+<rect x="60" y="303" width="180" height="64" rx="12" fill="#E6F3F2"/>
+<rect x="275" y="303" width="180" height="64" rx="12" fill="#FFF0D9"/>
+<rect x="60" y="400" width="180" height="64" rx="12" fill="#E6F3F2"/>
+<rect x="275" y="400" width="180" height="64" rx="12" fill="#FFF0D9"/>
+<text x="22" y="245" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">t₁</text>
+<text x="150" y="245" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">保留原失败</text>
+<text x="365" y="245" font-size="20" font-weight="500" fill="#965B17" text-anchor="middle">发起取消</text>
+<path d="M150 277V294" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<path d="M365 277V294" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#amber)"/>
+<text x="22" y="342" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">t₂</text>
+<text x="150" y="342" font-size="21" font-weight="600" fill="#126D75" text-anchor="middle">调用已拒绝</text>
+<text x="365" y="342" font-size="20" font-weight="500" fill="#965B17" text-anchor="middle">仍可能待定</text>
+<path d="M150 374V391" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<path d="M365 374V391" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#amber)"/>
+<text x="22" y="439" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">t₃</text>
+<text x="150" y="439" font-size="21" font-weight="600" fill="#126D75" text-anchor="middle">上层作出决定</text>
+<text x="365" y="426" font-size="20" font-weight="500" fill="#965B17" text-anchor="middle">随后结算</text>
+<text x="365" y="451" font-size="20" font-weight="500" fill="#965B17" text-anchor="middle">或继续待定</text>
+<text x="26" y="500" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">取消 Promise 后续结算</text>
+<text x="26" y="527" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">≠ 远端资源已回收</text>
+</g></svg>

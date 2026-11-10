@@ -95,6 +95,8 @@ jobs:
         run: node scripts/check-gallery-output.mjs
       - name: Verify Deep Research figures and keyboard zoom
         run: node scripts/check-deep-research-output.mjs
+      - name: Verify cleanup ownership figures and keyboard zoom
+        run: node scripts/check-cleanup-owner-output.mjs
       - name: Retain gallery and navigation QA evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -103,6 +105,7 @@ jobs:
           path: |
             test-output/gallery-navigation/
             test-output/deep-research/
+            test-output/cleanup-owner/
           retention-days: 7
           if-no-files-found: ignore
       - name: Test legacy redirect contract

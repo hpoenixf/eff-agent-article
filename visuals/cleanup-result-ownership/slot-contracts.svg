@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="708" viewBox="0 0 500 708" role="img" aria-labelledby="title desc">
+<title id="title">结果可以结束，物理容量未必可复用</title>
+<desc id="desc">Wind 的 pending Map 条目代表逻辑共享获取工作，获取失败后先移除条目，再拒绝原调用，让后来获准的调用重新获取；这不证明旧连接已终止。PDF 渲染槽代表真实进程容量，无法确认终止时返回明确失败且不交付图片，同时保留容量占位。确认终止后才可归还容量；终止仍待确认时也不能在同一槽启动后续工作。</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#126D75"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#965B17"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#54676B"/></marker>
+</defs>
+<rect width="500" height="708" rx="20" fill="#F6F8F8"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<text x="26" y="38" font-size="25" font-weight="700" fill="#193C47" text-anchor="start">结果可以结束</text>
+<text x="26" y="72" font-size="24" font-weight="700" fill="#193C47" text-anchor="start">物理容量未必可复用</text>
+<rect x="20" y="94" width="460" height="240" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="128" font-size="22" font-weight="700" fill="#193C47" text-anchor="start">Wind · 共享获取工作</text>
+<text x="40" y="160" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">pending Map 表示逻辑条目</text>
+<rect x="40" y="183" width="185" height="68" rx="12" fill="#E6F3F2"/>
+<text x="132.5" y="210" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">获取失败</text>
+<text x="132.5" y="237" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">已经确定</text>
+<path d="M234 217H267" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="276" y="183" width="184" height="68" rx="12" fill="#E6F3F2"/>
+<text x="368" y="210" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">移除共享条目</text>
+<text x="368" y="237" font-size="20" font-weight="500" fill="#126D75" text-anchor="middle">原调用随后拒绝</text>
+<text x="40" y="284" font-size="19" font-weight="400" fill="#126D75" text-anchor="start">后来获准的调用，可重新获取</text>
+<text x="40" y="314" font-size="18" font-weight="400" fill="#965B17" text-anchor="start">不等于旧连接已终止</text>
+<rect x="20" y="351" width="460" height="280" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="386" font-size="22" font-weight="700" fill="#193C47" text-anchor="start">PDF · 真实进程容量</text>
+<rect x="60" y="405" width="380" height="47" rx="12" fill="#FFF0D9"/>
+<text x="250" y="436" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">期限内未能确认终止</text>
+<path d="M250 453V470M132 470H368" fill="none" stroke="#965B17" stroke-width="2"/>
+<path d="M132 470V487" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<path d="M368 470V487" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber)"/>
+<rect x="40" y="499" width="185" height="75" rx="12" fill="#E6F3F2"/>
+<text x="132.5" y="528" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">返回明确失败</text>
+<text x="132.5" y="556" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">不交付图片</text>
+<rect x="276" y="499" width="184" height="75" rx="12" fill="#FFF0D9"/>
+<text x="368" y="528" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">保留容量占位</text>
+<text x="368" y="556" font-size="20" font-weight="600" fill="#965B17" text-anchor="middle">此槽不接新工作</text>
+<text x="40" y="603" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">确认终止后，才可归还容量</text>
+<text x="26" y="665" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">调用结果、共享条目、物理容量，</text>
+<text x="26" y="692" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">不能合成一个“完成”标记。</text>
+</g></svg>

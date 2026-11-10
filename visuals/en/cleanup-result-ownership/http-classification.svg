@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="686" viewBox="0 0 500 686" role="img" aria-labelledby="title desc">
+<title id="title">Can cleanup change the retry decision?</title>
+<desc id="desc">In the old HTTP 401 path, classification waited for response-body cancellation. If cancellation rejected, the failure could become CONNECTION_FAILED, which the Host may retry a limited number of times. The current path starts cleanup without awaiting it and preserves AUTH_REQUIRED, which is not transiently retried under the existing policy. This illustrates code paths, not a real-service end-to-end test.</desc>
+<defs>
+<marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#126D75"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#965B17"/></marker>
+<marker id="muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#54676B"/></marker>
+</defs>
+<rect width="500" height="686" rx="20" fill="#F6F8F8"/>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<text x="26" y="37" font-size="25" font-weight="700" fill="#193C47" text-anchor="start">Can cleanup failure change retries?</text>
+<text x="26" y="69" font-size="20" font-weight="400" fill="#54676B" text-anchor="start">One HTTP 401, two waiting relationships</text>
+<rect x="20" y="89" width="460" height="255" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="121" font-size="21" font-weight="700" fill="#193C47" text-anchor="start">BEFORE · classification waits</text>
+<rect x="40" y="140" width="120" height="49" rx="12" fill="#E6F3F2"/>
+<text x="100" y="172" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">HTTP 401</text>
+<path d="M169 165H200" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber)"/>
+<rect x="210" y="140" width="250" height="49" rx="12" fill="#FFF0D9"/>
+<text x="335" y="171" font-size="18" font-weight="500" fill="#965B17" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">await body.cancel()</text>
+<path d="M335 195V237" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#amber)"/>
+<text x="320" y="221" font-size="19" font-weight="500" fill="#965B17" text-anchor="end">If cancellation rejects</text>
+<rect x="152" y="247" width="308" height="45" rx="12" fill="#E6F3F2"/>
+<text x="306" y="276" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">CONNECTION_FAILED</text>
+<text x="40" y="277" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">May become</text>
+<text x="40" y="324" font-size="19" font-weight="400" fill="#54676B" text-anchor="start">Host may retry a limited number of times</text>
+<rect x="20" y="360" width="460" height="250" rx="12" fill="#FFFFFF" stroke="#D6E0E1"/>
+<text x="40" y="393" font-size="21" font-weight="700" fill="#193C47" text-anchor="start">NOW · preserve the classification</text>
+<rect x="40" y="413" width="120" height="49" rx="12" fill="#E6F3F2"/>
+<text x="100" y="445" font-size="20" font-weight="600" fill="#126D75" text-anchor="middle">HTTP 401</text>
+<path d="M170 438H211" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<rect x="222" y="413" width="238" height="49" rx="12" fill="#E6F3F2"/>
+<text x="341" y="444" font-size="21" font-weight="600" fill="#126D75" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">AUTH_REQUIRED</text>
+<path d="M100 469V520" fill="none" stroke="#965B17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 6" marker-end="url(#amber)"/>
+<text x="114" y="500" font-size="19" font-weight="400" fill="#965B17" text-anchor="start">No await</text>
+<path d="M341 469V520" fill="none" stroke="#126D75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#teal)"/>
+<text x="355" y="500" font-size="18" font-weight="400" fill="#126D75" text-anchor="start">Same policy</text>
+<rect x="40" y="532" width="156" height="58" rx="12" fill="#FFF0D9"/>
+<text x="118" y="557" font-size="18" font-weight="500" fill="#965B17" text-anchor="middle">Start cleanup</text>
+<text x="118" y="581" font-size="18" font-weight="500" fill="#965B17" text-anchor="middle">Handle rejection</text>
+<rect x="222" y="532" width="238" height="58" rx="12" fill="#E6F3F2"/>
+<text x="341" y="567" font-size="21" font-weight="600" fill="#126D75" text-anchor="middle">No transient retry</text>
+<text x="26" y="644" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">Code-path illustration.</text>
+<text x="26" y="669" font-size="18" font-weight="400" fill="#54676B" text-anchor="start">Not a real-service end-to-end test.</text>
+</g></svg>

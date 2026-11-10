@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-cleanup-result-ownership": "The Failure Is Already Known. Why Hasn't the Call Returned? Cleanup and Result Ownership",
   "agent-evaluation-set-for-iteration": "Building Agent Evaluation Sets Across Development and Acceptance",
   "etf-agent-vs-langgraph": "ETF Agent vs LangGraph: Concept Mapping, Recovery, and Research Delivery",
   "ai-coding-quality-panorama": "AI Coding Quality Panorama: Taking Responsibility for the Whole Project When AI Writes Most of the Code",
@@ -115,6 +116,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-cleanup-result-ownership",
   "agent-evaluation-set-for-iteration",
   "etf-agent-vs-langgraph",
   "ai-coding-quality-panorama",
