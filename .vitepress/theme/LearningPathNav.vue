@@ -8,8 +8,8 @@ const navigation = computed(() => learningPathNavigation(page.value.relativePath
 </script>
 
 <template>
-  <nav v-if="navigation" class="learning-path-nav" :aria-label="navigation.english ? 'Five-stop reading path' : '五站阅读路线'">
-    <p class="learning-path-heading">{{ navigation.english ? 'READING PATH' : '五站阅读路线' }}</p>
+  <nav v-if="navigation" class="learning-path-nav" :aria-label="navigation.english ? 'Learning path' : '学习路线'">
+    <p class="learning-path-heading">{{ navigation.english ? 'READING PATH' : '学习路线' }}</p>
     <ol class="learning-path-steps">
       <li v-for="step in navigation.steps" :key="step.slug">
         <span v-if="step.current" class="learning-path-step is-current" aria-current="page">
@@ -26,14 +26,14 @@ const navigation = computed(() => learningPathNavigation(page.value.relativePath
       {{ navigation.english ? 'Recommended next:' : '建议下一站：' }}
       <a :href="withBase(navigation.next.href)">{{ navigation.next.label }} <span aria-hidden="true">→</span></a>
     </p>
-    <p v-else class="learning-path-next">{{ navigation.english ? 'All five stops remain available above.' : '已到全景，可从上方返回任意一站。' }}</p>
+    <p v-else class="learning-path-next">{{ navigation.english ? 'All reading steps remain available above.' : '已到全景，可从上方返回任意一站。' }}</p>
   </nav>
 </template>
 
 <style scoped>
 .learning-path-nav { margin: 24px 0 32px; padding: 18px; border: 1px solid var(--vp-c-divider); border-radius: 14px; background: var(--vp-c-bg-soft); }
 .learning-path-heading { margin: 0 0 12px; color: var(--vp-c-text-2); font-size: 13px; font-weight: 700; letter-spacing: .06em; }
-.learning-path-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
+.learning-path-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
 .learning-path-steps li { margin: 0; }
 .learning-path-step { display: flex; align-items: center; gap: 8px; min-height: 58px; height: 100%; padding: 10px; border: 1px solid var(--vp-c-divider); border-radius: 9px; line-height: 1.4; font-size: 14px; text-decoration: none; color: var(--vp-c-text-1); background: var(--vp-c-bg); overflow-wrap: anywhere; }
 a.learning-path-step:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }

@@ -5,7 +5,7 @@ search: false
 
 # Continue with the combined Deep Dive
 
-The v0.15 specialist walkthrough is now combined with the original v0.10 system-design article as the third stop in Introduction → Intermediate → Deep dive → Panorama.
+The v0.15 specialist walkthrough is combined with the original v0.10 system-design article in the Deep Dive guide. Its learning-path navigation connects the concept guides, module mechanisms and full system design in reading order.
 
 [Read the full article: Agent Deep Dive—From One Report to Durable Execution and Specialist Collaboration](open-etf-agent-v010-system-design.md)
 

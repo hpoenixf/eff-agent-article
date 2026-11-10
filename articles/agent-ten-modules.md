@@ -291,8 +291,8 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 
 </details>
 
-**从这里进入深入篇，下一步不再增加名词，而是追问三个交接的正确性：一个数字怎样回到来源、一项任务怎样跨进程继续、专家结论怎样不越过原始证据。**
+接下来先读[《Tool、Function Calling、MCP、Skill，一次行动怎样发生？》](./tools-function-calling-mcp-skill.md)，沿一次页面读取分清能力、协议与方法。随后用[《聊天记录、上下文、记忆、检查点》](./conversation-context-memory-checkpoints.md)理解哪些信息帮助模型判断，哪些记录支持继续执行。
 
-继续阅读：[**Agent 深入：从一份报告到持续执行与专家协作**](./open-etf-agent-v010-system-design.md)。读完后先到[练手篇](./open-etf-agent-research-project-workshop.md)导入自己的资料、检查报告，再展开[六层调用全景](./017-prompt-to-answer-six-layer-panorama-v3.md)，把局部机制放回整张系统地图。
+再进入[深入篇](./open-etf-agent-v010-system-design.md)，检查数字来源、跨进程接续与专家交接。读完后到[练手篇](./open-etf-agent-research-project-workshop.md)使用自己的资料，再展开[六层全景](./017-prompt-to-answer-six-layer-panorama-v3.md)。
 
 [返回入门](./agent-in-15-minutes.md) · [English](../en/articles/agent-ten-modules.md) · [Open ETF Agent（欢迎 Star）](https://github.com/hpoenixf/open-etf-agent)

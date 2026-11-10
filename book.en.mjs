@@ -1,6 +1,10 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
+  "tools-function-calling-mcp-skill": "Tools, Function Calling, MCP and Skills — How Does an Action Happen?",
+  "conversation-context-memory-checkpoints": "History, Context, Memory and Checkpoints — How Does an Agent Continue?",
+
   "agent-cleanup-result-ownership": "The Failure Is Already Known. Why Hasn't the Call Returned? Cleanup and Result Ownership",
   "agent-evaluation-set-for-iteration": "Building Agent Evaluation Sets Across Development and Acceptance",
   "etf-agent-vs-langgraph": "ETF Agent vs LangGraph: Concept Mapping, Recovery, and Research Delivery",
@@ -116,6 +120,10 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "prompt-context-rag-memory",
+  "tools-function-calling-mcp-skill",
+  "conversation-context-memory-checkpoints",
+
   "agent-cleanup-result-ownership",
   "agent-evaluation-set-for-iteration",
   "etf-agent-vs-langgraph",

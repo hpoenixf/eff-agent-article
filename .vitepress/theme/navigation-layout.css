@@ -1,6 +1,11 @@
 /* One navigation control per width: the expanded desktop bar or the mobile menu. */
 .VPNavBar .language-pref button { min-width: 44px; min-height: 44px; }
 .VPNavBar .directory-menu > summary { min-height: 44px; display: flex; align-items: center; }
+@media (max-width: 360px) {
+  .VPNavBar .container > .title { flex-shrink: 1; min-width: 0; }
+  .VPNavBarTitle .title > span { white-space: normal; line-height: 1.25; }
+  .VPNavBar .content { flex-shrink: 0; }
+}
 @media (min-width: 960px) {
   .VPNavBar .VPNavBarMenu { display: flex !important; }
   .VPNavBar .VPNavBarHamburger { display: none !important; }

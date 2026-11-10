@@ -4,7 +4,7 @@ import { createServer } from 'node:http'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve, extname } from 'node:path'
 import puppeteer from 'puppeteer'
-import { collections } from '../book.mjs'
+import { articleCount, collections } from '../book.mjs'
 
 const root = resolve('.vitepress/dist'), output = resolve('test-output/catalog-navigation')
 mkdirSync(output, { recursive: true })
@@ -81,7 +81,7 @@ try {
     assert.equal(new Set(allLinks).size, allLinks.length)
     await go('catalog')
     await page.waitForSelector('.catalog-article-list li')
-    assert.match(await page.$eval('.catalog-heading-summary', n => n.textContent), /113/)
+    assert.match(await page.$eval('.catalog-heading-summary', n => n.textContent), new RegExp(`\\b${articleCount}\\b`))
     const first = await page.$$eval('.catalog-article-list [data-article]', nodes => nodes.map(n => n.dataset.article))
     assert.equal(first.length, 20)
     await page.click('.catalog-pagination > button:last-child')
@@ -112,7 +112,7 @@ try {
     await page.$eval('.VPSidebar a[href="/eff-agent-article/' + prefix + 'articles/agent-deep-research-resource-and-delivery"]', node => node.scrollIntoView({ block: 'center' }))
     await page.screenshot({ path: output + '/' + language + '-sidebar-390.png' })
     assert.deepEqual(errors, [])
-    observations.push({ language, canonicalModules: 41, total: 113, sidebarRelated: true, relatedOnlyAndFilter: true, uniqueResults: true, paginationAndBack: true, desktopAndMobileLabelsFit: true })
+    observations.push({ language, canonicalModules: 41, total: articleCount, sidebarRelated: true, relatedOnlyAndFilter: true, uniqueResults: true, paginationAndBack: true, desktopAndMobileLabelsFit: true })
     await page.close()
   }
   writeFileSync(output + '/verified.json', JSON.stringify({ observations }, null, 2) + '\n')

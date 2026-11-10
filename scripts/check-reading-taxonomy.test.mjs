@@ -203,12 +203,20 @@ test('homepage visual layer is scoped, responsive and preserves accessible contr
   assert.match(css, /max-width: 760px/)
   assert.match(css, /@media \(max-width: 767px\)/)
   assert.match(css, /font-size: 32px/)
+  const navigation = text('.vitepress/theme/navigation-layout.css')
+  assert.match(navigation, /@media \(max-width: 360px\)/)
+  assert.match(navigation, /\.VPNavBar \.container > \.title \{ flex-shrink: 1; min-width: 0;/)
+  assert.match(navigation, /\.VPNavBarTitle \.title > span \{ white-space: normal;/)
   assert.match(css, /min-height: 48px/)
   assert.match(css, /min-height: 44px/)
   assert.match(css, /focus-visible/)
   assert.match(css, /outline: 2px solid/)
   assert.ok(!/display:\s*none|visibility:\s*hidden/.test(css), 'Styling must not hide navigation, content or controls')
-  assert.ok(!/position:\s*(fixed|absolute)/.test(css), 'No floating decorative overlays')
+  for (const rule of compiled.code.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (/position:\s*(fixed|absolute)/.test(rule[2])) {
+      assert.equal(rule[1].trim(), '.VPHome .VPHero .home-reading-menu__links', 'Only the reading dropdown floats')
+    }
+  }
 })
 
 test('homepage menu colors and focus outrank the component scoped styles', () => {
@@ -292,7 +300,7 @@ test('every panorama card server-renders with authored bilingual copy and canoni
 })
 
 test('only module essays occupy layers; cross-module topics retain curated associations', () => {
-  assert.deepEqual(collections.map(c => slugs(c).length), [41, 52, 20])
+  assert.deepEqual(collections.map(c => slugs(c).length), [41, 55, 20])
   assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
   for (const c of collections) for (const ch of c.chapters) {
     const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)
