@@ -16,7 +16,7 @@ readingBrief:
 
 > **Historical case:** This article revisits a September 2026 revocation/publication race. Authorization and publication responsibilities have since changed; the solution discussed here is not necessarily the current design.
 
-> **Reading path:** Module Deep Dives with architectural implications. This concerns when protected knowledge may be disclosed, not generic vector-search recall quality.
+> **Reading path:** Engineering Practice · Real Validation and Task Convergence, with architectural implications. This concerns when protected knowledge may be disclosed, not generic vector-search recall quality.
 
 When introducing document authorization to RAG, an obvious design is to check permissions before retrieval. If allowed, read the excerpts; after the model finishes writing, present the answer and citations.
 

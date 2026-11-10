@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { parse, compileStyle } from 'vue/compiler-sfc'
 import { collections, mergedArticles, historicalEditions, panoramaSeriesSlugs } from '../book.mjs'
 import { englishCollections, englishArticleSlugs } from '../book.en.mjs'
+import { readingSidebar as buildReadingSidebar } from '../reading-sidebar.mjs'
 import { groupTopCategories } from '../.vitepress/theme/reading-directory.mjs'
 
 const collection = id => collections.find(c => c.id === id)
@@ -49,7 +50,7 @@ test('finance curation and topic headings stay bilingual without a second articl
   const all = new Set(collections.flatMap(slugs))
   for (const slug of selected('fintech.md')) assert.ok(all.has(slug), slug)
   const topic = text('open-etf-topic.mjs')
-  assert.ok(topic.includes('(en ? englishCollections : collections)'))
+  assert.ok(topic.includes('en ? englishCollections : collections'))
   assert.ok(!topic.includes("['Research, reading & computation'"))
 })
 
@@ -127,7 +128,7 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
   const source = text('.vitepress/config.mts').replace(/^import .*$/gm, '')
     .replace('export default defineConfig(', 'globalThis.config = defineConfig(')
     .replaceAll('import.meta.url', JSON.stringify(import.meta.url))
-  const context = { collections, englishCollections, englishArticlePath, openEtfSidebar, defineConfig: value => value,
+  const context = { buildReadingSidebar, collections, englishCollections, englishArticlePath, openEtfSidebar, defineConfig: value => value,
     SITE_URL: '', READER_LANGUAGES, filterSitemapItems, socialHead: () => [] }
   runInNewContext(source, context)
   const flatten = items => items.flatMap(item => item.items ? flatten(item.items) : [item.link])
@@ -165,8 +166,14 @@ test('one bilingual directory shares canonical order, collapsed groups and retir
     const checkCollapsed = items => items.forEach(item => { if (item.items) { assert.equal(item.collapsed, true); checkCollapsed(item.items) } })
     checkCollapsed(groups)
     const articleLinks = flatten(sidebar).filter(path => /\/articles\//.test(path))
-    assert.equal(articleLinks.length, collections.flatMap(slugs).length)
-    assert.equal(new Set(articleLinks).size, articleLinks.length)
+    assert.equal(articleLinks.length, collections.flatMap(slugs).length + collections.flatMap(c => c.chapters.flatMap(ch => ch.related || [])).length)
+    assert.equal(new Set(articleLinks).size, collections.flatMap(slugs).length)
+    for (const group of groups.filter(g => categories.some(c => c.title === g.text))) {
+      for (const chapter of group.items) {
+        const links = flatten(chapter.items)
+        assert.equal(new Set(links).size, links.length, 'No duplicate within a chapter')
+      }
+    }
     for (const path of ['fintech', 'panorama', 'open-etf-agent', 'gallery']) assert.ok(flatten(sidebar).includes('/' + locale + path))
     assert.ok(!flatten(sidebar).some(path => /\/(roadmap|principles|architecture)$/.test(path)))
     const retired = text(locale + 'roadmap.md')
@@ -282,4 +289,50 @@ test('every panorama card server-renders with authored bilingual copy and canoni
   } finally {
     delete globalThis.__panoramaTestLanguage
   }
+})
+
+test('only module essays occupy layers; cross-module topics retain curated associations', () => {
+  assert.deepEqual(collections.map(c => slugs(c).length), [41, 52, 20])
+  assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
+  for (const c of collections) for (const ch of c.chapters) {
+    const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)
+    assert.equal(new Set(ids).size, ids.length)
+  }
+  const panorama = 'agent-subagent-context-specialization'
+  assert.ok(slugs(collection('thinking')).includes(panorama))
+  assert.ok(!slugs(collection('modules')).includes(panorama))
+  const registry = JSON.parse(text('visuals/owner-architecture/owner-articles.json'))
+  for (const id of ['A05', 'A06', 'A07', 'A11', 'A14', 'A24', 'B01']) {
+    assert.equal(registry.owners[id].primary, undefined, id + ' must not claim a dedicated essay')
+    assert.ok(registry.owners[id].related.length)
+  }
+  assert.equal(registry.owners.A16.primary, 'tool-results-outside-model-context')
+  for (const id of ['A03', 'A05', 'A23']) assert.ok(registry.owners[id].related.includes('agent-deep-research-resource-and-delivery'))
+})
+
+test('derived Owner links are repeatable without changing Owner text, layers or geometry', async () => {
+  const { syncOwnerLinks } = await import('./sync-panorama-owner-links.mjs')
+  for (const lang of ['zh', 'en']) {
+    const path = (lang === 'en' ? 'en/' : '') + 'articles/017-prompt-to-answer-six-layer-panorama-v3.md'
+    const svg = 'visuals/017-prompt-to-answer-six-layer-panorama/diagrams/v3-owner-map-' + lang + '.svg'
+    assert.equal(syncOwnerLinks(text(path), lang), text(path))
+    assert.equal(syncOwnerLinks(text(svg), lang, true), text(svg))
+  }
+})
+
+
+test('Owner dialog distinguishes dedicated module essays from related reading and explicit gaps', () => {
+  const html = text('visuals/owner-architecture/index.html')
+  assert.ok(html.includes('模块专文'))
+  assert.ok(html.includes('暂无模块专文'))
+  assert.ok(html.includes('相关文章'))
+  assert.ok(!html.includes('专题文章'))
+})
+
+
+test('sidebar groups fit actual available width and long bilingual labels wrap', () => {
+  const css = text('.vitepress/theme/custom.css')
+  assert.match(css, /\.VPSidebar \.group \{ width: 100%; \}/)
+  assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ min-width: 0; \}/)
+  assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ overflow-wrap: anywhere; \}/)
 })

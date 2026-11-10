@@ -31,7 +31,7 @@ try {
     await page.setViewport({ width, height: 1000, deviceScaleFactor: 1 })
     await page.goto(base + (lang === 'en' ? 'en/' : '') + 'articles/agent-deep-research-resource-and-delivery', { waitUntil: 'networkidle0' })
     const figures = await page.$$('.deep-research-figure')
-    assert.equal(figures.length, 3)
+    assert.equal(figures.length, 7)
     assert.equal(await page.$eval('link[rel="canonical"]', n => n.href), 'https://hpoenixf.com/eff-agent-article/' + (lang === 'en' ? 'en/' : '') + 'articles/agent-deep-research-resource-and-delivery')
     assert.ok((await page.$eval('.vp-doc', n => n.innerText)).includes(lang === 'zh' ? '完整冻结题面与逐项规则未随工程报告公开' : 'The complete frozen questions'))
     for (let i = 0; i < figures.length; i++) {
@@ -50,6 +50,14 @@ try {
       await page.waitForFunction(() => !document.querySelector('dialog.diagram-zoom-dialog[open]'))
       assert.ok(await trigger.evaluate(n => document.activeElement === n))
       assert.notEqual(await page.evaluate(() => document.documentElement.style.overflow), 'hidden')
+      // Reopening and explicit Close must preserve the page and return focus too.
+      const originalUrl = page.url()
+      await trigger.click()
+      await page.waitForSelector('dialog.diagram-zoom-dialog[open]')
+      await page.click('.diagram-zoom-controls button:last-child')
+      await page.waitForFunction(() => !document.querySelector('dialog.diagram-zoom-dialog[open]'))
+      assert.equal(page.url(), originalUrl)
+      assert.ok(await trigger.evaluate(n => document.activeElement === n))
       // Inspect actual browser font geometry, not only source dimensions.
       const svg = await browser.newPage()
       await svg.setViewport({ width: Math.ceil(data.width), height: Math.ceil(data.height), deviceScaleFactor: 1 })
@@ -65,22 +73,19 @@ try {
       await svg.close()
       observations.push({ lang, width, figure: i + 1, ...data, accessibleTitleAndDescription: true, svgTextWithinCanvas: true, keyboardZoomAndReturn: true })
     }
-    const fullDiagram = await page.$('.diagram-full-details')
-    if (fullDiagram) await fullDiagram.$eval('summary', n => n.click())
-    const retained = await page.$('.diagram-static')
-    assert.ok(retained, 'Retain the original research-loop diagram')
-    await retained.evaluate(n => n.scrollIntoView({ block: 'center' }))
-    await page.waitForFunction(() => { const image = document.querySelector('.diagram-static img'); return image?.complete && image.naturalWidth > 0 })
-    await retained.screenshot({ path: `${output}/${lang}-${width}-retained-loop.png` })
-    const retainedTrigger = await retained.$('.diagram-original')
-    await retainedTrigger.focus(); await page.keyboard.press('Enter')
-    await page.waitForSelector('dialog.diagram-zoom-dialog[open]')
-    await page.keyboard.press('Escape')
-    await page.waitForFunction(() => !document.querySelector('dialog.diagram-zoom-dialog[open]'))
-    assert.ok(await retainedTrigger.evaluate(n => document.activeElement === n))
+    assert.equal(await page.$('.diagram-static'), null, 'Research-loop SVG replaces the old Mermaid renderer')
+    for (const host of ['developers.openai.com', 'www.anthropic.com', 'blog.google', 'github.com/langchain-ai/open_deep_research/blob/1b7d2e80']) {
+      assert.ok(await page.$$eval('.vp-doc a[href]', (links, host) => links.some(n => n.href.includes(host)), host), `Missing primary source ${host}`)
+    }
+    const oldAnchors = lang === 'zh' ? ['二、怎样在同一套-runtime-上实现', '三、效果如何-让真实配对实验回答', '四、为什么最终没有另建-deep-工作流'] : ['_2-how-it-works-inside-the-existing-runtime', '_3-what-did-the-matched-runs-actually-show', '_4-why-not-introduce-a-separate-deep-graph']
+    for (const id of oldAnchors) assert.ok(await page.evaluate(id => !!document.getElementById(id), id), `Lost anchor ${id}`)
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false)
     assert.deepEqual(errors, [])
     await page.screenshot({ path: `${output}/${lang}-${width}-page.png`, fullPage: true })
+    await page.goto(base + (lang === 'en' ? 'en/' : '') + 'thinking', { waitUntil: 'networkidle0' })
+    await page.goBack({ waitUntil: 'networkidle0' })
+    assert.ok(page.url().includes('agent-deep-research-resource-and-delivery'))
+    assert.equal(await page.$('dialog.diagram-zoom-dialog[open]'), null)
     await page.close()
   }
   writeFileSync(output + '/verified.json', JSON.stringify({ observations }, null, 2) + '\n')

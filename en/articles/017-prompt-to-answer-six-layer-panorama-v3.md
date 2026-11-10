@@ -279,8 +279,8 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A08 | [Durable Control Events](/en/articles/agent-control-events-durable-owner-adoption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A08) | L1, L3, L5 |
 | A12 | [Skill Methods and Resources](/en/articles/agent-skill-from-markdown-to-callable-research) · [Related reading](/en/articles/agent-model-runtime-mcp-skill-boundaries) | L3, L4 |
 | A13 | [Plugin Admission and Lifecycle](/en/articles/020-agent-extension-host-smartphone) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A13) | L3, L4 |
-| A14 | [Context Projection and Fitting](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
-| A15 | [Action Reminder Coordination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A15) · [Deep dive](/en/articles/agent-action-reminder-coordination) | L3 |
+| A14 | [Context Projection and Fitting](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A14) | L3 |
+| A15 | [Action Reminder Coordination](/en/articles/agent-action-reminder-coordination) · [Deep dive](/en/articles/agent-action-reminder-coordination) | L3 |
 | A26 | [Long-Term Memory](/en/articles/026-agent-memory-forget-durable-effects) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A26) | L3, L4 |
 | A28 | [Main Context Compaction](/en/articles/agent-main-run-context-compaction) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A28) | L3 |
 | A41 | [Cross-Run Conversation History Compaction](/en/articles/agent-conversation-history-compaction-source-boundaries) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A41) | L3 |
@@ -294,9 +294,9 @@ The original capability Owner registry is authoritative for effects and facts. T
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
 | A03 | [Research Decision and Synthesis](/en/articles/agent-research-decisions-evidence-synthesis) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A03) | L2, L4, L5 |
-| A05 | [Run Resource Management (Deep)](/en/articles/agent-runtime-constraint-governance-v2) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) | L2, L4, L5 |
-| A06 | [Run Continuation and Termination](/en/articles/agent-veto-authority-and-run-termination) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) | L2, L5 |
-| A07 | [Child Execution Lifecycle](/en/articles/agent-subagent-context-specialization) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) | L2, L4 |
+| A05 | [Run Resource Management (Deep)](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A05) | L2, L4, L5 |
+| A06 | [Run Continuation and Termination](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A06) | L2, L5 |
+| A07 | [Child Execution Lifecycle](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A07) | L2, L4 |
 | A10 | [Model Invocation and Request Configuration](/en/articles/agent-provider-architecture-and-admission) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A10) | L2 |
 | A29 | [Lifecycle Events and Hook Execution](/en/articles/agent-multi-ecosystem-hook-execution) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A29) | L2, L4 |
 | A30 | [Provider Capacity Admission](/en/articles/agent-provider-admission-capacity-lease) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A30) | L2 |
@@ -308,7 +308,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 
 | ID | Capability owner | Other stages |
 | --- | --- | --- |
-| A11 | [Controlled Tool Invocation](/en/articles/agent-tool-lifecycle-and-model-input) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
+| A11 | [Controlled Tool Invocation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A11) | L2, L3 |
 | A16 | [Research Results and References](/en/articles/tool-results-outside-model-context) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A16) | L3, L5 |
 | A17 | [Research Material Assets](/en/articles/agent-research-assets-identity-version-lifecycle) · [Related reading](/en/articles/024-agent-pdf-from-text-to-evidence) | L2 |
 | A18 | [Web Research Reading](/en/articles/021-agent-web-research-from-search-to-deep-reading) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A18) | L3 |
@@ -318,7 +318,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | A31 | [MCP Service Connectivity](/en/articles/mcp-host-from-discovery-to-consumption) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A31) | L2, L3 |
 | A33 | [Exact Numeric Operations](/en/articles/agent-numeric-kernel-exact-units-rounding) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | A36 | [Temporal Semantics and Market Sessions](/en/articles/agent-temporal-semantics-market-calendar) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A36) | L2, L3 |
-| B01 | [Market Evidence Collection](/en/articles/mcp-market-responsibility-retrospective) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L2, L3 |
+| B01 | [Market Evidence Collection](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B01) | L2, L3 |
 | B02 | [Investment Fact Reading](/en/articles/portfolio-mcp-readonly-investment-data) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B02) | L3 |
 | B03 | [Deterministic Investment Calculations](/en/articles/agent-deterministic-fund-allocation) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B03) · [Related reading](/en/articles/031-fintech-data-time-and-reproducible-numbers) | L3 |
 | B04 | [Investment Ledger and Confirmation](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=B04) · [Related reading](/en/articles/030-fintech-from-research-to-investment-advice) | L6 |
@@ -330,7 +330,7 @@ The original capability Owner registry is authoritative for effects and facts. T
 | --- | --- | --- |
 | A22 | [Private Artifact Storage and Sharing](/en/articles/agent-artifact-version-access-sharing) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A22) | L4, L6 |
 | A23 | [Answer Publication and Preparation](/en/articles/019-agent-answer-publication) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A23) | L3, L4, L6 |
-| A24 | [Conversation Events and Historical Delivery](/en/articles/agent-asynchronous-research-time-bound-delivery) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
+| A24 | [Conversation Events and Historical Delivery](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A24) | L2, L6 |
 | A40 | [User Answer Feedback Records](/en/articles/agent-feedback-facts-not-automatic-learning) · [Owner details](https://hpoenixf.com/eff-agent-article/visuals/owner-architecture/index.html#owner=A40) | L2, L6 |
 
 ### L6 · User Interface

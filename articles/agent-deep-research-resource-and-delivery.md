@@ -1,11 +1,12 @@
 ---
-description: "在已有 Agent 研究循环上实现 Deep Research：为何需要独立资源档位，如何让 Host 批准升级、逐轮切换交付指令并支持修订，以及六组同题配对实验真正说明了什么。"
+description: "结合 OpenAI、Anthropic、Google 与开源实践，解释 Deep Research 的资源、并行取证和交付取舍，再用 ETF Agent 的实现与六组配对实验检验这些选择。"
 articleMetadata:
   author:
     name: "hpoenixf"
     url: "https://hpoenixf.com/about"
 readingBrief:
   takeaways:
+    - "借鉴业界实践时，先对齐问题范围、可并行程度与交付场景；托管接口、多代理和阶段图各有适用条件，不能只凭更大预算判断质量。"
     - "已有工具循环的 Agent 不必为 Deep Research 重建一套执行图；可以在同一 Run 中升级有效资源，并按 Host 的实际生效状态改变下一轮研究指导。"
     - "Deep 的授权与运行效果不同：用户选择、Skill 默认或模型提议都不是新额度，已用资源不清零，临近收尾也不能补办升级。"
     - "进度应持续可见，独立成立的结果可以提前发布，复杂综合结论则应在重要证据对齐后形成；这是一项模型行为策略，不是服务器的证据成熟度硬门。"
@@ -26,7 +27,7 @@ import { withBase } from 'vitepress'
 
 在 ETF Agent 中，我们没有为后一类任务重新搭建一套 Agent。做法是让**同一个 Native Research Loop**获得经过授权的更高资源档位，再根据当前实际生效的研究模式调整交付指导：研究过程中持续反馈进度，已有独立依据的部分允许先交付，关键结论则更倾向于在完成证据比较后组织成文。
 
-这篇文章只回答三个问题：为什么原有 Research 不够；Deep 在代码与运行时究竟改变了什么；真实 Standard/Deep 配对运行交出了什么结果。这里所述的 Deep 实现依据 ETF Agent 工程仓，不把它冒称为当前公开版 Open ETF Agent 已经具备的功能。
+这篇文章先看业界如何处理长研究，再回答 ETF Agent 的三个问题：为什么原有 Research 不够；Deep 在代码与运行时究竟改变了什么；真实 Standard/Deep 配对运行交出了什么结果。这里所述的 Deep 实现依据 ETF Agent 工程仓，不把它冒称为当前公开版 Open ETF Agent 已经具备的功能。
 
 ## 一、为什么要单独做 Deep？
 
@@ -51,7 +52,49 @@ import { withBase } from 'vitepress'
 
 这不是要求 Deep 在前 70% 时间禁止输出，也不是把“证据成熟”变成一个服务器可读取的布尔值。它是对模型研究与写作优先级的改变。
 
-## 二、怎样在同一套 Runtime 上实现？
+## 二、业界有哪些值得借鉴的实践？
+
+Deep Research 没有一套必须照搬的内部架构。下面按**研究投入、任务分解和交付**比较四种公开实践：产品文档说明可使用的接口，工程文章解释作者公开的设计，开源代码提供可检查的执行路径。它们支持不同强度的结论，也不代表我们当初曾逐一评估或采用这些方案。
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/industry-decisions-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/industry-decisions-zh.svg')" alt="按工程决策阅读公开资料：异步任务与引文、独立并行调查、计划与投入选择、有界研究循环。这里不排名，也不推测未公开的内部实现。" loading="lazy" /></picture>
+<figcaption><strong>图 1 · 四种公开实践，各解决什么问题</strong><br />按工程决策阅读公开资料：异步任务与引文、独立并行调查、计划与投入选择、有界研究循环。这里不排名，也不推测未公开的内部实现。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/industry-decisions-zh.svg')">打开完整图</a></figcaption>
+</figure>
+
+### 1. OpenAI：把长任务和可追溯报告当成产品接口
+
+OpenAI 的 [Deep Research API 示例](https://developers.openai.com/cookbook/examples/deep_research_api/introduction_to_deep_research_api)展示了报告正文和结构化引文：引文包含对应文本范围、标题和 URL。[后台模式文档](https://developers.openai.com/api/docs/guides/background)则提供响应 ID 和事件游标，断线后可接续读取同一响应。
+
+这里值得借鉴的是两件具体工作：**用户拿到的结论应能定位来源；客户端丢连接时应先查询原任务，而不是立刻重做研究。** 对不想自建研究执行层的团队，托管 API 可以减少编排工作，代价是受其接口、数据处理和可观测范围约束。事件流续接也只说明能继续读取响应，不能推导为任意工具步骤可回滚或外部动作绝不重复。ETF Agent 本文讨论的资源、正文版本和恢复仍由自身已有职责承担，并未因增加 Deep 模式就改成该 API 的封装。
+
+### 2. Anthropic：为可独立调查的问题并行，而不是为并行凑代理
+
+Anthropic 在 [2025 年 6 月的工程文章](https://www.anthropic.com/research/multi-agent-research-system)中描述了主研究代理委派并行子任务、综合发现并继续调查的结构。它要求委派写清目标、输出、来源与边界，指出广度探索适合并行，紧耦合任务和大量共享上下文则未必合适；成稿另经过引文处理。
+
+放到本文的基金问题中，可以让一个分支核原始报告的期间与计算口径，另一个分支寻找更正公告及反证。但“用哪个版本重算差额”依赖两路材料，应在汇合后判断，不能让两个分支各自给出最终归因。下图是据此构造的**教学分工**，不是 Anthropic 内部流程的复刻，也不是本批实验的真实轨迹。
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/parallel-evidence-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/parallel-evidence-zh.svg')" alt="教学分工：原报告与更正公告可分别读取，综合判断需要对齐版本和口径。交接保留来源定位与未知项，不能只留下看似完整的摘要。" loading="lazy" /></picture>
+<figcaption><strong>图 2 · 可以并行取证，仍须汇合后判断</strong><br />教学分工：原报告与更正公告可分别读取，综合判断需要对齐版本和口径。交接保留来源定位与未知项，不能只留下看似完整的摘要。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/parallel-evidence-zh.svg')">打开完整图</a></figcaption>
+</figure>
+
+这一选择的代价是额外调用、摘要损失和协调成本。我们会让读者重点看交接时是否还保有可回读的原文定位、适用时点和未知项，而非只看有多少 Child。ETF Agent 已有 Child 协作，但本文没有证明增加并行度会提升正确率，也未新增 Anthropic 式的独立引文代理。要不要引入专门引文检查，应由“引用存在但不支撑结论”这类实际错误决定。
+
+### 3. Google：先让用户校准问题，再选择研究投入
+
+Google 在 [2026 年 4 月的 Deep Research / Max 说明](https://blog.google/innovation-and-ai/models-and-research/gemini-models/next-Generation-gemini-deep-research/)中区分面向交互场景的低延迟研究与使用更多推理计算的后台研究，并提供开始执行前审阅、调整研究计划的能力。这是官方产品设计说明，不是本文独立验证的性能结论。
+
+它提醒我们：**花更多资源之前，先确认资源是否花在正确的问题上。** 若用户问“为什么跟踪差额扩大”，计划中应明确期间、比较基准和是否解释费用，而不是默认写一篇基金百科。需要多人确认范围或长时间后台交付时，计划审阅很有价值；短问题每次都要求确认则增加等待。ETF Agent 的 `auto/standard/deep` 处理的是模式意图与授权，不能将它等同于 Google 的两种产品档位，更不能据此声称已经实现相同的交互式计划审阅。
+
+### 4. LangChain：把研究边界写进可检查的循环
+
+开源参考 [Open Deep Research 的固定版本](https://github.com/langchain-ai/open_deep_research/blob/1b7d2e80db9faa586165c60e09096dbbfd483a64/src/open_deep_research/deep_researcher.py)有监督者与研究者循环、并行研究上限，以及独立的报告生成阶段。监督阶段可因完成信号、无工具调用、迭代上限或执行异常退出。这给了读者一个可以检查的例子：**到达报告节点，并不说明所有问题已经查清。**
+
+明确的阶段图适合需要单独替换研究、压缩和成稿模型的团队；代价是维护状态交接、裁剪策略和多个阶段的失败语义。ETF Agent 的本地约束不同：已有一个统一研究循环和正文版本链，因此先在原循环内改变容量与指导，避免重复维护两套执行事实。这个取舍不表示图式编排落后，也不表示现有循环自然更可靠。
+
+综合这些实践，我们采用的判断顺序是：先确定问题和来源边界，再决定哪些调查值得并行、需要多少投入，最后分别检查停止原因与报告质量。**这些是本文对公开材料的工程归纳，不是四家共同实现了同一套协议。**
+
+## 三、怎样在同一套 Runtime 上实现？ {#二、怎样在同一套-runtime-上实现}
 
 ### 1. 四种入口，最终只有一个资源批准者
 
@@ -78,13 +121,20 @@ Deep 可以来自用户的显式选择、已注册 Skill 的可信默认声明�
 
 这些数字是本次策略的默认基线和目标，不代表每个 Run 都一定能使用到上限。已消耗、Child 预留、未知结算以及外部 Provider/任务限制继续生效。升级**不重置计数，也不追加一份全新预算**。
 
+用一笔教学账目更容易看清：若 Root 总额原为 57，已用 20、为 Child 预留 6，未分配部分最多为 31；实际升至 85 后最多为 59。增加的是 28，不是又领到 85。这里的分配数是示意，不是某次真实 Run 的消耗；其他限制仍会收紧可用量。
+
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/budget-ledger-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/budget-ledger-zh.svg')" alt="教学算例：Root 请求总额从 57 到 85，已用 20、Child 预留 6 均保留，未分配余额上界从 31 到 59；未知结算和外部限制还可能收紧可用量。" loading="lazy" /></picture>
+<figcaption><strong>图 3 · 升档增加的是总容量，不是另一份预算</strong><br />教学算例：Root 请求总额从 57 到 85，已用 20、Child 预留 6 均保留，未分配余额上界从 31 到 59；未知结算和外部限制还可能收紧可用量。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/budget-ledger-zh.svg')">打开完整图</a></figcaption>
+</figure>
+
 升级还有时间窗口。约在原有请求或时间额度达到 50% 的提醒阶段，系统可以建议 Main 考虑 Deep；但建议不会自行启动新模型调用。在原始额度接近 80%、进入 `finalization-only`、期限或授权条件不允许时，资源 Owner 会在真正执行升级的边界重新判断，而不是因为工具先前可见就放行。
 
 这里还有一个容易忽略的差别：升级的持久批准记录不等于当前 Host 已经把新额度应用到运行中的预算和时钟。运行时区分 `standard`、`recorded-pending`、`deep` 与 `unknown`；只有实际应用的 `deep` 才能改变后续有效行为。
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/upgrade-boundaries-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/upgrade-boundaries-zh.svg')" alt="模式意图由资源批准者核查，经 Host 实际应用后，下一轮请求才采用 Deep 指导；已有消耗和预留继续计入。" loading="lazy" /></picture>
-<figcaption><strong>图 1 · Deep 从意图到实际生效</strong><br />模式意图由资源批准者核查，经 Host 实际应用后，下一轮请求才采用 Deep 指导；已有消耗和预留继续计入。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-zh.svg')">打开完整图</a></figcaption>
+<figcaption><strong>图 4 · Deep 从意图到实际生效</strong><br />模式意图由资源批准者核查，经 Host 实际应用后，下一轮请求才采用 Deep 指导；已有消耗和预留继续计入。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/upgrade-boundaries-zh.svg')">打开完整图</a></figcaption>
 </figure>
 
 ### 3. 改变的是每一轮请求，而不是修改上一轮 Prompt
@@ -113,21 +163,10 @@ const modelRequest = {
 
 下面是一次研究请求的主要路径，省略了权限、期限、纠错与恢复中的细节：
 
-```mermaid
-flowchart TD
-    A["研究请求"] --> B{"Host 确认 Deep 已生效？"}
-    B -->|"是"| C["Deep 有效额度与交付指导"]
-    B -->|"否"| D["原额度与普通交付指导"]
-    C --> E["同一个 Native Research Loop"]
-    D --> E
-    E --> F["读取、计算、Child 协作"]
-    F --> G{"本轮交付什么？"}
-    G -->|"进度"| H["send_research_update"]
-    G -->|"可独立成立的内容"| I["send_answer_part / replaces"]
-    H --> E
-    I --> E
-    E --> J["达到结束条件后收尾"]
-```
+<figure class="deep-research-figure">
+<picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/delivery-lanes-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/delivery-lanes-zh.svg')" alt="Host 已应用 Deep 才选择 Deep 指导，否则沿用普通指导。进度或独立成果发布后都可以继续研究；发布一个答案块不等于结束，仍按原有结束条件收尾。" loading="lazy" /></picture>
+<figcaption><strong>图 5 · 进度与成果走两条路径，研究仍是同一循环</strong><br />Host 已应用 Deep 才选择 Deep 指导，否则沿用普通指导。进度或独立成果发布后都可以继续研究；发布一个答案块不等于结束，仍按原有结束条件收尾。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/delivery-lanes-zh.svg')">打开完整图</a></figcaption>
+</figure>
 
 `send_research_update` 传递简短的工作进展或需要关注的问题，属于有自身回执和展示权限的进度事件；`send_answer_part` 才是正式答案的一部分。发布一个答案块不会自动结束研究，完成仍走原有的结束机制。普通正文路径和答案工具都归入原有 Publication 的控制范围。
 
@@ -143,7 +182,7 @@ Deep 没有新建一位强制终稿 Writer，也没有规定“先查满 N 条�
 
 这形成了一种刻意克制的 Deep 实现：**资源归资源 Owner、研究和综合归模型、正式正文与版本归 Publication、恢复归原有持久化链路**。Deep 改变同一条链路的策略与容量，而不是复制整套执行系统。
 
-## 三、效果如何？让真实配对实验回答
+## 四、效果如何？让真实配对实验回答 {#三、效果如何-让真实配对实验回答}
 
 我们先做过两道基金合成题的 Standard/Deep 对照：A 中 Deep 第一份有用内容更晚，却满足 14/14 组要求（Standard 13/14），终态更早；B 中两种模式都是 15/15，Deep 首次交付稍早，但总体结束更晚、已知用量也更多。它们说明方向不一致，但样本还太少。
 
@@ -169,7 +208,7 @@ Deep 没有新建一位强制终稿 Writer，也没有规定“先查满 N 条�
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/matched-outcomes-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/matched-outcomes-zh.svg')" alt="四组探索性配对保留不同分母和失败项。S2 的 Deep 更早满足全部要求，却更晚结束；S1、D2 的更早结束伴随遗漏。" loading="lazy" /></picture>
-<figcaption><strong>图 2 · 完整回答与运行结束是两个时点</strong><br />四组探索性配对保留不同分母和失败项。S2 的 Deep 更早满足全部要求，却更晚结束；S1、D2 的更早结束伴随遗漏。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-zh.svg')">打开完整图</a></figcaption>
+<figcaption><strong>图 6 · 完整回答与运行结束是两个时点</strong><br />四组探索性配对保留不同分母和失败项。S2 的 Deep 更早满足全部要求，却更晚结束；S1、D2 的更早结束伴随遗漏。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/matched-outcomes-zh.svg')">打开完整图</a></figcaption>
 </figure>
 
 表里的“满足要求”是按事先冻结的组别及全部子条件判定，不等于全文没有任何额外错误。“完成事件”是 Conversation 的终态观察，不是浏览器绘制时间；“首次发布”也不能自动算作首次有效成果。
@@ -180,7 +219,7 @@ D2 有一处题面要求的解释存在宽读空间：若只要求最终回述�
 
 <figure class="deep-research-figure">
 <picture><source media="(max-width: 700px)" :srcset="withBase('/diagrams/deep-research/evidence-timing-zh-mobile.svg')" /><img :src="withBase('/diagrams/deep-research/evidence-timing-zh.svg')" alt="D1 两模式先发准备提示，D2 Deep 也先发提示；它们不能证明先形成旧版结论。D2 Standard 有旧版结论再修订，但费用推断仍错误。" loading="lazy" /></picture>
-<figcaption><strong>图 3 · 发布触发更新，未必证明发生过改判</strong><br />D1 两模式先发准备提示，D2 Deep 也先发提示；它们不能证明先形成旧版结论。D2 Standard 有旧版结论再修订，但费用推断仍错误。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-zh.svg')">打开完整图</a></figcaption>
+<figcaption><strong>图 7 · 发布触发更新，未必证明发生过改判</strong><br />D1 两模式先发准备提示，D2 Deep 也先发提示；它们不能证明先形成旧版结论。D2 Standard 有旧版结论再修订，但费用推断仍错误。 <a class="diagram-original" :href="withBase('/diagrams/deep-research/evidence-timing-zh.svg')">打开完整图</a></figcaption>
 </figure>
 
 ### 2. 为什么不能只用“耗时更短”选模式？
@@ -203,7 +242,7 @@ Ragas 的 20 项指标均出分；DeepEval 的 16 项中 10 项出分、2 项因
 
 这里恰好能看见 Deep Research 的工程边界：**给模型更多研究空间是可以确定地实现的；模型是否充分利用这份空间，则必须回到实际结果检验。**
 
-## 四、为什么最终没有另建 Deep 工作流？
+## 五、为什么最终没有另建 Deep 工作流？ {#四、为什么最终没有另建-deep-工作流}
 
 另一条路线是为 Deep 固定“规划 → 搜索 → 专家审核 → 终稿 Writer”节点，每次都经过同样的阶段。这对工作流高度标准化的产品是合理选择。
 
