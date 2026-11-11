@@ -181,7 +181,8 @@ test('v0.23/v0.24 navigation preserves exact lineage without upgrading old artic
   const row=versions.find(v=>v.version===version)
   assert.deepEqual([row.commit,row.tree,row.title,row.zh],[commit,tree,title,zh])
  }
- assert.deepEqual(versions.slice(-3).reverse().map(v=>v.version),['0.27','0.26','0.25'])
+ const lineage=JSON.parse(readFileSync(new URL('../data/open-etf-agent/versions.json',import.meta.url),'utf8'))
+ assert.deepEqual(versions.slice(-3).reverse().map(v=>v.version),Object.keys(lineage.versions).sort((a,b)=>b.localeCompare(a,undefined,{numeric:true})).slice(0,3))
  for(const language of ['zh','en']) {
   const slices=topicGroups(language).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets])
   assert.equal(slices.some(s=>['0.23','0.24'].includes(s.since)),false)
@@ -229,4 +230,14 @@ test('v0.25 to v0.27 preserve exact public lineage and bilingual module captions
   assert.notEqual(expert.status,'limited')
   assert.equal(expert.evidence,null)
  }
+})
+
+
+test('v0.28 review navigation does not upgrade historical article qualification',()=>{
+ const row=versions.find(v=>v.version==='0.28')
+ assert.equal(row.commit,'d53abf0acc0944664ca2df6a0eb60d0529449f01')
+ assert.equal(row.tree,'a9ebc53e24c7d1a80379c335d1f2848aace0b5ad')
+ assert.equal(row.title,'Review a frozen report')
+ assert.equal(row.zh,'复核冻结的报告')
+ for(const lang of ['zh','en']) assert.equal(topicGroups(lang).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets]).some(s=>s.since==='0.28'),false)
 })
