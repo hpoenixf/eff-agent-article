@@ -287,3 +287,6 @@ v0.24 还让新格式项目在同一规范化 HTTPS endpoint 的配置修订间�
 
 
 这是[深入篇](open-etf-agent-v010-system-design.md)之后的动手一站，不替代机制讲解。能够检查自己资料上的任务后，再读[六层全景](017-prompt-to-answer-six-layer-panorama-v3.md)，把这些边界放回完整系统。
+
+
+继续练手：[报告写完以后，怎样查证、协作和独立复核](open-etf-agent-report-review-workshop.md)。

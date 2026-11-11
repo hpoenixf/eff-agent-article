@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="770" viewBox="0 0 720 770" role="img">
+<title>A method is not a worker</title>
+<desc>Specialist profile; Defines what and how to check; Freeze the selected revision. Child agent; Performs one bounded check; Returns findings and source evidence. Main agent; Builds the report from evidence; Owns the final synthesis</desc>
+<rect width="720" height="770" rx="24" fill="#f3f6fb"/>
+<g font-family="Arial, sans-serif">
+<text x="36" y="66" font-size="36" font-weight="700" fill="#142d4e">A method is not a worker</text>
+<rect x="36" y="100" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="100" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="148" font-size="32" font-weight="700" fill="#174c68">Specialist profile</text>
+<text x="65" y="199" font-size="29" fill="#253b54">Defines what and how to check</text>
+<text x="65" y="244" font-size="29" fill="#253b54">Freeze the selected revision</text>
+<path d="M350 290 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="315" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="315" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="363" font-size="32" font-weight="700" fill="#174c68">Child agent</text>
+<text x="65" y="414" font-size="29" fill="#253b54">Performs one bounded check</text>
+<text x="65" y="459" font-size="29" fill="#253b54">Returns findings and source evidence</text>
+<path d="M350 505 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="530" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="530" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="578" font-size="32" font-weight="700" fill="#174c68">Main agent</text>
+<text x="65" y="629" font-size="29" fill="#253b54">Builds the report from evidence</text>
+<text x="65" y="674" font-size="29" fill="#253b54">Owns the final synthesis</text>
+</g></svg>

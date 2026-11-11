@@ -300,11 +300,15 @@ test('every panorama card server-renders with authored bilingual copy and canoni
 })
 
 test('only module essays occupy layers; cross-module topics retain curated associations', () => {
-  assert.deepEqual(collections.map(c => slugs(c).length), [41, 55, 21])
+  assert.deepEqual(collections.map(c => slugs(c).length), [41, 58, 21])
   assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
   for (const c of collections) for (const ch of c.chapters) {
     const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)
     assert.equal(new Set(ids).size, ids.length)
+  }
+  for (const slug of ['open-etf-agent-report-review-workshop', 'agent-expert-subagent-review-judge', 'agent-task-session-run-worker-schedule']) {
+    assert.ok(slugs(collection('thinking')).includes(slug))
+    assert.ok(!slugs(collection('modules')).includes(slug))
   }
   const panorama = 'agent-subagent-context-specialization'
   assert.ok(slugs(collection('thinking')).includes(panorama))

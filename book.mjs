@@ -189,6 +189,15 @@ export const collections = [
         ]
       },
       {
+        "title": "练手之后：查证、分工与持续执行",
+        "desc": "沿已保存的报告继续学习，分清专家分工、独立复核与跨时间运行；属于跨模块专题，不是新增层级。",
+        "items": [
+          ["open-etf-agent-report-review-workshop", "报告写完以后：让 Agent 查证、协作，再独立复核"],
+          ["agent-expert-subagent-review-judge", "专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？"],
+          ["agent-task-session-run-worker-schedule", "任务、会话、Run、Worker、Schedule：Agent 到底在继续哪件事？"]
+        ]
+      },
+      {
         "title": "系统边界与演进",
         "desc": "跨模块证据关系、职责边界、故障归因、可靠性与长期架构演化。",
         "items": [

@@ -286,3 +286,6 @@ v0.24 also preserves one original request slot across configuration revisions us
 [v0.24 project guide](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/research-project.md) · [Child methods and inspection](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/child-execution.md) · [Project capacity and legacy formats](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.md). This exercise is fixed to v0.24.0; the older guide and layered execution evidence above remain historical entry points. Do not mix commands from future main revisions.
 
 This is the practical next stop after the [deep dive](open-etf-agent-v010-system-design.md), not a replacement for it. Once you can inspect a task on your own material, continue to the [six-layer panorama](017-prompt-to-answer-six-layer-panorama-v3.md) to place those boundaries in the wider system.
+
+
+Continue the workshop: [checking sources, collaborating, and independently reviewing a finished report](open-etf-agent-report-review-workshop.md).

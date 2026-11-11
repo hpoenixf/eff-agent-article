@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="770" viewBox="0 0 720 770" role="img">
+<title>Review does not rewrite</title>
+<desc>Keep the original; Revision A and its sources stay intact; The reader can still open it. Separate advice; Issues, evidence, and uncertainty; Not a command to publish. Revise after deciding; A person chooses which advice to use; Create revision B; preserve A</desc>
+<rect width="720" height="770" rx="24" fill="#f3f6fb"/>
+<g font-family="Arial, sans-serif">
+<text x="36" y="66" font-size="36" font-weight="700" fill="#142d4e">Review does not rewrite</text>
+<rect x="36" y="100" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="100" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="148" font-size="32" font-weight="700" fill="#174c68">Keep the original</text>
+<text x="65" y="199" font-size="29" fill="#253b54">Revision A and its sources stay intact</text>
+<text x="65" y="244" font-size="29" fill="#253b54">The reader can still open it</text>
+<path d="M350 290 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="315" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="315" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="363" font-size="32" font-weight="700" fill="#174c68">Separate advice</text>
+<text x="65" y="414" font-size="29" fill="#253b54">Issues, evidence, and uncertainty</text>
+<text x="65" y="459" font-size="29" fill="#253b54">Not a command to publish</text>
+<path d="M350 505 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="530" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="530" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="578" font-size="32" font-weight="700" fill="#174c68">Revise after deciding</text>
+<text x="65" y="629" font-size="29" fill="#253b54">A person chooses which advice to use</text>
+<text x="65" y="674" font-size="29" fill="#253b54">Create revision B; preserve A</text>
+</g></svg>
