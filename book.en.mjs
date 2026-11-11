@@ -113,6 +113,7 @@ export const englishTitles = {
   "agent-weekly-review-staged-delivery": "Why We Split a Large Weekly Review Spec into Three Phases",
   "027-agent-context-document-history": "Engineering Knowledge: Context, Memory and Retirement",
   "honest-agent-evaluation": "Agent Evaluation Panorama: From Green Tests to Real Task Value",
+  "agent-evaluation-effective-identity-reuse": "Agent Evaluation Identity: Can Results Survive Model Failover?",
   "rag-retrieval-evaluation-evidence": "RAG Recall Looks Great. Why Doesn’t That Prove the Agent Found the Right Financial Evidence?",
   "032-ai-development-from-bug-loop-to-task-convergence": "From Bug-Fix Loops to Task Convergence",
   "agent-durable-human-interaction-response-adoption": "After an Agent Asks: Durable Human Response Adoption",
@@ -120,6 +121,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-evaluation-effective-identity-reuse",
   "prompt-context-rag-memory",
   "tools-function-calling-mcp-skill",
   "conversation-context-memory-checkpoints",

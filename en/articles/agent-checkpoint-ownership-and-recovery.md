@@ -283,6 +283,16 @@ These executed tests use scripted models and an in-memory Store. Their assertion
 An earlier publication fix also retained a before-and-after observation: under the same one-time pre-write fault, content existed in storage but the old path returned partial without establishing independent completion. After that fix, content remained and completion was accepted. That is evidence for the particular fault repair, not a benefit attributable to the later checkpoint-interface consolidation.
 
 
+### After a real process exit: replay the sealed proposal or call the model again?
+
+Identifying a pre-write checkpoint failure is only the first step. A harder case arises when **a valid control wake has been accepted and Main has sealed a proposed action, but saving an auxiliary checkpoint fails before the write and the executor then exits**. An older snapshot does not authorize another model call or a fresh dispatch of every tool.
+
+A controlled November 10 experiment ran the original Native Runtime with isolated PostgreSQL, a scripted model, and the existing accepted timer wake. It injected a deterministic serialization failure after the proposal was sealed, then killed the executor with `SIGKILL`. A fresh process reclaimed **the original accepted wake** and reconciled original model turns, sealed proposals, checkpoints, and action receipts. In the post-seal branch no new model request was made. The original proposed publication action was attempted for the first time, the original Publication owner persisted synthetic answer text, and the Run completed. This establishes narrowly scoped control-wake continuation, **not** automatic reconstruction of arbitrary Root/Child work after an ordinary process crash.
+
+Why not execute any proposal that can still be read? An earlier attempt may have an unknown outcome, or the old executor may have lost authority. Recovery checks original request identity, proposal integrity, consumed budget, active lease, and the accepted claim fence. A first publication attempt carries a `publication_attempt_fence` bound to that authority. Controlled negative cases reject an `uncertain` action, forged proposal or budget, wrong scope or fence, a cancelled Run, or an unsealed request. Checkpoint does not thereby become the authority for publishing; the original action and publication owners still decide effects.
+
+The evidence covers cross-process fault injection at the original application seam with real PostgreSQL and a genuinely terminated test process. It uses a scripted model and synthetic output; no live-provider quality or client delivery is established. The distinction matters: an older snapshot may coexist with a completed effect, or with a sealed but **not yet dispatched** proposal. Neither condition licenses blind retries.
+
 ## 6. An independent checkpoint owner, with a narrow boundary
 
 Here, an owner is the module responsible for interpreting a class of facts and protecting its invariants. It need not be a separate process, database or manager class.
