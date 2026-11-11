@@ -167,3 +167,8 @@ test('introductory badges derive exactly from the canonical learning route in bo
  const tag=data.definitions.find(t=>t.id==='intro');assert.equal(tag.zh,'入门');assert.equal(tag.en,'Getting started');assert.equal(tag.path,'articles/'+learningPathSlugs[0]);
  assert.equal(new Set(learningPathSlugs).size,11);
 });
+
+test('selecting the introductory filter starts in the canonical reading order', () => {
+ const source=readFileSync(new URL('../.vitepress/theme/ChapterCatalog.vue',import.meta.url),'utf8');
+ assert.ok(source.includes("if (id === 'intro' && selectedTags.value.includes('intro')) sortOrder.value = 'category'"));
+});
