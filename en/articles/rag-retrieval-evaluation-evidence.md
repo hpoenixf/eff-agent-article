@@ -99,9 +99,11 @@ It is still not an independent review of the complete answer. It does not verify
 
 ### A connected reranker still needs evidence of use in real research
 
-By October 31, 2026, the local TEI reranker had processed permitted synthetic candidates through the existing Retriever, and a newly started API had loaded its `local-tei` settings. Five synthetic Chinese questions placed their corresponding candidates first without changing candidate membership. A controlled unavailable-endpoint case preserved the original RRF order.
+By October 31, 2026, the local TEI reranker had processed permitted synthetic candidates through the existing Retriever, and a newly started API had loaded its `local-tei` settings. Five synthetic Chinese questions placed their corresponding candidates first without changing candidate membership. A controlled unavailable-endpoint case preserved the original RRF order. **That established the Retriever wiring and fallback behavior first**, not yet consumption by a complete research Run.
 
-These observations cover reranking calls, source eligibility, and fallback behavior—not improved retrieval quality for real funds. The checks used synthetic repository and embedding ports. At that checkpoint, no real Research Run through the new API had been observed returning `rerankerStatus=applied`. Loaded configuration, a successful standalone Retriever call, and consumption in user research are distinct states.
+On November 10, verification followed the original application's `index.ts` startup: a test-scoped API, authenticated synthetic account, isolated PostgreSQL, and real local TEI formed one standard API Research Run. Controlled reranking changed candidate order, while original source identities and `rerankerStatus=applied` remained observable in that Run. The model's input consumed the two admitted passages in the reranked order, and the resulting answer and history were read back. Evidence therefore progressed from “the Retriever calls the scorer” to **“the controlled application path actually consumes reranked input.”**
+
+The run still used a scripted model, synthetic materials, test-only settings, and a local proxy to TEI. The operator-configured persistent API process has not been observed with equivalent results. This is not proof of improved real-fund retrieval quality or final-answer grounding. Loaded configuration, a reranker call, model-input consumption, and real task quality remain separate claims.
 
 ### Integrating Ragas does not automatically yield a quality score
 
