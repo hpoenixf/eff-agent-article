@@ -1,6 +1,9 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-task-session-run-worker-schedule": "Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?",
+  "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
+  "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
   "tools-function-calling-mcp-skill": "Tools, Function Calling, MCP and Skills — How Does an Action Happen?",
   "conversation-context-memory-checkpoints": "History, Context, Memory and Checkpoints — How Does an Agent Continue?",
@@ -121,6 +124,10 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-task-session-run-worker-schedule",
+  "agent-expert-subagent-review-judge",
+  "open-etf-agent-report-review-workshop",
+
   "agent-evaluation-effective-identity-reuse",
   "prompt-context-rag-memory",
   "tools-function-calling-mcp-skill",
@@ -244,6 +251,7 @@ export const englishArticleSlugs = [
 export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama', 'multi-layer-agent-collaboration-outlook']
 
 const headings = {
+  "练手之后：查证、分工与持续执行": ["After the Workshop: Evidence, Roles and Continuity", "Continue from a saved report: checking sources, separating responsibilities and preserving work across time."],
   "深度持续研究": [
     "Deep and Continuous Research",
     "Long-running background research, staged delivery, recovery and continuity of investment theses."

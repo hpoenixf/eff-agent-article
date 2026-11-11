@@ -55,6 +55,14 @@ Only module-focused essays belong in L1–L6. Cross-module topics and engineerin
 **Research Workspace 专题**：[为什么 Agent 需要 Workspace？从一次性对话到长期研究](articles/agent-research-workspace-goal-continuity.md) · [Full English](en/articles/agent-research-workspace-goal-continuity.md)——长期目标关联多次独立 Run、按原始版本消费历史材料；私有 P0 已合入主干且默认关闭，开源教学仓库尚未提供这一模块。
 **A17 研究资料资产专题**：[一份研究报告，为什么需要先变成「资产」？](articles/agent-research-assets-identity-version-lifecycle.md) · [Full English](en/articles/agent-research-assets-identity-version-lifecycle.md)——区分来源与版本、部分提取、单次 Run 的证据视图和跨 Run 长期研究的关联；不将私有完整能力冒称为公开教学仓库功能。
 
+## 练手之后：继续读这三篇
+
+- [报告写完以后：查证、协作与独立复核](articles/open-etf-agent-report-review-workshop.md) · [English](en/articles/open-etf-agent-report-review-workshop.md)
+- [专家、Subagent、Review、Judge 的职责地图](articles/agent-expert-subagent-review-judge.md) · [English](en/articles/agent-expert-subagent-review-judge.md)
+- [Task、Session、Run、Worker、Schedule 的关系](articles/agent-task-session-run-worker-schedule.md) · [English](en/articles/agent-task-session-run-worker-schedule.md)
+
+从[第一篇练手](articles/open-etf-agent-research-project-workshop.md)接着读；三篇都是跨模块学习专题，不把模型意见当作质量认证，也不把一次性计划当作后台服务。
+
 ## 先找到你的问题
 
 | 想解决的问题 | 阅读入口 | 你会得到什么 |

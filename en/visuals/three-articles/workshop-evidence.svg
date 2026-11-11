@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="770" viewBox="0 0 720 770" role="img">
+<title>True claim, wrong citation</title>
+<desc>The report says; Plan A costs 12 units per year; But its footnote points to Plan B. Is the claim supported?; Plan A states that annual price; The claim has source support. Does the citation match?; Plan B does not state that price; The footnote still needs fixing</desc>
+<rect width="720" height="770" rx="24" fill="#f3f6fb"/>
+<g font-family="Arial, sans-serif">
+<text x="36" y="66" font-size="36" font-weight="700" fill="#142d4e">True claim, wrong citation</text>
+<rect x="36" y="100" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="100" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="148" font-size="32" font-weight="700" fill="#174c68">The report says</text>
+<text x="65" y="199" font-size="29" fill="#253b54">Plan A costs 12 units per year</text>
+<text x="65" y="244" font-size="29" fill="#253b54">But its footnote points to Plan B</text>
+<path d="M350 290 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="315" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="315" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="363" font-size="32" font-weight="700" fill="#174c68">Is the claim supported?</text>
+<text x="65" y="414" font-size="29" fill="#253b54">Plan A states that annual price</text>
+<text x="65" y="459" font-size="29" fill="#253b54">The claim has source support</text>
+<path d="M350 505 l10 14 10 -14" fill="none" stroke="#367b91" stroke-width="4"/>
+<rect x="36" y="530" width="648" height="180" rx="20" fill="white" stroke="#ccd8e8"/>
+<rect x="36" y="530" width="9" height="180" rx="4" fill="#367b91"/>
+<text x="65" y="578" font-size="32" font-weight="700" fill="#174c68">Does the citation match?</text>
+<text x="65" y="629" font-size="29" fill="#253b54">Plan B does not state that price</text>
+<text x="65" y="674" font-size="29" fill="#253b54">The footnote still needs fixing</text>
+</g></svg>
