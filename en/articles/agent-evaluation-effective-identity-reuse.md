@@ -84,9 +84,9 @@ Unknown and different are not interchangeable. Missing observations do not prove
 
 ETF Agent also implements a pragmatic **local-resume-only approximation**. Immutable provider/model versions and complete effective inputs may be unavailable when a local evaluation resumes. Under the specifically authorized policy, a historical cell whose **original execution start** falls within 48 hours may be reused when existing plan, registry, configuration, route, and observable source checks find no known contradiction and the original review remains valid.
 
-This is not a claim that “everything within 48 hours is the same.” The report records input compatibility as \`assumed-not-verified\` and can return \`passed_with_warnings\`. It neither runs a new model-quality assessment nor provides exact qualification to other evaluation consumers. Restarting cannot refresh the original execution clock; missing, expired, or future timestamps cannot qualify.
+This is not a claim that “everything within 48 hours is the same.” The report records input compatibility as `assumed-not-verified` and can return `passed_with_warnings`. It neither runs a new model-quality assessment nor provides exact qualification to other evaluation consumers. Restarting cannot refresh the original execution clock; missing, expired, or future timestamps cannot qualify.
 
-A known Main route mismatch, a changed Entry output limit, code that changed during evaluation, or contradictory adapter hashes instead keeps attribution \`unverified\`. The evaluator should detect known drift **before dispatching the next provider checkpoint**, not spend resources first and discover that the previous results are incomparable afterward.
+A known Main route mismatch, a changed Entry output limit, code that changed during evaluation, or contradictory adapter hashes instead keeps attribution `unverified`. The evaluator should detect known drift **before dispatching the next provider checkpoint**, not spend resources first and discover that the previous results are incomparable afterward.
 
 ## 5. Where the bug hides: five different seams
 
