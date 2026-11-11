@@ -28,7 +28,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-11，最新正式发布版本为 [v0.27.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.27.0)。当前三条推进线是项目专家配置、显式 Web 取证和一次性定时任务；它们沿原项目、执行与报告链工作，不构成另一套 Agent 平台。
+截至 2026-11-11，最新正式发布版本为 [v0.28.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.28.0)。当前三条推进线是报告复核、项目专家配置和显式 Web 取证；它们沿原项目、执行与报告链工作，不构成另一套 Agent 平台。
+
+v0.28 增加报告写完后的显式复核：冻结报告及其原始资料，分别检查主张支持与引用对应关系，保存原始复核输出并支持重启读回。它不改写报告，也不把复核意见变成新的证据。可沿[报告复核练手篇](./open-etf-agent-report-review-workshop.md)实际操作，命令与范围见[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/report-review.zh-CN.md)。真实模型已在合成报告与来源上完成本版运行验证，意见仍可能误判；运行完成不等于金融判断正确。
 
 v0.27 把操作者保存的专家方法与有序预设接入原 Child：任务提交时冻结准确修订，后续编辑不改变已提交研究。可从[自定义专家文章](./agent-custom-expert-from-prompt-to-recovery.md)理解方法与执行为何分开，再沿[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/v027-specialist-profiles.zh-CN.md)实际配置、提交、执行并回读。独立证据输入只隔离 Main 的局部解释，不保证模型推理正确；可选的报告文件合同要求真实文件，不能用缺失报告冒充交付。
 
