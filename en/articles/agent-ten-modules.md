@@ -296,3 +296,14 @@ Next, read [Tools, Function Calling, MCP and Skills](./tools-function-calling-mc
 Continue to [Deep Dive](./open-etf-agent-v010-system-design.md) for source tracing, cross-process continuation and specialist handoffs. Follow it with the [Workshop](./open-etf-agent-research-project-workshop.md) and the [Six-Layer Request Lifecycle](./017-prompt-to-answer-six-layer-panorama-v3.md).
 
 [Back to Introduction](./agent-in-15-minutes.md) · [中文](../../articles/agent-ten-modules.md) · [Open ETF Agent (stars welcome)](https://github.com/hpoenixf/open-etf-agent)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Prompt, Context, RAG and Memory — Where Does the Model Input Come From?](prompt-context-rag-memory.md).
+
+Next: [Tools, Function Calling, MCP and Skills — How Does an Action Happen?](tools-function-calling-mcp-skill.md).
+
+<!-- introductory-series-links:end -->

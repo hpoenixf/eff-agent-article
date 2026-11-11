@@ -296,3 +296,14 @@ node src/specialist-cli.mjs run --session runs/learning-specialist
 再进入[深入篇](./open-etf-agent-v010-system-design.md)，检查数字来源、跨进程接续与专家交接。读完后到[练手篇](./open-etf-agent-research-project-workshop.md)使用自己的资料，再展开[六层全景](./017-prompt-to-answer-six-layer-panorama-v3.md)。
 
 [返回入门](./agent-in-15-minutes.md) · [English](../en/articles/agent-ten-modules.md) · [Open ETF Agent（欢迎 Star）](https://github.com/hpoenixf/open-etf-agent)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[Prompt、Context、RAG、Memory，模型的输入从哪里来？](prompt-context-rag-memory.md)。
+
+下一篇：[Tool、Function Calling、MCP、Skill，一次行动怎样发生？](tools-function-calling-mcp-skill.md)。
+
+<!-- introductory-series-links:end -->

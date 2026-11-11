@@ -139,3 +139,12 @@ Read [Prompt, Context, RAG and Memory](./prompt-context-rag-memory.md) first to 
 You have already met three movements of the [six-layer responsibility map](./017-prompt-to-answer-six-layer-panorama-v3.md): **L1 accepts the task, L3 decides the next action, and L4 uses tools**. L4 means “tools and domain capabilities”: tools actually read, calculate, or save after the model proposes an action; an answer alone cannot establish that it happened. Intermediate adds ownership and context (L2); Deep Dive follows how results are saved and actually delivered (L5/L6). You do not need to memorize the numbers yet—just keep following the task.
 
 [Open ETF Agent source and examples](https://github.com/hpoenixf/open-etf-agent) · [中文版](/articles/agent-in-15-minutes) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Next: [Prompt, Context, RAG and Memory — Where Does the Model Input Come From?](prompt-context-rag-memory.md).
+
+<!-- introductory-series-links:end -->

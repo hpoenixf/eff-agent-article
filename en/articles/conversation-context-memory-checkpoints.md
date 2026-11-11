@@ -191,3 +191,14 @@ Apply these observations by working backward from the user promise. Conversation
 When designing “remember me” or “continue,” make the promise concrete. Does the user need conversation review, a lasting preference, access to earlier material or the original execution position? That choice determines what to retain and how to verify its later use.
 
 Continue to [From One Report to Durable Execution and Specialists](./open-etf-agent-v010-system-design.md) to see these concepts participate in a complete design. [Current open-source project](https://github.com/hpoenixf/open-etf-agent)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Tools, Function Calling, MCP and Skills — How Does an Action Happen?](tools-function-calling-mcp-skill.md).
+
+Next: [Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?](agent-task-session-run-worker-schedule.md).
+
+<!-- introductory-series-links:end -->

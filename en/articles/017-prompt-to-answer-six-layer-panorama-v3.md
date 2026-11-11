@@ -346,3 +346,12 @@ Engineering navigation E01–E03 is not counted among these 47 production capabi
 **Two judgments run across all six stages:** [Model judgment must not replace recorded execution authority](/en/principles#principle-1), and [the user's actually delivered result is the measure of completion](/en/principles#principle-8). Generated text, committed answer content and what the client can read require separate checks; a stage cannot certify the whole task by succeeding locally.
 
 [Owner gallery](/en/gallery) · [GitHub engineering library](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [After the report: source checks, specialist work, and independent review](open-etf-agent-report-review-workshop.md).
+
+<!-- introductory-series-links:end -->

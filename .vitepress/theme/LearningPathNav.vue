@@ -34,8 +34,9 @@ const navigation = computed(() => learningPathNavigation(page.value.relativePath
 .learning-path-nav { margin: 24px 0 32px; padding: 18px; border: 1px solid var(--vp-c-divider); border-radius: 14px; background: var(--vp-c-bg-soft); }
 .learning-path-heading { margin: 0 0 12px; color: var(--vp-c-text-2); font-size: 13px; font-weight: 700; letter-spacing: .06em; }
 .learning-path-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
-.learning-path-steps li { margin: 0; }
-.learning-path-step { display: flex; align-items: center; gap: 8px; min-height: 58px; height: 100%; padding: 10px; border: 1px solid var(--vp-c-divider); border-radius: 9px; line-height: 1.4; font-size: 14px; text-decoration: none; color: var(--vp-c-text-1); background: var(--vp-c-bg); overflow-wrap: anywhere; }
+.learning-path-steps li { margin: 0; min-width: 0; }
+.learning-path-step { box-sizing: border-box; min-width: 0; display: flex; align-items: center; gap: 8px; min-height: 58px; height: 100%; padding: 10px; border: 1px solid var(--vp-c-divider); border-radius: 9px; line-height: 1.4; font-size: 14px; text-decoration: none; color: var(--vp-c-text-1); background: var(--vp-c-bg); overflow-wrap: anywhere; }
+.learning-path-step > span:last-child { min-width: 0; }
 a.learning-path-step:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
 a.learning-path-step:focus-visible, .learning-path-next a:focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: 3px; }
 .learning-path-step.is-current { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); font-weight: 700; }
@@ -44,5 +45,6 @@ a.learning-path-step:focus-visible, .learning-path-next a:focus-visible { outlin
 .learning-path-step small { display: block; color: var(--vp-c-text-2); font-size: 12px; font-weight: 400; }
 .learning-path-next { margin: 12px 0 0; color: var(--vp-c-text-2); font-size: 14px; }
 @media (max-width: 640px) { .learning-path-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 380px) { .learning-path-steps { grid-template-columns: minmax(0, 1fr); } }
 @media print { .learning-path-nav { break-inside: avoid; } }
 </style>

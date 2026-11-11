@@ -14,6 +14,8 @@ readingBrief:
 ---
 # 任务、会话、Run、Worker、Schedule：Agent 到底在继续哪件事？
 
+<LearningPathNav />
+
 “今天先读到这里，明天继续研究这份资料。”
 
 这句话对人很自然，对程序却留下了好几个问题：明天接着读今天没有读完的部分，还是用新资料再做一次判断？聊天窗口关了，研究是否还在进行？机器重启后，应该找回哪个进度？如果今天已经写完报告，“继续”是不是意味着重写它？
@@ -136,3 +138,14 @@ node src/research-cli.mjs run report --project PROJECT --run RUN_ID
 - [专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？](./agent-expert-subagent-review-judge.md)：区分一轮研究内部的协作责任。
 - [Agent 不必一直在线思考](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research)：进一步讨论定时与条件触发的完整系统设计，注意其中私有系统与公开示例的范围不同。
 - [练手篇](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-research-project-workshop)：从明确选择的资料开始建立自己的本地研究项目。
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[聊天记录、上下文、记忆、检查点，Agent 怎样接上过去？](conversation-context-memory-checkpoints.md)。
+
+下一篇：[Agent 深入：从一份报告到持续执行与专家协作](open-etf-agent-v010-system-design.md)。
+
+<!-- introductory-series-links:end -->

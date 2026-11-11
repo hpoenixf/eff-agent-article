@@ -290,3 +290,14 @@ v0.24 还让新格式项目在同一规范化 HTTPS endpoint 的配置修订间�
 
 
 继续练手：[报告写完以后，怎样查证、协作和独立复核](open-etf-agent-report-review-workshop.md)。
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[Agent 深入：从一份报告到持续执行与专家协作](open-etf-agent-v010-system-design.md)。
+
+下一篇：[专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？](agent-expert-subagent-review-judge.md)。
+
+<!-- introductory-series-links:end -->

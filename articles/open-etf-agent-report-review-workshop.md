@@ -15,6 +15,8 @@ readingBrief:
 
 # 报告写完以后：让 Agent 查证、协作，再独立复核
 
+<LearningPathNav />
+
 你已经让 Agent 写出第一份报告，关掉程序后还能重新打开。接下来最自然的问题是：**这份报告里，哪些话值得再检查一次？**
 
 继续在聊天框里说“再仔细检查一下”当然有用。但当报告变长，资料更新，或者另一个人来接手，我们需要知道：它检查的是哪一稿？看到的是哪些原文？指出一个问题以后，原报告有没有被悄悄改掉？
@@ -236,3 +238,14 @@ Review 对每条发现分别保留材料支持情况、实际引用对应情况�
 这一篇的终点并不是“报告已经被认证”。而是你手里有了固定的资料、可回查的原稿，以及针对这份原稿的复核意见。下一步要不要修改，依据终于清楚了。
 
 想进一步分清这些名字，读[专家、Subagent、Review、Judge 的职责地图](agent-expert-subagent-review-judge.md)。想让这项研究跨过今天与明天，再读[任务、会话、Run、Worker、Schedule 的关系](agent-task-session-run-worker-schedule.md)。
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？](agent-expert-subagent-review-judge.md)。
+
+下一篇：[从一次提问到答案可见：ETF Agent 六层调用全景](017-prompt-to-answer-six-layer-panorama-v3.md)。
+
+<!-- introductory-series-links:end -->

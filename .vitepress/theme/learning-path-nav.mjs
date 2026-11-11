@@ -2,6 +2,42 @@ import { learningPathSlugs } from '../../book.mjs'
 
 // Presentation only. Article identity and reading order belong to book.mjs.
 const presentation = {
+  "agent-task-session-run-worker-schedule": {
+    "zh": {
+      "label": "任务与执行",
+      "title": "任务、会话、Run、Worker、Schedule",
+      "description": "分清继续目标、恢复执行与安排下一次机会。"
+    },
+    "en": {
+      "label": "Tasks and execution",
+      "title": "Task, Session, Run, Worker and Schedule",
+      "description": "Distinguish continuing a goal, resuming execution and scheduling the next opportunity."
+    }
+  },
+  "agent-expert-subagent-review-judge": {
+    "zh": {
+      "label": "分工与审阅",
+      "title": "专家、Subagent、Review、Judge",
+      "description": "分清谁来研究、如何分工，以及谁来检查结果。"
+    },
+    "en": {
+      "label": "Delegation and review",
+      "title": "Expert, Subagent, Review and Judge",
+      "description": "Separate research roles, delegated execution and checks on the result."
+    }
+  },
+  "open-etf-agent-report-review-workshop": {
+    "zh": {
+      "label": "报告复核实作",
+      "title": "从保存报告到审阅与交付",
+      "description": "沿练手项目检查报告、处理审阅结果并确认交付。"
+    },
+    "en": {
+      "label": "Report review workshop",
+      "title": "From a Saved Report to Review and Delivery",
+      "description": "Inspect the workshop report, handle review outcomes and verify delivery."
+    }
+  },
   "agent-in-15-minutes": {
     "zh": {
       "label": "入门",

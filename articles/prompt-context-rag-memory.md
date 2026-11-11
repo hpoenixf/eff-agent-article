@@ -197,3 +197,14 @@ npm run demo -- --case retrieve-reread --query "Markdown"
 接下来进入[《Agent 进阶：读懂十个核心模块》](./agent-ten-modules.md)，把这份输入关系接回实际代码。
 
 延伸阅读包括 LienJack 的概念串讲，它启发了本篇对相近概念关系的选题。本文以 Atlas Notes 和公开实现重新组织案例与解释。[Prompt、Context、RAG 到底是什么](https://blog.lienjack.com/blog/AI/1.%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/02.%E5%A6%82%E4%BD%95%E8%AE%A9LLM%E6%9B%B4%E8%81%AA%E6%98%8E)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[十五分钟入门 Agent](agent-in-15-minutes.md)。
+
+下一篇：[Agent 进阶：读懂 Open ETF Agent 的十个核心模块](agent-ten-modules.md)。
+
+<!-- introductory-series-links:end -->

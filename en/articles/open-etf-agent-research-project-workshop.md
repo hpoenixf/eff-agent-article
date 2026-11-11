@@ -289,3 +289,14 @@ This is the practical next stop after the [deep dive](open-etf-agent-v010-system
 
 
 Continue the workshop: [checking sources, collaborating, and independently reviewing a finished report](open-etf-agent-report-review-workshop.md).
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](open-etf-agent-v010-system-design.md).
+
+Next: [Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?](agent-expert-subagent-review-judge.md).
+
+<!-- introductory-series-links:end -->

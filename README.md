@@ -55,13 +55,13 @@ Only module-focused essays belong in L1–L6. Cross-module topics and engineerin
 **Research Workspace 专题**：[为什么 Agent 需要 Workspace？从一次性对话到长期研究](articles/agent-research-workspace-goal-continuity.md) · [Full English](en/articles/agent-research-workspace-goal-continuity.md)——长期目标关联多次独立 Run、按原始版本消费历史材料；私有 P0 已合入主干且默认关闭，开源教学仓库尚未提供这一模块。
 **A17 研究资料资产专题**：[一份研究报告，为什么需要先变成「资产」？](articles/agent-research-assets-identity-version-lifecycle.md) · [Full English](en/articles/agent-research-assets-identity-version-lifecycle.md)——区分来源与版本、部分提取、单次 Run 的证据视图和跨 Run 长期研究的关联；不将私有完整能力冒称为公开教学仓库功能。
 
-## 练手之后：继续读这三篇
+## 入门系列：从概念到练手，再回到全景
 
-- [报告写完以后：查证、协作与独立复核](articles/open-etf-agent-report-review-workshop.md) · [English](en/articles/open-etf-agent-report-review-workshop.md)
-- [专家、Subagent、Review、Judge 的职责地图](articles/agent-expert-subagent-review-judge.md) · [English](en/articles/agent-expert-subagent-review-judge.md)
 - [Task、Session、Run、Worker、Schedule 的关系](articles/agent-task-session-run-worker-schedule.md) · [English](en/articles/agent-task-session-run-worker-schedule.md)
+- [专家、Subagent、Review、Judge 的职责地图](articles/agent-expert-subagent-review-judge.md) · [English](en/articles/agent-expert-subagent-review-judge.md)
+- [报告写完以后：查证、协作与独立复核](articles/open-etf-agent-report-review-workshop.md) · [English](en/articles/open-etf-agent-report-review-workshop.md)
 
-从[第一篇练手](articles/open-etf-agent-research-project-workshop.md)接着读；三篇都是跨模块学习专题，不把模型意见当作质量认证，也不把一次性计划当作后台服务。
+从[十五分钟入门](articles/agent-in-15-minutes.md)开始，沿每篇的系列导航依次阅读。先把输入、工具、记忆与执行关系讲清，再深入实现、带资料练手、理解专家分工并复核报告，最后回到六层全景。统一“入门”标签只表示学习路线，不改变文章的架构思考分类。
 
 ## 先找到你的问题
 
@@ -191,7 +191,7 @@ The records and index below preserve historical entry points and may not reflect
 
 ## 初次访问：90 秒找到最相关的工程证据
 
-**从易到难：** [十五分钟入门 Agent](https://hpoenixf.com/eff-agent-article/articles/agent-in-15-minutes) 先从可运行的文档比较理解循环与交付；[六层调用全景 V3](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 再放大完整请求系统；[Agent 架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。两篇共同服务后续模块精讲，不增加第四个文章分类。
+**从易到难：** [十五分钟入门 Agent](https://hpoenixf.com/eff-agent-article/articles/agent-in-15-minutes) 先从可运行的文档比较理解循环与交付；[六层调用全景 V3](https://hpoenixf.com/eff-agent-article/articles/017-prompt-to-answer-six-layer-panorama-v3) 再放大完整请求系统；[Agent 架构原则与系统方法](https://hpoenixf.com/eff-agent-article/principles) 是设计判断地图，归纳跨模块原则和按需工程方法。完整入门路线会穿插概念桥接与实践，再服务后续模块精讲；不增加第四个文章分类。
 
 本仓库是一套**公开可读的 Agent 工程案例与技术文集**，而不是 ETF Agent 的可执行开源实现。作者的前端背景见[个人博客 About](https://hpoenixf.com/about)；下表按读者的关注点推荐最短路径。
 

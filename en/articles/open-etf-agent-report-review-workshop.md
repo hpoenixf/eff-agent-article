@@ -15,6 +15,8 @@ readingBrief:
 
 # After the report: source checks, specialist work, and independent review
 
+<LearningPathNav />
+
 Your agent has written its first report, and you can reopen it after closing the program. The natural next question is: **which statements in this report deserve another look?**
 
 Typing “check it more carefully” can help. But as reports grow, sources change, or someone else takes over, we need more precise answers. Which draft was checked? Which original passages were available? After a problem was identified, was the original report silently changed?
@@ -236,3 +238,14 @@ This version's independent review has real-model execution records. The complete
 The endpoint is not “the report is certified.” It is a fixed source set, an original report you can revisit, and review advice about that specific report. You now have a clearer basis for deciding whether to revise it.
 
 To distinguish the roles further, read the [Expert, Subagent, Review, and Judge responsibility map](agent-expert-subagent-review-judge.md). To carry research from today into tomorrow, read the [relationship between Task, Session, Run, Worker, and Schedule](agent-task-session-run-worker-schedule.md).
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?](agent-expert-subagent-review-judge.md).
+
+Next: [From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle](017-prompt-to-answer-six-layer-panorama-v3.md).
+
+<!-- introductory-series-links:end -->
