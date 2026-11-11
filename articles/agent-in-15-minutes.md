@@ -139,3 +139,12 @@ npm run demo -- --case T1
 现在你已经碰到了[六层职责地图](./017-prompt-to-answer-six-layer-panorama-v3.md)中的三个动作：**L1 收到任务、L3 决定下一步、L4 使用工具**。L4 指“工具与领域能力”：模型提出动作后，由工具真正读取资料、计算或保存，而不是靠一句回答宣告完成。进阶篇会补上“任务属于谁、资料如何进入上下文（L2）”，深入篇再回答“答案怎样被保存和真正交给用户（L5/L6）”。此处不必背编号，先记住这条任务链即可。
 
 [Open ETF Agent 源码与示例](https://github.com/hpoenixf/open-etf-agent) · [English version](/en/articles/agent-in-15-minutes) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+下一篇：[Prompt、Context、RAG、Memory，模型的输入从哪里来？](prompt-context-rag-memory.md)。
+
+<!-- introductory-series-links:end -->

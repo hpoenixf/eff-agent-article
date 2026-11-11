@@ -197,3 +197,14 @@ When an answer fails, inspect four things in sequence. Are the requirements spec
 Continue to [Ten Core Modules in Open ETF Agent](./agent-ten-modules.md) to connect these input relationships to actual code.
 
 LienJack's concept-oriented explanation helped motivate this topic. This article organizes its own explanation around Atlas Notes and the public implementation. [Prompt, Context and RAG](https://blog.lienjack.com/blog/AI/1.%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/02.%E5%A6%82%E4%BD%95%E8%AE%A9LLM%E6%9B%B4%E8%81%AA%E6%98%8E)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Agents in 15 Minutes](agent-in-15-minutes.md).
+
+Next: [Agent Intermediate: Ten Core Modules in Open ETF Agent](agent-ten-modules.md).
+
+<!-- introductory-series-links:end -->

@@ -429,3 +429,14 @@ Intermediate introduced ten capabilities. Deep Dive has asked **what they hand t
 Next use the [**Workshop: Bring Your Own Documents to an Agent**](./open-etf-agent-research-project-workshop.md) to import sources, run a task, and inspect the report. Then read [**The Six-Layer ETF Agent Request Lifecycle**](./017-prompt-to-answer-six-layer-panorama-v3.md). Start by following L1 → L6; then zoom into Main/Child, tool results, and Publication as needed. **The goal is not to memorize the diagram, but to locate responsibility and verification evidence.**
 
 [Back to Intermediate](./agent-ten-modules.md) · [Current source project](https://github.com/hpoenixf/open-etf-agent) · [中文](../../articles/open-etf-agent-v010-system-design.md) · [Engineering notes on GitHub (stars welcome)](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?](agent-task-session-run-worker-schedule.md).
+
+Next: [Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project](open-etf-agent-research-project-workshop.md).
+
+<!-- introductory-series-links:end -->

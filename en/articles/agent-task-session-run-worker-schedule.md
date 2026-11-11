@@ -13,6 +13,8 @@ readingBrief:
 ---
 # Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?
 
+<LearningPathNav />
+
 “Let's stop reading here today and continue researching this material tomorrow.”
 
 That sounds natural to a person. For software, it leaves several questions unanswered. Should tomorrow's work pick up the unfinished reading, or make a fresh assessment using new material? Does research continue after the chat window closes? Which progress should survive a machine restart? If today's report is already complete, does “continue” mean rewriting it?
@@ -135,3 +137,14 @@ What needs to remain stable is the work the user confirmed and its progress. Pro
 - [Expert, Subagent, Review, Judge: Why Another Model Is Not Always the Same Thing](./agent-expert-subagent-review-judge.md): responsibilities within a research round.
 - [An Agent Does Not Need to Think Continuously](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research): the broader design of time- and condition-triggered systems, distinguishing private-system capabilities from the public example.
 - [Hands-on Workshop](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-research-project-workshop): build a local research project from explicitly selected materials.
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [History, Context, Memory and Checkpoints — How Does an Agent Continue?](conversation-context-memory-checkpoints.md).
+
+Next: [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](open-etf-agent-v010-system-design.md).
+
+<!-- introductory-series-links:end -->

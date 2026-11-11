@@ -28,9 +28,9 @@ const Component = (await import(pathToFileURL(modulePath))).default
 test('five gallery views reuse the canonical reading path and existing bilingual diagram geometry', () => {
   for (const english of [false, true]) {
     const stages = learningPathStages(english)
-    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs.filter(slug => ![
-      'prompt-context-rag-memory', 'tools-function-calling-mcp-skill', 'conversation-context-memory-checkpoints'
-    ].includes(slug)))
+    // Only these five stages have authored architecture diagrams; concept bridges remain reading steps.
+    const illustrated = ['agent-in-15-minutes', 'agent-ten-modules', 'open-etf-agent-v010-system-design', 'open-etf-agent-research-project-workshop', '017-prompt-to-answer-six-layer-panorama-v3']
+    assert.deepEqual(stages.map(stage => stage.slug), learningPathSlugs.filter(slug => illustrated.includes(slug)))
     assert.equal(stages.length, 5)
     for (const stage of stages) {
       assert.equal(stage.href, `${english ? '/en' : ''}/articles/${stage.slug}`)

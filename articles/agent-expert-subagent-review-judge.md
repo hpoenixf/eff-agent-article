@@ -15,6 +15,8 @@ readingBrief:
 
 # 专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？
 
+<LearningPathNav />
+
 一份基金研究报告写完后，我们想请“另一个模型”再看一眼。它应该叫专家、Subagent、Reviewer，还是 Judge？
 
 这些名字似乎都意味着多发一次请求。但如果只按模型数量设计系统，很快就会遇到实际问题：这次调用要拿到哪些资料？它能改报告吗？它的意见是否等于评分？它失败了，原报告还应不应该显示？
@@ -113,3 +115,14 @@ Anthropic 在 [Building effective agents](https://www.anthropic.com/research/bui
 最值得保留的边界是：**专家配置不能授予权限，子 Agent 的摘要不能取代来源，Review 的意见不能悄悄改写原报告，Judge 的分数不能替代用户任务的成败。** 把这些边界说清楚，再多一个模型才是在增加一种能力，而不是再增加一种叫法。
 
 想把这张概念地图变成一次操作，可以接着读[练手篇续篇](open-etf-agent-report-review-workshop.md)；要理解执行怎样跨时间延续，则看[任务、会话、Run、Worker 与 Schedule](agent-task-session-run-worker-schedule.md)。
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[把自己的资料交给 Agent：从第一份报告到可恢复的研究项目](open-etf-agent-research-project-workshop.md)。
+
+下一篇：[报告写完以后：让 Agent 查证、协作，再独立复核](open-etf-agent-report-review-workshop.md)。
+
+<!-- introductory-series-links:end -->

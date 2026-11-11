@@ -353,3 +353,12 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 **贯穿全景的两条判断：** [模型负责语义、系统负责执行事实](/principles#principle-1)用来区分模型的研究提议与 Host 的授权和回执；[用户实际收到的结果才是任务终点](/principles#principle-8)要求把模型生成、正文提交和浏览器可见交付分别核验。六层是读懂交接的地图，而不是任何一层的自我成功声明。
 
 [Owner 图册](https://hpoenixf.com/eff-agent-article/gallery) · [技术文章仓库（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[报告写完以后：让 Agent 查证、协作，再独立复核](open-etf-agent-report-review-workshop.md)。
+
+<!-- introductory-series-links:end -->

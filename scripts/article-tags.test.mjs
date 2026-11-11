@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { canonicalArticleLinks, buildArticleTags } from '../article-tags.mjs'
-import { collections, panoramaSeriesSlugs } from '../book.mjs'
+import { collections, panoramaSeriesSlugs, learningPathSlugs } from '../book.mjs'
 import { topicGroups } from '../open-etf-topic.mjs'
 import { readFileSync } from 'node:fs'
 import { financeGroupMembers, financeTopicGroups } from '../finance-topic-groups.mjs'
@@ -158,4 +158,17 @@ test('focused topics remain readable without inheriting the curated panorama tag
    assert.ok(readFileSync(new URL('../' + language + 'articles/' + slug + '.md', import.meta.url), 'utf8').length > 1000, language + slug);
   }
  }
+});
+
+test('introductory badges derive exactly from the canonical learning route in both languages', () => {
+ const slugs=collections.flatMap(c=>c.chapters.flatMap(c=>c.items.map(([s])=>s)));
+ const data=buildArticleTags({slugs,financeSlugs:[],panoramaSlugs:[],openGroups:[]});
+ assert.deepEqual(slugs.filter(s=>data.articles[s].some(t=>t.id==='intro')),learningPathSlugs);
+ const tag=data.definitions.find(t=>t.id==='intro');assert.equal(tag.zh,'入门');assert.equal(tag.en,'Getting started');assert.equal(tag.path,'articles/'+learningPathSlugs[0]);
+ assert.equal(new Set(learningPathSlugs).size,11);
+});
+
+test('selecting the introductory filter starts in the canonical reading order', () => {
+ const source=readFileSync(new URL('../.vitepress/theme/ChapterCatalog.vue',import.meta.url),'utf8');
+ assert.ok(source.includes("if (id === 'intro' && selectedTags.value.includes('intro')) sortOrder.value = 'category'"));
 });

@@ -9,20 +9,23 @@ import { learningPathNavigation } from '../.vitepress/theme/learning-path-nav.mj
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 
-test('learning path inserts three concept essays into the canonical reading order', () => {
+test('learning path interleaves eleven bilingual concept and workshop steps', () => {
   const all = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
   assert.deepEqual(learningPathSlugs, [
     'agent-in-15-minutes', 'prompt-context-rag-memory', 'agent-ten-modules',
     'tools-function-calling-mcp-skill', 'conversation-context-memory-checkpoints',
-    'open-etf-agent-v010-system-design',
+    'agent-task-session-run-worker-schedule', 'open-etf-agent-v010-system-design',
     'open-etf-agent-research-project-workshop',
+    'agent-expert-subagent-review-judge', 'open-etf-agent-report-review-workshop',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
   assert.deepEqual(all.filter(slug => learningPathSlugs.includes(slug)), learningPathSlugs)
   const workshop = 'open-etf-agent-research-project-workshop'
   assert.equal(all.filter(slug => slug === workshop).length, 1)
   assert.equal(all.indexOf(workshop), all.indexOf('open-etf-agent-v010-system-design') + 1)
-  assert.equal(all.indexOf(workshop) + 1, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
+  assert.equal(all.indexOf(workshop) + 1, all.indexOf('agent-expert-subagent-review-judge'))
+  assert.equal(all.indexOf(workshop) + 2, all.indexOf('open-etf-agent-report-review-workshop'))
+  assert.equal(all.indexOf(workshop) + 3, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
   assert.ok(englishArticleSlugs.includes(workshop))
   for (const prefix of ['', 'en/']) {
     const body = read(prefix + 'articles/' + workshop + '.md')
@@ -200,10 +203,10 @@ test('workshop follows deep dive in both menu and article navigation without a f
     const deep = learningPathNavigation(prefix + 'articles/open-etf-agent-v010-system-design.md')
     assert.equal(deep.next.slug, 'open-etf-agent-research-project-workshop')
     const practice = learningPathNavigation(prefix + 'articles/open-etf-agent-research-project-workshop.md')
-    assert.equal(practice.next.slug, '017-prompt-to-answer-six-layer-panorama-v3')
-    assert.equal(practice.steps.length, 8)
-    assert.equal(practice.steps[6].label, prefix ? 'Workshop' : '练手')
-    assert.equal(practice.steps[7].label, prefix ? 'Panorama' : '全景')
+    assert.equal(practice.next.slug, 'agent-expert-subagent-review-judge')
+    assert.equal(practice.steps.length, 11)
+    assert.equal(practice.steps[7].label, prefix ? 'Workshop' : '练手')
+    assert.equal(practice.steps[10].label, prefix ? 'Panorama' : '全景')
   }
   for (const en of [false, true]) {
     const diagrams = learningPathStages(en)
@@ -237,4 +240,54 @@ test('workshop keeps six-layer scope, exact command boundaries and bilingual res
       assert.doesNotMatch(svg, /foreignObject|https?:\/\/[^w]/)
     }
   }
+})
+
+
+test('eleven-step navigation can shrink and wrap without a forced horizontal width', () => {
+  const component = read('.vitepress/theme/LearningPathNav.vue')
+  assert.match(component, /repeat\(4, minmax\(0, 1fr\)\)/)
+  assert.match(component, /max-width: 640px[^}]*[\s\S]*?repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(component, /max-width: 380px[^}]*[\s\S]*?grid-template-columns: minmax\(0, 1fr\)/)
+  assert.match(component, /\.learning-path-steps li \{[^}]*min-width: 0/)
+  assert.match(component, /box-sizing: border-box/)
+  assert.match(component, /overflow-wrap: anywhere/)
+})
+
+test('all eleven stops SSR-render bilingual navigation with one current page and ten links', async () => {
+  const { parse, compileScript, compileStyle } = await import('@vue/compiler-sfc')
+  const { build } = await import('esbuild')
+  const { createSSRApp } = await import('vue')
+  const { renderToString } = await import('@vue/server-renderer')
+  const { mkdirSync, writeFileSync } = await import('node:fs')
+  const { resolve } = await import('node:path')
+  const { pathToFileURL } = await import('node:url')
+  const { descriptor } = parse(read('.vitepress/theme/LearningPathNav.vue'))
+  const compiled = compileScript(descriptor, { id: 'learning-path-ssr-test', inlineTemplate: true }).content
+  const bundle = await build({ stdin: { contents: compiled, loader: 'ts', resolveDir: resolve('.vitepress/theme') }, bundle: true, write: false, platform: 'node', format: 'esm', external: ['vue'], plugins: [{ name: 'learning-path-test-data', setup(builder) {
+    builder.onResolve({ filter: /^vitepress$/ }, () => ({ path: 'vitepress', namespace: 'learning-path-test' }))
+    builder.onLoad({ filter: /.*/, namespace: 'learning-path-test' }, () => ({ contents: 'import { ref } from "vue"; export const useData = () => ({ page: ref({ relativePath: globalThis.__learningPathSSRPath }) }); export const withBase = p => "/eff-agent-article" + p;' }))
+  } }] })
+  mkdirSync(resolve('.vitepress/cache'), { recursive: true })
+  const fixture = resolve('.vitepress/cache/learning-path-render-fixture.mjs')
+  writeFileSync(fixture, bundle.outputFiles[0].text)
+  const Component = (await import(pathToFileURL(fixture))).default
+  try {
+    for (const prefix of ['', 'en/']) for (const [index, slug] of learningPathSlugs.entries()) {
+      globalThis.__learningPathSSRPath = prefix + 'articles/' + slug + '.md'
+      const html = await renderToString(createSSRApp(Component))
+      assert.equal((html.match(/<li\b/g) ?? []).length, 11)
+      assert.equal((html.match(/aria-current="page"/g) ?? []).length, 1)
+      assert.equal((html.match(/<a\b[^>]*class="learning-path-step"/g) ?? []).length, 10)
+      assert.ok(html.includes('aria-label="' + (prefix ? 'Learning path' : '学习路线') + '"'))
+      const nav = learningPathNavigation(globalThis.__learningPathSSRPath)
+      for (const step of nav.steps) {
+        assert.ok(html.includes(step.label))
+        if (!step.current) assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'articles/' + step.slug + '"'))
+      }
+      assert.ok(!html.includes('href="/eff-agent-article/' + prefix + 'articles/' + slug + '"'))
+      if (index < 10) assert.ok(html.includes(prefix ? 'Recommended next:' : '建议下一站：'))
+      else assert.ok(html.includes(prefix ? 'All reading steps remain available above.' : '已到全景，可从上方返回任意一站。'))
+    }
+  } finally { delete globalThis.__learningPathSSRPath }
+  assert.deepEqual(compileStyle({ source: descriptor.styles[0].content, id: 'learning-path-ssr-test', scoped: true }).errors, [])
 })

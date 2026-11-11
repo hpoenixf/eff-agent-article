@@ -429,3 +429,14 @@ node dist/src/session-cli.mjs publication --session runs/article-worker --run or
 下一站先到[**练手篇：把自己的资料交给 Agent**](./open-etf-agent-research-project-workshop.md)，导入资料、执行任务并核对报告；之后再读[**《从一次提问到答案可见：ETF Agent 六层调用全景》**](./017-prompt-to-answer-six-layer-panorama-v3.md)。建议先只顺着 L1 → L6 路线阅读，再按兴趣放大 Main/Child、工具结果和 Publication 等关键交接。**不要把图背下来；用它定位责任和验证证据。**
 
 [返回进阶](./agent-ten-modules.md) · [当前开源入口](https://github.com/hpoenixf/open-etf-agent) · [English](../en/articles/open-etf-agent-v010-system-design.md) · [工程文集（欢迎 Star）](https://github.com/hpoenixf/eff-agent-article)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[任务、会话、Run、Worker、Schedule：Agent 到底在继续哪件事？](agent-task-session-run-worker-schedule.md)。
+
+下一篇：[把自己的资料交给 Agent：从第一份报告到可恢复的研究项目](open-etf-agent-research-project-workshop.md)。
+
+<!-- introductory-series-links:end -->

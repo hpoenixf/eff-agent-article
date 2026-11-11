@@ -198,3 +198,14 @@ For a simple action, implement and register a tool. To receive explicit model re
 Each mechanism brings descriptions, connections or resources to maintain. Clear adoption conditions let a reader begin with a small solution and expand as actual needs arise.
 
 Next, [History, Context, Memory and Checkpoints](./conversation-context-memory-checkpoints.md) connects another frequently confused group of concepts by asking what needs to remain after an action finishes.
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Agent Intermediate: Ten Core Modules in Open ETF Agent](agent-ten-modules.md).
+
+Next: [History, Context, Memory and Checkpoints — How Does an Agent Continue?](conversation-context-memory-checkpoints.md).
+
+<!-- introductory-series-links:end -->

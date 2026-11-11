@@ -1,5 +1,8 @@
+import { learningPathSlugs } from './book.mjs'
+
 // Categories remain book.mjs reading paths; tags are independent, derived associations.
 export const tagDefinitions = [
+  { id: 'intro', zh: '入门', en: 'Getting started', path: 'articles/agent-in-15-minutes' },
   { id: 'finance', zh: '金融', en: 'Finance', path: 'fintech' },
   { id: 'panorama', zh: '全景', en: 'Panorama', path: 'panorama' },
   { id: 'open-source', zh: '开源', en: 'Open source', path: 'open-etf-agent' }
@@ -18,6 +21,7 @@ export function buildArticleTags({ slugs, financeSlugs, panoramaSlugs, openGroup
   const canonical = new Set(slugs)
   const articles = Object.fromEntries(slugs.map(slug => [slug, []]))
   const add = (slug, tag) => { if (canonical.has(slug) && !articles[slug].some(item => item.id === tag.id)) articles[slug].push(tag) }
+  for (const slug of learningPathSlugs) add(slug, { id: 'intro' })
   for (const slug of financeSlugs) add(slug, { id: 'finance' })
   for (const slug of panoramaSlugs) add(slug, { id: 'panorama' })
   for (const row of openGroups.flatMap(group => group.articles)) {

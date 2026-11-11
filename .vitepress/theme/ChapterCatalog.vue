@@ -20,6 +20,7 @@ const props = defineProps<{ compact?: boolean; category?: string }>()
 const selectedTags = ref<string[]>([])
 const toggleTag = (id: string) => {
   selectedTags.value = selectedTags.value.includes(id) ? selectedTags.value.filter(tag => tag !== id) : [...selectedTags.value, id]
+  if (id === 'intro' && selectedTags.value.includes('intro')) sortOrder.value = 'category'
   currentPage.value = 1
   pushLocation()
 }

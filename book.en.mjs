@@ -251,7 +251,6 @@ export const englishArticleSlugs = [
 export const historicalEnglishArticleSlugs = ['017-prompt-to-answer-six-layer-panorama', 'multi-layer-agent-collaboration-outlook']
 
 const headings = {
-  "练手之后：查证、分工与持续执行": ["After the Workshop: Evidence, Roles and Continuity", "Continue from a saved report: checking sources, separating responsibilities and preserving work across time."],
   "深度持续研究": [
     "Deep and Continuous Research",
     "Long-running background research, staged delivery, recovery and continuity of investment theses."
@@ -298,7 +297,7 @@ const headings = {
   ],
   "架构学习路线": [
     "Architecture Learning Path",
-    "From a 15-minute introduction through ten modules and a runnable deep dive to the complete six-layer architecture."
+    "An ordered getting-started series: concepts, execution, system design, hands-on research, roles, review and the six-layer architecture."
   ],
   "系统边界与演进": [
     "System Boundaries and Evolution",

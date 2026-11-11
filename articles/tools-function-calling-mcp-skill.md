@@ -198,3 +198,14 @@ npm run demo -- --case skill-mcp
 每增加一种机制，都需要维护对应的描述、连接或资源。采用条件明确，读者就能从最小方案开始，随着实际需要逐步扩展。
 
 下一篇[《聊天记录、上下文、记忆、检查点》](./conversation-context-memory-checkpoints.md)讨论另一组经常混在一起的概念，看看一次行动结束之后，哪些信息需要留下。
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[Agent 进阶：读懂 Open ETF Agent 的十个核心模块](agent-ten-modules.md)。
+
+下一篇：[聊天记录、上下文、记忆、检查点，Agent 怎样接上过去？](conversation-context-memory-checkpoints.md)。
+
+<!-- introductory-series-links:end -->

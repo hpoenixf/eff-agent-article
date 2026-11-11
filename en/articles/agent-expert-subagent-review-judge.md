@@ -14,6 +14,8 @@ readingBrief:
 
 # Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?
 
+<LearningPathNav />
+
 After writing a fund research report, we want “another model” to look it over. Should we call it an expert, a subagent, a reviewer, or a judge?
 
 All four names can sound like one more request. But designing around model count quickly leaves practical questions unanswered: What information should this call receive? May it edit the report? Is its opinion a score? If it fails, should the original report remain visible?
@@ -112,3 +114,14 @@ This is not an upgrade ladder. Simple tasks do not need all four roles. A comple
 The important boundaries are these: **expert profiles cannot grant permissions; subagent summaries cannot replace sources; review opinions cannot silently rewrite the original report; and judge scores cannot replace success on the user's task.** Once those boundaries are clear, another model can add a capability rather than just another name.
 
 To turn this map into a hands-on exercise, continue with [the follow-up workshop](open-etf-agent-report-review-workshop.md). To understand execution across time, read [Task, Session, Run, Worker, and Schedule](agent-task-session-run-worker-schedule.md).
+
+
+<!-- introductory-series-links:start -->
+
+## Getting started: continue in order
+
+Previous: [Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project](open-etf-agent-research-project-workshop.md).
+
+Next: [After the report: source checks, specialist work, and independent review](open-etf-agent-report-review-workshop.md).
+
+<!-- introductory-series-links:end -->

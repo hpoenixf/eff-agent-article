@@ -191,3 +191,14 @@ node --test --test-concurrency=1 test/durable-runtime.test.mjs
 下一次设计“记住我”或“继续”时，先把承诺说具体。用户需要回看交流、携带偏好、重新取得材料，还是接着原执行位置工作？选定需要，才知道该保存哪些信息，以及怎样检验它真的生效。
 
 接下来进入[《Agent 深入：从一份报告到持续执行与专家协作》](./open-etf-agent-v010-system-design.md)，沿完整任务看这些概念怎样落到系统设计。[当前开源项目入口](https://github.com/hpoenixf/open-etf-agent)
+
+
+<!-- introductory-series-links:start -->
+
+## 入门系列：按顺序继续
+
+上一篇：[Tool、Function Calling、MCP、Skill，一次行动怎样发生？](tools-function-calling-mcp-skill.md)。
+
+下一篇：[任务、会话、Run、Worker、Schedule：Agent 到底在继续哪件事？](agent-task-session-run-worker-schedule.md)。
+
+<!-- introductory-series-links:end -->
