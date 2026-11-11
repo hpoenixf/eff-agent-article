@@ -89,7 +89,9 @@ npm run docs:build
 
 ## 历史导航与更新记录
 
-历史更新说明保留在下方，旧章节入口仍可查找。**历史更新条目的版本与验证状态只描述当时记录；其中「全部文章」目录跟随当前 book.mjs 更新，不是冻结的历史快照。** 当前实现请使用独立代码项目入口。
+下方历史更新记录与「全部文章」索引保留旧入口，**不保证反映当前完整分类与文章**。历史条目的版本与验证状态只描述当时记录；最新内容请查看[中文目录](https://hpoenixf.com/eff-agent-article/catalog)与[英文目录](https://hpoenixf.com/eff-agent-article/en/catalog)。当前实现请使用独立代码项目入口。
+
+The records and index below preserve historical entry points and may not reflect the complete current collection or categories. See the [Chinese catalog](https://hpoenixf.com/eff-agent-article/catalog) or [English catalog](https://hpoenixf.com/eff-agent-article/en/catalog) for current articles; historical version and verification claims describe their original context.
 
 <details>
 <summary>展开原有目录、阅读路径与更新记录</summary>
