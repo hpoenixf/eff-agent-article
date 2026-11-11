@@ -190,6 +190,32 @@ Isolated PostgreSQL and authenticated browser tests using a scripted model inter
 
 The account does not thereby gain arbitrary executable-package installation, an expert-specific model or budget, or trading permission from a preference. The narrower engineering conclusion is that **versioned personal methods can use the existing Child and result system without a second Expert Manager**.
 
+
+### Reproduce the boundary in Open ETF Agent
+
+As of November 11, 2026, [v0.27.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.27.0) provides a smaller runnable slice: **project-local specialist profiles and ordered presets**. Methods execute through the existing serial Child. The public slice does not include the full system's account settings UI, `@` selection, soft preferences, contribution UI, or Child-authored task revisions discussed above. Those account and browser observations retain their historical scope; they are not the public edition's feature list.
+
+An operator uses `specialist create` to store `name`, `description`, `enabled`, and an existing Child `method` descriptor. At task submission, a `--specialists` file selects exact `profileId` and `revision` pairs, or an exact `presetId` revision. For example, this file selects revision 1 of an already-created `fee-check` profile:
+
+```json
+{"profiles":[{"profileId":"fee-check","revision":1}],"maxChildren":1}
+```
+
+The selection freezes which methods are available for this task; it does not force Main to invoke every method. Profile identity/revision and method identity/version remain separate. A preset cannot evade duplicate-method validation by renaming a profile or obtain another Root budget. Stale, disabled, or removed profiles reject new tasks. Already-submitted tasks use their frozen data: acknowledgement retries and cold recovery do not reload today's catalog after it changes. This is the public implementation of the morning-revision-1, afternoon-revision-2 example above.
+
+Prepare a local project and synthetic sources using the [project guide](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/research-project.md), then follow the [specialist guide](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/v027-specialist-profiles.md) through initialization, creation, submission, `run work`, `run inspect`, and `run report`. For a complete consumer example that needs no model key, install the dependencies specified by the fixed version's README and use its declared Node.js version, then run:
+
+```bash
+mkdir -p test-output
+V027_TEST_ROOT="$PWD/test-output" node --test test/specialist-project.test.mjs
+```
+
+These [executable examples](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/test/specialist-project.test.mjs) create synthetic sources, freeze a selection, move the current catalog aside, and execute the original Child in another process before saving and independently reading a report. A terminal reopen uses a Gateway that must never dispatch again. The model is scripted: the case demonstrates identity and handoff, not expert research quality.
+
+One further input choice matters. A `child-method@2` method with `independent-evidence` input gives the Child the frozen original question, operator-authored method, and authorized sources without making Main's local interpretation a premise of the Child task. Main's original delegation text remains in the parent record. For example, “effectiveness is not established” should not become “ineffective” merely because Main phrases its delegation that way. This removes one input-contamination route, not all dependence: Main still chooses the method and source subset, and the Child may still reason incorrectly. Methods that need a local subquestion can retain the v1 contract; historical tasks are not silently rewritten.
+
+Inspect the report rather than the role name. The fixed [profile lifecycle](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/specialist-profiles.md) and [independent-input cases](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/test/independent-evidence-child.test.mjs) provide the implementation trail. Real-model observations included a saved Publication without a report file and Main strengthening Child conclusions; the [original observations](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/verification/v027-guidance-v2-cohort-result.md) retain those distinctions. New tasks may explicitly select `artifact-required@1`, preventing a missing report artifact from counting as completion. It does not fabricate a report, retry automatically, or turn delivered bytes into proof that a conclusion is correct.
+
 ## Conclusion
 
 A Prompt field is the easy part. The durable design is **stable method identity, revisable research descriptions, and contributions backed by actual execution**. What the user prefers and what the system performed must never become the same fact.

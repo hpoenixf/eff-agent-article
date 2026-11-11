@@ -99,6 +99,18 @@
     "0.24": {
       "commit": "0d47e318e0f5fb36d45d8be274324a06bdd20d5c",
       "tree": "aa59d9c8ba735ff05a881134d665cc64edaee6d7"
+    },
+    "0.25": {
+      "commit": "1afb49ae75c6322cd95442a1868d1ec90f7164cf",
+      "tree": "5db2ec135c77e40df129e7ef208a4a2ecf5525da"
+    },
+    "0.26": {
+      "commit": "6139d7b8e70773a4f5aba4d366de9817fc0532ae",
+      "tree": "a8dffb9519afc02ef7351b2137aca11709c931e3"
+    },
+    "0.27": {
+      "commit": "3a44c638e6e957e6a9c308b49eaaa22196a1ce1e",
+      "tree": "b3209dc0c050b0d5f2dab8767ad1cd09644d50a3"
     }
   },
   "targets": {

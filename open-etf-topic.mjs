@@ -79,7 +79,10 @@ const captions = {
  '0.21': ['Return answers to the same task','让回答回到原任务','Sequential questions · durable receipt · explicit adoption'],
  '0.22': ['Delegate bounded read-only work','有界委派只读研究','Serial Child · scoped sources · original Main'],
  '0.23': ['Retrieve admitted evidence','检索已准入原文','Knowledge · lexical retrieval · original source'],
- '0.24': ['Keep project capacity across revisions','修订之间保留项目容量','Endpoint identity · original tickets · project-local scope']
+ '0.24': ['Keep project capacity across revisions','修订之间保留项目容量','Endpoint identity · original tickets · project-local scope'],
+ '0.25': ['Confirm and run one scheduled task','确认并执行一次定时任务','Once schedule · explicit due work · original lifecycle'],
+ '0.26': ['Acquire bounded Web evidence','获取有界 Web 证据','Public static pages · originals · source-backed readback'],
+ '0.27': ['Freeze project specialist methods','冻结项目专家方法','Exact revisions · ordered presets · original Child']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

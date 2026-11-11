@@ -28,7 +28,18 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-最新三条推进线是 [v0.24 项目容量](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.zh-CN.md)、[v0.23 已准入资料检索](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/knowledge.zh-CN.md)和 [v0.22 有界 Child 执行](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md)。动手可沿[现有练手篇](./open-etf-agent-research-project-workshop.md)，不必重新拼装一篇模块清单。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口；版本推进不自动增加已验证文章映射。
+截至 2026-11-11，最新正式发布版本为 [v0.27.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.27.0)。当前三条推进线是项目专家配置、显式 Web 取证和一次性定时任务；它们沿原项目、执行与报告链工作，不构成另一套 Agent 平台。
+
+v0.27 把操作者保存的专家方法与有序预设接入原 Child：任务提交时冻结准确修订，后续编辑不改变已提交研究。可从[自定义专家文章](./agent-custom-expert-from-prompt-to-recovery.md)理解方法与执行为何分开，再沿[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/v027-specialist-profiles.zh-CN.md)实际配置、提交、执行并回读。独立证据输入只隔离 Main 的局部解释，不保证模型推理正确；可选的报告文件合同要求真实文件，不能用缺失报告冒充交付。
+
+v0.26 的[Web 资料入口](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/web-sources.md)显式取得公开静态页面、保留原文与来源，再交给既有报告和 Reader 消费，不提供自主爬取或浏览器渲染。v0.25 的[一次性定时任务](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/scheduled-tasks.md)要求明确确认，并显式执行到期工作，不承诺后台常驻或 cron。它们与 v0.27 的历史失败、未知和模型内容问题仍保留在各自证据中，不能汇成一份“全部答案正确”的证明。
+
+日常安装从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入，动手沿[现有练手篇](./open-etf-agent-research-project-workshop.md)和上述版本指南。[Open 专题](../open-etf-agent.md)保留固定版本与原有文章资格；新版本发布和正文增加源码入口，都不会自动把未验证的文章映射升级为已验证。
+
+<details>
+<summary>此前版本与原验收边界</summary>
+
+当时的三条推进线是 [v0.24 项目容量](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/provider-capacity.zh-CN.md)、[v0.23 已准入资料检索](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/knowledge.zh-CN.md)和 [v0.22 有界 Child 执行](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.md)。动手可沿[现有练手篇](./open-etf-agent-research-project-workshop.md)，不必重新拼装一篇模块清单。[Open 专题](../open-etf-agent.md)保留完整模块与固定版本入口；版本推进不自动增加已验证文章映射。
 
 截至 2026-11-07，最新正式发布版本为 [v0.24.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.24.0)，[v0.23.1 维护版](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.23.1)保留原记录。此前 v0.17 与 v0.18 的证据边界仍各自保留。v0.17 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/8137e592b0a07bcb0dfdd8756409c5bbc7d909ce)把共享准入接到原请求与报告回读；环境中断留下的未知占位仍保留，新隔离组的后续成功不代表旧组恢复。v0.18 的[固定源码](https://github.com/hpoenixf/open-etf-agent/tree/b1d2431a6b86bd0120f2fe5acb531ef928e92de2)进一步连接原 Schedule API 的确认、实际到期、显式单次唤醒和同 Run 交付。CLI 合成演示与 API 真实任务分开说明，不宣称后台自动调度。具体边界和回执见上面的既有模块文章；正式版本状态以[仓库 Release](https://github.com/hpoenixf/open-etf-agent/releases)为准，日常安装从[当前 README](https://github.com/hpoenixf/open-etf-agent/blob/main/README.md)进入。此前 v0.16 的[固定资格源码](https://github.com/hpoenixf/open-etf-agent/tree/35f244f2e06da447c110325d2ac5a5c39f36e842)及其无模型撤权回读证据保持原样。
 
@@ -36,8 +47,7 @@ v0.24 让同一新格式项目在等价 endpoint 的配置修订间沿用原 Adm
 
 v0.23 的 Knowledge 返回准入文本的完整原文页，再由 Main 和既有报告链消费；Child 不自动获得检索工具。[原批次](https://github.com/hpoenixf/open-etf-agent/blob/afbfb9865539c18c9358ac65c822f929aaa6e872/docs/verification/v023-release.zh-CN.md)保留 Runtime 10/10、机械 9/10、严格完整任务质量 5/10 的区别，查询词改写和语义问题没有因发布而消失。这里提供当前入口，下方各版的历史证据不重记为新结果。
 
-<details>
-<summary>此前版本与原验收边界</summary>
+
 
 [v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0)与[上一版 v0.21.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.21.0)保留原发布记录；[v0.21 项目中的普通人机问答](./agent-durable-human-interaction-response-adoption.md)与 [v0.20 本地研究项目](./open-etf-agent-v010-system-design.md)沿原入口阅读。
 

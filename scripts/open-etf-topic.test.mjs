@@ -181,7 +181,7 @@ test('v0.23/v0.24 navigation preserves exact lineage without upgrading old artic
   const row=versions.find(v=>v.version===version)
   assert.deepEqual([row.commit,row.tree,row.title,row.zh],[commit,tree,title,zh])
  }
- assert.deepEqual(versions.slice(-3).reverse().map(v=>v.version),['0.24','0.23','0.22'])
+ assert.deepEqual(versions.slice(-3).reverse().map(v=>v.version),['0.27','0.26','0.25'])
  for(const language of ['zh','en']) {
   const slices=topicGroups(language).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets])
   assert.equal(slices.some(s=>['0.23','0.24'].includes(s.since)),false)
@@ -196,5 +196,37 @@ test('module reclassification preserves qualified topic evidence in explicit rel
   assert.equal(rows.length,50)
   const related = groups.filter(g=>g.relatedReading).flatMap(g=>g.articles)
   for (const slug of ['agent-subagent-context-specialization','027-rag-revocation-publish-replay','agent-runtime-constraint-governance-v2','agent-tool-lifecycle-and-model-input']) assert.ok(related.some(r=>r.slug===slug))
+ }
+})
+
+test('v0.25 to v0.27 preserve exact public lineage and bilingual module captions',()=>{
+ const expected={
+  "0.25": [
+    "1afb49ae75c6322cd95442a1868d1ec90f7164cf",
+    "5db2ec135c77e40df129e7ef208a4a2ecf5525da",
+    "Confirm and run one scheduled task",
+    "确认并执行一次定时任务"
+  ],
+  "0.26": [
+    "6139d7b8e70773a4f5aba4d366de9817fc0532ae",
+    "a8dffb9519afc02ef7351b2137aca11709c931e3",
+    "Acquire bounded Web evidence",
+    "获取有界 Web 证据"
+  ],
+  "0.27": [
+    "3a44c638e6e957e6a9c308b49eaaa22196a1ce1e",
+    "b3209dc0c050b0d5f2dab8767ad1cd09644d50a3",
+    "Freeze project specialist methods",
+    "冻结项目专家方法"
+  ]
+}
+ for(const [version,identity] of Object.entries(expected)){
+  const row=versions.find(v=>v.version===version)
+  assert.deepEqual([row.commit,row.tree,row.title,row.zh],identity)
+ }
+ for(const language of ['zh','en']){
+  const expert=topicGroups(language).flatMap(g=>g.articles).find(r=>r.slug==='agent-custom-expert-from-prompt-to-recovery')
+  assert.notEqual(expert.status,'limited')
+  assert.equal(expert.evidence,null)
  }
 })

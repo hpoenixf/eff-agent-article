@@ -188,6 +188,32 @@ Octop 更适合“长期独立工作的数字助手”这个产品问题，而 E
 
 这不妨碍解释一个已经成立的工程判断：**个人研究方法可以作为版本化的数据，复用现有 Child 执行与结果系统；没有必要因此新增一个拥有全部权限的 Expert Manager。**
 
+
+### 在 Open ETF Agent 中复现这个边界
+
+截至 2026-11-11，[v0.27.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.27.0) 提供了这套设计的一个较小、可运行的实现：**项目内专家配置与有序预设**。它把方法交给原有的串行 Child，不包含上文完整系统的账户设置页、`@` 选择、软偏好、贡献界面或 Child 自主任务修订。前面的账户配置与浏览器观察保留自己的历史范围，不是公开版的功能清单。
+
+在这个实现里，操作者用 `specialist create` 保存 `name`、`description`、`enabled` 和已有 Child `method` 描述；提交任务时，`--specialists` 文件明确选择 `profileId` 与 `revision`，或选择一个固定修订的 `presetId`。例如，已经存在的 `fee-check` 第一版可以由下面的选择文件引用：
+
+```json
+{"profiles":[{"profileId":"fee-check","revision":1}],"maxChildren":1}
+```
+
+这里固定的是“这次可以采用哪些方法”，不是命令 Main 必须逐个调用。Profile 的 ID／修订与方法的 ID／版本分别保存；一个预设不能通过换名称绕过重复方法检查，也不能获得另一份 Root 预算。新任务遇到过期、停用或删除的配置会被拒绝；已提交任务则使用冻结数据，即使目录后来改变，重试确认和冷恢复也不会重新查询“最新版”。这正是前文上午第一版、下午第二版例子在公开代码中的落点。
+
+可以先沿[项目指南](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/research-project.zh-CN.md)准备本地项目与合成资料，再按[专家配置指南](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/v027-specialist-profiles.zh-CN.md)执行初始化、创建、提交、`run work`、`run inspect` 和 `run report`。需要先看一个无模型密钥的完整消费例子时，在该固定版本安装 README 指定依赖、使用其声明的 Node.js 版本后运行：
+
+```bash
+mkdir -p test-output
+V027_TEST_ROOT="$PWD/test-output" node --test test/specialist-project.test.mjs
+```
+
+这组[可执行案例](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/test/specialist-project.test.mjs)创建合成资料、冻结专家选择、移走当前目录，再由另一个进程执行原 Child 并保存报告，最后独立读回报告；终态重开时设置一个不允许再派发的 Gateway。它使用脚本模型，证明的是身份和交接路径，不是专家的研究质量。
+
+还有一个值得区分的输入选择。`child-method@2` 的 `independent-evidence` 模式让 Child 读取冻结原始问题、操作者方法和获准来源，不把 Main 临时写下的解释当成它的任务前提；Main 那段原话仍留在父任务记录中。例如“尚不能证明生效”不能因为委派时被说成“已经无效”，就变成独立复核的默认结论。这只去掉一条输入污染路径：Main 仍选择方法与资料子集，Child 也仍可能推理错误。需要依赖局部子问题的方法继续使用原 v1 合同，不静默改写历史任务。
+
+最终看报告而非角色名。[固定源码中的配置生命周期](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/specialist-profiles.md)与[独立输入用例](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/test/independent-evidence-child.test.mjs)可以对照阅读。真实模型观察中出现过 Publication 已保存却没有报告文件，以及 Main 加强 Child 结论的情况；[原观察](https://github.com/hpoenixf/open-etf-agent/blob/96dba6123e337f54552c7c27bcb835929238a3d0/docs/verification/v027-guidance-v2-cohort-result.md)保留这些区别。新任务可显式选择 `artifact-required@1`，让缺报告文件不能被算作完成，但这不生成不存在的报告，也不自动重试，更不能把“文件已交付”升级为“观点正确”。
+
 ## 结语
 
 实现自定义专家最简单的一步，是提供 Prompt 输入框。让它真正可维护的，是**方法身份固定、任务描述可修、实际贡献可重读**，而不让“用户喜欢什么”变成“系统已经做了什么”。
