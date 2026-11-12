@@ -19,21 +19,21 @@
 <rect x="672" y="121" width="4" height="99" rx="2" fill="#21796a"/>
 <text x="688" y="137" font-size="23" font-weight="700" fill="#21796a">Time and input capacity</text>
 <text x="688" y="162" font-size="17" font-weight="400" fill="#15353d">Deadline and hard input bounds</text>
-<text x="688" y="187" font-size="17" font-weight="400" fill="#15353d">An inner count is not full admission</text>
+<text x="688" y="187" font-size="17" font-weight="400" fill="#15353d">An inner count is not enough</text>
 <polyline points="168,233 168,263 490,263 490,286" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="490,233 490,263 490,263 490,286" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="812,233 812,263 490,263 490,286" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="275" y="289" width="430" height="77" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="275" y="302" width="4" height="51" rx="2" fill="#356e9b"/>
 <text x="291" y="318" font-size="23" font-weight="700" fill="#356e9b">Check at actual request admission</text>
-<text x="291" y="343" font-size="17" font-weight="400" fill="#15353d">Use effective records; reminders do not grant capacity</text>
+<text x="291" y="343" font-size="17" font-weight="400" fill="#15353d">Use records; reminders do not grant capacity</text>
 <polyline points="395,366 395,395 232,395 232,412" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="585,366 585,395 748,395 748,412" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="28" y="415" width="408" height="65" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="28" y="428" width="4" height="39" rx="2" fill="#21796a"/>
-<text x="44" y="444" font-size="23" font-weight="700" fill="#21796a">Admitted: execute in the current phase</text>
+<text x="44" y="444" font-size="23" font-weight="700" fill="#21796a">Admitted: use current phase</text>
 <rect x="544" y="415" width="408" height="65" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="544" y="428" width="4" height="39" rx="2" fill="#9a651a"/>
-<text x="560" y="444" font-size="23" font-weight="700" fill="#9a651a">No new call: expose committed results</text>
+<text x="560" y="444" font-size="23" font-weight="700" fill="#9a651a">No call: read saved results</text>
 </g>
 </svg>

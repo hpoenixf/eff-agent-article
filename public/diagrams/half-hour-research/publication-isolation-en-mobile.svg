@@ -23,7 +23,7 @@
 <rect x="30" y="413" width="4" height="87" rx="2" fill="#9a651a"/>
 <text x="46" y="429" font-size="20" font-weight="700" fill="#9a651a">Capture: local rollback</text>
 <text x="46" y="454" font-size="16" font-weight="400" fill="#15353d">Release locks; record capture failure</text>
-<text x="46" y="479" font-size="16" font-weight="400" fill="#15353d">Capture success is not a commit prerequisite</text>
+<text x="46" y="479" font-size="16" font-weight="400" fill="#15353d">Capture is not required for commit</text>
 <text x="24" y="546" font-size="16" font-weight="400" fill="#49636b">Required answer-storage failure still matters.</text>
 </g>
 </svg>

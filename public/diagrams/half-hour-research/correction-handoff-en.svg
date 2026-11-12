@@ -9,17 +9,17 @@
 <rect x="28" y="128" width="4" height="124" rx="2" fill="#21796a"/>
 <text x="44" y="144" font-size="23" font-weight="700" fill="#21796a">Receive correction</text>
 <text x="44" y="169" font-size="18" font-weight="400" fill="#15353d">Save exact text and target Run</text>
-<text x="44" y="194" font-size="18" font-weight="400" fill="#15353d">Retain reception order and revision</text>
+<text x="44" y="194" font-size="18" font-weight="400" fill="#15353d">Keep order and revision</text>
 <rect x="350" y="115" width="280" height="150" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="350" y="128" width="4" height="124" rx="2" fill="#356e9b"/>
 <text x="366" y="144" font-size="23" font-weight="700" fill="#356e9b">Handle the old request</text>
-<text x="366" y="169" font-size="18" font-weight="400" fill="#15353d">Stop obsolete undispatched work</text>
-<text x="366" y="194" font-size="18" font-weight="400" fill="#15353d">Keep completed and unknown effects</text>
+<text x="366" y="169" font-size="18" font-weight="400" fill="#15353d">Stop old undispatched work</text>
+<text x="366" y="194" font-size="18" font-weight="400" fill="#15353d">Keep outcomes and unknowns</text>
 <rect x="672" y="115" width="280" height="150" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="672" y="128" width="4" height="124" rx="2" fill="#21796a"/>
 <text x="688" y="144" font-size="23" font-weight="700" fill="#21796a">Adopt in the successor</text>
 <text x="688" y="169" font-size="18" font-weight="400" fill="#15353d">Full text reaches admitted input</text>
-<text x="688" y="194" font-size="18" font-weight="400" fill="#15353d">Continue research; review the answer</text>
+<text x="688" y="194" font-size="18" font-weight="400" fill="#15353d">Continue; review the report</text>
 <polyline points="308,186 350,186" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="630,186 672,186" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="28" y="322" font-size="18" font-weight="400" fill="#49636b">A user stop and a superseded request are different control facts.</text>

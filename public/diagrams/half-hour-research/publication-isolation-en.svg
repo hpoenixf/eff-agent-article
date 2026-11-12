@@ -16,23 +16,23 @@
 <text x="366" y="171" font-size="17" font-weight="400" fill="#15353d">Save text, revision, and receipt</text>
 <rect x="672" y="117" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="672" y="130" width="4" height="75" rx="2" fill="#21796a"/>
-<text x="688" y="146" font-size="23" font-weight="700" fill="#21796a">Read the committed version</text>
+<text x="688" y="146" font-size="23" font-weight="700" fill="#21796a">Read committed text</text>
 <text x="688" y="171" font-size="17" font-weight="400" fill="#15353d">Commit and rendering are distinct</text>
 <polyline points="308,166 350,166" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="630,166 672,166" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="28" y="269" font-size="17" font-weight="700" fill="#9a651a">Optional capture remains independent of the required commit</text>
 <rect x="28" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="28" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
-<text x="44" y="314" font-size="23" font-weight="700" fill="#9a651a">Capture one observation</text>
+<text x="44" y="314" font-size="23" font-weight="700" fill="#9a651a">Optional capture</text>
 <text x="44" y="339" font-size="17" font-weight="400" fill="#15353d">Do not label failed capture stored</text>
 <rect x="350" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="350" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
-<text x="366" y="314" font-size="23" font-weight="700" fill="#9a651a">Roll back on that contention</text>
-<text x="366" y="339" font-size="17" font-weight="400" fill="#15353d">Release this capture transaction’s locks</text>
+<text x="366" y="314" font-size="23" font-weight="700" fill="#9a651a">Roll back on conflict</text>
+<text x="366" y="339" font-size="17" font-weight="400" fill="#15353d">Release this capture&#x27;s locks</text>
 <rect x="672" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="672" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
-<text x="688" y="314" font-size="23" font-weight="700" fill="#9a651a">Retain a bounded failure fact</text>
-<text x="688" y="339" font-size="17" font-weight="400" fill="#15353d">Later independent capture may succeed</text>
+<text x="688" y="314" font-size="23" font-weight="700" fill="#9a651a">Record failed capture</text>
+<text x="688" y="339" font-size="17" font-weight="400" fill="#15353d">Later independent capture</text>
 <polyline points="308,335 350,335" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="630,335 672,335" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="28" y="435" font-size="18" font-weight="400" fill="#49636b">Required storage cannot be skipped. Read committed text by receipt; missing logs do not justify replay.</text>

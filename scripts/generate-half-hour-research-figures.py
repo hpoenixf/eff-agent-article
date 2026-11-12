@@ -51,17 +51,17 @@ def overview(lang,mobile):
         d.card(30,472,330,105,'保存正文，用户读取' if zh else 'Save and retrieve the answer', ['模型提出交付后，沿原发布模块提交' if zh else 'Use the original publication path', '提交后的版本可供页面与历史读取' if zh else 'Read the committed answer version'],size=16)
         d.note(608,['局部失败作为观察返回，不自动终止整题' if zh else 'Local failure is an observation, not a Run stop.'])
     else:
-        d.card(28,110,240,110,'原始任务' if zh else 'Original task',['原文与补充每轮提供' if zh else 'Requirements and additions','适用限制保持可见' if zh else 'Applicable restrictions'])
-        d.card(350,110,260,110,'模型判断' if zh else 'Model judgment',['选择读取、计算或交付' if zh else 'Read, calculate, or deliver','研究问题随证据调整' if zh else 'Revise questions with evidence'])
+        d.card(28,110,240,110,'原始任务' if zh else 'Original task',['原文与补充每轮提供' if zh else 'Task and additions','适用限制保持可见' if zh else 'Applicable restrictions'])
+        d.card(350,110,260,110,'模型判断' if zh else 'Model judgment',['选择读取、计算或交付' if zh else 'Read, calculate, or deliver','研究问题随证据调整' if zh else 'Revise research questions'])
         d.card(690,110,260,110,'工具执行' if zh else 'Tool execution',['沿原权限与预算执行' if zh else 'Existing grants and budgets','如实返回结果或失败' if zh else 'Actual result or failure'])
         d.arrow('268,162 350,162')
-        d.arrow('610,162 690,162','取证' if zh else 'Investigate',(625,145))
-        d.card(690,300,260,110,'记录观察' if zh else 'Record observations',['结果身份、版本与定位' if zh else 'Identity, version, locator','失败和未知继续保留' if zh else 'Keep failure and unknown facts'])
+        d.arrow('610,162 690,162','取证' if zh else 'Explore',(625,145))
+        d.card(690,300,260,110,'记录观察' if zh else 'Record observations',['结果身份、版本与定位' if zh else 'Identity, version, locator','失败和未知继续保留' if zh else 'Keep failure and unknowns'])
         d.arrow('820,220 820,300')
         d.arrow('690,352 652,352 652,253 550,253 550,220','进入下一轮' if zh else 'Next request',(668,280))
-        d.card(350,300,260,110,'保存与交付' if zh else 'Save and deliver',['沿原发布路径提交正文' if zh else 'Commit through publication','版本与回执由原模块维护' if zh else 'Original version and receipt owner'])
+        d.card(350,300,260,110,'保存与交付' if zh else 'Save and deliver',['沿原发布路径提交正文' if zh else 'Commit through publication','版本与回执由原模块维护' if zh else 'Versions and receipts'])
         d.arrow('430,220 430,300','提出交付' if zh else 'Propose delivery',(445,274))
-        d.card(28,300,240,110,'用户取得报告' if zh else 'User retrieves report',['页面和历史读取已提交版本' if zh else 'Page and history read the commit','预览不代替持久保存' if zh else 'Preview is not a durable commit'])
+        d.card(28,300,240,110,'用户取得报告' if zh else 'Retrieve report',['页面与历史读回已提交版' if zh else 'Read the saved version','预览不代替持久保存' if zh else 'Preview is not a commit'])
         d.arrow('350,352 268,352')
         d.note(448,['局部失败先回到观察；是否继续研究由模型判断，执行边界由原模块负责。' if zh else 'Return local failures as observations. The model judges research; existing owners enforce execution.'])
     d.save('research-loop',lang)
@@ -73,10 +73,10 @@ def correction(lang,mobile):
               ('保存原话，后继采用，旧效果如实结算' if zh else 'Save the message; adopt it next; preserve effects') if not mobile else ('请求中断与停止研究分别处理' if zh else 'Request interruption is not a Run stop'),mobile,600 if mobile else 405)
     titles=['接收定向纠偏','处理旧请求','后继请求采用'] if zh else ['Receive correction','Handle the old request','Adopt in the successor']
     lines=([['保存完整原话与目标研究','记录接收顺序及纠偏版本'],['未派发旧提议在安全边界停止','已完成结果保留，未知仍计账'],['完整原话进入实际获准请求','可继续取证，报告另行检查']] if zh else
-           [['Save exact text and target Run','Retain reception order and revision'],['Stop obsolete undispatched work','Keep completed and unknown effects'],['Full text reaches admitted input','Continue research; review the answer']])
+           [['Save exact text and target Run','Keep order and revision'],['Stop old undispatched work','Keep outcomes and unknowns'],['Full text reaches admitted input','Continue; review the report']])
     if mobile:
         lines=([['保存原话，绑定目标研究','接收不等于模型已经采用'],['未派发旧提议在安全边界停止','已完成结果与未知消耗保留'],['原文进入实际获准的后继请求','仍可继续取证，报告另行检查']] if zh else
-               [['Save exact text and target Run','Reception alone is not adoption'],['Stop obsolete undispatched work','Keep settled and unknown effects'],['Full text reaches admitted input','Continue, then review the report']])
+               [['Save exact text and target Run','Reception alone is not adoption'],['Stop old undispatched work','Keep settled and unknown effects'],['Full text reaches admitted input','Continue, then review the report']])
         for i in range(3):
             y=90+i*145;d.card(30,y,330,112,titles[i],lines[i],accent=GREEN if i!=1 else BLUE,size=16)
             if i<2:d.arrow(f'195,{y+112} 195,{y+141}')
@@ -94,7 +94,7 @@ def budget(lang,mobile):
               ('同一资源记录的不同视图，不另建三套预算' if zh else 'Views of existing records, not three new ledgers') if not mobile else ('有总余额，仍需核对阶段与期限' if zh else 'A balance alone does not admit a call'),mobile,645 if mobile else 510)
     titles=['真实请求消耗','当前阶段机会','时间与输入容量'] if zh else ['Physical request usage','Phase opportunities','Time and input capacity']
     lines=([['已发出请求仍计入消耗','未知调用不因发布而退款'],['探索与收尾分别表达','发布结算仅作用于原请求'],['期限和输入硬容量仍生效','内层有次数不代表外层允许']] if zh else
-           [['Dispatched calls remain charged','Unknown calls retain occupancy'],['Research and finalization differ','Settle the original request only'],['Deadline and hard input bounds','An inner count is not full admission']])
+           [['Dispatched calls remain charged','Unknown calls retain occupancy'],['Research and finalization differ','Settle the original request only'],['Deadline and hard input bounds','An inner count is not enough']])
     if mobile:
         titles=['真实模型请求','当前阶段机会','期限与输入容量'] if zh else ['Physical calls','Phase opportunities','Deadline and input capacity']
         lines=([['已用和未知占用保留'],['探索与收尾分别核对'],['其他硬边界仍然适用']] if zh else [['Keep spent and unknown usage'],['Check research and finalization'],['Other hard limits still apply']])
@@ -108,10 +108,10 @@ def budget(lang,mobile):
     else:
         for i in range(3):d.card(28+322*i,108,280,125,titles[i],lines[i],size=17)
         for x in [168,490,812]:d.arrow(f'{x},233 {x},263 490,263 490,286')
-        d.card(275,289,430,77,'原资源模块在实际请求边界核对' if zh else 'Check at actual request admission',['消费同一有效记录，不在提醒里重新授予额度' if zh else 'Use effective records; reminders do not grant capacity'],accent=BLUE,size=17)
+        d.card(275,289,430,77,'原资源模块在实际请求边界核对' if zh else 'Check at actual request admission',['消费同一有效记录，不在提醒里重新授予额度' if zh else 'Use records; reminders do not grant capacity'],accent=BLUE,size=17)
         d.arrow('395,366 395,395 232,395 232,412');d.arrow('585,366 585,395 748,395 748,412')
-        d.card(28,415,408,65,'获准：按当前阶段执行' if zh else 'Admitted: execute in the current phase')
-        d.card(544,415,408,65,'无法新调用：提供已提交成果' if zh else 'No new call: expose committed results',accent=AMBER)
+        d.card(28,415,408,65,'获准：按当前阶段执行' if zh else 'Admitted: use current phase')
+        d.card(544,415,408,65,'无法新调用：提供已提交成果' if zh else 'No call: read saved results',accent=AMBER)
     d.save('budget-views',lang)
 
 
@@ -125,17 +125,17 @@ def publication(lang,mobile):
         for i in range(3):
             y=86+96*i;d.card(30,y,330,74,titles[i],lines[i],size=16)
             if i<2:d.arrow(f'195,{y+74} 195,{y+92}')
-        d.card(30,400,330,113,'可选采集：冲突时局部回滚' if zh else 'Capture: local rollback', ['释放本次事务锁，记录采集失败' if zh else 'Release locks; record capture failure','不把采集成功当作正文提交前提' if zh else 'Capture success is not a commit prerequisite'],accent=AMBER,size=16)
+        d.card(30,400,330,113,'可选采集：冲突时局部回滚' if zh else 'Capture: local rollback', ['释放本次事务锁，记录采集失败' if zh else 'Release locks; record capture failure','不把采集成功当作正文提交前提' if zh else 'Capture is not required for commit'],accent=AMBER,size=16)
         d.note(546,['正文自身的必要存储失败，仍是交付失败' if zh else 'Required answer-storage failure still matters.'])
     else:
         d.text(28,101,'必要正文路径' if zh else 'Required answer path',17,True)
-        titles=['生成候选正文','原发布事务提交','用户读取已提交版本'] if zh else ['Produce candidate text','Publication commits','Read the committed version']
+        titles=['生成候选正文','原发布事务提交','用户读取已提交版本'] if zh else ['Produce candidate text','Publication commits','Read committed text']
         lines=[['原候选进入发布模块'],['正文、版本与回执一起保存'],['提交与客户端呈现分别记录']] if zh else [['Original publication owner'],['Save text, revision, and receipt'],['Commit and rendering are distinct']]
         for i in range(3):d.card(28+i*322,117,280,101,titles[i],lines[i],size=17)
         d.arrow('308,166 350,166');d.arrow('630,166 672,166')
         d.text(28,269,'可选采集独立处理，不成为上方提交的先决条件' if zh else 'Optional capture remains independent of the required commit',17,True,AMBER)
-        titles=['采集一份观测','该处锁冲突则回滚','留下有限失败事实'] if zh else ['Capture one observation','Roll back on that contention','Retain a bounded failure fact']
-        lines=[['采集可失败，不能伪装已保存'],['释放本次采集持有的事务锁'],['后续独立采集仍可尝试']] if zh else [['Do not label failed capture stored'],['Release this capture transaction’s locks'],['Later independent capture may succeed']]
+        titles=['采集一份观测','该处锁冲突则回滚','留下有限失败事实'] if zh else ['Optional capture','Roll back on conflict','Record failed capture']
+        lines=[['采集可失败，不能伪装已保存'],['释放本次采集持有的事务锁'],['后续独立采集仍可尝试']] if zh else [['Do not label failed capture stored'],["Release this capture's locks"],['Later independent capture']]
         for i in range(3):d.card(28+i*322,285,280,101,titles[i],lines[i],accent=AMBER,size=17)
         d.arrow('308,335 350,335');d.arrow('630,335 672,335')
         d.note(435,['必要正文存储失败不能被跳过；已提交正文按原回执读回，不因日志缺失盲目重发。' if zh else 'Required storage cannot be skipped. Read committed text by receipt; missing logs do not justify replay.'])

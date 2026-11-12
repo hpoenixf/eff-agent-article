@@ -8,13 +8,13 @@
 <rect x="28" y="110" width="240" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="28" y="123" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="44" y="139" font-size="23" font-weight="700" fill="#21796a">Original task</text>
-<text x="44" y="164" font-size="18" font-weight="400" fill="#15353d">Requirements and additions</text>
+<text x="44" y="164" font-size="18" font-weight="400" fill="#15353d">Task and additions</text>
 <text x="44" y="189" font-size="18" font-weight="400" fill="#15353d">Applicable restrictions</text>
 <rect x="350" y="110" width="260" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="350" y="123" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="366" y="139" font-size="23" font-weight="700" fill="#21796a">Model judgment</text>
 <text x="366" y="164" font-size="18" font-weight="400" fill="#15353d">Read, calculate, or deliver</text>
-<text x="366" y="189" font-size="18" font-weight="400" fill="#15353d">Revise questions with evidence</text>
+<text x="366" y="189" font-size="18" font-weight="400" fill="#15353d">Revise research questions</text>
 <rect x="690" y="110" width="260" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="690" y="123" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="706" y="139" font-size="23" font-weight="700" fill="#21796a">Tool execution</text>
@@ -22,12 +22,12 @@
 <text x="706" y="189" font-size="18" font-weight="400" fill="#15353d">Actual result or failure</text>
 <polyline points="268,162 350,162" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="610,162 690,162" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
-<text x="625" y="145" font-size="16" font-weight="400" fill="#49636b">Investigate</text>
+<text x="625" y="145" font-size="16" font-weight="400" fill="#49636b">Explore</text>
 <rect x="690" y="300" width="260" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="690" y="313" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="706" y="329" font-size="23" font-weight="700" fill="#21796a">Record observations</text>
 <text x="706" y="354" font-size="18" font-weight="400" fill="#15353d">Identity, version, locator</text>
-<text x="706" y="379" font-size="18" font-weight="400" fill="#15353d">Keep failure and unknown facts</text>
+<text x="706" y="379" font-size="18" font-weight="400" fill="#15353d">Keep failure and unknowns</text>
 <polyline points="820,220 820,300" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <polyline points="690,352 652,352 652,253 550,253 550,220" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="668" y="280" font-size="16" font-weight="400" fill="#49636b">Next request</text>
@@ -35,14 +35,14 @@
 <rect x="350" y="313" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="366" y="329" font-size="23" font-weight="700" fill="#21796a">Save and deliver</text>
 <text x="366" y="354" font-size="18" font-weight="400" fill="#15353d">Commit through publication</text>
-<text x="366" y="379" font-size="18" font-weight="400" fill="#15353d">Original version and receipt owner</text>
+<text x="366" y="379" font-size="18" font-weight="400" fill="#15353d">Versions and receipts</text>
 <polyline points="430,220 430,300" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="445" y="274" font-size="16" font-weight="400" fill="#49636b">Propose delivery</text>
 <rect x="28" y="300" width="240" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="28" y="313" width="4" height="84" rx="2" fill="#21796a"/>
-<text x="44" y="329" font-size="23" font-weight="700" fill="#21796a">User retrieves report</text>
-<text x="44" y="354" font-size="18" font-weight="400" fill="#15353d">Page and history read the commit</text>
-<text x="44" y="379" font-size="18" font-weight="400" fill="#15353d">Preview is not a durable commit</text>
+<text x="44" y="329" font-size="23" font-weight="700" fill="#21796a">Retrieve report</text>
+<text x="44" y="354" font-size="18" font-weight="400" fill="#15353d">Read the saved version</text>
+<text x="44" y="379" font-size="18" font-weight="400" fill="#15353d">Preview is not a commit</text>
 <polyline points="350,352 268,352" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="28" y="448" font-size="18" font-weight="400" fill="#49636b">Return local failures as observations. The model judges research; existing owners enforce execution.</text>
 </g>

@@ -41,7 +41,7 @@
 <rect x="28" y="300" width="240" height="110" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="28" y="313" width="4" height="84" rx="2" fill="#21796a"/>
 <text x="44" y="329" font-size="23" font-weight="700" fill="#21796a">用户取得报告</text>
-<text x="44" y="354" font-size="18" font-weight="400" fill="#15353d">页面和历史读取已提交版本</text>
+<text x="44" y="354" font-size="18" font-weight="400" fill="#15353d">页面与历史读回已提交版</text>
 <text x="44" y="379" font-size="18" font-weight="400" fill="#15353d">预览不代替持久保存</text>
 <polyline points="350,352 268,352" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <text x="28" y="448" font-size="18" font-weight="400" fill="#49636b">局部失败先回到观察；是否继续研究由模型判断，执行边界由原模块负责。</text>
