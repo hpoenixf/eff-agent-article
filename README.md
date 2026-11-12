@@ -41,9 +41,9 @@
 
 ## 最近更新
 
+- 2026-11-12 · 更新 · [让 Agent 持续研究半小时：从普通研究到可靠交付的设计](articles/agent-half-hour-research-engineering-practice.md)
 - 2026-11-12 · 新增 · [把 Agent 拆成三个进程，究竟换来了什么？从单体 Runtime 到独立宿主](articles/agent-three-host-lifecycle-architecture.md)
 - 2026-11-12 · 更新 · [Spec 驱动的 Agent 研发全景：从需求澄清到可信交付](articles/agent-spec-driven-development-panorama.md)
-- 2026-11-12 · 更新 · [Agent 运行身份全景：从一次聊天到 Model Turn，系统到底在继续什么？](articles/agent-task-session-run-worker-schedule.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
