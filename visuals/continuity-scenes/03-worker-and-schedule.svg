@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="980" viewBox="0 0 600 980" role="img" aria-labelledby="title desc">
+<title id="title">Worker 执行工作，Schedule 约定时间</title><desc id="desc">两个独立场景：未完成 Run 的执行进程退出后，满足恢复条件的新 Worker 从 Session 保存的执行记录接续原 Run；已确认的一次性未来计划经外部触发和资格检查后创建或关联本次 Run，再交由 Worker 执行。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1 L6 4 L1 7" fill="none" stroke="#738691" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-feature-settings:"palt";fill:#172D3F} .muted{fill:#516475}</style>
+<rect width="600" height="980" rx="22" fill="#F5F5F1"/>
+<text x="28" y="38" font-size="18" style="fill:#516475" font-weight="500" text-anchor="start">场景 03 · 后台执行与未来计划</text>
+<text x="28" y="84" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start">Worker：谁来执行</text>
+<text x="28" y="126" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start">Schedule：什么时候开始</text>
+<rect x="24" y="153" width="552" height="324" rx="18" fill="white" stroke="#D7E0E4" stroke-width="1"/>
+<rect x="42" y="170" width="131" height="33" rx="16" fill="#EDF2FB" stroke="none" stroke-width="1"/>
+<text x="107.5" y="193" font-size="21" style="fill:#3159A0" font-weight="600" text-anchor="middle">执行中断</text>
+<text x="44" y="234" font-size="24" style="fill:#172D3F" font-weight="600" text-anchor="start">研究还没完成，原进程退出了。</text>
+<rect x="42" y="253" width="516" height="55" rx="10" fill="#E5F3EE" stroke="none" stroke-width="1"/>
+<text x="58" y="288" font-size="22" style="fill:#086C63" font-weight="600" text-anchor="start">同一个 Run R4：原问题与进度延续</text>
+<rect x="42" y="330" width="190" height="50" rx="10" fill="#EDF2FB" stroke="none" stroke-width="1"/>
+<text x="137" y="363" font-size="24" style="fill:#3159A0" font-weight="600" text-anchor="middle">Worker A</text>
+<line x1="248" y1="355" x2="350" y2="355" stroke="#738691" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="366" y="330" width="192" height="50" rx="10" fill="#EDF2FB" stroke="none" stroke-width="1"/>
+<text x="462" y="363" font-size="24" style="fill:#3159A0" font-weight="600" text-anchor="middle">Worker B</text>
+<text x="138" y="408" font-size="21" style="fill:#516475" font-weight="400" text-anchor="middle">执行到中断</text>
+<text x="462" y="408" font-size="21" style="fill:#516475" font-weight="400" text-anchor="middle">满足条件后接续</text>
+<text x="44" y="449" font-size="20" style="fill:#172D3F" font-weight="400" text-anchor="start">Session 保存执行状态；换进程不重置预算。</text>
+<rect x="24" y="501" width="552" height="400" rx="18" fill="white" stroke="#D7E0E4" stroke-width="1"/>
+<rect x="42" y="518" width="131" height="33" rx="16" fill="#FFF2DD" stroke="none" stroke-width="1"/>
+<text x="107.5" y="541" font-size="21" style="fill:#8B541C" font-weight="600" text-anchor="middle">未来执行</text>
+<text x="44" y="583" font-size="24" style="fill:#172D3F" font-weight="600" text-anchor="start">你：明早九点，再做一次比较。</text>
+<rect x="42" y="604" width="516" height="63" rx="10" fill="#FFF2DD" stroke="none" stroke-width="1"/>
+<text x="58" y="631" font-size="23" style="fill:#8B541C" font-weight="600" text-anchor="start">今天：确认并保存 Schedule S1</text>
+<text x="58" y="656" font-size="20" style="fill:#8B541C" font-weight="400" text-anchor="start">此时不开始那次研究。</text>
+<line x1="69" y1="679" x2="69" y2="716" stroke="#738691" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="94" y="706" font-size="22" style="fill:#516475" font-weight="400" text-anchor="start">到期后，由外部触发</text>
+<rect x="42" y="733" width="516" height="142" rx="10" fill="#E5F3EE" stroke="none" stroke-width="1"/>
+<text x="58" y="765" font-size="22" style="fill:#086C63" font-weight="600" text-anchor="start">先检查时间、授权与执行资格</text>
+<text x="58" y="803" font-size="23" style="fill:#086C63" font-weight="600" text-anchor="start">创建或关联本次 Run R5</text>
+<text x="58" y="841" font-size="23" style="fill:#086C63" font-weight="600" text-anchor="start">由 Worker 执行，再保存结果</text>
+<text x="28" y="939" font-size="21" style="fill:#172D3F" font-weight="500" text-anchor="start">公开一次性计划需要显式调用 run-due。</text>
+<text x="28" y="969" font-size="21" style="fill:#516475" font-weight="400" text-anchor="start">保存日期，本身不会自动唤醒执行。</text>
+</svg>

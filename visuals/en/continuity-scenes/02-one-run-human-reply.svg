@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="902" viewBox="0 0 600 902" role="img" aria-labelledby="title desc" lang="en" xml:lang="en">
+<title id="title">Several exchanges can still belong to one Run</title><desc id="desc">A teaching illustration of ordinary blocking questions in Open ETF Agent, not a product screenshot. The original Run needs a holding period to compare funds, asks the user, and saves its waiting state. The reply is linked to the original question. A Worker re-enters the same Run, and model and tool calls complete the report.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1 L6 4 L1 7" fill="none" stroke="#738691" stroke-width="1.5" /></marker></defs>
+<style>text{font-family:"Noto Sans",Arial,sans-serif;fill:#172D3F} .muted{fill:#516475}</style>
+<rect width="600" height="902" rx="22" fill="#F5F5F1" />
+<text x="28" y="38" font-size="18" style="fill:#516475" font-weight="500" text-anchor="start" id="label-8">Scenario 02 · The original work needs your input</text>
+<text x="28" y="84" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start" id="label-9">One more exchange,</text>
+<text x="28" y="126" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start" id="label-10">still the same Run</text>
+<rect x="24" y="151" width="552" height="646" rx="20" fill="white" stroke="#D7E0E4" stroke-width="1" />
+<rect x="42" y="168" width="108" height="33" rx="16" fill="#E5F3EE" stroke="none" stroke-width="1" />
+<text x="96.0" y="191" font-size="22" style="fill:#086C63" font-weight="600" text-anchor="middle" id="label-13">Run 1</text>
+<text x="166" y="193" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start" id="label-14">Complete the fund comparison</text>
+<text x="44" y="234" font-size="23" style="fill:#172D3F" font-weight="400" text-anchor="start" id="label-15">You: Compare these two funds.</text>
+<line x1="44" y1="252" x2="555" y2="252" stroke="#D7E0E4" stroke-width="1" />
+<circle cx="55" cy="288" r="14" fill="#EDF2FB" />
+<text x="55" y="295" font-size="19" style="fill:#3159A0" font-weight="700" text-anchor="middle" id="label-18">1</text>
+<text x="82" y="297" font-size="22" style="fill:#172D3F" font-weight="600" text-anchor="start" id="label-19">Model: Holding period is missing.</text>
+<rect x="82" y="315" width="460" height="49" rx="12" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="98" y="347" font-size="22" style="fill:#3159A0" font-weight="400" text-anchor="start" id="label-21">Agent: How long will you hold them?</text>
+<line x1="55" y1="310" x2="55" y2="405" stroke="#9DB2BA" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="82" y="380" width="460" height="84" rx="12" fill="#FFF2DD" stroke="none" stroke-width="1" />
+<text x="98" y="411" font-size="22" style="fill:#8B541C" font-weight="600" text-anchor="start" id="label-24">The original Run waits for a reply</text>
+<text x="98" y="443" font-size="21" style="fill:#8B541C" font-weight="400" text-anchor="start" id="label-25">Progress saved; the Worker can exit.</text>
+<circle cx="55" cy="498" r="14" fill="#E5F3EE" />
+<text x="55" y="505" font-size="19" style="fill:#086C63" font-weight="700" text-anchor="middle" id="label-27">2</text>
+<rect x="82" y="482" width="460" height="49" rx="12" fill="#E5F3EE" stroke="none" stroke-width="1" />
+<text x="98" y="514" font-size="23" style="fill:#086C63" font-weight="500" text-anchor="start" id="label-29">You: Three years or longer.</text>
+<text x="82" y="561" font-size="20" style="fill:#516475" font-weight="400" text-anchor="start" id="label-30">Linked reply received; the same Run resumes.</text>
+<line x1="55" y1="520" x2="55" y2="600" stroke="#9DB2BA" stroke-width="2" marker-end="url(#arrow)" />
+<circle cx="55" cy="626" r="14" fill="#EDF2FB" />
+<text x="55" y="633" font-size="19" style="fill:#3159A0" font-weight="700" text-anchor="middle" id="label-33">3</text>
+<text x="82" y="635" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start" id="label-34">Model → tool → retrieved data</text>
+<text x="82" y="672" font-size="22" style="fill:#172D3F" font-weight="400" text-anchor="start" id="label-35">Model reads results → writes report</text>
+<rect x="82" y="695" width="460" height="67" rx="12" fill="#E5F3EE" stroke="none" stroke-width="1" />
+<text x="99" y="723" font-size="20" style="fill:#086C63" font-weight="400" text-anchor="start" id="label-37">Agent: A comparison for your horizon.</text>
+<text x="99" y="750" font-size="21" style="fill:#086C63" font-weight="700" text-anchor="start" id="label-38">Only now is Run 1 complete.</text>
+<text x="28" y="838" font-size="25" style="fill:#086C63" font-weight="700" text-anchor="start" id="label-39">Message count is not a Run count.</text>
+<text x="28" y="873" font-size="20" style="fill:#516475" font-weight="400" text-anchor="start" id="label-40">Check execution state and how each reply is routed.</text>
+</svg>
