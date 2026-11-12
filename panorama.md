@@ -10,6 +10,7 @@ description: 精选系统、金融业务与完整工程专题全景，串起架�
 ## 按你要解决的问题开始
 
 - 初次接触 Agent：先读[十五分钟入门](/articles/agent-in-15-minutes)，再看[六层调用全景](/articles/017-prompt-to-answer-six-layer-panorama-v3)。
+- 分清聊天与执行：用[运行身份全景](/articles/agent-task-session-run-worker-schedule)理解一次对话里的 Run、模型回合、请求尝试和工具动作，再判断追问、重试与恢复究竟延续什么。
 - 设计整套系统：从[一份报告背后的九个架构判断](/articles/one-report-nine-architecture-judgments)出发，思考何时复用、增加或退出机制。
 - 理解金融业务与框架选择：先读[金融 Agent 全景](/articles/financial-agent-system-panorama)，再按需要看金融垂类原则与四方架构对照。
 - 设计上下文：先读[原则篇](/articles/agent-context-governance-principles)，再读[行动篇](/articles/agent-context-governance-actions)。

@@ -10,6 +10,7 @@ Start with how the system works and how business rules change decisions, then ex
 ## Start with Your Current Problem
 
 - New to agents? Start with [Agents in 15 Minutes](/en/articles/agent-in-15-minutes), then the [six-layer runtime panorama](/en/articles/017-prompt-to-answer-six-layer-panorama-v3).
+- Distinguishing chat from execution? Use the [execution identity panorama](/en/articles/agent-task-session-run-worker-schedule) to follow runs, model turns, request attempts and tool actions, then identify what continues through follow-ups, retries and recovery.
 - Designing a system? Start with [Nine Architecture Judgments Behind One Report](/en/articles/one-report-nine-architecture-judgments) to decide when to reuse, add or retire a mechanism.
 - Exploring financial business and framework choices? Read the [financial agent panorama](/en/articles/financial-agent-system-panorama), then the financial-domain principles and four-way architecture comparison as needed.
 - Designing context? Read [Principles](/en/articles/agent-context-governance-principles), then [Practice](/en/articles/agent-context-governance-actions).
