@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="704" viewBox="0 0 600 704" role="img" aria-labelledby="title desc" lang="en"><title id="title">Execution identities and supporting responsibilities</title><desc id="desc">Conversation and Task associate the work. A Run organizes model turns, attempts and tool actions. A Session may persist execution state; a Worker advances execution; a Schedule provides a future trigger. These are relationships, not a mandatory service hierarchy.</desc><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1 L7 4.5 L1 8" fill="none" stroke="#7B919B" stroke-width="1.7"/></marker></defs><style>text{font-family:"Noto Sans CJK SC","Noto Sans",Arial,sans-serif;fill:#173044}</style>
+<rect width="600" height="704" rx="20" fill="#F4F5F2"/>
+<text x="28" y="39" font-size="21" font-weight="500" text-anchor="start" style="fill:#536573">05 / DIFFERENT RESPONSIBILITIES</text>
+<text x="28" y="84" font-size="32" font-weight="700" text-anchor="start" style="fill:#173044">One execution path,</text>
+<text x="28" y="127" font-size="32" font-weight="700" text-anchor="start" style="fill:#173044">several kinds of relationship</text>
+<rect x="24" y="153" width="268" height="70" rx="14" fill="white" stroke="#D4DFE3"/>
+<rect x="308" y="153" width="268" height="70" rx="14" fill="white" stroke="#D4DFE3"/>
+<text x="158" y="196" font-size="24" font-weight="600" text-anchor="middle" style="fill:#173044">Conversation</text>
+<text x="442" y="196" font-size="25" font-weight="600" text-anchor="middle" style="fill:#173044">Task / goal</text>
+<path d="M158,233 L158,267" fill="none" stroke="#7B919B" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M442,233 L442,267" fill="none" stroke="#7B919B" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="24" y="279" width="552" height="182" rx="18" fill="#ECF2FC" stroke="#D4DFE3"/>
+<text x="44" y="319" font-size="29" font-weight="700" text-anchor="start" style="fill:#245CA6">Run · Authorized execution</text>
+<text x="44" y="363" font-size="26" font-weight="400" text-anchor="start" style="fill:#173044">Model turns: M1 → M2 → M3</text>
+<text x="44" y="402" font-size="24" font-weight="400" text-anchor="start" style="fill:#173044">Attempts obtain model outputs</text>
+<text x="44" y="439" font-size="24" font-weight="400" text-anchor="start" style="fill:#173044">Tool results inform later turns</text>
+<path d="M114,516 L114,474" fill="none" stroke="#7B919B" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M300,516 L300,474" fill="none" stroke="#7B919B" stroke-width="2.2" marker-end="url(#arrow)"/>
+<path d="M486,516 L486,474" fill="none" stroke="#7B919B" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="24" y="529" width="180" height="103" rx="14" fill="#E5F3EE" stroke="#D4DFE3"/>
+<text x="114" y="569" font-size="25" font-weight="700" text-anchor="middle" style="fill:#076F63">Session</text>
+<text x="114" y="610" font-size="21" font-weight="500" text-anchor="middle" style="fill:#173044">Store state</text>
+<rect x="210" y="529" width="180" height="103" rx="14" fill="#E5F3EE" stroke="#D4DFE3"/>
+<text x="300" y="569" font-size="25" font-weight="700" text-anchor="middle" style="fill:#076F63">Worker</text>
+<text x="300" y="610" font-size="21" font-weight="500" text-anchor="middle" style="fill:#173044">Advance work</text>
+<rect x="396" y="529" width="180" height="103" rx="14" fill="#FFF1DC" stroke="#D4DFE3"/>
+<text x="486" y="569" font-size="25" font-weight="700" text-anchor="middle" style="fill:#87531C">Schedule</text>
+<text x="486" y="610" font-size="21" font-weight="500" text-anchor="middle" style="fill:#173044">Trigger later</text>
+<text x="28" y="668" font-size="24" font-weight="400" text-anchor="start" style="fill:#536573">Names vary; follow the responsibility.</text>
+</svg>

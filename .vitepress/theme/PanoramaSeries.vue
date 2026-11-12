@@ -28,6 +28,10 @@ const descriptions: Record<string, { zh: [string, string]; en: [string, string] 
     zh: ['系统运行全景', '沿 L1–L6 梳理输入、身份、Main/Child、工具、发布和界面，读懂一次任务如何在真实交接中推进。'],
     en: ['SYSTEM RUNTIME', 'Follow L1–L6 from input and identity through Main/Child, tools, publication and UI to understand the full execution lifecycle.']
   },
+  'agent-task-session-run-worker-schedule': {
+    zh: ['运行身份全景', '沿一段基金比较对话，分清 Run、模型回合、请求尝试与工具动作，再看澄清、重试、进程接管和定时执行如何延续工作。'],
+    en: ['EXECUTION IDENTITY', 'Follow one conversation through runs, model turns, request attempts and tool actions, then distinguish replies, retries, process recovery and scheduled work.']
+  },
   'financial-agent-system-panorama': {
     zh: ['金融业务全景', '从投资者、机构和责任治理三个视角，分清研究、金融数据、业务授权与真实交易效果。'],
     en: ['FINANCIAL SYSTEMS', 'Connect investors, institutions and accountability while distinguishing research, financial data, authorization and real effects.']

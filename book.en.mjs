@@ -1,8 +1,9 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-three-host-lifecycle-architecture": "Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth",
   "agent-half-hour-research-engineering-practice": "Designing Half-Hour Agent Research: From Ordinary Research to Reliable Delivery",
-  "agent-task-session-run-worker-schedule": "Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?",
+  "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
@@ -126,6 +127,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-three-host-lifecycle-architecture",
   "agent-half-hour-research-engineering-practice",
   "agent-task-session-run-worker-schedule",
   "agent-expert-subagent-review-judge",

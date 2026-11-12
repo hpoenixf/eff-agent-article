@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="650" viewBox="0 0 600 650" role="img" aria-labelledby="title desc" lang="zh-CN"><title id="title">同一对话，多个 Run</title><desc id="desc">三个请求都发生在上一轮完成之后。对话与目标连续，执行分别结束。</desc><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M1 1 L7 4.5 L1 8" fill="none" stroke="#7B919B" stroke-width="1.7"/></marker></defs><style>text{font-family:"Noto Sans CJK SC","Noto Sans",Arial,sans-serif;fill:#173044}</style>
+<rect width="600" height="650" rx="20" fill="#F4F5F2"/>
+<text x="28" y="39" font-size="21" font-weight="500" text-anchor="start" style="fill:#536573">01 / 从用户看到的聊天开始</text>
+<text x="28" y="84" font-size="32" font-weight="700" text-anchor="start" style="fill:#173044">同一个聊天窗口</text>
+<text x="28" y="127" font-size="32" font-weight="700" text-anchor="start" style="fill:#173044">可以经历三次独立运行</text>
+<rect x="24" y="153" width="552" height="71" rx="14" fill="#E5F3EE" stroke="#D4DFE3"/>
+<text x="44" y="184" font-size="25" font-weight="600" text-anchor="start" style="fill:#076F63">对话 C1 · 目标 T1</text>
+<text x="44" y="211" font-size="24" font-weight="400" text-anchor="start" style="fill:#076F63">理解基金 A 与 B 的差异</text>
+<rect x="24" y="244" width="552" height="100" rx="14" fill="white" stroke="#D4DFE3"/>
+<text x="44" y="279" font-size="26" font-weight="700" text-anchor="start" style="fill:#245CA6">R1</text>
+<text x="554" y="279" font-size="23" font-weight="600" text-anchor="end" style="fill:#076F63">本轮已完成</text>
+<text x="44" y="321" font-size="27" font-weight="400" text-anchor="start" style="fill:#173044">比较两只基金</text>
+<rect x="24" y="362" width="552" height="100" rx="14" fill="white" stroke="#D4DFE3"/>
+<text x="44" y="397" font-size="26" font-weight="700" text-anchor="start" style="fill:#245CA6">R2</text>
+<text x="554" y="397" font-size="23" font-weight="600" text-anchor="end" style="fill:#076F63">本轮已完成</text>
+<text x="44" y="439" font-size="27" font-weight="400" text-anchor="start" style="fill:#173044">再解释一下费用差异</text>
+<rect x="24" y="480" width="552" height="100" rx="14" fill="white" stroke="#D4DFE3"/>
+<text x="44" y="515" font-size="26" font-weight="700" text-anchor="start" style="fill:#245CA6">R3</text>
+<text x="554" y="515" font-size="23" font-weight="600" text-anchor="end" style="fill:#076F63">本轮已完成</text>
+<text x="44" y="557" font-size="27" font-weight="400" text-anchor="start" style="fill:#173044">整理成一页对比表</text>
+<text x="28" y="628" font-size="24" font-weight="400" text-anchor="start" style="fill:#536573">前提：追问发生在上一轮结束之后。</text>
+</svg>

@@ -61,6 +61,7 @@ test('panorama tag curates full-scope essays without a fourth primary class', ()
     'ai-coding-quality-panorama',
     'agent-vs-backend-development-panorama',
     '017-prompt-to-answer-six-layer-panorama-v3',
+    'agent-task-session-run-worker-schedule',
     'financial-agent-system-panorama',
     'one-report-nine-architecture-judgments',
     'agent-context-governance-principles',
@@ -289,6 +290,7 @@ test('every panorama card server-renders with authored bilingual copy and canoni
       assert.doesNotMatch(html, /undefined|null|<p><\/p>|<h2><a[^>]*><\/a><\/h2>/)
       assert.match(html, english ? /SYSTEM RUNTIME/ : /系统运行全景/)
       assert.match(html, english ? /SPEC-DRIVEN DEVELOPMENT/ : /Spec 研发全景/)
+      assert.match(html, english ? /EXECUTION IDENTITY/ : /运行身份全景/)
       for (const slug of ["026-agent-spec-evidence-workflow", "agent-trust-from-claims-to-commitments", "agent-fragility-and-antifragility", "ai-citations-do-not-prove-reliability"]) {
         assert.ok(!html.includes('/articles/' + slug + '"'), 'Focused essay must not return as a panorama card: ' + slug)
       }
@@ -302,8 +304,9 @@ test('every panorama card server-renders with authored bilingual copy and canoni
 })
 
 test('only module essays occupy layers; cross-module topics retain curated associations', () => {
-  assert.deepEqual(collections.map(c => slugs(c).length), [41, 58, 22])
-  assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
+  // Taxonomy identities are stable; article totals grow when new essays are added.
+  assert.deepEqual(collections.map(c => c.id), ['modules', 'thinking', 'engineering'])
+  assert.deepEqual(collection('modules').chapters.map(ch => ch.id), ['l1', 'l2', 'l3', 'l4', 'l5', 'l6'])
   for (const c of collections) for (const ch of c.chapters) {
     const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)
     assert.equal(new Set(ids).size, ids.length)
@@ -316,12 +319,12 @@ test('only module essays occupy layers; cross-module topics retain curated assoc
   assert.ok(slugs(collection('thinking')).includes(panorama))
   assert.ok(!slugs(collection('modules')).includes(panorama))
   const registry = JSON.parse(text('visuals/owner-architecture/owner-articles.json'))
+  for (const id of ['A03', 'A05', 'A23']) assert.ok(registry.owners[id].related.includes('agent-deep-research-resource-and-delivery'))
   for (const id of ['A05', 'A06', 'A07', 'A11', 'A14', 'A24', 'B01']) {
     assert.equal(registry.owners[id].primary, undefined, id + ' must not claim a dedicated essay')
     assert.ok(registry.owners[id].related.length)
   }
   assert.equal(registry.owners.A16.primary, 'tool-results-outside-model-context')
-  for (const id of ['A03', 'A05', 'A23']) assert.ok(registry.owners[id].related.includes('agent-deep-research-resource-and-delivery'))
 })
 
 test('derived Owner links are repeatable without changing Owner text, layers or geometry', async () => {
@@ -349,4 +352,68 @@ test('sidebar groups fit actual available width and long bilingual labels wrap',
   assert.match(css, /\.VPSidebar \.group \{ width: 100%; \}/)
   assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ min-width: 0; \}/)
   assert.match(css, /\.VPSidebar \.VPSidebarItem \.text \{ overflow-wrap: anywhere; \}/)
+})
+
+test('execution identity panorama keeps its learning route, localized figures and legacy anchors', async () => {
+  const { learningPathSlugs } = await import('../book.mjs')
+  const { englishTitles } = await import('../book.en.mjs')
+  const slug = 'agent-task-session-run-worker-schedule'
+  assert.ok(learningPathSlugs.includes(slug))
+  assert.ok(slugs(collection('thinking')).includes(slug))
+  assert.ok(panoramaSeriesSlugs.includes(slug))
+  const names = ['01-conversation.svg', '02-model-loop.svg', '03-attempts.svg', '04-human-reply.svg', '05-relationship-map.svg']
+  const legacy = {
+    '': [
+      '任务、会话、run、worker、schedule-agent-到底在继续哪件事',
+      '一、同一件研究-可以有不止一次运行',
+      '回答完成后再追问-同一对话-多个-run',
+      '原研究等待你回答-多轮问答-同一个-run',
+      '一次-run-内-还可以调用模型和工具很多次',
+      '二、session-保存关联-不保证-模型记得一切',
+      '三、换了-worker-不应该换掉承诺',
+      '四、schedule-保存约定-不替你研究',
+      '五、明天的-继续-先回答一个选择题',
+      '六、不必把五个名词都做成五个模块'
+    ],
+    'en/': [
+      'task-session-run-worker-schedule-what-is-an-agent-actually-continuing',
+      '_1-one-research-task-can-involve-more-than-one-run',
+      'following-up-after-a-completed-answer-one-conversation-several-runs',
+      'waiting-for-your-answer-several-exchanges-the-same-run',
+      'one-run-can-call-the-model-and-tools-many-times',
+      '_2-a-session-preserves-associations-not-perfect-model-memory',
+      '_3-replacing-a-worker-must-not-replace-the-original-commitments',
+      '_4-a-schedule-preserves-an-agreement-not-the-research-itself',
+      '_5-before-continuing-tomorrow-make-a-choice',
+      '_6-five-names-do-not-require-five-modules'
+    ]
+  }
+  for (const lang of ['', 'en/']) {
+    const source = text(lang + 'articles/' + slug + '.md')
+    const title = lang ? englishTitles[slug] : collections.flatMap(c => c.chapters.flatMap(ch => ch.items)).find(([id]) => id === slug)[1]
+    assert.ok(source.includes('# ' + title + '\n'))
+    assert.ok(source.includes('<LearningPathNav />'))
+    assert.ok(source.includes('<!-- introductory-series-links:start -->'))
+    assert.ok(source.includes('conversation-context-memory-checkpoints.md'))
+    assert.ok(source.includes('open-etf-agent-v010-system-design.md'))
+    assert.ok(text(lang + 'panorama.md').includes('/' + lang + 'articles/' + slug))
+    assert.doesNotMatch(source, /```mermaid|<Mermaid\b/i)
+    const figures = [...source.matchAll(/!\[[^\]]+\]\(([^)]+\.svg)\)/g)].map(match => match[1])
+    const prefix = lang ? '../../visuals/en/run-identity/' : '../visuals/run-identity/'
+    assert.deepEqual(figures, names.map(name => prefix + name))
+    for (const path of figures) assert.ok(source.includes(')](' + path + ')'), 'Full-size figure link: ' + path)
+    for (const name of names) {
+      const svg = text('visuals/' + (lang ? 'en/' : '') + 'run-identity/' + name)
+      assert.match(svg, /role="img"/)
+      assert.match(svg, /aria-labelledby="title desc"/)
+      assert.match(svg, /<title id="title">[^<]+<\/title>/)
+      assert.doesNotMatch(svg, /<script\b|<foreignObject\b/i)
+    }
+    const ids = [...source.matchAll(/<span id="([^"]+)"><\/span>/g)].map(match => match[1])
+    assert.equal(new Set(ids).size, ids.length, 'Compatibility anchors must be unique')
+    for (const id of legacy[lang]) assert.ok(ids.includes(id), 'Missing old heading: ' + id)
+    for (const old of ['01-chat-and-runs.svg', '02-one-run-human-reply.svg', '03-worker-and-schedule.svg']) {
+      assert.match(text('visuals/' + (lang ? 'en/' : '') + 'continuity-scenes/' + old), /<svg\b/)
+    }
+  }
 })
