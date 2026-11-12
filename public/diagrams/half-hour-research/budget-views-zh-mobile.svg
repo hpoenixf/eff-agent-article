@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="645" viewBox="0 0 390 645" role="img" aria-labelledby="title desc">
+<title id="title">下一次请求，三种事实一起看</title><desc id="desc">有总余额，仍需核对阶段与期限</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#21796a"/></marker></defs>
+<g font-family="system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="390" height="645" rx="20" fill="#f3f7f5"/>
+<text x="24" y="36" font-size="23" font-weight="700" fill="#15353d">下一次请求，三种事实一起看</text>
+<text x="24" y="62" font-size="15" font-weight="400" fill="#49636b">有总余额，仍需核对阶段与期限</text>
+<rect x="30" y="88" width="330" height="76" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="101" width="4" height="50" rx="2" fill="#21796a"/>
+<text x="46" y="117" font-size="20" font-weight="700" fill="#21796a">真实模型请求</text>
+<text x="46" y="142" font-size="17" font-weight="400" fill="#15353d">已用和未知占用保留</text>
+<rect x="30" y="179" width="330" height="76" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="192" width="4" height="50" rx="2" fill="#21796a"/>
+<text x="46" y="208" font-size="20" font-weight="700" fill="#21796a">当前阶段机会</text>
+<text x="46" y="233" font-size="17" font-weight="400" fill="#15353d">探索与收尾分别核对</text>
+<rect x="30" y="270" width="330" height="76" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="283" width="4" height="50" rx="2" fill="#21796a"/>
+<text x="46" y="299" font-size="20" font-weight="700" fill="#21796a">期限与输入容量</text>
+<text x="46" y="324" font-size="17" font-weight="400" fill="#15353d">其他硬边界仍然适用</text>
+<polyline points="195,346 195,382" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="30" y="385" width="330" height="82" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="398" width="4" height="56" rx="2" fill="#356e9b"/>
+<text x="46" y="414" font-size="20" font-weight="700" fill="#356e9b">原资源模块共同核对</text>
+<text x="46" y="439" font-size="16" font-weight="400" fill="#15353d">在下一次真实请求准入边界检查</text>
+<polyline points="125,467 125,501" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="266,467 266,501" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="30" y="504" width="156" height="94" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="517" width="4" height="68" rx="2" fill="#21796a"/>
+<text x="46" y="533" font-size="20" font-weight="700" fill="#21796a">获准调用</text>
+<text x="46" y="558" font-size="15" font-weight="400" fill="#15353d">按当前阶段执行</text>
+<rect x="204" y="504" width="156" height="94" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="204" y="517" width="4" height="68" rx="2" fill="#9a651a"/>
+<text x="220" y="533" font-size="20" font-weight="700" fill="#9a651a">无法新调用</text>
+<text x="220" y="558" font-size="15" font-weight="400" fill="#15353d">提供已有成果</text>
+<text x="24" y="626" font-size="16" font-weight="400" fill="#49636b">释放专用占用，不抹去真实请求消耗</text>
+</g>
+</svg>

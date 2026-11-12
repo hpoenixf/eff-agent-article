@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="470" viewBox="0 0 980 470" role="img" aria-labelledby="title desc">
+<title id="title">正文提交与可选观测分开</title><desc id="desc">保护必要存储，局部处理可选采集冲突</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#21796a"/></marker></defs>
+<g font-family="system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="980" height="470" rx="20" fill="#f3f7f5"/>
+<text x="28" y="43" font-size="30" font-weight="700" fill="#15353d">正文提交与可选观测分开</text>
+<text x="28" y="74" font-size="18" font-weight="400" fill="#49636b">保护必要存储，局部处理可选采集冲突</text>
+<text x="28" y="101" font-size="17" font-weight="700" fill="#15353d">必要正文路径</text>
+<rect x="28" y="117" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="28" y="130" width="4" height="75" rx="2" fill="#21796a"/>
+<text x="44" y="146" font-size="23" font-weight="700" fill="#21796a">生成候选正文</text>
+<text x="44" y="171" font-size="17" font-weight="400" fill="#15353d">原候选进入发布模块</text>
+<rect x="350" y="117" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="350" y="130" width="4" height="75" rx="2" fill="#21796a"/>
+<text x="366" y="146" font-size="23" font-weight="700" fill="#21796a">原发布事务提交</text>
+<text x="366" y="171" font-size="17" font-weight="400" fill="#15353d">正文、版本与回执一起保存</text>
+<rect x="672" y="117" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="672" y="130" width="4" height="75" rx="2" fill="#21796a"/>
+<text x="688" y="146" font-size="23" font-weight="700" fill="#21796a">用户读取已提交版本</text>
+<text x="688" y="171" font-size="17" font-weight="400" fill="#15353d">提交与客户端呈现分别记录</text>
+<polyline points="308,166 350,166" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="630,166 672,166" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="28" y="269" font-size="17" font-weight="700" fill="#9a651a">可选采集独立处理，不成为上方提交的先决条件</text>
+<rect x="28" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="28" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
+<text x="44" y="314" font-size="23" font-weight="700" fill="#9a651a">采集一份观测</text>
+<text x="44" y="339" font-size="17" font-weight="400" fill="#15353d">采集可失败，不能伪装已保存</text>
+<rect x="350" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="350" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
+<text x="366" y="314" font-size="23" font-weight="700" fill="#9a651a">该处锁冲突则回滚</text>
+<text x="366" y="339" font-size="17" font-weight="400" fill="#15353d">释放本次采集持有的事务锁</text>
+<rect x="672" y="285" width="280" height="101" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="672" y="298" width="4" height="75" rx="2" fill="#9a651a"/>
+<text x="688" y="314" font-size="23" font-weight="700" fill="#9a651a">留下有限失败事实</text>
+<text x="688" y="339" font-size="17" font-weight="400" fill="#15353d">后续独立采集仍可尝试</text>
+<polyline points="308,335 350,335" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="630,335 672,335" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="28" y="435" font-size="18" font-weight="400" fill="#49636b">必要正文存储失败不能被跳过；已提交正文按原回执读回，不因日志缺失盲目重发。</text>
+</g>
+</svg>

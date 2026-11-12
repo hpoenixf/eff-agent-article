@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="640" viewBox="0 0 390 640" role="img" aria-labelledby="title desc">
+<title id="title">One task, one research loop</title><desc id="desc">Observe, decide, and deliver</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#21796a"/></marker></defs>
+<g font-family="system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="390" height="640" rx="20" fill="#f3f7f5"/>
+<text x="24" y="36" font-size="23" font-weight="700" fill="#15353d">One task, one research loop</text>
+<text x="24" y="62" font-size="15" font-weight="400" fill="#49636b">Observe, decide, and deliver</text>
+<rect x="30" y="86" width="330" height="64" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="99" width="4" height="38" rx="2" fill="#21796a"/>
+<text x="46" y="115" font-size="20" font-weight="700" fill="#21796a">Original task and additions</text>
+<text x="46" y="140" font-size="17" font-weight="400" fill="#15353d">Keep applicable requirements visible</text>
+<polyline points="195,150 195,177" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="30" y="178" width="330" height="77" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="191" width="4" height="51" rx="2" fill="#21796a"/>
+<text x="46" y="207" font-size="20" font-weight="700" fill="#21796a">Model chooses the next step</text>
+<text x="46" y="232" font-size="17" font-weight="400" fill="#15353d">Read, calculate, or propose delivery</text>
+<polyline points="125,255 125,307" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="137" y="283" font-size="15" font-weight="400" fill="#49636b">Investigate</text>
+<rect x="30" y="310" width="154" height="100" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="323" width="4" height="74" rx="2" fill="#21796a"/>
+<text x="46" y="339" font-size="20" font-weight="700" fill="#21796a">Execute</text>
+<text x="46" y="364" font-size="16" font-weight="400" fill="#15353d">Existing grants</text>
+<text x="46" y="389" font-size="16" font-weight="400" fill="#15353d">Actual outcome</text>
+<rect x="206" y="310" width="154" height="100" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="206" y="323" width="4" height="74" rx="2" fill="#21796a"/>
+<text x="222" y="339" font-size="20" font-weight="700" fill="#21796a">Record</text>
+<text x="222" y="364" font-size="16" font-weight="400" fill="#15353d">Result, locator</text>
+<text x="222" y="389" font-size="16" font-weight="400" fill="#15353d">Failure / unknown</text>
+<polyline points="184,360 206,360" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="360,358 378,358 378,216 360,216" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="209" y="438" font-size="15" font-weight="400" fill="#49636b">Feed the next request</text>
+<polyline points="30,216 12,216 12,507 30,507" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="30" y="472" width="330" height="105" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="30" y="485" width="4" height="79" rx="2" fill="#21796a"/>
+<text x="46" y="501" font-size="20" font-weight="700" fill="#21796a">Save and retrieve the answer</text>
+<text x="46" y="526" font-size="16" font-weight="400" fill="#15353d">Use the original publication path</text>
+<text x="46" y="551" font-size="16" font-weight="400" fill="#15353d">Read the committed answer version</text>
+<text x="24" y="608" font-size="16" font-weight="400" fill="#49636b">Local failure is an observation, not a Run stop.</text>
+</g>
+</svg>
