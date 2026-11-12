@@ -302,8 +302,9 @@ test('every panorama card server-renders with authored bilingual copy and canoni
 })
 
 test('only module essays occupy layers; cross-module topics retain curated associations', () => {
-  assert.deepEqual(collections.map(c => slugs(c).length), [41, 58, 22])
-  assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
+  // Taxonomy identities are stable; article totals grow when new essays are added.
+  assert.deepEqual(collections.map(c => c.id), ['modules', 'thinking', 'engineering'])
+  assert.deepEqual(collection('modules').chapters.map(ch => ch.id), ['l1', 'l2', 'l3', 'l4', 'l5', 'l6'])
   for (const c of collections) for (const ch of c.chapters) {
     const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)
     assert.equal(new Set(ids).size, ids.length)
