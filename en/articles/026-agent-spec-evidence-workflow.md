@@ -1,5 +1,5 @@
 ---
-title: "Writing a Spec Doesn't Mean the Work Is Done: Verifiable Agent Engineering"
+title: "Why a Spec Is Not Completion: Evidence and Trustworthy Acceptance in Agent Development"
 description: "Why add engineering evidence when Spec, Git and CI already exist? A cross-revision handoff explains bounded completion claims, selective revalidation and a clear stopping point."
 readingBrief:
   takeaways:
@@ -18,13 +18,15 @@ readingBrief:
 import { withBase } from 'vitepress'
 </script>
 
-# Why Can't We Call an Agent Feature Finished After Writing the Spec?
+# Why a Spec Is Not Completion: Evidence and Trustworthy Acceptance in Agent Development
 
 Consider a development handoff. An agent passes data-adapter tests on revision A, then changes authorization logic to produce revision B. A live-data integration check never runs because an isolated environment is unavailable. The next session retains only “tests passed,” and the closing report eventually says “the new data source is complete.”
 
 This is a **constructed teaching example**, not a recorded project incident. Its point is not that agents necessarily lie. A genuine local result can lose its conditions across revisions and summaries, becoming a stronger completion claim than the observation supports.
 
 Our evidence mechanism addresses that gap. Here, **engineering evidence means material supporting development conclusions**, not the market sources cited in an investment report. The goal is not another document layer. A successor should be able to identify which requirement was checked, against which source and under what conditions, what remains unverified, and why this piece of work can end.
+
+This article goes deep on evidence and acceptance. For the complete path through clarification, design, specification deltas, implementation and handoff, see [Spec-Driven Agent Development](/en/articles/agent-spec-driven-development-panorama).
 
 ## 1. What Is Missing When Spec, Git and CI Already Exist?
 
@@ -139,27 +141,15 @@ This is why the ledger should not appear as a step created only after GREEN. It 
 <figcaption>Figure 4. Capture a baseline before implementation, append observations during execution and generate Verify as a view. Decisions and implementation can be revisited; the process is not an irreversible waterfall. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
 </figure>
 
-### Separate intent, accepted contracts and observed behavior
-
 <div id="_1-separate-what-the-system-currently-is-from-what-we-want-to-change" aria-hidden="true"></div>
 <div id="1-separate-what-the-system-currently-is-from-what-we-want-to-change" aria-hidden="true"></div>
-
-[OpenSpec](https://github.com/Fission-AI/OpenSpec) distinguishes accepted specifications from proposed changes. [GitHub Spec Kit](https://github.github.com/spec-kit/) also organizes specifications, plans, tasks and implementation as connected artifacts. We build on these ideas, rather than claiming that those tools lack verification or proposing another universal standard.
-
-In the original project, `openspec/specs/` contains accepted behavior contracts, while `openspec/changes/<name>/` contains a proposed change. `ADDED` introduces a requirement; `MODIFIED` and `REMOVED` should refer to existing requirements; `RENAMED` records a name change. A new requirement not yet appearing in the accepted spec is normal. A missing old requirement calls for checking the delta classification or a specification gap.
-
-An accepted contract is still not a measurement of an arbitrary deployed revision. A proposal records intent, code describes implementation, and a run records behavior observed under specific conditions. They should align, not substitute for one another.
-
 <div id="proposal-define-the-problem-not-a-promise-of-implementation" aria-hidden="true"></div>
 <div id="design-record-decisions-rather-than-restating-requirements" aria-hidden="true"></div>
-
-Proposal establishes the problem, scope, non-goals and acceptance route early, preventing closeout from continuously accumulating new commitments. Design explains alternatives and costs: why existing responsibilities are insufficient and which invariant a new state or interceptor protects. For semantic questions such as whether research material is sufficient, an easy-to-write validator should not pretend the runtime can independently certify the judgment.
-
 <div id="tasks-one-work-unit-not-four-duplicate-checkboxes" aria-hidden="true"></div>
 
-Group tasks by shared responsibility, implementation seam and test set. One work unit can share RED → GREEN → necessary refactoring and verification; every scenario need not become four procedural checkboxes.
+For acceptance, distinguish three objects: the spec promises observable behavior, the code implements it, and execution records describe what was observed on a particular revision. They should align; none can stand in for the other two.
 
-A meaningful behavioral RED reaches the target behavior and fails because that behavior is absent or wrong. An unavailable database, syntax error or unloadable test instead exposes an environment, assembly or executability problem. Record those real failures, but do not upgrade them into evidence about the intended business behavior. Documentation inspection can use an actual CHECK rather than manufactured RED.
+A behavioral RED should reach the intended behavior and fail because that behavior is missing or wrong. A database that never starts or a test that cannot load exposes an environment or assembly failure. Record it honestly, but do not count it as exercising the target behavior. Documentation inspection can use CHECK directly.
 
 ### Store each observation once
 
@@ -170,29 +160,11 @@ A meaningful behavioral RED reaches the target behavior and fails because that b
 
 After introducing the ledger, another problem emerged: commands and results were copied into Tasks, Plan, Evidence and Verify. The early-October 2026 closeout change addressed duplicated maintenance rather than adding more acceptance layers.
 
-| Artifact | Primary responsibility |
-| --- | --- |
-| Proposal / Design | Motivation, committed scope, alternatives and key tradeoffs |
-| Specs | Observable requirements and their deltas |
-| Tasks | Work units and completion state |
-| Plan, when needed | Execution order, necessary test entry points and traceability links |
-| Evidence | Baselines, observations, execution identity, artifacts and limitations |
-| Verify | Conclusions and remaining gates based on existing observations |
-
-The original project's `superpowers-bridge` schema organizes these artifacts; not every small change requires every optional file. The later `spec:verify` command generates Verify as a projection of the ledger. It preserves original dates and revisions, detects stale inputs, protects handwritten Verify files, and refuses out-of-scope or symlink-traversing writes.
+Tasks owns work state, Evidence owns observations, and Verify owns acceptance conclusions. A plan links necessary execution entry points instead of duplicating commands and results. The original project's `spec:verify` generates Verify as a projection of the ledger. It preserves original dates and revisions, detects stale inputs, protects handwritten Verify files, and refuses out-of-scope or symlink-traversing writes.
 
 Two kinds of freshness matter. **View freshness** means Verify agrees with its current inputs. **Evidence applicability** means those inputs still support the present decision. The generator checks the former, not the latter. Regenerating a view today from an old observation does not produce a new execution today.
 
-```bash
-# Original-project entry points, not public Evidence Kit commands
-pnpm run spec:verify --change example-change
-pnpm run spec:verify --change example-change --check
-pnpm run spec:lint --change example-change --stage plan
-pnpm run spec:lint --change example-change --stage apply
-pnpm run spec:lint --change example-change --stage verify
-```
-
-Stage checks inspect their corresponding structure: `plan` checks minimum task operability, `apply` checks observations associated with completed tasks, and `verify` checks states, evidence and conclusions. They neither establish model-answer quality nor need to scan every historical change and become another universal acceptance engine.
+The original project divides structural checks into `plan`, `apply` and `verify`: minimum task operability, observations for completed tasks, and consistency between states and conclusions. These checks neither execute product acceptance nor judge model-answer quality. The [panorama](/en/articles/agent-spec-driven-development-panorama) explains the artifact sequence and complete development path.
 
 The same closeout work distinguished `none`, `candidate` and `history` handoffs. Without a useful new long-term insight, archiving need not manufacture an engineering-history essay. The change has bounded verification and closure records, but no measured reduction in development hours. Its directly explainable value is **concentrating maintenance of each fact in one place**.
 
@@ -273,33 +245,13 @@ node bin/spec-evidence.mjs status --root examples --changes-dir changes --change
 
 <div id="from-one-task-to-an-inspectable-observation" aria-hidden="true"></div>
 
-For your own project, consult the [Spec templates](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates), [Evidence template](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md) and [exact field format](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md). The following remains a teaching example. Write real records after observing execution, and resolve artifact paths relative to the selected `--root`.
+For adoption, consult the [Evidence template](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md) and [exact field format](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md). Stable task IDs, actual revisions, locatable artifacts and original provenance matter more than the number of fields. Record real observations after execution.
 
-```text
-# tasks.md
-- [x] 1.1 [check-only] Inspect the cache result file
+Ordinary completed tasks require ordered `RED → GREEN`. `[check-only]` uses CHECK, `[baseline-green]` uses BASELINE → VERIFY, and `[tests-after]` explicitly records later VERIFY. A marker cannot approve an exception to project policy, and a historical import cannot become a fresh observation.
 
-# evidence.md
-## Observation Log
-| Date / phase | Evidence ID | Task | Command | Actual result | Artifact | Revision | Origin |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: illustrative check | result.txt | demo-revision | observed-run |
-```
+`lint --stage apply` checks phase records and local artifacts for completed tasks. `verify` generates a view when tasks and observations are usable; `verify --check` only detects a stale view. `status` reads the project's authored `completion.json`, preserving its date, revision and route. It does not rerun checks or compare current source applicability. The tool checks record structure; the project retains acceptance authority.
 
-Ordinary completed tasks require ordered `RED → GREEN` by default. `[check-only]` uses CHECK, `[baseline-green]` uses BASELINE → VERIFY, and `[tests-after]` explicitly records later VERIFY. The author is responsible for selecting a marker; it cannot approve exceptions to project policy or turn historical imports into fresh observations.
 
-After placing real files under `openspec/changes/cache-fix/`, run from the target project directory:
-
-```bash
-AES_ROOT=/absolute/path/to/agent-engineering-suite
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage plan
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage apply
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix --check
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
-```
-
-`plan` checks task labels and duplicate IDs. `apply` checks completed-task phase records and local artifacts. `verify` creates an input-digest-bearing view when tasks and observations are usable, while protecting handwritten files and path scope. `status` is narrower: it reads task state and the project's authored `completion.json`, preserving the original date, revision and route. It does not rerun checks, revalidate old artifacts or determine whether current source remains covered.
 
 For the entire suite and module relationships, see the [Agent Engineering Suite introduction](/en/articles/agent-engineering-suite). Adopt the part that reduces a real handoff burden; the complete workflow is not a prerequisite.
 

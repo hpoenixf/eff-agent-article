@@ -1,5 +1,5 @@
 ---
-title: '写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程'
+title: '写了 Spec，为什么还不能说做完了？Agent 研发中的证据链与可信验收'
 description: '为什么已有 Spec、Git 和 CI，仍需要工程证据？从一次跨版本交接出发，解释证据如何约束完成声明、何时应重验，以及何时应该停止。'
 readingBrief:
   takeaways:
@@ -18,13 +18,15 @@ readingBrief:
 import { withBase } from 'vitepress'
 </script>
 
-# 写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程
+# 写了 Spec，为什么还不能说做完了？Agent 研发中的证据链与可信验收
 
 设想一次开发交接。Agent 在版本 A 上通过了数据适配测试，随后又修改了权限逻辑，形成版本 B；真实数据源的集成检查因为缺少隔离环境，没有执行。下一轮会话只留下“测试已通过”，收尾报告最后写成了“新增数据源已完成”。
 
 这是一个**教学构造**，不是项目事故记录。它想说明的不是 Agent 一定会撒谎，而是：原本真实的局部结果，经过版本变化和几次总结，可能失去条件，变成更强的完成声明。
 
 我们加入的证据机制，主要解决这个问题。这里的“证据”指**研发过程中支持工程结论的材料**，不是投研报告引用的市场资料。目标也不是再增加一层文档，而是让接手者能回答：哪项要求，在哪个版本、什么条件下，被什么检查支持；还有什么没有验证，以及为什么现在可以结束。
+
+本文深入讨论证据与验收。需求澄清、设计、规范增量、实施和交接的完整路径，见[Spec 驱动的 Agent 研发全景](/articles/agent-spec-driven-development-panorama)。
 
 ## 一、已经有 Spec、Git 和 CI，究竟还缺什么？
 
@@ -137,26 +139,14 @@ Limit: 未覆盖其他权限路径和真实供应商行为
 <figcaption>图 4：基线先于实现，观察随执行追加，Verify 是已有记录的视图。流程允许回到前面的决策与实现，不是不可逆的瀑布。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
 </figure>
 
-### 先区分意图、契约和已观察行为
-
 <div id="一、先区分两件事-现在的系统是什么-准备改成什么" aria-hidden="true"></div>
-
-[OpenSpec](https://github.com/Fission-AI/OpenSpec)把现行规范和待实施变更分开；[GitHub Spec Kit](https://github.github.com/spec-kit/)也把规范、计划、任务与实现组织成可衔接的工件。我们沿用这些思路，而不是声称它们缺乏验证能力，也不把本文的机制描述为另一套通用标准。
-
-在原项目中，`openspec/specs/` 保存已接受的行为契约，`openspec/changes/<name>/` 保存本次变更。`ADDED` 表示新增要求，`MODIFIED` 和 `REMOVED` 应引用已有要求，`RENAMED` 记录名称调整。新增要求尚未进入现行规范是正常的；旧要求找不到，则需要检查增量分类或规范缺口。
-
-但“已接受的契约”仍然不是任何部署版本的实测证明。Proposal 表示打算做什么，代码表示如何实现，运行记录表示具体条件下观察到了什么。三者需要对应，不能替换。
-
 <div id="proposal-先定义问题-而不是先承诺实现" aria-hidden="true"></div>
 <div id="design-记录选择-而不是复制需求" aria-hidden="true"></div>
-
-Proposal 提前约定问题、范围、非目标和验收路线，避免收尾时不断给当前变更加新任务。Design 则说明备选与代价：既有职责为何不够，新增状态或拦截保护了什么不变量。遇到“资料是否足够研究”这类语义判断，也不应仅因为校验器容易写，就假装运行时能够独立认证。
-
 <div id="tasks-一个工作单元-不是四个重复-checkbox" aria-hidden="true"></div>
 
-任务按共同职责、实现边界和测试集合组织。一个工作单元可以共享 RED → GREEN → 必要重构与验证，不必把每条 Scenario 机械展开成四个 checkbox。
+验收前只需明确三个不同对象：Spec 约定应当出现的行为，代码实现这些行为，执行记录说明某个版本实际观察到了什么。三者需要对应，任何一个都不能替另外两个作证。
 
-有意义的行为 RED，需要测试实际触及目标行为并因行为未满足而失败。数据库未启动、语法错误或测试无法加载，说明的是环境、装配或可运行性问题；可以记录这些真实失败，但不能把它们升级为目标业务行为已被验证。文档检查则直接记录 CHECK，不必制造 RED。
+对行为测试，RED 应实际触及目标行为并因该行为未满足而失败。数据库未启动或测试无法加载，是环境或装配失败；应如实记录，不能借此声称目标行为已被检验。纯文档检查可以直接记录 CHECK。
 
 ### 同一观察只保存一次
 
@@ -165,29 +155,11 @@ Proposal 提前约定问题、范围、非目标和验收路线，避免收尾�
 
 有了账本后，新的问题出现了：命令与结果又被复制进 Tasks、Plan、Evidence 和 Verify。2026 年 10 月初的收尾改造，针对的正是这些重复维护，而不是继续增加验收层次。
 
-| 工件 | 负责的主要事实 |
-| --- | --- |
-| Proposal / Design | 为什么做、承诺范围、备选方案与关键取舍 |
-| Specs | 可观察的行为要求及其增量 |
-| Tasks | 工作单元和完成状态 |
-| Plan（需要时） | 执行顺序、必要测试入口和追踪链接 |
-| Evidence | 基线、实际观察、执行身份、产物与局限 |
-| Verify | 依据已有观察形成的结论与剩余门禁 |
-
-原项目的 `superpowers-bridge` Schema 组织这些工件；不是每个小变更都必须生成全部可选文件。后来加入的 `spec:verify`，把 Verify 变成已有账本的生成视图：保留原始日期和版本，输入变化时报告陈旧，拒绝覆盖手写 Verify，也拒绝越界路径和符号链接绕行。
+Tasks 维护工作状态，Evidence 保存实际观察，Verify 形成验收结论。计划只链接必要的执行入口，不再复制命令与结果。`spec:verify` 把 Verify 变成已有账本的生成视图：保留原始日期和版本，输入变化时报告陈旧，拒绝覆盖手写 Verify，也拒绝越界路径和符号链接绕行。
 
 这里有两个不同的“新鲜度”。**视图新鲜**，表示 Verify 与当前账本一致；**证据适用**，表示账本中的观察仍能支撑当前判断。生成器检查前者，不会自动证明后者。让旧观察重新生成一份今天的视图，不会产生今天的新执行。
 
-```bash
-# 原项目入口；不是公开 Evidence Kit 的命令
-pnpm run spec:verify --change example-change
-pnpm run spec:verify --change example-change --check
-pnpm run spec:lint --change example-change --stage plan
-pnpm run spec:lint --change example-change --stage apply
-pnpm run spec:lint --change example-change --stage verify
-```
-
-阶段检查只检查相应结构：`plan` 看任务最低可操作性，`apply` 看已完成任务对应的观察，`verify` 看状态、证据和结论。它们不证明模型回答质量，也不应顺便扫描全部历史变更，制造另一套全能验收系统。
+原项目将结构检查分成 `plan`、`apply`、`verify`：分别看任务最低可操作性、完成任务对应的观察，以及状态与结论的一致性。它们不执行产品验收，也不判断模型回答质量。工件顺序与完整研发路径由[全景文章](/articles/agent-spec-driven-development-panorama)统一说明。
 
 历史交接也在这一轮明确区分 `none`、`candidate` 和 `history`。没有值得长期保留的新判断，就不必为了归档写一篇工程史。这个调整有局部验证和关闭记录，但没有量化开发时间下降；它的可解释价值是**把同一事实的维护位置收拢了**。
 
@@ -265,33 +237,13 @@ node bin/spec-evidence.mjs status --root examples --changes-dir changes --change
 
 <div id="一条任务怎样形成可以检查的记录" aria-hidden="true"></div>
 
-接入自己的项目时，先看 [Spec 模板](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates)、[Evidence 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md)与[准确字段格式](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md)。下面仍是教学格式示例；真实记录必须在观察之后填写，产物路径相对于所选 `--root`。
+接入项目时，先看[Evidence 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md)和[准确字段格式](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md)。稳定任务 ID、实际版本、可定位产物和原始来源比字段数量更重要；真实记录必须在观察之后填写。
 
-```text
-# tasks.md
-- [x] 1.1 [check-only] 检查缓存结果文件
+默认完成任务要求有序的 `RED → GREEN`；`[check-only]` 对应 CHECK，`[baseline-green]` 对应 BASELINE → VERIFY，`[tests-after]` 明确记录事后 VERIFY。标签不能替项目批准例外，历史导入也不能冒充新观察。
 
-# evidence.md
-## Observation Log
-| Date / phase | Evidence ID | Task | Command | Actual result | Artifact | Revision | Origin |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: 示例检查 | result.txt | demo-revision | observed-run |
-```
+`lint --stage apply` 检查已完成任务的阶段记录和本地产物；`verify` 在任务完整、记录可用时生成视图，`verify --check` 只检测视图陈旧。`status` 则读取项目自行提供的 `completion.json`：保留原日期、版本及路线，不重跑检查，不比较当前源码是否仍适用。工具检查的是记录结构，接受变更仍由项目负责。
 
-默认完成任务要求有序的 `RED → GREEN`；`[check-only]` 对应 CHECK，`[baseline-green]` 对应 BASELINE → VERIFY，`[tests-after]` 明确记录事后 VERIFY。标签选择由记录者负责，不能替项目政策自动批准例外，也不能用历史导入冒充新观察。
 
-把真实文件放在 `openspec/changes/cache-fix/` 后，在目标项目目录执行：
-
-```bash
-AES_ROOT=/absolute/path/to/agent-engineering-suite
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage plan
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage apply
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix --check
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
-```
-
-`plan` 检查任务标识与重复 ID；`apply` 检查已完成任务的阶段记录和本地产物；`verify` 在任务完整、记录可用时生成带输入摘要的视图，保护手写文件与路径范围。`status` 更窄：读取项目自行提供的 `completion.json` 和任务状态，保留原日期、版本及路线；不重跑检查，不重新验证旧产物，也不比较当前源码是否仍适用。
 
 完整套件及各模块关系见 [Agent Engineering Suite 介绍](/articles/agent-engineering-suite)。先采用能减少实际交接成本的那一部分，不必从完整流程开始。
 
