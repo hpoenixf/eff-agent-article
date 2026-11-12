@@ -1,231 +1,254 @@
 ---
 title: '写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程'
-description: 'OpenSpec、TDD、Evidence Ledger 与开源 Evidence Kit：怎样让 Agent 的完成声明有可检查的依据。'
+description: '为什么已有 Spec、Git 和 CI，仍需要工程证据？从一次跨版本交接出发，解释证据如何约束完成声明、何时应重验，以及何时应该停止。'
 readingBrief:
   takeaways:
-    - "Spec、任务清单、测试通过和正式发布是不同阶段；未执行的验收不能算完成。"
-    - "执行测试时就记录版本、时间、结果和范围，别在收尾时凭记忆补写。"
-    - "Verify 从原始证据生成；旧证据、受阻和未采集不能写成本次通过。"
-    - "行为未变且已有有效关闭记录时，可复用证据，不必为整理文档重跑整套验收。"
-    - "公开工具只检查记录结构，不执行测试，也不代替项目验收和发布决定。"
+    - "证据机制补的是要求、执行、版本与结论之间的关联；已有 CI 能提供这些关联时，不必另造账本。"
+    - "证据支持有条件的主张。记录可定位、执行可信、测试充分是三件不同的事。"
+    - "旧观察永久保留原身份；相关行为或输入改变时重验，不因换一个会话就把旧通过写成新通过。"
+    - "账本贯穿实施前后，Verify 只生成视图；正式关闭、模型质量与发布由各自的验收和授权决定。"
+    - "从最小证据索引开始，按协作与风险加机制；已满足约定且无相关变化时，应及时结束。"
   appliesTo:
-    - "跨接口、权限、恢复或模型评测的变更，需要跨轮保存证据并明确何时收尾。"
+    - "跨版本、跨会话或多 Agent 接力的开发，以及涉及权限、持久化恢复和模型评测的变更。"
   notFor:
-    - "简单文案修改，或希望工具自动证明模型质量、批准发布的场景。"
+    - "需要自动认证测试真实、证明所有行为正确或替代发布审批的场景；简单修改也无需完整展开。"
 ---
+
+<script setup>
+import { withBase } from 'vitepress'
+</script>
 
 # 写了 Spec，为什么还不能说做完了？我们如何建立 AI Agent 的可验证研发流程
 
-当 Coding Agent 可以连续完成需求分析、接口设计、代码实现和测试时，研发中的一个老问题反而更明显了：**谁来判断它真正做完了？**
+设想一次开发交接。Agent 在版本 A 上通过了数据适配测试，随后又修改了权限逻辑，形成版本 B；真实数据源的集成检查因为缺少隔离环境，没有执行。下一轮会话只留下“测试已通过”，收尾报告最后写成了“新增数据源已完成”。
 
-例如，我们让 Agent 给投研系统增加一种研究数据来源，要求保留来源身份，失败后能够恢复，且不能越过原来的数据访问权限。Agent 可以新增模块、补上测试，最后说一句「已完成」。但这个结论仍然无法回答：实现是否符合最初的需求？失败路径是否被测到？测试跑的是哪个版本？权限边界有没有变？下一位 Agent 能否知道还有什么没证明？
+这是一个**教学构造**，不是项目事故记录。它想说明的不是 Agent 一定会撒谎，而是：原本真实的局部结果，经过版本变化和几次总结，可能失去条件，变成更强的完成声明。
 
-我们后来把问题从「怎样让 Agent 写好一份 Spec」改成了「怎样让一项变更从讨论、实现、验证一直走到可追溯的关闭」。这套流程以 OpenSpec 为基础，结合 Superpowers 的设计与测试驱动思想，再为长期、多 Agent 协作补上证据、收尾和历史交接。
+我们加入的证据机制，主要解决这个问题。这里的“证据”指**研发过程中支持工程结论的材料**，不是投研报告引用的市场资料。目标也不是再增加一层文档，而是让接手者能回答：哪项要求，在哪个版本、什么条件下，被什么检查支持；还有什么没有验证，以及为什么现在可以结束。
 
-**想先动手？** 本文配套的[公开套件 Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite)可直接 clone；[Spec 模板](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates)、[Evidence 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md)和[离线示例](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/examples/changes/example)都有固定源码。第七节给出完整命令。文中的 `spec:close` 等命令用于原项目，公开 CLI 负责记录结构检查与验证视图，不复制原项目的正式验收流程。
+## 一、已经有 Spec、Git 和 CI，究竟还缺什么？
 
-## 一、先区分两件事：现在的系统是什么，准备改成什么
+Spec 说明预期行为，Git 保存源码变化，测试检查给定条件下的行为，CI 可以记录执行版本、环境和产物。它们都很有价值。问题通常出在**这些事实没有和最终主张连起来**，而不是某个工具天然缺少能力。
 
-[OpenSpec](https://github.com/Fission-AI/OpenSpec) 的一个重要思想，是区分现行规范和待实施变更。我们沿用了这个区分：
+以“给基金研究系统新增一个数据来源”为例，需求至少可能包含来源身份、权限限制和失败恢复。测试适配器能够解析一份 Mock 数据，只支持其中一部分。要判断整项变更是否完成，还需要知道：验收承诺有哪些，哪些已覆盖，哪些运行受阻，以及测试之后是否修改了相关输入。
 
-```text
-openspec/
-  specs/
-    capability/
-      spec.md
-  changes/
-    add-capability/
-      proposal.md
-      design.md
-      specs/
-      tasks.md
-      plan.md
-      evidence.md
-      verify.md
-```
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/01-why-evidence.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/01-why-evidence.svg')" alt="绿灯之间，还缺一条解释链" width="720" height="746" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 1：工具各自保存事实，证据索引连接它们。若现有 CI 已提供完整关联，就不需要重复建立另一套系统。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/01-why-evidence.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
 
-这段目录是结构示意，并非每次变更都强制生成所有可选文件。
+| 已有机制 | 它直接回答什么 | 仍需与结论关联的内容 |
+| --- | --- | --- |
+| Spec | 期望出现什么行为？ | 哪次执行检查了哪条要求？ |
+| Git | 这份源码怎样变化？ | 观察对应哪个实际工作树，后来改了什么？ |
+| 测试 / CI | 这次执行检查了什么，结果如何？ | 这些检查覆盖了本次验收的哪些承诺？ |
+| PR 或交接总结 | 作者认为当前进展如何？ | 结论能否回到原始执行，而不只回到另一份总结？ |
 
-`openspec/specs/` 下的 accepted spec 描述**目前接受的行为契约**；`openspec/changes/` 下的 change 描述**这次希望改变的行为**。它们不能相互代替：Proposal 里提出的能力，还不能当成已经实现的能力；代码写完了，也不能自动当成规范已正式接受。
+**如果一套 CI 已经把要求、运行身份、版本、测试范围和剩余缺口完整关联起来，它本身就可以承担证据载体。** 不必因为本文使用 `evidence.md`，就在原有系统旁边再造一份。
 
-我们采用增量方式表达变更。`ADDED` 新增要求，`MODIFIED` 修改现有要求，`REMOVED` 删除现有要求，`RENAMED` 调整名称。它们的含义影响检查方式：一个待实施的 `ADDED` 要求尚未出现在 accepted spec 中是正常的；但 `MODIFIED` 和 `REMOVED` 应该能找到对应的旧要求，否则可能是分类错误，或现行规范本身存在缺口。
+对我们这种以 Markdown、长任务和多轮 Agent 协作为主的工作方式，轻量账本是一个容易随变更携带的索引。它主要保存关系和摘要，原始日志仍由原执行器或产物存储维护。
 
-这个区分在长周期项目里尤其重要。一个 Agent 搜到上个月的 proposal，不应该把那份设计当作今天的系统事实。
+### 为什么 Agent 协作会让这个问题更突出？
 
-## 二、Spec 流的核心不是文件顺序，而是每个阶段留下什么事实
+同一个 Agent 可以编写需求、实现代码、选择测试，再生成总结。这使工作推进很便利，也意味着**生成结果和解释结果可能共享同一处理解偏差**。即使换一个 Agent，只读前一轮的总结，也不构成独立核验。
 
-我们使用自定义的 `superpowers-bridge` Schema 组织原仓库的研发过程；后文介绍的开源工具只抽取其中可移植的证据检查机制。整体可以概括为：
+此外，会话切换和上下文压缩会改变接手者能看到的材料；实现、测试、集成验证也可能在不同工作树和时间发生。人的交接同样有这些问题，Agent 并没有创造一种全新的工程学，只是让保存原始条件更值得明确设计。
 
-```mermaid
-graph TD
-UserNeed["用户需求"] --> Proposal["提案"]
-Proposal --> Design["设计"]
-Design --> SpecDelta["规范增量"]
-SpecDelta --> EvidenceBaseline["证据基线"]
-EvidenceBaseline --> TasksAndPlan["任务与计划"]
-TasksAndPlan --> ObserveRed["观察失败"]
-ObserveRed --> ImplementGreen["实现并通过验证"]
-ImplementGreen --> EvidenceLedger["证据记录"]
-EvidenceLedger --> Verify["验证"]
-Verify --> FormalClose["正式关闭"]
-FormalClose --> AcceptedSpec["已接受的规范"]
-FormalClose --> TargetedRepair["定向修复"]
-TargetedRepair --> EvidenceLedger
-AcceptedSpec --> HistoryHandoff["历史交接"]
-```
+因此，Evidence 的价值不是多一段“请如实汇报”的提示，而是把交接对象从一句“做完了”变成一组可检查的关联。提醒仍然有用，但不应成为唯一载体。
 
-图中的两个关闭出口分别表示：声明范围内的正式验收成功，才进入规范同步和归档；没有达到验收条件，则保留失败或未验证状态，针对具体缺口继续处理。实际工作流还可以在明确需求前使用 brainstorm，在收尾时记录真正有价值的 retrospective，但没有必要为了齐全而机械地创建所有工件。
+## 二、工程证据支持的是有条件的主张
 
-### Proposal：先定义问题，而不是先承诺实现
+<div id="三、evidence-ledger-不让-agent-凭记忆重建测试结果" aria-hidden="true"></div>
 
-Proposal 最重要的是说清楚问题、范围、非目标、关键风险和验收路线。
+继续看新增数据源的例子。我们准备支持的主张是：“新增来源不会扩大用户的数据访问权限。”执行了一次越权请求拒绝测试之后，最稳妥的结论是：“版本 A 的这条被测拒绝路径符合要求。”它离“全部权限路径都正确”仍有距离。
 
-我们会在这里提前区分普通变更和边界敏感变更，也会区分实现验收、独立的外部验收，以及真实模型调用所需的授权。举例来说，一个纯粹的验证视图生成器可以通过本地确定性测试证明行为；一个依赖真实供应商响应质量的研究功能，则不能拿同样的测试替代真实效果判断。
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" alt="证据支持的是有条件的主张" width="720" height="818" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 2：教学示例。要求、执行条件、实际观察与原始出处共同限定结论；一个成功样本不能自动扩展成所有路径正确。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
 
-这避免了一个反复出现的管理问题：实施任务已经做完，却因为此前没有说清验证边界，在最后阶段不断往同一个 change 里增加新工作。
+一条有用的工程证据至少要让人找到三个东西：**要支持的主张、实际发生的观察、观察成立的条件**。版本、命令、环境、样本与原始产物不是装饰性字段，而是用于限定这三者的关系。
 
-### Design：记录选择，而不是复制需求
-
-Design 说明关键工程取舍：既有职责在哪里，为什么不用更小的修改，哪些状态必须持久化，失败如何处理。
-
-例如，模型拿到一个缺字段的研究结果时，解决方式可能是修正数据适配，也可能是让模型在获准证据范围内继续研究。不能因为容易添加一个新校验器，就默认用它去判断「资料是否充分」——那本来可能是语义判断，并没有可供 Runtime 独立认证的事实。
-
-我们会在设计评审中主动寻找反例，特别是新增拦截、状态、适配器或额外流程时，追问它保护了哪个不变量，又取代了什么旧机制。设计合理并不代表效果已验证，但记录这类判断，能让后来的 Agent 少走重复引入复杂度的路。
-
-### Tasks：一个工作单元，不是四个重复 checkbox
-
-我们一度很容易把每个 Scenario 机械拆成 RED、GREEN、REFACTOR、VERIFY 四项任务。看起来十分严格，却把 `tasks.md` 变成巨大的流程清单。
-
-后来我们调整为按**共同职责、实现边界和测试集合**组织工作单元。一个工作单元可以包含多个行为断言，并共享一次真实的 RED → GREEN → 可选重构 → 验证过程。只有独立负责人、独立失败模式或验收路线确实不同，才有必要拆开。
-
-现在 `tasks.md` 只负责工作状态；`plan.md` 在需要时说明执行顺序、测试入口及映射。测试命令和观察结果不再到处复制。
-
-## 三、Evidence Ledger：不让 Agent 凭记忆重建测试结果
-
-这是我们整个流程里最看重的一部分。
-
-每个实质性 change 都维护 `evidence.md`。它必须在实施开始前建立基线或注明「未采集」，并在真正执行 RED、GREEN、集成检查时持续追加观测。
-
-例如，一次经过简化的记录可能是：
+下面是简化的教学记录，不是一次真实运行回执，也不是公开 CLI 的完整输入格式：
 
 ```text
 Evidence: EV-01
+Claim: 新增来源不得扩大数据访问权限
 Task: 1.1
-Phase: GREEN
-Command: 定向测试命令
-Result: 实际通过及测试范围
-Revision: 运行时的源码身份
-Artifact: 可定位的测试输出
-Origin: observed-run
+Revision: 实际执行的源码 / 工作树身份
+Check: 隔离环境中的定向越权请求测试
+Observation: 被测请求遭到拒绝
+Artifact: 可定位的运行记录与原始输出
+Limit: 未覆盖其他权限路径和真实供应商行为
 ```
 
-这里真正重要的，不是拥有一套看起来专业的字段，而是**每个结论都能回到当时实际发生的执行**。
+`EV-01` 的意义是把“为什么测”与“测到了什么”连起来，不是增加一个编号。只写“通过了很多测试”，没有说明它们和主张的关系，证据仍然薄弱。
 
-我们区分以下几种情况：
+### 可定位、可信、充分，不能混成一件事
 
-| 情况 | 可以得出什么结论 |
+**可定位**，是记录能回到某次执行与产物；**可信**，是有理由相信执行记录没有被伪造或误关联；**充分**，是这些检查足以支撑当前要作出的判断。
+
+账本主要改善第一件事，并让后两件事更容易接受审查。一个 Agent 同时能修改实现、测试和账本时，完全可能把三者写得彼此一致，却共同误解需求。再增加一个字段并不能解决这一点。
+
+涉及重要权限或外部效果时，可以让既有 CI 执行器保留独立运行身份和受保护产物，并由原有评审、测试和发布机制决定接受与否。这是更强的信任安排，**不是下面的 Evidence Kit 已经具备的认证能力**。文件存在、摘要一致，也不能单独证明一次执行真实或测试充分。
+
+`observed-run` 因而应理解为“记录者声明这是当时实际观察到的运行”，而不是工具授予的可信印章。[公开工具的说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/README.md)明确保留了这个限制。
+
+还有一种容易漏掉的证据：**做前状态**。没有基线，做后通过可以支持“现在满足被测条件”，却不能支持“比以前提升了多少”。实施前采不到就写“未采集”；不能用做后结果倒推出一份漂亮的做前数字。
+
+## 三、跨版本、跨会话时，怎样不把旧通过变成新通过？
+
+证据首先是一条历史事实：某个时点，在某组条件下，观察到了一个结果。后续提交不会抹掉它，但也不会自动继承它的全部证明力。
+
+回到开头的版本 A 和 B。若 B 改的是权限判断，A 的适配器测试不能直接证明 B 的权限行为。应该检查改动影响了哪些要求、测试与输入，再重跑相应范围，而不是把历史 `PASS` 改一个日期。
+
+反过来，若只是修正文档中的错字，相关行为、配置、样本和外部条件没有变化，原来的有效关闭记录也不应因为提交号变了，就被迫全部重跑。
+
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" alt="历史事实保留，适用范围重判" width="720" height="800" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 3：旧记录保留原身份，当前判断另做影响分析。图中是维护者的决策方法，不是 CLI 自动比较源码等价性的能力。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
+
+| 记录状态 | 接手者应该怎样使用 |
 | --- | --- |
-| `observed-run` | 在记录的日期、环境和版本上，确实观察到一次执行结果 |
-| `reused-historical` | 复用了过去某版本的证据；不能写成今天重新运行 |
-| `blocked` | 某个验收分支因明确的前置条件不足而未执行 |
-| `未采集` | 暂无对应观察，不得假装结果为零或已经通过 |
+| `observed-run` | 读取原始日期、版本、环境与产物；检查它是否支持当前主张。 |
+| `reused-historical` | 明确引用原观察，保留其身份；不伪装成本轮新执行。 |
+| `blocked` | 写清缺少哪个前置条件，以及什么变化后可以重试。 |
+| 未采集 / 未验证 | 保留未知，不替换成零、通过或默认失败。 |
 
-RED 也不是为了凑记录。测试必须真实运行，并因目标行为尚未实现而失败；数据库没启动、测试文件不存在、语法错误等，不等于业务行为得到了有效的 RED 证明。纯文档或检查型工作可以使用实际 CHECK，而不是制造假的 RED。
+判断相关性时，不能只看代码 diff。测试数据、提示词、依赖、运行配置和外部服务行为，都可能改变原观察的适用范围。无法确定影响，就保留未验证，而不是让总结替自己作出更强的保证。
 
-这种区别对于多 Agent 接力尤其重要：昨天的 GREEN 不会因为今天被另一位 Agent 读到，就自动变成今天这一版的 GREEN。
+这里需要区分两个动作：**读取已有完成记录**，和**接受一个新的变更**。前者可以保留历史结果，后者必须满足当前项目的验收要求。公开 CLI 的 `status` 不比较当前源码与旧测试；历史导入也不能用来满足一个新勾选任务所要求的新观察。
 
-## 四、从「写一份 Verify」变成「从证据生成 Verify」
+跨 Agent 交接时，移交的应是原观察的定位、相关变更和剩余缺口，而不只是上一位 Agent 的结论。复核者应该能沿这些定位查看原件。若原始日志已经不存在，也应说明可检查性降低，不能从一段聊天回忆重建一份“新鲜运行证据”。
 
-建立证据账本后，我们又发现一个很现实的问题：为了严谨，结果经常被复制进五六份文档。
+## 四、让证据贯穿开发，但不要把开发变成填表
 
-`tasks.md` 更新状态，`plan.md` 复制命令，`evidence.md` 写一次结果，`verify.md` 再抄一遍。只要测试版本或结果改变，多个文件就可能产生漂移。
+<div id="二、spec-流的核心不是文件顺序-而是每个阶段留下什么事实" aria-hidden="true"></div>
 
-我们最终明确了每份文件的事实归属：
+我们最初加入这套机制，有一个很朴素的原因：希望重要变更结束后，还能说清为什么做、原来怎样、作了什么选择，而不是准备复盘或分享时再翻聊天记录。
 
-| 文档 | 唯一主要职责 |
+2026 年 8 月 30 日的工程记录已经指出，当时材料主要在 Verify 和 Retrospective 阶段集中整理，一些变更缺少独立的做前数据。因而引入持续维护的 `evidence.md`：实施前记录基线或未知，执行时追加观察，收尾时引用已经存在的事实。
+
+这解释了为什么账本不能画成 GREEN 之后才出现的一个步骤。它是**贯穿过程的记录载体**，不是最后补交的报告。
+
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" alt="证据贯穿开发，不是最后补写" width="720" height="780" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 4：基线先于实现，观察随执行追加，Verify 是已有记录的视图。流程允许回到前面的决策与实现，不是不可逆的瀑布。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
+
+### 先区分意图、契约和已观察行为
+
+<div id="一、先区分两件事-现在的系统是什么-准备改成什么" aria-hidden="true"></div>
+
+[OpenSpec](https://github.com/Fission-AI/OpenSpec)把现行规范和待实施变更分开；[GitHub Spec Kit](https://github.github.com/spec-kit/)也把规范、计划、任务与实现组织成可衔接的工件。我们沿用这些思路，而不是声称它们缺乏验证能力，也不把本文的机制描述为另一套通用标准。
+
+在原项目中，`openspec/specs/` 保存已接受的行为契约，`openspec/changes/<name>/` 保存本次变更。`ADDED` 表示新增要求，`MODIFIED` 和 `REMOVED` 应引用已有要求，`RENAMED` 记录名称调整。新增要求尚未进入现行规范是正常的；旧要求找不到，则需要检查增量分类或规范缺口。
+
+但“已接受的契约”仍然不是任何部署版本的实测证明。Proposal 表示打算做什么，代码表示如何实现，运行记录表示具体条件下观察到了什么。三者需要对应，不能替换。
+
+<div id="proposal-先定义问题-而不是先承诺实现" aria-hidden="true"></div>
+<div id="design-记录选择-而不是复制需求" aria-hidden="true"></div>
+
+Proposal 提前约定问题、范围、非目标和验收路线，避免收尾时不断给当前变更加新任务。Design 则说明备选与代价：既有职责为何不够，新增状态或拦截保护了什么不变量。遇到“资料是否足够研究”这类语义判断，也不应仅因为校验器容易写，就假装运行时能够独立认证。
+
+<div id="tasks-一个工作单元-不是四个重复-checkbox" aria-hidden="true"></div>
+
+任务按共同职责、实现边界和测试集合组织。一个工作单元可以共享 RED → GREEN → 必要重构与验证，不必把每条 Scenario 机械展开成四个 checkbox。
+
+有意义的行为 RED，需要测试实际触及目标行为并因行为未满足而失败。数据库未启动、语法错误或测试无法加载，说明的是环境、装配或可运行性问题；可以记录这些真实失败，但不能把它们升级为目标业务行为已被验证。文档检查则直接记录 CHECK，不必制造 RED。
+
+### 同一观察只保存一次
+
+<div id="四、从「写一份-verify」变成「从证据生成-verify」" aria-hidden="true"></div>
+<div id="六、一次真实演进-我们为什么主动简化-spec-收尾" aria-hidden="true"></div>
+
+有了账本后，新的问题出现了：命令与结果又被复制进 Tasks、Plan、Evidence 和 Verify。2026 年 10 月初的收尾改造，针对的正是这些重复维护，而不是继续增加验收层次。
+
+| 工件 | 负责的主要事实 |
 | --- | --- |
-| `proposal.md` | 问题、范围、关键决策与验收路线 |
-| `design.md` | 关键备选方案、架构选择与风险 |
-| `specs/` | 要求发生的可观察行为 |
-| `tasks.md` | 工作单元及其完成状态 |
-| `plan.md` | 必要的执行步骤和追踪映射 |
-| `evidence.md` | 基线、实际观测、运行身份和局限 |
-| `verify.md` | 基于证据的完成判断及剩余门禁 |
+| Proposal / Design | 为什么做、承诺范围、备选方案与关键取舍 |
+| Specs | 可观察的行为要求及其增量 |
+| Tasks | 工作单元和完成状态 |
+| Plan（需要时） | 执行顺序、必要测试入口和追踪链接 |
+| Evidence | 基线、实际观察、执行身份、产物与局限 |
+| Verify | 依据已有观察形成的结论与剩余门禁 |
 
-其中一项真实改造是让 `verify.md` 可以成为证据账本的生成视图：
+原项目的 `superpowers-bridge` Schema 组织这些工件；不是每个小变更都必须生成全部可选文件。后来加入的 `spec:verify`，把 Verify 变成已有账本的生成视图：保留原始日期和版本，输入变化时报告陈旧，拒绝覆盖手写 Verify，也拒绝越界路径和符号链接绕行。
+
+这里有两个不同的“新鲜度”。**视图新鲜**，表示 Verify 与当前账本一致；**证据适用**，表示账本中的观察仍能支撑当前判断。生成器检查前者，不会自动证明后者。让旧观察重新生成一份今天的视图，不会产生今天的新执行。
 
 ```bash
-npm run spec:verify -- --change example-change
-npm run spec:verify -- --change example-change --check
+# 原项目入口；不是公开 Evidence Kit 的命令
+pnpm run spec:verify --change example-change
+pnpm run spec:verify --change example-change --check
+pnpm run spec:lint --change example-change --stage plan
+pnpm run spec:lint --change example-change --stage apply
+pnpm run spec:lint --change example-change --stage verify
 ```
 
-这不是自动执行测试。生成器只是投影已有任务和观测，保留原始日期、版本与执行来源；手写 Verify 不会被覆盖。输入变化导致生成视图过期时，检查会报告陈旧，而不能装作它仍然反映最新证据。
+阶段检查只检查相应结构：`plan` 看任务最低可操作性，`apply` 看已完成任务对应的观察，`verify` 看状态、证据和结论。它们不证明模型回答质量，也不应顺便扫描全部历史变更，制造另一套全能验收系统。
 
-我们还将结构检查改为按阶段执行：
+历史交接也在这一轮明确区分 `none`、`candidate` 和 `history`。没有值得长期保留的新判断，就不必为了归档写一篇工程史。这个调整有局部验证和关闭记录，但没有量化开发时间下降；它的可解释价值是**把同一事实的维护位置收拢了**。
+
+## 五、什么时候可以结束？完成不是单一的布尔值
+
+<div id="五、什么时候才算关闭-还有哪些事情不能借分" aria-hidden="true"></div>
+
+实现完成、本地合同通过、真实集成通过、模型质量评估、正式关闭和发布，是不同维度。它们不是“得到一个 PASS，就自动升到下一层”的阶梯。
+
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" alt="完成不是一串自动升级的绿灯" width="720" height="840" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 5：教学示例。三条验证路线独立保留状态；缺少当前范围必需的门禁时不能关闭，关闭也不授予发布权限。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
+
+假设这次明确承诺的是“离线适配器与权限拒绝合同”，真实供应商质量属于后续独立工作，那么本地验收可以支持这份有限交付。若当前承诺本来就包括真实供应商接入，集成受阻就意味着这一项尚未完成。不能在失败后偷偷缩小范围，再宣布原承诺已经兑现。
+
+原项目使用独立的 `spec:close` 执行本次声明所需的门禁。全部任务勾选只代表任务状态，不能替代正式关闭。关闭准备任务可以完成，同时把 `formal close: not-run` 保留下来；否则很容易形成“任务要等关闭成功，关闭又要等全部任务勾完”的循环。
 
 ```bash
-npm run spec:lint -- --change example-change --stage plan
-npm run spec:lint -- --change example-change --stage apply
-npm run spec:lint -- --change example-change --stage verify
+# 原项目入口：静态就绪诊断与实际关闭是两个动作
+pnpm run spec:close:doctor --change example-change
+pnpm run spec:close --change example-change
 ```
 
-`plan` 检查任务标识等最低可操作性；`apply` 检查已完成任务的真实 RED/GREEN 或 CHECK；`verify` 再核对完成状态、证据和结论。这是一个**只读、结构性的检查器**，不代替实际测试，更不能证明模型回答质量。
+`spec:close:doctor` 用于首次关闭前汇总静态阻塞，不执行付费模型，也不把 ready 提升为通过。`provider-free` 路线证明声明范围内的本地确定性和 Mock 合同，不证明真实模型的长期质量。未满足必要条件时，保留具体缺口，定向修复或等待前置条件；独立完成的部分仍可按实际范围报告。
 
-我们没有让它重新扫描全部历史变更、重复核算所有文档的映射，或成为另一个全能验收引擎。
+<div id="三种容易混淆的结果" aria-hidden="true"></div>
 
-## 五、什么时候才算关闭？还有哪些事情不能借分？
+已有成功关闭回执且没有相关行为变化时，归档可以复用原结果，同步已接受规范，再按实际价值做历史交接。为了补写一段总结重新启动整套验收，通常没有新增判断价值；但正式计划要求的新检查、实际输入变化或新的失败，仍需处理。
 
-正式 `spec:close` 是独立于任务勾选的验收动作：
+**停止条件应该在工作开始时就能解释，而不是在结束时临时发明。** 当前承诺已经得到所需支持，剩余工作确实在已约定范围之外，记录又足以让接手者核查，就可以结束当前阶段。这与[分期交付](/principles#method-4)、[验证与故障归因](/principles#method-5)是一回事：划清承诺，按对应证据作判断，而不是无限追求更大的通过数字。
 
-```bash
-npm run spec:close -- --change example-change
-```
+## 六、在自己的项目里，从最小证据索引开始
 
-它依据该变更声明的验证路线运行需要的门禁。本地合同、真实集成、付费模型验证和产品发布，不能因为都有一个「PASS」就互相替代。
+<div id="八、哪些项目适合这样做" aria-hidden="true"></div>
 
-例如，`provider-free` 路线可以证明本地确定性合同、Mock 和被测调用边界在规定范围内通过。但它不证明真实模型的长期回答质量，也不等于生产发布。
+先问现有 PR、CI 和测试报告能不能回答本文的问题。能够回答，就沿用它们。只有交接成本、证据分散或风险边界真的需要时，再加入账本与结构检查。
 
-第一次关闭之前，如果确实需要汇总静态阻塞，可以运行只读的 `spec:close:doctor`。它只负责静态就绪诊断，不运行付费模型，不把「静态 ready」提升为正式完成。
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" target="_blank" rel="noopener" aria-label="在新标签页查看完整图"><img :src="withBase('/visuals/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" alt="按协作成本与风险，选择最小方案" width="720" height="782" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>图 6：采用强度取决于协作和风险，而非文件数量。高风险场景需要可信执行与原有受保护验收，不能只增加 Markdown。 <a :href="withBase('/visuals/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" target="_blank" rel="noopener">查看完整图</a></figcaption>
+</figure>
 
-另一方面，**已经有成功关闭记录时，也不应该因为整理文档再次启动整套验收**。没有新的行为变化、具体失败或实际合同冲突，就复用已有回执，同步增量规范并归档。这样既保留验证纪律，也避免流程陷入「刚验证完，又因为补了一份总结而重新验证」的循环。
+一个最小实践可以非常简单：在需求旁写清可观察的完成条件；执行时保存原始运行的定位、版本和范围；收尾时把结论链接到这些观察，并留下未知。不要复制全部日志，不要为了统一形式给每次拼写修正建立完整变更目录。
 
-### 三种容易混淆的结果
+### 公开工具能帮到哪一步？
 
-| 场景 | 正确处理 |
-| --- | --- |
-| 全部实现任务打勾，但没有正式关闭 | 保留 `formal close: not-run`，不得宣称正式完成 |
-| 本地合同通过，但真实供应商尚未验证 | 报告本地通过，真实质量继续未知 |
-| 变更已完成且有成功关闭回执，只是归档未做 | 复用原关闭结果；不为维护文件重跑验收 |
+<div id="七、从内部流程到独立工具-openspec-evidence-kit" aria-hidden="true"></div>
+<div id="为什么没有做成第二个验收系统" aria-hidden="true"></div>
 
-真正涉及权限、隐私、资金执行等受保护不变量时，拒绝和验收仍然有必要。但它们也需要明确保护对象，不能把一个局部失效自动扩大成整轮有用工作都失败。
+我们将任务与观察的结构检查、Verify 生成、完成记录读取，抽成了 [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)，现在由 **Agent Engineering Suite 的 Spec Flow 模块**维护。[历史 v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json)及[迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy)保留在统一仓库中，不表示整套插件的当前版本或验收范围。
 
-## 六、一次真实演进：我们为什么主动简化 Spec 收尾
+职责是刻意分开的：**测试执行器执行，开发者或 Agent 记录，CLI 检查结构，项目原有负责人决定接受与发布。** 它不执行你的测试，不认证 `observed-run` 的真实性，不判定测试是否充分，也不提供原项目的 `spec:close`。
 
-2026 年 10 月初，我们专门改造了一轮 Spec 关闭与归档流程。当时的问题不是证据不足，而是**证据已经存在，收尾文档还在重复生产相同信息**。
+本文固定的公开源码要求 Node **26.11.1–26.x**，MIT 许可，无运行时依赖，不需要数据库或模型密钥；也可以处理普通本地目录。可选的 [`evidence-driven` Schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven)是 OpenSpec 适配，不是内部 `superpowers-bridge` 的整体复制。相关实践归属见 [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md)，包含 Superpowers 对设计与测试实践的影响。
 
-旧流程同时存在手工维护 Verify、为满足归档而制造低价值历史记录等压力。于是我们做了两个选择：
+### 跑通自带示例，再接入项目
 
-第一，让 Verify 能从已经记录的任务与证据生成，同时防止覆盖手写内容和使用过期投影。
+<div id="先-clone-并运行自带离线示例" aria-hidden="true"></div>
 
-第二，让历史交接明确区分 `none`、`candidate` 和 `history`。不是每次格式修正、重复 Close 或测试重跑，都必须自动生成一篇正式工程史。
-
-这项改动在原仓库留下了可定位的 RED/GREEN、定向测试与本地关闭记录；其效果是既有行为被更集中地维护，并可在对应测试环境中验证。它没有量化开发时间下降，也没有把本地关闭称作真实模型质量或发布验收。
-
-这一点值得强调：**研发流程本身也需要通过复杂度审查。** 如果一项流程只会要求更多表格，却不能解释它保护了什么、减少了哪些不确定性，就应该考虑合并或删除。
-
-因此，这套流程既需要[方法 4「完整设计与分期交付」](/principles#method-4)来区分目标方案与当前阶段，也需要[方法 5「验证与故障归因」](/principles#method-5)让每次关闭声明只由对应版本的真实证据支持。它们是设计与验证的思考工具，不意味着每个小变更都要经过同样沉重的阶段门。
-
-## 七、从内部流程到独立工具：OpenSpec Evidence Kit
-
-前面介绍的是 ETF Agent 自己的研发流程：它有内部的 `superpowers-bridge` Schema、`spec:close` 和项目专属验证入口。这套完整流程不适合原样搬进其他仓库。2026 年 10 月，我们把其中**任务与观测的结构检查、Verify 生成视图、已有完成记录读取**抽成了独立的 [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)（[v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json)，MIT）。
-
-原独立工具的 v0.1.0 是历史发布版本，发布元数据与原始 Git 历史已保存在统一仓库的 [迁移记录](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy) 中；当前维护入口为 **Agent Engineering Suite 的 Spec Flow 模块**。原版本号不代表整套插件的兼容性或验收范围。接入其他项目时，下面提供固定源码的 clone 命令；Skill 或插件安装另见[此固定版本的安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)。在其他项目使用 CLI 时，将 `AES_ROOT` 改成套件的绝对路径，并在待检查项目目录执行。
-
-这个版本要求 Node 26.11.1–26.x，不需要运行时依赖、数据库或模型调用。它能直接处理普通本地目录；[`evidence-driven` Schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) 是可选的 OpenSpec 适配，并不是把内部 `superpowers-bridge` 或正式关闭流程整体开源。
-
-### 先 clone 并运行自带离线示例
-
-下面固定到本文引用的公开提交；准备 Node 26.11.1–26.x 后即可执行，无需安装依赖或配置模型密钥。
+下面固定到本文核对的源码，不依赖未来 main 的变化。Skill 与插件安装另见[该版本安装说明](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md)。
 
 ```bash
 git clone https://github.com/hpoenixf/agent-engineering-suite.git
@@ -238,11 +261,11 @@ node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change
 node bin/spec-evidence.mjs status --root examples --changes-dir changes --change example
 ```
 
-`verify` 会在本地示例目录生成 `examples/changes/example/verify.md`，后续 `--check` 检查视图是否与输入一致。示例的任务、观测和完成记录都是虚构格式材料；`recorded-complete` 只表示读取到有效记录，不证明这些检查刚刚执行，更不表示你的项目已验收。
+`verify` 生成 `examples/changes/example/verify.md`，`--check` 检查视图与输入是否一致。**示例中的任务、观察和完成记录都是虚构格式材料**；命令读取到 `recorded-complete`，不代表这些测试刚执行过，更不表示你的项目已经通过验收。
 
-### 一条任务怎样形成可以检查的记录
+<div id="一条任务怎样形成可以检查的记录" aria-hidden="true"></div>
 
-下面是**虚构的格式示例**。假设项目中的 `openspec/changes/cache-fix/` 已有 `tasks.md`、`evidence.md`，检查命令执行后留下了本地 `result.txt`。最小任务和观测可以这样写：
+接入自己的项目时，先看 [Spec 模板](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates)、[Evidence 模板](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md)与[准确字段格式](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md)。下面仍是教学格式示例；真实记录必须在观察之后填写，产物路径相对于所选 `--root`。
 
 ```text
 # tasks.md
@@ -255,9 +278,9 @@ node bin/spec-evidence.mjs status --root examples --changes-dir changes --change
 | 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: 示例检查 | result.txt | demo-revision | observed-run |
 ```
 
-这里的关键是**有稳定任务标识、有序观测、对应的本地文件和原始版本身份**。普通已完成任务默认需要依序记录 `RED → GREEN`；`[check-only]` 用 `CHECK`，`[baseline-green]` 用 `BASELINE → VERIFY`，`[tests-after]` 则明确记录事后 `VERIFY`。历史导入的 `reused-historical` 不会冒充本次已完成任务的新观测。
+默认完成任务要求有序的 `RED → GREEN`；`[check-only]` 对应 CHECK，`[baseline-green]` 对应 BASELINE → VERIFY，`[tests-after]` 明确记录事后 VERIFY。标签选择由记录者负责，不能替项目政策自动批准例外，也不能用历史导入冒充新观察。
 
-将它接入项目后，可以逐阶段检查：
+把真实文件放在 `openspec/changes/cache-fix/` 后，在目标项目目录执行：
 
 ```bash
 AES_ROOT=/absolute/path/to/agent-engineering-suite
@@ -268,32 +291,12 @@ node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --cha
 node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
 ```
 
-`plan` 关注任务标签与重复 ID；`apply` 检查已勾选任务是否有符合阶段顺序的记录及本地文件；`verify` 需要任务完整且证据可用，才会生成带输入摘要的 `verify.md`。`verify --check` 只对照视图是否陈旧，不重写文件。生成器不会覆盖手写 `verify.md`，也会拒绝越出选定变更范围、通过符号链接绕行的文件路径。
+`plan` 检查任务标识与重复 ID；`apply` 检查已完成任务的阶段记录和本地产物；`verify` 在任务完整、记录可用时生成带输入摘要的视图，保护手写文件与路径范围。`status` 更窄：读取项目自行提供的 `completion.json` 和任务状态，保留原日期、版本及路线；不重跑检查，不重新验证旧产物，也不比较当前源码是否仍适用。
 
-最后一条 `status` 有意做得更窄：它读取任务状态，以及项目**自行提供**的 `completion.json`。当任务已完成且记录格式有效时，它可以报告 `recorded-complete`，同时保留当时日期、版本和验证路线；不会为读取历史结论而重跑测试，也不会把旧临时测试产物缺失误判成新的执行失败。
-
-### 为什么没有做成第二个验收系统
-
-这次抽取保留了一个刻意的分工：**测试执行器产生观察，开发者或 Agent 记录事实，CLI 检查记录结构，是否接受变更由原项目决定。** `observed-run` 是记录者填写的来源标签，而不是工具对命令执行真实性的认证；`status` 看到了完成记录，也不等于重新验证了当时的代码或取得发布批准。
-
-这样的工具更适合作为现有 CI 和 OpenSpec 流程中的一个小型检查环节，而不是接管测试、模型质量判断和发布权。源码、离线示例、字段格式与独立安装说明都在[开源仓库](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit)中；Schema 的设计沿用 [OpenSpec](https://github.com/Fission-AI/OpenSpec) 的生态接口，并在 [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md) 中列明 Superpowers 相关实践的影响。
-
-完整的单独/整套 Skill 与 Codex 插件，以及其他研发模块如何配合，见 [Agent Engineering Suite 完整介绍](/articles/agent-engineering-suite)。
-
-## 八、哪些项目适合这样做？
-
-[GitHub Spec Kit](https://github.github.com/spec-kit/) 也强调从需求规范走向计划、任务和实现。我们的实践不是在这些方法之外另造一套标准，而是面向长期演进的 Agent 项目，补足「多轮执行怎样保存原始证据」「完成状态怎样不被混淆」和「验收如何及时收敛」。
-
-对于简单的文案修改，这套流程不值得全部展开。一次内容检查和明确的 diff 可能就足够。对于跨接口、数据权限、持久化恢复和模型评测的改动，证据与阶段门则更有价值。
-
-最后留下三个最值得迁移的判断：
-
-1. **规范、代码、测试、关闭和发布是不同的事实。** 不要让一个 checkbox 代替它们。
-2. **证据在执行时产生，而不是收尾时凭记忆重建。** 每次观察都保留自己的时间、版本与适用范围。
-3. **验证是为了形成可信结论，而不是为了永远继续验证。** 同一事实只维护一处，没有新的实质变化就停止重复工作。
-
-我们真正希望得到的，不是一个永远说「还不够严谨」的 Coding Agent，而是一个能够清楚回答：**什么已经证明、什么仍然未知，以及为什么现在可以结束。**
+完整套件及各模块关系见 [Agent Engineering Suite 介绍](/articles/agent-engineering-suite)。先采用能减少实际交接成本的那一部分，不必从完整流程开始。
 
 ---
 
-本文曾同步发布于个人博客；当前可从[正式中文阅读页](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow)或[完整英文版](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow)继续阅读。源文和后续工程讨论见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
+工程中不可能让每个判断都完全确定。证据体系更实际的价值，是让不确定性在交接、总结和关闭时仍然可见，不被悄悄写成确定的事实。它既帮助我们知道什么时候还不能说做完，也帮助我们在证据已经足够时，放心结束当前工作。
+
+本文保留[原中文阅读链接](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow)与[完整英文版](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow)。源文和工程讨论见 [GitHub 技术文集](https://github.com/hpoenixf/eff-agent-article)；欢迎 Star 支持。
