@@ -57,6 +57,7 @@ test('finance curation and topic headings stay bilingual without a second articl
 
 test('panorama tag curates full-scope essays without a fourth primary class', () => {
   const selected = [
+    'agent-spec-driven-development-panorama',
     'ai-coding-quality-panorama',
     'agent-vs-backend-development-panorama',
     '017-prompt-to-answer-six-layer-panorama-v3',
@@ -287,10 +288,11 @@ test('every panorama card server-renders with authored bilingual copy and canoni
       }
       assert.doesNotMatch(html, /undefined|null|<p><\/p>|<h2><a[^>]*><\/a><\/h2>/)
       assert.match(html, english ? /SYSTEM RUNTIME/ : /系统运行全景/)
-      for (const slug of ["agent-trust-from-claims-to-commitments", "agent-fragility-and-antifragility", "ai-citations-do-not-prove-reliability"]) {
+      assert.match(html, english ? /SPEC-DRIVEN DEVELOPMENT/ : /Spec 研发全景/)
+      for (const slug of ["026-agent-spec-evidence-workflow", "agent-trust-from-claims-to-commitments", "agent-fragility-and-antifragility", "ai-citations-do-not-prove-reliability"]) {
         assert.ok(!html.includes('/articles/' + slug + '"'), 'Focused essay must not return as a panorama card: ' + slug)
       }
-      for (const slug of ["025-agent-langfuse-from-trace-to-trustworthy-observability", "honest-agent-evaluation", "agent-subagent-context-specialization"]) {
+      for (const slug of ["agent-spec-driven-development-panorama", "025-agent-langfuse-from-trace-to-trustworthy-observability", "honest-agent-evaluation", "agent-subagent-context-specialization"]) {
         assert.ok(html.includes('/articles/' + slug + '"'), 'Complete engineering panorama must remain: ' + slug)
       }
     }
@@ -300,7 +302,7 @@ test('every panorama card server-renders with authored bilingual copy and canoni
 })
 
 test('only module essays occupy layers; cross-module topics retain curated associations', () => {
-  assert.deepEqual(collections.map(c => slugs(c).length), [41, 58, 21])
+  assert.deepEqual(collections.map(c => slugs(c).length), [41, 58, 22])
   assert.deepEqual(collection('modules').chapters.map(ch => ch.items.length), [2, 15, 8, 12, 3, 1])
   for (const c of collections) for (const ch of c.chapters) {
     const ids = [...ch.items, ...(ch.related || [])].map(([slug]) => slug)

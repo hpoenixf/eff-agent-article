@@ -12,6 +12,10 @@ const chineseTitles = new Map<string, string>(
 
 // Descriptions are editorial labels, not another index of article IDs or ownership.
 const descriptions: Record<string, { zh: [string, string]; en: [string, string] }> = {
+  'agent-spec-driven-development-panorama': {
+    zh: ['Spec 研发全景', '沿一次文件接入变更，贯通需求澄清、设计、规范增量、实施、复核、验收与归档，理解承诺怎样变成可交接的结果。'],
+    en: ['SPEC-DRIVEN DEVELOPMENT', 'Follow a file-ingestion change through clarification, design, specification deltas, implementation, review, acceptance and archiving.']
+  },
   'ai-coding-quality-panorama': {
     zh: ['AI Coding 质量全景', '从业务约定、可理解的变化和有辨别力的检查，贯通审查、实际交付与持续演进，判断何时有理由接受一次改动。'],
     en: ['AI CODING QUALITY', 'Connect behavior contracts, understandable changes, discriminating checks, review, actual delivery and evolution to judge when a change deserves acceptance.']
