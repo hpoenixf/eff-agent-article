@@ -14,7 +14,7 @@
 <rect x="30" y="235" width="330" height="112" rx="13" fill="#fff" stroke="#d5e2dd"/>
 <rect x="30" y="248" width="4" height="86" rx="2" fill="#356e9b"/>
 <text x="46" y="264" font-size="20" font-weight="700" fill="#356e9b">Handle the old request</text>
-<text x="46" y="289" font-size="16" font-weight="400" fill="#15353d">Stop obsolete undispatched work</text>
+<text x="46" y="289" font-size="16" font-weight="400" fill="#15353d">Stop old undispatched work</text>
 <text x="46" y="314" font-size="16" font-weight="400" fill="#15353d">Keep settled and unknown effects</text>
 <polyline points="195,347 195,376" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="30" y="380" width="330" height="112" rx="13" fill="#fff" stroke="#d5e2dd"/>
