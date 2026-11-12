@@ -9,7 +9,7 @@ const ids = collections.flatMap(c=>c.chapters.flatMap(ch=>ch.items.map(i=>i[0]))
 const history = new Map(ids.slice(0,4).map((id,i)=>['articles/'+id+'.md',{timestamp:`2026-11-0${i+1}T00:00:00Z`,date:`2026-11-0${i+1}`,kind:'updated'}]))
 const zh=renderReadme('zh',history),en=renderReadme('en',history)
 test('bilingual entrypoints and generator blocks',()=>{
- assert.match(zh,/\(README.en.md\)/);assert.match(en,/\(README.md\)/)
+ assert.match(zh,/\(https:\/\/github.com\/hpoenixf\/eff-agent-article\/blob\/main\/README.en.md\)/);assert.match(en,/\(README.md\)/)
  for(const text of [zh,en]) { assert.doesNotMatch(text,/\{\{[A-Z]+\}\}/); assert.match(text,/catalog/); assert.match(text,/open-etf-agent/);assert.match(text,/production|生产/) }
  assert.equal(updateRecentModules(zh),zh)
 })
@@ -28,4 +28,10 @@ test('relative file targets exist; historical fragments retained',()=>{
   assert.ok(existsSync(new URL('../'+href.split('#')[0],import.meta.url)),href)
  }
  for(const id of anchors) assert.ok(zh.includes(`id="${id}"`)||[...zh.matchAll(/^#{1,6} (.+)$/gm)].some(m=>m[1].toLowerCase().replace(/[^\p{L}\p{N}_\- ]/gu,'').replaceAll(' ','-')===id),id)
+})
+
+test('editorial templates and GitHub English entry are excluded from site routes',()=>{
+ const config=readFileSync(new URL('../.vitepress/config.mts',import.meta.url),'utf8');
+ assert.match(config,/srcExclude:.*README\.en\.md/);assert.match(config,/srcExclude:.*data\/readme/);
+ for(const text of [zh,en]) assert.doesNotMatch(text,/<img src="public\//);
 })

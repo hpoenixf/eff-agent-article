@@ -3,7 +3,7 @@
 
 **从一次聊天到持续研究：把 Agent 的概念、运行机制和工程取舍串起来。**
 
-中文 · [English](README.en.md)
+中文 · [English](https://github.com/hpoenixf/eff-agent-article/blob/main/README.en.md)
 
 **[开始阅读 →](https://hpoenixf.com/eff-agent-article/) · [全部文章](https://hpoenixf.com/eff-agent-article/catalog) · [全景系列](https://hpoenixf.com/eff-agent-article/panorama) · [运行开源示例](https://github.com/hpoenixf/open-etf-agent)**
 
@@ -80,7 +80,7 @@ npm run check:catalog
 npm run docs:build
 ```
 
-构建包含静态 Mermaid 图渲染，需要可用的 Chrome/Chromium；完整 Git 历史用于真实文章日期。双语 README 的编辑源是 [data/readme](data/readme)，分类与顺序来自 [book.mjs](book.mjs)，英文标题和译文资格来自 [book.en.mjs](book.en.mjs)，版本来自既有 Open 专题。请改源头再生成，勿手工维护第二份文章或版本清单。
+构建包含静态 Mermaid 图渲染，需要可用的 Chrome/Chromium；完整 Git 历史用于真实文章日期。双语 README 的编辑源是 [data/readme](https://github.com/hpoenixf/eff-agent-article/tree/main/data/readme)，分类与顺序来自 [book.mjs](book.mjs)，英文标题和译文资格来自 [book.en.mjs](book.en.mjs)，版本来自既有 Open 专题。请改源头再生成，勿手工维护第二份文章或版本清单。
 
 [维护与发布约定](MAINTENANCE.md) · [反馈问题](https://github.com/hpoenixf/eff-agent-article/issues)：附文章链接、具体段落及建议，不上传凭据、私人数据或原始日志。文档讨论与测试通过不等于生产就绪或投资效果；本文集不构成投资、法律建议，独立代码仓库的 MIT 许可不自动适用于本文集及引用材料。
 
@@ -93,7 +93,7 @@ npm run docs:build
 
 在微信里继续阅读与交流。手机端可保存图片后在微信识别。
 
-<img src="public/images/wechat-public-account.jpg" alt="小飞的 AI 投研工坊微信公众号二维码" width="180" height="180" />
+<img src="https://raw.githubusercontent.com/hpoenixf/eff-agent-article/main/public/images/wechat-public-account.jpg" alt="小飞的 AI 投研工坊微信公众号二维码" width="180" height="180" />
 
 </details>
 

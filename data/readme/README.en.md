@@ -68,7 +68,7 @@ npm run check:catalog
 npm run docs:build
 ```
 
-The build renders Mermaid diagrams and needs a working Chrome/Chromium. Full Git history supplies reliable article dates. Edit bilingual README sources in [data/readme](data/readme): [book.mjs](book.mjs) owns category and article order, [book.en.mjs](book.en.mjs) owns English labels and translation availability, and the existing Open topic owns version identities. Regenerate after source edits rather than maintaining a second article or release list.
+The build renders Mermaid diagrams and needs a working Chrome/Chromium. Full Git history supplies reliable article dates. Edit bilingual README sources in [data/readme](https://github.com/hpoenixf/eff-agent-article/tree/main/data/readme): [book.mjs](book.mjs) owns category and article order, [book.en.mjs](book.en.mjs) owns English labels and translation availability, and the existing Open topic owns version identities. Regenerate after source edits rather than maintaining a second article or release list.
 
 [Maintenance and publication](MAINTENANCE.md) · [Report an issue](https://github.com/hpoenixf/eff-agent-article/issues): include the article URL, passage, and suggested improvement; do not upload credentials, private data, or raw logs. Articles and passing tests do not establish production readiness or investment outcomes. This collection is not investment or legal advice. The separate code repository’s MIT license does not automatically apply to these essays or referenced material.
 
@@ -81,7 +81,7 @@ The build renders Mermaid diagrams and needs a working Chrome/Chromium. Full Git
 
 Continue reading and discussing in WeChat. Save the QR image on your phone and scan it in WeChat.
 
-<img src="public/images/wechat-public-account.jpg" alt="QR code for the 小飞的 AI 投研工坊 WeChat publication" width="180" height="180" />
+<img src="https://raw.githubusercontent.com/hpoenixf/eff-agent-article/main/public/images/wechat-public-account.jpg" alt="QR code for the 小飞的 AI 投研工坊 WeChat publication" width="180" height="180" />
 
 </details>
 

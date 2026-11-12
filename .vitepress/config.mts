@@ -15,6 +15,8 @@ const readingSidebar = buildReadingSidebar(collections)
 const englishSidebar = buildReadingSidebar(englishCollections, { pathFor: englishArticlePath, english: true })
 
 export default defineConfig({
+  // GitHub-only bilingual README and editorial templates are not reading-site routes.
+  srcExclude: ['README.en.md', 'data/readme/**'],
   locales: {
     root: { label: '简体中文', lang: READER_LANGUAGES.zh },
     en: {
