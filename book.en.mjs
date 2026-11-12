@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-half-hour-research-engineering-practice": "Engineering Half-Hour Agent Research: From Execution Budgets to a Complete Report",
   "agent-task-session-run-worker-schedule": "Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?",
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
@@ -125,6 +126,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-half-hour-research-engineering-practice",
   "agent-task-session-run-worker-schedule",
   "agent-expert-subagent-review-judge",
   "open-etf-agent-report-review-workshop",

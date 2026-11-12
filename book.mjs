@@ -129,6 +129,7 @@ export const collections = [
         "items": [
           ["agent-client-interaction-panorama", "Agent 客户端交互全景：从提出问题，到读懂结果、继续研究"],
           ["agent-long-horizon-research-panorama", "超长研究全景：让 Agent 跨越上下文、中断与时间继续交付"],
+          ["agent-half-hour-research-engineering-practice", "让 Agent 持续研究半小时：从执行预算到完整报告的工程实践"],
           ["agent-background-research-collaborative-experience", "想聊就聊，没收 AI 对话框的中止按钮！一天让你的 Agent 支持异步后台深度研究"],
           ["deepseek-superagent-continuous-research", "从投研聊天到持续研究：DeepSeek Super-agent 给我们的启示"],
           ["agent-weekly-thesis-history-continuous-research", "一份周报过去后，Agent 还记得为什么这样判断吗？"],

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="405" viewBox="0 0 980 405" role="img" aria-labelledby="title desc">
+<title id="title">摘要怎样真正接上后续工作</title><desc id="desc">围绕同一摘要版本，核对三项独立事实; 摘要生成: 调用与结果保持成组, 不同段源区间不重叠, 后一次不重写前次摘要; 后继采用: 摘要确实进入主模型输入, 原始任务仍然保留, 以真实请求核对版本; 耐久读回: 新进程能读到同一摘要, 引用与动作身份仍对应, 保存与语义质量分开判断</desc>
+<g font-family="system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif">
+<rect width="980" height="405" rx="18" fill="#f4f7f5"/>
+<text x="28" y="46" font-size="30" font-weight="700" fill="#142f39">摘要怎样真正接上后续工作</text>
+<text x="28" y="77" font-size="18" font-weight="400" fill="#42626a">围绕同一摘要版本，核对三项独立事实</text>
+<rect x="28" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="28" y="101" width="298" height="5" rx="2" fill="#22796c"/>
+<text x="45" y="140" font-size="25" font-weight="700" fill="#22796c">摘要生成</text>
+<text x="45" y="171" font-size="17" font-weight="400" fill="#42626a">源区间完整且已经结算</text>
+<text x="45" y="212" font-size="21" font-weight="400" fill="#243d45">调用与结果保持成组</text><text x="45" y="244" font-size="21" font-weight="400" fill="#243d45">不同段源区间不重叠</text><text x="45" y="276" font-size="21" font-weight="400" fill="#243d45">后一次不重写前次摘要</text>
+<rect x="340" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="340" y="101" width="298" height="5" rx="2" fill="#315f9c"/>
+<text x="357" y="140" font-size="25" font-weight="700" fill="#315f9c">后继采用</text>
+<text x="357" y="171" font-size="17" font-weight="400" fill="#42626a">检查实际发送的请求</text>
+<text x="357" y="212" font-size="21" font-weight="400" fill="#243d45">摘要确实进入主模型输入</text><text x="357" y="244" font-size="21" font-weight="400" fill="#243d45">原始任务仍然保留</text><text x="357" y="276" font-size="21" font-weight="400" fill="#243d45">以真实请求核对版本</text>
+<rect x="652" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="652" y="101" width="298" height="5" rx="2" fill="#94621c"/>
+<text x="669" y="140" font-size="25" font-weight="700" fill="#94621c">耐久读回</text>
+<text x="669" y="171" font-size="17" font-weight="400" fill="#42626a">从持久检查点核对</text>
+<text x="669" y="212" font-size="21" font-weight="400" fill="#243d45">新进程能读到同一摘要</text><text x="669" y="244" font-size="21" font-weight="400" fill="#243d45">引用与动作身份仍对应</text><text x="669" y="276" font-size="21" font-weight="400" fill="#243d45">保存与语义质量分开判断</text>
+<text x="28" y="350" font-size="17" font-weight="400" fill="#31584e">原始用户要求、执行回执与结果定位另存</text><text x="28" y="378" font-size="17" font-weight="400" fill="#31584e">工作摘要帮助理解，原记录支持回查</text>
+</g></svg>
