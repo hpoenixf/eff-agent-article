@@ -1,149 +1,344 @@
 ---
-description: "Start with follow-up questions in one chat window to distinguish a conversation, a business goal, and an execution. Then see what continues when an Agent waits for your reply, another process takes over, or research is scheduled for tomorrow."
+description: "Follow a fund-comparison conversation down to tasks, runs, model turns, request attempts, and tool actions. See which identities continue through replies, process recovery, and scheduled execution—and use those distinctions to design and debug an agent."
 readingBrief:
   takeaways:
-    - "A follow-up after a completed answer usually starts a new Run within the same conversation. Those runs can keep advancing the same business goal."
-    - "When research is waiting for a reply linked to its question, several exchanges can remain inside one Run. Count chat messages, model calls, and runs separately."
-    - "A conversation associates messages; the project's Session preserves execution state. Replacing a Worker must retain the original Run's permissions, budget, and unknown outcomes."
-    - "A Schedule preserves an agreement to execute later. A trigger and execution eligibility are still required when it becomes due; saving a date does not start research."
+    - "One conversation can span several Runs; when an execution is waiting for an associated reply, several exchanges can also remain within one Run."
+    - "A model turn organizes a logical decision, while an attempt records an actual request. Continuing with a new observation and retrying a failed request need separate counts."
+    - "A tool proposal, execution, saved result, and inclusion in a later model input are distinct events. A new identity must not conceal the risk of replaying an unknown effect."
+    - "Session, Worker, and Schedule concern state, executors, and future triggers. They are not three architectural layers above or below a model turn."
+    - "Keep the identities and state the application actually needs, rather than building a module for every concept. Define what continues before deciding how recovery works."
   appliesTo:
-    - "Understanding the relationship between multi-turn chat, replies during execution, background recovery, and scheduled research, then using those distinctions to design interfaces."
+    - "Engineers with general development experience who want to understand chat and agent loops, or design retries, human replies, recovery, and scheduling."
   notFor:
-    - "Deploying an unattended scheduling platform: the public examples use local CLI/API entry points, and one-time schedules require an explicit trigger."
+    - "Treating every framework's Session, Run, and Turn as one standard, or turning a teaching relationship map into a mandatory data model."
 ---
-# Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?
+<!-- legacy-section-anchors -->
+<span id="task-session-run-worker-schedule-what-is-an-agent-actually-continuing"></span>
+
+# Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?
 
 <LearningPathNav />
 
-In one chat window, you ask: “Compare Fund A and Fund B.” After the assistant gives a complete answer, you follow up: “Explain the fee differences in more detail.” Then you ask it to “put the results into a one-page comparison table.”
+You ask an agent to compare two funds. It researches the material and delivers a report. You ask for a deeper explanation of the fees, then request a one-page table. The window never changes. Is this one task, three runs, or many model calls?
 
-The window has not changed, and neither has your research goal. Has the same task been executing continuously in the background? Now suppose the assistant has not finished the comparison. It first asks, “How long do you plan to hold the investment?” You reply, “Three years or longer.” How should that exchange be counted?
+Now suppose the agent asks how long you plan to hold the investment and you reply, “Three years or longer.” Or a model request fails and is retried. Or the executing process restarts. Or you say, “Do it again tomorrow morning.” These all look like ways to continue, but the system is continuing different things.
 
-To answer these questions, first distinguish **the conversation the user sees, the goal they want to achieve, and one execution by the system**. Once we extend the scenario to “the executing process exited” and “do it again at nine tomorrow morning,” Worker and Schedule also have concrete roles.
+You do not need to memorize a list of class names first. Follow one piece of work downward: **which goal the user is advancing, which decision the model is making, which requests the program actually sends, and which results it must preserve.**
 
-The fund comparison and chat interfaces in this article are teaching examples, not results from a real research run or screenshots of an existing public chat product. We consistently call the user-visible message thread a **Conversation**; frameworks may also call it a Thread or Session. In Open ETF Agent's code, `Session` has a separate responsibility for preserving execution state, which we will map explicitly below. The public implementation and commands use v0.28.0 as the example, through its local CLI/API entry points.
+This article uses fund comparison as a teaching example, not as an investment conclusion about particular products. Identifiers such as C1, R1, and M1 are illustrative labels, not a standard framework schema. Public implementation examples are pinned to Open ETF Agent v0.28.0; general design choices are distinguished from that version's supported behavior.
 
-## 1. One research task can involve more than one run
+<!-- legacy-section-anchors -->
+<span id="_1-one-research-task-can-involve-more-than-one-run"></span>
+<span id="following-up-after-a-completed-answer-one-conversation-several-runs"></span>
 
-### Following up after a completed answer: one conversation, several runs
+## 1. Start with the chat: why can one conversation contain several Runs?
 
-Start with a common design: each independent request starts a run, which ends after that request has been handled. The three exchanges above then map as follows:
+Suppose you make three requests, each after the previous answer is complete:
 
-[![Three requests made after the preceding answer is complete map to Run 1, Run 2, and Run 3 within one conversation and one fund-comparison goal](../../visuals/en/continuity-scenes/01-chat-and-runs.svg)](../../visuals/en/continuity-scenes/01-chat-and-runs.svg)
+> You: Compare funds A and B using the available fee and holdings information, and identify the dates of the sources.  
+> Agent: The comparison report is complete.  
+> You: Explain the fee differences in more detail.  
+> Agent: The additional explanation is complete.  
+> You: Turn those findings into a one-page comparison table.  
+> Agent: The table is complete.
 
-Figure 1. Each exchange is marked as complete. That is the condition used to distinguish runs in this example, not a universal rule that every user message must create a Run. Click the image to open the full diagram.
+There are at least three objects to distinguish.
 
-| Concept | What it corresponds to in this chat | What determines its boundary |
+| Object | What it means in this example | The question it answers |
 | --- | --- | --- |
-| Conversation | The same chat, associating earlier and later messages | How the product organizes interactions and history |
-| Task | Completing the comparison and understanding the differences between two funds | The business goal the user wants to achieve |
-| Run | Each independent execution: the comparison, the fee explanation, and the table | Its inputs, permissions, budget, and termination conditions |
+| Conversation | The same message thread, C1 | Which messages belong to this interaction? |
+| Task | Goal T1: understand the differences between funds A and B | What does the user ultimately want to accomplish? |
+| Run | Three independent executions, R1, R2, and R3: compare, explain, and tabulate | What may this execution do, and when does it end? |
 
-**A Task answers “What do we still owe the user?” A Run answers “What may this round do, and how far has it progressed?”** The first run may already have ended when the second reads relevant history and results to handle the follow-up. Keeping the chat history does not mean one Run has been executing continuously behind the entire conversation.
+[![Conversation C1 and comparison goal T1 are associated with three successive completed runs: R1, R2, and R3](../../visuals/en/run-identity/01-conversation.svg)](../../visuals/en/run-identity/01-conversation.svg)
 
-The three executions in the figure happen to serve the same goal. If you instead ask “Help me polish an email” in the same window, the conversation can remain the same while the business goal changes. Conversely, a long-term research goal can span several conversations. These concepts should therefore not be drawn as a fixed hierarchy of containers.
+*Figure 1. This example starts a new Run for a request after the preceding execution has finished. The window remains continuous; execution is segmented.*
 
-A Run ending also does not mean the whole goal has been achieved. It might deliver an “insufficient evidence” report: the program has completed this execution, while the user may still need to supply material for further research.
+**A conversation preserves associations, a task expresses a goal, and a Run bounds an execution.** After R1 ends, R2 can read the earlier report and answer a follow-up. Maintaining a coherent conversation does not require R1 to stay alive indefinitely. The OpenAI Agents SDK's running guide likewise distinguishes the agent loop within a run from subsequent runs in a continuing conversation. [Runs and conversations](https://openai.github.io/openai-agents-python/running_agents/)
 
-### Waiting for your answer: several exchanges, the same Run
+The figure is not a universal containment hierarchy. Ask “Help me polish an email” in that same window, and the conversation can remain unchanged while the goal changes. A research goal that lasts several weeks may also span different conversations. Whether to create an explicit task object depends on whether the product actually needs to manage that longer-lived goal.
 
-Now consider another chat that looks similar. You request a fund comparison, but the assistant still needs your holding period. It asks; you reply “Three years or longer”; it continues the research. Your message supplies information the original execution is waiting for:
+Nor does a Run finishing normally prove that the entire task was accomplished. An agent can honestly deliver a report saying that the available evidence is insufficient to compare holdings. This execution has an outcome; the research goal still needs more material.
 
-[![Run 1 asks for the holding period and persists its waiting state; the reply is linked to that question, allowing the same Run to continue and finish the report](../../visuals/en/continuity-scenes/02-one-run-human-reply.svg)](../../visuals/en/continuity-scenes/02-one-run-human-reply.svg)
+A Run should have an identifiable beginning and end. Admission establishes the question, available capabilities, and execution limits. Termination settles the outcome under that agreement, potentially because of failure, timeout, or user cancellation. Waiting for missing information can instead be an intermediate, unfinished state.
 
-Figure 2. One more exchange in the chat can still belong to the same Run. The Worker can yield while waiting; continuing after a reply still requires the original execution's deadline, budget, and permissions to remain valid. The interface is a teaching illustration.
+Completion depends on the promise. A usable answer may suffice for an answer-only request. When the request requires a saved, retrievable report, the model saying “The report is complete” is insufficient: the program must establish that the result was actually saved. The application’s execution agreement—not whether text has stopped streaming—defines the Run boundary.
 
-Open ETF Agent's [ordinary question-and-answer mechanism](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/docs/human-interaction.zh-CN.md) already supports this blocking interaction: the task asks for missing information, persists a waiting state, and continues the original Run after receiving an explicitly associated reply. Receiving a reply, adopting it into the original execution, and completing the report are distinct states. Waiting does not automatically extend the original deadline or replenish the budget.
+<!-- legacy-section-anchors -->
+<span id="one-run-can-call-the-model-and-tools-many-times"></span>
 
-That association matters. The system must know which question you are answering to pass “Three years or longer” back to the original research. Handling a new instruction inserted at any time during free-form chat requires a separate design: it might be queued, incorporated during execution, or assigned to a new run. This public entry point supports ordinary blocking questions and answers; non-blocking chat intervention and continuing terminal tasks are not enabled.
+## 2. Zoom into the first research run: what happens inside it?
 
-### One Run can call the model and tools many times
+For now, examine only R1, not the later follow-ups.
 
-Run 1 in the first figure does not necessarily make just one model call. The model may decide what to investigate, tools may read annual reports and fees, and the model may request further checks after seeing their results before composing an answer. The question and waiting period in Figure 2 can also occur within that execution.
+Research need not consist of one model call that immediately returns a complete report. The program provides the current question, available tools, and relevant material. The model selects a next step. The program executes tools and presents new results to the model. The next step becomes clearer as observations accumulate.
 
-Therefore, **chat turns, model calls, tool calls, and runs should be counted separately**. Extracting facts from annual reports, checking fees, and reviewing the report can all be steps inside one Run. They count as separate runs only when the execution contract gives each its own start and end.
+For this article, a **Model Turn** is **one logical model decision organized by the host system**: ask the model for an output against a particular current input. That output may be an answer or a set of proposed tool calls. This is an observable interaction unit, not a count of the model's internal thinking steps.
 
-Here, Task means a business-level goal; not every application needs a Task table. The public project's `tasks/<id>.json` stores a single research definition, binding a question, configuration, and source snapshot. That does not make it a general-purpose, multi-stage project manager. Understand the responsibilities before choosing a data model.
+Consider this simplified path:
 
-## 2. A Session preserves associations, not perfect model memory
-
-We can now answer “Are several exchanges in the same conversation one Session?” **If a chat framework calls a conversation a Session, that description can fit. It does not directly describe the project code referenced here.** The same name is used in two contexts, so we need to inspect its actual responsibility.
-
-| Context | What the name refers to | What this article calls it |
+| Model turn | What is new in its input? | What does the model propose next? |
 | --- | --- | --- |
-| A session in a chat product | Associated user and assistant messages and interaction history | Conversation |
-| Open ETF Agent's `Session` | Run state, checkpoints, leases, and result-related records | Durable execution records |
+| M1 | The user's question, available material, and tools | Read the documents for A and B: propose X1 and X2 |
+| M2 | Results from X1 and X2; B's fee explanation lacks an original source | Read B's original fee notice: propose X3 |
+| M3 | The original explanation returned by X3 | Synthesize the material into a comparison answer |
 
-In the fund-comparison example, the interface lets you revisit the first report. The next execution decides which earlier information to send to the model. Durable execution records help the system determine whether the original Run has finished, whether it is waiting for a reply, and who may advance it. [Session implementation](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/src/session.mjs)
+[![Within one Run, M1 proposes two reads, M2 uses their results to request a follow-up read, and M3 produces the answer](../../visuals/en/run-identity/02-model-loop.svg)](../../visuals/en/run-identity/02-model-loop.svg)
 
-These are three related sets of information:
+*Figure 2. Model turns progress using new observations. Tool actions follow model outputs, and their results enter later model inputs. The diagram does not require parallel tool execution.*
 
-- **Records in the interface:** what the user can look back at.
-- **Context sent to the model this time:** what the model actually receives after selection, compression, or retrieval.
-- **Durable execution records:** which steps have been committed, who may continue executing, and what remains unconfirmed.
+The user asked once, but the agent made three model turns and proposed three tool actions. M1 proposing X1 and X2 does not make it two model turns. M3 calls no tool, but it is still a model turn.
 
-Displaying the previous report does not mean the next model request includes it. Showing the model an old summary does not grant access to the original files. Reloading conversation history does not make it safe to repeat an external action that has already been sent. Project materials and durable reports also have their own storage locations; they do not all need to fit inside chat history.
+With application-executed tools, the model produces structured calls, the application performs the operations, and their results are returned to the model. Anthropic's client-tool documentation shows this round trip and permits several tool calls in one response. [Client-tool round trips](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)
 
-[LangGraph's persistence documentation](https://docs.langchain.com/oss/python/langgraph/persistence) separates checkpoints of graph state within a thread from application data stored across threads. The useful distinction is that preserving an interaction's state and preserving long-term knowledge are different storage requirements. Once those responsibilities are clear, the [five-questions diagram](../visuals/three-articles/continuity-five-questions.svg) provides a reference without requiring you to memorize every class name first.
+### What matters is what the next decision actually receives
 
-## 3. Replacing a Worker must not replace the original commitments
+M2 does not automatically know a document's contents simply because the program read it. The system must include relevant results in M2's actual input, or provide references that the model can read through a subsequent action. Persisting a result and supplying it in a later request are different events.
 
-During ordinary request handling, an executor must enter the model-and-tool loop, advance the Run, and save its results. Here, **Worker** means the process doing that work. It is not a character in the chat or an object that must be recreated for each tool call.
+A model turn is not a chat bubble either. Dozens of streaming chunks may belong to one response. An explanation and two tool-call proposals in that response may all belong to the same turn. Bubble counts, streaming-event counts, and tool counts cannot establish the number of model turns.
 
-Now change the scenario: the execution process exits halfway through reading an annual report. There is no new material, the question has not changed, and the user has not canceled.
+There is also an observability limit. Provider-hosted search, code execution, and other tools can perform steps inside the provider's service. A single client-visible API round trip does not reveal how many internal model turns occurred there. This article counts only what the host explicitly organizes and can observe. [Client and server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)
 
-If recovery conditions are satisfied, another process can take over. A Worker's job is to claim work, enter the existing executor, and observe the outcome. Being a new process should not let it submit an identical task again or receive a fresh full budget.
+## 3. Model Turn versus Attempt: why can three turns send four requests?
 
-The public Worker's design has a concrete origin. An earlier executor associated external stopping with cancellation, but a background process exiting does not always mean the user canceled. Adding a separate Worker required distinguishing “this host stopped” from “this task was canceled.” The new Worker therefore still enters the original Runtime and retains the Run identity and execution authority in the Session, rather than copying a second model loop. [Public design record](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/docs/evolution/v09-worker-lineage.md)
+Add one change to the example: M2's first model request receives a definite failure before any valid output. The failure qualifies for retry under this system's policy, and budget remains. The program resends the request for that decision, and the second attempt succeeds.
 
-Replacing the executor must preserve the original question, permissions, budget, and committed results. The [Worker handoff diagram](../visuals/three-articles/continuity-worker-handoff.svg) shows these relationships.
+Research still makes three logical decisions—M1, M2, and M3—but it has sent one additional request.
 
-When several processes see the same work, reading the record first does not establish execution authority. In the public implementation, the original Session lease and write-generation checks determine who may advance execution. A previous executor that returns late cannot pretend to be the current holder and continue writing.
+**An Attempt records a concrete request attempt; a model turn identifies the logical decision that request serves.** Under this article's convention, M2's two attempts are A2.1 and A2.2. The failed A2.1 does not disappear when A2.2 succeeds.
 
-[Temporal's Worker documentation](https://docs.temporal.io/workers) also distinguishes Worker programs, entities, and processes, with executing processes obtaining work from task queues. Temporal provides a much broader durable-workflow infrastructure. The public single-Run Worker deliberately does not introduce a general queue or a second task state machine. A local teaching project does not necessarily need a full platform. When cross-machine orchestration, long-term operations, and complex scheduling become major requirements, reusing a mature system becomes more attractive.
+[![M2's first attempt fails, and an eligible second attempt obtains its output. The logical turn remains M2 while each request has its own identity](../../visuals/en/run-identity/03-attempts.svg)](../../visuals/en/run-identity/03-attempts.svg)
 
-One more boundary is easy to overlook: a host no longer waiting does not mean the provider stopped processing its request. When a request was sent but its result was not received, the new Worker must preserve “unknown,” not silently turn it into “never executed.” The value of preserving identity is being able to account for prior events precisely when outcomes are uncertain. Whether background work continues after the user closes a page also depends on how that host manages execution; the chat window being open or closed is not enough to decide.
+*Figure 3. The example preserves the logical turn and adds a request attempt. Three model turns now correspond to four requests, excluding any auxiliary model calls.*
 
-## 4. A Schedule preserves an agreement, not the research itself
+This distinction is not an excuse to record another identifier. It answers different debugging questions. “Why did research switch to reading the original fee notice?” calls for M2's input and output. “Why did this decision take longer or cost more?” calls for every associated attempt, including failures, timeouts, and the actual model route.
 
-You already have the comparison report and say, “Run the comparison again at nine tomorrow morning.” The research goal continues, but the execution belongs in the future.
+### Resending a request differs from deciding with new information
 
-The system first needs to confirm and preserve an agreement about that future work: what to do, when to start, and which inputs and permissions to use. When the time arrives, a trigger checks whether execution is eligible. **Schedule** is the timing agreement. Putting it beside the interrupted-process scenario makes the distinction easier to see:
+A retry needs an explicit premise: the system is still trying to obtain the result of the original logical decision, and its policy permits that retry. If partial output has already triggered tools or content has been committed, the request must not simply be replayed from the beginning as though nothing happened. Continue from the original records and handle any unknown outcomes.
 
-[![Two independent scenarios: Worker B continues an eligible original Run; a Schedule preserves tomorrow's agreement, and an external trigger checks eligibility before creating or associating its Run](../../visuals/en/continuity-scenes/03-worker-and-schedule.svg)](../../visuals/en/continuity-scenes/03-worker-and-schedule.svg)
+Once the model has proposed a tool call and the tool returns new material, the next model invocation is a new turn. If the system receives invalid output, adds feedback such as “This field is invalid; correct it,” and asks again, the input now contains a new observation. Under this article's convention, that is another semantic turn rather than a silent overwrite of the original request.
 
-Figure 3. The upper panel answers “Who continues the execution?” The lower panel answers “When does it begin?” These are independent scenarios. Saving a future date does not require leaving a model request waiting until tomorrow. Click the image to open the full diagram.
+Frameworks may package these operations under different Step, Turn, or Retry definitions. That need not be wrong, but logs, budgets, and evaluations must use a consistent convention. Before interpreting `max_turns`, check whether it bounds model invocations, agent-loop iterations, or another unit. It does not necessarily mean how many exchanges a user may have.
 
-A Schedule concerns a time, time zone, definition version, and how late execution may still start. When due, it offers an opportunity to execute. The task's authorization, allowance, and execution rules still determine whether work can begin.
+### Hidden retries still send real requests
 
-**The time arriving does not mean the model was called. A model call does not mean a report was delivered.**
+One SDK call in application code may already retry internally. The OpenAI Python SDK documents automatically retried errors and exposes `max_retries` for configuration. Adding an application-level retry loop therefore requires understanding what both layers do. [SDK retries](https://github.com/openai/openai-python#retries)
 
-The [execution-window diagram](../visuals/three-articles/continuity-schedule-window.svg) distinguishes being too early, being within the window, and missing it. Whether to catch up afterward must follow an explicit rule.
+A system that needs precise request limits can centralize dispatch retries or observe attempts at the lower layer. Incrementing a counter only at the outer function boundary does not prove that only one request reached the provider.
 
-Open ETF Agent's public one-time schedules require an explicit `run-due` call; there is no resident daemon. Saving a future date does not automatically wake the computer. This module also does not supply recurring tasks or notifications. Materialization when due and association with the Run use the existing durable mechanism. Repeated scans do not automatically create another research round for an already completed schedule. [One-time scheduling guide](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/docs/scheduled-tasks.zh-CN.md)
+A client timeout establishes only that a result was not obtained in time. It does not establish that the server did nothing or that the request cost nothing. Preserve unknown results and unknown usage rather than turning retry into a fresh budget with no history.
 
-If you expect the comparison to include an announcement published tomorrow, you also need to specify how that new material becomes input to a new research execution. Fixing today's source snapshot and scheduling another execution does not automatically obtain tomorrow's material. The chat instruction in the figure explains the timing agreement; schedules in the public version must be submitted through its existing confirmation entry point.
+Failing over to another provider also changes the data recipient and capability requirements. The system must determine whether the original context may be disclosed to that provider and whether it supports the tools and parameters involved. Associating both requests with one logical turn explains their lineage; it does not authorize the new disclosure.
 
-A one-time, manually controlled exercise benefits from a deliberately small boundary. Long-term automatic execution additionally requires choosing and operating a real external wake-up mechanism, with explicit cancellation, lateness, and duplicate-trigger policies.
+## 4. Tool actions: how far is a proposal from an actual effect?
 
-[Kubernetes CronJob documentation](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) separates creating Jobs according to a schedule from executing them. It also explains that scheduling can miss or duplicate creation, so the work itself should be idempotent. A mature scheduler does not remove the application's responsibility to recognize “Is this the same execution?”
+In M1, the model proposes reading A's document. Call that action X1. The read has not yet happened.
 
-## 5. Before continuing tomorrow, make a choice
+For an application-executed tool, the normal path is to validate the call and permission, dispatch the read, obtain the result, preserve its association with the call, and prepare it for later model input. Invalid arguments or missing permissions can cause rejection before dispatch.
 
-Now return to “Let's stop reading here today and continue researching this material tomorrow.” The same sentence needs to be interpreted against the original state:
+X1 therefore connects two important points: **which model output proposed it, and which later input included its result.** With only the first association, tools can remain busy while research never actually receives the material they obtained.
 
-| What you are actually doing | What to establish first | How execution proceeds |
+One further distinction matters: inclusion in the model input is inspectable; correct understanding and use in the conclusion require reviewing the answer. A successful tool receipt cannot establish semantic correctness.
+
+### Several calls in one turn do not automatically establish dependency order
+
+M1 can propose reading A and B together because the reads are independent. The host can execute them sequentially or, when authorization and resources allow, concurrently.
+
+But if the second action requires an identifier returned by the first, the model cannot know that new identifier in advance. A later turn can construct the dependent call after the result arrives, or an explicitly defined composite tool can handle that dependency internally. Putting several calls in one response does not solve their data dependencies.
+
+The v0.28.0 public teaching implementation advances tool calls sequentially within its existing runtime loop. Figure 2 shows that one model turn can propose several actions; it does not claim that this implementation executes them in parallel. [Public runtime loop](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/src/runtime.mjs)
+
+### Writes also require distinguishing repeated delivery from a new intention
+
+Replace a read with saving a report. The remote service may have saved it successfully even though the receipt was lost. Asking the model to decide to save it again, or giving the same operation a brand-new identity, may produce a second result.
+
+Safer handling depends on the tool's actual contract: query the original operation, or retry it with an idempotency identifier supported by the receiver. AWS's discussion of idempotent APIs addresses exactly this uncertainty: a missing response does not let a caller conclude that an operation never happened. [Safe retries and idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)
+
+A model protocol's `tool_call_id` primarily associates a call with its response. Whether it can also deduplicate business operations depends on whether the receiver recognizes, persists, and enforces that agreement. **Creating a UUID locally does not make a remote side effect happen exactly once.**
+
+Repeating a read may be easier to accept, but the data could change. A new notice read today must not be represented as the original result supposedly obtained yesterday.
+
+<!-- legacy-section-anchors -->
+<span id="waiting-for-your-answer-several-exchanges-the-same-run"></span>
+
+## 5. When the agent asks a question and I reply, which turn continues?
+
+Set aside the complete three-turn example and consider an independent variation.
+
+> You: Compare these two funds.  
+> Agent: What holding period should this comparison focus on?  
+> You: Three years or longer.  
+> Agent: Understood. I will continue with that condition.
+
+If the product treats this as clarification within the original research, the Run can remain R1. But **the model turn that asked the question has already produced its output. Continuing research after the reply generally requires a new model turn.**
+
+[![A model turn asks a question and finishes its output; the Run persists a waiting state. After adopting the associated reply, a new model turn continues the same Run](../../visuals/en/run-identity/04-human-reply.svg)](../../visuals/en/run-identity/04-human-reply.svg)
+
+*Figure 4. The authorized research execution continues; a model request is not left generating while it waits for a person. This independent variation is not added to Figure 2's three-turn count.*
+
+The system needs to preserve which question is awaiting an answer. On receiving “Three years or longer,” it associates the reply with that question, checks whether the original execution remains eligible, and includes the reply in the next model input. Execution resources can be released during the wait; a live model response is unnecessary.
+
+Open ETF Agent's ordinary interaction mechanism supports this bounded case: a task asks for missing information, the Worker yields, an explicitly associated reply is saved and adopted, and the same Run can continue. Waiting neither extends its original deadline nor replenishes its budget. Receiving the reply, adopting it, and finishing the report have distinct states. [Ordinary question-and-answer guide](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/human-interaction.zh-CN.md)
+
+### A new message is not always the same kind of continuation
+
+Answering a pending clarification question is different from interrupting research with “Stop comparing; generate a trading instruction instead.”
+
+For an active Run, a product can queue a message, incorporate it at an explicit admission point for a later turn, or start another execution. The important part is specifying how that message was admitted. Input already sent to a model must not be retrospectively described as though it contained a later instruction.
+
+New tool observations and permitted clarification replies can naturally change later inputs within the same Run. “Any input change requires a new Run” is therefore too absolute. The real questions are whether the change remains within the original task and authority, and whether the system has a defined admission mechanism.
+
+This public version's ordinary interaction entry point does not supply external-effect approvals, expanded permissions, or arbitrary chat intervention during execution. Answering a research question does not also authorize access to another private document or execution of a trade.
+
+<!-- legacy-section-anchors -->
+<span id="_2-a-session-preserves-associations-not-perfect-model-memory"></span>
+
+## 6. Where does Session fit? Do not turn the concepts into a tree
+
+It is tempting to draw a tidy hierarchy: Conversation contains Task, Task contains Run, and Run contains Model Turn.
+
+That can describe part of a particular product, not a universal model. Conversations and tasks may have crossing associations. A model turn produces tool actions whose results affect later turns. Session, Worker, and Schedule instead concern state, executors, and trigger timing.
+
+[![The Run organizes model turns, request attempts, and tool actions. Conversation and Task associate the work; Session stores state, Worker advances it, and Schedule defines a future trigger](../../visuals/en/run-identity/05-relationship-map.svg)](../../visuals/en/run-identity/05-relationship-map.svg)
+
+*Figure 5. A relationship map of execution and supporting responsibilities, not a five-layer architecture or a requirement to build five services. “Execution state storage” applies only to a Session that has that responsibility.*
+
+Session is particularly ambiguous. Some SDKs use it to manage conversation history across several runs; Open ETF Agent's `Session` preserves Run state, checkpoints, execution leases, and related records. Identical names do not imply identical lifetimes or data. [Conversation management](https://openai.github.io/openai-agents-python/running_agents/) · [Public Session implementation](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/src/session.mjs)
+
+Instead of arguing about the name, distinguish these three sets of information:
+
+| Information | Example in the fund comparison | What it does not establish |
 | --- | --- | --- |
-| Asking a follow-up after a complete answer | The original Run has ended; identify the new request's inputs | Usually create a new Run, which can be associated with the original conversation and business goal |
-| Answering a clarification question from unfinished research | The reply is linked to the original question, and that Run remains eligible | Accept the reply and continue the original Run |
-| Recovering after the research process exits | The original state, execution authority, remaining budget, and unknown outcomes | A Worker continues the original Run |
-| Starting another research execution tomorrow morning | The confirmed work definition, trigger time, and wake-up mechanism | Save a Schedule and execute after eligibility checks when due |
+| User-visible conversation history | The first report is still displayed | The next model received the entire report |
+| One model request's input | The question, selected history, tool results, and constraints | It is the entire conversation database or execution state |
+| Durable execution state | The pending question, committed calls, remaining budget, and execution authority | The model understands these records, or remote actions are safe to repeat |
 
-The boundary around new material also needs to be explicit. The public project binds a confirmed input snapshot. Under that contract, changing the research question or adding independent new material calls for preserving the earlier report and source version, then defining explicit inputs for new research. A reply associated with the original clarification question follows the supported interaction mechanism; receiving a message alone does not mean recreating the task. Fund reports especially need to retain their time references: a new retrieval time is not a new disclosure date, and rerunning research does not establish that the source was updated.
+A checkpoint tells the program where execution may continue. Model context provides appropriate information for its next decision. Both may be derived from the same history, but they do not substitute for each other.
 
-Recovery retains the original authorization, execution deadline, budget, and unknown effects. Changing processes cannot renew eligibility for a Run that has expired or reached a terminal state. The [three kinds of continuation diagram](../visuals/three-articles/continuity-three-continues.svg) reviews host recovery, new research, and future schedules; Figure 2 covers waiting for an associated reply during execution.
+A practical design preserves the Run's identity while retaining the basis for each model turn's input. Later turns can receive more material without overwriting what earlier turns saw at the time. Research can progress, and its changing judgments remain explainable.
 
-For an existing, authorized, non-scheduled task in the public project, these commands illustrate the distinction. Replace `PROJECT` and `RUN_ID` with the original project and Run identity:
+<!-- legacy-section-anchors -->
+<span id="_3-replacing-a-worker-must-not-replace-the-original-commitments"></span>
+
+## 7. When the Worker changes, what continues to count?
+
+A Worker is a program or process that advances execution, not another investment expert. It invokes the runtime, sends model requests, organizes tool execution, and saves progress. Model services and tools may run elsewhere; the Worker need not perform every computation itself.
+
+One process can handle several Runs over time. With suitable recovery support, one Run can span several processes. The lifetime of a process does not need to equal the lifetime of the work.
+
+Open ETF Agent's Worker design record describes a concrete reason for separating them. The earlier external-stop path was connected to cancellation, but stopping an execution host does not always mean that the user canceled the task. The public adaptation therefore reuses the existing Runtime and Session while distinguishing host interruption from user cancellation, rather than copying another model loop. [Worker design history](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/evolution/v09-worker-lineage.md)
+
+### Recovery is not one universal “call the model again” operation
+
+Where execution stopped determines what can happen next.
+
+| What is known before the process exits | A reasonable direction after takeover |
+| --- | --- |
+| The next request has not been sent | Recheck eligibility and decide whether to send from the existing progress |
+| A tool result has been durably saved | Validate and reuse it, then advance |
+| A request or write was dispatched, but its outcome is unknown | Query, reconcile, or follow an explicit recovery protocol; preserve unknown and stop the affected progression if it cannot be resolved |
+| Final content is committed, but notification failed | Continue delivery from the committed result rather than rerunning research to repair notification |
+
+This is a framework for recovery decisions, not a claim that every implementation supports every row. The public runtime preserves `MODEL_OUTCOME_UNKNOWN` for an unsettled model request. It attempts reconciliation for a dispatched tool and preserves `TOOL_OUTCOME_UNKNOWN` when it cannot establish the result. Replacing the Worker does not automatically make either state retryable. [Recovery branches](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/src/runtime.mjs)
+
+Other frameworks have their own recovery granularity. LangGraph re-enters the relevant node when resuming an interrupt; code before the interrupt can execute again, so its documentation requires those side effects to be idempotent. Having a checkpoint does not mean resuming seamlessly at a machine instruction inside the previous process. [LangGraph interrupt recovery](https://docs.langchain.com/oss/python/langgraph/interrupts)
+
+### Preserving execution authority does not rewind the outside world
+
+If two Workers read the same record, they cannot simply agree informally about who may write the next step. A lease bounds current execution authority, while write-generation or similar fencing checks reject a stale executor's late commits.
+
+Preventing an old process from writing local state does not revoke a remote request it already sent. External effects still need appropriate queries, idempotency, or compensation. Execution-authority control and side-effect recovery have different responsibilities.
+
+When continuing the original Run, already consumed budget, its original deadline, and committed results must carry forward. A process change must not expand permissions either. If access has been revoked, recovery may need to restrict subsequent operations under the actual policy. Continuous identity does not make earlier eligibility valid forever.
+
+<!-- legacy-section-anchors -->
+<span id="_4-a-schedule-preserves-an-agreement-not-the-research-itself"></span>
+
+## 8. Schedule: does tomorrow continue the goal or revive an old execution?
+
+You already have the report and say, “Run the comparison again at nine tomorrow morning.” The goal continues, but you are requesting a future execution.
+
+A Schedule preserves a confirmed timing agreement and the work definition it references. Execution still requires an external trigger to check the due work and an executor to claim it. Saving a date does not automatically wake a model or a computer.
+
+For recurring work, also distinguish a **schedule definition** from **one execution opportunity**. The rule “every day at nine” may remain unchanged for months, while today's occurrence and tomorrow's occurrence are different. Conversely, scanning the same nine-o'clock occurrence twice should not create two independent pieces of work.
+
+A design can identify an occurrence by its schedule identity, definition revision, and scheduled instant; the actual fields depend on the system. Recognize whether you are observing the same opportunity again or reaching a genuinely new occurrence before deciding which Run to create or associate.
+
+Open ETF Agent v0.28.0 provides a narrower, one-time mechanism. `run-due` must be invoked explicitly, after which existing mechanisms check and materialize the task. A schedule that misses its allowed window becomes `missed`, without an automatic replacement Run. Repeated scans do not automatically redispatch already materialized or completed schedules. There is no resident scheduler, recurring-task service, or notification service in this slice. [One-time scheduling guide](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/scheduled-tasks.zh-CN.md)
+
+There is another question: which material will tomorrow's comparison use? If the confirmed work binds today's selected source snapshot, execution tomorrow means processing that snapshot later—not automatically acquiring tomorrow's new announcements. Timing and source refresh are separate mechanisms to define.
+
+There is no need to leave a Run or model request sleeping until tomorrow. Nor are “start then,” “finish the research,” and “deliver the report to the user” the same promise. A saved schedule does not establish eventual delivery.
+
+## 9. Turn the concepts into debugging skills: count the right things first
+
+Return to Figures 2 and 3. The following is a simplified record of that teaching example, not a production trace:
+
+```text
+R1 / M1 / A1.1       Model returns proposals X1 and X2
+R1 / X1, X2         Read results are saved
+R1 / M2 / A2.1       Request fails; this example permits retry
+R1 / M2 / A2.2       Model proposes follow-up read X3
+R1 / X3             Original fee notice result is saved
+R1 / M3 / A3.1       Input includes X3; model generates the answer
+R1 / result V1      Final content is saved; delivery is recorded separately
+```
+
+Under this article's convention, that is **one Run, three logical model turns, four model request attempts, and three tool actions**. If saving the report uses another tool, count that action too. This example treats saving as a host-owned result commit.
+
+Each count serves a different purpose. Model turns explain how research progressed. Attempts explain retries, routes, and latency. Tool actions identify actual reads or effects. Result versions identify the content the user obtained.
+
+### Total model usage need not equal the main research turn count
+
+The system may also call a model to summarize history or delegate part of the research to a Subagent. Those are real model calls, but they may not be counted as turns in the main research branch.
+
+The public runtime marks summary calls as a separate purpose and handles them through a separate summary counter and shared model budget. Its main research `rounds` therefore cannot be used alone to infer total model usage. [Summary and research call accounting](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/src/runtime.mjs)
+
+A Subagent introduces another execution branch. One delegation from the main model may lead to several child model calls, tool executions, and retries before a result returns. Some systems organize that as a child execution within the parent Run; others create an associated child Run. Retain the branch and actual-request associations rather than counting one delegation as one model call.
+
+That is also why fewer model turns do not necessarily mean lower cost. Work may have been batched into tools or moved into subagents or provider-hosted execution. Define the observation scope before comparing cost and latency, and do not substitute zero for unknown failed-request usage.
+
+### “Still answering” in the interface also needs a specific owner
+
+Suppose R1's completion notification arrives late, after the user has started R2. The client must not use that old event to mark R2 complete. It should not simply discard R1's valid result either; the result still belongs to the original research.
+
+One viable design attaches the Run and relevant result version or stream sequence to events. The interface updates the corresponding work instead of using one global `isLoading` flag for every investigation. Independent execution branches also need their ordering interpreted separately; a local sequence number is not automatically a global timeline.
+
+When a user says “It is stuck,” first identify the Run. Then determine whether it is waiting for a person, a model, a tool, or delivery of already saved content. Only then choose between supplying information, retrying a request, reconciling an effect, or reading an existing result again.
+
+<!-- legacy-section-anchors -->
+<span id="_6-five-names-do-not-require-five-modules"></span>
+
+<span id="_5-before-continuing-tomorrow-make-a-choice"></span>
+
+## 10. How do you use this without building a workflow platform?
+
+These distinctions are ways to understand and record behavior before they are a list of tables to build.
+
+A small, read-only, one-answer application can use its existing request identity for a Run. With just one model call, it may not need independent Model Turn storage. Conversation history can remain with the framework's existing Session rather than a second conversation manager.
+
+When multi-step tool loops and retries appear, first make logical turns and physical sends distinguishable in logs. When execution must survive a process change, persist enough state and define recoverable phases. When a person must answer later, associate the pending question and reply. When work must begin in the future, add schedule and occurrence identity.
+
+These mechanisms have costs: input versions, call receipts, waiting states, and recovery branches all require maintenance. Reuse responsibilities a framework already represents accurately; do not create a Manager for every term in the diagram. Permissions and side-effect correctness remain requirements of the task itself and cannot be dropped in the name of simplicity.
+
+This decision table condenses the article for a design review:
+
+| What changes? | What usually continues? | What must be new or checked again? |
+| --- | --- | --- |
+| A follow-up after a completed answer | The conversation, and possibly the business goal | A new Run's input and execution scope |
+| An explicitly associated clarification reply | The original Run, if still eligible | Reply-adoption records and the later model turn |
+| An eligible failure while obtaining a decision | The Run and, under this convention, the logical turn | A new attempt and remaining retry eligibility |
+| A tool returns a new observation requiring a decision | The Run | A later model turn and the input it actually receives |
+| A process exits and another takes over | Recoverable work and already committed facts | Current execution authority, recovery position, and unknown-outcome handling |
+| The same schedule occurrence is scanned again | The occurrence and its existing Run association | Whether it has been materialized or executed; do not blindly create another |
+| The next occurrence of a recurring schedule arrives | The schedule and long-term goal | A new occurrence; create or associate a Run under the schedule contract |
+
+“Usually” leaves room for legitimate implementation choices. Systems may use different names or data structures, but they should be able to explain what remains the original work and what is now something new.
+
+### Observe these distinctions in the public implementation
+
+In an initialized local research project with its original material and authorization, use the original Run identity to inspect state, attempt advancement, and read results:
 
 ```bash
 node src/research-cli.mjs run inspect --project PROJECT --run RUN_ID
@@ -151,28 +346,26 @@ node src/research-cli.mjs run work --project PROJECT --run RUN_ID
 node src/research-cli.mjs run report --project PROJECT --run RUN_ID
 ```
 
-`inspect` reads state, `work` attempts to advance the original Run, and `report` reads durable results. When a Run is waiting for a user reply, first submit the associated answer as described in the [ordinary question-and-answer guide](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/docs/human-interaction.zh-CN.md), then advance the original execution. Real `work` requires provider setup, source access, and cost authorization first. See the [local research project guide](https://github.com/hpoenixf/open-etf-agent/blob/v0.28.0/docs/research-project.zh-CN.md) for initialization and input prerequisites. These commands explain interface semantics; they do not claim this article executed a real model task for the reader.
+These are interface examples for the v0.28.0 source workspace, not a claim that this article executed a real research task for the reader. See the [fixed-version project guide](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/research-project.zh-CN.md) for environment, initialization, and cost prerequisites; use the [current project entry point](https://github.com/hpoenixf/open-etf-agent) for later versions.
 
-## 6. Five names do not require five modules
+The public Session, Worker, ordinary blocking interaction, and one-time schedule are different slices of these ideas, not an arbitrarily composable chat product. In particular, this version's one-time schedules cannot be combined with capabilities such as Response or Child. The panorama explains relationships; it does not imply that every illustrated scenario is connected through one public entry point.
 
-An application answering a single question can trigger a Run directly from the request; it does not need a Task manager just to complete an architecture diagram. A small script with no cross-process recovery requirement need not reproduce a workflow platform. Separate these responsibilities when the lifetime of “the same work” begins to exceed a call, a process, or a conversation.
+## Conclusion: a continuous experience depends on clear execution boundaries
 
-To decide whether to separate these responsibilities, revisit the scenarios and ask which identities must persist and which can change:
+Return to the opening conversation. The user can keep pursuing the same goal across several Runs. A Run advances through model turns. A logical turn may require several permitted request attempts. Tool actions produce real observations that inform later decisions.
 
-- The chat window can stay the same while the user introduces a new goal or starts a new Run.
-- A Run waiting for an associated reply can continue after the user supplies the information.
-- Replacing a Worker process should not change existing permissions or budget.
-- Changing a new schedule's time should not silently rewrite an old Run's inputs.
-- Completing one report should not automatically declare the entire business goal achieved.
+Session preserves state that must survive. Worker supplies temporary execution capacity. Schedule makes future execution opportunities possible. They solve different problems while supporting the user's experience of continuing the work.
 
-What needs to remain stable is the work the user confirmed and its progress. Processes, pages, and model calls can be temporary participants around it. The next time you say “let the Agent continue,” first establish the state of the original execution. Then decide whether you are advancing the goal, answering its pending question, recovering that execution, or arranging another opportunity to run.
+**The goal, valid evidence, and facts about what has happened need continuity. The same process, connection, or model request does not.**
+
+When designing a Continue, Retry, or Resume button, first specify which object it acts on. Then ask whether the original execution remains eligible, which results can be reused, and what must be confirmed again. Those questions get closer to the actual problem than deciding how many modules to build.
 
 ## Further reading
 
-- [Expert, Subagent, Review, Judge: Why Another Model Is Not Always the Same Thing](./agent-expert-subagent-review-judge.md): responsibilities within a research round.
-- [An Agent Does Not Need to Think Continuously](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research): the broader design of time- and condition-triggered systems, distinguishing private-system capabilities from the public example.
-- [Hands-on Workshop](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-research-project-workshop): build a local research project from explicitly selected materials.
-
+- [Six-layer request panorama](./017-prompt-to-answer-six-layer-panorama-v3.md): how responsibility transfers from a request to a visible answer.
+- [Long-horizon research panorama](./agent-long-horizon-research-panorama.md): how context, interruptions, and time connect across long-running work.
+- [Expert, Subagent, Review, Judge](./agent-expert-subagent-review-judge.md): collaboration roles within one investigation.
+- [Scheduled research](./agent-autonomous-scheduled-research.md): a broader design for schedules, triggers, and continuing research.
 
 <!-- introductory-series-links:start -->
 

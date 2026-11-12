@@ -2,7 +2,7 @@
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
   "agent-half-hour-research-engineering-practice": "Engineering Half-Hour Agent Research: From Execution Budgets to a Complete Report",
-  "agent-task-session-run-worker-schedule": "Task, Session, Run, Worker, Schedule: What Is an Agent Actually Continuing?",
+  "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
