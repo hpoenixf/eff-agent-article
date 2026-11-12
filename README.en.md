@@ -41,9 +41,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
+- 2026-11-12 · New · [Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth](en/articles/agent-three-host-lifecycle-architecture.md)
 - 2026-11-12 · Updated · [Spec-Driven Agent Development: From Requirements to Trustworthy Delivery](en/articles/agent-spec-driven-development-panorama.md)
 - 2026-11-12 · Updated · [Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?](en/articles/agent-task-session-run-worker-schedule.md)
-- 2026-11-12 · New · [Engineering Half-Hour Agent Research: From Execution Budgets to a Complete Report](en/articles/agent-half-hour-research-engineering-practice.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 
