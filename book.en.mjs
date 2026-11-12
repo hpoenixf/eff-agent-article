@@ -2,7 +2,7 @@
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
   "agent-three-host-lifecycle-architecture": "Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth",
-  "agent-half-hour-research-engineering-practice": "Engineering Half-Hour Agent Research: From Execution Budgets to a Complete Report",
+  "agent-half-hour-research-engineering-practice": "Designing Half-Hour Agent Research: From Ordinary Research to Reliable Delivery",
   "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",

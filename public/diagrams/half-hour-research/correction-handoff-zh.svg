@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="405" viewBox="0 0 980 405" role="img" aria-labelledby="title desc">
+<title id="title">新要求到来，只替代旧请求</title><desc id="desc">保存原话，后继采用，旧效果如实结算</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#21796a"/></marker></defs>
+<g font-family="system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="980" height="405" rx="20" fill="#f3f7f5"/>
+<text x="28" y="43" font-size="30" font-weight="700" fill="#15353d">新要求到来，只替代旧请求</text>
+<text x="28" y="74" font-size="18" font-weight="400" fill="#49636b">保存原话，后继采用，旧效果如实结算</text>
+<rect x="28" y="115" width="280" height="150" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="28" y="128" width="4" height="124" rx="2" fill="#21796a"/>
+<text x="44" y="144" font-size="23" font-weight="700" fill="#21796a">接收定向纠偏</text>
+<text x="44" y="169" font-size="18" font-weight="400" fill="#15353d">保存完整原话与目标研究</text>
+<text x="44" y="194" font-size="18" font-weight="400" fill="#15353d">记录接收顺序及纠偏版本</text>
+<rect x="350" y="115" width="280" height="150" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="350" y="128" width="4" height="124" rx="2" fill="#356e9b"/>
+<text x="366" y="144" font-size="23" font-weight="700" fill="#356e9b">处理旧请求</text>
+<text x="366" y="169" font-size="18" font-weight="400" fill="#15353d">未派发旧提议在安全边界停止</text>
+<text x="366" y="194" font-size="18" font-weight="400" fill="#15353d">已完成结果保留，未知仍计账</text>
+<rect x="672" y="115" width="280" height="150" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="672" y="128" width="4" height="124" rx="2" fill="#21796a"/>
+<text x="688" y="144" font-size="23" font-weight="700" fill="#21796a">后继请求采用</text>
+<text x="688" y="169" font-size="18" font-weight="400" fill="#15353d">完整原话进入实际获准请求</text>
+<text x="688" y="194" font-size="18" font-weight="400" fill="#15353d">可继续取证，报告另行检查</text>
+<polyline points="308,186 350,186" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="630,186 672,186" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="28" y="322" font-size="18" font-weight="400" fill="#49636b">用户停止研究、旧请求被纠偏替代，是不同的控制事实。</text>
+<text x="28" y="345" font-size="18" font-weight="400" fill="#49636b">继承原权限、预算与期限；交接成功仍不等于模型遵循正确。</text>
+</g>
+</svg>

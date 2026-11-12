@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" role="img" aria-labelledby="title desc">
+<title id="title">怎样验证模型真的改判？</title><desc id="desc">教学测试流程；数值来自合成配对案例</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#21796a"/></marker></defs>
+<g font-family="system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif">
+<rect width="980" height="430" rx="20" fill="#f3f7f5"/>
+<text x="28" y="43" font-size="30" font-weight="700" fill="#15353d">怎样验证模型真的改判？</text>
+<text x="28" y="74" font-size="18" font-weight="400" fill="#49636b">教学测试流程；数值来自合成配对案例</text>
+<rect x="28" y="116" width="280" height="166" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="28" y="129" width="4" height="140" rx="2" fill="#21796a"/>
+<text x="44" y="145" font-size="23" font-weight="700" fill="#21796a">旧版资料与结论</text>
+<text x="44" y="170" font-size="16" font-weight="400" fill="#15353d">差额 −0.5 个百分点</text>
+<text x="44" y="195" font-size="16" font-weight="400" fill="#15353d">先保存实质结论，而非读取提示</text>
+<text x="44" y="220" font-size="16" font-weight="400" fill="#15353d">再释放更正材料</text>
+<rect x="350" y="116" width="280" height="166" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="350" y="129" width="4" height="140" rx="2" fill="#21796a"/>
+<text x="366" y="145" font-size="23" font-weight="700" fill="#21796a">更正材料到来</text>
+<text x="366" y="170" font-size="16" font-weight="400" fill="#15353d">新差额 −0.9 个百分点</text>
+<text x="366" y="195" font-size="16" font-weight="400" fill="#15353d">检查新版实际进入模型输入</text>
+<text x="366" y="220" font-size="16" font-weight="400" fill="#15353d">已有来源版本保留</text>
+<rect x="672" y="116" width="280" height="166" rx="13" fill="#fff" stroke="#d5e2dd"/>
+<rect x="672" y="129" width="4" height="140" rx="2" fill="#356e9b"/>
+<text x="688" y="145" font-size="23" font-weight="700" fill="#356e9b">逐版检查判断</text>
+<text x="688" y="170" font-size="16" font-weight="400" fill="#15353d">数值与依赖解释都要检查</text>
+<text x="688" y="195" font-size="16" font-weight="400" fill="#15353d">费用贡献仍为未知</text>
+<text x="688" y="220" font-size="16" font-weight="400" fill="#15353d">不能推断费用能否解释差额</text>
+<polyline points="308,193 350,193" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="630,193 672,193" fill="none" stroke="#21796a" stroke-width="2.2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="28" y="339" font-size="18" font-weight="400" fill="#49636b">新版数据已读到、数字已更新、解释有依据，需要分别核对。</text>
+<text x="28" y="362" font-size="18" font-weight="400" fill="#49636b">评阅用于比较逐版回答，不在生产运行中新增关键词门或强制复核。</text>
+</g>
+</svg>
