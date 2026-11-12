@@ -37,7 +37,9 @@ jobs:
         env:
           PUPPETEER_SKIP_DOWNLOAD: '1' # GitHub runner already ships Chrome
       - name: Check articles and links
-        run: npm run check:catalog
+        run: |
+          node --test scripts/portable-visual-copy.test.mjs
+          npm run check:catalog
       - name: Install measured CJK diagram fonts
         run: |
           sudo apt-get update
@@ -87,7 +89,8 @@ jobs:
           NODE
       - name: Include portable visual collection
         run: |
-          cp -R visuals .vitepress/dist/visuals
+          mkdir -p .vitepress/dist/visuals
+          cp -R visuals/. .vitepress/dist/visuals/
           test -f .vitepress/dist/index.html
           test -f .vitepress/dist/articles/017-prompt-to-answer-six-layer-panorama.html
           test -f .vitepress/dist/visuals/017-prompt-to-answer-six-layer-panorama/index.html

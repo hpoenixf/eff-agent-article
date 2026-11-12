@@ -1,250 +1,234 @@
 ---
-title: "Writing a Spec Doesn't Mean the Work Is Done: Verifiable Agent Engineering"
-description: "OpenSpec, TDD, evidence ledgers and the open-source Evidence Kit: how to inspect Agent completion claims."
+title: "Why a Spec Is Not Completion: Evidence and Trustworthy Acceptance in Agent Development"
+description: "Why add engineering evidence when Spec, Git and CI already exist? A cross-revision handoff explains bounded completion claims, selective revalidation and a clear stopping point."
 readingBrief:
   takeaways:
-    - "A written spec, checked tasks, passing tests, and a release are separate milestones. Unrun acceptance checks remain incomplete."
-    - "Record revision, time, result, and scope when tests run, rather than reconstructing them at the end."
-    - "Generate Verify from observations. Reused, blocked, or missing evidence must not become a fresh pass."
-    - "Reuse valid closure evidence when behavior is unchanged; documentation cleanup alone does not justify rerunning full acceptance."
-    - "The public toolkit checks record structure. It does not run tests or decide project acceptance and release."
+    - "Evidence connects requirements, executions, revisions and conclusions. If CI already preserves these relationships, another ledger is unnecessary."
+    - "Evidence supports conditional claims. Traceability, trustworthy execution and sufficient coverage are separate properties."
+    - "Preserve an old observation's identity. Recheck affected behavior or inputs; a new session must not turn an old pass into a fresh run."
+    - "Capture evidence throughout development and generate Verify as a view. Formal closure, model quality and release retain their own acceptance and authority."
+    - "Start with a minimal evidence index. Add mechanisms for real coordination or risk, and stop when agreed criteria are met without relevant changes."
   appliesTo:
-    - "Changes involving interfaces, permissions, recovery, or model evaluation that need evidence across sessions and a clear stopping point."
+    - "Development across revisions, sessions or agents, especially changes involving authorization, persistent recovery and model evaluation."
   notFor:
-    - "Simple copy edits, or automatic certification of model quality and release readiness."
+    - "Automatically authenticating executions, proving every behavior or replacing release approval; small edits do not need the entire workflow."
 ---
 
-# Why Can't We Call an Agent Feature Finished After Writing the Spec?
+<script setup>
+import { withBase } from 'vitepress'
+</script>
 
-As Coding Agents become capable of carrying out requirements analysis, interface design, implementation and testing in sequence, an old engineering question becomes more visible: **who determines whether the work is actually complete?**
+# Why a Spec Is Not Completion: Evidence and Trustworthy Acceptance in Agent Development
 
-Suppose we ask an agent to add a research-data source while preserving source identity, supporting recovery after failure and respecting existing data-access permissions. It may add modules, write tests and finally report “done.” That message still leaves open whether the implementation meets the original requirement, whether failure paths were tested, which revision tests ran against, whether permissions changed, and what another agent should know remains unproven.
+Consider a development handoff. An agent passes data-adapter tests on revision A, then changes authorization logic to produce revision B. A live-data integration check never runs because an isolated environment is unavailable. The next session retains only “tests passed,” and the closing report eventually says “the new data source is complete.”
 
-We moved from asking “How do we make an agent write a good Spec?” to “How does a change travel from discussion through implementation and verification to a traceable closure?”
+This is a **constructed teaching example**, not a recorded project incident. Its point is not that agents necessarily lie. A genuine local result can lose its conditions across revisions and summaries, becoming a stronger completion claim than the observation supports.
 
-The workflow builds on **OpenSpec**, uses design and test-driven ideas from **Superpowers**, and adds durable evidence, closure and historical handoff for long-lived multi-agent development.
+Our evidence mechanism addresses that gap. Here, **engineering evidence means material supporting development conclusions**, not the market sources cited in an investment report. The goal is not another document layer. A successor should be able to identify which requirement was checked, against which source and under what conditions, what remains unverified, and why this piece of work can end.
 
-**Want to try it first?** Clone the public [Agent Engineering Suite](https://github.com/hpoenixf/agent-engineering-suite), with pinned [Spec templates](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates), an [Evidence template](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md), and an [offline example](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/examples/changes/example). Section 7 gives the full commands. Commands such as `spec:close` belong to the original project; the public CLI checks record structure and generates verification views without copying that project’s formal acceptance workflow.
+This article goes deep on evidence and acceptance. For the complete path through clarification, design, specification deltas, implementation and handoff, see [Spec-Driven Agent Development](/en/articles/agent-spec-driven-development-panorama).
 
-## 1. Separate What the System Currently Is from What We Want to Change
+## 1. What Is Missing When Spec, Git and CI Already Exist?
 
-One useful idea in [OpenSpec](https://github.com/Fission-AI/OpenSpec) is to distinguish accepted specifications from proposed changes. We retain that separation.
+A spec describes intended behavior. Git preserves source changes. Tests check behavior under particular conditions, while CI can retain revisions, environments and artifacts. These mechanisms are valuable. The usual gap is that **their facts are not connected to the final claim**, not that any one tool inherently lacks the capability.
 
-```text
-openspec/
-  specs/
-    capability/
-      spec.md
-  changes/
-    add-capability/
-      proposal.md
-      design.md
-      specs/
-      tasks.md
-      plan.md
-      evidence.md
-      verify.md
-```
+Adding a data source to a fund-research system may require source identity, access restrictions and failure recovery. A test showing that the adapter parses a mock payload supports only part of that promise. To judge the whole change, someone must connect acceptance commitments to coverage, blocked executions and any relevant modifications made after testing.
 
-This directory listing is illustrative. Not every change must create every optional file.
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/01-why-evidence.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/01-why-evidence.svg')" alt="Connect the green checks" width="720" height="746" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 1. Existing tools own facts; an evidence index connects them. A CI system that already provides these relationships may be sufficient. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/01-why-evidence.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
 
-Accepted specs under openspec/specs describe **the currently accepted behavior contract**. Changes under openspec/changes describe **behavior we intend to modify**.
+| Existing mechanism | What it directly answers | What still needs linking to the conclusion |
+| --- | --- | --- |
+| Spec | What behavior is expected? | Which execution exercised which requirement? |
+| Git | How did this source change? | Which actual working tree was observed, and what changed later? |
+| Tests / CI | What ran, and what was the result? | Which acceptance commitments did those checks cover? |
+| PR or handoff summary | What progress does the author report? | Does the conclusion lead to an original execution, rather than another summary? |
 
-The two are not interchangeable. A capability proposed in a change is not already implemented. Completed code does not mean its specification has been formally accepted.
+**If CI already connects requirements, run identity, revisions, coverage and remaining gaps, it can be the evidence carrier.** Using `evidence.md` in this article is not a reason to duplicate an adequate system.
 
-We use delta requirements: **ADDED** introduces behavior, **MODIFIED** changes existing behavior, **REMOVED** deletes requirements, and **RENAMED** changes a name.
+For our Markdown-based, long-running, multi-session workflow, a lightweight ledger is an index that travels with the change. It mainly stores relationships and summaries. Original logs remain with their runner or artifact storage.
 
-Those categories determine valid checks. An ADDED requirement does not yet appear in the accepted spec; that is normal. MODIFIED and REMOVED requirements should refer to existing requirements, or else the delta may be misclassified or the accepted spec incomplete.
+### Why does agent collaboration make this more noticeable?
 
-In long-running projects, this distinction prevents a coding agent from treating last month's proposal as a statement about today's implementation.
+One agent can write the requirements, implementation, tests and final explanation. That is convenient, but **producing a result and explaining it may share the same misunderstanding**. A second agent that reads only the first agent's summary has not performed an independent check.
 
-## 2. A Spec Workflow Is About Facts Produced at Each Stage, Not File Order
+Session changes and context compaction can also change which material a successor sees. Implementation, testing and integration may occur in different working trees at different times. Human handoffs have the same problem; agents have not invented a new engineering discipline. They make it more useful to design explicitly for preserving the original conditions.
 
-Our internal superpowers-bridge schema expresses ETF Agent's development process; the open-source kit discussed later extracts only its portable evidence-checking mechanisms.
+The benefit is therefore not another prompt asking an agent to report honestly. It is changing the handoff object from “done” into inspectable relationships. Reminders help, but should not be the only carrier.
 
-```mermaid
-graph TD
-UserNeed --> Proposal
-Proposal --> Design
-Design --> SpecDelta
-SpecDelta --> EvidenceBaseline
-EvidenceBaseline --> TasksAndPlan
-TasksAndPlan --> ObserveRed
-ObserveRed --> ImplementGreen
-ImplementGreen --> EvidenceLedger
-EvidenceLedger --> Verify
-Verify --> FormalClose
-FormalClose --> AcceptedSpec
-FormalClose --> TargetedRepair
-TargetedRepair --> EvidenceLedger
-AcceptedSpec --> HistoryHandoff
-```
+## 2. Engineering Evidence Supports a Conditional Claim
 
-The two closure exits mean that successful formal acceptance under the declared scope may synchronize accepted specs and archive the change; unverified or failed outcomes retain their status and direct work toward specific gaps.
+<div id="_3-evidence-ledger-don-t-reconstruct-test-outcomes-from-model-memory" aria-hidden="true"></div>
+<div id="3-evidence-ledger-don-t-reconstruct-test-outcomes-from-model-memory" aria-hidden="true"></div>
 
-Brainstorming may precede a defined requirement, and a useful retrospective can be recorded afterward. The workflow should not mechanically manufacture artifacts merely for completeness.
+Return to the new data source. The claim is: “Adding this source must not expand the user's data access.” After one denial test, the defensible conclusion is: “This exercised denial path in revision A meets the requirement.” That is still narrower than “every authorization path is correct.”
 
-### Proposal: Define the Problem, Not a Promise of Implementation
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" alt="Evidence bounds a claim" width="720" height="818" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 2. Teaching example. The requirement, execution conditions, observation and original source jointly bound a conclusion. One successful example does not establish every path. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/02-claim-and-observation.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
 
-A Proposal states the problem, scope, non-goals, major risks and acceptance route.
+Useful evidence should identify **the claim being supported, the observation that actually occurred, and the conditions under which it occurred**. Revision, command, environment, samples and artifacts are not decorative fields. They constrain the relationship among those three things.
 
-We distinguish ordinary changes from boundary-sensitive ones, as well as local implementation acceptance, independent external acceptance and permission needed for real model calls.
-
-A purely deterministic view generator may be verified with local tests. A research feature dependent on real-provider response quality needs different evidence for real effectiveness.
-
-This prevents a recurring management failure: implementation tasks finish, but acceptance scope was never agreed, so new unrelated work keeps being added to the same change during closure.
-
-### Design: Record Decisions Rather Than Restating Requirements
-
-Design documents key tradeoffs: existing ownership, why a smaller modification is insufficient, which facts must persist, and how failures recover.
-
-If a model receives incomplete research results, an appropriate fix might be repairing the data adapter—or allowing research to continue conservatively within authorized evidence. Adding a new validator that decides “enough evidence exists” is not automatically justified merely because writing one is easy; the judgment may be semantic and lack independently certifiable Runtime facts.
-
-We actively seek counterexamples during design review. When an approach proposes a new interceptor, state store, adapter or process, ask **which invariant it protects, and which old mechanism it replaces**.
-
-Reasonable design is not proof of effect, but recording these decisions helps later agents avoid layering the same complexity again.
-
-### Tasks: One Work Unit, Not Four Duplicate Checkboxes
-
-We once mechanically expanded every Scenario into RED, GREEN, REFACTOR and VERIFY tasks. It looked disciplined but turned tasks.md into an enormous procedural checklist.
-
-We now group work by **shared responsibility, implementation seam and test set**. One unit may cover several behavioral assertions and share an observed RED → GREEN → optional refactor → verification sequence.
-
-Split units only when ownership, failure modes or acceptance paths are genuinely independent.
-
-tasks.md owns work status. plan.md, when needed, describes execution order, test entry points and traceability. Commands and observations should not be copied into five different files.
-
-## 3. Evidence Ledger: Don't Reconstruct Test Outcomes from Model Memory
-
-This is the most important part of the workflow.
-
-Every substantive change maintains evidence.md. Before implementation it records a baseline, or explicitly states **not collected**. As actual RED, GREEN and integration checks execute, their observations are appended.
-
-For example:
+The following is a simplified teaching record, not an actual execution receipt or the public CLI's complete input format:
 
 ```text
 Evidence: EV-01
+Claim: The new source must not expand data access
 Task: 1.1
-Phase: GREEN
-Command: targeted test command
-Result: actual pass and test scope
-Revision: source revision at execution
-Artifact: locatable test output
-Origin: observed-run
+Revision: Actual source / working-tree identity at execution
+Check: Targeted out-of-scope request in an isolated environment
+Observation: The exercised request was denied
+Artifact: Locatable run record and original output
+Limit: Other access paths and live-provider behavior are not covered
 ```
 
-The point is not that the fields look professional. **Every conclusion must trace back to execution that actually happened at the time.**
+`EV-01` connects “why check this?” with “what was observed?” Its value is not the identifier itself. Reporting many passing tests without connecting them to the claim still leaves weak support.
 
-We distinguish several evidence states:
+### Traceable, trustworthy and sufficient are different properties
 
-| State | Supported interpretation |
+**Traceable** means a record leads back to an execution and its artifacts. **Trustworthy** means there is reason to believe the execution record was neither fabricated nor misattributed. **Sufficient** means the checks support the particular decision being made.
+
+A ledger primarily improves traceability and makes the other two properties easier to scrutinize. An agent that can edit the implementation, tests and ledger can make all three agree while misunderstanding the requirement. Another field does not solve that problem.
+
+For important permissions or external effects, an existing CI runner can retain independent run identities and protected artifacts, while established review, testing and release mechanisms decide acceptance. That is a stronger trust arrangement, **not an authentication capability already supplied by the Evidence Kit below**. An existing file or a matching digest alone establishes neither a genuine execution nor sufficient testing.
+
+Accordingly, `observed-run` means “the recorder declares this was an execution observed at the time,” not a trust stamp issued by the tool. The [public toolkit documentation](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/README.md) explicitly preserves that limitation.
+
+A second easily missed form of evidence is the **before state**. Without a baseline, a passing result can support “the exercised conditions are now met,” but not “the system improved by this much.” Mark an unavailable baseline as not collected. Do not infer an attractive before measurement from an after result.
+
+## 3. How Can Evidence Survive Revisions and Sessions?
+
+An observation is first a historical fact: a result was seen at a particular time under particular conditions. A later commit does not erase it, but neither automatically inherits all of its evidentiary value.
+
+In the opening example, B changes authorization. Adapter tests on A cannot directly establish B's authorization behavior. Review which requirements, tests and inputs the change affects, then rerun the relevant scope instead of giving an old `PASS` a new date.
+
+Conversely, correcting a typo does not necessarily alter behavior, configuration, samples or external conditions. A valid closure record should not force a full rerun solely because the commit identifier changed.
+
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" alt="Keep history. Recheck scope." width="720" height="800" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 3. Preserve the original record and separately assess applicability. This is a maintainer's impact-analysis method, not automatic source-equivalence checking by the CLI. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/03-revision-and-reuse.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
+
+| Recorded state | How a successor should use it |
 | --- | --- |
-| observed-run | Execution was actually observed on the recorded date, environment and revision |
-| reused-historical | Prior-version evidence was reused; do not pretend today's revision was rerun |
-| blocked | Acceptance branch did not run because a specific prerequisite was absent |
-| not collected | No corresponding observation exists; do not silently replace it with zero or success |
+| `observed-run` | Read the original date, revision, environment and artifacts; check whether they support the current claim. |
+| `reused-historical` | Explicitly reference the original observation and preserve its identity; do not present it as a fresh execution. |
+| `blocked` | Identify the missing prerequisite and the change that would make a retry useful. |
+| Not collected / unverified | Keep the unknown visible rather than replacing it with zero, success or assumed failure. |
 
-RED is not a box to tick. It must be a genuine failed execution **because the intended behavior is absent**. A database that never started, a missing test file or a syntax error is not a meaningful behavioral RED.
+Relevant changes are not limited to code diffs. Test data, prompts, dependencies, configuration and external-service behavior may change the applicability of an earlier observation. When the impact cannot be established, retain an unverified state instead of allowing a summary to imply a stronger guarantee.
 
-Documentation-only or inspection work may use an actual CHECK instead of manufacturing false RED evidence.
+Two actions must remain distinct: **reading an existing completion record** and **accepting a new change**. The former can preserve a historical outcome; the latter must satisfy the consuming project's current acceptance policy. The public CLI's `status` does not compare current source with old tests, and a historical import does not satisfy the fresh observations required for a newly checked task.
 
-This distinction is crucial when agents hand work to each other. Yesterday's GREEN does not become today's GREEN just because a new agent read its report.
+An agent handoff should transfer original observation pointers, relevant changes and unresolved gaps, not just the predecessor's verdict. A reviewer should be able to follow those pointers to the originals. If the original logs are gone, acknowledge reduced inspectability; a remembered chat summary must not become newly manufactured execution evidence.
 
-## 4. Generate Verify from Evidence Instead of Copying Evidence into Verify
+## 4. Capture Evidence Throughout Development Without Turning Work into Forms
 
-Once the evidence ledger existed, a new inefficiency emerged: results were duplicated across five or six files.
+<div id="_2-a-spec-workflow-is-about-facts-produced-at-each-stage-not-file-order" aria-hidden="true"></div>
+<div id="2-a-spec-workflow-is-about-facts-produced-at-each-stage-not-file-order" aria-hidden="true"></div>
 
-tasks.md marked status. plan.md copied commands. evidence.md recorded outputs. verify.md repeated them. When a test revision changed, the copies drifted apart.
+The initial motivation was straightforward: after an important change, we wanted to explain why it was made, what existed before and which choices mattered, without reconstructing everything from chats when preparing a retrospective or technical explanation.
 
-We assigned one primary responsibility per artifact:
+The engineering record dated August 30, 2026 already identified the gap. Material was mostly assembled during Verify and Retrospective, and some changes lacked independently collected before measurements. We introduced a continuously maintained `evidence.md`: baseline or unknown before implementation, observations during execution, and conclusions derived from existing facts during closeout.
 
-| Artifact | Primary ownership |
-| --- | --- |
-| proposal.md | Problem, scope, critical decisions and acceptance route |
-| design.md | Alternatives, architecture choices and risks |
-| specs/ | Observable desired behavior |
-| tasks.md | Work units and completion status |
-| plan.md | Essential execution steps and trace mapping |
-| evidence.md | Baseline, observed runs, revision identity and limitations |
-| verify.md | Completion judgment and remaining gates based on evidence |
+This is why the ledger should not appear as a step created only after GREEN. It is a **record spanning the work**, not a final report reconstructed afterward.
 
-A meaningful implementation change made verify.md a generated **projection** of the ledger:
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" alt="Record as the work happens" width="720" height="780" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 4. Capture a baseline before implementation, append observations during execution and generate Verify as a view. Decisions and implementation can be revisited; the process is not an irreversible waterfall. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/04-ledger-through-lifecycle.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
+
+<div id="_1-separate-what-the-system-currently-is-from-what-we-want-to-change" aria-hidden="true"></div>
+<div id="1-separate-what-the-system-currently-is-from-what-we-want-to-change" aria-hidden="true"></div>
+<div id="proposal-define-the-problem-not-a-promise-of-implementation" aria-hidden="true"></div>
+<div id="design-record-decisions-rather-than-restating-requirements" aria-hidden="true"></div>
+<div id="tasks-one-work-unit-not-four-duplicate-checkboxes" aria-hidden="true"></div>
+
+For acceptance, distinguish three objects: the spec promises observable behavior, the code implements it, and execution records describe what was observed on a particular revision. They should align; none can stand in for the other two.
+
+A behavioral RED should reach the intended behavior and fail because that behavior is missing or wrong. A database that never starts or a test that cannot load exposes an environment or assembly failure. Record it honestly, but do not count it as exercising the target behavior. Documentation inspection can use CHECK directly.
+
+### Store each observation once
+
+<div id="_4-generate-verify-from-evidence-instead-of-copying-evidence-into-verify" aria-hidden="true"></div>
+<div id="4-generate-verify-from-evidence-instead-of-copying-evidence-into-verify" aria-hidden="true"></div>
+<div id="_6-why-we-simplified-the-spec-closing-process" aria-hidden="true"></div>
+<div id="6-why-we-simplified-the-spec-closing-process" aria-hidden="true"></div>
+
+After introducing the ledger, another problem emerged: commands and results were copied into Tasks, Plan, Evidence and Verify. The early-October 2026 closeout change addressed duplicated maintenance rather than adding more acceptance layers.
+
+Tasks owns work state, Evidence owns observations, and Verify owns acceptance conclusions. A plan links necessary execution entry points instead of duplicating commands and results. The original project's `spec:verify` generates Verify as a projection of the ledger. It preserves original dates and revisions, detects stale inputs, protects handwritten Verify files, and refuses out-of-scope or symlink-traversing writes.
+
+Two kinds of freshness matter. **View freshness** means Verify agrees with its current inputs. **Evidence applicability** means those inputs still support the present decision. The generator checks the former, not the latter. Regenerating a view today from an old observation does not produce a new execution today.
+
+The original project divides structural checks into `plan`, `apply` and `verify`: minimum task operability, observations for completed tasks, and consistency between states and conclusions. These checks neither execute product acceptance nor judge model-answer quality. The [panorama](/en/articles/agent-spec-driven-development-panorama) explains the artifact sequence and complete development path.
+
+The same closeout work distinguished `none`, `candidate` and `history` handoffs. Without a useful new long-term insight, archiving need not manufacture an engineering-history essay. The change has bounded verification and closure records, but no measured reduction in development hours. Its directly explainable value is **concentrating maintenance of each fact in one place**.
+
+## 5. When Can Work End? Completion Is Not One Boolean
+
+<div id="_5-when-is-a-change-formally-closed" aria-hidden="true"></div>
+<div id="5-when-is-a-change-formally-closed" aria-hidden="true"></div>
+
+Implementation, local contracts, live integration, model-quality evaluation, formal closure and release are different dimensions. They do not form a ladder where a `PASS` automatically promotes the change to the next level.
+
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" alt="No automatic upgrade to done" width="720" height="840" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 5. Teaching example. Validation routes retain independent states. Missing a required gate prevents closure of that scope, and closure does not grant release authority. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/05-scoped-completion.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
+
+Suppose the agreed commitment is an offline adapter and an authorization-denial contract, with live-provider quality assigned to later independent work. Local acceptance can support that bounded deliverable. But if live-provider integration is part of the present commitment, a blocked integration means that portion remains unfinished. Quietly shrinking scope after a failure cannot fulfill the original promise.
+
+The original project uses a separate `spec:close` to run the gates required by the declared route. Checked tasks describe task state, not formal closure. Closeout preparation can finish while retaining `formal close: not-run`. Otherwise, “the task needs a successful close, but closing needs every task checked” creates a circular dependency.
 
 ```bash
-npm run spec:verify -- --change example-change
-npm run spec:verify -- --change example-change --check
+# Original-project entry points: readiness inspection and actual closure differ
+pnpm run spec:close:doctor --change example-change
+pnpm run spec:close --change example-change
 ```
 
-This generator does **not execute tests**. It projects existing tasks and observations while preserving original dates, revisions and execution origins. It never overwrites hand-authored Verify. If inputs change and the generated view becomes stale, checking reports that mismatch rather than presenting the old view as current.
+`spec:close:doctor` summarizes static blockers before the first close. It does not run paid models or promote readiness into acceptance. A `provider-free` route supports declared local deterministic and mock contracts, not long-term live-model quality. When a required condition is unmet, preserve the specific gap, repair the affected behavior or wait for the prerequisite. Independent completed work can still be reported within its actual scope.
 
-Structural linting became stage-specific:
+<div id="three-often-confused-outcomes" aria-hidden="true"></div>
 
-```bash
-npm run spec:lint -- --change example-change --stage plan
-npm run spec:lint -- --change example-change --stage apply
-npm run spec:lint -- --change example-change --stage verify
-```
+When a successful closure receipt already exists and relevant behavior has not changed, archiving can reuse it, synchronize accepted specs and hand off history according to its actual value. Rerunning everything because a summary was edited usually adds no decision-relevant evidence. Newly required checks in the formal plan, changed inputs or concrete failures still need attention.
 
-plan checks minimum operability such as task IDs. apply verifies real RED/GREEN or CHECK evidence for completed tasks. verify checks finished states, evidence and conclusions.
+**A stopping condition should be explainable when work begins, not invented when it ends.** When current commitments have the support they require, remaining work genuinely lies outside the agreed scope and a successor can inspect the record, the current phase can end. This is the same judgment taught by [multi-phase delivery](/en/principles#method-4) and [verification and failure diagnosis](/en/principles#method-5): define the commitment and evaluate matching evidence instead of pursuing an ever-larger pass count.
 
-This is a **read-only structural checker**, not a substitute for running tests or assessing a model's answer quality. We did not turn it into an all-purpose engine that rescans every archived change and recomputes every documentation mapping.
+## 6. Start with the Smallest Useful Evidence Index
 
-## 5. When Is a Change Formally Closed?
+<div id="_8-which-projects-benefit" aria-hidden="true"></div>
+<div id="8-which-projects-benefit" aria-hidden="true"></div>
 
-Formal spec:close is independent of checking off Tasks:
+First ask whether the existing PR, CI and test reports answer the questions above. If they do, keep using them. Add a ledger and structural checks only where real handoff cost, scattered evidence or risk boundaries justify them.
 
-```bash
-npm run spec:close -- --change example-change
-```
+<figure style="max-width:640px;margin:2rem auto">
+<a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" alt="Start with the smallest fit" width="720" height="782" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 6. Adoption strength follows coordination needs and risk, not file count. Higher-risk work needs trusted execution and protected acceptance, not merely more Markdown. <a :href="withBase('/visuals/en/026-agent-spec-evidence-workflow/06-adoption-boundary.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+</figure>
 
-It runs the gates required by the declared validation route. Local contracts, genuine integrations, paid-model validation and product release are different facts; a PASS in one cannot certify the others.
+A minimal practice can be small: place observable completion criteria next to the requirement; retain the original run pointer, revision and scope during execution; then link the conclusion to those observations and preserve the unknowns. Do not copy every log or create an entire change directory for each spelling correction.
 
-A provider-free route can establish bounded local deterministic behavior, mock behavior and exercised call contracts. It cannot establish long-term live model answer quality or production release.
+### Where can the public toolkit help?
 
-Before the first closure, spec:close:doctor may summarize static blockers **read-only**, without paid model calls. “Static ready” is not formal completion.
+<div id="_7-extracting-the-portable-part-openspec-evidence-kit" aria-hidden="true"></div>
+<div id="7-extracting-the-portable-part-openspec-evidence-kit" aria-hidden="true"></div>
+<div id="why-this-is-not-another-acceptance-authority" aria-hidden="true"></div>
 
-Conversely, **once successful formal closure already exists, documentation cleanup alone should not rerun the entire acceptance suite**. Without changed behavior, a concrete failure or a real contract conflict, reuse the existing receipt, synchronize the accepted delta and archive.
+We extracted task/observation structure checks, Verify generation and recorded-completion inspection into [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit), now maintained as **Spec Flow in Agent Engineering Suite**. The unified repository retains the [historical v0.1.0 release](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json) and [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). That historical version does not describe the current version or acceptance scope of the entire plugin suite.
 
-This preserves evidence discipline without entering a loop of “we just verified everything, but a new summary document means we must verify everything again.”
+Responsibilities remain separate: **runners execute; developers or agents record; the CLI checks structure; the project's existing owners decide acceptance and release**. The kit does not execute your tests, authenticate `observed-run`, judge coverage sufficiency or supply the original project's `spec:close`.
 
-### Three Often-Confused Outcomes
+The pinned public source requires Node **26.11.1–26.x**, is MIT-licensed, has no runtime dependencies and needs no database or model key. It also works with ordinary local directories. Its optional [`evidence-driven` schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) adapts OpenSpec; it does not copy the entire internal `superpowers-bridge`. The [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md) attributes related practices, including Superpowers' influence on design and testing.
 
-| Situation | Correct handling |
-| --- | --- |
-| Implementation tasks are all checked, but formal closure did not run | Preserve formal close: not-run; do not claim formal completion |
-| Local contracts passed, but real provider testing is missing | Report local pass; keep real-world quality unknown |
-| Work is complete with a successful closure receipt, but archiving remains | Reuse the original closure; do not rerun acceptance for maintenance alone |
+### Run the bundled example before adopting it
 
-When authorization, privacy or monetary execution invariants are at risk, rejection and acceptance checks are still essential. But those checks need an explicit protected subject. A local failure must not automatically erase all independent useful work from the run.
+<div id="clone-and-run-the-bundled-offline-example" aria-hidden="true"></div>
 
-## 6. Why We Simplified the Spec Closing Process
-
-In early October 2026 we revised Spec closure and archiving. The problem was not missing evidence; it was that **evidence already existed while closing documents kept reproducing it**.
-
-The previous workflow pressured engineers to maintain Verify manually and generate low-value historical notes for archival completeness.
-
-We made two decisions:
-
-1. Allow Verify to be generated from observed Tasks and Evidence, while preserving hand-written files and detecting stale projections.
-2. Make History handoff explicitly distinguish none, candidate and history. Not every formatting fix, repeated closure or test rerun deserves a permanent engineering-history essay.
-
-The change left traceable RED/GREEN, targeted tests and local closure records in the source repository. It concentrated maintenance of the same behavior and supported verification in the relevant test environment. We did not quantify a reduction in development hours or present local closure as live model or release acceptance.
-
-**The engineering workflow itself must pass a complexity review.** If a process adds forms without explaining which invariant it protects or which uncertainties it reduces, it may need to be merged or deleted.
-
-This workflow uses [method 4, “Planning a multi-phase delivery”](/en/principles#method-4) to distinguish the intended design from the current implementation stage, and [method 5, “Choosing verification and diagnosing failure”](/en/principles#method-5) to constrain each closure claim to execution evidence from the relevant revision. They are design and verification methods, not a demand that every small change pass the same heavyweight gates.
-
-## 7. Extracting the Portable Part: OpenSpec Evidence Kit
-
-The workflow above describes ETF Agent's own `superpowers-bridge` schema, project-specific verification and `spec:close`. Copying those parts wholesale into another repository would also copy application assumptions. In October 2026, we extracted a narrower, independently installable subset as [OpenSpec Evidence Kit](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit) ([v0.1.0](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy/openspec-evidence-kit-releases.json), MIT): **structural checks for tasks and observations, a generated Verify view, and read-only inspection of recorded completion**.
-
-The standalone v0.1.0 is a historical release; its release metadata and original Git history are preserved in the unified repository’s [migration records](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/legacy). The maintained entry is now **Spec Flow in Agent Engineering Suite**. The original version does not describe compatibility or acceptance of the entire plugin suite. Clone the fixed source below; Skill and plugin installation are covered separately in the [installation guide at this fixed revision](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md). When using the CLI in another project, set `AES_ROOT` to the cloned suite’s absolute path and run from that project’s directory.
-
-It uses Node 26.11.1–26.x, with no runtime dependencies, database, or model calls. OpenSpec itself is optional: the package also works with an ordinary local directory. Its separately written [`evidence-driven` schema](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven) is an optional OpenSpec adapter, not a republication of our internal schema or closure machinery.
-
-### Clone and run the bundled offline example
-
-The commands pin the public source used in this article. Use Node 26.11.1–26.x; no dependency installation or model key is needed.
+These commands pin the source examined for this article rather than relying on future main changes. Skill and plugin installation are covered separately in the [guide for this revision](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/docs/installation.md).
 
 ```bash
 git clone https://github.com/hpoenixf/agent-engineering-suite.git
@@ -257,64 +241,22 @@ node bin/spec-evidence.mjs verify --root examples --changes-dir changes --change
 node bin/spec-evidence.mjs status --root examples --changes-dir changes --change example
 ```
 
-`verify` generates `examples/changes/example/verify.md` locally; `--check` then compares that view with its inputs. The example task, observations, and completion record are fictional format material. `recorded-complete` only means a valid existing record was read, not that these checks just ran or that your project passed acceptance.
+`verify` creates `examples/changes/example/verify.md`; `--check` compares that view with its inputs. **The example's tasks, observations and completion record are fictional format material.** Reading `recorded-complete` means neither that those checks just ran nor that your project passed acceptance.
 
-### From one task to an inspectable observation
+<div id="from-one-task-to-an-inspectable-observation" aria-hidden="true"></div>
 
-Consider this **fictional format example**. A change named `cache-fix` already has `tasks.md` and `evidence.md`. After an inspection, its author records the local artifact `result.txt`:
+For adoption, consult the [Evidence template](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/schema/evidence-driven/templates/evidence.md) and [exact field format](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/docs/evidence-format.md). Stable task IDs, actual revisions, locatable artifacts and original provenance matter more than the number of fields. Record real observations after execution.
 
-```text
-# tasks.md
-- [x] 1.1 [check-only] Inspect the cache result file
+Ordinary completed tasks require ordered `RED → GREEN`. `[check-only]` uses CHECK, `[baseline-green]` uses BASELINE → VERIFY, and `[tests-after]` explicitly records later VERIFY. A marker cannot approve an exception to project policy, and a historical import cannot become a fresh observation.
 
-# evidence.md
-## Observation Log
-| Date / phase | Evidence ID | Task | Command | Actual result | Artifact | Revision | Origin |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-01-01 CHECK | EV-01 | 1.1 | inspect result.txt | passed: illustrative check | result.txt | demo-revision | observed-run |
-```
+`lint --stage apply` checks phase records and local artifacts for completed tasks. `verify` generates a view when tasks and observations are usable; `verify --check` only detects a stale view. `status` reads the project's authored `completion.json`, preserving its date, revision and route. It does not rerun checks or compare current source applicability. The tool checks record structure; the project retains acceptance authority.
 
-The point is not a ceremonial table. It is a **stable task ID, an ordered observation, a local artifact and the original revision**. A completed ordinary task requires an ordered `RED → GREEN` sequence by default. The explicit `[check-only]` marker selects `CHECK`, `[baseline-green]` selects `BASELINE → VERIFY`, and `[tests-after]` records a later `VERIFY`. Imported `reused-historical` evidence does not satisfy a fresh completed task.
 
-With the files under `openspec/changes/cache-fix/`, the project can run:
 
-```bash
-AES_ROOT=/absolute/path/to/agent-engineering-suite
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage plan
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" lint --change cache-fix --stage apply
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" verify --change cache-fix --check
-node "$AES_ROOT/skills/aes-spec-flow/toolkit/bin/spec-evidence.mjs" status --change cache-fix
-```
-
-`plan` checks task labels and duplicate IDs. `apply` checks recorded phases and local artifact existence for checked tasks. `verify` requires complete tasks and usable observations before generating `verify.md` with a digest of its inputs; `verify --check` detects a stale generated view without rewriting it. The writer preserves handwritten verification files and refuses paths outside the selected change or through symlinks.
-
-`status` deliberately does less: it reads task state and an **authored** `completion.json`, if present. It may report `recorded-complete` when all tasks are checked and the typed record is valid, preserving its original timestamp, revision and verification lane. It neither reruns the old checks nor requires vanished temporary artifacts merely to inspect the record.
-
-### Why this is not another acceptance authority
-
-The responsibilities remain separate: **test runners execute checks; developers or agents record observations; the CLI validates recorded structure; the consuming project decides acceptance**. `observed-run` is an authored provenance label, not proof that the command actually ran. A recorded completion is not a fresh verification of current code or permission to release.
-
-This makes the kit suitable as a small local or CI check rather than a replacement for product-specific test execution, model-quality evaluation or formal closure. The [repository](https://github.com/hpoenixf/agent-engineering-suite/tree/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit) includes offline examples and the evidence format. Its optional schema follows the [OpenSpec](https://github.com/Fission-AI/OpenSpec) ecosystem, while its [NOTICE](https://github.com/hpoenixf/agent-engineering-suite/blob/3b515de2f30e25b1e0757243f3ce4d1be19b00b0/skills/aes-spec-flow/toolkit/NOTICE.md) attributes relevant Superpowers influences.
-
-For individual/full-suite Skills and Codex plugins, and how the engineering modules work together, see the [Agent Engineering Suite introduction](/en/articles/agent-engineering-suite).
-
-## 8. Which Projects Benefit?
-
-[GitHub Spec Kit](https://github.github.com/spec-kit/) also connects specification, plan, tasks and implementation. We did not create a new universal standard beyond these methods. We adapted their ideas to long-lived Agent projects, adding durable multi-turn execution evidence, unambiguous completion states and timely acceptance convergence.
-
-For a small copy edit, the full process is unnecessary; a clear diff and focused content check may suffice.
-
-For changes crossing module interfaces, data authorization, persistence recovery or real-model evaluation, evidence and explicit stage gates are valuable.
-
-Three lessons transfer especially well:
-
-1. **Specs, code, tests, closure and publication are different facts.** No checkbox should stand in for all of them.
-2. **Evidence originates during execution, not in a closing summary reconstructed from memory.** Preserve each observation's time, revision and scope.
-3. **Validation exists to establish credible conclusions, not to continue forever.** Maintain a fact in one authoritative place, and stop repeating work without substantive change.
-
-We do not want a Coding Agent that perpetually says “not rigorous enough.” We want one that can say clearly **what was proven, what remains unknown, and why work can now end**.
+For the entire suite and module relationships, see the [Agent Engineering Suite introduction](/en/articles/agent-engineering-suite). Adopt the part that reduces a real handoff burden; the complete workflow is not a prerequisite.
 
 ---
 
-This essay also appeared on the personal blog. For the current reading edition, use the [English article](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow) or the [Chinese original](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow). The source and further work are in the [GitHub engineering collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.
+Engineering cannot make every judgment certain. The practical value of evidence is keeping uncertainty visible through handoffs, summaries and closure, instead of quietly rewriting it as established fact. It helps us recognize both when work cannot yet be called complete and when the available evidence is enough to end the current commitment.
+
+The [original Chinese URL](https://hpoenixf.com/eff-agent-article/articles/026-agent-spec-evidence-workflow) and [complete English edition](https://hpoenixf.com/eff-agent-article/en/articles/026-agent-spec-evidence-workflow) are retained. Source and engineering discussion live in the [GitHub collection](https://github.com/hpoenixf/eff-agent-article); stars welcome.
