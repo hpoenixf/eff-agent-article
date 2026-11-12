@@ -41,9 +41,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
+- 2026-11-12 · Updated · [Spec-Driven Agent Development: From Requirements to Trustworthy Delivery](en/articles/agent-spec-driven-development-panorama.md)
 - 2026-11-12 · Updated · [Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation](en/articles/agent-conversation-admission-task-continuation.md)
 - 2026-11-12 · Updated · [Start with a Report You Can Read Back: Open ETF Agent v0.1](en/articles/open-etf-agent-v01-first-readable-report.md)
-- 2026-11-12 · Updated · [Designing Half-Hour Agent Research: From Ordinary Research to Reliable Delivery](en/articles/agent-half-hour-research-engineering-practice.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 

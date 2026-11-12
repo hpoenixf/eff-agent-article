@@ -1,12 +1,11 @@
 ---
 title: 'Spec-Driven Agent Development: From Requirements to Trustworthy Delivery'
-description: Spec is more than a construction plan. Real file-ingestion, termination, weekly-report and workflow-simplification cases show how principles shape decisions, templates,
-  behavior, tests and archives—and constrain the process itself.
+description: Start with the background and purpose of specifications, then follow file ingestion through principles, design, templates, behavior, verification, archiving and template maintenance—without copying project-specific ceremony.
 readingBrief:
   takeaways:
   - A principle enters Spec when it changes scope, alternatives, scenarios and acceptance—not when a proposal merely claims compliance.
-  - Routing rules, domain facts, templates and change instances have different roles. Read by task, and distinguish lightweight practice from the selected schema’s actual dependencies.
-  - New denial paths need both protected counterexamples and valid allowed cases. One shared function is not necessarily one decision authority.
+  - Spec records behavioral agreements, Plan organizes execution, and tests provide observations. Read relevant constraints and current facts before choosing artifacts.
+  - Templates should preserve decisions that later work actually uses. File count is not quality, and lightweight practice must still respect the selected workflow’s real dependencies.
   - Evolve existing tests while specifying the change, then inspect actual consumer paths. Local passes cannot substitute for a result the user can obtain.
   - Archive behavior and rationale; promote reusable blind spots into templates. The workflow itself must shed duplication, persistent overhead and rules that cannot exit.
   appliesTo:
@@ -22,124 +21,82 @@ import { withBase } from 'vitepress'
 
 # Spec-Driven Agent Development: From Requirements to Trustworthy Delivery
 
-A research agent gains file-reading support. The parser works and the model receives text—but has the new capability also expanded download permissions, introduced four dedicated tools, or permanently indexed temporary documents? Exception handling is consolidated behind one function, making the code neater—but can every caller still decide to end the entire research run? A weekly-report feature acquires increasingly complete plans for history, subscriptions and comparison, while the user still cannot download a first report.
+Spec is short for specification. In software development, it records what a system should do, under which conditions, and which boundaries must hold, in terms that people can discuss and check. It is not the name of an AI tool, nor is it simply an implementation task list.
 
-These problems share a pattern: **an implementation may satisfy its local task without moving the system in the direction we intended.** A construction plan that lists files to change and coding steps is not enough to address that divergence. It can make execution more predictable without improving the quality of the decisions being executed.
+Ask a coding agent to “add file reading,” and code can appear before the requirement becomes clear. May any model-supplied URL trigger a download? How should partial extraction be represented? Should a failed attachment stop the entire task? Leaving those decisions to implementation-time guesses can produce working software that does not match the team's intent.
 
-We ask more of a Spec workflow: turn durable principles into concrete constraints on each change, challenge requirements with counterexamples, test implementation against observations, and let useful lessons influence the next design. The goal is not to put “follows our architecture principles” at the top of a proposal. For a particular decision, we should be able to explain why it exists, which reasonable alternative it rejects, which behavior it protects, how we detect implementation drift, and when the mechanism could be removed.
+This article first explains why specifications are useful, then follows authoring, templates, implementation, verification, archiving and maintenance. ETF Agent's file-ingestion change supplies the main example; other experiences illustrate only specific choices. Readers need not copy our directories or principles. The transferable question is **how a team's constraints influence each change instead of remaining isolated in a principles document**.
 
-“Spec” has two meanings here. In the narrow sense, it is an observable behavior contract. The broader **Spec workflow** includes problem exploration, design choices, behavioral deltas, execution, verification, archiving, and maintenance of the specifications and templates themselves. This article examines the broader workflow while preserving the narrow specification's responsibility: `spec.md` should not become a super-document containing everything.
-
-The discussion is grounded in ETF Agent engineering records. File ingestion provides the main thread; run termination, weekly-report delivery and closeout simplification illuminate three different changes of direction. Historical observations retain their original dates and scope. Requirements, pseudocode and scenarios shortened for explanation are identified as teaching versions. The coding agent using the workflow and the research agent being developed are different actors: the latter's behavior is what we design and check.
+## 1. What Is a Spec, and Why Does It Matter Again in AI Development?
 
 <span id="_1-start-with-what-must-survive-the-handoff-not-which-files-to-write" aria-hidden="true"></span>
 <span id="1-start-with-what-must-survive-the-handoff-not-which-files-to-write" aria-hidden="true"></span>
+<span id="_1-carry-design-judgment-through-the-change-not-just-files-through-a-sequence" aria-hidden="true"></span>
+<span id="quality-means-more-than-implementing-the-feature" aria-hidden="true"></span>
+<span id="both-the-product-and-the-method-need-feedback" aria-hidden="true"></span>
 
-## 1. Carry Design Judgment Through the Change, Not Just Files Through a Sequence
+### Specifications predate coding agents
 
-A change begins with a user's sentence and eventually enters a codebase. Between those points, the work involves more than completing missing information. Is the problem worth solving? Is an existing capability sufficient? Where should the addition belong? Which failures should remain local? What counts as the user actually receiving a result? When these decisions live only in a conversation, the next implementer may inherit the conclusion without its conditions.
+Specifications predate AI coding. In a [2013 essay](https://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/), Leslie Lamport advocated specifying behavior before implementation and distinguished informal from formal specifications. This is an earlier example, not the origin date of Spec.
 
-A Spec workflow should therefore preserve an inspectable line of reasoning, not merely a command sequence:
+The underlying problem persists: **human intent, implemented behavior and the next maintainer's understanding do not align automatically**. Code alone may not reveal whether a behavior was deliberate, inherited baggage or an accident. Oral agreements can lose their conditions during handoff. A specification provides a shared place to examine and revise those decisions.
 
-> User goal → relevant principles and current facts → alternatives and tradeoffs → observable behavior → implementation and verification → acceptance or revision → inputs to the next design.
+For example, “support file reading” is a goal. “Admitted files are readable within the current task; unadmitted text cannot initiate a download; partial extraction must not masquerade as a complete document” begins to define behavior. Which parser library to use and where to integrate it are design and implementation questions. **Spec defines outcomes and boundaries, Plan organizes execution, and tests observe whether the agreement holds. They connect but do not replace one another.**
 
-Principles are not criteria applied only at the final review. They should narrow unsuitable options early. Conversely, concrete facts should be allowed to expose a principle whose wording is too broad or whose applicability is unclear. Holding to a principle does not mean holding to the first design. It means being able to explain which values and protections must survive when that design changes.
+### Which existing problems do coding agents amplify?
+
+AI can turn a vague request into substantial implementation quickly, but someone still has to supply the missing decisions. Without an explicit agreement, that someone may be the current model, a prompt fragment or an incidental pattern in existing code. Another session or executor may interpret the same word differently.
+
+GitHub's [September 2025 introduction of Spec Kit](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/) addressed this mismatch: generated code can look reasonable while missing intent or choosing an unsuitable stack or architecture. The toolkit connects specifications, plans, tasks and implementation.
+
+Spec-driven development, or SDD, is therefore not simply “write more documents before coding.” It makes important agreements continuing inputs to implementation and review. It is particularly useful when work crosses sessions or modules, changes existing behavior, or touches authorization and recovery. A one-off experiment may already be served adequately by a clear request, a few tests and a PR description.
+
+[OpenSpec](https://github.com/Fission-AI/OpenSpec/blob/main/docs/concepts.md) is one implementation of this approach. It separates accepted specifications from proposed changes, describes modifications to existing systems through deltas, and emphasizes iteration rather than an irreversible waterfall. This article uses it to organize artifacts without equating OpenSpec, our project-specific templates and the general idea of a specification.
+
+### From a one-time plan to an ongoing basis for judgment
+
+A construction plan answers “what should change first, and what comes next?” A complete Spec workflow also asks “why is this worth changing, which conditions must survive, and how will we know the result is right?” Its reasoning chain is:
+
+> User goal → relevant constraints and current facts → alternatives and tradeoffs → observable behavior → implementation and verification → acceptance or revision → a basis for the next design.
+
+Principles help rule out unsuitable approaches during design and guide tests and review. New observations can, in turn, change the design. Revisiting a decision is not a process violation when scope, rationale and behavioral changes are reconciled.
 
 <figure style="max-width:640px;margin:2rem auto">
-<a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" alt="A change, end to end" width="720" height="836" loading="lazy" style="width:100%;height:auto" /></a>
-<figcaption>Figure 1. Preserve the commitment, implementation and acceptance basis. Evidence spans every stage; feedback returns to the affected decision. <a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
+<a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" alt="From intent to a transferable change" width="720" height="836" loading="lazy" style="width:100%;height:auto" /></a>
+<figcaption>Figure 1. The workflow preserves commitments, implementation and acceptance grounds. Evidence spans the stages; feedback returns to the affected decision. <a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/01-change-lifecycle.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
 </figure>
 
-### Quality means more than implementing the feature
+Quality here includes functional correctness, a useful requirement, clear responsibilities, necessary protections and future maintainability. Spec cannot guarantee correct answers to all of these questions. It makes them discussable before implementation and inspectable during execution instead of raising them only after a problem appears.
 
-At least four kinds of quality questions need to stay connected. First, is the requirement worth pursuing, and does the first deliverable address the user's problem? Second, does the architecture place facts and decision authority with the right responsibilities, without burdening every normal path for one feature? Third, does the implementation preserve valid allowed, denied, partial-failure and recovery behavior? Fourth, will the system remain understandable, resumable, replaceable and removable after the change?
-
-Tests matter greatly to the third question, but do not automatically answer the other three. A compelling design cannot replace execution evidence either. The workflow connects these judgments: acceptance conditions lead back to the goal, tests to behavioral commitments, and design choices to principles and current facts. Each part must do more than pass its own unrelated checks.
-
-For example, “a local failure must not acquire a global veto” is a principle. Applied to file ingestion, it becomes “an unavailable attachment must not erase independently permitted business facts from the same tool call.” Tests should then observe both the failed attachment and the retained valid content. Checking that the parser throws the correct exception is insufficient: an upstream handler might still aggregate that exception into failure of the whole run.
-
-### Both the product and the method need feedback
-
-Two connected feedback loops help explain this without requiring new runtime modules. One governs the product change: propose, observe the implementation, then accept or revise. The other governs the development method: identify a workflow failure, decide whether it is a one-off issue, a domain rule or a recurring blind spot, then change the relevant instruction entry point, template or tool.
-
-The second loop is easy to miss. Adding a mandatory template field after every incident creates its own spillover, normal-path overhead and hard-to-retire baggage. **The philosophy used to constrain the system must also constrain the Spec workflow.**
-
-## 2. Before Authoring: Bring Relevant Principles into Context, Not the Entire Document Library
-
-Our coding agent does not start with an empty template. Root `AGENTS.md` retains invariants and routes the task. Domain context explains vocabulary and responsibility. The shared Spec workflow defines artifact and execution rules. Accepted behavior specifications, source code and existing tests provide the facts needed for the current decision.
-
-These are not interchangeable “reference documents.” They answer different questions and should be loaded at different points.
-
-| Material | Question it helps answer | How authoring uses it |
-| --- | --- | --- |
-| Root rules and task routing | Which constraints persist, and where should this task look? | Establish authority, factual and scope boundaries without copying the entire knowledge base. |
-| Core principles and on-demand methods | How should this kind of design be judged? | Select relevant principles, five-don't questions or responsibility questions without manufacturing a form for each one. |
-| Domain `CONTEXT` and responsibility descriptions | What do the terms mean, and who owns the relevant facts and decisions? | Avoid reinventing existing capabilities or crossing domain boundaries. |
-| Accepted specs, entry-point code and existing tests | What is promised, what actually happens, and what protections already exist? | Cross-check the three; a proposal or document is not execution evidence. |
-| This change's artifacts and observations | What is actually committed, and how far has execution progressed? | Continue the current task instead of reconstructing its state from an old chat summary. |
-| Relevant History | Why was the earlier approach chosen, and which assumptions changed? | Explain decisions without promoting a historical approach into a current instruction. |
+## 2. Before Authoring: Turn Relevant Principles into Questions About This Change
 
 <span id="investigate-facts-before-asking-for-decisions" aria-hidden="true"></span>
+<span id="_2-before-authoring-bring-relevant-principles-into-context-not-the-entire-document-library" aria-hidden="true"></span>
+<span id="start-with-routing-then-deepen-the-relevant-question" aria-hidden="true"></span>
+<span id="nine-principles-five-don-ts-and-four-questions-are-not-three-sets-of-gates" aria-hidden="true"></span>
+<span id="_3-turn-principles-into-questions-that-change-the-design" aria-hidden="true"></span>
+<span id="use-the-five-don-ts-to-examine-additions-not-prohibit-all-complexity" aria-hidden="true"></span>
+<span id="apply-the-four-questions-to-the-present-decision" aria-hidden="true"></span>
+<span id="a-principle-does-not-authorize-an-arbitrary-new-hard-gate" aria-hidden="true"></span>
+<span id="_6-a-real-counterexample-one-termination-function-is-not-one-termination-authority" aria-hidden="true"></span>
+<span id="how-did-the-principle-change-design" aria-hidden="true"></span>
+<span id="how-did-the-principle-change-acceptance" aria-hidden="true"></span>
 
-### Start with routing, then deepen the relevant question
+A large documentation system is not a prerequisite. In most existing projects, begin with three kinds of material: the team's enduring constraints; the affected module's accepted behavior, code and tests; and the goal and unresolved choices of the current request. Read design history only when it helps explain a decision that matters now.
 
-The default approach in the root rules is one bootstrap entry, one matching task pack and the exact target files. Read more when the task crosses domains, changes authority or ownership boundaries, or repeatedly fails focused verification. Read the shared workflow at task start; on continuation, inspect relevant changes rather than rereading the entire collection because implementation has moved to verification.
+These sources serve different purposes. Principles guide choices, current code and tests establish implementation facts, and history explains earlier reasoning. Do not flatten them into an undifferentiated “project background” or reread everything for each task. Preparation should produce a fact that changes the proposed solution: for example, “the existing workspace already searches and reads material; this change needs ingestion, not another platform.”
 
-This is not merely context optimization. More importantly, **each fact retains its authoritative location**. Current behavior belongs to accepted contracts and implementation; actual results belong to original execution records; a compacted conversation is only a navigation aid. Combining everything into a convenient “project summary” can erase distinctions between historical and current, suggested and required, implemented and unverified.
+Our particular principles are documented in the [principles index](/en/principles), with the five don'ts and their tradeoffs in the [architecture-evolution article](/en/articles/code-cheaper-systems-harder-to-evolve). What matters here is their use: **choose a principle relevant to the change, turn it into a concrete question, and carry the answer into the design, scenarios and verification**.
 
-File ingestion illustrates the point. Looking only at “support files returned by MCP” makes it easy to propose a download service, a file registry and format-specific tools. Reading the relevant existing material reveals research assets, provenance, a run-scoped evidence workspace, and generic search and read operations. The missing capability is the connection from a trusted tool result into those existing facilities.
+Take “a local failure must not veto independently valid results.” For file ingestion, ask whether one failed attachment justifies losing the other results of the same tool call. If not, Design should choose attachment-level failure handling; Spec should preserve those other results; and tests should observe the failed attachment alongside the successful content. Merely declaring compliance in a proposal—or checking that the parser threw an exception—does not complete that chain.
 
-The useful output of prerequisite reading is therefore not “ten documents read.” It is a fact that changes the design: **add the connection here, not another platform.**
+Termination ownership offers a compact real counterexample. Replacing scattered error handling with calls to `terminate(failed)` centralizes the write entry point, while callers may still decide that the entire run has failed. The design instead had local components report facts and the existing run-control responsibility decide continuation, finalization or termination. Acceptance shifted from “which function was called?” to “which permitted effects can continue after a local fault?” The [full mechanism](/en/articles/agent-veto-authority-and-run-termination) has its own article. The lesson here is that a principle must change choices and observable behavior, not only names.
 
-### Nine principles, five don'ts and four questions are not three sets of gates
+Keep these answers in existing design notes or decision records; another “principle-compliance form” is unnecessary. Nor does a principle automatically authorize a new gate. A denial needs a protected effect, authoritative facts and a defined scope. Necessary protection remains, and independently permitted paths need verification as well.
 
-The core principles address durable judgments: who understands meaning, who has decision authority, how proposal and effect differ, how far failure propagates, where facts live, how much machinery is necessary, how capabilities exit, whether the user completed the task, and whether local improvement produced system-wide progress. The [principles index](/en/principles) collects them, but the relevant ideas are explained here; reading every related article is not a prerequisite.
+## 3. Templates Are Not a Document Package: Why Each File Exists
 
-The five don'ts and four responsibility questions help apply these principles. The former assess whether to introduce a mechanism; the latter trace facts, authority, failure and value. They do not add nine checklists, five approvals and four reports to every requirement.
-
-A small wording correction does not require a simulated architecture review. A few lines introducing a new denial path may warrant a careful authority review along the call chain. **The depth of reading and discussion follows changed behavior and risk, not the line count or the number of empty fields in a template.**
-
-## 3. Turn Principles into Questions That Change the Design
-
-“Keep it simple,” “be secure” and “decouple modules” are easily correct yet ineffective statements. To influence a design, a principle must become a question that distinguishes reasonable alternatives. The answer should live with existing design decisions, not in a new principle-compliance dossier.
-
-### Use the five don'ts to examine additions, not prohibit all complexity
-
-Our five don'ts are not a ban on new modules. They examine the benefit and cost of a capability from five directions:
-
-| Don't | Concrete question | Consequence for file ingestion |
-| --- | --- | --- |
-| Do not add a mechanism merely because it is implementable. | What is actually missing for the user? Would an existing capability plus one seam suffice? | Do not rebuild provenance, citations and reading just because a parsing platform is possible. |
-| Do not let complexity spill outward. | Will credentials, parser limits and error handling spread into every Skill? | Encapsulate acquisition and bounded parsing on the host side instead of repeating infrastructure in business methods. |
-| Do not spread local veto power. | Which effects can one failed attachment legitimately cancel? | An unavailable attachment must not erase other independently permitted results. |
-| Do not impose meaningless overhead on the normal path. | Do tasks without files still carry more prompts, tools, states and checks? | Do not add `read_pdf`, `read_excel` and similar declarations to every model request by default. |
-| Do not introduce a capability that cannot exit. | Which consumers must change if the parser is replaced or ingestion is removed? | Integrate through existing asset and workspace contracts, containing format differences at the adapter boundary. |
-
-Normal-path overhead is more than execution time. An unused tool declaration can still occupy model context. A state can force every caller to understand a new branch even without adding a database table. Design should consider both the triggered cost and the persistent cost when the capability is unused.
-
-The same questions can justify a shared capability. When several business sources need access isolation, parsing bounds and provenance, leaving every Skill to implement them is not simplicity—it distributes complexity. Fewer lines of code do not necessarily mean a smaller system burden. A sufficiently complete shared seam can reduce what consumers need to know.
-
-### Apply the four questions to the present decision
-
-**Facts: who produces, stores and interprets this value?** Real tool execution supplies source identity, parsers produce extracted text and coverage, and the model interprets the content. Passing schema validation does not grant an object trustworthy provenance. Equal content hashes do not establish the current task's permission to read.
-
-**Authority: who may allow, deny, continue or terminate which effect?** Acquisition admission, parser resource limits, workspace reading and whole-run termination are distinct decisions. Different owners may examine different facts at different times; the same word `deny` does not make their checks duplicates. Nor does placing checks in different files grant each an independent final authority.
-
-**Failure: what can still proceed legitimately when this part fails?** Can other attachments and business facts survive an unavailable file? Can recovery repeat an effect whose receipt is unknown? After cancellation, will “graceful finalization” initiate another model request? These questions determine exception propagation, not merely error names.
-
-**Value: which user result does the mechanism improve?** Between supporting a format and enabling useful research lie admission, acquisition, registration, actual reading and use of the content. A design should identify the part improved, the maintenance cost introduced, and the facts that would justify reducing or removing it.
-
-A few substantive paragraphs of `Design Reflection` may answer these questions. Where the decision table already contains the answer, link to it. Reopen the relevant discussion when a material choice changes. Repeating the same principles does not improve the decision.
-
-### A principle does not authorize an arbitrary new hard gate
-
-“Add another check for reliability” deserves particular scrutiny. Deterministic code is well suited to validating syntax, identity, permissions, resource boundaries and execution receipts. Being expressible as a condition does not give it authority to decide whether research is sufficient, an opinion is credible or an answer deserves to be shown.
-
-Our decision record asks where authoritative input originates and why it is valid for this particular decision, who owns the effect, how far denial extends, and how independently legitimate results survive failure. A model-produced `safe: true` is not permission approval. A regular expression failing to recognize wording does not establish that the user withheld authorization or that the answer has no value.
-
-When translating a principle into a specification, describe both what must not happen and **which legitimate behavior must remain possible**. Writing only denial conditions can turn quality governance into an ever-growing veto system. Conversely, local failure isolation is not an instruction to deliver under all conditions: actual private dependencies, ambiguous identity, unknown write effects and user cancellation must still be handled by their rightful owners.
-
-## 4. Templates Are Not a Document Package: Why Each File Exists
+<span id="_4-templates-are-not-a-document-package-why-each-file-exists" aria-hidden="true"></span>
 
 Principles need a durable carrier, but not necessarily one enormous rulebook. We use OpenSpec to organize accepted behavior and proposed deltas, Superpowers-related practices for exploration, execution, tests and review, and project-specific rules for evidence, closure and historical handoff.
 
@@ -210,7 +167,11 @@ Likewise, `Approval` records an existing instruction; typing approved does not c
 <span id="_3-design-explains-choices-spec-defines-observable-behavior" aria-hidden="true"></span>
 <span id="3-design-explains-choices-spec-defines-observable-behavior" aria-hidden="true"></span>
 
-## 5. The Main Case: Turning File Reading into a Bounded Capability
+## 4. From Request to Behavioral Agreement: The File-Ingestion Case
+
+<span id="_5-the-main-case-turning-file-reading-into-a-bounded-capability" aria-hidden="true"></span>
+
+This case uses the file-ingestion design and observation records from late September to early October 2026. Condensed scenarios are teaching adaptations; historical, scoped checks are not certification of the current deployment.
 
 Business tools could return fund prospectuses, product documents or file references, but the research agent lacked a uniform reading path. “Add a parser” described an intermediate step, not the capability's entry point, authority, output or lifecycle.
 
@@ -284,6 +245,21 @@ This was more than adding a parameter. Content deduplication and authorization i
 
 The design discussed a content-addressed parse cache, but the implementation at that stage used an ephemeral run-scoped repository and did not implement cross-run parsing cache. Long-term corpus admission, retention and indexing remained a separate lifecycle. Successful parsing did not authorize indefinite future use.
 
+### Put the first usable result into scope
+
+<span id="_4-design-the-whole-direction-commit-to-a-deliverable-slice" aria-hidden="true"></span>
+<span id="4-design-the-whole-direction-commit-to-a-deliverable-slice" aria-hidden="true"></span>
+<span id="_5-turn-specifications-into-handoff-ready-work-not-more-checkboxes" aria-hidden="true"></span>
+<span id="5-turn-specifications-into-handoff-ready-work-not-more-checkboxes" aria-hidden="true"></span>
+<span id="_7-improve-the-requirement-not-just-the-speed-of-executing-a-large-plan" aria-hidden="true"></span>
+<span id="a-complete-design-is-not-a-commitment-to-implement-it-all-now" aria-hidden="true"></span>
+<span id="narrowing-scope-is-not-removing-necessary-protection" aria-hidden="true"></span>
+<span id="what-supports-a-more-deliverable-requirement" aria-hidden="true"></span>
+
+Discussing a complete capability does not commit the current phase to every enhancement. File ingestion first delivers material readable within the current task; OCR, cross-run caching and long-term indexing keep their separate future ownership. Source admission, scope isolation and truthful coverage are conditions of the current result, so they cannot be deferred with those enhancements.
+
+In the weekly-report work, history, comparisons and subscriptions once obscured the first file deliverable. The commitment was narrowed to an actually saved, downloadable HTML file, with scope, task dependencies and acceptance updated together—not merely a note saying “MVP first.” The [staged-delivery retrospective](/en/articles/agent-weekly-review-staged-delivery) covers the full experience. The reusable method is to organize necessary work around the first useful result, move enhancements out of its completion conditions, and retain essential protection and historical failures.
+
 <figure style="max-width:640px;margin:2rem auto">
 <a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/04-delivery-scope.svg')" target="_blank" rel="noopener" aria-label="Open the full diagram in a new tab"><img :src="withBase('/visuals/en/agent-spec-driven-development-panorama/04-delivery-scope.svg')" alt="Design broadly. Deliver a slice." width="720" height="840" loading="lazy" style="width:100%;height:auto" /></a>
 <figcaption>Figure 4. A complete slice includes required safeguards. Enhancements stay outside this commitment; delivery, not folder size, determines phases. <a :href="withBase('/visuals/en/agent-spec-driven-development-panorama/04-delivery-scope.svg')" target="_blank" rel="noopener">Open full diagram</a></figcaption>
@@ -301,89 +277,9 @@ The design discussed a content-addressed parse cache, but the implementation at 
 
 This table explains the case in retrospect; it is not a proposal for another mandatory artifact. The actual workflow reuses decisions, scenarios, tasks and observations. What matters is being able to follow a principle to an effect—not ensuring every table cell contains text.
 
-## 6. A Real Counterexample: One Termination Function Is Not One Termination Authority
+## 5. Evolve Tests During Specification, Not After Implementation as Supporting Evidence
 
-File ingestion shows how principles constrain a new capability. The termination change shows how they can redirect an apparently sensible refactor.
-
-Local exceptions could still implicitly stop the entire research run. Stop advice could veto completion. Persisted status and completion callbacks could disagree. A plausible first response was to centralize terminal writes in a common function, making the code more consistent and its exits easier to inspect.
-
-The proposal's design reflection challenged that response. If each caller still interprets its own exception and invokes `terminate(failed)`, **the write is centralized, but the decision is not**. A local module can still promote its failure into whole-run failure; it has merely hired a shared function to persist the verdict.
-
-The following teaching pseudocode illustrates the distinction; these are not actual project APIs:
-
-```text
-Superficial centralization:
-  A module encounters an exception
-  → The caller decides the whole run failed
-  → A shared termination function writes failed
-
-Consolidated responsibility:
-  A module reports the operation's failure, known receipts and recovery conditions
-  → Existing run control considers cancellation, resources and effect state
-  → Continue, enter bounded finalization, or terminate
-  → Publication preserves independently admitted body content
-  → Persistence supplies the actual settled result
-```
-
-### How did the principle change Design?
-
-The change introduced neither a termination agent nor a second resource ledger. It deepened the existing run lifecycle so one responsibility actually decided continuation, finalization and terminal state. Local modules retained their error handling and supplied objective facts; exception types no longer automatically conferred authority over the whole run.
-
-Body disposition did not move into that responsibility. The model judged content, run control decided whether execution continued, Publication handled body content, and persistence/recovery retained actual effects and state. Putting every power into a universal manager would have missed the point as well.
-
-Stop Hook feedback remained observable but could no longer veto an accepted finish or force another model turn. Unavailable optional research notes could not invalidate an already assembled legitimate request merely because later notes were absent. At the same time, actual source, content-identity and unknown-effect protections could not be bypassed through a broad `catch`.
-
-### How did the principle change acceptance?
-
-A test asserting that termination was called once would not establish the design. Tests needed to inject recoverable failures through production assembly and observe a permitted follow-up request or bounded finalization. They also needed contrasts: cancellation must not initiate new model finalization, hard resource exhaustion must not authorize another call, and unknown effects must not be replayed.
-
-Actual save failure, body visibility and final callback state needed separate checks. Independently admitted text could be visible without having been saved successfully. A save failure must not automatically clear that text. The archived observations cover production assembly with a fake gateway and isolated database recovery paths; real research-content quality remains a separate question.
-
-The valuable change for this article is not another owner name. Spec moved the review question from “does every exit call the same function?” to “who decides which effect, based on which facts?” Source scans can help answer the former; the latter requires tracing behavior. The [veto and termination article](/en/articles/agent-veto-authority-and-run-termination) examines the mechanism further.
-
-## 7. Improve the Requirement, Not Just the Speed of Executing a Large Plan
-
-Spec's quality role extends beyond preventing incorrect implementation. It can reveal why a requirement fails to produce a deliverable. The weekly-report change is an example.
-
-During that October 2026 effort, history, comparison, investment theses, subscriptions and presentation acceptance expanded until they obscured a simpler question: could a user issue one command, let the agent generate and save a first report, and receive a real file link?
-
-Those surrounding capabilities were useful. Cross-period comparison needs history, subscriptions need scheduling, and long-running research needs evolving theses. The problem was organizing all of them as prerequisites to the first usable result. Each local task had a plausible justification while the whole effort lacked an obtainable output.
-
-<span id="_4-design-the-whole-direction-commit-to-a-deliverable-slice" aria-hidden="true"></span>
-<span id="4-design-the-whole-direction-commit-to-a-deliverable-slice" aria-hidden="true"></span>
-
-### A complete design is not a commitment to implement it all now
-
-After the user explicitly prioritized first delivery, the proposal narrowed the current commitment to autonomous delivery of the first file and assigned later capabilities to separately owned stages. That deferred collection could subsequently be divided further. The important distinction was not two phases versus three; it was preventing every future idea from becoming a prerequisite to the first phase.
-
-Adding “MVP first” to Proposal would not suffice. Scope, task queues, dependencies and acceptance conditions had to change together, while retaining the destination of deferred work and the record of earlier failures. Otherwise, a coding agent would keep executing the old list, simply calling every item part of the MVP.
-
-Figure 4 illustrates the same judgment for file ingestion: defer enhancements, not necessary protection. The weekly-report case made that principle change the execution sequence as well.
-
-The required order was specific. First generate, save and obtain an actual file through a fully offline path with neither a real nor a simulated model dependency. Then connect a real agent to the same file capability. An end-to-end test with a fake gateway can establish its contract, but cannot substitute for an actual obtainable offline file. Once that file path worked, model integration had a concrete result to consume.
-
-This is not a universal rule that every project must begin offline. It was the user's explicit delivery sequence for this task. One purpose of Spec is to make such a sequence govern execution rather than disappear beneath a more ambitious architecture diagram.
-
-### Narrowing scope is not removing necessary protection
-
-Phase one did not treat investment-analysis quality, wording or every presentation preference as acceptance criteria. It still required genuine saving, a genuine link, the correct downloadable file, and original permission, privacy, run isolation, file-safety and effect-integrity protections. The reduction concerned uncommitted enhancements, not conditions necessary for the current deliverable to be valid.
-
-A later real sample revealed another issue: ordinary CSS variables, numeric typography and legacy table attributes were rejected by a presentation whitelist. Teaching the model to avoid every formatting restriction—or adding a mandatory reviewer agent—could perpetuate a local check's burden on the entire task.
-
-The design instead revisited the original static-file responsibility. Presentation preferences are not the same as scripts, automatic loading, embedding or other active-content risks. User-clicked navigation should not simply inherit a server-side fetch destination policy. The change adjusted the existing file boundary, removing unjustified presentation whitelists and duplicate capacity constraints while retaining objective file safety, real resource limits, identity and commit protections. It did not create another weekly-report publishing route.
-
-This was not “relax security to finish.” Each denial needed an actual protected invariant and a minimal effect scope. A field failing a preference should not veto an independently permitted answer. Equally, making a file downloadable could not justify deleting its actual private-source dependencies.
-
-### What supports a more deliverable requirement?
-
-The bounded acceptance observations checked that an ordinary CLI run completed, independently saved the file and returned its link. Downloads were then compared with the saved bytes, and the file was opened. The archive supports those delivery facts, not a broader claim about investment correctness, user satisfaction or long-term subscription reliability.
-
-The improvement illustrated here is primarily in requirement structure and the delivery path: the first useful result no longer depended on every surrounding system, and acceptance focused on a file the user could obtain rather than internal steps. No invented efficiency percentage is necessary to explain that value. See the [weekly-review staging retrospective](/en/articles/agent-weekly-review-staged-delivery) for a separate treatment.
-
-<span id="_5-turn-specifications-into-handoff-ready-work-not-more-checkboxes" aria-hidden="true"></span>
-<span id="5-turn-specifications-into-handoff-ready-work-not-more-checkboxes" aria-hidden="true"></span>
-
-## 8. Evolve Tests During Specification, Not After Implementation as Supporting Evidence
+<span id="_8-evolve-tests-during-specification-not-after-implementation-as-supporting-evidence" aria-hidden="true"></span>
 
 Putting principles into Proposal and Spec is insufficient. Task decomposition, test assumptions and execution can still optimize for convenient local implementation and leave the principles on paper.
 
@@ -423,7 +319,9 @@ Default TDD should still observe meaningful failure before production implementa
 <span id="_6-bring-execution-facts-into-the-workflow-tdd-wiring-and-review" aria-hidden="true"></span>
 <span id="6-bring-execution-facts-into-the-workflow-tdd-wiring-and-review" aria-hidden="true"></span>
 
-## 9. Check That Principles Reached the System, Not Merely the Documents
+## 6. Check That Principles Reached the System, Not Merely the Documents
+
+<span id="_9-check-that-principles-reached-the-system-not-merely-the-documents" aria-hidden="true"></span>
 
 “The proposal mentions the five don'ts, Design names an owner, and tests are green” is not sufficient. Follow the actual user path and observe whether the protected effect reaches its final consumer.
 
@@ -469,7 +367,9 @@ Spec should state the claim the change intends to support, then choose proportio
 <span id="_7-new-information-should-reopen-the-decision-it-contradicts" aria-hidden="true"></span>
 <span id="7-new-information-should-reopen-the-decision-it-contradicts" aria-hidden="true"></span>
 
-## 10. When Facts Change, Revisit the Decision They Defeat
+## 7. When Facts Change, Revisit the Decision They Defeat
+
+<span id="_10-when-facts-change-revisit-the-decision-they-defeat" aria-hidden="true"></span>
 
 Spec-driven development does not mean freezing requirements and refusing change. It gives decisions explicit homes so new facts can be addressed at the right location.
 
@@ -503,7 +403,9 @@ On exit, identify which proposals never became accepted behavior, which temporar
 <span id="_8-what-do-closure-archiving-and-release-actually-end" aria-hidden="true"></span>
 <span id="8-what-do-closure-archiving-and-release-actually-end" aria-hidden="true"></span>
 
-## 11. Closure and Archiving: Carry Useful Decisions Forward Without Rewriting History
+## 8. Closure and Archiving: Carry Useful Decisions Forward Without Rewriting History
+
+<span id="_11-closure-and-archiving-carry-useful-decisions-forward-without-rewriting-history" aria-hidden="true"></span>
 
 After implementation, Verify judges how much of the commitment the evidence supports. Formal close executes required acceptance for the declared route. Accepted deltas are reconciled into current specs. The archive retains the change, and useful history helps the next designer understand its reasons. Release remains a separate process.
 
@@ -534,7 +436,9 @@ The handoff distinguishes `none`, `candidate` and `history`. Material without lo
 
 A successful close, with no relevant behavior or necessary-input changes, should not trigger another acceptance run solely for archival bookkeeping. Conversely, a concrete failure or material unverified behavior change cannot be hidden behind historical reuse. Stopping conditions and provenance should be explicit rather than every phase transition automatically adding another run.
 
-## 12. Maintain the Templates with the Same Five Don'ts
+## 9. Template Maintenance: Keep the Workflow Lightweight
+
+<span id="_12-maintain-the-templates-with-the-same-five-don-ts" aria-hidden="true"></span>
 
 A workflow can solve a real early problem and later create another burden. Evidence went through this evolution. Initially, before-state measurements and execution observations were easy to lose, motivating a continuous ledger. Later, commands and results were copied into Tasks, Plan and Verify, and archival bookkeeping could demand low-value History.
 
@@ -581,7 +485,9 @@ Subtraction must preserve genuine invariants. Removing duplicate instructions is
 <span id="_9-bring-the-workflow-to-your-own-project" aria-hidden="true"></span>
 <span id="9-bring-the-workflow-to-your-own-project" aria-hidden="true"></span>
 
-## 13. Adopt the Judgment Chain Before Choosing the Tooling Scale
+## 10. Adopt the Judgment Chain Before Choosing the Tooling Scale
+
+<span id="_13-adopt-the-judgment-chain-before-choosing-the-tooling-scale" aria-hidden="true"></span>
 
 Teams need not reproduce every directory or apply every artifact to every edit. First examine whether current PRs, CI, specifications and reviews preserve commitments, reasons, behavior and observations. Retain what already works. Add carriers when cross-session work, responsibility boundaries, authorization or recovery complexity warrants them.
 
@@ -611,7 +517,7 @@ Tools supply the skeleton. A product still needs its own principles, domain cont
 
 ---
 
-Looking back across the cases, the workflow preserves design judgment rather than a complete set of files. File ingestion did not casually become a new document platform. A common function did not disguise scattered termination authority. A comprehensive weekly-report design did not indefinitely postpone its first result. The evidence process did not gain permission to produce unlimited duplicate documents in the name of completeness.
+Returning to file ingestion, the value of Spec is not the number of files produced. Scope, responsibilities, behavior and acceptance constrain the same change. Decisions made during design remain visible through implementation, handoff and maintenance, while new observations have a clear place to challenge an earlier approach.
 
 **Spec should not merely tell the coding agent how to build. It should help a team keep explaining why a change is worthwhile, which principles must survive, which assumptions may be disproved, what supports acceptance, and how the next effort can avoid the same mistake.** It cannot guarantee every judgment is right. It can give decisions a durable home, deviations an observable signal and revisions a factual basis, turning design philosophy from a slogan into a maintainable engineering practice.
 

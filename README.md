@@ -41,9 +41,9 @@
 
 ## 最近更新
 
+- 2026-11-12 · 更新 · [Spec 驱动的 Agent 研发全景：从需求澄清到可信交付](articles/agent-spec-driven-development-panorama.md)
 - 2026-11-12 · 更新 · [对话接纳：接着聊不等于接着执行](articles/agent-conversation-admission-task-continuation.md)
 - 2026-11-12 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
-- 2026-11-12 · 更新 · [让 Agent 持续研究半小时：从普通研究到可靠交付的设计](articles/agent-half-hour-research-engineering-practice.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
