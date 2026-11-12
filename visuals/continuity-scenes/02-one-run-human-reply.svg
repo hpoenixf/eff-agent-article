@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="902" viewBox="0 0 600 902" role="img" aria-labelledby="title desc">
+<title id="title">多轮问答，也可能始终是同一个 Run</title><desc id="desc">Open ETF Agent 普通阻塞问答的教学示意，界面并非产品截图。原 Run 比较基金时缺少持有期限，向用户提问并保存等待状态。用户回答关联原问题，Worker 再次进入原 Run，经模型与工具调用完成报告。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1 L6 4 L1 7" fill="none" stroke="#738691" stroke-width="1.5"/></marker></defs>
+<style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif;font-feature-settings:"palt";fill:#172D3F} .muted{fill:#516475}</style>
+<rect width="600" height="902" rx="22" fill="#F5F5F1"/>
+<text x="28" y="38" font-size="18" style="fill:#516475" font-weight="500" text-anchor="start">场景 02 · 原来的研究，还在等你补信息</text>
+<text x="28" y="84" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start">聊天多说了一轮</text>
+<text x="28" y="126" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start">Run 可以仍是同一个</text>
+<rect x="24" y="151" width="552" height="646" rx="20" fill="white" stroke="#D7E0E4" stroke-width="1"/>
+<rect x="42" y="168" width="108" height="33" rx="16" fill="#E5F3EE" stroke="none" stroke-width="1"/>
+<text x="96.0" y="191" font-size="22" style="fill:#086C63" font-weight="600" text-anchor="middle">Run 1</text>
+<text x="166" y="193" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start">完成基金比较</text>
+<text x="44" y="234" font-size="23" style="fill:#172D3F" font-weight="400" text-anchor="start">你：帮我比较这两只基金。</text>
+<line x1="44" y1="252" x2="555" y2="252" stroke="#D7E0E4" stroke-width="1"/>
+<circle cx="55" cy="288" r="14" fill="#EDF2FB"/>
+<text x="55" y="295" font-size="19" style="fill:#3159A0" font-weight="700" text-anchor="middle">1</text>
+<text x="82" y="297" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start">模型判断：还缺持有期限</text>
+<rect x="82" y="315" width="460" height="49" rx="12" fill="#EDF2FB" stroke="none" stroke-width="1"/>
+<text x="98" y="347" font-size="23" style="fill:#3159A0" font-weight="400" text-anchor="start">助手：你计划持有多久？</text>
+<line x1="55" y1="310" x2="55" y2="405" stroke="#9DB2BA" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="82" y="380" width="460" height="84" rx="12" fill="#FFF2DD" stroke="none" stroke-width="1"/>
+<text x="98" y="411" font-size="23" style="fill:#8B541C" font-weight="600" text-anchor="start">原 Run 等待回答</text>
+<text x="98" y="443" font-size="21" style="fill:#8B541C" font-weight="400" text-anchor="start">进度已保存，Worker 可以退出。</text>
+<circle cx="55" cy="498" r="14" fill="#E5F3EE"/>
+<text x="55" y="505" font-size="19" style="fill:#086C63" font-weight="700" text-anchor="middle">2</text>
+<rect x="82" y="482" width="460" height="49" rx="12" fill="#E5F3EE" stroke="none" stroke-width="1"/>
+<text x="98" y="514" font-size="23" style="fill:#086C63" font-weight="500" text-anchor="start">你：三年以上。</text>
+<text x="82" y="561" font-size="21" style="fill:#516475" font-weight="400" text-anchor="start">回答关联原问题，继续原 Run。</text>
+<line x1="55" y1="520" x2="55" y2="600" stroke="#9DB2BA" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="55" cy="626" r="14" fill="#EDF2FB"/>
+<text x="55" y="633" font-size="19" style="fill:#3159A0" font-weight="700" text-anchor="middle">3</text>
+<text x="82" y="635" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start">模型选工具 → 工具查资料</text>
+<text x="82" y="672" font-size="22" style="fill:#172D3F" font-weight="400" text-anchor="start">模型读取结果 → 整理比较报告</text>
+<rect x="82" y="695" width="460" height="67" rx="12" fill="#E5F3EE" stroke="none" stroke-width="1"/>
+<text x="99" y="723" font-size="21" style="fill:#086C63" font-weight="400" text-anchor="start">助手：这是结合持有期的比较。</text>
+<text x="99" y="750" font-size="21" style="fill:#086C63" font-weight="700" text-anchor="start">Run 1 此时才完成。</text>
+<text x="28" y="838" font-size="25" style="fill:#086C63" font-weight="700" text-anchor="start">数聊天消息，数不出 Run 的数量。</text>
+<text x="28" y="873" font-size="21" style="fill:#516475" font-weight="400" text-anchor="start">要看原执行是否结束、消息被怎样接入。</text>
+</svg>

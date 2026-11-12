@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="878" viewBox="0 0 600 878" role="img" aria-labelledby="title desc" lang="en" xml:lang="en">
+<title id="title">One conversation, three completed Runs</title><desc id="desc">A teaching illustration of a general chat application. Three requests in Conversation C1 serve the same business goal, Task T1: comparing funds A and B. Each request follows a completed response and is handled by a separate Run: Run 1, Run 2, and Run 3.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1 1 L6 4 L1 7" fill="none" stroke="#738691" stroke-width="1.5" /></marker></defs>
+<style>text{font-family:"Noto Sans",Arial,sans-serif;fill:#172D3F} .muted{fill:#516475}</style>
+<rect width="600" height="878" rx="22" fill="#F5F5F1" />
+<text x="28" y="38" font-size="18" style="fill:#516475" font-weight="500" text-anchor="start" id="label-8">Scenario 01 · A follow-up after a completed answer</text>
+<text x="28" y="84" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start" id="label-9">One conversation,</text>
+<text x="28" y="126" font-size="31" style="fill:#172D3F" font-weight="700" text-anchor="start" id="label-10">several completed Runs</text>
+<rect x="24" y="151" width="552" height="614" rx="20" fill="white" stroke="#D7E0E4" stroke-width="1" />
+<circle cx="57" cy="183" r="15" fill="#E5F3EE" />
+<text x="57" y="190" font-size="17" style="fill:#086C63" font-weight="700" text-anchor="middle" id="label-13">R</text>
+<text x="83" y="191" font-size="23" style="fill:#172D3F" font-weight="600" text-anchor="start" id="label-14">Fund comparison · Conversation C1</text>
+<line x1="24" y1="211" x2="576" y2="211" stroke="#D7E0E4" stroke-width="1" />
+<rect x="40" y="227" width="520" height="49" rx="10" fill="#E5F3EE" stroke="none" stroke-width="1" />
+<text x="57" y="259" font-size="23" style="fill:#086C63" font-weight="600" text-anchor="start" id="label-17">Task T1: Compare funds A and B</text>
+<rect x="40" y="293" width="520" height="139" rx="12" fill="#FBFCFC" stroke="#D7E0E4" stroke-width="1" />
+<rect x="53" y="304" width="89" height="33" rx="16" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="97.5" y="327" font-size="19" style="fill:#3159A0" font-weight="600" text-anchor="middle" id="label-20">Run 1</text>
+<text x="540" y="327" font-size="19" style="fill:#086C63" font-weight="600" text-anchor="end" id="label-21">Completed</text>
+<rect x="113" y="340" width="430" height="39" rx="11" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="129" y="367" font-size="22" style="fill:#3159A0" font-weight="500" text-anchor="start" id="label-23">You: Compare funds A and B.</text>
+<text x="58" y="409" font-size="21" style="fill:#172D3F" font-weight="400" text-anchor="start" id="label-24">Agent: Fees, holdings and risks compared.</text>
+<rect x="40" y="445" width="520" height="139" rx="12" fill="#FBFCFC" stroke="#D7E0E4" stroke-width="1" />
+<rect x="53" y="456" width="89" height="33" rx="16" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="97.5" y="479" font-size="19" style="fill:#3159A0" font-weight="600" text-anchor="middle" id="label-27">Run 2</text>
+<text x="540" y="479" font-size="19" style="fill:#086C63" font-weight="600" text-anchor="end" id="label-28">Completed</text>
+<rect x="113" y="492" width="430" height="39" rx="11" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="129" y="519" font-size="22" style="fill:#3159A0" font-weight="500" text-anchor="start" id="label-30">You: Explain the fee difference.</text>
+<text x="58" y="561" font-size="20" style="fill:#172D3F" font-weight="400" text-anchor="start" id="label-31">Agent: Fee definitions and differences explained.</text>
+<rect x="40" y="597" width="520" height="139" rx="12" fill="#FBFCFC" stroke="#D7E0E4" stroke-width="1" />
+<rect x="53" y="608" width="89" height="33" rx="16" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="97.5" y="631" font-size="19" style="fill:#3159A0" font-weight="600" text-anchor="middle" id="label-34">Run 3</text>
+<text x="540" y="631" font-size="19" style="fill:#086C63" font-weight="600" text-anchor="end" id="label-35">Completed</text>
+<rect x="113" y="644" width="430" height="39" rx="11" fill="#EDF2FB" stroke="none" stroke-width="1" />
+<text x="129" y="671" font-size="21" style="fill:#3159A0" font-weight="500" text-anchor="start" id="label-37">You: Make a one-page comparison table.</text>
+<text x="58" y="713" font-size="20" style="fill:#172D3F" font-weight="400" text-anchor="start" id="label-38">Agent: Earlier findings organized into a table.</text>
+<text x="28" y="802" font-size="24" style="fill:#086C63" font-weight="700" text-anchor="start" id="label-39">Same conversation. Same goal. Three Runs.</text>
+<text x="28" y="837" font-size="21" style="fill:#516475" font-weight="400" text-anchor="start" id="label-40">Each follow-up comes after the prior Run ends.</text>
+</svg>
