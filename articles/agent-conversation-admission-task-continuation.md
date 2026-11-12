@@ -15,7 +15,7 @@ readingBrief:
     - "排查断网重发造成重复任务、聊天串线或旧权限被错误继承。"
   notFor:
     - "只做单轮问答，或仅凭聊天历史恢复已经派发的工具操作。"
-    - "直接采用完整 Web 多轮实现：文中的公开 CLI 只展示原执行与终态回读，不包含完整会话接续。"
+    - "直接采用完整 Web 或多用户服务：公开 v0.29 是有边界的本地 Conversation CLI/API。"
 ---
 
 # “接着聊”不等于“接着执行”：Agent 对话接纳与任务接续的设计
@@ -181,6 +181,14 @@ Host 首先在真实会话范围里读取父 Run：`run-102` 必须是可接续�
 
 ## 七、哪些实现已经能让读者自己观察？
 
+截至 2026-11-12，[v0.29.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.29.0) 已提供本地单用户 Conversation CLI/API。沿[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/conversations.zh-CN.md)，先创建研究项目、导入资料，再用准确 manifest 提交消息、显式执行并回读答案。普通追问选择原报告的一段原文；已登记的澄清仍由原 Run 采用；`continuationOfMessageId` 创建明确关联的新 Run。这个公开 API 名称与前文私有实现的 `continuationOfRunId` 不同，不可混用。
+
+值得观察的是交接，而不只是聊天看起来连续。安全中断父任务由原 Session 冻结，预先保存的交接回执绑定唯一后继；后继保留根目标、取得新授权，权限不能扩大。未知效果不会重放，可信插件任务不能用 Continue 绕过跨 Run 副作用的不确定性。已完成任务最多投影两项来源绑定的**合成计算**，由原 Result 核对资料基准，保留单位与覆盖范围；旧句柄、工具调用 ID 不传递，历史值也不变成当前证据。
+
+[发布证据](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/verification/v029-release.md)将真实模型工作流交付、离线安全分支和答案质量分开。十个工作流完成，但报告措辞与追问具体性仍有局限。这不是完整 private 模块对齐、完整历史结果谱系，也不是 Web 或多用户实现。当前动手从[固定源码](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/src/conversation.mjs)与上述指南进入；下面的旧 Session 示例保留作历史对照，不再代表当前功能上限。
+
+### 历史 Session 示例
+
 [Open ETF Agent 的公开代码](https://github.com/hpoenixf/open-etf-agent)可以复现 Session、原 Run 与持久恢复的基础区别。以公开提交 [`34124cef`](https://github.com/hpoenixf/open-etf-agent/tree/34124cefc6df289e08518173789210b45a716451) 的 [Session 实现](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/session.mjs) 为依据，使用 Node.js 26.8.1–26.x，安装并构建后运行：
 
 ```bash
@@ -199,7 +207,7 @@ npm run session -- inspect --session runs/a02-boundary-demo --run RUN_ID
 npm run session -- resume --session runs/a02-boundary-demo --run RUN_ID
 ```
 
-`start` 正常完成后，这组 `resume` 命令验证的是**终态重复调用与原结果回读**：固定版本的 [Runtime 终态分支](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160)读取原结果，不重新执行。它不演示进程中断后的检查点恢复，也不是完整的 HTTP 多轮对话接纳与任务接续（Conversation/Continue）体验。本次仅核对固定源码与命令说明，没有重新运行示例或注入故障。公开仓库使用本地 SQLite 和离线脚本 Gateway，适合观察身份、终态与重复调用的基础合同；本文讨论的会话接纳、澄清绑定和跨 Run 接续来自更完整的系统实现，不能据此宣称已在这个公开 CLI 中交付。公开可变入口及最新说明见 [main](https://github.com/hpoenixf/open-etf-agent/tree/main) 和 [模块运行指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md)。
+`start` 正常完成后，这组 `resume` 命令验证的是**终态重复调用与原结果回读**：固定版本的 [Runtime 终态分支](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160)读取原结果，不重新执行。它不演示进程中断后的检查点恢复，也不是完整的 HTTP 多轮对话接纳与任务接续（Conversation/Continue）体验。本次仅核对固定源码与命令说明，没有重新运行示例或注入故障。公开仓库使用本地 SQLite 和离线脚本 Gateway，适合观察身份、终态与重复调用的基础合同；这个旧快照不包含后来 v0.29 引入的 Conversation 路径。公开可变入口及最新说明见 [main](https://github.com/hpoenixf/open-etf-agent/tree/main) 和 [模块运行指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.zh-CN.md)。
 
 <div><a id="八、a02-的价值-不在于替模型决定下一步"></a><a id="八a02-的价值不在于替模型决定下一步"></a></div>
 

@@ -28,7 +28,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-11，最新正式发布版本为 [v0.28.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.28.0)。当前三条推进线是报告复核、项目专家配置和显式 Web 取证；它们沿原项目、执行与报告链工作，不构成另一套 Agent 平台。
+截至 2026-11-12，最新正式发布版本为 [v0.29.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.29.0)。最新模块是显式 Conversation，承接报告复核与项目专家配置；它复用原项目和执行职责，不另建 Agent 平台。
+
+v0.29 区分新问题、已登记澄清的回复和跨 Run 显式 Continue。普通追问可以选择历史报告原文，但不继承旧执行权；Continue 保留根目标，并取得新的执行授权。可沿[对话接纳文章](./agent-conversation-admission-task-continuation.md)和[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/conversations.zh-CN.md)操作。[十工作流验收](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/verification/v029-release.md)验证了真实模型在合成材料上的有界运行与交付，不代表答案全对。当前是本地单用户 CLI/API，不等于完整 private 模块、Web 聊天服务或完整历史结果谱系。
 
 v0.28 增加报告写完后的显式复核：冻结报告及其原始资料，分别检查主张支持与引用对应关系，保存原始复核输出并支持重启读回。它不改写报告，也不把复核意见变成新的证据。可沿[报告复核练手篇](./open-etf-agent-report-review-workshop.md)实际操作，命令与范围见[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/b34750d1515982dbaaaf4c1aa4da4c380173d753/docs/report-review.zh-CN.md)。真实模型已在合成报告与来源上完成本版运行验证，意见仍可能误判；运行完成不等于金融判断正确。
 

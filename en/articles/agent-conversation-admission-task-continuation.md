@@ -15,7 +15,7 @@ readingBrief:
     - "Investigating duplicate tasks after retries, mixed-up conversations or incorrectly inherited permissions."
   notFor:
     - "Single-turn chat, or recovering dispatched tool operations from chat history alone."
-    - "Adopting a complete Web chat implementation: the public CLI example demonstrates execution identity and terminal readback, not full conversation continuation."
+    - "A complete Web or multi-user service: the public v0.29 implementation is a bounded local Conversation CLI/API."
 ---
 
 # Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation
@@ -179,6 +179,14 @@ These paths cannot safely share an ambiguous `resumePrevious()` interface. One i
 
 ## 7. What can readers reproduce in public code?
 
+As of November 12, 2026, [v0.29.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.29.0) provides a local single-user Conversation CLI/API. Follow the [fixed-version guide](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/conversations.md): create a research project and import sources, submit a message with its exact manifest, explicitly work it, then read its saved answer. An ordinary follow-up selects a span of the original report; registered clarification stays with the original Run; `continuationOfMessageId` starts an explicitly related new Run. That public API name differs from the private-system `continuationOfRunId` discussed above.
+
+The important boundary is the handoff, not the appearance of a continuous chat. A safe interrupted parent is frozen through its original Session owner, and a prepared receipt binds exactly one successor. The successor preserves the root goal, obtains a fresh grant, and cannot broaden authority. Unknown effects are not replayed; trusted-plugin tasks cannot use Continue to bypass cross-Run side-effect uncertainty. Completed tasks may project at most two source-bound **synthetic** calculations, with original units and coverage, after the Result owner verifies their source basis. Old handles and tool-call IDs are not transferred, and historical values do not become current evidence.
+
+The [release evidence](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/verification/v029-release.md) separates real-model workflow delivery from offline safety branches and answer quality. The ten workflows completed, but report wording and follow-up specificity still had limitations. This is not full private-module parity, complete historical lineage, or a Web/multi-user implementation. The [fixed source](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/src/conversation.mjs) and guide are the current runnable entry; the older Session-only example below remains a historical comparison, not the current feature ceiling.
+
+### Historical Session-only example
+
 The [Open ETF Agent public repository](https://github.com/hpoenixf/open-etf-agent) contains a durable Session example. Using its fixed public commit [`34124cef`](https://github.com/hpoenixf/open-etf-agent/tree/34124cefc6df289e08518173789210b45a716451) and [Session implementation](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/session.mjs), install Node.js 26.8.1–26.x and run:
 
 ```bash
@@ -197,7 +205,7 @@ npm run session -- inspect --session runs/a02-boundary-demo --run RUN_ID
 npm run session -- resume --session runs/a02-boundary-demo --run RUN_ID
 ```
 
-After `start` completes normally, this `resume` sequence demonstrates **a repeated terminal call and readback of the original result**: the fixed [Runtime terminal branch](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160) reads the saved outcome rather than executing again. It does not demonstrate checkpoint recovery after a process interruption, or the full multi-turn HTTP Conversation / Continue experience. These commands and the fixed source were reviewed, not re-executed; no fault injection was performed for this article. The public educational project uses local SQLite and an offline scripted Gateway. It lets readers examine fundamental identity and execution contracts without claiming that the richer private system's Web-based admission and cross-Run continuation are shipped in that CLI. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
+After `start` completes normally, this `resume` sequence demonstrates **a repeated terminal call and readback of the original result**: the fixed [Runtime terminal branch](https://github.com/hpoenixf/open-etf-agent/blob/34124cefc6df289e08518173789210b45a716451/src/runtime.mjs#L145-L160) reads the saved outcome rather than executing again. It does not demonstrate checkpoint recovery after a process interruption, or the full multi-turn HTTP Conversation / Continue experience. These commands and the fixed source were reviewed, not re-executed; no fault injection was performed for this article. The public educational project uses local SQLite and an offline scripted Gateway. This older snapshot demonstrates fundamental identity and execution contracts, not the Conversation paths introduced later. The moving public entry point is [main](https://github.com/hpoenixf/open-etf-agent/tree/main), with further details in the [module guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/module-guide.md).
 
 <div><a id="_8-a02-does-not-decide-what-the-model-should-do"></a><a id="8-a02-does-not-decide-what-the-model-should-do"></a></div>
 

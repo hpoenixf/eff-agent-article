@@ -41,9 +41,9 @@
 
 ## 最近更新
 
+- 2026-11-12 · 更新 · [对话接纳：接着聊不等于接着执行](articles/agent-conversation-admission-task-continuation.md)
+- 2026-11-12 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 - 2026-11-12 · 更新 · [让 Agent 持续研究半小时：从普通研究到可靠交付的设计](articles/agent-half-hour-research-engineering-practice.md)
-- 2026-11-12 · 新增 · [把 Agent 拆成三个进程，究竟换来了什么？从单体 Runtime 到独立宿主](articles/agent-three-host-lifecycle-architecture.md)
-- 2026-11-12 · 更新 · [Spec 驱动的 Agent 研发全景：从需求澄清到可信交付](articles/agent-spec-driven-development-panorama.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
@@ -53,9 +53,9 @@
 
 ### 最近三个版本入口
 
+- [v0.29 · 显式对话与任务接续](https://github.com/hpoenixf/open-etf-agent/tree/14dd80b15aca4e87c68f4dc18bbefed2a2851ce1)
 - [v0.28 · 复核冻结的报告](https://github.com/hpoenixf/open-etf-agent/tree/d53abf0acc0944664ca2df6a0eb60d0529449f01)
 - [v0.27 · 冻结项目专家方法](https://github.com/hpoenixf/open-etf-agent/tree/3a44c638e6e957e6a9c308b49eaaa22196a1ce1e)
-- [v0.26 · 获取有界 Web 证据](https://github.com/hpoenixf/open-etf-agent/tree/6139d7b8e70773a4f5aba4d366de9817fc0532ae)
 
 版本来自既有代码版本谱系，链接固定源码；不是本 README 重新认证的发布或完整能力承诺。**[全部版本与资格说明](https://hpoenixf.com/eff-agent-article/open-etf-agent) · [项目 Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 

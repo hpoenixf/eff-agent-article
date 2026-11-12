@@ -83,7 +83,8 @@ const captions = {
  '0.25': ['Confirm and run one scheduled task','确认并执行一次定时任务','Once schedule · explicit due work · original lifecycle'],
  '0.26': ['Acquire bounded Web evidence','获取有界 Web 证据','Public static pages · originals · source-backed readback'],
  '0.27': ['Freeze project specialist methods','冻结项目专家方法','Exact revisions · ordered presets · original Child'],
- '0.28': ['Review a frozen report','复核冻结的报告','Advisory findings · original sources · cold readback']
+ '0.28': ['Review a frozen report','复核冻结的报告','Advisory findings · original sources · cold readback'],
+ '0.29': ['Continue an explicit conversation','显式对话与任务接续','Message identity · fresh grants · bounded historical context']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)
