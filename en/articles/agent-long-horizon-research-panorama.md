@@ -15,6 +15,8 @@ readingBrief:
 
 # Long-Horizon Research Panorama: Continuing Across Context, Interruptions and Time
 
+For the engineering investigations behind sustained execution, see [Engineering Half-Hour Agent Research](./agent-half-hour-research-engineering-practice.md): accumulated CPU work, context rereads, summary adoption, and report convergence.
+
 ![Long-horizon research: contexts change while facts and deliverables remain connected](../../visuals/en/panorama-long-research/cover.svg)
 
 A user asks: “Compare two thematic funds with my portfolio. Give me a grounded first draft, then investigate the important uncertainties.” The model reads documents, runs calculations and starts several specialists. Half an hour later, the activity list is long, but the user still cannot tell how the funds differ or which conclusions are usable.
@@ -84,7 +86,7 @@ This changes the troubleshooting order. When a tool succeeds but research does n
 
 A worthwhile progress update usually follows a changed research path, an important limitation, a needed user decision or a wait that has exceeded reasonable expectations. It need not pretend to be a report. **A staged deliverable should arrive when it has independent value, rather than waiting for every branch to finish.** If the fee basis is verified while holdings data is pending, deliver the fee section. If the missing fact is the fee's effective date itself, do not publish a definite number merely to produce an early answer.
 
-Current native guidance asks the model to send independently readable, supported parts during research through the original answer publication path. It does not introduce an `answerReady` flag, periodic forced writing calls or a separate first-draft generator. Readiness remains a model judgment against the question and actual evidence; the runtime applies its existing source, numeric, permission, revision and resource controls.
+Ordinary Research guidance encourages early supported, independently readable parts. Deep emphasizes early progress and integrated conclusions after the necessary evidence comparison, while still allowing independently mature sections early. Both use the original answer publication path. It does not introduce an `answerReady` flag, periodic forced writing calls or a separate first-draft generator. Readiness remains a model judgment against the question and actual evidence; the runtime applies its existing source, numeric, permission, revision and resource controls.
 
 ### Complete retrieval is not complete coverage
 

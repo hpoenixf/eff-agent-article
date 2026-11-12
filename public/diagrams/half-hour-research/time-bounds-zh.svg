@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="405" viewBox="0 0 980 405" role="img" aria-labelledby="title desc">
+<title id="title">长研究需要几种边界同时工作</title><desc id="desc">执行空间与收尾机会一起安排; 单次操作: 模型请求有等待边界, 工具有自己的执行期限, 连接心跳不等于研究进展; 整项研究: 请求额度、实际执行时间, 墙钟时间、用户期限, 升档保留已用与未知量; 收尾预留: 为综合、发布留下机会, 探索结束后有限收尾, 已有合法正文继续保留</desc>
+<g font-family="system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif">
+<rect width="980" height="405" rx="18" fill="#f4f7f5"/>
+<text x="28" y="46" font-size="30" font-weight="700" fill="#142f39">长研究需要几种边界同时工作</text>
+<text x="28" y="77" font-size="18" font-weight="400" fill="#42626a">执行空间与收尾机会一起安排</text>
+<rect x="28" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="28" y="101" width="298" height="5" rx="2" fill="#22796c"/>
+<text x="45" y="140" font-size="25" font-weight="700" fill="#22796c">单次操作</text>
+<text x="45" y="171" font-size="17" font-weight="400" fill="#42626a">各自的请求与工具期限</text>
+<text x="45" y="212" font-size="21" font-weight="400" fill="#243d45">模型请求有等待边界</text><text x="45" y="244" font-size="21" font-weight="400" fill="#243d45">工具有自己的执行期限</text><text x="45" y="276" font-size="21" font-weight="400" fill="#243d45">连接心跳不等于研究进展</text>
+<rect x="340" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="340" y="101" width="298" height="5" rx="2" fill="#315f9c"/>
+<text x="357" y="140" font-size="25" font-weight="700" fill="#315f9c">整项研究</text>
+<text x="357" y="171" font-size="17" font-weight="400" fill="#42626a">不同资源分别计量</text>
+<text x="357" y="212" font-size="21" font-weight="400" fill="#243d45">请求额度、实际执行时间</text><text x="357" y="244" font-size="21" font-weight="400" fill="#243d45">墙钟时间、用户期限</text><text x="357" y="276" font-size="21" font-weight="400" fill="#243d45">升档保留已用与未知量</text>
+<rect x="652" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="652" y="101" width="298" height="5" rx="2" fill="#94621c"/>
+<text x="669" y="140" font-size="25" font-weight="700" fill="#94621c">收尾预留</text>
+<text x="669" y="171" font-size="17" font-weight="400" fill="#42626a">包含在原预算之内</text>
+<text x="669" y="212" font-size="21" font-weight="400" fill="#243d45">为综合、发布留下机会</text><text x="669" y="244" font-size="21" font-weight="400" fill="#243d45">探索结束后有限收尾</text><text x="669" y="276" font-size="21" font-weight="400" fill="#243d45">已有合法正文继续保留</text>
+<text x="28" y="350" font-size="17" font-weight="400" fill="#31584e">全部适用的限制共同生效</text><text x="28" y="378" font-size="17" font-weight="400" fill="#31584e">提高一项额度，不取消其他边界</text>
+</g></svg>

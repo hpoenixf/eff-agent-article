@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="640" viewBox="0 0 360 640" role="img" aria-labelledby="title desc">
+<title id="title">A summary must reach the work</title><desc id="desc">Verify three distinct facts for the same revision; Generated: Keep calls with their results, Use disjoint source intervals, Do not re-summarize old summaries; Adopted: The Main input has the summary, Original requirements survive, Match the actual revision; Durable: A new process reads it back, References and actions still match, Storage is separate from quality</desc>
+<g font-family="system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif">
+<rect width="360" height="640" rx="18" fill="#f4f7f5"/>
+<text x="20" y="34" font-size="21" font-weight="700" fill="#142f39">A summary must</text><text x="20" y="60" font-size="21" font-weight="700" fill="#142f39">reach the work</text>
+<text x="20" y="86" font-size="14" font-weight="400" fill="#42626a">Three facts; the same summary revision</text>
+<rect x="16" y="108" width="328" height="140" rx="12" fill="#fff" stroke="#d9e4df"/>
+<rect x="16" y="108" width="5" height="140" rx="2" fill="#22796c"/>
+<text x="32" y="135" font-size="20" font-weight="700" fill="#22796c">Generated</text>
+<text x="32" y="158" font-size="15" font-weight="400" fill="#42626a">Complete, settled source spans</text>
+<text x="32" y="184" font-size="15" font-weight="400" fill="#243d45">Keep calls with their results</text><text x="32" y="208" font-size="15" font-weight="400" fill="#243d45">Use disjoint source intervals</text><text x="32" y="232" font-size="15" font-weight="400" fill="#243d45">Do not re-summarize old summaries</text>
+<rect x="16" y="259" width="328" height="140" rx="12" fill="#fff" stroke="#d9e4df"/>
+<rect x="16" y="259" width="5" height="140" rx="2" fill="#315f9c"/>
+<text x="32" y="286" font-size="20" font-weight="700" fill="#315f9c">Adopted</text>
+<text x="32" y="309" font-size="15" font-weight="400" fill="#42626a">Inspect dispatched requests</text>
+<text x="32" y="335" font-size="15" font-weight="400" fill="#243d45">The Main input has the summary</text><text x="32" y="359" font-size="15" font-weight="400" fill="#243d45">Original requirements survive</text><text x="32" y="383" font-size="15" font-weight="400" fill="#243d45">Match the actual revision</text>
+<rect x="16" y="410" width="328" height="140" rx="12" fill="#fff" stroke="#d9e4df"/>
+<rect x="16" y="410" width="5" height="140" rx="2" fill="#94621c"/>
+<text x="32" y="437" font-size="20" font-weight="700" fill="#94621c">Durable</text>
+<text x="32" y="460" font-size="15" font-weight="400" fill="#42626a">Read the persisted checkpoint</text>
+<text x="32" y="486" font-size="15" font-weight="400" fill="#243d45">A new process reads it back</text><text x="32" y="510" font-size="15" font-weight="400" fill="#243d45">References and actions still match</text><text x="32" y="534" font-size="15" font-weight="400" fill="#243d45">Storage is separate from quality</text>
+<text x="20" y="575" font-size="14" font-weight="400" fill="#31584e">Keep user text, receipts, and result locators</text><text x="20" y="598" font-size="14" font-weight="400" fill="#31584e">Original records remain available for review</text>
+</g></svg>

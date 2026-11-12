@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="405" viewBox="0 0 980 405" role="img" aria-labelledby="title desc">
+<title id="title">Several limits govern long research</title><desc id="desc">Budget execution and an opportunity to finish; Each operation: A model request has a deadline, Tools have execution limits, Heartbeats do not prove progress; The whole Run: Requests and active execution, Wall time and user deadlines, Keep spent and unknown usage; Finalization: Leave room to synthesize, Finish within existing capacity, Preserve authorized text</desc>
+<g font-family="system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif">
+<rect width="980" height="405" rx="18" fill="#f4f7f5"/>
+<text x="28" y="46" font-size="30" font-weight="700" fill="#142f39">Several limits govern long research</text>
+<text x="28" y="77" font-size="18" font-weight="400" fill="#42626a">Budget execution and an opportunity to finish</text>
+<rect x="28" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="28" y="101" width="298" height="5" rx="2" fill="#22796c"/>
+<text x="45" y="140" font-size="25" font-weight="700" fill="#22796c">Each operation</text>
+<text x="45" y="171" font-size="17" font-weight="400" fill="#42626a">Request and tool boundaries</text>
+<text x="45" y="212" font-size="16" font-weight="400" fill="#243d45">A model request has a deadline</text><text x="45" y="244" font-size="16" font-weight="400" fill="#243d45">Tools have execution limits</text><text x="45" y="276" font-size="16" font-weight="400" fill="#243d45">Heartbeats do not prove progress</text>
+<rect x="340" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="340" y="101" width="298" height="5" rx="2" fill="#315f9c"/>
+<text x="357" y="140" font-size="25" font-weight="700" fill="#315f9c">The whole Run</text>
+<text x="357" y="171" font-size="17" font-weight="400" fill="#42626a">Track resources separately</text>
+<text x="357" y="212" font-size="16" font-weight="400" fill="#243d45">Requests and active execution</text><text x="357" y="244" font-size="16" font-weight="400" fill="#243d45">Wall time and user deadlines</text><text x="357" y="276" font-size="16" font-weight="400" fill="#243d45">Keep spent and unknown usage</text>
+<rect x="652" y="101" width="298" height="213" rx="14" fill="#fff" stroke="#d9e4df"/>
+<rect x="652" y="101" width="298" height="5" rx="2" fill="#94621c"/>
+<text x="669" y="140" font-size="25" font-weight="700" fill="#94621c">Finalization</text>
+<text x="669" y="171" font-size="17" font-weight="400" fill="#42626a">Part of the original budget</text>
+<text x="669" y="212" font-size="16" font-weight="400" fill="#243d45">Leave room to synthesize</text><text x="669" y="244" font-size="16" font-weight="400" fill="#243d45">Finish within existing capacity</text><text x="669" y="276" font-size="16" font-weight="400" fill="#243d45">Preserve authorized text</text>
+<text x="28" y="350" font-size="17" font-weight="400" fill="#31584e">All applicable limits remain binding</text><text x="28" y="378" font-size="17" font-weight="400" fill="#31584e">An upgrade preserves the other boundaries</text>
+</g></svg>
