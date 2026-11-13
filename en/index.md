@@ -22,62 +22,10 @@ hero:
     - theme: alt
       text: Runnable source code ↗
       link: https://github.com/hpoenixf/open-etf-agent
-features:
-  - title: Modules · How it works
-    icon:
-      src: /images/home/modules.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: Follow a request through tools, context, recovery and publication.
-    link: /en/modules
-    linkText: Explore modules
-  - title: Architecture · Why it works
-    icon:
-      src: /images/home/architecture.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: Understand ownership, authorization and sustainable evolution.
-    link: /en/thinking
-    linkText: Explore architecture
-  - title: AI engineering · How we build
-    icon:
-      src: /images/home/engineering.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: From specs and evidence to validated task outcomes.
-    link: /en/engineering
-    linkText: Explore engineering
-  - title: Panorama
-    icon:
-      src: /images/home/panorama.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: See the whole Agent architecture and how its modules work together.
-    link: /en/panorama
-    linkText: Explore the panorama
-  - title: Finance
-    icon:
-      src: /images/home/finance.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: Understand research methods, evidence and accountability in finance.
-    link: /en/fintech
-    linkText: Explore finance
-  - title: Open source
-    icon:
-      src: /images/home/opensource.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: Understand Agent design and evolution through runnable open-source implementations.
-    link: /en/open-etf-agent
-    linkText: Explore open source
+
 ---
+
+<HomeReaderTabs />
 
 <ContinueReading />
 

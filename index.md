@@ -22,62 +22,10 @@ hero:
     - theme: alt
       text: 查看可运行源码 ↗
       link: https://github.com/hpoenixf/open-etf-agent
-features:
-  - title: 模块机制 · How it works
-    icon:
-      src: /images/home/modules.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 看一条请求如何经过工具、上下文、恢复与发布。
-    link: /modules
-    linkText: 探索模块
-  - title: 架构思考 · Why it works
-    icon:
-      src: /images/home/architecture.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 理解 Owner、权限、系统职责与长期演进的取舍。
-    link: /thinking
-    linkText: 阅读架构
-  - title: AI 研发工程 · How we build
-    icon:
-      src: /images/home/engineering.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 从 Spec、Evidence 到真实任务的验证与收敛。
-    link: /engineering
-    linkText: 工程实践
-  - title: 全景专题
-    icon:
-      src: /images/home/panorama.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 从全局理解 Agent 架构与模块协作。
-    link: /panorama
-    linkText: 阅读全景
-  - title: 金融专题
-    icon:
-      src: /images/home/finance.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 理解金融研究的方法、证据与责任边界。
-    link: /fintech
-    linkText: 阅读金融
-  - title: 开源专题
-    icon:
-      src: /images/home/opensource.svg
-      alt: ""
-      width: 360
-      height: 152
-    details: 从可运行的开源实现，理解 Agent 的设计与迭代。
-    link: /open-etf-agent
-    linkText: 探索开源
+
 ---
+
+<HomeReaderTabs />
 
 <ContinueReading />
 

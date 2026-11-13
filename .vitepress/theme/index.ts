@@ -12,7 +12,7 @@ import type { Theme } from 'vitepress'
 import ChapterCatalog from './ChapterCatalog.vue'
 import FlagshipEntry from './FlagshipEntry.vue'
 import ContinueReading from './ContinueReading.vue'
-import HomeReadingMenu from './HomeReadingMenu.vue'
+import HomeReaderTabs from './HomeReaderTabs.vue'
 import HomeOverview from './HomeOverview.vue'
 import PanoramaSeries from './PanoramaSeries.vue'
 import FinanceTopic from './FinanceTopic.vue'
@@ -34,7 +34,6 @@ import './navigation-layout.css'
 export default {
   extends: DefaultTheme,
   Layout: () => h(DefaultTheme.Layout, null, {
-    'home-hero-actions-after': () => h(HomeReadingMenu),
     'nav-bar-content-after': () => [h(DirectoryMenu), h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'nav-screen-content-before': () => h(ReadingDirectory),
     'doc-before': () => [h(ArticleProvenance), h(ArticleContext)],
@@ -53,6 +52,7 @@ export default {
     app.component('FlagshipEntry', FlagshipEntry)
     app.component('ContinueReading', ContinueReading)
     app.component('HomeOverview', HomeOverview)
+    app.component('HomeReaderTabs', HomeReaderTabs)
     app.component('PanoramaSeries', PanoramaSeries)
     app.component('FinanceTopic', FinanceTopic)
     app.component('OpenSourceBridge', OpenSourceBridge)

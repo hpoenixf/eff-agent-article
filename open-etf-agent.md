@@ -25,7 +25,7 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 </div>
 </PanoramaViewer>
 
-[在独立页面打开图](/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg)
+[在独立页面打开图](https://hpoenixf.com/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg)
 
 <details>
 <summary>逐模块文章入口（与图内链接一致）</summary>

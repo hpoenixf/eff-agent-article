@@ -25,7 +25,7 @@ Current scope: **v0.30.0** · [Fixed navigation source](https://github.com/hpoen
 </div>
 </PanoramaViewer>
 
-[Open the interactive SVG directly](/eff-agent-article/visuals/open-etf-agent/module-map.svg)
+[Open the interactive SVG directly](https://hpoenixf.com/eff-agent-article/visuals/open-etf-agent/module-map.svg)
 
 <details>
 <summary>Article links by module (same destinations as the map)</summary>

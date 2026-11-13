@@ -114,10 +114,11 @@ test('reading-path navigation marks the current page and keeps real keyboard lin
 })
 
 
-test('homepage keeps one intro CTA and a compact bilingual continuation disclosure', () => {
+test('homepage replaces the legacy continuation menu with direct reading tabs', () => {
   const component = read('.vitepress/theme/HomeReadingMenu.vue')
   const theme = read('.vitepress/theme/index.ts')
-  assert.match(theme, /'home-hero-actions-after': \(\) => h\(HomeReadingMenu\)/)
+  assert.ok(theme.includes("app.component('HomeReaderTabs', HomeReaderTabs)"))
+  assert.ok(!theme.includes("'home-hero-actions-after'"))
   assert.match(component, /learningPathNavigation/)
   assert.match(component, /steps\.slice\(1\)/)
   assert.match(component, /<details ref="disclosure"/)

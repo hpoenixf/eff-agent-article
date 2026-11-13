@@ -327,18 +327,19 @@ test('missing history keeps all articles and stable order rather than fabricatin
   } finally { globalThis.__catalogChronology.available = true; globalThis.__catalogChronology.articles = dates }
 })
 
-test('the sixth homepage feature reuses the existing bilingual open-source topic and the original responsive grid', async () => {
+test('homepage tabs retain existing category and bilingual topic destinations without duplicate features', async () => {
+  const { categoryLinks, topicLinks } = await import('../home-reading-routes.mjs')
   const md = await createMarkdownRenderer(process.cwd(), { highlight: code => code })
-  for (const [prefix, title, action] of [['', '开源专题', '探索开源'], ['en/', 'Open source', 'Explore open source']]) {
-    const env = {}; md.render(readFileSync(prefix + 'index.md', 'utf8'), env)
-    assert.equal(env.frontmatter.features.length, 6)
-    assert.deepEqual(env.frontmatter.features.map(item => item.link), ['modules', 'thinking', 'engineering', 'panorama', 'fintech', 'open-etf-agent'].map(route => '/' + prefix + route))
-    assert.equal(env.frontmatter.features[5].title, title); assert.equal(env.frontmatter.features[5].linkText, action)
+  for (const locale of ['zh', 'en']) {
+    const prefix = locale === 'en' ? 'en/' : ''
+    const source = readFileSync(prefix + 'index.md', 'utf8')
+    const env = {}; md.render(source, env)
+    assert.equal(env.frontmatter.features, undefined)
+    assert.ok(source.includes('<HomeReaderTabs />'))
+    assert.deepEqual(categoryLinks(locale).map(item => item.href), ['modules', 'thinking', 'engineering'].map(route => '/' + prefix + route))
+    for (const route of ['panorama', 'fintech', 'open-etf-agent']) assert.ok(topicLinks(locale).some(item => item.href === '/' + prefix + route))
     assert.match(readFileSync(prefix + 'open-etf-agent.md', 'utf8'), /<OpenEtfTopic language=/)
   }
-  const css = readFileSync('.vitepress/theme/home-layout.css', 'utf8')
-  assert.match(css, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/)
-  assert.match(css, /@media \(max-width: 767px\)[\s\S]*\.VPHome \.VPFeatures \.items \{ grid-template-columns: minmax\(0, 1fr\)/)
 })
 
 test('dense independent page shell preserves original anchors, responsive grid and touch/focus affordances', async () => {
