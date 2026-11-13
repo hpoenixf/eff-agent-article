@@ -5,9 +5,24 @@ import { resolve,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const begin='<!-- open-module-map:start -->',end='<!-- open-module-map:end -->';
+if(process.argv[2]==='--import'){
+ const sha=process.argv[3];if(process.argv.length!==4||!/^[a-f0-9]{40}$/.test(sha??''))throw Error('Usage: --import <reviewed Open commit SHA>');
+ const files=['docs/module-status.json','docs/assets/module-map.svg','docs/assets/module-map.zh-CN.svg'];
+ const bytes=await Promise.all(files.map(async p=>{const r=await fetch(`https://raw.githubusercontent.com/hpoenixf/open-etf-agent/${sha}/${p}`,{redirect:'error',signal:AbortSignal.timeout(30000)});if(!r.ok)throw Error(`Cannot read fixed Open ${p}: ${r.status}`);const b=Buffer.from(await r.arrayBuffer());if(b.length>1048576)throw Error('Import exceeds size bound');return b;}));
+ const manifest=JSON.parse(bytes[0].toString('utf8'));
+ const versions=JSON.parse(await readFile(resolve(root,'data/open-etf-agent/versions.json'),'utf8'));
+ const normalize=v=>v.replace(/^v/,'').replace(/\.0$/,'');
+ const latest=Object.keys(versions.versions).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).at(-1);
+ if(normalize(manifest.reviewedVersion)!==latest)throw Error('Review topic versions and module map together before importing');
+ const assets={};for(let i=1;i<files.length;i++){const p=files[i].replace('docs/assets/','visuals/open-etf-agent/');assets[p]=createHash('sha256').update(bytes[i]).digest('hex');await writeFile(resolve(root,p),bytes[i]);}
+ await writeFile(resolve(root,'data/open-etf-agent/module-map.json'),JSON.stringify({schemaVersion:1,repository:'hpoenixf/open-etf-agent',sourceCommit:sha,manifest,assets},null,2)+'\n');
+}
 const snapshot=JSON.parse(await readFile(resolve(root,'data/open-etf-agent/module-map.json'),'utf8'));
 if(snapshot.schemaVersion!==1||snapshot.repository!=='hpoenixf/open-etf-agent'||!/^[a-f0-9]{40}$/.test(snapshot.sourceCommit??''))throw Error('Fixed Open import commit required');
 const m=snapshot.manifest;
+const versions=JSON.parse(await readFile(resolve(root,'data/open-etf-agent/versions.json'),'utf8'));
+const latest=Object.keys(versions.versions).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).at(-1);
+if(m.reviewedVersion.replace(/^v/,'').replace(/\.0$/,'')!==latest)throw Error('Module map is stale against topic version lineage; import a reviewed fixed Open snapshot');
 const kinds={zh:{'module-article':'模块专文',overview:'导读','open-walkthrough':'Open 练手篇',workshop:'专题练手篇'},en:{'module-article':'Module article',overview:'Overview','open-walkthrough':'Open walkthrough',workshop:'Workshop'}};
 for(const [p,hash] of Object.entries(snapshot.assets)){
  if(!/^visuals\/open-etf-agent\/module-map(?:\.zh-CN)?\.svg$/.test(p))throw Error('Unexpected map asset');

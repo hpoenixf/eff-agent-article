@@ -4,6 +4,9 @@ title: "Open ETF Agent：可运行的开源 Agent 教学项目"
 description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代码与模块文章学习 Agent 开发，区分已验证能力、教学切片与待完成工作。"
 ---
 
+<OpenEtfTopic language="zh">
+<template #module-map>
+
 <!-- open-module-map:start -->
 <div class="vp-doc" style="max-width: 1440px; margin: 24px auto; padding: 0 24px;">
 
@@ -89,4 +92,5 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 </div>
 <!-- open-module-map:end -->
 
-<OpenEtfTopic language="zh" />
+</template>
+</OpenEtfTopic>

@@ -30,6 +30,7 @@ async function copyQuickstart() {
       <div class="oet-actions"><a class="oet-primary" href="#reading">{{ t('Read the articles ↓', '阅读文章 ↓') }}</a><a href="#quickstart">{{ t('Run it locally ↓', '立即运行 ↓') }}</a></div>
       <p class="oet-hero-note">{{ t('Open source · Synthetic examples · No model key for the default demo', '开源教学实现 · 合成示例 · 默认演示无需模型密钥') }}</p>
     </section>
+    <slot name="module-map" />
     <section id="reading" class="oet-section oet-reading" aria-labelledby="reading-title">
       <div class="oet-section-heading"><div><p class="oet-eyebrow">01 / READ → RUN → INSPECT</p><h2 id="reading-title">{{ t('Three recent modules to explore.', '从最近三个模块读起。') }}</h2></div><a :href="withBase(en ? '/en/catalog' : '/catalog')">{{ t('Full article catalog →', '全部文章目录 →') }}</a></div>
       <p class="oet-intro">{{ t('Ordered by module progression, not article publication date. Each essay explains the larger mechanism and marks the smaller public implementation.', '按模块演进顺序排列，不代表文章发表日期。文章讲清完整机制，也标出公开实现的有限切片。') }}</p>

@@ -4,6 +4,9 @@ title: "Open ETF Agent: A Runnable Open-Source Agent Learning Project"
 description: "Learn agent development from document comparison to sustained research through pinned code and module guides, distinguishing verified capabilities, teaching slices and unfinished work."
 ---
 
+<OpenEtfTopic language="en">
+<template #module-map>
+
 <!-- open-module-map:start -->
 <div class="vp-doc" style="max-width: 1440px; margin: 24px auto; padding: 0 24px;">
 
@@ -89,4 +92,5 @@ Dashed cards represent call-sites of existing owners, not additional modules. Ar
 </div>
 <!-- open-module-map:end -->
 
-<OpenEtfTopic language="en" />
+</template>
+</OpenEtfTopic>
