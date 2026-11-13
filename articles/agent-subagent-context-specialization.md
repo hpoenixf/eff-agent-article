@@ -254,6 +254,12 @@ node src/cli.mjs --case fixture-child --output runs/article-child
 ```
 <!-- /open-etf-case -->
 
+[Open ETF Agent v0.30.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.30.0)把这个边界推进到可独立控制的异步 Child：Main 用 `spawn_child` 发出一个窄问题，拿到原 Child 的引用后可继续自己的工作，再用 `inspect_child` 读取同一份结果；不再需要这个分工时，用 `cancel_child` 只停该 Child。原 Session 保存每次观察，因此“刚才仍在运行”不会被后来的完成状态改写。串行配置仍可继续使用。
+
+例如让 Child 核对披露日期，Main 同时整理已取得的费率资料，最后再判断两者能否一起使用。这里的异步并不保证模型请求并行：Main 与 Child 仍竞争同一供应商容量，并共享原 Root 预算和截止时间。取消也不表示远端请求已经停止；已发出而结果未知的调用保留占用，不退款、不重放，取消观察不能携带可采纳的答案或来源。Main 收尾前等待已准入的 Child 结束，避免把尚在执行的工作遗留在报告之外。
+
+沿[固定版本配置与控制指南](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/child-lifecycle.zh-CN.md)启用 `child-execution@2` 后，既有 `child list` 可观察原 Child 与消费状态；`node src/research-cli.mjs child cancel --project DIR --run RUN_ID --child CHILD_ID` 只取消选中的直接 Child。[当前安装入口](https://github.com/hpoenixf/open-etf-agent/blob/main/README.zh-CN.md)与[固定版本验证说明](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/verification/v030-release.md)分别提供使用条件和实测范围。真实模型已在合成材料上完成结果交接与报告冷读取，但仍会出现过度解释、把未注明性质的金额称作“最低金额”等内容问题；这个公开模块不等于全文所述的完整专家体系，也不包含嵌套 Child 或专家间通信。
+
 [Open ETF Agent v0.22.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.22.0)在这个离线示例之外，提供了项目内有界、串行、单层的只读 Child。Main 从已准入方法中选择一项局部问题与更窄的来源集合，Child 使用独立上下文，交回派生结论和经核对的原始来源身份。按[固定版本手册](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/child-execution.zh-CN.md)配置后，`node src/research-cli.mjs child list --project DIR --run RUN_ID` 可只读原 Child、所选方法、来源和 Main 的消费状态，不触发模型；安全停止后的继续仍沿同一 Child 身份，不重放未知请求。
 
 [同版验证入口](https://github.com/hpoenixf/open-etf-agent/blob/051bba49ff7c3adbfbe76bc07eba675bd7e7b465/docs/verification/v022-release.zh-CN.md)保留同源分阶段执行的原始结果：十个任务中九个原机械成功，一项原 HTTP 测量失败后来取得无新模型调用的成功回读补证，但不改写成连续十项全过。这个公开切片不包括并行或后台 Child、嵌套、专家间通信和动态 Profile，也不代表上文全部专家体系或金融研究质量已经验证。

@@ -28,7 +28,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-12，最新正式发布版本为 [v0.29.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.29.0)。最新模块是显式 Conversation，承接报告复核与项目专家配置；它复用原项目和执行职责，不另建 Agent 平台。
+截至 2026-11-13，最新正式发布版本为 [v0.30.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.30.0)。最新模块是可独立控制的异步 Child，承接显式对话、报告复核与项目专家配置，继续复用原项目和执行职责。
+
+Main 可以先委派一个窄问题，继续处理自己的材料，再读取原 Child 的结果或只取消这个 Child；原来源、共享预算和恢复身份不因异步而放宽。可从[子代理文章](./agent-subagent-context-specialization.md)理解取舍，再按[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/child-lifecycle.zh-CN.md)配置和观察。[实测说明](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/verification/v030-release.md)记录了真实模型在合成材料上的交接与冷读取，也保留了冗长、金额性质误称等内容缺陷；运行完成仍不代表研究判断正确。
 
 v0.29 区分新问题、已登记澄清的回复和跨 Run 显式 Continue。普通追问可以选择历史报告原文，但不继承旧执行权；Continue 保留根目标，并取得新的执行授权。可沿[对话接纳文章](./agent-conversation-admission-task-continuation.md)和[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/conversations.zh-CN.md)操作。[十工作流验收](https://github.com/hpoenixf/open-etf-agent/blob/cb7ebfa0cf9ce282ff4355fea85f6693326463ad/docs/verification/v029-release.md)验证了真实模型在合成材料上的有界运行与交付，不代表答案全对。当前是本地单用户 CLI/API，不等于完整 private 模块、Web 聊天服务或完整历史结果谱系。
 
