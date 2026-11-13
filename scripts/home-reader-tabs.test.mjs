@@ -87,3 +87,13 @@ test('topic previews derive only from tag members and keep complete topic destin
  for(const path of ['index.md','en/index.md']) assert.doesNotMatch(readFileSync(path,'utf8'),/  actions:/);
  assert.match(readFileSync('.vitepress/theme/home-layout.css','utf8'),/recent-articles ol\{display:grid;grid-template-columns:repeat\(2/);
 });
+
+
+test('capsule tabs retain accessible labels, decorative icons and reduced-motion fallback', () => {
+  const source = readFileSync('.vitepress/theme/HomeReaderTabs.vue', 'utf8')
+  assert.match(source, /reader-tab-slider/)
+  assert.match(source, /aria-hidden="true"/)
+  assert.match(source, /prefers-reduced-motion:reduce/)
+  assert.match(source, /animation:none!important/)
+  assert.match(source, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/)
+})
