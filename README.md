@@ -30,7 +30,9 @@
 
 ### 跨分类专题
 
-- [入门](https://hpoenixf.com/eff-agent-article/catalog?tags=intro) · [专题导读](https://hpoenixf.com/eff-agent-article/articles/agent-in-15-minutes)
+- [入门](https://hpoenixf.com/eff-agent-article/catalog?tags=intro) · [专题导读](https://hpoenixf.com/eff-agent-article/getting-started)
+- [架构进阶](https://hpoenixf.com/eff-agent-article/catalog?tags=architecture) · [专题导读](https://hpoenixf.com/eff-agent-article/thinking)
+- [研发实践](https://hpoenixf.com/eff-agent-article/catalog?tags=engineering) · [专题导读](https://hpoenixf.com/eff-agent-article/engineering)
 - [金融](https://hpoenixf.com/eff-agent-article/catalog?tags=finance) · [专题导读](https://hpoenixf.com/eff-agent-article/fintech)
 - [全景](https://hpoenixf.com/eff-agent-article/catalog?tags=panorama) · [专题导读](https://hpoenixf.com/eff-agent-article/panorama)
 - [开源](https://hpoenixf.com/eff-agent-article/catalog?tags=open-source) · [专题导读](https://hpoenixf.com/eff-agent-article/open-etf-agent)

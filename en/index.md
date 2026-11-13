@@ -11,16 +11,12 @@ hero:
     alt: ""
     width: 480
     height: 430
-  actions:
-    - theme: brand
-      text: Agents in 15 minutes →
-      link: /en/articles/agent-in-15-minutes
   secondaryActions:
     - theme: alt
-      text: Browse all articles
+      text: All articles
       link: /en/catalog
     - theme: alt
-      text: Runnable source code ↗
+      text: GitHub
       link: https://github.com/hpoenixf/open-etf-agent
 
 ---

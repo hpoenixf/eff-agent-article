@@ -1,8 +1,10 @@
-import { learningPathSlugs } from './book.mjs'
+import { collections, learningPathSlugs } from './book.mjs'
 
 // Categories remain book.mjs reading paths; tags are independent, derived associations.
 export const tagDefinitions = [
-  { id: 'intro', zh: '入门', en: 'Getting started', path: 'articles/agent-in-15-minutes' },
+  { id: 'intro', zh: '入门', en: 'Getting started', path: 'getting-started' },
+  { id: 'architecture', zh: '架构进阶', en: 'Architecture', path: 'thinking' },
+  { id: 'engineering', zh: '研发实践', en: 'Engineering practice', path: 'engineering' },
   { id: 'finance', zh: '金融', en: 'Finance', path: 'fintech' },
   { id: 'panorama', zh: '全景', en: 'Panorama', path: 'panorama' },
   { id: 'open-source', zh: '开源', en: 'Open source', path: 'open-etf-agent' }
@@ -22,6 +24,10 @@ export function buildArticleTags({ slugs, financeSlugs, panoramaSlugs, openGroup
   const articles = Object.fromEntries(slugs.map(slug => [slug, []]))
   const add = (slug, tag) => { if (canonical.has(slug) && !articles[slug].some(item => item.id === tag.id)) articles[slug].push(tag) }
   for (const slug of learningPathSlugs) add(slug, { id: 'intro' })
+  // Editorial category membership is the authority, not title keyword inference.
+  for (const [category, tag] of [['thinking', 'architecture'], ['engineering', 'engineering']]) {
+    for (const slug of collections.find(group => group.id === category).chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))) add(slug, { id: tag })
+  }
   for (const slug of financeSlugs) add(slug, { id: 'finance' })
   for (const slug of panoramaSlugs) add(slug, { id: 'panorama' })
   for (const row of openGroups.flatMap(group => group.articles)) {

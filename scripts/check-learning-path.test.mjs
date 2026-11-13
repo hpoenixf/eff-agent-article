@@ -136,9 +136,7 @@ test('homepage replaces the legacy continuation menu with direct reading tabs', 
   assert.match(component, /removeEventListener\('keydown', escape\)/)
   for (const path of ['index.md', 'en/index.md']) {
     const home = read(path)
-    const actions = home.split('  actions:\n')[1].split('  secondaryActions:')[0]
-    assert.equal((actions.match(/theme:/g) ?? []).length, 1)
-    assert.ok(actions.includes('agent-in-15-minutes'))
+    assert.ok(!home.includes('  actions:'), 'Duplicate hero CTA is removed; the article remains in the intro topic')
     assert.ok(home.includes('link: https://github.com/hpoenixf/open-etf-agent'))
     assert.ok(home.includes(path.startsWith('en/') ? 'link: /en/catalog' : 'link: /catalog'))
   }

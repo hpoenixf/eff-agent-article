@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chapters, collections } from '../book.mjs'
-import { categoryLinks, topicLinks } from '../home-reading-routes.mjs'
+import { categoryLinks } from '../home-reading-routes.mjs'
 import { englishArticlePath, englishCollections, englishArticleSlugs } from '../book.en.mjs'
 import { availableArticleHistory } from '../article-history.mjs'
 import { chronologicalCatalog } from '../.vitepress/theme/catalog-view.mjs'
@@ -53,11 +53,11 @@ export function checkCatalogOrderHtml(html, { language, kind, chronology = {} })
   if (kind === 'home') {
     const category = /<div class="reader-categories"[^>]*>([\s\S]*?)<\/div>/.exec(html)?.[1]
     const topics = /<nav class="reader-tags"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1]
-    assert.ok(category && topics, 'Existing categories and topics stay discoverable in the first tab')
+    assert.ok(category, 'Existing categories stay discoverable in the first tab')
+    assert.ok(!topics, 'Duplicate homepage topic pills are intentionally hidden; topic pages remain available')
     const links = fragment => [...fragment.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1])
     assert.deepEqual(links(category), categoryLinks(language).map(item => '/eff-agent-article' + item.href))
     const prefix = '/eff-agent-article/' + (english ? 'en/' : '')
-    assert.deepEqual(links(topics), [...topicLinks(language).map(item => '/eff-agent-article' + item.href), prefix + 'catalog', prefix + 'gallery', 'https://github.com/hpoenixf/open-etf-agent'])
     assert.equal((html.match(/role="tab"/g) || []).length, 5)
     assert.equal((html.match(/role="tabpanel"/g) || []).length, 5)
     assert.match(html, /id="reader-tab-catalog"[^>]*aria-selected="true"/)

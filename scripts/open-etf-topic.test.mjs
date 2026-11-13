@@ -62,7 +62,7 @@ test('Open ETF topic stays discoverable in the directory, without homepage promo
   assert.ok(!/^> /m.test(home),'No stacked editorial callouts')
   assert.ok(home.includes('<RecentArticles />'))
   assert.ok(home.includes('<ContinueReading />'))
-  assert.ok(home.includes('agent-in-15-minutes'))
+  assert.ok(home.includes('<HomeReaderTabs />'), 'Intro article is reached from the tag preview, not a duplicate hero CTA')
   assert.ok(!home.includes('10 年开发经验') && !home.includes('10 years of software'))
  }
  const about=readFileSync(root+'about.md','utf8')

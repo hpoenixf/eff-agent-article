@@ -30,7 +30,9 @@ The introductory series is a connected path, not a glossary: follow each article
 
 ### Cross-cutting topics
 
-- [Getting started](https://hpoenixf.com/eff-agent-article/en/catalog?tags=intro) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/articles/agent-in-15-minutes)
+- [Getting started](https://hpoenixf.com/eff-agent-article/en/catalog?tags=intro) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/getting-started)
+- [Architecture](https://hpoenixf.com/eff-agent-article/en/catalog?tags=architecture) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/thinking)
+- [Engineering practice](https://hpoenixf.com/eff-agent-article/en/catalog?tags=engineering) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/engineering)
 - [Finance](https://hpoenixf.com/eff-agent-article/en/catalog?tags=finance) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/fintech)
 - [Panorama](https://hpoenixf.com/eff-agent-article/en/catalog?tags=panorama) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/panorama)
 - [Open source](https://hpoenixf.com/eff-agent-article/en/catalog?tags=open-source) · [Reading guide](https://hpoenixf.com/eff-agent-article/en/open-etf-agent)

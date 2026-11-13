@@ -123,3 +123,17 @@
   .VPHome .VPFeature .box { padding: 12px 0; }
   .VPHome .VPFeature .box > .VPImage { max-height: 156px; object-fit: cover; }
 }
+
+/* Compact homepage: illustrations support reading rather than displace it. */
+.VPHome .VPHero{padding:24px 32px 20px}
+.VPHome .VPHero.has-image .container{grid-template-columns:minmax(0,1fr) 240px;gap:24px;max-width:1040px}
+.VPHome .VPHero.has-image .text{font-size:32px;line-height:1.3}
+.VPHome .VPHero.has-image .image-src{max-width:240px;max-height:215px}
+.VPHome .VPHero .tagline{padding-top:12px;font-size:15px;line-height:1.7}
+.VPHome .vp-doc .reader-heading h2{margin:4px 0 14px;padding:0}
+.VPHome .vp-doc .recent-articles{max-width:none;padding-top:20px}
+.VPHome .vp-doc .recent-articles ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+.VPHome .vp-doc .recent-articles li{margin:0;padding:14px 0;align-content:start}
+.VPHome .vp-doc .recent-articles li>a{font-size:17px}
+@media(max-width:767px){.VPHome .VPHero{padding:20px}.VPHome .VPHero.has-image .container{grid-template-columns:minmax(0,1fr) 120px;gap:12px}.VPHome .VPHero.has-image .image-src{max-width:120px;max-height:110px}.VPHome .VPHero.has-image .text{font-size:26px}.VPHome .vp-doc .recent-articles ol{grid-template-columns:1fr}}
+@media(max-width:480px){.VPHome .VPHero.has-image .container{grid-template-columns:minmax(0,1fr)}.VPHome .VPHero.has-image .image{max-width:96px;justify-self:end}.VPHome .VPHero.has-image .image-src{max-width:96px;max-height:86px}}

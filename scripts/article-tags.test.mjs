@@ -164,11 +164,20 @@ test('introductory badges derive exactly from the canonical learning route in bo
  const slugs=collections.flatMap(c=>c.chapters.flatMap(c=>c.items.map(([s])=>s)));
  const data=buildArticleTags({slugs,financeSlugs:[],panoramaSlugs:[],openGroups:[]});
  assert.deepEqual(slugs.filter(s=>data.articles[s].some(t=>t.id==='intro')),learningPathSlugs);
- const tag=data.definitions.find(t=>t.id==='intro');assert.equal(tag.zh,'入门');assert.equal(tag.en,'Getting started');assert.equal(tag.path,'articles/'+learningPathSlugs[0]);
+ const tag=data.definitions.find(t=>t.id==='intro');assert.equal(tag.zh,'入门');assert.equal(tag.en,'Getting started');assert.equal(tag.path,'getting-started');
  assert.equal(new Set(learningPathSlugs).size,11);
 });
 
 test('selecting the introductory filter starts in the canonical reading order', () => {
  const source=readFileSync(new URL('../.vitepress/theme/ChapterCatalog.vue',import.meta.url),'utf8');
  assert.ok(source.includes("if (id === 'intro' && selectedTags.value.includes('intro')) sortOrder.value = 'category'"));
+});
+
+test('engineering and architecture tags use reviewed category membership, not title guesses', () => {
+ const slugs=collections.flatMap(c=>c.chapters.flatMap(ch=>ch.items.map(([s])=>s)));
+ const data=buildArticleTags({slugs,financeSlugs:[],panoramaSlugs:[],openGroups:[]});
+ for(const [category,tag] of [['engineering','engineering'],['thinking','architecture']]) {
+  const expected=collections.find(c=>c.id===category).chapters.flatMap(ch=>ch.items.map(([s])=>s));
+  assert.deepEqual(taggedArticleSlugs(data,tag,slugs),expected);
+ }
 });
