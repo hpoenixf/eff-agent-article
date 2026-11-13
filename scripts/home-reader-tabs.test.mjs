@@ -5,6 +5,7 @@ import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { readingRoutes, categoryLinks, topicLinks } from '../home-reading-routes.mjs'
 import { learningPathSlugs } from '../book.mjs'
+import { checkCatalogOrderHtml } from './check-catalog-order-output.mjs'
 test('four bilingual routes keep canonical article identities and all introductory steps', () => {
   for (const locale of ['zh','en']) {
     const routes = readingRoutes(locale)
@@ -37,6 +38,7 @@ test('tabs render five accessible controls, ordered links, locale base paths and
   for(const locale of ['zh','en']){
     globalThis.__tabLang=locale
     const html=await renderToString(createSSRApp(Component))
+    checkCatalogOrderHtml(html, { language: locale, kind: 'home' })
     assert.equal((html.match(/role="tab"/g)||[]).length,5)
     assert.equal((html.match(/role="tabpanel"/g)||[]).length,5)
     assert.equal((html.match(/aria-selected="true"/g)||[]).length,1)

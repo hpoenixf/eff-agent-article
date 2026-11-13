@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { chapters, collections } from '../book.mjs'
+import { categoryLinks, topicLinks } from '../home-reading-routes.mjs'
 import { englishArticlePath, englishCollections, englishArticleSlugs } from '../book.en.mjs'
 import { availableArticleHistory } from '../article-history.mjs'
 import { chronologicalCatalog } from '../.vitepress/theme/catalog-view.mjs'
@@ -50,10 +51,17 @@ export function checkCatalogOrderHtml(html, { language, kind, chronology = {} })
     assert.ok(!html.includes('class="catalog-all-links"'), 'All-links index is specific to the independent catalogue')
   }
   if (kind === 'home') {
-    const links = [...html.matchAll(/<a\b([^>]*)>/g)].filter(match => /class="[^"]*\bVPFeature\b/.test(match[1]))
-      .map(match => /href="([^"]+)"/.exec(match[1])?.[1])
-    assert.deepEqual(links, ['modules', 'thinking', 'engineering', 'panorama', 'fintech', 'open-etf-agent'].map(route => '/eff-agent-article/' + (english ? 'en/' : '') + route))
-    assert.ok(html.includes(english ? 'Explore open source' : '探索开源'))
+    const category = /<div class="reader-categories"[^>]*>([\s\S]*?)<\/div>/.exec(html)?.[1]
+    const topics = /<nav class="reader-tags"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1]
+    assert.ok(category && topics, 'Existing categories and topics stay discoverable in the first tab')
+    const links = fragment => [...fragment.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1])
+    assert.deepEqual(links(category), categoryLinks(language).map(item => '/eff-agent-article' + item.href))
+    const prefix = '/eff-agent-article/' + (english ? 'en/' : '')
+    assert.deepEqual(links(topics), [...topicLinks(language).map(item => '/eff-agent-article' + item.href), prefix + 'catalog', prefix + 'gallery', 'https://github.com/hpoenixf/open-etf-agent'])
+    assert.equal((html.match(/role="tab"/g) || []).length, 5)
+    assert.equal((html.match(/role="tabpanel"/g) || []).length, 5)
+    assert.match(html, /id="reader-tab-catalog"[^>]*aria-selected="true"/)
+    assert.ok(!html.includes('class="VPFeature'), 'No duplicate legacy homepage cards')
   }
 }
 
@@ -67,5 +75,5 @@ if (import.meta.url === pathToFileURL(resolve(process.argv[1] || '')).href) {
       checkCatalogOrderHtml(readFileSync(resolve('.vitepress/dist', prefix + page + '.html'), 'utf8'), { language, kind, chronology })
     }
   }
-  console.log('Bilingual catalogue toolbar, first page and complete crawlable link index verified; six homepage cards and category defaults preserved.')
+  console.log('Bilingual catalogue toolbar, first page and complete crawlable link index verified; homepage category/topic destinations, five direct tabs and category defaults preserved.')
 }
