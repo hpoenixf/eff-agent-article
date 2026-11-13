@@ -194,3 +194,13 @@ test('retired editions are excluded from local search and ordinary current recom
     }
   }
 })
+
+
+test('getting-started bilingual topic is accepted consistently by language routing and SEO', async () => {
+  const { localizedSitePath } = await import('../language-routing.mjs')
+  const { existsSync } = await import('node:fs')
+  assert.equal(localizedSitePath('/getting-started','en',[]),'/en/getting-started')
+  for (const path of ['getting-started.md','en/getting-started.md']) {
+    assert.equal(languageAlternates(path,existsSync).length,2)
+  }
+})
