@@ -1,5 +1,5 @@
 // Catalogue membership and translation qualification retain their existing owners.
-export function recentArticles(pages, { items, englishSlugs = [], englishTitles = {}, history = new Map(), language = 'zh', limit = 5 }) {
+export function recentArticles(pages, { items, englishSlugs = [], englishTitles = {}, history = new Map(), language = 'zh', limit = 7 }) {
   const titles = new Map(items), translated = new Set(englishSlugs)
   const english = language === 'en', prefix = english ? '/en/articles/' : '/articles/'
   const seen = new Set(), results = []

@@ -12,9 +12,11 @@ for (const [path, prefix] of [['index.html', '/eff-agent-article/'], ['en/index.
     continue
   }
   assert.ok(section.includes('data-history="available"'), 'Missing history availability status')
-  assert.equal((section.match(/<time\b/g) || []).length, 5, `Expected five recent entries with full history: ${path}`)
+  assert.equal((section.match(/<time\b/g) || []).length, 7, `Expected seven recent entries with full history: ${path}`)
+  assert.equal((section.match(/<li\b/g) || []).length, 8, 'Expected seven articles and final view-all card')
+  assert.match(section, /<li[^>]*class="recent-all"[\s\S]*?<a[^>]*href="[^"]*catalog"/, 'Final card must link catalogue')
   const links = [...section.matchAll(/href="([^"]+)"/g)].map(match => match[1]).filter(link => link !== prefix + 'catalog')
-  assert.equal(new Set(links).size, 5, `Duplicate or missing recent article: ${path}`)
+  assert.equal(new Set(links).size, 7, `Duplicate or missing recent article: ${path}`)
   assert.ok(links.every(link => link.startsWith(prefix + 'articles/')), `Wrong-language recent route: ${path}`)
   for (const [, value] of section.matchAll(/<time\b[^>]*datetime="([^"]+)"/g)) assert.ok(Number.isFinite(Date.parse(value)), 'Invalid timestamp')
 }

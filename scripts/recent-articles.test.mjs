@@ -9,9 +9,9 @@ const items = Array.from({ length: 8 }, (_, i) => ['a' + i, '文章 ' + i])
 const history = new Map(items.flatMap(([slug], i) => ['', 'en/'].map(prefix => [prefix+'articles/'+slug+'.md',{date:'2026-10-'+(20+i),timestamp:'2026-10-'+(20+i)+'T00:00:00Z',kind:'new',commit:'synthetic'}])))
 const options = { items, history, englishSlugs: ['a0', 'a1'], englishTitles: { a0: 'English zero', a1: 'English one' } }
 const page = (slug, fm = {}, en = false) => ({ url: (en ? '/en' : '') + '/articles/' + slug + '.html', frontmatter: fm })
-test('new article without date fields automatically enters latest five', () => {
+test('new article without date fields automatically enters latest seven', () => {
  const actual=recentArticles(items.map(([slug])=>page(slug)),options)
- assert.deepEqual(actual.map(x=>x.slug),['a7','a6','a5','a4','a3'])
+ assert.deepEqual(actual.map(x=>x.slug),['a7','a6','a5','a4','a3','a2','a1'])
 })
 test('draft, historical, uncommitted and unknown timestamps never become today', () => {
  assert.deepEqual(recentArticles([page('old'),page('a1',{draft:true}),page('a2',{published:false})],options),[])

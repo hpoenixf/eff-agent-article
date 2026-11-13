@@ -23,6 +23,10 @@ const entries = computed(() => english.value ? data.en : data.zh)
         <p :id="'recent-description-' + entry.slug" class="article-list-description" :data-description-for="entry.href" :title="descriptionForArticle(descriptionData.articles, entry.href)">{{ descriptionForArticle(descriptionData.articles, entry.href) }}</p>
         <div class="recent-meta"><span class="recent-kind" :class="entry.kind">{{ entry.kind === 'new' ? (english ? 'New' : '新增') : (english ? 'Updated' : '更新') }}</span><time :datetime="entry.timestamp">{{ entry.date }}</time></div>
       </li>
+      <li class="recent-all">
+        <a :href="withBase(english ? '/en/catalog' : '/catalog')"><span>{{ english ? 'View all articles' : '查看全部' }}</span><span aria-hidden="true">→</span></a>
+        <p class="recent-note">{{ english ? 'Explore the complete article catalogue.' : '前往完整文章目录，继续阅读。' }}</p>
+      </li>
     </ol>
   </section>
 </template>
@@ -36,6 +40,8 @@ const entries = computed(() => english.value ? data.en : data.zh)
 ol { list-style: none; margin: 0; padding: 0; }
 li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--vp-c-divider); }
 li > a { grid-column: 1 / -1; display: flex; gap: 12px; justify-content: space-between; min-width: 0; padding: 6px 0; text-decoration: none; line-height: 1.6; }
+.recent-all { background: var(--vp-c-brand-soft); border-radius: 12px; }
+.recent-all > a, .recent-all > p { margin-left: 18px; margin-right: 18px; }
 .recent-title { overflow-wrap: anywhere; }
 li > a:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px; border-radius: 4px; }
 .recent-meta { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; color: var(--vp-c-text-2); font-size: 12px; white-space: nowrap; }
