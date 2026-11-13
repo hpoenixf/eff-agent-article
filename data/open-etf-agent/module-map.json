@@ -1,0 +1,1063 @@
+{
+  "schemaVersion": 1,
+  "repository": "hpoenixf/open-etf-agent",
+  "sourceCommit": "d3822ab07186ab16f3d57e60a7bbf91fea3eb9d5",
+  "manifest": {
+    "schemaVersion": 2,
+    "reviewedVersion": "0.30.0",
+    "reviewedSource": "ba527fb502aebbe8bd601fd2115a4282cd10b94c",
+    "articleSource": "https://github.com/hpoenixf/eff-agent-article/blob/249f0b866f9446f33b57f186fbc6d35b5d82c119/articles/open-etf-agent-v010-system-design.md",
+    "evidence": "docs/verification/v030-release.md",
+    "layers": [
+      {
+        "id": "L1",
+        "title": {
+          "en": "Inputs & triggers",
+          "zh": "任务输入与触发"
+        },
+        "guide": {
+          "en": "docs/scheduled-tasks.md",
+          "zh": "docs/scheduled-tasks.zh-CN.md"
+        }
+      },
+      {
+        "id": "L2",
+        "title": {
+          "en": "Identity, session & context",
+          "zh": "身份、会话与上下文"
+        },
+        "guide": {
+          "en": "docs/project-context.md",
+          "zh": "docs/project-context.zh-CN.md"
+        }
+      },
+      {
+        "id": "L3",
+        "title": {
+          "en": "Agent decisions & execution",
+          "zh": "Agent 决策与运行"
+        },
+        "guide": {
+          "en": "docs/child-lifecycle.md",
+          "zh": "docs/child-lifecycle.zh-CN.md"
+        }
+      },
+      {
+        "id": "L4",
+        "title": {
+          "en": "Tools & domain capabilities",
+          "zh": "工具与领域能力"
+        },
+        "guide": {
+          "en": "docs/web-sources.md",
+          "zh": "docs/web-sources.zh-CN.md"
+        }
+      },
+      {
+        "id": "L5",
+        "title": {
+          "en": "Publication & delivery",
+          "zh": "结果发布与交付"
+        },
+        "guide": {
+          "en": "docs/report-review.md",
+          "zh": "docs/report-review.zh-CN.md"
+        }
+      },
+      {
+        "id": "L6",
+        "title": {
+          "en": "User interfaces",
+          "zh": "用户界面"
+        },
+        "guide": {
+          "en": "docs/module-guide.md",
+          "zh": "docs/module-guide.zh-CN.md"
+        }
+      }
+    ],
+    "groups": [
+      {
+        "id": "task",
+        "title": {
+          "zh": "任务与 Session",
+          "en": "Tasks & Session"
+        }
+      },
+      {
+        "id": "loop",
+        "title": {
+          "zh": "Context / Loop",
+          "en": "Context / Loop"
+        }
+      },
+      {
+        "id": "main",
+        "title": {
+          "zh": "Main 决策",
+          "en": "Main decisions"
+        }
+      },
+      {
+        "id": "child",
+        "title": {
+          "zh": "Child 专家",
+          "en": "Child specialists"
+        }
+      },
+      {
+        "id": "tools",
+        "title": {
+          "zh": "工具与边界",
+          "en": "Tools & boundaries"
+        }
+      },
+      {
+        "id": "result",
+        "title": {
+          "zh": "结果与复算",
+          "en": "Results & calculation"
+        }
+      },
+      {
+        "id": "delivery",
+        "title": {
+          "zh": "报告与回读",
+          "en": "Reports & readback"
+        }
+      }
+    ],
+    "cards": [
+      {
+        "id": "cli",
+        "layer": "L1",
+        "group": "task",
+        "name": "CLI",
+        "summary": {
+          "zh": "接收任务",
+          "en": "Task entry"
+        },
+        "boundary": {
+          "zh": "离线演示 / 显式提交",
+          "en": "Offline demo / explicit submit"
+        },
+        "status": "bounded",
+        "source": "src/cli.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-in-15-minutes",
+          "kind": "overview",
+          "title": {
+            "zh": "十五分钟入门 Agent",
+            "en": "Agents in 15 Minutes"
+          }
+        }
+      },
+      {
+        "id": "project",
+        "layer": "L1",
+        "group": "task",
+        "name": "Research Project",
+        "summary": {
+          "zh": "导入并提交研究",
+          "en": "Import and submit research"
+        },
+        "boundary": {
+          "zh": "自有资料与固定任务",
+          "en": "Owned sources, frozen task"
+        },
+        "status": "bounded",
+        "source": "src/research-project.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-research-project-workshop",
+          "kind": "workshop",
+          "title": {
+            "zh": "把自己的资料交给 Agent：从第一份报告到可恢复的研究项目",
+            "en": "Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project"
+          }
+        }
+      },
+      {
+        "id": "schedule",
+        "layer": "L1",
+        "group": "task",
+        "name": "Schedule",
+        "summary": {
+          "zh": "一次计划执行",
+          "en": "Finite once schedule"
+        },
+        "boundary": {
+          "zh": "非周期常驻服务",
+          "en": "Not a resident scheduler"
+        },
+        "status": "bounded",
+        "source": "src/scheduled-tasks.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-autonomous-scheduled-research",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？",
+            "en": "Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends"
+          }
+        }
+      },
+      {
+        "id": "session",
+        "layer": "L2",
+        "group": "task",
+        "name": "Session",
+        "summary": {
+          "zh": "保留原 Run 身份",
+          "en": "Preserve original Run"
+        },
+        "boundary": {
+          "zh": "身份、预算与截止不重置",
+          "en": "No identity / budget reset"
+        },
+        "status": "bounded",
+        "source": "src/session.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-task-session-run-worker-schedule",
+          "kind": "overview",
+          "title": {
+            "zh": "Agent 运行身份全景：从一次聊天到 Model Turn，系统到底在继续什么？",
+            "en": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?"
+          }
+        }
+      },
+      {
+        "id": "conversation",
+        "layer": "L2",
+        "group": "task",
+        "name": "Conversation",
+        "summary": {
+          "zh": "澄清与显式继续",
+          "en": "Clarify and continue"
+        },
+        "boundary": {
+          "zh": "收到回复 ≠ 已采用",
+          "en": "Received ≠ adopted"
+        },
+        "status": "bounded",
+        "source": "src/conversation.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-conversation-admission-task-continuation",
+          "kind": "module-article",
+          "title": {
+            "zh": "“接着聊”不等于“接着执行”：Agent 对话接纳与任务接续的设计",
+            "en": "Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation"
+          }
+        }
+      },
+      {
+        "id": "temporal",
+        "layer": "L2",
+        "group": "task",
+        "name": "Temporal",
+        "summary": {
+          "zh": "固定任务时间",
+          "en": "Pin task time"
+        },
+        "boundary": {
+          "zh": "时区锚点；非市场日历",
+          "en": "Zone anchor, not market calendar"
+        },
+        "status": "bounded",
+        "source": "src/temporal.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-temporal-semantics-market-calendar",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 说“今天”时，到底是哪一天：任务时间、用户时间与市场交易日",
+            "en": "When an Agent Says “Today,” Which Day Does It Mean? Task Time, User Time, and Market Sessions"
+          }
+        }
+      },
+      {
+        "id": "context",
+        "layer": "L2",
+        "group": "loop",
+        "name": "Context",
+        "summary": {
+          "zh": "投影本轮材料",
+          "en": "Project this turn’s input"
+        },
+        "boundary": {
+          "zh": "原文不随窗口改写",
+          "en": "Do not rewrite originals"
+        },
+        "status": "bounded",
+        "source": "src/context.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-context-governance-actions",
+          "kind": "overview",
+          "title": {
+            "zh": "Agent 上下文治理全景·行动篇：从首轮输入到长期记忆，怎样真正落地",
+            "en": "Agent Context Governance Panorama · Practice: From the First Request to Long-Term Memory"
+          }
+        }
+      },
+      {
+        "id": "compact",
+        "layer": "L2",
+        "group": "loop",
+        "name": "Compaction",
+        "summary": {
+          "zh": "压缩工作上下文",
+          "en": "Compact working context"
+        },
+        "boundary": {
+          "zh": "摘要不代替原始证据",
+          "en": "Notes are not source evidence"
+        },
+        "status": "bounded",
+        "source": "src/compaction.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-main-run-context-compaction",
+          "kind": "module-article",
+          "title": {
+            "zh": "上下文快满时，为什么不能直接把历史交给模型摘要？",
+            "en": "When Context Is Nearly Full, Why Can't We Simply Ask a Model to Summarize History?"
+          }
+        }
+      },
+      {
+        "id": "memory",
+        "layer": "L2",
+        "group": "loop",
+        "name": "Memory",
+        "summary": {
+          "zh": "明确保存与遗忘",
+          "en": "Explicit save and forget"
+        },
+        "boundary": {
+          "zh": "跨任务偏好单独授权",
+          "en": "Separate cross-task authority"
+        },
+        "status": "bounded",
+        "source": "src/memory.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "026-agent-memory-forget-durable-effects",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent Memory 的完整生命周期：从记住偏好到安全遗忘",
+            "en": "The Full Lifecycle of Agent Memory: From Remembering Preferences to Safe Forgetting"
+          }
+        }
+      },
+      {
+        "id": "hil",
+        "layer": "L2",
+        "group": "main",
+        "name": "Human Interaction",
+        "summary": {
+          "zh": "提问、收取与采用",
+          "en": "Ask, receive and adopt"
+        },
+        "boundary": {
+          "zh": "显式恢复；非通用审批",
+          "en": "Explicit resume, not approval engine"
+        },
+        "status": "bounded",
+        "source": "src/human-interaction.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-durable-human-interaction-response-adoption",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 问完用户之后：持久人机交互如何接回原研究",
+            "en": "After an Agent Asks the User: Returning a Durable Human Response to the Original Research"
+          }
+        }
+      },
+      {
+        "id": "profiles",
+        "layer": "L2",
+        "group": "child",
+        "name": "Specialist Profile",
+        "summary": {
+          "zh": "冻结专家配置",
+          "en": "Freeze specialist profiles"
+        },
+        "boundary": {
+          "zh": "继承原任务边界",
+          "en": "Inherit original task boundaries"
+        },
+        "status": "bounded",
+        "source": "src/specialist-profiles.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-custom-expert-from-prompt-to-recovery",
+          "kind": "module-article",
+          "title": {
+            "zh": "自定义专家，不应该只是一个 Prompt 输入框",
+            "en": "A Custom Expert Should Be More Than a Prompt Field"
+          }
+        }
+      },
+      {
+        "id": "skill",
+        "layer": "L2",
+        "group": "tools",
+        "name": "Skill",
+        "summary": {
+          "zh": "按任务加载方法",
+          "en": "Load task methods"
+        },
+        "boundary": {
+          "zh": "方法说明不扩大工具权",
+          "en": "Instructions add no authority"
+        },
+        "status": "bounded",
+        "source": "src/skills.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-skill-from-markdown-to-callable-research",
+          "kind": "module-article",
+          "title": {
+            "zh": "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行",
+            "en": "How Is a Skill Different from a Prompt? From Loading to Script Execution"
+          }
+        }
+      },
+      {
+        "id": "worker",
+        "layer": "L3",
+        "group": "task",
+        "name": "Worker",
+        "summary": {
+          "zh": "接手续跑原任务",
+          "en": "Resume original work"
+        },
+        "boundary": {
+          "zh": "仅支持的检查点",
+          "en": "Supported checkpoints only"
+        },
+        "status": "bounded",
+        "source": "src/worker.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-v010-system-design",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "Agent 深入：从一份报告到持续执行与专家协作",
+            "en": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+          }
+        }
+      },
+      {
+        "id": "admission",
+        "layer": "L3",
+        "group": "task",
+        "name": "Admission",
+        "summary": {
+          "zh": "接纳与容量排队",
+          "en": "Admission and capacity"
+        },
+        "boundary": {
+          "zh": "公平等待，不放大并发",
+          "en": "Queue, do not expand concurrency"
+        },
+        "status": "bounded",
+        "source": "src/admission.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-provider-admission-capacity-lease",
+          "kind": "module-article",
+          "title": {
+            "zh": "模型返回了 HTTP 200，为什么下一次请求还得排队？Provider 容量准入的租约与未知占用",
+            "en": "Why the Next Model Request Still Queues After HTTP 200: Provider Admission, Leases and Unknown Occupancy"
+          }
+        }
+      },
+      {
+        "id": "gateway",
+        "layer": "L3",
+        "group": "loop",
+        "name": "Gateway",
+        "summary": {
+          "zh": "编码与接收模型动作",
+          "en": "Encode / receive model actions"
+        },
+        "boundary": {
+          "zh": "不完整响应不作动作",
+          "en": "Incomplete response is not action"
+        },
+        "status": "bounded",
+        "source": "src/gateway.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-provider-architecture-and-admission",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 供应商模块精讲：为什么统一接口之后，还需要共享准入",
+            "en": "Inside an Agent’s Provider Layer: Why a Unified API Still Needs Shared Admission"
+          }
+        }
+      },
+      {
+        "id": "runtime",
+        "layer": "L3",
+        "group": "loop",
+        "name": "Runtime",
+        "summary": {
+          "zh": "推进同一工具循环",
+          "en": "Drive the same tool loop"
+        },
+        "boundary": {
+          "zh": "未知派发不盲目重放",
+          "en": "Do not replay unknown dispatch"
+        },
+        "status": "bounded",
+        "source": "src/runtime.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "etf-agent-model-harness-research-loop",
+          "kind": "overview",
+          "title": {
+            "zh": "投研 Agent 的关键不是多调用工具：从 Model、Harness 到会修正判断的 Loop",
+            "en": "A Research Agent Needs More Than Tools: How Model, Harness, and Loop Work Together"
+          }
+        }
+      },
+      {
+        "id": "hooks",
+        "layer": "L3",
+        "group": "loop",
+        "name": "Hooks",
+        "summary": {
+          "zh": "执行点扩展",
+          "en": "Execution hooks"
+        },
+        "boundary": {
+          "zh": "受原控制面约束",
+          "en": "Original control plane applies"
+        },
+        "status": "bounded",
+        "source": "src/hooks.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-multi-ecosystem-hook-execution",
+          "kind": "module-article",
+          "title": {
+            "zh": "从 Claude、Pi 到 Codex：我们如何在自己的 Agent Runtime 中实现多生态 Hook？",
+            "en": "From Claude and Pi to Codex: Running Multi-Ecosystem Hooks Inside Our Agent Runtime"
+          }
+        }
+      },
+      {
+        "id": "control",
+        "layer": "L3",
+        "group": "main",
+        "name": "Run Control",
+        "summary": {
+          "zh": "继续或停止的决策",
+          "en": "Continue or stop decision"
+        },
+        "boundary": {
+          "zh": "Host stop ≠ 用户取消",
+          "en": "Host stop ≠ user cancellation"
+        },
+        "status": "bounded",
+        "source": "src/run-control.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-veto-authority-and-run-termination",
+          "kind": "module-article",
+          "title": {
+            "zh": "当每个模块都能说“不”：Agent 的终结权、阶段预算与安全恢复",
+            "en": "When Every Module Can Say No: Agent Run Termination, Stage Budgets, and Safe Recovery"
+          }
+        }
+      },
+      {
+        "id": "mainchild",
+        "layer": "L3",
+        "group": "main",
+        "name": "Main → Child",
+        "summary": {
+          "zh": "委派、观察与取消",
+          "en": "Delegate, inspect, cancel"
+        },
+        "boundary": {
+          "zh": "原 Session 与 Root 预算",
+          "en": "Original Session / Root budget"
+        },
+        "status": "enhanced",
+        "source": "src/child-execution.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "agent-subagent-context-specialization",
+          "kind": "overview",
+          "title": {
+            "zh": "Subagent 全景：独立上下文、专业协作与真实成果交接",
+            "en": "Subagent Panorama: Independent Context, Specialist Work and Real Handoffs"
+          }
+        }
+      },
+      {
+        "id": "child",
+        "layer": "L3",
+        "group": "child",
+        "name": "Child Lifecycle",
+        "summary": {
+          "zh": "独立子执行生命周期",
+          "en": "Independent child lifecycle"
+        },
+        "boundary": {
+          "zh": "晚到结果隔离 / 冷恢复",
+          "en": "Late-result fence / cold recovery"
+        },
+        "status": "enhanced",
+        "source": "src/child-execution.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-subagent-context-specialization",
+          "kind": "overview",
+          "title": {
+            "zh": "Subagent 全景：独立上下文、专业协作与真实成果交接",
+            "en": "Subagent Panorama: Independent Context, Specialist Work and Real Handoffs"
+          }
+        }
+      },
+      {
+        "id": "host",
+        "layer": "L4",
+        "group": "tools",
+        "name": "Tool Host",
+        "summary": {
+          "zh": "核权再执行",
+          "en": "Check authority, then execute"
+        },
+        "boundary": {
+          "zh": "参数、路径与来源约束",
+          "en": "Argument, path and source bounds"
+        },
+        "status": "bounded",
+        "source": "src/tools.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-tool-lifecycle-and-model-input",
+          "kind": "module-article",
+          "title": {
+            "zh": "从工具调用到模型输入：把 Agent 的观测链路接起来",
+            "en": "From Tool Invocation to Model Input: Connecting an Agent's Observability Chain"
+          }
+        }
+      },
+      {
+        "id": "mcp",
+        "layer": "L4",
+        "group": "tools",
+        "name": "MCP",
+        "summary": {
+          "zh": "连接外部工具",
+          "en": "Connect external tools"
+        },
+        "boundary": {
+          "zh": "接入不等于授予全权",
+          "en": "Connection is not blanket authority"
+        },
+        "status": "bounded",
+        "source": "src/mcp.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "mcp-host-from-discovery-to-consumption",
+          "kind": "module-article",
+          "title": {
+            "zh": "从接上 MCP 到真正用上工具：Agent 的接入链路怎样构建",
+            "en": "From Connecting MCP to Actually Using Its Tools: Building an End-to-End Agent Integration Path"
+          }
+        }
+      },
+      {
+        "id": "plugin",
+        "layer": "L4",
+        "group": "tools",
+        "name": "Trusted Plugin",
+        "summary": {
+          "zh": "受信任本地扩展",
+          "en": "Trusted local extension"
+        },
+        "boundary": {
+          "zh": "不是 JavaScript 沙箱",
+          "en": "Not a JavaScript sandbox"
+        },
+        "status": "bounded",
+        "source": "src/plugins.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "020-agent-extension-host-smartphone",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 扩展如何接入 Host：插件生命周期与运行时边界",
+            "en": "How Agent Extensions Enter the Host: Plugin Lifecycle and Runtime Boundaries"
+          }
+        }
+      },
+      {
+        "id": "web",
+        "layer": "L4",
+        "group": "tools",
+        "name": "Web Acquisition",
+        "summary": {
+          "zh": "采集公开静态页",
+          "en": "Acquire public static pages"
+        },
+        "boundary": {
+          "zh": "无浏览器渲染与爬虫",
+          "en": "No browser rendering or crawler"
+        },
+        "status": "bounded",
+        "source": "src/web-acquisition.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "021-agent-web-research-from-search-to-deep-reading",
+          "kind": "module-article",
+          "title": {
+            "zh": "从“搜得到”到“读得下去”：我们怎样让 Agent 学会浏览网页",
+            "en": "From Finding Pages to Reading Further: How We Taught an Agent to Browse the Web"
+          }
+        }
+      },
+      {
+        "id": "pdf",
+        "layer": "L4",
+        "group": "tools",
+        "name": "PDF",
+        "summary": {
+          "zh": "保留文件并提取文本",
+          "en": "Retain file, extract text"
+        },
+        "boundary": {
+          "zh": "无 OCR / 视觉表格解析",
+          "en": "No OCR / visual table parsing"
+        },
+        "status": "bounded",
+        "source": "src/pdf-input.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "024-agent-pdf-from-text-to-evidence",
+          "kind": "module-article",
+          "title": {
+            "zh": "从能读取到能研究：我们如何把 PDF 阅读升级为可追溯的多模态能力",
+            "en": "From Being Able to Read to Being Able to Research: Evolving PDF into Traceable Multimodal Evidence"
+          }
+        }
+      },
+      {
+        "id": "result",
+        "layer": "L4",
+        "group": "result",
+        "name": "Result / ResultRef",
+        "summary": {
+          "zh": "留存原文与精确引用",
+          "en": "Originals and exact references"
+        },
+        "boundary": {
+          "zh": "来源版本与选择不混同",
+          "en": "Source version ≠ selection"
+        },
+        "status": "bounded",
+        "source": "src/results.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "tool-results-outside-model-context",
+          "kind": "module-article",
+          "title": {
+            "zh": "工具查到的数据，为什么不一定要给大模型看？",
+            "en": "Why Tool Results Should Not All Enter Model Context"
+          }
+        }
+      },
+      {
+        "id": "retrieval",
+        "layer": "L4",
+        "group": "result",
+        "name": "Retrieval",
+        "summary": {
+          "zh": "查找并回读来源",
+          "en": "Find and reread sources"
+        },
+        "boundary": {
+          "zh": "检索命中 ≠ 已取得原文",
+          "en": "Search hit ≠ acquired original"
+        },
+        "status": "bounded",
+        "source": "src/retrieval.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-knowledge-retrieval-end-to-end",
+          "kind": "overview",
+          "title": {
+            "zh": "RAG 全链路：从文档入库到可引用回答",
+            "en": "The RAG Lifecycle: From Document Ingestion to Cited Answers"
+          }
+        }
+      },
+      {
+        "id": "knowledge",
+        "layer": "L4",
+        "group": "result",
+        "name": "Knowledge",
+        "summary": {
+          "zh": "材料接入与来源核对",
+          "en": "Material and source checks"
+        },
+        "boundary": {
+          "zh": "语义质量另行看证据",
+          "en": "Semantic quality has separate evidence"
+        },
+        "status": "bounded",
+        "source": "src/knowledge.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-knowledge-retrieval-end-to-end",
+          "kind": "module-article",
+          "title": {
+            "zh": "RAG 全链路：从文档入库到可引用回答",
+            "en": "The RAG Lifecycle: From Document Ingestion to Cited Answers"
+          }
+        }
+      },
+      {
+        "id": "calc",
+        "layer": "L4",
+        "group": "result",
+        "name": "Calculation",
+        "summary": {
+          "zh": "选区到结果可复算",
+          "en": "Recompute selected inputs"
+        },
+        "boundary": {
+          "zh": "非行情 / 交易服务",
+          "en": "Not market data or trading"
+        },
+        "status": "bounded",
+        "source": "src/calculation.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-v010-system-design",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "Agent 深入：从一份报告到持续执行与专家协作",
+            "en": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+          }
+        }
+      },
+      {
+        "id": "childresult",
+        "layer": "L4",
+        "group": "child",
+        "name": "Child Results",
+        "summary": {
+          "zh": "交回原文与派生意见",
+          "en": "Return sources and advice"
+        },
+        "boundary": {
+          "zh": "建议不能冒充原证据",
+          "en": "Advice is not original evidence"
+        },
+        "status": "bounded",
+        "source": "src/child-results.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-subagent-contribution-evidence",
+          "kind": "module-article",
+          "title": {
+            "zh": "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？",
+            "en": "How Do We Know the Main Agent Actually Used a Specialist’s Findings?"
+          }
+        }
+      },
+      {
+        "id": "save",
+        "layer": "L5",
+        "group": "main",
+        "name": "Main → Report",
+        "summary": {
+          "zh": "接回来源后保存报告",
+          "en": "Consume sources, save report"
+        },
+        "boundary": {
+          "zh": "完成宣称要有回执",
+          "en": "Completion claims need receipts"
+        },
+        "status": "bounded",
+        "source": "src/report.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "open-etf-agent-v01-first-readable-report",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "从第一份可回读报告开始：Open ETF Agent v0.1",
+            "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
+          }
+        }
+      },
+      {
+        "id": "report",
+        "layer": "L5",
+        "group": "delivery",
+        "name": "Report",
+        "summary": {
+          "zh": "生成带来源的正文",
+          "en": "Compose source-linked report"
+        },
+        "boundary": {
+          "zh": "读得懂 ≠ 金融结论准确",
+          "en": "Readable ≠ financially accurate"
+        },
+        "status": "bounded",
+        "source": "src/report.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-v01-first-readable-report",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "从第一份可回读报告开始：Open ETF Agent v0.1",
+            "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
+          }
+        }
+      },
+      {
+        "id": "artifact",
+        "layer": "L5",
+        "group": "delivery",
+        "name": "Artifact / Revision",
+        "summary": {
+          "zh": "保存不可变版本",
+          "en": "Save immutable revisions"
+        },
+        "boundary": {
+          "zh": "文件存在 ≠ 正式发布",
+          "en": "File exists ≠ published answer"
+        },
+        "status": "bounded",
+        "source": "src/artifacts.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-artifact-version-access-sharing",
+          "kind": "module-article",
+          "title": {
+            "zh": "报告已经生成，为什么还不能直接分享？",
+            "en": "A Report Is Generated: Why Can’t It Be Shared Yet?"
+          }
+        }
+      },
+      {
+        "id": "publication",
+        "layer": "L5",
+        "group": "delivery",
+        "name": "Publication",
+        "summary": {
+          "zh": "接纳回答正文",
+          "en": "Accept answer body"
+        },
+        "boundary": {
+          "zh": "原版本与提交回执",
+          "en": "Original revision and commit receipt"
+        },
+        "status": "bounded",
+        "source": "src/publication.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "019-agent-answer-publication",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 已经生成答案，为什么还需要一个独立的发布系统？",
+            "en": "The Agent Has Generated an Answer. Why Does It Still Need a Separate Publication System?"
+          }
+        }
+      },
+      {
+        "id": "review",
+        "layer": "L5",
+        "group": "result",
+        "name": "Report Review",
+        "summary": {
+          "zh": "对冻结正文提复核意见",
+          "en": "Review frozen report text"
+        },
+        "boundary": {
+          "zh": "建议性复核，不作认证",
+          "en": "Advisory review, not certification"
+        },
+        "status": "bounded",
+        "source": "src/report-review.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-report-review-workshop",
+          "kind": "workshop",
+          "title": {
+            "zh": "报告写完以后：让 Agent 查证、协作，再独立复核",
+            "en": "After the report: source checks, specialist work, and independent review"
+          }
+        }
+      },
+      {
+        "id": "reader",
+        "layer": "L6",
+        "group": "delivery",
+        "name": "Loopback Reader",
+        "summary": {
+          "zh": "回读报告和附件",
+          "en": "Read reports and attachments"
+        },
+        "boundary": {
+          "zh": "本机 HTTP；非完整 Web UI",
+          "en": "Local HTTP, not full Web UI"
+        },
+        "status": "bounded",
+        "source": "src/reader.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-v010-system-design",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "Agent 深入：从一份报告到持续执行与专家协作",
+            "en": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+          }
+        }
+      },
+      {
+        "id": "readcli",
+        "layer": "L6",
+        "group": "task",
+        "name": "CLI Readback",
+        "summary": {
+          "zh": "按身份观察原任务",
+          "en": "Inspect original task by identity"
+        },
+        "boundary": {
+          "zh": "浏览器交互未宣称验收",
+          "en": "No browser qualification claim"
+        },
+        "status": "bounded",
+        "source": "src/observe.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "open-etf-agent-v01-first-readable-report",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "从第一份可回读报告开始：Open ETF Agent v0.1",
+            "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
+          }
+        }
+      }
+    ],
+    "articleNavigationSource": "249f0b866f9446f33b57f186fbc6d35b5d82c119"
+  },
+  "assets": {
+    "visuals/open-etf-agent/module-map.svg": "a58b55e8dc1d643aad0bacf40cde1686200f938ea6e334d52284c0f3ae327b8b",
+    "visuals/open-etf-agent/module-map.zh-CN.svg": "4963364ad3e25414f29eead58ee3cbd3f252757c6c823c941b5544aa1eee96c5"
+  }
+}
