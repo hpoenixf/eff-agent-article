@@ -24,7 +24,7 @@ if (process.argv.includes('--output')) {
   for (const prefix of ['', 'en/']) for (const page of ['index', 'catalog']) {
     const html = readFileSync('.vitepress/dist/' + prefix + page + '.html', 'utf8')
     const rows = [...html.matchAll(/<p\b([^>]*class="article-list-description"[^>]*)>([\s\S]*?)<\/p>/g)]
-    const expected = page === 'catalog' ? 20 : html.includes('data-history="available"') ? 5 : 0
+    const expected = page === 'catalog' ? 20 : html.includes('data-history="available"') ? 7 : 0
     assert.equal(rows.length, expected, prefix + page + ': visible list description count')
     for (const [, attrs, text] of rows) {
       const href = /data-description-for="([^"]+)"/.exec(attrs)?.[1] || ''
