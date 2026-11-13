@@ -48,8 +48,17 @@ try {
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${id} ${tab}: overflow`)
       if (tab !== 'catalog') {
         const links = await page.$$eval('#reader-panel-' + tab + ' .reader-route a', nodes => nodes.map(node => node.getAttribute('href')))
-        assert.ok(links.length >= 5)
-        for (const href of links) assert.ok(href.startsWith('/eff-agent-article/' + (language === 'en' ? 'en/' : '') + 'articles/'))
+        const prefix = '/eff-agent-article/' + (language === 'en' ? 'en/' : '')
+        const topics = { start: 'getting-started', architecture: 'thinking', finance: 'fintech', engineering: 'engineering' }
+        assert.equal(links.length, 6, id + ' ' + tab + ': five articles plus one topic card')
+        assert.equal(new Set(links.slice(0, 5)).size, 5, 'Article previews must be distinct')
+        for (const href of links.slice(0, 5)) {
+          assert.ok(href.startsWith(prefix + 'articles/'), 'Wrong-language article preview: ' + href)
+          assert.ok(existsSync(resolve(root, href.replace('/eff-agent-article/', '') + '.html')), 'Missing built article: ' + href)
+        }
+        assert.equal(links[5], prefix + topics[tab], 'Sixth card must open the complete matching topic')
+        assert.equal(await page.$eval('#reader-panel-' + tab + ' .reader-route li:last-child', node => node.classList.contains('reader-view-all')), true)
+        assert.ok(existsSync(resolve(root, (language === 'en' ? 'en/' : '') + topics[tab] + '.html')), 'Missing built topic')
       }
     }
     await page.focus('#reader-tab-engineering')
@@ -62,6 +71,12 @@ try {
     assert.equal(await page.$eval('#reader-tab-engineering', node => node === document.activeElement && node.getAttribute('aria-selected') === 'true'), true)
     await page.keyboard.press('ArrowRight')
     assert.equal(await page.$eval('#reader-tab-catalog', node => node === document.activeElement), true)
+    assert.equal(await page.$$eval('.recent-articles time', nodes => nodes.length), 7)
+    assert.equal(await page.$$eval('.recent-articles li', nodes => nodes.length), 8)
+    assert.equal(await page.$eval('.recent-all a', node => node.getAttribute('href')), '/eff-agent-article/' + (language === 'en' ? 'en/' : '') + 'catalog')
+    await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
+    assert.equal(await page.$eval('.reader-tab-slider', node => getComputedStyle(node).transitionDuration), '0s')
+    assert.equal(await page.$eval('#reader-panel-catalog', node => getComputedStyle(node).animationName), 'none')
     assert.deepEqual(errors, [])
     results.push({ id, images: 4, overflow: false, tabs: 'five tabs clicked; Home/End/ArrowRight focus and selection passed' })
     await page.close()
