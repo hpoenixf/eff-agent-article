@@ -35,7 +35,17 @@ try {
     await page.goto(base + (language === 'en' ? 'en/index.html' : 'index.html'), { waitUntil: 'networkidle0' })
     await page.evaluate(dark => document.documentElement.classList.toggle('dark', dark), dark)
     await page.waitForFunction(() => [...document.querySelectorAll('.VPHome img[src*="/images/home/"]')].length === 4 && [...document.querySelectorAll('.VPHome img[src*="/images/home/"]')].every(i => i.complete && i.naturalWidth > 0))
-    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${language} ${width}: overflow`)
+    const layout = await page.evaluate(() => ({
+      viewport: innerWidth, document: document.documentElement.scrollWidth,
+      offenders: [...document.querySelectorAll('body *')].filter(node => {
+        const box = node.getBoundingClientRect()
+        return box.width > 0 && (box.right > innerWidth + 1 || box.left < -1)
+      }).slice(0, 24).map(node => {
+        const box = node.getBoundingClientRect(), css = getComputedStyle(node)
+        return { tag: node.tagName, class: String(node.className), left: box.left, right: box.right, width: box.width, minWidth: css.minWidth, overflowX: css.overflowX }
+      })
+    }))
+    assert.equal(layout.document > layout.viewport + 1, false, `${language} ${width}: overflow ${JSON.stringify(layout)}`)
     assert.deepEqual(errors, [])
     const id = `${language}-${width}-${dark ? 'dark' : 'light'}`
     await page.screenshot({ path: output + '/' + id + '.png', fullPage: true })
