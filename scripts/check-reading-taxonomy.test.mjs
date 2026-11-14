@@ -213,7 +213,9 @@ test('homepage visual layer is scoped, responsive and preserves accessible contr
   assert.match(css, /min-height: 44px/)
   assert.match(css, /focus-visible/)
   assert.match(css, /outline: 2px solid/)
-  assert.ok(!/display:\s*none|visibility:\s*hidden/.test(css), 'Styling must not hide navigation, content or controls')
+  const visibleContentCss = css.replace(/\.VPHome \.VPHero\.has-image \.image-bg\s*\{[^}]*\}/g, '')
+  assert.match(css, /\.VPHome \.VPHero\.has-image \.image-bg\s*\{[^}]*display:\s*none/)
+  assert.ok(!/display:\s*none|visibility:\s*hidden/.test(visibleContentCss), 'Only the unused decorative hero glow may be hidden; navigation, content and controls must remain visible')
   for (const rule of compiled.code.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
     if (/position:\s*(fixed|absolute)/.test(rule[2])) {
       assert.equal(rule[1].trim(), '.VPHome .VPHero .home-reading-menu__links', 'Only the reading dropdown floats')
