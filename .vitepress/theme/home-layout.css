@@ -106,7 +106,8 @@
 .VPHome .VPHero.has-image .text { font-size: 38px; }
 .VPHome .VPHero.has-image .image { order: 1; margin: 0; min-width: 0; }
 .VPHome .VPHero.has-image .image-container { width: 100%; height: auto; margin: 0; transform: none; }
-.VPHome .VPHero.has-image .image-bg { background: none; }
+/* The unused VitePress glow box must not retain a 320px overflow footprint. */
+.VPHome .VPHero.has-image .image-bg { display: none; background: none; }
 .VPHome .VPHero.has-image .image-src { position: static; transform: none; width: 100%; max-width: 480px; height: auto; max-height: none; border-radius: 18px; }
 .VPHome .VPFeature .box > .VPImage { width: 100%; height: auto; aspect-ratio: 360 / 152; border-radius: 12px; margin-bottom: 20px; }
 .VPHome:where(.dark *) .VPHero .image-src, .VPHome:where(.dark *) .VPFeature .box > .VPImage { filter: brightness(.8) saturate(.8); }
