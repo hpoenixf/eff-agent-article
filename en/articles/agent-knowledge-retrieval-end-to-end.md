@@ -7,7 +7,7 @@ readingBrief:
     - "Limit the allowed sources before ranking. Reranking only reorders existing candidates; missing text needs an ingestion or retrieval fix."
     - "Finding a passage is not enough: check that its text reached the model, the citation points to it, and it supports the specific claim."
     - "Start with finding material, reading it and answering. Use the same questions to test whether adding vector retrieval or reranking is worthwhile."
-    - "Public v0.23 searches permitted sources lexically and delivers whole original pages, not the full private RAG stack. Complete matches do not establish a correct answer."
+    - "Public v0.31 imports selected text offline, accepts new BM25 queries and returns original sources. This is not the full private RAG stack or a guarantee of correct answers."
   appliesTo:
     - "Developers learning the file-to-answer RAG flow or choosing components for questions over versioned documents."
   notFor:
@@ -359,6 +359,31 @@ An engineering starting point can be small: connect finding material, reading th
 | Account-scoped, revocable or historically reread material | Source eligibility and version checks at each stage | These constraints follow the source and delivery setting |
 
 Matched task comparisons establish the value of optional components. Unstable reranking gains may justify returning to RRF; a vector route that fills no observed gap may be omitted in favor of lexical search; a user-specified two-page notice can simply be read. Source rights, account separation, versions and actual read coverage remain in place.
+
+### Try local retrieval before adding a model
+
+Public v0.31 separates a small local workflow: explicitly select text files, freeze an imported snapshot, query it with BM25 and inspect original sources. No model key, database or local HTTP service is required. The output is text and source information, not an automatically written research report.
+
+Follow the [fixed-version local guide](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/local-knowledge.md) to install dependencies, then run this synthetic example from the repository root:
+
+```bash
+mkdir -p research-example
+printf '%s\n' 'The product exports CSV. Offline editing is not supported.' > research-example/notes.md
+printf '%s\n' '["research-example/notes.md"]' > research-example/files.json
+node src/research-cli.mjs knowledge import --project research-example/collection --files research-example/files.json > research-example/import.json
+MANIFEST=$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync("research-example/import.json","utf8")).manifestSha256)')
+printf '%s' 'exports' > research-example/query.txt
+node src/research-cli.mjs knowledge query --project research-example/collection --manifest "$MANIFEST" --query research-example/query.txt
+```
+
+Here `--project` names a local snapshot directory; it creates no Agent task. The JSON `sources` retain original `text`, filename `name`, physical `page`, `sourceId` and content `sha256`; `manifestSha256` identifies the selected snapshot. Edit the query file to try another query without precomputing question vectors. A fresh process can reread the same snapshot, even after the input file changes.
+
+English uses terms and Chinese uses adjacent character pairs, so lexical matches do not guarantee synonym understanding. `no-evidence` means no lexical match in this snapshot, not proof that an answer does not exist. Missing or corrupt originals fail instead of silently becoming no matches. Use these observations to judge the corpus and queries before adding vector recall or reranking.
+
+The [fixed v0.31 record](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/verification/v031-release.md) separates model-driven research from this offline command: nine of ten real-model tasks over synthetic material completed the Runtime and delivery workflow, while strict instruction following scored eight of ten. One proposed argument exceeded the allowed limit and was correctly rejected. Execution according to contract is not model comprehension or financial-answer accuracy. Use the [current main guide](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/local-knowledge.md) for the ongoing entry.
+
+### Then inspect retrieval inside Agent research
+
 
 The public teaching repository [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) provides an approachable slice. In the [fixed v0.15.0 lexical implementation](https://github.com/hpoenixf/open-etf-agent/blob/v0.15.0/src/retrieval.mjs), `searchPages` accepts a query, documents and an allowed-document list. It counts query-term matches on allowed pages and returns document IDs, page numbers and scores. Candidates drive subsequent original-page reads and a source-linked report.
 

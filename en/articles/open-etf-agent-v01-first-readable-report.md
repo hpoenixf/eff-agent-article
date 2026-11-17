@@ -28,7 +28,9 @@ v0.1 makes that engineering path publicly available. Its default example uses a 
 
 ## What you can reproduce in this round
 
-As of November 13, 2026, the latest formal release is [v0.30.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.30.0). Its module is independently controlled asynchronous Child lifecycle, following explicit Conversation, report review, and project specialist profiles while reusing the original project and execution responsibilities.
+As of November 17, 2026, the latest formal release is [v0.31.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.31.0). It provides selected text import, new BM25 queries and original-source readback without a model key or local HTTP service. Follow the [RAG article](./agent-knowledge-retrieval-end-to-end.md) and [fixed local guide](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/local-knowledge.md). The [qualification record](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/verification/v031-release.md) separates nine of ten completed Runtime workflows from model instruction quality and financial accuracy.
+
+The previous v0.30 release introduced independently controlled asynchronous Child lifecycle.
 
 Main can delegate a narrow question, continue handling its own materials, and later read the original Child result or cancel only that Child. Asynchrony does not widen source access, shared budgets, or recovery identity. Read the [subagent article](./agent-subagent-context-specialization.md) for the tradeoffs and the [fixed-version guide](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/child-lifecycle.md) for configuration and observation. The [verification notes](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/verification/v030-release.md) record real-model handoff and cold readback over synthetic materials, alongside verbosity and incorrect labels for unspecified amounts. Runtime completion still does not establish research accuracy.
 

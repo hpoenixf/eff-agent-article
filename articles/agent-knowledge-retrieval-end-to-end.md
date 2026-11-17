@@ -7,7 +7,7 @@ readingBrief:
     - "先限定可查资料，再排序；精排只能重排已有候选，找不到的原文要回到入库或检索阶段补查。"
     - "找到片段还不够：要确认正文进入了模型输入，引用对应具体原文，原文确实支持答案中的那句话。"
     - "先接通找资料、读原文、给答案的小流程，再用同一组问题检验向量检索和精排是否值得增加。"
-    - "公开 v0.23 只在获准资料中做词法检索并交付完整原页，没有公开私有版整套 RAG；命中完整也不代表回答正确。"
+    - "公开 v0.31 可离线导入选定文本、用 BM25 自由查询并回读原文；这不是私有版整套 RAG，词法命中也不代表回答正确。"
   appliesTo:
     - "想了解 RAG 从文件到答案的完整流程，或为多版本文档问答选择组件的开发者。"
   notFor:
@@ -359,6 +359,31 @@ ETF Agent 的知识生命周期区分只读变化检查与需要审查的同步�
 | 多账户、可撤权或需要历史回读 | 保留各阶段来源资格与版本检查 | 这些约束随资料与交付场景成立 |
 
 可选组件的价值由同题对照决定。精排收益不稳定，可以回到 RRF；向量通道没有补足实际缺口，可以保留词法路径；用户已指定两页公告时，直接读原文就能完成任务。来源许可、账户隔离、版本和实际阅读范围则应始终保留。
+
+### 先把选定文本变成可查的原文快照
+
+如果只是想导入几份文本、换几个关键词并回查来源，不必先接模型或搭建向量服务。公开 v0.31 把这个本地流程独立出来：显式选择文件，固定导入快照，再用 BM25 查询。它不需要模型密钥、数据库或本地 HTTP 服务；结果是原文与来源信息，不是自动写好的研究报告。
+
+按[固定版本本地指南](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/local-knowledge.zh-CN.md)安装依赖后，在仓库根目录运行下面的合成示例：
+
+```bash
+mkdir -p research-example
+printf '%s\n' '产品支持 CSV 导出，不支持离线编辑。' > research-example/notes.md
+printf '%s\n' '["research-example/notes.md"]' > research-example/files.json
+node src/research-cli.mjs knowledge import --project research-example/collection --files research-example/files.json > research-example/import.json
+MANIFEST=$(node --input-type=module -e 'import fs from "node:fs"; console.log(JSON.parse(fs.readFileSync("research-example/import.json","utf8")).manifestSha256)')
+printf '%s' '导出' > research-example/query.txt
+node src/research-cli.mjs knowledge query --project research-example/collection --manifest "$MANIFEST" --query research-example/query.txt
+```
+
+这里的 `--project` 是本地快照目录，不创建 Agent 任务。JSON 的 `sources` 保留原文 `text`、文件名 `name`、物理页号 `page`、`sourceId` 和内容 `sha256`；`manifestSha256` 标识选定资料的快照。改写查询文件就能提出新查询，不需要预生成问题向量；重启进程后仍可回读同一快照，原输入文件后来改变也不会悄悄替换它。
+
+英文按词项、中文按相邻双字匹配，因此不保证理解同义表达。`no-evidence` 只表示当前快照没有词法命中，不是证明问题没有答案；原件缺失或损坏应报错，不能伪装成无命中。先用这些结果判断资料与查询是否合适，再考虑增加向量召回或精排。
+
+[v0.31 的固定验收记录](https://github.com/hpoenixf/open-etf-agent/blob/14be5d2fb29a537b75fcc36ac40774608e1393d8/docs/verification/v031-release.zh-CN.md)把模型驱动研究与这个离线命令分开：合成资料上的十项真实模型任务完成了九项运行与交付，严格指令遵循为八项；有一次模型提出超出上限的参数，被工具正确拒绝。按合同执行不等于模型理解正确，更不代表金融答案准确性。持续使用入口见[当前 main 指南](https://github.com/hpoenixf/open-etf-agent/blob/main/docs/local-knowledge.zh-CN.md)。
+
+### 再看检索怎样接入 Agent 研究
+
 
 公开教学仓库 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 提供了一个容易看懂的小切面。在[固定 v0.15.0 的词法检索代码](https://github.com/hpoenixf/open-etf-agent/blob/v0.15.0/src/retrieval.mjs)里，`searchPages` 接收查询、文档和获准文档列表，对获准页面统计查询词命中，返回文档 ID、页码和分数。候选驱动后续原页读取，再进入来源关联报告。
 
