@@ -43,9 +43,9 @@
 
 ## 最近更新
 
+- 2026-11-17 · 更新 · [RAG 全链路：从文档入库到可引用回答](articles/agent-knowledge-retrieval-end-to-end.md)
+- 2026-11-17 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 - 2026-11-13 · 更新 · [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)
-- 2026-11-13 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
-- 2026-11-12 · 更新 · [Spec 驱动的 Agent 研发全景：从需求澄清到可信交付](articles/agent-spec-driven-development-panorama.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
@@ -55,9 +55,9 @@
 
 ### 最近三个版本入口
 
+- [v0.31 · 本地文本知识](https://github.com/hpoenixf/open-etf-agent/tree/18af35f3f84eb962e83f7eff7c48befc79e316f9)
 - [v0.30 · 独立控制原 Child 生命周期](https://github.com/hpoenixf/open-etf-agent/tree/8b940515bcb2f071f7fc55eb398a6990f87ab10a)
 - [v0.29 · 显式对话与任务接续](https://github.com/hpoenixf/open-etf-agent/tree/14dd80b15aca4e87c68f4dc18bbefed2a2851ce1)
-- [v0.28 · 复核冻结的报告](https://github.com/hpoenixf/open-etf-agent/tree/d53abf0acc0944664ca2df6a0eb60d0529449f01)
 
 版本来自既有代码版本谱系，链接固定源码；不是本 README 重新认证的发布或完整能力承诺。**[全部版本与资格说明](https://hpoenixf.com/eff-agent-article/open-etf-agent) · [项目 Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 
