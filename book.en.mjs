@@ -2,6 +2,7 @@
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
   "agent-multi-agent-value-evaluation": "Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes",
+  "agent-document-navigation-after-empty-search": "The File Is Right There. Why Can't the Agent Read It?",
   "agent-three-host-lifecycle-architecture": "Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth",
   "agent-half-hour-research-engineering-practice": "Designing Half-Hour Agent Research: From Ordinary Research to Reliable Delivery",
   "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
@@ -129,6 +130,7 @@ export const englishTitles = {
 }
 export const englishArticleSlugs = [
   "agent-multi-agent-value-evaluation",
+  "agent-document-navigation-after-empty-search",
   "agent-three-host-lifecycle-architecture",
   "agent-half-hour-research-engineering-practice",
   "agent-task-session-run-worker-schedule",

@@ -163,6 +163,8 @@ Even material that fits can interfere with other material. Mixed old and new gui
 
 Start context organization by separating three purposes. Current goals and effective constraints should be easy to find. Original passages supporting the comparison need identity and a rereading path. Completed work whose detail is temporarily unnecessary can become a short record, with details available on demand.
 
+Moving the same words can change the next action. In one web research run, the model kept requesting the same page after acquiring usable material. The outgoing requests showed that each turn put the original question after the work already done. In a one-step comparison, moving just that question changed the model's action from browsing to sending an answer. When the same task continues today, the original question comes before the work record and the latest user correction stays at the end. If an agent keeps searching, inspect the message order in its last few actual requests before deciding which part of the context to change.
+
 Suppose A was read earlier and the current work is checking B's online condition. A working note can say that A has been acquired and B's export condition still needs checking, while retaining page references. When the final table needs exact wording, follow those references back to the clauses. This reduces repeated input while preserving a route to the complete basis.
 
 The arrangement adds rereading cost and depends on retained material remaining available. For two short documents, keeping the complete text may be cheaper. When a task needs selection and compaction, protect its goal, original conditions and rereading paths before deciding which details can temporarily leave the input.

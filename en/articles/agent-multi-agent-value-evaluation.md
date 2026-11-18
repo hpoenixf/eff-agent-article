@@ -133,6 +133,8 @@ If the main agent already has materials and needs to check fee conditions, recom
 
 If the main agent is stuck at the source entry point, inspect actual navigation and read receipts first. A Child may help locate the material, but observe whether it obtains useful new evidence. Passing the task along does not establish that the original blockage is resolved.
 
+Following the actual requests later exposed a break in the document-reading path. The system knew the file location, but the model's index omitted it. The single-segment navigation path has been repaired. Its effect on live answers is still to be measured. [The File Is Right There. Why Can't the Agent Read It?](agent-document-navigation-after-empty-search.md)
+
 If automatic Reviewer is being considered as a default, make all ON/OFF outcomes the primary comparison, then explain them through invocation, delivery and concrete answer changes. Do not select only successful advice-receiving cases, and do not equate a runtime's “complete” label with a well-answered user question.
 
 **Launching a specialist establishes collaboration capability. Whether it is worth enabling depends on new evidence, independent verification or useful counterevidence reaching the main agent and improving an outcome that matters.** Time, tokens and unknown charges belong in that decision too.
