@@ -55,9 +55,9 @@
 
 ### 最近三个版本入口
 
+- [v0.32 · 查询动态本地知识](https://github.com/hpoenixf/open-etf-agent/tree/4238a6471c9f653c1e8cf3d3cd9a5f3b66694654)
+- [v0.31 · 查询本地知识](https://github.com/hpoenixf/open-etf-agent/tree/18af35f3f84eb962e83f7eff7c48befc79e316f9)
 - [v0.30 · 独立控制原 Child 生命周期](https://github.com/hpoenixf/open-etf-agent/tree/8b940515bcb2f071f7fc55eb398a6990f87ab10a)
-- [v0.29 · 显式对话与任务接续](https://github.com/hpoenixf/open-etf-agent/tree/14dd80b15aca4e87c68f4dc18bbefed2a2851ce1)
-- [v0.28 · 复核冻结的报告](https://github.com/hpoenixf/open-etf-agent/tree/d53abf0acc0944664ca2df6a0eb60d0529449f01)
 
 版本来自既有代码版本谱系，链接固定源码；不是本 README 重新认证的发布或完整能力承诺。**[全部版本与资格说明](https://hpoenixf.com/eff-agent-article/open-etf-agent) · [项目 Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 

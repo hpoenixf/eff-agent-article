@@ -35,3 +35,17 @@ test('editorial templates and GitHub English entry are excluded from site routes
  assert.match(config,/srcExclude:.*README\.en\.md/);assert.match(config,/srcExclude:.*data\/readme/);
  for(const text of [zh,en]) assert.doesNotMatch(text,/<img src="public\//);
 })
+
+test('Knowledge version navigation keeps fixed identities separate from qualification',async()=>{
+ const {versions,topicGroups}=await import('../open-etf-topic.mjs')
+ const lineage=JSON.parse(readFileSync(new URL('../data/open-etf-agent/versions.json',import.meta.url),'utf8'))
+ for(const version of ['0.31','0.32']) {
+  const row=versions.find(v=>v.version===version)
+  assert.equal(row.commit,lineage.versions[version].commit)
+  assert.notEqual(row.title,version)
+  assert.notEqual(row.zh,version)
+  assert.match(renderVersions('en',[row]),new RegExp(row.commit))
+  assert.match(renderVersions('zh',[row]),new RegExp(row.commit))
+ }
+ for(const language of ['en','zh']) assert.equal(topicGroups(language).flatMap(g=>g.articles).flatMap(a=>[a,...a.additionalTargets]).some(s=>['0.31','0.32'].includes(s.since)),false)
+})

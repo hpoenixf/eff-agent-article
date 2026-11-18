@@ -15,7 +15,7 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 
 点击图内卡片进入对应文章；可全屏展开、缩放和滚动。图中是 Open 的有界公开实现，不代表专文所述全部能力已开源或通过验收。
 
-当前范围: **v0.30.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/d3822ab07186ab16f3d57e60a7bbf91fea3eb9d5) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/d3822ab07186ab16f3d57e60a7bbf91fea3eb9d5/docs/module-status.zh-CN.md)
+当前范围: **v0.32.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/c0411d751ea0a54356b1ee4bfe13007652d49531) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/c0411d751ea0a54356b1ee4bfe13007652d49531/docs/module-status.zh-CN.md)
 
 <PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" label="Open ETF Agent 六层模块地图：点击模块阅读对应文章" :canvas-width="2240" :canvas-height="2034">
 <div style="overflow: auto; max-width: 100%;">

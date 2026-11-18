@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "repository": "hpoenixf/open-etf-agent",
-  "sourceCommit": "d3822ab07186ab16f3d57e60a7bbf91fea3eb9d5",
+  "sourceCommit": "c0411d751ea0a54356b1ee4bfe13007652d49531",
   "manifest": {
     "schemaVersion": 2,
-    "reviewedVersion": "0.30.0",
-    "reviewedSource": "ba527fb502aebbe8bd601fd2115a4282cd10b94c",
+    "reviewedVersion": "0.32.0",
+    "reviewedSource": "4238a6471c9f653c1e8cf3d3cd9a5f3b66694654",
     "articleSource": "https://github.com/hpoenixf/eff-agent-article/blob/249f0b866f9446f33b57f186fbc6d35b5d82c119/articles/open-etf-agent-v010-system-design.md",
-    "evidence": "docs/verification/v030-release.md",
+    "evidence": "docs/verification/v032-release-readiness.md",
     "layers": [
       {
         "id": "L1",
@@ -49,8 +49,8 @@
           "zh": "工具与领域能力"
         },
         "guide": {
-          "en": "docs/web-sources.md",
-          "zh": "docs/web-sources.zh-CN.md"
+          "en": "docs/local-knowledge.md",
+          "zh": "docs/local-knowledge.zh-CN.md"
         }
       },
       {
@@ -591,7 +591,7 @@
           "zh": "原 Session 与 Root 预算",
           "en": "Original Session / Root budget"
         },
-        "status": "enhanced",
+        "status": "bounded",
         "source": "src/child-execution.mjs",
         "kind": "call-site",
         "article": {
@@ -616,7 +616,7 @@
           "zh": "晚到结果隔离 / 冷恢复",
           "en": "Late-result fence / cold recovery"
         },
-        "status": "enhanced",
+        "status": "bounded",
         "source": "src/child-execution.mjs",
         "kind": "module",
         "article": {
@@ -809,15 +809,15 @@
         "group": "result",
         "name": "Knowledge",
         "summary": {
-          "zh": "材料接入与来源核对",
-          "en": "Material and source checks"
+          "zh": "本地 E5 查询、原文与恢复",
+          "en": "Local E5 queries & recovery"
         },
         "boundary": {
-          "zh": "语义质量另行看证据",
-          "en": "Semantic quality has separate evidence"
+          "zh": "显式本地模型；语义质量另评",
+          "en": "Local model; semantics separate"
         },
-        "status": "bounded",
-        "source": "src/knowledge.mjs",
+        "status": "enhanced",
+        "source": "src/knowledge-query-tool.mjs",
         "kind": "module",
         "article": {
           "slug": "agent-knowledge-retrieval-end-to-end",
@@ -1057,7 +1057,7 @@
     "articleNavigationSource": "249f0b866f9446f33b57f186fbc6d35b5d82c119"
   },
   "assets": {
-    "visuals/open-etf-agent/module-map.svg": "a58b55e8dc1d643aad0bacf40cde1686200f938ea6e334d52284c0f3ae327b8b",
-    "visuals/open-etf-agent/module-map.zh-CN.svg": "4963364ad3e25414f29eead58ee3cbd3f252757c6c823c941b5544aa1eee96c5"
+    "visuals/open-etf-agent/module-map.svg": "d82062c01f2369cfc701df1fc926cfa39b9f3ece55f311e9c4abfdfe4a08a0a1",
+    "visuals/open-etf-agent/module-map.zh-CN.svg": "ffc4159ffcbb239d60c978644bf9027abe0ce4b6153339fba3dc871d10a47492"
   }
 }

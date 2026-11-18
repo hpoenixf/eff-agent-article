@@ -123,6 +123,14 @@
     "0.30": {
       "commit": "8b940515bcb2f071f7fc55eb398a6990f87ab10a",
       "tree": "e6a4713774b1c1a227e01b4aab233409f373d571"
+    },
+    "0.31": {
+      "commit": "18af35f3f84eb962e83f7eff7c48befc79e316f9",
+      "tree": "8867758a303034e79a1254d695a7c17ab9c9a3cc"
+    },
+    "0.32": {
+      "commit": "4238a6471c9f653c1e8cf3d3cd9a5f3b66694654",
+      "tree": "ec2b0988761b8b2ff5700aa1a118f15e66ef69cf"
     }
   },
   "targets": {
@@ -265,6 +273,8 @@
     "v0.2 source-boundary maintenance a10d4f1bd1ecc39224272156221fe29792b64094 follows a79e89bf709d4a2245b5a8652882a591ba467519; MCP already existed.",
     "ecf6cb45b4062586614e83aed917c92d704cb63b introduced v0.4 Result/Context/Retrieval; Compaction/Memory first appear in its v0.5 successor 05c0dd2dc550f4f7e5da034340ff5c3159768fcf.",
     "The original plan is preserved as historical, not converted from planned to released. v0.9 records the actual fixed single-Run Worker slice, not full scheduling.",
-    "v0.10 assigns the completed Result/Reference consumption increment to the next version after v0.9. The cancelled duplicate reader-adapter candidate and original1.1 intent are explained in docs/plan/v1-to-v2.md; original target since values remain unchanged."
+    "v0.10 assigns the completed Result/Reference consumption increment to the next version after v0.9. The cancelled duplicate reader-adapter candidate and original1.1 intent are explained in docs/plan/v1-to-v2.md; original target since values remain unchanged.",
+    "v0.31 ships selected text import, BM25 free queries and original source readback. Its implementation pin is 18af35f3f84eb962e83f7eff7c48befc79e316f9; release packaging is metadata-only and the v0.31.0 tag identifies the final package. Hybrid/embeddings/private parity are not v0.31 release claims.",
+    "v0.32 extends Knowledge with local E5 page-vector reuse, fenced in-Run query effects and no-replay recovery. 4238a6471c9f653c1e8cf3d3cd9a5f3b66694654 is the behavioral execution pin; package 0.32.0 metadata does not itself establish a tag or formal Release. Original first-cohort strict content 8/10 is retained; fixed-source final cohort is independently 10/10 on authored data."
   ]
 }
