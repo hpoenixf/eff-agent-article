@@ -168,7 +168,13 @@ ResearchAsset 管文件身份，PDF Reader 管真实阅读范围，RAG 管候选
 
 长期 Research Workspace 的 P0 实现已进入主干，并在合成来源及脚本化模型路径下验证精确历史 Publication 的跨 Run 消费。早期合入时保留的类型检查与正式验收缺口，已随 2026 年 11 月 3 日不调用真实模型的正式工程验收和归档关闭。功能仍默认关闭；这不代表生产已启用，也不能证明真实模型长期投资研究质量。
 
-独立开源教学仓库 [Open ETF Agent](https://github.com/hpoenixf/open-etf-agent) 并未开放这里描述的完整的研究资料资产与长期 Workspace 组合能力，不应把私有研究系统的实现误当成公开可运行教程。
+独立开源教学仓库 [Open ETF Agent v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0) 已公开其中一个较小的闭环：**项目内的本地文本／PDF 资料登记、幂等导入、版本替换、停用和显式恢复**。这不是上文私有系统的完整移植，没有带入 MCP 附件取得、DOCX／XLSX／HTML 处理或长期 Research Workspace，也不把本地项目 ID 当作多租户权限。
+
+回到 V1／V2 的例子，公开实现先完整导入新文件，再以预期修订号竞争一次版本提交；两个基于同一旧修订的不同替换，不能都成为下一版。复用判断同时考虑文件类型、原始字节与提取解释身份，不能只看文件名，也不能把同一份 PDF 的不同提取结果混为一谈。提交任务时显式选择资料版本，得到固定来源清单；后来激活 V2 不会改写已经接纳的 V1 任务，新版本也不能静默复用旧向量配置。
+
+这里的“停用”只影响未来默认选择，**不是撤权**：旧任务和显式指定的旧来源清单仍按原合同运行。这与上文私有系统按 scope 和当前访问资格控制的读取路径不能混称。公开模块也不是无限资料库：最多 64 个资料 ID、每个 32 个版本、256 个登记代际，单条登记记录最多 512 KiB；达到限制会拒绝新变化，而不是删除历史任务的依赖。
+
+进程中止后，恢复只重放能核验的已提交记录，不猜测缺失身份，也不把损坏登记当成空库重建；初始化留下含混状态时仍拒绝继续。可从[固定生命周期实现](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs)与[无模型 CLI 测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs)复现导入到任务冻结，再用[交错与中止测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-interleaving.test.mjs)观察竞争和恢复。真实模型结果及限制另见[版本证据](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md)：后续批次的 9/10 是操作者复核，不是独立内容验收；原失败与两笔请求的计费未知仍保留。版本发布不把这些未知变成成功，也不证明研究判断正确。
 
 如果未来希望让长期 Workspace **显式收藏可重新取得的原始研究资料版本**，那应成为独立的保留、授权和版本选择设计，而不是从现有 Publication 关联顺手推导出永久文件访问权。
 

@@ -15,7 +15,7 @@ description: "Learn agent development from document comparison to sustained rese
 
 Select a card to open its corresponding article. Expand, zoom and scroll the map. The map describes bounded Open implementation, not a claim that every capability in the article is public or qualified.
 
-Current scope: **v0.32.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/c0411d751ea0a54356b1ee4bfe13007652d49531) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/c0411d751ea0a54356b1ee4bfe13007652d49531/docs/module-status.md)
+Current scope: **v0.33.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/949206315b017f482d42cd635eafc78459a0fc2a) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/module-status.md)
 
 <PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.svg" label="Open ETF Agent six-layer map: select a module to read its article" :canvas-width="2240" :canvas-height="2034">
 <div style="overflow: auto; max-width: 100%;">
@@ -34,6 +34,7 @@ Current scope: **v0.32.0** · [Fixed navigation source](https://github.com/hpoen
 
 - **CLI** → [Agents in 15 Minutes](https://hpoenixf.com/eff-agent-article/en/articles/agent-in-15-minutes) · Overview
 - **Research Project** → [Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-research-project-workshop) · Workshop
+- **Research Materials** → [Why a Research Report Must Become an Asset Before an Agent Can Reuse It](https://hpoenixf.com/eff-agent-article/en/articles/agent-research-assets-identity-version-lifecycle) · Module article
 - **Schedule** → [Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research) · Module article
 
 ### L2 · Identity, session & context

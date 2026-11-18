@@ -28,7 +28,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-13，最新正式发布版本为 [v0.30.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.30.0)。最新模块是可独立控制的异步 Child，承接显式对话、报告复核与项目专家配置，继续复用原项目和执行职责。
+截至 2026-11-18，最新正式版本为 [v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0)，本版只增加项目内资料资产生命周期：导入、版本选择与替换、停用及显式恢复。已提交任务仍冻结原来源，停用不等于撤销旧任务权限。沿[既有资料资产文章](./agent-research-assets-identity-version-lifecycle.md)理解公开子集与私有系统的差异，再从[固定源码](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs)和[CLI 测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs)复现。该测试不调用模型；[真实测评说明](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md)保留操作者复核而非独立验收，以及两笔请求的计费未知。
+
+此前 v0.30 的异步 Child 仍沿原合同运行。
 
 Main 可以先委派一个窄问题，继续处理自己的材料，再读取原 Child 的结果或只取消这个 Child；原来源、共享预算和恢复身份不因异步而放宽。可从[子代理文章](./agent-subagent-context-specialization.md)理解取舍，再按[固定版本指南](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/child-lifecycle.zh-CN.md)配置和观察。[实测说明](https://github.com/hpoenixf/open-etf-agent/blob/8b940515bcb2f071f7fc55eb398a6990f87ab10a/docs/verification/v030-release.md)记录了真实模型在合成材料上的交接与冷读取，也保留了冗长、金额性质误称等内容缺陷；运行完成仍不代表研究判断正确。
 

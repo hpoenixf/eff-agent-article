@@ -15,7 +15,7 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 
 点击图内卡片进入对应文章；可全屏展开、缩放和滚动。图中是 Open 的有界公开实现，不代表专文所述全部能力已开源或通过验收。
 
-当前范围: **v0.32.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/c0411d751ea0a54356b1ee4bfe13007652d49531) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/c0411d751ea0a54356b1ee4bfe13007652d49531/docs/module-status.zh-CN.md)
+当前范围: **v0.33.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/949206315b017f482d42cd635eafc78459a0fc2a) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/module-status.zh-CN.md)
 
 <PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" label="Open ETF Agent 六层模块地图：点击模块阅读对应文章" :canvas-width="2240" :canvas-height="2034">
 <div style="overflow: auto; max-width: 100%;">
@@ -34,6 +34,7 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 
 - **CLI** → [十五分钟入门 Agent](https://hpoenixf.com/eff-agent-article/articles/agent-in-15-minutes) · 导读
 - **Research Project** → [把自己的资料交给 Agent：从第一份报告到可恢复的研究项目](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-research-project-workshop) · 专题练手篇
+- **Research Materials** → [一份研究报告，为什么需要先变成「资产」？](https://hpoenixf.com/eff-agent-article/articles/agent-research-assets-identity-version-lifecycle) · 模块专文
 - **Schedule** → [Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research) · 模块专文
 
 ### L2 · 身份、会话与上下文

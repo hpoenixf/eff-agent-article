@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "repository": "hpoenixf/open-etf-agent",
-  "sourceCommit": "c0411d751ea0a54356b1ee4bfe13007652d49531",
+  "sourceCommit": "949206315b017f482d42cd635eafc78459a0fc2a",
   "manifest": {
     "schemaVersion": 2,
-    "reviewedVersion": "0.32.0",
-    "reviewedSource": "4238a6471c9f653c1e8cf3d3cd9a5f3b66694654",
+    "reviewedVersion": "0.33.0",
+    "reviewedSource": "f7d32e23e24b38717174ca8e581e4ea665eb1a7b",
     "articleSource": "https://github.com/hpoenixf/eff-agent-article/blob/249f0b866f9446f33b57f186fbc6d35b5d82c119/articles/open-etf-agent-v010-system-design.md",
-    "evidence": "docs/verification/v032-release-readiness.md",
+    "evidence": "docs/verification/v033-release.md",
     "layers": [
       {
         "id": "L1",
@@ -175,6 +175,31 @@
           "title": {
             "zh": "把自己的资料交给 Agent：从第一份报告到可恢复的研究项目",
             "en": "Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project"
+          }
+        }
+      },
+      {
+        "id": "materials",
+        "layer": "L1",
+        "group": "result",
+        "name": "Research Materials",
+        "summary": {
+          "zh": "资料身份、版本与显式选择",
+          "en": "Material versions & selection"
+        },
+        "boundary": {
+          "zh": "移除不撤销已接纳任务",
+          "en": "Removal does not revoke admitted Runs"
+        },
+        "status": "enhanced",
+        "source": "src/research-materials.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-research-assets-identity-version-lifecycle",
+          "kind": "module-article",
+          "title": {
+            "zh": "一份研究报告，为什么需要先变成「资产」？",
+            "en": "Why a Research Report Must Become an Asset Before an Agent Can Reuse It"
           }
         }
       },
@@ -816,7 +841,7 @@
           "zh": "显式本地模型；语义质量另评",
           "en": "Local model; semantics separate"
         },
-        "status": "enhanced",
+        "status": "bounded",
         "source": "src/knowledge-query-tool.mjs",
         "kind": "module",
         "article": {
@@ -1054,10 +1079,10 @@
         }
       }
     ],
-    "articleNavigationSource": "249f0b866f9446f33b57f186fbc6d35b5d82c119"
+    "articleNavigationSource": "1f92862826be6beac68ef9fc758171d3b52f54d8"
   },
   "assets": {
-    "visuals/open-etf-agent/module-map.svg": "d82062c01f2369cfc701df1fc926cfa39b9f3ece55f311e9c4abfdfe4a08a0a1",
-    "visuals/open-etf-agent/module-map.zh-CN.svg": "ffc4159ffcbb239d60c978644bf9027abe0ce4b6153339fba3dc871d10a47492"
+    "visuals/open-etf-agent/module-map.svg": "774583bd6232161e7561dcd864524fb7304bb383148e7c26645ad08cf3a35a5e",
+    "visuals/open-etf-agent/module-map.zh-CN.svg": "02e9a29e278cb760fb223d782ff4c9c796f4f5189df015d634beef872b4027e1"
   }
 }
