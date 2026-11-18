@@ -43,9 +43,9 @@
 
 ## 最近更新
 
-- 2026-11-18 · 新增 · [多 Agent 值不值得开？我们测了启动、送达和最终收益](articles/agent-multi-agent-value-evaluation.md)
-- 2026-11-13 · 更新 · [Subagent 全景：独立上下文、专业协作与真实成果交接](articles/agent-subagent-context-specialization.md)
-- 2026-11-13 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
+- 2026-11-18 · 新增 · [资料明明在，Agent 为什么读不到？](articles/agent-document-navigation-after-empty-search.md)
+- 2026-11-18 · 更新 · [Checkpoint 系统设计：Agent 保存什么，又凭什么继续？](articles/agent-checkpoint-ownership-and-recovery.md)
+- 2026-11-18 · 更新 · [怎样建立贯穿研发与验收的 Agent 评测集](articles/agent-evaluation-set-for-iteration.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 

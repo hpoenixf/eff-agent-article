@@ -268,6 +268,8 @@ The earlier repair retained the original cap. A later change removed the artific
 
 Those stages should not become a claim that compression eliminates capacity limits. Deduplication reduces repeated representation; databases and hosts still have physical limits. Model context capacity is another independent constraint. A state that can be persisted may still be too large for a model request.
 
+An item count can block a save elsewhere. During a November offline replay, the pending state held 66 valid evidence gaps and the old 64-item cap rejected the write. With the repair, both the 66 gaps and a separate set of 65 valid missing-evidence feedback entries survived a PostgreSQL write and a fresh-process readback in their original order. The test also placed a malformed entry past the old boundary to check that per-item validation still worked. When testing capacity, take the data past the old boundary, check every item and its order from a fresh process, and use a malformed entry near the end to verify that validation still catches it.
+
 ### What did failure-isolation tests actually observe?
 
 Alongside that real-task record, offline fault injection exercised the original Runtime seams. Concrete observations are more informative than saying that every test passed.
