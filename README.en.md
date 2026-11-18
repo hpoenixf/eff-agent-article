@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-18 · New · [Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes](en/articles/agent-multi-agent-value-evaluation.md)
-- 2026-11-13 · Updated · [Subagent Panorama: Independent Context, Specialist Work and Real Handoffs](en/articles/agent-subagent-context-specialization.md)
-- 2026-11-13 · Updated · [Start with a Report You Can Read Back: Open ETF Agent v0.1](en/articles/open-etf-agent-v01-first-readable-report.md)
+- 2026-11-18 · New · [The File Is Right There. Why Can't the Agent Read It?](en/articles/agent-document-navigation-after-empty-search.md)
+- 2026-11-18 · Updated · [Checkpoint System Design: What Does an Agent Save, and What Lets It Continue?](en/articles/agent-checkpoint-ownership-and-recovery.md)
+- 2026-11-18 · Updated · [Building Agent Evaluation Sets Across Development and Acceptance](en/articles/agent-evaluation-set-for-iteration.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 
