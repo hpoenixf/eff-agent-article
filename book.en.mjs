@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "agent-multi-agent-value-evaluation": "Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes",
   "agent-three-host-lifecycle-architecture": "Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth",
   "agent-half-hour-research-engineering-practice": "Designing Half-Hour Agent Research: From Ordinary Research to Reliable Delivery",
   "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
@@ -127,6 +128,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "agent-multi-agent-value-evaluation",
   "agent-three-host-lifecycle-architecture",
   "agent-half-hour-research-engineering-practice",
   "agent-task-session-run-worker-schedule",

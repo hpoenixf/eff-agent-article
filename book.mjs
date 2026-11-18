@@ -248,6 +248,7 @@ export const collections = [
           ["honest-agent-evaluation", "Agent 测评全景：从测试绿灯到真实任务价值"],
           ["agent-evaluation-effective-identity-reuse", "Agent 测评的身份难题：一次任务换了模型，历史成绩还能算数吗？"],
           ["agent-evaluation-set-for-iteration", "怎样建立贯穿研发与验收的 Agent 评测集"],
+          ["agent-multi-agent-value-evaluation", "多 Agent 值不值得开？我们测了启动、送达和最终收益"],
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
           ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],
