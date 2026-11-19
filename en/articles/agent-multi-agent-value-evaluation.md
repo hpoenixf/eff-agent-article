@@ -1,13 +1,12 @@
 ---
 title: "Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes"
 date: 2026-11-17
-description: "A 100-pair comparison, 87 explicitly delegated runs and a separate 30-pair Reviewer study distinguish collaboration activity from answer improvements, while accounting for delivery, elapsed time and resource use."
+description: "Same-question comparisons for 100 runs that actually launched a subagent and 19 runs that received Reviewer advice, with scores, wins and losses, and elapsed time."
 readingBrief:
   takeaways:
-    - "To evaluate enabling multi-agent collaboration by default, retain every ON/OFF case, then use actual dispatch and delivery records to explain the outcomes."
-    - "Explicit delegation can increase invocation without resolving shared source-access difficulties; adopting a failure diagnosis does not complete the original task."
-    - "Reviewer advice reaching the main agent's input still requires checking which judgment changed and whether the answer justified the additional resources."
-    - "Record answer delivery, root-run termination and final background-request usage separately; unknown charges are not zero."
+    - "Ordinary subagents launched in 100 runs. Of these, 99 pairs had valid scores. In both rounds, the runs that launched a subagent scored lower on average than their matched runs without one."
+    - "Four original runs delegated after the main agent had usable sources. They scored 1.25 points higher on average, with about 42.6% more model calls."
+    - "Across the 19 pairs where Reviewer advice reached the main agent, the mean score was 13.21 versus 13.68, and runs ended 48.21 seconds later on average."
   appliesTo:
     - "Teams deciding whether to enable subagents or an automatic Reviewer while comparing answer quality with resource use."
   notFor:
@@ -16,110 +15,42 @@ readingBrief:
 
 # Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes
 
-Adding a specialist and a Reviewer to a main agent sounds reassuring: one agent researches, another independently checks, and the main agent synthesizes. After the work runs, a practical question remains: what did the additional activity improve?
+On the same question, does the answer improve when the main agent actually delegates? On November 16–17, 2026, we compared **100 runs that launched a subagent** with their matched runs without one. We separately compared **19 runs that received Reviewer advice** with their matches. Here are the scores and the additional work.
 
-On November 16–17, 2026, we first compared ordinary subagents enabled versus disabled across 100 pairs. We then tested explicit delegation and ran a separate 30-pair automatic Reviewer comparison. The aggregate results showed no average scoring gain while calls and resource use increased. We also retained local positive examples worth investigating further.
+## The 100 runs that actually launched a subagent
 
-The useful unit of analysis became a complete value chain: **did collaboration happen, what came back, did the main agent use it, did the answer improve, and what did it cost?** Launching a role answers only an early part of that chain.
+In the first round, the main agent chose to launch a subagent in 13 runs. We reran the 87 other question-repeat instances with an explicit instruction to delegate. All 87 actually launched a subagent. Each run is matched to the same question and repeat number in a run without a subagent.
 
-## Start with the whole system: did enabling subagents improve answers?
+| How the subagent was launched | Pairs (valid scores) | Mean with launch / 16 | Mean without launch / 16 | Score difference | Wins / ties / losses |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Main agent chose to delegate | 13 (13) | 11.08 | 13.92 | −2.85 | 6 / 1 / 6 |
+| Rerun with explicit delegation | 87 (86) | 14.83 | 15.24 | −0.42 | 29 / 30 / 27 |
 
-The first experiment compared two product policies:
+The 100 runs that launched a subagent used **2,523** research model calls, versus **1,111** for the 100 matched runs without one. The first round used 521 versus 188 calls, and the reruns used 2,002 versus 923.
 
-- **ON:** the main agent could choose whether to launch an ordinary subagent, or Child.
-- **OFF:** ordinary Child execution was disabled, leaving the main agent to handle the task.
+For each rerun, the evaluator scored all three answers together. The no-launch column uses the matched run with subagents disabled. The original answer from the run that chose to work alone also took part in this assessment. It averaged **15.16**, or **0.34 points** higher than the rerun that delegated. One rerun pair had no valid score. Its calls are included in the totals for all 87 pairs.
 
-Reviewer was disabled in both arms. Model, fixed production source, questions, materials and resource rules were held constant. An ON run that did not delegate remained in the sample. This corresponds to a real product decision: what happens overall when this capability is available by default?
+The study used ten frozen synthetic document tasks, each repeated ten times. The model evaluator saw the question, sources and anonymized answers. It graded correctness, coverage, limitations and completion for a total of 16 points. Scores are shown by grading round.
 
-Ten synthetic source-based questions were repeated ten pairs each, producing 200 research runs. Tasks included fee calculations, statistical checks, cross-source reconciliation and event timelines. Materials were frozen; research used a real model and the existing runtime. Calls went through OpenCode Go, with the returned model alias `deepseek-v4.1-flash`.
+### Did the main agent read the sources before delegating?
 
-For scoring, the paired answers were randomly labeled A/B. The evaluator received only the question, frozen sources and answers, and scored correctness, coverage, limitations and completion from 0 to 4 each, for a total of 16. Failed and unfinished cases stayed in the comparison. The evaluator was itself a model: hiding labels did not make its judgments infallible, and collaboration mentioned in an answer could reveal the treatment.
+In nine of the 13 first-round runs that delegated, the main agent had yet to read any usable source text. These nine averaged **9.00 versus 13.67**. The main agent had already made 11–20 model requests. Some subagents ran into the same reading problems. They could report where they were blocked, and some answers included that limitation, but the requested timeline or calculation was still missing.
 
-| All 100 pairs | Ordinary Child ON | OFF |
-| --- | ---: | ---: |
-| Mean score out of 16 | 14.78 | 15.14 |
-| Total research model calls | 1,465 | 1,111 |
+In the other four runs, the main agent read five sources before assigning a calculation or statistical check. Those four averaged **15.75 versus 14.50**, a gain of **1.25 points**, with about **42.6%** more model calls.
 
-Enabling ordinary Child execution did not increase the average score, while research calls increased by approximately 31.9%. Calls include the main agent, children, retries and failed attempts.
+## The 19 runs that actually received Reviewer advice
 
-This measures **the overall behavior of enabling collaboration under the existing configuration**. Both arms retained the same resource rules, but actual total calls and tokens could differ. It does not establish which arrangement is more efficient at an equal total token budget. Ten repeated questions are not one hundred independent questions and do not represent every open-ended research setting.
+The Reviewer checks existing research for omissions, conflicts and weak assumptions. In 19 runs, Reviewer advice was confirmed in a later main-agent input. The comparison uses the answer from the same question and repeat number without a Reviewer.
 
-For the default-enablement decision, however, the result needs explaining: on these tasks, additional consumption did not produce a higher average score.
+| Metric | Advice received | Matched run without Reviewer | Difference |
+| --- | ---: | ---: | ---: |
+| Mean score out of 16 | 13.21 | 13.68 | −0.47 |
+| Mean run-end time | 306.59 s | 258.38 s | +48.21 s (+18.7%) |
+| Total research model calls | 477 | 246 | +231 |
 
-## Once enabled, how did the main agent actually use it?
+Across these 19 pairs, the advice-receiving side had **4 wins, 7 ties and 8 losses**.
 
-Of the 100 ON runs, only 13 physically dispatched a Child, launching 23 child executions in total. The other 87 did not launch a Child.
-
-Those 87 are not invalid multi-agent samples to discard. When the product delegates the choice to the model, non-invocation is part of that policy. Removing them silently changes the question from whether availability helps to how the cases selected for delegation performed.
-
-The circumstances of delegation also differed.
-
-In nine of the 13 invoking runs, the main agent had not obtained a usable source-body read receipt before its first delegation. It had already issued 11–20 model requests, encountered repeated locator or reading difficulties, and then asked a Child for help. Some children encountered similar problems.
-
-An additional execution did not automatically create a usable evidence path. If the difficulty is locating the material correctly, passing the problem along may repeat the attempt to find an entry point. The actual navigation and reading path needs inspection; more specialists do not establish that it works.
-
-The other four delegations happened after the main agent had usable body-read receipts for five sources. Their tasks leaned toward calculation or statistical verification. Relative to their paired OFF runs, these four averaged 1.25 points higher with approximately 42.6% more calls. They offer a specific positive lead: **additional verification may be more useful when materials are available, the subtask is clear and the result can be checked.**
-
-These were small groups formed after execution. The main agent often delegated after encountering difficulties, so invoking and non-invoking runs were not directly comparable. Four positive examples cannot establish a general strategy. Their value is in identifying conditions worth testing next.
-
-## Would explicitly requiring delegation help?
-
-A 13% invocation rate suggests another possible explanation: perhaps collaboration could help, but the main agent was reluctant to use it.
-
-We therefore added an explicit delegation requirement to the 87 question-repeat instances whose original ON run had not launched a Child. We ran them again and retained the original ON and OFF answers. All 87 new runs launched children, producing 109 child executions. This moved the investigation from whether the capability was used to what happened after use.
-
-Quality was compared through a common three-answer blinded assessment within each grading call. There were 86 valid scored instances: the new explicitly delegated answers averaged **14.83**, versus **15.16** for the original non-invoking ON answers. The 87 new research runs used **2,002 model calls**, compared with **944** for the corresponding original ON runs, an increase of approximately 112.1%. Valid grading instances and research-call totals have different denominators.
-
-The original ON mean here comes from the common reassessment in this supplement; it should not be spliced directly into the earlier scoring round. This was also a selected non-invoking subset, with a new instruction compared against historical answers, so it does not identify the independent causal effect of a Child. The observed result is narrower: explicitly requiring delegation increased invocation, without increasing the mean score in this supplement.
-
-The meaning of “adopted” matters. Some children returned a diagnosis of failed source reading, which the main agent incorporated as a limitation in its answer. The handoff happened and the answer honestly described the difficulty, but the requested timeline or numerical reconstruction was still missing.
-
-Adopting a failure diagnosis can be correct behavior without improving completion of the original task. Contribution assessment must continue: which answer claim became more accurate or complete, or which otherwise plausible error was ruled out?
-
-## Reviewer launched and advice arrived. Did the benefit appear?
-
-An ordinary Child handles a local task. A Reviewer checks existing research for omissions, contradictions and weak assumptions. They should not be treated as one intervention.
-
-We ran a separate 30-pair Reviewer experiment: the same ten questions, three pairs each. Ordinary Child execution was hidden in both arms. ON enabled the existing automatic advisory mode; OFF disabled Reviewer. No “please review” instruction was added to the user question, and the main agent was not forced to wait for review.
-
-| Reviewer comparison, 30 pairs | ON | OFF |
-| --- | ---: | ---: |
-| Mean score out of 16 | 14.10 | 14.43 |
-| Mean run-end time, including abnormal outcomes | 250.86 s | 229.25 s |
-| Total research model calls | 659 | 350 |
-| Known input-plus-output token subtotal | 8,260,489 | 5,351,548 |
-
-The known ON token subtotal was approximately 54.4% higher than OFF. Eleven ON requests additionally lacked final usage receipts and cannot be counted as zero. The percentage describes known subtotals, not an exact total-cost increase; tokens are not a cash invoice either.
-
-Each arm had 28 runs marked complete by the runtime. ON also had two partial runs, while OFF had two failed runs; all were retained in the primary comparison. Among the 27 pairs where both arms completed, ON still scored lower and mean run-end time was approximately 13.2% longer. Timing includes shared-provider queues and evidence writes, rather than pure model inference latency.
-
-The collaboration records were more detailed:
-
-- All 30 ON runs physically launched Reviewer, with 41 child executions in total.
-- Twenty-nine executions had final completion evidence.
-- Twenty-four complete advice summaries were confirmed in subsequent main-agent inputs, across 19 research runs.
-
-These numbers have different units. Forty-one executions are not 41 research runs; 29 completions are not 29 advice deliveries. Advice reaching an input does not establish that the main agent changed its judgment because of it.
-
-We then compared the 19 advice-receiving ON runs with their own paired OFF runs. ON averaged **13.21**, versus **13.68** for OFF: four wins, seven ties and eight losses, with mean run-end time approximately 18.7% longer.
-
-In these records, missing delivery alone cannot explain the absence of average benefit. The advice-receiving subset also showed no average scoring improvement. But receipt is a post-execution grouping: longer tasks have more opportunity to receive advice, and the question mix differs. Comparing receiving and non-receiving groups directly cannot establish that advice made answers worse.
-
-Local positive examples still deserve attention. On a question involving earnings definitions after excluding non-recurring items, ON scored 15 and OFF 12. The evaluator found that ON distinguished the relevant definitions more clearly and did not treat an unavailable breakdown as known. Reviewer advice did arrive in that run, but this alone cannot attribute the entire score difference to Reviewer.
-
-Conversely, on a timeline question, ON received advice but covered only one of five sources, scoring 9 against OFF's 16. The presence of review did not ensure that the essential materials were fully used.
-
-## The main task ended before all collaboration receipts were final
-
-Another observation was easy to misread: the snapshot saved when the main task ended did not yet contain final status for some Reviewer requests. Independently saved request receipts later recorded failure or timeout.
-
-Eleven requests with missing usage had received HTTP 200, but their streams were subsequently interrupted without final usage. Looking only at the root-run snapshot misses later request status; looking only at HTTP 200 suggests an incorrectly complete success.
-
-Three observations therefore need separate records: when the user receives the answer, when the root run ends, and when already-dispatched background requests obtain final status and usage receipts. These times can coincide, but need not.
-
-This does not imply that every answer should wait for Reviewer. A short main task may already have enough evidence, and waiting for late generic advice may only delay delivery. A better observation method preserves the actual answer-delivery time while continuing to reconcile dispatched requests and charges, retaining unknowns explicitly. Existing records do not identify the precise cause of every stream interruption.
-
-Treating root completion as completion of all collaboration can omit background consumption. Forcing every answer to wait for every Reviewer, merely to produce tidy terminal records, would change the product behavior being measured.
+On a question about earnings excluding non-recurring items, the answer that received advice scored **15**, versus **12** for its match. It distinguished the earnings definitions more clearly and flagged a breakdown that the sources did not provide. On a timeline question, the answer that received advice covered only one of five sources and scored **9**, versus **16** for its match.
 
 ## Before adding another agent, specify what it should change
 
@@ -135,7 +66,7 @@ If the main agent is stuck at the source entry point, inspect actual navigation 
 
 Following the actual requests later exposed a break in the document-reading path. The system knew the file location, but the model's index omitted it. The single-segment navigation path has been repaired. Its effect on live answers is still to be measured. [The File Is Right There. Why Can't the Agent Read It?](agent-document-navigation-after-empty-search.md)
 
-If automatic Reviewer is being considered as a default, make all ON/OFF outcomes the primary comparison, then explain them through invocation, delivery and concrete answer changes. Do not select only successful advice-receiving cases, and do not equate a runtime's “complete” label with a well-answered user question.
+When evaluating a Reviewer, check whether its advice reached the main agent, then compare what each final answer actually covered. In the two cases above, the differences were visible in how the answers handled earnings definitions and source coverage.
 
 **Launching a specialist establishes collaboration capability. Whether it is worth enabling depends on new evidence, independent verification or useful counterevidence reaching the main agent and improving an outcome that matters.** Time, tokens and unknown charges belong in that decision too.
 
