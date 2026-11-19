@@ -55,9 +55,9 @@ Only the latest three articles are previewed, ordered by visible changes to thei
 
 ### Three recent version entry points
 
+- [v0.34 · Project older reads; reread originals](https://github.com/hpoenixf/open-etf-agent/tree/9d7018df68ef3b9791ef93b1857cb0007f592165)
 - [v0.33 · Version project materials](https://github.com/hpoenixf/open-etf-agent/tree/f7d32e23e24b38717174ca8e581e4ea665eb1a7b)
 - [v0.32 · Query dynamic local Knowledge](https://github.com/hpoenixf/open-etf-agent/tree/4238a6471c9f653c1e8cf3d3cd9a5f3b66694654)
-- [v0.31 · Query local Knowledge](https://github.com/hpoenixf/open-etf-agent/tree/18af35f3f84eb962e83f7eff7c48befc79e316f9)
 
 These identities come from the existing code-version lineage and link to fixed source. This README does not recertify releases or full capabilities. **[All versions and qualification boundaries](https://hpoenixf.com/eff-agent-article/en/open-etf-agent) · [Project Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 

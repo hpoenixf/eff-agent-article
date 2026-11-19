@@ -241,3 +241,15 @@ test('v0.28 review navigation does not upgrade historical article qualification'
  assert.equal(row.zh,'复核冻结的报告')
  for(const lang of ['zh','en']) assert.equal(topicGroups(lang).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets]).some(s=>s.since==='0.28'),false)
 })
+
+test('v0.34 context projection is a bilingual source entry, not an article qualification', () => {
+ const row = versions.find(v => v.version === '0.34')
+ assert.equal(row.href, 'https://github.com/hpoenixf/open-etf-agent/tree/9d7018df68ef3b9791ef93b1857cb0007f592165')
+ assert.equal(row.tree, 'ee1296d2f84a4140e0365c3520efec33e0357263')
+ assert.match(row.title, /reread originals/)
+ assert.match(row.zh, /回读原文/)
+ for (const language of ['zh', 'en']) {
+  const slices = topicGroups(language).flatMap(group => group.articles).flatMap(article => [article, ...article.additionalTargets])
+  assert.equal(slices.some(slice => slice.since === '0.34'), false)
+ }
+})
