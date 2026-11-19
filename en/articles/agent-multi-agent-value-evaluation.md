@@ -15,7 +15,7 @@ readingBrief:
 
 # Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes
 
-On the same question, does the answer improve when the main agent actually delegates? On November 16–17, 2026, we compared **100 runs that launched a subagent** with their matched runs without one. We separately compared **19 runs that received Reviewer advice** with their matches. **The runs that delegated took about 141 seconds longer on average and used 2.47 times as many known tokens. Mean scores were lower in both rounds.** The individual cases show where delegation helped: the sources were readable and the review task was specific.
+On the same question, does the answer improve when the main agent actually delegates? On November 16–17, 2026, we compared **100 runs that launched a subagent** with their matched runs without one. We separately compared **19 runs that received Reviewer advice** with their matches. **The runs that delegated took about 141 seconds longer on average and used 2.47 times as many known tokens. Mean scores were lower in both rounds.** The individual cases show gains from specific checks and large losses on a handful of runs that could not read the necessary material.
 
 ## The 100 runs that actually launched a subagent
 
@@ -55,6 +55,8 @@ The 13 original delegations can be grouped by whether the main agent had usable 
 
 In one statistical audit (N07-R05), the main agent initially got the effect of missing data on sample size backwards. The subagent recalculated it using each group's own missing-data rate and returned **394 and 373, for a total of 767**. The main agent used the figures and corrected its explanation in the final answer. The score was **16 versus 15**, with **25 versus 12** model calls. This pair shows a specific correction and the extra work that came with it.
 
+The reruns showed a similar split. In the 35 scored pairs where the main agent read all five sources before delegating, the delegated side averaged **0.29 points higher**. In the 46 where it had read no usable text, it averaged **1.00 point lower**. Five more had read some of the sources.
+
 In the reruns, the same statistical audit had **three wins and three ties across six pairs**. A fee comparison had **four wins and five ties across nine pairs**. In one fee pair, the scores were **16 versus 13**. Both answers calculated a crossover of about **438 days**. The higher-scoring answer explained that it depended on flat net asset values and service fees continuing beyond the first year. The original main-agent-only answer also scored **16** in the same assessment. A single agent had already reached that quality on this case.
 
 ### The main agent was stuck and the subagent inherited the same reading problem
@@ -69,6 +71,12 @@ In the reruns, the largest losses concentrated in two tasks that required recons
 | Investor total return and execution history | 9 | 13.89 / 15.22 | **−1.33** | 3 / 1 / 5 |
 
 One incident-timeline pair scored **1 versus 16**. The delegated answer confirmed a reading problem and omitted the incident impact, recovery time and request outcome. The matched answer used timestamps, health checks and provider records to distinguish service recovery from request completion. On one total-return pair, the scores were **2 versus 14**. The delegated answer gave a general framework and left the two share-class returns uncalculated. These two tasks together lost **53 points**, while the other 71 scored rerun pairs gained **17 points**. That explains how **29 wins and 27 losses** still produced a mean drop of **0.42 points**. The largest gaps came from answers that missed substantial parts of the task.
+
+### What mattered was how much source text the run eventually reached
+
+In 81 of the 86 scored reruns, the research read all five sources by the end. These delegated answers averaged **15.48**, versus **15.23** for their matches, a total gain of **20 points**. The other **five** lost every comparison and were down **56 points** in total. Four had no usable source text and one reached only two sources. A few reading failures outweighed the smaller gains among runs that finished reading.
+
+Some runs recovered after an initial reading problem. On another incident-timeline pair (N09-R07), the main agent had no usable text when it delegated. The subagent later read five sources. The final answer scored **15 versus 14** and avoided attributing an unidentified provider completion record to the original request. On a total-return pair, a subagent likewise read all five sources, yet the answer scored **14 versus 16** because it ruled out differences in internal fees without evidence. Source access supplies the facts. The inferences drawn from those facts still need checking.
 
 ## The 19 runs that actually received Reviewer advice
 
