@@ -26,7 +26,7 @@ In the first round, the main agent chose to launch a subagent in 13 runs. We rer
 | Main agent chose to delegate | 13 (13) | 11.08 | 13.92 | −2.85 | 6 / 1 / 6 |
 | Rerun with explicit delegation | 87 (86) | 14.83 | 15.24 | −0.42 | 29 / 30 / 27 |
 
-For each rerun, the evaluator scored all three answers together. The no-launch column uses the matched run with subagents disabled. The original answer from the run that chose to work alone also took part in this assessment. It averaged **15.16**, or **0.34 points** higher than the rerun that delegated. One rerun pair had no valid score. It is still included in elapsed time and usage for all 87 pairs.
+For each rerun, the evaluator scored all three answers together. The no-launch column uses the matched run with subagents disabled. The original answer from the run that chose to work alone also took part in this assessment. It averaged **15.16**, or **0.34 points** higher than the rerun that delegated. One rerun pair originally had an invalid grading output. It was always counted in elapsed time and usage. The follow-up score appears below.
 
 The study used ten frozen synthetic document tasks, each repeated ten times. The model evaluator saw the question, sources and anonymized answers. It graded correctness, coverage, limitations and completion for a total of 16 points. Scores are shown by grading round.
 
@@ -77,6 +77,20 @@ One incident-timeline pair scored **1 versus 16**. The delegated answer confirme
 In 81 of the 86 scored reruns, the research read all five sources by the end. These delegated answers averaged **15.48**, versus **15.23** for their matches, a total gain of **20 points**. The other **five** lost every comparison and were down **56 points** in total. Four had no usable source text and one reached only two sources. A few reading failures outweighed the smaller gains among runs that finished reading.
 
 Some runs recovered after an initial reading problem. On another incident-timeline pair (N09-R07), the main agent had no usable text when it delegated. The subagent later read five sources. The final answer scored **15 versus 14** and avoided attributing an unidentified provider completion record to the original request. On a total-return pair, a subagent likewise read all five sources, yet the answer scored **14 versus 16** because it ruled out differences in internal fees without evidence. Source access supplies the facts. The inferences drawn from those facts still need checking.
+
+## Did the original losses survive regrading?
+
+The same model judged the original answers again for the **33 pairs** where delegation initially scored lower. It saw the question, frozen sources and anonymized answers, with the same four 0–4 scoring dimensions.
+
+| Original score gap | Valid pairs | Regrade mean (with / without) | Original difference | Regraded difference | Regrade wins / ties / losses |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1–2 points lower | 24 | 14.92 / 15.50 | −1.38 | −0.58 | 4 / 7 / 13 |
+| 8–15 points lower | 9 | 4.11 / 15.33 | −11.44 | −11.22 | 0 / 0 / 9 |
+| All original losses | 33 | 11.97 / 15.45 | −4.12 | −3.48 | 4 / 7 / 22 |
+
+Among the pairs that originally lost by 1–2 points, **11** tied or won on regrading. All **9** large losses remained losses. All seven original losses on the incident timeline remained losses, by **11.71 points** on average. One case (N09-R06) originally scored **1 versus 16** and scored **2 versus 14** on regrading. The exact scores varied, but the answer that omitted the timeline and impact reconstruction still fell well short.
+
+The original answers for the previously ungraded pair (N01-R01) also received valid scores of **14 versus 14**. All 100 pairs now have a valid grade on record. The main tables retain their original grading rounds. This follow-up reevaluates the original losses and fills the missing grade.
 
 ## The 19 runs that actually received Reviewer advice
 
