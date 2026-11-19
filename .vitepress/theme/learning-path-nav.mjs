@@ -2,6 +2,18 @@ import { learningPathSlugs } from '../../book.mjs'
 
 // Presentation only. Article identity and reading order belong to book.mjs.
 const presentation = {
+  "open-etf-agent-material-version-workshop": {
+    "zh": {
+      "label": "资料换版实作",
+      "title": "更新资料，保留旧依据",
+      "description": "登记两个版本，读回各次任务绑定的来源。"
+    },
+    "en": {
+      "label": "Source version workshop",
+      "title": "Update Sources Without Rewriting History",
+      "description": "Register two versions and check the source bound to each task."
+    }
+  },
   "agent-task-session-run-worker-schedule": {
     "zh": {
       "label": "任务与执行",

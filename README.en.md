@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
+- 2026-11-19 · New · [After the source changes: let the agent use the new version without losing the evidence behind old reports](en/articles/open-etf-agent-material-version-workshop.md)
+- 2026-11-19 · Updated · [After the report: source checks, specialist work, and independent review](en/articles/open-etf-agent-report-review-workshop.md)
 - 2026-11-19 · Updated · [Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes](en/articles/agent-multi-agent-value-evaluation.md)
-- 2026-11-18 · Updated · [Why a Research Report Must Become an Asset Before an Agent Can Reuse It](en/articles/agent-research-assets-identity-version-lifecycle.md)
-- 2026-11-18 · Updated · [Start with a Report You Can Read Back: Open ETF Agent v0.1](en/articles/open-etf-agent-v01-first-readable-report.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 

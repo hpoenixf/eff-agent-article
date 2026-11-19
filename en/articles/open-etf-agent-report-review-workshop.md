@@ -246,6 +246,6 @@ To distinguish the roles further, read the [Expert, Subagent, Review, and Judge 
 
 Previous: [Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?](agent-expert-subagent-review-judge.md).
 
-Next: [From a Question to a Visible Answer: ETF Agent's Six-Layer Request Lifecycle](017-prompt-to-answer-six-layer-panorama-v3.md).
+Next: [After the source changes: let the agent use the new version without losing the evidence behind old reports](open-etf-agent-material-version-workshop.md).
 
 <!-- introductory-series-links:end -->
