@@ -1,3 +1,4 @@
+import HomeCatalogAction from './HomeCatalogAction.vue'
 import GettingStartedTopic from './GettingStartedTopic.vue'
 import ArchitectureGallery from './ArchitectureGallery.vue'
 import ArticleReadingBrief from './ArticleReadingBrief.vue'
@@ -35,6 +36,7 @@ import './navigation-layout.css'
 export default {
   extends: DefaultTheme,
   Layout: () => h(DefaultTheme.Layout, null, {
+    'home-hero-info-after': () => h(HomeCatalogAction),
     'nav-bar-content-after': () => [h(DirectoryMenu), h(LanguagePreference), h(StarLink, { class: 'nav-star-link' })],
     'nav-screen-content-before': () => h(ReadingDirectory),
     'doc-before': () => [h(ArticleProvenance), h(ArticleContext)],
