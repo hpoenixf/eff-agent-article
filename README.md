@@ -43,9 +43,9 @@
 
 ## 最近更新
 
+- 2026-11-19 · 新增 · [资料更新以后：让 Agent 用新版继续研究，旧报告还能查证](articles/open-etf-agent-material-version-workshop.md)
+- 2026-11-19 · 更新 · [报告写完以后：让 Agent 查证、协作，再独立复核](articles/open-etf-agent-report-review-workshop.md)
 - 2026-11-19 · 更新 · [多 Agent 值不值得开？我们测了启动、送达和最终收益](articles/agent-multi-agent-value-evaluation.md)
-- 2026-11-18 · 更新 · [一份研究报告，为什么需要先变成「资产」？](articles/agent-research-assets-identity-version-lifecycle.md)
-- 2026-11-18 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 

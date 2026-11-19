@@ -9,7 +9,7 @@ import { learningPathNavigation } from '../.vitepress/theme/learning-path-nav.mj
 const root = new URL('../', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 
-test('learning path interleaves eleven bilingual concept and workshop steps', () => {
+test('learning path interleaves twelve bilingual concept and workshop steps', () => {
   const all = chapters.flatMap(chapter => chapter.items.map(([slug]) => slug))
   assert.deepEqual(learningPathSlugs, [
     'agent-in-15-minutes', 'prompt-context-rag-memory', 'agent-ten-modules',
@@ -17,6 +17,7 @@ test('learning path interleaves eleven bilingual concept and workshop steps', ()
     'agent-task-session-run-worker-schedule', 'open-etf-agent-v010-system-design',
     'open-etf-agent-research-project-workshop',
     'agent-expert-subagent-review-judge', 'open-etf-agent-report-review-workshop',
+    'open-etf-agent-material-version-workshop',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
   assert.deepEqual(all.filter(slug => learningPathSlugs.includes(slug)), learningPathSlugs)
@@ -25,7 +26,8 @@ test('learning path interleaves eleven bilingual concept and workshop steps', ()
   assert.equal(all.indexOf(workshop), all.indexOf('open-etf-agent-v010-system-design') + 1)
   assert.equal(all.indexOf(workshop) + 1, all.indexOf('agent-expert-subagent-review-judge'))
   assert.equal(all.indexOf(workshop) + 2, all.indexOf('open-etf-agent-report-review-workshop'))
-  assert.equal(all.indexOf(workshop) + 3, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
+  assert.equal(all.indexOf(workshop) + 3, all.indexOf('open-etf-agent-material-version-workshop'))
+  assert.equal(all.indexOf(workshop) + 4, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
   assert.ok(englishArticleSlugs.includes(workshop))
   for (const prefix of ['', 'en/']) {
     const body = read(prefix + 'articles/' + workshop + '.md')
@@ -203,9 +205,9 @@ test('workshop follows deep dive in both menu and article navigation without a f
     assert.equal(deep.next.slug, 'open-etf-agent-research-project-workshop')
     const practice = learningPathNavigation(prefix + 'articles/open-etf-agent-research-project-workshop.md')
     assert.equal(practice.next.slug, 'agent-expert-subagent-review-judge')
-    assert.equal(practice.steps.length, 11)
+    assert.equal(practice.steps.length, 12)
     assert.equal(practice.steps[7].label, prefix ? 'Workshop' : '练手')
-    assert.equal(practice.steps[10].label, prefix ? 'Panorama' : '全景')
+    assert.equal(practice.steps.at(-1).label, prefix ? 'Panorama' : '全景')
   }
   for (const en of [false, true]) {
     const diagrams = learningPathStages(en)
@@ -242,7 +244,7 @@ test('workshop keeps six-layer scope, exact command boundaries and bilingual res
 })
 
 
-test('eleven-step navigation can shrink and wrap without a forced horizontal width', () => {
+test('twelve-step navigation can shrink and wrap without a forced horizontal width', () => {
   const component = read('.vitepress/theme/LearningPathNav.vue')
   assert.match(component, /repeat\(4, minmax\(0, 1fr\)\)/)
   assert.match(component, /max-width: 640px[^}]*[\s\S]*?repeat\(2, minmax\(0, 1fr\)\)/)
@@ -252,7 +254,7 @@ test('eleven-step navigation can shrink and wrap without a forced horizontal wid
   assert.match(component, /overflow-wrap: anywhere/)
 })
 
-test('all eleven stops SSR-render bilingual navigation with one current page and ten links', async () => {
+test('all twelve stops SSR-render bilingual navigation with one current page and eleven links', async () => {
   const { parse, compileScript, compileStyle } = await import('@vue/compiler-sfc')
   const { build } = await import('esbuild')
   const { createSSRApp } = await import('vue')
@@ -274,9 +276,9 @@ test('all eleven stops SSR-render bilingual navigation with one current page and
     for (const prefix of ['', 'en/']) for (const [index, slug] of learningPathSlugs.entries()) {
       globalThis.__learningPathSSRPath = prefix + 'articles/' + slug + '.md'
       const html = await renderToString(createSSRApp(Component))
-      assert.equal((html.match(/<li\b/g) ?? []).length, 11)
+      assert.equal((html.match(/<li\b/g) ?? []).length, 12)
       assert.equal((html.match(/aria-current="page"/g) ?? []).length, 1)
-      assert.equal((html.match(/<a\b[^>]*class="learning-path-step"/g) ?? []).length, 10)
+      assert.equal((html.match(/<a\b[^>]*class="learning-path-step"/g) ?? []).length, 11)
       assert.ok(html.includes('aria-label="' + (prefix ? 'Learning path' : '学习路线') + '"'))
       const nav = learningPathNavigation(globalThis.__learningPathSSRPath)
       for (const step of nav.steps) {
@@ -284,7 +286,7 @@ test('all eleven stops SSR-render bilingual navigation with one current page and
         if (!step.current) assert.ok(html.includes('href="/eff-agent-article/' + prefix + 'articles/' + step.slug + '"'))
       }
       assert.ok(!html.includes('href="/eff-agent-article/' + prefix + 'articles/' + slug + '"'))
-      if (index < 10) assert.ok(html.includes(prefix ? 'Recommended next:' : '建议下一站：'))
+      if (index < learningPathSlugs.length - 1) assert.ok(html.includes(prefix ? 'Recommended next:' : '建议下一站：'))
       else assert.ok(html.includes(prefix ? 'All reading steps remain available above.' : '已到全景，可从上方返回任意一站。'))
     }
   } finally { delete globalThis.__learningPathSSRPath }

@@ -246,6 +246,6 @@ Review 对每条发现分别保留材料支持情况、实际引用对应情况�
 
 上一篇：[专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？](agent-expert-subagent-review-judge.md)。
 
-下一篇：[从一次提问到答案可见：ETF Agent 六层调用全景](017-prompt-to-answer-six-layer-panorama-v3.md)。
+下一篇：[资料更新以后：让 Agent 用新版继续研究，旧报告还能查证](open-etf-agent-material-version-workshop.md)。
 
 <!-- introductory-series-links:end -->

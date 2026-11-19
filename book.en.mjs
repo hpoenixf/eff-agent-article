@@ -8,6 +8,7 @@ export const englishTitles = {
   "agent-task-session-run-worker-schedule": "Agent Execution Identity Panorama: From a Conversation to Model Turns—What Actually Continues?",
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
+  "open-etf-agent-material-version-workshop": "After the source changes: let the agent use the new version without losing the evidence behind old reports",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
   "tools-function-calling-mcp-skill": "Tools, Function Calling, MCP and Skills — How Does an Action Happen?",
   "conversation-context-memory-checkpoints": "History, Context, Memory and Checkpoints — How Does an Agent Continue?",
@@ -136,6 +137,7 @@ export const englishArticleSlugs = [
   "agent-task-session-run-worker-schedule",
   "agent-expert-subagent-review-judge",
   "open-etf-agent-report-review-workshop",
+  "open-etf-agent-material-version-workshop",
 
   "agent-evaluation-effective-identity-reuse",
   "prompt-context-rag-memory",
