@@ -1,10 +1,10 @@
 ---
 title: "Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes"
 date: 2026-11-17
-description: "Same-question comparisons for 100 runs that actually launched a subagent and 19 runs that received Reviewer advice, with scores, wins and losses, and elapsed time."
+description: "Compare answer scores, elapsed time and tokens across 100 actual delegations, then look at where fee calculations, statistical checks and incident timelines improved or broke down."
 readingBrief:
   takeaways:
-    - "Ordinary subagents launched in 100 runs. Of these, 99 pairs had valid scores. In both rounds, the runs that launched a subagent scored lower on average than their matched runs without one."
+    - "Across 100 actual delegations, runs took about 141 seconds longer on average and used 147.5% more known tokens. Mean scores were lower in both rounds."
     - "Four original runs delegated after the main agent had usable sources. They scored 1.25 points higher on average, with about 42.6% more model calls."
     - "Across the 19 pairs where Reviewer advice reached the main agent, the mean score was 13.21 versus 13.68, and runs ended 48.21 seconds later on average."
   appliesTo:
@@ -15,7 +15,7 @@ readingBrief:
 
 # Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes
 
-On the same question, does the answer improve when the main agent actually delegates? On November 16–17, 2026, we compared **100 runs that launched a subagent** with their matched runs without one. We separately compared **19 runs that received Reviewer advice** with their matches. Here are the scores and the additional work.
+On the same question, does the answer improve when the main agent actually delegates? On November 16–17, 2026, we compared **100 runs that launched a subagent** with their matched runs without one. We separately compared **19 runs that received Reviewer advice** with their matches. **The runs that delegated took about 141 seconds longer on average and used 2.47 times as many known tokens. Mean scores were lower in both rounds.** The individual cases show gains from specific checks and large losses on a handful of runs that could not read the necessary material.
 
 ## The 100 runs that actually launched a subagent
 
@@ -26,17 +26,57 @@ In the first round, the main agent chose to launch a subagent in 13 runs. We rer
 | Main agent chose to delegate | 13 (13) | 11.08 | 13.92 | −2.85 | 6 / 1 / 6 |
 | Rerun with explicit delegation | 87 (86) | 14.83 | 15.24 | −0.42 | 29 / 30 / 27 |
 
-The 100 runs that launched a subagent used **2,523** research model calls, versus **1,111** for the 100 matched runs without one. The first round used 521 versus 188 calls, and the reruns used 2,002 versus 923.
-
-For each rerun, the evaluator scored all three answers together. The no-launch column uses the matched run with subagents disabled. The original answer from the run that chose to work alone also took part in this assessment. It averaged **15.16**, or **0.34 points** higher than the rerun that delegated. One rerun pair had no valid score. Its calls are included in the totals for all 87 pairs.
+For each rerun, the evaluator scored all three answers together. The no-launch column uses the matched run with subagents disabled. The original answer from the run that chose to work alone also took part in this assessment. It averaged **15.16**, or **0.34 points** higher than the rerun that delegated. One rerun pair had no valid score. It is still included in elapsed time and usage for all 87 pairs.
 
 The study used ten frozen synthetic document tasks, each repeated ten times. The model evaluator saw the question, sources and anonymized answers. It graded correctness, coverage, limitations and completion for a total of 16 points. Scores are shown by grading round.
 
-### Did the main agent read the sources before delegating?
+### How much extra time and how many extra tokens?
 
-In nine of the 13 first-round runs that delegated, the main agent had yet to read any usable source text. These nine averaged **9.00 versus 13.67**. The main agent had already made 11–20 model requests. Some subagents ran into the same reading problems. They could report where they were blocked, and some answers included that limitation, but the requested timeline or calculation was still missing.
+| Matched pairs | Mean run-end time (with / without) | Known input + output tokens (with / without) | Research model calls (with / without) |
+| --- | ---: | ---: | ---: |
+| 13 original delegations | 478.98 / 336.36 s (+42.4%) | 8.57 / 3.28 million (+161.1%) | 521 / 188 |
+| 87 explicitly delegated reruns | 328.10 / 187.74 s (+74.8%) | 30.98 / 12.70 million (+144.0%) | 2,002 / 923 |
+| **All 100 pairs** | **347.71 / 207.06 s (+67.9%)** | **39.54 / 15.98 million (+147.5%)** | **2,523 / 1,111** |
 
-In the other four runs, the main agent read five sources before assigning a calculation or statistical check. Those four averaged **15.75 versus 14.50**, a gain of **1.25 points**, with about **42.6%** more model calls.
+Elapsed time runs from research start to termination, including queues and abnormal outcomes. Token totals use the reported input and output usage. One call on the rerun side lacked a usage receipt. About **92.5%** of the additional reported tokens were input tokens. Of the **1,412** extra model calls, subagents made **924** and the main agent and entry stage made the other **488**.
+
+The run with a subagent took longer in **92 pairs**. Of the 99 pairs with valid scores, **59** scored the same or lower while taking longer and using more known tokens. The delegated side scored higher in **35 pairs**, and took longer in **32** of them. Only **two pairs** combined a higher score, a shorter run and fewer tokens.
+
+## When did scores rise, and when did they fall?
+
+### The sources were readable and the subagent had a specific calculation to check
+
+The 13 original delegations can be grouped by whether the main agent had usable source text before its first delegation.
+
+| Source state when the main agent delegated | Pairs | Mean with / without launch | Difference | Wins / ties / losses | Change in known tokens |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Five sources read, delegated a calculation or statistical check | 4 | 15.75 / 14.50 | **+1.25** | 4 / 0 / 0 | +12.7% |
+| Delegated before reading usable text | 9 | 9.00 / 13.67 | **−4.67** | 2 / 1 / 6 | +256.9% |
+
+In one statistical audit (N07-R05), the main agent initially got the effect of missing data on sample size backwards. The subagent recalculated it using each group's own missing-data rate and returned **394 and 373, for a total of 767**. The main agent used the figures and corrected its explanation in the final answer. The score was **16 versus 15**, with **25 versus 12** model calls. This pair shows a specific correction and the extra work that came with it.
+
+The reruns showed a similar split. In the 35 scored pairs where the main agent read all five sources before delegating, the delegated side averaged **0.29 points higher**. In the 46 where it had read no usable text, it averaged **1.00 point lower**. Five more had read some of the sources.
+
+In the reruns, the same statistical audit had **three wins and three ties across six pairs**. A fee comparison had **four wins and five ties across nine pairs**. In one fee pair, the scores were **16 versus 13**. Both answers calculated a crossover of about **438 days**. The higher-scoring answer explained that it depended on flat net asset values and service fees continuing beyond the first year. The original main-agent-only answer also scored **16** in the same assessment. A single agent had already reached that quality on this case.
+
+### The main agent was stuck and the subagent inherited the same reading problem
+
+In the nine original runs in this group, the main agent had already made **11–20 requests** before delegating. Some subagents hit the same locator and reading errors. On one portfolio concentration case (N03-R08), two subagents reported that they could not read the material, and the main agent included the diagnosis in its answer, which scored **4**. Its match read the documents and calculated the concentration and stress losses, scoring **16**. The handoff delivered a diagnosis. The requested calculations were still missing.
+
+In the reruns, the largest losses concentrated in two tasks that required reconstructing facts from multiple records.
+
+| Rerun task | Valid pairs | Mean with / without delegation | Difference | Wins / ties / losses |
+| --- | ---: | ---: | ---: | ---: |
+| Multi-source incident timeline | 6 | 8.33 / 15.17 | **−6.83** | 2 / 0 / 4 |
+| Investor total return and execution history | 9 | 13.89 / 15.22 | **−1.33** | 3 / 1 / 5 |
+
+One incident-timeline pair scored **1 versus 16**. The delegated answer confirmed a reading problem and omitted the incident impact, recovery time and request outcome. The matched answer used timestamps, health checks and provider records to distinguish service recovery from request completion. On one total-return pair, the scores were **2 versus 14**. The delegated answer gave a general framework and left the two share-class returns uncalculated. These two tasks together lost **53 points**, while the other 71 scored rerun pairs gained **17 points**. That explains how **29 wins and 27 losses** still produced a mean drop of **0.42 points**. The largest gaps came from answers that missed substantial parts of the task.
+
+### What mattered was how much source text the run eventually reached
+
+In 81 of the 86 scored reruns, the research read all five sources by the end. These delegated answers averaged **15.48**, versus **15.23** for their matches, a total gain of **20 points**. The other **five** lost every comparison and were down **56 points** in total. Four had no usable source text and one reached only two sources. A few reading failures outweighed the smaller gains among runs that finished reading.
+
+Some runs recovered after an initial reading problem. On another incident-timeline pair (N09-R07), the main agent had no usable text when it delegated. The subagent later read five sources. The final answer scored **15 versus 14** and avoided attributing an unidentified provider completion record to the original request. On a total-return pair, a subagent likewise read all five sources, yet the answer scored **14 versus 16** because it ruled out differences in internal fees without evidence. Source access supplies the facts. The inferences drawn from those facts still need checking.
 
 ## The 19 runs that actually received Reviewer advice
 
@@ -47,14 +87,15 @@ The Reviewer checks existing research for omissions, conflicts and weak assumpti
 | Mean score out of 16 | 13.21 | 13.68 | −0.47 |
 | Mean run-end time | 306.59 s | 258.38 s | +48.21 s (+18.7%) |
 | Total research model calls | 477 | 246 | +231 |
+| Known input + output tokens | 6.45 million | 3.91 million | +65.0% |
 
-Across these 19 pairs, the advice-receiving side had **4 wins, 7 ties and 8 losses**.
+Across these 19 pairs, the advice-receiving side had **4 wins, 7 ties and 8 losses**. Four model calls on that side lacked usage receipts.
 
 On a question about earnings excluding non-recurring items, the answer that received advice scored **15**, versus **12** for its match. It distinguished the earnings definitions more clearly and flagged a breakdown that the sources did not provide. On a timeline question, the answer that received advice covered only one of five sources and scored **9**, versus **16** for its match.
 
 ## Before adding another agent, specify what it should change
 
-These results do not negate the value of independent contexts or parallel research. Our experiment used frozen synthetic materials and still encountered navigation and runtime-continuation issues. It did not cover broad web exploration, compare different model combinations or identify the independent causal contribution of each piece of advice.
+These runs offer two design leads. When the evidence is already available, delegate the verification of a particular claim. When the task is stuck at source discovery, restoring access is usually more relevant, especially for a timeline that depends on joining several records. The groups here were identified from the run records and show where the gains and losses occurred.
 
 Task differences matter. In [How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system), Anthropic connects multi-agent benefits with independent directions that can be explored in parallel, while discussing additional token consumption and the limitations imposed by shared context and task dependencies. Its internal tasks, model mix and evaluation differ from ours, so the results cannot be compared directly. The useful question remains: does the task need broader exploration, or more accurate reading of materials already available?
 
