@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "repository": "hpoenixf/open-etf-agent",
-  "sourceCommit": "949206315b017f482d42cd635eafc78459a0fc2a",
+  "sourceCommit": "3f9a656ceddb21adb373c078eb1e6afb40de705a",
   "manifest": {
     "schemaVersion": 2,
-    "reviewedVersion": "0.33.0",
-    "reviewedSource": "f7d32e23e24b38717174ca8e581e4ea665eb1a7b",
+    "reviewedVersion": "0.34.0",
+    "reviewedSource": "9d7018df68ef3b9791ef93b1857cb0007f592165",
     "articleSource": "https://github.com/hpoenixf/eff-agent-article/blob/249f0b866f9446f33b57f186fbc6d35b5d82c119/articles/open-etf-agent-v010-system-design.md",
-    "evidence": "docs/verification/v033-release.md",
+    "evidence": "docs/verification/v034-release.md",
     "layers": [
       {
         "id": "L1",
@@ -191,7 +191,7 @@
           "zh": "移除不撤销已接纳任务",
           "en": "Removal does not revoke admitted Runs"
         },
-        "status": "enhanced",
+        "status": "bounded",
         "source": "src/research-materials.mjs",
         "kind": "module",
         "article": {
@@ -309,14 +309,14 @@
         "group": "loop",
         "name": "Context",
         "summary": {
-          "zh": "投影本轮材料",
-          "en": "Project this turn’s input"
+          "zh": "投影旧结果并回读原文",
+          "en": "Project older reads; reread originals"
         },
         "boundary": {
           "zh": "原文不随窗口改写",
           "en": "Do not rewrite originals"
         },
-        "status": "bounded",
+        "status": "enhanced",
         "source": "src/context.mjs",
         "kind": "module",
         "article": {
@@ -1082,7 +1082,7 @@
     "articleNavigationSource": "1f92862826be6beac68ef9fc758171d3b52f54d8"
   },
   "assets": {
-    "visuals/open-etf-agent/module-map.svg": "774583bd6232161e7561dcd864524fb7304bb383148e7c26645ad08cf3a35a5e",
-    "visuals/open-etf-agent/module-map.zh-CN.svg": "02e9a29e278cb760fb223d782ff4c9c796f4f5189df015d634beef872b4027e1"
+    "visuals/open-etf-agent/module-map.svg": "1eded8a10fc8b4ec9af1782b234e44f2109943b76472fe8980dbb550e1e8feb8",
+    "visuals/open-etf-agent/module-map.zh-CN.svg": "6fa77738d9e2506b827f291d4d8f0e6767d82127158a8273ffcdb687bbe11a1f"
   }
 }

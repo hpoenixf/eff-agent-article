@@ -88,7 +88,8 @@ const captions = {
  '0.30': ['Control the original Child lifecycle','独立控制原 Child 生命周期','Spawn · inspect · cancel · immutable observations · cold recovery'],
  '0.31': ['Query local Knowledge','查询本地知识','Selected text · BM25 · original source readback'],
  '0.33': ['Version project materials','项目资料版本管理','Text/PDF · frozen task sources · bounded recovery'],
- '0.32': ['Query dynamic local Knowledge','查询动态本地知识','Local E5 · atomic budgets · no-replay recovery']
+ '0.32': ['Query dynamic local Knowledge','查询动态本地知识','Local E5 · atomic budgets · no-replay recovery'],
+ '0.34': ['Project older reads; reread originals','投影旧结果并回读原文','Context · optional working-set projection · authorized original rereads']
 }
 export const versions = Object.entries(lineage.versions).sort(([a],[b]) => a.localeCompare(b, undefined, { numeric: true })).map(([version,identity]) => ({ version, ...identity, title: captions[version]?.[0] || version, zh: captions[version]?.[1] || version, module: captions[version]?.[2] || 'See fixed source', href: repo + '/tree/' + identity.commit }))
 export const catalogCount = topicGroups().reduce((n,g)=>n+g.articles.length,0)

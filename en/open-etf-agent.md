@@ -15,7 +15,7 @@ description: "Learn agent development from document comparison to sustained rese
 
 Select a card to open its corresponding article. Expand, zoom and scroll the map. The map describes bounded Open implementation, not a claim that every capability in the article is public or qualified.
 
-Current scope: **v0.33.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/949206315b017f482d42cd635eafc78459a0fc2a) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/module-status.md)
+Current scope: **v0.34.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/3f9a656ceddb21adb373c078eb1e6afb40de705a) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/3f9a656ceddb21adb373c078eb1e6afb40de705a/docs/module-status.md)
 
 <PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.svg" label="Open ETF Agent six-layer map: select a module to read its article" :canvas-width="2240" :canvas-height="2034">
 <div style="overflow: auto; max-width: 100%;">

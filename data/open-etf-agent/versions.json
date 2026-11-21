@@ -135,6 +135,10 @@
     "0.33": {
       "commit": "f7d32e23e24b38717174ca8e581e4ea665eb1a7b",
       "tree": "af7b3a1541a5345e0b3ca7e53e6182eccd89ce70"
+    },
+    "0.34": {
+      "commit": "9d7018df68ef3b9791ef93b1857cb0007f592165",
+      "tree": "ee1296d2f84a4140e0365c3520efec33e0357263"
     }
   },
   "targets": {
