@@ -140,4 +140,4 @@ This workshop ends at task binding. The repository's [material lifecycle test wi
 
 The previous workshops: [Bring your own documents to an agent](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-research-project-workshop) · [After the report: source checks, specialist work, and independent review](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-report-review-workshop). For the reasoning behind versions, source identity and failure handling, see [the engineering design of research material assets](https://hpoenixf.com/eff-agent-article/en/articles/agent-research-assets-identity-version-lifecycle).
 
-Continue with [From a Question to a Visible Answer: ETF Agent’s Six-Layer Request Lifecycle](017-prompt-to-answer-six-layer-panorama-v3.md).
+Continue with [A Useful Agent Can Tell You Which Source It Could Not Retrieve](open-etf-agent-evidence-and-history-workshop.md), or go directly to [From a Question to a Visible Answer: ETF Agent’s Six-Layer Request Lifecycle](017-prompt-to-answer-six-layer-panorama-v3.md).

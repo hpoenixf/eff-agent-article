@@ -352,6 +352,6 @@ Engineering navigation E01–E03 is not counted among these 47 production capabi
 
 ## Getting started: continue in order
 
-Previous: [After the report: source checks, specialist work, and independent review](open-etf-agent-report-review-workshop.md).
+Previous: [A Useful Agent Can Tell You Which Source It Could Not Retrieve](open-etf-agent-evidence-and-history-workshop.md).
 
 <!-- introductory-series-links:end -->

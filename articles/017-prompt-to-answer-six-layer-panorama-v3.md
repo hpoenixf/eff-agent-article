@@ -359,6 +359,6 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 入门系列：按顺序继续
 
-上一篇：[报告写完以后：让 Agent 查证、协作，再独立复核](open-etf-agent-report-review-workshop.md)。
+上一篇：[一个 Agent 开始好用，是从它敢说「这份资料没拿到」开始的](open-etf-agent-evidence-and-history-workshop.md)。
 
 <!-- introductory-series-links:end -->

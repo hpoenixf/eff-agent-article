@@ -43,9 +43,9 @@
 
 ## 最近更新
 
-- 2026-11-21 · 新增 · [让 Agent 查基金：为什么不能只接一个行情接口？](articles/open-etf-agent-wind-fund-workshop.md)
-- 2026-11-19 · 新增 · [资料更新以后：让 Agent 用新版继续研究，旧报告还能查证](articles/open-etf-agent-material-version-workshop.md)
-- 2026-11-19 · 更新 · [报告写完以后：让 Agent 查证、协作，再独立复核](articles/open-etf-agent-report-review-workshop.md)
+- 2026-11-22 · 新增 · [一个 Agent 开始好用，是从它敢说「这份资料没拿到」开始的](articles/open-etf-agent-evidence-and-history-workshop.md)
+- 2026-11-22 · 更新 · [从一次提问到答案可见：ETF Agent 六层调用全景](articles/017-prompt-to-answer-six-layer-panorama-v3.md)
+- 2026-11-22 · 更新 · [资料更新以后：让 Agent 用新版继续研究，旧报告还能查证](articles/open-etf-agent-material-version-workshop.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 

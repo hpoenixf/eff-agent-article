@@ -165,7 +165,7 @@ test('introductory badges derive exactly from the canonical learning route in bo
  const data=buildArticleTags({slugs,financeSlugs:[],panoramaSlugs:[],openGroups:[]});
  assert.deepEqual(slugs.filter(s=>data.articles[s].some(t=>t.id==='intro')),learningPathSlugs);
  const tag=data.definitions.find(t=>t.id==='intro');assert.equal(tag.zh,'入门');assert.equal(tag.en,'Getting started');assert.equal(tag.path,'getting-started');
- assert.equal(new Set(learningPathSlugs).size,12);
+ assert.equal(new Set(learningPathSlugs).size,learningPathSlugs.length);
 });
 
 test('selecting the introductory filter starts in the canonical reading order', () => {

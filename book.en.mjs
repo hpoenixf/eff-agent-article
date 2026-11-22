@@ -9,6 +9,7 @@ export const englishTitles = {
   "agent-expert-subagent-review-judge": "Expert, Subagent, Review, Judge: If They All Use Another Model, Why Are They Different?",
   "open-etf-agent-report-review-workshop": "After the report: source checks, specialist work, and independent review",
   "open-etf-agent-material-version-workshop": "After the source changes: let the agent use the new version without losing the evidence behind old reports",
+  "open-etf-agent-evidence-and-history-workshop": "A Useful Agent Can Tell You Which Source It Could Not Retrieve",
   "open-etf-agent-wind-fund-workshop": "Letting an Agent Research Funds: Why One Market Data Endpoint Is Not Enough",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
   "tools-function-calling-mcp-skill": "Tools, Function Calling, MCP and Skills — How Does an Action Happen?",
@@ -139,6 +140,7 @@ export const englishArticleSlugs = [
   "agent-expert-subagent-review-judge",
   "open-etf-agent-report-review-workshop",
   "open-etf-agent-material-version-workshop",
+  "open-etf-agent-evidence-and-history-workshop",
   "open-etf-agent-wind-fund-workshop",
 
   "agent-evaluation-effective-identity-reuse",
