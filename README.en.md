@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-21 · New · [Letting an Agent Research Funds: Why One Market Data Endpoint Is Not Enough](en/articles/open-etf-agent-wind-fund-workshop.md)
-- 2026-11-19 · New · [After the source changes: let the agent use the new version without losing the evidence behind old reports](en/articles/open-etf-agent-material-version-workshop.md)
-- 2026-11-19 · Updated · [After the report: source checks, specialist work, and independent review](en/articles/open-etf-agent-report-review-workshop.md)
+- 2026-11-22 · New · [A Useful Agent Can Tell You Which Source It Could Not Retrieve](en/articles/open-etf-agent-evidence-and-history-workshop.md)
+- 2026-11-22 · Updated · [Six-Layer Request Lifecycle: From Prompt to Visible Answer](en/articles/017-prompt-to-answer-six-layer-panorama-v3.md)
+- 2026-11-22 · Updated · [After the source changes: let the agent use the new version without losing the evidence behind old reports](en/articles/open-etf-agent-material-version-workshop.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 

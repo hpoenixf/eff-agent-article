@@ -142,4 +142,4 @@ research material remove --project "$PROJECT" --id fee-sheet --revision 1
 
 前两站：[把自己的资料交给 Agent](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-research-project-workshop) · [报告写完以后：让 Agent 查证、协作，再独立复核](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-report-review-workshop)。想看同一机制为什么需要版本、来源身份和失败回退，再读[研究资料资产的工程设计](https://hpoenixf.com/eff-agent-article/articles/agent-research-assets-identity-version-lifecycle)。
 
-接着读：[从一次提问到答案可见：ETF Agent 六层调用全景](017-prompt-to-answer-six-layer-panorama-v3.md)。
+接着读：[一个 Agent 开始好用，是从它敢说「这份资料没拿到」开始的](open-etf-agent-evidence-and-history-workshop.md)。也可以直接读[从一次提问到答案可见：ETF Agent 六层调用全景](017-prompt-to-answer-six-layer-panorama-v3.md)。

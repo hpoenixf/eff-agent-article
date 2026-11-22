@@ -134,6 +134,18 @@ const presentation = {
       "description": "Import documents, inspect a report and continue your research."
     }
   },
+  "open-etf-agent-evidence-and-history-workshop": {
+    "zh": {
+      "label": "证据与回读",
+      "title": "缺资料时收窄结论，保留研究历史",
+      "description": "用 ETF 周报看外部来源如何降级，并重开原报告核对证据。"
+    },
+    "en": {
+      "label": "Evidence and readback",
+      "title": "Narrow the Claim, Keep the Research Record",
+      "description": "Use an ETF report to see what happens when an optional source fails, then reopen the original record."
+    }
+  },
   "017-prompt-to-answer-six-layer-panorama-v3": {
     "zh": {
       "label": "全景",
