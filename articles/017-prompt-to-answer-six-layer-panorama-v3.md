@@ -359,6 +359,6 @@ Coord 消耗短交互资格；它可以独立回答问题，也可能请求调�
 
 ## 入门系列：按顺序继续
 
-上一篇：[一个 Agent 开始好用，是从它敢说「这份资料没拿到」开始的](open-etf-agent-evidence-and-history-workshop.md)。
+上一篇：[从零上线 Open ETF Agent：把研究工作台部署到自己的服务器](open-etf-agent-staged-deployment.md)。
 
 <!-- introductory-series-links:end -->

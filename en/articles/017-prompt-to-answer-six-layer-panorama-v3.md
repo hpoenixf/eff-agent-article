@@ -352,6 +352,6 @@ Engineering navigation E01–E03 is not counted among these 47 production capabi
 
 ## Getting started: continue in order
 
-Previous: [A Useful Agent Can Tell You Which Source It Could Not Retrieve](open-etf-agent-evidence-and-history-workshop.md).
+Previous: [Deploy Open ETF Agent from Scratch: Run the Research Workspace on Your Own Server](open-etf-agent-staged-deployment.md).
 
 <!-- introductory-series-links:end -->

@@ -53,4 +53,4 @@ npm run gui -- --project ./test-output/local-gui --port 4179
 
 如果要给自己的 Agent 加一条验收，我会这么测：让一个可选来源真的失败，检查正文有没有收窄结论并注明缺口；再重开这次运行，核对报告、来源和原问题是否仍对得上。最后把失败换成一份不可缺的原文，确保系统不会照样给出同一个结论。这比增加一个工具、点亮一个进度条，更能说明它可以交给别人用。
 
-接着读：[从一次提问到答案可见：ETF Agent 六层调用全景](017-prompt-to-answer-six-layer-panorama-v3.md)。
+接着读：[从命令行到研究工作台：让一份研究下次还能接着做](open-etf-agent-research-workbench.md)。

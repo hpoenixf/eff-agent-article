@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-22 · New · [A Useful Agent Can Tell You Which Source It Could Not Retrieve](en/articles/open-etf-agent-evidence-and-history-workshop.md)
-- 2026-11-22 · Updated · [Six-Layer Request Lifecycle: From Prompt to Visible Answer](en/articles/017-prompt-to-answer-six-layer-panorama-v3.md)
-- 2026-11-22 · Updated · [After the source changes: let the agent use the new version without losing the evidence behind old reports](en/articles/open-etf-agent-material-version-workshop.md)
+- 2026-11-23 · New · [From the Command Line to a Research Workspace: How to Pick Up Where You Left Off](en/articles/open-etf-agent-research-workbench.md)
+- 2026-11-23 · New · [Deploy Open ETF Agent from Scratch: Run the Research Workspace on Your Own Server](en/articles/open-etf-agent-staged-deployment.md)
+- 2026-11-23 · Updated · [Six-Layer Request Lifecycle: From Prompt to Visible Answer](en/articles/017-prompt-to-answer-six-layer-panorama-v3.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 

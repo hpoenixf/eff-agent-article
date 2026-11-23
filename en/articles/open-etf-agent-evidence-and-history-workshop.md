@@ -53,4 +53,4 @@ This resembles [Google SRE's degraded responses](https://sre.google/sre-book/han
 
 A useful acceptance test is to make one optional source really fail. Check that the report narrows its claim and names the gap. Then reopen the run and verify that the report, sources and original question still match. Finally, repeat with a source the answer cannot do without, and check that the agent does not give the same conclusion anyway. That tells me more about whether it's ready for someone else to use than another tool or progress indicator.
 
-Continue with [From a Question to a Visible Answer: ETF Agent’s Six-Layer Request Lifecycle](017-prompt-to-answer-six-layer-panorama-v3.md).
+Continue with [From the Command Line to a Research Workspace: How to Pick Up Where You Left Off](open-etf-agent-research-workbench.md).
