@@ -162,6 +162,7 @@ export const collections = [
         "title": "金融研究与业务责任",
         "desc": "金融数据与计算口径、投研服务边界，以及投资业务的真实责任。",
         "items": [
+          ["financial-agent-from-talk-to-research", "金融 Agent 如何成为专业研究者：从用户目的到研究系统"],
           ["vertical-financial-agent-principles-panorama", "通用 Agent 框架之后，为什么还需要金融垂类能力？"],
           ["etf-agent-framework-comparison-panorama", "从通用 Harness 到金融研究系统：ETF Agent 的四方架构对照"],
           ["financial-agent-system-panorama", "金融 Agent 全景：连接研究、业务与责任的系统架构"],
@@ -275,6 +276,7 @@ export const articleCount = chapters.reduce((n, chapter) => n + chapter.items.le
 
 // #全景系列 is a cross-category tag: curated existing essays, never a fourth canonical collection.
 export const panoramaSeriesSlugs = Object.freeze([
+  'financial-agent-from-talk-to-research',
   'agent-spec-driven-development-panorama',
   'ai-coding-quality-panorama',
   'agent-vs-backend-development-panorama',

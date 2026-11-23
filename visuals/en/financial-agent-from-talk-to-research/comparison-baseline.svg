@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="742" viewBox="0 0 640 742" role="img" aria-labelledby="title desc">
+<title id="title">Exposure judgments depend on the comparison baseline</title>
+<desc id="desc">Hypothetical CNY 100,000 external contribution. Original portfolio: CNY 1,000,000 total, CNY 400,000 X, 40%. Holding the new money in cash: CNY 1,100,000 total, CNY 400,000 X, 36.36%. Buying fund A with 25% X: CNY 1,100,000 total, CNY 425,000 X, 38.64%. Common amount scale; weights held fixed, same NAV and currency basis, no fees or price changes. Cash has no direct X equity exposure.</desc>
+<defs><marker id="teal-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#0b7472"/></marker><marker id="amber-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#8a5115"/></marker></defs>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<rect x="0" y="0" width="640" height="742" rx="24" fill="#f6f8f7"/>
+<text x="28" y="42" font-size="26" fill="#0b7472" font-weight="700" text-anchor="start">Teaching example · external inflow</text>
+<text x="28" y="85" font-size="34" fill="#183847" font-weight="700" text-anchor="start">What is the comparison?</text>
+<rect x="30" y="112" width="18" height="18" rx="4" fill="#0b7472"/>
+<text x="58" y="129" font-size="26" fill="#183847" font-weight="400" text-anchor="start">X exposure</text>
+<rect x="273" y="112" width="18" height="18" rx="4" fill="#d8e3e5"/>
+<text x="301" y="129" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">Other assets</text>
+<text x="28" y="165" font-size="24" fill="#4d6672" font-weight="400" text-anchor="start">Bars use one scale for monetary amounts</text>
+<text x="28" y="222" font-size="27" fill="#183847" font-weight="700" text-anchor="start">Original portfolio</text>
+<text x="612" y="222" font-size="32" fill="#0b7472" font-weight="700" text-anchor="end">40.00%</text>
+<rect x="28" y="240" width="527.2727272727273" height="29" rx="5" fill="#d8e3e5"/>
+<rect x="28" y="240" width="210.9090909090909" height="29" rx="5" fill="#0b7472"/>
+<text x="28" y="301" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">X: CNY 400k / total: CNY 1,000k</text>
+<text x="28" y="342" font-size="27" fill="#183847" font-weight="700" text-anchor="start">New money stays in cash</text>
+<text x="612" y="342" font-size="32" fill="#0b7472" font-weight="700" text-anchor="end">36.36%</text>
+<rect x="28" y="360" width="580.0" height="29" rx="5" fill="#d8e3e5"/>
+<rect x="28" y="360" width="210.9090909090909" height="29" rx="5" fill="#0b7472"/>
+<text x="28" y="421" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">X: CNY 400k / total: CNY 1,100k</text>
+<text x="28" y="462" font-size="27" fill="#183847" font-weight="700" text-anchor="start">New money buys fund A</text>
+<text x="612" y="462" font-size="32" fill="#0b7472" font-weight="700" text-anchor="end">38.64%</text>
+<rect x="28" y="480" width="580.0" height="29" rx="5" fill="#d8e3e5"/>
+<rect x="28" y="480" width="224.0909090909091" height="29" rx="5" fill="#0b7472"/>
+<text x="28" y="541" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">X: CNY 425k / total: CNY 1,100k</text>
+<rect x="24" y="571" width="592" height="115" rx="16" fill="#e7f3ef"/>
+<text x="42" y="608" font-size="26" fill="#0b7472" font-weight="700" text-anchor="start">Lower than original; higher than cash.</text>
+<text x="42" y="646" font-size="27" fill="#183847" font-weight="700" text-anchor="start">X amount: CNY 400k → CNY 425k</text>
+<text x="28" y="720" font-size="25" fill="#4d6672" font-weight="400" text-anchor="start">X exposure only, not a total-risk verdict.</text>
+</g>
+</svg>

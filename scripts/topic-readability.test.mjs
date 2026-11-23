@@ -124,7 +124,7 @@ test('topic cleanup preserves article-tag sources and every original heading anc
     if (entry.path.includes('fintech')) {
       const { financeTopicGroups } = await import('../finance-topic-groups.mjs')
       const grouped = Object.values(financeTopicGroups).flat()
-      assert.deepEqual(grouped.slice().sort(), [...entry.slugs, 'vertical-financial-agent-principles-panorama', 'etf-agent-framework-comparison-panorama'].sort())
+      assert.deepEqual(grouped.slice().sort(), [...entry.slugs, 'vertical-financial-agent-principles-panorama', 'etf-agent-framework-comparison-panorama', 'financial-agent-from-talk-to-research'].sort())
       assert.deepEqual(slugs, [], 'No duplicate static article list')
     } else assert.deepEqual(slugs, entry.slugs, entry.path)
     const html = md.render(text)

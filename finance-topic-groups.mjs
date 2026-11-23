@@ -16,6 +16,7 @@ export const financeTopicGroups = {
     "rag-retrieval-evaluation-evidence"
   ],
   "b3": [
+    "financial-agent-from-talk-to-research",
     "investment-perspectives-and-thesis-falsification"
   ],
   "c1": [

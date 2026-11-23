@@ -1,6 +1,7 @@
 // English presentation only. The canonical article IDs and ordering live in book.mjs.
 import { collections, mergedArticles } from './book.mjs'
 export const englishTitles = {
+  "financial-agent-from-talk-to-research": "How a Financial Agent Becomes a Professional Researcher: From User Goals to a Research System",
   "agent-multi-agent-value-evaluation": "Is Multi-Agent Collaboration Worth Enabling? Measuring Dispatch, Delivery and Outcomes",
   "agent-document-navigation-after-empty-search": "The File Is Right There. Why Can't the Agent Read It?",
   "agent-three-host-lifecycle-architecture": "Why Split an Agent into Three Processes? Independent Lifecycles Without Splitting Business Truth",
@@ -134,6 +135,7 @@ export const englishTitles = {
   "agent-personal-credits-shadow-accounting": "Agent Usage: Requests, Tokens and Shadow Credits"
 }
 export const englishArticleSlugs = [
+  "financial-agent-from-talk-to-research",
   "agent-multi-agent-value-evaluation",
   "agent-document-navigation-after-empty-search",
   "agent-three-host-lifecycle-architecture",

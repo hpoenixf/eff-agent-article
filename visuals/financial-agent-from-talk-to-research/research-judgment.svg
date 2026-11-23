@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="646" viewBox="0 0 640 646" role="img" aria-labelledby="title desc">
+<title id="title">围绕可修订判断组织研究</title>
+<desc id="desc">用户目的定义比较；适用的事实与方法支撑有条件的判断。新事实、重要缺口或目标变化，可以促使研究重新检查前提。这是职责关系图，不是强制执行顺序。</desc>
+<defs><marker id="teal-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#0b7472"/></marker><marker id="amber-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#8a5115"/></marker></defs>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif">
+<rect x="0" y="0" width="640" height="646" rx="24" fill="#f6f8f7"/>
+<text x="28" y="47" font-size="32" fill="#183847" font-weight="700" text-anchor="start">让判断有依据，也能被修订</text>
+<text x="28" y="84" font-size="27" fill="#4d6672" font-weight="400" text-anchor="start">围绕同一个用户问题组织研究</text>
+<rect x="32" y="110" width="570" height="94" rx="18" fill="#e7f3ef"/>
+<text x="317" y="148" font-size="30" fill="#0b7472" font-weight="700" text-anchor="middle">用户目的与可行选择</text>
+<text x="317" y="184" font-size="26" fill="#183847" font-weight="400" text-anchor="middle">明确评价目标和比较基准</text>
+<path d="M317 204 V220 H166 V237" fill="none" stroke="#0b7472" stroke-width="3" stroke-linejoin="round" marker-end="url(#teal-arrow)"/>
+<path d="M317 220 H468 V237" fill="none" stroke="#0b7472" stroke-width="3" stroke-linejoin="round" marker-end="url(#teal-arrow)"/>
+<rect x="32" y="242" width="270" height="128" rx="16" fill="#ffffff" stroke="#bdcfd3" stroke-width="2"/>
+<rect x="334" y="242" width="268" height="128" rx="16" fill="#ffffff" stroke="#bdcfd3" stroke-width="2"/>
+<text x="54" y="280" font-size="28" fill="#183847" font-weight="700" text-anchor="start">适用的事实</text>
+<text x="54" y="317" font-size="27" fill="#4d6672" font-weight="400" text-anchor="start">对象 · 时点</text>
+<text x="54" y="352" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">口径 · 覆盖</text>
+<text x="356" y="280" font-size="28" fill="#183847" font-weight="700" text-anchor="start">方法与计算</text>
+<text x="356" y="317" font-size="27" fill="#4d6672" font-weight="400" text-anchor="start">方案 · 假设</text>
+<text x="356" y="352" font-size="26" fill="#4d6672" font-weight="400" text-anchor="start">Python 结果</text>
+<path d="M166 370 V388 H317 V405" fill="none" stroke="#0b7472" stroke-width="3" stroke-linejoin="round" marker-end="url(#teal-arrow)"/>
+<path d="M468 370 V388 H317" fill="none" stroke="#0b7472" stroke-width="3" stroke-linejoin="round"/>
+<rect x="32" y="410" width="570" height="96" rx="18" fill="#0b7472"/>
+<text x="317" y="449" font-size="31" fill="#ffffff" font-weight="700" text-anchor="middle">当前有用的判断</text>
+<text x="317" y="485" font-size="26" fill="#ffffff" font-weight="400" text-anchor="middle">解释差异、依据与适用条件</text>
+<path d="M317 506 V533" fill="none" stroke="#8a5115" stroke-width="3" stroke-linejoin="round" marker-end="url(#amber-arrow)"/>
+<rect x="32" y="538" width="570" height="86" rx="18" fill="#fbefd9"/>
+<text x="50" y="573" font-size="26" fill="#8a5115" font-weight="700" text-anchor="start">新事实、重要缺口或目标变化</text>
+<text x="50" y="607" font-size="25" fill="#183847" font-weight="400" text-anchor="start">修订 needs，重查受影响的前提</text>
+<path d="M602 581 H622 V156 H605" fill="none" stroke="#8a5115" stroke-width="3" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#amber-arrow)"/>
+</g>
+</svg>
