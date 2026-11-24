@@ -20,6 +20,7 @@ test('learning path interleaves bilingual concepts, workshops and an evidence ca
     'open-etf-agent-material-version-workshop',
     'open-etf-agent-evidence-and-history-workshop',
     'open-etf-agent-research-workbench',
+    'open-etf-agent-verify-and-reopen-research',
     'open-etf-agent-staged-deployment',
     '017-prompt-to-answer-six-layer-panorama-v3'
   ])
@@ -32,8 +33,9 @@ test('learning path interleaves bilingual concepts, workshops and an evidence ca
   assert.equal(all.indexOf(workshop) + 3, all.indexOf('open-etf-agent-material-version-workshop'))
   assert.equal(all.indexOf(workshop) + 4, all.indexOf('open-etf-agent-evidence-and-history-workshop'))
   assert.equal(all.indexOf(workshop) + 5, all.indexOf('open-etf-agent-research-workbench'))
-  assert.equal(all.indexOf(workshop) + 6, all.indexOf('open-etf-agent-staged-deployment'))
-  assert.equal(all.indexOf(workshop) + 7, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
+  assert.equal(all.indexOf(workshop) + 6, all.indexOf('open-etf-agent-verify-and-reopen-research'))
+  assert.equal(all.indexOf(workshop) + 7, all.indexOf('open-etf-agent-staged-deployment'))
+  assert.equal(all.indexOf(workshop) + 8, all.indexOf('017-prompt-to-answer-six-layer-panorama-v3'))
   assert.ok(englishArticleSlugs.includes(workshop))
   for (const prefix of ['', 'en/']) {
     const body = read(prefix + 'articles/' + workshop + '.md')

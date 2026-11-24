@@ -271,6 +271,8 @@ The neighboring failure branch matters too: after the body is committed, a later
 
 When answer A has already committed, subsequent research B may fail while **A's original commit, the Run's partial/failed status, and whether the client received A** remain three separately true or unknown facts. If `send_answer_part` committed its publication effect but the tool receipt was lost, recovery must query the original identity rather than relabel uncertainty as rejection and retry blindly. Source revocation changes **current display eligibility**, not the historical transaction; a server event does not prove the browser rendered it.
 
+In the [v0.47.0 strict-report test](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/report-delivery-contract.test.mjs#L11), the task can still commit and verify delivery of its answer when no report was saved, but the Run ends with `REPORT_ARTIFACT_REQUIRED`. The [exact-turn readback test](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/gui-body.test.mjs#L114) also checks that the original answer remains readable even when report artifacts or aggregate History are unavailable. Reading answers what was actually saved; it does not satisfy the report requirement, complete the Run, or rerun it.
+
 ## 8. After Unifying Structure, Reclaim Peripheral Body-Disposition Authority
 
 After centralizing the mechanism, we still have to ask: can callers bypass it and independently decide that a body disappears? That is the additional lesson from the two earlier publication-governance reviews.

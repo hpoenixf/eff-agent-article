@@ -53,4 +53,4 @@ npm run gui -- --project ./test-output/local-gui --port 4179
 
 回到最开始的问题：要让研究下次还能接着做，先验证你能不能**重开原报告、点到它用过的原文、分清复用的是哪一次结果**。有了这个基础，再决定用追问、每日对照还是独立账户。否则页面越像工作台，你反而越难回答那句最简单的话：「我现在看到的，到底是哪一次研究？」
 
-接着读：[从零上线 Open ETF Agent：把研究工作台部署到自己的服务器](open-etf-agent-staged-deployment.md)。 · [喜欢这个项目，欢迎在 GitHub 点 Star](https://github.com/hpoenixf/open-etf-agent)
+接着读：[从第一次提问到重新打开：用 Open ETF Agent 做一次可回看的研究](open-etf-agent-verify-and-reopen-research.md)。 · [喜欢这个项目，欢迎在 GitHub 点 Star](https://github.com/hpoenixf/open-etf-agent)

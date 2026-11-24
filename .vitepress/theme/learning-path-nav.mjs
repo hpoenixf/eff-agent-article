@@ -150,6 +150,10 @@ const presentation = {
     "zh": { "label": "研究工作台", "title": "接着上一次研究做", "description": "练习重开报告、继续追问、每日对照和分开账户。" },
     "en": { "label": "Research workspace", "title": "Pick Up Where You Left Off", "description": "Reopen reports, ask follow-ups, compare daily results and keep accounts separate." }
   },
+  "open-etf-agent-verify-and-reopen-research": {
+    "zh": { "label": "查证与回读", "title": "核对来源，再重开原回答", "description": "用一轮 ETF 问答练习选择模式、辨认原文和找回保存的正文。" },
+    "en": { "label": "Evidence and readback", "title": "Check the Source, Then Reopen the Answer", "description": "Use one ETF question to choose a mode, identify source text, and recover the saved answer." }
+  },
   "open-etf-agent-staged-deployment": {
     "zh": { "label": "部署练习", "title": "把工作台部署到自己的服务器", "description": "固定版本，通过 SSH 访问，并在服务重启后读回报告。" },
     "en": { "label": "Deployment workshop", "title": "Host the Workspace on Your Own Server", "description": "Run a pinned release behind SSH, then reopen the report after restarting the service." }

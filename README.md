@@ -43,9 +43,9 @@
 
 ## 最近更新
 
-- 2026-11-24 · 更新 · [从能回答到可信任：研究 Agent 必须保存结论成立的条件](articles/open-etf-agent-evidence-and-history-workshop.md)
-- 2026-11-23 · 新增 · [金融 Agent 如何成为专业研究者：从用户目的到研究系统](articles/financial-agent-from-talk-to-research.md)
-- 2026-11-23 · 新增 · [从命令行到研究工作台：让一份研究下次还能接着做](articles/open-etf-agent-research-workbench.md)
+- 2026-11-24 · 新增 · [从第一次提问到重新打开：用 Open ETF Agent 做一次可回看的研究](articles/open-etf-agent-verify-and-reopen-research.md)
+- 2026-11-24 · 更新 · [Publication：为什么需要独立发布系统](articles/019-agent-answer-publication.md)
+- 2026-11-24 · 更新 · [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 

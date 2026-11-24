@@ -28,7 +28,9 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-18，最新正式版本为 [v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0)，本版只增加项目内资料资产生命周期：导入、版本选择与替换、停用及显式恢复。已提交任务仍冻结原来源，停用不等于撤销旧任务权限。沿[既有资料资产文章](./agent-research-assets-identity-version-lifecycle.md)理解公开子集与私有系统的差异，再从[固定源码](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs)和[CLI 测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs)复现。该测试不调用模型；[真实测评说明](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md)保留操作者复核而非独立验收，以及两笔请求的计费未知。
+截至 2026-11-24，当前稳定版是 [v0.47.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.47.0)。想在工作台核对网页摘录、重开已保存的正文，可以跟着[新版入门练习](./open-etf-agent-verify-and-reopen-research.md)做一遍。下文的 v0.1 实验仍使用原来的固定版本和命令，不要直接换成最新版。
+
+回到 2026-11-18，当时的正式版本是 [v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0)，本版只增加项目内资料资产生命周期：导入、版本选择与替换、停用及显式恢复。已提交任务仍冻结原来源，停用不等于撤销旧任务权限。沿[既有资料资产文章](./agent-research-assets-identity-version-lifecycle.md)理解公开子集与私有系统的差异，再从[固定源码](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs)和[CLI 测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs)复现。该测试不调用模型；[真实测评说明](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md)保留操作者复核而非独立验收，以及两笔请求的计费未知。
 
 此前 v0.30 的异步 Child 仍沿原合同运行。
 

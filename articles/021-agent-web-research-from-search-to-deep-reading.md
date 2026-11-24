@@ -100,6 +100,8 @@ ExtractText --> PreserveSourceScope["保留来源范围"]
 
 现在，页面阅读可以返回有边界的正文片段，并提供继续读取的位置；一次没有读完，不需要把同一个问题重新扔给搜索引擎。正文提取也保留标题、列表和表格行等结构，而不是只追求得到一大段文字。
 
+[Open ETF Agent v0.47.0 的公开实现](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/src/gui-owner-web.mjs#L232)只用同一轮先前已验证读取返回的下一处位置，继续读已留存的正文。位置无效时，它在本地说明无法续读；留存内容缺失或已变化时，[回归用例](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/local-gui-owner-web-excerpts.test.mjs#L147)确认它不会重抓网页，再把新内容冒充成原证据。这里续读的是留存文字，不是精确定位到原网页段落的链接，也不是 PDF 阅读。
+
 对于研究来说，“某家公司”和“对应权重”能否一起保留，比页面总共返回了多少字符更有意义。
 
 **这一步的收益，是让 Agent 有机会核对原始材料，同时知道自己只读到了哪里，而不是把文章开头当成全文。**

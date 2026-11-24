@@ -271,6 +271,8 @@ node --test --test-concurrency=1 --test-name-pattern='^8\.2 local CLI starts sam
 
 对已经提交的回答 A，即使后续研究 B 失败，**A 的原提交、Run 的 partial/failed 与客户端是否收到 A** 仍是三个可同时成立的事实。若 `send_answer_part` 的发布已提交、工具回执却失联，应按原提交身份查询，不把未知改写成“拒绝”后盲目重试。来源撤权影响**当前展示资格**，不倒改历史事务；服务端发出事件也不证明浏览器已经呈现。
 
+[v0.47.0 的严格报告回归](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/report-delivery-contract.test.mjs#L11)把这两个结果放进了同一个用例：没有保存所需报告时，正文仍可独立提交，核实交付记录后即可读回，但 Run 以 `REPORT_ARTIFACT_REQUIRED` 失败。[按轮读回用例](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/gui-body.test.mjs#L114)还检查了报告产物或汇总历史不可用时，仍能读到已经确认的原正文。读取只回答「当时保存了什么」，不是补写报告，也不会让任务完成或重新执行。
+
 ## 八、统一结构之后，还要收回外围正文否决权
 
 机制集中之后，还需要回头检查：调用方是否仍能绕过它，独立决定正文消失？这也是此前两轮发布治理复盘留下的增量。
