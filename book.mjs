@@ -189,7 +189,7 @@ export const collections = [
           ["agent-expert-subagent-review-judge", "专家、Subagent、Review、Judge：都是另一个模型，为什么不是同一回事？"],
           ["open-etf-agent-report-review-workshop", "报告写完以后：让 Agent 查证、协作，再独立复核"],
           ["open-etf-agent-material-version-workshop", "资料更新以后：让 Agent 用新版继续研究，旧报告还能查证"],
-          ["open-etf-agent-evidence-and-history-workshop", "一个 Agent 开始好用，是从它敢说「这份资料没拿到」开始的"],
+          ["open-etf-agent-evidence-and-history-workshop", "从能回答到可信任：研究 Agent 必须保存结论成立的条件"],
           ["open-etf-agent-research-workbench", "从命令行到研究工作台：让一份研究下次还能接着做"],
           ["open-etf-agent-staged-deployment", "从零上线 Open ETF Agent：把研究工作台部署到自己的服务器"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "从一次提问到答案可见：ETF Agent 六层调用全景"],
