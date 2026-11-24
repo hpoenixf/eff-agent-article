@@ -12,7 +12,7 @@ export const englishTitles = {
   "open-etf-agent-material-version-workshop": "After the source changes: let the agent use the new version without losing the evidence behind old reports",
   "open-etf-agent-research-workbench": "From the Command Line to a Research Workspace: How to Pick Up Where You Left Off",
   "open-etf-agent-staged-deployment": "Deploy Open ETF Agent from Scratch: Run the Research Workspace on Your Own Server",
-  "open-etf-agent-evidence-and-history-workshop": "A Useful Agent Can Tell You Which Source It Could Not Retrieve",
+  "open-etf-agent-evidence-and-history-workshop": "From Answers to Trust: Preserve the Conditions Behind a Research Claim",
   "open-etf-agent-wind-fund-workshop": "Letting an Agent Research Funds: Why One Market Data Endpoint Is Not Enough",
   "prompt-context-rag-memory": "Prompt, Context, RAG and Memory — Where Does the Model Input Come From?",
   "tools-function-calling-mcp-skill": "Tools, Function Calling, MCP and Skills — How Does an Action Happen?",
