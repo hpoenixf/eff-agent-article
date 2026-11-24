@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-24 · Updated · [From Answers to Trust: Preserve the Conditions Behind a Research Claim](en/articles/open-etf-agent-evidence-and-history-workshop.md)
-- 2026-11-23 · New · [How a Financial Agent Becomes a Professional Researcher: From User Goals to a Research System](en/articles/financial-agent-from-talk-to-research.md)
-- 2026-11-23 · New · [From the Command Line to a Research Workspace: How to Pick Up Where You Left Off](en/articles/open-etf-agent-research-workbench.md)
+- 2026-11-24 · New · [From First Question to Readback: Research You Can Reopen in Open ETF Agent](en/articles/open-etf-agent-verify-and-reopen-research.md)
+- 2026-11-24 · Updated · [Publication: Why Answers Need Their Own Delivery System](en/articles/019-agent-answer-publication.md)
+- 2026-11-24 · Updated · [Web Research: From Search to Deep Reading](en/articles/021-agent-web-research-from-search-to-deep-reading.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 

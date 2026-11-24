@@ -53,4 +53,4 @@ So far, you have been the only operator. If someone else asks the same ETF quest
 
 To pick up the research next time, first check whether you can **reopen the original report, follow the citations back to the sources it used, and identify which previous result you are reusing**. Then decide whether you need a follow-up, a daily comparison, or a separate account. Otherwise, the more the page looks like a research workspace, the harder it can be to answer a simple question: “Which run produced what I’m looking at?”
 
-Continue with [Deploy Open ETF Agent from Scratch: Run the Research Workspace on Your Own Server](open-etf-agent-staged-deployment.md). · [Star the project on GitHub if it is useful](https://github.com/hpoenixf/open-etf-agent)
+Continue with [From First Question to Readback: Research You Can Reopen in Open ETF Agent](open-etf-agent-verify-and-reopen-research.md). · [Star the project on GitHub if it is useful](https://github.com/hpoenixf/open-etf-agent)

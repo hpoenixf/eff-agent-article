@@ -100,6 +100,8 @@ This led us to distinguish the questions: was page access successful, was the bo
 
 Page reading can now return bounded body excerpts together with a continuation position. An incomplete first read does not require throwing the same question back at the search engine. Body extraction also preserves structures such as headings, lists, and table rows rather than merely trying to produce a large block of text.
 
+In [Open ETF Agent v0.47.0](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/src/gui-owner-web.mjs#L232), continuation uses the next position from an earlier verified read in the same run. An invalid position returns a local unavailable result. If the retained content is missing or has changed, the [regression test](https://github.com/hpoenixf/open-etf-agent/blob/648f3cf08bf86865362d773fa4492c9734592b29/test/local-gui-owner-web-excerpts.test.mjs#L147) checks that the system does not request the page again and present it as the earlier evidence. This is continuation through stored text, not a link to a precise paragraph on the live site or a PDF reader.
+
 For research, keeping “a company” together with “its corresponding weight” is more meaningful than the total number of characters returned from a page.
 
 **The benefit of this step is giving the agent a chance to check original material while knowing how far it has read, instead of treating an article's opening as the whole article.**
