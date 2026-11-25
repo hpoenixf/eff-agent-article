@@ -28,7 +28,18 @@ v0.1 makes that engineering path publicly available. Its default example uses a 
 
 ## What you can reproduce in this round
 
-As of November 24, 2026, the current stable release is [v0.47.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.47.0). The [current workspace walkthrough](./open-etf-agent-verify-and-reopen-research.md) shows how to check source excerpts and reopen a saved answer. For the original v0.1 experiment, use the pinned commands below rather than substituting the latest release.
+As of November 25, 2026, the stable release is [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0). It takes the readback idea one step further: instead of only checking a file on disk, a consumer requests the report and its retained sources over local HTTP and checks that they match what the run saved. With Node 26.11.1, try T4, the bundled synthetic readback case:
+
+```bash
+git clone --branch v0.51.0 --depth 1 https://github.com/hpoenixf/open-etf-agent.git
+cd open-etf-agent
+npm ci --ignore-scripts --no-audit --no-fund
+npm run -s eval -- run --case T4
+```
+
+The command prints a directory containing `http-evaluation.json` and `eval-observations.json`. The first tells you whether the report and evidence were read back intact; the second links the case to the run and its local timeline. A missing timeline does not invalidate a readback that already passed. The three unselected cases remain `not-run`, not passes. The script calls no model and does not judge whether the report's reasoning is sound. For a full run, rechecking stored artifacts, or comparing runs, use the [pinned CLI guide](https://github.com/hpoenixf/open-etf-agent/blob/988c23edf3afb571750c7cecd6f08a68c6e22299/docs/evaluation-cli.md).
+
+On November 24, 2026, [v0.47.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.47.0) was the stable release. The [workspace walkthrough](./open-etf-agent-verify-and-reopen-research.md) shows how to check source excerpts and reopen a saved answer. For the original v0.1 experiment, use the pinned commands below rather than substituting the latest release.
 
 On November 18, 2026, the current release was [v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0). Its single new module is project-local material lifecycle: import, version selection and replacement, removal and explicit recovery. Admitted tasks retain frozen sources; removal does not revoke existing tasks. The [research-assets article](./agent-research-assets-identity-version-lifecycle.md) distinguishes this public subset from the private system. Follow the [fixed implementation](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs) and [CLI tests](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs) to reproduce it without model calls. The [live evaluation notes](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md) retain operator rather than independent review and two requests with unknown billing.
 
