@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-25 · New · [The Agent Answered. How Do You Know It Delivered?](en/articles/open-etf-agent-prove-delivery.md)
-- 2026-11-25 · Updated · [From First Question to Readback: Research You Can Reopen in Open ETF Agent](en/articles/open-etf-agent-verify-and-reopen-research.md)
-- 2026-11-25 · Updated · [Start with a Report You Can Read Back: Open ETF Agent v0.1](en/articles/open-etf-agent-v01-first-readable-report.md)
+- 2026-11-25 · New · [Four Exercises to Get Started with Open ETF Agent Without a Model Key](en/articles/open-etf-agent-four-offline-cli-workshops.md)
+- 2026-11-25 · Updated · [Financial Data: Time, Definitions and Reproducibility](en/articles/031-fintech-data-time-and-reproducible-numbers.md)
+- 2026-11-25 · Updated · [How Is a Skill Different from a Prompt?](en/articles/agent-skill-from-markdown-to-callable-research.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 
@@ -55,9 +55,9 @@ Only the latest three articles are previewed, ordered by visible changes to thei
 
 ### Three recent version entry points
 
-- [v0.33 · Version project materials](https://github.com/hpoenixf/open-etf-agent/tree/f7d32e23e24b38717174ca8e581e4ea665eb1a7b)
-- [v0.32 · Query dynamic local Knowledge](https://github.com/hpoenixf/open-etf-agent/tree/4238a6471c9f653c1e8cf3d3cd9a5f3b66694654)
-- [v0.31 · Query local Knowledge](https://github.com/hpoenixf/open-etf-agent/tree/18af35f3f84eb962e83f7eff7c48befc79e316f9)
+- [v0.70 · Diagnose a local installation](https://github.com/hpoenixf/open-etf-agent/tree/7b7e3a586c8bae962359654247680a2fe3db3e54)
+- [v0.69 · Preflight a Skill before use](https://github.com/hpoenixf/open-etf-agent/tree/1e9f4d300b6dbef5df5ea2262891020acb4bb193)
+- [v0.68 · Recompute an ETF comparison](https://github.com/hpoenixf/open-etf-agent/tree/0d46ab558e64328cc860319e8bc2b995ae5ea4e8)
 
 These identities come from the existing code-version lineage and link to fixed source. This README does not recertify releases or full capabilities. **[All versions and qualification boundaries](https://hpoenixf.com/eff-agent-article/en/open-etf-agent) · [Project Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 

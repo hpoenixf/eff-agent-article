@@ -15,11 +15,11 @@ description: "Learn agent development from document comparison to sustained rese
 
 Select a card to open its corresponding article. Expand, zoom and scroll the map. The map describes bounded Open implementation, not a claim that every capability in the article is public or qualified.
 
-Current scope: **v0.33.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/949206315b017f482d42cd635eafc78459a0fc2a) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/module-status.md)
+Current scope: **v0.70.0** · [Fixed navigation source](https://github.com/hpoenixf/open-etf-agent/tree/f69926638ec6a6b95285fc82105520529bd517bd) · [Code and verification limits](https://github.com/hpoenixf/open-etf-agent/blob/f69926638ec6a6b95285fc82105520529bd517bd/docs/module-status.md)
 
-<PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.svg" label="Open ETF Agent six-layer map: select a module to read its article" :canvas-width="2240" :canvas-height="2034">
+<PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.svg" label="Open ETF Agent six-layer map: select a module to read its article" :canvas-width="2240" :canvas-height="2474">
 <div style="overflow: auto; max-width: 100%;">
-<object type="image/svg+xml" data="/eff-agent-article/visuals/open-etf-agent/module-map.svg" style="display:block;width:1320px;max-width:none;height:1199px;" aria-label="Open ETF Agent six-layer map: select a module to read its article">
+<object type="image/svg+xml" data="/eff-agent-article/visuals/open-etf-agent/module-map.svg" style="display:block;width:1320px;max-width:none;height:1458px;" aria-label="Open ETF Agent six-layer map: select a module to read its article">
 <a href="/eff-agent-article/visuals/open-etf-agent/module-map.svg">Open clickable SVG</a>
 </object>
 </div>
@@ -36,6 +36,7 @@ Current scope: **v0.33.0** · [Fixed navigation source](https://github.com/hpoen
 - **Research Project** → [Bring Your Own Documents to an Agent: From the First Report to a Resumable Research Project](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-research-project-workshop) · Workshop
 - **Research Materials** → [Why a Research Report Must Become an Asset Before an Agent Can Reuse It](https://hpoenixf.com/eff-agent-article/en/articles/agent-research-assets-identity-version-lifecycle) · Module article
 - **Schedule** → [Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research) · Module article
+- **Daily Research Watch** → [Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends](https://hpoenixf.com/eff-agent-article/en/articles/agent-autonomous-scheduled-research) · Module article
 
 ### L2 · Identity, session & context
 
@@ -84,7 +85,13 @@ Current scope: **v0.33.0** · [Fixed navigation source](https://github.com/hpoen
 ### L6 · User interfaces
 
 - **Loopback Reader** → [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v010-system-design) · Open walkthrough
-- **CLI Readback** → [Start with a Report You Can Read Back: Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v01-first-readable-report) · Open walkthrough
+- **Local Research GUI** → [Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation](https://hpoenixf.com/eff-agent-article/en/articles/agent-conversation-admission-task-continuation) · Module article
+- **Account Site** → [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v010-system-design) · Overview
+- **CLI Delivery Eval** → [Start with a Report You Can Read Back: Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v01-first-readable-report) · Open walkthrough
+- **Portable Report Bundle** → [Start with a Report You Can Read Back: Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v01-first-readable-report) · Open walkthrough
+- **ETF Snapshot Compare** → [Start with a Report You Can Read Back: Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v01-first-readable-report) · Open walkthrough
+- **Skill Author Preflight** → [How Is a Skill Different from a Prompt? From Loading to Script Execution](https://hpoenixf.com/eff-agent-article/en/articles/agent-skill-from-markdown-to-callable-research) · Module article
+- **Self-host Diagnostics** → [Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-v010-system-design) · Open walkthrough
 
 </details>
 

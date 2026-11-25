@@ -72,6 +72,8 @@ Computation must not also decide whether the user should buy the resulting portf
 
 <div><a id="_4-a33-solves-precise-arithmetic-not-investment-judgment"></a><a id="4-a33-solves-precise-arithmetic-not-investment-judgment"></a></div>
 
+The local snapshot example in v0.68.0 is small enough to recalculate by hand. Suppose Fund A weights two assets 60% and 40%, while Fund B uses 40% and 60%. Both funds list the same assets, yet their weighted overlap is 80%. Over identical dates and on the same currency and return basis, 100 to 108 gives 8%, and 200 to 206 gives 3%. If Fund B lacks an ending observation, the return comparison remains missing. The output includes the share classes, original inputs, and formulas. [Local JSON and CSV example](https://github.com/hpoenixf/open-etf-agent/blob/v0.68.0/docs/etf-snapshot-comparison.md)
+
 ## 4. The Numeric Kernel Solves Precise Arithmetic, Not Investment Judgment
 
 JavaScript number uses binary floating point. The problem goes beyond the familiar 0.1 + 0.2 illustration. An amount multiplied by a fee rate may lie exactly near a half-cent, and floating-point error can change displayed rounding. Rounding **before** an adequacy check can also hide a real cash shortfall.

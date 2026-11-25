@@ -15,11 +15,11 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 
 点击图内卡片进入对应文章；可全屏展开、缩放和滚动。图中是 Open 的有界公开实现，不代表专文所述全部能力已开源或通过验收。
 
-当前范围: **v0.33.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/949206315b017f482d42cd635eafc78459a0fc2a) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/module-status.zh-CN.md)
+当前范围: **v0.70.0** · [固定导航源](https://github.com/hpoenixf/open-etf-agent/tree/f69926638ec6a6b95285fc82105520529bd517bd) · [代码与验证边界](https://github.com/hpoenixf/open-etf-agent/blob/f69926638ec6a6b95285fc82105520529bd517bd/docs/module-status.zh-CN.md)
 
-<PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" label="Open ETF Agent 六层模块地图：点击模块阅读对应文章" :canvas-width="2240" :canvas-height="2034">
+<PanoramaViewer src="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" label="Open ETF Agent 六层模块地图：点击模块阅读对应文章" :canvas-width="2240" :canvas-height="2474">
 <div style="overflow: auto; max-width: 100%;">
-<object type="image/svg+xml" data="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" style="display:block;width:1320px;max-width:none;height:1199px;" aria-label="Open ETF Agent 六层模块地图：点击模块阅读对应文章">
+<object type="image/svg+xml" data="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg" style="display:block;width:1320px;max-width:none;height:1458px;" aria-label="Open ETF Agent 六层模块地图：点击模块阅读对应文章">
 <a href="/eff-agent-article/visuals/open-etf-agent/module-map.zh-CN.svg">打开可点击 SVG</a>
 </object>
 </div>
@@ -36,6 +36,7 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 - **Research Project** → [把自己的资料交给 Agent：从第一份报告到可恢复的研究项目](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-research-project-workshop) · 专题练手篇
 - **Research Materials** → [一份研究报告，为什么需要先变成「资产」？](https://hpoenixf.com/eff-agent-article/articles/agent-research-assets-identity-version-lifecycle) · 模块专文
 - **Schedule** → [Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research) · 模块专文
+- **Daily Research Watch** → [Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？](https://hpoenixf.com/eff-agent-article/articles/agent-autonomous-scheduled-research) · 模块专文
 
 ### L2 · 身份、会话与上下文
 
@@ -84,7 +85,13 @@ description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代�
 ### L6 · 用户界面
 
 - **Loopback Reader** → [Agent 深入：从一份报告到持续执行与专家协作](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v010-system-design) · Open 练手篇
-- **CLI Readback** → [从第一份可回读报告开始：Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v01-first-readable-report) · Open 练手篇
+- **Local Research GUI** → [“接着聊”不等于“接着执行”：Agent 对话接纳与任务接续的设计](https://hpoenixf.com/eff-agent-article/articles/agent-conversation-admission-task-continuation) · 模块专文
+- **Account Site** → [Agent 深入：从一份报告到持续执行与专家协作](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v010-system-design) · 导读
+- **CLI Delivery Eval** → [从第一份可回读报告开始：Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v01-first-readable-report) · Open 练手篇
+- **Portable Report Bundle** → [从第一份可回读报告开始：Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v01-first-readable-report) · Open 练手篇
+- **ETF Snapshot Compare** → [从第一份可回读报告开始：Open ETF Agent v0.1](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v01-first-readable-report) · Open 练手篇
+- **Skill Author Preflight** → [Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行](https://hpoenixf.com/eff-agent-article/articles/agent-skill-from-markdown-to-callable-research) · 模块专文
+- **Self-host Diagnostics** → [Agent 深入：从一份报告到持续执行与专家协作](https://hpoenixf.com/eff-agent-article/articles/open-etf-agent-v010-system-design) · Open 练手篇
 
 </details>
 

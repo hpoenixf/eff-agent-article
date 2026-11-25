@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "repository": "hpoenixf/open-etf-agent",
-  "sourceCommit": "949206315b017f482d42cd635eafc78459a0fc2a",
+  "sourceCommit": "f69926638ec6a6b95285fc82105520529bd517bd",
   "manifest": {
     "schemaVersion": 2,
-    "reviewedVersion": "0.33.0",
-    "reviewedSource": "f7d32e23e24b38717174ca8e581e4ea665eb1a7b",
+    "reviewedVersion": "0.70.0",
+    "reviewedSource": "7b7e3a586c8bae962359654247680a2fe3db3e54",
     "articleSource": "https://github.com/hpoenixf/eff-agent-article/blob/249f0b866f9446f33b57f186fbc6d35b5d82c119/articles/open-etf-agent-v010-system-design.md",
-    "evidence": "docs/verification/v033-release.md",
+    "evidence": "docs/verification/v070-self-host-diagnostics.md",
     "layers": [
       {
         "id": "L1",
@@ -191,7 +191,7 @@
           "zh": "移除不撤销已接纳任务",
           "en": "Removal does not revoke admitted Runs"
         },
-        "status": "enhanced",
+        "status": "bounded",
         "source": "src/research-materials.mjs",
         "kind": "module",
         "article": {
@@ -218,6 +218,31 @@
         },
         "status": "bounded",
         "source": "src/scheduled-tasks.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "agent-autonomous-scheduled-research",
+          "kind": "module-article",
+          "title": {
+            "zh": "Agent 不必一直在线思考：我们怎样让研究在对话结束后按时继续？",
+            "en": "Agents Don't Need to Think Continuously: How Research Continues on Schedule After a Conversation Ends"
+          }
+        }
+      },
+      {
+        "id": "dailywatch",
+        "layer": "L1",
+        "group": "task",
+        "name": "Daily Research Watch",
+        "summary": {
+          "zh": "同题研究与日历基线",
+          "en": "Daily research and verified baseline"
+        },
+        "boundary": {
+          "zh": "邮件需另配且默认关闭",
+          "en": "Digest requires separate opt-in"
+        },
+        "status": "bounded",
+        "source": "src/gui-daily-watch.mjs",
         "kind": "module",
         "article": {
           "slug": "agent-autonomous-scheduled-research",
@@ -259,12 +284,12 @@
         "group": "task",
         "name": "Conversation",
         "summary": {
-          "zh": "澄清与显式继续",
-          "en": "Clarify and continue"
+          "zh": "同会话有限追问",
+          "en": "Bounded same-conversation follow-ups"
         },
         "boundary": {
-          "zh": "收到回复 ≠ 已采用",
-          "en": "Received ≠ adopted"
+          "zh": "附资料即隔离，不重跑旧任务",
+          "en": "Attachment boundary; no old Run replay"
         },
         "status": "bounded",
         "source": "src/conversation.mjs",
@@ -309,8 +334,8 @@
         "group": "loop",
         "name": "Context",
         "summary": {
-          "zh": "投影本轮材料",
-          "en": "Project this turn’s input"
+          "zh": "投影旧结果并回读原文",
+          "en": "Project older reads; reread originals"
         },
         "boundary": {
           "zh": "原文不随窗口改写",
@@ -334,12 +359,12 @@
         "group": "loop",
         "name": "Compaction",
         "summary": {
-          "zh": "压缩工作上下文",
-          "en": "Compact working context"
+          "zh": "按完整请求字节判断是否压缩",
+          "en": "Measure complete request pressure"
         },
         "boundary": {
-          "zh": "摘要不代替原始证据",
-          "en": "Notes are not source evidence"
+          "zh": "显式开启；保留原文和最后调用",
+          "en": "Opt in; keep originals and final slot"
         },
         "status": "bounded",
         "source": "src/compaction.mjs",
@@ -359,12 +384,12 @@
         "group": "loop",
         "name": "Memory",
         "summary": {
-          "zh": "明确保存与遗忘",
-          "en": "Explicit save and forget"
+          "zh": "固定、暂停、恢复与遗忘",
+          "en": "Pin, pause, restore or forget"
         },
         "boundary": {
-          "zh": "跨任务偏好单独授权",
-          "en": "Separate cross-task authority"
+          "zh": "可限定修订或临时关闭",
+          "en": "Exact selection or temporary opt-out"
         },
         "status": "bounded",
         "source": "src/memory.mjs",
@@ -534,12 +559,12 @@
         "group": "loop",
         "name": "Runtime",
         "summary": {
-          "zh": "推进同一工具循环",
-          "en": "Drive the same tool loop"
+          "zh": "深研工作需求与有界工具故障",
+          "en": "Deep needs and bounded tool faults"
         },
         "boundary": {
-          "zh": "未知派发不盲目重放",
-          "en": "Do not replay unknown dispatch"
+          "zh": "不放宽 URL 或未知派发规则",
+          "en": "URL policy and unknown replay unchanged"
         },
         "status": "bounded",
         "source": "src/runtime.mjs",
@@ -584,12 +609,12 @@
         "group": "main",
         "name": "Run Control",
         "summary": {
-          "zh": "继续或停止的决策",
-          "en": "Continue or stop decision"
+          "en": "Decide terminal Run outcome",
+          "zh": "决定 Run 是否及如何终结"
         },
         "boundary": {
-          "zh": "Host stop ≠ 用户取消",
-          "en": "Host stop ≠ user cancellation"
+          "en": "Verified answers survive later faults",
+          "zh": "次要错误不抹掉已确认正文"
         },
         "status": "bounded",
         "source": "src/run-control.mjs",
@@ -734,12 +759,12 @@
         "group": "tools",
         "name": "Web Acquisition",
         "summary": {
-          "zh": "采集公开静态页",
-          "en": "Acquire public static pages"
+          "en": "Continue reading one public page",
+          "zh": "继续读取同一公开网页的摘录"
         },
         "boundary": {
-          "zh": "无浏览器渲染与爬虫",
-          "en": "No browser rendering or crawler"
+          "en": "Uses retained bytes; no second fetch",
+          "zh": "复用原始留存内容，不重新抓取"
         },
         "status": "bounded",
         "source": "src/web-acquisition.mjs",
@@ -759,12 +784,12 @@
         "group": "tools",
         "name": "PDF",
         "summary": {
-          "zh": "保留文件并提取文本",
-          "en": "Retain file, extract text"
+          "zh": "文字 PDF 附件和原页回读",
+          "en": "Text PDF and original page readback"
         },
         "boundary": {
-          "zh": "无 OCR / 视觉表格解析",
-          "en": "No OCR / visual table parsing"
+          "zh": "无 OCR / 视觉解析",
+          "en": "No OCR / visual parsing"
         },
         "status": "bounded",
         "source": "src/pdf-input.mjs",
@@ -984,12 +1009,12 @@
         "group": "delivery",
         "name": "Publication",
         "summary": {
-          "zh": "接纳回答正文",
-          "en": "Accept answer body"
+          "en": "Read back the verified original body",
+          "zh": "回读已核验的原始回答正文"
         },
         "boundary": {
-          "zh": "原版本与提交回执",
-          "en": "Original revision and commit receipt"
+          "en": "Body is not proof of a saved report",
+          "zh": "已发布正文不等于已交付报告"
         },
         "status": "bounded",
         "source": "src/publication.mjs",
@@ -1054,20 +1079,70 @@
         }
       },
       {
+        "id": "localgui",
+        "layer": "L6",
+        "group": "delivery",
+        "name": "Local Research GUI",
+        "summary": {
+          "en": "Reopen exact saved web excerpts",
+          "zh": "回看该回答已读的网页摘录"
+        },
+        "boundary": {
+          "en": "Same owner and turn; not citations",
+          "zh": "仅同一项目、本轮；不等于引用"
+        },
+        "status": "bounded",
+        "source": "src/gui/gui.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "agent-conversation-admission-task-continuation",
+          "kind": "module-article",
+          "title": {
+            "zh": "“接着聊”不等于“接着执行”：Agent 对话接纳与任务接续的设计",
+            "en": "Keep Chatting Is Not Keep Executing: Agent Conversation Admission and Task Continuation"
+          }
+        }
+      },
+      {
+        "id": "accountsite",
+        "layer": "L6",
+        "group": "delivery",
+        "name": "Account Site",
+        "summary": {
+          "zh": "受邀登录与独立账户项目",
+          "en": "Invited login and isolated Projects"
+        },
+        "boundary": {
+          "zh": "按需安装；未验证公网访问",
+          "en": "Optional; public TLS not qualified"
+        },
+        "status": "bounded",
+        "source": "src/account-site.mjs",
+        "kind": "module",
+        "article": {
+          "slug": "open-etf-agent-v010-system-design",
+          "kind": "overview",
+          "title": {
+            "zh": "Agent 深入：从一份报告到持续执行与专家协作",
+            "en": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+          }
+        }
+      },
+      {
         "id": "readcli",
         "layer": "L6",
         "group": "task",
-        "name": "CLI Readback",
+        "name": "CLI Delivery Eval",
         "summary": {
-          "zh": "按身份观察原任务",
-          "en": "Inspect original task by identity"
+          "en": "Check report and source readback",
+          "zh": "核验正文、来源和附件回读"
         },
         "boundary": {
-          "zh": "浏览器交互未宣称验收",
-          "en": "No browser qualification claim"
+          "en": "Offline; not answer-quality scoring",
+          "zh": "离线不判正文语义；本地时间线"
         },
         "status": "bounded",
-        "source": "src/observe.mjs",
+        "source": "src/public-eval-cli.mjs",
         "kind": "call-site",
         "article": {
           "slug": "open-etf-agent-v01-first-readable-report",
@@ -1077,12 +1152,112 @@
             "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
           }
         }
+      },
+      {
+        "id": "report-bundle",
+        "layer": "L6",
+        "group": "task",
+        "name": "Portable Report Bundle",
+        "summary": {
+          "en": "Read the saved body offline",
+          "zh": "离线阅读已保存的正文"
+        },
+        "boundary": {
+          "en": "Public citations and checksums",
+          "zh": "公开引用与内容校验"
+        },
+        "status": "bounded",
+        "source": "src/report-bundle-cli.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "open-etf-agent-v01-first-readable-report",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "从第一份可回读报告开始：Open ETF Agent v0.1",
+            "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
+          }
+        }
+      },
+      {
+        "id": "etf-compare",
+        "layer": "L6",
+        "group": "task",
+        "name": "ETF Snapshot Compare",
+        "summary": {
+          "en": "Compare two share classes",
+          "zh": "对比两个明确份额类别"
+        },
+        "boundary": {
+          "en": "Local inputs and exact dates",
+          "zh": "本地快照与精确日期"
+        },
+        "status": "bounded",
+        "source": "src/etf-compare-cli.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "open-etf-agent-v01-first-readable-report",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "从第一份可回读报告开始：Open ETF Agent v0.1",
+            "en": "Start with a Report You Can Read Back: Open ETF Agent v0.1"
+          }
+        }
+      },
+      {
+        "id": "skill-preflight",
+        "layer": "L6",
+        "group": "task",
+        "name": "Skill Author Preflight",
+        "summary": {
+          "en": "Preview the exact method text",
+          "zh": "预览实际加载的方法正文"
+        },
+        "boundary": {
+          "en": "Host authority stays separate",
+          "zh": "工具权限归调用方"
+        },
+        "status": "bounded",
+        "source": "src/skill-preflight-cli.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "agent-skill-from-markdown-to-callable-research",
+          "kind": "module-article",
+          "title": {
+            "zh": "Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行",
+            "en": "How Is a Skill Different from a Prompt? From Loading to Script Execution"
+          }
+        }
+      },
+      {
+        "id": "deploy-doctor",
+        "layer": "L6",
+        "group": "task",
+        "name": "Self-host Diagnostics",
+        "summary": {
+          "en": "Diagnose startup locally",
+          "zh": "在本机排查启动问题"
+        },
+        "boundary": {
+          "en": "Loopback HEAD, no body access",
+          "zh": "仅探测回环端口，不读取正文"
+        },
+        "status": "enhanced",
+        "source": "src/deploy-doctor-cli.mjs",
+        "kind": "call-site",
+        "article": {
+          "slug": "open-etf-agent-v010-system-design",
+          "kind": "open-walkthrough",
+          "title": {
+            "zh": "Agent 深入：从一份报告到持续执行与专家协作",
+            "en": "Agent Deep Dive: From One Report to Durable Execution and Specialist Collaboration"
+          }
+        }
       }
     ],
     "articleNavigationSource": "1f92862826be6beac68ef9fc758171d3b52f54d8"
   },
   "assets": {
-    "visuals/open-etf-agent/module-map.svg": "774583bd6232161e7561dcd864524fb7304bb383148e7c26645ad08cf3a35a5e",
-    "visuals/open-etf-agent/module-map.zh-CN.svg": "02e9a29e278cb760fb223d782ff4c9c796f4f5189df015d634beef872b4027e1"
+    "visuals/open-etf-agent/module-map.svg": "6590de0613e1b9db81b6a9b6fb783c3bd2648262a8c81350d2ba961c8e1f61d5",
+    "visuals/open-etf-agent/module-map.zh-CN.svg": "a8dadbed6845a1229d387c7fcf3bdd4c3c2903d75cf50b8c842079587556e11e"
   }
 }

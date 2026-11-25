@@ -114,6 +114,10 @@ curl --fail --silent --show-error \
 
 Expect `active`, a listener at `127.0.0.1:4179`, and HTTP 200 from the local request. If you see `0.0.0.0` or another external address, stop and investigate. The workbench does not authenticate public users, and other processes on the same server may be able to reach its loopback port. Use this path on a trusted single-operator server, not a shared host.
 
+### When startup fails, check the pieces locally
+
+v0.70.0 includes a standalone diagnostic. From your checkout, run `node src/deploy-doctor-cli.mjs --project ./local-project` to check dependencies, the Node process, configuration and directory access. Add `--port` for an existing local listener. The probe checks the loopback homepage without opening conversations or reports. An uninitialized project on first install produces an informational result with the next step. Use `--json` to parse stable status codes. [Self-host diagnostic guide](https://github.com/hpoenixf/open-etf-agent/blob/v0.70.0/docs/self-host-diagnostics.md)
+
 ## 3. Open the workbench in your browser without exposing its port
 
 On **your own computer**, not the server, run:

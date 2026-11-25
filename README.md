@@ -43,9 +43,9 @@
 
 ## 最近更新
 
-- 2026-11-25 · 新增 · [Agent 回答了，怎么证明它真的交付了？](articles/open-etf-agent-prove-delivery.md)
-- 2026-11-25 · 更新 · [从第一次提问到重新打开：用 Open ETF Agent 做一次可回看的研究](articles/open-etf-agent-verify-and-reopen-research.md)
-- 2026-11-25 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
+- 2026-11-25 · 新增 · [不用模型密钥，先跑通 Open ETF Agent 的四个练习](articles/open-etf-agent-four-offline-cli-workshops.md)
+- 2026-11-25 · 更新 · [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
+- 2026-11-25 · 更新 · [Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行](articles/agent-skill-from-markdown-to-callable-research.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
@@ -55,9 +55,9 @@
 
 ### 最近三个版本入口
 
-- [v0.33 · 项目资料版本管理](https://github.com/hpoenixf/open-etf-agent/tree/f7d32e23e24b38717174ca8e581e4ea665eb1a7b)
-- [v0.32 · 查询动态本地知识](https://github.com/hpoenixf/open-etf-agent/tree/4238a6471c9f653c1e8cf3d3cd9a5f3b66694654)
-- [v0.31 · 查询本地知识](https://github.com/hpoenixf/open-etf-agent/tree/18af35f3f84eb962e83f7eff7c48befc79e316f9)
+- [v0.70 · 在本机定位部署故障](https://github.com/hpoenixf/open-etf-agent/tree/7b7e3a586c8bae962359654247680a2fe3db3e54)
+- [v0.69 · 把 Skill 先在本机跑通](https://github.com/hpoenixf/open-etf-agent/tree/1e9f4d300b6dbef5df5ea2262891020acb4bb193)
+- [v0.68 · 复算 ETF 快照](https://github.com/hpoenixf/open-etf-agent/tree/0d46ab558e64328cc860319e8bc2b995ae5ea4e8)
 
 版本来自既有代码版本谱系，链接固定源码；不是本 README 重新认证的发布或完整能力承诺。**[全部版本与资格说明](https://hpoenixf.com/eff-agent-article/open-etf-agent) · [项目 Quickstart](https://github.com/hpoenixf/open-etf-agent#quickstart)**
 

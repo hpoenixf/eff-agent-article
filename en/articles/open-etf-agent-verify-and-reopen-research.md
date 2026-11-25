@@ -63,6 +63,12 @@ v0.47.0 separates **whether the answer was confirmed saved** from **whether the 
 
 Keep the stable release, staging and production separate, too. The commands above use a fixed stable release from GitHub. Staging is for advance verification; production should be checked on its own after rollout. To put your workspace on a server, see the [deployment guide](https://hpoenixf.com/eff-agent-article/en/articles/open-etf-agent-staged-deployment) for authentication and network setup. Do not expose the local port directly. After upgrading, open the original conversation, answer, and report first. A new paid question is not a substitute for that check.
 
+## Take a published report with you
+
+Reopening a conversation helps when you still have the original project. From v0.67.0, you can export a Run you can already read. The report body sits in Markdown alongside an index that keeps the original numbers of public citations. A Web extraction chunk has its own position. Physical page and section remain blank when the source did not record them.
+
+Copy the entire directory and verify it offline. Keep the export's manifest digest separately if you need to detect replacement of the whole bundle. A changed digest tells you that the files differ. The research claims still need a reader's review. [Export and verify a report](https://github.com/hpoenixf/open-etf-agent/blob/v0.67.0/docs/offline-report-bundle.md)
+
 ## Five releases, five problems this walkthrough addresses
 
 | Release | What it adds to this walkthrough |
