@@ -43,9 +43,9 @@
 
 ## 最近更新
 
+- 2026-11-25 · 更新 · [Open ETF Agent v0.1：从第一份可回读报告开始](articles/open-etf-agent-v01-first-readable-report.md)
 - 2026-11-24 · 新增 · [从第一次提问到重新打开：用 Open ETF Agent 做一次可回看的研究](articles/open-etf-agent-verify-and-reopen-research.md)
 - 2026-11-24 · 更新 · [Publication：为什么需要独立发布系统](articles/019-agent-answer-publication.md)
-- 2026-11-24 · 更新 · [Web：从搜索到连续阅读](articles/021-agent-web-research-from-search-to-deep-reading.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 

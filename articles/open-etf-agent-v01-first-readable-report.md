@@ -28,7 +28,18 @@ v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选
 
 ## 本轮可以复现什么
 
-截至 2026-11-24，当前稳定版是 [v0.47.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.47.0)。想在工作台核对网页摘录、重开已保存的正文，可以跟着[新版入门练习](./open-etf-agent-verify-and-reopen-research.md)做一遍。下文的 v0.1 实验仍使用原来的固定版本和命令，不要直接换成最新版。
+截至 2026-11-25，稳定版是 [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0)。这一版把本文的回读思路推进了一步：不只在磁盘上检查文件，还让读取方通过本机 HTTP 取回正文和留存来源，核对是不是本轮保存的那一份。用 Node 26.11.1 跑内置的 T4 合成用例：
+
+```bash
+git clone --branch v0.51.0 --depth 1 https://github.com/hpoenixf/open-etf-agent.git
+cd open-etf-agent
+npm ci --ignore-scripts --no-audit --no-fund
+npm run -s eval -- run --case T4
+```
+
+终端会给出本轮目录。`http-evaluation.json` 记录正文和证据是否完整读回；`eval-observations.json` 把这题关联到对应的运行与本地时间线。时间线缺失，不会把已通过的回读变成失败。没选的三题仍标为 `not-run`，不计作通过。这里不调用模型，也不判断报告的推理对不对。想跑全套、复读已存产物或对比两次结果，见[固定版本 CLI 指南](https://github.com/hpoenixf/open-etf-agent/blob/988c23edf3afb571750c7cecd6f08a68c6e22299/docs/evaluation-cli.md)。
+
+2026-11-24 当时的稳定版是 [v0.47.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.47.0)。想在工作台核对网页摘录、重开已保存的正文，可以跟着[新版入门练习](./open-etf-agent-verify-and-reopen-research.md)做一遍。下文的 v0.1 实验仍使用原来的固定版本和命令，不要直接换成最新版。
 
 回到 2026-11-18，当时的正式版本是 [v0.33.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.33.0)，本版只增加项目内资料资产生命周期：导入、版本选择与替换、停用及显式恢复。已提交任务仍冻结原来源，停用不等于撤销旧任务权限。沿[既有资料资产文章](./agent-research-assets-identity-version-lifecycle.md)理解公开子集与私有系统的差异，再从[固定源码](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/src/research-materials.mjs)和[CLI 测试](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/test/research-materials-cli.test.mjs)复现。该测试不调用模型；[真实测评说明](https://github.com/hpoenixf/open-etf-agent/blob/949206315b017f482d42cd635eafc78459a0fc2a/docs/verification/v033-release.md)保留操作者复核而非独立验收，以及两笔请求的计费未知。
 
