@@ -205,6 +205,10 @@ npm run demo -- --case skill-mcp
 
 This offline synthetic demo uses the pinned revision's Node 26.x environment requirement and no live fund or model credentials. It demonstrates catalog discovery, Skill reading, Host source tools, and report records. It **does not** prove that private fund packages, Child preloading, or their Python security arrangements are included in the public edition.
 
+### Inspect what the Host actually loads
+
+From v0.69.0, the preflight CLI opens the same Skill catalog as the public runtime. Validate the directory and metadata, then preview the exact text for the selected directory ID. The fund-research example uses a synthetic input to check expected passages and resource files. The method can suggest saving a source-linked report, and preflight can show why the sample Host offers no `save_report` tool. Loading still depends on the Host choosing the catalog and reading the method on demand. The preview reads files without executing a resource script. [Fund research preflight example](https://github.com/hpoenixf/open-etf-agent/blob/v0.69.0/docs/skill-author-preflight.md)
+
 ## What do comparable systems offer that we have not adopted?
 
 Progressive loading is not an ETF Agent invention. The [Agent Skills specification](https://agentskills.io/specification) already separates discovery metadata, activated instructions, and on-demand resources. ETF Agent connects that pattern to its own Run, data grants, and receipts; the shared pattern is not a unique advantage.

@@ -26,9 +26,11 @@ Open ETF Agent therefore starts with something smaller: **read two documents, co
 
 v0.1 makes that engineering path publicly available. Its default example uses a script to choose actions while executing real reads, calculations, and saves. This lets us inspect how the program works; it does not establish whether a real model understands the documents. This article explains the first path. Later increments will connect runnable source code to the module articles we already have.
 
+As of November 25, 2026, the current stable entry point is [v0.70.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.70.0). Start with this article's report readback. Then try the [four offline exercises](./open-etf-agent-four-offline-cli-workshops.md) to export a report, compare funds, preflight a Skill or troubleshoot an installation.
+
 ## What you can reproduce in this round
 
-As of November 25, 2026, the stable release is [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0). It takes the readback idea one step further: instead of only checking a file on disk, a consumer requests the report and its retained sources over local HTTP and checks that they match what the run saved. With Node 26.11.1, try T4, the bundled synthetic readback case:
+The exercise below uses [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0). It takes the readback idea one step further: instead of only checking a file on disk, a consumer requests the report and its retained sources over local HTTP and checks that they match what the run saved. With Node 26.11.1, try T4, the bundled synthetic readback case:
 
 ```bash
 git clone --branch v0.51.0 --depth 1 https://github.com/hpoenixf/open-etf-agent.git

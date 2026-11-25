@@ -195,6 +195,7 @@ export const collections = [
           ["open-etf-agent-prove-delivery", "Agent 回答了，怎么证明它真的交付了？"],
           ["open-etf-agent-staged-deployment", "从零上线 Open ETF Agent：把研究工作台部署到自己的服务器"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "从一次提问到答案可见：ETF Agent 六层调用全景"],
+          ["open-etf-agent-four-offline-cli-workshops", "不用模型密钥，先跑通 Open ETF Agent 的四个练习"],
           ["open-etf-agent-wind-fund-workshop", "让 Agent 查基金：为什么不能只接一个行情接口？"],
           ["agent-context-governance-principles", "Agent 上下文治理全景·原则篇：让每一步判断围绕目标展开"],
           ["agent-context-governance-actions", "Agent 上下文治理全景·行动篇：从首轮输入到长期记忆，怎样真正落地"]

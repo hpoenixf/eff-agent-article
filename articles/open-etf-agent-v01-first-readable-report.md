@@ -26,9 +26,11 @@ readingBrief:
 
 v0.1 已经公开了这条工程路径。默认示例使用脚本代替模型选择动作，真实执行读取、计算与保存；它让我们检查程序怎样工作，还不能据此判断真实模型会不会读懂资料。这篇先把第一条路径讲清楚，后续再回到已有的模块文章，逐步补上对应源码。
 
+截至 2026-11-25，当前稳定入口是 [v0.70.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.70.0)。先从本文的报告回读例子上手。想带走报告、复算两只基金、预检 Skill 或排查安装，可以接着读[四个离线练习](./open-etf-agent-four-offline-cli-workshops.md)。
+
 ## 本轮可以复现什么
 
-截至 2026-11-25，稳定版是 [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0)。这一版把本文的回读思路推进了一步：不只在磁盘上检查文件，还让读取方通过本机 HTTP 取回正文和留存来源，核对是不是本轮保存的那一份。用 Node 26.11.1 跑内置的 T4 合成用例：
+下面保留 [v0.51.0](https://github.com/hpoenixf/open-etf-agent/releases/tag/v0.51.0)。这一版把本文的回读思路推进了一步：不只在磁盘上检查文件，还让读取方通过本机 HTTP 取回正文和留存来源，核对是不是本轮保存的那一份。用 Node 26.11.1 跑内置的 T4 合成用例：
 
 ```bash
 git clone --branch v0.51.0 --depth 1 https://github.com/hpoenixf/open-etf-agent.git

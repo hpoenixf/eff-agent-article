@@ -207,6 +207,10 @@ npm run demo -- --case skill-mcp
 
 这一离线合成演示按所固定版本的 Node 26.x 环境要求执行，不依赖真实行情或模型密钥。它可用于理解“目录发现 → Skill 读取 → Host 工具 → 报告与记录”，**不证明私有基金 Skill 包、Child 预加载或 Python 安全边界已全部开源**。
 
+### 写完方法之后，先看宿主实际能读到什么
+
+从 v0.69.0 起，可以用预检命令读取公开实现的同一个 Skill 目录。先校验目录名和元数据，再预览选定 Skill 的原文。基金研究示例还可以带上合成输入，检查预期段落和资源文件。比如示例指导模型在核对资料后保存报告，预检可以解释示例宿主为什么没有 `save_report`。真正要加载它，仍然要由宿主选中该目录并按需调用。整个预检只读文件，不执行资源中的脚本。[基金研究预检示例](https://github.com/hpoenixf/open-etf-agent/blob/v0.69.0/docs/skill-author-preflight.md)
+
 ## 同类方案已有的能力，我们哪些还没有照搬？
 
 渐进加载并不是 ETF Agent 独创。[Agent Skills 规范](https://agentskills.io/specification)已经区分发现用元数据、激活后的正文和按需资源。ETF Agent 在这套思路上接入自身的 Run、数据授权和回执，不能把通用模式算作独有优势。
