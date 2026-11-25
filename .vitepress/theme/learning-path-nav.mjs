@@ -154,6 +154,10 @@ const presentation = {
     "zh": { "label": "查证与回读", "title": "核对来源，再重开原回答", "description": "用一轮 ETF 问答练习选择模式、辨认原文和找回保存的正文。" },
     "en": { "label": "Evidence and readback", "title": "Check the Source, Then Reopen the Answer", "description": "Use one ETF question to choose a mode, identify source text, and recover the saved answer." }
   },
+  "open-etf-agent-prove-delivery": {
+    "zh": { "label": "交付测评", "title": "证明报告真的交付了", "description": "离线重开同一份报告，再故意改坏一张回执，区分交付、观测和内容问题。" },
+    "en": { "label": "Delivery checks", "title": "Prove the Report Arrived", "description": "Reopen the same report offline, then invalidate a copied receipt to distinguish delivery, telemetry and content errors." }
+  },
   "open-etf-agent-staged-deployment": {
     "zh": { "label": "部署练习", "title": "把工作台部署到自己的服务器", "description": "固定版本，通过 SSH 访问，并在服务重启后读回报告。" },
     "en": { "label": "Deployment workshop", "title": "Host the Workspace on Your Own Server", "description": "Run a pinned release behind SSH, then reopen the report after restarting the service." }

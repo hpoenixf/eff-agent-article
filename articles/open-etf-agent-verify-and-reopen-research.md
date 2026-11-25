@@ -76,3 +76,5 @@ v0.47.0 分开了**正文是否已确认保存**和**任务是否正常收尾**�
 下次想核对一份研究，先问一句：**我是要查新证据，还是要找回上次用过的证据和原来的回答？** 前者才需要发起新研究，后者应该先读历史。技术细节见 [v0.47.0 的实现与验证](https://github.com/hpoenixf/open-etf-agent/blob/v0.47.0/docs/verification/v047-retained-web-and-answer-delivery.md)。
 
 [如果这个项目对你有用，欢迎在 GitHub 点 Star](https://github.com/hpoenixf/open-etf-agent)。
+
+接着练习：[Agent 回答了，怎么证明它真的交付了？](./open-etf-agent-prove-delivery.md)。

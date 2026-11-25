@@ -76,3 +76,5 @@ Keep the stable release, staging and production separate, too. The commands abov
 The next time you check a piece of research, ask: **Do I need new evidence, or do I need the evidence and answer from last time?** The first calls for new research. For the second, start with History. For implementation details, see the [v0.47.0 verification notes](https://github.com/hpoenixf/open-etf-agent/blob/v0.47.0/docs/verification/v047-retained-web-and-answer-delivery.md).
 
 [Star the project on GitHub if it is useful](https://github.com/hpoenixf/open-etf-agent).
+
+Next exercise: [The Agent Answered. How Do You Know It Delivered?](./open-etf-agent-prove-delivery.md).
