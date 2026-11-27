@@ -43,9 +43,9 @@
 
 ## 最近更新
 
+- 2026-11-27 · 新增 · [Claude Code 的 Code Mode，搬到研究 Agent 值得吗？](articles/agent-code-mode-read-only-tool-orchestration.md)
 - 2026-11-25 · 新增 · [不用模型密钥，先跑通 Open ETF Agent 的四个练习](articles/open-etf-agent-four-offline-cli-workshops.md)
 - 2026-11-25 · 更新 · [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
-- 2026-11-25 · 更新 · [Skill 与普通 Prompt 有什么不同？从按需加载到脚本执行](articles/agent-skill-from-markdown-to-callable-research.md)
 
 仅预览最近三篇，按中文正文在 main 的可见内容变更排序，同一文章不因双语重复计入。日期是仓库内容更新日期，不代表首次创作或线上部署时间。**[完整文章与历史排序 →](https://hpoenixf.com/eff-agent-article/catalog)**
 
