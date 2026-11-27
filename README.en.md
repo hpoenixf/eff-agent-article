@@ -43,9 +43,9 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
+- 2026-11-27 · New · [Is Claude Code's Code Mode Worth Bringing to a Research Agent?](en/articles/agent-code-mode-read-only-tool-orchestration.md)
 - 2026-11-25 · New · [Four Exercises to Get Started with Open ETF Agent Without a Model Key](en/articles/open-etf-agent-four-offline-cli-workshops.md)
 - 2026-11-25 · Updated · [Financial Data: Time, Definitions and Reproducibility](en/articles/031-fintech-data-time-and-reproducible-numbers.md)
-- 2026-11-25 · Updated · [How Is a Skill Different from a Prompt?](en/articles/agent-skill-from-markdown-to-callable-research.md)
 
 Only the latest three articles are previewed, ordered by visible changes to their Chinese source editions on main. Translations do not count as additional articles. Dates describe repository content updates, not original authorship or live deployment. **[Full catalogue and history ordering →](https://hpoenixf.com/eff-agent-article/en/catalog)**
 
