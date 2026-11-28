@@ -259,7 +259,7 @@ export const collections = [
           ["agent-evaluation-set-for-iteration", "怎样建立贯穿研发与验收的 Agent 评测集"],
           ["agent-multi-agent-value-evaluation", "多 Agent 值不值得开？我们测了启动、送达和最终收益"],
           ["agent-document-navigation-after-empty-search", "资料明明在，Agent 为什么读不到？"],
-          ["agent-code-mode-read-only-tool-orchestration", "Claude Code 的 Code Mode，搬到研究 Agent 值得吗？"],
+          ["agent-code-mode-read-only-tool-orchestration", "Code Mode 是什么：让 Agent 用代码串起工具调用"],
           ["agent-subagent-contribution-evidence", "多专家 Agent：怎么证明专家的结论真的被主 Agent 用到了？"],
           ["agent-stream-tool-call-null-continuation", "一个 null 如何让 Agent 工具调用失败：流式协议兼容性实战"],
           ["rag-retrieval-evaluation-evidence", "RAG 召回率很好看，为什么仍不能证明 Agent 找对了金融证据？"],

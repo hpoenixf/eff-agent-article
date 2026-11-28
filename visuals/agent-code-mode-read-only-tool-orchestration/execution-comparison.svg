@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-labelledby="execution-title execution-desc">
+<title id="execution-title">Code Mode 改变了哪一步？</title>
+<desc id="execution-desc">教学示意。普通工具调用由模型逐步发起读取开头、定位表格和回读原文，中间结果回到模型。Code Mode 由模型写程序，执行环境连续运行同样三个工具调用，中间结果由程序接收。两种路径最终都由模型判断原文。</desc>
+<defs><marker id="arrow-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#65758b"/></marker><marker id="arrow-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#087f83"/></marker></defs>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif"><rect width="600" height="900" rx="24" fill="#f5f8fa"/>
+<text x="28" y="47" font-size="29" fill="#18334a" font-weight="700">Code Mode 改变了哪一步？</text>
+<text x="28" y="84" font-size="25" fill="#52677a" font-weight="400">同一份 PDF，仍然执行 3 次工具调用</text>
+<rect x="20" y="105" width="560" height="310" rx="14" fill="#ffffff" stroke="#d7e1e9" stroke-width="1.5"/>
+<text x="40" y="144" font-size="28" fill="#334e6c" font-weight="700">普通工具调用</text>
+<rect x="40" y="163" width="520" height="50" rx="12" fill="#ffffff" stroke="#d7e1e9" stroke-width="1.5"/>
+<circle cx="68" cy="188" r="15" fill="#eaf0f6"/>
+<text x="68" y="195" text-anchor="middle" font-size="21" font-weight="700" fill="#4a607b">1</text>
+<text x="94" y="197" font-size="27" fill="#18334a" font-weight="400">读取工具：读报告开头</text>
+<rect x="40" y="246" width="520" height="50" rx="12" fill="#ffffff" stroke="#d7e1e9" stroke-width="1.5"/>
+<circle cx="68" cy="271" r="15" fill="#eaf0f6"/>
+<text x="68" y="278" text-anchor="middle" font-size="21" font-weight="700" fill="#4a607b">2</text>
+<text x="94" y="280" font-size="27" fill="#18334a" font-weight="400">定位工具：找到表格位置</text>
+<rect x="40" y="329" width="520" height="50" rx="12" fill="#ffffff" stroke="#d7e1e9" stroke-width="1.5"/>
+<circle cx="68" cy="354" r="15" fill="#eaf0f6"/>
+<text x="68" y="361" text-anchor="middle" font-size="21" font-weight="700" fill="#4a607b">3</text>
+<text x="94" y="363" font-size="27" fill="#18334a" font-weight="400">读取工具：按位置回读</text>
+<path d="M68 216 V242" fill="none" stroke="#65758b" stroke-width="2.5" marker-end="url(#arrow-slate)"/>
+<text x="94" y="237.0" font-size="24" fill="#65758b" font-weight="400">结果回到模型，再发起</text>
+<path d="M68 299 V325" fill="none" stroke="#65758b" stroke-width="2.5" marker-end="url(#arrow-slate)"/>
+<text x="94" y="320.0" font-size="24" fill="#65758b" font-weight="400">位置回到模型，再发起</text>
+<text x="40" y="403" font-size="23" fill="#52677a" font-weight="400">模型收到原文，继续判断与回答</text>
+<rect x="20" y="435" width="560" height="366" rx="14" fill="#eff9f7" stroke="#a5cfca" stroke-width="1.5"/>
+<text x="40" y="475" font-size="28" fill="#076c70" font-weight="700">Code Mode</text>
+<text x="40" y="509" font-size="24" fill="#3c6669" font-weight="400">模型写程序，执行环境接着运行</text>
+<rect x="32" y="522" width="536" height="232" rx="16" fill="#e3f2ef" stroke="#afd4ce" stroke-width="1.5"/>
+<rect x="48" y="530" width="504" height="50" rx="12" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<circle cx="76" cy="555" r="15" fill="#e1f3f1"/>
+<text x="76" y="562" text-anchor="middle" font-size="21" font-weight="700" fill="#087f83">1</text>
+<text x="102" y="564" font-size="27" fill="#18334a" font-weight="400">读取工具：读报告开头</text>
+<rect x="48" y="611" width="504" height="50" rx="12" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<circle cx="76" cy="636" r="15" fill="#e1f3f1"/>
+<text x="76" y="643" text-anchor="middle" font-size="21" font-weight="700" fill="#087f83">2</text>
+<text x="102" y="645" font-size="27" fill="#18334a" font-weight="400">定位工具：找到表格位置</text>
+<rect x="48" y="692" width="504" height="50" rx="12" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<circle cx="76" cy="717" r="15" fill="#e1f3f1"/>
+<text x="76" y="724" text-anchor="middle" font-size="21" font-weight="700" fill="#087f83">3</text>
+<text x="102" y="726" font-size="27" fill="#18334a" font-weight="400">读取工具：按位置回读</text>
+<path d="M76 583 V607" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#arrow-teal)"/>
+<text x="102" y="603.0" font-size="24" fill="#087f83" font-weight="400">结果留在程序中</text>
+<path d="M76 664 V688" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#arrow-teal)"/>
+<text x="102" y="684.0" font-size="24" fill="#087f83" font-weight="400">程序把位置传给读取工具</text>
+<text x="40" y="785" font-size="24" fill="#076c70" font-weight="500">所需原文与出处 → 模型判断</text>
+<text x="28" y="842" font-size="27" fill="#076c70" font-weight="700">工具仍调用 3 次，中间交接变了</text>
+<text x="28" y="878" font-size="22" fill="#52677a" font-weight="400">教学示意：仅展示成功找到目标表格的路径</text>
+</g></svg>

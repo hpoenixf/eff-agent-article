@@ -43,7 +43,7 @@ The **[architecture atlas](https://hpoenixf.com/eff-agent-article/en/gallery)** 
 
 ## Recent updates
 
-- 2026-11-27 · New · [Is Claude Code's Code Mode Worth Bringing to a Research Agent?](en/articles/agent-code-mode-read-only-tool-orchestration.md)
+- 2026-11-28 · Updated · [Understanding Code Mode: Letting an Agent Connect Tool Calls with Code](en/articles/agent-code-mode-read-only-tool-orchestration.md)
 - 2026-11-25 · New · [Four Exercises to Get Started with Open ETF Agent Without a Model Key](en/articles/open-etf-agent-four-offline-cli-workshops.md)
 - 2026-11-25 · Updated · [Financial Data: Time, Definitions and Reproducibility](en/articles/031-fintech-data-time-and-reproducible-numbers.md)
 

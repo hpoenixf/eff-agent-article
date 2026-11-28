@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="834" viewBox="0 0 600 834" role="img" aria-labelledby="runtime-title runtime-desc">
+<title id="runtime-title">Inside the private research agent</title>
+<desc id="runtime-desc">Controlled validation in the private research agent. Each inner call passes through existing permission, input and budget checks before tool execution. Results and call status are recorded, and the program can return selected text and sources to the model. Approved structured financial reads retain original-version results for later range reads or isolated Python computation, after checks at the same tool entry. This re-read support does not apply to every tool result. Rejected calls also retain failure status.</desc>
+<defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#087f83"/></marker><marker id="status-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#b16426"/></marker></defs>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif"><rect width="600" height="834" rx="24" fill="#f5f8fa"/>
+<text x="28" y="47" font-size="29" fill="#18334a" font-weight="700">Inside the private research agent</text>
+<text x="28" y="83" font-size="25" fill="#52677a" font-weight="400">Retain originals; choose how to use them</text>
+<rect x="80" y="106" width="440" height="64" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="135" font-size="25" fill="#18334a" font-weight="700">Model submits a read-only script</text>
+<text x="98" y="162" font-size="23" fill="#52677a" font-weight="400">Only tools exposed for this run</text>
+<path d="M300 173 V189" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="194" width="440" height="70" rx="14" fill="#e5f4f1" stroke="#85bcb4" stroke-width="1.5"/>
+<text x="98" y="223" font-size="25" fill="#076c70" font-weight="700">Existing entry checks each call</text>
+<text x="98" y="250" font-size="23" fill="#52677a" font-weight="400">Permission, inputs and budget</text>
+<path d="M300 267 V283" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="288" width="440" height="64" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="317" font-size="25" fill="#18334a" font-weight="700">Run the requested tool</text>
+<text x="98" y="344" font-size="23" fill="#52677a" font-weight="400">Search, PDF reads or market data</text>
+<path d="M300 355 V371" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="376" width="440" height="70" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="405" font-size="25" fill="#18334a" font-weight="700">Record results and call status</text>
+<text x="98" y="432" font-size="23" fill="#52677a" font-weight="400">Approved structured finance reads</text>
+<path d="M520 229 H565 V411 H526" fill="none" stroke="#b16426" stroke-width="2.5" marker-end="url(#status-arrow)"/>
+<path d="M300 449 V463 H164 V478" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<path d="M300 463 H436 V478" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="40" y="482" width="248" height="100" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<rect x="312" y="482" width="248" height="100" rx="14" fill="#e5f4f1" stroke="#85bcb4" stroke-width="1.5"/>
+<text x="58" y="512" font-size="25" fill="#18334a" font-weight="700">Program selects</text>
+<text x="58" y="540" font-size="23" fill="#52677a" font-weight="400">Text + sources</text>
+<text x="58" y="568" font-size="23" fill="#52677a" font-weight="400">and failure details</text>
+<text x="330" y="512" font-size="25" fill="#076c70" font-weight="700">Supported results</text>
+<text x="330" y="540" font-size="23" fill="#52677a" font-weight="400">Same entry checks</text>
+<text x="330" y="568" font-size="23" fill="#52677a" font-weight="400">Access + version</text>
+<path d="M164 585 V607" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<path d="M436 585 V607" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="40" y="611" width="248" height="86" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<rect x="312" y="611" width="248" height="112" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="58" y="642" font-size="25" fill="#18334a" font-weight="700">Model assesses</text>
+<text x="58" y="671" font-size="23" fill="#52677a" font-weight="400">then answers</text>
+<text x="330" y="642" font-size="25" fill="#18334a" font-weight="700">Read or compute</text>
+<text x="330" y="671" font-size="23" fill="#52677a" font-weight="400">Range reads</text>
+<text x="330" y="700" font-size="23" fill="#52677a" font-weight="400">Isolated Python</text>
+<path d="M28 765 H67" fill="none" stroke="#b16426" stroke-width="2.5" marker-end="url(#status-arrow)"/>
+<text x="82" y="773" font-size="23" fill="#8f4e1c" font-weight="500">Rejected calls also retain failure status</text>
+<text x="28" y="815" font-size="22" fill="#52677a" font-weight="400">Controlled private validation · Not a public API</text>
+</g></svg>

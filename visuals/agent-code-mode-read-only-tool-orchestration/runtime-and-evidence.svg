@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="834" viewBox="0 0 600 834" role="img" aria-labelledby="runtime-title runtime-desc">
+<title id="runtime-title">私有研究 Agent 怎样运行程序</title>
+<desc id="runtime-desc">私有研究链路的受控验证路径。模型提交只读程序，每次内部调用经过原工具入口的权限、参数和预算检查，再执行具体工具并记录结果与调用状态。程序可选取原文与出处交给模型判断。获准的结构化金融读取支持保留原版本结果，供后续经同一工具入口再次校验后按范围回读或交给隔离 Python 计算；图中不表示任意工具结果均支持这种回读。入口拒绝的调用也保存失败状态。</desc>
+<defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#087f83"/></marker><marker id="status-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#b16426"/></marker></defs>
+<g font-family="Noto Sans CJK SC, Noto Sans, Arial, sans-serif"><rect width="600" height="834" rx="24" fill="#f5f8fa"/>
+<text x="28" y="47" font-size="29" fill="#18334a" font-weight="700">私有研究 Agent 怎样运行程序</text>
+<text x="28" y="83" font-size="25" fill="#52677a" font-weight="400">保留原结果，再按用途选择输出</text>
+<rect x="80" y="106" width="440" height="64" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="135" font-size="26" fill="#18334a" font-weight="700">模型提交只读程序</text>
+<text x="98" y="162" font-size="24" fill="#52677a" font-weight="400">使用本轮已开放的工具</text>
+<path d="M300 173 V189" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="194" width="440" height="70" rx="14" fill="#e5f4f1" stroke="#85bcb4" stroke-width="1.5"/>
+<text x="98" y="223" font-size="26" fill="#076c70" font-weight="700">原工具入口逐调用检查</text>
+<text x="98" y="250" font-size="24" fill="#52677a" font-weight="400">权限、参数与剩余预算</text>
+<path d="M300 267 V283" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="288" width="440" height="64" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="317" font-size="26" fill="#18334a" font-weight="700">执行具体工具</text>
+<text x="98" y="344" font-size="24" fill="#52677a" font-weight="400">搜索、PDF 读取、行情查询</text>
+<path d="M300 355 V371" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="80" y="376" width="440" height="70" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="98" y="405" font-size="26" fill="#18334a" font-weight="700">记录结果与调用状态</text>
+<text x="98" y="432" font-size="24" fill="#52677a" font-weight="400">获准结构化金融结果保留原版本</text>
+<path d="M520 229 H565 V411 H526" fill="none" stroke="#b16426" stroke-width="2.5" marker-end="url(#status-arrow)"/>
+<path d="M300 449 V463 H164 V478" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<path d="M300 463 H436 V478" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="40" y="482" width="248" height="100" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<rect x="312" y="482" width="248" height="100" rx="14" fill="#e5f4f1" stroke="#85bcb4" stroke-width="1.5"/>
+<text x="58" y="512" font-size="25" fill="#18334a" font-weight="700">程序选取材料</text>
+<text x="58" y="540" font-size="23" fill="#52677a" font-weight="400">原文与原有出处</text>
+<text x="58" y="568" font-size="23" fill="#52677a" font-weight="400">及必要失败信息</text>
+<text x="330" y="512" font-size="25" fill="#076c70" font-weight="700">支持回读的结果</text>
+<text x="330" y="540" font-size="23" fill="#52677a" font-weight="400">同一入口再次校验</text>
+<text x="330" y="568" font-size="23" fill="#52677a" font-weight="400">本次授权与原版本</text>
+<path d="M164 585 V607" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<path d="M436 585 V607" fill="none" stroke="#087f83" stroke-width="2.5" marker-end="url(#flow-arrow)"/>
+<rect x="40" y="611" width="248" height="86" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<rect x="312" y="611" width="248" height="112" rx="14" fill="#ffffff" stroke="#cbdadf" stroke-width="1.5"/>
+<text x="58" y="642" font-size="25" fill="#18334a" font-weight="700">模型判断与回答</text>
+<text x="58" y="671" font-size="23" fill="#52677a" font-weight="400">确认口径与证据范围</text>
+<text x="330" y="642" font-size="25" fill="#18334a" font-weight="700">回读或计算</text>
+<text x="330" y="671" font-size="23" fill="#52677a" font-weight="400">按范围回读</text>
+<text x="330" y="700" font-size="23" fill="#52677a" font-weight="400">交给隔离 Python</text>
+<path d="M28 765 H67" fill="none" stroke="#b16426" stroke-width="2.5" marker-end="url(#status-arrow)"/>
+<text x="82" y="773" font-size="23" fill="#8f4e1c" font-weight="500">入口拒绝后，同样保存失败状态</text>
+<text x="28" y="815" font-size="22" fill="#52677a" font-weight="400">私有链路受控验证 · 公开版能力另行说明</text>
+</g></svg>
