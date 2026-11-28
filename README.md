@@ -43,7 +43,7 @@
 
 ## 最近更新
 
-- 2026-11-27 · 新增 · [Claude Code 的 Code Mode，搬到研究 Agent 值得吗？](articles/agent-code-mode-read-only-tool-orchestration.md)
+- 2026-11-28 · 更新 · [Code Mode 是什么：让 Agent 用代码串起工具调用](articles/agent-code-mode-read-only-tool-orchestration.md)
 - 2026-11-25 · 新增 · [不用模型密钥，先跑通 Open ETF Agent 的四个练习](articles/open-etf-agent-four-offline-cli-workshops.md)
 - 2026-11-25 · 更新 · [金融数字的时点、口径与复算](articles/031-fintech-data-time-and-reproducible-numbers.md)
 
