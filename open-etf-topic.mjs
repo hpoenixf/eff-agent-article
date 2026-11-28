@@ -14,6 +14,14 @@ import memoryReceipt from './data/open-etf-agent/v014-memory-consumer.safe.json'
 import revocableReceipt from './data/open-etf-agent/v016-revocable-rag.safe.json' with { type: 'json' }
 import lineage from './data/open-etf-agent/versions.json' with { type: 'json' }
 export const repo = 'https://github.com/hpoenixf/open-etf-agent'
+// Published release, independently pinned from the historical qualification map.
+export const currentRelease = Object.freeze({
+  tag: 'v1.0.5',
+  commit: '6f6fed7882f4d0bf311d8945ce75a89d06800e48',
+  previousTag: 'v1.0.4',
+  workshop: 'open-etf-agent-filing-to-checkable-chart',
+})
+
 export const qualification = { sourceCommit: source.commit, commit: receipts.sourceCommit, date: receipts.executedAt.slice(0,10), semanticStatus: receipts.semanticStatus, count: coverage.articles.length, targets: Object.keys(coverage.targets).length }
 export const topicPath = language => language === 'zh' ? '/open-etf-agent' : '/en/open-etf-agent'
 const records = new Map(coverage.articles.map(row => [row.slug, row]))

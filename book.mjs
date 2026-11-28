@@ -192,6 +192,7 @@ export const collections = [
           ["open-etf-agent-evidence-and-history-workshop", "从能回答到可信任：研究 Agent 必须保存结论成立的条件"],
           ["open-etf-agent-research-workbench", "从命令行到研究工作台：让一份研究下次还能接着做"],
           ["open-etf-agent-verify-and-reopen-research", "从第一次提问到重新打开：用 Open ETF Agent 做一次可回看的研究"],
+          ["open-etf-agent-filing-to-checkable-chart", "从财报原文到一张可复算的图：Open ETF Agent 入门实战"],
           ["open-etf-agent-prove-delivery", "Agent 回答了，怎么证明它真的交付了？"],
           ["open-etf-agent-staged-deployment", "从零上线 Open ETF Agent：把研究工作台部署到自己的服务器"],
           ["017-prompt-to-answer-six-layer-panorama-v3", "从一次提问到答案可见：ETF Agent 六层调用全景"],
@@ -316,6 +317,7 @@ export const learningPathSlugs = [
   "open-etf-agent-evidence-and-history-workshop",
   "open-etf-agent-research-workbench",
   "open-etf-agent-verify-and-reopen-research",
+  "open-etf-agent-filing-to-checkable-chart",
   "open-etf-agent-prove-delivery",
   "open-etf-agent-staged-deployment",
   "017-prompt-to-answer-six-layer-panorama-v3"

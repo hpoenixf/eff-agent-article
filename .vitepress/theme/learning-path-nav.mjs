@@ -154,6 +154,10 @@ const presentation = {
     "zh": { "label": "查证与回读", "title": "核对来源，再重开原回答", "description": "用一轮 ETF 问答练习选择模式、辨认原文和找回保存的正文。" },
     "en": { "label": "Evidence and readback", "title": "Check the Source, Then Reopen the Answer", "description": "Use one ETF question to choose a mode, identify source text, and recover the saved answer." }
   },
+  "open-etf-agent-filing-to-checkable-chart": {
+    "zh": { "label": "数字复核", "title": "从财报原文到可复算的图", "description": "用 PDF 单元格核对公式、图表和最终报告。" },
+    "en": { "label": "Check the numbers", "title": "From a Filing to a Chart You Can Check", "description": "Verify the formula, chart and saved report against the original PDF cells." }
+  },
   "open-etf-agent-prove-delivery": {
     "zh": { "label": "交付测评", "title": "证明报告真的交付了", "description": "离线重开同一份报告，再故意改坏一张回执，区分交付、观测和内容问题。" },
     "en": { "label": "Delivery checks", "title": "Prove the Report Arrived", "description": "Reopen the same report offline, then invalidate a copied receipt to distinguish delivery, telemetry and content errors." }
