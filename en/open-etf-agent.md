@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Open ETF Agent: A Runnable Open-Source Agent Learning Project"
-description: "Learn agent development from document comparison to sustained research through pinned code and module guides, distinguishing verified capabilities, teaching slices and unfinished work."
+description: "Start with the current Open ETF Agent release and an offline workshop for citations, calculations and report readback. Then explore pinned development milestones by module."
 ---
 
 <OpenEtfTopic language="en">

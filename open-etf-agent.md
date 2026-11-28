@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Open ETF Agent：可运行的开源 Agent 教学项目"
-description: "从文档比较到持续研究，沿 Open ETF Agent 的固定代码与模块文章学习 Agent 开发，区分已验证能力、教学切片与待完成工作。"
+description: "查看 Open ETF Agent 最新正式版，用可运行的离线实战学习原文引用、计算和报告回读，再按模块追溯固定的开发快照。"
 ---
 
 <OpenEtfTopic language="zh">

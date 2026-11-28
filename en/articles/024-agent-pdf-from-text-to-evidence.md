@@ -10,7 +10,7 @@ readingBrief:
   appliesTo:
     - "Designing cross-page reading, table-footnote checks and scan reading, or diagnosing numerical and citation errors."
   notFor:
-    - "Using the public slice as a complete OCR or multimodal reader; it covers selected-page text only."
+    - "Using the public slice as a complete OCR or multimodal reader; the v1.0.5 public flow is limited to supported text-layer PDFs, pages, and recognized cells."
 ---
 
 # From Being Able to Read to Being Able to Research: Evolving PDF into Traceable Multimodal Evidence
@@ -31,7 +31,9 @@ After installing and building that version, run `node dist/src/cli.mjs --case lo
 
 The [independent installation and readback record](https://github.com/hpoenixf/open-etf-agent/blob/9a00106703233754553acc04e49ead79fbe92cf9/docs/verification/integrated-install-pdf.safe.json) checks reports, source-text hashes and original PDF bytes for pages one and three of the synthetic file. A script chooses actions; parsing, saving and independent-process readback actually execute. This is not acceptance evidence for model understanding or real fund research, nor a guarantee for arbitrary PDFs.
 
-**The public slice does not include OCR, page images, geometric tables, search navigation, remote-file acquisition or cross-process recovery of an active parse.** The following sections preserve the original system's broader design evolution and observations; they are not a list of capabilities already shipped in public v0.11.
+The v0.11 exercise above reads only local selected pages. [Open ETF Agent v1.0.5](https://github.com/hpoenixf/open-etf-agent/releases/tag/v1.0.5) can follow supported webpage links to text-layer PDFs, retain references to physical pages and recognized table cells, and preserve the sources through chart calculation and report readback. If no usable table is available, it can still retain a cited text answer. Try both paths in the [beginner workshop](./open-etf-agent-filing-to-checkable-chart).
+
+The rest of this article describes how the original research reader evolved. This public v1.0.5 flow does not include scan OCR, model input from page images, full table reconstruction, full-document navigation, or resumption of an active parse.
 
 <!-- open-etf-case:pdf-local@e1b8e4edde724548fab16d8ca4b205379bfa7f30 -->
 ### Check the selected page and original file

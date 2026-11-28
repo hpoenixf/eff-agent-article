@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process'
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { topicGroups, topicPath, versions, qualification, catalogCount } from '../open-etf-topic.mjs'
+import { topicGroups, topicPath, versions, qualification, catalogCount, currentRelease } from '../open-etf-topic.mjs'
 import { localizedSitePath } from '../language-routing.mjs'
 const coverage=JSON.parse(readFileSync(new URL('../data/open-etf-agent/article-coverage.json',import.meta.url),'utf8'))
 const root = fileURLToPath(new URL('../',import.meta.url))
@@ -240,4 +240,18 @@ test('v0.28 review navigation does not upgrade historical article qualification'
  assert.equal(row.title,'Review a frozen report')
  assert.equal(row.zh,'复核冻结的报告')
  for(const lang of ['zh','en']) assert.equal(topicGroups(lang).flatMap(g=>g.articles).flatMap(r=>[r,...r.additionalTargets]).some(s=>s.since==='0.28'),false)
+})
+
+test('current release is distinct from historical module qualifications and links to a bilingual workshop',()=>{
+ assert.match(currentRelease.tag,/^v\d+\.\d+\.\d+$/)
+ assert.match(currentRelease.commit,/^[a-f0-9]{40}$/)
+ assert.notEqual(currentRelease.commit,qualification.commit)
+ for(const prefix of ['','en/']){
+   const guide=readFileSync(new URL('../'+prefix+'articles/'+currentRelease.workshop+'.md',import.meta.url),'utf8')
+   assert.ok(guide.includes('git clone --branch '+currentRelease.tag))
+   assert.ok(guide.includes('/releases/tag/'+currentRelease.tag))
+ }
+ const page=readFileSync(new URL('../.vitepress/theme/OpenEtfTopic.vue',import.meta.url),'utf8')
+ assert.ok(page.indexOf('id="latest-release"')<page.indexOf('id="version-history"'))
+ assert.ok(page.includes('git clone --branch ${currentRelease.tag}'))
 })

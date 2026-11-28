@@ -8,7 +8,7 @@ readingBrief:
   appliesTo:
     - "Open ETF Agent readers who want an answer they can check and return to later."
   notFor:
-    - "Readers looking for live quotes, an online PDF reader, or independent verification of every financial claim."
+    - "Readers expecting live quotes, a full linked-PDF exercise, or independent verification of every financial claim in this article."
 ---
 # From First Question to Readback: Research You Can Reopen in Open ETF Agent
 
@@ -42,6 +42,8 @@ If you have already followed the [online workspace guide](https://github.com/hpo
 This is an exercise you can try, not a new live evaluation run for this article. If the website does not return readable source text, see how the workspace reports that gap. The built-in offline mode does not visit the bulletin.
 
 **Which mode should you choose?** With one known source and a focused question, try Standard. When you are not sure whether a lookup is necessary, use Auto. Choose Deep when you need to compare the bulletin, a fund prospectus, and exchange documentation, then explain what each can establish. The composer has offered these three modes since v0.45.0. Reasoning effort is a separate model setting and is shown only in supported configurations. It is not another name for Deep research and does not guarantee accuracy.
+
+When the original is a PDF, make one more check: does the citation point to a **physical page** in the file? For a table value, can you identify the original row, column, and unit on that page? The v0.47.0 exercise above still covers webpage excerpts only. The separate [v1.0.5 workshop](./open-etf-agent-filing-to-checkable-chart) walks through page citations and recomputing a number.
 
 ## Read progress without mixing up three kinds of evidence
 
